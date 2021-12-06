@@ -1,5 +1,5 @@
 <?php
-
+include 'menu.php';
 use Illuminate\Support\Facades\Route;
 
 /*
