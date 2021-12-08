@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class MenuModuleCreateRequest extends FormRequest
+class ModuleCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,7 @@ class MenuModuleCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'module_name' => 'required',
         ];
     }
 }

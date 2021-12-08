@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuModulesTable extends Migration
+class CreateModulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMenuModulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_modules', function (Blueprint $table) {
+        Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('module_name');
             $table->string('icon')->nullable();
@@ -31,6 +31,6 @@ class CreateMenuModulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_modules');
+        Schema::dropIfExists('modules');
     }
 }

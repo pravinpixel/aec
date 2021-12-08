@@ -24,7 +24,9 @@ class MenuCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'menu_module' => 'required',
+            'menu_name'   => 'required',
+            'route_name'  => 'required',
         ];
     }
 }
