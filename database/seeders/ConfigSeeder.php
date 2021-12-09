@@ -5,15 +5,15 @@ namespace Database\Seeders;
 use App\Models\Config;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class ConfigSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call(ConfigSeeder::class);
+        Config::create(['enquiry_prefix' => 'ENQ', 'enquiry_number' => '001']);
     }
 }

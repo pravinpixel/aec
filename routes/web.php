@@ -1,5 +1,8 @@
 <?php
 include 'menu.php';
+
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\EnquiryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +55,10 @@ Route::prefix('admin')->group(function () {
         return redirect(route('admin-dashboard'));
     });
 
+    Route::get('/settings', function () {
+        return  view('admin.settings');
+    })->name('admin-settings');
+
     Route::get('/dashboard', function () {
         return view('admin.index');
     })->name('admin-dashboard');
@@ -89,4 +96,10 @@ Route::prefix('admin')->group(function () {
     })->name('gran-chart');
     
 });
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
+    Route::resource('customer', CustomerController::class);
+    Route::get('enquiry/get-number', [EnquiryController::class,'getEnquiryNumber'])->name('enquiry.get-number');
+    Route::resource('enquiry', EnquiryController::class);
+});
+
 /** ===== End : Customers Routes ======*/

@@ -7,7 +7,7 @@ use App\Http\Requests\MenuCreateRequest;
 use App\Http\Requests\MenuUpdateRequest;
 use App\Models\Menu;
 use App\Models\MenuModule;
-use App\Services\GlobalService;
+use App\Services\menuService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Laracasts\Flash\Flash;
@@ -38,9 +38,9 @@ class MenuController extends Controller
         // $insert['order_id'] =  Menu::get()->count() + 1;
         $res = $menu->create($insert);
         if($res) {
-            return response(['status' => true, 'data' => $res ,'msg' => trans('global.inserted')], Response::HTTP_OK);
+            return response(['status' => true, 'data' => $res ,'msg' => trans('menu.inserted')], Response::HTTP_OK);
         }
-        return response(['status' => false ,'msg' => trans('global.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+        return response(['status' => false ,'msg' => trans('menu.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
 
     /**
@@ -55,7 +55,7 @@ class MenuController extends Controller
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
-        return response(['status' => false, 'msg' => trans('global.item_not_found')], Response::HTTP_NOT_FOUND);
+        return response(['status' => false, 'msg' => trans('menu.item_not_found')], Response::HTTP_OK);
     }
 
     /**
@@ -69,13 +69,28 @@ class MenuController extends Controller
     {
         $menu = Menu::find($id);
         if( empty( $menu ) ) {
-            return response(['status' => false, 'msg' => trans('global.item_not_found')], Response::HTTP_NOT_FOUND);
+            return response(['status' => false, 'msg' => trans('menu.item_not_found')], Response::HTTP_NOT_FOUND);
         } 
         $res = $menu->update($request->only($menu->getFillable()));
         if( $res ) {
-            return response(['status' => true, 'data' => $menu], Response::HTTP_OK);
+            return response(['status' => true,  'msg' => trans('menu.updated'),'data' => $menu], Response::HTTP_OK);
         }
-        return response(['status' => false, 'msg' => trans('global.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response(['status' => false, 'msg' => trans('menu.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+
+    public function status($id)
+    {
+        $menu = Menu::find($id);
+        if( empty( $menu ) ) {
+            return response(['status' => false, 'msg' => trans('menu.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $menu->is_active = !$menu->is_active;
+        $res = $menu->save();
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('menu.status_updated'), 'data' => $menu], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('menu.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -88,10 +103,10 @@ class MenuController extends Controller
     {
         $menu = Menu::find($id);
         if (empty($menu)) {
-            return response(['status' => false, 'msg' => trans('global.not_found')], Response::HTTP_NOT_FOUND);
+            return response(['status' => false, 'msg' => trans('menu.not_found')], Response::HTTP_NOT_FOUND);
         }
         $menu->delete();
-        return response(['status' => true, 'msg' => trans('global.deleted')], Response::HTTP_OK);
+        return response(['status' => true, 'msg' => trans('menu.deleted')], Response::HTTP_OK);
     }
 
     public function getDropDownModule(Request $request) 

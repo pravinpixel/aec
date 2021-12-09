@@ -38,9 +38,9 @@ class ModuleController extends Controller
         // $insert['order_id'] =  Module::get()->count() + 1;
         $res = Module::create($insert);
         if($res) {
-            return response(['status' => true, 'data' => $res ,'msg' => trans('global.inserted')], Response::HTTP_OK);
+            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
         }
-        return response(['status' => false ,'msg' => trans('global.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
 
     /**
@@ -55,7 +55,7 @@ class ModuleController extends Controller
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
-        return response(['status' => false, 'msg' => trans('global.item_not_found')], Response::HTTP_NOT_FOUND);
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -70,13 +70,27 @@ class ModuleController extends Controller
         $module = Module::find($id);
     
         if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('global.item_not_found')], Response::HTTP_NOT_FOUND);
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         } 
         $res = $module->update($request->only($module->getFillable()));
         if( $res ) {
-            return response(['status' => true, 'data' => $module], Response::HTTP_OK);
+            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
         }
-        return response(['status' => false, 'msg' => trans('global.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    public function status($id)
+    {
+        $module = Module::find($id);
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->is_active = !$module->is_active;
+        $res = $module->save();
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -89,10 +103,10 @@ class ModuleController extends Controller
     {
         $module = Module::find($id);
         if (empty($module)) {
-            return response(['status' => false, 'msg' => trans('global.not_found')], Response::HTTP_NOT_FOUND);
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
         $module->delete();
-        return response(['status' => true, 'msg' => trans('global.deleted')], Response::HTTP_OK);
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
 
     public function getDropDownModule(Request $request) 
