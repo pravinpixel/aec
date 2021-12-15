@@ -112,40 +112,40 @@
                                 <h4 class="text-center border-bottom pb-2 ">Reference Doc's </h4>
                                 <div class="alert alert-primary" role="alert">
                                    
-                                    <div class="d-flex ">
+                                    <div class="d-flexs ">
                                         <div>
                                             <strong>01/04/2021  - </strong> 
                                             <div>Site plan diagram</div>
                                         </div>
-                                        <div class="d-flex flex-column">
-                                            <a href=""  style="border-radius: 0px !important" class="btn btn-outline-primary "data-bs-toggle="modal" data-bs-target="#right-modal"><i class="uil-comment-alt-lines"></i></a>
-                                            <a href=""  style="border-radius: 0px !important" class="btn btn-outline-primary " ><i class=" fa fa-eye"></i></a>
+                                        <div class="mt-2">
+                                            <a href=""  style="border-radius: 0px !important" class="btn btn-primary btn-sm"data-bs-toggle="modal" data-bs-target="#right-modal"><i class="uil-comment-alt-lines"></i></a>
+                                            <a href=""  style="border-radius: 0px !important" class="btn btn-outline-primary btn-sm" ><i class=" fa fa-eye"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="alert alert-primary" role="alert">
                                    
-                                    <div class="d-flex ">
+                                    <div class="d-flexx">
                                         <div>
                                             <strong>01/04/2021  - </strong> 
                                             <div>Site plan diagram</div>
                                         </div>
-                                        <div class="d-flex flex-column">
-                                            <a href=""  style="border-radius: 0px !important" class="btn btn-outline-primary "data-bs-toggle="modal" data-bs-target="#right-modal"><i class="uil-comment-alt-lines"></i></a>
-                                            <a href=""  style="border-radius: 0px !important" class="btn btn-outline-primary " ><i class=" fa fa-eye"></i></a>
+                                        <div class="mt-2">
+                                            <a href=""  style="border-radius: 0px !important" class="btn btn-primary btn-sm"data-bs-toggle="modal" data-bs-target="#right-modal"><i class="uil-comment-alt-lines"></i></a>
+                                            <a href=""  style="border-radius: 0px !important" class="btn btn-outline-primary btn-sm" ><i class=" fa fa-eye"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="alert alert-primary" role="alert">
                                    
-                                    <div class="d-flex ">
+                                    <div class="d-flexx ">
                                         <div>
                                             <strong>01/04/2021  - </strong> 
                                             <div>Site plan diagram</div>
                                         </div>
-                                        <div class="d-flex flex-column">
-                                            <a href=""  style="border-radius: 0px !important" class="btn btn-outline-primary "data-bs-toggle="modal" data-bs-target="#right-modal"><i class="uil-comment-alt-lines"></i></a>
-                                            <a href="" style="border-radius: 0px !important" class="btn btn-outline-primary " ><i class=" fa fa-eye"></i></a>
+                                        <div class="mt-2">
+                                            <a href=""  style="border-radius: 0px !important" class="btn btn-primary btn-sm"data-bs-toggle="modal" data-bs-target="#right-modal"><i class="uil-comment-alt-lines"></i></a>
+                                            <a href=""  style="border-radius: 0px !important" class="btn btn-outline-primary btn-sm" ><i class=" fa fa-eye"></i></a>
                                         </div>
                                     </div>
                                 </div>

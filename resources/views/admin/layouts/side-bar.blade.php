@@ -45,13 +45,13 @@
                             <a href="{{ route('admin-dashboard') }}">Enquiries</a>
                         </li> 
                         <li>
-                            <a href="{{ route('admin-dashboard') }}">Projects</a>
+                            <a href="{{ route('admin-project-dashboard') }}">Projects</a>
                         </li> 
                         <li>
-                            <a href="{{ route('admin-dashboard') }}">Economy</a>
+                            <a href="#">Economy</a>
                         </li> 
                         <li>
-                            <a href="{{ route('admin-dashboard') }}">Employee performance</a>
+                            <a href="#">Employee performance</a>
                         </li> 
                     </ul>
                 </div>
@@ -85,13 +85,13 @@
  
 
             <li class="side-nav-item ">
-                <a href="{{ route('proposal-conversation') }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Projects </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
-                <a href="{{ route('proposal-conversation') }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Projects Schedule </span>
                 </a> 
@@ -128,40 +128,40 @@
                             <a href="{{ route('admin-cost-estimation-view') }}">Cost Estimation</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-cost-estimation-single-view') }}">Gantt Chart</a>
+                            <a href="{{ route('gran-chart') }}">Gantt Chart</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin-cost-estimation-single-view') }}">Employee Control</a>
+                            <a href="#">Employee Control</a>
                         </li>
                     </ul>
                 </div>
             </li> 
             <li class="side-nav-item ">
-                <a href="{{ route('proposal-conversation') }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Tasks </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
-                <a href="{{ route('proposal-conversation') }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Economy </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
-                <a href="{{ route('proposal-conversation') }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Customer Details </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
-                <a href="{{ route('proposal-conversation') }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Supplier Details </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
-                <a href="{{ route('proposal-conversation') }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Calendar </span>
                 </a> 
@@ -176,7 +176,7 @@
             {{-- <li class="side-nav-title side-nav-item mt-1">Admin Flow</li>
   
             <li class="side-nav-item ">
-                <a href="{{ route('proposal-conversation') }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Proposal Conversation </span>
                 </a> 

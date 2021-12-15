@@ -33,6 +33,7 @@ class EnquiryController extends Controller
          
        
     }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -55,7 +56,7 @@ class EnquiryController extends Controller
          
          
         $latest_enquiry_number = GlobalService::enquiryNumber();
-        
+        // dd($request->all());
         if($request->enq_number != $latest_enquiry_number) {
             return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
         }
@@ -80,6 +81,7 @@ class EnquiryController extends Controller
 
         $res = $customer->save();
         if($res) {
+            GlobalService::updateConfig('ENQ');
             return response(['status' => true, 'data' => $res ,'msg' => trans('enquiry.created')], Response::HTTP_OK);
         }
         return response(['status' => false ,'msg' => trans('global.something')], Response::HTTP_INTERNAL_SERVER_ERROR );

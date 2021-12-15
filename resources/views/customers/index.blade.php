@@ -824,7 +824,7 @@
 
 @push('custom-styles')
  <!-- third party css -->
-        <link href="{{ asset('public/assets/css/vendor/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
+   <link href="{{ asset('public/assets/css/vendor/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
        
     <style>
         .time-bar {
@@ -896,25 +896,21 @@
 @endpush
 
 @push('custom-scripts')
-
     <!-- third party js -->
     <script src="{{ asset('public/assets/js/vendor/Chart.bundle.min.js') }}"></script>
     <!-- third party js ends -->
 
-	<!-- third party js -->
+    <!-- third party js -->
     <!-- <script src="assets/js/vendor/Chart.bundle.min.js"></script> -->
-        <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
-        <script src="{{ asset('public/assets/js/vendor/jquery-jvectormap-1.2.2.min.js') }}"></script>
-        <script src="{{ asset('public/assets/js/vendor/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('public/assets/js/vendor/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script src="{{ asset('public/assets/js/vendor/jquery-jvectormap-world-mill-en.js') }}"></script>
     <!-- third party js ends -->
 
     <!-- demo app -->
-        <script src="{{ asset('public/assets/js/pages/demo.dashboard.js') }}"></script>
-        <script src="{{ asset('public/assets/js/pages/demo.dashboard-analytics.js') }}"></script>
-        <script src="{{ asset('public/assets/js/pages/demo.apex-column.js') }}"></script>
-       
-        <!-- end demo js-->
+    <script src="{{ asset('public/assets/js/pages/demo.dashboard.js') }}"></script>
+    <script src="{{ asset('public/assets/js/pages/demo.dashboard-analytics.js') }}"></script>
+    <script src="{{ asset('public/assets/js/pages/demo.apex-column.js') }}"></script>
 
-        
-    
+    <!-- end demo js-->
 @endpush

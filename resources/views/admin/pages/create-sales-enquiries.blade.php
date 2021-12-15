@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="text-end mt-3">
                                     <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                                    <button ng-disabled="frm.$invalid" ng-click="save()" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Submit</button>
+                                    <button ng-disabled="frm.$invalid" ng-click="save()" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
                                 </div>
                             </form>
                             {{-- --}}

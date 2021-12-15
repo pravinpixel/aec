@@ -4,7 +4,7 @@ include 'menu.php';
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EnquiryController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\CostEstimationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +63,10 @@ Route::prefix('admin')->group(function () {
         return view('admin.index');
     })->name('admin-dashboard');
 
+    Route::get('/project-dashboard', function () {
+        return view('admin.index');
+    })->name('admin-project-dashboard');
+
     Route::get('/sales-view-enquiries', function () {
         return view('admin.pages.view-sales-enquiries');
     })->name('admin-view-sales-enquiries');
@@ -103,6 +107,7 @@ Route::prefix('admin')->group(function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
     Route::resource('customer', CustomerController::class);
     Route::get('enquiry/get-number', [EnquiryController::class,'getEnquiryNumber'])->name('enquiry.get-number');
+    Route::post('costEstimationSingleForm', [CostEstimationController::class,'costEstimationSingleForm'])->name('costEstimationSingleForm');
     Route::resource('enquiry', EnquiryController::class);
 });
 

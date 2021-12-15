@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'session' => 'cartalyst_sentinel',
+    'session' => 'cartalyst_sentinelsdfds',
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'cookie' => 'cartalyst_sentinel',
+    'cookie' => 'cartalyst_sentinelsdfs',
 
     /*
     |--------------------------------------------------------------------------

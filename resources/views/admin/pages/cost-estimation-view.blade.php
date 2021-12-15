@@ -57,7 +57,7 @@
                             </form> 
                         </div>
                     </div>
-                    <div class="card-body ">
+                    <div class="card-body pt-2">
                         <table id="scroll-vertical-datatable" class="table dt-responsive nowrap pt-2">
                             <thead class="">
                                 <tr>
@@ -87,8 +87,8 @@
                                                 </button>
                                                 
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">View</a>
-                                                    <a class="dropdown-item" href="#">Estimate</a>
+                                                    <a class="dropdown-item" href="{{ route("admin-cost-estimation-single-view") }}">View</a>
+                                                    <a class="dropdown-item" href="{{ route("admin-cost-estimation-single-view") }}">Cost Estimate</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -115,6 +115,31 @@
     <link href="{{ asset('public/assets/css/vendor/responsive.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/css/vendor/buttons.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/css/vendor/select.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
+    <style>
+        .table td,th {
+            padding: 5px 10px !important     ;
+            vertical-align: middle !important
+        }
+        .table thead,th {
+            background: #757CF2 !important;
+            color: white
+        }
+        #scroll-vertical-datatable th{
+            padding:  0px !important     
+        }
+        .table tbody thead,th {
+            background: #757CF2 !important
+        }
+        #scroll-vertical-datatable_wrapper .row:nth-child(1) {
+            display: none !important
+        }
+        table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
+            top : 2px !important
+        }
+        table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+            top : 2px !important
+        }
+    </style>
 @endpush
 
 @push('custom-scripts')
