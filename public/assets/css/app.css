@@ -62,7 +62,7 @@ File: Main Css File
   --bs-body-font-size: 0.9rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #6c757d;
+  --bs-body-color: #252525;
   --bs-body-bg: #fafbfe; }
 
 *,
@@ -1607,7 +1607,7 @@ progress {
   --bs-table-hover-bg: #f1f3fa;
   width: 100%;
   margin-bottom: 1.5rem;
-  color: #6c757d;
+  color: var(--bs-body-color);
   vertical-align: top;
   border-color: #eef2f7; }
   .table > :not(caption) > * > * {

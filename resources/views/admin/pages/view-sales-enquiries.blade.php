@@ -71,7 +71,7 @@
                                                     <a class="dropdown-item" href="{{ route('customers-create-enquiries') }}">View</a>
                                                     <a class="dropdown-item" href="{{ route('admin-estimation-single-view') }}">Technical Estimate</a>
                                                     <a class="dropdown-item" href="{{ route('admin-cost-estimation-single-view') }}">Cost Estimate</a>
-                                                    <a class="dropdown-item" href="{{ route('proposal-conversation') }}">Proposal conversation</a>
+                                                    <a class="dropdown-item" href="#">Move to proposal</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -106,7 +106,7 @@
                                                     <a class="dropdown-item" href="{{ route('customers-create-enquiries') }}">View</a>
                                                     <a class="dropdown-item" href="{{ route('admin-estimation-single-view') }}">Technical Estimate</a>
                                                     <a class="dropdown-item" href="{{ route('admin-cost-estimation-view') }}">Cost Estimate</a>
-                                                    <a class="dropdown-item" href="{{ route('proposal-conversation') }}">Proposal conversation</a>
+                                                    <a class="dropdown-item" href="#">Move to proposal</a>
                                                 </div>
                                             </div>
                                         </td>
