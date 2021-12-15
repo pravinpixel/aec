@@ -20,9 +20,14 @@ class ModuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       $data = Module::orderBy('id','desc')->get();
+       $module_name = $request->input('module_name');
+       $data = Module::orderBy('id','desc')
+            ->when($module_name , function($q) use($module_name) {
+                $q->where('module_name','like', "%{$module_name}%");
+            })
+            ->get();
        return response(['status' => true, 'data' => $data], Response::HTTP_OK);
     }
     /**

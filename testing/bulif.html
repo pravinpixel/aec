@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+		<script src="https://code.angularjs.org/1.2.16/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-sortable/1.3.6/ng-sortable.min.js"></script>
+	</head>
+  
+	<body>
+    <div ng-app="App">
+      <div class="container" ng-controller="CrudCtrl"> 
+        
+          <div class="list-group col-10 mx-auto">
+            <div class="btn-group m-4">
+              <button class="btn btn-primary " ng-click="AddWall()"> Add Wall</button> 
+              <button class="btn btn-danger " ng-click="delWall()"> Delete Wall</button> 
+            </div>
+            <div class="card mb-4 shadow" ng-repeat="(fIndex,w) in wallGroup">
+              <div class="card-header shadow text-center">
+                <div class="btn-group">
+                  <input type="text" class="form-control " ng-model="w.WallName" placeholder="Wall Name">
+                  <button class="btn btn-success " ng-click="AddWallDetails(fIndex)"> Add Wall Deatils</button>
+                  <button class="btn btn-danger " ng-click="delWallTwo(fIndex)"> Delete me</button> 
+                </div>
+              </div>
+              <div class="card-body">
+                <div ng-repeat="(Secindex,d) in w.Details">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <div class="btn-group">
+                        <input class="form-control" type="text" ng-model="d.FloorName">
+                        <input class="form-control" type="text" ng-model="d.FloorNumber">
+                        <input class="form-control" type="text" ng-model="d.TotalArea">
+                        <input class="form-control" type="text" ng-model="d.DeliveryType">
+                        <button class="btn btn-warning " ng-click="AddLayers(fIndex , Secindex)"> Add Layers</button>
+                        <button class="btn btn-danger " ng-click="RemoveDetails(fIndex , Secindex)"> Remove</button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="text-center py-2" ng-repeat="(ThreeIndex,l) in d.Layers">
+                        <div class="btn-group">
+                          <input class="form-control" type="text" ng-model="l.Size"> 
+                          <input class="form-control" type="text" ng-model="l.LayerName"> 
+                          <input class="form-control" type="text" ng-model="l.Type"> 
+                          <button class="btn btn-danger" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)">Remove</button> 
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+            </div> 
+          </div>
+      </div>	
+    </div>
+  </body>
+  <script>
+    angular.module('App', []).controller('CrudCtrl', ['$scope', function($scope) {
+      
+      $scope.wallGroup  = [
+        {
+          "WallName" : "Internal Wall",
+          
+          "Details": [
+            {
+              "FloorName" : "Ground Floor",
+              "FloorNumber" : "1",
+              "TotalArea" : "2500",
+              "DeliveryType" : "Fire Proof",
+              
+              "Layers": [ 
+                {
+                  "LayerName": 'PreCut Layer',
+                  "Type": 'Wood Layer',
+                  "Size": '25',
+                } 
+              ] 
+            } 
+          ]
+        } 
+      ]; 
+
+      $scope.AddWall  =   function() {
+        $scope.wallGroup.unshift({
+          "WallName" : "",
+          "Details": [{
+            "Layers": [] 
+          }]
+        });
+      }
+      $scope.AddWallDetails  =   function(index) {
+        $scope.wallGroup[index].Details.unshift({
+          "FloorName" : "Ground Floor",
+          "FloorNumber" : "1",
+          "TotalArea" : "2500",
+          "DeliveryType" : "Fire Proof",
+          "Layers": [] 
+        });
+        console.log($scope.wallGroup);
+      } 
+      $scope.AddLayers  =   function(fIndex, index) {
+        $scope.wallGroup[fIndex].Details[index].Layers.unshift({
+          "LayerName": '',
+          "Type": '',
+          "Size": '',
+        });
+      }    
+      $scope.delWall = function(index){
+        $scope.wallGroup.splice(index,1);
+      } 
+      $scope.delWallTwo = function(fIndex){
+        $scope.wallGroup.splice(fIndex,1);
+      }  
+      $scope.RemoveDetails = function(fIndex, Secindex){
+        $scope.wallGroup[fIndex].Details.splice(Secindex,1);
+      } 
+      $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){
+        console.log(  fIndex , Secindex , ThreeIndex);
+        $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
+      } 
+    }]);
+  </script>
+</html>

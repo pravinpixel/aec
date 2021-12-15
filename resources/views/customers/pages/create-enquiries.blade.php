@@ -1,10 +1,10 @@
      
-@extends('customers.layouts.app')
+@extends('layouts.customer')
 
 @section('customer-content')
          
     
-    <div class="content-page">
+    <div class="content-page" ng-app="App">
         <div class="content">
 
             @include('customers.layouts.top-bar')
@@ -22,47 +22,45 @@
                         <div id="rootwizard">
                             <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
                                 <li class="nav-item" data-target-form="#accountForm">
-                                    <a href="#first" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2 active">
-                                        <i class="mdi mdi-account-circle me-1"></i>
-                                        <span class="d-none d-sm-inline">Project Infomation</span>
+                                    <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
+                                        <i class="uil-angle-double-right me-1"></i>
+                                        <span class="d-none d-sm-inline">Project Information</span>
                                     </a>
                                 </li>
                                 <li class="nav-item" data-target-form="#profileForm">
-                                    <a href="#second" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
-                                        <i class="mdi mdi-face-profile me-1"></i>
+                                    <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
+                                        <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Service Selection</span>
                                     </a>
                                 </li>
                                 <li class="nav-item" data-target-form="#profileForm">
-                                    <a href="#four" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
-                                        <i class="mdi mdi-face-profile me-1"></i>
+                                    <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
+                                        <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">IFC Model & Uploads</span>
                                     </a>
                                 </li>
                                 <li class="nav-item" data-target-form="#profileForm">
-                                    <a href="#five" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
-                                        <i class="mdi mdi-face-profile me-1"></i>
+                                    <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
+                                        <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Building  Components</span>
                                     </a>
                                 </li>
                                 <li class="nav-item" data-target-form="#profileForm">
-                                    <a href="#six" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
-                                        <i class="mdi mdi-face-profile me-1"></i>
-                                        <span class="d-none d-sm-inline">Additional Info</span>
+                                    <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
+                                        <i class="uil-angle-double-right me-1"></i>
+                                        <span class="d-none d-sm-inline">Additional Informations</span>
                                     </a>
                                 </li>
                                 <li class="nav-item" data-target-form="#otherForm">
-                                    <a href="#third" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                    <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 40px;"  class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="mdi mdi-checkbox-marked-circle-outline me-1"></i>
-                                        <span class="d-none d-sm-inline">Finish</span>
+                                        <span class="d-none d-sm-inline">Review &  Submit </span>
                                     </a>
                                 </li>
                             </ul>
 
                             <div class="tab-content my-3">
-
                                 <div class="tab-pane active" id="first">
-                                    
                                     <form id="accountForm" method="post" action="#" class="form-horizontal">
                                         <div class="row">
                                             <div class="col-md-4">
@@ -106,19 +104,22 @@
                                                 </div>
                                                 <div class="form-floating mb-2">
                                                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
-                                                        <option value="">--</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                                        <option value="">--</option> 
+                                                        <option value="Living House">Living House</option> 
+                                                        <option value="Cabin">Cabin</option> 
+                                                        <option value="Apartments">Apartments</option> 
+                                                        <option value="Public Buildings">Public Buildings</option> 
+                                                        <option value="Commercial Building">Commercial Building</option> 
+                                                        <option value="Others">Others</option>
                                                     </select>
                                                     <label for="floatingSelect">Type of Building</label>
                                                 </div>
                                                 <div class="form-floating mb-2">
                                                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
-                                                        <option value="">--</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                                        <option value="">--</option> 
+                                                        <option value="New Construction">New Construction</option> 
+                                                        <option value="Renovation">Renovation</option> 
+                                                        <option value="Others">Others</option> 
                                                     </select>
                                                     <label for="floatingSelect">Type of Project</label>
                                                 </div>
@@ -147,9 +148,9 @@
                                                 <div class="form-floating mb-2">
                                                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
                                                         <option value="">--</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                                        <option value="New Construction">New Construction</option> 
+                                                        <option value="Renovation">Renovation</option> 
+                                                        <option value="Others">Others</option> 
                                                     </select>
                                                     <label for="floatingSelect">Type of Delivery</label>
                                                 </div>
@@ -247,7 +248,7 @@
 
                                 <div class="tab-pane fade " id="four">
                                     <div id="profileForm" class="form-horizontal">
-                                        <div class="row pt-5 mx-0">
+                                        <div class="row mx-0">
                                             <div class="col-md-3">
                                                 <div class="card rounded ">
                                                     <div class="card-header ">
@@ -312,64 +313,30 @@
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="panel">
-                                                                                                                
-                                                    
+                                                <tbody class="panel"> 
                                                     <tr>
                                                         <td>1</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
-                                                        <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                        <td class="text-success">XXXX</td>
+                                                        <td class="text-info">
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn  btn-info"  data-bs-toggle="collapse" href="#collapseOne_1" aria-expanded="true" aria-controls="collapseOne_1"></i>
                                                         </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapseOne_1" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                                
-                                                    
+                                                    </tr> 
                                                     <tr>
                                                         <td>2</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-primary rounded-pill">Approved</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
@@ -379,7 +346,8 @@
                                                     
                                                     <tr id="collapseOne_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
+                                                            <div class="p-3 card">
+                                                                <table class="table table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -387,88 +355,55 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
+                                                                        <td>XXx</td>
+                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
+                                                                        <td>YYY</td>
+                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
+                                                                        <td>ZZZ</td>
+                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     
                                                                 </tbody>
                                                             </table>
+                                                            </div>
                                                         </td>
-                                                    </tr>
-                                                                                                                
+                                                    </tr>                                                       
                                                     
                                                     <tr>
                                                         <td>3</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn  btn-info"  data-bs-toggle="collapse" href="#collapseOne_3" aria-expanded="true" aria-controls="collapseOne_3"></i>
                                                         </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapseOne_3" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                                
-                                                    
+                                                    </tr> 
                                                     <tr>
                                                         <td>4</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
-                                                        <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                        <td class="text-success">XXXX</td>
+                                                        <td class="text-info">
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
                                                             <i class="feather-corner-down-left btn  btn-info"  data-bs-toggle="collapse" href="#collapseOne_4" aria-expanded="true" aria-controls="collapseOne_4"></i>
                                                         </td>
-                                                    </tr>
-                                                    
+                                                    </tr> 
                                                     <tr id="collapseOne_4" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
                                                             <table class="table table-border">
@@ -479,71 +414,38 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     
                                                                 </tbody>
                                                             </table>
                                                         </td>
                                                     </tr>
-                                                                                                                
-                                                    
                                                     <tr>
                                                         <td>5</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-primary rounded-pill">Approved</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn  btn-info"  data-bs-toggle="collapse" href="#collapseOne_5" aria-expanded="true" aria-controls="collapseOne_5"></i>
                                                         </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapseOne_5" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                            
+                                                    </tr>                                                   
                                                 </tbody>
                                             </table>
                                         </div>
@@ -569,11 +471,11 @@
                                                         <td>1</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
-                                                        <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                        <td class="text-success">XXXX</td>
+                                                        <td class="text-info">
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
@@ -591,18 +493,18 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     
                                                                 </tbody>
@@ -615,11 +517,11 @@
                                                         <td>2</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
-                                                        <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                        <td class="text-success">XXXX</td>
+                                                        <td class="text-info">
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
@@ -637,71 +539,40 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     
                                                                 </tbody>
                                                             </table>
                                                         </td>
                                                     </tr>
-                                                                                                                
-                                                    
                                                     <tr>
                                                         <td>3</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_3" aria-expanded="true" aria-controls="collapsene_3"></i>
                                                         </td>
                                                     </tr>
                                                     
-                                                    <tr id="collapsene_3" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                            
+                                                                                                       
                                                 </tbody>
                                             </table>
                                         </div>
@@ -727,11 +598,11 @@
                                                         <td>1</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
@@ -749,18 +620,18 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     
                                                                 </tbody>
@@ -773,11 +644,11 @@
                                                         <td>2</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
@@ -795,18 +666,18 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     
                                                                 </tbody>
@@ -819,46 +690,18 @@
                                                         <td>3</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_3" aria-expanded="true" aria-controls="collapsene_3"></i>
                                                         </td>
                                                     </tr>
                                                     
-                                                    <tr id="collapsene_3" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
+                                                     
                                                                                                             
                                                 </tbody>
                                             </table>
@@ -885,57 +728,25 @@
                                                         <td>1</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_1" aria-expanded="true" aria-controls="collapsene_1"></i>
                                                         </td>
                                                     </tr>
-                                                    
-                                                    <tr id="collapsene_1" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                                
-                                                    
                                                     <tr>
                                                         <td>2</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
@@ -953,18 +764,18 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     
                                                                 </tbody>
@@ -977,11 +788,11 @@
                                                         <td>3</td>
                                                         <td>05 May 2013</td>
                                                         <td>Dummy Name</td>
-                                                        <td class="text-success">Pdf</td>
+                                                        <td class="text-success">XXXX</td>
                                                         <td class="text-success">
-                                                            <a onclick="comments();">Add Comments</a>
+                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
                                                         </td>
-                                                        <td>In progress</td>
+                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                         <td>
                                                             <i class="feather-eye btn-success btn mr-3"></i>
                                                             <i class="feather-trash btn-danger btn  mr-3"></i>
@@ -999,18 +810,18 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>05-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>in progress</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>04-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>Reviewing</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>03-06-2021</td>
-                                                                        <td>Pdf</td>
-                                                                        <td>obsolete</td>
+                                                                        <td>XXXX</td>
+                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
                                                                     </tr>
                                                                     
                                                                 </tbody>
@@ -1024,550 +835,352 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane p-0 h-100 fade" id="five"  >
+                                <div class="tab-pane p-0 h-100 fade " id="five" ng-controller="CrudCtrl">
                                     <div class="row">
                                         <div class="col-sm mb-2 mb-sm-0">
                                             <div class="nav flex-column nav-pills shadow-sm rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                                <a class="nav-link active show d-flex flex-column align-items-center justify-content-center" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home"
-                                                    aria-selected="true">
-                                                    <i class="uil uil-wall" style="font-size: 25px"></i>
-                                                    <div>External Wall</div>
-                                                </a>
-                                                <a class="nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                                                <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"
                                                     aria-selected="false">
-                                                    <i class="dripicons-home" style="font-size: 25px"></i>
-                                                    <div>Internal Wall</div>
-                                                </a>
-                                                <a class="nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
-                                                    aria-selected="false">
-                                                    <i class="mdi mdi-office-building-outline" style="font-size: 25px"></i>
-                                                    <div>Partition Wall</div>
-                                                </a>
-                                                <a class="nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-Ceiling-tab" data-bs-toggle="pill" href="#v-pills-Ceiling" role="tab" aria-controls="v-pills-settings"
-                                                    aria-selected="false">
-                                                    <i class="mdi mdi-distribute-vertical-top" style="font-size: 25px"></i>
-                                                    <div>Ceiling</div>
-                                                </a>
-                                                <a class="nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-Roof-tab" data-bs-toggle="pill" href="#v-pills-Roof" role="tab" aria-controls="v-pills-settings"
-                                                    aria-selected="false">
-                                                    <i class="mdi mdi-home-roof" style="font-size: 25px"></i>
-                                                    <div>Roof</div>
+                                                    <i class="fa-2x @{{ w.WallIcon }}"></i>
+                                                    <div>@{{ w.WallName }}</div>
                                                 </a>
                                             </div>
-                                        </div> <!-- end col-->
+                                        </div> 
                                     
                                         <div class="col-sm-10">
                                             <div class="tab-content" id="v-pills-tabContent">
-                                                <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                                    <h3>External Wall</h3>
-                                                    <div class=" bg-white ">
-                                                        <div class="group-input-box ">
-                                                            <table class="table table-bordered " id="myTable">
-                                                                <thead class="bg-dark text-light">
-                                                                    <tr>
-                                                                        <th>Floor Name</th>
-                                                                        <th>Floor Number</th>
-                                                                        <th>Total Area</th>
-                                                                        <th>Choose</th>
-                                                                        <th>3D View</th>
-                                                                        <th>Layers</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody class="external_wall_parent_outer" >
-                                                                    <tr class="external_wall_parent_outer_row">
-                                                                        <td>
-                                                                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                                                                        </td>
-                                                                        <td>
-                                                                            <select class="form-control-sm  border-0  form-control">
-                                                                                <option value="">-- Select --</option>
-                                                                                <option value="ea">Option 1</option>
-                                                                                <option value="ea">Option 2</option>
-                                                                                <option value="ea">Option 3</option>
-                                                                                <option value="ea">Option 4</option>
-                                                                                <option value="ea">Option 5</option>
-                                                                            </select> 
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                                <a class="btn-info btn">
-                                                                                    <i class="mdi mdi-rotate-3d "></i>
-                                                                                </a>
-                                                                        </td>
-                                                                        <td class="text-center"> 
-                                                                            <i></i>
-                                                                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseOne_layers"
-                                                                                aria-expanded="true" aria-controls="collapseOne_layers">
-                                                                                    <i class="fa  fa-chevron-down  "></i>
-                                                                                </a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr id="collapseOne_layers" class="collapse show">
-                                                                        <td colspan="6" class="hiddenRow p-3">
-                                                                            <div class="p-2">
-                                                                                <table class="table shadow-sm m-0" id="tblLocations"> 
-                                                                                    <thead>
-                                                                                        <tr class="bg-light">
-                                                                                            <th>Layer Name</th>
-                                                                                            <th>Type</th>
-                                                                                            <th>Size</th>
-                                                                                            <th class="text-center">Add New</th>
-                                                                                            <th class="text-center">Delete</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody class="external_outer">
-                                                                                        <tr class="external_outer_row">
+
+
+                                                <div class="tab-pane fade " ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
+
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div > <h3> <div> </div></h3> </div>
+                                                        <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Wall</button>
+                                                    </div>
+
+                                                    <div ng-repeat="(Secindex,d) in w.Details">    
+                                                                                                           
+                                                        <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
+                                                         
+                                                           <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">@{{ w.WallName }} 1.@{{$index + 1}}</div>
+                                                           {{-- <button class="btn btn-info float-end"  ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Floor</button> --}}
+                                                            <div class="accordion-item shadow-sm  ">
+                                                                
+                                                                <div class="accordion-header m-0  " style="background:#f1f2fe" id="headingOne">                                                                    
+                                                                    <table class="table table-bordered m-0  ">
+                                                                        <tr>
+                                                                            <th>
+                                                                                <div class="form-group">
+                                                                                    <label class="form-lable shadow-sm position-absolute border">Floor</label>
+                                                                                    <input type="text" class="form-control form-control-sm my-2 mt-3" placeholder="Type here...">
+                                                                                </div>
+                                                                            </th>
+                                                                            <th>
+                                                                                <div class="form-group">
+                                                                                    <label class="form-lable shadow-sm position-absolute border">EXD wall Number</label>
+                                                                                    <input type="text" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
+                                                                                </div>
+                                                                            </th>
+                                                                            <th>
+                                                                                <div class="form-group">
+                                                                                    <label class="form-lable shadow-sm position-absolute border">Delivery type</label>
+                                                                                    <select class="form-select  form-select-sm my-2 mt-3">
+                                                                                        <option selected >-- Choose --</option>
+                                                                                        <option value="Element">Element</option>
+                                                                                        <option value="Precut">Precut</option>
+                                                                                        <option value="Module">Module</option>
+                                                                                        <option value="mix of all">Mix of All</option>
+                                                                                        <option value="Others">Others</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </th>
+                                                                            <th>
+                                                                                <div class="form-group">
+                                                                                    <label class="form-lable shadow-sm position-absolute border">Approx Total Area</label>
+                                                                                    <input type="number" class="form-control form-control-sm my-2  mt-3" >
+                                                                                </div>
+                                                                            </th> 
+                                                                            <th>
+                                                                                <div class="btn-group">
+                                                                                    <button class="btn-primary btn more-btn-layer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" aria-expanded="true" aria-controls="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}">
+                                                                                        <i class="fa fa-chevron-down"></i>
+                                                                                    </button>
+                                                                                    
+                                                                                    {{-- <span  class="position-absolute wall-delete-btn  badge bg-danger">
+                                                                                        <i class="fa fa-trash"></i>
+                                                                                    </span>  --}}
+                                                                                </div>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                                <div id="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionTable_@{{ Secindex }}_@{{ fIndex  }}">
+                                                                    <div class="accordion-body p-0">
+                                                                        <div class=" rounded ">
+                                                                            <div class="card-header border-0 shadow p-0 ">
+                                                                                <div class="row m-0 p-3 py-2 align-items-center">
+                                                                                    <div class="col-md-8 p-0">
+                                                                                        <div class="btn-group">
+                                                                                            <span class="me-2 shadow-sm badge badge-secondary-lighten d-flex justify-content-center align-items-center">
+                                                                                                <img width="25px" src="{{ asset("public/assets/images/icon_wallthickness.png") }}" alt="icon_wallthickness"> 
+                                                                                                <span> <b class="px-2"> 0.25</b></span>
+                                                                                            </span>
+                                                                                            <span class="me-2 shadow-sm badge badge-danger-lighten d-flex justify-content-center align-items-center">
+                                                                                                <img width="25px" src="{{ asset("public/assets/images/icon_fire.png") }}" alt="icon_fire">
+                                                                                                <span> <b class="px-2"> 1.75</b></span>
+                                                                                            </span>
+                                                                                            <span class="me-2 shadow-sm badge badge-info-lighten d-flex justify-content-center align-items-center">
+                                                                                                <img width="25px" src="{{ asset("public/assets/images/icon_acoustic.png") }}" alt="icon_acoustic">
+                                                                                                <span> <b class="px-2"> 4.25</b></span>
+                                                                                            </span>
+                                                                                            <span class="me-2 shadow-sm badge badge-warning-lighten d-flex justify-content-center align-items-center">
+                                                                                                <img width="25px" src="{{ asset("public/assets/images/icon_insulation.png") }}" alt="icon_insulation">
+                                                                                                <span> <b class="px-2"> 0.75</b></span>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md p-0">
+                                                                                        <div class="w-100 text-end">
+                                                                                            <div class="d-flex justify-content-end">
+                                                                                                <button class="btn-sm float-end btn btn-outline-primary me-2" ng-click="AddLayers(fIndex , Secindex)" title="Add New Layer" ><i class="fa fa-plus" ></i> Add Layer</button>
+                                                                                                <button ng-click="RemoveDetails(fIndex , Secindex)" class=" btn-danger btn shadow-lg  RemoveDetails" type="button"><i class="fa fa-trash"></i></button>
+                                                                                            </div> 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="card-body pt-4">
+                                                                                <table class="table table-borderless m-0 " > 
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="(ThreeIndex,l) in d.Layers">
                                                                                             <td>
-                                                                                                <select name="" class="form-control form-control-sm  border-0">
-                                                                                                    <option value="q">-- Select -- </option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                </select>
+                                                                                                <div class="form-group shadow-sm">
+                                                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
+                                                                                                    <select class="form-select  form-select-sm" ng-model="layer.LayerName">
+                                                                                                        <option value="">-- Choose --</option>
+                                                                                                        <option value="1">External Cladding</option>
+                                                                                                        <option value="2">Horizontal Nailers</option>
+                                                                                                        <option value="3">Vertical Nailers</option>
+                                                                                                        <option value="4">External Insulation</option>
+                                                                                                        <option value="5">Wind Barrier</option>
+                                                                                                        <option value="7">Planking</option>
+                                                                                                        <option value="9">Construction</option>
+                                                                                                        <option value="10">Insulation</option>
+                                                                                                        <option value="12">Planking</option>
+                                                                                                        <option value="14">Vapour Barrier</option>
+                                                                                                        <option value="17">Insulation</option>
+                                                                                                        <option value="18">Internal Planking</option>
+                                                                                                    </select>
+                                                                                                </div>
                                                                                             </td>
-                                                                                            <td>
-                                                                                                <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here">
+                                                                                            <td> 
+                                                                                                <div class="form-group shadow-sm">
+                                                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
+                                                                                                    <select class="form-select  form-select-sm" ng-model="layer.Type">
+                                                                                                        <option value="">-- Choose --</option>
+                                                                                                        <option value="1">External Cladding</option>
+                                                                                                        <option value="2">Horizontal Nailers</option>
+                                                                                                        <option value="3">Vertical Nailers</option>
+                                                                                                        <option value="4">External Insulation</option>
+                                                                                                        <option value="5">Wind Barrier</option>
+                                                                                                        <option value="7">Planking</option>
+                                                                                                        <option value="9">Construction</option>
+                                                                                                        <option value="10">Insulation</option>
+                                                                                                        <option value="12">Planking</option>
+                                                                                                        <option value="14">Vapour Barrier</option>
+                                                                                                        <option value="17">Insulation</option>
+                                                                                                        <option value="18">Internal Planking</option>
+                                                                                                    </select>
+                                                                                                </div>
                                                                                             </td>
-                                                                                            <td>
-                                                                                                <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here">
-                                                                                            </td> 
-                                                                                            
+                                                                                            <td width="35%"> 
+                                                                                                <div class="btn-group shadow-sm border rounded">
+                                                                                                    <div class="form-group">
+                                                                                                        <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
+                                                                                                        <input type="number" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="layer.Thickness " >
+                                                                                                    </div>
+                                                                                                    <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >x</span>
+                                                                                                    <div class="form-group">
+                                                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
+                                                                                                        <input type="number" class="form-control form-control-sm rounded-0 border-0 " ng-model="layer.Breadth" >
+                                                                                                    </div>
+                                                                                                    <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
+                                                                                                </div>
+                                                                                            </td>
                                                                                             <td class="text-center">
-                                                                                                <a class="external_add_table_row  mr-2" title="Copy or clone this row">
-                                                                                                    <i class="btn-success btn fa fa-plus"></i>
-                                                                                                </a>
-                                                                                            </td>
-                                                                                            <td class="text-center"> 
-                                                                                                <a class="external_remove_table_row" disabled=""><i class="btn-outline-danger btn  fa fa-trash"></i></a>
-                                                                                            </td>
+                                                                                                <div class="btn-group">
+                                                                                                    <button class="btn btn-outline-danger rounded shadow-sm btn-sm" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)"><div class="fa fa-trash " ></div></button>
+                                                                                                </div>
+                                                                                            </td> 
                                                                                         </tr>
                                                                                     </tbody>
+                                                                                    
                                                                                 </table>
                                                                             </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>  
-                                                        <div class="text-center ">
-                                                            <button style="font-size: 14px; font-family: Inter, sans-serif !important;" title="Remove Last Row" type="button" class="btn btn-outline-danger remove_external_wall_btn"><i class="fa fa-trash add_icon "></i></button>
-                                                            <button style="font-family: 'Inter', sans-serif !important;font-size:14px" type="button" class="btn btn-primary  add_new_external_wall_btn"><i class="fa fa-plus add_icon"></i> Add New Floor</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> 
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                                    <h3>Internal Wall</h3>
-                                                    <div class=" bg-white ">
-                                                        <div class="group-input-box ">
-                                                            <table class="table table-bordered " id="myTable">
-                                                                <thead class="bg-dark text-light">
-                                                                    <tr>
-                                                                        <th>Floor Name</th>
-                                                                        <th>Floor Number</th>
-                                                                        <th>Total Area</th>
-                                                                        <th>Choose</th>
-                                                                        <th>3D View</th>
-                                                                        <th>Layers</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody class="internal_wall_parent_outer" >
-                                                                    <tr class="internal_wall_parent_outer_row">
-                                                                        <td>
-                                                                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                                                                        </td>
-                                                                        <td>
-                                                                            <select class="form-control-sm  border-0  form-control">
-                                                                                <option value="">-- Select --</option>
-                                                                                <option value="ea">Option 1</option>
-                                                                                <option value="ea">Option 2</option>
-                                                                                <option value="ea">Option 3</option>
-                                                                                <option value="ea">Option 4</option>
-                                                                                <option value="ea">Option 5</option>
-                                                                            </select> 
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                                <a class="btn-info btn">
-                                                                                    <i class="mdi mdi-rotate-3d "></i>
-                                                                                </a>
-                                                                        </td>
-                                                                        <td class="text-center"> 
-                                                                            <i></i>
-                                                                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseOne_layers"
-                                                                                aria-expanded="true" aria-controls="collapseOne_layers">
-                                                                                    <i class="fa  fa-chevron-down  "></i>
-                                                                                </a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr id="collapseOne_layers" class="collapse show">
-                                                                        <td colspan="6" class="hiddenRow p-3">
-                                                                            <div class="p-2">
-                                                                                <table class="table shadow-sm m-0" id="tblLocations"> 
-                                                                                    <thead>
-                                                                                        <tr class="bg-light">
-                                                                                            <th>Layer Name</th>
-                                                                                            <th>Type</th>
-                                                                                            <th>Size</th>
-                                                                                            <th class="text-center">Add New</th>
-                                                                                            <th class="text-center">Delete</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody class="internal_outer">
-                                                                                        <tr class="internal_outer_row">
-                                                                                            <td>
-                                                                                                <select name="" class="form-control form-control-sm  border-0">
-                                                                                                    <option value="q">-- Select -- </option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                    <option value="q">Opition</option>
-                                                                                                </select>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here">
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here">
-                                                                                            </td> 
-                                                                                            
-                                                                                            <td class="text-center">
-                                                                                                <a class="internal_add_table_row  mr-2" title="Copy or clone this row">
-                                                                                                    <i class="btn-success btn fa fa-plus"></i>
-                                                                                                </a>
-                                                                                            </td>
-                                                                                            <td class="text-center"> 
-                                                                                                <a class="internal_remove_table_row" disabled=""><i class="btn-outline-danger btn  fa fa-trash"></i></a>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>  
-                                                        <div class="text-center ">
-                                                            <button style="font-size: 14px; font-family: Inter, sans-serif !important;" title="Remove Last Row" type="button" class="btn btn-outline-danger remove_internal_wall_btn"><i class="fa fa-trash add_icon "></i></button>
-                                                            <button style="font-family: 'Inter', sans-serif !important;font-size:14px" type="button" class="btn btn-primary  add_new_internal_wall_btn"><i class="fa fa-plus add_icon"></i> Add New Floor</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                                                    <h3>Partition Wall</h3>
-                                                    <div class="partition_wall_parent_outer">
-                                                        <div class="partition_wall_parent_outer_row mb-2">
-                                                            <div class="accordion-item">
-                                                                <div class="accordion-header p-0 m-0" id="flush-headingTwo">
-                                                                    <div class="d-flex bg-light bg-light align-items-center ">
-                                                                        <div class="row align-items-center p-0 m-0">
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
+                                                    {{-- <div >
+                                                        <h3>@{{ w.WallName }}</h3>
+                                                        <button class="btn btn-info float-end mb-2 "  ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Floor</button>
+                                                        <table class="table table-bordered ">
+                                                            <thead class="badge-primary-lighten">
+                                                                <tr>
+                                                                    <th>FloorName</th>
+                                                                    <th>Floor Number	</th>
+                                                                    <th>Total Area	</th>
+                                                                    <th>Delivery Type</th> 
+                                                                    <th>Layers</th> 
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="(Secindex,d) in w.Details">
+                                                                    <td>
+                                                                        <input class="form-control" type="text" ng-model="d.FloorName" placeholder="Type Here..."/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input class="form-control" type="number" ng-model="d.FloorNumber" placeholder="Type Here..."/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input class="form-control" type="text" ng-model="d.TotalArea"  placeholder="Type Here..." />
+                                                                    </td>
+                                                                    <td  width="20%">
+                                                                        <select class="form-select" ng-model="d.DeliveryType">
+                                                                            <option value="">-- Choose --</option>
+                                                                            <option value="Element">Element</option>
+                                                                            <option value="Precut">Precut</option>
+                                                                            <option value="Module">Module</option>
+                                                                            <option value="mix of all">Mix of All</option>
+                                                                            <option value="Others">Others</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#primary-header-modal__@{{ Secindex }}_@{{ fIndex  }}"><i class="fa fa-plus"></i></button>
+                                                                        <div id="primary-header-modal__@{{ Secindex }}_@{{ fIndex  }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel__@{{ Secindex }}_@{{ fIndex  }}" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-xl">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header modal-colored-header bg-primary">
+                                                                                        <h4 class="modal-title" id="primary-header-modalLabel__@{{ Secindex }}_@{{ fIndex  }}"> @{{ d.FloorName }}</h4>
+                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="row m-0 mb-2">
+                                                                                            <div class="col-sm-3 shadow-lg border p-2 x-y-center">
+                                                                                                <i style="font-size: 35px" class="mdi mdi-ear-hearing-off   text-primary me-2" aria-hidden="true"></i>
+                                                                                                <div id="count"><span class="badge badge-primary-lighten rounded-pill">1.35</span></div>
+                                                                                            </div>
+                                                                                            <div class="col-sm-3 shadow-sm border p-2 x-y-center">
+                                                                                                <i style="font-size: 35px" class="fa  fa-snowflake-o   text-info  me-2" aria-hidden="true"></i>
+                                                                                                <div id="count"><span class="badge badge-info-lighten rounded-pill">0.5</span></div>
+                                                                                            </div>
+                                                                                            <div class="col-sm-3 shadow-lg border p-2 x-y-center">
+                                                                                                <i style="font-size: 40px" class="mdi mdi-fire  text-danger  me-2" aria-hidden="true"></i>
+                                                                                                <div id="count"><span class="badge badge-danger-lighten rounded-pill">0.45</span></div>
+                                                                                            </div>
+                                                                                            <div class="col-sm-3 shadow-sm border p-2 x-y-center">
+                                                                                                <i style="font-size: 35px" class="fa fa-thermometer-half   text-warning  me-2" aria-hidden="true"></i>
+                                                                                                <div id="count"><span class="badge badge-warning-lighten rounded-pill">2.05</span></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-horizontal">
+                                                                                            <div class="row m-0 text-start">
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="row my-3">
+                                                                                                        <label for="inputEmail3" class="col-3 col-form-label">Floor Name</label>
+                                                                                                        <div class="col-9">
+                                                                                                            <input type="text" disabled class="form-control" id="inputEmail3" value="@{{ d.FloorName }}" >
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="row mb-3">
+                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Floor Number</label>
+                                                                                                        <div class="col-9">
+                                                                                                            <input type="text" disabled class="form-control" id="inputPassword3" value="@{{ d.FloorNumber }}" >
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                </div>
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="row my-3">
+                                                                                                        <label for="inputEmail3" class="col-3 col-form-label">Total Area </label>
+                                                                                                        <div class="col-9">
+                                                                                                            <input type="text" disabled class="form-control" id="inputEmail3" value="@{{ d.TotalArea }}" >
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="row mb-3">
+                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Delivery Type</label>
+                                                                                                        <div class="col-9">
+                                                                                                            <input type="text" disabled class="form-control" id="inputPassword3" value="@{{ d.DeliveryType }}" >
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+
+                                                                                        <div >
+                                                                                            <table class="table dt-responsive nowrap m-0" >
+                                                                                                <tr class="bg-light">
+                                                                                                    <th> LayerName </th>
+                                                                                                    <th> Type </th>
+                                                                                                    <th> Size</th>
+                                                                                                    <th><button class="btn btn-primary  btn-sm" ng-click="AddLayers(fIndex , Secindex)"> <i class="fa fa-plus"></i> Add New Layer</button></th>
+                                                                                                </tr>
+                                                                                                <tbody>
+                                                                                                    <tr ng-repeat="(ThreeIndex,l) in d.Layers">
+                                                                                                        <td>
+                                                                                                            <select class="form-select" ng-model="layer.LayerName">
+                                                                                                                <option value="">-- Choose --</option>
+                                                                                                                <option value="1">External Cladding</option>
+                                                                                                                <option value="2">Horizontal Nailers</option>
+                                                                                                                <option value="3">Vertical Nailers</option>
+                                                                                                                <option value="4">External Insulation</option>
+                                                                                                                <option value="5">Wind Barrier</option>
+                                                                                                                <option value="7">Planking</option>
+                                                                                                                <option value="9">Construction</option>
+                                                                                                                <option value="10">Insulation</option>
+                                                                                                                <option value="12">Planking</option>
+                                                                                                                <option value="14">Vapour Barrier</option>
+                                                                                                                <option value="17">Insulation</option>
+                                                                                                                <option value="18">Internal Planking</option>
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                        <td> 
+                                                                                                            <input class="form-control" type="text" ng-model="layer.Type" placeholder="Type Here..."  />
+                                                                                                        </td>
+                                                                                                        <td> 
+                                                                                                            <input class="form-control" type="text" ng-model="layer.Size" placeholder="Type Here..." />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <div class="btn-group">
+                                                                                                                <button class="btn btn-outline-danger" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)"><div class="fa fa-trash"></div></button>
+                                                                                                            </div>
+                                                                                                        </td> 
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                                
+                                                                                            </table>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+                                                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save & Close</button>
+                                                                                    </div>
+                                                                                </div> 
                                                                             </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control bg-light" style="border-radius: 0 !important"id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control bg-light"style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <select class="form-select bg-light" id="floatingSelectGrid" aria-label="Floating label select example"style="border-radius: 0 !important">
-                                                                                        <option selected>-- Choose --</option>
-                                                                                        <option value="1">One</option>
-                                                                                        <option value="2">Two</option>
-                                                                                        <option value="3">Three</option>
-                                                                                    </select>
-                                                                                    <label for="floatingSelectGrid">Delivery Type</label>
-                                                                                </div>
-                                                                            </div>  
-                                                                        </div>
-                                                                        <div class="col" >
-                                                                            <button class="collapsed accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo_partition" aria-expanded="false" aria-controls="flush-collapseTwo_partitionl"></button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="flush-collapseTwo_partition" class="accordion-collapse " aria-labelledby="flush-collapseTwo_partition" data-bs-parent="#accordionFlushExample">
-                                                                    <div class="accordion-body">
-                                                                    <table class="table table-hover table-bordered m-0"  > 
-                                                                        <thead  >
-                                                                            <tr >
-                                                                                <th>Layer Name</th>
-                                                                                <th>Type</th>
-                                                                                <th>Size</th>
-                                                                                <th  class="text-center">Add New</th>
-                                                                                <th class="text-center">Delete</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody class="partition_outer">
-                                                                            <tr class="partition_outer_row">
-                                                                                <td>
-                                                                                    <select name="" class="form-control form-control-sm  border-0">
-                                                                                        <option value="q">-- Select -- </option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                    </select>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here" />
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here" />
-                                                                                </td> 
-                                                                                
-                                                                                <td class="text-center">
-                                                                                    <a class="partition_add_table_row  mr-2" title="Copy or clone this row">
-                                                                                        <i class="btn-success btn dripicons-plus"></i>
-                                                                                    </a>
-                                                                                </td>
-                                                                                <td class="text-center"> 
-                                                                                    <a class="partition_remove_table_row" disabled><i class="mdi mdi-delete btn-outline-danger btn"></i> </a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-center ">
-                                                        <button style="font-family: 'Inter', sans-serif !important;font-size:14px" title="Remove Last Row" type="button" class="btn btn-outline-danger remove_partition_wall_btn"><i class="mdi mdi-delete add_icon"></i></button>
-                                                        <button style="font-family: 'Inter', sans-serif !important;font-size:14px" type="button"  class="btn btn-primary  add_new_partition_wall_btn"><i class="dripicons-plus add_icon"></i> Add New Floor</button> 
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="v-pills-Ceiling" role="tabpanel" aria-labelledby="v-pills-Ceiling-tab">
-                                                    <h3>Ceiling </h3>
-                                                    <div class="Ceiling_wall_parent_outer">
-                                                        <div class="Ceiling_wall_parent_outer_row mb-2">
-                                                            <div class="accordion-item">
-                                                                <div class="accordion-header p-0 m-0" id="flush-headingTwo">
-                                                                    <div class="d-flex bg-light bg-light align-items-center ">
-                                                                        <div class="row align-items-center p-0 m-0">
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control bg-light" style="border-radius: 0 !important"id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control bg-light"style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <select class="form-select bg-light" id="floatingSelectGrid" aria-label="Floating label select example"style="border-radius: 0 !important">
-                                                                                        <option selected>-- Choose --</option>
-                                                                                        <option value="1">One</option>
-                                                                                        <option value="2">Two</option>
-                                                                                        <option value="3">Three</option>
-                                                                                    </select>
-                                                                                    <label for="floatingSelectGrid">Delivery Type</label>
-                                                                                </div>
-                                                                            </div>  
-                                                                        </div>
-                                                                        <div class="col" >
-                                                                            <button class="collapsed accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo_Ceiling" aria-expanded="false" aria-controls="flush-collapseTwo_Ceilingl"></button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="flush-collapseTwo_Ceiling" class="accordion-collapse " aria-labelledby="flush-collapseTwo_Ceiling" data-bs-parent="#accordionFlushExample">
-                                                                    <div class="accordion-body">
-                                                                    <table class="table table-hover table-bordered m-0"  > 
-                                                                        <thead  >
-                                                                            <tr >
-                                                                                <th>Layer Name</th>
-                                                                                <th>Type</th>
-                                                                                <th>Size</th>
-                                                                                <th  class="text-center">Add New</th>
-                                                                                <th class="text-center">Delete</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody class="Ceiling_outer">
-                                                                            <tr class="Ceiling_outer_row">
-                                                                                <td>
-                                                                                    <select name="" class="form-control form-control-sm  border-0">
-                                                                                        <option value="q">-- Select -- </option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                    </select>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here" />
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here" />
-                                                                                </td> 
-                                                                                
-                                                                                <td class="text-center">
-                                                                                    <a class="Ceiling_add_table_row  mr-2" title="Copy or clone this row">
-                                                                                        <i class="btn-success btn dripicons-plus"></i>
-                                                                                    </a>
-                                                                                </td>
-                                                                                <td class="text-center"> 
-                                                                                    <a class="Ceiling_remove_table_row" disabled><i class="mdi mdi-delete btn-outline-danger btn"></i> </a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-center ">
-                                                        <button style="font-family: 'Inter', sans-serif !important;font-size:14px" title="Remove Last Row" type="button" class="btn btn-outline-danger remove_Ceiling_wall_btn"><i class="mdi mdi-delete add_icon"></i></button>
-                                                        <button style="font-family: 'Inter', sans-serif !important;font-size:14px" type="button"  class="btn btn-primary  add_new_Ceiling_wall_btn"><i class="dripicons-plus add_icon"></i> Add New Floor</button> 
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="v-pills-Roof" role="tabpanel" aria-labelledby="v-pills-Roof-tab">
-                                                    <div class="Roof_wall_parent_outer">
-                                                        <div class="Roof_wall_parent_outer_row mb-2">
-                                                            <div class="accordion-item">
-                                                                <div class="accordion-header p-0 m-0" id="flush-headingTwo">
-                                                                    <div class="d-flex bg-light bg-light align-items-center ">
-                                                                        <div class="row align-items-center p-0 m-0">
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control  border-0  bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control  border-0  bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control  border-0  bg-light" style="border-radius: 0 !important"id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <input type="email" class="form-control  border-0  bg-light"style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                                                                    <label for="floatingInput">Floor Name</label>
-                                                                                </div>
-                                                                            </div> 
-                                                                            <div class="p-0 col-md">
-                                                                                <div class="form-floating">
-                                                                                    <select class="form-select   border-0  bg-light" id="floatingSelectGrid" aria-label="Floating label select example"style="border-radius: 0 !important">
-                                                                                        <option selected>-- Choose --</option>
-                                                                                        <option value="1">One</option>
-                                                                                        <option value="2">Two</option>
-                                                                                        <option value="3">Three</option>
-                                                                                    </select>
-                                                                                    <label for="floatingSelectGrid">Delivery Type</label>
-                                                                                </div>
-                                                                            </div>  
-                                                                        </div>
-                                                                        <div class="col" >
-                                                                            <button class="collapsed accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo_Roof" aria-expanded="false" aria-controls="flush-collapseTwo_Roofl"></button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="flush-collapseTwo_Roof" class="accordion-collapse " aria-labelledby="flush-collapseTwo_Roof" data-bs-parent="#accordionFlushExample">
-                                                                    <div class="accordion-body">
-                                                                    <table class="table table-hover table-bordered m-0"  > 
-                                                                        <thead  >
-                                                                            <tr >
-                                                                                <th>Layer Name</th>
-                                                                                <th>Type</th>
-                                                                                <th>Size</th>
-                                                                                <th  class="text-center">Add New</th>
-                                                                                <th class="text-center">Delete</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody class="Roof_outer">
-                                                                            <tr class="Roof_outer_row">
-                                                                                <td>
-                                                                                    <select name="" class="form-control form-control-sm  border-0">
-                                                                                        <option value="q">-- Select -- </option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                        <option value="q">Opition</option>
-                                                                                    </select>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here" />
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here" />
-                                                                                </td> 
-                                                                                
-                                                                                <td class="text-center">
-                                                                                    <a class="Roof_add_table_row  mr-2" title="Copy or clone this row">
-                                                                                        <i class="btn-success btn dripicons-plus"></i>
-                                                                                    </a>
-                                                                                </td>
-                                                                                <td class="text-center"> 
-                                                                                    <a class="Roof_remove_table_row" disabled><i class="mdi mdi-delete btn-outline-danger btn"></i> </a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-center ">
-                                                        <button style="font-family: 'Inter', sans-serif !important;font-size:14px" title="Remove Last Row" type="button" class="btn btn-outline-danger remove_Roof_wall_btn"><i class="mdi mdi-delete add_icon"></i></button>
-                                                        <button style="font-family: 'Inter', sans-serif !important;font-size:14px" type="button"  class="btn btn-primary  add_new_Roof_wall_btn"><i class="dripicons-plus add_icon"></i> Add New Floor</button> 
-                                                    </div>
-                                                </div>
+                                                                        </div> 
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <button class="btn btn-danger" ng-click="RemoveDetails(fIndex , Secindex)"><i class="fa fa-trash"></i></button>
+                                                                    </td> 
+                                                                </tr>
+                                                            </tbody>
+                                                        </table> 
+                                                    </div> --}}
+                                                </div> 
                                             </div> 
                                         </div> 
                                     </div> 
@@ -1594,12 +1207,19 @@
                                                         <i class="fas fa-calendar-day mr-2"></i>
                                                         <small class="float-right">25/11/2021</small>
                                                     </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fa fa-user me-2"></i> <span class="float-start"> Nishanth ( <small>Sales Admin</small> )</span>
+                                                    </div>
+
                                                 </div>
                                                 <div class="card p-3 my-3 shadow rounded">
                                                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo blanditiis eos quidem iure voluptates, ipsam vel dolore rem facere, alias doloribus dignissimos iste in a. Eveniet tenetur dignissimos molestiae perferendis?</p>
                                                     <div class="text-right d-flex align-items-center   justify-content-end ">
                                                         <i class="fas fa-calendar-day mr-2"></i>
                                                         <small class="float-right">25/11/2021</small>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fa fa-user me-2"></i> <span class="float-start"> Nishanth ( <small>Sales Admin</small> )</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1624,66 +1244,68 @@
                                                             <h4 class="f-20 m-0 p-3">Project Information</h4>
                                                         </div>
                                                         <div class="col-md-6 p-3">
-                                                            <table class="table m-0 table-striped">
-                                                                <tbody><tr class="border">
-                                                                    <th width="50" class=" ">Project Name
-                                                                    </th><td width="50" class="bg-white">non</td>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                    <th width="50" class=" ">Construction Site Address
-                                                                    </th><td width="50" class="bg-white">non</td>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                    <th width="50" class=" ">Post Code
-                                                                    </th><td width="50" class="bg-white">non</td>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                    <th width="50" class=" ">Place
-                                                                    </th><td width="50" class="bg-white">non</td>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                    <th width="50" class=" ">State
-                                                                    </th><td width="50" class="bg-white">non</td>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                    <th width="50" class=" ">Country
-                                                                    </th><td width="50" class="bg-white">non</td>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                    <th width="50" class=" ">Type of Project
-                                                                    </th><td width="50" class="bg-white">non</td>
-                                                                </tr> 
-                                                            </tbody></table>
+                                                            <table class="table m-0  table-bordered">
+                                                                <tbody>
+                                                                        <tr class="border">
+                                                                            <th  class=" ">Project Name
+                                                                            </th><td  class="bg-white">ABCD Building</td>
+                                                                        </tr> 
+                                                                        <tr class="border">
+                                                                            <th  class=" ">Construction Site Address
+                                                                            </th><td  class="bg-white">Strandgata-12</td>
+                                                                        </tr> 
+                                                                        <tr class="border">
+                                                                            <th  class=" ">Post Code
+                                                                            </th><td  class="bg-white">2134</td>
+                                                                        </tr> 
+                                                                        <tr class="border">
+                                                                            <th  class=" ">Place
+                                                                            </th><td  class="bg-white">Austvath</td>
+                                                                        </tr> 
+                                                                        <tr class="border">
+                                                                            <th  class=" ">State
+                                                                            </th><td  class="bg-white">Hedmark</td>
+                                                                        </tr> 
+                                                                        <tr class="border">
+                                                                            <th  class=" ">Country
+                                                                            </th><td  class="bg-white">Norway</td>
+                                                                        </tr> 
+                                                                        <tr class="border">
+                                                                            <th  class=" ">Type of Project
+                                                                            </th><td  class="bg-white">1</td>
+                                                                        </tr> 
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                         <div class="col-md-6 p-3">
-                                                            <table class="table m-0  table-striped">
+                                                            <table class="table m-0   table-bordered">
                                                             <tbody><tr class="border">
-                                                                    <th width="50" class=" ">Project Name
-                                                                    </th><td width="50" class="bg-white">non</td>
+                                                                    <th  class=" ">Type of Building
+                                                                    </th><td  class="bg-white">2</td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th width="50" class=" ">Construction Site Address
-                                                                    </th><td width="50" class="bg-white">non</td>
+                                                                    <th  class=" ">Number of Buildings
+                                                                    </th><td  class="bg-white">2</td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th width="50" class=" ">Post Code
-                                                                    </th><td width="50" class="bg-white">non</td>
+                                                                    <th  class=" ">Type of Delivery
+                                                                    </th><td  class="bg-white">1</td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th width="50" class=" ">Place
-                                                                    </th><td width="50" class="bg-white">non</td>
+                                                                    <th  class=" ">Deliveryd Date 
+                                                                    </th><td  class="bg-white">2021-02-25</td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th width="50" class=" ">State
-                                                                    </th><td width="50" class="bg-white">non</td>
+                                                                    <th  class=" ">State
+                                                                    </th><td  class="bg-white">non</td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th width="50" class=" ">Country
-                                                                    </th><td width="50" class="bg-white">non</td>
+                                                                    <th  class=" ">Contact Person name
+                                                                    </th><td  class="bg-white">XXXXXXX </td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th width="50" class=" ">Type of Project
-                                                                    </th><td width="50" class="bg-white">non</td>
+                                                                    <th  class=" ">E-post
+                                                                    </th><td  class="bg-white">dummyemail@gmail.com</td>
                                                                 </tr> 
                                                             </tbody></table>
                                                         </div>
@@ -1693,11 +1315,12 @@
                                                             <h4 class="f-20 m-0 p-3">Selected Services</h4>
                                                         </div>
                                                         <div class="col-md-6 p-3 mx-auto">
-                                                            <table class="table m-0  table-striped">
-                                                                <tbody><tr class="border">
-                                                                    <th class=" ">S.no
-                                                                    </th><th class="bg-white">Services</th>
-                                                                </tr> 
+                                                            <table class="table m-0   table-bordered">
+                                                                <tbody>
+                                                                    <tr class="border">
+                                                                        <th class="bg-primary text-white">S.no</th>
+                                                                        <th class="bg-primary text-white">Services</th>
+                                                                    </tr> 
                                                                 <tr class="border">
                                                                     <th class=" ">1
                                                                     </th><td class="bg-white">CAD / CAM Modelling</td>
@@ -1713,21 +1336,21 @@
                                                         <div class="col-12 text-center">
                                                             <h4 class="f-20 m-0 p-3">IFC Models &amp; Uploaded Documents</h4>
                                                         </div>
-                                                        <div class="col-md-12 p-3 mx-auto">
-                                                            <table class="table m-0  table-striped">
+                                                        <div class="col-md-8 p-3 mx-auto">
+                                                            <table class="table m-0 table-bordered ">
                                                                 
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <th class="">S.no
-                                                                        </th><th class="">File Name</th>
-                                                                        <th class="">Type</th>
-                                                                        <th class="">Action</th>
+                                                                    <tr class="border">
+                                                                        <th  class="bg-primary text-white">S.no
+                                                                        </th><th  class="bg-primary text-white">File Name</th>
+                                                                        <th class="bg-primary text-white" >Type</th>
+                                                                        <th  class="bg-primary text-white">Action</th>
                                                                     </tr> 
                                                                     <tr class="border">
                                                                     <th class="bg-white">1
                                                                     </th><td class="bg-white">Modelling</td>
                                                                     <td class="bg-white">IFC Modelling</td>
-                                                                    <td>
+                                                                    <td width="8%">
                                                                         <i class="feather-eye text-success mr-3"></i>
                                                                         <i class="feather-trash text-danger"></i>
                                                                     </td>
@@ -1773,18 +1396,19 @@
                                                     </div>
                                                     <div class="row mx-0 container ">
                                                         <div class="col-12 text-center">
-                                                            <h4 class="f-20 m-0 p-3">Selected Services</h4>
+                                                            <h4 class="f-20 m-0 p-3">Building components</h4>
                                                         </div>
                                                         <div class="col-md-8 p-3 mx-auto">
-                                                            <table class="table m-0 table-striped">
+                                                            <table class="table m-0 table-bordered ">
                                                                 
                                                                 <tbody>
                                                                     <tr>
-                                                                        <th class="">EW_DEWS
-                                                                        </th><th class="">
+                                                                        <th  class="bg-primary text-white">EW_DEWS
+                                                                        </th>
+                                                                        <th  class="bg-primary text-white">
                                                                             Delivery Type : Element Type
                                                                         </th>
-                                                                        <th class="">
+                                                                        <th  class="bg-primary text-white">
                                                                             Total : 10
                                                                         </th>
                                                                     </tr> 
@@ -1875,773 +1499,563 @@
 
 
     </div> 
+    <div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-right" style="width:100% !important">
+            <div class="modal-content p-3 h-100 d-flex justify-content-center align-items-center" >
+                <div>
+                    <div class="border-0">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="conversation-list" data-simplebar="init" style="max-height: 537px"><div class="simplebar-wrapper" style="margin: 0px -15px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px 15px;">
+                                <li class="clearfix">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-5.jpg') }}" class="rounded" alt="Shreyu N">
+                                        <i>10:00</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Shreyu N</i>
+                                            <p>
+                                                Hello!
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix odd">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-1.jpg') }}" class="rounded" alt="dominic">
+                                        <i>10:01</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Dominic</i>
+                                            <p>
+                                                Hi, How are you? What about our next meeting?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-5.jpg') }}" class="rounded" alt="Shreyu N">
+                                        <i>10:01</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Shreyu N</i>
+                                            <p>
+                                                Yeah everyThickness g is fine
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix odd">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-1.jpg') }}" class="rounded" alt="dominic">
+                                        <i>10:02</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Dominic</i>
+                                            <p>
+                                                Wow that's great
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-5.jpg') }}" alt="Shreyu N" class="rounded">
+                                        <i>10:02</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Shreyu N</i>
+                                            <p>
+                                                Let's have it today if you are free
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix odd">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-1.jpg') }}" alt="dominic" class="rounded">
+                                        <i>10:03</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Dominic</i>
+                                            <p>
+                                                Sure Thickness g! let me know if 2pm works for you
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-5.jpg') }}" alt="Shreyu N" class="rounded">
+                                        <i>10:04</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Shreyu N</i>
+                                            <p>
+                                                Sorry, I have another meeting scheduled at 2pm. Can we have it
+                                                at 3pm instead?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-5.jpg') }}" alt="Shreyu N" class="rounded">
+                                        <i>10:04</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Shreyu N</i>
+                                            <p>
+                                                We can also discuss about the presentation talk format if you have some extra mins
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix odd">
+                                    <div class="chat-avatar">
+                                        <img src="{{ asset('public/assets/images/users/avatar-1.jpg') }}" alt="dominic" class="rounded">
+                                        <i>10:05</i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>Dominic</i>
+                                            <p>
+                                                3pm it is. Sure, let's discuss about presentation format, it would be great to finalize today. 
+                                                I am attaching the last year format and assets here...
+                                            </p>
+                                        </div>
+                                        <div class="card mt-2 mb-1 shadow-none border text-start">
+                                            <div class="p-2">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <div class="avatar-sm">
+                                                            <span class="avatar-title rounded">
+                                                                .ZIP
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col ps-0">
+                                                        <a href="javascript:void(0);" class="text-muted fw-bold">Hyper-admin-design.zip</a>
+                                                        <p class="mb-0">2.3 MB</p>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- Button -->
+                                                        <a href="javascript:void(0);" class="btn btn-link btn-lg text-muted">
+                                                            <i class="dripicons-download"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-actions dropdown">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="uil uil-ellipsis-v"></i></button>
+
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Copy Message</a>
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div></div></div></div><div class="simplebar-placeholder" style="width: 479px; height: 924px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 312px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></ul>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mt-2 bg-light p-3 rounded">
+                                        <form class="needs-validation" novalidate="" name="chat-form" id="chat-form">
+                                            <div class="row">
+                                                <div class="col mb-2 mb-sm-0">
+                                                    <input type="text" class="form-control border-0" placeholder="Enter your text" required="">
+                                                    <div class="invalid-feedback">
+                                                        Please enter your messsage
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-auto">
+                                                    <div class="btn-group">
+                                                        <a href="#" class="btn btn-secondary"><i class="uil uil-paperclip"></i></a>
+                                                        <a href="#" class="btn btn-secondary"> <i class="uil uil-smile"></i> </a>
+                                                        <div class="d-grid">
+                                                            <button type="submit" class="btn btn-success chat-send"><i class="uil uil-message"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- end col -->
+                                            </div> <!-- end row-->
+                                        </form>
+                                    </div> 
+                                </div> <!-- end col-->
+                            </div>
+                            <!-- end row -->
+                        </div> <!-- end card-body -->
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
       
 @endsection
           
 @push('custom-styles')
-<style>
-    .table tbody tr td {
-        padding: 5px !important
-    }
-</style>
+    <style>
+        .table tbody tr td {
+            padding: 5px !important
+        }
+        @media (min-width: 1200px) {
+            .modal-xxl {
+                width: 100% !important
+            }
+        }
+        .x-y-center {
+            display: flex !important;
+            justify-content: center;
+            align-items: center 
+        } 
+        thead, tbody, tfoot, tr, td, th {
+            vertical-align: middle !important;
+        }
+        .accordion-button::after {
+            margin:0px auto !important
+        }
+        .table > :not(caption) > * > * {
+            padding: 0 !important
+        }
+        .table tr th  {
+            padding: 0 10px !important
+        }
+        .form-lable {
+            background: #f1f2fe;
+            border-radius: 5px;
+            padding: 0 5px;
+            top: -10px;
+            left: 10px;
+            font-size:12px;
+        }
+        .form-group {
+            position: relative;
+        }
+        .form-control-sm,.form-select-sm {
+            padding-top:  15px !important
+        }
+        .accordion-body .table tbody tr:nth-child(1) .form-lable {
+            display: block !important
+        }
+        
+        .accordion-body .table tbody tr  .form-lable {
+           display: none
+        }
+        .accordion-body .table tbody tr  .form-control-sm,.form-select-sm {
+            padding-top: 7px !important
+        }
+        .accordion-body .table tbody tr:nth-child(1)  .form-control-sm,.form-select-sm {
+            padding-top:  13px !important
+        }
+        .accordion-body .table tbody tr td {
+            padding:  0 10px 5px 0  !important
+        }
+        .accordion-body .table tbody tr td .form-select,.form-control,.input-group-text  {
+            line-height: 1.2 !important
+        } 
+        .wall-delete-btn {
+            padding: 8px 10px;
+            right: 0;
+            z-index: 11;
+            border-radius:0 3px 0 10px !important
+        }
+        .more-btn-layer.collapsed .fa {
+            transform: rotate(0deg) !important;
+            transition: all .5s
+        }  
+        .more-btn-layer .fa {
+            transform: rotate(180deg) !important;
+            transition: all .5s
+        }   
+        .p1 {
+            padding: 5px !important
+        }     
+       
+    </style>
 @endpush
 
 @push('custom-scripts')
 
+    
 
     <!-- end demo js-->
     <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dropzone.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/ui/component.fileupload.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
+    <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
     <script>
-        $(".remove_external_wall_btn").hide();
-            const section = [];
-            $(document).ready(function(){
-                $("body").on("click",".add_new_external_wall_btn", function (){ 
-                let count = section.length+1;
-                section.push(count);
-                $(".remove_external_wall_btn").show();
-                var index = $(".external_wall_parent_outer").find(".external_wall_parent_outer_row").length + 1;
-                $(".external_wall_parent_outer").append(`  
-                 
-                    <tr class="external_wall_parent_outer_row" id="section-${count}">
-                        <td>
-                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                        </td>
-                        <td>
-                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                        </td>
-                        <td>
-                            <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                        </td>
-                        <td>
-                            <select class="form-control-sm  border-0  form-control">
-                                <option value="">-- Select --</option>
-                                <option value="ea">Option 1</option>
-                                <option value="ea">Option 2</option>
-                                <option value="ea">Option 3</option>
-                                <option value="ea">Option 4</option>
-                                <option value="ea">Option 5</option>
-                            </select> 
-                        </td>
-                        <td class="text-center">
-                                <a class="btn-info btn">
-                                    <i class="mdi mdi-rotate-3d "></i>
-                                </a>
-                        </td>
-                        <td class="text-center"> 
-                            <i
-                            ></i>
-                            <a   class="btn btn-primary" 
-                                data-bs-toggle="collapse" href="#collapseOne_layers_${count}"
-                                aria-expanded="true" aria-controls="collapseOne_layers_${count}">
-                                    <i class="fa  fa-chevron-down  "></i>
-                                </a>
-                        </td>
-                    </tr>
-                    <tr id="collapseOne_layers_${count}" class="collapse">
-                        <td colspan="6" class="hiddenRow p-3">
-                            <div class="p-2">
-                                <table class="table shadow-sm m-0" id="tblLocations"> 
-                                    <thead>
-                                        <tr class="bg-light">
-                                            <th>Layer Name</th>
-                                            <th>Type</th>
-                                            <th>Size</th>
-                                            <th class="text-center">Add New</th>
-                                            <th class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="external_outer">
-                                        <tr class="external_outer_row">
-                                            <td>
-                                                <select name="" class="form-control form-control-sm  border-0">
-                                                    <option value="q">-- Select -- </option>
-                                                    <option value="q">Opition</option>
-                                                    <option value="q">Opition</option>
-                                                    <option value="q">Opition</option>
-                                                    <option value="q">Opition</option>
-                                                    <option value="q">Opition</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here">
-                                            </td> 
-                                            
-                                            <td class="text-center">
-                                                <a class="external_add_table_row  mr-2" title="Copy or clone this row">
-                                                    <i class="btn-success btn fa fa-plus"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center"> 
-                                                <a class="external_remove_table_row" disabled=""><i class="btn-outline-danger btn  fa fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                `);
-                $(".external_outer").find(".external_remove_table_row:not(:first)").prop("disabled", false);
-                $(".external_outer").find(".external_remove_table_row").first().prop("disabled", true);
-            });
-        });
-
-        ///======Clone method
-        $(document).ready(function(){
-            $("body").on("click", ".external_add_table_row", function (e) {
-
-                var index = $(e.target).closest(".external_outer").find(".external_outer_row").length + 1;
-                var cloned_el = $(e.target).closest(".external_outer_row").clone(true);
-            
-                $(e.target).closest(".external_outer").last().append(cloned_el).find(".external_remove_table_row:not(:first)").prop("disabled", false);
-                $(e.target).closest(".external_outer").find(".external_remove_table_row").first().prop("disabled", true);
-            
-                
-                //change id
-                $(e.target).closest(".external_outer").find(".external_outer_row").last().find(".layer_name").attr("id", "mobileb_no_"+index);
-                $(e.target).closest(".external_outer").find(".external_outer_row").last().find(".layer_size").attr("id", "size_"+index);
-                $(e.target).closest(".external_outer").find(".external_outer_row").last().find("select").attr("id", "no_type_"+index);
-            
-                console.log(cloned_el);
-                $(`#mobileb_no_${index}`).val('');
-                $(`#size_${index}`).val('');
-                //count++;
-            });
-        });
-
-        $(document).ready(function(){
-            //===== delete the form fieed row
-            $("body").on("click", ".external_remove_table_row", function () {
-            $(this).closest(".external_outer_row").remove();
-            console.log("success");
-            });
-        });
-
-        $(document).on('click', '.remove_external_wall_btn', function() {
-            console.log("pop");
-            let id = section.length;
-            $(`#section-${id}`).remove();
-            section.pop();
-            if(section.length == 0) {
-                $(".remove_external_wall_btn").hide();
-            } else {
-                $(".remove_external_wall_btn").show();
-            }
-            
-        });
-    </script>
-
-    <script>
-    $(".remove_internal_wall_btn").hide();
-    const section_internal_wall = [];
-    $(document).ready(function(){
-        $("body").on("click",".add_new_internal_wall_btn", function (){ 
-            let internal_count = section_internal_wall.length+1;
-            section_internal_wall.push(internal_count);
-            $(".remove_internal_wall_btn").show();
-            var internal_index = $(".internal_wall_parent_outer").find(".internal_wall_parent_outer_row").length + 1;
-            $(".internal_wall_parent_outer").append(`  
-            <tr class="internal_wall_parent_outer_row" id="section_internal_wall-${internal_count}">
-                <td>
-                    <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                </td>
-                <td>
-                    <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                </td>
-                <td>
-                    <input type="text" name="" id="" placeholder="Enter the Floor" class="form-control  border-0  form-control-sm">
-                </td>
-                <td>
-                    <select class="form-control-sm  border-0  form-control">
-                        <option value="">-- Select --</option>
-                        <option value="ea">Option 1</option>
-                        <option value="ea">Option 2</option>
-                        <option value="ea">Option 3</option>
-                        <option value="ea">Option 4</option>
-                        <option value="ea">Option 5</option>
-                    </select> 
-                </td>
-                <td class="text-center">
-                        <a class="btn-info btn">
-                            <i class="mdi mdi-rotate-3d "></i>
-                        </a>
-                </td>
-                <td class="text-center"> 
-                    <i
-                    ></i>
-                    <a   class="btn btn-primary" 
-                        data-bs-toggle="collapse" href="#Internal_wall${internal_count}"
-                        aria-expanded="true" aria-controls="Internal_wall${internal_count}">
-                            <i class="fa  fa-chevron-down  "></i>
-                        </a>
-                </td>
-            </tr>
-            
-            <td colspan="6" class="collapse p-3" id="Internal_wall${internal_count}"  >
-                <div class="p-2">
-                    <table class="table shadow-sm m-0" id="tblLocations"> 
-                        <thead>
-                            <tr class="bg-light">
-                                <th>Layer Name</th>
-                                <th>Type</th>
-                                <th>Size</th>
-                                <th class="text-center">Add New</th>
-                                <th class="text-center">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody class="internal_outer">
-                            <tr class="internal_outer_row">
-                                <td>
-                                    <select name="" class="form-control form-control-sm  border-0">
-                                        <option value="q">-- Select -- </option>
-                                        <option value="q">Opition</option>
-                                        <option value="q">Opition</option>
-                                        <option value="q">Opition</option>
-                                        <option value="q">Opition</option>
-                                        <option value="q">Opition</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here">
-                                </td> 
-                                
-                                <td class="text-center">
-                                    <a class="internal_add_table_row  mr-2" title="Copy or clone this row">
-                                        <i class="btn-success btn fa fa-plus"></i>
-                                    </a>
-                                </td>
-                                <td class="text-center"> 
-                                    <a class="internal_remove_table_row" disabled=""><i class="btn-outline-danger btn  fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </td>
+        angular.module('App', []).controller('CrudCtrl', ['$scope', function($scope) {
           
-                                    
-            `);
-            $(".internal_outer").find(".internal_remove_table_row:not(:first)").prop("disabled", false);
-            $(".internal_outer").find(".internal_remove_table_row").first().prop("disabled", true);
-        });
-    });
-
-    ///======Clone method
-    $(document).ready(function(){
-        $("body").on("click", ".internal_add_table_row", function (e) {
-
-            var index = $(e.target).closest(".internal_outer").find(".internal_outer_row").length + 1;
-            console.log(index);
-            var cloned_el = $(e.target).closest(".internal_outer_row").clone(true);
-        
-            $(e.target).closest(".internal_outer").last().append(cloned_el).find(".internal_remove_table_row:not(:first)").prop("disabled", false);
-            $(e.target).closest(".internal_outer").find(".internal_remove_table_row").first().prop("disabled", true);
-        
             
-            //change id
-            $(e.target).closest(".internal_outer").find(".internal_outer_row").last().find(".layer_name").attr("id", "mobileb_no_"+index);
-            $(e.target).closest(".internal_outer").find(".internal_outer_row").last().find(".layer_size").attr("id", "size_"+index);
-            $(e.target).closest(".internal_outer").find(".internal_outer_row").last().find("select").attr("id", "no_type_"+index);
-        
-            console.log(cloned_el);
+            $scope.wallGroup  = [
+                {
+                    "WallName" : "External Wall",
+                    "WallIcon" : "dripicons-store", 
+                    "Details": [
+                        {
+                            "FloorName" : "Ground Floor",
+                            "FloorNumber" : "1",
+                            "TotalArea" : "2500",
+                            "DeliveryType" : "Fire Proof",
+                            
+                            "Layers": [ 
+                                {
+                                    "LayerName": '',
+                                    "LayerType": '',
+                                    "Thickness ": '',
+                                    "Breadth": '',
+                                } 
+                            ] 
+                        } 
+                    ]
+                },
+                {
+                    "WallName" : "Internal Wall",
+                    "WallIcon" : "uil uil-store-alt", 
+                    "Details": [
+                        {
+                            "FloorName" : "First Floor",
+                            "FloorNumber" : "1",
+                            "TotalArea" : "2500",
+                            "DeliveryType" : "Fire Proof",
+                            
+                            "Layers": [ 
+                                {
+                                    "LayerName": '',
+                                    "LayerType": '',
+                                    "Thickness ": '',
+                                    "Breadth": '',
+                                } 
+                            ] 
+                        } 
+                    ]
+                },
+                {
+                    "WallName" : "Partition Wall",
+                    "WallIcon" : "uil uil-wall", 
+                    "Details": [
+                        {
+                            "FloorName" : "New Floor",
+                            "FloorNumber" : "1",
+                            "TotalArea" : "2500",
+                            "DeliveryType" : "Fire Proof",
+                            
+                            "Layers": [ 
+                                {
+                                    "LayerName": '',
+                                    "LayerType": '',
+                                    "Thickness ": '',
+                                    "Breadth": '',
+                                } 
+                            ] 
+                        } 
+                    ]
+                },
+                {
+                    "WallName" : "Ceiling",
+                    "WallIcon" : "uil uil-layers", 
+                    "Details": [
+                        {
+                            "FloorName" : "Top Right Floor",
+                            "FloorNumber" : "1",
+                            "TotalArea" : "2500",
+                            "DeliveryType" : "Fire Proof",
+                            
+                            "Layers": [ 
+                                {
+                                    "LayerName": '',
+                                    "LayerType": '',
+                                    "Thickness ": '',
+                                    "Breadth": '',
+                                } 
+                            ] 
+                        } 
+                    ]
+                },
+                {
+                    "WallName" : "Roof",
+                    "WallIcon" : "uil uil-mountains-sun", 
+                    "Details": [
+                        {
+                            "FloorName" : "Top Floor",
+                            "FloorNumber" : "1",
+                            "TotalArea" : "2500",
+                            "DeliveryType" : "Fire Proof",
+                            
+                            "Layers": [ 
+                                {
+                                    "LayerName": '',
+                                    "LayerType": '',
+                                    "Thickness ": '',
+                                    "Breadth": '',
+                                } 
+                            ] 
+                        } 
+                    ]
+                }
 
-            $(`#mobileb_no_${index}`).val('');
-            $(`#size_${index}`).val('');
-            //count++;
-        });
-    });
 
-    $(document).ready(function(){
-        //===== delete the form fieed row
-        $("body").on("click", ".internal_remove_table_row", function () {
-        $(this).closest(".internal_outer_row").remove();
-        // console.log("success");
-        });
-    });
-
-    $(document).on('click', '.remove_internal_wall_btn', function() {
-        internal_wall${internal_count}
-        let internal_id = section_internal_wall.length;
-        $(`#section_internal_wall-${internal_id}`).remove();
-        section_internal_wall.pop();
-        if(section_internal_wall.length == 0) {
-            $(".remove_internal_wall_btn").hide();
-        } else {
-            $(".remove_internal_wall_btn").show();
-        }
-    });
-    </script>
-
-    <script>
-    $(".remove_partition_wall_btn").hide();
-    const section_partition_wall = [];
-    $(document).ready(function(){
-        $("body").on("click",".add_new_partition_wall_btn", function (){ 
-            let partition_count = section_partition_wall.length+1;
-            section_partition_wall.push(partition_count);
-            $(".remove_partition_wall_btn").show();
-            var partition_index = $(".partition_wall_parent_outer").find(".partition_wall_parent_outer_row").length + 1;
-            $(".partition_wall_parent_outer").append(`  
-            <div class="partition_wall_parent_outer_row shadow-sm mb-2" id="section_partition_wall-${partition_count}">
-                <div class="accordion-item">
-                    <div class="accordion-header p-0 m-0" id="flush-headingTwo">
-                        <div class="d-flex align-items-center bg-light">
-                            <div class="row align-items-center p-0 m-0">
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important"id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light"style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <select class="form-select bg-light" id="floatingSelectGrid" aria-label="Floating label select example"style="border-radius: 0 !important">
-                                            <option selected>-- Choose --</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                        <label for="floatingSelectGrid">Delivery Type</label>
-                                    </div>
-                                </div>  
-                            </div>
-                            <div class="col" >
-                                <button class="collapsed accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#partition_wall_flush-collapse${partition_count}" aria-expanded="false" aria-controls="partition_wall_flush-collapse${partition_count}"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="partition_wall_flush-collapse${partition_count}" class="accordion-collapse collapse" aria-labelledby="partition_wall_flush-collapse${partition_count}" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body" style="max-height: 300px !important; overflow:auto">
-                        <table class="table table-hover m-0" id="partition_wall_table"> 
-                            <thead  >
-                                <tr >
-                                    <th>Layer Name</th>
-                                    <th>Type</th>
-                                    <th>Size</th>
-                                    <th  class="text-center">Add New</th>
-                                    <th class="text-center">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody class="partition_outer">
-                                <tr class="partition_outer_row">
-                                    <td>
-                                        <select name=""   class="form-control form-control-sm  border-0">
-                                            <option value="q">-- Select -- </option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here" />
-                                    </td> 
-                                        
-                                    <td class="text-center">
-                                        <a class="partition_add_table_row  mr-2" title="Copy or clone this row">
-                                            <i class="btn-success btn dripicons-plus"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text-center"> 
-                                        <a class="partition_remove_table_row" disabled><i class="mdi mdi-delete btn-outline-danger btn"></i> </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                                    
-            `);
-            $(".partition_outer").find(".partition_remove_table_row:not(:first)").prop("disabled", false);
-            $(".partition_outer").find(".partition_remove_table_row").first().prop("disabled", true);
-        });
-    });
-
-    ///======Clone method
-    $(document).ready(function(){
-        $("body").on("click", ".partition_add_table_row", function (e) {
-
-            var index = $(e.target).closest(".partition_outer").find(".partition_outer_row").length + 1;
-            var cloned_el = $(e.target).closest(".partition_outer_row").clone(true);
-        
-            $(e.target).closest(".partition_outer").last().append(cloned_el).find(".partition_remove_table_row:not(:first)").prop("disabled", false);
-            $(e.target).closest(".partition_outer").find(".partition_remove_table_row").first().prop("disabled", true);
-        
+            ]; 
             
-            //change id
-            $(e.target).closest(".partition_outer").find(".partition_outer_row").last().find(".layer_name").attr("id", "mobileb_no_"+index);
-            $(e.target).closest(".partition_outer").find(".partition_outer_row").last().find(".layer_size").attr("id", "size_"+index);
-            $(e.target).closest(".partition_outer").find(".partition_outer_row").last().find("select").attr("id", "no_type_"+index);
-        
-            console.log(cloned_el);
-
-            $(`#mobileb_no_${index}`).val('');
-            $(`#size_${index}`).val('');
-            //count++;
-        });
-    });
-
-    $(document).ready(function(){
-        //===== delete the form fieed row
-        $("body").on("click", ".partition_remove_table_row", function () {
-        $(this).closest(".partition_outer_row").remove();
-        // console.log("success");
-        });
-    });
-
-    $(document).on('click', '.remove_partition_wall_btn', function() {
-        
-        let partition_id = section_partition_wall.length;
-        $(`#section_partition_wall-${partition_id}`).remove();
-        section_partition_wall.pop();
-        if(section_partition_wall.length == 0) {
-            $(".remove_partition_wall_btn").hide();
-        } else {
-            $(".remove_partition_wall_btn").show();
-        }
-    });
-    </script>
-
-    <script>
-    $(".remove_Ceiling_wall_btn").hide();
-    const section_Ceiling_wall = [];
-    $(document).ready(function(){
-        $("body").on("click",".add_new_Ceiling_wall_btn", function (){ 
-            let Ceiling_count = section_Ceiling_wall.length+1;
-            section_Ceiling_wall.push(Ceiling_count);
-            $(".remove_Ceiling_wall_btn").show();
-            var Ceiling_index = $(".Ceiling_wall_parent_outer").find(".Ceiling_wall_parent_outer_row").length + 1;
-            $(".Ceiling_wall_parent_outer").append(`  
-            <div class="Ceiling_wall_parent_outer_row shadow-sm mb-2" id="section_Ceiling_wall-${Ceiling_count}">
-                <div class="accordion-item">
-                    <div class="accordion-header p-0 m-0" id="flush-headingTwo">
-                        <div class="d-flex align-items-center bg-light">
-                            <div class="row align-items-center p-0 m-0">
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important"id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light"style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <select class="form-select bg-light" id="floatingSelectGrid" aria-label="Floating label select example"style="border-radius: 0 !important">
-                                            <option selected>-- Choose --</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                        <label for="floatingSelectGrid">Delivery Type</label>
-                                    </div>
-                                </div>  
-                            </div>
-                            <div class="col" >
-                                <button class="collapsed accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#Ceiling_wall_flush-collapse${Ceiling_count}" aria-expanded="false" aria-controls="Ceiling_wall_flush-collapse${Ceiling_count}"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="Ceiling_wall_flush-collapse${Ceiling_count}" class="accordion-collapse collapse" aria-labelledby="Ceiling_wall_flush-collapse${Ceiling_count}" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body" style="max-height: 300px !important; overflow:auto">
-                        <table class="table table-hover m-0" id="Ceiling_wall_table"> 
-                            <thead  >
-                                <tr >
-                                    <th>Layer Name</th>
-                                    <th>Type</th>
-                                    <th>Size</th>
-                                    <th  class="text-center">Add New</th>
-                                    <th class="text-center">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody class="Ceiling_outer">
-                                <tr class="Ceiling_outer_row">
-                                    <td>
-                                        <select name=""   class="form-control form-control-sm  border-0">
-                                            <option value="q">-- Select -- </option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here" />
-                                    </td> 
-                                        
-                                    <td class="text-center">
-                                        <a class="Ceiling_add_table_row  mr-2" title="Copy or clone this row">
-                                            <i class="btn-success btn dripicons-plus"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text-center"> 
-                                        <a class="Ceiling_remove_table_row" disabled><i class="mdi mdi-delete btn-outline-danger btn"></i> </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                                    
-            `);
-            $(".Ceiling_outer").find(".Ceiling_remove_table_row:not(:first)").prop("disabled", false);
-            $(".Ceiling_outer").find(".Ceiling_remove_table_row").first().prop("disabled", true);
-        });
-    });
-
-    ///======Clone method
-    $(document).ready(function(){
-        $("body").on("click", ".Ceiling_add_table_row", function (e) {
-
-            var index = $(e.target).closest(".Ceiling_outer").find(".Ceiling_outer_row").length + 1;
-            var cloned_el = $(e.target).closest(".Ceiling_outer_row").clone(true);
-        
-            $(e.target).closest(".Ceiling_outer").last().append(cloned_el).find(".Ceiling_remove_table_row:not(:first)").prop("disabled", false);
-            $(e.target).closest(".Ceiling_outer").find(".Ceiling_remove_table_row").first().prop("disabled", true);
-        
             
-            //change id
-            $(e.target).closest(".Ceiling_outer").find(".Ceiling_outer_row").last().find(".layer_name").attr("id", "mobileb_no_"+index);
-            $(e.target).closest(".Ceiling_outer").find(".Ceiling_outer_row").last().find(".layer_size").attr("id", "size_"+index);
-            $(e.target).closest(".Ceiling_outer").find(".Ceiling_outer_row").last().find("select").attr("id", "no_type_"+index);
-        
-            console.log(cloned_el);
 
-            $(`#mobileb_no_${index}`).val('');
-            $(`#size_${index}`).val('');
-            //count++;
-        });
-    });
+            $scope.AddWall  =   function() {
+                $scope.wallGroup.unshift({
+                    "WallName" : "",
+                    "Details": [{
+                        "Layers": [] 
+                    }]
+                });
+            }
+            $scope.AddWallDetails  =   function(index) {
+                $scope.wallGroup[index].Details.push({
+                    "FloorName" : "Ground Floor",
+                    "FloorNumber" : "1",
+                    "TotalArea" : "2500",
+                    "DeliveryType" : "Fire Proof",
+                    "Layers": [
+                        {
+                            "LayerName": '',
+                            "LayerType": '',
+                            "Thickness ": '',
+                            "Breadth": '',
+                        }
+                    ] 
+                });
+            } 
+            $scope.AddLayers  =   function(fIndex, index) {
+                $scope.wallGroup[fIndex].Details[index].Layers.unshift({
+                    "LayerName": '',
+                    "LayerType": '',
+                    "Thickness ": '',
+                    "Breadth": '',
+                });
+            }    
+            $scope.delWall = function(index){
+                
+                $scope.wallGroup.splice(index,1);
+            } 
+            $scope.delWallTwo = function(fIndex){
+                $scope.wallGroup.splice(fIndex,1);
+            }  
+            $scope.RemoveDetails = function(fIndex, Secindex){
+                $scope.wallGroup[fIndex].Details.splice(Secindex,1);                
+            }
 
-    $(document).ready(function(){
-        //===== delete the form fieed row
-        $("body").on("click", ".Ceiling_remove_table_row", function () {
-        $(this).closest(".Ceiling_outer_row").remove();
-        // console.log("success");
-        });
-    });
+            // $scope.RemoveDetails = function (fIndex, Secindex){
 
-    $(document).on('click', '.remove_Ceiling_wall_btn', function() {
-        
-        let Ceiling_id = section_Ceiling_wall.length;
-        $(`#section_Ceiling_wall-${Ceiling_id}`).remove();
-        section_Ceiling_wall.pop();
-        if(section_Ceiling_wall.length == 0) {
-            $(".remove_Ceiling_wall_btn").hide();
-        } else {
-            $(".remove_Ceiling_wall_btn").show();
-        }
-    });
+            //     Swal.fire({
+            //         title: 'Are you sure?',
+            //         text: "You won't be able to revert this!",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         confirmButtonColor: '#3085d6',
+            //         cancelButtonColor: '#d33',
+            //         confirmButtonText: 'Yes, delete it!'
+            //     }).then((result) => {
+            //         if (result.value) { 
+
+            //             Swal.fire(
+            //                 'Deleted!',
+            //                 'Your file has been deleted.',
+            //                 'success'
+            //             )
+                        
+            //         }
+            //     }); 
+            // } 
+            $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){
+                console.log(  fIndex , Secindex , ThreeIndex);
+                $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
+            } 
+        }]);
     </script>
-
-    <script>
-    $(".remove_Roof_wall_btn").hide();
-    const section_Roof_wall = [];
-    $(document).ready(function(){
-        $("body").on("click",".add_new_Roof_wall_btn", function (){ 
-            let Roof_count = section_Roof_wall.length+1;
-            section_Roof_wall.push(Roof_count);
-            $(".remove_Roof_wall_btn").show();
-            var Roof_index = $(".Roof_wall_parent_outer").find(".Roof_wall_parent_outer_row").length + 1;
-            $(".Roof_wall_parent_outer").append(`  
-            <div class="Roof_wall_parent_outer_row shadow-sm mb-2" id="section_Roof_wall-${Roof_count}">
-                <div class="accordion-item">
-                    <div class="accordion-header p-0 m-0" id="flush-headingTwo">
-                        <div class="d-flex align-items-center bg-light">
-                            <div class="row align-items-center p-0 m-0">
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light" style="border-radius: 0 !important"id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control bg-light"style="border-radius: 0 !important" id="floatingInput" placeholder="name@example.com" />
-                                        <label for="floatingInput">Floor Name</label>
-                                    </div>
-                                </div> 
-                                <div class="p-0 col-md">
-                                    <div class="form-floating">
-                                        <select class="form-select bg-light" id="floatingSelectGrid" aria-label="Floating label select example"style="border-radius: 0 !important">
-                                            <option selected>-- Choose --</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                        <label for="floatingSelectGrid">Delivery Type</label>
-                                    </div>
-                                </div>  
-                            </div>
-                            <div class="col" >
-                                <button class="collapsed accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#Roof_wall_flush-collapse${Roof_count}" aria-expanded="false" aria-controls="Roof_wall_flush-collapse${Roof_count}"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="Roof_wall_flush-collapse${Roof_count}" class="accordion-collapse collapse" aria-labelledby="Roof_wall_flush-collapse${Roof_count}" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body" style="max-height: 300px !important; overflow:auto">
-                        <table class="table table-hover m-0" id="Roof_wall_table"> 
-                            <thead  >
-                                <tr >
-                                    <th>Layer Name</th>
-                                    <th>Type</th>
-                                    <th>Size</th>
-                                    <th  class="text-center">Add New</th>
-                                    <th class="text-center">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody class="Roof_outer">
-                                <tr class="Roof_outer_row">
-                                    <td>
-                                        <select name=""   class="form-control form-control-sm  border-0">
-                                            <option value="q">-- Select -- </option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                            <option value="q">Opition</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm w_90 border-0 layer_name" name="mobileb_no[]" id="mobileb_no_1" placeholder="Type Here" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control form-control-sm w_90  border-0 layer_size" name="mobileb_no[]" id="size_1" placeholder="Type Here" />
-                                    </td> 
-                                        
-                                    <td class="text-center">
-                                        <a class="Roof_add_table_row  mr-2" title="Copy or clone this row">
-                                            <i class="btn-success btn dripicons-plus"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text-center"> 
-                                        <a class="Roof_remove_table_row" disabled><i class="mdi mdi-delete btn-outline-danger btn"></i> </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                                    
-            `);
-            $(".Roof_outer").find(".Roof_remove_table_row:not(:first)").prop("disabled", false);
-            $(".Roof_outer").find(".Roof_remove_table_row").first().prop("disabled", true);
-        });
-    });
-
-    ///======Clone method
-    $(document).ready(function(){
-        $("body").on("click", ".Roof_add_table_row", function (e) {
-
-            var index = $(e.target).closest(".Roof_outer").find(".Roof_outer_row").length + 1;
-            var cloned_el = $(e.target).closest(".Roof_outer_row").clone(true);
-        
-            $(e.target).closest(".Roof_outer").last().append(cloned_el).find(".Roof_remove_table_row:not(:first)").prop("disabled", false);
-            $(e.target).closest(".Roof_outer").find(".Roof_remove_table_row").first().prop("disabled", true);
-        
-            
-            //change id
-            $(e.target).closest(".Roof_outer").find(".Roof_outer_row").last().find(".layer_name").attr("id", "mobileb_no_"+index);
-            $(e.target).closest(".Roof_outer").find(".Roof_outer_row").last().find(".layer_size").attr("id", "size_"+index);
-            $(e.target).closest(".Roof_outer").find(".Roof_outer_row").last().find("select").attr("id", "no_type_"+index);
-        
-            console.log(cloned_el);
-
-            $(`#mobileb_no_${index}`).val('');
-            $(`#size_${index}`).val('');
-            //count++;
-        });
-    });
-
-    $(document).ready(function(){
-        //===== delete the form fieed row
-        $("body").on("click", ".Roof_remove_table_row", function () {
-        $(this).closest(".Roof_outer_row").remove();
-        // console.log("success");
-        });
-    });
-
-    $(document).on('click', '.remove_Roof_wall_btn', function() {
-        
-        let Roof_id = section_Roof_wall.length;
-        $(`#section_Roof_wall-${Roof_id}`).remove();
-        section_Roof_wall.pop();
-        if(section_Roof_wall.length == 0) {
-            $(".remove_Roof_wall_btn").hide();
-        } else {
-            $(".remove_Roof_wall_btn").show();
-        }
-    });
-    </script>
-
+   
 @endpush

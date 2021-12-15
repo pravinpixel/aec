@@ -1,31 +1,37 @@
 <div class="leftside-menu">
     
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-light">
+    <a href="index.html" class="logo text-center logo-light shadow-lg"  style="background:white !important">
         <span class="logo-lg font-weight-bold">
-            <span class="page-title text-danger" style="font-size: 20px"><b>AEC</b> <span class="text-white">Prefab</span></span>
+            <span class="page-title text-danger">
+                {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
+                <img src="{{ asset('public/assets/images/logo_customer.png') }}" alt="AEC Prefab" width="150px">
+            </span>
         </span>
         <span class="logo-sm font-weight-bold ">
-            <b class="page-title text-danger" style="font-size: 15px">AEC</b>
+            {{-- <b class="page-title text-danger" style="font-size: 15px">AEC</b> --}}
+            <img src="{{ asset('public/assets/images/logo_sm.png') }}" alt="AEC Prefab" width="20px" style="filter: drop-shadow(2px 4px 6px #555555);">
         </span>
     </a>
 
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-dark">
+    <a href="index.html" class="logo text-center logo-dark"  style="background:gray !important">
         <span class="logo-lg font-weight-bold">
-            <span class="page-title text-danger" style="font-size: 20px"><b>AEC</b> <span class="text-dark">Prefab</span></span>
+            <span class="page-title text-danger">
+                {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
+                <img src="{{ asset('public/assets/images/logo_customer.png') }}" alt="AEC Prefab" width="100px" style="filter: drop-shadow(2px 4px 6px #555555);">
+            </span>
         </span>
-        <span class="logo-sm font-weight-bold">
-            <b class="page-title text-danger" style="font-size: 15px">AEC</b>
+        <span class="logo-sm font-weight-bold ">
+            {{-- <b class="page-title text-danger" style="font-size: 15px">AEC</b> --}}
+            <img src="{{ asset('public/assets/images/logo_sm.png') }}" alt="AEC Prefab" width="20px"  style="filter: drop-shadow(2px 4px 6px #555555);">
         </span>
     </a>
 
     <div class="h-100" id="leftside-menu-container" data-simplebar>
 
         <!--- Sidemenu -->
-        <ul class="side-nav">
-
-            <li class="side-nav-title side-nav-item">Navigation</li>
+        <ul class="side-nav py-3">
 
             <li class="side-nav-item ">
                 <a href="{{ route('customers-dashboard') }}" class="side-nav-link">
@@ -34,24 +40,11 @@
                 </a> 
             </li>
   
-            <li class="side-nav-title side-nav-item mt-1">Services</li>
-  
-            <li class="side-nav-item menuitem-active">
-                <a data-bs-toggle="collapse" href="#sidebarMaps" aria-expanded="false" aria-controls="sidebarMaps" class="side-nav-link">
-                    <i class="uil-location-point"></i>
-                    <span> Enquiries </span>
-                    <span class="menu-arrow"></span>
+            <li class="side-nav-item @if(Route::is(['customers-my-enquiries','customers-create-enquiries'])) menuitem-active @endif ">
+                <a  href="{{ route('customers-my-enquiries') }}" class="side-nav-link">
+                    <i class="uil-suitcase-alt"></i>
+                    <span>Enquiry </span>
                 </a>
-                <div class="collapse" id="sidebarMaps">
-                    <ul class="side-nav-second-level">
-                        <li>
-                            <a href="{{ route('customers-my-enquiries') }}">My Enquiries</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('customers-create-enquiries') }}">Create Enquiry</a>
-                        </li>
-                    </ul>
-                </div>
             </li> 
 
         </ul>

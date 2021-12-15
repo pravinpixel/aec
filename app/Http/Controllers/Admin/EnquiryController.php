@@ -9,6 +9,8 @@ use App\Models\Customer;
 use App\Services\GlobalService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class EnquiryController extends Controller
 {
@@ -22,9 +24,14 @@ class EnquiryController extends Controller
         return Customer::get();
     }
 
-    public function getEnquiryNumber()
-    {
-        return GlobalService::enquiryNumber();
+    public function getEnquiryNumber(Request $request)    {
+       
+            
+       $enq_number  =   GlobalService::enquiryNumber();
+
+       return view("admin.pages.create-sales-enquiries")->with('enq_number', $enq_number);
+         
+       
     }
     /**
      * Show the form for creating a new resource.
@@ -44,18 +51,33 @@ class EnquiryController extends Controller
      */
     public function store(CreateCustomerRequest $request)
     {
+        // dd($request->all());
+         
+         
         $latest_enquiry_number = GlobalService::enquiryNumber();
-        if($request->enquiry_number != $latest_enquiry_number) {
+        
+        if($request->enq_number != $latest_enquiry_number) {
             return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
         }
+
+        
+        // Random Password Generater
+        $password   =   Str::random(10);
+
         $customer = new Customer;
-        $customer->company_name   = $request->company_name;
-        $customer->contact_person = $request->contact_person;
-        $customer->mobile_number  = $request->mobile_number;
-        $customer->email          = $request->email;
-        $customer->enquiry_date   = $request->enquiry_date;
-        $customer->full_name      = $request->user_name;
-        $customer->enquiry_number = $latest_enquiry_number;
+        $customer->company_name     =   $request->company_name;
+        $customer->contact_person   =   $request->contact_person;
+        $customer->mobile_no        =   $request->mobile_number;
+        $customer->email            =   $request->email;
+        $customer->enquiry_date     =   $request->enquiry_date;
+        $customer->full_name        =   $request->user_name;
+        $customer->password         =   $password;
+        $customer->is_active        =   1;
+        $customer->created_by       =   001;
+        $customer->enquiry_number   =   $request->enq_number;
+        $customer->remarks          =   $request->remarks;
+
+
         $res = $customer->save();
         if($res) {
             return response(['status' => true, 'data' => $res ,'msg' => trans('enquiry.created')], Response::HTTP_OK);

@@ -1,0 +1,250 @@
+
+<!doctype html>
+<html lang="en" ng-app="userRecords">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<title>APP</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<!-- https://app.quickdatabasediagrams.com/#/d/Vei6KS -->
+	<body ng-controller="usersController">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container">
+				<a class="navbar-brand" href="#"> <i class="fa fa-database"></i> <b>NG CRUD APP</b></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+			
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">			 
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<button id="btn-add" class="btn btn-dark btn-xs" ng-click="toggle('add', 0)"><i class="fa fa-plus"></i> Add New user</button>
+				</form>
+				</div>
+			</div>
+		</nav>
+		<div class="container" >
+			 
+			<div class="pt-4">
+				<h4 class="py-4">USER DATA LIST</h3>
+				<table class="table table-hover ">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="user in users">
+							<td>{{ user.id }}</td>
+							<td>{{ user.name }}</td>
+							<td>{{ user.email }}</td>
+							<td>{{ user.username }}</td>
+							<td>
+								<button class="btn btn-info btn-xs btn-detail" ng-click="toggle('edit', user.id)"><i class="fa fa-pencil"></i></button>
+								<button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(user.id)"><i class="fa fa-trash"></i></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">{{form_title}}</h5>
+							<button type="button" class="close"
+								data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form name="frmusers" class="form-horizontal" novalidate="">
+								<div class="form-group error">
+									<label for="inputEmail3" class="col-sm-12 control-label">Name</label>
+									<div class="col-sm-12">
+										<input type="text" class="form-control has-error" id="name" name="name" placeholder="Fullname" value="{{name}}" ng-model="user.name" ng-required="true">
+										<span class="help-inline" ng-show="frmusers.name.$invalid &amp;&amp; frmusers.name.$touched">Name field is required</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputEmail3" class="col-sm-12 control-label">Email</label>
+									<div class="col-sm-12">
+										<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" value="{{email}}" ng-model="user.email" ng-required="true">
+										<span class="help-inline" ng-show="frmusers.email.$invalid &amp;&amp; frmusers.email.$touched">Valid Email field is required</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputEmail3" class="col-sm-12 control-label">Contact No</label>
+									<div class="col-sm-12">
+										<input type="text" class="form-control" id="username" name="username" placeholder="Contact Number" value="{{username}}" ng-model="user.username" ng-required="true">
+										<span class="help-inline" ng-show="frmusers.username.$invalid &amp;&amp; frmusers.username.$touched">Contact number field is required</span>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-success" id="btn-save" ng-click="save(modalstate, id); $event.stopPropagation();" ng-disabled="frmusers.$invalid">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"			crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"			crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"			crossorigin="anonymous"></script>
+
+		<!-- Load Javascript Libraries (AngularJS, JQuery, Bootstrap) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+		<!-- AngularJS Application Scripts -->
+		<script >
+			var app = angular.module('userRecords', []).constant('API_URL', 'https://6194a2b39b1e780017ca2065.mockapi.io/NG_PRO/');
+		</script>
+
+		<script >
+			
+			app.controller('usersController', function ($scope, $http, API_URL) {
+			    
+			    //fetch users listing from 
+				
+				getData = function($http, API_URL) {
+					$http({
+						method: 'GET',
+						url: API_URL + "my-api"
+					}).then(function (response) {
+						$scope.users = response.data;			         
+						console.log(response); 
+					}, function (error) {
+						console.log(error);
+						alert('This is embarassing. An error has occurred. Please check the log for details');
+					});
+				}
+			  
+				getData($http, API_URL);
+
+			    //show modal form
+			    $scope.toggle = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.user = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Add New User";
+			                break;
+			            case 'edit':
+			                $scope.form_title = "User Detail";
+			                $scope.id = id;
+			                $http.get(API_URL + 'my-api/' + id)
+			                    .then(function (response) {
+			                        console.log(response);
+			                        $scope.user = response.data;
+			                    });
+			                break;
+			            default:
+			                break;
+			        }
+			        
+			        console.log(id);
+			        $('#myModal').modal('show');
+			    }
+			
+			    //save new record and update existing record
+			    $scope.save = function (modalstate, id) {
+					
+			        var url = API_URL + "my-api";
+			        var method = "POST";
+			
+			        //append user id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "/" + id;
+			            method = "PUT";
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.user),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+						}).then(function (response) {
+							console.log(response);
+							getData($http, API_URL);
+							$('#myModal').modal('hide');
+							swal("Success!", "Record to be Updated");
+						}), (function (error) {
+							console.log(error);
+							alert('This is embarassing. An error has occurred. Please check the log for details');
+						});
+			        }else {
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.user),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+						}).then(function (response) {
+							console.log(response);
+							getData($http, API_URL);
+							//location.reload();
+							$('#myModal').modal('hide');
+							swal("Good job!", "New Record To be Added!", "success");
+						}), (function (error) {
+							console.log(error);
+							alert('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
+			
+			    //delete record
+			    $scope.confirmDelete = function (id) {
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					 swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+						if (willDelete) {
+						
+							$http({
+								method: 'DELETE',
+								url: API_URL + 'my-api/' + id
+							}).then(function (response) {
+								console.log(response);
+								getData($http, API_URL);
+							}, function (error) {
+								console.log(error);
+								alert('Unable to delete');
+							});
+						} else {
+							return false;
+						}
+						if (willDelete) {
+							swal("Poof! Your Data has been deleted!", {
+							icon: "success",
+							});
+						} else {
+							swal("Your Data is safe!");
+						}
+					});
+			       
+			    }
+			});
+		</script>
+	</body>
+</html>

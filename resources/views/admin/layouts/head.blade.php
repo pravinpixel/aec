@@ -7,7 +7,7 @@
 
 <!-- App favicon -->
 <link rel="shortcut icon" href="{{ asset('public/assets/images/favicon.ico') }}">
-
+<input type="hidden" name="baseurl" value="{{URL::to('/')}}/" id="baseurl">
 <!-- App css -->
 <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css" id="light-style" />

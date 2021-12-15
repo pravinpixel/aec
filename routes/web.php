@@ -67,9 +67,13 @@ Route::prefix('admin')->group(function () {
         return view('admin.pages.view-sales-enquiries');
     })->name('admin-view-sales-enquiries');
 
-    Route::get('/sales-create-enquiries', function () {
-        return view('admin.pages.create-sales-enquiries');
-    })->name('admin-create-sales-enquiries');
+    // Route::get('/sales-create-enquiries', function () {
+        
+    //     return view('admin.pages.create-sales-enquiries');
+
+    // })->name('');
+
+    Route::get('sales-create-enquiries', [EnquiryController::class,'getEnquiryNumber'])->name('admin-create-sales-enquiries');
 
     Route::get('/estimation-view', function () {
         return view('admin.pages.estimation-view');

@@ -15,4 +15,5 @@ return [
     'deleted'        => 'Deleted successfully',
     'can_not_delete' => 'Can not delete this item',
     'item_not_found' => 'Item not found',
+    'status_updated' => 'Status updated successfully'
 ];

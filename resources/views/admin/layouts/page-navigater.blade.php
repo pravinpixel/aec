@@ -15,6 +15,7 @@
                         @if (Route::is('admin-cost-estimation-single-view'))Cost Estimation View @endif
                         @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                         @if (Route::is('gran-chart')) Gran Chart @endif
+                        @if (Route::is('admin-settings')) Settings @endif
                     </li>
                     <li class="breadcrumb- ms-2">
                         <i type="button" onclick="goBack()" class="mdi mdi-backspace text-danger fa-2x"></i> 
@@ -31,9 +32,10 @@
                 @if (Route::is('admin-cost-estimation-single-view'))Cost Estimation View @endif
                 @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                 @if (Route::is('gran-chart')) Gran Chart @endif
+                @if (Route::is('admin-settings')) Settings @endif
 
             </h4>
         </div>
     </div>
 </div>
- 
+@include('flash::message')
