@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuildingTypesTable extends Migration
+class CreateServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateBuildingTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('building_types', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('building_type_name');
+            $table->string('service_name');
             $table->boolean('is_active')->default(1);
             $table->softDeletes();
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateBuildingTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('building_types');
+        Schema::dropIfExists('services');
     }
 }
