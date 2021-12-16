@@ -183,6 +183,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         //custome service
         App\Providers\GlobalServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class
 
     ],
 

@@ -1,5 +1,6 @@
 <?php
 include 'menu.php';
+include 'master.php';
 
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EnquiryController;
