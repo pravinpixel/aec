@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+// use Carbon\Carbon;
 
 class EnquiryController extends Controller
 {
@@ -70,7 +71,7 @@ class EnquiryController extends Controller
         $customer->contact_person   =   $request->contact_person;
         $customer->mobile_no        =   $request->mobile_number;
         $customer->email            =   $request->email;
-        $customer->enquiry_date     =   $request->enquiry_date;
+        $customer->enquiry_date     =    Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $request->enquiry_date)->format('Y-m-d');
         $customer->full_name        =   $request->user_name;
         $customer->password         =   $password;
         $customer->is_active        =   1;

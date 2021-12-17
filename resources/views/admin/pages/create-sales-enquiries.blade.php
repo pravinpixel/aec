@@ -26,15 +26,8 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">                                             
                                             <label class="form-label" for="validationCustom01">Enquiry Number <sup class="text-danger">*</sup></label>
-
-                                            {{-- <input type="text"   placeholder="Type Here..." value="{{ $enq_number }}" ng-init="searchText='your text'" ng-required="true"> --}}
-                                            <input ng-model="searchText" disabled ng-init="searchText ='{{ $enq_number }}'"  class="form-control has-error" id="enq_number" ng-model="enq_number" name="enq_number"></input>
-
-                                            <span class="help-inline" ng-show="frm.enq_number.$invalid &amp;&amp; frm.enq_number.$touched"><small class="text-danger">field is required</small></span>
-                                            <span class="help-inline" ng-show="frm.enq_number.$valid &amp;&amp; frm.enq_number.$touched"><small class="text-success">Looks good!</small></span>
-                                            <div class="valid-feedback">
-                                                Looks good!
-                                            </div>
+                                            <input ng-disabled="true" type="text" value="{{ $enq_number }}" class="form-control" >
+                                            <input style="position: absolute;opacity:0" type="radio" ng-checked="true" ng-checked="module.enq_number == {{ $enq_number }}"  value="{{ $enq_number }}" ng-model="module.enq_number" name="enq_number">
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="validationCustom02">Enquiry Date<sup class="text-danger">*</sup></label>
@@ -104,7 +97,7 @@
                                         </div>
                                         <div class="mb-2">
                                             <label class="form-label" for="validationCustom02">Password </label>
-                                            <input type="text" class="form-control" id="validationCustom02" placeholder="Auto generated password" disabled required>
+                                            <input type="text" class="form-control" id="validationCustom02" placeholder="Auto generated password"  ng-disabled="true" >
                                             <div class="valid-feedback">
                                                 Looks good!
                                             </div>
