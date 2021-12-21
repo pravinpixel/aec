@@ -334,7 +334,7 @@
 			        switch (modalstate) {
 			            case 'add':
 			                $scope.form_title = "Create New";
-			                $scope.form_color = "info";
+			                $scope.form_color = "primary";
                             $('#primary-header-modal').modal('show');
 			                break;
 			            case 'edit':

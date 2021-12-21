@@ -51,11 +51,13 @@
                                         <td>1</td>
                                         <td>10-12-2022</td>
                                         <td>
-                                            <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
-                                                <button class="btn progress-btn active"></button>
-                                                <button class="btn progress-btn"></button>
-                                                <button class="btn progress-btn"></button>
-                                                <button class="btn progress-btn"></button>
+                                            <div id="tooltip-container2"   data-bs-toggle="modal" data-bs-target="#right-modal-progress">
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="right" title="Invoice placed"> </button>
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Proposal sharing"> </button>
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project delivered"> </button>
                                             </div>
                                         </td>
                                         <td>	
@@ -68,7 +70,7 @@
                                                 </button>
                                                 
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="{{ route('customers-create-enquiries') }}">View</a>
+                                                    <a class="dropdown-item" href="{{ route('view-enquiry') }}">View</a>
                                                     <a class="dropdown-item" href="{{ route('admin-estimation-single-view') }}">Technical Estimate</a>
                                                     <a class="dropdown-item" href="{{ route('admin-cost-estimation-single-view') }}">Cost Estimate</a>
                                                     <a class="dropdown-item" href="#">Move to proposal</a>
@@ -86,11 +88,13 @@
                                         <td>1</td>
                                         <td>10-12-2022</td>
                                         <td>
-                                            <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
-                                                <button class="btn progress-btn active"></button>
-                                                <button class="btn progress-btn active"></button>
-                                                <button class="btn progress-btn"></button>
-                                                <button class="btn progress-btn"></button>
+                                            <div id="tooltip-container3"   data-bs-toggle="modal" data-bs-target="#right-modal-progress">
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
+                                                <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="right" title="Invoice placed"> </button>
+                                                <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Proposal sharing"> </button>
+                                                <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project delivered"> </button>
                                             </div>
                                         </td>
                                         <td>	
@@ -103,7 +107,7 @@
                                                 </button>
                                                 
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="{{ route('customers-create-enquiries') }}">View</a>
+                                                    <a class="dropdown-item" href="{{ route('view-enquiry') }}">View</a>
                                                     <a class="dropdown-item" href="{{ route('admin-estimation-single-view') }}">Technical Estimate</a>
                                                     <a class="dropdown-item" href="{{ route('admin-cost-estimation-view') }}">Cost Estimate</a>
                                                     <a class="dropdown-item" href="#">Move to proposal</a>
@@ -487,7 +491,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 text-center mt-4">
-                                        <button class="btn button_print btn-info mx-2 px-3 btn-rounded">
+                                        <button class="btn button_print progress-btn mx-2 px-3 btn-rounded">
                                             Print
                                         </button> 
                                     </div>
@@ -560,5 +564,6 @@
     <script src="{{ asset('public/assets/js/vendor/buttons.print.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
 @endpush

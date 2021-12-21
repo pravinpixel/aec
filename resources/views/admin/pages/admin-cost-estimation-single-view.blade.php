@@ -14,8 +14,7 @@
                 
                 @include('admin.layouts.page-navigater')
 
-                <form action="{{ route('admin.costEstimationSingleForm') }}" class="card shadow-lg" method="POST" >
-                   {{ csrf_field() }}
+                <form action="#" class="card shadow-lg" method="POST" >
                     <div class="card-header pb-2 p-3 text-center border-0">
                         <h4 class="header-title">Estimation for ENQ001 - New Building Project - Ada Lovelace</h4>
                     </div>

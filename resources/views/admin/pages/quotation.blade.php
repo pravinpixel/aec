@@ -1019,7 +1019,7 @@
             background: #20CF98 !important
         }
         .table td,th {
-            padding: 5px 10px !important     ;
+            padding: 5px 10px !important ;
             vertical-align: middle !important
         }
         .table thead,th {
@@ -1065,8 +1065,9 @@
     <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/inline/ckeditor.js"></script> --}}
-    <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor.create( document.querySelector( '#editor' ) ).catch( error => {
              console.error( error );
@@ -1075,6 +1076,5 @@
              console.error( error );
         } );
     </script>
-    
-
+     
 @endpush

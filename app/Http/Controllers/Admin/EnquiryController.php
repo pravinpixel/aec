@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-// use Carbon\Carbon;
+
+use Mail;
+ 
 
 class EnquiryController extends Controller
 {
@@ -27,10 +29,10 @@ class EnquiryController extends Controller
 
     public function getEnquiryNumber(Request $request)    {
        
-            
-       $enq_number  =   GlobalService::enquiryNumber();
+            return  GlobalService::enquiryNumber();  
+    //    $enq_number  =   GlobalService::enquiryNumber();
 
-       return view("admin.pages.create-sales-enquiries")->with('enq_number', $enq_number);
+    //    return view("admin.pages.create-sales-enquiries")->with('enq_number', $enq_number);
          
        
     }
@@ -58,7 +60,7 @@ class EnquiryController extends Controller
          
         $latest_enquiry_number = GlobalService::enquiryNumber();
         // dd($request->all());
-        if($request->enq_number != $latest_enquiry_number) {
+        if($request->enquiry_number != $latest_enquiry_number) {
             return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
         }
 
@@ -69,21 +71,33 @@ class EnquiryController extends Controller
         $customer = new Customer;
         $customer->company_name     =   $request->company_name;
         $customer->contact_person   =   $request->contact_person;
-        $customer->mobile_no        =   $request->mobile_number;
+        $customer->mobile_no        =   $request->mobile_no;
         $customer->email            =   $request->email;
-        $customer->enquiry_date     =    Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $request->enquiry_date)->format('Y-m-d');
+        // $customer->enquiry_date     =   date('d/m/Y', strtotime($request->enquiry_date)); 
+        $customer->enquiry_date     =   $request->enquiry_date; 
         $customer->full_name        =   $request->user_name;
         $customer->password         =   $password;
         $customer->is_active        =   1;
         $customer->created_by       =   001;
-        $customer->enquiry_number   =   $request->enq_number;
+        $customer->enquiry_number   =   $request->enquiry_number;
         $customer->remarks          =   $request->remarks;
 
-
         $res = $customer->save();
+       
         if($res) {
+
             GlobalService::updateConfig('ENQ');
+
+            $details = [
+                'customer_name'     => $request->contact_person,
+                'customer_email'    => $request->email,
+                'customer_pws'      => $password
+            ]; 
+
+            Mail::to($request->email)->send(new \App\Mail\Enquiry($details));            
+
             return response(['status' => true, 'data' => $res ,'msg' => trans('enquiry.created')], Response::HTTP_OK);
+
         }
         return response(['status' => false ,'msg' => trans('global.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }

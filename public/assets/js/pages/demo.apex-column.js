@@ -1,7 +1,7 @@
 var colors = ["#727cf5", "#0acf97", "#fa5c7c"],
     dataColors = $("#basic-column").data("colors");
 dataColors && (colors = dataColors.split(","));
-var options = {
+    var options = {
         chart: {
             height: 396,
             type: "bar",

@@ -19,6 +19,69 @@
 
             <div class="card border">
                 <div class="card-body  pb-0">
+                    <div class="row   mb-2 m-0">
+                        <div class="col" style="overflow: auto">
+                            <div class="timeline-steps " data-aos="fade-up">
+                                <div class="time-bar"></div>
+                                <div class="timeline-step">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-address-book "></i>
+                                        </div>
+                                    </div>
+                                    <p class="h5 mt-2">Enquiry</p>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-building "></i>
+                                        </div>
+                                    </div>
+                                    <p class="h5 mt-2">Project Info</p>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle bg-success">
+                                            <i class="fa fa-briefcase "></i>
+                                        </div>
+                                    </div>
+                                    <p class="h5 mt-2">Technical Estimate</p>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                    </div>
+                                    <p class="h5 mt-2">Cost Estimate</p>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-primary">
+                                            <i class="fa fa-share-alt "></i>
+                                        </div>                                                                        
+                                    </div>
+                                    <p class="h5 mt-2">Proposal Sharing</p>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="timeline-content ">
+                                        <div class="inner-circle  bg-secondary">
+                                            <i class="fa fa-trophy "></i>
+                                        </div>
+                                    </div>
+                                    <p class="h5  mt-2">Project Award</p>
+                                </div>
+                                <div class="timeline-step mb-0">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle bg-secondary">
+                                            <i class="fa  fa-truck "></i>
+                                        </div>
+                                    </div>
+                                    <p class="h5  mts-2">Delivery</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         <div id="rootwizard">
                             <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
                                 <li class="nav-item" data-target-form="#accountForm">
@@ -869,21 +932,21 @@
                                                                 <div class="accordion-header m-0  " style="background:#f1f2fe" id="headingOne">                                                                    
                                                                     <table class="table table-bordered m-0  ">
                                                                         <tr>
-                                                                            <th>
+                                                                            <th class="bg-light">
                                                                                 <div class="form-group">
-                                                                                    <label class="form-lable shadow-sm position-absolute border">Floor</label>
+                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Floor</label>
                                                                                     <input type="text" class="form-control form-control-sm my-2 mt-3" placeholder="Type here...">
                                                                                 </div>
                                                                             </th>
-                                                                            <th>
+                                                                            <th  class="bg-light">
                                                                                 <div class="form-group">
-                                                                                    <label class="form-lable shadow-sm position-absolute border">EXD wall Number</label>
+                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">EXD wall Number</label>
                                                                                     <input type="text" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
                                                                                 </div>
                                                                             </th>
-                                                                            <th>
+                                                                            <th  class="bg-light">
                                                                                 <div class="form-group">
-                                                                                    <label class="form-lable shadow-sm position-absolute border">Delivery type</label>
+                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
                                                                                     <select class="form-select  form-select-sm my-2 mt-3">
                                                                                         <option selected >-- Choose --</option>
                                                                                         <option value="Element">Element</option>
@@ -894,13 +957,13 @@
                                                                                     </select>
                                                                                 </div>
                                                                             </th>
-                                                                            <th>
+                                                                            <th  class="bg-light">
                                                                                 <div class="form-group">
-                                                                                    <label class="form-lable shadow-sm position-absolute border">Approx Total Area</label>
+                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area</label>
                                                                                     <input type="number" class="form-control form-control-sm my-2  mt-3" >
                                                                                 </div>
                                                                             </th> 
-                                                                            <th>
+                                                                            <th  class="bg-light">
                                                                                 <div class="btn-group">
                                                                                     <button class="btn-primary btn more-btn-layer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" aria-expanded="true" aria-controls="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}">
                                                                                         <i class="fa fa-chevron-down"></i>
@@ -1492,7 +1555,7 @@
                     
 
                 </div> <!-- end card-body -->
-            </div>   
+            </div>
             </div> <!-- container -->
 
         </div> <!-- content -->
@@ -1857,6 +1920,71 @@
         }     
        
     </style>
+     <style>
+        .time-bar {
+            width: 100% !important;
+            height: 1px;
+            position: absolute;
+            border: 1px dashed  gray;
+            top: 45px
+        }
+        .timeline-steps  {
+            display: flex;
+            justify-content:space-between;
+            /* align-items: center; */
+            position: relative;
+         
+        }
+        .timeline-step {
+            padding: 10px;
+            z-index: 1;
+            border-radius: 15px;
+            margin: 10px
+        }
+        .inner-circle {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px #bdbdbd;
+            background: white;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            color: white;
+            border: 3px solid white
+        }
+        .timeline-content {
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            flex-direction: column;
+        }
+ 
+        .table td,th {
+            padding: 5px 10px !important ;
+            vertical-align: middle !important
+        }
+        .table thead,th {
+            background: #757CF2 !important;
+            color: white
+        }
+        
+         .table tbody thead,th {
+            background: #757CF2 !important
+        }
+        .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
+            background:  white !important
+        }
+        .daterangepicker td.active, .daterangepicker td.active:hover {
+            background: #757CF2 !important
+        }
+        .dashboard-icon {
+            font-size: 3rem !important;
+        }
+        #SvgjsText1885 {
+            display: none !important;
+        }
+    </style>   
 @endpush
 
 @push('custom-scripts')

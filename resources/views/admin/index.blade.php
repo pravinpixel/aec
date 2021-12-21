@@ -174,20 +174,20 @@
 											   </div>
 											   <div>
 												   <small>Type of Project</small>
-												   <select name="" id="" class="form-control">
-													   <option value="">Select Options</option>
-													   <option value="">Select Options</option>
-													   <option value="">Select Options</option>
-													   <option value="">Select Options</option>
+												   <select name="" id="" class="form-select">
+													   <option value="">-- Choose -- </option>
+													   <option value="">New contructions</option>
+													   <option value="">Old contructions</option>
+													   <option value="">others</option>
 												   </select>
 											   </div>
 											   <div>
 												   <small>Status</small>
-												   <select name="" id="" class="form-control">
-													   <option value="">Select Options</option>
-													   <option value="">Select Options</option>
-													   <option value="">Select Options</option>
-													   <option value="">Select Options</option>
+												   <select name="" id="" class="form-select">
+													   <option value="">-- Choose -- </option>
+													   <option value="">Inprogress</option>
+													   <option value="">Pending</option>
+													   <option value="">Canceled</option>
 												   </select>
 											   </div>
 											   <div>
@@ -310,7 +310,7 @@
 						   <div class="col-lg-7">
 							   <div class="card">
 								   <div class="card-body">
-									   <h4 class="header-title">Range Column Chart</h4>
+									   <h4 class="header-title">Mothly Sales Reports</h4>
 									   <div dir="ltr">
 										   <div id="distributed-column" class="apex-charts" data-colors="#727cf5,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
 									   </div>

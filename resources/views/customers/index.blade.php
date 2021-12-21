@@ -248,7 +248,7 @@
                                                             <div class="col">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                        <i class='dripicons-document'></i>
+                                                                        <i class='dripicons-document dashboard-icon'></i>
                                                                         <h6 class=" text-primary mt-0">Total Invoice</h6>
                                                                         <h2 class="my-2 h4" >3</h2>
                                                                     </div> <!-- end card-body-->
@@ -259,7 +259,7 @@
                                                             <div class="col">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                        <i class='uil-receipt float-end'></i>
+                                                                        <i class='uil-receipt float-end dashboard-icon'></i>
                                                                         <h6 class=" text-success mt-0">Pending Invoice</h6>
                                                                         <h2 class="my-2 h4"  >1</h2>
                                                                     </div> <!-- end card-body-->
@@ -270,7 +270,7 @@
                                                             <div class="col">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                        <i class='uil-bill float-end'></i>
+                                                                        <i class='uil-bill float-end dashboard-icon'></i>
                                                                         <h6 class=" text-warning mt-0">Total Cost</h6>
                                                                         <h2 class="my-2 h4"  >25</h2>
                                                                     </div> <!-- end card-body-->
@@ -279,7 +279,7 @@
                                                             <div class="col">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                        <i class='uil-usd-square float-end'></i>
+                                                                        <i class='uil-usd-square float-end dashboard-icon'></i>
                                                                         <h6 class=" text-danger mt-0">Invoiced Amount</h6>
                                                                         <h2 class="my-2 h4"  >84000</h2>
                                                                     </div> <!-- end card-body-->
@@ -290,7 +290,7 @@
                                                             <div class="col">
                                                                 <div class="card   tilebox-one">
                                                                     <div class="card-body">
-                                                                        <i class='uil-briefcase float-end'></i>
+                                                                        <i class='uil-briefcase float-end dashboard-icon'></i>
                                                                         <h6 class=" text-info mt-0">To be paid</h6>
                                                                         <h2 class="my-2 h4"  >25</h2>
                                                                     </div> <!-- end card-body-->
@@ -307,7 +307,7 @@
                                                             <div class="col-sm">
                                                                 <div class="card shadow tilebox-one">
                                                                     <div class="card-body">
-                                                                         <i class='uil-cloud-upload float-end fa-2x'></i>
+                                                                         <i class='uil-cloud-upload float-end dashboard-icon'></i>
                                                                         <h6 class=" text-secondary mt-0">No of Files Uploaded</h6>
                                                                         <h2 class="my-2 h3 text-primary" >109</h2>
                                                                     </div> <!-- end card-body-->
@@ -317,7 +317,7 @@
                                                             <div class="col-sm">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                         <i class='uil-file-check-alt float-end fa-2x'></i>
+                                                                         <i class='uil-file-check-alt float-end dashboard-icon'></i>
                                                                         <h6 class=" text-secondary mt-0">Files Approved</h6>
                                                                         <h2 class="my-2 h3  text-info"  >84</h2>
                                                                     </div> <!-- end card-body-->
@@ -328,7 +328,7 @@
                                                             <div class="col-sm">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                         <i class='uil-file-check-alt float-end fa-2x'></i>
+                                                                         <i class='uil-file-check-alt float-end dashboard-icon'></i>
                                                                         <h6 class=" text-secondary mt-0">No of Proposals</h6>
                                                                         <h2 class="my-2 h3  text-warning"  >84</h2>
                                                                     </div> <!-- end card-body-->
@@ -338,7 +338,7 @@
                                                             <div class="col-sm">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                         <i class='uil-document float-end fa-2x'></i>
+                                                                         <i class='uil-document float-end dashboard-icon'></i>
                                                                         <h6 class=" text-secondary mt-0">Pending Files</h6>
                                                                         <h2 class="my-2 h3  text-success"  >25</h2>
                                                                     </div> <!-- end card-body-->
@@ -630,7 +630,7 @@
                                                             <div class="col-sm">
                                                                 <div class="card shadow tilebox-one">
                                                                     <div class="card-body">
-                                                                         <i class='uil-cloud-upload float-end fa-2x'></i>
+                                                                         <i class='uil-cloud-upload float-end dashboard-icon'></i>
                                                                         <h6 class=" text-secondary mt-0">Total No of files Uploaded</h6>
                                                                         <h2 class="my-2 h3 text-primary" >109</h2>
                                                                     </div> <!-- end card-body-->
@@ -640,7 +640,7 @@
                                                             <div class="col-sm">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                         <i class='uil-file-check-alt float-end fa-2x'></i>
+                                                                         <i class='uil-file-check-alt float-end dashboard-icon'></i>
                                                                         <h6 class=" text-secondary mt-0">Files Approved</h6>
                                                                         <h2 class="my-2 h3  text-info"  >84</h2>
                                                                     </div> <!-- end card-body-->
@@ -650,7 +650,7 @@
                                                             <div class="col-sm">
                                                                 <div class="card tilebox-one">
                                                                     <div class="card-body">
-                                                                         <i class='uil-document float-end fa-2x'></i>
+                                                                         <i class='uil-document float-end dashboard-icon'></i>
                                                                         <h6 class=" text-secondary mt-0">Pending Files</h6>
                                                                         <h2 class="my-2 h3  text-success"  >25</h2>
                                                                     </div> <!-- end card-body-->
@@ -844,9 +844,7 @@
         .timeline-step {
             padding: 10px;
             z-index: 1;
-            
             border-radius: 15px;
-           
             margin: 10px
         }
         .inner-circle {
@@ -887,12 +885,12 @@
             background: #757CF2 !important
         }
         .dashboard-icon {
-            font-size: 2.5rem !important
+            font-size: 3rem !important;
         }
         #SvgjsText1885 {
             display: none !important;
         }
-    </style>   
+    </style> 
 @endpush
 
 @push('custom-scripts')

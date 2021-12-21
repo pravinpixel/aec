@@ -72,11 +72,52 @@ Route::prefix('admin')->group(function () {
         return view('admin.pages.view-sales-enquiries');
     })->name('admin-view-sales-enquiries');
 
+    // Enquiry Wiz
+        Route::get('/admin-enquiry', function () {
+            return view('admin.pages.enqiry-wiz.enquiry');
+        })->name('admin-enquiry-wiz');
+
+        Route::get('/admin-project-info', function () {
+            return view('admin.pages.enqiry-wiz.project-info');
+        })->name('admin-project-info-wiz');
+
+        Route::get('/admin-Technical_Estimate', function () {
+            return view('admin.pages.enqiry-wiz.Technical_Estimate');
+        })->name('admin-Technical_Estimate-wiz');
+
+        Route::get('/admin-Cost_Estimate', function () {
+            return view('admin.pages.enqiry-wiz.Cost_Estimate');
+        })->name('admin-Cost_Estimate-wiz');
+
+        Route::get('/admin-Proposal_Sharing', function () {
+            return view('admin.pages.enqiry-wiz.Proposal_Sharing');
+        })->name('admin-Proposal_Sharing-wiz');
+
+        Route::get('/admin-Project_Award', function () {
+            return view('admin.pages.enqiry-wiz.Project_Award');
+        })->name('admin-Project_Award-wiz');
+        
+        Route::get('/admin-Delivery', function () {
+            return view('admin.pages.enqiry-wiz.Delivery');
+        })->name('admin-Delivery-wiz');
+
+        
+    // wiz Enquiry Wiz
+
+    Route::get('/sales-view-enquiry', function () {
+        return view('admin.pages.view-enquiry');
+    })->name('view-enquiry');
+
     Route::get('/quotation', function () {
         return view('admin.pages.quotation');
     })->name('quotation');
 
-    Route::get('sales-create-enquiries', [EnquiryController::class,'getEnquiryNumber'])->name('admin-create-sales-enquiries');
+    Route::get('getEnquiryNumber', [EnquiryController::class,'getEnquiryNumber']);
+
+    Route::get('/sales-create-enquiries', function () {
+        return view("admin.pages.create-sales-enquiries");
+    })->name('admin-create-sales-enquiries');
+
 
     Route::get('/estimation-view', function () {
         return view('admin.pages.estimation-view');

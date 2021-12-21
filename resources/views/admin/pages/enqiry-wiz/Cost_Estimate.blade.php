@@ -1,0 +1,258 @@
+<form action="#" class="card shadow-none p-0" method="POST" >
+    <div class="card-header pb-2 p-3 text-center border-0">
+        <h4 class="header-title">Estimation for ENQ001 - New Building Project - Ada Lovelace</h4>
+    </div>
+    <div class="card-body pt-0 p-0">
+        <table class="table shadow-none border m-0 table-bordered ">
+            <thead class="bg-light">
+                <tr>
+                    <th>Enquiry Date</th>
+                    <th>Person Contact</th>
+                    <th>Type of Project</th>
+                    <th>Enquiry Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10  Nov 2021</td>
+                    <td>Arun Prahash</td>
+                    <td>New Construction</td>
+                    <td>In Estimation</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row m-0 mt-3" >
+            <table class="table table-bordered border">
+                <thead>
+                    <tr class="bg-light-primary">
+                        <td colspan="14" class="text-center text-primary"><h5>Engineering Estimation</h5></td>
+                    </tr>
+                    <tr class="font-weight-bold ">
+                        <th>Component</th>
+                        <th>Type</th>
+                        <th>Sq.M</th>
+                        <th>Complexity</th>
+                        <th colspan="2">Details</th>
+                        <th colspan="2">Statistics</th>
+                        <th colspan="2">CAD/CAM</th>
+                        <th colspan="2">Logistics</th>
+                        <th colspan="2">Total Cost</th>
+                    </tr>
+                    <tr class="bg-light-primary border" >
+                        <th colspan="4"></th>
+                        <th ><small>Price/M2</small></th>
+                        <th ><small>Sum</small></th> 
+                        <th ><small>Price/M2</small></th>
+                        <th ><small>Sum</small></th> 
+                        <th ><small>Price/M2</small></th>
+                        <th ><small>Sum</small></th> 
+                        <th ><small>Price/M2</small></th>
+                        <th ><small>Sum</small></th> 
+                        <th ><small>Price/M2</small></th>
+                        <th ><small>Sum</small></th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="bg-light-primary border"  width="10%">Exterior</td>
+                        <td >
+                            <select class="form-select select" data-toggle="select">
+                                <option>-- Select --</option>
+                                
+                                    <option value="AK">Alaska</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="CA">California</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="WA">Washington</option>
+                                
+                            </select>
+                        </td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                        <td  ><input  type="number"  class="my-control"></td>
+                    </tr>
+                    <tr>
+                        <td class="bg-light-primary border">Interior</td>
+                        <td > 
+                            <select class="form-select select" data-toggle="select">
+                                <option>-- Select --</option>
+                                
+                                    <option value="AK">Alaska</option>
+                                    <option value="HI">Hawaii</option>
+                                
+                                    <option value="CA">California</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="WA">Washington</option>
+                                
+                            </select>
+                        </td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                    </tr>
+                    <tr>
+                        <td  class="bg-light-primary border">1st Floor Wall</td>
+                        <td >
+                            <select class="form-select select" data-toggle="select">
+                                <option>-- Select --</option>
+                                
+                                    <option value="AK">Alaska</option>
+                                    <option value="HI">Hawaii</option>
+                               
+                                    <option value="CA">California</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="WA">Washington</option>
+                                
+                            </select>
+                        </td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                    </tr>
+                    <tr>
+                        <td  class="bg-light-primary border">Roof</td>
+                        <td > 
+                            <select class="form-select select" data-toggle="select">
+                                <option>-- Select --</option>
+                                
+                                    <option value="AK">Alaska</option>
+                                    <option value="HI">Hawaii</option>
+                                 
+                                    <option value="CA">California</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="WA">Washington</option>
+                                
+                            </select>
+                        </td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                    </tr>
+                    <tr>
+                        <td  class="bg-light-primary border">Flooring</td>
+                        <td > 
+                            <select class="form-select select" data-toggle="select">
+                                <option>-- Select --</option>
+                                
+                                    <option value="AK">Alaska</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="CA">California</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="WA">Washington</option>
+                                
+                            </select>
+                        </td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                        <td ><input  type="number"  class="my-control"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-12 shadow text-dark bg-white border p-2">
+                <h4 class="m-0"><span class="text-secondary">Total Cost :</span>    <b>XXXXX</b> </h4>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="input-group ">
+                    <label class="input-group-text bg-white font-weight-bold" for="inputGroupSelect01">Assign to</label>
+                    <select class="form-select border" id="inputGroupSelect01">
+                      <option selected>Choose...</option>
+                      <option value="1">User One</option> 
+                      <option value="1">User Two</option> 
+                      <option value="1">User Three</option> 
+                    </select>
+                    <label class="input-group-text btn btn-primary" for="inputGroupSelect01">send</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-end">
+                    <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+                    <a class="btn btn-primary" onclick="submit()" href=""><i class="uil-sync"></i> Update</a>
+                </div>
+            </div>
+        </div>
+         
+    </div>
+</form>
+
+<style>
+  
+    .table tbody tr td {
+        padding: 2px !important
+    }
+    .my-control {
+        border-radius: 0 !important;
+        display: flex !important;
+        justify-content: center ;
+        align-content: center ;
+        width: 100%;
+        height: 100%;
+        margin: 0 !important;
+        border: 1px !important;
+        outline: 0 !important;
+    }
+    .form-select {
+       padding: 2px 2px 2px 10px !important;
+       /* border:0px !important; */
+       min-width: 120px !important;
+       background-size: 9px 14px !important;
+       font-size: 12px !important;
+    }
+    .form-select option {
+        appearance: none !important;
+    }
+    
+</style>
