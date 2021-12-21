@@ -35,7 +35,6 @@
                                                 <div class="mb-3">
                                                     <label class="form-label" for="validationCustom02">Enquiry Date <sup class="text-danger">*</sup></label>
                                                     <input ng-disabled="true" type="text" value="{{  now()->toDateString() }}" class="form-control" >
-                                                    <input style="position: absolute;opacity:0" type="radio" ng-checked="true" ng-checked="module.enquiry_date == {{  now()->toDateString() }}"  value="{{  now()->toDateString() }}" ng-model="module.enquiry_date" name="enquiry_date">
                                                 </div>  
                                             </div>
                                             <div class="col">
@@ -126,30 +125,7 @@
                                     <button ng-disabled="frm.$invalid" ng-click="save()" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
                                 </div>
                             </form>
-                            {{-- --}}
-                            {{-- <form name="frmusers" class="form-horizontal" novalidate="">
-								<div class="form-group error">
-									<label for="inputEmail3" class="col-sm-12 control-label">Name</label>
-									<div class="col-sm-12">
-										<input type="text" class="form-control has-error" id="name" name="name" placeholder="Fullname"  ng-model="user.name" ng-required="true">
-										<span class="help-inline" ng-show="frmusers.name.$invalid &amp;&amp; frmusers.name.$touched">Name field is required</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-12 control-label">Email</label>
-									<div class="col-sm-12">
-										<input type="email" class="form-control" id="email" name="email" placeholder="Email Address"  ng-model="user.email" ng-required="true">
-										<span class="help-inline" ng-show="frmusers.email.$invalid &amp;&amp; frmusers.email.$touched">Valid Email field is required</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-12 control-label">Contact No</label>
-									<div class="col-sm-12">
-										<input type="text" class="form-control" id="username" name="username" placeholder="Contact Number"   ng-model="user.username" ng-required="true">
-										<span class="help-inline" ng-show="frmusers.username.$invalid &amp;&amp; frmusers.username.$touched">Contact number field is required</span>
-									</div>
-								</div>
-							</form> --}}
+                            
                         </div> 
                     </div>
                 </div>
@@ -201,7 +177,6 @@
                     contact_person  :   $scope.module.contact_person,
                     mobile_no       :   $scope.module.mobile_number,
                     email           :   $scope.module.email,
-                    enquiry_date    :   $scope.module.enquiry_date,
                     user_name       :   $scope.module.user_name,
                     enquiry_number  :   $scope.myWelcome,
                     remarks         :   $scope.module.remarks

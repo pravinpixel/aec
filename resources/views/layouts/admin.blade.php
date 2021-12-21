@@ -7,7 +7,7 @@
         
         @stack('custom-styles')
         
-        <style>
+        {{-- <style>
             table td {
                 font-size: 13px  !important;
             }
@@ -21,7 +21,7 @@
                 background: #757CF2 !important;
                 color: white;
             }
-        </style>
+        </style> --}}
     </head>
 
     <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>

@@ -73,9 +73,7 @@
                         <li>
                             <a href="{{ route('admin-view-sales-enquiries') }}">Enquiries</a>
                         </li>
-                        <li>
-                            <a href="{{ route('quotation') }}">Quotation</a>
-                        </li>
+                        
                         <li>
                             <a href="{{ route('admin-create-sales-enquiries') }}">Contracts</a>
                         </li>

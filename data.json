@@ -1,0 +1,75 @@
+{
+	"data": [
+		{ 
+			"id": 1, 
+			"text": "ENQ_123", 
+			"start_date": "29-03-2021", 
+			"duration": 18, 
+			"progress": 0.4, 
+			"open": true 
+		},
+		{ 
+			"id": 2, 
+			"text": "CNC Data & Fab Drawing", 
+			"start_date": "01-04-2021", 
+			"duration": 3, 
+			"progress": 0.6, 
+			"parent": 1
+		},
+		{ 
+			"id": 3, 
+			"text": "GA Drawing", 
+			"start_date": "02-04-2021", 
+			"duration": 8, 
+			"progress": 0.6, 
+			"parent": 1 
+		},
+		{ 
+			"id": 4, 
+			"text": "Framing & IFC Model", 
+			"start_date": "08-04-2021", 
+			"duration": 8, 
+			"progress": 0.6, 
+			"parent": 1 
+		},
+		{ 
+			"id": 5, 
+			"text": "Connection Drawing", 
+			"start_date": "04-04-2021", 
+			"duration": 8, 
+			"progress": 0.6, 
+			"parent": 1 
+		},
+		{ 
+			"id": 5, 
+			"text": "Structural Calculation", 
+			"start_date": "05-04-2021", 
+			"duration": 8, 
+			"progress": 0.6, 
+			"parent": 1 
+		}
+	],
+	"collections": {
+		"links": [{
+			"id": 1,
+			"source": 1,
+			"target": 2,
+			"type": "0"
+		}, {
+			"id": 2,
+			"source": 1,
+			"target": 3,
+			"type": "0"
+		}, {
+			"id": 3,
+			"source": 1,
+			"target": 4,
+			"type": "0"
+		}, {
+			"id": 4,
+			"source": 2,
+			"target": 6,
+			"type": "0"
+		}]
+	}
+}

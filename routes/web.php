@@ -138,6 +138,7 @@ Route::prefix('admin')->group(function () {
     // Route::get('/cost-estimation-single-view', function () {
     //     // return view('admin.pages.admin-cost-estimation-single-view');
     // })->name('admin-cost-estimation-single-view');
+    
     Route::get('/cost-estimation-single-view', [CostEstimationController::class,'cost_estimation_single_view'])->name('cost-estimation-single-view');
 
 
