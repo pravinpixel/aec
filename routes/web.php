@@ -89,6 +89,10 @@ Route::prefix('admin')->group(function () {
             return view('admin.pages.enqiry-wiz.Cost_Estimate');
         })->name('admin-Cost_Estimate-wiz');
 
+        Route::get('/admin-Project_Schedule', function () {
+            return view('admin.pages.enqiry-wiz.Project_Schedule');
+        })->name('admin-Project_Schedule-wiz');
+
         Route::get('/admin-Proposal_Sharing', function () {
             return view('admin.pages.enqiry-wiz.Proposal_Sharing');
         })->name('admin-Proposal_Sharing-wiz');

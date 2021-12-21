@@ -15,7 +15,7 @@
                 @include('admin.layouts.page-navigater')
               
 
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-body">
                         <div class="row">
             
@@ -58,8 +58,10 @@
                             <!-- end gantt view -->
                         </div>
                     </div>
-                </div>
-
+                </div> --}}
+                <div id="gantt_here" style='width:100%; height:100%;'></div>
+               
+                               
                 
             </div> <!-- container -->
 
@@ -71,10 +73,33 @@
 @endsection 
 
 @push('custom-styles')
-    <link href="{{ asset('public/assets/css/vendor/frappe-gantt.css') }} " rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ asset('public/assets/css/vendor/frappe-gantt.css') }} " rel="stylesheet" type="text/css" /> --}}
+    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">
+    <style>
+    .gantt_container {
+        min-height: 300px !important;
+    }
+    
+    </style>
 @endpush
 
 @push('custom-scripts')
-    <script src="{{ asset('public/assets/js/vendor/frappe-gantt.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/pages/demo.project-gantt.js') }}"></script>
+    {{-- <script src="{{ asset('public/assets/js/vendor/frappe-gantt.min.js') }}"></script>
+    <script src="{{ asset('public/assets/js/pages/demo.project-gantt.js') }}"></script> --}}
+    <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
+    <script>
+        gantt.init("gantt_here");
+
+        gantt.parse({
+            data: [
+                { id: 1, text: "Project #2", start_date: "01-04-2018", duration: 18, progress: 0.4, open: true },
+                { id: 2, text: "Task #1", start_date: "02-04-2018", duration: 8, progress: 0.6, parent: 1 },
+                { id: 3, text: "Task #2", start_date: "11-04-2018", duration: 8, progress: 0.6, parent: 1 }
+            ],
+            links: [
+                {id: 1, source: 1, target: 2, type: "1"},
+                {id: 2, source: 2, target: 3, type: "0"}
+            ]
+        });
+    </script>
 @endpush

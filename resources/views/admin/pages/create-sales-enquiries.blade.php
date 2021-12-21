@@ -118,7 +118,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <label class="col-form-label col-md-12">Remarks <small class="text-scondary">(Optional)</small></label>
-                                        <textarea name="remarks" id="" style="height: 100px" class="form-control form-control-sm" cols="150" placeholder="Type Here..." spellcheck="false"></textarea>
+                                        <textarea name="remarks" ng-model="module.remarks" id="" style="height: 100px" class="form-control form-control-sm" cols="150" placeholder="Type Here..." spellcheck="false"></textarea>
                                     </div>
                                 </div>
                                 <div class="text-end mt-3">
