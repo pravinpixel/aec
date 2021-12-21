@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(AdminSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(ConfigSeeder::class);
         $this->call(BuildingComponentSeeder::class);
         $this->call(BuildingTypeSeeder::class);
