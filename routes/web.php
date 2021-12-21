@@ -131,9 +131,12 @@ Route::prefix('admin')->group(function () {
         return view('admin.pages.cost-estimation-view');
     })->name('admin-cost-estimation-view');
     
-    Route::get('/cost-estimation-single-view', function () {
-        return view('admin.pages.admin-cost-estimation-single-view');
-    })->name('admin-cost-estimation-single-view');
+    // Route::get('/cost-estimation-single-view', function () {
+    //     // return view('admin.pages.admin-cost-estimation-single-view');
+    // })->name('admin-cost-estimation-single-view');
+    Route::get('/cost-estimation-single-view', [CostEstimationController::class,'cost_estimation_single_view'])->name('cost-estimation-single-view');
+
+
 
     Route::get('/proposal-conversation', function () {
         return view('admin.pages.proposal-conversation');
@@ -148,6 +151,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('customer', CustomerController::class);
     Route::get('enquiry/get-number', [EnquiryController::class,'getEnquiryNumber'])->name('enquiry.get-number');
     Route::post('costEstimationSingleForm', [CostEstimationController::class,'costEstimationSingleForm'])->name('costEstimationSingleForm');
+    Route::get('costEstimationEdit', [CostEstimationController::class,'costEstimationEdit'])->name('costEstimationEdit');
+    Route::get('estimate/list', [CostEstimationController::class, 'getEstimate'])->name('estimate.list');
+    Route::get('costEstimationDelete', [CostEstimationController::class,'costEstimationDelete'])->name('costEstimationDelete');
     Route::resource('enquiry', EnquiryController::class);
 });
 

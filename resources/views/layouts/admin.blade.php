@@ -14,6 +14,13 @@
             table th, td {
                 padding: 5px !important;
             }
+            .table tr td,th {
+                border:1px solid lightgray !important
+            }
+            table thead, th {
+                background: #757CF2 !important;
+                color: white;
+            }
         </style>
     </head>
 
