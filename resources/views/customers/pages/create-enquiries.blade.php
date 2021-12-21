@@ -2000,7 +2000,6 @@
     <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
     <script>
         angular.module('App', []).controller('CrudCtrl', ['$scope', function($scope) {
-          
             
             $scope.wallGroup  = [
                 {
@@ -2104,6 +2103,33 @@
                                     "Thickness ": '',
                                     "Breadth": '',
                                 } 
+                            ] 
+                        } 
+                    ]
+                },
+                {
+                    "WallName" : "test Wall",
+                    "WallIcon" : "dripicons-store", 
+                    "Details": [
+                        {
+                            "FloorName" : "Ground Floor",
+                            "FloorNumber" : "1",
+                            "TotalArea" : "2500",
+                            "DeliveryType" : "Fire Proof",
+                            
+                            "Layers": [ 
+                                {
+                                    "LayerName": '',
+                                    "LayerType": '',
+                                    "Thickness ": '',
+                                    "Breadth": '',
+                                } ,
+                                {
+                                    "LayerName": '',
+                                    "LayerType": '',
+                                    "Thickness ": '',
+                                    "Breadth": '',
+                                }   
                             ] 
                         } 
                     ]
