@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuildingComponentsTable extends Migration
+class CreateLayersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateBuildingComponentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('building_components', function (Blueprint $table) {
+        Schema::create('layers', function (Blueprint $table) {
             $table->id();
-            $table->string('building_component_name')->nullable();
-            $table->integer('order_id')->nullable();
+            $table->string('layer_name');
             $table->boolean('is_active')->default(1);
             $table->softDeletes();
             $table->timestamps();
@@ -30,6 +29,6 @@ class CreateBuildingComponentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('building_components');
+        Schema::dropIfExists('layers');
     }
 }
