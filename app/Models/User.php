@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use Cartalyst\Sentinel\Users\EloquentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends EloquentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    public function __construct() {
+        parent::__construct();
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -24,7 +27,7 @@ class User extends Authenticatable
         'password',
         'mobile_no',
         'profile_image',
-        'equiry_number',
+        'enquiry_number',
         'company_name',
         'contact_person',
         'enquiry_date',

@@ -24,9 +24,9 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Requst $req)
+    public function create()
     {
-        dd($req);
+      
     }
 
     /**

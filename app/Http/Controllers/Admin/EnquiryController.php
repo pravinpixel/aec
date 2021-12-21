@@ -5,18 +5,28 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Interfaces\UserRepositoryInterface;
 use App\Models\Customer;
 use App\Services\GlobalService;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-
 use Mail;
  
 
 class EnquiryController extends Controller
 {
+
+    protected $user;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->user = $userRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,12 +39,8 @@ class EnquiryController extends Controller
 
     public function getEnquiryNumber(Request $request)    {
        
-            return  GlobalService::enquiryNumber();  
-    //    $enq_number  =   GlobalService::enquiryNumber();
+        return  GlobalService::enquiryNumber();  
 
-    //    return view("admin.pages.create-sales-enquiries")->with('enq_number', $enq_number);
-         
-       
     }
     
     /**
@@ -44,7 +50,7 @@ class EnquiryController extends Controller
      */
     public function create()
     {
-     
+        
     }
 
     /**
@@ -55,51 +61,48 @@ class EnquiryController extends Controller
      */
     public function store(CreateCustomerRequest $request)
     {
-        // dd($request->all());
-         
-         
-        $latest_enquiry_number = GlobalService::enquiryNumber();
-        // dd($request->all());
-        if($request->enquiry_number != $latest_enquiry_number) {
-            return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
-        }
-
-        
-        // Random Password Generater
-        $password   =   Str::random(10);
-
-        $customer = new Customer;
-        $customer->company_name     =   $request->company_name;
-        $customer->contact_person   =   $request->contact_person;
-        $customer->mobile_no        =   $request->mobile_no;
-        $customer->email            =   $request->email;
-        // $customer->enquiry_date     =   date('d/m/Y', strtotime($request->enquiry_date)); 
-        $customer->enquiry_date     =   $request->enquiry_date; 
-        $customer->full_name        =   $request->user_name;
-        $customer->password         =   $password;
-        $customer->is_active        =   1;
-        $customer->created_by       =   001;
-        $customer->enquiry_number   =   $request->enquiry_number;
-        $customer->remarks          =   $request->remarks;
-
-        $res = $customer->save();
-       
-        if($res) {
-
+    
+        DB::beginTransaction();
+        try {
+            $user     = Sentinel::getUserRepository()->findById(1);
+            $latest_enquiry_number = GlobalService::enquiryNumber();
+            if($request->enquiry_number != $latest_enquiry_number) {
+                return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
+            }
+            $password = Str::random(10);
+            $email = $request->email;
+            $data = [
+                'full_name'      => $request->user_name,
+                'company_name'   => $request->company_name,
+                'contact_person' => $request->contact_person,
+                'enquiry_date'   => now(),
+                'enquiry_number' => $latest_enquiry_number,
+                'remarks'        => $request->remarks,
+                'mobile_no'      => $request->mobile_no,
+                'email'          => strtolower($email),
+                'password'       => $password,
+                'created_by'     => $user,
+                'updated_by'     => $user,
+            ];
+            $this->user->setRole('customer');
+            $res = $this->user->create($data);
+            DB::commit();
             GlobalService::updateConfig('ENQ');
-
             $details = [
                 'customer_name'     => $request->contact_person,
                 'customer_email'    => $request->email,
                 'customer_pws'      => $password
             ]; 
 
-            Mail::to($request->email)->send(new \App\Mail\Enquiry($details));            
+            // Mail::to($request->email)->send(new \App\Mail\Enquiry($details));            
 
-            return response(['status' => true, 'data' => $res ,'msg' => trans('enquiry.created')], Response::HTTP_OK);
-
+            return response(['status' => true, 'data' => '' ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            Log::info($e->getMessage());
+            DB::rollBack();
+            return response(['status' => false, 'data' => '' ,'msg' => trans('global.something')], Response::HTTP_OK);
         }
-        return response(['status' => false ,'msg' => trans('global.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+ 
     }
 
     /**

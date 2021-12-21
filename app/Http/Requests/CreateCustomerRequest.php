@@ -28,7 +28,6 @@ class CreateCustomerRequest extends FormRequest
             'contact_person' => 'required',
             'mobile_no'      => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
             'email'          => 'required|unique:customers|email',
-            'enquiry_date'   => 'required',
             'user_name'      => 'required'
         ];
     }
