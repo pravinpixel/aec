@@ -221,6 +221,16 @@
             </tbody>
         </table>
     </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a href="#!/Project_Schedule" class="btn btn-outline-primary">Prev</a>
+            </div>
+            <div>
+                <a href="#!/Project_Award" class="btn btn-primary">Next</a>
+            </div>
+        </div>
+    </div> 
 </div> 
 
 
@@ -615,3 +625,13 @@
         console.error( error );
     } );
 </script>
+
+@if (Route::is('admin-Proposal_Sharing-wiz')) 
+    <style>
+       .admin-Proposal_Sharing-wiz .timeline-step .inner-circle{
+            background: #757CF2 !important;
+            transform: scale(1.2);
+            box-shadow: 0px 5px 10px #4f4f4fb2 !important
+        }
+    </style>
+@endif

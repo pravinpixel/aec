@@ -89,4 +89,26 @@
             </div> 
         </form> 
     </div> 
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a disabled style="opacity: 0" class="btn btn-outline-primary">Prev</a>
+            </div>
+            <div>
+                <a href="#!/Project_Info" class="btn btn-primary">Next</a>
+            </div>
+        </div>
+    </div>  
+    </div>
 </div>
+
+
+@if (Route::is('admin-enquiry-wiz')) 
+    <style>
+       .admin-enquiry-wiz .timeline-step .inner-circle{
+            background: #757CF2 !important;
+            transform: scale(1.2);
+            box-shadow: 0px 5px 10px #4f4f4fb2 !important
+        }
+    </style>
+@endif

@@ -1,6 +1,5 @@
-<div class="card border"  >
-    <div class="card-body  pb-0">
-        
+<div class="card border" >
+    <div class="card-body  pb-0">        
             <div id="rootwizard">
                 <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
                     <li class="nav-item" data-target-form="#accountForm">
@@ -1339,6 +1338,16 @@
         
 
     </div> <!-- end card-body -->
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a href="#!/" class="btn btn-outline-primary">Prev</a>
+            </div>
+            <div>
+                <a href="#!/Technical_Estimate" class="btn btn-primary">Next</a>
+            </div>
+        </div>
+    </div>  
 </div>
 <div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-right" style="width:100% !important">
@@ -1617,3 +1626,13 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
  
+
+@if (Route::is('admin-project-info-wiz')) 
+    <style>
+        .Project_Info .timeline-step .inner-circle{
+            background: #757CF2 !important;
+            transform: scale(1.2);
+            box-shadow: 0px 5px 10px #4f4f4fb2 !important
+        }
+    </style>
+@endif

@@ -18,14 +18,15 @@
             </div>                
 
             <div class="card border">
-                <div class="card-body   py-0">
+                <div class="card-body py-0">
+
                     
+
                     <div id="rootwizard">
-                    
                             
                         <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
                             <li class="time-bar"></li>
-                            <li class="nav-item ">
+                            <li class="nav-item admin-enquiry-wiz">
                                 <a href="#!/"  style="min-height: 40px;" class="timeline-step  " >
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -35,7 +36,7 @@
                                     <p class="h5 mt-2">Enquiry</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item  Project_Info">
                                 <a href="#!/Project_Info"   style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -45,7 +46,7 @@
                                     <p class="h5 mt-2">Project Info</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item  admin-Technical_Estimate-wiz">
                                 <a href="#!/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-success">
@@ -55,7 +56,7 @@
                                     <p class="h5 mt-2">Technical Estimate</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item admin-Cost_Estimate-wiz">
                                 <a href="#!/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -65,7 +66,7 @@
                                     <p class="h5 mt-2">Cost Estimate</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item admin-Project_Schedule-wiz">
                                 <a href="#!/Project_Schedule" style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -75,7 +76,7 @@
                                     <p class="h5 mt-2">Project Schedule</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item admin-Proposal_Sharing-wiz">
                                 <a href="#!/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -85,7 +86,7 @@
                                     <p class="h5 mt-2">Proposal Sharing</p>
                                 </a>
                             </li>
-                            <li class="nav-item" >
+                            <li class="nav-item admin-Project_Award-wiz" >
                                 <a href="#!/Project_Award"  style="min-height: 40px;"  class="timeline-step">
                                     <div class="timeline-content ">
                                         <div class="inner-circle  bg-success">
@@ -95,7 +96,7 @@
                                     <p class="h5  mt-2">Project Award</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item admin-Delivery-wiz">
                                 <a href="#!/Delivery" style="min-height: 40px;"  class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -113,7 +114,7 @@
                         </div>
                             
                         <!-- End Wizz Contents -->
-                    </div>  
+                        
 
                 </div> <!-- end card-body -->
             </div>   
@@ -553,11 +554,7 @@
         #SvgjsText1885 {
             display: none !important;
         }
-        .nav-item.active .timeline-step .inner-circle{
-            background: #757CF2 !important;
-            transform: scale(1.2);
-            box-shadow: 0px 5px 10px #4f4f4fb2 !important
-        }
+       
         
         .timeline-step .inner-circle:hover {
             background: #8a90ff !important;

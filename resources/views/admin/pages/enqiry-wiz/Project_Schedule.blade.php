@@ -12,7 +12,7 @@
             <h3 class="header-title m-0">Invoice Plan</h3>
         </div>
         <div class="card-body">
-            <h3 class="header-title m-0 mb-2">Mailstone</h3>
+            <h3 class="header-title m-0 mb-2">Milestone</h3>
             <form name="userForm" ng-submit="submit()">
                 <table class="table table-bordered m-0">
                     <tr>
@@ -24,7 +24,7 @@
                         </th>
                         <th  class="bg-light">
                             <div class="form-group">
-                                <label class="form-lable text-dark shadow-sm position-absolute border">Discription</label>
+                                <label class="form-lable text-dark shadow-sm position-absolute border">Description</label>
                                 <input type="text" name="Description" required ng-required="true"  ng-model="Description" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
                             </div>
                         </th>
@@ -63,6 +63,16 @@
             </form>
         </div>
     </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a href="#!/Cost_Estimate" class="btn btn-outline-primary">Prev</a>
+            </div>
+            <div>
+                <a href="#!/Proposal_Sharing" class="btn btn-primary">Next</a>
+            </div>
+        </div>
+    </div> 
 </div>
 
 
@@ -88,3 +98,12 @@
 
 </script>
  
+@if (Route::is('admin-Project_Schedule-wiz')) 
+    <style>
+       .admin-Project_Schedule-wiz .timeline-step .inner-circle{
+            background: #757CF2 !important;
+            transform: scale(1.2);
+            box-shadow: 0px 5px 10px #4f4f4fb2 !important
+        }
+    </style>
+@endif

@@ -1,5 +1,6 @@
 <?php
 include 'menu.php';
+include 'adminAPI.php';
 include 'master.php';
 
 use App\Http\Controllers\Admin\CustomerController;
@@ -151,6 +152,7 @@ Route::prefix('admin')->group(function () {
     })->name('gran-chart');
     
 });
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
     Route::resource('customer', CustomerController::class);
     Route::get('enquiry/get-number', [EnquiryController::class,'getEnquiryNumber'])->name('enquiry.get-number');
@@ -161,4 +163,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('enquiry', EnquiryController::class);
 });
 
+
 /** ===== End : Customers Routes ======*/
+
+
+

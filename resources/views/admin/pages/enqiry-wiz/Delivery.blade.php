@@ -513,3 +513,13 @@
     }
     
 </style>
+
+@if (Route::is('admin-Delivery-wiz')) 
+    <style>
+        .admin-Delivery-wiz .timeline-step .inner-circle{
+            background: #757CF2 !important;
+            transform: scale(1.2);
+            box-shadow: 0px 5px 10px #4f4f4fb2 !important
+        }
+    </style>
+@endif

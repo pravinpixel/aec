@@ -25,20 +25,22 @@
     .filepond--credits {
         display: none !important
     }
-    .table td,th {
+        .table td,th {
             padding: 5px 10px !important     ;
             vertical-align: middle !important
         }
         .table thead,th {
             background: #757CF2 !important;
-            color: white
+            color: white !important
+        }
+        .table tbody thead,th {
+            color: white !important ;
+            background: #757CF2 !important
         }
         #scroll-vertical-datatable th{
             padding:  0px !important     
         }
-        .table tbody thead,th {
-            background: #757CF2 !important
-        }
+        
         #scroll-vertical-datatable_wrapper .row:nth-child(1) {
             display: none !important
         }

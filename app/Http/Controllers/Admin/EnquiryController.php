@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-
+use Carbon\Carbon;
  
 
 class EnquiryController extends Controller
@@ -32,15 +32,38 @@ class EnquiryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        return Customer::get();
+
+        if ($req->all()) {
+
+            $req_from   =   isset($req->from_date) ?  $req->from_date : Carbon::now()->subDays(6);
+            $from       =   Carbon::parse($req_from)->startOfDay();
+            $req_to     =   isset($req->to_date) ?  $req->to_date : Carbon::now();
+            $to         =   Carbon::parse($req_to)->startOfDay();
+            $status     =   $req->status;
+            $type       =   $req->type;
+            $data       =   Customer::whereBetween('created_at', [$from, $to])
+                                        ->when($status,  function($q) use($status) {
+                                            $q->where('status', $status);
+                                        })  
+                                        ->when($type,  function($q) use($type) {
+                                            $q->where('type', $type);
+                                        })
+                                    ->latest()
+                                    ->get();
+            return $data;
+        }  
+        
+        return Customer::latest()->limit(20)->get();
+        
+    }
+    public function singleIndex($id) {
+        return Customer::find($id);
     }
 
-    public function getEnquiryNumber(Request $request)    {
-       
+    public function getEnquiryNumber(Request $request)    { 
         return  GlobalService::enquiryNumber();  
-
     }
     
     /**
