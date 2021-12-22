@@ -31,6 +31,7 @@ class User extends EloquentUser
         'company_name',
         'contact_person',
         'enquiry_date',
+        'type',
         'remarks'
     ];
 

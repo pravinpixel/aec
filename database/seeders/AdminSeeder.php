@@ -19,6 +19,7 @@ class AdminSeeder extends Seeder
 			'password'    => "admin@123",
 			'first_name'  => 'admin',
 			'last_name'   => 'admin',
+            'type'        => 'internal',
 			'full_name'   => 'admin user',
             'created_by'  => 'Migration'
 		));

@@ -13,14 +13,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail as FacadesMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Mail;
+
  
 
 class EnquiryController extends Controller
 {
-
+    
     protected $user;
 
     public function __construct(UserRepositoryInterface $userRepository)
@@ -81,6 +81,7 @@ class EnquiryController extends Controller
                 'mobile_no'      => $request->mobile_no,
                 'email'          => strtolower($email),
                 'password'       => $password,
+                'type'           => 'external',
                 'created_by'     => $user,
                 'updated_by'     => $user,
             ];
@@ -94,9 +95,9 @@ class EnquiryController extends Controller
                 'customer_pws'      => $password
             ]; 
 
-            // Mail::to($request->email)->send(new \App\Mail\Enquiry($details));            
+            Mail::to($request->email)->send(new \App\Mail\Enquiry($details));            
 
-            return response(['status' => true, 'data' => '' ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
+            return response(['status' => true, 'data' => $res ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             Log::info($e->getMessage());
             DB::rollBack();
