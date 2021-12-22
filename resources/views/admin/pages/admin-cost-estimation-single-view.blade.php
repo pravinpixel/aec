@@ -26,7 +26,7 @@
                 <?php } ?>
                    
                     <div class="card-header pb-2 p-3 text-center border-0">
-                        <h4 class="header-title">Cost Estimation</h4>
+                        <h4 class="header-title">Admin Cost Estimation</h4>
                     </div>
                     <div class="card-body pt-0">
                         <table class="table shadow-sm border m-0 table-bordered "  id="costEstimateDetailTable">
@@ -40,15 +40,15 @@
                             <tbody>
                                 <tr>
                                 <?php  if(isset($arr['detail'])){ ?>
-                                    <td> <input type="date" class="form-control" name="enquiry_date" id="enquiry_date" value="{{ $arr['detail']['date'] }}" > </td>
+                                    <td> <input type="date" class="form-control enquiry_date" name="enquiry_date" id="enquiry_date" value="{{ $arr['detail']['date'] }}" > </td>
                                     <?php }else { ?>
-                                        <td> <input type="date" class="form-control" name="enquiry_date"  id="enquiry_date" value="" > </td>
+                                        <td> <input type="date" class="form-control enquiry_date" name="enquiry_date"  id="enquiry_date" value="" > </td>
                                    <?php  } ?>
 
                                    <?php  if(isset($arr['detail'])){ ?>
-                                    <td><input type="text" class="form-control" name="contact" id="contact" value="{{ $arr['detail']['contact'] }}"></td>
+                                    <td><input type="text" class="form-control contact" name="contact" id="contact" value="{{ $arr['detail']['contact'] }}"></td>
                                     <?php }else { ?>
-                                        <td><input type="text" class="form-control" name="contact" id="contact" value=""></td>
+                                        <td><input type="text" class="form-control contact" name="contact" id="contact" value=""></td>
                                         <?php  } ?>
                                    
                                 </tr>
@@ -67,11 +67,11 @@
                                                     
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <h5>Engineering Estimation</h5>
+                                                    <h4 class="body_heading">Engineering Estimation</h4>
                                                 </div>
                                                 <div class="col-md-3">
                                                 
-                                                    <button type="button" class="btn btn-primary add_row_cal" id="add_btn">Add Row</input>
+                                                    <!-- <button type="button" class="btn btn-primary add_row_cal" id="add_btn">Add Row</input> -->
                                                 </div>
                                             </div>
                                         </td>
@@ -89,15 +89,15 @@
                                     </tr>
                                     <tr class="bg-light border" >
                                         <th colspan="4"></th>
-                                        <th ><small>Price/M2</small></th>
+                                        <th ><small>Price/m²</small></th>
                                         <th ><small>Sum</small></th> 
-                                        <th ><small>Price/M2</small></th>
+                                        <th ><small>Price/m²</small></th>
                                         <th ><small>Sum</small></th> 
-                                        <th ><small>Price/M2</small></th>
+                                        <th ><small>Price/m²</small></th>
                                         <th ><small>Sum</small></th> 
-                                        <th ><small>Price/M2</small></th>
+                                        <th ><small>Price/m²</small></th>
                                         <th ><small>Sum</small></th> 
-                                        <th ><small>Price/M2</small></th>
+                                        <th ><small>Price/m²</small></th>
                                         <th ><small>Sum</small></th> 
                                     </tr>
                                 </thead>
@@ -117,7 +117,7 @@
                                        
                                         <td >
                                             <select class="form-control select2" name="addmore[<?php echo $i ?>][component]" data-toggle="select2">
-                                                <option>Select</option>
+                                                <option value="">Select</option>
                                                 <optgroup label="Layer Types">
                                                     <option value="External"   <?php echo $test['Component'] == "External" ?   "selected" : '' ;?> >External</option>
                                                     <option value="Internal" <?php echo $test['Component'] == "Internal" ?   "selected" : '' ;?> >Internal</option>
@@ -132,7 +132,7 @@
                                         </td>
                                         <td >
                                             <select class="form-control select2" name="addmore[<?php echo $i ?>][type]" data-toggle="select2">
-                                                <option>Select</option>
+                                                <option value="">Select</option>
                                                 <optgroup label="Layer Types">
                                                     <option value="Panel" <?php echo $test['type'] == "Panel" ?   "selected" : '' ;?> >Panel</option>
                                                     <option value="Precut" <?php echo $test['type'] == "Precut" ?   "selected" : '' ;?>>Precut</option>
@@ -220,8 +220,8 @@
                                         <!-- <td class="bg-light border" width="7%">Exterior</td> -->
                                        
                                         <td >
-                                            <select class="form-control select2" name="addmore[0][component]" data-toggle="select2">
-                                                <option>Select</option>
+                                            <select class="form-control select2 validateArray" name="addmore[0][component]" id=addmore_s" data-toggle="select2">
+                                                <option value="">Select</option>
                                                 <optgroup label="Layer Types">
                                                     <option value="External"  >External</option>
                                                     <option value="Internal">Internal</option>
@@ -233,8 +233,8 @@
                                             </select>
                                         </td>
                                         <td >
-                                            <select class="form-control select2" name="addmore[0][type]" data-toggle="select2">
-                                                <option>Select</option>
+                                            <select class="form-control select2"   required name="addmore[0][type]" data-toggle="select2">
+                                                <option value="">Select</option>
                                                 <optgroup label="Layer Types">
                                                     <option value="Panel" >Panel</option>
                                                     <option value="Precut">Precut</option>
@@ -362,12 +362,15 @@
     
 
                     <div class="card-footer">
+                        
                         <div class="float-end py-3">
-                            <button class="btn btn-outline-primary" type="reset">Cancel</button>
-                            <?php if(isset($arr['calculation'])){ ?>
-                            <button class="btn btn-primary " type="submit">Update Estimate</button>
+                        <button type="button" class="btn btn-outline-primary add_row_cal" id="add_btn">Add Row</button>
+                        
+                            <button class="btn btn-outline-primary" type="reset" class="cancel_btn" id="cancel_btn" ><i class="fa fa-ban"> Cancel</i></button>
+                                <?php if(isset($arr['calculation'])){ ?>
+                            <button class="btn btn-primary" type="submit" id="update_btn"><i class="uil-sync"> Update Estimate</i></button>
                             <?php } else { ?>
-                            <button class="btn btn-primary " type="submit">Generate Estimate</button>
+                                <button class="btn btn-primary" type="submit" id="generate_btn">Generate Estimate</button>
                             <?php } ?>
                         </div>
                     </div>
@@ -412,7 +415,12 @@
             padding-left:30px !important;
             text-align:right  !important
         }
-         
+         .body_heading{
+            color: #8a90ff ;
+         }
+         label.error {
+             color: red !important;
+         }
     </style>
       
     
@@ -444,8 +452,139 @@
     <script src="{{ asset('public/assets/js/vendor/buttons.print.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+ 
+            $("#costEstimationSingleForm").validate({
+                
+
+
+                rules: {
+                    'enquiry_date': {
+                        required: true,
+                        maxlength: 50
+                    },
+                    'contact': {
+                        required: true,
+                        maxlength: 50
+                    },
+                    'addmore[0][component]': {
+                        required: true,
+                    },
+                    'addmore[0][complexity]': {
+                        required: true,
+                    },
+                    'addmore[0][type]': {
+                        required: true,
+                    },
+                    'addmore[0][sqm]': {
+                        required: true,                        
+                    },
+                    'addmore[0][detail_price]': {
+                        required: true,                        
+                    },
+                    'addmore[0][detail_sum]': {
+                        required: true,                        
+                    },
+                    'addmore[0][statistic_price]': {
+                        required: true,                        
+                    },
+                    'addmore[0][statistic_sum]': {
+                        required: true,                        
+                    },
+                    'addmore[0][cad_cam_price]': {
+                        required: true,                        
+                    },
+                    'addmore[0][cad_cam_sum]': {
+                        required: true,                        
+                    },
+                    'addmore[0][logistic_price]': {
+                        required: true,                        
+                    },
+                    'addmore[0][logistic_sum]': {
+                        required: true,                        
+                    },
+                    'addmore[0][total_price]': {
+                        required: true,                        
+                    },
+                    'addmore[0][total_sum]': {
+                        required: true,                        
+                    },
+
+                   
+                    
+
+                     
+
+                },
+                messages: {
+
+                    'enquiry_date': {
+                        required: "Please enter Date",
+                    },
+                    'contact': {
+                        required: "Please enter Title",
+                    },
+                    'addmore[0][component]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][type]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][complexity]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][sqm]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][complexity]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][detail_price]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][detail_sum]': {
+                        required: "Please enter sum",
+                    },
+                    'addmore[0][statistic_price]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][statistic_sum]': {
+                        required: "Please enter sum",
+                    },
+                    'addmore[0][cad_cam_price]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][cad_cam_sum]': {
+                        required: "Please enter sum",
+                    },
+                    'addmore[0][logistic_price]': {
+                        required: "Please enter value",
+                    },
+                    'addmore[0][logistic_sum]': {
+                        required: "Please enter sum",
+                    },
+                    'addmore[0][total_price]': {
+                        required: "Please value",
+                    },
+                    'addmore[0][total_sum]': {
+                        required: "Please enter sum",
+                    },
+                    
+                    
+                    
+
+                },
+            
+            
+        });
+    }); 
+
+
+        
+    </script>
     <script>
         let editCount = 0;
         //    $(document).ready(function() {
@@ -453,8 +592,12 @@
         //     } );
 
         $( '#costEstimationSingleForm' ).on( 'submit', function(e) {
-    
-                e.preventDefault();
+            e.preventDefault();
+            if(!$("#costEstimationSingleForm").valid()){
+
+                 return false;
+
+            }
                 $('#costEstimationSingleForm').serialize();
                 $.ajax({
                     type: "POST",
@@ -467,6 +610,7 @@
                         $("#footerform").html('');
                         $("#enquiry_date").val('');
                         $("#contact").val('');
+                        $('#generate_btn').html('Generate Estimate');
                         $("#costEstimateTable > tbody").html(`
                             
                             <tr>
@@ -474,7 +618,7 @@
                                        
                                         <td >
                                             <select class="form-control select2" name="addmore[0][component]" data-toggle="select2">
-                                                <option>Select</option>
+                                                <option value="">Select</option>
                                                 <optgroup label="Layer Types">
                                                     <option value="External"  >External</option>
                                                     <option value="Internal">Internal</option>
@@ -487,7 +631,7 @@
                                         </td>
                                         <td >
                                             <select class="form-control select2" name="addmore[0][type]" data-toggle="select2">
-                                                <option>Select</option>
+                                                <option value="">Select</option>
                                                 <optgroup label="Layer Types">
                                                     <option value="Panel" >Panel</option>
                                                     <option value="Precut">Precut</option>
@@ -520,12 +664,11 @@
 
         });
 
-
-
-
+      
                 $(document).on('click','.edit_data',function (e) {
                     $("#costEstimateTable > tbody").html('');
                     $("#costEstimateDetailTable > tbody").html('');
+                    $('#generate_btn').html(`<i class="uil-sync" > Update Estimation</i>`);
                     let estimateId = $(this).data('cost-estimate-id');
                     // alert(estimateId)
                     // console.log();
@@ -549,7 +692,7 @@
                                             
                                                 <td >
                                                 <select class="form-control select2" name="addmore[${i}][component]" data-toggle="select2">
-                                                        <option>Select</option>
+                                                        <option value="">Select</option>
                                                         <optgroup label="Layer Types">
                                                             <option value="External" ${detail.Component == 'External' ? selected : ''}  >External</option>
                                                             <option value="Internal" ${detail.Component == 'Internal' ? selected : ''}  >Internal</option>
@@ -562,7 +705,7 @@
                                                 </td>
                                                 <td >
                                                 <select class="form-control select2" name="addmore[${i}][type]" data-toggle="select2">
-                                                        <option>Select</option>
+                                                        <option value="">Select</option>
                                                         <optgroup label="Layer Types">
                                                             <option value="Panel" ${detail.type == "Panel" ?   "selected" : '' } >Panel</option>
                                                             <option value="Precut" ${detail.type == "Precut" ?   "selected" : '' }>Precut</option>
@@ -590,9 +733,9 @@
                         
                         $("#costEstimateDetailTable > tbody").html(`
                         <tr>
-                             <td> <input type="date" class="form-control" name="enquiry_date"  id="enquiry_date" value="${msg.data.detail.date}" > </td>
+                             <td> <input type="date" class="form-control enquiry_date" name="enquiry_date"  id="enquiry_date" value="${msg.data.detail.date}" > </td>
                         
-                        <td><input type="text" class="form-control" name="contact" id="contact" value="${msg.data.detail.contact}"></td>
+                        <td><input type="text" class="form-control contact" name="contact" id="contact" value="${msg.data.detail.contact}"></td>
                         <input type="hidden" name="key" value="${msg.data.detail.id}">
                         </tr>
                         
@@ -646,15 +789,105 @@
                 });
 
 
+
+                $("#cancel_btn").click(function (e) {
+
+                   
+                    $("#costEstimationSingleForm").validate().resetForm();
+                    $("#costEstimateTable > tbody").html('');
+                        // $("#footerform").html('');
+                        // $("#costEstimateTable > tfoot").remove();
+                        // $('#costEstimateTable > tfoot').empty();
+                        // $('#costEstimateTable tbody > tr').remove();
+
+
+                        $(".enquiry_date").val('');
+                        $(".contact").val('');
+                        $("#enquiry_date").val('');
+                        $("#contact").val('');
+                        $("#detail_price_id").text('');
+                        $("#detail_sum_id").text('');
+                        $("#statistic_price_id").text('');
+                        $("#statistic_sum_id").text('');
+                        $("#cad_cam_price_id").text('');
+                        $("#cad_cam_sum_id").text('');
+                        $("#logistic_price_id").text('');
+                        $("#logistic_sum_id").text('');
+                        $("#total_price_id").text('');
+                        $("#total_sum_id").text('');
+
+                        
+                    // $("#costEstimateTable").html('');
+                    $("#costEstimateTable > tbody").html(`
+                            
+                            <tr>
+                                      
+                                       
+                                        <td >
+                                            <select class="form-control select2" name="addmore[0][component]" data-toggle="select2">
+                                                <option value="">Select</option>
+                                                <optgroup label="Layer Types">
+                                                    <option value="External"  >External</option>
+                                                    <option value="Internal">Internal</option>
+                                                    <option value="Ground Floor" >Ground Floor</option>
+                                                    <!-- <option value="Ceiling">Ceiling</option> -->
+                                                    <option value="Roof" >Roof</option>
+                                                    <option value="Loadbearing" >Loadbearing</option>
+                                                </optgroup>
+                                            </select>
+                                        </td>
+                                        <td >
+                                            <select class="form-control select2" name="addmore[0][type]" data-toggle="select2">
+                                                <option value="">Select</option>
+                                                <optgroup label="Layer Types">
+                                                    <option value="Panel" >Panel</option>
+                                                    <option value="Precut">Precut</option>
+                                                    <option value="Structural precut" >Structural precut</option>
+                                                </optgroup>
+                                            </select>
+                                        </td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][sqm]" value="" class="form-control"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][complexity]" value="" class="form-control"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][detail_price]" value="" class="form-control detail_price"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][detail_sum]" value="" class="form-control detail_sum"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][statistic_price]" value="" class="form-control statistic_price"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][statistic_sum]" value="" class="form-control statistic_sum"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][cad_cam_price]" value="" class="form-control cad_cam_price"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][cad_cam_sum]" value="" class="form-control cad_cam_sum"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][logistic_price]" value="" class="form-control logistic_price"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][logistic_sum]" value="" class="form-control logistic_sum"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][total_price]" value="" class="form-control total_price"></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][total_sum]" value="" class="form-control total_sum"></td>
+                                       
+                                </tr>
+            
+                                `);
+                                $("#costEstimateDetailTable > tbody").html(`
+                        <tr>
+                             <td> <input type="date" class="form-control enquiry_date" name="enquiry_date"  id="enquiry_date" value="" > </td>
+                        
+                        <td><input type="text" class="form-control contact" name="contact" id="contact" value=""></td>
+                        
+                        </tr>
+                        
+                        `);
+// var table = $('#costEstimateTable').DataTable(); 
+// table.fnFilterClear();
+
+
+ 
+                  
+                })
+ 
                 $(document).on('click','.delete_data',function (e) {
-                    alert()
+                   
                     let estimateId = $(this).data('cost-estimate-id');
                     $.ajax({
                     type: "GET",
                     url: "{{ route('admin.costEstimationDelete') }}",
                     data: {id:estimateId},  
                     success: function( msg ) {
-                        alert(JSON.stringify(msg))
+                        // alert(JSON.stringify(msg))
                         $('#estimate-datatable').DataTable().clear().draw();
                        
                     }
@@ -689,7 +922,7 @@
                 $("#add_btn").click(function (e) {
                     var i = editCount + 1;
                     editCount += 1;
-                $("#add_estimate").append('<tr><td><select class="form-control select2" name="addmore['+i+'][component]" data-toggle="select2"><option>Select</option><optgroup label="Layer Types"><option value="External">External</option><option value="Internal">Internal</option><option value="Ground Floor">Ground Floor</option><option value="Roof">Roof</option><option value="Loadbearing">Loadbearing</option></optgroup></select></td><td ><select class="form-control select2" name="addmore['+i+'][type]" data-toggle="select2"><option>Select</option><optgroup label="Layer Types"><option value="Panel">Panel</option><option value="Precut">Precut</option><option value="Structural precut">Structural precut</option></optgroup></select></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][sqm]" class="form-control"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][complexity]" class="form-control"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][detail_price]" class="form-control detail_price detail_price_id"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][detail_sum]" class="form-control detail_sum detail_sum_id"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][statistic_price]" class="form-control statistic_price"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][statistic_sum]" class="form-control statistic_sum"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][cad_cam_price]" class="form-control cad_cam_price"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][cad_cam_sum]" class="form-control cad_cam_sum"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][logistic_price]" class="form-control logistic_price"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][logistic_sum]" class="form-control logistic_sum"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][total_price]" class="form-control total_price"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][total_sum]" class="form-control total_sum"></td><td></td><td><button  class="delete btn btn-danger">Delete</button><td></tr> '); });
+                $("#add_estimate").append('<tr><td><select class="form-control select2" name="addmore['+i+'][component]" data-toggle="select2"><option>Select</option><optgroup label="Layer Types"><option value="External">External</option><option value="Internal">Internal</option><option value="Ground Floor">Ground Floor</option><option value="Roof">Roof</option><option value="Loadbearing">Loadbearing</option></optgroup></select></td><td ><select class="form-control select2" name="addmore['+i+'][type]" data-toggle="select2"><option>Select</option><optgroup label="Layer Types"><option value="Panel">Panel</option><option value="Precut">Precut</option><option value="Structural precut">Structural precut</option></optgroup></select></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][sqm]" class="form-control"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][complexity]" class="form-control"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][detail_price]" class="form-control detail_price detail_price_id"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][detail_sum]" class="form-control detail_sum detail_sum_id"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][statistic_price]" class="form-control statistic_price"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][statistic_sum]" class="form-control statistic_sum"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][cad_cam_price]" class="form-control cad_cam_price"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][cad_cam_sum]" class="form-control cad_cam_sum"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][logistic_price]" class="form-control logistic_price"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][logistic_sum]" class="form-control logistic_sum"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][total_price]" class="form-control total_price"></td><td  ><input  type="number" maxlength="6" name="addmore['+i+'][total_sum]" class="form-control total_sum"></td><td><button  class="delete btn btn-danger"><i class="fa fa-trash"></i></button></td></tr> '); });
 
                 $(document).on("click", ".delete", function (e) {
                     // editCount += 1;

@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\CostEstimationDetail;
 use App\Models\CostEstimationCalculation;
 use Illuminate\Http\Request;
-use DataTables;
 use Response;
+use Yajra\DataTables\Facades\DataTables;
+
 class CostEstimationController extends Controller
 {
 
 
-    public function cost_estimation_single_view(Type $var = null)
+    public function cost_estimation_single_view()
     {
        $data = CostEstimationDetail::select('cost_estimation_detail.*')->where('status','=','1')->orderBy('id', 'asc')->get()->toArray();
-        // print_r($data);die();
+       
         return view('admin.pages.admin-cost-estimation-single-view',compact('data'));
         
     }
@@ -26,29 +27,23 @@ class CostEstimationController extends Controller
             $model = CostEstimationDetail::where('status','=','1');
 
             return DataTables::eloquent($model)
-            // $data = CostEstimationDetail::latest()->get();
-            // return CostEstimationDetail::of($data)
-            //     ->addIndexColumn()
-            // href="'.route('admin.costEstimationEdit',$model->id).'"
+          
                 ->addColumn('action', function($model){
-                    $actionBtn = '<a class="edit edit_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" >Edit</a> <a class="delete delete_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" >Delete</a>';
+                    $actionBtn = '<a class="edit edit_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-edit"></i></a> <a class="delete delete_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-trash"></i></a>';
                     
-                    // $actionBtn = $model->id;
+                  
                     return $actionBtn;
                 })
                 ->toJson();
-            //     ->rawColumns(['action'])
-            //     ->make(true);
+            
         }
     }
     public function costEstimationSingleForm(Request $request)
     {
-        // print_r("if");die();
-        // return $request->key;
+        
         if($request->key)
         {
-            // print_r("if");die();
-            // return count($request->addmore);
+            
             $data =CostEstimationDetail::where('id',$request->key)->first();
             
             if($data)
@@ -60,7 +55,9 @@ class CostEstimationController extends Controller
 
                 if( count($request->addmore ) > 0){
                     foreach($request->addmore as  $row ) {
+                       
 
+                        
                     $calcData = [
                         'Component' => $row['component'],
                         'type' => $row['type'],
@@ -86,10 +83,8 @@ class CostEstimationController extends Controller
                             'id' =>  $row['test']
                         ],$calcData);
                     }
-
                 
-            
-                    // $coustEstimate->CostEstimationCalculations()->create($request->calculation);
+                
                     }
                 }
             }
@@ -98,8 +93,7 @@ class CostEstimationController extends Controller
         }
         else
         {
-            // return "else";
-            // print_r("else");die();
+          
             $coustEstimate =new CostEstimationDetail;
                 $coustEstimate->contact = $request['contact'];
                 $coustEstimate->date = $request['enquiry_date'];
@@ -107,7 +101,8 @@ class CostEstimationController extends Controller
                 $coustEstimate->save();
             if( count($request->addmore ) > 0){
                         foreach($request->addmore as  $row ) {
-
+                       
+                          
                         $calcData = [
                             'Component' => $row['component'],
                             'type' => $row['type'],
@@ -127,11 +122,11 @@ class CostEstimationController extends Controller
                         ];
                         $res = $coustEstimate->CostEstimationCalculations()->create($calcData);
                 
-                        // $coustEstimate->CostEstimationCalculations()->create($request->calculation);
-                    }
+                      
+                    
                 }
-                
-                // return back();
+                }
+              
                 return redirect()->route('cost-estimation-single-view');
         }
         
@@ -139,7 +134,7 @@ class CostEstimationController extends Controller
     }
     public function costEstimationDelete(Request $id)
     {
-        // return $id->id;
+      
         $data = CostEstimationDetail::find($id->id);
         $data->status = 0;
         $data->save();
@@ -149,22 +144,10 @@ class CostEstimationController extends Controller
 
     public function costEstimationEdit(Request $id)
     {
-        // return  $id->id;
+        
         $arr['detail'] = CostEstimationDetail::where('id',$id->id)->first()->toArray();
         $arr['calculation'] = CostEstimationCalculation::where('estimation_detail_id',$id->id)->get()->toArray();
-        // print_r($id);die();
-        // $data = CostEstimationDetail::select('cost_estimation_detail.*','cost_estimation_calculation.*')
-        // ->leftJoin('cost_estimation_calculation', 'cost_estimation_detail.id', '=', 'cost_estimation_calculation.estimation_detail_id')
-        // ->get()->toArray();
-
-        // $data = CostEstimationDetail::select('cost_estimation_detail.*')->get()->toArray();
-        // print_r($data);die();
-        // return view('admin.pages.admin-cost-estimation-single-view',compact('data'));
-
-
-        // $detail_sum = CostEstimationDetail::select('cost_estimation_calculation.detail_sum','cost_estimation_calculation.statistic_sum','cost_estimation_calculation.cad_cam_sum','cost_estimation_calculation.logistic_sum','cost_estimation_calculation.total_sum')
-        // ->leftJoin('cost_estimation_calculation', '', '=', 'cost_estimation_calculation.estimation_detail_id')
-        // ->get()->toArray();
+       
         $detail_price = 0;
         $detail_sum = 0;
 
@@ -213,8 +196,8 @@ class CostEstimationController extends Controller
 
         $arr['total_price'] = $total_price;
         $arr['total_sum'] = $total_sum;
-       
-        // return Response::json($arr);
+     
+     
         return response()->json(['data' => $arr]);
 
     }

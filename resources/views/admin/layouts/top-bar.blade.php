@@ -137,45 +137,25 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
 
-                    <div class="p-2">
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ asset('public/assets/images/brands/slack.png') }}" alt="slack">
-                                    <span>Slack</span>
+                    <div class="p-2 shadow-sm border">
+                        
+                        <div class="row g-0 p-0 m-0">
+                            <div class="col p-2">
+                                <a class="dropdown-icon-item" href="{{ route('cost-estimation-single-view') }}">
+                                    <img src="{{ asset('public/assets/images/gantt-chart.png') }}" alt="slack">
+                                    <span>Gantt chart</span>
                                 </a>
                             </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ asset('public/assets/images/brands/github.png') }}" alt="Github">
-                                    <span>GitHub</span>
+                            <div class="col p-2">
+                                <a class="dropdown-icon-item" href="{{ route('cost-estimation-single-view') }}">
+                                    <img src="{{ asset('public/assets/images/calculator.png') }}" alt="slack">
+                                    <span>Calculator</span>
                                 </a>
                             </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ asset('public/assets/images/brands/dribbble.png') }}" alt="dribbble">
-                                    <span>Dribbble</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ asset('public/assets/images/brands/bitbucket.png') }}" alt="bitbucket">
-                                    <span>Bitbucket</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ asset('public/assets/images/brands/dropbox.png') }}" alt="dropbox">
-                                    <span>Dropbox</span>
-                                </a>
-                            </div>
-                            <div class="col">
+                            <div class="col p-2">
                                 <a class="dropdown-icon-item" href="#">
                                     <img src="{{ asset('public/assets/images/brands/g-suite.png') }}" alt="G Suite">
-                                    <span>G Suite</span>
+                                    <span>E search</span>
                                 </a>
                             </div>
                         </div> <!-- end row-->
