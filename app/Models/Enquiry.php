@@ -29,5 +29,8 @@ class Enquiry extends Model
         'updated_by'
     ];
 
- 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
 }
