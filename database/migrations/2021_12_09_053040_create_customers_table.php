@@ -21,13 +21,13 @@ class CreateCustomersTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('mobile_no')->nullable();
-            $table->string('enquiry_number')->nullable();
             $table->string('company_name')->nullable();
             $table->string('contact_person')->nullable();
-            $table->date('enquiry_date')->nullable();
             $table->string('remarks')->nullable();
-            $table->boolean('is_active')->defalut(1);
+            $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

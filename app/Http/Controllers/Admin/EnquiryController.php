@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\Customer;
 use App\Services\GlobalService;
@@ -12,6 +13,7 @@ use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -23,9 +25,9 @@ class EnquiryController extends Controller
     
     protected $user;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(CustomerRepositoryInterface $customerRepository)
     {
-        $this->user = $userRepository;
+        $this->customer = $customerRepository;
     }
     /**
      * Display a listing of the resource.
@@ -84,32 +86,32 @@ class EnquiryController extends Controller
      */
     public function store(CreateCustomerRequest $request)
     {
-    
         DB::beginTransaction();
         try {
-            $user     = Sentinel::getUserRepository()->findById(1);
             $latest_enquiry_number = GlobalService::enquiryNumber();
             if($request->enquiry_number != $latest_enquiry_number) {
                 return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
             }
-            $password = Str::random(10);
+            $password = 'customer@123';
             $email = $request->email;
             $data = [
                 'full_name'      => $request->user_name,
                 'company_name'   => $request->company_name,
                 'contact_person' => $request->contact_person,
-                'enquiry_date'   => now(),
-                'enquiry_number' => $latest_enquiry_number,
                 'remarks'        => $request->remarks,
                 'mobile_no'      => $request->mobile_no,
                 'email'          => strtolower($email),
-                'password'       => $password,
-                'type'           => 'external',
-                'created_by'     => $user,
-                'updated_by'     => $user,
+                'password'       => Hash::make($password),
+                'created_by'     => 1,
+                'updated_by'     => 1,
+                'is_active'      => 1
             ];
-            $this->user->setRole('customer');
-            $res = $this->user->create($data);
+            $customer = $this->customer->create($data);
+            $customer->enquiry()
+                        ->create([
+                            'enquiry_date' => now(), 
+                            'enquiry_number' => $latest_enquiry_number
+                        ]);
             DB::commit();
             GlobalService::updateConfig('ENQ');
             $details = [
@@ -117,16 +119,13 @@ class EnquiryController extends Controller
                 'customer_email'    => $request->email,
                 'customer_pws'      => $password
             ]; 
-
             Mail::to($request->email)->send(new \App\Mail\Enquiry($details));            
-
-            return response(['status' => true, 'data' => $res ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
+            return response(['status' => true, 'data' => $customer ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             Log::info($e->getMessage());
             DB::rollBack();
             return response(['status' => false, 'data' => '' ,'msg' => trans('global.something')], Response::HTTP_OK);
         }
- 
     }
 
     /**

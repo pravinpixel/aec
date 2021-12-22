@@ -160,7 +160,7 @@
                 </a>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="mdi mdi-logout me-1"></i>
                     <span>Logout</span>
                 </a>
@@ -171,6 +171,8 @@
     <button class="button-menu-mobile open-left">
         <i class="mdi mdi-menu"></i>
     </button>
-     
+    <form id="logout-form" action="{{ route('customers.logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
 </div>
 <!-- end Topbar -->

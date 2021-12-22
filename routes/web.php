@@ -2,11 +2,14 @@
 include 'menu.php';
 include 'adminAPI.php';
 include 'master.php';
+include 'customer.php';
 
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EnquiryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CostEstimationController;
+use App\Http\Controllers\Auth\AuthCountroller;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,29 +27,7 @@ Route::get('/', function () {
 
 /** ===== Customers Routes ======*/
     
-    Route::prefix('customers')->group(function () {
 
-        Route::get('/', function () {
-            return redirect(route('customers-dashboard'));
-        });
-
-        Route::get('/dashboard', function () {
-            return view('customers.index');
-        })->name('customers-dashboard');
-
-        Route::get('/my-enquiries', function () {
-            return view('customers.pages.my-enquiries');
-        })->name('customers-my-enquiries');
-
-        Route::get('/create-enquiries', function () {
-            return view('customers.pages.create-enquiries');
-        })->name('customers-create-enquiries');
-
-        Route::get('/view-enquiry', function () {
-            return view('customers.pages.enquiry-single-view');
-        })->name('customers-view-enquiry');
-        
-    });
 /** ===== End : Customers Routes ======*/
 
 
@@ -164,7 +145,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 });
 
 
+Route::get('customers/login',[ AuthCountroller::class, 'getCustomerLogin'])->name('customers.login');
+Route::post('customers/login',[ AuthCountroller::class, 'postCustomerLogin'])->name('customers.login');
+Route::post('customers/logout',[ AuthCountroller::class, 'customerLogout'])->name('customers.logout');
+
 /** ===== End : Customers Routes ======*/
-
-
-

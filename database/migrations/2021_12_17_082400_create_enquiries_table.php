@@ -15,21 +15,23 @@ class CreateEnquiriesTable extends Migration
     {
         Schema::create('enquiries', function (Blueprint $table) {
             $table->id();
+            $table->date('enquiry_date');
+            $table->string('enquiry_number');
             $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('service_id');
-            $table->unsignedBigInteger('building_type_id');
-            $table->unsignedBigInteger('delivery_type_id');
-            $table->unsignedBigInteger('project_type_id');
-            $table->string('project_name');
-            $table->datetime('project_date');
-            $table->string('place');
-            $table->string('site_address');
-            $table->string('country');
-            $table->string('zipcode');
-            $table->string('state');
-            $table->integer('no_of_building');
-            $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('service_id')->nullable();
+            $table->unsignedBigInteger('building_type_id')->nullable();
+            $table->unsignedBigInteger('delivery_type_id')->nullable();
+            $table->unsignedBigInteger('project_type_id')->nullable();
+            $table->string('project_name')->nullable();
+            $table->datetime('project_date')->nullable();
+            $table->string('place')->nullable();
+            $table->string('site_address')->nullable();
+            $table->string('country')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->string('state')->nullable();
+            $table->integer('no_of_building')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->timestamps();
         });
