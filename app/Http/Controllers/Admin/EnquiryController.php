@@ -120,7 +120,7 @@ class EnquiryController extends Controller
                 'customer_email'    => $request->email,
                 'customer_pws'      => $password
             ]; 
-            Mail::to($request->email)->send(new \App\Mail\Enquiry($details));            
+            // Mail::to($request->email)->send(new \App\Mail\Enquiry($details));
             return response(['status' => true, 'data' => $customer ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             Log::info($e->getMessage());
