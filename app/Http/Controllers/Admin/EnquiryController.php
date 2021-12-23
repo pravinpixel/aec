@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCustomerRequest;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\Customer;
+use App\Models\Enquiry;
 use App\Services\GlobalService;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class EnquiryController extends Controller
             $to         =   Carbon::parse($req_to)->startOfDay();
             $status     =   $req->status;
             $type       =   $req->type;
-            $data       =   Customer::whereBetween('created_at', [$from, $to])
+            $data       =   Enquiry::whereBetween('created_at', [$from, $to])
                                         ->when($status,  function($q) use($status) {
                                             $q->where('status', $status);
                                         })  

@@ -11,7 +11,7 @@
                         <!-- Logo -->
                         <div class="card-header pt-4 pb-4 text-center bg-primary">
                             <a href="index.html">
-                                <span><img src="assets/images/logo.png" alt="{{ env('APP_NAME') }}" height="18"></span>
+                                <span><img src="{{ asset("public/assets/images/logo_customer.png") }}" alt="{{ env('APP_NAME') }}" width="150px"></span>
                             </a>
                         </div>
 
@@ -73,7 +73,7 @@
     <!-- end page -->
 
     <footer class="footer footer-alt">
-        2018 - 2021 © Hyper - Coderthemes.com
+        2018 - 2021 © AEC Prefab - pixel-studios.com
     </footer>
     
 </body>

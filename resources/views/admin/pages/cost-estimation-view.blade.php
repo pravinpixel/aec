@@ -87,8 +87,8 @@
                                                 </button>
                                                 
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="{{ route("admin-cost-estimation-single-view") }}">View</a>
-                                                    <a class="dropdown-item" href="{{ route("admin-cost-estimation-single-view") }}">Cost Estimate</a>
+                                                    <a class="dropdown-item" href=" ">View</a>
+                                                    <a class="dropdown-item" href=" ">Cost Estimate</a>
                                                 </div>
                                             </div>
                                         </td>
