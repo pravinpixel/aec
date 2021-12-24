@@ -58,11 +58,11 @@ class EnquiryController extends Controller
             return $data;
         }  
         
-        return Customer::latest()->limit(20)->get();
+        return Enquiry::latest()->limit(20)->get();
         
     }
     public function singleIndex($id) {
-        return Customer::find($id);
+        return Enquiry::with('customer')->where('customer_id', $id)->first();
     }
 
     public function getEnquiryNumber(Request $request)    { 

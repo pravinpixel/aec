@@ -27,92 +27,56 @@
                                         <div class="row m-0">
                                             <div class="col">
                                                 <div class="mb-3">                                             
-                                                    <label class="form-label" for="validationCustom01">Enquiry Number  <sup class="text-danger">*</sup></label>
+                                                    <label class="form-label"  >Enquiry Number  <sup class="text-danger">*</sup></label>
                                                     <input ng-disabled="true" type="text" ng-value="myWelcome"  class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3">
-                                                    <label class="form-label" for="validationCustom02">Enquiry Date <sup class="text-danger">*</sup></label>
+                                                    <label class="form-label" >Enquiry Date <sup class="text-danger">*</sup></label>
                                                     <input ng-disabled="true" type="text" value="{{  now()->toDateString() }}" class="form-control" >
                                                 </div>  
                                             </div>
                                             <div class="col">
                                                 <div class="mb-2">
-                                                    <label class="form-label" for="validationCustom02">Password </label>
+                                                    <label class="form-label" >Password </label>
                                                     <input type="text" class="form-control" id="validationCustom02" placeholder="Auto generated password"  ng-disabled="true" >
                                                 </div> 
                                             </div>
                                         </div>
-                                    </div>
-                                   
-                                        {{-- <div class="mb-3">                                             
-                                            <label class="form-label" for="validationCustom01">Enquiry Number <sup class="text-danger">*</sup></label>
-                                            <input ng-disabled="true" type="text" value="{{ $enq_number }}" class="form-control" >
-                                            <input style="position: absolute;opacity:0" type="radio" ng-checked="true" ng-checked="module.enq_number == {{ $enq_number }}"  value="{{ $enq_number }}" ng-model="module.enq_number" name="enq_number">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="validationCustom02">Enquiry Date <sup class="text-danger">*</sup></label>
-                                            <input ng-disabled="true" type="text" value="{{  now()->toDateString() }}" class="form-control" >
-                                            <input style="position: absolute;opacity:0" type="radio" ng-checked="true" ng-checked="module.enquiry_date == {{  now()->toDateString() }}"  value="{{  now()->toDateString() }}" ng-model="module.enquiry_date" name="enquiry_date">
-                                        </div> --}}
+                                    </div> 
                                         
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="validationCustom02">User Name<sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" name="user_name" id="validationCustom02" ng-model="module.user_name" placeholder="Type Here..."  ng-required="true">
-                                                <span class="help-inline" ng-show="frm.user_name.$invalid &amp;&amp; frm.user_name.$touched"><small class="text-danger">field is required</small></span>
-                                                <span class="help-inline" ng-show="frm.user_name.$valid &amp;&amp; frm.user_name.$touched"><small class="text-success">Looks good!</small></span>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="validationCustom02">Contact Person<sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" name="contact_person" id="validationCustom02" ng-minlength="3" ng-model="module.contact_person" placeholder="Type Here..." ng-required="true">
-                                                <span class="help-inline" ng-show="frm.contact_person.$invalid &amp;&amp; frm.contact_person.$touched"><small class="text-danger">field is required</small></span>
-                                                <span class="help-inline" ng-show="frm.contact_person.$valid &amp;&amp; frm.contact_person.$touched"><small class="text-success">Looks good!</small></span>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                        </div>  
-                                  
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" >User Name<sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="user_name" id="validationCustom02" ng-model="module.user_name" placeholder="Type Here..."  ng-required="true">
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" >Contact Person<sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="contact_person" id="validationCustom02" ng-minlength="3" ng-model="module.contact_person" placeholder="Type Here..." ng-required="true">
+                                        </div>
+                                    </div>  
+                                
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <div class="mb-3">
                                                 <label class="form-label" for="validationCustom01">Email \ E-Post<sup class="text-danger">*</sup></label>
                                                 <input type="text" class="form-control" id="validationCustom01" name="email" ng-model="module.email" placeholder="Type Here..."  ng-required="true">
-                                                <span class="help-inline" ng-show="frm.email.$invalid &amp;&amp; frm.email.$touched"><small class="text-danger">field is required</small></span>
-                                                <span class="help-inline" ng-show="frm.email.$valid &amp;&amp; frm.email.$touched"><small class="text-success">Looks good!</small></span>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
                                             </div>
                                         </div> 
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="validationCustom02">Telephone<sup class="text-danger">*</sup></label>
+                                            <label class="form-label" >Telephone<sup class="text-danger">*</sup></label>
                                             <input type="number" class="form-control" name="mobile_number" id="validationCustom02" ng-model="module.mobile_number" placeholder="Type Here..."  ng-required="true">
-                                            <span class="help-inline" ng-show="frm.mobile_number.$invalid &amp;&amp; frm.mobile_number.$touched"><small class="text-danger">field is required</small></span>
-                                            <span class="help-inline" ng-show="frm.mobile_number.$valid &amp;&amp; frm.mobile_number.$touched"><small class="text-success">Looks good!</small></span>
-                                            <div class="valid-feedback">
-                                                Looks good!
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label" for="validationCustom01">Company Name<sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="company_name" id="validationCustom01" ng-model="module.company_name" placeholder="Type Here..."  ng-required="true">
-                                            <span class="help-inline" ng-show="frm.company_name.$invalid &amp;&amp; frm.company_name.$touched"><small class="text-danger">field is required</small></span>
-                                            <span class="help-inline" ng-show="frm.company_name.$valid &amp;&amp; frm.company_name.$touched"><small class="text-success">Looks good!</small></span>
-                                            <div class="valid-feedback">
-                                                Looks good!
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -125,7 +89,6 @@
                                     <button ng-disabled="frm.$invalid" ng-click="save()" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
                                 </div>
                             </form>
-                            
                         </div> 
                     </div>
                 </div>
@@ -150,6 +113,9 @@
         .mb-3 {
             position: relative;
         }
+        
+        
+        
     </style>
 @endpush
 
@@ -172,7 +138,7 @@
 
                 $scope.day = new Date();
 
-                var FormData = {
+                $scope.data = {
                     company_name    :   $scope.module.company_name, 
                     contact_person  :   $scope.module.contact_person,
                     mobile_no       :   $scope.module.mobile_number,
@@ -186,12 +152,16 @@
                     method: "POST",
                     url: API_URL + "admin/enquiry",
                     // data: $.param($scope.module),
-                    data: $.param(FormData),
+                    data: $.param($scope.data),
                     headers: { 
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
                 }).then(function (response) {
                     $scope.getItems();
+
+                    $scope.module = {};
+                    $scope.frm.$setPristine();
+                     
                     if(response.data.errors) {
                         Message('success',response.data.errors);
                     }

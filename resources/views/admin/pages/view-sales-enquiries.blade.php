@@ -44,13 +44,13 @@
                                 <tr ng-repeat="(index,m) in module_get">
                                     <td> @{{ index+1 }}</td>
                                     <td> 
-                                        <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.enquiry_number }}</span>
+                                        <span ng-click="toggle('edit', m.customer_id)" class="badge badge-primary-lighten btn  p-2">@{{ m.enquiry_number }}</span>
                                     </td>
                                     <td>Construction</td>
                                     <td>1</td>
                                     <td>10-12-2022</td>
                                     <td>
-                                        <div id="tooltip-container2" ng-click="toggle('edit', m.id)">
+                                        <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
                                             <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
                                             <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
                                             <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
@@ -147,7 +147,7 @@
                 <div id="right-modal-progress" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
                         <div class="p-3 shadow-sm">
-                            <h3>Project Name : <b class="text-primary"> @{{ enqData.contact_person }} </b></h3>
+                            <h3>Project Name : <b class="text-primary"> @{{ enqData.project_name }} </b></h3>
                             <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
                         </div>
                         <div class="modal-content h-100 p-4" style="overflow: auto">
@@ -164,10 +164,10 @@
                                         </tr>
                                         <tr>
                                             <td>@{{ enqData.enquiry_number }}</td>
-                                            <td>@{{ enqData.full_name }} </td>
-                                            <td>@{{ enqData.company_name }}</td>
-                                            <td>@{{ enqData.mobile_no }}</td>
-                                            <td>@{{ enqData.email }} </td>
+                                            <td>@{{ enqData.customer.full_name }} </td>
+                                            <td>@{{ enqData.customer.company_name }}</td>
+                                            <td>@{{ enqData.customer.mobile_no }}</td>
+                                            <td>@{{ enqData.customer.email }} </td>
                                             <td>New</td>
                                         </tr>
                                     </table>
@@ -192,27 +192,27 @@
                                                         <tbody>
                                                                 <tr class="border">
                                                                     <th  class=" ">Project Name
-                                                                    </th><td  class="bg-white">ABCD Building</td>
+                                                                    </th><td  class="bg-white">@{{ enqData.project_name }}</td>
                                                                 </tr> 
                                                                 <tr class="border">
                                                                     <th  class=" ">Construction Site Address
-                                                                    </th><td  class="bg-white">Strandgata-12</td>
+                                                                    </th><td  class="bg-white">@{{ enqData.site_address }}</td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th  class=" ">Post Code
-                                                                    </th><td  class="bg-white">2134</td>
+                                                                    <th  class=" ">Zip Code
+                                                                    </th><td  class="bg-white">@{{ enqData.zipcode }}</td>
                                                                 </tr> 
                                                                 <tr class="border">
                                                                     <th  class=" ">Place
-                                                                    </th><td  class="bg-white">Austvath</td>
+                                                                    </th><td  class="bg-white">@{{ enqData.place }}</td>
                                                                 </tr> 
                                                                 <tr class="border">
                                                                     <th  class=" ">State
-                                                                    </th><td  class="bg-white">Hedmark</td>
+                                                                    </th><td  class="bg-white">@{{ enqData.state }}</td>
                                                                 </tr> 
                                                                 <tr class="border">
                                                                     <th  class=" ">Country
-                                                                    </th><td  class="bg-white">Norway</td>
+                                                                    </th><td  class="bg-white">@{{ enqData.site_address }}</td>
                                                                 </tr> 
                                                                 <tr class="border">
                                                                     <th  class=" ">Type of Project
@@ -229,7 +229,7 @@
                                                         </tr> 
                                                         <tr class="border">
                                                             <th  class=" ">Number of Buildings
-                                                            </th><td  class="bg-white">2</td>
+                                                            </th><td  class="bg-white">@{{ enqData.no_of_building }}</td>
                                                         </tr> 
                                                         <tr class="border">
                                                             <th  class=" ">Type of Delivery
@@ -245,11 +245,11 @@
                                                         </tr> 
                                                         <tr class="border">
                                                             <th  class=" ">Contact Person name
-                                                            </th><td  class="bg-white">XXXXXXX </td>
+                                                            </th><td  class="bg-white">@{{ enqData.customer.contact_person }} </td>
                                                         </tr> 
                                                         <tr class="border">
                                                             <th  class=" ">E-post
-                                                            </th><td  class="bg-white">dummyemail@gmail.com</td>
+                                                            </th><td  class="bg-white">@{{ enqData.customer.email }} </td>
                                                         </tr> 
                                                     </tbody></table>
                                                 </div>
@@ -622,35 +622,35 @@
 				 // getData($http, API_URL);
 				// getMenuData($http, API_URL);
 
-                    $scope.checkIt = function (index , id) {
+                $scope.checkIt = function (index , id) {
 
-                        var url = API_URL + "module" + "/status";
-                        // getData($http, API_URL);
+                    var url = API_URL + "module" + "/status";
+                    // getData($http, API_URL);
 
-                        if (id) {
+                    if (id) {
 
-			                url += "admin/api/v2/customers-enquiry/" + id;
-                            method = "PUT";
+                        url += "admin/api/v2/customers-enquiry/" + id;
+                        method = "PUT";
 
-                            $http({
-                                method: method,
-                                url: url,
-                                data: $.param({'is_active':0}),
-                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                        $http({
+                            method: method,
+                            url: url,
+                            data: $.param({'is_active':0}),
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-                            }).then(function (response) {
-                                
-                                getData($http, API_URL);
+                        }).then(function (response) {
+                            
+                            getData($http, API_URL);
 
-                                Message('success',response.data.msg);
+                            Message('success',response.data.msg);
 
-                            }), (function (error) {
-                                console.log(error);
-                                console.log('This is embarassing. An error has occurred. Please check the log for details');
-                            });
+                        }), (function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
 
-                        }
                     }
+                }
 
                     
 			    //show modal form
@@ -673,7 +673,10 @@
 			                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + id )
 
 			                    .then(function (response) {
+                                    
 			                        $scope.enqData = response.data;
+
+                                    console.log( $scope.enqData);
   
                                     $('#right-modal-progress').modal('show');
 
