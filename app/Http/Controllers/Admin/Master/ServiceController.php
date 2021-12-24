@@ -25,9 +25,7 @@ class ServiceController extends Controller
      */
     public function index(): JsonResponse 
     {
-        return response()->json([
-            'data' => $this->serviceRepository->all()
-        ]);
+        return response()->json($this->serviceRepository->all());
     }
 
     /**

@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\BuildingTypeRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BuildingTypeController extends Controller
 {
+    protected $buildingType;
+
+    public function __construct(BuildingTypeRepositoryInterface $buildingTypeRepository)
+    {
+        $this->buildingType = $buildingTypeRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +23,7 @@ class BuildingTypeController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($this->buildingType->all());
     }
 
     /**
@@ -33,9 +32,18 @@ class BuildingTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse 
     {
-        //
+        $buildingType = $request->only([
+           
+        ]);
+
+        return response()->json(
+            [
+                'data' => $this->buildingType->create($buildingType)
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -44,20 +52,13 @@ class BuildingTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request): JsonResponse 
     {
-        //
-    }
+        $buildingTypeId = $request->route('id');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json([
+            'data' => $this->buildingType->find($buildingTypeId)
+        ]);
     }
 
     /**
@@ -67,19 +68,28 @@ class BuildingTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request): JsonResponse 
     {
-        //
-    }
+        $buildingTypeId = $request->route('id');
+        $buildingType = $request->only([
+           
+        ]);
 
+        return response()->json([
+            'data' => $this->buildingType->update($buildingType, $buildingTypeId)
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request): JsonResponse 
     {
-        //
+        $buildingTypeId = $request->route('id');
+        $this->buildingType->delete($buildingTypeId);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
 }

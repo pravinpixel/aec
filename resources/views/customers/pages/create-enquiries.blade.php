@@ -84,7 +84,7 @@
                     </div>
                         <div id="rootwizard">
                             <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
-                                <li class="nav-item" data-target-form="#accountForm">
+                                <li class="nav-item" data-target-form="#projectInfo">
                                     <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Project Information</span>
@@ -122,1196 +122,23 @@
                                 </li>
                             </ul>
 
-                            <div class="tab-content my-3">
-                                <div class="tab-pane active" id="first">
-                                    <form id="accountForm" method="post" action="#" class="form-horizontal">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-floating  mb-2">
-                                                    <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Enquiry Date</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Enquiry Number</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Campany Name</label>
-                                                </div> 
-                                                <div class="form-floating  mb-2">
-                                                    <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Contact Person</label>
-                                                </div> 
-                                                <div class="form-floating  mb-2">
-                                                    <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Mobile Number</label>
-                                                </div> 
-                                                <div class="form-floating  mb-2">
-                                                    <input   type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Secondary Mobile Number</label>
-                                                </div> 
-                                            </div> 
-                                            <div class="col-md-4">
-                                                <div class="form-floating  mb-2">
-                                                    <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Project Name</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Zipcode</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">State</label>
-                                                </div>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
-                                                        <option value="">--</option> 
-                                                        <option value="Living House">Living House</option> 
-                                                        <option value="Cabin">Cabin</option> 
-                                                        <option value="Apartments">Apartments</option> 
-                                                        <option value="Public Buildings">Public Buildings</option> 
-                                                        <option value="Commercial Building">Commercial Building</option> 
-                                                        <option value="Others">Others</option>
-                                                    </select>
-                                                    <label for="floatingSelect">Type of Building</label>
-                                                </div>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
-                                                        <option value="">--</option> 
-                                                        <option value="New Construction">New Construction</option> 
-                                                        <option value="Renovation">Renovation</option> 
-                                                        <option value="Others">Others</option> 
-                                                    </select>
-                                                    <label for="floatingSelect">Type of Project</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input type="date" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Project Start Date</label>
-                                                </div>
-                                            </div> 
-                                            <div class="col-md-4">
-                                                <div class="form-floating  mb-2">
-                                                    <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Site Address</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Place</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">Country</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                                    <label for="floating">No of Buildings</label>
-                                                </div>
-                                                <div class="form-floating mb-2">
-                                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
-                                                        <option value="">--</option>
-                                                        <option value="New Construction">New Construction</option> 
-                                                        <option value="Renovation">Renovation</option> 
-                                                        <option value="Others">Others</option> 
-                                                    </select>
-                                                    <label for="floatingSelect">Type of Delivery</label>
-                                                </div>
-                                                <div class="form-floating  mb-2">
-                                                    <input type="date" class="form-control"    required/>
-                                                    <label for="floating">Project Delivery Date</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                            <div class="tab-content my-3" ng-controller="wizard">
+                                <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
+                                    @include('customers.pages.enquiryWizard.project-info')
                                 </div>
-
-                                <div class="tab-pane fade " id="second">
-                                    <form id="profileForm" method="post" action="#" class="form-horizontal">
-                                    
-                                        <div class="row m-0 justify-content-center ">
-                                            <label class="col-md-4 p-2" for="one_1_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="one_1_check">
-                                                    <span>CAD/CAM Modelling</span>
-                                                </div>
-                                            </label> 		
-                                            <label class="col-md-4 p-2" for="one_2_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="one_2_check">
-                                                    <span>Construction Logistics</span>
-                                                </div>
-                                            </label>         
-                                            <label class="col-md-4 p-2" for="three_3_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2 " id="three_3_check">
-                                                    <span>Approval Drawings, Sections &amp; Plans</span>
-                                                </div>
-                                            </label> 		
-                                            <label class="col-md-4 p-2" for="four_4_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="four_4_check">
-                                                    <span>CNC Machine Data for pre-cut</span>
-                                                </div>
-                                            </label> 
-                                        
-                                            <label class="col-md-4 p-2" for="one_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="one_check">
-                                                    <span>Details for connections</span>
-                                                </div>
-                                            </label> 		
-                                            <label class="col-md-4 p-2" for="two_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="two_check">
-                                                    <span>Pre-cut assembly drawings</span>
-                                                </div>
-                                            </label> 
-                                        
-                                            <label class="col-md-4 p-2" for="three_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="three_check">
-                                                    <span>Structural Engineering</span>
-                                                </div>
-                                            </label> 		
-                                            <label class="col-md-4 p-2" for="four_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="four_check">
-                                                    <span>Element Production drawings</span>
-                                                </div>
-                                            </label> 
-                                        
-                                            <label class="col-md-4 p-2" for="five_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="five_check">
-                                                    <span>Bill of Materials</span>
-                                                </div>
-                                            </label> 		
-                                            <label class="col-md-4 p-2" for="six_check">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="six_check">
-                                                    <span>Element Installation drawings</span>
-                                                </div>
-                                            </label> 
-                                            <label class="col-md-4 p-2" for="Procedure">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="Procedure">
-                                                    <span>Construction Procedure</span>
-                                                </div>
-                                            </label>   
-                                            <label class="col-md-4 p-2" for="Others">
-                                                <div class="lable-check  p-3 shadow-sm border"> 
-                                                    <input style="transform:scale(1.6)" type="checkbox" name="" class="m-2" id="Others">
-                                                    <span>Others</span>
-                                                </div>
-                                            </label>   
-                                        </div>
-                                    </form>
+                                <div class="tab-pane fade " id="second" ng-controller="ServiceSelection">
+                                    @include('customers.pages.enquiryWizard.service-selection')
                                 </div>
-
                                 <div class="tab-pane fade " id="four">
-                                    <div id="profileForm" class="form-horizontal">
-                                        <div class="row mx-0">
-                                            <div class="col-md-3">
-                                                <div class="card rounded ">
-                                                    <div class="card-header ">
-                                                        <div class="page-title ">Plan view <sup class="text-danger">*</sup> </div>
-                                                    </div>
-                                                    <div class="card-body pbs-0">
-                                                        <div class="filepond--root filepond filepond--hopper" data-style-button-remove-item-position="left" data-style-button-process-item-position="right" data-style-load-indicator-position="right" data-style-progress-indicator-position="right" data-style-button-remove-item-align="false" style="height: 76px;"><input class="filepond--browser" type="file" id="filepond--browser-at9vm4gw5" name="filepond" aria-controls="filepond--assistant-at9vm4gw5" aria-labelledby="filepond--drop-label-at9vm4gw5"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/" target="_blank" rel="noopener noreferrer" style="transform: translateY(68px);">Powered by PQINA</a><div class="filepond--drop-label" style="transform: translate3d(0px, 0px, 0px); opacity: 1;"><label for="filepond--browser-at9vm4gw5" id="filepond--drop-label-at9vm4gw5" aria-hidden="true">Drag &amp; Drop your files or <span class="filepond--label-action" tabindex="0">Browse</span></label></div><div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);"><ul class="filepond--list" role="list"></ul></div><div class="filepond--panel filepond--panel-root" data-scalable="true"><div class="filepond--panel-top filepond--panel-root"></div><div class="filepond--panel-center filepond--panel-root" style="transform: translate3d(0px, 8px, 0px) scale3d(1, 0.6, 1);"></div><div class="filepond--panel-bottom filepond--panel-root" style="transform: translate3d(0px, 68px, 0px);"></div></div><div class="filepond--drip"></div><span class="filepond--assistant" id="filepond--assistant-at9vm4gw5" role="status" aria-live="polite" aria-relevant="additions"></span><fieldset class="filepond--data"></fieldset></div>
-                                                        <div class="pb-2 text-center">(or)</div>
-                                                        <input class="form-control form-control-sm" type="text" placeholder="Paste Here..">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="card rounded">
-                                                    <div class="card-header">
-                                                        <div class="page-title ">FACADE  view <sup class="text-danger">*</sup> </div>
-                                                    </div>
-                                                    <div class="card-body pbs-0">
-                                                        <div class="filepond--root filepond filepond--hopper" data-style-button-remove-item-position="left" data-style-button-process-item-position="right" data-style-load-indicator-position="right" data-style-progress-indicator-position="right" data-style-button-remove-item-align="false" style="height: 76px;"><input class="filepond--browser" type="file" id="filepond--browser-ggby9tofl" name="filepond" aria-controls="filepond--assistant-ggby9tofl" aria-labelledby="filepond--drop-label-ggby9tofl"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/" target="_blank" rel="noopener noreferrer" style="transform: translateY(68px);">Powered by PQINA</a><div class="filepond--drop-label" style="transform: translate3d(0px, 0px, 0px); opacity: 1;"><label for="filepond--browser-ggby9tofl" id="filepond--drop-label-ggby9tofl" aria-hidden="true">Drag &amp; Drop your files or <span class="filepond--label-action" tabindex="0">Browse</span></label></div><div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);"><ul class="filepond--list" role="list"></ul></div><div class="filepond--panel filepond--panel-root" data-scalable="true"><div class="filepond--panel-top filepond--panel-root"></div><div class="filepond--panel-center filepond--panel-root" style="transform: translate3d(0px, 8px, 0px) scale3d(1, 0.6, 1);"></div><div class="filepond--panel-bottom filepond--panel-root" style="transform: translate3d(0px, 68px, 0px);"></div></div><div class="filepond--drip"></div><span class="filepond--assistant" id="filepond--assistant-ggby9tofl" role="status" aria-live="polite" aria-relevant="additions"></span><fieldset class="filepond--data"></fieldset></div>
-                                                        <div class="pb-2 text-center">(or)</div>
-                                                        <input class="form-control form-control-sm" type="text" placeholder="Paste Here..">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="card rounded">
-                                                    <div class="card-header">
-                                                        <div class="page-title ">IFC Model <sup class="text-danger">*</sup> </div>
-                                                    </div>
-                                                    <div class="card-body pbs-0">
-                                                        <div class="filepond--root filepond filepond--hopper" data-style-button-remove-item-position="left" data-style-button-process-item-position="right" data-style-load-indicator-position="right" data-style-progress-indicator-position="right" data-style-button-remove-item-align="false" style="height: 76px;"><input class="filepond--browser" type="file" id="filepond--browser-8gt7r82mq" aria-controls="filepond--assistant-8gt7r82mq" aria-labelledby="filepond--drop-label-8gt7r82mq" name="filepond"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/" target="_blank" rel="noopener noreferrer" style="transform: translateY(68px);">Powered by PQINA</a><div class="filepond--drop-label" style="transform: translate3d(0px, 0px, 0px); opacity: 1;"><label for="filepond--browser-8gt7r82mq" id="filepond--drop-label-8gt7r82mq" aria-hidden="true">Drag &amp; Drop your files or <span class="filepond--label-action" tabindex="0">Browse</span></label></div><div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);"><ul class="filepond--list" role="list"></ul></div><div class="filepond--panel filepond--panel-root" data-scalable="true"><div class="filepond--panel-top filepond--panel-root"></div><div class="filepond--panel-center filepond--panel-root" style="transform: translate3d(0px, 8px, 0px) scale3d(1, 0.6, 1);"></div><div class="filepond--panel-bottom filepond--panel-root" style="transform: translate3d(0px, 68px, 0px);"></div></div><div class="filepond--drip"></div><span class="filepond--assistant" id="filepond--assistant-8gt7r82mq" role="status" aria-live="polite" aria-relevant="additions"></span><fieldset class="filepond--data"></fieldset></div>
-                                                        <div class="pb-2 text-center">(or)</div>
-                                                        <input class="form-control form-control-sm" type="text" placeholder="Paste Here..">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="card rounded">
-                                                    <div class="card-header">
-                                                        <div class="page-title ">Others </div>
-                                                    </div>
-                                                    <div class="card-body pbs-0"> 
-                                                        <div class="filepond--root filepond filepond--hopper" data-style-button-remove-item-position="left" data-style-button-process-item-position="right" data-style-load-indicator-position="right" data-style-progress-indicator-position="right" data-style-button-remove-item-align="false" style="height: 76px;"><input class="filepond--browser" type="file" id="filepond--browser-oeqf1ra94" name="filepond" aria-controls="filepond--assistant-oeqf1ra94" aria-labelledby="filepond--drop-label-oeqf1ra94"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/" target="_blank" rel="noopener noreferrer" style="transform: translateY(68px);">Powered by PQINA</a><div class="filepond--drop-label" style="transform: translate3d(0px, 0px, 0px); opacity: 1;"><label for="filepond--browser-oeqf1ra94" id="filepond--drop-label-oeqf1ra94" aria-hidden="true">Drag &amp; Drop your files or <span class="filepond--label-action" tabindex="0">Browse</span></label></div><div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);"><ul class="filepond--list" role="list"></ul></div><div class="filepond--panel filepond--panel-root" data-scalable="true"><div class="filepond--panel-top filepond--panel-root"></div><div class="filepond--panel-center filepond--panel-root" style="transform: translate3d(0px, 8px, 0px) scale3d(1, 0.6, 1);"></div><div class="filepond--panel-bottom filepond--panel-root" style="transform: translate3d(0px, 68px, 0px);"></div></div><div class="filepond--drip"></div><span class="filepond--assistant" id="filepond--assistant-oeqf1ra94" role="status" aria-live="polite" aria-relevant="additions"></span><fieldset class="filepond--data"></fieldset></div>
-                                                        <div class="pb-2 text-center">(or)</div>
-                                                        <input class="form-control form-control-sm" type="text" placeholder="Paste Here..">
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                        <div class="container">
-                                            <h3>Plan View </h3>
-                                            
-                                            <table class="table table-bordered" id="myTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Date</th>
-                                                        <th>File Name</th>
-                                                        <th>File Type</th>
-                                                        <th>Comments</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="panel"> 
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-info">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                        </td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-primary rounded-pill">Approved</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn  btn-info"  data-bs-toggle="collapse" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_2"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapseOne_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <div class="p-3 card">
-                                                                <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>XXx</td>
-                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>YYY</td>
-                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>ZZZ</td>
-                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                            </div>
-                                                        </td>
-                                                    </tr>                                                       
-                                                    
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                        </td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-info">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn  btn-info"  data-bs-toggle="collapse" href="#collapseOne_4" aria-expanded="true" aria-controls="collapseOne_4"></i>
-                                                        </td>
-                                                    </tr> 
-                                                    <tr id="collapseOne_4" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>5</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-primary rounded-pill">Approved</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                        </td>
-                                                    </tr>                                                   
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="container">
-                                            <h3>FACADE View </h3>
-                                            
-                                            <table class="table table-bordered" id="myTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Date</th>
-                                                        <th>File Name</th>
-                                                        <th>File Type</th>
-                                                        <th>Comments</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="panel">
-                                                                                                                
-                                                    
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-info">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_1" aria-expanded="true" aria-controls="collapsene_1"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapsene_1" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                                
-                                                    
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-info">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_2" aria-expanded="true" aria-controls="collapsene_2"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapsene_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                                                                       
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="container">
-                                            <h3>IFC Model </h3>
-                                            
-                                            <table class="table table-bordered" id="myTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Date</th>
-                                                        <th>File Name</th>
-                                                        <th>File Type</th>
-                                                        <th>Comments</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="panel">
-                                                                                                                
-                                                    
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_1" aria-expanded="true" aria-controls="collapsene_1"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapsene_1" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                                
-                                                    
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_2" aria-expanded="true" aria-controls="collapsene_2"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapsene_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                                
-                                                    
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                     
-                                                                                                            
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="container">
-                                            <h3>Others</h3>
-                                            
-                                            <table class="table table-bordered" id="myTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Date</th>
-                                                        <th>File Name</th>
-                                                        <th>File Type</th>
-                                                        <th>Comments</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="panel">
-                                                                                                                
-                                                    
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_2" aria-expanded="true" aria-controls="collapsene_2"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapsene_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                                
-                                                    
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>05 May 2013</td>
-                                                        <td>Dummy Name</td>
-                                                        <td class="text-success">XXXX</td>
-                                                        <td class="text-success">
-                                                            <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-primary-lighten btn  p-2">View</span>
-                                                        </td>
-                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                        <td>
-                                                            <i class="feather-eye btn-success btn mr-3"></i>
-                                                            <i class="feather-trash btn-danger btn  mr-3"></i>
-                                                            <i class="feather-corner-down-left btn btn-info"  data-bs-toggle="collapse" href="#collapsene_3" aria-expanded="true" aria-controls="collapsene_3"></i>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr id="collapsene_3" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                        <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
-                                                                    <tbody><tr>
-                                                                        <th>Date</th>
-                                                                        <th>File Name</th>
-                                                                        <th>Status</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>05-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>04-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-info rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>03-06-2021</td>
-                                                                        <td>XXXX</td>
-                                                                        <td><span class="badge badge-outline-secondary rounded-pill">Reviewing</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                                                                            
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                    @include('customers.pages.enquiryWizard.ifc-model-uploads')
                                 </div>
-
                                 <div class="tab-pane p-0 h-100 fade " id="five" ng-controller="CrudCtrl">
-                                    <div class="row">
-                                        <div class="col-sm mb-2 mb-sm-0">
-                                            <div class="nav flex-column nav-pills shadow-sm rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                                <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"
-                                                    aria-selected="false">
-                                                    <i class="fa-2x @{{ w.WallIcon }}"></i>
-                                                    <div>@{{ w.WallName }}</div>
-                                                </a>
-                                            </div>
-                                        </div> 
-                                    
-                                        <div class="col-sm-10">
-                                            <div class="tab-content" id="v-pills-tabContent">
-
-
-                                                <div class="tab-pane fade " ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
-
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div > <h3> <div> </div></h3> </div>
-                                                        <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Wall</button>
-                                                    </div>
-
-                                                    <div ng-repeat="(Secindex,d) in w.Details">    
-                                                                                                           
-                                                        <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
-                                                         
-                                                           <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">@{{ w.WallName }} 1.@{{$index + 1}}</div>
-                                                           {{-- <button class="btn btn-info float-end"  ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Floor</button> --}}
-                                                            <div class="accordion-item shadow-sm  ">
-                                                                
-                                                                <div class="accordion-header m-0  " style="background:#f1f2fe" id="headingOne">                                                                    
-                                                                    <table class="table table-bordered m-0  ">
-                                                                        <tr>
-                                                                            <th class="bg-light">
-                                                                                <div class="form-group">
-                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Floor</label>
-                                                                                    <input type="text" class="form-control form-control-sm my-2 mt-3" placeholder="Type here...">
-                                                                                </div>
-                                                                            </th>
-                                                                            <th  class="bg-light">
-                                                                                <div class="form-group">
-                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">EXD wall Number</label>
-                                                                                    <input type="text" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
-                                                                                </div>
-                                                                            </th>
-                                                                            <th  class="bg-light">
-                                                                                <div class="form-group">
-                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
-                                                                                    <select class="form-select  form-select-sm my-2 mt-3">
-                                                                                        <option selected >-- Choose --</option>
-                                                                                        <option value="Element">Element</option>
-                                                                                        <option value="Precut">Precut</option>
-                                                                                        <option value="Module">Module</option>
-                                                                                        <option value="mix of all">Mix of All</option>
-                                                                                        <option value="Others">Others</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </th>
-                                                                            <th  class="bg-light">
-                                                                                <div class="form-group">
-                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area</label>
-                                                                                    <input type="number" class="form-control form-control-sm my-2  mt-3" >
-                                                                                </div>
-                                                                            </th> 
-                                                                            <th  class="bg-light">
-                                                                                <div class="btn-group">
-                                                                                    <button class="btn-primary btn more-btn-layer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" aria-expanded="true" aria-controls="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}">
-                                                                                        <i class="fa fa-chevron-down"></i>
-                                                                                    </button>
-                                                                                    
-                                                                                    {{-- <span  class="position-absolute wall-delete-btn  badge bg-danger">
-                                                                                        <i class="fa fa-trash"></i>
-                                                                                    </span>  --}}
-                                                                                </div>
-                                                                            </th>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                                <div id="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionTable_@{{ Secindex }}_@{{ fIndex  }}">
-                                                                    <div class="accordion-body p-0">
-                                                                        <div class=" rounded ">
-                                                                            <div class="card-header border-0 shadow p-0 ">
-                                                                                <div class="row m-0 p-3 py-2 align-items-center">
-                                                                                    <div class="col-md-8 p-0">
-                                                                                        <div class="btn-group">
-                                                                                            <span class="me-2 shadow-sm badge badge-secondary-lighten d-flex justify-content-center align-items-center">
-                                                                                                <img width="25px" src="{{ asset("public/assets/images/icon_wallthickness.png") }}" alt="icon_wallthickness"> 
-                                                                                                <span> <b class="px-2"> 0.25</b></span>
-                                                                                            </span>
-                                                                                            <span class="me-2 shadow-sm badge badge-danger-lighten d-flex justify-content-center align-items-center">
-                                                                                                <img width="25px" src="{{ asset("public/assets/images/icon_fire.png") }}" alt="icon_fire">
-                                                                                                <span> <b class="px-2"> 1.75</b></span>
-                                                                                            </span>
-                                                                                            <span class="me-2 shadow-sm badge badge-info-lighten d-flex justify-content-center align-items-center">
-                                                                                                <img width="25px" src="{{ asset("public/assets/images/icon_acoustic.png") }}" alt="icon_acoustic">
-                                                                                                <span> <b class="px-2"> 4.25</b></span>
-                                                                                            </span>
-                                                                                            <span class="me-2 shadow-sm badge badge-warning-lighten d-flex justify-content-center align-items-center">
-                                                                                                <img width="25px" src="{{ asset("public/assets/images/icon_insulation.png") }}" alt="icon_insulation">
-                                                                                                <span> <b class="px-2"> 0.75</b></span>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md p-0">
-                                                                                        <div class="w-100 text-end">
-                                                                                            <div class="d-flex justify-content-end">
-                                                                                                <button class="btn-sm float-end btn btn-outline-primary me-2" ng-click="AddLayers(fIndex , Secindex)" title="Add New Layer" ><i class="fa fa-plus" ></i> Add Layer</button>
-                                                                                                <button ng-click="RemoveDetails(fIndex , Secindex)" class=" btn-danger btn shadow-lg  RemoveDetails" type="button"><i class="fa fa-trash"></i></button>
-                                                                                            </div> 
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card-body pt-4">
-                                                                                <table class="table table-borderless m-0 " > 
-                                                                                    <tbody>
-                                                                                        <tr ng-repeat="(ThreeIndex,l) in d.Layers">
-                                                                                            <td>
-                                                                                                <div class="form-group shadow-sm">
-                                                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                                                    <select class="form-select  form-select-sm" ng-model="layer.LayerName">
-                                                                                                        <option value="">-- Choose --</option>
-                                                                                                        <option value="1">External Cladding</option>
-                                                                                                        <option value="2">Horizontal Nailers</option>
-                                                                                                        <option value="3">Vertical Nailers</option>
-                                                                                                        <option value="4">External Insulation</option>
-                                                                                                        <option value="5">Wind Barrier</option>
-                                                                                                        <option value="7">Planking</option>
-                                                                                                        <option value="9">Construction</option>
-                                                                                                        <option value="10">Insulation</option>
-                                                                                                        <option value="12">Planking</option>
-                                                                                                        <option value="14">Vapour Barrier</option>
-                                                                                                        <option value="17">Insulation</option>
-                                                                                                        <option value="18">Internal Planking</option>
-                                                                                                    </select>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                            <td> 
-                                                                                                <div class="form-group shadow-sm">
-                                                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
-                                                                                                    <select class="form-select  form-select-sm" ng-model="layer.Type">
-                                                                                                        <option value="">-- Choose --</option>
-                                                                                                        <option value="1">External Cladding</option>
-                                                                                                        <option value="2">Horizontal Nailers</option>
-                                                                                                        <option value="3">Vertical Nailers</option>
-                                                                                                        <option value="4">External Insulation</option>
-                                                                                                        <option value="5">Wind Barrier</option>
-                                                                                                        <option value="7">Planking</option>
-                                                                                                        <option value="9">Construction</option>
-                                                                                                        <option value="10">Insulation</option>
-                                                                                                        <option value="12">Planking</option>
-                                                                                                        <option value="14">Vapour Barrier</option>
-                                                                                                        <option value="17">Insulation</option>
-                                                                                                        <option value="18">Internal Planking</option>
-                                                                                                    </select>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                            <td width="35%"> 
-                                                                                                <div class="btn-group shadow-sm border rounded">
-                                                                                                    <div class="form-group">
-                                                                                                        <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
-                                                                                                        <input type="number" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="layer.Thickness " >
-                                                                                                    </div>
-                                                                                                    <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >x</span>
-                                                                                                    <div class="form-group">
-                                                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
-                                                                                                        <input type="number" class="form-control form-control-sm rounded-0 border-0 " ng-model="layer.Breadth" >
-                                                                                                    </div>
-                                                                                                    <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                            <td class="text-center">
-                                                                                                <div class="btn-group">
-                                                                                                    <!-- Danger Header Modal -->
-                                                                                                    <button  type="button" class="btn btn-outline-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDelete_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"><div class="fa fa-trash " ></div></button>
-                                                                                                    <div id="ConfirmDelete_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
-                                                                                                        <div class="modal-dialog">
-                                                                                                            <div class="modal-content">
-                                                                                                                <div class="modal-header modal-colored-header bg-danger">
-                                                                                                                    <h4 class="modal-title" id="ConfirmDeleteLabel">Alert Message</h4>
-                                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                                                                                                                </div>
-                                                                                                                <div class="modal-body">
-                                                                                                                    <h2>Delete</h2>
-                                                                                                                    <p class="lead">Are you sure you want to delete this  layer ?</p>
-                                                                                                                </div>
-                                                                                                                <div class="modal-footer">
-                                                                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel & close</button>
-                                                                                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)">Yes, delete it !</button>
-                                                                                                                </div>
-                                                                                                            </div><!-- /.modal-content -->
-                                                                                                        </div><!-- /.modal-dialog -->
-                                                                                                    </div><!-- /.modal -->
-                                                                                                </div>
-                                                                                            </td> 
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                    
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> 
-                                                        </div>
-                                                    </div>
-                                                    {{-- <div >
-                                                        <h3>@{{ w.WallName }}</h3>
-                                                        <button class="btn btn-info float-end mb-2 "  ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Floor</button>
-                                                        <table class="table table-bordered ">
-                                                            <thead class="badge-primary-lighten">
-                                                                <tr>
-                                                                    <th>FloorName</th>
-                                                                    <th>Floor Number	</th>
-                                                                    <th>Total Area	</th>
-                                                                    <th>Delivery Type</th> 
-                                                                    <th>Layers</th> 
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr ng-repeat="(Secindex,d) in w.Details">
-                                                                    <td>
-                                                                        <input class="form-control" type="text" ng-model="d.FloorName" placeholder="Type Here..."/>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input class="form-control" type="number" ng-model="d.FloorNumber" placeholder="Type Here..."/>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input class="form-control" type="text" ng-model="d.TotalArea"  placeholder="Type Here..." />
-                                                                    </td>
-                                                                    <td  width="20%">
-                                                                        <select class="form-select" ng-model="d.DeliveryType">
-                                                                            <option value="">-- Choose --</option>
-                                                                            <option value="Element">Element</option>
-                                                                            <option value="Precut">Precut</option>
-                                                                            <option value="Module">Module</option>
-                                                                            <option value="mix of all">Mix of All</option>
-                                                                            <option value="Others">Others</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#primary-header-modal__@{{ Secindex }}_@{{ fIndex  }}"><i class="fa fa-plus"></i></button>
-                                                                        <div id="primary-header-modal__@{{ Secindex }}_@{{ fIndex  }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel__@{{ Secindex }}_@{{ fIndex  }}" aria-hidden="true">
-                                                                            <div class="modal-dialog modal-xl">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header modal-colored-header bg-primary">
-                                                                                        <h4 class="modal-title" id="primary-header-modalLabel__@{{ Secindex }}_@{{ fIndex  }}"> @{{ d.FloorName }}</h4>
-                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <div class="row m-0 mb-2">
-                                                                                            <div class="col-sm-3 shadow-lg border p-2 x-y-center">
-                                                                                                <i style="font-size: 35px" class="mdi mdi-ear-hearing-off   text-primary me-2" aria-hidden="true"></i>
-                                                                                                <div id="count"><span class="badge badge-primary-lighten rounded-pill">1.35</span></div>
-                                                                                            </div>
-                                                                                            <div class="col-sm-3 shadow-sm border p-2 x-y-center">
-                                                                                                <i style="font-size: 35px" class="fa  fa-snowflake-o   text-info  me-2" aria-hidden="true"></i>
-                                                                                                <div id="count"><span class="badge badge-info-lighten rounded-pill">0.5</span></div>
-                                                                                            </div>
-                                                                                            <div class="col-sm-3 shadow-lg border p-2 x-y-center">
-                                                                                                <i style="font-size: 40px" class="mdi mdi-fire  text-danger  me-2" aria-hidden="true"></i>
-                                                                                                <div id="count"><span class="badge badge-danger-lighten rounded-pill">0.45</span></div>
-                                                                                            </div>
-                                                                                            <div class="col-sm-3 shadow-sm border p-2 x-y-center">
-                                                                                                <i style="font-size: 35px" class="fa fa-thermometer-half   text-warning  me-2" aria-hidden="true"></i>
-                                                                                                <div id="count"><span class="badge badge-warning-lighten rounded-pill">2.05</span></div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="form-horizontal">
-                                                                                            <div class="row m-0 text-start">
-                                                                                                <div class="col-md-6">
-                                                                                                    <div class="row my-3">
-                                                                                                        <label for="inputEmail3" class="col-3 col-form-label">Floor Name</label>
-                                                                                                        <div class="col-9">
-                                                                                                            <input type="text" disabled class="form-control" id="inputEmail3" value="@{{ d.FloorName }}" >
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="row mb-3">
-                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Floor Number</label>
-                                                                                                        <div class="col-9">
-                                                                                                            <input type="text" disabled class="form-control" id="inputPassword3" value="@{{ d.FloorNumber }}" >
-                                                                                                        </div>
-                                                                                                    </div> 
-                                                                                                </div>
-                                                                                                <div class="col-md-6">
-                                                                                                    <div class="row my-3">
-                                                                                                        <label for="inputEmail3" class="col-3 col-form-label">Total Area </label>
-                                                                                                        <div class="col-9">
-                                                                                                            <input type="text" disabled class="form-control" id="inputEmail3" value="@{{ d.TotalArea }}" >
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="row mb-3">
-                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Delivery Type</label>
-                                                                                                        <div class="col-9">
-                                                                                                            <input type="text" disabled class="form-control" id="inputPassword3" value="@{{ d.DeliveryType }}" >
-                                                                                                        </div>
-                                                                                                    </div> 
-                                                                                                </div>
-                                                                                            </div>
-
-                                                                                        </div>
-
-                                                                                        <div >
-                                                                                            <table class="table dt-responsive nowrap m-0" >
-                                                                                                <tr class="bg-light">
-                                                                                                    <th> LayerName </th>
-                                                                                                    <th> Type </th>
-                                                                                                    <th> Size</th>
-                                                                                                    <th><button class="btn btn-primary  btn-sm" ng-click="AddLayers(fIndex , Secindex)"> <i class="fa fa-plus"></i> Add New Layer</button></th>
-                                                                                                </tr>
-                                                                                                <tbody>
-                                                                                                    <tr ng-repeat="(ThreeIndex,l) in d.Layers">
-                                                                                                        <td>
-                                                                                                            <select class="form-select" ng-model="layer.LayerName">
-                                                                                                                <option value="">-- Choose --</option>
-                                                                                                                <option value="1">External Cladding</option>
-                                                                                                                <option value="2">Horizontal Nailers</option>
-                                                                                                                <option value="3">Vertical Nailers</option>
-                                                                                                                <option value="4">External Insulation</option>
-                                                                                                                <option value="5">Wind Barrier</option>
-                                                                                                                <option value="7">Planking</option>
-                                                                                                                <option value="9">Construction</option>
-                                                                                                                <option value="10">Insulation</option>
-                                                                                                                <option value="12">Planking</option>
-                                                                                                                <option value="14">Vapour Barrier</option>
-                                                                                                                <option value="17">Insulation</option>
-                                                                                                                <option value="18">Internal Planking</option>
-                                                                                                            </select>
-                                                                                                        </td>
-                                                                                                        <td> 
-                                                                                                            <input class="form-control" type="text" ng-model="layer.Type" placeholder="Type Here..."  />
-                                                                                                        </td>
-                                                                                                        <td> 
-                                                                                                            <input class="form-control" type="text" ng-model="layer.Size" placeholder="Type Here..." />
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <div class="btn-group">
-                                                                                                                <button class="btn btn-outline-danger" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)"><div class="fa fa-trash"></div></button>
-                                                                                                            </div>
-                                                                                                        </td> 
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                                
-                                                                                            </table>
-                                                                                        </div>
-                                                                                        
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                                                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save & Close</button>
-                                                                                    </div>
-                                                                                </div> 
-                                                                            </div> 
-                                                                        </div> 
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <button class="btn btn-danger" ng-click="RemoveDetails(fIndex , Secindex)"><i class="fa fa-trash"></i></button>
-                                                                    </td> 
-                                                                </tr>
-                                                            </tbody>
-                                                        </table> 
-                                                    </div> --}}
-                                                </div> 
-                                            </div> 
-                                        </div> 
-                                    </div> 
-                                    
+                                    @include('customers.pages.enquiryWizard.building-component')
                                 </div>
                                 <div class="tab-pane fade" id="six">
-                                    <div class="row m-0">
-                                        <div class="col-sm-6 mx-auto">
-                                            <div >
-                                                
-                                                <h3 class="text-center">Specify additional details</h3>
-                                
-                                                <div class="py-3">
-                                                    <div class="form-floating">
-                                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"></textarea>
-                                                        <label for="floatingTextarea">Comments</label>
-                                                    </div>
-                                                </div>
-                                                
-                                                
-                                                <div class="card p-3 my-3 shadow rounded">
-                                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo blanditiis eos quidem iure voluptates, ipsam vel dolore rem facere, alias doloribus dignissimos iste in a. Eveniet tenetur dignissimos molestiae perferendis?</p>
-                                                    <div class="text-right d-flex align-items-center   justify-content-end ">
-                                                        <i class="fas fa-calendar-day mr-2"></i>
-                                                        <small class="float-right">25/11/2021</small>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fa fa-user me-2"></i> <span class="float-start"> Nishanth ( <small>Sales Admin</small> )</span>
-                                                    </div>
-
-                                                </div>
-                                                <div class="card p-3 my-3 shadow rounded">
-                                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo blanditiis eos quidem iure voluptates, ipsam vel dolore rem facere, alias doloribus dignissimos iste in a. Eveniet tenetur dignissimos molestiae perferendis?</p>
-                                                    <div class="text-right d-flex align-items-center   justify-content-end ">
-                                                        <i class="fas fa-calendar-day mr-2"></i>
-                                                        <small class="float-right">25/11/2021</small>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fa fa-user me-2"></i> <span class="float-start"> Nishanth ( <small>Sales Admin</small> )</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                    </div>
-                                    <!-- end row -->
+                                    @include('customers.pages.enquiryWizard.additional-info')
                                 </div>
                                 <div class="tab-pane fade" id="third">
-                            
                                         <div class="row m-0">
                                             <div class="col-12">
                                                 <div class="text-center">
@@ -1562,10 +389,10 @@
                                         <!-- end row -->
                                 </div>
 
-                                <div class="card-footer border-0 p-0 ">
+                                <div class="card-footer border-0 p-0 " >
                                     <ul class="list-inline wizard mb-0 pt-3">
-                                        <li class="previous list-inline-item disabled"><a href="#" class="btn btn-primary">Previous</a></li>
-                                        <li class="next list-inline-item float-end"><a href="#" class="btn btn-primary">Next</a></li>
+                                        <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous @{{ currentStep }}</a></li>
+                                        <li class="next list-inline-item float-end" ng-click="gotoStep(currentStep + 1)"><a href="#" class="btn btn-primary">Next</a></li>
                                     </ul>
                                 </div>
 
@@ -2017,10 +844,138 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
-    
+    <script >
+        var app = angular.module('App', []).constant('API_URL', $("#baseurl").val());           
+    </script>
     <script>
-        angular.module('App', []).controller('CrudCtrl', ['$scope', function($scope) {
-            
+        // const result = [];
+        app.controller('wizard', function($scope, $http) {
+            $scope.result = []
+            $scope.currentStep = 1;
+            $scope.gotoStep = function(newStep) {
+                $scope.$broadcast('callProjectInfo');
+                $scope.$broadcast('callServiceSelection');
+                $scope.$broadcast('buildingComponent');
+                console.log( $scope.result);
+                $scope.currentStep = newStep;
+            }
+          
+        });
+    
+       	app.controller('ProjectInfo', function ($scope, $http) {
+           
+            $scope.$on('callProjectInfo', function(e) {  
+                $scope.$parent.result['project_info'] = ($scope.getProjectInfoInptuData());            
+            });
+                
+            $scope.getProjectInfoInptuData = function() {
+                $scope.data = {
+                    'secondary_mobile_no'  : $scope.projectInfo.secondary_mobile_no,
+                    'project_name'         : $scope.projectInfo.project_name,
+                    'zipcode'              : $scope.projectInfo.zipcode,
+                    'state'                : $scope.projectInfo.state,
+                    'building_type'        : $scope.projectInfo.building_type,
+                    'project_type'         : $scope.projectInfo.project_type,
+                    'project_date'         : $scope.projectInfo.project_date,
+                    'site_address'         : $scope.projectInfo.site_address,
+                    'place'                : $scope.projectInfo.place,
+                    'country'              : $scope.projectInfo.country,
+                    'no_of_building'       : $scope.projectInfo.no_of_building,
+                    'delivery_type'        : $scope.projectInfo.delivery_type,
+                    'project_delivery_date': $scope.projectInfo.project_delivery_date,
+                };
+                return  $scope.data;
+            }
+
+            let projectTypefiredOnce = false;
+            let deliveryTypefiredOnce = false;
+            let buildingTypefiredOnce = false;
+
+            $scope.getProjectType = () => {
+                if(projectTypefiredOnce){ return; }
+                $http({
+                    method: 'GET',
+                    url: '{{ route("project-type.index") }}'
+                }).then(function (res) {
+                    projectTypefiredOnce = true;
+                    $scope.projectTypes = res.data;		
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+
+            $scope.getDeliveryType = () => {
+                if(deliveryTypefiredOnce){ return; }
+                $http({
+                    method: 'GET',
+                    url: '{{ route("delivery-type.index") }}'
+                }).then(function (res) {
+                    deliveryTypefiredOnce = true;
+                    $scope.deliveryTypes = res.data;		
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+
+            $scope.getBuildingType = () => {
+                if(buildingTypefiredOnce){ return; }
+                $http({
+                    method: 'GET',
+                    url: '{{ route("building-type.index") }}'
+                }).then(function (res) {
+                    buildingTypefiredOnce = true;
+                    $scope.buildingTypes = res.data;		
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+
+        }); 
+
+        app.controller('ServiceSelection', function ($scope, $http) {
+           
+           $scope.$on('callServiceSelection', function(e) {  
+               $scope.$parent.result['services'] = ($scope.getServiceSelectionInptuData());            
+           });
+           $scope.selectService  = (service) => {
+                // var id = service.attributes['data-service-id'].value;
+                var id =  angular.element(service).data('id');
+                console.log(id);
+           }
+           $scope.getServiceSelectionInptuData = function() {
+                $scope.servicesArray = [];
+                angular.forEach($scope.services, function(service){
+                    if (!!service.selected) $scope.servicesArray.push(service.id);
+                })
+               return Object.assign({}, $scope.servicesArray);
+           }
+           let servicefireOnce = false;
+           $scope.getProjectType = () => {
+               if(servicefireOnce){ return; }
+               $http({
+                   method: 'GET',
+                   url: '{{ route("service.index") }}'
+               }).then(function (res) {
+                   console.log(res);
+                    servicefireOnce = true;
+                   $scope.services = res.data;		
+               }, function (error) {
+                   console.log('This is embarassing. An error has occurred. Please check the log for details');
+               });
+           } 
+           $scope.getProjectType();
+        }); 
+
+        app.controller('CrudCtrl', function ($scope, $http) { 
+
+            $scope.$on('callServiceSelection', function(e) {  
+               $scope.$parent.result['building_component'] = ($scope.getBuildingComponentInptuData());            
+            });
+
+            $scope.getBuildingComponentInptuData = function() {
+                return $scope.wallGroup;
+           }
+
             $scope.wallGroup  = [
                 {
                     "WallName" : "External Wall",
@@ -2203,33 +1158,11 @@
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);                
             }
 
-            // $scope.RemoveDetails = function (fIndex, Secindex){
-
-            //     Swal.fire({
-            //         title: 'Are you sure?',
-            //         text: "You won't be able to revert this!",
-            //         icon: 'warning',
-            //         showCancelButton: true,
-            //         confirmButtonColor: '#3085d6',
-            //         cancelButtonColor: '#d33',
-            //         confirmButtonText: 'Yes, delete it!'
-            //     }).then((result) => {
-            //         if (result.value) { 
-
-            //             Swal.fire(
-            //                 'Deleted!',
-            //                 'Your file has been deleted.',
-            //                 'success'
-            //             )
-                        
-            //         }
-            //     }); 
-            // } 
             $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){
                 console.log(  fIndex , Secindex , ThreeIndex);
                 $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
             } 
-        }]);
+        });
     </script>
    
 @endpush

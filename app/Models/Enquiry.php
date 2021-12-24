@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,9 +26,12 @@ class Enquiry extends Model
         'zipcode',
         'state',
         'no_of_building',
+        'project_delivery_date',
+        'status',
         'created_by',
         'updated_by'
     ];
+
 
     public function customer()
     {

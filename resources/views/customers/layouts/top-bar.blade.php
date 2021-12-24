@@ -130,7 +130,7 @@
                     <img src="{{ asset('public/assets/images/users/avatar-2.jpg') }}" alt="user-image" class="rounded-circle">
                 </span>
                 <span>
-                    <span class="account-user-name">{{ Auth::guard('customers')->user()->full_name ?? '' }}</span>
+                    <span class="account-user-name">{{ Customer()->full_name ?? '' }}</span>
                     <span class="account-position">Customer</span>
                 </span>
             </a>

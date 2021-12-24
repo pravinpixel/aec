@@ -1,0 +1,95 @@
+<form id="projectInfo" method="post" action="#" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-floating  mb-2">
+                <input disabled value="{{ GlobalService::dateFormat($customer->latestEnquiry->enquiry_date) ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
+                <label for="floating">Enquiry Date</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input disabled value="{{ $customer->latestEnquiry->enquiry_number ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
+                <label for="floating">Enquiry Number</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input disabled value="{{ $customer->company_name ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
+                <label for="floating">Campany Name</label>
+            </div> 
+            <div class="form-floating  mb-2">
+                <input disabled value="{{ $customer->contact_person ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
+                <label for="floating">Contact Person</label>
+            </div> 
+            <div class="form-floating  mb-2">
+                <input disabled value="{{ $customer->mobile_no ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
+                <label for="floating">Mobile Number</label>
+            </div> 
+            <div class="form-floating  mb-2">
+                <input  value="" type="text" class="form-control form-control-sm" id="floating"  name="secondary_mobile_no" ng-model="projectInfo.secondary_mobile_no" required/>
+                <label for="floating">Secondary Mobile Number</label>
+            </div> 
+        </div> 
+        <div class="col-md-4">
+            <div class="form-floating  mb-2">
+                <input type="text" class="form-control form-control-sm" id="floating"   name="project_name" ng-model="projectInfo.project_name" required/>
+                <label for="floating">Project Name</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input type="text" class="form-control form-control-sm" id="floating" name="zipcode" ng-model="projectInfo.zipcode" required/>
+                <label for="floating">Zipcode</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input type="text" class="form-control form-control-sm" id="floating" naem="state" ng-model="projectInfo.state" required/>
+                <label for="floating">State</label>
+            </div>
+            <div class="form-floating mb-2">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" ng-click="getBuildingType()" name="building_type" ng-model="projectInfo.building_type" required>
+                    <option ng-repeat="buildingType in buildingTypes" value="@{{ buildingType.id }}" >
+                        @{{ buildingType.building_type_name }}
+                    </option>
+                </select>
+                <label for="floatingSelect">Type of Building</label>
+            </div>
+            <div class="form-floating mb-2">
+                <select ng-model="selectedItem" class="form-select" ng-click="getProjectType()" name="project_type" ng-model="projectInfo.project_type" required>
+                    <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
+                        @{{ projectType.project_type_name }}
+                    </option>
+                </select>
+                <label for="floatingSelect">Type of Project</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input type="date" class="form-control form-control-sm" id="floating"  name="project_date" ng-model="projectInfo.project_date" required/>
+                <label for="floating">Project Start Date</label>
+            </div>
+        </div> 
+        <div class="col-md-4">
+            <div class="form-floating  mb-2">
+                <input type="text" class="form-control form-control-sm" id="floating" name="site_address" ng-model="projectInfo.site_address" required/>
+                <label for="floating">Site Address</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input type="text" class="form-control form-control-sm" id="floating" name="place" ng-model="projectInfo.place" required/>
+                <label for="floating">Place</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input type="text" class="form-control form-control-sm" id="floating" name="country" ng-model="projectInfo.country" required/>
+                <label for="floating">Country</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input type="text" class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required/>
+                <label for="floating">No of Buildings</label>
+            </div>
+            <div class="form-floating mb-2">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" ng-click="getDeliveryType()" name="delivery_type" ng-model="projectInfo.delivery_type" required>
+                
+                    <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" >
+                        @{{ deliveryType.delivery_type_name }}
+                    </option>
+                </select>
+                <label for="floatingSelect">Type of Delivery</label>
+            </div>
+            <div class="form-floating  mb-2">
+                <input type="date" class="form-control"  name="project_delivery_date" ng-model="projectInfo.project_delivery_date"  required/>
+                <label for="floating">Project Delivery Date</label>
+            </div>
+        </div>
+    </div>
+</form>

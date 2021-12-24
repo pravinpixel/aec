@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Http\Controllers\Controller;
-use App\Models\Config;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
+
 // use PhpParser\Node\Stmt\Switch_;
 
 class GlobalServiceProvider extends Controller
@@ -37,5 +39,11 @@ class GlobalServiceProvider extends Controller
                 
                 break;
         }
+    }
+
+    public function dateFormat($date) 
+    {
+        $format = Config::get('global.model_date_format');
+        return Carbon::parse($date)->format($format);
     }
 }

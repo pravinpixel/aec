@@ -28,9 +28,24 @@ class Customer extends Model
         'updated_by'
     ];
 
+    public function getContactPersonAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function getCompanyNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
     public function enquiry()
     {
         return $this->hasMany(Enquiry::class, 'customer_id', 'id');
     }
    
+
+    public function latestEnquiry()
+    {
+        return $this->hasOne(Enquiry::class, 'customer_id', 'id')->latest();
+    }
 }
