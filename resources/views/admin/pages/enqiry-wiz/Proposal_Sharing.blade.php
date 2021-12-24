@@ -1,55 +1,47 @@
 <div class="card shadow-none p-0" class="accordion accordion-flush" id="accordionFlushExample">
-    <div class="p-2">
-        <div class="d-flex text-end justify-content-between">
-            <div class="d-flex">
-                <div>
-                    <h4 class="p-2 m-0 h5 text-center"> Select a mail type </h4>
-                </div>
-                <div>
-                    <select class="form-select">
-                        <option>Offer letter</option>
-                        <option>Thankyou letter</option>
-                        <option>Invite Mail</option>
-                        <option>Contract letter</option>
-                    </select>
-                </div>
-            </div>
-            <div>
-                <div class="btn-group ">
-                    <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> preview</button>
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"> <i class="fa fa-envelope"></i> Send Mail</button>
-                    <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right" ><small><i class="fa fa-plus"></i> Create</small></button>
-                </div>
-            </div>
+    <div class="p-2 mx-auto col-md-8"> 
+        <div>
+            <h4 class="p-2 m-0 h5 text-center"> Select a mail type </h4>
         </div>
-        
-    </div>
-    <div class="card-header pt-3 text-center">
-        <h3 class="header-title"> Proposal Versioning</h3>
-    </div>
+        <div>
+            <select class="form-select">
+                <option>Offer letter</option>
+                <option>Thankyou letter</option>
+                <option>Invite Mail</option>
+                <option>Contract letter</option>
+            </select>
+        </div> 
+    </div> 
     <div class="card-body">
-        <table class="table table-bordered">
-            <thead class="bg-light">
-                <th>S.No</th>
-                <th>Date</th>
-                <th>Project Name</th>
-                <th>Offer Letter Number</th>
-                <th>Status</th>
-                <th>Action</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>XX-YY-ZZZZ</td>
-                    <td>XXX</td>
-                    <td>OFF123</td>
-                    <td>
-                        <span class="badge badge-outline-success rounded-pill">In Progress</span>
-                    </td>
-                    <td class="text-center">
-                        <div class="d-flex align-items-center justify-content-center">
+        <div class="container p-0">
+            <h4>Proposal Versioning</h4>
+            <table class="table table-bordered" id="myTable">
+                <thead>
+                    <tr>
+                        <th width="15px">S.no</th>
+                        <th>Date</th>
+                        <th>File Name</th>
+                        <th>File Type</th>
+                       
+                        <th>Status</th>
+                        <th width="15px">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="panel"> 
+                    <tr>
+                        <td>
+                            <div class="d-flex">
+                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div>1</div>                                                    
+                            </div>
+                        </td>
+                        <td>05 May 2013</td>
+                        <td>Dummy Name</td>
+                        <td class="text-primary">XXXX</td>
+                        <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                        <td> 
                             <div class="dropdown">
-                                <button type="button" class="btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="toggle-btn btn-light btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="dripicons-dots-3 "></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
@@ -58,88 +50,84 @@
                                     <a class="dropdown-item" href="#">Send Mail</a>
                                 </div>
                             </div>
-                            <div>
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"> </button>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            <div class="d-flex">
+                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_2" class="feather-plus bg-primary text-white toggle-btn"></i></div>
+                                <div>2</div>                                                    
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    <td colspan="6">
-                        <table class="table table-bordered">
-                                <tbody><tr class="bg-light">
-                                    <td><b>Date</b></td>
-                                    <td><b>Offer Letter Number</b></td>
-                                    <td><b>Status</b></td>
-                                    <td><b>Action</b></td>
-                                </tr>
-                                <tr>
-                                    <td>12-12-2021</td>
-                                    <td>12</td>
-                                    <td class="text-success"><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="dripicons-dots-3 "></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">View</a>
-                                                <a class="dropdown-item" href="#">Remove</a>
-                                                <a class="dropdown-item" href="#">Send Mail</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11-12-2021</td>
-                                    <td>11</td>
-                                    <td class="text-success"><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="dripicons-dots-3 "></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">View</a>
-                                                <a class="dropdown-item" href="#">Remove</a>
-                                                <a class="dropdown-item" href="#">Send Mail</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>10-12-2021</td>
-                                    <td>5</td>
-                                    <td class="text-danger"><span class="badge badge-outline-warning rounded-pill">obsolete</span></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="dripicons-dots-3 "></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">View</a>
-                                                <a class="dropdown-item" href="#">Remove</a>
-                                                <a class="dropdown-item" href="#">Send Mail</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>XX-YY-ZZZZ</td>
-                    <td>XXX</td>
-                    <td>OFF123</td>
-                    <td>
-                        <span class="badge badge-outline-success rounded-pill">In Progress</span>
-                    </td>
-                    <td class="text-center">
-                        <div class="d-flex align-items-center justify-content-center">
+                        </td>
+                        <td>05 May 2013</td>
+                        <td>Dummy Name</td>
+                        <td class="text-primary">XXXX</td>
+                     
+                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td>
+                            
                             <div class="dropdown">
-                                <button type="button" class="btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="dripicons-dots-3 "></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Send Mail</a>
+                                </div>
+                            </div> 
+                        </td>
+                    </tr> 
+                    <tr id="collapseOne_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <td colspan="7" class="hiddenRow">
+                            <div class="p-3 card m-0">
+                                <table class="table table-bordered m-0">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15px">s.no</th>
+                                            <th>Date</th>
+                                            <th>File Name</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <tr  >
+                                            <td>2.3</td>
+                                            <td>05-06-2021</td>
+                                            <td>XXx</td>
+                                            <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2.2</td>
+                                            <td>04-06-2021</td>
+                                            <td>YYY</td>
+                                            <td><span class="badge badge-outline-info rounded-pill">ReView commentsing</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2.1</td>
+                                            <td>03-06-2021</td>
+                                            <td>ZZZ</td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">ReView commentsing</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td>
+                            <div class="d-flex">
+                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div>3</div>                                                    
+                            </div>
+                        </td>
+                        <td>05 May 2013</td>
+                        <td>Dummy Name</td>
+                        <td class="text-primary">XXXX</td>
+                       
+                        <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                        <td>
+                            
+                            <div class="dropdown">
+                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="dripicons-dots-3 "></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
@@ -148,78 +136,185 @@
                                     <a class="dropdown-item" href="#">Send Mail</a>
                                 </div>
                             </div>
-                            <div>
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne2" aria-expanded="false" aria-controls="flush-collapseOne2"> </button>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            <div class="d-flex">
+                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_4" aria-expanded="true" aria-controls="collapseOne_2" class="feather-plus bg-primary text-white toggle-btn"></i></div>
+                                <div>4</div>                                                    
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr id="flush-collapseOne2" class="accordion-collapse collapse" aria-labelledby="flush-headingOne2" data-bs-parent="#accordionFlushExample">
-                    <td colspan="6">
-                        <table class="table table-bordered">
-                                <tbody><tr class="bg-light">
-                                    <td><b>Date</b></td>
-                                    <td><b>Offer Letter Number</b></td>
-                                    <td><b>Status</b></td>
-                                    <td><b>Action</b></td>
-                                </tr>
-                                <tr>
-                                    <td>12-12-2021</td>
-                                    <td>12</td>
-                                    <td class="text-success"><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="dripicons-dots-3 "></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">View</a>
-                                                <a class="dropdown-item" href="#">Remove</a>
-                                                <a class="dropdown-item" href="#">Send Mail</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11-12-2021</td>
-                                    <td>11</td>
-                                    <td class="text-success"><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="dripicons-dots-3 "></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">View</a>
-                                                <a class="dropdown-item" href="#">Remove</a>
-                                                <a class="dropdown-item" href="#">Send Mail</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>10-12-2021</td>
-                                    <td>5</td>
-                                    <td class="text-danger"><span class="badge badge-outline-warning rounded-pill">obsolete</span></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="dripicons-dots-3 "></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">View</a>
-                                                <a class="dropdown-item" href="#">Remove</a>
-                                                <a class="dropdown-item" href="#">Send Mail</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        </td>
+                        <td>05 May 2013</td>
+                        <td>Dummy Name</td>
+                        <td class="text-primary">XXXX</td>
+                      
+                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td>
+                            
+                            <div class="dropdown">
+                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="dripicons-dots-3 "></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Send Mail</a>
+                                </div>
+                            </div> 
+                        </td>
+                    </tr> 
+                    <tr id="collapseOne_4" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <td colspan="7" class="hiddenRow">
+                            <div class="p-3 card m-0">
+                                <table class="table table-bordered m-0">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15px">s.no</th>
+                                            <th>Date</th>
+                                            <th>File Name</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <tr  >
+                                            <td>4.3</td>
+                                            <td>05-06-2021</td>
+                                            <td>XXx</td>
+                                            <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4.2</td>
+                                            <td>04-06-2021</td>
+                                            <td>YYY</td>
+                                            <td><span class="badge badge-outline-info rounded-pill">ReView commentsing</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4.1</td>
+                                            <td>03-06-2021</td>
+                                            <td>ZZZ</td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">ReView commentsing</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </td>
+                    </tr>    
+                    <tr>
+                        <td>
+                            <div class="d-flex">
+                                <div class="icon"><i class="feather-plus text-white toggle-btn"></i></div>
+                                <div>5</div>                                                    
+                            </div>
+                        </td>
+                        <td>05 May 2013</td>
+                        <td>Dummy Name</td>
+                        <td class="text-primary">XXXX</td> 
+                        <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                        <td>
+                            
+                            <div class="dropdown">
+                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="dripicons-dots-3 "></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Send Mail</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td>
+                            <div class="d-flex">
+                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div>6</div>                                                    
+                            </div>
+                        </td>
+                        <td>05 May 2013</td>
+                        <td>Dummy Name</td>
+                        <td class="text-primary">XXXX</td> 
+                        <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                        <td>
+                            
+                            <div class="dropdown">
+                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="dripicons-dots-3 "></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Send Mail</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            <div class="d-flex">
+                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_6" aria-expanded="true" aria-controls="collapseOne_6" class="feather-plus bg-primary text-white toggle-btn"></i></div>
+                                <div>7</div>                                                    
+                            </div>
+                        </td>
+                        <td>05 May 2013</td>
+                        <td>Dummy Name</td>
+                        <td class="text-primary">XXXX</td> 
+                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td>
+                            
+                            <div class="dropdown">
+                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="dripicons-dots-3 "></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Send Mail</a>
+                                </div>
+                            </div> 
+                        </td>
+                    </tr> 
+                    <tr id="collapseOne_6" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <td colspan="7" class="hiddenRow">
+                            <div class="p-3 card m-0">
+                                <table class="table table-bordered m-0">
+                                    <tbody>
+                                        <tr>
+                                            <th width="15px">s.no</th>
+                                            <th>Date</th>
+                                            <th>File Name</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <tr  >
+                                            <td>7.3</td>
+                                            <td>05-06-2021</td>
+                                            <td>XXx</td>
+                                            <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7.2</td>
+                                            <td>04-06-2021</td>
+                                            <td>YYY</td>
+                                            <td><span class="badge badge-outline-info rounded-pill">ReView commentsing</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7.1</td>
+                                            <td>03-06-2021</td>
+                                            <td>ZZZ</td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">ReView commentsing</span></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-gr">
+            <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> preview</button>
+            <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"> <i class="fa fa-envelope"></i> Send Mail</button>
+            <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small><i class="fa fa-plus"></i> Create</small></button>
+        </div>
     </div>
     <div class="card-footer">
         <div class="d-flex justify-content-between">
@@ -632,6 +727,9 @@
             background: #757CF2 !important;
             transform: scale(1.2);
             box-shadow: 0px 5px 10px #4f4f4fb2 !important
+        }
+        .table tbody tr td {
+            padding: 6px !important
         }
     </style>
 @endif

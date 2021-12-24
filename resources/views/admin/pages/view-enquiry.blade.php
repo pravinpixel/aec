@@ -26,7 +26,7 @@
                             
                         <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
                             <li class="time-bar"></li>
-                            <li class="nav-item admin-enquiry-wiz">
+                            {{-- <li class="nav-item admin-enquiry-wiz">
                                 <a href="#!/"  style="min-height: 40px;" class="timeline-step  " >
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -35,7 +35,7 @@
                                     </div>
                                     <p class="h5 mt-2">Enquiry</p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item  Project_Info">
                                 <a href="#!/Project_Info"   style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
@@ -87,13 +87,13 @@
                                 </a>
                             </li>
                             <li class="nav-item admin-Project_Award-wiz" >
-                                <a href="#!/Project_Award"  style="min-height: 40px;"  class="timeline-step">
+                                <a href="#!/Awarded_Projects"  style="min-height: 40px;"  class="timeline-step">
                                     <div class="timeline-content ">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-trophy "></i>
                                         </div>
                                     </div>
-                                    <p class="h5  mt-2">Project Award</p>
+                                    <p class="h5  mt-2">Awarded Projects</p>
                                 </a>
                             </li>
                             <li class="nav-item admin-Delivery-wiz">
@@ -103,7 +103,7 @@
                                             <i class="fa  fa-truck "></i>
                                         </div>
                                     </div>
-                                    <p class="h5  mts-2">Final</p>
+                                    <p class="h5  mts-2">Move to project</p>
                                 </a>
                             </li>
                         </ul>
@@ -406,7 +406,7 @@
 @endsection
           
 @push('custom-styles')
-<link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">
+
     <style>
         .table tbody tr td {
             padding: 5px !important
@@ -491,6 +491,13 @@
         }
     </style>
      <style>
+         .toggle-btn {
+            border-radius: 5px !important;
+            padding: 2px;
+            font-size: 12px !important;
+            cursor: pointer;
+            margin-right: 5px !important
+        }
         .time-bar {
             width: 100% !important;
             height: 1px;
@@ -590,16 +597,15 @@
     <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-    <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
+   
    
     <script>
         var app = angular.module("myApp", ["ngRoute"]);
 
         app.config(function($routeProvider) {
             $routeProvider
-        
             .when("/", {
-                templateUrl : " {{ route('admin-enquiry-wiz') }} "
+                templateUrl : " {{ route('admin-project-info-wiz') }}"
             })
             .when("/Project_Info", {
                 templateUrl : "{{ route('admin-project-info-wiz') }}"
@@ -616,14 +622,15 @@
             .when("/Proposal_Sharing", {
                 templateUrl : "{{ route('admin-Proposal_Sharing-wiz') }}"
             })
-            .when("/Project_Award", {
+            .when("/Awarded_Projects", {
                 templateUrl : "{{ route('admin-Project_Award-wiz') }}"
             })
             .when("/Delivery", {
                 templateUrl : "{{ route('admin-Delivery-wiz') }}"
             })
         });
-            // Code goes here
+        
+        // Code goes here
 
         // angular.module("myApp", ['ngRoute'])
         //     .constant("isActiveConfig", {

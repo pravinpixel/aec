@@ -36,7 +36,14 @@
                        
                         <tr>
                             <td>Exterior Wall</td>
-                            <td>Panel</td>
+                            <td>
+                                <select name="" id="" class="form-select">
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                </select>
+                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -44,7 +51,14 @@
                         </tr>
                         <tr>
                             <td>Interior Wall</td>
-                            <td>Panel</td>
+                            <td>
+                                <select name="" id="" class="form-select">
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                </select>
+                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -52,7 +66,14 @@
                         </tr>
                         <tr>
                             <td>1st Floor Wall</td>
-                            <td>Panel</td>
+                            <td>
+                                <select name="" id="" class="form-select">
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                </select>
+                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -60,7 +81,14 @@
                         </tr>
                         <tr>
                             <td>Roof</td>
-                            <td>Panel</td>
+                            <td>
+                                <select name="" id="" class="form-select">
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                </select>
+                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -68,7 +96,14 @@
                         </tr>   
                         <tr>
                             <td>Flooring</td>
-                            <td>Structural Design &amp; Lifting</td>
+                            <td>
+                                <select name="" id="" class="form-select">
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                    <option value="">Panel</option>
+                                    <option value="">Precut</option>
+                                </select>
+                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -159,12 +194,15 @@
     </div> 
 </div>
 
-@if (Route::is('admin-Technical_Estimate-wiz')) 
+@if (Route::is('admin-Technical_Estimate-wiz'))
     <style>
         .admin-Technical_Estimate-wiz .timeline-step .inner-circle{
             background: #757CF2 !important;
             transform: scale(1.2);
             box-shadow: 0px 5px 10px #4f4f4fb2 !important
+        }
+        .table tbody tr td {
+            padding: 6px !important
         }
     </style>
 @endif
