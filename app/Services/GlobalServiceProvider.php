@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\Config as ConfigModel;
 use Illuminate\Support\Facades\Config;
 
 // use PhpParser\Node\Stmt\Switch_;
@@ -24,7 +25,7 @@ class GlobalServiceProvider extends Controller
 
     public function getConfig()
     {
-        return Config::first();
+        return ConfigModel::first();
     }
 
     public function updateConfig($type)

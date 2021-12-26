@@ -47,7 +47,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(
             BuildingTypeRepositoryInterface::class,
-            BuildingTypeRepository::class,
+            BuildingTypeRepository::class
         );
         $this->app->bind(
             DeliveryTypeRepositoryInterface::class,

@@ -40,7 +40,7 @@
                 <label for="floating">State</label>
             </div>
             <div class="form-floating mb-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" ng-click="getBuildingType()" name="building_type" ng-model="projectInfo.building_type" required>
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="building_type" ng-model="projectInfo.building_type_id" required>
                     <option ng-repeat="buildingType in buildingTypes" value="@{{ buildingType.id }}" >
                         @{{ buildingType.building_type_name }}
                     </option>
@@ -48,15 +48,12 @@
                 <label for="floatingSelect">Type of Building</label>
             </div>
             <div class="form-floating mb-2">
-                <select ng-model="selectedItem" class="form-select" ng-click="getProjectType()" name="project_type" ng-model="projectInfo.project_type" required>
-                    <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
-                        @{{ projectType.project_type_name }}
-                    </option>
+                <select  class="form-select" ng-model="projectInfo.project_type_id"  ng-options="projectType.id as projectType.project_type_name for projectType in projectTypes" required >
                 </select>
                 <label for="floatingSelect">Type of Project</label>
             </div>
             <div class="form-floating  mb-2">
-                <input type="date" class="form-control form-control-sm" id="floating"  name="project_date" ng-model="projectInfo.project_date" required/>
+                <input type="date" class="form-control form-control-sm" id="project_date"  name="project_date" ng-model="projectInfo.project_date" required/>
                 <label for="floating">Project Start Date</label>
             </div>
         </div> 
@@ -78,7 +75,7 @@
                 <label for="floating">No of Buildings</label>
             </div>
             <div class="form-floating mb-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" ng-click="getDeliveryType()" name="delivery_type" ng-model="projectInfo.delivery_type" required>
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="delivery_type" ng-model="projectInfo.delivery_type_id" required>
                 
                     <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" >
                         @{{ deliveryType.delivery_type_name }}

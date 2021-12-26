@@ -13,6 +13,7 @@ class Enquiry extends Model
     protected $fillable = [
         'enquiry_date',
         'enquiry_number',
+        'secondary_mobile_no',
         'customer_id',
         'service_id',
         'building_type_id',
@@ -37,4 +38,10 @@ class Enquiry extends Model
     {
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
+
+    public function enquiryServices()
+    {
+        return $this->hasMany(EnquiryService::class);
+    }
 }
+

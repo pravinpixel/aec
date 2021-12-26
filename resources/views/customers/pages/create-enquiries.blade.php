@@ -132,6 +132,7 @@
                                 <div class="tab-pane fade " id="four">
                                     @include('customers.pages.enquiryWizard.ifc-model-uploads')
                                 </div>
+
                                 <div class="tab-pane p-0 h-100 fade " id="five" ng-controller="CrudCtrl">
                                     <div class="row">
                                         <div class="col-sm mb-2 mb-sm-0">
@@ -780,8 +781,8 @@
 
                                 <div class="card-footer border-0 p-0 " >
                                     <ul class="list-inline wizard mb-0 pt-3">
-                                        <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous @{{ currentStep }}</a></li>
-                                        <li class="next list-inline-item float-end" ng-click="gotoStep(currentStep + 1)"><a href="#" class="btn btn-primary">Next</a></li>
+                                        <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous</a></li>
+                                        <li class="next list-inline-item float-end" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
                                     </ul>
                                 </div>
 
@@ -1240,42 +1241,30 @@
         // const result = [];
         app.controller('wizard', function($scope, $http) {
             $scope.result = []
-            $scope.currentStep = 1;
+            $scope.currentStep = 0;
             $scope.gotoStep = function(newStep) {
-                $scope.$broadcast('callProjectInfo');
-                $scope.$broadcast('callServiceSelection');
-                $scope.$broadcast('buildingComponent');
-                console.log( $scope.result);
                 $scope.currentStep = newStep;
+                if($scope.currentStep == 1) {
+                    $scope.$broadcast('callProjectInfo');
+                } else if ($scope.currentStep == 2) {
+                    $scope.$broadcast('callServiceSelection');
+                } else if ($scope.currentStep == 3) {
+
+                } else if ($scope.currentStep == 4) {
+
+                    $scope.$broadcast('buildingComponent');
+                }
+                
+                
+            
+                console.log( $scope.result);
+                
             }
           
         });
     
        	app.controller('ProjectInfo', function ($scope, $http) {
-           
-            $scope.$on('callProjectInfo', function(e) {  
-                $scope.$parent.result['project_info'] = ($scope.getProjectInfoInptuData());            
-            });
-                
-            $scope.getProjectInfoInptuData = function() {
-                $scope.data = {
-                    'secondary_mobile_no'  : $scope.projectInfo.secondary_mobile_no,
-                    'project_name'         : $scope.projectInfo.project_name,
-                    'zipcode'              : $scope.projectInfo.zipcode,
-                    'state'                : $scope.projectInfo.state,
-                    'building_type'        : $scope.projectInfo.building_type,
-                    'project_type'         : $scope.projectInfo.project_type,
-                    'project_date'         : $scope.projectInfo.project_date,
-                    'site_address'         : $scope.projectInfo.site_address,
-                    'place'                : $scope.projectInfo.place,
-                    'country'              : $scope.projectInfo.country,
-                    'no_of_building'       : $scope.projectInfo.no_of_building,
-                    'delivery_type'        : $scope.projectInfo.delivery_type,
-                    'project_delivery_date': $scope.projectInfo.project_delivery_date,
-                };
-                return  $scope.data;
-            }
-
+               
             let projectTypefiredOnce = false;
             let deliveryTypefiredOnce = false;
             let buildingTypefiredOnce = false;
@@ -1305,7 +1294,7 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             } 
-
+  
             $scope.getBuildingType = () => {
                 if(buildingTypefiredOnce){ return; }
                 $http({
@@ -1319,18 +1308,77 @@
                 });
             } 
 
+            $scope.getProjectType();
+            $scope.getBuildingType();
+            $scope.getDeliveryType();
+
+            $scope.getLastEnquiry = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.get-enquiry') }}',
+                }).then(function (res){
+                    $scope.projectInfo = $scope.getProjectInfoInptuData(res.data.project_info);
+                    $("#project_date").datepicker().datepicker("setDate", new Date(2017,11,16));
+                    // $scope.projectInfo.project_date =  moment(res.data.project_info.project_date, currentFormatString).format(newFormatString)
+                }, function (error) {
+                    console.log('projectinfo error');
+                });
+            }
+            $scope.getLastEnquiry();
+
+            $scope.$on('callProjectInfo', function(e) {  
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'project_info', 'data': $scope.getProjectInfoInptuData($scope.projectInfo)}
+                }).then(function (res) {
+                    $scope.projectInfo = res.data;		
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });         
+            });
+                
+            $scope.getProjectInfoInptuData = function($projectInfo) {
+                $scope.data = {
+                    'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
+                    'project_name'         : $projectInfo.project_name,
+                    'zipcode'              : $projectInfo.zipcode,
+                    'state'                : $projectInfo.state,
+                    'building_type_id'     : $projectInfo.building_type_id,
+                    'project_type_id'      : $projectInfo.project_type_id,
+                    'project_date'         : $projectInfo.project_date,
+                    'site_address'         : $projectInfo.site_address,
+                    'place'                : $projectInfo.place,
+                    'country'              : $projectInfo.country,
+                    'no_of_building'       : $projectInfo.no_of_building,
+                    'delivery_type_id'     : $projectInfo.delivery_type_id,
+                    'project_delivery_date': $projectInfo.project_delivery_date,
+                };
+                return  $scope.data;
+            }
+
         }); 
 
         app.controller('ServiceSelection', function ($scope, $http) {
            
-           $scope.$on('callServiceSelection', function(e) {  
-               $scope.$parent.result['services'] = ($scope.getServiceSelectionInptuData());            
+           $scope.$on('callServiceSelection', function(e) {            
+               $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
+                }).then(function (res) {
+                    $scope.servicesArray.length = 0;
+                    $scope.servicesArray.push();
+                   console.log(res);
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });        
            });
+
            $scope.selectService  = (service) => {
-                // var id = service.attributes['data-service-id'].value;
                 var id =  angular.element(service).data('id');
-                console.log(id);
            }
+
            $scope.getServiceSelectionInptuData = function() {
                 $scope.servicesArray = [];
                 angular.forEach($scope.services, function(service){
