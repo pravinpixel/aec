@@ -1259,7 +1259,7 @@
                 } else if ($scope.currentStep == 4) {
                     $scope.$broadcast('buildingComponent');
                 }
-                console.log( $scope.result);
+               
             }
           
         });
@@ -1371,7 +1371,7 @@
                     url: '{{ route('customers.get-enquiry') }}',
                 }).then(function (res){
                     $scope.serviceList = res.data.services;
-                    console.log($scope.serviceList);
+            
                 }, function (error) {
                     console.log('projectinfo error');
                 });
@@ -1408,10 +1408,8 @@
                    method: 'GET',
                    url: '{{ route("service.index") }}'
                }).then(function (res) {
-                   console.log(res);
-                    servicefireOnce = true;
+                   servicefireOnce = true;
                    $scope.services = res.data;		
-                   console.log('service'+$scope.services);
                }, function (error) {
                    console.log('This is embarassing. An error has occurred. Please check the log for details');
                });
