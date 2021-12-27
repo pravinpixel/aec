@@ -1,12 +1,12 @@
-<form id="projectInfo" name="projectInfo" method="post" class="form-horizontal">
+<form id="projectInfoForm"  method="post" class="form-horizontal">
     <div class="row">
         <div class="col-md-4">
             <div class="form-floating  mb-2">
-                <input disabled value="{{ GlobalService::dateFormat($customer->latestEnquiry->enquiry_date) ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
+                <input disabled value="{{ GlobalService::dateFormat($customer->customer_enquiry_date) ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
                 <label for="floating">Enquiry Date</label>
             </div>
             <div class="form-floating  mb-2">
-                <input disabled value="{{ $customer->latestEnquiry->enquiry_number ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
+                <input disabled value="{{ $customer->customer_enquiry_no ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
                 <label for="floating">Enquiry Number</label>
             </div>
             <div class="form-floating  mb-2">

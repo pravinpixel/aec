@@ -16,4 +16,7 @@ interface CustomerEnquiryRepositoryInterface
 
     public function createCustomerEnquiryServices( $enquiry_id, $services);
 
+    public function getEnquiry($enquiry_id);
+
+
 }

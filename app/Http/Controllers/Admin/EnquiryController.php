@@ -96,23 +96,20 @@ class EnquiryController extends Controller
             $password = 'customer@123';
             $email = $request->email;
             $data = [
-                'full_name'      => $request->user_name,
-                'company_name'   => $request->company_name,
-                'contact_person' => $request->contact_person,
-                'remarks'        => $request->remarks,
-                'mobile_no'      => $request->mobile_no,
-                'email'          => strtolower($email),
-                'password'       => Hash::make($password),
-                'created_by'     => 1,
-                'updated_by'     => 1,
-                'is_active'      => 1
+                'customer_enquiry_date' => now(),
+                'customer_enquiry_no'   => $latest_enquiry_number,
+                'full_name'             => $request->user_name,
+                'company_name'          => $request->company_name,
+                'contact_person'        => $request->contact_person,
+                'remarks'               => $request->remarks,
+                'mobile_no'             => $request->mobile_no,
+                'email'                 => strtolower($email),
+                'password'              => Hash::make($password),
+                'created_by'            => 1,
+                'updated_by'            => 1,
+                'is_active'             => 1
             ];
             $customer = $this->customer->create($data);
-            $customer->enquiry()
-                        ->create([
-                            'enquiry_date' => now(), 
-                            'enquiry_number' => $latest_enquiry_number
-                        ]);
             DB::commit();
             GlobalService::updateConfig('ENQ');
             $details = [

@@ -84,7 +84,7 @@
                     </div>
                         <div id="rootwizard" ng-controller="wizard">
                             <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
-                                <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfoForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfo">
                                     <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Project Information</span>
@@ -102,7 +102,7 @@
                                         <span class="d-none d-sm-inline">IFC Model & Uploads</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#projectInfoForm">
                                     <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Building  Components</span>
@@ -1246,6 +1246,11 @@
                 $scope.currentStep = newStep;
             }
             $scope.gotoStep = function(newStep) {
+                if($scope.currentStep > newStep) {
+                    $scope.currentStep = newStep;
+                    return false;
+                }
+                $scope.currentStep = newStep;
                 if($scope.currentStep == 1 ) {
                     $scope.$broadcast('callProjectInfo');
                 } else if ($scope.currentStep == 2) {
@@ -1254,11 +1259,7 @@
                 } else if ($scope.currentStep == 4) {
                     $scope.$broadcast('buildingComponent');
                 }
-                if($scope.currentStep > newStep) {
-                    $scope.currentStep = newStep;
-                    return false;
-                }
-                $scope.currentStep = newStep;
+               
             }
           
         });
@@ -1290,7 +1291,7 @@
                     url: '{{ route("delivery-type.index") }}'
                 }).then(function (res) {
                     deliveryTypefiredOnce = true;
-                    $scope.deliveryTypes = res.data;		
+                    $scope.deliveryTypes = res.data;		    
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -1309,10 +1310,22 @@
                 });
             } 
 
+            $scope.getLastEnquiry = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.get-enquiry', $id) }}',
+                }).then(function (res){
+                    $scope.projectInfo = $scope.getProjectInfoInptuData(res.data.project_info);
+                }, function (error) {
+                    console.log('projectinfo error');
+                });
+            }
+
+
             $scope.getProjectType();
             $scope.getBuildingType();
             $scope.getDeliveryType();
-
+            $scope.getLastEnquiry(); 
 
             $scope.$on('callProjectInfo', function(e) {  
                 if(!$("#projectInfoForm")[0].checkValidity()){
@@ -1328,7 +1341,7 @@
                     console.log(`callprojectinfo ${error}`);
                 });         
             });
-        
+                
             $scope.getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
@@ -1353,15 +1366,26 @@
         app.controller('ServiceSelection', function ($scope, $http) {
             $scope.serviceList = [];
 
+            $scope.getLastEnquiry = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.get-enquiry',$id) }}',
+                }).then(function (res){
+                    $scope.serviceList = res.data.services;
+            
+                }, function (error) {
+                    console.log('projectinfo error');
+                });
+            }
+            $scope.getLastEnquiry(); 
+        //    if($scope.servicesArray.length == 0) {}
            $scope.$on('callServiceSelection', function(e) {            
                $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
                 }).then(function (res) {
-                    $scope.serviceList.length = 0;
-                    $scope.serviceList.push();
-                   console.log(res);
+                    
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });         
@@ -1385,10 +1409,8 @@
                    method: 'GET',
                    url: '{{ route("service.index") }}'
                }).then(function (res) {
-                   console.log(res);
-                    servicefireOnce = true;
+                   servicefireOnce = true;
                    $scope.services = res.data;		
-                   console.log('service'+$scope.services);
                }, function (error) {
                    console.log('This is embarassing. An error has occurred. Please check the log for details');
                });

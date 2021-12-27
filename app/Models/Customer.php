@@ -14,6 +14,8 @@ class Customer extends Model
             'enquiry_date'
     ];
     protected $fillable = [
+        'customer_enquiry_date',
+        'customer_enquiry_no',
         'first_name',
         'last_name',
         'full_name',

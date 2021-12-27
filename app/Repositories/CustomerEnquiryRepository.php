@@ -26,12 +26,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
 
     public function getCustomerEnquiry($id){
-        return $this->customer::with('latestEnquiry')->find($id);
+        return $this->customer->find($id);
     }
 
     public function createCustomerEnquiryProjectInfo(Customer $customer, array $data)
     {
-        return $customer->latestEnquiry()->update($data);
+        return $customer->enquiry()->create($data);
     }
 
     public function createCustomerEnquiryServices($enquiry_id,  $services)
@@ -42,5 +42,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     ->detach();
         }
         return $enquiry->services()->attach($services);
+    }
+
+    public function getEnquiry($id) 
+    {
+        return $this->enquiry->with('customer')->find($id);
     }
 }

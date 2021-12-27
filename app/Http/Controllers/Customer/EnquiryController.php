@@ -14,8 +14,10 @@ class EnquiryController extends Controller
     protected $customerEnquiryRepo;
     protected $serviceRepo;
 
-    public function __construct(CustomerEnquiryRepositoryInterface $customerEnquiryRepository, ServiceRepositoryInterface $serviceRepo)
-    {
+    public function __construct(
+        CustomerEnquiryRepositoryInterface $customerEnquiryRepository, 
+        ServiceRepositoryInterface $serviceRepo
+    ){
         $this->customerEnquiryRepo = $customerEnquiryRepository;
         $this->serviceRepo = $serviceRepo;
     }
@@ -40,9 +42,13 @@ class EnquiryController extends Controller
     {
         $type = $request->input('type');
         $data = $request->input('data');
+        
         $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
+        
         if($type == 'project_info') {
-            return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer,$data);
+            $enquiry = ['enquiry_date' => now(), 'enquiry_number' => 'XXX'];
+            $array_merge = array_merge($data, $enquiry);
+            return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer,$array_merge);
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
             $enquiry_id = $customer->latestEnquiry->id;
@@ -50,11 +56,11 @@ class EnquiryController extends Controller
         }
     }
 
-    public function getLastEnquiry()
+    public function getEnquiry($id)
     {
-        $enquiry = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
-        $result['project_info'] = $this->formatProjectInfo($enquiry->latestEnquiry);
-        $result['services'] = $enquiry->latestEnquiry->services()->pluck('id');
+        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        $result['project_info'] = $this->formatProjectInfo($enquiry);
+        $result['services'] =  $enquiry->services()->pluck('id');
         return $result;
     }
 
@@ -76,5 +82,11 @@ class EnquiryController extends Controller
             'delivery_type_id'     => $enquiry->delivery_type_id,
             'project_delivery_date'=> $enquiry->project_delivery_date
         ];
+    }
+
+    public function edit($id)
+    {
+        $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
+        return view('customers.pages.edit-enquiries',compact('customer','id'));
     }
 }
