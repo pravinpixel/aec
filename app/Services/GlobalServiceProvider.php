@@ -23,6 +23,12 @@ class GlobalServiceProvider extends Controller
         return "{$config->enquiry_prefix}-{$config->enquiry_number}";
     }
 
+    public function customerEnquiryNumber()
+    {
+        $config = $this->getConfig();
+        return "{$config->customer_prefix}-{$config->customer_enquiry_number}";
+    }
+
     public function getConfig()
     {
         return ConfigModel::first();
@@ -34,6 +40,10 @@ class GlobalServiceProvider extends Controller
         switch ($type) {
             case 'ENQ':
                 $config->enquiry_number += 1;
+                $config->save();
+                break;
+            case 'CENQ':
+                $config->customer_enquiry_number += 1;
                 $config->save();
                 break;
             default:

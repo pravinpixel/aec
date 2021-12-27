@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use App\Models\Config;
+use App\Services\GlobalService;
 use Illuminate\Http\Request;
 
 class EnquiryController extends Controller
@@ -42,17 +43,16 @@ class EnquiryController extends Controller
     {
         $type = $request->input('type');
         $data = $request->input('data');
-        
         $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
-        
+        $customerEnquiryNumber =  $customer->reference_enquiry_no;
         if($type == 'project_info') {
-            $enquiry = ['enquiry_date' => now(), 'enquiry_number' => 'XXX'];
+            $enquiry = ['enquiry_date' => now()];
             $array_merge = array_merge($data, $enquiry);
-            return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer,$array_merge);
+            return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customerEnquiryNumber, $customer, $array_merge);
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
-            $enquiry_id = $customer->latestEnquiry->id;
-            return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry_id,$services);
+            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($customerEnquiryNumber);
+            return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
         }
     }
 
@@ -88,5 +88,21 @@ class EnquiryController extends Controller
     {
         $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
         return view('customers.pages.edit-enquiries',compact('customer','id'));
+    }
+
+
+    public function update($id, Request $request)
+    {
+        $type = $request->input('type');
+        $data = $request->input('data');
+        $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
+        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        if($type == 'project_info') {
+            return $this->customerEnquiryRepo->updateEnquriry($enquiry, $customer, $data);
+        } else if($type == 'services') {
+            $services = $this->serviceRepo->find($data)->pluck('id');
+            // $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($customerEnquiryNumber);
+            // return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
+        }
     }
 }

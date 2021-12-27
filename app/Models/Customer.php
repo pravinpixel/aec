@@ -16,6 +16,7 @@ class Customer extends Model
     protected $fillable = [
         'customer_enquiry_date',
         'customer_enquiry_no',
+        'reference_enquiry_no',
         'first_name',
         'last_name',
         'full_name',

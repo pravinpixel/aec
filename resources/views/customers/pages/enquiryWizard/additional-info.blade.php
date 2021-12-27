@@ -1,4 +1,4 @@
-<div class="row m-0">
+<div class="row m-0" id="additionalInformation">
     <div class="col-sm-6 mx-auto">
         <div >
             

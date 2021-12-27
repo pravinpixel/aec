@@ -97,6 +97,7 @@ class EnquiryController extends Controller
             $email = $request->email;
             $data = [
                 'customer_enquiry_date' => now(),
+                'reference_enquiry_no'  => GlobalService::customerEnquiryNumber(),
                 'customer_enquiry_no'   => $latest_enquiry_number,
                 'full_name'             => $request->user_name,
                 'company_name'          => $request->company_name,
@@ -112,6 +113,7 @@ class EnquiryController extends Controller
             $customer = $this->customer->create($data);
             DB::commit();
             GlobalService::updateConfig('ENQ');
+            GlobalService::updateConfig('CENQ');
             $details = [
                 'customer_name'     => $request->contact_person,
                 'customer_email'    => $request->email,

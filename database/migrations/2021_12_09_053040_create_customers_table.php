@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('customer_enquiry_no')->nullable();
             $table->date('customer_enquiry_date')->nullable();
+            $table->string('reference_enquiry_no')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('full_name')->nullable();

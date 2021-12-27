@@ -1,4 +1,4 @@
-<form id="profileForm" method="post" action="#" class="form-horizontal">
+<form id="serviceSelection" method="post" action="#" class="form-horizontal">
                                     
     <div class="row m-0 justify-content-center" >
         <label class="col-md-4 p-2" for="one_1_check" ng-repeat="service in services">

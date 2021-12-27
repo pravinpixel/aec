@@ -84,31 +84,31 @@
                     </div>
                         <div id="rootwizard" ng-controller="wizard">
                             <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
-                                <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfo">
+                                <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfoForm">
                                     <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Project Information</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection">
                                     <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Service Selection</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
                                     <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">IFC Model & Uploads</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#projectInfoForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
                                     <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Building  Components</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation">
                                     <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Additional Informations</span>

@@ -90,31 +90,31 @@
                                         <span class="d-none d-sm-inline">Project Information</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection">
                                     <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Service Selection</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
                                     <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">IFC Model & Uploads</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
                                     <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Building  Components</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation">
                                     <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Additional Informations</span>
                                     </a>
                                 </li>
-                                <li class="nav-item"  ng-click="updateWizardStatus(5)" data-target-form="#otherForm">
+                                <li class="nav-item"  ng-click="updateWizardStatus(5)" data-target-form="#reviewSubmit">
                                     <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 40px;"  class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="mdi mdi-checkbox-marked-circle-outline me-1"></i>
                                         <span class="d-none d-sm-inline">Review &  Submit </span>
@@ -781,7 +781,7 @@
 
                                 <div class="card-footer border-0 p-0 " >
                                     <ul class="list-inline wizard mb-0 pt-3">
-                                        <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous</a></li>
+                                        <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous @{{currentStep}}</a></li>
                                         <li class="next list-inline-item float-end" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
                                     </ul>
                                 </div>
@@ -1239,36 +1239,38 @@
     </script>
     <script>
         // const result = [];
-        app.controller('wizard', function($scope, $http) {
+        app.controller('wizard', function($scope, $http,$rootScope) {
             $scope.result = []
-            $scope.currentStep = 0;
+            $rootScope.currentStep = 0;
             $scope.updateWizardStatus = (newStep) => {
-                $scope.currentStep = newStep;
+                $rootScope.currentStep = newStep;
             }
             $scope.gotoStep = function(newStep) {
-                if($scope.currentStep == 1 ) {
-                    $scope.$broadcast('callProjectInfo');
-                } else if ($scope.currentStep == 2) {
-                    $scope.$broadcast('callServiceSelection');
-                } else if ($scope.currentStep == 3) {
-                } else if ($scope.currentStep == 4) {
-                    $scope.$broadcast('buildingComponent');
-                }
-                if($scope.currentStep > newStep) {
-                    $scope.currentStep = newStep;
+                if($rootScope.currentStep > newStep) {
+                    $rootScope.currentStep = newStep;
                     return false;
                 }
-                $scope.currentStep = newStep;
+                $rootScope.currentStep = newStep;
+                if($rootScope.currentStep == 1 ) {
+                    $scope.$broadcast('callProjectInfo');
+                } else if ($rootScope.currentStep == 2) {
+                    $scope.$broadcast('callServiceSelection');
+                } else if ($rootScope.currentStep == 3) {
+
+                } else if ($rootScope.currentStep == 4) {
+                    $scope.$broadcast('buildingComponent');
+                }
+               
+           
             }
           
         });
     
-       	app.controller('ProjectInfo', function ($scope, $http) {
+       	app.controller('ProjectInfo', function ($scope, $http, $rootScope ) {
        
             let projectTypefiredOnce = false;
             let deliveryTypefiredOnce = false;
             let buildingTypefiredOnce = false;
-           
 
             $scope.getProjectType = () => {
                 if(projectTypefiredOnce){ return; }
@@ -1313,9 +1315,9 @@
             $scope.getBuildingType();
             $scope.getDeliveryType();
 
-
             $scope.$on('callProjectInfo', function(e) {  
                 if(!$("#projectInfoForm")[0].checkValidity()){
+                    $rootScope.currentStep = 0;
                     return false;
                 }
                 $http({
@@ -1350,18 +1352,21 @@
 
         }); 
 
-        app.controller('ServiceSelection', function ($scope, $http) {
+        app.controller('ServiceSelection', function ($scope, $http, $rootScope) {
             $scope.serviceList = [];
 
-           $scope.$on('callServiceSelection', function(e) {            
+           $scope.$on('callServiceSelection', function(e) { 
+            console.log($scope.serviceList.length);
+                if($scope.serviceList.length == 0){
+                    $rootScope.currentStep = 1;
+                    return false;
+                }           
                $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
                 }).then(function (res) {
-                    $scope.serviceList.length = 0;
-                    $scope.serviceList.push();
-                   console.log(res);
+                    
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });         
@@ -1385,10 +1390,8 @@
                    method: 'GET',
                    url: '{{ route("service.index") }}'
                }).then(function (res) {
-                   console.log(res);
                     servicefireOnce = true;
-                   $scope.services = res.data;		
-                   console.log('service'+$scope.services);
+                    $scope.services = res.data;	
                }, function (error) {
                    console.log('This is embarassing. An error has occurred. Please check the log for details');
                });

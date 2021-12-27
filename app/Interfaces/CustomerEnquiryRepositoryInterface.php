@@ -12,11 +12,14 @@ interface CustomerEnquiryRepositoryInterface
 
     public function getCustomerEnquiry(int $id);
 
-    public function createCustomerEnquiryProjectInfo(Customer $customer, array $data);
+    public function createCustomerEnquiryProjectInfo($enquiry_number, Customer $customer, array $data);
 
-    public function createCustomerEnquiryServices( $enquiry_id, $services);
+    public function createCustomerEnquiryServices(Enquiry $enquiry, $services);
 
     public function getEnquiry($enquiry_id);
 
+    public function getEnquiryByEnquiryNo($enquiry_id);
+
+    public function updateEnquriry(Enquiry $enquiry, Customer $customer, $data);
 
 }

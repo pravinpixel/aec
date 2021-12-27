@@ -17,6 +17,8 @@ class CreateConfigsTable extends Migration
             $table->id();
             $table->string('enquiry_prefix');
             $table->integer('enquiry_number');
+            $table->string('customer_prefix');
+            $table->integer('customer_enquiry_number');
             $table->timestamps();
         });
     }
