@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class EnquiryService extends Model
 {
     use HasFactory;
+
 }

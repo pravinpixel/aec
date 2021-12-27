@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\GlobalService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,15 +34,26 @@ class Enquiry extends Model
         'updated_by'
     ];
 
+    public function getProjectDateAttribute($value)
+    {
+        return GlobalService::DBDateFormat($value);
+    }
+
+    public function getProjectDeliveryDateAttribute($value)
+    {
+        return GlobalService::DBDateFormat($value);
+    }
+
 
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
-    public function enquiryServices()
+    public function services()
     {
-        return $this->hasMany(EnquiryService::class);
+        return $this->belongsToMany(Service::class);
     }
+
 }
 

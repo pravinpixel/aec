@@ -44,8 +44,9 @@ class EnquiryController extends Controller
         if($type == 'project_info') {
             return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer,$data);
         } else if($type == 'services') {
-            $services = $this->serviceRepo->find($data);
-            return $this->customerEnquiryRepo->createCustomerEnquiryServices($customer,$services);
+            $services = $this->serviceRepo->find($data)->pluck('id');
+            $enquiry_id = $customer->latestEnquiry->id;
+            return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry_id,$services);
         }
     }
 
@@ -53,6 +54,7 @@ class EnquiryController extends Controller
     {
         $enquiry = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
         $result['project_info'] = $this->formatProjectInfo($enquiry->latestEnquiry);
+        $result['services'] = $enquiry->latestEnquiry->services()->pluck('id');
         return $result;
     }
 

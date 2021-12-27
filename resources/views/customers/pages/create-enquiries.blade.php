@@ -82,39 +82,39 @@
                             </div>
                         </div>
                     </div>
-                        <div id="rootwizard">
+                        <div id="rootwizard" ng-controller="wizard">
                             <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
-                                <li class="nav-item" data-target-form="#projectInfo">
+                                <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfo">
                                     <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Project Information</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#profileForm">
                                     <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Service Selection</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#profileForm">
                                     <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">IFC Model & Uploads</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#profileForm">
                                     <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Building  Components</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" data-target-form="#profileForm">
+                                <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#profileForm">
                                     <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="uil-angle-double-right me-1"></i>
                                         <span class="d-none d-sm-inline">Additional Informations</span>
                                     </a>
                                 </li>
-                                <li class="nav-item" data-target-form="#otherForm">
+                                <li class="nav-item"  ng-click="updateWizardStatus(5)" data-target-form="#otherForm">
                                     <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 40px;"  class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
                                         <i class="mdi mdi-checkbox-marked-circle-outline me-1"></i>
                                         <span class="d-none d-sm-inline">Review &  Submit </span>
@@ -122,7 +122,7 @@
                                 </li>
                             </ul>
 
-                            <div class="tab-content my-3" ng-controller="wizard">
+                            <div class="tab-content my-3" >
                                 <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
                                     @include('customers.pages.enquiryWizard.project-info')
                                 </div>
@@ -1242,32 +1242,34 @@
         app.controller('wizard', function($scope, $http) {
             $scope.result = []
             $scope.currentStep = 0;
-            $scope.gotoStep = function(newStep) {
+            $scope.updateWizardStatus = (newStep) => {
                 $scope.currentStep = newStep;
-                if($scope.currentStep == 1) {
+            }
+            $scope.gotoStep = function(newStep) {
+                if($scope.currentStep > newStep) {
+                    $scope.currentStep = newStep;
+                    return false;
+                }
+                $scope.currentStep = newStep;
+                if($scope.currentStep == 1 ) {
                     $scope.$broadcast('callProjectInfo');
                 } else if ($scope.currentStep == 2) {
                     $scope.$broadcast('callServiceSelection');
                 } else if ($scope.currentStep == 3) {
-
                 } else if ($scope.currentStep == 4) {
-
                     $scope.$broadcast('buildingComponent');
                 }
-                
-                
-            
                 console.log( $scope.result);
-                
             }
           
         });
     
        	app.controller('ProjectInfo', function ($scope, $http) {
-               
+       
             let projectTypefiredOnce = false;
             let deliveryTypefiredOnce = false;
             let buildingTypefiredOnce = false;
+           
 
             $scope.getProjectType = () => {
                 if(projectTypefiredOnce){ return; }
@@ -1318,23 +1320,24 @@
                     url: '{{ route('customers.get-enquiry') }}',
                 }).then(function (res){
                     $scope.projectInfo = $scope.getProjectInfoInptuData(res.data.project_info);
-                    $("#project_date").datepicker().datepicker("setDate", new Date(2017,11,16));
-                    // $scope.projectInfo.project_date =  moment(res.data.project_info.project_date, currentFormatString).format(newFormatString)
                 }, function (error) {
                     console.log('projectinfo error');
                 });
             }
-            $scope.getLastEnquiry();
+            $scope.getLastEnquiry(); 
 
             $scope.$on('callProjectInfo', function(e) {  
+                if(!$("#projectInfo")[0].checkValidity()){
+                    return false;
+                }
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'project_info', 'data': $scope.getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
-                    $scope.projectInfo = res.data;		
+                    
                 }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    console.log(`callprojectinfo ${error}`);
                 });         
             });
                 
@@ -1360,34 +1363,46 @@
         }); 
 
         app.controller('ServiceSelection', function ($scope, $http) {
-           
+            $scope.serviceList = [];
+
+            $scope.getLastEnquiry = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.get-enquiry') }}',
+                }).then(function (res){
+                    $scope.serviceList = res.data.services;
+                    console.log($scope.serviceList);
+                }, function (error) {
+                    console.log('projectinfo error');
+                });
+            }
+            $scope.getLastEnquiry(); 
+        //    if($scope.servicesArray.length == 0) {}
            $scope.$on('callServiceSelection', function(e) {            
                $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
                 }).then(function (res) {
-                    $scope.servicesArray.length = 0;
-                    $scope.servicesArray.push();
-                   console.log(res);
+                    
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });        
+                });         
            });
 
-           $scope.selectService  = (service) => {
-                var id =  angular.element(service).data('id');
-           }
-
            $scope.getServiceSelectionInptuData = function() {
-                $scope.servicesArray = [];
-                angular.forEach($scope.services, function(service){
-                    if (!!service.selected) $scope.servicesArray.push(service.id);
-                })
-               return Object.assign({}, $scope.servicesArray);
+                return Object.assign({}, $scope.serviceList);
            }
+    
+            $scope.changeService = function(list, active){
+                if (active) {
+                    $scope.serviceList.push(list);
+                }else {
+                    $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
+                }
+            };
            let servicefireOnce = false;
-           $scope.getProjectType = () => {
+           $scope.getServices = () => {
                if(servicefireOnce){ return; }
                $http({
                    method: 'GET',
@@ -1396,11 +1411,12 @@
                    console.log(res);
                     servicefireOnce = true;
                    $scope.services = res.data;		
+                   console.log('service'+$scope.services);
                }, function (error) {
                    console.log('This is embarassing. An error has occurred. Please check the log for details');
                });
            } 
-           $scope.getProjectType();
+           $scope.getServices();
         }); 
 
         app.controller('CrudCtrl', function ($scope, $http) { 

@@ -1,4 +1,4 @@
-<form id="projectInfo" method="post" action="#" class="form-horizontal">
+<form id="projectInfo" name="projectInfo" method="post" class="form-horizontal">
     <div class="row">
         <div class="col-md-4">
             <div class="form-floating  mb-2">
@@ -48,7 +48,10 @@
                 <label for="floatingSelect">Type of Building</label>
             </div>
             <div class="form-floating mb-2">
-                <select  class="form-select" ng-model="projectInfo.project_type_id"  ng-options="projectType.id as projectType.project_type_name for projectType in projectTypes" required >
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="building_type"  ng-model="projectInfo.project_type_id" required>
+                    <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
+                        @{{ projectType.project_type_name }}
+                    </option>
                 </select>
                 <label for="floatingSelect">Type of Project</label>
             </div>

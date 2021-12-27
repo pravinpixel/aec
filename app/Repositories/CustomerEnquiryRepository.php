@@ -4,14 +4,20 @@ namespace App\Repositories;
 
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Models\Customer;
+use App\Models\Enquiry;
+use App\Models\EnquiryService;
 use App\Models\Service;
 
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $customer;
+    protected $enquiryService;
+    protected $enquiry;
 
-    function __construct(Customer $customer)
+    function __construct(Customer $customer,Enquiry $enquiry, Service $service)
     {
         $this->customer = $customer;
+        $this->service = $service;
+        $this->enquiry = $enquiry;
     }
 
     
@@ -28,8 +34,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $customer->latestEnquiry()->update($data);
     }
 
-    public function createCustomerEnquiryServices(Customer $customer, Service $data)
+    public function createCustomerEnquiryServices($enquiry_id,  $services)
     {
-        return $customer->enquiryServices()->updateOrCreate($data);
+        $enquiry = $this->enquiry->find($enquiry_id);
+        if($enquiry) {
+            $enquiry->services()
+                    ->detach();
+        }
+        return $enquiry->services()->attach($services);
     }
 }

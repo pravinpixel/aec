@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
+use App\Models\Enquiry;
 use App\Models\Customer;
 use App\Models\Service;
 
@@ -13,6 +14,6 @@ interface CustomerEnquiryRepositoryInterface
 
     public function createCustomerEnquiryProjectInfo(Customer $customer, array $data);
 
-    public function createCustomerEnquiryServices(Customer $customer,Service $service);
+    public function createCustomerEnquiryServices( $enquiry_id, $services);
 
 }

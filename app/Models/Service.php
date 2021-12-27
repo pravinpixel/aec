@@ -14,4 +14,9 @@ class Service extends Model
         'service_name',
         'is_active'
     ];
+
+    public function enquiries()
+    {
+        return $this->belongsToMany(Enquiry::class);
+    }
 }

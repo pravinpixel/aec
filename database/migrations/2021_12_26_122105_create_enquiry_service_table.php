@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnquiryServicesTable extends Migration
+class CreateEnquiryServiceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateEnquiryServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('enquiry_services', function (Blueprint $table) {
-            $table->id();
+        Schema::create('enquiry_service', function (Blueprint $table) {
             $table->unsignedBigInteger('enquiry_id');
             $table->unsignedBigInteger('service_id');
-            $table->timestamps();
         });
     }
 
@@ -28,6 +26,6 @@ class CreateEnquiryServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enquiry_services');
+        Schema::dropIfExists('enquiry_service');
     }
 }

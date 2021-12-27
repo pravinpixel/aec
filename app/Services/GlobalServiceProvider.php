@@ -47,4 +47,10 @@ class GlobalServiceProvider extends Controller
         $format = Config::get('global.model_date_format');
         return Carbon::parse($date)->format($format);
     }
+
+    public function DBDateFormat($date)
+    {
+        $format = Config::get('global.db_date_format');
+        return Carbon::parse($date)->format($format);
+    }
 }
