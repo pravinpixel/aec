@@ -28,8 +28,14 @@
         </div>
     </div> 
     <div class="card-body">
-        <div class="container p-0">
-            <h4>Awarded Projects</h4>
+        <div class="container p-0"> 
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Awarded Projects</h4>
+                <div class="btn-gr text-end">
+                    <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> preview</button>
+                    <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small><i class="fa fa-plus"></i> Create</small></button>
+                </div>
+            </div>
             <table class="table table-bordered" id="myTable">
                 <thead>
                     <tr>
@@ -46,7 +52,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div class="icon"><i  class="feather-minus text-white toggle-btn"></i></div>
                                 <div>1</div>                                                    
                             </div>
                         </td>
@@ -70,15 +76,22 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_2" class="feather-plus bg-primary text-white toggle-btn"></i></div>
+                                <div class="icon">
+                                    <i data-bs-toggle="collapse" href="#collapseOne_2" 
+                                        aria-expanded="true" aria-controls="collapseOne_2" 
+                                        class="accordion-button collapsed bg-primary text-white toggle-btn">
+                                    </i> 
+                                </div>
                                 <div>2</div>                                                    
                             </div>
                         </td>
                         <td>05 May 2013</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td>
+
+                        
                      
-                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -114,13 +127,13 @@
                                             <td>2.2</td>
                                             <td>04-06-2021</td>
                                             <td>YYY</td>
-                                            <td><span class="badge badge-outline-info rounded-pill">ReView commentsing</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                         </tr>
                                         <tr>
                                             <td>2.1</td>
                                             <td>03-06-2021</td>
                                             <td>ZZZ</td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">ReView commentsing</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                         </tr>
                                 </tbody>
                             </table>
@@ -130,7 +143,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div class="icon"><i  class="accordion-button collapsed text-white toggle-btn"></i></div>
                                 <div>3</div>                                                    
                             </div>
                         </td>
@@ -156,7 +169,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_4" aria-expanded="true" aria-controls="collapseOne_2" class="feather-plus bg-primary text-white toggle-btn"></i></div>
+                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_4" aria-expanded="true" aria-controls="collapseOne_2" class="accordion-button collapsed bg-primary text-white toggle-btn"></i></div>
                                 <div>4</div>                                                    
                             </div>
                         </td>
@@ -164,7 +177,7 @@
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td>
                       
-                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -200,13 +213,13 @@
                                             <td>4.2</td>
                                             <td>04-06-2021</td>
                                             <td>YYY</td>
-                                            <td><span class="badge badge-outline-info rounded-pill">ReView commentsing</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                         </tr>
                                         <tr>
                                             <td>4.1</td>
                                             <td>03-06-2021</td>
                                             <td>ZZZ</td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">ReView commentsing</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                         </tr>
                                 </tbody>
                             </table>
@@ -216,7 +229,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i class="feather-plus text-white toggle-btn"></i></div>
+                                <div class="icon"><i class="accordion-button collapsed text-white toggle-btn"></i></div>
                                 <div>5</div>                                                    
                             </div>
                         </td>
@@ -241,7 +254,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div class="icon"><i  class="accordion-button collapsed text-white toggle-btn"></i></div>
                                 <div>6</div>                                                    
                             </div>
                         </td>
@@ -266,14 +279,14 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_6" aria-expanded="true" aria-controls="collapseOne_6" class="feather-plus bg-primary text-white toggle-btn"></i></div>
+                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_6" aria-expanded="true" aria-controls="collapseOne_6" class="accordion-button collapsed bg-primary text-white toggle-btn"></i></div>
                                 <div>7</div>                                                    
                             </div>
                         </td>
                         <td>05 May 2013</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td> 
-                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -309,13 +322,13 @@
                                             <td>7.2</td>
                                             <td>04-06-2021</td>
                                             <td>YYY</td>
-                                            <td><span class="badge badge-outline-info rounded-pill">ReView commentsing</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                         </tr>
                                         <tr>
                                             <td>7.1</td>
                                             <td>03-06-2021</td>
                                             <td>ZZZ</td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">ReView commentsing</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                         </tr>
                                 </tbody>
                             </table>
@@ -325,10 +338,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="btn-gr">
-            <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> preview</button>
+        <div class="btn-gr text-end">
             <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"> <i class="fa fa-envelope"></i> Send Mail</button>
-            <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small><i class="fa fa-plus"></i> Create</small></button>
         </div>
     </div>
     <div class="card-footer">
@@ -489,7 +500,7 @@
                                                 <li>
                                                     Re-concealed project implementation plan - It is assumed that we will arrive at a reconciled progress plan that is feasible for both parties. AEC Prefab AS needs at least 4 weeks from the control measurement result provided by Client to start precut production. In addition, the parties must agree on a decision plan that has realistic deadlines for feedback and/or confirmations of factors that AEC Prefab AS needs to clarify in order to maintain deliverables in accordance with the reconciled progress plan.
                                                 </li>
-                                                <li>Information about existing buildings - It is assumed that AEC Prefab  receives  the IFC model and sufficient information about existing buildings,including building engineering details,  for modeling the element structures onto the concrete construction and carrying out static calculations. This means that electronic models and reports from previous works are made available to AEC Prefab within 3 weeks before production startup.</li>
+                                                <li>secondaryrmation about existing buildings - It is assumed that AEC Prefab  receives  the IFC model and sufficient secondaryrmation about existing buildings,including building engineering details,  for modeling the element structures onto the concrete construction and carrying out static calculations. This means that electronic models and reports from previous works are made available to AEC Prefab within 3 weeks before production startup.</li>
                                                 <li>Measurement - It is assumed that relevant measurement data are available for the construction that may give us variation in real construction in relation to theoretical construction as provided in the regular IFC files.</li>
                                                 <li>Tolerances in measurement data- It is assumed that measuring the anchor points of the construction will take place within an accuracy of +/- 10 mm in relation to theoretical location. If measures are outside +/- 10 mm as predicted in the element production, this will result in additional work on the construction site to adapt the individual elements that will then not immediately fit onto the construction.</li>
                                                 <li>Measurement data format - It is assumed that measurement data can be digitally transferred from measurement station to text file with coordinate ID, X (Northing, Y (Easting), and Z (height) coordinates.</li>
@@ -675,7 +686,7 @@
                                         <li>
                                             Re-concealed project implementation plan - It is assumed that we will arrive at a reconciled progress plan that is feasible for both parties. AEC Prefab AS needs at least 4 weeks from the control measurement result provided by Client to start precut production. In addition, the parties must agree on a decision plan that has realistic deadlines for feedback and/or confirmations of factors that AEC Prefab AS needs to clarify in order to maintain deliverables in accordance with the reconciled progress plan.
                                         </li>
-                                        <li>Information about existing buildings - It is assumed that AEC Prefab  receives  the IFC model and sufficient information about existing buildings,including building engineering details,  for modeling the element structures onto the concrete construction and carrying out static calculations. This means that electronic models and reports from previous works are made available to AEC Prefab within 3 weeks before production startup.</li>
+                                        <li>secondaryrmation about existing buildings - It is assumed that AEC Prefab  receives  the IFC model and sufficient secondaryrmation about existing buildings,including building engineering details,  for modeling the element structures onto the concrete construction and carrying out static calculations. This means that electronic models and reports from previous works are made available to AEC Prefab within 3 weeks before production startup.</li>
                                         <li>Measurement - It is assumed that relevant measurement data are available for the construction that may give us variation in real construction in relation to theoretical construction as provided in the regular IFC files.</li>
                                         <li>Tolerances in measurement data- It is assumed that measuring the anchor points of the construction will take place within an accuracy of +/- 10 mm in relation to theoretical location. If measures are outside +/- 10 mm as predicted in the element production, this will result in additional work on the construction site to adapt the individual elements that will then not immediately fit onto the construction.</li>
                                         <li>Measurement data format - It is assumed that measurement data can be digitally transferred from measurement station to text file with coordinate ID, X (Northing, Y (Easting), and Z (height) coordinates.</li>

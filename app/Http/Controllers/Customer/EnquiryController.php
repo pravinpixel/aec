@@ -68,6 +68,26 @@ class EnquiryController extends Controller
         }
     }
 
+    
+    public function storeFiles(Request $req) {
+        
+        dd($req->all());
+        
+        $input      =   $request->all();
+        $filenames  =   array();
+        
+        // if($file   =   $request->file('filenames')){
+        //     foreach($file as $file){
+                $name               =   $file->getClientOriginalName();
+                $file               ->  move('image',$name);
+                $filenames          =   $name; 
+                $data               =   new File();
+                $data['filenames']  =   'images'.'/'.$name;
+                $data               ->  save();
+        //     }
+        // } 
+    }
+
     public function getEnquiry($id)
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);

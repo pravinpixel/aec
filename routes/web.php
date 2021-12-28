@@ -52,7 +52,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/sales-view-enquiries', function () {
         return view('admin.pages.view-sales-enquiries');
-    })->name('admin-view-sales-enquiries');
+    })->name('admin-view-sales-enquiries');         
 
     // Enquiry Wiz
         Route::get('/admin-enquiry', function () {
@@ -90,12 +90,12 @@ Route::prefix('admin')->group(function () {
         
     // wiz Enquiry Wiz
 
-    Route::get('/sales-view-enquiry', function () {
-        return view('admin.pages.view-enquiry');
-    })->name('view-enquiry');
+  
+
+    Route::get('sales-view-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
 
     Route::get('/quotation', function () {
-        return view('admin.pages.quotation');
+        return view('admin.pages.quotation'); 
     })->name('quotation');
 
     Route::get('getEnquiryNumber', [EnquiryController::class,'getEnquiryNumber']);

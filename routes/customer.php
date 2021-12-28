@@ -19,6 +19,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
     Route::get('edit-enquiry/{id}',  [EnquiryController::class, 'edit'])->name('customers.edit');
 
     Route::put('update-enquiry/{id}',  [EnquiryController::class, 'update'])->name('customers.update');
+    
+    Route::post('store-enquiry-files',  [EnquiryController::class, 'storeFiles'])->name('customers.store-enquiry-files');
 
     Route::get('get-customer-enquiry/{id}',  [EnquiryController::class, 'getEnquiry'])->name('customers.get-enquiry');
 });

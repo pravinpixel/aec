@@ -6,8 +6,48 @@
         @include('admin.layouts.head')
         
         @stack('custom-styles')
-        
-         
+        <style>
+            /* Custom style */
+
+            .accordion-button::after {
+                position: absolute;
+                content: "";
+                height: 7px;
+                width: 2px;
+                background: white;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%)
+            }
+            .accordion-button::before {
+                position: absolute;
+                content: "";
+                height: 7px;
+                width: 2px;
+                background: white;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(90deg)
+            }
+            .accordion-button:not(.collapsed)::after {
+                position: absolute;
+                content: "";
+                height: 7px;
+                width: 2px;
+                background: white;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(90deg)
+            }
+            .accordion-button{
+                padding: 7px 6px;
+                position: relative;
+                cursor: pointer;
+            }
+            .icon {
+                margin-right: 10px !important
+            }
+        </style>         
     </head>
 
     <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>

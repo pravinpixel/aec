@@ -129,7 +129,7 @@
                                 <div class="tab-pane fade " id="second" ng-controller="ServiceSelection">
                                     @include('customers.pages.enquiryWizard.service-selection')
                                 </div>
-                                <div class="tab-pane fade " id="four">
+                                <div class="tab-pane fade " id="four" ng-controller="FcUploadsCtrl">
                                     @include('customers.pages.enquiryWizard.ifc-model-uploads')
                                 </div>
 
@@ -1220,6 +1220,9 @@
         #SvgjsText1885 {
             display: none !important;
         }
+        .service-label:hover {
+            background: #E6E7FC !important
+        }
     </style>   
 @endpush
 
@@ -1364,6 +1367,20 @@
                     $rootScope.currentStep = 1;
                     return false;
                 }           
+            $scope.getLastEnquiry = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.get-enquiry') }}',
+                }).then(function (res){
+                    $scope.serviceList = res.data.services;
+                    console.log($scope.serviceList);
+                }, function (error) {
+                    console.log('projectinfo error');
+                });
+            }
+            $scope.getLastEnquiry(); 
+            //    if($scope.servicesArray.length == 0) {}
+           $scope.$on('callServiceSelection', function(e) {            
                $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -1568,6 +1585,49 @@
             $scope.removeWall = function(fIndex, Secindex){
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
             } 
+        });
+
+        app.controller('FcUploadsCtrl', function ($scope, $http) {
+            // $scope.store = function() {
+            //    var formData = new FormData();
+
+            //    // add normal properties, the name should be the same as
+            //    // what you would use in a html form
+            //    formData.append('model[name]', $scope.planViewFiles);
+            //    formData.append('model[type]', $scope.planViewFiles);
+
+            //    // add files to form data.
+            //    for (var i = 0; i < $scope.files; i++) {
+            //       formData.append('file' + i, $scope.files[i]);
+            //    }
+
+            //    // Don't forget the config object below
+            //    $http.post('{{ route('customers.store-enquiry-files') }}', formData, {
+            //       transformRequest: angular.identity,
+            //       headers: {'Content-Type': undefined}
+            //    }).then(function() {
+            //       // ...
+            //       alert("success");
+            //    });
+            // };
+            $scope.uploadavtar = function(files) {
+                var fd = new FormData();
+                //Take the first selected file
+                fd.append("file", files[0]);
+
+                $http.post("{{ route('customers.store-enquiry-files') }}", fd, {
+                    withCredentials: true,
+                    headers: {'Content-Type': undefined },
+                    transformRequest: angular.identity
+                }).then(function successCallback(response) {
+
+                    alert(JSON.stringify(response)); 
+
+                }, function errorCallback(response) {
+                    alert(response); 
+                });
+            }
+          
         });
     </script>
    

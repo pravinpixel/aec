@@ -14,7 +14,45 @@
     </div> 
     <div class="card-body">
         <div class="container p-0">
-            <h4>Proposal Versioning</h4>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Proposal Versioning</h4> 
+                <div class="btn-gr text-end">
+                    <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> preview</button>
+                    <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small><i class="fa fa-plus"></i> Create</small></button>
+                </div>
+            </div>
+            {{-- <div class="accordion" id="myAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne">1. What is HTML?</button>									
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                        <div class="card-body">
+                            <p>HTML stands for HyperText Markup Language. HTML is the standard markup language for describing the structure of web pages. <a href="https://www.tutorialrepublic.com/html-tutorial/" target="_blank">Learn more.</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">2. What is Bootstrap?</button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#myAccordion">
+                        <div class="card-body">
+                            <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree">3. What is CSS?</button>                     
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                        <div class="card-body">
+                            <p>CSS stands for Cascading Style Sheet. CSS allows you to specify various style properties for a given HTML element such as colors, backgrounds, fonts etc. <a href="https://www.tutorialrepublic.com/css-tutorial/" target="_blank">Learn more.</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
             <table class="table table-bordered" id="myTable">
                 <thead>
                     <tr>
@@ -31,7 +69,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div class="icon"><i  class="accordion-button collapsed text-white toggle-btn"></i></div>
                                 <div>1</div>                                                    
                             </div>
                         </td>
@@ -55,15 +93,20 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_2" class="feather-plus bg-primary text-white toggle-btn"></i></div>
-                                <div>2</div>                                                    
+                                <div class="icon">
+                                    <i data-bs-toggle="collapse" href="#collapseOne_2" aria-expanded="true" aria-controls="collapseOne_2" class="accordion-button collapsed bg-primary text-white toggle-btn ">
+
+                                    </i>
+                                </div>
+                                <div>2</div>
+                                {{-- <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne_2"></button> --}}
                             </div>
                         </td>
                         <td>05 May 2013</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td>
                      
-                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -115,7 +158,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div class="icon"><i  class="accordion-button collapsed text-white toggle-btn"></i></div>
                                 <div>3</div>                                                    
                             </div>
                         </td>
@@ -141,7 +184,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_4" aria-expanded="true" aria-controls="collapseOne_2" class="feather-plus bg-primary text-white toggle-btn"></i></div>
+                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_4" aria-expanded="true" aria-controls="collapseOne_2" class="accordion-button collapsed bg-primary text-white toggle-btn"></i></div>
                                 <div>4</div>                                                    
                             </div>
                         </td>
@@ -149,7 +192,7 @@
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td>
                       
-                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -201,7 +244,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i class="feather-plus text-white toggle-btn"></i></div>
+                                <div class="icon"><i class="accordion-button collapsed text-white toggle-btn"></i></div>
                                 <div>5</div>                                                    
                             </div>
                         </td>
@@ -226,7 +269,7 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i  class="feather-plus text-white toggle-btn"></i></div>
+                                <div class="icon"><i  class="accordion-button collapsed text-white toggle-btn"></i></div>
                                 <div>6</div>                                                    
                             </div>
                         </td>
@@ -251,14 +294,14 @@
                     <tr>
                         <td>
                             <div class="d-flex">
-                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_6" aria-expanded="true" aria-controls="collapseOne_6" class="feather-plus bg-primary text-white toggle-btn"></i></div>
+                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_6" aria-expanded="true" aria-controls="collapseOne_6" class="accordion-button collapsed bg-primary text-white toggle-btn"></i></div>
                                 <div>7</div>                                                    
                             </div>
                         </td>
                         <td>05 May 2013</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td> 
-                        <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -310,10 +353,10 @@
                 </tbody>
             </table>
         </div>
-        <div class="btn-gr">
-            <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> preview</button>
+        <div class="btn-gr text-end">
+            
             <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"> <i class="fa fa-envelope"></i> Send Mail</button>
-            <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small><i class="fa fa-plus"></i> Create</small></button>
+            
         </div>
     </div>
     <div class="card-footer">

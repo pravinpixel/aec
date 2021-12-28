@@ -1,4 +1,4 @@
-<div class="card border" >
+<div class="card border" ng-controller="WizzardCtrl">
     <div class="card-body  pb-0">        
             <div id="rootwizard">
                 <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
@@ -46,45 +46,45 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-floating  mb-2">
-                                        <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
-                                        <label for="floating">Enquiry Date</label>
+                                        <input ng-disabled="true" type="text" class="form-control form-control-sm" id="floating" ng-value="E.enquiry_date"  />
+                                        <label for="floating">Enquiry Date </label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input  ng-disabled="true" ng-value="E.enquiry_number" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Enquiry Number</label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input  ng-disabled="true" ng-value="E.customer.company_name" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Campany Name</label>
                                     </div> 
                                     <div class="form-floating  mb-2">
-                                        <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input  ng-disabled="true" ng-value="E.customer.contact_person" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Contact Person</label>
                                     </div> 
                                     <div class="form-floating  mb-2">
-                                        <input disabled value="xxxx" type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input  ng-disabled="true" ng-value="E.customer.mobile_no" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Mobile Number</label>
                                     </div> 
                                     <div class="form-floating  mb-2">
-                                        <input   type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input  ng-disabled="true" ng-value="-" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Secondary Mobile Number</label>
                                     </div> 
                                 </div> 
                                 <div class="col-md-4">
                                     <div class="form-floating  mb-2">
-                                        <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input ng-disabled="true" ng-value="E.customer.mobile_no" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Project Name</label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input ng-disabled="true" ng-value="E.zipcode" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Zipcode</label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input ng-disabled="true" ng-value="E.state" type="text"  class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">State</label>
                                     </div>
                                     <div class="form-floating mb-2">
-                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
+                                        <select ng-disabled="true" class="form-select" id="floatingSelect" aria-label="Floating label select example" >
                                             <option value="">--</option> 
                                             <option value="Living House">Living House</option> 
                                             <option value="Cabin">Cabin</option> 
@@ -96,38 +96,38 @@
                                         <label for="floatingSelect">Type of Building</label>
                                     </div>
                                     <div class="form-floating mb-2">
-                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
+                                        <select ng-disabled="true" class="form-select" id="floatingSelect" aria-label="Floating label select example" >
                                             <option value="">--</option> 
-                                            <option value="New Construction">New Construction</option> 
+                                            <option ng-disabled="true" value="New Construction">New Construction</option> 
                                             <option value="Renovation">Renovation</option> 
                                             <option value="Others">Others</option> 
                                         </select>
                                         <label for="floatingSelect">Type of Project</label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input type="date" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input ng-disabled="true" type="date" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Project Start Date</label>
                                     </div>
                                 </div> 
                                 <div class="col-md-4">
                                     <div class="form-floating  mb-2">
-                                        <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input ng-disabled="true" type="text" ng-value="E.site_address" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Site Address</label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input ng-disabled="true" type="text" ng-value="E.place" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Place</label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input ng-disabled="true" type="text" ng-value="E.country" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Country</label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input type="text" class="form-control form-control-sm" id="floating" placeholder="Password" required/>
+                                        <input ng-disabled="true" ng-value="E.no_of_building" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">No of Buildings</label>
                                     </div>
                                     <div class="form-floating mb-2">
-                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
+                                        <select ng-disabled="true" class="form-select" id="floatingSelect" aria-label="Floating label select example" >
                                             <option value="">--</option>
                                             <option value="New Construction">New Construction</option> 
                                             <option value="Renovation">Renovation</option> 
@@ -136,8 +136,16 @@
                                         <label for="floatingSelect">Type of Delivery</label>
                                     </div>
                                     <div class="form-floating  mb-2">
-                                        <input type="date" class="form-control"    required/>
+                                        <input ng-disabled="true" type="date" class="form-control"    />
                                         <label for="floating">Project Delivery Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating  mb-2">
+                                        <div class="form-control bg-light">
+                                            @{{ E.customer.remarks }}  
+                                        </div>
+                                        <label for="floating">Remarks</label>
                                     </div>
                                 </div>
                             </div>
@@ -326,7 +334,7 @@
                                             <td class="text-primary">
                                                 <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn">View comments</span>
                                             </td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                             <td>
                                                 <i class="feather-eye bg-success text-white toggle-btn mr-3"></i>
                                                 <i class="feather-trash bg-danger text-white toggle-btn  mr-3"></i> 
@@ -400,7 +408,7 @@
                                             <td class="text-primary">
                                                 <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn">View comments</span>
                                             </td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                             <td>
                                                 <i class="feather-eye bg-success text-white toggle-btn mr-3"></i>
                                                 <i class="feather-trash bg-danger text-white toggle-btn  mr-3"></i> 
@@ -510,7 +518,7 @@
                                             <td class="text-primary">
                                                 <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn">View comments</span>
                                             </td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                             <td>
                                                 <i class="feather-eye bg-success text-white toggle-btn mr-3"></i>
                                                 <i class="feather-trash bg-danger text-white toggle-btn  mr-3"></i> 
@@ -584,7 +592,7 @@
                                             <td class="text-primary">
                                                 <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn">View comments</span>
                                             </td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                             <td>
                                                 <i class="feather-eye bg-success text-white toggle-btn mr-3"></i>
                                                 <i class="feather-trash bg-danger text-white toggle-btn  mr-3"></i> 
@@ -694,7 +702,7 @@
                                             <td class="text-primary">
                                                 <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn">View comments</span>
                                             </td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                             <td>
                                                 <i class="feather-eye bg-success text-white toggle-btn mr-3"></i>
                                                 <i class="feather-trash bg-danger text-white toggle-btn  mr-3"></i> 
@@ -768,7 +776,7 @@
                                             <td class="text-primary">
                                                 <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn">View comments</span>
                                             </td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                             <td>
                                                 <i class="feather-eye bg-success text-white toggle-btn mr-3"></i>
                                                 <i class="feather-trash bg-danger text-white toggle-btn  mr-3"></i> 
@@ -878,7 +886,7 @@
                                             <td class="text-primary">
                                                 <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn">View comments</span>
                                             </td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                             <td>
                                                 <i class="feather-eye bg-success text-white toggle-btn mr-3"></i>
                                                 <i class="feather-trash bg-danger text-white toggle-btn  mr-3"></i> 
@@ -952,7 +960,7 @@
                                             <td class="text-primary">
                                                 <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn">View comments</span>
                                             </td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">Absolute</span></td>
+                                            <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                                             <td>
                                                 <i class="feather-eye bg-success text-white toggle-btn mr-3"></i>
                                                 <i class="feather-trash bg-danger text-white toggle-btn  mr-3"></i> 
@@ -1017,8 +1025,9 @@
                             </div>
                         </div>
                     </div>
+                     
 
-                    <div class="tab-pane p-0 h-100 fade " id="five" ng-controller="CrudCtrl">
+                    <div class="tab-pane p-0 h-100 fade " id="five" >
                         <div class="row">
                             <div class="col-sm mb-2 mb-sm-0">
                                 <div class="nav flex-column nav-pills shadow-sm rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -1032,7 +1041,6 @@
                         
                             <div class="col-sm-10">
                                 <div class="tab-content" id="v-pills-tabContent">
-
 
                                     <div class="tab-pane fade " ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
 
@@ -1054,19 +1062,19 @@
                                                             <tr>
                                                                 <th class="bg-light">
                                                                     <div class="form-group">
-                                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Floor</label>
+                                                                        <label class="form-lable text-dark shadow-sm position-Obsolete border">Floor</label>
                                                                         <input type="text" class="form-control form-control-sm my-2 mt-3" placeholder="Type here...">
                                                                     </div>
                                                                 </th>
                                                                 <th  class="bg-light">
                                                                     <div class="form-group">
-                                                                        <label class="form-lable text-dark shadow-sm position-absolute border">EXD wall Number</label>
+                                                                        <label class="form-lable text-dark shadow-sm position-Obsolete border">EXD wall Number</label>
                                                                         <input type="text" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
                                                                     </div>
                                                                 </th>
                                                                 <th  class="bg-light">
                                                                     <div class="form-group">
-                                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
+                                                                        <label class="form-lable text-dark shadow-sm position-Obsolete border">Delivery type</label>
                                                                         <select class="form-select  form-select-sm my-2 mt-3">
                                                                             <option selected >-- Choose --</option>
                                                                             <option value="Element">Element</option>
@@ -1079,7 +1087,7 @@
                                                                 </th>
                                                                 <th  class="bg-light">
                                                                     <div class="form-group">
-                                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area</label>
+                                                                        <label class="form-lable text-dark shadow-sm position-Obsolete border">Approx Total Area</label>
                                                                         <input type="number" class="form-control form-control-sm my-2  mt-3" >
                                                                     </div>
                                                                 </th> 
@@ -1087,8 +1095,7 @@
                                                                     <div class="btn-group">
                                                                         <button class="btn-primary btn more-btn-layer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" aria-expanded="true" aria-controls="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}">
                                                                             <i class="fa fa-chevron-down"></i>
-                                                                        </button>
-                                                                         
+                                                                        </button> 
                                                                     </div>
                                                                 </th>
                                                             </tr>
@@ -1123,7 +1130,28 @@
                                                                             <div class="w-100 text-end">
                                                                                 <div class="d-flex justify-content-end">
                                                                                     <button class="btn-sm float-end btn btn-outline-primary me-2" ng-click="AddLayers(fIndex , Secindex)" title="Add New Layer" ><i class="fa fa-plus" ></i> Add Layer</button>
-                                                                                    <button ng-click="RemoveDetails(fIndex , Secindex)" class=" bg-danger text-white toggle-btn shadow-lg  RemoveDetails" type="button"><i class="fa fa-trash"></i></button>
+                                                                                    {{-- <button ng-click="RemoveDetails(fIndex , Secindex)" class=" btn-danger btn shadow-lg  RemoveDetails" type="button"><i class="fa fa-trash"></i></button> --}}
+                                                                                    
+                                                                                    <button  type="button" class="btn btn-outline-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
+                                                                                    <div id="ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
+                                                                                        <div class="modal-dialog">
+                                                                                            <div class="modal-content text-center">
+                                                                                                <div class="modal-header modal-colored-header bg-danger">
+                                                                                                    <h4 class="modal-title" id="ConfirmDeleteLabel">Delete Confirmation</h4>
+                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+                                                                                                    <h2>Are you sure !!</h2>
+                                                                                                    <p class="lead">You want to delete ? </br> Please put your password for delete action</p>
+                                                                                                    <input type="text" class="w-75 mx-auto form-control" placeholder="Enter your password" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="modal-footer">
+                                                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel & close</button>
+                                                                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="removeWall(fIndex, Secindex)">Yes, delete it !</button>
+                                                                                                </div>
+                                                                                            </div><!-- /.modal-content -->
+                                                                                        </div><!-- /.modal-dialog -->
+                                                                                    </div><!-- /.modal -->
                                                                                 </div> 
                                                                             </div>
                                                                         </div>
@@ -1135,7 +1163,7 @@
                                                                             <tr ng-repeat="(ThreeIndex,l) in d.Layers">
                                                                                 <td>
                                                                                     <div class="form-group shadow-sm">
-                                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
+                                                                                        <label class="form-lable shadow-sm position-Obsolete border" style="background: #FFFFFF">Layer Name</label>
                                                                                         <select class="form-select  form-select-sm" ng-model="layer.LayerName">
                                                                                             <option value="">-- Choose --</option>
                                                                                             <option value="1">External Cladding</option>
@@ -1155,7 +1183,7 @@
                                                                                 </td>
                                                                                 <td> 
                                                                                     <div class="form-group shadow-sm">
-                                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
+                                                                                        <label class="form-lable shadow-sm position-Obsolete border" style="background: #FFFFFF">Layer Type</label>
                                                                                         <select class="form-select  form-select-sm" ng-model="layer.Type">
                                                                                             <option value="">-- Choose --</option>
                                                                                             <option value="1">External Cladding</option>
@@ -1176,12 +1204,12 @@
                                                                                 <td width="35%"> 
                                                                                     <div class="btn-group shadow-sm border rounded">
                                                                                         <div class="form-group">
-                                                                                            <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
+                                                                                            <label class="form-lable badge-secondary-lighten shadow-sm position-Obsolete border" style="background: #FFFFFF">Thickness </label>
                                                                                             <input type="number" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="layer.Thickness " >
                                                                                         </div>
                                                                                         <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >x</span>
                                                                                         <div class="form-group">
-                                                                                            <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
+                                                                                            <label class="form-lable shadow-sm position-Obsolete border" style="background: #FFFFFF">Breadth</label>
                                                                                             <input type="number" class="form-control form-control-sm rounded-0 border-0 " ng-model="layer.Breadth" >
                                                                                         </div>
                                                                                         <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
@@ -1189,44 +1217,39 @@
                                                                                 </td>
                                                                                 <td class="text-center">
                                                                                     <div class="btn-group">
-                                                                                        <button class="btn btn-outline-danger rounded shadow-sm btn-sm" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)"><div class="fa fa-trash " ></div></button>
+                                                                                        <!-- Danger Header Modal -->
+                                                                                        <button  type="button" class="btn btn-outline-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDelete_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"><div class="fa fa-trash " ></div></button>
+                                                                                        <div id="ConfirmDelete_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
+                                                                                            <div class="modal-dialog">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header modal-colored-header bg-danger">
+                                                                                                        <h4 class="modal-title" id="ConfirmDeleteLabel">Delete Confirmation</h4>
+                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <h2>Are you sure !!</h2>
+                                                                                                        <p class="lead">You want to delete ? </br> Please put your password for delete action</p>
+                                                                                                        <input type="text" class="w-75 mx-auto form-control" placeholder="Enter your password" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel & close</button>
+                                                                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)">Yes, delete it !</button>
+                                                                                                    </div>
+                                                                                                </div><!-- /.modal-content -->
+                                                                                            </div><!-- /.modal-dialog -->
+                                                                                        </div><!-- /.modal -->
                                                                                     </div>
                                                                                 </td> 
                                                                             </tr>
-                                                                        </tbody>
-                                                                        
+                                                                        </tbody> 
                                                                     </table>
                                                                 </div>
-                                                                
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
                                                 </div> 
                                             </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="input-group ">
-                                                        <label class="input-group-text bg-white font-weight-bold" for="inputGroupSelect01">Assign to</label>
-                                                        <select class="form-select" id="inputGroupSelect01">
-                                                          <option selected>Choose...</option>
-                                                          <option value="1">User One</option> 
-                                                          <option value="1">User Two</option> 
-                                                          <option value="1">User Three</option> 
-                                                        </select>
-                                                        <label class="input-group-text btn btn-primary" for="inputGroupSelect01">send</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="text-end">
-                                                        <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                                                        <a class="btn btn-primary" onclick="submit()" href=""><i class="uil-sync"></i> Update</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> 
                                     </div> 
                                 </div> 
                             </div> 
@@ -1530,7 +1553,7 @@
 
                     {{-- <div class="card-footer border-0 p-0 ">
                         <ul class="list-inline wizard mb-0 pt-3">
-                            <li class="previous list-inline-item disabled"><a href="#" class="btn btn-primary">Previous</a></li>
+                            <li class="previous list-inline-item "><a href="#" class="btn btn-primary">Previous</a></li>
                             <li class="next list-inline-item float-end"><a href="#" class="btn btn-primary">Next</a></li>
                         </ul>
                     </div> --}}
@@ -1802,7 +1825,7 @@
                                     <form class="needs-validation" novalidate="" name="chat-form" id="chat-form">
                                         <div class="row m-0">
                                             <div class="col mb-2 mb-sm-0">
-                                                <input type="text" class="form-control border-0" placeholder="Enter your text" required="">
+                                                <input type="text" class="form-control border-0" placeholder="Enter your text" ="">
                                                 <div class="invalid-feedback">
                                                     Please enter your messsage
                                                 </div>

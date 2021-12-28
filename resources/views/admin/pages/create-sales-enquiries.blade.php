@@ -21,7 +21,7 @@
                 <div class="col-md-12 mb-4">
                     <div class="card shadow-lg mb-0">
                         <div class="card-body p-4">
-                            <form class="needs-validations"  novalidate name="frm"  >
+                            <form class="needs-validations" name="enqForm" ng-submit="save()" novalidate>
                                 <div class="row m-0">
                                     <div class="col-md-12 p-0">
                                         <div class="row m-0">
@@ -85,8 +85,9 @@
                                     </div>
                                 </div>
                                 <div class="text-end mt-3">
-                                    <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                                    <button ng-disabled="frm.$invalid" ng-click="save()" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
+                                    
+                                    <button ng-click="resetForm()" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+                                    <button type="submit" ng-disabled="enqForm.$invalid" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
                                 </div>
                             </form>
                         </div> 
@@ -133,11 +134,10 @@
             }
             $scope.getItems();
 
-            //save new record and update existing record
             $scope.save = function (modalstate, id) {
 
                 $scope.day = new Date();
-
+                
                 $scope.data = {
                     company_name    :   $scope.module.company_name, 
                     contact_person  :   $scope.module.contact_person,
@@ -146,35 +146,34 @@
                     user_name       :   $scope.module.user_name,
                     enquiry_number  :   $scope.myWelcome,
                     remarks         :   $scope.module.remarks
-                }
-  
+                } 
                 $http({
                     method: "POST",
                     url: API_URL + "admin/enquiry",
-                    // data: $.param($scope.module),
                     data: $.param($scope.data),
                     headers: { 
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
                 }).then(function (response) {
-                    $scope.getItems();
-
-                    $scope.module = {};
-                    $scope.frm.$setPristine();
-                     
                     if(response.data.errors) {
                         Message('success',response.data.errors);
                     }
                     Message('success',response.data.msg);
+                    $scope.resetForm();
 
                 }), (function (error) { 
                     console.log(error); 
                 }); 
-            }  
-        }); 
-       
-            
-             
+            }
+           
+            $scope.resetForm =  function() {
+                $scope.module = {};
+                $scope.enqForm.$setPristine();
+                $scope.enqForm.$setValidity();
+                $scope.enqForm.$setUntouched();
+            }
+        });
+
         Message = function (type, head) {
             $.toast({
                 heading: head,

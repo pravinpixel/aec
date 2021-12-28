@@ -47,19 +47,20 @@
         <div class="card-body">
             <h3 class="header-title m-0 mb-2">Milestones</h3>
             <form name="userForm" ng-submit="submit()">
+                
                 <table class="table table-bordered m-0">
                     <tr class="shadow-lg">
                         <td colspan="5">
                             <div class="form-group d-flex align-items-center justify-content-end col-md-8 ms-auto">
                                 <div><label class="form-label m-0  me-3"> 
-                                    <b>Project budget</b></label></div>
+                                    <b>Project budget</b></label> </div>
                                 <div>
-                                    <input type="number" class="form-control" placeholder="Type Here...">
+                                    <input type="number" class="form-control" ng-model="Budget" placeholder="Type Here...">
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    <tr >
+                    <tr>
                         <th class="bg-light" >
                             <div class="form-group">
                                 <label class="form-lable text-dark shadow-sm position-absolute border">Date</label>
@@ -75,7 +76,8 @@
                         <th  class="bg-light">
                             <div class="form-group">
                                 <label class="form-lable text-dark shadow-sm position-absolute border">Percentage</label>
-                                <input type="number" name="Percentage" required ng-required="true"  ng-model="Percentage" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
+                                <input type="number" name="Percentage" required ng-required="true" ng-model="Percentage" ng-value="(Amount/Budget)*100" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
+                                @{{ (Amount/Budget)*100 }}
                             </div>
                         </th>
                         <th  class="bg-light">

@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
- 
 
 class EnquiryController extends Controller
 {
@@ -63,6 +62,14 @@ class EnquiryController extends Controller
     }
     public function singleIndex($id) {
         return Enquiry::with('customer')->where('customer_id', $id)->first();
+    }
+   
+
+    public function singleIndexPage($id) {
+        $data   =   Enquiry::with('customer')->where('customer_id', $id)->first();
+
+        return view('admin.pages.view-enquiry',compact('data',  $data )); 
+         
     }
 
     public function getEnquiryNumber(Request $request)    { 

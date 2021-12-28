@@ -15,109 +15,93 @@
                 <!-- start page title -->
                 
                 @include('admin.layouts.page-navigater') 
-            </div>                
 
-            <div class="card border">
-                <div class="card-body py-0">
+               
+ 
 
-                    
-
-                    <div id="rootwizard">
-                            
-                        <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
-                            <li class="time-bar"></li>
-                            {{-- <li class="nav-item admin-enquiry-wiz">
-                                <a href="#!/"  style="min-height: 40px;" class="timeline-step  " >
-                                    <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
-                                            <i class="fa fa-address-book "></i>
+                <div class="card border">
+                    <div class="card-body py-0"> 
+                        <div id="rootwizard">
+                            <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
+                                <li class="time-bar"></li>
+                                <li class="nav-item  Project_Info">
+                                    <a href="#!/Project_Info"   style="min-height: 40px;" class="timeline-step">
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-success">
+                                                <i class="fa fa-building "></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p class="h5 mt-2">Enquiry</p>
-                                </a>
-                            </li> --}}
-                            <li class="nav-item  Project_Info">
-                                <a href="#!/Project_Info"   style="min-height: 40px;" class="timeline-step">
-                                    <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
-                                            <i class="fa fa-building "></i>
+                                        <p class="h5 mt-2">Project Info</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item  admin-Technical_Estimate-wiz">
+                                    <a href="#!/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
+                                        <div class="timeline-content">
+                                            <div class="inner-circle bg-success">
+                                                <i class="fa fa-briefcase "></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p class="h5 mt-2">Project Info</p>
-                                </a>
-                            </li>
-                            <li class="nav-item  admin-Technical_Estimate-wiz">
-                                <a href="#!/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-success">
-                                            <i class="fa fa-briefcase "></i>
+                                        <p class="h5 mt-2">Technical Estimate</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item admin-Cost_Estimate-wiz">
+                                    <a href="#!/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-success">
+                                                <i class="fa fa-money"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p class="h5 mt-2">Technical Estimate</p>
-                                </a>
-                            </li>
-                            <li class="nav-item admin-Cost_Estimate-wiz">
-                                <a href="#!/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
-                                    <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
-                                            <i class="fa fa-money"></i>
+                                        <p class="h5 mt-2">Cost Estimate</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item admin-Project_Schedule-wiz">
+                                    <a href="#!/Project_Schedule" style="min-height: 40px;" class="timeline-step">
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-success">
+                                                <i class="fa fa-share-alt "></i>
+                                            </div>                                                                        
                                         </div>
-                                    </div>
-                                    <p class="h5 mt-2">Cost Estimate</p>
-                                </a>
-                            </li>
-                            <li class="nav-item admin-Project_Schedule-wiz">
-                                <a href="#!/Project_Schedule" style="min-height: 40px;" class="timeline-step">
-                                    <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
-                                            <i class="fa fa-share-alt "></i>
-                                        </div>                                                                        
-                                    </div>
-                                    <p class="h5 mt-2">Project Schedule</p>
-                                </a>
-                            </li>
-                            <li class="nav-item admin-Proposal_Sharing-wiz">
-                                <a href="#!/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
-                                    <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
-                                            <i class="fa fa-share-alt "></i>
-                                        </div>                                                                        
-                                    </div>
-                                    <p class="h5 mt-2">Proposal Sharing</p>
-                                </a>
-                            </li>
-                            <li class="nav-item admin-Project_Award-wiz" >
-                                <a href="#!/Awarded_Projects"  style="min-height: 40px;"  class="timeline-step">
-                                    <div class="timeline-content ">
-                                        <div class="inner-circle  bg-success">
-                                            <i class="fa fa-trophy "></i>
+                                        <p class="h5 mt-2">Project Schedule</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item admin-Proposal_Sharing-wiz">
+                                    <a href="#!/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-success">
+                                                <i class="fa fa-share-alt "></i>
+                                            </div>                                                                        
                                         </div>
-                                    </div>
-                                    <p class="h5  mt-2">Awarded Projects</p>
-                                </a>
-                            </li>
-                            <li class="nav-item admin-Delivery-wiz">
-                                <a href="#!/Delivery" style="min-height: 40px;"  class="timeline-step">
-                                    <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
-                                            <i class="fa  fa-truck "></i>
+                                        <p class="h5 mt-2">Proposal Sharing</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item admin-Project_Award-wiz" >
+                                    <a href="#!/Awarded_Projects"  style="min-height: 40px;"  class="timeline-step">
+                                        <div class="timeline-content ">
+                                            <div class="inner-circle  bg-secondary">
+                                                <i class="fa fa-trophy "></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p class="h5  mts-2">Move to project</p>
-                                </a>
-                            </li>
-                        </ul>
-                        
-                        <!-- Wizz Contents -->
-                        <div class="tab-content">
-                            <div ng-view></div>
-                        </div>
-                            
-                        <!-- End Wizz Contents -->
-                        
-
-                </div> <!-- end card-body -->
-            </div>   
+                                        <p class="h5  mt-2">Awarded Projects</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item admin-Delivery-wiz">
+                                    <a href="#!/Delivery" style="min-height: 40px;"  class="timeline-step">
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-secondary">
+                                                <i class="fa  fa-truck "></i>
+                                            </div>
+                                        </div>
+                                        <p class="h5  mts-2">Move to project</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Wizz Contents -->
+                            <div class="tab-content">
+                                <div ng-view></div>
+                            </div>
+                        </div> <!-- end card-body -->
+                    </div> <!-- end card-body -->
+                </div>   
             </div> <!-- container -->
 
         </div> <!-- content -->
@@ -405,8 +389,7 @@
       
 @endsection
           
-@push('custom-styles')
-
+@push('custom-styles') 
     <style>
         .table tbody tr td {
             padding: 5px !important
@@ -491,6 +474,13 @@
         }
     </style>
      <style>
+         .form-floating > .form-control {
+             padding-bottom: 0px !important
+         }
+         .form-floating > label {
+            font-weight: bold !important;
+            color: #4E52A1 !important
+         }
          .toggle-btn {
             border-radius: 5px !important;
             padding: 2px;
@@ -577,8 +567,7 @@
     </style>   
 @endpush
 
-@push('custom-scripts')
-
+@push('custom-scripts') 
 
     <script>
         // Add active class to the current button (highlight it)
@@ -600,12 +589,14 @@
    
    
     <script>
-        var app = angular.module("myApp", ["ngRoute"]);
-
+          
+		var app = angular.module('myApp', ['ngRoute']).constant('API_URL', $("#baseurl").val()); 
+ 
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
-                templateUrl : " {{ route('admin-project-info-wiz') }}"
+                templateUrl : " {{ route('admin-project-info-wiz') }}",
+                controller : "WizzardCtrl"
             })
             .when("/Project_Info", {
                 templateUrl : "{{ route('admin-project-info-wiz') }}"
@@ -629,67 +620,55 @@
                 templateUrl : "{{ route('admin-Delivery-wiz') }}"
             })
         });
-        
-        // Code goes here
+         
+        app.controller('InvoiceCtrl', ['$scope', function($scope) {
+            $scope.Milestone  = [
+                {
+                    "Date"          : "15/25/2021",
+                    "Description"   : "Lorem iposium itsa trsantulamn ",
+                    "Percentage"    : "25%",
+                    "Amount"        : "2500",
+                }, 
+                {
+                    "Date"          : "18/25/2021",
+                    "Description"   : "Lorem iposium itsa trsantulamn ",
+                    "Percentage"    : "10%",
+                    "Amount"        : "1500",
+                }, 
+                {
+                    "Date"          : "19/25/2021",
+                    "Description"   : "Lorem iposium itsa trsantulamn ",
+                    "Percentage"    : "35%",
+                    "Amount"        : "3500",
+                }, 
+            ]; 
+                
+            $scope.delete = function(index){
+                alert("Are sure!! want to delete ?");
+                $scope.Milestone.splice(index,1);
+            } 
+            
+            $scope.submit = function() {
+  
+                $scope.Milestone.unshift({
+                    "Date"          : $scope.Date,
+                    "Description"   : $scope.Description,
+                    "Percentage"    : $scope.Percentage,
+                    "Amount"        : $scope.Amount,
+                });
+                $scope.Date         = '';
+                $scope.Description  = '';
+                $scope.Percentage   = '';
+                $scope.Amount       = '';
+            }
 
-        // angular.module("myApp", ['ngRoute'])
-        //     .constant("isActiveConfig", {
-        //         activeClass: "active"
-        //     })
-        //     .controller("CommonCtrl", function($rootScope, $scope, $location){
-        //         $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
-        //         if($location.url() == '/') $scope.isMain = true;
-        //         else $scope.isMain = false;
-        //         });
-        //     })
-        //     .directive("isActive", function($location, $rootScope, isActiveConfig) {
-        //         return {
-        //         restrict: "A",
-        //         link: function(scope, element, attr) {
-        //             if (element[0].nodeName.toLowerCase() !== "a") {
-        //             return;
-        //             }
-        //             var locWatch = $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
-        //             var href = element.prop('href');
-        //             if (newUrl !== href) {
-        //                 attr.$removeClass(name);
-        //             } else {
-        //                 attr.$addClass(name);
-        //             }
-        //             });
-        //             var name = attr.isActive || isActiveConfig.activeClass || "active";
-        //             scope.$on("$destroy", locWatch);
-        //         }
-        //         }
-        //     })
-        //     .config(function($routeProvider) {
-        //         $routeProvider
-        //     .when("/", {
-        //         templateUrl : " {{ route('admin-enquiry-wiz') }} "
-        //     })
-        //     .when("/Project_Info", {
-        //         templateUrl : "{{ route('admin-project-info-wiz') }}"
-        //     })
-        //     .when("/Technical_Estimate", {
-        //         templateUrl : "{{ route('admin-Technical_Estimate-wiz') }}"
-        //     })
-        //     .when("/Cost_Estimate", {
-        //         templateUrl : "{{ route('admin-Cost_Estimate-wiz') }}"
-        //     })
-        //     .when("/Proposal_Sharing", {
-        //         templateUrl : "{{ route('admin-Proposal_Sharing-wiz') }}"
-        //     })
-        //     .when("/Project_Award", {
-        //         templateUrl : "{{ route('admin-Project_Award-wiz') }}"
-        //     })
-        //     .when("/Delivery", {
-        //         templateUrl : "{{ route('admin-Delivery-wiz') }}"
-        //     })
-        //     .otherwise({
-        //         redirectTo: "/"
-        //     });
-        // });
-        app.controller('CrudCtrl', ['$scope', function($scope) {
+            $scope.Budget   =    $scope.red ;
+           
+        }]); 
+        app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
+            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id }} ).then(function (response) {
+                $scope.E = response.data;
+            });
             $scope.wallGroup  = [
                 {
                     "WallName" : "External Wall",
@@ -843,51 +822,7 @@
                 // console.log(  fIndex , Secindex , ThreeIndex);
                 $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
             } 
-        }]);
-        app.controller('InvoiceCtrl', ['$scope', function($scope) {
-            $scope.Milestone  = [
-                {
-                    "Date"          : "15/25/2021",
-                    "Description"   : "Lorem iposium itsa trsantulamn ",
-                    "Percentage"    : "25%",
-                    "Amount"        : "2500",
-                }, 
-                {
-                    "Date"          : "18/25/2021",
-                    "Description"   : "Lorem iposium itsa trsantulamn ",
-                    "Percentage"    : "10%",
-                    "Amount"        : "1500",
-                }, 
-                {
-                    "Date"          : "19/25/2021",
-                    "Description"   : "Lorem iposium itsa trsantulamn ",
-                    "Percentage"    : "35%",
-                    "Amount"        : "3500",
-                }, 
-            ]; 
-                
-            $scope.delete = function(index){
-                alert("Are sure!! want to delete ?");
-                $scope.Milestone.splice(index,1);
-            } 
-            
-            $scope.submit = function() {
-  
-                $scope.Milestone.unshift({
-                    "Date"          : $scope.Date,
-                    "Description"   : $scope.Description,
-                    "Percentage"    : $scope.Percentage,
-                    "Amount"        : $scope.Amount,
-                });
-                $scope.Date         = '';
-                $scope.Description  = '';
-                $scope.Percentage   = '';
-                $scope.Amount       = '';
-            }
-            // $scope.submitForm = function(isValid) {
-
-            // };
-        }]);
+        }); 
     </script>
  
 @endpush

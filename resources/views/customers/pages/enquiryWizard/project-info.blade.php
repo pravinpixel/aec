@@ -31,7 +31,7 @@
                 <input type="text" class="form-control form-control-sm" id="floating"   name="project_name" ng-model="projectInfo.project_name" required/>
                 <label for="floating">Project Name</label>
             </div>
-            <div class="form-floating  mb-2">
+            <div class="form-floating mb-2">
                 <input type="text" class="form-control form-control-sm" id="floating" name="zipcode" ng-model="projectInfo.zipcode" required/>
                 <label for="floating">Zipcode</label>
             </div>
