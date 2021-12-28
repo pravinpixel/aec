@@ -211,4 +211,19 @@ class EnquiryController extends Controller
         }
         return response(['status' => false, 'msg' => trans('enquiry.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
+
+    //============= Gantt Chart Flow For ENQ's  ===================
+        public function ganttChart()    {
+
+            $data   =    DB::table('gantt_chart')
+                    ->where('status','=','1')
+                    ->select('id','text','start_date','open','duration','progress','parent')
+                    ->get();
+            return response()->json(['data'=>$data]);
+        }
+        public function ganttChartCreate(Request $r) {
+            return  $r ->all();
+        }
+    //============= END: Gantt Chart Flow For ENQ's  ===================
+
 }

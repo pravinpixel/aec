@@ -11,6 +11,9 @@
         Route::get('customers-enquiry', [EnquiryController::class,'index']); 
         Route::get('customers-enquiry/{id}', [EnquiryController::class,'singleIndex']);
 
+        // Route::get('ganttChart', [EnquiryController::class,'ganttChart'])->name("enqGanttChart");
+        // Route::post('ganttChart/task', [EnquiryController::class,'ganttChartCreate']);
+
     });
    
 ?>

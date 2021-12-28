@@ -490,6 +490,15 @@
             border: 1px dashed  gray;
             top: 45px
         }
+        /* .timeline-steps::before {
+            content: "";
+            width: 100% !important;
+            height: 1px;
+            position: absolute;
+            border: 1px dashed  gray;
+            top: 45px;
+            z-index: -1;
+        } */
         .timeline-steps  {
             display: flex;
             justify-content:space-between;
@@ -513,7 +522,9 @@
             justify-content:center;
             align-items: center;
             color: white;
-            border: 3px solid white
+            border: 3px solid white;
+            transform: scale(1.1);
+
         }
         .timeline-content {
             display: flex;
@@ -551,9 +562,7 @@
         .timeline-step .inner-circle:hover {
             background: #8a90ff !important;
         }
-        .nav-item {
-            z-index: 1 !important ;
-        }
+        
         .bg-light-primary {
             background: #ebecfd !important;
             color: #8a90ff !important;
@@ -563,19 +572,6 @@
 @endpush
 
 @push('custom-scripts') 
-
-    <script>
-        // Add active class to the current button (highlight it)
-        var header = document.getElementById("myDIV");
-        var btns = header.getElementsByClassName("nav-item");
-            for (var i = 0; i < btns.length; i++) {
-                btns[i].addEventListener("click", function() {
-                    var current = document.getElementsByClassName("active");
-                    current[0].className = current[0].className.replace(" active", "");
-                    this.className += " active";
-                });
-            }
-    </script>
  
     <!-- end demo js-->
     <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
@@ -655,18 +651,20 @@
                 $scope.Description  = '';
                 $scope.Percentage   = '';
                 $scope.Amount       = '';
-            }
-
-            // $scope.Budget   =    $scope.red ;
+                $scope.userForm.$setPristine();
+                $scope.userForm.$setValidity();
+                $scope.userForm.$setUntouched();
+            } 
 
             $scope.PercentageCal   =    function() {
-                alert("PercentageCal")
+                var cal = $scope.Budget*($scope.Percentage/100);
+                $scope.PResult = cal  
             }
             $scope.AmountCal   =    function() {
-                var Result = ( $scope.Amount/ $scope.Budget)*100 ;
+                var cal = ( $scope.Amount/ $scope.Budget)*100 ;
                 
-                $scope.AmountResult = Result + "%"
-            }
+                $scope.Result = cal  
+            } 
            
         }]); 
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {

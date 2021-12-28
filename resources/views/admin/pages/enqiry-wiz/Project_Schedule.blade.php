@@ -10,7 +10,7 @@
                             <label class="form-check-label" for="customRadiocolor1">Day scale</label>
                         </div>
                         <div class="form-check form-radio-success  px-4">
-                            <input type="radio" id="customRadiocolor2" name="scale" value="week" class="form-check-input" >
+                            <input type="radio" id="customRadiocolor2" name="scale" value="week" class="form-check-input" checked>
                             <label class="form-check-label" for="customRadiocolor2">Week scale</label>
                         </div>
                         <div class="form-check form-radio-info  px-4">
@@ -55,7 +55,7 @@
                                 <div><label class="form-label m-0  me-3"> 
                                     <b>Project budget</b></label> </div>
                                 <div>
-                                    <input type="number" class="form-control" ng-model="Budget" placeholder="Type Here...">
+                                    <input type="number" class="form-control" ng-model="Budget" placeholder="Type Here..." required>
                                 </div>
                             </div>
                         </td>
@@ -76,15 +76,13 @@
                         <th  class="bg-light">
                             <div class="form-group">
                                 <label class="form-lable text-dark shadow-sm position-absolute border">Percentage</label>
-                                <input type="text" name="Percentage" required ng-required="true" ng-model="Percentage" ng-value="AmountResult" ng-change="PercentageCal()" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
-                                {{-- @{{ (Amount/Budget)*100 }} --}}
-                               
+                                <input type="number" name="Percentage" required ng-required="true" ng-model="Percentage" ng-value="Result" ng-change="PercentageCal()" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
                             </div>
                         </th>
                         <th  class="bg-light">
                             <div class="form-group">
                                 <label class="form-lable text-dark shadow-sm position-absolute border">Amount</label>
-                                <input type="number" name="Amount" required ng-required="true" ng-model="Amount"  ng-value=" " ng-change="AmountCal()" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
+                                <input type="number" name="Amount" required ng-required="true" ng-model="Amount" ng-value="PResult" ng-change="AmountCal()" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
                             </div>
                         </th> 
                         <th  class="bg-light">
@@ -143,15 +141,13 @@
         .gantt_grid_head_cell.gantt_grid_head_add {
             opacity: 1 !important;
         }
-
     </style> 
 
     <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">
     <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
  
     <script>
-        var URL = "http://google-apps.co.in/aecprefab/data.json";
-         
+        var URL = "{{ route("data") }}";
         
         var zoomConfig = {
             levels: [
@@ -213,13 +209,11 @@
         };
 
         gantt.ext.zoom.init(zoomConfig);
-        gantt.ext.zoom.setLevel("month");
+        gantt.ext.zoom.setLevel("week");
         gantt.ext.zoom.attachEvent("onAfterZoom", function(level, config){
             document.querySelector(".gantt_radio[value='" +config.name+ "']").checked = true;
-        })
-
-        
-        var URL = "http://google-apps.co.in/aecprefab/data.json";
+        }) 
+         
         gantt.plugins({
             fullscreen: true
         });
@@ -229,31 +223,37 @@
             return document.getElementById("myCover");
         }
         gantt.init("gantt_here");
-        gantt.load(URL, "json");
+        gantt.load(URL);
         
         // gantt.config.root_id = "root"; 
 
         gantt.attachEvent("onTaskCreated", function(task){
             task.enqid = enquiryid;
-            task.etype = 0;
+            task.etype = 0; 
             gantt.render();
             return true;
         });
-        
-        
+         
+        gantt.attachEvent("onAfterTaskAdd", function(id,item){
+            location.reload()
+        });
+        gantt.attachEvent("onAfterTaskUpdate", function(id,item){
+            location.reload()
+        });
+        gantt.attachEvent("onAfterTaskDelete", function(id,item){
+            location.reload()
+        });
+
         gantt.attachEvent("onLinkCreated", function(link){
             link.enqid = enquiryid;
             link.etype = 0;
             gantt.render();
-            return true;
+            return true; 
         });
         
         gantt.attachEvent("onLightboxSave", function(id, task, is_new){
-            
-            var task = gantt.getTask(id);
-
-            task.text = "Task #10"; 
-
+            var task = gantt.getTask(id); 
+            task.text = "Task #10";  
             gantt.refreshTask(id);
             gantt.render();
             return true;
@@ -286,6 +286,7 @@
             gantt.render();
             return true;
             console.log(enquiryid);
+
         });
         
         // console.log(enquiryid);
