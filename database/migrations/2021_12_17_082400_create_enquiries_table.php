@@ -17,6 +17,9 @@ class CreateEnquiriesTable extends Migration
             $table->id();
             $table->date('enquiry_date');
             $table->string('enquiry_number');
+            $table->string('company_name')->nullable();
+            $table->string('contact_person')->nullable();
+            $table->string('mobile_no')->nullable();
             $table->string('secondary_mobile_no')->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('service_id')->nullable();

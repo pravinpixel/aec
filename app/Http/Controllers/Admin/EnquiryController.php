@@ -96,9 +96,7 @@ class EnquiryController extends Controller
             $password = 'customer@123';
             $email = $request->email;
             $data = [
-                'customer_enquiry_date' => now(),
-                'reference_enquiry_no'  => GlobalService::customerEnquiryNumber(),
-                'customer_enquiry_no'   => $latest_enquiry_number,
+                'customer_enquiry_date' => Carbon::now(),
                 'full_name'             => $request->user_name,
                 'company_name'          => $request->company_name,
                 'contact_person'        => $request->contact_person,
@@ -111,9 +109,9 @@ class EnquiryController extends Controller
                 'is_active'             => 1
             ];
             $customer = $this->customer->create($data);
+            $customer->enquiry()->create(['enquiry_number' => $latest_enquiry_number, 'enquiry_date' => now()]);
             DB::commit();
             GlobalService::updateConfig('ENQ');
-            GlobalService::updateConfig('CENQ');
             $details = [
                 'customer_name'     => $request->contact_person,
                 'customer_email'    => $request->email,

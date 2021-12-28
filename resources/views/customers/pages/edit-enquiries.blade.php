@@ -124,13 +124,13 @@
 
                             <div class="tab-content my-3" >
                                 <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
-                                    @include('customers.pages.enquiryWizard.project-info')
+                                    @include('customers.pages.editEnquiryWizard.project-info')
                                 </div>
                                 <div class="tab-pane fade " id="second" ng-controller="ServiceSelection">
-                                    @include('customers.pages.enquiryWizard.service-selection')
+                                    @include('customers.pages.editEnquiryWizard.service-selection')
                                 </div>
                                 <div class="tab-pane fade " id="four">
-                                    @include('customers.pages.enquiryWizard.ifc-model-uploads')
+                                    @include('customers.pages.editEnquiryWizard.ifc-model-uploads')
                                 </div>
 
                                 <div class="tab-pane p-0 h-100 fade " id="five" ng-controller="CrudCtrl">
@@ -526,7 +526,7 @@
                                     
                                 </div>
                                 <div class="tab-pane fade" id="six">
-                                    @include('customers.pages.enquiryWizard.additional-info')
+                                    @include('customers.pages.editEnquiryWizard.additional-info')
                                 </div>
                                 <div class="tab-pane fade" id="third">
                                         <div class="row m-0">
@@ -1239,24 +1239,24 @@
     </script>
     <script>
         // const result = [];
-        app.controller('wizard', function($scope, $http) {
+        app.controller('wizard', function($scope, $http, $rootScope) {
             $scope.result = []
-            $scope.currentStep = 0;
+            $rootScope.currentStep = 0;
             $scope.updateWizardStatus = (newStep) => {
-                $scope.currentStep = newStep;
+                $rootScope.currentStep = newStep;
             }
             $scope.gotoStep = function(newStep) {
-                if($scope.currentStep > newStep) {
-                    $scope.currentStep = newStep;
+                if($rootScope.currentStep > newStep) {
+                    $rootScope.currentStep = newStep;
                     return false;
                 }
-                $scope.currentStep = newStep;
-                if($scope.currentStep == 1 ) {
+                $rootScope.currentStep = newStep;
+                if($rootScope.currentStep == 1 ) {
                     $scope.$broadcast('callProjectInfo');
-                } else if ($scope.currentStep == 2) {
+                } else if ($rootScope.currentStep == 2) {
                     $scope.$broadcast('callServiceSelection');
-                } else if ($scope.currentStep == 3) {
-                } else if ($scope.currentStep == 4) {
+                } else if ($rootScope.currentStep == 3) {
+                } else if ($rootScope.currentStep == 4) {
                     $scope.$broadcast('buildingComponent');
                 }
                
@@ -1264,7 +1264,7 @@
           
         });
     
-       	app.controller('ProjectInfo', function ($scope, $http) {
+       	app.controller('ProjectInfo', function ($scope, $http, $rootScope) {
        
             let projectTypefiredOnce = false;
             let deliveryTypefiredOnce = false;
@@ -1329,11 +1329,12 @@
 
             $scope.$on('callProjectInfo', function(e) {  
                 if(!$("#projectInfoForm")[0].checkValidity()){
+                    $rootScope.currentStep = 0;
                     return false;
                 }
                 $http({
-                    method: 'POST',
-                    url: '{{ route("customers.store-enquiry") }}',
+                    method: 'PUT',
+                    url: '{{ route('customers.update', $id) }}',
                     data: {type: 'project_info', 'data': $scope.getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
                     
@@ -1344,6 +1345,9 @@
                 
             $scope.getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
+                    'company_name'         : $projectInfo.company_name,
+                    'contact_person'       : $projectInfo.contact_person,
+                    'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
@@ -1379,10 +1383,14 @@
             }
             $scope.getLastEnquiry(); 
         //    if($scope.servicesArray.length == 0) {}
-           $scope.$on('callServiceSelection', function(e) {            
+           $scope.$on('callServiceSelection', function(e) { 
+            if($scope.serviceList.length == 0){
+                $rootScope.currentStep = 1;
+                return false;
+            }              
                $http({
-                    method: 'POST',
-                    url: '{{ route("customers.store-enquiry") }}',
+                    method: 'PUT',
+                    url: '{{ route('customers.update', $id) }}',
                     data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
                 }).then(function (res) {
                     

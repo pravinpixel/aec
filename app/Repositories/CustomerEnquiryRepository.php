@@ -25,13 +25,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
       
     }
 
-    public function getCustomerEnquiry($id){
+    public function getCustomer($id){
         return $this->customer->find($id);
     }
 
-    public function createCustomerEnquiryProjectInfo($customerEnquiryNumber, Customer $customer, array $data)
+    public function createCustomerEnquiryProjectInfo($enquiry_number, Customer $customer, array $data)
     {
-        return $customer->enquiry()->updateOrCreate(['enquiry_number' => $customerEnquiryNumber], $data);
+        return $customer->enquiry()->updateOrCreate(['enquiry_number' => $enquiry_number], $data);
     }
 
     public function createCustomerEnquiryServices($enquiry,  $services)
@@ -53,8 +53,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $this->enquiry->where('enquiry_number', $no)->first();
     }
 
-    public function updateEnquriry($enquiry, $customer, $data)
+    public function updateEnquiry($id, $data)
     {
-
+        return $this->enquiry->find($id)->update($data);
     }
 }

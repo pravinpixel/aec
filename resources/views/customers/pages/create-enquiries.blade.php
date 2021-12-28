@@ -781,7 +781,7 @@
 
                                 <div class="card-footer border-0 p-0 " >
                                     <ul class="list-inline wizard mb-0 pt-3">
-                                        <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous @{{currentStep}}</a></li>
+                                        <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous</a></li>
                                         <li class="next list-inline-item float-end" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
                                     </ul>
                                 </div>
@@ -1333,6 +1333,9 @@
         
             $scope.getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
+                    'company_name'         : $projectInfo.company_name,
+                    'contact_person'       : $projectInfo.contact_person,
+                    'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,

@@ -7,7 +7,10 @@ use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use App\Models\Config;
 use App\Services\GlobalService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class EnquiryController extends Controller
 {
@@ -30,7 +33,9 @@ class EnquiryController extends Controller
 
     public function create() 
     {
-        $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
+        Session::forget('enquiry_number');
+        $customer['enquiry_date'] = now();
+        $customer['enquiry_number'] = GlobalService::enquiryNumber();
         return view('customers.pages.create-enquiries',compact('customer'));
     }
 
@@ -43,15 +48,22 @@ class EnquiryController extends Controller
     {
         $type = $request->input('type');
         $data = $request->input('data');
-        $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
-        $customerEnquiryNumber =  $customer->reference_enquiry_no;
+        $customer = $this->customerEnquiryRepo->getCustomer(Customer()->id);
+        if (Session::has('enquiry_number')){
+            $enquiry_number = Session::get('enquiry_number');
+            Log::info("Session already exists {$enquiry_number}");
+        } else {
+            Session::put('enquiry_number', GlobalService::enquiryNumber());
+            GlobalService::updateConfig('ENQ');
+            $enquiry_number = Session::get('enquiry_number');
+            Log::info("New session created {$enquiry_number}");
+        }
         if($type == 'project_info') {
-            $enquiry = ['enquiry_date' => now()];
-            $array_merge = array_merge($data, $enquiry);
-            return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customerEnquiryNumber, $customer, $array_merge);
+            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now()]);
+            return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($enquiry_number, $customer, $array_merge);
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
-            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($customerEnquiryNumber);
+            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
             return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
         }
     }
@@ -68,6 +80,9 @@ class EnquiryController extends Controller
     public function formatProjectInfo($enquiry) 
     {
         return [
+            'company_name'         => $enquiry->company_name,
+            'contact_person'       => $enquiry->contact_person,
+            'mobile_no'            => $enquiry->mobile_no,
             'secondary_mobile_no'  => $enquiry->secondary_mobile_no,
             'project_name'         => $enquiry->project_name,
             'zipcode'              => $enquiry->zipcode,
@@ -86,8 +101,8 @@ class EnquiryController extends Controller
 
     public function edit($id)
     {
-        $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
-        return view('customers.pages.edit-enquiries',compact('customer','id'));
+        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        return view('customers.pages.edit-enquiries',compact('enquiry','id'));
     }
 
 
@@ -95,14 +110,13 @@ class EnquiryController extends Controller
     {
         $type = $request->input('type');
         $data = $request->input('data');
-        $customer = $this->customerEnquiryRepo->getCustomerEnquiry(Customer()->id);
+        $customer = $this->customerEnquiryRepo->getCustomer(Customer()->id);
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         if($type == 'project_info') {
-            return $this->customerEnquiryRepo->updateEnquriry($enquiry, $customer, $data);
+            return $this->customerEnquiryRepo->updateEnquiry($id, $data);
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
-            // $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($customerEnquiryNumber);
-            // return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
+            return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
         }
     }
 }
