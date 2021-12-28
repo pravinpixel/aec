@@ -57,4 +57,15 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     {
         return $this->enquiry->find($id)->update($data);
     }
+
+    public function createEnquiryDocuments($enquiry,  $documents, $additionalData)
+    {
+        return $enquiry->documentTypes()->attach($documents, $additionalData);
+    }
+
+    public function getPlanViewList($id) 
+    {
+        $enquiry = $this->enquiry->with('documentTypes')->find($id);
+        return $enquiry->documentTypes;
+    }
 }

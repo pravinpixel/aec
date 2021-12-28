@@ -22,4 +22,7 @@ interface CustomerEnquiryRepositoryInterface
 
     public function updateEnquiry(Enquiry $enquiry , $data);
 
+    public function createEnquiryDocuments(Enquiry $enquiry, $documents, array $additionalData);
+
+    public function getPlanViewList($id);
 }

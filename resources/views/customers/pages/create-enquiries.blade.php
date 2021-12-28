@@ -129,7 +129,7 @@
                                 <div class="tab-pane fade " id="second" ng-controller="ServiceSelection">
                                     @include('customers.pages.enquiryWizard.service-selection')
                                 </div>
-                                <div class="tab-pane fade " id="four" ng-controller="FcUploadsCtrl">
+                                <div class="tab-pane fade " id="four" ng-controller="IFCModelUpload">
                                     @include('customers.pages.enquiryWizard.ifc-model-uploads')
                                 </div>
 
@@ -1220,8 +1220,25 @@
         #SvgjsText1885 {
             display: none !important;
         }
-        .service-label:hover {
-            background: #E6E7FC !important
+        .upload-input {
+            position: absolute;
+            visibility: hidden;
+            z-index: -1;
+        }
+        .upload-files {
+            padding: 10px;
+            box-shadow: 0px 0px  10px gray;
+            border-radius: 5px ;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: lightgray;
+            color: white;
+            height: 50px;
+            margin-bottom: 3px
+        }
+        .upload-files:hover, .upload-files:active {
+            background: gray;
         }
     </style>   
 @endpush
@@ -1336,9 +1353,6 @@
         
             $scope.getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
-                    'company_name'         : $projectInfo.company_name,
-                    'contact_person'       : $projectInfo.contact_person,
-                    'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
@@ -1367,20 +1381,6 @@
                     $rootScope.currentStep = 1;
                     return false;
                 }           
-            $scope.getLastEnquiry = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route('customers.get-enquiry') }}',
-                }).then(function (res){
-                    $scope.serviceList = res.data.services;
-                    console.log($scope.serviceList);
-                }, function (error) {
-                    console.log('projectinfo error');
-                });
-            }
-            $scope.getLastEnquiry(); 
-            //    if($scope.servicesArray.length == 0) {}
-           $scope.$on('callServiceSelection', function(e) {            
                $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -1418,6 +1418,99 @@
            } 
            $scope.getServices();
         }); 
+
+        app.directive('demoFileModel', function ($parse) {
+            return {
+                restrict: 'A', //the directive can be used as an attribute only
+                /*
+                link is a function that defines functionality of directive
+                scope: scope associated with the element
+                element: element on which this directive used
+                attrs: key value pair of element attributes
+                */
+                link: function (scope, element, attrs) {
+                    var model = $parse(attrs.demoFileModel),
+                        modelSetter = model.assign; //define a setter for demoFileModel
+
+                    //Bind change event on the element
+                    element.bind('change', function () {
+                        //Call apply on scope, it checks for value changes and reflect them on UI
+                        scope.$apply(function () {
+                            //set the model value
+                            modelSetter(scope, element[0].files[0]);
+                            
+                        });
+                    });
+                }
+            };
+        });
+
+        app.service('fileUploadService', function ($http, $q) {
+                    
+            this.uploadFileToUrl = function (file, type, view_type,  uploadUrl) {
+                //FormData, object of key/value pair for form fields and values
+                var fileFormData = new FormData();
+                fileFormData.append('file', file);
+                fileFormData.append('type',type);
+                fileFormData.append('view_type',view_type);
+
+                var deffered = $q.defer();
+                $http.post(uploadUrl, fileFormData, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+
+                }).success(function (response) {
+                    deffered.resolve(response);
+
+                }).error(function (response) {
+                    deffered.reject(response);
+                });
+
+                return deffered.promise;
+            }
+        });
+
+        app.controller('IFCModelUpload', function ($scope, $http, fileUploadService) {
+            $scope.getPlanViewList = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.plan-view', 6) }}',
+                }).then(function (res) {
+                    $scope.planViewList = res;
+                    console.log(res);	
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+            $scope.getPlanViewList();
+
+            $scope.uploadFile = function (view_type) {
+                if(view_type =='Plan view') {
+                    var file = $scope.planView;
+                } else if (view_type =='Facade view') {
+                    var file = $scope.FacadeView;
+                } else if (view_type =='IFC Model view') {
+                    var file = $scope.IFCModelView;
+                } else if (view_type =='Others') {
+                    var file = $scope.Others;
+                }
+                
+                var type = 'ifc_model_upload';
+                var view_type = view_type;
+                var uploadUrl = '{{ route('customers.store-enquiry') }}'
+                 //Url of webservice/api/server
+                    promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
+
+                promise.then(function (response) {
+                    $scope.serverResponse = response;
+
+
+                }, function () {
+                    $scope.serverResponse = 'An error has occurred';
+                })
+            };
+        });
+
 
         app.controller('CrudCtrl', function ($scope, $http) { 
 
@@ -1585,49 +1678,6 @@
             $scope.removeWall = function(fIndex, Secindex){
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
             } 
-        });
-
-        app.controller('FcUploadsCtrl', function ($scope, $http) {
-            // $scope.store = function() {
-            //    var formData = new FormData();
-
-            //    // add normal properties, the name should be the same as
-            //    // what you would use in a html form
-            //    formData.append('model[name]', $scope.planViewFiles);
-            //    formData.append('model[type]', $scope.planViewFiles);
-
-            //    // add files to form data.
-            //    for (var i = 0; i < $scope.files; i++) {
-            //       formData.append('file' + i, $scope.files[i]);
-            //    }
-
-            //    // Don't forget the config object below
-            //    $http.post('{{ route('customers.store-enquiry-files') }}', formData, {
-            //       transformRequest: angular.identity,
-            //       headers: {'Content-Type': undefined}
-            //    }).then(function() {
-            //       // ...
-            //       alert("success");
-            //    });
-            // };
-            $scope.uploadavtar = function(files) {
-                var fd = new FormData();
-                //Take the first selected file
-                fd.append("file", files[0]);
-
-                $http.post("{{ route('customers.store-enquiry-files') }}", fd, {
-                    withCredentials: true,
-                    headers: {'Content-Type': undefined },
-                    transformRequest: angular.identity
-                }).then(function successCallback(response) {
-
-                    alert(JSON.stringify(response)); 
-
-                }, function errorCallback(response) {
-                    alert(response); 
-                });
-            }
-          
         });
     </script>
    

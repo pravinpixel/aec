@@ -23,4 +23,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
     Route::post('store-enquiry-files',  [EnquiryController::class, 'storeFiles'])->name('customers.store-enquiry-files');
 
     Route::get('get-customer-enquiry/{id}',  [EnquiryController::class, 'getEnquiry'])->name('customers.get-enquiry');
+
+    Route::get('get-plan-view/{id}',  [EnquiryController::class, 'getPlanViewList'])->name('customers.plan-view');
+
 });

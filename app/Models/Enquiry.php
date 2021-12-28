@@ -58,5 +58,10 @@ class Enquiry extends Model
         return $this->belongsToMany(Service::class);
     }
 
+    public function documentTypes()
+    {
+        return $this->belongsToMany(DocumentType::class)->withTimestamps();
+    }
+
 }
 

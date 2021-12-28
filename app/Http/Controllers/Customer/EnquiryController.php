@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use App\Interfaces\DocumentTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use App\Models\Config;
 use App\Services\GlobalService;
@@ -17,13 +18,16 @@ class EnquiryController extends Controller
  
     protected $customerEnquiryRepo;
     protected $serviceRepo;
+    protected $documentTypeRepo;
 
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository, 
-        ServiceRepositoryInterface $serviceRepo
+        ServiceRepositoryInterface $serviceRepo,
+        DocumentTypeRepositoryInterface $documentType
     ){
         $this->customerEnquiryRepo = $customerEnquiryRepository;
         $this->serviceRepo = $serviceRepo;
+        $this->documentTypeRepo = $documentType;
     }
 
     public function index() 
@@ -65,6 +69,13 @@ class EnquiryController extends Controller
             $services = $this->serviceRepo->find($data)->pluck('id');
             $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
             return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
+        } else if($type == 'ifc_model_upload') {
+            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+            $view_type =  $request->input('view_type');
+            $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
+            $documents =  $this->documentTypeRepo->findByName($view_type);
+            $additionalData = ['file_name' => $path, 'status' => 'In progress'];
+            $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
         }
     }
 
@@ -138,5 +149,11 @@ class EnquiryController extends Controller
             $services = $this->serviceRepo->find($data)->pluck('id');
             return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
         }
+    }
+
+    public function getPlanViewList($id)
+    {
+       $data = $this->customerEnquiryRepo->getPlanViewList($id);
+       return response()->json( $data);
     }
 }
