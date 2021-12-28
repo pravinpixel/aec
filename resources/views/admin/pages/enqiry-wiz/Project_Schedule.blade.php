@@ -76,14 +76,15 @@
                         <th  class="bg-light">
                             <div class="form-group">
                                 <label class="form-lable text-dark shadow-sm position-absolute border">Percentage</label>
-                                <input type="number" name="Percentage" required ng-required="true" ng-model="Percentage" ng-value="(Amount/Budget)*100" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
-                                @{{ (Amount/Budget)*100 }}
+                                <input type="text" name="Percentage" required ng-required="true" ng-model="Percentage" ng-value="AmountResult" ng-change="PercentageCal()" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
+                                {{-- @{{ (Amount/Budget)*100 }} --}}
+                               
                             </div>
                         </th>
                         <th  class="bg-light">
                             <div class="form-group">
                                 <label class="form-lable text-dark shadow-sm position-absolute border">Amount</label>
-                                <input type="number" name="Amount" required ng-required="true" ng-model="Amount"  class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
+                                <input type="number" name="Amount" required ng-required="true" ng-model="Amount"  ng-value=" " ng-change="AmountCal()" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
                             </div>
                         </th> 
                         <th  class="bg-light">

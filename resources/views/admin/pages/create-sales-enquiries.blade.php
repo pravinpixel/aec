@@ -159,6 +159,7 @@
                         Message('success',response.data.errors);
                     }
                     Message('success',response.data.msg);
+                    $scope.getItems();
                     $scope.resetForm();
 
                 }), (function (error) { 

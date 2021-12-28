@@ -3,7 +3,6 @@
 
 @section('admin-content')
          
-    
     <div class="content-page"  ng-app="myApp">
         <div class="content">
 
@@ -15,8 +14,6 @@
                 <!-- start page title -->
                 
                 @include('admin.layouts.page-navigater') 
-
-               
  
 
                 <div class="card border">
@@ -384,9 +381,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal --> 
-
     
-      
 @endsection
           
 @push('custom-styles') 
@@ -662,7 +657,16 @@
                 $scope.Amount       = '';
             }
 
-            $scope.Budget   =    $scope.red ;
+            // $scope.Budget   =    $scope.red ;
+
+            $scope.PercentageCal   =    function() {
+                alert("PercentageCal")
+            }
+            $scope.AmountCal   =    function() {
+                var Result = ( $scope.Amount/ $scope.Budget)*100 ;
+                
+                $scope.AmountResult = Result + "%"
+            }
            
         }]); 
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
