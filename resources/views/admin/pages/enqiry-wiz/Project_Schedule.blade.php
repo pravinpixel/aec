@@ -150,7 +150,8 @@
     <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
  
     <script>
-        var URL = "http://192.168.0.68/aec-prabhu/aec/data.json";
+        var URL = "http://google-apps.co.in/aecprefab/data.json";
+         
         
         var zoomConfig = {
             levels: [
@@ -218,7 +219,7 @@
         })
 
         
-        var URL = "http://192.168.0.68/aec-prabhu/aec/data.json";
+        var URL = "http://google-apps.co.in/aecprefab/data.json";
         gantt.plugins({
             fullscreen: true
         });
