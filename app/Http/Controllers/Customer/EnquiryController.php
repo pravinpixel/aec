@@ -37,7 +37,7 @@ class EnquiryController extends Controller
 
     public function create() 
     {
-        Session::forget('enquiry_number');
+        // Session::forget('enquiry_number');
         $customer['enquiry_date'] = now();
         $customer['enquiry_number'] = GlobalService::enquiryNumber();
         return view('customers.pages.create-enquiries',compact('customer'));
@@ -73,9 +73,12 @@ class EnquiryController extends Controller
             $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
             $view_type =  $request->input('view_type');
             $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
+            $original_name = $request->file('file')->getClientOriginalName();
+            $extension = $request->file('file')->getClientOriginalExtension();
             $documents =  $this->documentTypeRepo->findByName($view_type);
-            $additionalData = ['file_name' => $path, 'status' => 'In progress'];
+            $additionalData = ['file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
             $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
+            return $enquiry->id;
         }
     }
 
@@ -151,9 +154,33 @@ class EnquiryController extends Controller
         }
     }
 
-    public function getPlanViewList($id)
+    public function getPlanViewList(Request $request)
     {
-       $data = $this->customerEnquiryRepo->getPlanViewList($id);
-       return response()->json( $data);
+        $id = $request->input('id');
+        $data = $this->customerEnquiryRepo->getPlanViewList($id);
+        return response()->json( $data);
     }
+
+    public function getFacaeViewList(Request $request)
+    {
+        $id = $request->input('id');
+        $data = $this->customerEnquiryRepo->getFacaeViewList($id);
+        return response()->json( $data);
+    }
+
+    public function getIFCViewList(Request $request) 
+    {
+        $id = $request->input('id');
+        $data = $this->customerEnquiryRepo->getIFCViewList($id);
+        return response()->json($data);
+    }
+
+    public function getOthersViewList(Request $request) 
+    {
+        $id = $request->input('id');
+        $data = $this->customerEnquiryRepo->getOthersViewList($id);
+        return response()->json($data);
+    }
+
+
 }

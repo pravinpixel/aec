@@ -25,4 +25,11 @@ interface CustomerEnquiryRepositoryInterface
     public function createEnquiryDocuments(Enquiry $enquiry, $documents, array $additionalData);
 
     public function getPlanViewList($id);
+
+    public function getFacaeViewList($id);
+
+    public function getIFCViewList($id);
+
+    public function getOthersViewList($id);
+    
 }

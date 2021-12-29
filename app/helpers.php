@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 
-function Customer() {
-    return Auth::guard('customers')->user();
+if(! function_exists('Customer')) {
+    function Customer() {
+        return Auth::guard('customers')->user();
+    }
 }

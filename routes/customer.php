@@ -24,6 +24,13 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::get('get-customer-enquiry/{id}',  [EnquiryController::class, 'getEnquiry'])->name('customers.get-enquiry');
 
-    Route::get('get-plan-view/{id}',  [EnquiryController::class, 'getPlanViewList'])->name('customers.plan-view');
+    Route::get('get-plan-view',  [EnquiryController::class, 'getPlanViewList'])->name('customers.plan-view');
+
+    Route::get('get-facade-view',  [EnquiryController::class, 'getFacadeViewList'])->name('customers.facade-view');
+
+    Route::get('get-ifc-view',  [EnquiryController::class, 'getIFCViewList'])->name('customers.ifc-view');
+
+    Route::get('get-others-view',  [EnquiryController::class, 'getOthersViewList'])->name('customers.others-view');
+
 
 });

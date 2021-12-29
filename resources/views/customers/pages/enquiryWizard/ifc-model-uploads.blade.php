@@ -85,22 +85,22 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody class="panel" ng-repeat="planView in planViewList"> 
-                <tr>
-                    <td> @{{  planView.file_name }}</td>
-                    <td>05 May 2013</td>
-                    <td>Dummy Name</td>
-                    <td class="text-success">XXXX</td>
-                    <td class="text-info">
+            <tbody class="panel"> 
+              
+                <tr ng-repeat=" planview in planViewLists">
+                    <td> @{{ $index + 1}} </td>
+                      <td>@{{  planview.pivot.created_at }}</td>
+                      <td>@{{  planview.pivot.client_file_name }}</td>
+                      <td class="text-success">@{{  planview.pivot.file_type }}</td>
+                      <td class="text-info">
                         <span data-bs-toggle="modal" data-bs-target="#right-modal"  class="badge badge-success-lighten btn p-2">Add new</span>
-                    </td>
-                    <td><span class="badge badge-outline-success rounded-pill">In Progress</span></td>
+                      </td>
+                    <td><span class="badge badge-outline-success rounded-pill"> @{{  planview.pivot.status }} </span></td>
                     <td>
                         <i class="feather-eye btn-success btn mr-3"></i>
                         <i class="feather-trash btn-danger btn  mr-3"></i>
-                    </td>
+                    </td> 
                 </tr> 
-                          
             </tbody>
         </table>
     </div>

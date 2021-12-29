@@ -60,7 +60,9 @@ class Enquiry extends Model
 
     public function documentTypes()
     {
-        return $this->belongsToMany(DocumentType::class)->withTimestamps();
+        return $this->belongsToMany(DocumentType::class)
+                        ->withPivot('file_name','status','file_type','client_file_name','approved_by','created_at')
+                        ->withTimestamps();
     }
 
 }

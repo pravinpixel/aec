@@ -65,7 +65,33 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getPlanViewList($id) 
     {
-        $enquiry = $this->enquiry->with('documentTypes')->find($id);
-        return $enquiry->documentTypes;
+        $enquiry = $this->enquiry->with('documentTypes', function($q) {
+                        $q->where('id', 1);
+                    })->find($id);
+        return $enquiry->documentTypes ?? [];
+    }
+
+    public function getFacaeViewList($id) 
+    {
+        $enquiry = $this->enquiry->with('documentTypes', function($q) {
+                        $q->where('id', 2);
+                    })->find($id);
+        return $enquiry->documentTypes ?? [];
+    }
+
+    public function getIFCViewList($id) 
+    {
+        $enquiry = $this->enquiry->with('documentTypes', function($q) {
+                        $q->where('id', 3);
+                    })->find($id);
+        return $enquiry->documentTypes ?? [];
+    }
+
+    public function getOthersViewList($id)
+    {
+        $enquiry = $this->enquiry->with('documentTypes', function($q) {
+            $q->where('id', 4);
+        })->find($id);
+        return $enquiry->documentTypes ?? [];
     }
 }

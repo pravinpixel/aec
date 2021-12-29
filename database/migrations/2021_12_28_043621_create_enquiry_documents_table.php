@@ -18,6 +18,8 @@ class CreateEnquiryDocumentsTable extends Migration
             $table->unsignedBigInteger('enquiry_id');
             $table->unsignedBigInteger('document_type_id');
             $table->string('file_name');
+            $table->string('client_file_name');
+            $table->string('file_type');
             $table->string('status');
             $table->unsignedBigInteger('approved_by');
             $table->softDeletes();

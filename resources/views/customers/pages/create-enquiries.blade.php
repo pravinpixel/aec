@@ -1353,6 +1353,9 @@
         
             $scope.getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
+                    'company_name'         : $projectInfo.company_name,
+                    'contact_person'       : $projectInfo.contact_person,
+                    'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
@@ -1471,20 +1474,62 @@
         });
 
         app.controller('IFCModelUpload', function ($scope, $http, fileUploadService) {
-            $scope.getPlanViewList = () => {
+            $scope.planViewLists = [];
+            $scope.facadeViewLists = [];
+            $scope.ifcViewLists = [];
+            $scope.otherViewLists = [];
+            $scope.getPlanViewList = (id) => {
                 $http({
                     method: 'GET',
-                    url: '{{ route('customers.plan-view', 6) }}',
+                    url: '{{ route('customers.plan-view') }}',
+                    params: {id: id},
                 }).then(function (res) {
-                    $scope.planViewList = res;
+                    $scope.planViewLists = res.data;
                     console.log(res);	
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             } 
-            $scope.getPlanViewList();
+            $scope.getFacadeViewList = (id) => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.facade-view') }}',
+                    params: {id: id},
+                }).then(function (res) {
+                    $scope.planViewLists = res.data;
+                    console.log(res);	
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+            $scope.getIFCViewList = (id) => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.ifc-view') }}',
+                    params: {id: id},
+                }).then(function (res) {
+                    $scope.ifcViewLists = res.data;
+                    console.log(res);	
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+            
+            $scope.getOthersViewList = (id) => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.others-view') }}',
+                    params: {id: id},
+                }).then(function (res) {
+                    $scope.otherViewLists = res.data;
+                    console.log(res);	
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
 
             $scope.uploadFile = function (view_type) {
+
                 if(view_type =='Plan view') {
                     var file = $scope.planView;
                 } else if (view_type =='Facade view') {
@@ -1494,7 +1539,7 @@
                 } else if (view_type =='Others') {
                     var file = $scope.Others;
                 }
-                
+              
                 var type = 'ifc_model_upload';
                 var view_type = view_type;
                 var uploadUrl = '{{ route('customers.store-enquiry') }}'
@@ -1503,8 +1548,16 @@
 
                 promise.then(function (response) {
                     $scope.serverResponse = response;
-
-
+                    console.log($scope.serverResponse);
+                    if(view_type =='Plan view') {
+                        $scope.getPlanViewList($scope.serverResponse);
+                    } else if (view_type =='Facade view') {
+                        $scope.getFacadeViewList($scope.serverResponse);
+                    } else if (view_type =='IFC Model view') {
+                        var file = $scope.IFCModelView;
+                    } else if (view_type =='Others') {
+                        var file = $scope.Others;
+                    }
                 }, function () {
                     $scope.serverResponse = 'An error has occurred';
                 })
