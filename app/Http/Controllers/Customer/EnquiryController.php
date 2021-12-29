@@ -37,9 +37,10 @@ class EnquiryController extends Controller
 
     public function create() 
     {
-        // Session::forget('enquiry_number');
+        Session::forget('enquiry_number');
         $customer['enquiry_date'] = now();
         $customer['enquiry_number'] = GlobalService::enquiryNumber();
+        $customer['document_types'] =  $this->documentTypeRepo->all();
         return view('customers.pages.create-enquiries',compact('customer'));
     }
 
@@ -75,7 +76,7 @@ class EnquiryController extends Controller
             $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
             $original_name = $request->file('file')->getClientOriginalName();
             $extension = $request->file('file')->getClientOriginalExtension();
-            $documents =  $this->documentTypeRepo->findByName($view_type);
+            $documents =  $this->documentTypeRepo->findBySlug($view_type);
             $additionalData = ['file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
             $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
             return $enquiry->id;
@@ -175,12 +176,13 @@ class EnquiryController extends Controller
         return response()->json($data);
     }
 
-    public function getOthersViewList(Request $request) 
+    public function getViewList(Request $request) 
     {
         $id = $request->input('id');
-        $data = $this->customerEnquiryRepo->getOthersViewList($id);
+        $view_type = $request->input('view_type');
+        $documentType = $this->documentTypeRepo->findBySlug($view_type);
+        $type_id = $documentType->id;
+        $data = $this->customerEnquiryRepo->getViewList($id, $type_id);
         return response()->json($data);
     }
-
-
 }

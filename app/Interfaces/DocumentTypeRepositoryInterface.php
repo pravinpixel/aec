@@ -9,4 +9,5 @@ interface DocumentTypeRepositoryInterface
     public function delete($id);
     public function find($id);
     public function findByName($name);
+    public function findBySlug($slug);
 }

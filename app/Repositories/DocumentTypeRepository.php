@@ -48,4 +48,9 @@ class DocumentTypeRepository implements DocumentTypeRepositoryInterface{
     {
         return $this->model->where('document_type_name',$no)->first();
     }
+
+    public function findBySlug($slug)
+    {
+        return $this->model->where('slug',$slug)->first();
+    }
 }

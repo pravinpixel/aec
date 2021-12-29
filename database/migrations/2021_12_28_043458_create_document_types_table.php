@@ -16,6 +16,7 @@ class CreateDocumentTypesTable extends Migration
         Schema::create('document_types', function (Blueprint $table) {
             $table->id();
             $table->string('document_type_name');
+            $table->string('slug');
             $table->boolean('is_active');
             $table->softDeletes();
             $table->timestamps();

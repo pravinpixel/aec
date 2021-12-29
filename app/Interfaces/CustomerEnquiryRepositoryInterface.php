@@ -30,6 +30,6 @@ interface CustomerEnquiryRepositoryInterface
 
     public function getIFCViewList($id);
 
-    public function getOthersViewList($id);
+    public function getViewList($id, $type_id);
     
 }

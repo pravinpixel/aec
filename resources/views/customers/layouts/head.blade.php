@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
 <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+<input type="hidden" name="baseurl" value="{{URL::to('/')}}/" id="baseurl">
 <style>
     .filepond--credits {
         display: none !important

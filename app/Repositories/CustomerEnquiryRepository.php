@@ -87,11 +87,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $enquiry->documentTypes ?? [];
     }
 
-    public function getOthersViewList($id)
+    public function getViewList($id, $documentTypeId)
     {
-        $enquiry = $this->enquiry->with('documentTypes', function($q) {
-            $q->where('id', 4);
-        })->find($id);
-        return $enquiry->documentTypes ?? [];
+        $enquiry = $this->enquiry->find($id);
+        $result = $enquiry->documentTypes()
+                    ->wherePivot('document_type_id', $documentTypeId)
+                    ->get();
+        return $result ?? [];
     }
 }

@@ -362,163 +362,6 @@
                                                             </div> 
                                                         </div>
                                                     </div>
-                                                    {{-- <div >
-                                                        <h3>@{{ w.WallName }}</h3>
-                                                        <button class="btn btn-info float-end mb-2 "  ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Floor</button>
-                                                        <table class="table table-bordered ">
-                                                            <thead class="badge-primary-lighten">
-                                                                <tr>
-                                                                    <th>FloorName</th>
-                                                                    <th>Floor Number	</th>
-                                                                    <th>Total Area	</th>
-                                                                    <th>Delivery Type</th> 
-                                                                    <th>Layers</th> 
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr ng-repeat="(Secindex,d) in w.Details">
-                                                                    <td>
-                                                                        <input class="form-control" type="text" ng-model="d.FloorName" placeholder="Type Here..."/>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input class="form-control" type="number" ng-model="d.FloorNumber" placeholder="Type Here..."/>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input class="form-control" type="text" ng-model="d.TotalArea"  placeholder="Type Here..." />
-                                                                    </td>
-                                                                    <td  width="20%">
-                                                                        <select class="form-select" ng-model="d.DeliveryType">
-                                                                            <option value="">-- Choose --</option>
-                                                                            <option value="Element">Element</option>
-                                                                            <option value="Precut">Precut</option>
-                                                                            <option value="Module">Module</option>
-                                                                            <option value="mix of all">Mix of All</option>
-                                                                            <option value="Others">Others</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#primary-header-modal__@{{ Secindex }}_@{{ fIndex  }}"><i class="fa fa-plus"></i></button>
-                                                                        <div id="primary-header-modal__@{{ Secindex }}_@{{ fIndex  }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="primary-header-modalLabel__@{{ Secindex }}_@{{ fIndex  }}" aria-hidden="true">
-                                                                            <div class="modal-dialog modal-xl">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header modal-colored-header bg-primary">
-                                                                                        <h4 class="modal-title" id="primary-header-modalLabel__@{{ Secindex }}_@{{ fIndex  }}"> @{{ d.FloorName }}</h4>
-                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <div class="row m-0 mb-2">
-                                                                                            <div class="col-sm-3 shadow-lg border p-2 x-y-center">
-                                                                                                <i style="font-size: 35px" class="mdi mdi-ear-hearing-off   text-primary me-2" aria-hidden="true"></i>
-                                                                                                <div id="count"><span class="badge badge-primary-lighten rounded-pill">1.35</span></div>
-                                                                                            </div>
-                                                                                            <div class="col-sm-3 shadow-sm border p-2 x-y-center">
-                                                                                                <i style="font-size: 35px" class="fa  fa-snowflake-o   text-info  me-2" aria-hidden="true"></i>
-                                                                                                <div id="count"><span class="badge badge-info-lighten rounded-pill">0.5</span></div>
-                                                                                            </div>
-                                                                                            <div class="col-sm-3 shadow-lg border p-2 x-y-center">
-                                                                                                <i style="font-size: 40px" class="mdi mdi-fire  text-danger  me-2" aria-hidden="true"></i>
-                                                                                                <div id="count"><span class="badge badge-danger-lighten rounded-pill">0.45</span></div>
-                                                                                            </div>
-                                                                                            <div class="col-sm-3 shadow-sm border p-2 x-y-center">
-                                                                                                <i style="font-size: 35px" class="fa fa-thermometer-half   text-warning  me-2" aria-hidden="true"></i>
-                                                                                                <div id="count"><span class="badge badge-warning-lighten rounded-pill">2.05</span></div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="form-horizontal">
-                                                                                            <div class="row m-0 text-start">
-                                                                                                <div class="col-md-6">
-                                                                                                    <div class="row my-3">
-                                                                                                        <label for="inputEmail3" class="col-3 col-form-label">Floor Name</label>
-                                                                                                        <div class="col-9">
-                                                                                                            <input type="text" disabled class="form-control" id="inputEmail3" value="@{{ d.FloorName }}" >
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="row mb-3">
-                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Floor Number</label>
-                                                                                                        <div class="col-9">
-                                                                                                            <input type="text" disabled class="form-control" id="inputPassword3" value="@{{ d.FloorNumber }}" >
-                                                                                                        </div>
-                                                                                                    </div> 
-                                                                                                </div>
-                                                                                                <div class="col-md-6">
-                                                                                                    <div class="row my-3">
-                                                                                                        <label for="inputEmail3" class="col-3 col-form-label">Total Area </label>
-                                                                                                        <div class="col-9">
-                                                                                                            <input type="text" disabled class="form-control" id="inputEmail3" value="@{{ d.TotalArea }}" >
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="row mb-3">
-                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Delivery Type</label>
-                                                                                                        <div class="col-9">
-                                                                                                            <input type="text" disabled class="form-control" id="inputPassword3" value="@{{ d.DeliveryType }}" >
-                                                                                                        </div>
-                                                                                                    </div> 
-                                                                                                </div>
-                                                                                            </div>
-
-                                                                                        </div>
-
-                                                                                        <div >
-                                                                                            <table class="table dt-responsive nowrap m-0" >
-                                                                                                <tr class="bg-light">
-                                                                                                    <th> LayerName </th>
-                                                                                                    <th> Type </th>
-                                                                                                    <th> Size</th>
-                                                                                                    <th><button class="btn btn-primary  btn-sm" ng-click="AddLayers(fIndex , Secindex)"> <i class="fa fa-plus"></i> Add New Layer</button></th>
-                                                                                                </tr>
-                                                                                                <tbody>
-                                                                                                    <tr ng-repeat="(ThreeIndex,l) in d.Layers">
-                                                                                                        <td>
-                                                                                                            <select class="form-select" ng-model="layer.LayerName">
-                                                                                                                <option value="">-- Choose --</option>
-                                                                                                                <option value="1">External Cladding</option>
-                                                                                                                <option value="2">Horizontal Nailers</option>
-                                                                                                                <option value="3">Vertical Nailers</option>
-                                                                                                                <option value="4">External Insulation</option>
-                                                                                                                <option value="5">Wind Barrier</option>
-                                                                                                                <option value="7">Planking</option>
-                                                                                                                <option value="9">Construction</option>
-                                                                                                                <option value="10">Insulation</option>
-                                                                                                                <option value="12">Planking</option>
-                                                                                                                <option value="14">Vapour Barrier</option>
-                                                                                                                <option value="17">Insulation</option>
-                                                                                                                <option value="18">Internal Planking</option>
-                                                                                                            </select>
-                                                                                                        </td>
-                                                                                                        <td> 
-                                                                                                            <input class="form-control" type="text" ng-model="layer.Type" placeholder="Type Here..."  />
-                                                                                                        </td>
-                                                                                                        <td> 
-                                                                                                            <input class="form-control" type="text" ng-model="layer.Size" placeholder="Type Here..." />
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <div class="btn-group">
-                                                                                                                <button class="btn btn-outline-danger" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)"><div class="fa fa-trash"></div></button>
-                                                                                                            </div>
-                                                                                                        </td> 
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                                
-                                                                                            </table>
-                                                                                        </div>
-                                                                                        
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                                                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save & Close</button>
-                                                                                    </div>
-                                                                                </div> 
-                                                                            </div> 
-                                                                        </div> 
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        <button class="btn btn-danger" ng-click="RemoveDetails(fIndex , Secindex)"><i class="fa fa-trash"></i></button>
-                                                                    </td> 
-                                                                </tr>
-                                                            </tbody>
-                                                        </table> 
-                                                    </div> --}}
                                                 </div> 
                                             </div> 
                                         </div> 
@@ -1078,169 +921,7 @@
 @endsection
           
 @push('custom-styles')
-    <style>
-        .table tbody tr td {
-            padding: 5px !important
-        }
-        @media (min-width: 1200px) {
-            .modal-xxl {
-                width: 100% !important
-            }
-        }
-        .x-y-center {
-            display: flex !important;
-            justify-content: center;
-            align-items: center 
-        } 
-        thead, tbody, tfoot, tr, td, th {
-            vertical-align: middle !important;
-        }
-        .accordion-button::after {
-            margin:0px auto !important
-        }
-        .table > :not(caption) > * > * {
-            padding: 0 !important
-        }
-        .table tr th  {
-            padding: 0 10px !important
-        }
-        .form-lable {
-            background: #f1f2fe;
-            border-radius: 5px;
-            padding: 0 5px;
-            top: -10px;
-            left: 10px;
-            font-size:12px;
-        }
-        .form-group {
-            position: relative;
-        }
-        .form-control-sm,.form-select-sm {
-            padding-top:  15px !important
-        }
-        .accordion-body .table tbody tr:nth-child(1) .form-lable {
-            display: block !important
-        }
-        
-        .accordion-body .table tbody tr  .form-lable {
-           display: none
-        }
-        .accordion-body .table tbody tr  .form-control-sm,.form-select-sm {
-            padding-top: 7px !important
-        }
-        .accordion-body .table tbody tr:nth-child(1)  .form-control-sm,.form-select-sm {
-            padding-top:  13px !important
-        }
-        .accordion-body .table tbody tr td {
-            padding:  0 10px 5px 0  !important
-        }
-        .accordion-body .table tbody tr td .form-select,.form-control,.input-group-text  {
-            line-height: 1.2 !important
-        } 
-        .wall-delete-btn {
-            padding: 8px 10px;
-            right: 0;
-            z-index: 11;
-            border-radius:0 3px 0 10px !important
-        }
-        .more-btn-layer.collapsed .fa {
-            transform: rotate(0deg) !important;
-            transition: all .5s
-        }  
-        .more-btn-layer .fa {
-            transform: rotate(180deg) !important;
-            transition: all .5s
-        }   
-        .p1 {
-            padding: 5px !important
-        }     
-       
-    </style>
-     <style>
-        .time-bar {
-            width: 100% !important;
-            height: 1px;
-            position: absolute;
-            border: 1px dashed  gray;
-            top: 45px
-        }
-        .timeline-steps  {
-            display: flex;
-            justify-content:space-between;
-            /* align-items: center; */
-            position: relative;
-         
-        }
-        .timeline-step {
-            padding: 10px;
-            z-index: 1;
-            border-radius: 15px;
-            margin: 10px
-        }
-        .inner-circle {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 10px #bdbdbd;
-            background: white;
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            color: white;
-            border: 3px solid white
-        }
-        .timeline-content {
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            flex-direction: column;
-        }
- 
-        .table td,th {
-            padding: 5px 10px !important ;
-            vertical-align: middle !important
-        }
-        .table thead,th {
-            background: #757CF2 !important;
-            color: white
-        }
-        
-         .table tbody thead,th {
-            background: #757CF2 !important
-        }
-        .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
-            background:  white !important
-        }
-        .daterangepicker td.active, .daterangepicker td.active:hover {
-            background: #757CF2 !important
-        }
-        .dashboard-icon {
-            font-size: 3rem !important;
-        }
-        #SvgjsText1885 {
-            display: none !important;
-        }
-        .upload-input {
-            position: absolute;
-            visibility: hidden;
-            z-index: -1;
-        }
-        .upload-files {
-            padding: 10px;
-            box-shadow: 0px 0px  10px gray;
-            border-radius: 5px ;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: lightgray;
-            color: white;
-            height: 50px;
-            margin-bottom: 3px
-        }
-        .upload-files:hover, .upload-files:active {
-            background: gray;
-        }
-    </style>   
+<link rel="stylesheet" href="{{ asset('public/assets/css/pages/customer-enquiry.css') }}">
 @endpush
 
 @push('custom-scripts')
@@ -1251,12 +932,15 @@
     <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dropzone.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/ui/component.fileupload.js') }}"></script>
+   
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
+
     <script >
         var app = angular.module('App', []).constant('API_URL', $("#baseurl").val());           
     </script>
+        <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
     <script>
         // const result = [];
         app.controller('wizard', function($scope, $http,$rootScope) {
@@ -1473,95 +1157,48 @@
             }
         });
 
-        app.controller('IFCModelUpload', function ($scope, $http, fileUploadService) {
-            $scope.planViewLists = [];
-            $scope.facadeViewLists = [];
-            $scope.ifcViewLists = [];
-            $scope.otherViewLists = [];
-            $scope.getPlanViewList = (id) => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route('customers.plan-view') }}',
-                    params: {id: id},
-                }).then(function (res) {
-                    $scope.planViewLists = res.data;
-                    console.log(res);	
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+        app.controller('IFCModelUpload', function ($scope, $http, $parse, fileUploadService) {
+            $scope.PlanView = [];
+            $scope.PlanView = [{'name' : 'asdf'}];
+            $scope.posterTitle = 'click here';
+            $scope.fileName= function(element, attribute) {
+                $scope.$apply(function($scope) {
+                    var attribute_name = element.getAttribute('demo-file-model');
+                    console.log(attribute_name);
+                    $scope[`${attribute_name}__file_name`] = element.files[0].name;
+                    
+                    console.log($scope.posterTitle);
                 });
-            } 
-            $scope.getFacadeViewList = (id) => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route('customers.facade-view') }}',
-                    params: {id: id},
-                }).then(function (res) {
-                    $scope.planViewLists = res.data;
-                    console.log(res);	
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            } 
-            $scope.getIFCViewList = (id) => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route('customers.ifc-view') }}',
-                    params: {id: id},
-                }).then(function (res) {
-                    $scope.ifcViewLists = res.data;
-                    console.log(res);	
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            } 
-            
-            $scope.getOthersViewList = (id) => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route('customers.others-view') }}',
-                    params: {id: id},
-                }).then(function (res) {
-                    $scope.otherViewLists = res.data;
-                    console.log(res);	
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            } 
-
-            $scope.uploadFile = function (view_type) {
-
-                if(view_type =='Plan view') {
-                    var file = $scope.planView;
-                } else if (view_type =='Facade view') {
-                    var file = $scope.FacadeView;
-                } else if (view_type =='IFC Model view') {
-                    var file = $scope.IFCModelView;
-                } else if (view_type =='Others') {
-                    var file = $scope.Others;
-                }
-              
-                var type = 'ifc_model_upload';
-                var view_type = view_type;
-                var uploadUrl = '{{ route('customers.store-enquiry') }}'
-                 //Url of webservice/api/server
-                    promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
-
-                promise.then(function (response) {
-                    $scope.serverResponse = response;
-                    console.log($scope.serverResponse);
-                    if(view_type =='Plan view') {
-                        $scope.getPlanViewList($scope.serverResponse);
-                    } else if (view_type =='Facade view') {
-                        $scope.getFacadeViewList($scope.serverResponse);
-                    } else if (view_type =='IFC Model view') {
-                        var file = $scope.IFCModelView;
-                    } else if (view_type =='Others') {
-                        var file = $scope.Others;
-                    }
-                }, function () {
-                    $scope.serverResponse = 'An error has occurred';
-                })
             };
+            $scope.uploadFile = function (view_type) { 
+                console.log(typeof(view_type));
+                if(view_type){
+                    var file = $scope[view_type];
+                    var type = 'ifc_model_upload';
+                    var view_type = view_type;
+                    var uploadUrl = '{{ route('customers.store-enquiry') }}'
+                    promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
+                    promise.then(function (response) {
+                        $scope.getIFCViewList(response, view_type);
+                        $scope.serverResponse = response;
+                    }, function () {
+                        $scope.serverResponse = 'An error has occurred';
+                    });
+                 
+                }
+            }
+            $scope.getIFCViewList = (id, view_type) => {
+                console.log('getIFCViewList');
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.get-view-list') }}',
+                    params: {id: id, view_type: view_type},
+                }).then(function (res) {
+                    $scope[`${view_type}List`] = res.data;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
         });
 
 

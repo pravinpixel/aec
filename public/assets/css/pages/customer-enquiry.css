@@ -1,0 +1,218 @@
+
+.table tbody tr td {
+    padding: 5px !important
+}
+@media (min-width: 1200px) {
+    .modal-xxl {
+        width: 100% !important
+    }
+}
+.x-y-center {
+    display: flex !important;
+    justify-content: center;
+    align-items: center 
+} 
+thead, tbody, tfoot, tr, td, th {
+    vertical-align: middle !important;
+}
+.accordion-button::after {
+    margin:0px auto !important
+}
+.table > :not(caption) > * > * {
+    padding: 0 !important
+}
+.table tr th  {
+    padding: 0 10px !important
+}
+.form-lable {
+    background: #f1f2fe;
+    border-radius: 5px;
+    padding: 0 5px;
+    top: -10px;
+    left: 10px;
+    font-size:12px;
+}
+.form-group {
+    position: relative;
+}
+.form-control-sm,.form-select-sm {
+    padding-top:  15px !important
+}
+.accordion-body .table tbody tr:nth-child(1) .form-lable {
+    display: block !important
+}
+
+.accordion-body .table tbody tr  .form-lable {
+   display: none
+}
+.accordion-body .table tbody tr  .form-control-sm,.form-select-sm {
+    padding-top: 7px !important
+}
+.accordion-body .table tbody tr:nth-child(1)  .form-control-sm,.form-select-sm {
+    padding-top:  13px !important
+}
+.accordion-body .table tbody tr td {
+    padding:  0 10px 5px 0  !important
+}
+.accordion-body .table tbody tr td .form-select,.form-control,.input-group-text  {
+    line-height: 1.2 !important
+} 
+.wall-delete-btn {
+    padding: 8px 10px;
+    right: 0;
+    z-index: 11;
+    border-radius:0 3px 0 10px !important
+}
+.more-btn-layer.collapsed .fa {
+    transform: rotate(0deg) !important;
+    transition: all .5s
+}  
+.more-btn-layer .fa {
+    transform: rotate(180deg) !important;
+    transition: all .5s
+}   
+.p1 {
+    padding: 5px !important
+}     
+
+
+.time-bar {
+    width: 100% !important;
+    height: 1px;
+    position: absolute;
+    border: 1px dashed  gray;
+    top: 45px
+}
+.timeline-steps  {
+    display: flex;
+    justify-content:space-between;
+    /* align-items: center; */
+    position: relative;
+ 
+}
+.timeline-step {
+    padding: 10px;
+    z-index: 1;
+    border-radius: 15px;
+    margin: 10px
+}
+.inner-circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px #bdbdbd;
+    background: white;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    color: white;
+    border: 3px solid white
+}
+.timeline-content {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.table td,th {
+    padding: 5px 10px !important ;
+    vertical-align: middle !important
+}
+.table thead,th {
+    background: #757CF2 !important;
+    color: white
+}
+
+ .table tbody thead,th {
+    background: #757CF2 !important
+}
+.daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
+    background:  white !important
+}
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background: #757CF2 !important
+}
+.dashboard-icon {
+    font-size: 3rem !important;
+}
+#SvgjsText1885 {
+    display: none !important;
+}
+.upload-input {
+    position: absolute;
+    visibility: hidden;
+    z-index: -1;
+}
+.upload-files {
+    padding: 10px;
+    box-shadow: 0px 0px  10px gray;
+    border-radius: 5px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: lightgray;
+    color: white;
+    height: 50px;
+    margin-bottom: 3px
+}
+.upload-files:hover, .upload-files:active {
+    background: gray;
+}
+
+
+.file-upload-card {
+    border-radius: 20px !important;
+    border: 1px solid #757bf260 !important
+
+}
+.file-upload-card  h1{
+    font-size: 16px !important;
+    text-align: center;
+    margin-bottom: 0px !important;
+} 
+.file-upload-card  .file-upload-input {
+    position: absolute;
+    transform: scale(.1);
+    z-index: -1;
+}
+.file-upload-card  p{
+    margin-bottom: 20px !important;
+    font-size: 14px !important;
+    color: gray !important
+}
+.file-upload-card  .drop-box {
+    padding: 20px;
+    border: dashed 2px #757cf2 !important;
+    min-height: 100px !important;
+    border-radius: 20px !important;
+    background: #f4f4ff  !important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+}
+ 
+.file-upload-card  .drop-box  .text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column
+}
+.file-upload-card .file-submit-btn {
+    background: #757cf2;
+    /* box-shadow: 0 0 5px gray; */
+    padding: 10px;
+    border-radius: 10px 10px 20px 10px; 
+    color:white !important;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+.table-header  h1{
+    font-size: 16px !important;
+    margin-bottom: 0px !important;
+} 

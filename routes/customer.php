@@ -32,5 +32,10 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::get('get-others-view',  [EnquiryController::class, 'getOthersViewList'])->name('customers.others-view');
 
+    Route::get('get-view-list',  [EnquiryController::class, 'getViewList'])->name('customers.get-view-list');
 
+    Route::get('view-list',  function() {
+        return view('customers.pages.enquiryWizard.view-list');
+    });
+   
 });
