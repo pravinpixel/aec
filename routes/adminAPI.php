@@ -7,7 +7,7 @@
      
     Route::prefix('admin/api/v2')->group(function () {
 
-        Route::post('customers-enquiry', [EnquiryController::class,'index']); 
+        Route::post('customers-enquiry', [EnquiryController::class,'store']); 
         Route::get('customers-enquiry', [EnquiryController::class,'index']); 
         Route::get('customers-enquiry/{id}', [EnquiryController::class,'singleIndex']);
 

@@ -63,13 +63,13 @@
                     <tr>
                         <th class="bg-light" >
                             <div class="form-group">
-                                <label class="form-lable text-dark shadow-sm position-absolute border">Date</label>
+                                <label class="form-lable text-dark shadow-sm position-Obsolete border">Date</label>
                                 <input type="date" name="Date" required ng-required="true"  ng-model="Date" class="form-control form-control-sm my-2 mt-3" placeholder="Type here...">
                             </div>
                         </th>
                         <th  class="bg-light">
                             <div class="form-group">
-                                <label class="form-lable text-dark shadow-sm position-absolute border">Description</label>
+                                <label class="form-lable text-dark shadow-sm position-Obsolete border">Description</label>
                                 <input type="text" name="Description" required ng-required="true"  ng-model="Description" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
                             </div>
                         </th>

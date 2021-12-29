@@ -17,6 +17,8 @@
                         @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                         @if (Route::is('gran-chart')) Gran Chart @endif
                         @if (Route::is('admin-settings')) Settings @endif
+                        @if (Route::is('admin-employee-control-view')) List of Employee @endif
+                        @if (Route::is('admin.employee-add')) create Employee @endif
                     </li>
                     <li class="breadcrumb- ms-2">
                         <i type="button" onclick="goBack()" class="mdi mdi-backspace text-danger fa-2x"></i> 
@@ -35,6 +37,8 @@
                 @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                 @if (Route::is('gran-chart')) Gran Chart @endif
                 @if (Route::is('admin-settings')) Settings @endif
+                @if (Route::is('admin-employee-control-view')) List of Employee @endif
+                @if (Route::is('admin.employee-add')) create Employee @endif
 
             </h4>
         </div>

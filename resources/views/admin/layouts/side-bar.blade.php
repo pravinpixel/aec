@@ -126,10 +126,13 @@
                             <a href="{{ route('admin-cost-estimation-view') }}">Cost Estimation</a>
                         </li>
                         <li>
-                            <a href="{{ route('gran-chart') }}">Gantt Chart</a>
+                            <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
                         </li>
                         <li>
-                            <a href="#">Employee Control</a>
+                            <a href="{{ route('admin-employee-control-view') }}">Employee Control</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.employee-add') }}">Add Employee</a>
                         </li>
                     </ul>
                 </div>
