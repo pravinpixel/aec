@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
 
-class AuthCountroller extends Controller
+class AuthController extends Controller
 {
 
     public function getCustomerLogin(Request $request)

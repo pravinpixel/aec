@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CostEstimationController;
 use App\Http\Controllers\Admin\GanttChartController;
 use App\Http\Controllers\Admin\EmployeeController;
-use App\Http\Controllers\Auth\AuthCountroller;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,8 +170,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::put('update_employee/{id}', [EmployeeController::class, 'update_employee'])->name('update_employee');
 
 });
-Route::get('customers/login',[ AuthCountroller::class, 'getCustomerLogin'])->name('customers.login');
-Route::post('customers/login',[ AuthCountroller::class, 'postCustomerLogin'])->name('customers.login');
-Route::post('customers/logout',[ AuthCountroller::class, 'customerLogout'])->name('customers.logout');
+Route::get('customers/login',[ AuthController::class, 'getCustomerLogin'])->name('customers.login');
+Route::post('customers/login',[ AuthController::class, 'postCustomerLogin'])->name('customers.login');
+Route::post('customers/logout',[ AuthController::class, 'customerLogout'])->name('customers.logout');
 
 /** ===== End : Customers Routes ======*/
