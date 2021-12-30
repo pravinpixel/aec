@@ -18,4 +18,4 @@ class GlobalService extends Facade
         return (self::resolveFacede())->$method(...$arguments);
     }
 
-}
+} 

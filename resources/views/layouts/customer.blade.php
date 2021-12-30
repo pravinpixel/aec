@@ -30,7 +30,7 @@
         <!-- END wrapper -->
 
         <!-- Right Sidebar -->
-            <div class="end-bar">
+            {{-- <div class="end-bar">
 
                 <div class="rightbar-title">
                     <a href="javascript:void(0);" class="end-bar-toggle float-end">
@@ -99,7 +99,7 @@
 
                 </div>
             </div> 
-            <div class="rightbar-overlay"></div>
+            <div class="rightbar-overlay"></div> --}}
         <!-- /End-bar -->
 
          

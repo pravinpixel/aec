@@ -1,12 +1,12 @@
-@extends('layouts.customer')
+@extends('layouts.admin')
 
-@section('customer-content')
+@section('admin-content')
    
 
     <div class="content-page">
         <div class="content">
 
-            @include('customers.layouts.top-bar')
+            @include('admin.layouts.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid ">
@@ -810,7 +810,8 @@
                 
             </div> <!-- container -->
 
-        </div> <!-- content --> 
+        </div> <!-- content -->
+
 
     </div> 
 

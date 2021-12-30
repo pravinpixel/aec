@@ -49,8 +49,74 @@
             .icon {
                 margin-right: 10px !important
             }
+            .linear-activity {
+                overflow: hidden;
+                width: 100%;
+                height: 4px;
+                background-color: #E6E7FC;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 11111111111 !important;
+            }
+
+            .determinate {
+                position: relative;
+                max-width: 100%;
+                height: 100%;
+                -webkit-transition: width 200ms ease-out .5s;
+                -moz-transition: width 200ms ease-out .5s;
+                    -o-transition: width 200ms ease-out .5s;
+                        transition: width 200ms ease-out .5s;
+                background-color: #757CF2;
+            }
+
+            .indeterminate {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+
+            .indeterminate:before {
+                content: '';
+                position: absolute;
+                height: 100%;
+                background-color: #757CF2;
+                animation: indeterminate_first .5s infinite ease-out;
+            }
+
+            .indeterminate:after {
+                content: '';
+                position: absolute;
+                height: 100%;
+                background-color: #757CF2;
+                animation: indeterminate_second .5s infinite ease-in;
+            }
+
+            @keyframes indeterminate_first {
+                0% {
+                    left: -100%;
+                    width: 100%;
+                }
+                100% {
+                    left: 100%;
+                    width: 10%;
+                }
+            }
+
+            @keyframes indeterminate_second {
+                0% {
+                    left: -150%;
+                    width: 100%;
+                }
+                100% {
+                    left: 100%;
+                    width: 10%;
+                }
+            }
         </style>         
     </head>
+    
 
     <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
 

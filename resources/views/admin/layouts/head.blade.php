@@ -1,6 +1,6 @@
  
 <meta charset="utf-8" />
-<title>AEC Prefab | Admin Dashboard</title>
+<title> AEC Prefab | Admin Portal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
 <meta content="Coderthemes" name="author" />
@@ -63,5 +63,12 @@
             background-repeat: no-repeat;   
             background-position: right calc(0.375em + 0.1875rem) center;
             background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+        .ng-touched.ng-invalid-pattern {
+            border-color: #dc3545 !important;
+            background-image: url("https://cdn-icons-png.flaticon.com/512/179/179386.png") !important;
+            background-repeat: no-repeat !important;
+            background-position: right calc(0.375em + 0.1875rem) center !important;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem) !important;
         }
 </style>

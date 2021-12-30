@@ -14,8 +14,11 @@
                 <!-- start page title -->
                 
                 @include('admin.layouts.page-navigater') 
- 
-
+               
+              
+                    
+                    <div data-loading> </div>
+               
                 <div class="card border">
                     <div class="card-body py-0"> 
                         <div id="rootwizard">
@@ -596,7 +599,31 @@
     <script>
           
 		var app = angular.module('myApp', ['ngRoute']).constant('API_URL', $("#baseurl").val()); 
- 
+        app.directive('loading',   ['$http' ,function ($http, $scope) {  
+            return {  
+                restrict: 'A',  
+                template: `
+                    <div class="linear-activity">
+                        <div class="indeterminate"></div>
+                    </div>
+                `,  
+                link: function (scope, elm, attrs)  
+                {  
+                    scope.isLoading = function () {   
+   
+                        return $http.pendingRequests.length > 0;  
+                    };        
+                    scope.$watch(scope.isLoading, function (v){  
+                        if(v){  
+                            elm.show();  
+                        }else{  
+                            elm.hide();  
+                        }  
+                    });  
+                }  
+            };
+        }]);
+
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -607,7 +634,8 @@
                 templateUrl : "{{ route('admin-project-info-wiz') }}"
             })
             .when("/Technical_Estimate", {
-                templateUrl : "{{ route('admin-Technical_Estimate-wiz') }}"
+                templateUrl : "{{ route('admin-Technical_Estimate-wiz') }}",
+                controller : "Cost_Estimate"
             })
             .when("/Cost_Estimate", {
                 templateUrl : "{{ route('admin-Cost_Estimate-wiz') }}",
@@ -625,8 +653,7 @@
             .when("/Move_to_project", {
                 templateUrl : "{{ route('admin-Delivery-wiz') }}"
             })
-        });
-         
+        }); 
         app.controller('InvoiceCtrl', ['$scope', function($scope) {
             $scope.Milestone  = [
                 {

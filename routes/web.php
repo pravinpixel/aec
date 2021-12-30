@@ -51,7 +51,7 @@ Route::prefix('admin')->group(function () {
     
 
     Route::get('/project-dashboard', function () {
-        return view('admin.index');
+        return view('admin.project-dashboard');
     })->name('admin-project-dashboard');
 
     Route::get('/sales-view-enquiries', function () {

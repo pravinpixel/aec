@@ -113,15 +113,7 @@
                 </a>
 
             </div>
-        </li>
-
-       
-
-        {{-- <li class="notification-list">
-            <a class="nav-link end-bar-toggle" href="javascript: void(0);">
-                <i class="dripicons-gear noti-icon"></i>
-            </a>
-        </li> --}}
+        </li> 
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
@@ -145,21 +137,7 @@
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-circle me-1"></i>
                     <span>My Account</span>
-                </a>
- 
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="mdi mdi-lifebuoy me-1"></i>
-                    <span>Support</span>
-                </a>
-
-                {{-- <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="mdi mdi-lock-outline me-1"></i>
-                    <span>Lock Screen</span>
-                </a> --}}
-
+                </a> 
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="mdi mdi-logout me-1"></i>

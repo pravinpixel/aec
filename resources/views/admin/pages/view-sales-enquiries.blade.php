@@ -46,17 +46,17 @@
                                     <td> 
                                         <span ng-click="toggle('edit', m.customer_id)" class="badge badge-primary-lighten btn  p-2">@{{ m.enquiry_number }}</span>
                                     </td>
-                                    <td>Construction</td>
-                                    <td>1</td>
-                                    <td>10-12-2022</td>
+                                    <td>ABC00@{{ index+1 }}</td>
+                                    <td>@{{ index+1 }}</td>
+                                    <td>@{{ m.enquiry_date }}</td>
                                     <td>
                                         <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
                                             <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
-                                            <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
-                                            <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
-                                            <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="right" title="Invoice placed"> </button>
-                                            <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Proposal sharing"> </button>
-                                            <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project delivered"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="right" title="Invoice placed"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Proposal sharing"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project delivered"> </button>
                                         </div>
                                     </td>
                                     <td>	
@@ -64,16 +64,18 @@
                                     </td>
                                     <td>
                                         <div class="dropdown">
-                                            <button type="button"  class="btn btn-sm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{-- <button type="button"  class="btn btn-sm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="dripicons-dots-3 "></i>
-                                            </button>
+                                            </button> --}}
                                             
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="{{ route('view-enquiry') }}/@{{ m.customer_id }}">View</a>
+                                            {{-- <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="{{ route('view-enquiry') }}/@{{ m.customer_id }}">Edit</a>
                                                 <a class="dropdown-item" href="{{ route('admin-estimation-single-view') }}">Technical Estimate</a>
-                                                {{-- <a class="dropdown-item" href="{{ route('admin-cost-estimation-single-view') }}">Cost Estimate</a> --}}
+                                                <a class="dropdown-item" href="{{ route('admin-cost-estimation-single-view') }}">Cost Estimate</a>
                                                 <a class="dropdown-item" href="#">Move to proposal</a>
-                                            </div>
+                                            </div> --}}
+                                            
+                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.customer_id }}"><i class="fa fa-pencil"></i></a>
                                         </div>
                                     </td>
                                 </tr> 

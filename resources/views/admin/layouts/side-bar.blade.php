@@ -5,7 +5,7 @@
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
-                <img src="{{ asset('public/assets/images/logo_customer.png') }}" alt="AEC Prefab" width="150px">
+                <img src="{{ asset('public/assets/images/admin/logo.png') }}" alt="AEC Prefab" width="150px">
             </span>
         </span>
         <span class="logo-sm font-weight-bold ">
@@ -74,9 +74,9 @@
                             <a href="{{ route('admin-view-sales-enquiries') }}">Enquiries</a>
                         </li>
                         
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('admin-create-sales-enquiries') }}">Contracts</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </li> 

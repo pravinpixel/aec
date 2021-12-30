@@ -152,12 +152,12 @@
                                     <span>Calculator</span>
                                 </a>
                             </div>
-                            <div class="col p-2">
+                            {{-- <div class="col p-2">
                                 <a class="dropdown-icon-item" href="#">
                                     <img src="{{ asset('public/assets/images/brands/g-suite.png') }}" alt="G Suite">
                                     <span>E search</span>
                                 </a>
-                            </div>
+                            </div> --}}
                         </div> <!-- end row-->
                     </div>
 
@@ -193,17 +193,17 @@
                         <span>My Account</span>
                     </a>
 
-                    <!-- item-->
+                    {{-- <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-edit me-1"></i>
                         <span>Settings</span>
-                    </a>
+                    </a> --}}
 
-                    <!-- item-->
+                    {{-- <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="mdi mdi-lifebuoy me-1"></i>
                         <span>Support</span>
-                    </a>
+                    </a> --}}
 
                     {{-- <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">

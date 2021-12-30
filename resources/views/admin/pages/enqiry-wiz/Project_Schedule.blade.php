@@ -123,6 +123,9 @@
  
 @if (Route::is('admin-Project_Schedule-wiz')) 
     <style>
+        .gantt_task_line  {
+            background: #757CF2 !important;
+        }
        .admin-Project_Schedule-wiz .timeline-step .inner-circle{
             background: #757CF2 !important;
             transform: scale(1.2);
@@ -131,16 +134,16 @@
         .navbar-custom, .leftside-menu {
             z-index: 1 !important;
         }
-        .gantt_grid_head_cell, .gantt_task_scale {
+        /* .gantt_grid_head_cell, .gantt_task_scale {
             background: #757CF2 !important;
             color: white !important
-        }
+        } */
         .gantt_task_scale .gantt_scale_cell {
-            color: white !important
+            color: #757CF2 !important
         }
-        .gantt_grid_head_cell.gantt_grid_head_add {
+        /* .gantt_grid_head_cell.gantt_grid_head_add {
             opacity: 1 !important;
-        }
+        } */
     </style> 
 
     <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">

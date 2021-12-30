@@ -68,9 +68,13 @@
                                         </div> 
                                     </div>
                                     <div class="col-md-6">
+                                        {{-- <div class="mb-3">
+                                            <label class="form-label" >Telephone<sup class="text-danger">*</sup></label>
+                                            <input type="number" class="form-control" name="mobile_number" id="validationCustom02" ng-pattern="/^\d{10,15}$/"  ng-model="module.mobile_number" placeholder="Type Here..."  ng-required="true">
+                                        </div> --}}
                                         <div class="mb-3">
                                             <label class="form-label" >Telephone<sup class="text-danger">*</sup></label>
-                                            <input type="number" class="form-control" name="mobile_number" id="validationCustom02" ng-model="module.mobile_number" placeholder="Type Here..."  ng-required="true">
+                                            <input type="text" placeholder="+91-636-78658"  class="form-control"   ng-pattern="phoneNumbr" name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -113,10 +117,7 @@
         }
         .mb-3 {
             position: relative;
-        }
-        
-        
-        
+        } 
     </style>
 @endpush
 
@@ -133,6 +134,8 @@
                 });
             }
             $scope.getItems();
+
+            $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
 
             $scope.save = function (modalstate, id) {
 

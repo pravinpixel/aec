@@ -2,25 +2,29 @@
     <div class="col-lg-9 p-0">
         <div class="card shadow-none p-0">
             <div class="card-header ">
-                <h4 class="header-title my-2 mb-3 text-center">Estimation for ENQ001 - New Building Project - Ada Lovelace</h4>
-                <table class="table m-0 bg-white  table-bordered ">
-                    <thead class="bg-light">
-                        <tr>
-                            <th>Enquiry Date</th>
-                            <th>Person Contact</th>
-                            <th>Type of Project</th>
-                            <th>Enquiry Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>10  Nov 2021</td>
-                            <td>Arun Prahash</td>
-                            <td>New Construction</td>
-                            <td>In Estimation</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="card-header pb-2 p-3 text-center border-0">
+                    <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ E.enquiry_number }}</span> | <span class="text-success">@{{ E.project_name }}</span> | <span class="text-info">@{{ E.customer.contact_person }}</span></h4>
+                </div>
+                <div class="card-body pt-0 p-0">
+                    <table class="table shadow-none border m-0 table-bordered ">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Enquiry Date</th>
+                                <th>Person Contact</th>
+                                <th>Type of Project</th>
+                                <th>Enquiry Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@{{ E.enquiry_date }}</td>
+                                <td>@{{ E.customer.contact_person }}</td>
+                                <td>New Construction</td>
+                                <td>In Estimation</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
             </div>
             <div class="card-body ">
                 <table class="table m-0 table-bordered">
