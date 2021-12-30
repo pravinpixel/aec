@@ -64,7 +64,7 @@
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarMaps" aria-expanded="false" aria-controls="sidebarMaps" class="side-nav-link">
-                    <i class="uil-location-point"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Sales </span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -84,39 +84,20 @@
 
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Projects </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Projects Schedule </span>
                 </a> 
-            </li>
-  
-            {{-- <li class="side-nav-item ">
-                <a data-bs-toggle="collapse" href="#sidebarMapxs" aria-expanded="false" aria-controls="sidebarMapxs" class="side-nav-link">
-                    <i class="uil-location-point"></i>
-                    <span> Administration </span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarMapxs">
-                    <ul class="side-nav-second-level">
-                        <li>
-                            <a href="{{ route('admin-estimation-view') }}">View Estimation</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin-estimation-single-view') }}">Single Estimation</a>
-                        </li>
-                    </ul>
-                </div>
-                
-            </li>  --}}
+            </li> 
 
             <li class="side-nav-item ">
                 <a data-bs-toggle="collapse" href="#costestimate" aria-expanded="false" aria-controls="costestimate" class="side-nav-link">
-                    <i class="uil-location-point"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span>Administration</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -139,63 +120,40 @@
             </li> 
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Tasks </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Economy </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Customer Details </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Supplier Details </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Calendar </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="{{ route('admin-settings') }}" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                     <span> Setup </span>
                 </a> 
-            </li>
-
-            {{-- <li class="side-nav-title side-nav-item mt-1">Admin Flow</li>
-  
-            <li class="side-nav-item ">
-                <a href="#" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
-                    <span> Proposal Conversation </span>
-                </a> 
-            </li>
-            <li class="side-nav-item ">
-                <a href="{{ route('gran-chart') }}" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
-                    <span>Gantt Chart </span>
-                </a> 
-            </li>
-            <li class="side-nav-title side-nav-item mt-1">Administration</li>
-            <li class="side-nav-item ">
-                <a href="{{ route('admin-settings') }}" class="side-nav-link">
-                    <i class="dripicons-gear"></i>
-                    <span>Settings </span>
-                </a> 
-            </li> --}}
-
+            </li> 
         </ul>
  
         <!-- End Sidebar -->
@@ -205,10 +163,4 @@
     </div>
     <!-- Sidebar -left -->
 
-</div>
-
-{{-- <style>
-    .menuitem-active .collapse {
-        display: block !important
-    }
-</style> --}}
+</div> 

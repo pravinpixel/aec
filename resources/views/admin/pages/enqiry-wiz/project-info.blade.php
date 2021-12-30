@@ -4,7 +4,7 @@
                 <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
                     <li class="nav-item" data-target-form="#accountForm">
                         <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
-                            <i class="uil-angle-double-right me-1"></i>
+                            <i class="uil-angle-double-right me-1"></i> 
                             <span class="d-none d-sm-inline">Project Information</span>
                         </a>
                     </li>

@@ -1,10 +1,8 @@
 <div class="row m-0">
     <div class="col-12 pt-3">
-        <div class="card">
-            <div class="card-header">
-                Move to project
-            </div>
+        <div class="card text-center">
             <div class="card-body">
+                <img src="{{ asset("public/assets/icons/arrow-right.png") }}" width="50px" class="mx-auto">
                 <h3>Lorem, ipsum dolor sit amet consectetur adipisicing.</h3>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis voluptas adipisci repudiandae dolores quis et quas repellendus eius, earum alias consequuntur dicta esse magnam voluptates deleniti deserunt sunt quos veniam?</p>
                 <button class="btn-primary btn">Explore</button>

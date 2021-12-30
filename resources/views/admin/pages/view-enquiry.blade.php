@@ -25,7 +25,7 @@
                                     <a href="#!/Project_Info"   style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-success">
-                                                <i class="fa fa-building "></i>
+                                                <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
                                         <p class="h5 mt-2">Project Info</p>
@@ -35,7 +35,7 @@
                                     <a href="#!/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle bg-success">
-                                                <i class="fa fa-briefcase "></i>
+                                                <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
                                         <p class="h5 mt-2">Technical Estimate</p>
@@ -45,7 +45,7 @@
                                     <a href="#!/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-success">
-                                                <i class="fa fa-money"></i>
+                                                <img src="{{ asset("public/assets/icons/budget.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
                                         <p class="h5 mt-2">Cost Estimate</p>
@@ -55,7 +55,7 @@
                                     <a href="#!/Project_Schedule" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-success">
-                                                <i class="fa fa-share-alt "></i>
+                                                <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
                                             </div>                                                                        
                                         </div>
                                         <p class="h5 mt-2">Project Schedule</p>
@@ -65,27 +65,27 @@
                                     <a href="#!/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-success">
-                                                <i class="fa fa-share-alt "></i>
+                                                <img src="{{ asset("public/assets/icons/share.png") }}" class="w-50 invert">
                                             </div>                                                                        
                                         </div>
                                         <p class="h5 mt-2">Proposal Sharing</p>
                                     </a>
                                 </li>
                                 <li class="nav-item admin-Project_Award-wiz" >
-                                    <a href="#!/Awarded_Projects"  style="min-height: 40px;"  class="timeline-step">
+                                    <a href="#!/Response_status"  style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content ">
                                             <div class="inner-circle  bg-secondary">
-                                                <i class="fa fa-trophy "></i>
+                                                <img src="{{ asset("public/assets/icons/result.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
-                                        <p class="h5  mt-2">Awarded Projects</p>
+                                        <p class="h5  mt-2">Response status</p>
                                     </a>
                                 </li>
                                 <li class="nav-item admin-Delivery-wiz">
-                                    <a href="#!/Delivery" style="min-height: 40px;"  class="timeline-step">
+                                    <a href="#!/Move_to_project" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
-                                                <i class="fa  fa-truck "></i>
+                                                <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
                                         <p class="h5  mts-2">Move to project</p>
@@ -619,10 +619,10 @@
             .when("/Proposal_Sharing", {
                 templateUrl : "{{ route('admin-Proposal_Sharing-wiz') }}"
             })
-            .when("/Awarded_Projects", {
+            .when("/Response_status", {
                 templateUrl : "{{ route('admin-Project_Award-wiz') }}"
             })
-            .when("/Delivery", {
+            .when("/Move_to_project", {
                 templateUrl : "{{ route('admin-Delivery-wiz') }}"
             })
         });
@@ -980,6 +980,10 @@
                 // $scope.total = 0;
                 $scope.getTotal();
             }
+            $scope.delete   =   function(index) {
+                // alert(index);
+                $scope.CostEstimate.splice(index,1);
+            }
             $scope.getTotal = function(){
                 $scope.total = 0;
                 for(var i = 0; i < $scope.CostEstimate.length; i++){
@@ -987,9 +991,7 @@
                 }
                 return $scope.total;
             }
-            
-            
-
+             
             $scope.call = function() {
                 $scope.getTotal();
 

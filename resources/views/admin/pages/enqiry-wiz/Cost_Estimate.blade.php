@@ -52,12 +52,12 @@
                         <th ><small>Price/M2</small></th>
                         <th ><small>Sum</small></th> 
                         <th>
-                            <button ng-click="create()" class="btn-light btn"><i class="fa fa-plus"></i></button>
+                             <i class="fa fa-plus text-light btn-sm btn"  ng-click="create()"></i> 
                         </th>
                     </tr>
                 </thead>
                 <tbody >
-                    <tr ng-repeat="C in CostEstimate" > 
+                    <tr ng-repeat="(index,C) in CostEstimate" > 
                         <td>
                             <select class="form-select select" data-toggle="select">
                                 <option>-- Select --</option>
@@ -95,11 +95,13 @@
                         <td><input  type="number" class="my-control"></td>
                         {{-- Total Cost --}}
                         <td><input  type="number" class="my-control"></td>
-                        <td><input ng-change="call()" type="number" class="my-control"></td>
-                        <td></td>
+                        <td><input  type="number" class="my-control"></td>
+                        <td class="text-center">
+                            <i ng-click="delete(index)" class="fa fa-trash btn btn-sm text-danger"></i>
+                        </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="bg-light-primary border">Sub Totals</td>
+                        {{-- <td colspan="4" class="bg-light-primary border">Sub Totals</td>
                         <td>@{{  }}</td>
                         <td>@{{  }}</td>
                         <td>@{{  }}</td>
@@ -109,7 +111,7 @@
                         <td>@{{  }}</td>
                         <td>@{{  }}</td>
                         <td>@{{  }}</td>
-                        <td>{{ total }}</td>
+                        <td>{{ total }}</td> --}}
                     </tr> 
                 </tbody>
                 

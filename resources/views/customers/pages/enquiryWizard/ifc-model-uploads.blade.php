@@ -25,8 +25,6 @@
             <h1>{{  Str::of($documentType->document_type_name)->upper() }}</h1>
             <br>
             <viewlist data ="{{ $documentType->slug }}List"></viewlist><br/>
-        </div>
-      
-   
+        </div>  
     @endforeach
 </div>

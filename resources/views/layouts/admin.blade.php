@@ -8,7 +8,9 @@
         @stack('custom-styles')
         <style>
             /* Custom style */
-
+            .invert {
+                filter: invert(1) !important
+            }
             .accordion-button::after {
                 position: absolute;
                 content: "";

@@ -1,6 +1,6 @@
 <div class="card shadow-none p-0" class="accordion accordion-flush" id="accordionFlushExample">
     <div class="row align-items-center">
-        <div class="col-md-4 text-center py-4 mx-auto">
+        <div class="col-md-12 text-center py-4 mx-auto">
             <p><b>Customer Response</b></p>
             <span class="badge badge-outline-success fa-2x"> Approved</span>
             <span class="badge badge-outline-danger fa-2x"> Denied</span>
