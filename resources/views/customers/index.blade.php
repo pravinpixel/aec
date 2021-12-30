@@ -24,9 +24,9 @@
                                                 <i class="mdi mdi-calendar-range font-13"></i>
                                             </span>
                                         </div>
-                                        <a href="javascript: void(0);" class="btn btn-primary ms-2">
-                                            <i class="mdi mdi-autorenew"></i>
-                                        </a>
+                                            {{-- <a href="javascript: void(0);" class="btn btn-primary ms-2">
+                                                <i class="mdi mdi-autorenew"></i>
+                                            </a> --}}
                                     </form>
                                 </div>
                                 <h4 class="page-title">Project Summary</h4>
@@ -135,14 +135,14 @@
                                 <div class="app-search row m-0 dropdown justify-content-center">
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-md-10">
+                                            <div class="col-md-12">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control " placeholder="Search..." id="top-search">
                                                     <span class="mdi mdi-magnify search-icon"></span>
                                                     <button class="input-group-text btn-primary" type="submit">Search</button>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            {{-- <div class="col-md-2">
                                                 <div class="btn-group">
                                                     <a class="btn btn-outline-primary" href="#carouselExampleControls" role="button" data-bs-slide="prev">
                                                         <span><i class="fa fa-chevron-left"></i></span>
@@ -151,16 +151,13 @@
                                                         <span ><i class="fa fa-chevron-right"></i></span>
                                                     </a>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div> 
-                                     
-                                     
+                                      
                                 </div>
-                            </div>
-                            
-
-                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            </div>  
+                            <div id="carouselExampleControls" class="carousel slide" data-interval="false" >
                                 <div class="carousel-inner" role="listbox">
                                     <div class="carousel-item active">
                                         <div class="card">

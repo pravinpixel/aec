@@ -1,32 +1,39 @@
 <div class="card shadow-none p-0" class="accordion accordion-flush" id="accordionFlushExample">
-    <div class="p-2 mx-auto col-md-8"> 
-        <div class="row m-0">
-            <div class="col-md-6">
-                <div>
-                    <h4 class="p-2 m-0 h5 text-center"> Select a mail type </h4>
-                </div>
-                <div>
-                    <select class="form-select">
-                        <option>Offer letter</option>
-                        <option>Thankyou letter</option>
-                        <option>Invite Mail</option>
-                        <option>Contract letter</option>
-                    </select>
-                </div> 
-            </div>
-            <div class="col-md-6">
-                <div>
-                    <h4 class="p-2 m-0 h5 text-center"> Select a type </h4>
-                </div>
-                <div>
-                    <select class="form-select">
-                        <option>PO</option>
-                        <option>Contract</option>
-                    </select>
-                </div> 
-            </div>
+    <div class="row align-items-center">
+        <div class="col-md-4 text-center py-4 mx-auto">
+            <p><b>Customer Response</b></p>
+            <span class="badge badge-outline-success fa-2x"> Approved</span>
+            <span class="badge badge-outline-danger fa-2x"> Denied</span>
         </div>
-    </div> 
+        <div class="p-2 mx-auto col-md-8"> 
+            <div class="row m-0">
+                <div class="col-md-6">
+                    <div>
+                        <h4 class="p-2 m-0 h5 text-center"> Select a mail type </h4>
+                    </div>
+                    <div>
+                        <select class="form-select">
+                            <option>Offer letter</option>
+                            <option>Thankyou letter</option>
+                            <option>Invite Mail</option>
+                            <option>Contract letter</option>
+                        </select>
+                    </div> 
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <h4 class="p-2 m-0 h5 text-center"> Select a type </h4>
+                    </div>
+                    <div>
+                        <select class="form-select">
+                            <option>PO</option>
+                            <option>Contract</option>
+                        </select>
+                    </div> 
+                </div>
+            </div>
+        </div> 
+    </div>
     <div class="card-body">
         <div class="container p-0"> 
             <div class="d-flex justify-content-between align-items-center mb-3">

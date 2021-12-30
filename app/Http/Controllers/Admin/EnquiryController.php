@@ -65,11 +65,14 @@ class EnquiryController extends Controller
     }
    
 
-    public function singleIndexPage($id) {
-        $data   =   Enquiry::with('customer')->where('customer_id', $id)->first();
-
-        return view('admin.pages.view-enquiry',compact('data',  $data )); 
-         
+    public function singleIndexPage($id=null) {
+ 
+        if ($id) {
+            $data   =   Enquiry::with('customer')->where('customer_id', $id)->first();
+            return view('admin.pages.view-enquiry',compact('data',  $data )); 
+        }else {
+            return redirect()->route('admin-view-sales-enquiries');
+        }
     }
 
     public function getEnquiryNumber(Request $request)    { 
@@ -192,14 +195,11 @@ class EnquiryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
-
-
-    public function status($id)
-    {
+ 
+    public function status($id) {
         $customer = Customer::find($id);
         if( empty($customer) ) {
             return response(['status' => false, 'msg' => trans('enquiry.item_not_found')],  Response::HTTP_OK);
@@ -210,20 +210,5 @@ class EnquiryController extends Controller
             return response(['status' => true, 'msg' => trans('enquiry.status_updated'), 'data' => $customer], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('enquiry.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-
-    //============= Gantt Chart Flow For ENQ's  ===================
-        public function ganttChart()    {
-
-            $data   =    DB::table('gantt_chart')
-                    ->where('status','=','1')
-                    ->select('id','text','start_date','open','duration','progress','parent')
-                    ->get();
-            return response()->json(['data'=>$data]);
-        }
-        public function ganttChartCreate(Request $r) {
-            return  $r ->all();
-        }
-    //============= END: Gantt Chart Flow For ENQ's  ===================
-
+    } 
 }

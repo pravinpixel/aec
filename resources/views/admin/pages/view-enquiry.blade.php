@@ -483,13 +483,27 @@
             cursor: pointer;
             margin-right: 5px !important
         }
-        .time-bar {
+        li.nav-item .timeline-step::after {
+            content: "";
+            position: absolute;
+            top: 34%;
+            right: -38px;
+            border: 1px dashed;
+            width: 50%; 
+        }
+        li.nav-item {
+            position: relative;
+        }
+        .admin-Delivery-wiz .timeline-step::after {
+            visibility: hidden;
+        }
+        /* .time-bar {
             width: 100% !important;
             height: 1px;
             position: absolute;
             border: 1px dashed  gray;
             top: 45px
-        }
+        } */
         /* .timeline-steps::before {
             content: "";
             width: 100% !important;
@@ -596,7 +610,8 @@
                 templateUrl : "{{ route('admin-Technical_Estimate-wiz') }}"
             })
             .when("/Cost_Estimate", {
-                templateUrl : "{{ route('admin-Cost_Estimate-wiz') }}"
+                templateUrl : "{{ route('admin-Cost_Estimate-wiz') }}",
+                controller : "Cost_Estimate"
             })
             .when("/Project_Schedule", {
                 templateUrl : "{{ route('admin-Project_Schedule-wiz') }}"
@@ -640,7 +655,6 @@
             } 
             
             $scope.submit = function() {
-  
                 $scope.Milestone.unshift({
                     "Date"          : $scope.Date,
                     "Description"   : $scope.Description,
@@ -655,7 +669,6 @@
                 $scope.userForm.$setValidity();
                 $scope.userForm.$setUntouched();
             } 
-
             $scope.PercentageCal   =    function() {
                 var cal = $scope.Budget*($scope.Percentage/100);
                 $scope.PResult = cal  
@@ -667,10 +680,12 @@
             } 
            
         }]); 
+
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
             $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id }} ).then(function (response) {
                 $scope.E = response.data;
             });
+            
             $scope.wallGroup  = [
                 {
                     "WallName" : "External Wall",
@@ -816,15 +831,172 @@
             } 
             $scope.delWallTwo = function(fIndex){
                 $scope.wallGroup.splice(fIndex,1);
-            }  
+            }
             $scope.RemoveDetails = function(fIndex, Secindex){
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);                
             }
-            $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){
-                // console.log(  fIndex , Secindex , ThreeIndex);
+            $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){ 
                 $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
             } 
-        }); 
+        });
+        app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
+            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id }} ).then(function (response) {
+                $scope.E = response.data;
+            }); 
+            $scope.total = 0;
+            $scope.CostEstimate  = [
+                {
+                    "Component"     : "",
+                    "Type"          : "", 
+                    "SqM"           : "", 
+                    "Complexity"    : "", 
+                    "Details": {
+                        "PriceM2"   : "1", 
+                        "Sum"       : ""
+                    },
+                    "Statistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    },
+                    "CadCam	": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "Logistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "TotalCost": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "10", 
+                    } 
+                },
+                {
+                    "Component"     : "",
+                    "Type"          : "", 
+                    "SqM"           : "", 
+                    "Complexity"    : "", 
+                    "Details": {
+                        "PriceM2"   : "1", 
+                        "Sum"       : ""
+                    },
+                    "Statistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    },
+                    "CadCam	": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "Logistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "TotalCost": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "1", 
+                    } 
+                },
+                {
+                    "Component"     : "",
+                    "Type"          : "", 
+                    "SqM"           : "", 
+                    "Complexity"    : "", 
+                    "Details": {
+                        "PriceM2"   : "1", 
+                        "Sum"       : ""
+                    },
+                    "Statistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    },
+                    "CadCam	": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "Logistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "TotalCost": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "1", 
+                    } 
+                },
+                {
+                    "Component"     : "",
+                    "Type"          : "", 
+                    "SqM"           : "", 
+                    "Complexity"    : "", 
+                    "Details": {
+                        "PriceM2"   : "1", 
+                        "Sum"       : ""
+                    },
+                    "Statistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    },
+                    "CadCam	": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "Logistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "TotalCost": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "1", 
+                    } 
+                },
+            ]; 
+            $scope.create  =   function() {
+                $scope.CostEstimate.unshift({
+                    "Component"     : "",
+                    "Type"          : "", 
+                    "SqM"           : "", 
+                    "Complexity"    : "", 
+                    "Details": {
+                        "PriceM2"   : "", 
+                        "Sum"       : ""
+                    },
+                    "Statistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    },
+                    "CadCam	": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "Logistics": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "", 
+                    } ,
+                    "TotalCost": {
+                        "PriceM2"   : "", 
+                        "Sum"       : "1", 
+                    } 
+                });
+                // $scope.total = 0;
+                $scope.getTotal();
+            }
+            $scope.getTotal = function(){
+                $scope.total = 0;
+                for(var i = 0; i < $scope.CostEstimate.length; i++){
+                    $scope.total +=  parseInt($scope.CostEstimate[i].TotalCost.Sum);
+                }
+                return $scope.total;
+            }
+            
+            
+
+            $scope.call = function() {
+                $scope.getTotal();
+
+                alert("Working !");
+            }
+        });
+         
     </script>
  
 @endpush

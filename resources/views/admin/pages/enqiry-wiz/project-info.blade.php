@@ -72,7 +72,7 @@
                                 </div> 
                                 <div class="col-md-4">
                                     <div class="form-floating  mb-2">
-                                        <input ng-disabled="true" ng-value="E.customer.mobile_no" type="text" class="form-control form-control-sm" id="floating"  />
+                                        <input ng-disabled="true" ng-value="E.customer.project_name" type="text" class="form-control form-control-sm" id="floating"  />
                                         <label for="floating">Project Name</label>
                                     </div>
                                     <div class="form-floating  mb-2">
@@ -240,7 +240,7 @@
                             <div class="row mx-0">
                                 <div class="col-md-3">
                                     <div class="card rounded ">
-                                        <div class="card-header ">
+                                        <div class="card-header">
                                             <div class="page-title ">Plan View  <sup class="text-danger">*</sup> </div>
                                         </div>
                                         <div class="card-body pbs-0">
@@ -1863,6 +1863,6 @@
             transform: scale(1.2);
             box-shadow: 0px 5px 10px #4f4f4fb2 !important
         }
-        
+       
     </style>
 @endif

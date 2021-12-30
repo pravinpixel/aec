@@ -22,9 +22,9 @@
 <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
 <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
 <style>
-    .filepond--credits {
-        display: none !important
-    }
+        .filepond--credits {
+            display: none !important
+        }
         .table td,th {
             padding: 5px 10px !important     ;
             vertical-align: middle !important
