@@ -14,6 +14,7 @@
                             </small>
                         </div>
                     </label>
+                    <span ng-show="{{ $documentType->slug }}__error" class="text-center text-danger">The field is required.</span>
                     <span class="file-submit-btn" ng-click="uploadFile('{{ $documentType->slug }}')" > <i class="fa fa-upload"></i> </span>
                 </div>
             </div>

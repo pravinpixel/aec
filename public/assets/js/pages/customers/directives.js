@@ -12,7 +12,7 @@ app.directive('viewlist', function() {
  app.directive('filename', function() {
     var directive = {};
     directive.restrict = 'E';
-    directive.template= `<span ng-init="'filename='click here';">{{filename}} </span>`;
+    directive.template= "{{filename}}";
     directive.scope = {
         filename : "=data"
     }

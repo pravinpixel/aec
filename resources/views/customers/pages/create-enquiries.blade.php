@@ -1166,14 +1166,17 @@
                     var attribute_name = element.getAttribute('demo-file-model');
                     console.log(attribute_name);
                     $scope[`${attribute_name}__file_name`] = element.files[0].name;
-                    
-                    console.log($scope.posterTitle);
                 });
             };
             $scope.uploadFile = function (view_type) { 
                 console.log(typeof(view_type));
                 if(view_type){
                     var file = $scope[view_type];
+                    if(typeof(file) == 'undefined') {
+                        $scope[`${view_type}__error`] = true;
+                        return  false;
+                    }
+                    $scope[`${view_type}__error`] = false;
                     var type = 'ifc_model_upload';
                     var view_type = view_type;
                     var uploadUrl = '{{ route('customers.store-enquiry') }}'
@@ -1181,6 +1184,7 @@
                     promise.then(function (response) {
                         $scope.getIFCViewList(response, view_type);
                         $scope.serverResponse = response;
+                        $scope[`${view_type}__file_name`] = '';
                     }, function () {
                         $scope.serverResponse = 'An error has occurred';
                     });
