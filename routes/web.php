@@ -33,16 +33,22 @@ Route::get('/', function () {
     
 Route::prefix('admin')->group(function () {
     Route::get('/', function () {
-        return redirect(route('admin-dashboard'));
+        return redirect(route('admin-login'));
     });
 
     Route::get('/settings', function () {
         return  view('admin.settings');
     })->name('admin-settings');
 
+    Route::get('/login', function () {
+        return view('auth.admin.login');
+    })->name('admin-login');
+
     Route::get('/dashboard', function () {
         return view('admin.index');
     })->name('admin-dashboard');
+
+    
 
     Route::get('/project-dashboard', function () {
         return view('admin.index');
@@ -91,6 +97,7 @@ Route::prefix('admin')->group(function () {
   
 
     Route::get('sales-view-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
+    // Route::get('sales-view-enquiry', [EnquiryController::class,'singleIndexPage']);
 
     Route::get('/quotation', function () {
         return view('admin.pages.quotation'); 

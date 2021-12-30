@@ -1,6 +1,6 @@
-<form action="#" class="card shadow-none p-0" method="POST" >
+<form class="card shadow-none p-0" >
     <div class="card-header pb-2 p-3 text-center border-0">
-        <h4 class="header-title">Estimation for ENQ001 - New Building Project - Ada Lovelace</h4>
+        <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ E.enquiry_number }}</span> | <span class="text-success">@{{ E.project_name }}</span> | <span class="text-info">@{{ E.customer.contact_person }}</span></h4>
     </div>
     <div class="card-body pt-0 p-0">
         <table class="table shadow-none border m-0 table-bordered ">
@@ -14,8 +14,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>10  Nov 2021</td>
-                    <td>Arun Prahash</td>
+                    <td>@{{ E.enquiry_date }}</td>
+                    <td>@{{ E.customer.contact_person }}</td>
                     <td>New Construction</td>
                     <td>In Estimation</td>
                 </tr>
@@ -25,7 +25,7 @@
             <table class="table table-bordered border">
                 <thead>
                     <tr class="bg-light-primary">
-                        <td colspan="14" class="text-center text-primary"><h5>Engineering Estimation</h5></td>
+                        <td colspan="15" class="text-center text-primary"><h5>Engineering Estimation</h5></td>
                     </tr>
                     <tr class="font-weight-bold ">
                         <th>Component</th>
@@ -37,6 +37,7 @@
                         <th colspan="2">CAD/CAM</th>
                         <th colspan="2">Logistics</th>
                         <th colspan="2">Total Cost</th>
+                        <td colspan="2">Action</td>
                     </tr>
                     <tr class="bg-light-primary border" >
                         <th colspan="4"></th>
@@ -50,154 +51,70 @@
                         <th ><small>Sum</small></th> 
                         <th ><small>Price/M2</small></th>
                         <th ><small>Sum</small></th> 
+                        <th>
+                            <button ng-click="create()" class="btn-light btn"><i class="fa fa-plus"></i></button>
+                        </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="bg-light-primary border"  width="10%">Exterior</td>
-                        <td >
+                <tbody >
+                    <tr ng-repeat="C in CostEstimate" > 
+                        <td>
                             <select class="form-select select" data-toggle="select">
                                 <option>-- Select --</option>
-                                
-                                    <option value="AK">Alaska</option>
-                                    <option value="HI">Hawaii</option>
-                                    <option value="CA">California</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="WA">Washington</option>
-                                
+                                <option value="External"  >External</option>
+                                <option value="Internal">Internal</option>
+                                <option value="Ground Floor" >Ground Floor</option>
+                                <option value="Roof" >Roof</option>
+                                <option value="Loadbearing" >Loadbearing</option>
                             </select>
                         </td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
-                        <td  ><input  type="number"  class="my-control"></td>
+                        <td>
+                            <select class="form-select select">
+                                <option>-- Select --</option>
+                                <option value="AK">Alaska</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="CA">California</option>
+                                <option value="NV">Nevada</option>
+                                <option value="OR">Oregon</option>
+                                <option value="WA">Washington</option>
+                            </select>
+                        </td>
+                        <td><input  type="number" class="my-control"></td>
+                        <td><input  type="number" class="my-control"></td>
+                        {{-- Details --}}
+                        <td><input  type="number" class="my-control"></td>
+                        <td><input  type="number" class="my-control"></td>
+                        {{-- Statistics --}}
+                        <td><input  type="number" class="my-control"></td>
+                        <td><input  type="number" class="my-control"></td>
+                        {{-- CAD/CAM --}}
+                        <td><input  type="number" class="my-control"></td>
+                        <td><input  type="number" class="my-control"></td>
+                        {{-- Logistics --}}
+                        <td><input  type="number" class="my-control"></td>
+                        <td><input  type="number" class="my-control"></td>
+                        {{-- Total Cost --}}
+                        <td><input  type="number" class="my-control"></td>
+                        <td><input ng-change="call()" type="number" class="my-control"></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td class="bg-light-primary border">Interior</td>
-                        <td > 
-                            <select class="form-select select" data-toggle="select">
-                                <option>-- Select --</option>
-                                
-                                    <option value="AK">Alaska</option>
-                                    <option value="HI">Hawaii</option>
-                                
-                                    <option value="CA">California</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="WA">Washington</option>
-                                
-                            </select>
-                        </td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                    </tr>
-                    <tr>
-                        <td  class="bg-light-primary border">1st Floor Wall</td>
-                        <td >
-                            <select class="form-select select" data-toggle="select">
-                                <option>-- Select --</option>
-                                
-                                    <option value="AK">Alaska</option>
-                                    <option value="HI">Hawaii</option>
-                               
-                                    <option value="CA">California</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="WA">Washington</option>
-                                
-                            </select>
-                        </td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                    </tr>
-                    <tr>
-                        <td  class="bg-light-primary border">Roof</td>
-                        <td > 
-                            <select class="form-select select" data-toggle="select">
-                                <option>-- Select --</option>
-                                
-                                    <option value="AK">Alaska</option>
-                                    <option value="HI">Hawaii</option>
-                                 
-                                    <option value="CA">California</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="WA">Washington</option>
-                                
-                            </select>
-                        </td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                    </tr>
-                    <tr>
-                        <td  class="bg-light-primary border">Flooring</td>
-                        <td > 
-                            <select class="form-select select" data-toggle="select">
-                                <option>-- Select --</option>
-                                
-                                    <option value="AK">Alaska</option>
-                                    <option value="HI">Hawaii</option>
-                                    <option value="CA">California</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="WA">Washington</option>
-                                
-                            </select>
-                        </td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                        <td ><input  type="number"  class="my-control"></td>
-                    </tr>
+                        <td colspan="4" class="bg-light-primary border">Sub Totals</td>
+                        <td>@{{  }}</td>
+                        <td>@{{  }}</td>
+                        <td>@{{  }}</td>
+                        <td>@{{  }}</td>
+                        <td>@{{  }}</td>
+                        <td>@{{  }}</td>
+                        <td>@{{  }}</td>
+                        <td>@{{  }}</td>
+                        <td>@{{  }}</td>
+                        <td>{{ total }}</td>
+                    </tr> 
                 </tbody>
+                
             </table>
+             
             <div class="col-12 shadow text-dark bg-white border p-2">
                 <h4 class="m-0"><span class="text-secondary">Total Cost :</span>    <b>XXXXX</b> </h4>
             </div>

@@ -12,10 +12,10 @@
             </div>
         </li>
         <li class="dropdown notification-list topbar-dropdown">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            {{-- <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <img src="{{ asset('public/assets/images/flags/us.jpg') }}" alt="user-image" class="me-0 me-sm-1" height="12"> 
                 <span class="align-middle d-none d-sm-inline-block">English</span> <i class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
-            </a>
+            </a> --}}
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
 
                 <!-- item-->
@@ -117,20 +117,21 @@
 
        
 
-        <li class="notification-list">
+        {{-- <li class="notification-list">
             <a class="nav-link end-bar-toggle" href="javascript: void(0);">
                 <i class="dripicons-gear noti-icon"></i>
             </a>
-        </li>
+        </li> --}}
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                 aria-expanded="false">
-                <span class="account-user-avatar"> 
-                    <img src="{{ asset('public/assets/images/users/avatar-2.jpg') }}" alt="user-image" class="rounded-circle">
+                <span class="account-user-avatar "> 
+                    <img src="{{ asset('public/assets/images/customers.png') }}" alt="user-image" class="rounded-circle shadow-lg border">
                 </span>
                 <span>
-                    <span class="account-user-name">{{ Customer()->full_name ?? '' }}</span>
+                    {{-- <span class="account-user-name">{{ Customer()->full_name ?? '' }}</span> --}}
+                    <span class="account-user-name">Christensen Johansen</span>
                     <span class="account-position">Customer</span>
                 </span>
             </a>
@@ -153,11 +154,11 @@
                     <span>Support</span>
                 </a>
 
-                <!-- item-->
+                {{-- <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-lock-outline me-1"></i>
                     <span>Lock Screen</span>
-                </a>
+                </a> --}}
 
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

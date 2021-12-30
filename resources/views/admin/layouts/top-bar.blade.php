@@ -2,7 +2,7 @@
     <!-- Topbar Start -->
     <div class="navbar-custom">
         <ul class="list-unstyled topbar-menu float-end mb-0">
-            <li class="dropdown notification-list d-lg-none">
+            {{-- <li class="dropdown notification-list d-lg-none">
                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="dripicons-search noti-icon"></i>
                 </a>
@@ -40,7 +40,7 @@
                     </a>
 
                 </div>
-            </li>
+            </li> --}}
 
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -205,11 +205,11 @@
                         <span>Support</span>
                     </a>
 
-                    <!-- item-->
+                    {{-- <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="mdi mdi-lock-outline me-1"></i>
                         <span>Lock Screen</span>
-                    </a>
+                    </a> --}}
 
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
@@ -223,7 +223,7 @@
         <button class="button-menu-mobile open-left">
             <i class="mdi mdi-menu"></i>
         </button>
-        <div class="app-search dropdown d-none d-lg-block">
+        {{-- <div class="app-search dropdown d-none d-lg-block">
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control dropdown-toggle"  placeholder="Search..." id="top-search">
@@ -285,6 +285,6 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- end Topbar -->
