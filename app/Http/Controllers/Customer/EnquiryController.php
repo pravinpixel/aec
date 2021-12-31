@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use App\Models\Enquiry;
 
 class EnquiryController extends Controller
 {
@@ -25,22 +26,33 @@ class EnquiryController extends Controller
         ServiceRepositoryInterface $serviceRepo,
         DocumentTypeRepositoryInterface $documentType
     ){
-        $this->customerEnquiryRepo = $customerEnquiryRepository;
-        $this->serviceRepo = $serviceRepo;
-        $this->documentTypeRepo = $documentType;
+        $this->customerEnquiryRepo  =   $customerEnquiryRepository;
+        $this->serviceRepo          =   $serviceRepo;
+        $this->documentTypeRepo     =   $documentType;
     }
 
-    public function index() 
+    public function myEnquiries() 
     {
-        return view('customers.pages.my-enquiries');
+        $data   =   Enquiry::where("customer_id", Customer()->id)->get();
+        return view('customers.pages.my-enquiries',compact('data',  $data )); 
+    }
+     
+    public function myEnquiriesEdit($id) 
+    {
+        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        if (empty($enquiry)) {
+            abort(403, 'Unauthorized action.');
+        } else {
+            return view('customers.pages.edit-enquiries',compact('enquiry','id'));
+        }
     }
 
-    public function create() 
+    public function create()
     {
         Session::forget('enquiry_number');
-        $customer['enquiry_date'] = now();
-        $customer['enquiry_number'] = GlobalService::enquiryNumber();
-        $customer['document_types'] =  $this->documentTypeRepo->all();
+        $customer['enquiry_date']       =   now();
+        $customer['enquiry_number']     =   GlobalService::enquiryNumber();
+        $customer['document_types']     =   $this->documentTypeRepo->all();
         return view('customers.pages.create-enquiries',compact('customer'));
     }
 
@@ -134,12 +146,10 @@ class EnquiryController extends Controller
         ];
     }
 
-    public function edit($id)
-    {
+    public function edit($id) {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         return view('customers.pages.edit-enquiries',compact('enquiry','id'));
-    }
-
+    } 
 
     public function update($id, Request $request)
     {

@@ -25,6 +25,12 @@
                             <a  href="{{ route('admin-create-sales-enquiries') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Enquiry</a>
                         </div>
                     </div>
+                    {{-- <div id="tooltip-container2">
+                        <button type="button" class="btn btn-info" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">Tooltip on top</button>
+                        <button type="button" class="btn btn-info" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+                        <button type="button" class="btn btn-info" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left">Tooltip on left</button>
+                        <button type="button" class="btn btn-info" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right">Tooltip on right</button>
+                    </div> --}}
                     <div class="card-body">
                         <table datatable="ng" dt-options="vm.dtOptions" class="table dt-responsive nowrap table-striped">
                             <thead>
@@ -50,13 +56,13 @@
                                     <td>@{{ index+1 }}</td>
                                     <td>@{{ m.enquiry_date }}</td>
                                     <td>
-                                        <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
-                                            <button type="button" class="btn progress-btn active" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="right" title="Invoice placed"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Proposal sharing"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project delivered"> </button>
+                                        <div id="toolTip_@{{ index+1 }}" ng-click="toggle('edit', m.customer_id)">
+                                            <button type="button" class="btn progress-btn active" data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Invoice placed"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Proposal sharing"> </button>
+                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project delivered"> </button>
                                         </div>
                                     </td>
                                     <td>	
@@ -554,219 +560,218 @@
         });
     </script>
     <!-- AngularJS Application Scripts -->
-		<script >
-			var app = angular.module('AdminEnqView', ['datatables']).constant('API_URL', $("#baseurl").val());           
-		</script>
+    <script >
+        var app = angular.module('AdminEnqView', ['datatables']).constant('API_URL', $("#baseurl").val());           
+    </script>
 
-		<script >
+    <script>
+        
+        // menuController
+
+        app.controller('EnqController', function ($scope, $http, API_URL) {
             
-			// menuController
+            //fetch users listing from 
+            
+            getData = function($http, API_URL) {
 
-			app.controller('EnqController', function ($scope, $http, API_URL) {
-			    
-			    //fetch users listing from 
-				
-				getData = function($http, API_URL) {
+                angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+            
+                $http({
+                    method: 'GET',
+                    url: API_URL + "admin/api/v2/customers-enquiry"
+                }).then(function (response) {
 
-                    angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-                
-					$http({
-						method: 'GET',
-						url: API_URL + "admin/api/v2/customers-enquiry"
-					}).then(function (response) {
-
-                        // angular.element(document.querySelector("#loader")).addClass("d-none");
-                        
-						$scope.module_get = response.data;
-						 
-					}, function (error) {
-						console.log(error);
-						console.log('This is embarassing. An error has occurred. Please check the log for details');
-					});
-				} 
-                getData($http, API_URL);
-                //delete record
-                
-			    $scope.fiterData = function () {
-			         
-                     // admin/api/v2/customers-enquiry
+                    // angular.element(document.querySelector("#loader")).addClass("d-none");
                     
-                    var url = API_URL + "admin/api/v2/customers-enquiry" 
+                    $scope.module_get = response.data;
+                        
+                }, function (error) {
+                    console.log(error);
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+            getData($http, API_URL);
+            //delete record
+            
+            $scope.fiterData = function () {
+                    
+                    // admin/api/v2/customers-enquiry
+                
+                var url = API_URL + "admin/api/v2/customers-enquiry" 
 
-                    var FormData = {
-                        from_date   :   $scope.filter.from_date,
-                        to_date     :   $scope.filter.to_date,
-                        status      :   $scope.filter.status,
-                        type        :   $scope.filter.type,
-                        others      :   $scope.filter.others
-                    }
-                    alert( $scope.filter.from_date, 'DD/MM/YY');
+                var FormData = {
+                    from_date   :   $scope.filter.from_date,
+                    to_date     :   $scope.filter.to_date,
+                    status      :   $scope.filter.status,
+                    type        :   $scope.filter.type,
+                    others      :   $scope.filter.others
+                }
+                alert( $scope.filter.from_date, 'DD/MM/YY');
+
+                $http({
+                    method: "POST",
+                    url: url,
+                    data: $.param(FormData),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                    }).then(function (response) {
+                        
+                    // getData($http, API_URL);
+                    $scope.module_get = response.data;	
+
+                    Message('success',response.msg);
+
+                    }), (function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+                
+                }
+                // getData($http, API_URL);
+            // getMenuData($http, API_URL);
+
+            $scope.checkIt = function (index , id) {
+
+                var url = API_URL + "module" + "/status";
+                // getData($http, API_URL);
+
+                if (id) {
+
+                    url += "admin/api/v2/customers-enquiry/" + id;
+                    method = "PUT";
 
                     $http({
-                        method: "POST",
+                        method: method,
                         url: url,
-                        data: $.param(FormData),
+                        data: $.param({'is_active':0}),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
- 
-                     }).then(function (response) {
-                         
-                        // getData($http, API_URL);
-                        $scope.module_get = response.data;	
 
-                        Message('success',response.msg);
- 
-                     }), (function (error) {
-                         console.log(error);
-                         console.log('This is embarassing. An error has occurred. Please check the log for details');
-                     });
+                    }).then(function (response) {
+                        
+                        getData($http, API_URL);
+
+                        Message('success',response.data.msg);
+
+                    }), (function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
+            }
+
+                
+            //show modal form
+            $scope.toggle = function (modalstate, id) {
+                $scope.modalstate = modalstate;
+                $scope.module = null;
+        
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create New";
+                        $scope.form_color = "primary";
+                        $('#right-modal-progress').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit an Update";
+                        $scope.form_color = "success";
+                        $scope.id = id;
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+                        $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + id )
+
+                            .then(function (response) {
+                                
+                                $scope.enqData = response.data;
+
+                                console.log( $scope.enqData);
+
+                                $('#right-modal-progress').modal('show');
+
+                                angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                
+                            });
+                        break;
                     
-                 }
-				 // getData($http, API_URL);
-				// getMenuData($http, API_URL);
+                    default:
+                        break;
+                } 
+                
+            }
+        
+            //save new record and update existing record
+            $scope.save = function (modalstate, id) {
+                
+                var url = API_URL + "module";
+                var method = "POST";
+        
+                //append module id to the URL if the form is in edit mode
+                if (modalstate === 'edit') {
+                    url += "/" + id;
+                    method = "PUT";
 
-                $scope.checkIt = function (index , id) {
+                    $http({
+                        method: method,
+                        url: url,
+                        data: $.param($scope.module),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-                    var url = API_URL + "module" + "/status";
-                    // getData($http, API_URL);
-
-                    if (id) {
-
-                        url += "admin/api/v2/customers-enquiry/" + id;
-                        method = "PUT";
-
-                        $http({
-                            method: method,
-                            url: url,
-                            data: $.param({'is_active':0}),
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-                        }).then(function (response) {
+                    }).then(function (response) {
                             
-                            getData($http, API_URL);
+                        getData($http, API_URL);
+
+                            $('#right-modal-progress').modal('hide');
 
                             Message('success',response.data.msg);
 
-                        }), (function (error) {
-                            console.log(error);
-                            console.log('This is embarassing. An error has occurred. Please check the log for details');
-                        });
+                    }), (function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
 
-                    }
+                }else {
+
+                    $http({
+                        method: method,
+                        url: url,
+                        data: $.param($scope.module),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                    }).then(function (response) {
+                            
+                        getData($http, API_URL);
+
+                        //location.reload();
+
+                        $('#right-modal-progress').modal('hide');
+
+
+                        Message('success', response.data.msg);
+
+                    }), (function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
                 }
-
-                    
-			    //show modal form
-			    $scope.toggle = function (modalstate, id) {
-			        $scope.modalstate = modalstate;
-			        $scope.module = null;
-			
-			        switch (modalstate) {
-			            case 'add':
-			                $scope.form_title = "Create New";
-			                $scope.form_color = "primary";
-                            $('#right-modal-progress').modal('show');
-			                break;
-			            case 'edit':
-			                $scope.form_title = "Edit an Update";
-                            $scope.form_color = "success";
-			                $scope.id = id;
-                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-
-			                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + id )
-
-			                    .then(function (response) {
-                                    
-			                        $scope.enqData = response.data;
-
-                                    console.log( $scope.enqData);
-  
-                                    $('#right-modal-progress').modal('show');
-
-                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
-                                    
-			                    });
-			                break;
-                     
-			            default:
-			                break;
-			        } 
-			       
-			    }
-			
-			    //save new record and update existing record
-			    $scope.save = function (modalstate, id) {
-					
-			        var url = API_URL + "module";
-			        var method = "POST";
-			
-			        //append module id to the URL if the form is in edit mode
-			        if (modalstate === 'edit') {
-			            url += "/" + id;
-			            method = "PUT";
-
-						$http({
-							method: method,
-							url: url,
-							data: $.param($scope.module),
-							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-						}).then(function (response) {
-							 
-							getData($http, API_URL);
-
-							    $('#right-modal-progress').modal('hide');
-
-                                Message('success',response.data.msg);
-
-						}), (function (error) {
-							console.log(error);
-							console.log('This is embarassing. An error has occurred. Please check the log for details');
-						});
-
-			        }else {
-
-						$http({
-							method: method,
-							url: url,
-							data: $.param($scope.module),
-							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-						}).then(function (response) {
-							 
-							getData($http, API_URL);
-
-							//location.reload();
-
-							$('#right-modal-progress').modal('hide');
-
-
-                            Message('success', response.data.msg);
-
-						}), (function (error) {
-							console.log(error);
-							console.log('This is embarassing. An error has occurred. Please check the log for details');
-						});
-					}
-			        
-			    }
-			
-			    
-			}); 
-             
-            Message = function (type, head) {
-                $.toast({
-                    heading: head,
-                    icon: type,
-                    showHideTransition: 'plain', 
-                    allowToastClose: true,
-                    hideAfter: 5000,
-                    stack: 10, 
-                    position: 'bootom-left',
-                    textAlign: 'left', 
-                    loader: true, 
-                    loaderBg: '#252525',                
-                });
+                
             }
-		</script>
-       
+        
+            
+        }); 
+            
+        Message = function (type, head) {
+            $.toast({
+                heading: head,
+                icon: type,
+                showHideTransition: 'plain', 
+                allowToastClose: true,
+                hideAfter: 5000,
+                stack: 10, 
+                position: 'bootom-left',
+                textAlign: 'left', 
+                loader: true, 
+                loaderBg: '#252525',                
+            });
+        }
+    </script>    
 @endpush

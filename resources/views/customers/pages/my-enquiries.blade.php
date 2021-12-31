@@ -33,7 +33,7 @@
                                     <th>Enquiry No</th>
                                     <th>Type of Project</th>
                                     <th>No. Of Property</th>
-                                    <th>Esti. Date</th>
+                                    <th>Enquiry Date</th>
                                     <th>Pipeline</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -41,15 +41,17 @@
                             </thead>
                         
                             <tbody>
-                                @for ($i = 0; $i < 5;  $i++)
+                                @foreach ($data as $key => $row)
                                     <tr>
-                                        <td>{{ $i+1 }}</td>
+                                        <td>{{ $key +1 }}</td>
                                         <td> 
-                                            <span data-bs-toggle="modal" data-bs-target="#right-modal-progress" class="badge badge-primary-lighten btn  p-2">ENQ0{{ $i+1 }}</span>
+                                            <span data-bs-toggle="modal" data-bs-target="#right-modal-progress" class="badge badge-primary-lighten btn  p-2">
+                                                {{ $row->enquiry_number }}
+                                            </span>
                                         </td>
                                         <td>Construction</td>
                                         <td>1</td>
-                                        <td>10-12-2022</td>
+                                        <td>{{ $row->enquiry_date }}</td>
                                         <td>
                                             <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
                                                 <button class="btn progress-btn active"></button>
@@ -61,53 +63,13 @@
                                         <td>	
                                             <span class="badge bg-success shadow-sm rounded-pill">Active</span>
                                         </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button"  class="btn btn-sm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="dripicons-dots-3 "></i>
-                                                </button>
-                                                
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="{{ route('customers-create-enquiries') }}">View</a>
-                                                    <a class="dropdown-item" href="{{ route('customers-create-enquiries') }}">Edit</a>
-                                                </div>
-                                            </div>
+                                        <td>                                            
+                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
                                         </td>
-                                    </tr> 
-                                    <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td  >
-                                            <span data-bs-toggle="modal" data-bs-target="#right-modal-progress" class="badge badge-primary-lighten btn  p-2">ENQ0{{ $i+1 }}</span>
-
-                                        </td>
-                                        <td>Construction</td>
-                                        <td>1</td>
-                                        <td>10-12-2022</td>
-                                        <td>
-                                            <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
-                                                <button class="btn progress-btn active"></button>
-                                                <button class="btn progress-btn active"></button>
-                                                <button class="btn progress-btn"></button>
-                                                <button class="btn progress-btn"></button>
-                                            </div>
-                                        </td>
-                                        <td>	
-                                            <span class="badge bg-danger shadow-sm rounded-pill">Inactive</span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button"  class="btn btn-sm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="dripicons-dots-3 "></i>
-                                                </button>
-                                                
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="{{ route('customers-create-enquiries') }}">View</a>
-                                                    <a class="dropdown-item" href="{{ route('customers-create-enquiries') }}">Edit</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr> 
-                                @endfor
+                                    </tr>  
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

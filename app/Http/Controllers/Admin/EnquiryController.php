@@ -66,7 +66,6 @@ class EnquiryController extends Controller
    
 
     public function singleIndexPage($id=null) {
- 
         if ($id) {
             $data   =   Enquiry::with('customer')->where('customer_id', $id)->first();
             return view('admin.pages.view-enquiry',compact('data',  $data )); 
@@ -103,8 +102,9 @@ class EnquiryController extends Controller
             if($request->enquiry_number != $latest_enquiry_number) {
                 return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
             }
-            $password = 'customer@123';
-            $email = $request->email;
+            $password   =   'customer@123';
+            $email      =   $request->email;
+            $password   =   Str::random(8);
             $data = [
                 'customer_enquiry_date' => Carbon::now(),
                 'full_name'             => $request->user_name,

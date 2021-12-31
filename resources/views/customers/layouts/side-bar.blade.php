@@ -31,24 +31,11 @@
     <div class="h-100" id="leftside-menu-container" data-simplebar>
 
         <!--- Sidemenu -->
-        <ul class="side-nav py-3">
-
-            {{-- <li class="side-nav-item ">
-                <a href="{{ route('customers-dashboard') }}" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    <span> Dashboard </span>
-                </a> 
-            </li>
-  
-            <li class="side-nav-item @if(Route::is(['customers-my-enquiries','customers-create-enquiries'])) menuitem-active @endif ">
-                <a  href="{{ route('customers-my-enquiries') }}" class="side-nav-link">
-                    <i class="uil-suitcase-alt"></i>
-                    <span>Enquiries </span>
-                </a>
-            </li>  --}}
+        <ul class="side-nav py-3"> 
+            
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarMaps" aria-expanded="false" aria-controls="sidebarMaps" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-tachometer-alt" aria-hidden="true"></i>
                     <span> Dashboard </span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -69,7 +56,7 @@
             </li> 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarMaps1" aria-expanded="false" aria-controls="sidebarMaps1" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-briefcase" aria-hidden="true"></i>
                     <span> Sales </span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -78,39 +65,39 @@
                         <li>
                             <a href="{{ route('admin-view-sales-enquiries') }}">Create</a>
                         </li>
-                        <li>
-                            <a href="{{ route('customers-my-enquiries') }}">Enquiries</a>
+                        <li class="menuitem-active">
+                            <a href="{{ route('customers-my-enquiries') }}" >Enquiries</a>
                         </li> 
                     </ul>
                 </div>
             </li> 
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    <span> Project </span>
+                    <i class="fa fa-layer-group" aria-hidden="true"></i>
+                    <span> Projects </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-server" aria-hidden="true"></i>
                     <span>  Projects Schedule  </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
                     <span> Tasks </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-calendar-check" aria-hidden="true"></i>
                     <span> Calender </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-cog" aria-hidden="true"></i>
                     <span> Setup </span>
                 </a> 
             </li>

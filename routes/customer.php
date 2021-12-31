@@ -8,15 +8,15 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
         return view('customers.index');
     })->name('customers-dashboard');
   
-    Route::get('my-enquiries', [EnquiryController::class, 'index'])->name('customers-my-enquiries');
+    Route::get('my-enquiries', [EnquiryController::class,'myEnquiries'])->name("customers-my-enquiries");
+
+    Route::get('my-enquiry/{id}', [EnquiryController::class,'myEnquiriesEdit'])->name("customers.edit");
 
     Route::get('create-enquiries', [EnquiryController::class, 'create'])->name('customers-create-enquiries');
 
     Route::get('view-enquiry',  [EnquiryController::class, 'show'])->name('customers-view-enquiry');
 
-    Route::post('store-enquiry',  [EnquiryController::class, 'store'])->name('customers.store-enquiry');
-
-    Route::get('edit-enquiry/{id}',  [EnquiryController::class, 'edit'])->name('customers.edit');
+    Route::post('store-enquiry',  [EnquiryController::class, 'store'])->name('customers.store-enquiry');     
 
     Route::put('update-enquiry/{id}',  [EnquiryController::class, 'update'])->name('customers.update');
     

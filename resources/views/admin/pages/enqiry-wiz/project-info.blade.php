@@ -1062,19 +1062,19 @@
                                                         <tr>
                                                             <th class="bg-light">
                                                                 <div class="form-group">
-                                                                    <label class="form-lable text-dark shadow-sm position-Obsolete border">Floor</label>
+                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Floor</label>
                                                                     <input type="text" class="form-control form-control-sm my-2 mt-3" placeholder="Type here...">
                                                                 </div>
                                                             </th>
                                                             <th  class="bg-light">
                                                                 <div class="form-group">
-                                                                    <label class="form-lable text-dark shadow-sm position-Obsolete border">EXD wall Number</label>
+                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">EXD wall Number</label>
                                                                     <input type="text" class="form-control form-control-sm my-2  mt-3" placeholder="Type here...">
                                                                 </div>
                                                             </th>
                                                             <th  class="bg-light">
                                                                 <div class="form-group">
-                                                                    <label class="form-lable text-dark shadow-sm position-Obsolete border">Delivery type</label>
+                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
                                                                     <select class="form-select  form-select-sm my-2 mt-3">
                                                                         <option selected >-- Choose --</option>
                                                                         <option value="Element">Element</option>
@@ -1087,7 +1087,7 @@
                                                             </th>
                                                             <th  class="bg-light">
                                                                 <div class="form-group">
-                                                                    <label class="form-lable text-dark shadow-sm position-Obsolete border">Approx Total Area</label>
+                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area</label>
                                                                     <input type="number" class="form-control form-control-sm my-2  mt-3" >
                                                                 </div>
                                                             </th> 
@@ -1163,7 +1163,7 @@
                                                                         <tr ng-repeat="(ThreeIndex,l) in d.Layers">
                                                                             <td>
                                                                                 <div class="form-group shadow-sm">
-                                                                                    <label class="form-lable shadow-sm position-Obsolete border" style="background: #FFFFFF">Layer Name</label>
+                                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
                                                                                     <select class="form-select  form-select-sm" ng-model="layer.LayerName">
                                                                                         <option value="">-- Choose --</option>
                                                                                         <option value="1">External Cladding</option>
@@ -1183,7 +1183,7 @@
                                                                             </td>
                                                                             <td> 
                                                                                 <div class="form-group shadow-sm">
-                                                                                    <label class="form-lable shadow-sm position-Obsolete border" style="background: #FFFFFF">Layer Type</label>
+                                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
                                                                                     <select class="form-select  form-select-sm" ng-model="layer.Type">
                                                                                         <option value="">-- Choose --</option>
                                                                                         <option value="1">External Cladding</option>
@@ -1204,12 +1204,12 @@
                                                                             <td width="35%"> 
                                                                                 <div class="btn-group shadow-sm border rounded">
                                                                                     <div class="form-group">
-                                                                                        <label class="form-lable badge-secondary-lighten shadow-sm position-Obsolete border" style="background: #FFFFFF">Thickness </label>
+                                                                                        <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
                                                                                         <input type="number" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="layer.Thickness " >
                                                                                     </div>
                                                                                     <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >x</span>
                                                                                     <div class="form-group">
-                                                                                        <label class="form-lable shadow-sm position-Obsolete border" style="background: #FFFFFF">Breadth</label>
+                                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
                                                                                         <input type="number" class="form-control form-control-sm rounded-0 border-0 " ng-model="layer.Breadth" >
                                                                                     </div>
                                                                                     <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
@@ -1259,7 +1259,7 @@
                 
                 <div class="tab-pane fade" id="six">
                     <div class="row m-0">
-                        <div class="col-sm-6 mx-auto">
+                        <div class="col-sm-10 mx-auto">
                             <div >
                                 
                                 <h3 class="text-center">Specify additional details</h3>
@@ -1270,9 +1270,60 @@
                                         <label for="floatingTextarea">Comments</label>
                                     </div>
                                 </div>
+
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Date</th>
+                                        <th>Persion</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            25/11/2021
+                                        </td>
+                                        <td>
+                                            Nishanth ( <small>Sales Admin</small> )
+                                        </td>
+                                        <td>
+                                            Lorem ipsum dolor sit amet consectetur.
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            25/11/2021
+                                        </td>
+                                        <td>
+                                            Nishanth ( <small>Sales Admin</small> )
+                                        </td>
+                                        <td>
+                                            Lorem ipsum dolor sit amet consectetur.
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            25/11/2021
+                                        </td>
+                                        <td>
+                                            Nishanth ( <small>Sales Admin</small> )
+                                        </td>
+                                        <td>
+                                            Lorem ipsum dolor sit amet consectetur.
+                                        </td>
+                                    </tr> 
+                                </table>
                                 
                                 
-                                <div class="card p-3 my-3 shadow rounded">
+                                {{-- <div class="card p-3 my-3 shadow rounded">
                                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo blanditiis eos quidem iure voluptates, ipsam vel dolore rem facere, alias doloribus dignissimos iste in a. Eveniet tenetur dignissimos molestiae perferendis?</p>
                                     <div class="text-right d-flex align-items-center   justify-content-end ">
                                         <i class="fas fa-calendar-day mr-2"></i>
@@ -1292,7 +1343,7 @@
                                     <div class="d-flex align-items-center">
                                         <i class="fa fa-user me-2"></i> <span class="float-start"> Nishanth ( <small>Sales Admin</small> )</span>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <!-- end col -->

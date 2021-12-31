@@ -6,6 +6,7 @@
     
     <div class="content-page" ng-app="AppSale">
         <div class="content" ng-controller="SalesController">
+            <div data-loading> </div>
 
             @include('admin.layouts.top-bar')
 
@@ -67,11 +68,7 @@
                                             </div>
                                         </div> 
                                     </div>
-                                    <div class="col-md-6">
-                                        {{-- <div class="mb-3">
-                                            <label class="form-label" >Telephone<sup class="text-danger">*</sup></label>
-                                            <input type="number" class="form-control" name="mobile_number" id="validationCustom02" ng-pattern="/^\d{10,15}$/"  ng-model="module.mobile_number" placeholder="Type Here..."  ng-required="true">
-                                        </div> --}}
+                                    <div class="col-md-6"> 
                                         <div class="mb-3">
                                             <label class="form-label" >Telephone<sup class="text-danger">*</sup></label>
                                             <input type="text" placeholder="+91-636-78658"  class="form-control"   ng-pattern="phoneNumbr" name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
@@ -125,7 +122,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script> 
     <script>
         var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
-
+        app.directive('loading',   ['$http' ,function ($http, $scope) {  
+            return {  
+                restrict: 'A',  
+                template: `
+                    <div class="linear-activity">
+                        <div class="indeterminate"></div>
+                    </div>
+                `,  
+                link: function (scope, elm, attrs)  
+                {  
+                    scope.isLoading = function () {   
+   
+                        return $http.pendingRequests.length > 0;  
+                    };        
+                    scope.$watch(scope.isLoading, function (v){  
+                        if(v){  
+                            elm.show();  
+                        }else{  
+                            elm.hide();  
+                        }  
+                    });  
+                }  
+            };
+        }]);
         app.controller('SalesController', function ($scope, $http, API_URL) { 
   
             $scope.getItems = function() {
@@ -135,7 +155,9 @@
             }
             $scope.getItems();
 
-            $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+            // $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+            $scope.phoneNumbr = /^(0047|\+47|47)?[2-9]\d{7}$/;
+
 
             $scope.save = function (modalstate, id) {
 

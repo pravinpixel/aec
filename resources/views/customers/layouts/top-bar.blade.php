@@ -123,7 +123,7 @@
                 </span>
                 <span>
                     {{-- <span class="account-user-name">{{ Customer()->full_name ?? '' }}</span> --}}
-                    <span class="account-user-name">Christensen Johansen</span>
+                    <span class="account-user-name">{{ Customer()->full_name ?? '' }}</span>
                     <span class="account-position">Customer</span>
                 </span>
             </a>

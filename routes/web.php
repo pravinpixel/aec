@@ -97,6 +97,7 @@ Route::prefix('admin')->group(function () {
   
 
     Route::get('sales-view-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
+    
     // Route::get('sales-view-enquiry', [EnquiryController::class,'singleIndexPage']);
 
     Route::get('/quotation', function () {
