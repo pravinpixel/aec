@@ -15,6 +15,7 @@ class CreateDocumentTypeEnquiryTable extends Migration
     {
         Schema::create('document_type_enquiry', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->unsignedBigInteger('enquiry_id');
             $table->unsignedBigInteger('document_type_id');
             $table->string('file_name');

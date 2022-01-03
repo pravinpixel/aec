@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Models\Customer;
+use App\Models\DocumentTypeEnquiry;
 use App\Models\Enquiry;
 use App\Models\EnquiryService;
 use App\Models\Service;
@@ -12,12 +13,14 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $customer;
     protected $enquiryService;
     protected $enquiry;
+    protected $documentTypeEnquiry;
 
-    function __construct(Customer $customer,Enquiry $enquiry, Service $service)
+    function __construct(Customer $customer,Enquiry $enquiry, Service $service, DocumentTypeEnquiry $documentTypeEnquiry)
     {
         $this->customer = $customer;
         $this->service = $service;
         $this->enquiry = $enquiry;
+        $this->documentTypeEnquiry = $documentTypeEnquiry;
     }
 
     
@@ -96,5 +99,14 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     ->wherePivot('document_type_id', $documentTypeId)
                     ->get();
         return $result ?? [];
+    }
+
+    public function deleteDocumentEnquiry($id)
+    {
+        $document_type = $this->documentTypeEnquiry->find($id);
+        if(!empty($document_type)) {
+            return $document_type->update(['deleted_at' => now()]);
+        }
+        return false;
     }
 }

@@ -34,6 +34,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::get('get-view-list',  [EnquiryController::class, 'getViewList'])->name('customers.get-view-list');
 
+    Route::delete('enquiry-document',  [EnquiryController::class, 'delete'])->name('customers.enquiry-document');
+
     Route::get('view-list',  function() {
         return view('customers.pages.enquiryWizard.view-list');
     });

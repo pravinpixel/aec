@@ -31,5 +31,7 @@ interface CustomerEnquiryRepositoryInterface
     public function getIFCViewList($id);
 
     public function getViewList($id, $type_id);
+
+    public function deleteDocumentEnquiry($id);
     
 }

@@ -7,6 +7,8 @@ use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use App\Models\Config;
+use App\Models\DocumentType;
+use App\Models\DocumentTypeEnquiry;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -89,7 +91,7 @@ class EnquiryController extends Controller
             $original_name = $request->file('file')->getClientOriginalName();
             $extension = $request->file('file')->getClientOriginalExtension();
             $documents =  $this->documentTypeRepo->findBySlug($view_type);
-            $additionalData = ['file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
+            $additionalData = ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
             $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
             return $enquiry->id;
         }
@@ -100,17 +102,17 @@ class EnquiryController extends Controller
         
         dd($req->all());
         
-        $input      =   $request->all();
+        // $input      =   $request->all();
         $filenames  =   array();
         
         // if($file   =   $request->file('filenames')){
         //     foreach($file as $file){
-                $name               =   $file->getClientOriginalName();
-                $file               ->  move('image',$name);
-                $filenames          =   $name; 
-                $data               =   new File();
-                $data['filenames']  =   'images'.'/'.$name;
-                $data               ->  save();
+                // $name               =   $file->getClientOriginalName();
+                // $file               ->  move('image',$name);
+                // $filenames          =   $name; 
+                // $data               =   new File();
+                // $data['filenames']  =   'images'.'/'.$name;
+                // $data               ->  save();
         //     }
         // } 
     }
@@ -195,4 +197,17 @@ class EnquiryController extends Controller
         $data = $this->customerEnquiryRepo->getViewList($id, $type_id);
         return response()->json($data);
     }
+
+    public function delete(Request $request)
+    {
+        $id = $request->input('id');
+        $result = $this->customerEnquiryRepo->deleteDocumentEnquiry($id);
+        if($result) {
+            $data = ['msg'=> __('global.deleted'), 'status' => true];
+        } else {
+            $data = ['msg'=> __('global.something'),  'status' => false];
+        }
+        return response()->json($data);
+    }
+
 }

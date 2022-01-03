@@ -16,7 +16,8 @@
                 
                 @include('customers.layouts.page-navigater') 
             </div>                
-
+          
+ 
             <div class="card border">
                 <div class="card-body  pb-0">
                     <ul id="myDIV" class="nav nav-pills rounded nav-justified form-wizard-header mt-0 pt-0 bg-white timeline-steps">
@@ -1120,7 +1121,6 @@
             $scope.serviceList = [];
 
            $scope.$on('callServiceSelection', function(e) { 
-            console.log($scope.serviceList.length);
                 if($scope.serviceList.length == 0){
                     $rootScope.currentStep = 1;
                     return false;
@@ -1189,10 +1189,34 @@
             };
         });
 
+        
+        app.directive('customModal', function ($parse) {
+            return {
+                link: function(scope, element, attributes){
+                    let title = attributes.modalTitle;
+                    let body = attributes.modalBody;
+                    let route = attributes.modalRoute;
+                    let id = attributes.modalId;
+                    let view_type = attributes.modalViewType;
+                    let enquiry_id = attributes.modalEnquiryId;
+                    let method = attributes.modalMethod;
+                    element.bind('click', function () {
+                        $("#exampleModalLabel").html(title);
+                        $("#exampleModalBody").html(body);
+                        $("#exampleModalRoute").val(route);
+                        $("#exampleModalId").val(id);
+                        $("#exampleModalEnquiryId").val(enquiry_id);
+                        $("#exampleModalViewType").val(view_type);
+                        $("#exampleModalMethod").val(method);
+                        $("#exampleModal").modal('show');
+                    });
+                }
+            };
+        });
+        
         app.service('fileUploadService', function ($http, $q) {
                     
             this.uploadFileToUrl = function (file, type, view_type,  uploadUrl) {
-                //FormData, object of key/value pair for form fields and values
                 var fileFormData = new FormData();
                 fileFormData.append('file', file);
                 fileFormData.append('type',type);
@@ -1216,17 +1240,15 @@
 
         app.controller('IFCModelUpload', function ($scope, $http, $parse, fileUploadService) {
             $scope.PlanView = [];
-            $scope.PlanView = [{'name' : 'asdf'}];
             $scope.posterTitle = 'click here';
             $scope.fileName= function(element, attribute) {
                 $scope.$apply(function($scope) {
                     var attribute_name = element.getAttribute('demo-file-model');
-                    console.log(attribute_name);
                     $scope[`${attribute_name}__file_name`] = element.files[0].name;
                 });
             };
             $scope.uploadFile = function (view_type) { 
-                console.log(typeof(view_type));
+               
                 if(view_type){
                     var file = $scope[view_type];
                     if(typeof(file) == 'undefined') {
@@ -1241,15 +1263,19 @@
                     promise.then(function (response) {
                         $scope.getIFCViewList(response, view_type);
                         $scope.serverResponse = response;
-                        $scope[`${view_type}__file_name`] = '';
+                        $scope.$watch(function($scope) {
+                            $scope[`${view_type}__file_name`] = '';
+                            $scope[`${view_type}`] = undefined;
+                        });
                     }, function () {
                         $scope.serverResponse = 'An error has occurred';
                     });
                  
                 }
             }
+        
             $scope.getIFCViewList = (id, view_type) => {
-                console.log('getIFCViewList');
+              
                 $http({
                     method: 'GET',
                     url: '{{ route('customers.get-view-list') }}',
@@ -1260,6 +1286,29 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             }
+
+            $scope.performAction = function()  {
+                let route      = $("#exampleModalRoute").val();
+                let method     = $("#exampleModalMethod").val();
+                let id         = $("#exampleModalId").val();
+                let enquiry_id = $("#exampleModalEnquiryId").val();
+                let view_type  = $("#exampleModalViewType").val();
+                $http({
+                    method: method,
+                    url: route,
+                    params: {id: id},
+                }).then(function (res) {
+                    if(res.status) {
+                        $scope.getIFCViewList(enquiry_id, view_type);
+                        $("#exampleModal").modal('hide');
+                        return false;
+                    }
+                    return false;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+       
         });
 
 
@@ -1430,6 +1479,8 @@
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
             } 
         });
+
+      
     </script>
    
 @endpush
