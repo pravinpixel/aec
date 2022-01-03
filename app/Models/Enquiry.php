@@ -33,6 +33,7 @@ class Enquiry extends Model
         'no_of_building',
         'project_delivery_date',
         'status',
+        'is_active',
         'created_by',
         'updated_by'
     ];

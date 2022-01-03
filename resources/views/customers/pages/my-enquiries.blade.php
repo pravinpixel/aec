@@ -22,7 +22,7 @@
                             <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter" class="btn btn-light border">
                                 <i class="mdi mdi-filter-menu"></i> Filters
                             </button>
-                            <a  href="{{ route('customers-create-enquiries') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Enquiry</a>
+                            <a  href="{{ route('customers.create-enquiry') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Enquiry</a>
                         </div>
                     </div>
                     <div class="card-body">

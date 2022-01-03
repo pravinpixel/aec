@@ -7,7 +7,7 @@
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
                     <li class="breadcrumb-item active ">
                         @if (Route::is('customers-my-enquiries')) My Enquiries @endif
-                        @if (Route::is('customers-create-enquiries')) Create Enquiries @endif
+                        @if (Route::is('customers.create-enquiry')) Create Enquiries @endif
                         @if (Route::is('customers.edit')) Edit Enquiry @endif 
 
                     </li>
@@ -19,7 +19,7 @@
             <h4 class="page-title">
                 @if (Route::is('customers-dashboard')) Dashboard @endif
                 @if (Route::is('customers-my-enquiries')) List of Enquiry @endif
-                @if (Route::is('customers-create-enquiries')) Create Enquiries @endif 
+                @if (Route::is('customers.create-enquiry')) Create Enquiries @endif 
                 @if (Route::is('customers.edit')) Edit Enquiry @endif 
 
             </h4>

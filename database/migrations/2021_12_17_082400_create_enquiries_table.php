@@ -36,6 +36,7 @@ class CreateEnquiriesTable extends Migration
             $table->integer('no_of_building')->nullable();
             $table->datetime('project_delivery_date')->nullable();
             $table->string('status')->nullable();
+            $table->boolean('is_active')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers');
