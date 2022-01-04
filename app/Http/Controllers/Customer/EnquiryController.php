@@ -38,7 +38,13 @@ class EnquiryController extends Controller
         $data   =   Enquiry::where("customer_id", Customer()->id)->get();
         return view('customers.pages.my-enquiries',compact('data',  $data )); 
     }
-     
+
+    public function myProjects() 
+    {
+        $data   =   Enquiry::where("customer_id", Customer()->id)->get();
+        return view('customers.pages.my-projects',compact('data',  $data )); 
+    }
+    
     public function myEnquiriesEdit($id) 
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);

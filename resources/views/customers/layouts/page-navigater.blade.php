@@ -9,7 +9,6 @@
                         @if (Route::is('customers-my-enquiries')) My Enquiries @endif
                         @if (Route::is('customers.create-enquiry')) Create Enquiries @endif
                         @if (Route::is('customers.edit')) Edit Enquiry @endif 
-
                     </li>
                     <li class="breadcrumbs ps-2">
                         <i type="button" onclick="goBack()" class="mdi mdi-backspace text-danger fa-2x"></i> 
@@ -21,7 +20,6 @@
                 @if (Route::is('customers-my-enquiries')) List of Enquiry @endif
                 @if (Route::is('customers.create-enquiry')) Create Enquiries @endif 
                 @if (Route::is('customers.edit')) Edit Enquiry @endif 
-
             </h4>
         </div>
     </div>

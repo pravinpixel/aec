@@ -25,10 +25,7 @@ use App\Http\Controllers\Auth\AuthController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-
-
+ 
 /** ===== Admin Routes ======*/
     
 Route::prefix('admin')->group(function () {
@@ -178,6 +175,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::put('update_employee/{id}', [EmployeeController::class, 'update_employee'])->name('update_employee');
 
 });
+
+/** ===== Start : Customers Routes ======*/
+
+Route::get('/customers', function () {return redirect(route('customers.login'));});
+Route::get('/customer', function () {return redirect(route('customers.login'));});
 Route::get('customers/login',[ AuthController::class, 'getCustomerLogin'])->name('customers.login');
 Route::post('customers/login',[ AuthController::class, 'postCustomerLogin'])->name('customers.login');
 Route::post('customers/logout',[ AuthController::class, 'customerLogout'])->name('customers.logout');

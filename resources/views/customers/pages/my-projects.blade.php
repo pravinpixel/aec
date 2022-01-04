@@ -22,7 +22,7 @@
                             <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter" class="btn btn-light border">
                                 <i class="mdi mdi-filter-menu"></i> Filters
                             </button>
-                            <a  href="{{ route('customers.create-enquiry') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Enquiry</a>
+                            <a  href="{{ route('customers-create-enquiries') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> Create Enquiry</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -437,7 +437,7 @@
                                             Additional Info
                                         </div>
                                         <div class="p-2">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?
                                         </div>
                                     </div>
                                     <div class="col-md-12 text-center mt-4">

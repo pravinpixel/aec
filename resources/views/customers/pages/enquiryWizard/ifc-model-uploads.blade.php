@@ -8,7 +8,7 @@
                     <label class="drop-box" for="{{ $documentType->slug }}">
                         <div class="text">
                             <input  type="file" onchange="angular.element(this).scope().fileName(this)" demo-file-model="{{ $documentType->slug }}" class="file-upload-input" id ="{{ $documentType->slug }}"/>
-                            <label for="{{ $documentType->slug }}"><i class="fa fa-picture-o fa-2x text-primary"></i></label>
+                            <label for="{{ $documentType->slug }}"><i class="fa fa-folder-plus fa-3x text-primary"></i></label>
                             <small>
                                 <filename data ="{{ $documentType->slug }}__file_name"></filename>
                             </small>

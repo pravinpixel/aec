@@ -482,254 +482,413 @@
                                 @include('customers.pages.editEnquiryWizard.additional-info')
                             </div>
                             <div class="tab-pane fade" id="third">
-                                    <div class="row m-0">
-                                        <div class="col-12">
-                                            <div class="text-center">
-                                                <h2 class="mt-0">
-                                                    <i class="mdi mdi-check-all"></i>
-                                                </h2>
-                                                <h3 class="mt-0">Review And Submit</h3>                                                        
-                                            </div>
-                                            <div>					
-                                                <div class="row mx-0 container ">
-                                                    <div class="col-12 text-center">
-                                                        <h4 class="f-20 m-0 p-3">Project Information</h4>
-                                                    </div>
-                                                    <div class="col-md-6 p-3">
-                                                        <table class="table m-0  table-bordered">
-                                                            <tbody>
-                                                                    <tr class="border">
-                                                                        <th  class=" ">Project Name
-                                                                        </th><td  class="bg-white">ABCD Building</td>
-                                                                    </tr> 
-                                                                    <tr class="border">
-                                                                        <th  class=" ">Construction Site Address
-                                                                        </th><td  class="bg-white">Strandgata-12</td>
-                                                                    </tr> 
-                                                                    <tr class="border">
-                                                                        <th  class=" ">Post Code
-                                                                        </th><td  class="bg-white">2134</td>
-                                                                    </tr> 
-                                                                    <tr class="border">
-                                                                        <th  class=" ">Place
-                                                                        </th><td  class="bg-white">Austvath</td>
-                                                                    </tr> 
-                                                                    <tr class="border">
-                                                                        <th  class=" ">State
-                                                                        </th><td  class="bg-white">Hedmark</td>
-                                                                    </tr> 
-                                                                    <tr class="border">
-                                                                        <th  class=" ">Country
-                                                                        </th><td  class="bg-white">Norway</td>
-                                                                    </tr> 
-                                                                    <tr class="border">
-                                                                        <th  class=" ">Type of Project
-                                                                        </th><td  class="bg-white">1</td>
-                                                                    </tr> 
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <div class="col-md-6 p-3">
-                                                        <table class="table m-0   table-bordered">
-                                                        <tbody><tr class="border">
-                                                                <th  class=" ">Type of Building
-                                                                </th><td  class="bg-white">2</td>
-                                                            </tr> 
-                                                            <tr class="border">
-                                                                <th  class=" ">Number of Buildings
-                                                                </th><td  class="bg-white">2</td>
-                                                            </tr> 
-                                                            <tr class="border">
-                                                                <th  class=" ">Type of Delivery
-                                                                </th><td  class="bg-white">1</td>
-                                                            </tr> 
-                                                            <tr class="border">
-                                                                <th  class=" ">Deliveryd Date 
-                                                                </th><td  class="bg-white">2021-02-25</td>
-                                                            </tr> 
-                                                            <tr class="border">
-                                                                <th  class=" ">State
-                                                                </th><td  class="bg-white">non</td>
-                                                            </tr> 
-                                                            <tr class="border">
-                                                                <th  class=" ">Contact Person name
-                                                                </th><td  class="bg-white">XXXXXXX </td>
-                                                            </tr> 
-                                                            <tr class="border">
-                                                                <th  class=" ">E-post
-                                                                </th><td  class="bg-white">dummyemail@gmail.com</td>
-                                                            </tr> 
-                                                        </tbody></table>
-                                                    </div>
-                                                </div>
-                                                <div class="row mx-0 container ">
-                                                    <div class="col-12 text-center">
-                                                        <h4 class="f-20 m-0 p-3">Selected Services</h4>
-                                                    </div>
-                                                    <div class="col-md-6 p-3 mx-auto">
-                                                        <table class="table m-0   table-bordered">
-                                                            <tbody>
-                                                                <tr class="border">
-                                                                    <th class="bg-primary text-white">S.no</th>
-                                                                    <th class="bg-primary text-white">Services</th>
-                                                                </tr> 
-                                                            <tr class="border">
-                                                                <th class=" ">1
-                                                                </th><td class="bg-white">CAD / CAM Modelling</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <th class=" ">2
-                                                                </th><td class="bg-white">Approval Drawings</td>
-                                                            </tr>  
-                                                        </tbody></table>
-                                                    </div>
-                                                </div>
-                                                <div class="row mx-0 container ">
-                                                    <div class="col-12 text-center">
-                                                        <h4 class="f-20 m-0 p-3">IFC Models &amp; Uploaded Documents</h4>
-                                                    </div>
-                                                    <div class="col-md-8 p-3 mx-auto">
-                                                        <table class="table m-0 table-bordered ">
-                                                            
-                                                            <tbody>
-                                                                <tr class="border">
-                                                                    <th  class="bg-primary text-white">S.no
-                                                                    </th><th  class="bg-primary text-white">File Name</th>
-                                                                    <th class="bg-primary text-white" >Type</th>
-                                                                    <th  class="bg-primary text-white">Action</th>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                <th class="bg-white">1
-                                                                </th><td class="bg-white">Modelling</td>
-                                                                <td class="bg-white">IFC Modelling</td>
-                                                                <td width="8%">
-                                                                    <i class="feather-eye text-success mr-3"></i>
-                                                                    <i class="feather-trash text-danger"></i>
+                                <div class="summary-group pt-3">
+                                    {{-- ProjectInfo --}}
+                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
+                                        <div class="legend shadow-sm border rounded text-primary">Project Information </div>
+                                        <div class="card-body">
+                                            <table class="table m-0  ">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="30%"><b>Project Name</b></td>
+                                                        <td>ABCD Building</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Construction Site Address</b></td>
+                                                        <td>Strandgata-12</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Post Code</b></td>
+                                                        <td>2134</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Place</b></td>
+                                                        <td>Austvatd</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>State</b></td>
+                                                        <td>Hedmark</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Country</b></td>
+                                                        <td>Norway</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Type of Project</b></td>
+                                                        <td>1</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Type of Building</b></td>
+                                                        <td>2</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Number of Buildings</b></td>
+                                                        <td>2</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Type of Delivery</b></td>
+                                                        <td>1</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Deliveryd Date</b></td>
+                                                        <td>2021-02-25</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>State</b></td>
+                                                        <td>non</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>Contact Person name</b></td>
+                                                        <td>XXXXXXX </td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td><b>E-post</b></td>
+                                                        <td>dummyemail@gmail.com</td>
+                                                    </tr> 
+                                                </tbody>
+                                            </table> 
+                                        </div> 
+                                    </fieldset>
+                                    {{-- ProjectInfo --}}
+                            
+                                    {{-- Selected Services --}}
+                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
+                                        <div class="legend shadow-sm border rounded text-primary">Selected Services</div>
+                                        <div class="card-body">
+                                            <ul class="row m-0 ">
+                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Cras justo odio</li>
+                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Dapibus ac facilisis in</li>
+                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Morbi leo risus</li>
+                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Porta ac consectetur ac</li>
+                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Vestibulum at eros</li>
+                                            </ul> 
+                                        </div> 
+                                    </fieldset>
+                                    {{-- Selected Services --}}
+                            
+                                    {{-- IFC Models & Uploaded Documents --}}
+                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
+                                        <div class="legend shadow-sm border rounded text-primary">IFC Models & Uploaded Documents</div>
+                                        <div class="card-body">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th><b>S.No</b></th>
+                                                    <th><b>File name</b></th>
+                                                    <th><b>File Type</b></th>
+                                                    <th><b>View Type</b></th>
+                                                    <th class="text-center" width="150px"><b>Action</b></th>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Document001</td>
+                                                    <td>.docs</td>
+                                                    <td>Plan view</td>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
+                                                        <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Files002</td>
+                                                    <td>.pdf</td>
+                                                    <td>Facade view</td>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
+                                                        <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Files005</td>
+                                                    <td>.png</td>
+                                                    <td>IFC model</td>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
+                                                        <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>myImage</td>
+                                                    <td>.JPEG</td>
+                                                    <td>others</td>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
+                                                        <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
+                                                    </td>
+                                                </tr>
+                                            </table> 
+                                        </div> 
+                                    </fieldset>
+                                    {{-- IFC Models & Uploaded Documents --}}
+                            
+                                    {{-- Building Components --}}
+                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
+                                        <div class="legend shadow-sm border rounded text-primary">Building Components</div>
+                                        <div class="card-body">
+                                            <div  style="max-height: 400px; overflow:auto">
+                                                <table class="table table-bordered" >
+                                                    <tbody>
+                                                        <tr class="table-bold text-center">
+                                                            <th width="150px"> </th>
+                                                            <th style="padding: 0 !important">
+                                                                <table class="table m-0 ">
+                                                                    <tr>
+                                                                        <th width="50%">
+                                                                            Wall details
+                                                                        </th>
+                                                                        <th style="padding: 0 !important" width="50%">
+                                                                            Layer details
+                                                                        </th>
+                                                                    </tr>
+                                                                </table>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th width="150px"><b>Wall name</b></th>
+                                                            <th style="padding: 0 !important">
+                                                                <table class="table m-0 ">
+                                                                    <tr>
+                                                                        <td width="50%" style="padding: 0 !important">
+                                                                            <table class="table m-0 table-bordered table-bold">
+                                                                                <tr>
+                                                                                    <th>Floor</th>
+                                                                                    <th>wall Number</th>
+                                                                                    <th>Delivery type</th>
+                                                                                    <th>Total Area</th>
+                                                                                </tr> 
+                                                                            </table>
+                                                                        </td>
+                                                                        <td style="padding: 0 !important" width="50%">
+                                                                            <table class="table m-0 table-bordered">
+                                                                                <tr class="table-bold">
+                                                                                    <th>Name</th>
+                                                                                    <th>Type</th>
+                                                                                    <th>Thickness</th>
+                                                                                    <th>Breadth</th>
+                                                                                </tr> 
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </th>
+                                                        </tr>
+                                                        <tr width="150px">
+                                                            <tr width="180px">
+                                                                <td>Internal  Wall</td>
+                                                                <td style="padding: 0 !important"  >
+                                                                    <table class="table m-0 ">
+                                                                        <tr>
+                                                                            <td width="50%">
+                                                                                <table class="table m-0 table-bordered">
+                                                                                    <tr>
+                                                                                        <td>kids floor</td>
+                                                                                        <td>1</td>
+                                                                                        <td>quick</td>
+                                                                                        <td>1250</td>
+                                                                                    </tr> 
+                                                                                </table>
+                                                                            </td>
+                                                                            <td style="padding: 0 !important" width="50%">
+                                                                                <table class="table m-0 table-bordered">
+                                                                                    <tr>
+                                                                                        <td>fire proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>cold proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>noice proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>abcd proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>others proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td width="50%">
+                                                                                <table class="table m-0 table-bordered">
+                                                                                    <tr>
+                                                                                        <td>kids floor</td>
+                                                                                        <td>1</td>
+                                                                                        <td>quick</td>
+                                                                                        <td>1250</td>
+                                                                                    </tr> 
+                                                                                </table>
+                                                                            </td>
+                                                                            <td style="padding: 0 !important" width="50%">
+                                                                                <table class="table m-0 table-bordered">
+                                                                                    <tr>
+                                                                                        <td>fire proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>cold proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>noice proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>abcd proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>others proof</td>
+                                                                                        <td>precut</td>
+                                                                                        <td>25.54</td>
+                                                                                        <td>254</td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
                                                                 </td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <th class="bg-white">1
-                                                                </th><td class="bg-white">Modelling</td>
-                                                                <td class="bg-white">IFC Modelling</td>
-                                                                <td>
-                                                                    <i class="feather-eye text-success mr-3"></i>
-                                                                    <i class="feather-trash text-danger"></i>
-                                                                </td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <th class="bg-white">1
-                                                                </th><td class="bg-white">Modelling</td>
-                                                                <td class="bg-white">IFC Modelling</td>
-                                                                <td>
-                                                                    <i class="feather-eye text-success mr-3"></i>
-                                                                    <i class="feather-trash text-danger"></i>
-                                                                </td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <th class="bg-white">1
-                                                                </th><td class="bg-white">Modelling</td>
-                                                                <td class="bg-white">IFC Modelling</td>
-                                                                <td>
-                                                                    <i class="feather-eye text-success mr-3"></i>
-                                                                    <i class="feather-trash text-danger"></i>
-                                                                </td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <th class="bg-white">1
-                                                                </th><td class="bg-white">Modelling</td>
-                                                                <td class="bg-white">IFC Modelling</td>
-                                                                <td>
-                                                                    <i class="feather-eye text-success mr-3"></i>
-                                                                    <i class="feather-trash text-danger"></i>
-                                                                </td>
-                                                            </tr>  
-                                                        </tbody></table>
-                                                    </div>
-                                                </div>
-                                                <div class="row mx-0 container ">
-                                                    <div class="col-12 text-center">
-                                                        <h4 class="f-20 m-0 p-3">Building components</h4>
-                                                    </div>
-                                                    <div class="col-md-8 p-3 mx-auto">
-                                                        <table class="table m-0 table-bordered ">
-                                                            
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th  class="bg-primary text-white">EW_DEWS
-                                                                    </th>
-                                                                    <th  class="bg-primary text-white">
-                                                                        Delivery Type : Element Type
-                                                                    </th>
-                                                                    <th  class="bg-primary text-white">
-                                                                        Total : 10
-                                                                    </th>
-                                                                </tr> 
-                                                            <tr class="border  ">
-                                                                <td>Layer Details</td>
-                                                                <td>Dimensions ( mm )</td>
-                                                                <td>Estimates length ( mm )</td>
-                                                            </tr>
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                        </tbody></table>
-                                                    </div>
-                                                </div>
-                                                <div class="row mx-0 container ">
-                                                    <div class="col-12 text-center">
-                                                        <h4 class="f-20 m-0 p-3">Additional Info</h4>
-                                                    </div>
-                                                    <div class="col-md-10 p-0 mx-auto  border">
-                                                        <div class="col-12  text-center p-2  ">
-                                                            Additional Info
-                                                        </div>
-                                                        <div class="p-2">
-                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 text-center mt-4">
-                                                        <button class="btn button_print btn-info mx-2 px-3 btn-rounded">
-                                                            Print
-                                                        </button> 
-                                                    </div>
-                                                </div>
-                                            </div>   
-                                        </div>
-                                        <!-- end col -->
-                                    </div>
-                                    <!-- end row -->
+                                                            </tr> 
+                                                            <td>External  Wall</td>
+                                                            <td style="padding: 0 !important"  >
+                                                                <table class="table m-0 ">
+                                                                    <tr>
+                                                                        <td width="50%">
+                                                                            <table class="table m-0 table-bordered">
+                                                                                <tr>
+                                                                                    <td>kids floor</td>
+                                                                                    <td>1</td>
+                                                                                    <td>quick</td>
+                                                                                    <td>1250</td>
+                                                                                </tr> 
+                                                                            </table>
+                                                                        </td>
+                                                                        <td style="padding: 0 !important" width="50%">
+                                                                            <table class="table m-0 table-bordered">
+                                                                                <tr>
+                                                                                    <td>fire proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>cold proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>noice proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>abcd proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>others proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="50%">
+                                                                            <table class="table m-0 table-bordered">
+                                                                                <tr>
+                                                                                    <td>kids floor</td>
+                                                                                    <td>1</td>
+                                                                                    <td>quick</td>
+                                                                                    <td>1250</td>
+                                                                                </tr> 
+                                                                            </table>
+                                                                        </td>
+                                                                        <td style="padding: 0 !important" width="50%">
+                                                                            <table class="table m-0 table-bordered">
+                                                                                <tr>
+                                                                                    <td>fire proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>cold proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>noice proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>abcd proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>others proof</td>
+                                                                                    <td>precut</td>
+                                                                                    <td>25.54</td>
+                                                                                    <td>254</td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr> 
+                                                    </tbody>
+                                                </table> 
+                                            </div> 
+                                        </div> 
+                                    </fieldset>
+                                    {{-- Building Components --}}
+                            
+                                    {{-- Additional Info --}}
+                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
+                                        <div class="legend shadow-sm border rounded text-primary">Additional Info</div>
+                                        <div class="card-body pt-4">
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?</p>
+                                            
+                                        </div> 
+                                    </fieldset>
+                                    {{-- Additional Info --}}
+                                </div>
                             </div>
 
                             <div class="card-footer border-0 p-0 " >
@@ -1029,6 +1188,7 @@
 @endsection
           
 @push('custom-styles')
+    <link rel="stylesheet" href="{{ asset('public/assets/css/pages/customer-enquiry.css') }}">
     <style>
         .table tbody tr td {
             padding: 5px !important
@@ -1105,9 +1265,7 @@
         .p1 {
             padding: 5px !important
         }     
-       
-    </style>
-     <style>
+        
         .time-bar {
             width: 100% !important;
             height: 1px;
@@ -1170,6 +1328,21 @@
         }
         #SvgjsText1885 {
             display: none !important;
+        }
+        fieldset:hover ,   fieldset:hover  .legend {
+            border: 1px solid #757CF2 !important
+        }
+        .legend {
+            top: -15px;
+            position: absolute;
+            font-weight: bold;
+            line-height: 25px;
+            padding: 0px 10px;
+            background: white;
+            left: 25px;
+        } 
+        .table-bold {
+            font-weight: bold !important
         }
     </style>   
 @endpush

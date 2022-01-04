@@ -1,7 +1,6 @@
 <div class="row m-0" id="additionalInformation">
-    <div class="col-sm-6 mx-auto">
+    <div class="col-sm-8 mx-auto">
         <div >
-            
             <h3 class="text-center">Specify additional details</h3>
 
             <div class="py-3">
@@ -11,28 +10,45 @@
                 </div>
             </div>
             
-            
-            <div class="card p-3 my-3 shadow rounded">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo blanditiis eos quidem iure voluptates, ipsam vel dolore rem facere, alias doloribus dignissimos iste in a. Eveniet tenetur dignissimos molestiae perferendis?</p>
-                <div class="text-right d-flex align-items-center   justify-content-end ">
-                    <i class="fas fa-calendar-day mr-2"></i>
-                    <small class="float-right">25/11/2021</small>
-                </div>
-                <div class="d-flex align-items-center">
-                    <i class="fa fa-user me-2"></i> <span class="float-start"> Nishanth ( <small>Sales Admin</small> )</span>
-                </div>
-
-            </div>
-            <div class="card p-3 my-3 shadow rounded">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo blanditiis eos quidem iure voluptates, ipsam vel dolore rem facere, alias doloribus dignissimos iste in a. Eveniet tenetur dignissimos molestiae perferendis?</p>
-                <div class="text-right d-flex align-items-center   justify-content-end ">
-                    <i class="fas fa-calendar-day mr-2"></i>
-                    <small class="float-right">25/11/2021</small>
-                </div>
-                <div class="d-flex align-items-center">
-                    <i class="fa fa-user me-2"></i> <span class="float-start"> Nishanth ( <small>Sales Admin</small> )</span>
-                </div>
-            </div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>S.no</th>
+                    <th>Date</th>
+                    <th>commented persion</th>
+                    <th>comments</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>25/11/2021</td>
+                    <td>Nishanth</td>
+                    <td>Lorem ipsum dolor sit amet.</td>
+                </tr> 
+                <tr>
+                    <td>2</td>
+                    <td>26/11/2021</td>
+                    <td>Kumar</td>
+                    <td>Lorem ipsum dolor sit amet.</td>
+                </tr> 
+                <tr>
+                    <td>3</td>
+                    <td>27/11/2021</td>
+                    <td>Ranjith</td>
+                    <td>Lorem ipsum dolor sit amet.</td>
+                </tr> 
+                <tr>
+                    <td>4</td>
+                    <td>28/11/2021</td>
+                    <td>vetri</td>
+                    <td>Lorem ipsum dolor sit amet.</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>29/11/2021</td>
+                    <td>Santhosh</td>
+                    <td>Lorem ipsum dolor sit amet.</td>
+                </tr>  
+            </table>
+             
         </div>
     </div>
     <!-- end col -->

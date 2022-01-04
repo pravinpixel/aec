@@ -15,8 +15,6 @@
                 
                 @include('admin.layouts.page-navigater') 
                
-              
-                    
                     <div data-loading> </div>
                
                 <div class="card border">
@@ -31,7 +29,7 @@
                                                 <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
-                                        <p class="h5 mt-2">Project Info</p>
+                                        <p class="h5 mt-2">Project summary</p>
                                     </a>
                                 </li>
                                 <li class="nav-item  admin-Technical_Estimate-wiz">
@@ -389,9 +387,7 @@
           
 @push('custom-styles') 
     <style>
-        .table tbody tr td {
-            padding: 5px !important
-        }
+      
         @media (min-width: 1200px) {
             .modal-xxl {
                 width: 100% !important
@@ -410,13 +406,7 @@
         }
         /* .table > :not(caption) > * > * {
             padding: 0 !important
-        } */
-        .table tbody tr td{
-            padding:  10px !important
-        }
-        .table tbody thead tr  th{
-            padding:  10px !important
-        }
+        } */ 
         .form-lable {
             background: #f1f2fe;
             border-radius: 5px;
@@ -500,22 +490,7 @@
         .admin-Delivery-wiz .timeline-step::after {
             visibility: hidden;
         }
-        /* .time-bar {
-            width: 100% !important;
-            height: 1px;
-            position: absolute;
-            border: 1px dashed  gray;
-            top: 45px
-        } */
-        /* .timeline-steps::before {
-            content: "";
-            width: 100% !important;
-            height: 1px;
-            position: absolute;
-            border: 1px dashed  gray;
-            top: 45px;
-            z-index: -1;
-        } */
+        
         .timeline-steps  {
             display: flex;
             justify-content:space-between;
@@ -709,165 +684,12 @@
         }]); 
 
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
-            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id }} ).then(function (response) {
+            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id ?? " " }} ).then(function (response) {
                 $scope.E = response.data;
-            });
-            
-            $scope.wallGroup  = [
-                {
-                    "WallName" : "External Wall",
-                    "WallIcon" : "dripicons-store", 
-                    "Details": [
-                        {
-                            "FloorName" : "Ground Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                },
-                {
-                    "WallName" : "Internal Wall",
-                    "WallIcon" : "uil uil-store-alt", 
-                    "Details": [
-                        {
-                            "FloorName" : "First Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                },
-                {
-                    "WallName" : "Partition Wall",
-                    "WallIcon" : "uil uil-wall", 
-                    "Details": [
-                        {
-                            "FloorName" : "New Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                },
-                {
-                    "WallName" : "Ceiling",
-                    "WallIcon" : "uil uil-layers", 
-                    "Details": [
-                        {
-                            "FloorName" : "Top Right Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                },
-                {
-                    "WallName" : "Roof",
-                    "WallIcon" : "uil uil-mountains-sun", 
-                    "Details": [
-                        {
-                            "FloorName" : "Top Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                } 
-            ]; 
-            $scope.AddWall  =   function() {
-                $scope.wallGroup.unshift({
-                    "WallName" : "",
-                    "Details": [{
-                        "Layers": [] 
-                    }]
-                });
-            }
-            $scope.AddWallDetails  =   function(index) {
-                $scope.wallGroup[index].Details.push({
-                    "FloorName" : "Ground Floor",
-                    "FloorNumber" : "1",
-                    "TotalArea" : "2500",
-                    "DeliveryType" : "Fire Proof",
-                    "Layers": [
-                        {
-                            "LayerName": '',
-                            "LayerType": '',
-                            "Thickness ": '',
-                            "Breadth": '',
-                        }
-                    ] 
-                });
-            } 
-            $scope.AddLayers  =   function(fIndex, index) {
-                $scope.wallGroup[fIndex].Details[index].Layers.unshift({
-                    "LayerName": '',
-                    "LayerType": '',
-                    "Thickness ": '',
-                    "Breadth": '',
-                });
-            }    
-            $scope.delWall = function(index){
-                
-                $scope.wallGroup.splice(index,1);
-            } 
-            $scope.delWallTwo = function(fIndex){
-                $scope.wallGroup.splice(fIndex,1);
-            }
-            $scope.RemoveDetails = function(fIndex, Secindex){
-                $scope.wallGroup[fIndex].Details.splice(Secindex,1);                
-            }
-            $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){ 
-                $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
-            } 
+            }); 
         });
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
-            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id }} ).then(function (response) {
+            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id ?? " " }} ).then(function (response) {
                 $scope.E = response.data;
             }); 
             $scope.total = 0;

@@ -81,7 +81,7 @@
                                                 <a class="dropdown-item" href="#">Move to proposal</a>
                                             </div> --}}
                                             
-                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.customer_id }}"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.customer_id }}"><i class="fa fa-edit"></i></a>
                                         </div>
                                     </td>
                                 </tr> 

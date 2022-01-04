@@ -239,12 +239,18 @@
          
         gantt.attachEvent("onAfterTaskAdd", function(id,item){
             location.reload()
+            // gantt.refreshData();
+            // gantt.load(URL);
+             
+
         });
         gantt.attachEvent("onAfterTaskUpdate", function(id,item){
             location.reload()
+            // gantt.load(URL);
         });
         gantt.attachEvent("onAfterTaskDelete", function(id,item){
             location.reload()
+            // gantt.load(URL);
         });
 
         gantt.attachEvent("onLinkCreated", function(link){
@@ -288,8 +294,6 @@
             task.etype = 0;
             gantt.render();
             return true;
-            console.log(enquiryid);
-
         });
         
         // console.log(enquiryid);
@@ -300,7 +304,7 @@
             gantt.render();
             return true;
         });
-        
+       
         gantt.attachEvent("onLightboxSave", function(id, task, is_new){
             
             var task = gantt.getTask(id);
