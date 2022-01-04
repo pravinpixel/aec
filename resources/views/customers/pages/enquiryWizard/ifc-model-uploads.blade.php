@@ -1,4 +1,4 @@
-<div id="ifcmodelUpload" class="form-horizontal">
+<form id="IFCModelUpload"  method="post" class="form-horizontal ng-pristine ng-invalid ng-invalid-required was-validated">
     <div class="row mx-0">
         @foreach($customer['document_types']  as $key => $documentType)
             <div class="col-md-3">
@@ -26,6 +26,17 @@
             <h1>{{  Str::of($documentType->document_type_name)->upper() }}</h1>
             <br>
             <viewlist data ="{{ $documentType->slug }}List"></viewlist><br/>
-        </div>  
+            @if($documentType->is_mandatory == 1) 
+                <input class="hidden-input" type="text" name="{{ $documentType->slug }}mandatory" ng-model="{{ $documentType->slug }}mandatory" required>
+            @endif
+           
+        </div> 
     @endforeach
-</div>
+</form>
+<style>
+    .hidden-input {
+       position: absolute !important;
+       opacity: 0;
+       z-index: -111111111111;
+    }
+</style>

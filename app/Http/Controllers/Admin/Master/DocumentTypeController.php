@@ -1,11 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Master;
 
+use App\Http\Controllers\Controller;
+use App\Interfaces\DocumentTypeRepositoryInterface;
 use Illuminate\Http\Request;
 
 class DocumentTypeController extends Controller
 {
+    protected $documentTypeRepo;
+    public function __construct(DocumentTypeRepositoryInterface $documentTypeRepo)
+    {
+        $this->documentTypeRepo = $documentTypeRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,7 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->documentTypeRepo->all());
     }
 
     /**

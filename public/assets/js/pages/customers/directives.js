@@ -19,5 +19,5 @@ app.directive('viewlist', function() {
 
     return directive;
  });
-    
+
  //popup directives

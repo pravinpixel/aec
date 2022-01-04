@@ -1144,10 +1144,11 @@
         app.controller('wizard', function($scope, $http,$rootScope) {
             $scope.result = []
             $rootScope.currentStep = 0;
-            $scope.updateWizardStatus = (newStep) => {
+
+            $rootScope.updateWizardStatus = (newStep) => {
                 $rootScope.currentStep = newStep;
             }
-            $scope.gotoStep = function(newStep) {
+            $rootScope.gotoStep = function(newStep) {
                 if($rootScope.currentStep > newStep) {
                     $rootScope.currentStep = newStep;
                     return false;
@@ -1158,12 +1159,10 @@
                 } else if ($rootScope.currentStep == 2) {
                     $scope.$broadcast('callServiceSelection');
                 } else if ($rootScope.currentStep == 3) {
-
+                    $scope.$broadcast('callIFCModelUpload');
                 } else if ($rootScope.currentStep == 4) {
                     $scope.$broadcast('buildingComponent');
                 }
-               
-           
             }
           
         });
@@ -1378,9 +1377,19 @@
             }
         });
 
-        app.controller('IFCModelUpload', function ($scope, $http, $parse, fileUploadService) {
+        app.controller('IFCModelUpload', function ($scope, $http, $parse, fileUploadService,  $rootScope) {
+            let mandatoryUpload= [];
             $scope.PlanView = [];
             $scope.posterTitle = 'click here';
+            
+            $scope.$on('callIFCModelUpload', function(e) {
+
+                mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
+                                                alert(`mandatory file upload ${view}`);
+                                            });$rootScope.currentStep = 2;
+            
+            });
+
             $scope.fileName= function(element, attribute) {
                 $scope.$apply(function($scope) {
                     var attribute_name = element.getAttribute('demo-file-model');
@@ -1403,10 +1412,13 @@
                     promise.then(function (response) {
                         $scope.getIFCViewList(response, view_type);
                         $scope.serverResponse = response;
-                        $scope.$watch(function($scope) {
-                            $scope[`${view_type}__file_name`] = '';
-                            $scope[`${view_type}`] = undefined;
-                        });
+                        $scope[`${view_type}__file_name`] = '';
+                        $scope[`${view_type}`] = undefined;
+                        const index = mandatoryUpload.indexOf(view_type);
+                        if (index > -1) {
+                            mandatoryUpload.splice(index, 1);
+                        }
+                        $scope[`${view_type}mandatory`] = 'true';
                     }, function () {
                         $scope.serverResponse = 'An error has occurred';
                     });
@@ -1448,9 +1460,24 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             }
-       
+            let documentTypefireOnce = false;
+            $scope.getDocumentTypes = () => {
+                if(documentTypefireOnce){ return; }
+                $http({
+                    method: 'GET',
+                    url: '{{ route("document-type.index") }}'
+                }).then(function (res) {
+                    documentTypefireOnce = true;
+                    res.data.map((item) => {
+                        item.is_mandatory == 1 && mandatoryUpload.push(item.slug);
+                    });
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+            $scope.getDocumentTypes();
         });
-
+       
 
         app.controller('CrudCtrl', function ($scope, $http) { 
 
