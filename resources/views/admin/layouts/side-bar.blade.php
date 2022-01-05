@@ -1,7 +1,7 @@
 <div class="leftside-menu">
     
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-light shadow-lg"  style="background:white !important">
+    <a href="#" class="logo text-center logo-light shadow-lg"  style="background:white !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
@@ -15,7 +15,7 @@
     </a>
 
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-dark"  style="background:gray !important">
+    <a href="#" class="logo text-center logo-dark"  style="background:gray !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
@@ -35,7 +35,7 @@
  
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#dashboard" aria-expanded="false" aria-controls="dashboard" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
+                    <i class="fa fa-tachometer-alt"></i>
                     <span> Dashboards </span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -64,7 +64,7 @@
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarMaps" aria-expanded="false" aria-controls="sidebarMaps" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-briefcase" aria-hidden="true"></i>
                     <span> Sales </span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -84,20 +84,20 @@
 
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-layer-group" aria-hidden="true"></i>
                     <span> Projects </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-server" aria-hidden="true"></i>
                     <span> Projects Schedule </span>
                 </a> 
             </li> 
 
             <li class="side-nav-item ">
                 <a data-bs-toggle="collapse" href="#costestimate" aria-expanded="false" aria-controls="costestimate" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-fingerprint" aria-hidden="true"></i>
                     <span>Administration</span>
                     <span class="menu-arrow"></span>
                 </a>
@@ -120,37 +120,37 @@
             </li> 
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
                     <span> Tasks </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-globe-americas" aria-hidden="true"></i>
                     <span> Economy </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-address-book" aria-hidden="true"></i>
                     <span> Customer Details </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-users-cog" aria-hidden="true"></i>
                     <span> Supplier Details </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-calendar-check" aria-hidden="true"></i>
                     <span> Calendar </span>
                 </a> 
             </li>
             <li class="side-nav-item ">
                 <a href="{{ route('admin-settings') }}" class="side-nav-link">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <i class="fa fa-cog" aria-hidden="true"></i>
                     <span> Setup </span>
                 </a> 
             </li> 

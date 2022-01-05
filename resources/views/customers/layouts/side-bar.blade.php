@@ -1,7 +1,7 @@
 <div class="leftside-menu">
     
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-light shadow-lg"  style="background:white !important">
+    <a href="#" class="logo text-center logo-light shadow-lg"  style="background:white !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 <img src="{{ asset('public/assets/images/customer/logo.png') }}" alt="AEC Prefab" width="150px">
@@ -13,7 +13,7 @@
     </a>
 
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-dark"  style="background:gray !important">
+    <a href="#" class="logo text-center logo-dark"  style="background:gray !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 <img src="{{ asset('public/assets/images/logo_customer.png') }}" alt="AEC Prefab" width="100px" style="filter: drop-shadow(2px 4px 6px #555555);">
@@ -36,15 +36,14 @@
                 <div class="collapse" id="Dashboard">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{ route('customers-dashboard') }}">Enquiries</a>
+                            <a href="{{ route('customers-enquiry-dashboard') }}">Enquiries</a>
                         </li>
                         <li>
-                            <a href="#">Project</a>
+                            <a href="{{ route('customers-project-dashboard') }}">Project</a>
                         </li>
                         <li>
                             <a href="#">Economy</a>
-                        </li>
-                         
+                        </li> 
                     </ul>
                 </div>
             </li> 

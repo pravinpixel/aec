@@ -45,9 +45,9 @@
                                     <tr>
                                         <td>{{ $key +1 }}</td>
                                         <td> 
-                                            <span data-bs-toggle="modal" data-bs-target="#right-modal-progress" class="badge badge-primary-lighten btn  p-2">
+                                           
                                                 {{ $row->enquiry_number }}
-                                            </span>
+                                            
                                         </td>
                                         <td>Construction</td>
                                         <td>1</td>

@@ -19,6 +19,15 @@
             </div>                
 
             <div class="row">
+                @if ($errors->any())
+                    <div class="alert alert-danger col-12">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="col-md-12 mb-4">
                     <div class="card shadow-lg mb-0">
                         <div class="card-body p-4">
@@ -172,6 +181,27 @@
                     enquiry_number  :   $scope.myWelcome,
                     remarks         :   $scope.module.remarks
                 } 
+                // $http({
+                //     method: "POST",
+                //     url: API_URL + "admin/enquiry",
+                //     data: $.param($scope.data),
+                //     headers: { 
+                //         'Content-Type': 'application/x-www-form-urlencoded' 
+                //     }
+                // }).then(function (response) {
+                //     if(response.data.errors) {
+                //         Message('success',response.data.errors);
+                //     }
+                //     console.log(response);
+                //     console.log(response.data);
+
+                //     Message('success',response.data.msg);
+                //     $scope.getItems();
+                //     $scope.resetForm();
+
+                // }), (function (error) { 
+                //     console.log(error); 
+                // }); 
                 $http({
                     method: "POST",
                     url: API_URL + "admin/enquiry",
@@ -179,19 +209,15 @@
                     headers: { 
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
-                }).then(function (response) {
-                    if(response.data.errors) {
-                        Message('success',response.data.errors);
-                    }
+                }).then(function successCallback(response) {
                     Message('success',response.data.msg);
                     $scope.getItems();
                     $scope.resetForm();
-
-                }), (function (error) { 
-                    console.log(error); 
-                }); 
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors.email);
+                });
             }
-           
+  
             $scope.resetForm =  function() {
                 $scope.module = {};
                 $scope.enqForm.$setPristine();

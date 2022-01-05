@@ -1,12 +1,17 @@
 <?php
 
 use App\Http\Controllers\Customer\EnquiryController;
+use App\Http\Controllers\Customer\DashboardController;
+
 use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], function(){
+ 
+    Route::get('dashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-enquiry-dashboard");
+    Route::get('/enquirydashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-dashboard");
 
-    Route::get('dashboard', function () {
-        return view('customers.index');
-    })->name('customers-dashboard');
+
+    Route::get('project-dashboard', [DashboardController::class,'projectDashborad'])->name("customers-project-dashboard");
+
   
     Route::get('my-enquiries', [EnquiryController::class,'myEnquiries'])->name("customers-my-enquiries");
 
