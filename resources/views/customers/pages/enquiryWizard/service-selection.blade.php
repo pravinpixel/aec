@@ -6,6 +6,6 @@
                 <span>@{{ service.service_name }}</span>
             </div>
         </label> 
+        <input class="hidden-input" type="text" name="service_selection_mandatory" ng-model="service_selection_mandatory" required>
     </div>
 </form>
- 

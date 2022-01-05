@@ -90,8 +90,17 @@ class EnquiryController extends Controller
             $services = $this->serviceRepo->find($data)->pluck('id');
             $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
             return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
-        } else if($type == 'ifc_model_upload') {
+        } else if($type == 'ifc_model_upload' || $type == 'ifc_model_upload_mandatory') {
             $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+            if($type == 'ifc_model_upload_mandatory') {
+                $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
+                $ficuploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
+                $mandatoryDocs = $this->checkMandatoryFile($mandatoryDocuments , $ficuploads);
+                if(!empty($mandatoryDocs)) {
+                    return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
+                }
+                return response(['status' => true, 'msg' => '', 'data' => '']);
+            }
             $view_type =  $request->input('view_type');
             $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
             $original_name = $request->file('file')->getClientOriginalName();
@@ -103,6 +112,17 @@ class EnquiryController extends Controller
         }
     }
 
+
+    public function checkMandatoryFile($mandatoryDocuments , $ficuploads) 
+    {
+        $mandatoryFile = [];
+        foreach($mandatoryDocuments as $mandatoryDocument) {
+            if(!in_array($mandatoryDocument->id, $ficuploads)) {
+                $mandatoryFile[] = $mandatoryDocument->slug;
+            }
+        }
+        return $mandatoryFile;
+    }
     
     public function storeFiles(Request $req) {
         

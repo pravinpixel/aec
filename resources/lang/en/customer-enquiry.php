@@ -5,5 +5,6 @@ return [
     'file_type' => 'File Type',
     'comments'  => 'Comments',
     'status'    => 'Status',
-    'action'    => 'Actions'
+    'action'    => 'Actions',
+    'select'    => '--- please select ---',
 ];

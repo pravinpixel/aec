@@ -1172,7 +1172,7 @@
             let projectTypefiredOnce = false;
             let deliveryTypefiredOnce = false;
             let buildingTypefiredOnce = false;
-
+            $scope.mobilenoRegex = /^[0-9]{1,8}$/;
             $scope.getProjectType = () => {
                 if(projectTypefiredOnce){ return; }
                 $http({
@@ -1261,9 +1261,11 @@
 
            $scope.$on('callServiceSelection', function(e) { 
                 if($scope.serviceList.length == 0){
+                    $scope.service_selection_mandatory = null;
                     $rootScope.currentStep = 1;
                     return false;
-                }           
+                }
+                $scope.service_selection_mandatory = true;      
                $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -1387,7 +1389,20 @@
                 mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
                                                 alert(`mandatory file upload ${view}`);
                                             });$rootScope.currentStep = 2;
-            
+                
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'ifc_model_upload_mandatory', 'data': false}
+                }).then(function (res) {
+                    if(res.data.status == false) {
+                        res.data.data.map((field) => {
+                            console.log(field);
+                        });
+                    }
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             });
 
             $scope.fileName= function(element, attribute) {

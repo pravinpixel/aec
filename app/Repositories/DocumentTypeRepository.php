@@ -53,4 +53,8 @@ class DocumentTypeRepository implements DocumentTypeRepositoryInterface{
     {
         return $this->model->where('slug',$slug)->first();
     }
+    public function getMandatoryField() 
+    {
+        return $this->model->where('is_mandatory',1)->get();
+    }
 }

@@ -216,4 +216,8 @@ thead, tbody, tfoot, tr, td, th {
     font-size: 16px !important;
     margin-bottom: 0px !important;
 } 
-
+.hidden-input {
+    position: absolute !important;
+    opacity: 0;
+    z-index: -111111111111;
+ }
