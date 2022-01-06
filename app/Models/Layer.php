@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Layer extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function layerTypes()
+    {
+        return $this->hasMany(LayerType::class,'layer_id','id');
+    }
 }

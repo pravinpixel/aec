@@ -923,6 +923,7 @@
                     return false;
                 }
                 $rootScope.currentStep = newStep;
+                console.log($rootScope.currentStep);
                 if($rootScope.currentStep == 1 ) {
                     $scope.$broadcast('callProjectInfo');
                 } else if ($rootScope.currentStep == 2) {
@@ -930,7 +931,7 @@
                 } else if ($rootScope.currentStep == 3) {
                     $scope.$broadcast('callIFCModelUpload');
                 } else if ($rootScope.currentStep == 4) {
-                    $scope.$broadcast('buildingComponent');
+                    $scope.$broadcast('callBuildingComponent');
                 }
             }
           
@@ -1157,7 +1158,7 @@
 
                 mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
                                                 alert(`mandatory file upload ${view}`);
-                                            });$rootScope.currentStep = 2;
+                                            });$rootScope.currentStep = 3;
                 
                 $http({
                     method: 'POST',
@@ -1264,6 +1265,9 @@
        
 
         app.controller('CrudCtrl', function ($scope, $http, $rootScope) { 
+            $scope.$on('callBuildingComponent', function(e) {
+                console.log( $scope.wallGroup);
+            });
             $scope.wallGroup = [];
             getBuildingComponent = () => {
                 $http({
@@ -1273,6 +1277,7 @@
                         response.data.map( (item , index) => {
                             
                             let wall = {
+                                WallId: item.id,
                                 WallName: item.building_component_name,
                                 WallIcon: item.building_component_icon,
                                 Details: [
@@ -1298,10 +1303,12 @@
                 });
             }
           
-            getLayerType = () => {
+            $scope.getLayerType = (building_component_id, layer_id) => {
+   
                 $http({
                     method: 'GET',
-                    url: '{{ route("layer-type.index") }}'
+                    url: '{{ route("layer-type.index") }}',
+                    params : {building_component_id: building_component_id, layer_id: layer_id}
                     }).then(function success(response) {
                         $scope.layerTypes = response.data;
                     }, function error(response) {
@@ -1311,7 +1318,6 @@
 
             getBuildingComponent();
             getLayer();
-            getLayerType();
 
             $scope.AddWallDetails  =   function(index) {
                 $scope.wallGroup[index].Details.push({

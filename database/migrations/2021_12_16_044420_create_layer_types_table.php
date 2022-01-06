@@ -15,8 +15,12 @@ class CreateLayerTypesTable extends Migration
     {
         Schema::create('layer_types', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('building_component_id')->nullable();
+            $table->unsignedBigInteger('layer_id')->nullable();
             $table->string('layer_type_name');
             $table->boolean('is_active')->default(1);
+            $table->foreign('layer_id')->references('id')->on('layers');
+            $table->foreign('building_component_id')->references('id')->on('building_components');
             $table->softDeletes();
             $table->timestamps();
         });
