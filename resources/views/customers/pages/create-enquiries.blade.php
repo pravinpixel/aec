@@ -942,7 +942,7 @@
             let deliveryTypefiredOnce = false;
             let buildingTypefiredOnce = false;
             $scope.mobilenoRegex = /^[0-9]{1,8}$/;
-            $scope.getProjectType = () => {
+            getProjectType = () => {
                 if(projectTypefiredOnce){ return; }
                 $http({
                     method: 'GET',
@@ -955,20 +955,20 @@
                 });
             } 
 
-            $scope.getDeliveryType = () => {
+            getDeliveryType = () => {
                 if(deliveryTypefiredOnce){ return; }
                 $http({
                     method: 'GET',
                     url: '{{ route("delivery-type.index") }}'
                 }).then(function (res) {
                     deliveryTypefiredOnce = true;
-                    $scope.deliveryTypes = res.data;		
+                    $rootScope.deliveryTypes = res.data;		
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             } 
   
-            $scope.getBuildingType = () => {
+            getBuildingType = () => {
                 if(buildingTypefiredOnce){ return; }
                 $http({
                     method: 'GET',
@@ -981,9 +981,9 @@
                 });
             } 
 
-            $scope.getProjectType();
-            $scope.getBuildingType();
-            $scope.getDeliveryType();
+            getProjectType();
+            getBuildingType();
+            getDeliveryType();
 
             $scope.$on('callProjectInfo', function(e) {  
                 if(!$("#projectInfoForm")[0].checkValidity()){
@@ -993,7 +993,7 @@
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
-                    data: {type: 'project_info', 'data': $scope.getProjectInfoInptuData($scope.projectInfo)}
+                    data: {type: 'project_info', 'data': getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
                     
                 }, function (error) {
@@ -1001,7 +1001,7 @@
                 });         
             });
         
-            $scope.getProjectInfoInptuData = function($projectInfo) {
+            getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
                     'company_name'         : $projectInfo.company_name,
                     'contact_person'       : $projectInfo.contact_person,
@@ -1263,138 +1263,62 @@
         });
        
 
-        app.controller('CrudCtrl', function ($scope, $http) { 
+        app.controller('CrudCtrl', function ($scope, $http, $rootScope) { 
+            $scope.wallGroup = [];
+            getBuildingComponent = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("building-component.index") }}'
+                    }).then(function success(response) {
+                        response.data.map( (item , index) => {
+                            
+                            let wall = {
+                                WallName: item.building_component_name,
+                                WallIcon: item.building_component_icon,
+                                Details: [
+                                ] 
+                            }
+                            $scope.wallGroup.push(wall);
+                        });
+                    }, function error(response) {
 
-            $scope.$on('callServiceSelection', function(e) {  
-               $scope.$parent.result['building_component'] = ($scope.getBuildingComponentInptuData());            
-            });
+                 
 
-            $scope.getBuildingComponentInptuData = function() {
-                return $scope.wallGroup;
-           }
-
-            $scope.wallGroup  = [
-                {
-                    "WallName" : "External Wall",
-                    "WallIcon" : "dripicons-store", 
-                    "Details": [
-                        {
-                            "FloorName" : $scope.FloorName,
-                            "FloorNumber" : $scope.FloorNumber,
-                            "TotalArea" : $scope.TotalArea,
-                            "DeliveryType" : $scope.DeliveryType,
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": $scope.LayerName,
-                                    "LayerType": $scope.LayerType,
-                                    "Thickness ": $scope.Thickness,
-                                    "Breadth": $scope.Breadth,
-                                } 
-                            ] 
-                        } 
-                    ]
-                },
-                {
-                    "WallName" : "Internal Wall",
-                    "WallIcon" : "uil uil-store-alt", 
-                    "Details": [
-                        {
-                            "FloorName" : "First Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                },
-                {
-                    "WallName" : "Partition Wall",
-                    "WallIcon" : "uil uil-wall", 
-                    "Details": [
-                        {
-                            "FloorName" : "New Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                },
-                {
-                    "WallName" : "Ceiling",
-                    "WallIcon" : "uil uil-layers", 
-                    "Details": [
-                        {
-                            "FloorName" : "Top Right Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                },
-                {
-                    "WallName" : "Roof",
-                    "WallIcon" : "uil uil-mountains-sun", 
-                    "Details": [
-                        {
-                            "FloorName" : "Top Floor",
-                            "FloorNumber" : "1",
-                            "TotalArea" : "2500",
-                            "DeliveryType" : "Fire Proof",
-                            
-                            "Layers": [ 
-                                {
-                                    "LayerName": '',
-                                    "LayerType": '',
-                                    "Thickness ": '',
-                                    "Breadth": '',
-                                } 
-                            ] 
-                        } 
-                    ]
-                } 
-            ]; 
-            $scope.AddWall  =   function() {
-                $scope.wallGroup.unshift({
-                    "WallName" : "",
-                    "Details": [{
-                        "Layers": [] 
-                    }]
                 });
-              
             }
+         
+            getLayer = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("layer.index") }}'
+                    }).then(function success(response) {
+                        $scope.layers = response.data;
+                    }, function error(response) {
+                        console.log('layer');
+                });
+            }
+          
+            getLayerType = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("layer-type.index") }}'
+                    }).then(function success(response) {
+                        $scope.layerTypes = response.data;
+                    }, function error(response) {
+                        console.log('layer');
+                });
+            }
+
+            getBuildingComponent();
+            getLayer();
+            getLayerType();
+
             $scope.AddWallDetails  =   function(index) {
                 $scope.wallGroup[index].Details.push({
-                    "FloorName" : "Ground Floor",
-                    "FloorNumber" : "1",
-                    "TotalArea" : "2500",
-                    "DeliveryType" : "Fire Proof",
+                    "FloorName" : "",
+                    "FloorNumber" : "",
+                    "TotalArea" : "",
+                    "DeliveryType" : "",
                     "Layers": [
                         {
                             "LayerName": '',

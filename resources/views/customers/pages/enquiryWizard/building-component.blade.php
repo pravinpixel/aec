@@ -1,4 +1,4 @@
-<div class="row" id="buildingComponent">
+<form class="row" id="buildingComponent" novalidate>
         <div class="row">
             <div class="col-sm mb-2 mb-sm-0">
                 <div class="nav flex-column nav-pills shadow-sm rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -12,8 +12,6 @@
         
             <div class="col-sm-10">
                 <div class="tab-content" id="v-pills-tabContent">
-
-
                     <div class="tab-pane fade " ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
 
                         <div class="d-flex justify-content-between align-items-center">
@@ -21,11 +19,11 @@
                             <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Wall</button>
                         </div>
 
-                        <div ng-repeat="(Secindex,d) in w.Details">    
+                        <div ng-repeat="(Secindex,d) in w.Details">  
                             <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
                                 
                                 <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">@{{ w.WallName }} 1.@{{$index + 1}}</div>
-                                {{-- <button class="btn btn-info float-end"  ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Floor</button> --}}
+
                                 <div class="accordion-item shadow-sm  ">
                                     
                                     <div class="accordion-header m-0  " style="background:#f1f2fe" id="headingOne">                                                                    
@@ -34,32 +32,30 @@
                                                 <th class="bg-light">
                                                     <div class="form-group">
                                                         <label class="form-lable text-dark shadow-sm position-absolute border">Floor</label>
-                                                        <input type="text" class="form-control form-control-sm my-2 mt-3" ng-model="d.FloorName" placeholder="Type here...">
+                                                        <input type="text" class="form-control form-control-sm my-2 mt-3" name="FloorName" ng-model="d.FloorName"  required placeholder="Type here..." required>
                                                     </div>
                                                 </th>
                                                 <th  class="bg-light">
                                                     <div class="form-group">
                                                         <label class="form-lable text-dark shadow-sm position-absolute border">EXD wall Number</label>
-                                                        <input type="text" class="form-control form-control-sm my-2  mt-3" ng-model="d.FloorNumber" placeholder="Type here...">
+                                                        <input type="text" class="form-control form-control-sm my-2  mt-3" ng-model="d.FloorNumber" placeholder="Type here..." required>
                                                     </div>
                                                 </th>
                                                 <th  class="bg-light">
                                                     <div class="form-group">
                                                         <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
-                                                        <select class="form-select  form-select-sm my-2 mt-3" ng-model="d.DeliveryType">
-                                                            <option selected >-- Choose --</option>
-                                                            <option value="Element">Element</option>
-                                                            <option value="Precut">Precut</option>
-                                                            <option value="Module">Module</option>
-                                                            <option value="mix of all">Mix of All</option>
-                                                            <option value="Others">Others</option>
+                                                        <select class="form-select  form-select-sm my-2 mt-3" ng-model="d.DeliveryType" required>
+                                                            <option value="">@lang('customer-enquiry.select')</option>
+                                                            <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" >
+                                                                @{{ deliveryType.delivery_type_name }}
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </th>
                                                 <th  class="bg-light">
                                                     <div class="form-group">
                                                         <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area</label>
-                                                        <input type="number" class="form-control form-control-sm my-2  mt-3" ng-model="d.TotalArea">
+                                                        <input type="number" class="form-control form-control-sm my-2  mt-3" name="@{{Secindex}}TotalArea" ng-model="d.TotalArea" required>
                                                     </div>
                                                 </th> 
                                                 <th  class="bg-light">
@@ -139,40 +135,22 @@
                                                                 <td>
                                                                     <div class="form-group shadow-sm">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                        <select class="form-select  form-select-sm" ng-model="l.LayerName">
-                                                                            <option value="">-- Choose --</option>
-                                                                            <option value="1">External Cladding</option>
-                                                                            <option value="2">Horizontal Nailers</option>
-                                                                            <option value="3">Vertical Nailers</option>
-                                                                            <option value="4">External Insulation</option>
-                                                                            <option value="5">Wind Barrier</option>
-                                                                            <option value="7">Planking</option>
-                                                                            <option value="9">Construction</option>
-                                                                            <option value="10">Insulation</option>
-                                                                            <option value="12">Planking</option>
-                                                                            <option value="14">Vapour Barrier</option>
-                                                                            <option value="17">Insulation</option>
-                                                                            <option value="18">Internal Planking</option>
+                                                                        <select class="form-select  form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerName" required>
+                                                                            <option value="">@lang('customer-enquiry.select')</option>
+                                                                            <option ng-repeat="layer in layers" value="@{{ layer.id }}" >
+                                                                                @{{ layer.layer_name }}
+                                                                            </option>
                                                                         </select>
                                                                     </div>
                                                                 </td>
                                                                 <td> 
                                                                     <div class="form-group shadow-sm">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
-                                                                        <select class="form-select  form-select-sm" ng-model="l.LayerType">
-                                                                            <option value="">-- Choose --</option>
-                                                                            <option value="1">External Cladding</option>
-                                                                            <option value="2">Horizontal Nailers</option>
-                                                                            <option value="3">Vertical Nailers</option>
-                                                                            <option value="4">External Insulation</option>
-                                                                            <option value="5">Wind Barrier</option>
-                                                                            <option value="7">Planking</option>
-                                                                            <option value="9">Construction</option>
-                                                                            <option value="10">Insulation</option>
-                                                                            <option value="12">Planking</option>
-                                                                            <option value="14">Vapour Barrier</option>
-                                                                            <option value="17">Insulation</option>
-                                                                            <option value="18">Internal Planking</option>
+                                                                        <select class="form-select  form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerType" required>
+                                                                            <option value="">@lang('customer-enquiry.select')</option>
+                                                                            <option ng-repeat="layerType in layerTypes" value="@{{ layerType.id }}" >
+                                                                                @{{ layerType.layer_type_name }}
+                                                                            </option>
                                                                         </select>
                                                                     </div>
                                                                 </td>
@@ -180,12 +158,12 @@
                                                                     <div class="btn-group shadow-sm border rounded">
                                                                         <div class="form-group">
                                                                             <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
-                                                                            <input type="number" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " >
+                                                                            <input type="number" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
                                                                         </div>
                                                                         <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >x</span>
                                                                         <div class="form-group">
                                                                             <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
-                                                                            <input type="number" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" >
+                                                                            <input type="number" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
                                                                         </div>
                                                                         <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
                                                                     </div>
@@ -231,4 +209,4 @@
             </div> 
         </div> 
   
-</div> 
+</form> 

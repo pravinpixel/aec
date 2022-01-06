@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProjectTypeSeeder::class);
         $this->call(ServiceSeeder::class);
         $this->call(LayerSeeder::class);
+        $this->call(LayerTypeSeeder::class);
         $this->call(DocumentTypeSeeder::class);
     }
 }

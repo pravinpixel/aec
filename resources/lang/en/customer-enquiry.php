@@ -6,5 +6,5 @@ return [
     'comments'  => 'Comments',
     'status'    => 'Status',
     'action'    => 'Actions',
-    'select'    => '--- please select ---',
+    'select'    => 'Please select',
 ];
