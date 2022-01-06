@@ -5,18 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Gantt;
+use DB;
+use App\Models\GanttChart;
 
 class GanttController extends Controller
 {
     public function getData()    {
-        $data   =    Gantt::where('status','=','1')
+        $data   =    GanttChart::where('status','=','1')
                     ->select('id','text','start_date','open','duration','progress','parent')
                     ->get();
         return response()->json(['data'=>$data]);
     }
     public function storeData(Request $r) { 
 
-        $data = new Gantt();
+        $data = new GanttChart();
 
         $data   ->  start_date  =   $r->start_date;
         $data   ->  text        =   $r->text;
@@ -35,7 +37,7 @@ class GanttController extends Controller
     }
    
     public function updateData(Request $r, $id) {
-        $data   =   Gantt::find($id);
+        $data   =   GanttChart::find($id);
         $data   ->  start_date  =   $r->start_date;
         $data   ->  text        =   $r->text;
         $data   ->  duration    =   $r->duration;
@@ -51,12 +53,11 @@ class GanttController extends Controller
         ]);
     }
     public function deleteData(Request $r, $id) {
-        $data   =   Gantt::find($id);
+        $data   =   GanttChart::find($id);
         $data    ->  delete();
  
         return response()->json([
             "action"=> "deleted"
         ]);
     }
-}
- 
+} 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CostEstimationCalculationTable extends Migration
+class MasterCalculationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CostEstimationCalculationTable extends Migration
      */
     public function up()
     {
-        Schema::create('cost_estimation_calculation', function (Blueprint $table) {
+        Schema::create('master_calculation', function (Blueprint $table) {
             $table->id();
-            $table->string('estimation_detail_id')->nullable();
-            $table->string('Component')->nullable();
-            $table->string('type')->nullable();
+            $table->string('component_id')->nullable();
+            $table->string('type_id')->nullable();
             $table->string('sqm')->nullable();
             $table->string('complexity')->nullable();
             $table->string('detail_price')->nullable();
@@ -30,6 +29,7 @@ class CostEstimationCalculationTable extends Migration
             $table->string('logistic_sum')->nullable();
             $table->string('total_price')->nullable();
             $table->string('total_sum')->nullable();
+            $table->string('status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->softDeletes();
             $table->timestamps();

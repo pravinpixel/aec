@@ -14,6 +14,8 @@ class CostEstimationDetail extends Model
     protected $fillable = [
         'date',
         'contact',
+        'complexity_val',
+        'complexity_total',
         'status'
     ];
     public function CostEstimationCalculations () {

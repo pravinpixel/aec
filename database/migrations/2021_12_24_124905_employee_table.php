@@ -28,7 +28,7 @@ class EmployeeTable extends Migration
             $table->string('share_access')->nullable();
             $table->string('bim_access')->nullable();
             $table->string('access')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

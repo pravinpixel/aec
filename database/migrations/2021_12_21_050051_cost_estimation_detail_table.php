@@ -17,8 +17,10 @@ class CostEstimationDetailTable extends Migration
             $table->id();
             $table->string('date')->nullable();
             $table->string('contact')->nullable();
+            $table->string('complexity_val')->nullable();
+            $table->string('complexity_total')->nullable();
             $table->string('status')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -33,10 +33,10 @@
                                     <th>Employee ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Share Point Access</th>
-                                    <th>BIM 360 Access</th>
-                                    <th>24*7 Access</th>
+                                    <!-- <th>Mobile</th> -->
+                                    <th>Share Point</th>
+                                    <th>BIM</th>
+                                    <th>24*7</th>
                                     <th>Role</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -47,11 +47,11 @@
                                 <tr ng-repeat="(index,m) in module_employee">
                                     <!-- <td> @{{ index+1 }}</td> -->
                                     <td> 
-                                        <span ng-click="toggle('edit', m.customer_id)" class="badge badge-primary-lighten btn  p-2">@{{ m.employee_id }}</span>
+                                        <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.employee_id }}</span>
                                     </td>
                                     <td>@{{ m.first_Name }}</td>
                                     <td>@{{ m.email }}</td>
-                                    <td>@{{ m.number }}</td>
+                                    <!-- <td>@{{ m.number }}</td> -->
                                     
                                     <td>
                                         <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
@@ -78,27 +78,340 @@
                                     </td>
                                     <td>@{{ m.job_role }}</td>
                                     <td>	
-                                        <span class="badge bg-success shadow-sm rounded-pill" ng-if="m.status=='1'">Active</span>
-                                        <span class="badge bg-danger shadow-sm rounded-pill" ng-if="m.status=='0'">DeActive</span>
+                                    <div>
+                                        <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.status == 1" data-switch="primary"/>
+                                        <label for="switch__@{{index}}" data-on-label="On" ng-click="checkIt(index, m.id)" data-off-label="Off"></label>
+                                    </div>    
                                     </td>
                                     <td>
-                                        <div class="dropdown">
+                                    <!-- <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ><i class="fa fa-pencil"></i></button>
+                                    <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  "><i class="fa fa-trash"></i></button> -->
+                                    <a class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click=employeeEdit(m.id) "><i class="fa fa-pencil"></i></a>
+                                    <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click="employeeDelete(m.id)" ><i class="fa fa-trash"></i></a>
+                                    <!-- <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click=""><i class="fa fa-paper-plane"></i></a> -->
+                                        <!-- <div class="dropdown">
                                             <button type="button"  class="btn btn-sm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="dripicons-dots-3 "></i>
                                             </button>
                                             
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" ng-click=employeeEdit(m.id) ">Edit </a>
+                                                <a class="dropdown-item" ng-click=employeeEdit(m.id) ">Edit</a>
                                                 <a class="dropdown-item" ng-click="employeeDelete(m.id)" >Delete</a>
                                                 <a class="dropdown-item" ng-click=""s href="#">Sent Mail</a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </td>
                                 </tr> 
                             </tbody>
                         </table>
                     </div>
 
+                </div>
+                <div id="right-modal-progress" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
+                        <div class="p-3 shadow-sm">
+                            <h3>Project Name : <b class="text-primary"> @{{ enqData.project_name }} </b></h3>
+                            <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
+                        </div>
+                        <div class="modal-content h-100 p-4" style="overflow: auto">
+                            <div class="card mt-3">
+                                <div class="card-body p-2">
+                                    <table class="table table-bordered m-0">
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Job Role</th>
+                                        </tr>
+                                        <tr>
+                                            <td>@{{ enqData.employee_id }}</td>
+                                            <td>@{{ enqData.user_name }} </td>
+                                            <td>@{{ enqData.number }}</td>
+                                            <td>@{{ enqData.email }}</td>
+                                            <td>@{{ enqData.job_role }} </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div> 
+                            <div class="card">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item m-0">
+                                      <h2 class="accordion-header m-0" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Platform Access
+                                        </button>
+                                      </h2>
+                                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="row mx-0 container ">
+                                                <div class="col-12 text-center">
+                                                    <h4 class="f-20 m-0 p-3">Plat Information</h4>
+                                                </div>
+                                                <div class="col-md-6 p-3">
+                                                    <table class="table m-0  table-bordered">
+                                                        <tbody>
+                                                                <tr class="border">
+                                                                    <th  class=" ">Share Point
+                                                                    </th><td  class="bg-white">
+                                                                    <span  ng-if="enqData.share_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                                                    <span  ng-if="enqData.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                                    </td>
+                                                                </tr> 
+                                                                <tr class="border">
+                                                                    <th  class=" ">BIM
+                                                                    </th><td  class="bg-white">
+                                                                    <span  ng-if="enqData.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                                                    <span  ng-if="enqData.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                                    </td>
+                                                                </tr> 
+                                                                <tr class="border">
+                                                                    <th  class=" ">24*7
+                                                                    </th><td  class="bg-white">
+                                                                    <span  ng-if="enqData.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                                                    <span  ng-if="enqData.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                                    </td>
+                                                                </tr> 
+                                                                
+                                                               
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- <div class="col-md-6 p-3">
+                                                    <table class="table m-0   table-bordered">
+                                                    <tbody><tr class="border">
+                                                            <th  class=" ">Type of Building
+                                                            </th><td  class="bg-white">2</td>
+                                                        </tr> 
+                                                        <tr class="border">
+                                                            <th  class=" ">Number of Buildings
+                                                            </th><td  class="bg-white">@{{ enqData.no_of_building }}</td>
+                                                        </tr> 
+                                                        <tr class="border">
+                                                            <th  class=" ">Type of Delivery
+                                                            </th><td  class="bg-white">1</td>
+                                                        </tr> 
+                                                        <tr class="border">
+                                                            <th  class=" ">Deliveryd Date 
+                                                            </th><td  class="bg-white">2021-02-25</td>
+                                                        </tr> 
+                                                        <tr class="border">
+                                                            <th  class=" ">State
+                                                            </th><td  class="bg-white">non</td>
+                                                        </tr> 
+                                                        <tr class="border">
+                                                            <th  class=" ">Contact Person name
+                                                            </th><td  class="bg-white">@{{ enqData.customer.contact_person }} </td>
+                                                        </tr> 
+                                                        <tr class="border">
+                                                            <th  class=" ">E-post
+                                                            </th><td  class="bg-white">@{{ enqData.customer.email }} </td>
+                                                        </tr> 
+                                                    </tbody></table>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Client Listing
+                                        </button>
+                                      </h2>
+                                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="row mx-0 container ">
+                                                <div class="col-12 text-center">
+                                                    <h4 class="f-20 m-0 p-3">Client Listing</h4>
+                                                </div>
+                                                <div class="col-md-6 p-3 mx-auto">
+                                                    <table class="table m-0   table-bordered">
+                                                        <tbody>
+                                                            <tr class="border">
+                                                                <th class="bg-primary text-white">S.no</th>
+                                                                <th class="bg-primary text-white">Services</th>
+                                                            </tr> 
+                                                        <tr class="border">
+                                                            <td class=" ">1
+                                                            </td><td class="bg-white">CAD / CAM Modelling</td>
+                                                        </tr>  
+                                                        <tr class="border">
+                                                            <td class=" ">2
+                                                            </td><td class="bg-white">Approval Drawings</td>
+                                                        </tr>  
+                                                    </tbody></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            Project Listing
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <table class="table m-0  ">
+                                                                                
+                                                    <tbody>
+                                                        <tr>
+                                                            <th class="">S.no
+                                                            </th><th class="">File Name</th>
+                                                            <th class="">Type</th>
+                                                            <th class="">Action</th>
+                                                        </tr> 
+                                                        <tr class="border">
+                                                        <th class="bg-white">1
+                                                        </th><td class="bg-white">Modelling</td>
+                                                        <td class="bg-white">IFC Modelling</td>
+                                                        <td>
+                                                            <i class="feather-eye text-success mr-3"></i>
+                                                            <i class="feather-trash text-danger"></i>
+                                                        </td>
+                                                    </tr>  
+                                                    <tr class="border">
+                                                        <th class="bg-white">1
+                                                        </th><td class="bg-white">Modelling</td>
+                                                        <td class="bg-white">IFC Modelling</td>
+                                                        <td>
+                                                            <i class="feather-eye text-success mr-3"></i>
+                                                            <i class="feather-trash text-danger"></i>
+                                                        </td>
+                                                    </tr>  
+                                                    <tr class="border">
+                                                        <th class="bg-white">1
+                                                        </th><td class="bg-white">Modelling</td>
+                                                        <td class="bg-white">IFC Modelling</td>
+                                                        <td>
+                                                            <i class="feather-eye text-success mr-3"></i>
+                                                            <i class="feather-trash text-danger"></i>
+                                                        </td>
+                                                    </tr>  
+                                                    <tr class="border">
+                                                        <th class="bg-white">1
+                                                        </th><td class="bg-white">Modelling</td>
+                                                        <td class="bg-white">IFC Modelling</td>
+                                                        <td>
+                                                            <i class="feather-eye text-success mr-3"></i>
+                                                            <i class="feather-trash text-danger"></i>
+                                                        </td>
+                                                    </tr>  
+                                                    <tr class="border">
+                                                        <th class="bg-white">1
+                                                        </th><td class="bg-white">Modelling</td>
+                                                        <td class="bg-white">IFC Modelling</td>
+                                                        <td>
+                                                            <i class="feather-eye text-success mr-3"></i>
+                                                            <i class="feather-trash text-danger"></i>
+                                                        </td>
+                                                    </tr>  
+                                                </tbody></table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThreer">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreer" aria-expanded="false" aria-controls="collapseThree">
+                                                Building components
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThreer" class="accordion-collapse collapse" aria-labelledby="headingThreer" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="row mx-0 container ">
+                                                    <div class="col-12 text-center">
+                                                        <h4 class="f-20 m-0 p-3">Building components</h4>
+                                                    </div>
+                                                    <div class="col-md-8 p-3 mx-auto">
+                                                        <table class="table m-0 table-bordered " id="menu-table">
+                                                            
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th  class="bg-primary text-white">EW_DEWS
+                                                                    </th>
+                                                                    <th  class="bg-primary text-white">
+                                                                        Delivery Type : Element Type
+                                                                    </th>
+                                                                    <th  class="bg-primary text-white">
+                                                                        Total : 10
+                                                                    </th>
+                                                                </tr> 
+                                                            <tr class="border  ">
+                                                                <td>Layer Details</td>
+                                                                <td>Dimensions ( mm )</td>
+                                                                <td>Estimates length ( mm )</td>
+                                                            </tr>
+                                                            <tr class="border">
+                                                                <td>Horizontal Nails</td>
+                                                                <td>250X298</td>
+                                                                <td>0.58</td>
+                                                            </tr>  
+                                                            <tr class="border">
+                                                                <td>Horizontal Nails</td>
+                                                                <td>250X298</td>
+                                                                <td>0.58</td>
+                                                            </tr>  
+                                                            <tr class="border">
+                                                                <td>Horizontal Nails</td>
+                                                                <td>250X298</td>
+                                                                <td>0.58</td>
+                                                            </tr>  
+                                                            <tr class="border">
+                                                                <td>Horizontal Nails</td>
+                                                                <td>250X298</td>
+                                                                <td>0.58</td>
+                                                            </tr>  
+                                                            <tr class="border">
+                                                                <td>Horizontal Nails</td>
+                                                                <td>250X298</td>
+                                                                <td>0.58</td>
+                                                            </tr>  
+                                                            <tr class="border">
+                                                                <td>Horizontal Nails</td>
+                                                                <td>250X298</td>
+                                                                <td>0.58</td>
+                                                            </tr>  
+                                                            <tr class="border">
+                                                                <td>Horizontal Nails</td>
+                                                                <td>250X298</td>
+                                                                <td>0.58</td>
+                                                            </tr>  
+                                                        </tbody></table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>   -->
+                                    <!-- <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThreew">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreew" aria-expanded="false" aria-controls="collapseThreew">
+                                                Additional Info
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThreew" class="accordion-collapse collapse" aria-labelledby="headingThreew" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="col-md-10 p-0 mx-auto  border">
+                                                    <div class="col-12  text-center p-2  ">
+                                                        Additional Info
+                                                    </div>
+                                                    <div class="p-2">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 text-center mt-4">
+                                                    <button class="btn button_print progress-btn mx-2 px-3 btn-rounded">
+                                                        Print
+                                                    </button> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div> 
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
                 </div>
 
             
@@ -272,7 +585,26 @@
 				 // getData($http, API_URL);
 				// getMenuData($http, API_URL);
 
+                 $scope.checkIt = function(index, id){
+                        var url = API_URL + "admin/";
+                        if(id)
+                        {
+                            url += "employee_status/" + id;
+                            method = "PUT";
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
+                            }).then(function(response){
+                                Message('success',response.data.msg);
+                            }),(function(error){
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+                        }
+                 }
 
                 $scope.employeeDelete = function (id) {
                     var url = API_URL + 'admin/' + 'employee_delete/';
@@ -329,35 +661,6 @@
 
 
 
-                $scope.checkIt = function (index , id) {
-
-                    var url = API_URL + "module" + "/status";
-                    // getData($http, API_URL);
-
-                    if (id) {
-
-                        url += "admin/api/v2/customers-enquiry/" + id;
-                        method = "PUT";
-
-                        $http({
-                            method: method,
-                            url: url,
-                            data: $.param({'is_active':0}),
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-                        }).then(function (response) {
-                            
-                            getData($http, API_URL);
-
-                            Message('success',response.data.msg);
-
-                        }), (function (error) {
-                            console.log(error);
-                            console.log('This is embarassing. An error has occurred. Please check the log for details');
-                        });
-
-                    }
-                }
 
                     
 			    //show modal form
@@ -377,11 +680,11 @@
 			                $scope.id = id;
                             angular.element(document.querySelector("#loader")).removeClass("d-none"); 
 
-			                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + id )
+			                $http.get(API_URL + 'admin/employee-enquiry/' + id )
 
 			                    .then(function (response) {
-                                    
-			                        $scope.enqData = response.data;
+                                    // alert(JSON.stringify(response))
+			                        $scope.enqData = response.data.data;
 
                                     console.log( $scope.enqData);
   

@@ -849,5 +849,178 @@
         });
          
     </script>
+    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">
+    <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
+ 
+    <script>
+        var URL = "{{ route("data") }}";
+        
+        var zoomConfig = {
+            levels: [
+                {
+                    name:"day",
+                    scale_height: 27,
+                    min_column_width:80,
+                    scales:[
+                        {unit: "day", step: 1, format: "%d %M"}
+                    ]
+                },
+                {
+                    name:"week",
+                    scale_height: 50,
+                    min_column_width:50,
+                    scales:[
+                        {unit: "week", step: 1, format: function (date) {
+                            var dateToStr = gantt.date.date_to_str("%d %M");
+                            var endDate = gantt.date.add(date, -6, "day");
+                            var weekNum = gantt.date.date_to_str("%W")(date);
+                            return "#" + weekNum + ", " + dateToStr(date) + " - " + dateToStr(endDate);
+                        }},
+                        {unit: "day", step: 1, format: "%j %D"}
+                    ]
+                },
+                {
+                    name:"month",
+                    scale_height: 50,
+                    min_column_width:120,
+                    scales:[
+                        {unit: "month", format: "%F, %Y"},
+                        {unit: "week", format: "Week #%W"}
+                    ]
+                },
+                {
+                    name:"quarter",
+                    height: 50,
+                    min_column_width:90,
+                    scales:[
+                        {unit: "month", step: 1, format: "%M"},
+                        {
+                            unit: "quarter", step: 1, format: function (date) {
+                                var dateToStr = gantt.date.date_to_str("%M");
+                                var endDate = gantt.date.add(gantt.date.add(date, 3, "month"), -1, "day");
+                                return dateToStr(date) + " - " + dateToStr(endDate);
+                            }
+                        }
+                    ]
+                },
+                {
+                    name:"year",
+                    scale_height: 50,
+                    min_column_width: 30,
+                    scales:[
+                        {unit: "year", step: 1, format: "%Y"}
+                    ]
+                }
+            ]
+        };
+
+        gantt.ext.zoom.init(zoomConfig);
+        gantt.ext.zoom.setLevel("week");
+        gantt.ext.zoom.attachEvent("onAfterZoom", function(level, config){
+            document.querySelector(".gantt_radio[value='" +config.name+ "']").checked = true;
+        }) 
+         
+        gantt.plugins({
+            fullscreen: true
+        });
+       
+
+        gantt.ext.fullscreen.getFullscreenElement = function() {
+            return document.getElementById("myCover");
+        }
+        gantt.init("gantt_here");
+        gantt.load(URL);
+        
+        // gantt.config.root_id = "root"; 
+
+        gantt.attachEvent("onTaskCreated", function(task){
+            task.enqid = enquiryid;
+            task.etype = 0; 
+            gantt.render();
+            return true;
+        });
+         
+        gantt.attachEvent("onAfterTaskAdd", function(id,item){
+            location.reload()
+        });
+        gantt.attachEvent("onAfterTaskUpdate", function(id,item){
+            location.reload()
+        });
+        gantt.attachEvent("onAfterTaskDelete", function(id,item){
+            location.reload()
+        });
+
+        gantt.attachEvent("onLinkCreated", function(link){
+            link.enqid = enquiryid;
+            link.etype = 0;
+            gantt.render();
+            return true; 
+        });
+        
+        gantt.attachEvent("onLightboxSave", function(id, task, is_new){
+            var task = gantt.getTask(id); 
+            task.text = "Task #10";  
+            gantt.refreshTask(id);
+            gantt.render();
+            return true;
+        });
+        
+        function zoomIn(){
+            gantt.ext.zoom.zoomIn();
+        }
+        function zoomOut(){
+            gantt.ext.zoom.zoomOut()
+        }
+
+        var radios = document.getElementsByName("scale");
+
+        for (var i = 0; i < radios.length; i++) {
+
+            radios[i].onclick = function (event) {
+                gantt.ext.zoom.setLevel(event.target.value);
+            };
+        } 
+
+        var dp = new gantt.dataProcessor(URL);
+        var enquiryid = 0 ;
+        dp.init(gantt);
+        dp.setTransactionMode("REST");
+        
+        gantt.attachEvent("onTaskCreated", function(task){
+            task.enqid = enquiryid;
+            task.etype = 0;
+            gantt.render();
+            return true;
+            console.log(enquiryid);
+
+        });
+        
+        // console.log(enquiryid);
+        
+        gantt.attachEvent("onLinkCreated", function(link){
+            link.enqid = enquiryid;
+            link.etype = 0;
+            gantt.render();
+            return true;
+        });
+        
+        gantt.attachEvent("onLightboxSave", function(id, task, is_new){
+            
+            var task = gantt.getTask(id);
+
+            task.text = "Task #10"; 
+
+            gantt.refreshTask(id);
+            gantt.render();
+            return true;
+        });
+        
+        resourcesStore.parse([// resources
+            {key: '', label: "Invoice"},
+            
+        ]);
+
+        
+    </script>
  
 @endpush

@@ -17,7 +17,7 @@ class RoleTable extends Migration
             $table->id();
             $table->string('role')->nullable();
             $table->string('status')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

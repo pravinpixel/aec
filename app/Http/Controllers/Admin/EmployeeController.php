@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Employee;
 use Illuminate\Http\Response;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class EmployeeController extends Controller
 {
@@ -85,6 +86,8 @@ class EmployeeController extends Controller
         if (empty($module)) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
+        $module->status = 2;
+        $module->save();
         $module->delete();
         return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
@@ -104,6 +107,9 @@ class EmployeeController extends Controller
     {
         # code...
         // return $request->all();
+       
+         
+        // return response(['status' => true, 'data' => $request->all() ,'msg' => trans('Employee Created')], Response::HTTP_OK);
         $module = new Employee;
 
         $module->employee_id = $request->epm_id;
@@ -119,37 +125,64 @@ class EmployeeController extends Controller
         $module->share_access = 1;
         $module->bim_access = 0;
         $module->access = 1;
-
-        
-        if ($request->hasFile('epm_image')) {
-            return "if";
-            $image      = $request->file('epm_image');
-            // $fileName   = time() . '.' . $image->getClientOriginalExtension();
-
-            // $img = Employee::make($image->getRealPath());
-            // $img->resize(120, 120, function ($constraint) {
-            //     $constraint->aspectRatio();                 
-            // });
-
-            // $img->stream(); // <-- Key point
-
-            // //dd();
-            // Employee::disk('local')->put('images/1/smalls'.'/'.$fileName, $img, 'public');
-}
-// return $request->all();
+        if($request->hasFile('file'))
+        {
+            // return "sss";
+            $image = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move(public_path('image'),$image);
+            // return $image;
+            $module->image = $image;
+        }
         $res = $module->save();
         if($res) {
-            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
+            return response(['status' => true, 'data' => $res ,'msg' => trans('Employee Created')], Response::HTTP_OK);
         }
         return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
+
+    public function update_employee($id,Request $request)
+    {
+        // return $request->all();
+        $module = Employee::find($id);
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        if(!empty($module)){
+        
+        $module->employee_id = $request->epm_id;
+        $module->first_Name = $request->epm_fname;
+        $module->last_Name = $request->epm_lname;
+        $module->user_name = $request->epm_username;
+        $module->password = $request->epm_password;
+        $module->job_role = $request->epm_job_role;
+        $module->number = $request->epm_number;
+        $module->email = $request->epm_email;
+        if($request->hasFile('file'))
+        {
+            // return "sss";
+            $image = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move(public_path('image'),$image);
+            // return $image;
+            $module->image = $image;
+        }
+
+
+        $module->update();
+        return response(['status' => true, 'msg' => trans('module.Updated')], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
     public function getEmployeeId()
     {
-        # code...
         $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
+        }
+        if(empty( $data ))
+        {
+            
+            return response(['status' => true, 'data' => 1], Response::HTTP_OK);
+        }
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
     public function get_employee()
@@ -172,8 +205,10 @@ class EmployeeController extends Controller
         if (empty($module)) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
+        $module->status = 2;
+        $module->save();
         $module->delete();
-        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+        return response(['status' => true, 'msg' => trans('Employee deleted')], Response::HTTP_OK);
     }
     public function employeeEdit($id)
     {
@@ -192,31 +227,45 @@ class EmployeeController extends Controller
         } 
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
-    public function update_employee($id,Request $request)
+   
+    public function employee_status($id)
     {
-        # code...
-        // print_r($id);die();
         $module = Employee::find($id);
+
         if( empty( $module ) ) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->status = !$module->status;
+        $res = $module->save();
+
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
         }
-        if(!empty($module)){
-           
-        $module->employee_id = $request->epm_id;
-        $module->first_Name = $request->epm_fname;
-        $module->last_Name = $request->epm_lname;
-        $module->user_name = $request->epm_username;
-        $module->password = $request->epm_password;
-        $module->job_role = $request->epm_job_role;
-        $module->number = $request->epm_number;
-        $module->email = $request->epm_email;
-        $module->update();
-        return response(['status' => true, 'msg' => trans('module.Updated')], Response::HTTP_OK);
-        // return redirect()->route('admin-employee-control-view');
-        // return redirect()->route('admin-employee-control-view');
-        }
-        // $res = $module->update($request->only($module->getFillable()));
-       
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    public function employee_enquiry($id)
+    {
+        # code...
+        // return $id;
+        $module = Employee::where('id',$id)->first();
+
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+    
+        if( $module ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    public function employee()
+    {
+        // dd("s");
+        return view('admin.pages.employee');
+    }
+    public function dummyEmployee(Request $request)
+    {
+         dd ($request->file('file'));
+        //  return $val;
     }
 }

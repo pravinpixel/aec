@@ -104,7 +104,7 @@
                 <div class="collapse" id="costestimate">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{ route('admin-cost-estimation-view') }}">Cost Estimation</a>
+                            <a href="{{ route('cost-estimation-single-view') }}">Cost Estimation</a>
                         </li>
                         <li>
                             <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
@@ -112,9 +112,9 @@
                         <li>
                             <a href="{{ route('admin-employee-control-view') }}">Employee Control</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="{{ route('admin.employee-add') }}">Add Employee</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </li> 

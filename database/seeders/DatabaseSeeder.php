@@ -14,8 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        
         // $this->call(AdminSeeder::class);
-        // $this->call(RoleSeeder::class);
+        
+        $this->call(MasterCalculationSeeder::class);
+        $this->call(TypeSeeder::class);
+        $this->call(EstimationComponentSeeder::class);
         $this->call(ConfigSeeder::class);
         $this->call(BuildingComponentSeeder::class);
         $this->call(BuildingTypeSeeder::class);

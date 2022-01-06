@@ -138,6 +138,9 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
+    Route::get('employee',[ EmployeeController::class,'employee'])->name('employee');
+    Route::post('dummyEmployee',[ EmployeeController::class,'dummyEmployee'])->name('dummyEmployee');
+    
     Route::get('getEnquiryNumber', [EnquiryController::class,'getEnquiryNumber'])->name('getEnquiryNumber');;
     Route::resource('customer', CustomerController::class);
     Route::get('enquiry/get-number', [EnquiryController::class,'getEnquiryNumber'])->name('enquiry.get-number');
@@ -147,13 +150,33 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('costEstimationDelete', [CostEstimationController::class,'costEstimationDelete'])->name('costEstimationDelete');
     Route::resource('enquiry', EnquiryController::class);
    
-    Route::post('ganttChartForm', [GanttChartController::class,'ganttChartForm'])->name('ganttChartForm');
-    Route::get('ganttChart/list', [GanttChartController::class, 'ganttChart'])->name('ganttChart.list');
-    Route::post('ganttChart/list/task', [GanttChartController::class, 'createGanttChart'])->name('ganttChart.list.task');
-    Route::put('ganttChart/list/task/{id}', [GanttChartController::class, 'updateGanttChart'])->name('ganttChart.list.task');
-    Route::delete('ganttChart/list/task/{id}', [GanttChartController::class, 'deleteGanttChart'])->name('ganttChart.list.task');
-    Route::get('ganttChartEdit', [GanttChartController::class, 'ganttChartEdit'])->name('ganttChartEdit');
-    Route::get('ganttChartDelete', [GanttChartController::class, 'ganttChartDelete'])->name('ganttChartDelete');
+    Route::get('masterCalculation', [CostEstimationController::class, 'masterCalculation'])->name('masterCalculation');
+
+
+
+    // Route::get('/data',[ GanttChartController::class, 'getData'])->name('data');
+    // Route::get('/ganttChart/data',[ GanttChartController::class, 'getData'])->name('ganttChart.data');
+    // Route::post('ganttChartForm', [GanttChartController::class,'ganttChartForm'])->name('ganttChartForm');
+    Route::get('/ganttChart/list', [GanttChartController::class, 'ganttChart'])->name('ganttChart.list');
+    Route::post('/ganttChart/list/task', [GanttChartController::class, 'storeData'])->name('ganttChart.list.task');
+    Route::put('/ganttChart/list/task/{id}', [GanttChartController::class, 'updateGanttChart'])->name('ganttChart.list.task');
+    Route::delete('/ganttChart/list/task/{id}', [GanttChartController::class, 'deleteGanttChart'])->name('ganttChart.list.task');
+    // Route::get('ganttChartEdit', [GanttChartController::class, 'ganttChartEdit'])->name('ganttChartEdit');
+    // Route::get('ganttChartDelete', [GanttChartController::class, 'ganttChartDelete'])->name('ganttChartDelete');
+
+    
+
+// Route::get('/data',[ GanttChartController::class, 'getData'])->name('data');
+
+// Route::resource('task', 'TaskController');
+// Route::resource('link', 'LinkController');
+Route::post('data/task',[ GanttChartController::class, 'index'])->name('data.task');
+
+
+// Route::post('task',[ GanttChartController::class, 'storeData'])->name('task');
+// Route::put('task/{id}',[ GanttChartController::class, 'updateData'])->name('task');
+// Route::delete('task/{id}',[ GanttChartController::class, 'deleteData'])->name('task');
+
 
     Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role');
     Route::post('update_role/{id}', [EmployeeController::class, 'update_role'])->name('update_role');
@@ -172,8 +195,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('employeeEdit/{id}', [EmployeeController::class, 'employeeEdit'])->name('employeeEdit');
     Route::get('get_EditEmployee/{id}', [EmployeeController::class, 'get_EditEmployee'])->name('get_EditEmployee');
     
-    Route::put('update_employee/{id}', [EmployeeController::class, 'update_employee'])->name('update_employee');
-
+    Route::POST('update_employee/{id}', [EmployeeController::class, 'update_employee'])->name('update_employee');
+    Route::put('employee_status/{id}', [EmployeeController::class, 'employee_status'])->name('employee_status');
+    Route::get('employee-enquiry/{id}', [EmployeeController::class, 'employee_enquiry'])->name('employee-enquiry');
+    
 });
 
 /** ===== Start : Customers Routes ======*/
@@ -183,5 +208,7 @@ Route::get('/customer', function () {return redirect(route('customers.login'));}
 Route::get('customers/login',[ AuthController::class, 'getCustomerLogin'])->name('customers.login');
 Route::post('customers/login',[ AuthController::class, 'postCustomerLogin'])->name('customers.login');
 Route::post('customers/logout',[ AuthController::class, 'customerLogout'])->name('customers.logout');
+
+
 
 /** ===== End : Customers Routes ======*/

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class GanttChart extends Migration
+class ComponentEstimation extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class GanttChart extends Migration
      */
     public function up()
     {
-        Schema::create('gantt_chart', function (Blueprint $table) {
+        Schema::create('estimation_component', function (Blueprint $table) {
             $table->id();
-            $table->string('text')->nullable();
-            $table->string('start_date')->nullable();
-            $table->string('duration')->nullable();
-            $table->string('progress')->nullable();
+            $table->string('component_name')->nullable();
             $table->string('status')->nullable();
-            $table->string('open')->nullable();
-            $table->string('parent')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
