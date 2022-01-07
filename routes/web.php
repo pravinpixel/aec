@@ -5,6 +5,7 @@ include 'adminAPI.php';
 include 'master.php';
 include 'customer.php';
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EnquiryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CostEstimationController;
@@ -29,10 +30,12 @@ Route::get('/', function () {
 /** ===== Admin Routes ======*/
     
 Route::prefix('admin')->group(function () {
+
+    // ======== Auth========== 
+
     Route::get('/', function () {
         return redirect(route('admin-login'));
     });
-
     Route::get('/settings', function () {
         return  view('admin.settings');
     })->name('admin-settings');
@@ -41,16 +44,15 @@ Route::prefix('admin')->group(function () {
         return view('auth.admin.login');
     })->name('admin-login');
 
-    Route::get('/dashboard', function () {
-        return view('admin.index');
-    })->name('admin-dashboard');
+    // ======== Auth========== 
 
-    
+    // ======== Dashborads========== 
 
-    Route::get('/project-dashboard', function () {
-        return view('admin.project-dashboard');
-    })->name('admin-project-dashboard');
-
+    Route::get('/dashboard', [DashboardController::class,'enquiryDashboard'])->name("admin-dashboard");
+    Route::get('/project-dashboard', [DashboardController::class,'projectDashboard'])->name("admin-project-dashboard");
+  
+    // ======== END: Dashborads========== 
+ 
     Route::get('/sales-view-enquiries', function () {
         return view('admin.pages.view-sales-enquiries');
     })->name('admin-view-sales-enquiries');         
@@ -95,7 +97,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('sales-view-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
     
-    // Route::get('sales-view-enquiry', [EnquiryController::class,'singleIndexPage']);
+     
 
     Route::get('/quotation', function () {
         return view('admin.pages.quotation'); 
@@ -119,10 +121,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/admin-cost-estimation-view', function () {
         return view('admin.pages.cost-estimation-view');
     })->name('admin-cost-estimation-view');
-    
-    // Route::get('/cost-estimation-single-view', function () {
-    //     // return view('admin.pages.admin-cost-estimation-single-view');
-    // })->name('admin-cost-estimation-single-view');
+   
     Route::get('/admin-cost-estimation-single-view', [CostEstimationController::class,'cost_estimation_single_view'])->name('cost-estimation-single-view');
     Route::get('/admin-gantt-chart-single-view', [GanttChartController::class,'gantt_chart_single_view'])->name('admin-gantt-chart-single-view');
     Route::get('/admin-employee-control-view', [EmployeeController::class,'employee_control_view'])->name('admin-employee-control-view');
@@ -130,9 +129,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/proposal-conversation', function () {
         return view('admin.pages.proposal-conversation');
     })->name('proposal-conversation');
-    
-    // Route::get('/admin-gantt-chart-single-view', [GanttChartController::class,'gantt_chart_single_view'])->name('admin-gantt-chart-single-view');
-
+     
     Route::get('/gantt-chart',[GanttChartController::class,'gantt_chart_single_view'] )->name('gantt-chart');
     
 });
@@ -208,6 +205,10 @@ Route::get('/customer', function () {return redirect(route('customers.login'));}
 Route::get('customers/login',[ AuthController::class, 'getCustomerLogin'])->name('customers.login');
 Route::post('customers/login',[ AuthController::class, 'postCustomerLogin'])->name('customers.login');
 Route::post('customers/logout',[ AuthController::class, 'customerLogout'])->name('customers.logout');
+Route::get('customers/change-password',[ AuthController::class, 'changePasswordGet'])->name('customer.changePassword');
+Route::post('customers/change-password',[ AuthController::class, 'changePasswordPost'])->name('customer.changePassword');
+
+
 
 
 

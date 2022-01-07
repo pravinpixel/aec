@@ -22,45 +22,74 @@
                 <div class="card-body pt-0 pb-0">
                                
                     <div id="rootwizard" ng-controller="wizard">
-                        {{-- <ul class="nav nav-pills nav-justified form-wizard-header bg-light">
+                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                             <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfoForm">
-                                <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
-                                    <i class="uil-angle-double-right me-1"></i>
-                                    <span class="d-none d-sm-inline">Project Information</span>
+                                <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step active">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-project-diagram fa-2x "></i>
+                                        </div>       
+                                        <div class="text-end d-none d-sm-inline mt-2">Project Information</div>                                                                 
+                                    </div> 
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection">
-                                <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="uil-angle-double-right me-1"></i>
-                                    <span class="d-none d-sm-inline">Service Selection</span>
+                                <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step  ">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-list-alt fa-2x mb-1"></i>
+                                        </div>        
+                                        <span class="d-none d-sm-inline mt-2">Service Selection</span>                                                                
+                                    </div>
+                                    
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
-                                <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="uil-angle-double-right me-1"></i>
-                                    <span class="d-none d-sm-inline">IFC Model & Uploads</span>
+                                <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-2x fa-file-upload mb-1"></i>
+                                        </div>                                                                        
+                                        <span class="d-none d-sm-inline mt-2">IFC Model & Uploads</span>
+                                    </div>
+                                    
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
-                                <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="uil-angle-double-right me-1"></i>
-                                    <span class="d-none d-sm-inline">Building  Components</span>
+                                <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-2x fa-shapes mb-1"></i>
+                                        </div>                                                                        
+                                        <span class="d-none d-sm-inline mt-2">Building  Components</span>
+                                    </div>
+                                    
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation">
-                                <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="uil-angle-double-right me-1"></i>
-                                    <span class="d-none d-sm-inline">Additional Info</span>
+                                <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-2x fa-info mb-1"></i>
+                                        </div>       
+                                        <span class="d-none d-sm-inline mt-2">Additional Info</span>                                                                 
+                                    </div>
+                                    
                                 </a>
                             </li>
-                            <li class="nav-item"  ng-click="updateWizardStatus(5)" data-target-form="#reviewSubmit">
-                                <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 40px;"  class="d-flex justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline me-1"></i>
-                                    <span class="d-none d-sm-inline">Review &  Submit </span>
+                            <li class="nav-item last"  ng-click="updateWizardStatus(5)" data-target-form="#reviewSubmit">
+                                <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 40px;"  class="timeline-step">
+                                    <div class="timeline-content">
+                                        <div class="inner-circle  bg-success">
+                                            <i class="fa fa-2x fa-clipboard-check mb-1"></i>
+                                        </div>                   
+                                        <span class="d-none d-sm-inline mt-2">Review &  Submit </span>                                                     
+                                    </div>
+                                    
                                 </a>
                             </li>
-                        </ul> --}}
-                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light pt-0">
+                        </ul>
+                        {{-- <ul class="nav nav-pills nav-justified form-wizard-header bg-light pt-0">
                             <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfoForm">
                                 <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 80px;" class="d-flex flex-column justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
                                     <i class="fa fa-project-diagram fa-2x mb-1"></i>
@@ -97,7 +126,7 @@
                                     <small class="d-none d-sm-inline">Review &  Submit </small>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
 
                         <div class="tab-content my-3" >
                             <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
@@ -108,7 +137,7 @@
                             </div>
                             <div class="tab-pane fade " id="four" ng-controller="IFCModelUpload">
                                 @include('customers.pages.enquiryWizard.ifc-model-uploads')
-                            </div>
+                            </div> 
 
                             <div class="tab-pane p-0 h-100 fade " id="five" ng-controller="CrudCtrl">
                                 @include('customers.pages.enquiryWizard.building-component')
@@ -529,7 +558,7 @@
 
                             <div class="card-footer border-0 p-0 " >
                                 <ul class="list-inline wizard mb-0 pt-3">
-                                    <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous</a></li>
+                                    <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-outline-primary">Previous</a></li>
                                     <li class="next list-inline-item float-end" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
                                 </ul>
                             </div>
@@ -841,30 +870,41 @@
         .table-bold {
             font-weight: bold !important
         }
+        .timeline-step {
+            display: inline !important;
+        }
+        .timeline-step.active .inner-circle {
+            background: #757CF2 !important
+        }
+        .inner-circle .fa {
+            transform: translateY(5px)
+        }
          li.nav-item .timeline-step::after {
             content: "";
             position: absolute;
-            top: 34%;
+            top: 38%;
             right: -38px;
             border: 1px dashed;
             width: 50%; 
         }
+        li.last .timeline-step::after {
+            display: none;
+        }
         li.nav-item {
             position: relative;
         }
-        .timeline-steps  {
+        /* .timeline-steps  {
             display: flex;
-            justify-content:space-between;
-            /* align-items: center; */
-            position: relative;
-         
+            justify-content:center;
+            align-items: center;
+            position: relative; 
         }
         .timeline-step {
-            padding: 10px;
+           
             z-index: 1;
-            border-radius: 15px;
-            margin: 10px
-        }
+            
+            /* margin: 10px */
+        } */
         .inner-circle {
             height: 50px;
             width: 50px;
@@ -883,11 +923,11 @@
             display: flex;
             justify-content:center;
             align-items: center;
-            flex-direction: column;
+            /* flex-direction: column; */
         }
         .admin-Delivery-wiz .timeline-step::after {
             visibility: hidden;
-        }
+        } 
     </style>
 @endpush
 
@@ -1336,6 +1376,7 @@
                 });
                 console.log( $scope.wallGroup);
             } 
+            console.log($scope.wallGroup);
             $scope.AddLayers  =   function(fIndex, index) {
                 $scope.wallGroup[fIndex].Details[index].Layers.unshift({
                     "LayerName": '',
@@ -1346,11 +1387,11 @@
                 
             }    
             $scope.delWall = function(index){
-                
                 $scope.wallGroup.splice(index,1);
             } 
             $scope.delWallTwo = function(fIndex){
                 $scope.wallGroup.splice(fIndex,1);
+                
             }  
             $scope.RemoveDetails = function(fIndex, Secindex){
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);                
@@ -1362,6 +1403,7 @@
             $scope.removeWall = function(fIndex, Secindex){
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
             } 
+           
         });
 
       

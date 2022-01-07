@@ -96,17 +96,17 @@ class EnquiryController extends Controller
      */
     public function store(CreateCustomerRequest $request)
     {
+         
         DB::beginTransaction();
         try {
             $latest_enquiry_number = GlobalService::enquiryNumber();
             if($request->enquiry_number != $latest_enquiry_number) {
                 return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
             }
-            $password   =   'customer@123';
             $email      =   $request->email;
             $password   =   Str::random(8);
             $data = [
-                'customer_enquiry_date' => Carbon::now(),
+                'customer_enquiry_date' => $request->customer_enquiry_date,
                 'full_name'             => $request->user_name,
                 'company_name'          => $request->company_name,
                 'contact_person'        => $request->contact_person,
@@ -127,7 +127,7 @@ class EnquiryController extends Controller
                 'customer_email'    => $request->email,
                 'customer_pws'      => $password
             ]; 
-            Mail::to($request->email)->send(new \App\Mail\Enquiry($details));
+            // Mail::to($request->email)->send(new \App\Mail\Enquiry($details));
             return response(['status' => true, 'data' => $customer ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             Log::info($e->getMessage());

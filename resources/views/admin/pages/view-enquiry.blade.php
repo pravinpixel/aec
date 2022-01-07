@@ -386,6 +386,7 @@
 @endsection
           
 @push('custom-styles') 
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
     <style>
       
         @media (min-width: 1200px) {
@@ -569,7 +570,7 @@
     <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-   
+    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
    
     <script>
           
@@ -598,7 +599,7 @@
                 }  
             };
         }]);
-
+      
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {

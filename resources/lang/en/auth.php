@@ -194,6 +194,11 @@
         'login_timeout'                                         => 'Temporarily Locked Out.  Try again later.',
         'logout_successful'                                     => 'Logged Out Successfully',
         'logout_heading'                                        => 'Logout',
+
+
+        // Password Changing
+        'password_change_success'                               => 'Password to be changed successfully',
+        'password_change_fail'                                  => 'Password not matched.! try again',
         
         
         // Account Changes

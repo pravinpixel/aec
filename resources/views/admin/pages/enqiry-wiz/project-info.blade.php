@@ -67,73 +67,14 @@
                 <div class="input-group mt-3">
                     <input type="text" class="form-control rounded-pill me-2" placeholder="Type here.! your comments">
                     <button class="btn btn-primary rounded-pill" type="button"><i class="fa fa-send"></i></button>
-                </div>
-                
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item  border-0">
-                        <div class="text-end pt-2">
-                            <a href="" class="text-primary pe-2 pt-2" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                               <i class="fa fa-eye"></i>  Previous chat history
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body" style="max-height: 250px;overflow:auto">
-                                <ul class="simplebar-content conversation-list" style="padding: 0px 15px;">
-                                    <li class="clearfix mb-2">
-                                        <div class="conversation-text">
-                                            <div class="ctext-wrap">
-                                                <i>Shreyu N</i>
-                                                <p>
-                                                    Hello!
-                                                </p>
-                                            </div>
-                                        </div>      
-                                    </li>
-                                    <li class="clearfix odd mb-2">
-                                        <div class="conversation-text">
-                                            <div class="ctext-wrap">
-                                                <i>Dominic</i>
-                                                <p>
-                                                    Hi, How are you? What about our next meeting?
-                                                </p>
-                                            </div>
-                                        </div> 
-                                    </li> 
-                                    <li class="clearfix mb-2">
-                                        <div class="conversation-text">
-                                            <div class="ctext-wrap">
-                                                <i>Shreyu N</i>
-                                                <p>
-                                                    Yeah! today evening 4.PM @ Taj Hotal
-                                                </p>
-                                            </div>
-                                        </div>      
-                                    </li>
-                                    <li class="clearfix odd mb-2">
-                                        <div class="conversation-text">
-                                            <div class="ctext-wrap">
-                                                <i>Dominic</i>
-                                                <p>
-                                                    Oh okay! i will be there.
-                                                </p>
-                                            </div>
-                                        </div> 
-                                    </li>
-                                    <li class="clearfix mb-2">
-                                        <div class="conversation-text">
-                                            <div class="ctext-wrap">
-                                                <i>Shreyu N</i>
-                                                <p>
-                                                    Hmm. ok!
-                                                </p>
-                                            </div>
-                                        </div>      
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
+                </div> 
+               
+                <div class="text-end pt-2">
+                    <a href="" class="text-primary pe-2 pt-2" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <i class="fa fa-eye"></i>  Previous chat history
+                    </a>
+                </div> 
+                  
             </div> 
         </fieldset>
         {{-- ProjectInfo --}}

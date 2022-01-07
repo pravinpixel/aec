@@ -5,41 +5,25 @@
             <span class="badge badge-outline-success fa-2x"> Approved</span>
             <span class="badge badge-outline-danger fa-2x"> Denied</span>
         </div>
-        <div class="p-2 mx-auto col-md-8"> 
-            <div class="row m-0">
-                <div class="col-md-6">
-                    <div>
-                        <h4 class="p-2 m-0 h5 text-center"> Select a mail type </h4>
-                    </div>
-                    <div>
-                        <select class="form-select">
-                            <option>Offer letter</option>
-                            <option>Thankyou letter</option>
-                            <option>Invite Mail</option>
-                            <option>Contract letter</option>
-                        </select>
-                    </div> 
-                </div>
-                <div class="col-md-6">
-                    <div>
-                        <h4 class="p-2 m-0 h5 text-center"> Select a type </h4>
-                    </div>
-                    <div>
-                        <select class="form-select">
-                            <option>PO</option>
-                            <option>Contract</option>
-                        </select>
-                    </div> 
-                </div>
-            </div>
-        </div> 
+        <label for="">Select a Contract type</label>
+        <select class="form-select">
+            <option>Offer letter</option>
+            <option>Thankyou letter</option>
+            <option>Invite Mail</option>
+            <option>Contract letter</option>
+        </select>
+        <label for="">Select a type</label>
+        <select class="form-select">
+            <option>PO</option>
+            <option>Contract</option>
+        </select>
     </div>
     <div class="card-body">
         <div class="container p-0"> 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Awarded Projects</h4>
+                <h4>List of contract  mail's </h4>
                 <div class="btn-gr text-end">
-                    <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> preview</button>
+                    <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> Preview</button>
                     <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small><i class="fa fa-plus"></i> Create</small></button>
                 </div>
             </div>
@@ -346,8 +330,8 @@
             </table>
         </div>
         <div class="btn-gr text-end">
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bs-PreviewAwared-modal-lg">view</button>
-            <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal"> <i class="fa fa-envelope"></i> Send Mail</button>
+                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#bs-PreviewAwared-modal-lg"><i class="fa fa-eye me-1"></i>view summary</button>
+            <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal"> <i class="fa fa-envelope"></i> Send Mail</button>
         </div>
     </div>
     <div class="card-footer">

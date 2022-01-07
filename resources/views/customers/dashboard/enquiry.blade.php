@@ -46,7 +46,7 @@
                                         <div class="card-body">
                                             <i class='fa-thumbs-up fa  float-end  dashboard-icon'></i>
                                             <h6 class=" text-success mt-0">Active enquiries</h6>
-                                            <h2 class="my-2 h3">{{ $totaActiveEnq + 5 }}</h2>
+                                            <h2 class="my-2 h3">0</h2>
                                         </div> <!-- end card-body-->
                                     </div>
                                     <!--end card-->
@@ -75,7 +75,6 @@
                                             <th>Type of Project</th>
                                             <th>No. Of Property</th>
                                             <th>Enquiry Date</th>
-                                            <th>Pipeline</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
@@ -92,15 +91,7 @@
                                                 </td>
                                                 <td>Construction</td>
                                                 <td>1</td>
-                                                <td>{{ $row->enquiry_date }}</td>
-                                                <td>
-                                                    <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
-                                                        <button class="btn progress-btn active"></button>
-                                                        <button class="btn progress-btn"></button>
-                                                        <button class="btn progress-btn"></button>
-                                                        <button class="btn progress-btn"></button>
-                                                    </div>
-                                                </td>
+                                                <td>{{ $row->enquiry_date }}</td> 
                                                 <td>	
                                                     <span class="badge bg-success shadow-sm rounded-pill">Active</span>
                                                 </td>
@@ -118,7 +109,7 @@
                         <div class="card"> 
                             <div class="card-body">
                                 <h4 class="page-title mt-0">Active enquiries</h4>    
-                                <table id="scroll-vertical-datatable" class="table dt-responsive nowrap table-striped">
+                                {{-- <table id="scroll-vertical-datatable" class="table dt-responsive nowrap table-striped">
                                     <thead>
                                         <tr>
                                             <th>S.No</th>
@@ -163,7 +154,8 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table>
+                                </table> --}}
+                                <div class="text-secondary text-center">No Active enquiries</div>
                             </div>
                         </div> 
                     </div>

@@ -117,14 +117,14 @@
                 
             </table>
              
-            <div class="col-12 shadow text-dark bg-white border p-2">
+            <div class="col-12 shadow text-dark bg-white border p-2 rounded">
                 <h4 class="m-0"><span class="text-secondary">Total Cost :</span>    <b>XXXXX</b> </h4>
             </div>
         </div>
     </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-md-8">
+    <div class="card-footer border-0">
+        <div class="row m-0">
+            <div class="col-md-8 p-0">
                 <div class="input-group ">
                     <label class="input-group-text bg-white font-weight-bold" for="inputGroupSelect01">Assign to</label>
                     <select class="form-select border" id="inputGroupSelect01">
@@ -133,13 +133,13 @@
                       <option value="1">User Two</option> 
                       <option value="1">User Three</option> 
                     </select>
-                    <label class="input-group-text btn btn-primary" for="inputGroupSelect01">send</label>
+                    <label class="input-group-text btn btn-info" for="inputGroupSelect01">Send</label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 p-0">
                 <div class="text-end">
-                    <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                    <a class="btn btn-primary" onclick="submit()" href=""><i class="uil-sync"></i> Update</a>
+                    <button type="reset" class="btn btn-light font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+                    <a class="btn btn-success" onclick="submit()" href=""><i class="uil-sync"></i> Update</a>
                 </div>
             </div>
         </div>

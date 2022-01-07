@@ -19,15 +19,6 @@
             </div>                
 
             <div class="row">
-                @if ($errors->any())
-                    <div class="alert alert-danger col-12">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <div class="col-md-12 mb-4">
                     <div class="card shadow-lg mb-0">
                         <div class="card-body p-4">
@@ -37,28 +28,25 @@
                                         <div class="row m-0">
                                             <div class="col">
                                                 <div class="mb-3">                                             
-                                                    <label class="form-label"  >Enquiry Number  <sup class="text-danger">*</sup></label>
+                                                    <label class="form-label" >Enquiry Number  <sup class="text-danger">*</sup></label>
                                                     <input ng-disabled="true" type="text" ng-value="myWelcome"  class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >Enquiry Date <sup class="text-danger">*</sup></label>
-                                                    <input ng-disabled="true" type="text" value="{{  now()->toDateString() }}" class="form-control" >
+                                                    <input type="text" class="form-control date" name="enq_date"   ng-model="module.enq_date" ng-init="searchText  = 'can you see me'">
+                                                    {{-- <input type="date" class="form-control date" name="enq_date"  ng-model="module.enq_date"  id="birthdatepicker" data-toggle="date-picker" data-single-date-picker="true"> --}}
+                                              
                                                 </div>  
-                                            </div>
-                                            <div class="col">
-                                                <div class="mb-2">
-                                                    <label class="form-label" >Password </label>
-                                                    <input type="text" class="form-control" id="validationCustom02" placeholder="Auto generated password"  ng-disabled="true" >
-                                                </div> 
                                             </div>
                                         </div>
                                     </div> 
+                                     
                                         
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" >User Name<sup class="text-danger">*</sup></label>
+                                            <label class="form-label" >Display Name<sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="user_name" id="validationCustom02" ng-model="module.user_name" placeholder="Type Here..."  ng-required="true">
                                         </div>
                                     </div> 
@@ -80,7 +68,7 @@
                                     <div class="col-md-6"> 
                                         <div class="mb-3">
                                             <label class="form-label" >Telephone<sup class="text-danger">*</sup></label>
-                                            <input type="text" placeholder="+91-636-78658"  class="form-control"   ng-pattern="phoneNumbr" name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
+                                            <input type="text"    class="form-control"   ng-pattern="phoneNumbr" name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -156,7 +144,8 @@
             };
         }]);
         app.controller('SalesController', function ($scope, $http, API_URL) { 
-  
+            $scope.day = new Date();
+            $scope.searchText  = "can you see me";
             $scope.getItems = function() {
                 $http.get(API_URL + "admin/getEnquiryNumber").then(function(response) {
                     $scope.myWelcome = response.data;
@@ -164,44 +153,28 @@
             }
             $scope.getItems();
 
+            $scope.example = {
+                value: new Date(),
+                currentDate: new Date()
+            };
+
             // $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
             $scope.phoneNumbr = /^(0047|\+47|47)?[2-9]\d{7}$/;
 
 
             $scope.save = function (modalstate, id) {
-
-                $scope.day = new Date();
-                
+ 
                 $scope.data = {
-                    company_name    :   $scope.module.company_name, 
-                    contact_person  :   $scope.module.contact_person,
-                    mobile_no       :   $scope.module.mobile_number,
-                    email           :   $scope.module.email,
-                    user_name       :   $scope.module.user_name,
-                    enquiry_number  :   $scope.myWelcome,
-                    remarks         :   $scope.module.remarks
+                    company_name            :   $scope.module.company_name, 
+                    contact_person          :   $scope.module.contact_person,
+                    mobile_no               :   $scope.module.mobile_number,
+                    email                   :   $scope.module.email,
+                    user_name               :   $scope.module.user_name,
+                    customer_enquiry_date   :   $scope.module.enq_date,
+                    enquiry_number          :   $scope.myWelcome,
+                    remarks                 :   $scope.module.remarks
                 } 
-                // $http({
-                //     method: "POST",
-                //     url: API_URL + "admin/enquiry",
-                //     data: $.param($scope.data),
-                //     headers: { 
-                //         'Content-Type': 'application/x-www-form-urlencoded' 
-                //     }
-                // }).then(function (response) {
-                //     if(response.data.errors) {
-                //         Message('success',response.data.errors);
-                //     }
-                //     console.log(response);
-                //     console.log(response.data);
-
-                //     Message('success',response.data.msg);
-                //     $scope.getItems();
-                //     $scope.resetForm();
-
-                // }), (function (error) { 
-                //     console.log(error); 
-                // }); 
+                
                 $http({
                     method: "POST",
                     url: API_URL + "admin/enquiry",

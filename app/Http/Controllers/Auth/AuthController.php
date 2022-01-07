@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Customer;
 
 class AuthController extends Controller
 {
@@ -41,5 +43,33 @@ class AuthController extends Controller
         Auth::guard('customers')->logout();
         Flash::success(__('auth.logout_successful'));
         return redirect(route('customers.login'));
+    }
+
+    public function changePasswordGet() {
+        if(Auth::guard('customers')->check()) {
+            return view('auth.customer.changePassword');
+        }
+        return view('auth.customer.login');
+    }
+    public function changePasswordPost(Request  $request) {
+
+        $user = Customer::find(Customer()->id);
+    
+        $userPassword = $user->password;
+        
+        $request->validate([
+            'old_password'      =>  'required',
+            'password'          =>  'required|same:confirm_password|min:6',
+            'confirm_password'  =>  'required',
+        ]);
+
+        if (!Hash::check($request->old_password, $userPassword)) {
+            Flash::Error(__('auth.password_change_fail'));
+        }   else {
+            $user   ->  password    =   Hash::make($request->password);
+            $user   ->  save();
+        }
+        Flash::success(__('auth.password_change_success'));
+        return redirect()->back();
     }
 }
