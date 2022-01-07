@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\LayerTypeRepositoryInterface;
 use App\Repositories\LayerTypeRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class LayerTypeController extends Controller
 {
     protected $layerType;
 
-    public function __construct(LayerTypeRepository $layerType)
+    public function __construct(LayerTypeRepositoryInterface $layerType)
     {
         $this->layerType = $layerType;
     }
@@ -90,5 +91,13 @@ class LayerTypeController extends Controller
         $layerTypeId = $request->route('id');
         $this->layerType->delete($layerTypeId);
         return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function getLayerTypeByComponentId(Request $request)
+    {
+        $building_component_id = $request->input('building_component_id');
+        $layer_id = $request->input('layer_id');
+        $result = $this->layerType->getLayerTypeByComponentId($building_component_id, $layer_id);
+        return response()->json($result);
     }
 }

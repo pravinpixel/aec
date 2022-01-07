@@ -2,6 +2,8 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Http\Request;
+
 interface LayerTypeRepositoryInterface
 {
     public function all();
@@ -9,4 +11,5 @@ interface LayerTypeRepositoryInterface
     public function update(array $data, $id);
     public function delete($id);
     public function find($id);
+    public function getLayerTypeByComponentId($building_component_id, $layer_id);
 }

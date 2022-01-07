@@ -24,6 +24,7 @@ Route::resource('building-component', BuildingComponentController::class);
 
 Route::resource('layer', LayerController::class);
 
+Route::get('layer-type/get-layer-type', [LayerTypeController::class,'getLayerTypeByComponentId'])->name('layer-type.get-layer-type');
 Route::resource('layer-type', LayerTypeController::class);
 
 

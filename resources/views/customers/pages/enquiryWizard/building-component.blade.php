@@ -37,8 +37,8 @@
                                                 </th>
                                                 <th  class="bg-light">
                                                     <div class="form-group">
-                                                        <label class="form-lable text-dark shadow-sm position-absolute border">EXD wall Number</label>
-                                                        <input type="text" class="form-control form-control-sm my-2  mt-3" ng-model="d.FloorNumber" placeholder="Type here..." required>
+                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Wall Number</label>
+                                                        <input type="number" class="form-control form-control-sm my-2  mt-3" ng-model="d.FloorNumber" placeholder="Type here..." required>
                                                     </div>
                                                 </th>
                                                 <th  class="bg-light">

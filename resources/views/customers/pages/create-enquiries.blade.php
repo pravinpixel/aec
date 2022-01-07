@@ -1347,7 +1347,7 @@
    
                 $http({
                     method: 'GET',
-                    url: '{{ route("layer-type.index") }}',
+                    url: '{{ route("layer-type.get-layer-type") }}',
                     params : {building_component_id: building_component_id, layer_id: layer_id}
                     }).then(function success(response) {
                         $scope.layerTypes = response.data;

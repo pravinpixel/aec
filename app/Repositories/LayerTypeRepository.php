@@ -42,4 +42,9 @@ class LayerTypeRepository implements LayerTypeRepositoryInterface{
         }
         return $layerType;
     }
+
+    public function getLayerTypeByComponentId($building_component_id, $layer_id)
+    {
+        return $this->model->where(['building_component_id' => $building_component_id, 'layer_id' => $layer_id])->get();
+    }
 }
