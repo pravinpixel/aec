@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Enquiry;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class EnquiryController extends Controller
 {
@@ -109,6 +111,22 @@ class EnquiryController extends Controller
             $additionalData = ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
             $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
             return $enquiry->id;
+        } else if ($type == 'building_component') {
+            DB::beginTransaction();
+            try {
+                $dataObj = json_decode (json_encode ($data), FALSE);
+                if(!empty($dataObj)) {
+                    $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+                    $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
+                    if($response) {
+                        DB::commit();
+                        return true;
+                    }
+                }
+            } catch (Exception $ex) {
+                DB::rollBack();
+                Log::error($ex->getMessage());
+            }
         }
     }
 

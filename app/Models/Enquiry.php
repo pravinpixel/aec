@@ -77,5 +77,10 @@ class Enquiry extends Model
                         ->withTimestamps();
     }
 
+    function enquiryBuildingComponent()
+    {
+        return $this->hasMany(EnquiryBuildingComponent::class, 'enquiry_id', 'id');
+    }
+
 }
 

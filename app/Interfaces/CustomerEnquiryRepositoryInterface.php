@@ -34,4 +34,5 @@ interface CustomerEnquiryRepositoryInterface
 
     public function deleteDocumentEnquiry($id);
     
+    public function storeBuildingComponent($enquiry,$data);
 }

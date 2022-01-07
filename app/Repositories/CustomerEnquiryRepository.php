@@ -6,6 +6,9 @@ use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Models\Customer;
 use App\Models\DocumentTypeEnquiry;
 use App\Models\Enquiry;
+use App\Models\EnquiryBuildingComponent;
+use App\Models\EnquiryBuildingComponentDetail;
+use App\Models\EnquiryBuildingComponentLayer;
 use App\Models\EnquiryService;
 use App\Models\Service;
 
@@ -108,5 +111,40 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             return $document_type->update(['deleted_at' => now()]);
         }
         return false;
+    }
+
+    public function storeBuildingComponent($enquiry,$buildingComponents) 
+    {
+        foreach($buildingComponents as $buildingComponent) {
+            $enquiryBuildingComponent = new EnquiryBuildingComponent();
+            $enquiryBuildingComponent->building_component_id = $buildingComponent->WallId;
+            $enquiryBuildingComponent->enquiry_id = $enquiry->id;
+            $enquiryBuildingComponent->save();
+            if($enquiryBuildingComponent && !empty($buildingComponent->Details)) {
+                foreach($buildingComponent->Details as $buildingComponentDetail) {
+                    $enquiryBuildingComponentDetail = new EnquiryBuildingComponentDetail();
+                    $enquiryBuildingComponentDetail->enquiry_id                          = $enquiry->id;
+                    $enquiryBuildingComponentDetail->building_component_delivery_type_id = $buildingComponentDetail->DeliveryType;
+                    $enquiryBuildingComponentDetail->floor                               = $buildingComponentDetail->FloorName;
+                    $enquiryBuildingComponentDetail->exd_wall_number                     = $buildingComponentDetail->FloorNumber;
+                    $enquiryBuildingComponentDetail->approx_total_area                   = $buildingComponentDetail->TotalArea;
+                    $enquiryBuildingComponentDetail->enquiry_building_component_id       = $enquiryBuildingComponent->id;
+                    $enquiryBuildingComponentDetail->save();
+                    if(!empty($buildingComponentDetail->Layers)) {
+                        foreach($buildingComponentDetail->Layers as $buildingComponentLayer) {
+                            $buildingComponentDetailLayer                 = new EnquiryBuildingComponentLayer();
+                            $buildingComponentDetailLayer->enquiry_id     = $enquiry->id;
+                            $buildingComponentDetailLayer->enquiry_bcd_id = $enquiryBuildingComponentDetail->id;
+                            $buildingComponentDetailLayer->layer_id       = $buildingComponentLayer->LayerName;
+                            $buildingComponentDetailLayer->layer_type_id  = $buildingComponentLayer->LayerType;
+                            $buildingComponentDetailLayer->thickness      = $buildingComponentLayer->Thickness;
+                            $buildingComponentDetailLayer->breath         = $buildingComponentLayer->Breadth;
+                            $buildingComponentDetailLayer->save();
+                        }
+                    }
+                }
+                return true;
+            }                                
+        }
     }
 }

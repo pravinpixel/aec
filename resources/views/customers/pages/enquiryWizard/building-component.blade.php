@@ -62,7 +62,7 @@
                                                     <div class="btn-group">
                                                         <button class="btn-light shadow-sm border btn more-btn-layer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" aria-expanded="true" aria-controls="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}">
                                                             <i class="fa fa-chevron-down"></i>
-                                                        </button> 
+                                                        </button>                             
                                                         {{-- <span  class="position-absolute wall-delete-btn  badge bg-danger">
                                                             <i class="fa fa-trash"></i>
                                                         </span>  --}}

@@ -1198,7 +1198,8 @@
 
                 mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
                                                 alert(`mandatory file upload ${view}`);
-                                            });$rootScope.currentStep = 3;
+                                                $rootScope.currentStep = 2;
+                                            });
                 
                 $http({
                     method: 'POST',
@@ -1305,8 +1306,18 @@
        
 
         app.controller('CrudCtrl', function ($scope, $http, $rootScope) { 
+           
             $scope.$on('callBuildingComponent', function(e) {
                 console.log( $scope.wallGroup);
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'building_component', 'data': $scope.wallGroup}
+                }).then(function (res) {
+                    
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });   
             });
             $scope.wallGroup = [];
             getBuildingComponent = () => {
@@ -1321,10 +1332,12 @@
                                 WallName: item.building_component_name,
                                 WallIcon: item.building_component_icon,
                                 Details: [
-                                ] 
+                                    
+                                ]
                             }
                             $scope.wallGroup.push(wall);
                         });
+                        $scope.AddWallDetails(0);
                     }, function error(response) {
 
                  
@@ -1344,7 +1357,7 @@
             }
           
             $scope.getLayerType = (building_component_id, layer_id) => {
-   
+
                 $http({
                     method: 'GET',
                     url: '{{ route("layer-type.get-layer-type") }}',
@@ -1406,7 +1419,7 @@
            
         });
 
-      
+
     </script>
   
 @endpush

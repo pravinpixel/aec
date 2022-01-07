@@ -8,5 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class EnquiryBuildingComponentDetail extends Model
 {
     public $table = 'enquiry_bcds';
+    protected $fillable = [
+        'enquiry_building_component_id',
+        'building_component_delivery_type_id',
+        'floor',
+        'exd_wall_number',
+        'approx_total_area',
+    ];
+    
     use HasFactory;
+
+    public function enquiryBuildingComponentLayers()
+    {
+        return $this->hasMany(EnquiryBuildingComponentLayer::class, 'enquiry_bcd_id', 'id');
+    }
 }
