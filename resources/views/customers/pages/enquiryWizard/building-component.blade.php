@@ -3,13 +3,13 @@
             <div class="col-sm mb-2 mb-sm-0">
                 <div class="nav flex-column nav-pills shadow-sm rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"
-                        aria-selected="false">
+                        aria-selected="false"> 
                         <i class="fa-2x @{{ w.WallIcon }}"></i>
                         <div>@{{ w.WallName }}</div>
                     </a>
                 </div>
             </div> 
-        
+           
             <div class="col-sm-10">
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade " ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
@@ -18,7 +18,7 @@
                             <div > <h3> <div> </div></h3> </div>
                             <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Wall</button>
                         </div>
-
+                        
                         <div ng-repeat="(Secindex,d) in w.Details">  
                             <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
                                 
@@ -134,7 +134,7 @@
                                                                 <td>
                                                                     <div class="form-group shadow-sm">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                        <select class="form-select  form-select-sm" id="floatingSelect" ng-change ="getLayerType(w.WallId,l.LayerName)" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerName" required>
+                                                                        <select get-layer-type  class="form-select   form-select-sm" id="floatingSelect" ng-change ="getLayerType(w.WallId,l.LayerName)" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerName" required>
                                                                             <option value="">@lang('customer-enquiry.select')</option>
                                                                             <option ng-repeat="layer in layers" value="@{{ layer.id }}" >
                                                                                 @{{ layer.layer_name }}
@@ -145,7 +145,7 @@
                                                                 <td> 
                                                                     <div class="form-group shadow-sm">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
-                                                                        <select class="form-select  form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerType" required>
+                                                                        <select  class="form-select  form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerType" required>
                                                                             <option value="">@lang('customer-enquiry.select')</option>
                                                                             <option ng-repeat="layerType in layerTypes" value="@{{ layerType.id }}" >
                                                                                 @{{ layerType.layer_type_name }}

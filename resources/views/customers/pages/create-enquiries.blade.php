@@ -1301,8 +1301,8 @@
                         $scope.AddWallDetails(0);
                     }, function error(response) {
 
-                 
 
+                        
                 });
             }
          
@@ -1319,15 +1319,7 @@
           
             $scope.getLayerType = (building_component_id, layer_id) => {
 
-                $http({
-                    method: 'GET',
-                    url: '{{ route("layer-type.get-layer-type") }}',
-                    params : {building_component_id: building_component_id, layer_id: layer_id}
-                    }).then(function success(response) {
-                        $scope.layerTypes = response.data;
-                    }, function error(response) {
-                        console.log('layer');
-                });
+                
             }
 
             getBuildingComponent();
@@ -1377,8 +1369,27 @@
             $scope.removeWall = function(fIndex, Secindex){
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
             } 
-           
-        });
+        }).directive('getLayerType', function layerType($http) {
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    element.on('change', function () {
+                        if(scope.w.WallId == 'undefined' || scope.l.LayerName == 'undefined') {
+                            return false;
+                        }
+                        $http({
+                            method: 'GET',
+                            url: '{{ route("layer-type.get-layer-type") }}',
+                            params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+                            }).then(function success(response) {
+                                scope.layerTypes = response.data;
+                            }, function error(response) {
+                                console.log('layer');
+                        });
+                    });
+                },
+            };
+        });;
 
 
     </script>

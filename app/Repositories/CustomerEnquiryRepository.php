@@ -114,7 +114,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
 
     public function storeBuildingComponent($enquiry,$buildingComponents) 
-    {
+    {   
+        EnquiryBuildingComponent::where('enquiry_id', $enquiry->id)->delete();
+        EnquiryBuildingComponentDetail::where('enquiry_id', $enquiry->id)->delete();
+        EnquiryBuildingComponentLayer::where('enquiry_id', $enquiry->id)->delete();
         foreach($buildingComponents as $buildingComponent) {
             $enquiryBuildingComponent = new EnquiryBuildingComponent();
             $enquiryBuildingComponent->building_component_id = $buildingComponent->WallId;

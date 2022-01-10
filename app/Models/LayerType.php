@@ -10,6 +10,8 @@ class LayerType extends Model
 {
     use HasFactory, SoftDeletes;
     public $fillable = [
+        'building_component_id',
+        'layer_id',
         'layer_name',
         'is_active',
     ];
