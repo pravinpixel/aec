@@ -3,13 +3,13 @@
         <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ E.enquiry_number }}</span> | <span class="text-success">@{{ E.project_name }}</span> | <span class="text-info">@{{ E.customer.contact_person }}</span></h4>
     </div>
     <div class="card-body pt-0 p-0">
-        <table class="table shadow-none border m-0 table-bordered ">
+        <table class="table shadow-none border m-0 table-borde#E5EEF4 ">
             <thead class="bg-light">
-                <tr>
-                    <th>Enquiry Date</th>
-                    <th>Person Contact</th>
-                    <th>Type of Project</th>
-                    <th>Enquiry Status</th>
+                <tr >
+                    <th style="background: #0071A8 !important">Enquiry Date</th>
+                    <th style="background: #0071A8 !important">Person Contact</th>
+                    <th style="background: #0071A8 !important">Type of Project</th>
+                    <th style="background: #0071A8 !important">Enquiry Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,93 +21,137 @@
                 </tr>
             </tbody>
         </table>
-        <div class="row m-0 mt-3" >
-            <table class="table table-bordered border">
-                <thead>
-                    <tr class="bg-light-primary">
-                        <td colspan="15" class="text-center text-primary"><h5>Engineering Estimation</h5></td>
-                    </tr>
-                    <tr class="font-weight-bold ">
-                        <th>Component</th>
-                        <th>Type</th>
-                        <th>Sq.M</th>
-                        <th>Complexity</th>
-                        <th colspan="2">Details</th>
-                        <th colspan="2">Statistics</th>
-                        <th colspan="2">CAD/CAM</th>
-                        <th colspan="2">Logistics</th>
-                        <th colspan="2">Total Cost</th>
-                        <td colspan="2">Action</td>
-                    </tr>
-                    <tr class="bg-light-primary border" >
-                        <th colspan="4"></th>
-                        <th ><small>Price/M2</small></th>
-                        <th ><small>Sum</small></th> 
-                        <th ><small>Price/M2</small></th>
-                        <th ><small>Sum</small></th> 
-                        <th ><small>Price/M2</small></th>
-                        <th ><small>Sum</small></th> 
-                        <th ><small>Price/M2</small></th>
-                        <th ><small>Sum</small></th> 
-                        <th ><small>Price/M2</small></th>
-                        <th ><small>Sum</small></th> 
-                        <th>
-                             <i class="fa fa-plus text-light btn-sm btn"  ng-click="create()"></i> 
-                        </th>
-                    </tr>
-                </thead>
-                <tbody >
-                    <tr ng-repeat="(index,C) in CostEstimate" > 
-                        <td>
-                            <select class="form-select select" data-toggle="select">
-                                <option>-- Select --</option>
-                                <option value="External"  >External</option>
-                                <option value="Internal">Internal</option>
-                                <option value="Ground Floor" >Ground Floor</option>
-                                <option value="Roof" >Roof</option>
-                                <option value="Loadbearing" >Loadbearing</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-select select">
-                                <option>-- Select --</option>
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="CA">California</option>
-                                <option value="NV">Nevada</option>
-                                <option value="OR">Oregon</option>
-                                <option value="WA">Washington</option>
-                            </select>
-                        </td>
-                        <td><input  type="number" class="my-control"></td>
-                        <td><input  type="number" class="my-control"></td>
-                        {{-- Details --}}
-                        <td><input  type="number" class="my-control"></td>
-                        <td><input  type="number" class="my-control"></td>
-                        {{-- Statistics --}}
-                        <td><input  type="number" class="my-control"></td>
-                        <td><input  type="number" class="my-control"></td>
-                        {{-- CAD/CAM --}}
-                        <td><input  type="number" class="my-control"></td>
-                        <td><input  type="number" class="my-control"></td>
-                        {{-- Logistics --}}
-                        <td><input  type="number" class="my-control"></td>
-                        <td><input  type="number" class="my-control"></td>
-                        {{-- Total Cost --}}
-                        <td><input  type="number" class="my-control"></td>
-                        <td><input  type="number" class="my-control"></td>
-                        <td class="text-center">
-                            <i ng-click="delete(index)" class="fa fa-trash btn btn-sm text-danger"></i>
-                        </td>
-                    </tr>
-                    <tr> 
-                    </tr> 
-                </tbody>
-                
-            </table>
+        <div class="row m-0 mt-3 " >
+            <div class="table-responsive p-0">
+                <table class="table table-bordered border">
+                    <thead>
+                        <tr  style="background: #0D2E67 !important">
+                            <td colspan="16" class="text-center"><h5 class="m-0 py-1">Engineering Estimation</h5></td>
+                        </tr>
+                        <tr class="font-weight-bold ">
+                            <th rowspan="2" class="text-center " style="background: #1d336b !important">
+                                <span class="mb-1 font-12">Component</span>
+                                <button class="btn-sm btn font-12 btn-info shadow-0 w-100 py-0" ng-click="create()"><i class="fa fa-plus"></i> Add </button>
+                            </th>
+                            <th rowspan="2" class="text-center font-12" style="background: #1d336b !important">Type</th>
+                            <th rowspan="2" class="text-center font-12" style="background: #1d336b !important" >Sq.M</th>
+                            <th class="text-center font-12" style="background: #1d336b !important" >1 to 2</th>
+                            <th  rowspan="2" class="text-center font-12" style="background: #1d336b !important" ><small>m<sup>2</sup> Gross</small></th>
+                            <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">Details</th>
+                            <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">Statistics</th>
+                            <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">CAD/CAM</th>
+                            <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">Logistics</th>
+                            <th colspan="2" class="font-12 text-center" style="background: #1d336b !important">Total Cost</th>
+                            <td rowspan="2" class="font-12 text-center" style="background: #1d336b !important">Action</td>
+                        </tr>
+                        <tr class="bg-light-primary border" >
+                            <th class="text-center font-12" style="background: #1d336b !important" >Complexity</th> 
+                            <th class="text-center" style="background: #046b9e !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #0571a7 !important"><small>Sum</small></th> 
+                            <th class="text-center" style="background: #046b9e !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #0571a7 !important"><small>Sum</small></th> 
+                            <th class="text-center" style="background: #046b9e !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #0571a7 !important"><small>Sum</small></th> 
+                            <th class="text-center" style="background: #046b9e !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #0571a7 !important"><small>Sum</small></th> 
+                            <th class="text-center" style="background: #1d336b !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #1d336b !important"><small>Sum</small></th>  
+                        </tr>
+                    </thead>
+                    
+                    <tbody >
+                        <tr ng-repeat="(index,C) in CostEstimate" > 
+                            <td style="padding: 0 !important">
+                                <select class="form-select select" data-toggle="select">
+                                    <option>-- Select --</option>
+                                    <option value="External"  >External</option>
+                                    <option value="Internal">Internal</option>
+                                    <option value="Ground Floor" >Ground Floor</option>
+                                    <option value="Roof" >Roof</option>
+                                    <option value="Loadbearing" >Loadbearing</option>
+                                </select>
+                            </td>
+                            <td style="padding: 0 !important">
+                                <select class="form-select select">
+                                    <option>-- Select --</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="CA">California</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="WA">Washington</option>
+                                </select>
+                            </td>
+                            <td style="padding:0px !important"><input  type="number" class="my-control"></td>
+                            <td style="padding:0px !important"><input  type="number" class="my-control"></td>
+                            <td style="padding:0px !important"><input  type="number" class="my-control"></td>
+
+                            {{-- Details --}}
+                            <td style="background: #E5EEF4 !important">
+                                <input  type="number" class="my-control"  style="background: #E5EEF4 !important">
+                            </td>
+                            <td style="background: #E5EEF4 !important">
+                                <input  type="number" class="my-control"  style="background: #E5EEF4 !important">
+                            </td>
+
+                            {{-- Statistics --}}
+                            <td style="background:  #E5EEF4 !important">
+                                <input type="number" class="my-control" style="background: #E5EEF4 !important">
+                            </td>
+                            <td style="background:  #E5EEF4 !important">
+                                <input  type="number" class="my-control" style="background: #E5EEF4 !important">
+                            </td>
+
+                            {{-- CAD/CAM --}}
+                            <td style="background:  #E5EEF4 !important">
+                                <input  type="number" class="my-control" style="background: #E5EEF4 !important">
+                            </td>
+                            <td style="background:  #E5EEF4 !important">
+                                <input  type="number" class="my-control" style="background: #E5EEF4 !important">
+                            </td>
+
+                            {{-- Logistics --}}
+                            <td style="background:  #E5EEF4 !important">
+                                <input  type="number" class="my-control" style="background: #E5EEF4 !important">
+                            </td>
+                            <td style="background:  #E5EEF4 !important">
+                                <input  type="number" class="my-control" style="background: #E5EEF4 !important">
+                            </td>
+
+                            {{-- Total Cost --}}
+                            <td><input  type="number" class="my-control"></td>
+                            <td><input  type="number" class="my-control"></td>
+                            <td class="text-center" style="padding: 0 !important">
+                                <i ng-click="delete(index)" class="fa fa-trash btn rounded-pill btn-sm btn-outline-danger px-1 py-0"></i>
+                            </td>
+                        </tr>
+                        <tr class="text-white " style="background: #0D2E67"> 
+                            <td colspan="2" class="text-center">
+                                <b>Total</b>
+                            </td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="font-12 text-end">01</td>
+                            <td class="text-center">-</td>
+                        </tr> 
+                    </tbody>
+                    
+                </table>
+            </div>
+            
              
             <div class="col-12 shadow text-dark bg-white border p-2 rounded">
-                <h4 class="m-0"><span class="text-secondary">Total Cost :</span>    <b>XXXXX</b> </h4>
+                <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>XXXXX</b> </h4>
             </div>
         </div>
     </div>
@@ -151,6 +195,13 @@
     .table tbody tr td {
         padding: 2px !important
     }
+    .font-12 {
+        font-size: 12px !important;
+    }
+    small {
+        font-weight: lighter !important
+
+    } 
     .my-control {
         border-radius: 0 !important;
         display: flex !important;
@@ -161,13 +212,17 @@
         margin: 0 !important;
         border: 1px !important;
         outline: 0 !important;
+        text-align: right !important;
+        font-size: 12px !important;
     }
     .form-select {
        padding: 2px 2px 2px 10px !important;
        /* border:0px !important; */
-       min-width: 120px !important;
+       min-width: 100px !important;
        background-size: 9px 14px !important;
        font-size: 12px !important;
+       cursor: pointer;
+
     }
     .form-select option {
         appearance: none !important;

@@ -57,17 +57,22 @@ class EnquiryController extends Controller
             return $data;
         }  
         
-        return Enquiry::latest()->limit(20)->get();
+        return Enquiry::latest()->get();
         
     }
     public function singleIndex($id) {
-        return Enquiry::with('customer')->where('customer_id', $id)->first();
+         
+        return Enquiry::with('customer')                        
+                        ->join("building_types", "building_types.id", "=" ,"enquiries.building_type_id")
+                        ->join("delivery_types", "delivery_types.id", "=" ,"enquiries.delivery_type_id")
+                        ->join("project_types", "project_types.id", "=" ,"enquiries.project_type_id")
+                        ->find($id);
     }
    
 
     public function singleIndexPage($id=null) {
         if ($id) {
-            $data   =   Enquiry::with('customer')->where('customer_id', $id)->first();
+            $data   =   Enquiry::with('customer')->find($id);
             return view('admin.pages.view-enquiry',compact('data',  $data )); 
         }else {
             return redirect()->route('admin-view-sales-enquiries');
@@ -116,7 +121,7 @@ class EnquiryController extends Controller
                 'password'              => Hash::make($password),
                 'created_by'            => 1,
                 'updated_by'            => 1,
-                'is_active'             => 1
+                'is_active'             => 0
             ];
             $customer = $this->customer->create($data);
             $customer->enquiry()->create(['enquiry_number' => $latest_enquiry_number, 'enquiry_date' => now()]);

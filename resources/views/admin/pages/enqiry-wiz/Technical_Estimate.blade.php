@@ -31,7 +31,6 @@
                     <thead class="bg-light">
                         <tr>
                             <th>Component Name</th>
-                            <th>Type of component</th>
                             <th>Sq. Mt. Estimate</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -40,14 +39,6 @@
                        
                         <tr>
                             <td>Exterior Wall</td>
-                            <td>
-                                <select name="" id="" class="form-select">
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                </select>
-                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -55,14 +46,6 @@
                         </tr>
                         <tr>
                             <td>Interior Wall</td>
-                            <td>
-                                <select name="" id="" class="form-select">
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                </select>
-                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -70,14 +53,6 @@
                         </tr>
                         <tr>
                             <td>1st Floor Wall</td>
-                            <td>
-                                <select name="" id="" class="form-select">
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                </select>
-                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -85,14 +60,6 @@
                         </tr>
                         <tr>
                             <td>Roof</td>
-                            <td>
-                                <select name="" id="" class="form-select">
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                </select>
-                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>
@@ -100,14 +67,6 @@
                         </tr>   
                         <tr>
                             <td>Flooring</td>
-                            <td>
-                                <select name="" id="" class="form-select">
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                    <option value="">Panel</option>
-                                    <option value="">Precut</option>
-                                </select>
-                            </td>
                             <td><input type="text" class="form-control"></td>
                             <td class="text-center">
                                 <a href="" class="btn text-primary"><i class="fa fa-trash"></i></a>

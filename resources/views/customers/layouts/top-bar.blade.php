@@ -72,8 +72,8 @@
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                 aria-expanded="false">
-                <span class="account-user-avatar "> 
-                    <img src="{{ asset('public/assets/images/customers.png') }}" alt="user-image" class="rounded-circle shadow-lg border">
+                <span class="account-user-avatar border rounded-circle shadow-sm"> 
+                    <i class="fa fa-user fa-2x"></i>
                 </span>
                 <span>
                     {{-- <span class="account-user-name">{{ Customer()->full_name ?? '' }}</span> --}}

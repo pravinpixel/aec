@@ -1,5 +1,6 @@
 <div ng-controller="WizzardCtrl">
     <div class="summary-group pt-3">
+        
         {{-- ProjectInfo --}}
         <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
             <div class="legend shadow-sm border rounded text-primary">Project Information </div>
@@ -8,59 +9,88 @@
                     <tbody>
                         <tr>
                             <td width="30%"><b>Project Name</b></td>
+                            <td>:</td>
                             <td>@{{ E.project_name }}</td>
                         </tr> 
                         <tr>
                             <td><b>Construction Site Address</b></td>
+                            <td>:</td>
                             <td>@{{ E.site_address }}</td>
                         </tr> 
                         <tr>
+                            <td><b>Contact Person name</b></td>
+                            <td>:</td>
+                            <td>@{{ E.contact_person }} </td>
+                        </tr> 
+                        <tr>
+                            <td><b>E-post</b></td>
+                            <td>:</td>
+                            <td>@{{ E.customer.email }}</td>
+                        </tr> 
+                        <tr>
+                            <td><b>Conatct number</b></td>
+                            <td>:</td>
+                            <td>@{{ E.mobile_no }}</td>
+                        </tr> 
+                        <tr>
+                            <td><b>Secondary conatct number</b></td>
+                            <td>:</td>
+                            <td>@{{ E.secondary_mobile_no }}</td>
+                        </tr> 
+                        <tr>
                             <td><b>Post Code</b></td>
+                            <td>:</td>
                             <td>@{{ E.zipcode }}</td>
                         </tr> 
                         <tr>
                             <td><b>Place</b></td>
+                            <td>:</td>
                             <td>@{{ E.place }}</td>
                         </tr> 
                         <tr>
                             <td><b>State</b></td>
+                            <td>:</td>
                             <td>@{{ E.state }}</td>
                         </tr> 
                         <tr>
                             <td><b>Country</b></td>
+                            <td>:</td>
                             <td>@{{ E.country }}</td>
                         </tr> 
                         <tr>
                             <td><b>Type of Project</b></td>
-                            <td>1</td>
+                            <td>:</td>
+                            <td>@{{ E.project_type_name }}</td>
                         </tr> 
                         <tr>
                             <td><b>Type of Building</b></td>
-                            <td>2</td>
+                            <td>:</td>
+                            <td>@{{ E.building_type_name }}</td>
                         </tr> 
                         <tr>
                             <td><b>Number of Buildings</b></td>
+                            <td>:</td>
                             <td>@{{ E.no_of_building }}</td>
                         </tr> 
                         <tr>
                             <td><b>Type of Delivery</b></td>
-                            <td>1</td>
+                            <td>:</td>
+                            <td>@{{ E.delivery_type_name }}</td>
                         </tr> 
                         <tr>
                             <td><b>Deliveryd Date</b></td>
+                            <td>:</td>
                             <td>@{{ E.project_delivery_date }}</td>
                         </tr> 
                         <tr>
                             <td><b>State</b></td>
-                            <td>non</td>
+                            <td>:</td>
+                            <td>@{{ E.state }}</td>
                         </tr> 
                         <tr>
-                            <td><b>Contact Person name</b></td>
-                            <td>XXXXXXX </td>
-                        </tr> 
-                        <tr>
-                            <td><b>E-post</b></td>
-                            <td>@{{ E.customer.email }}</td>
+                            <td><b>Remarks</b></td>
+                            <td>:</td>
+                            <td>@{{ E.customer.remarks }}</td>
                         </tr> 
                     </tbody>
                 </table>

@@ -15,7 +15,7 @@ class CreateEnquiriesTable extends Migration
     {
         Schema::create('enquiries', function (Blueprint $table) {
             $table->id();
-            $table->date('enquiry_date');
+            $table->string('enquiry_date')->nullable();
             $table->string('enquiry_number');
             $table->string('company_name')->nullable();
             $table->string('contact_person')->nullable();
@@ -36,10 +36,10 @@ class CreateEnquiriesTable extends Migration
             $table->integer('no_of_building')->nullable();
             $table->datetime('project_delivery_date')->nullable();
             $table->string('status')->nullable();
-            $table->boolean('is_active')->nullable();
+            $table->boolean('is_active')->default(0);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('customer_id')->references('id')->on('customers'); 
             $table->timestamps();
         });
     }
@@ -49,6 +49,7 @@ class CreateEnquiriesTable extends Migration
      *
      * @return void
      */
+
     public function down()
     {
         Schema::dropIfExists('enquiries');

@@ -25,20 +25,15 @@
                             <a  href="{{ route('admin-create-sales-enquiries') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Enquiry</a>
                         </div>
                     </div>
-                    {{-- <div id="tooltip-container2">
-                        <button type="button" class="btn btn-info" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">Tooltip on top</button>
-                        <button type="button" class="btn btn-info" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
-                        <button type="button" class="btn btn-info" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left">Tooltip on left</button>
-                        <button type="button" class="btn btn-info" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right">Tooltip on right</button>
-                    </div> --}}
+                   
                     <div class="card-body">
                         <table datatable="ng" dt-options="vm.dtOptions" class="table dt-responsive nowrap table-striped">
                             <thead>
                                 <tr>
                                     <th>S.No</th>
                                     <th>Enquiry No</th>
-                                    <th>Type of Project</th>
-                                    <th>No. Of Property</th>
+                                    <th>Contact person</th>
+                                    <th>Mobile number</th>
                                     <th>Esti. Date</th>
                                     <th>Pipeline</th>
                                     <th>Status</th>
@@ -50,13 +45,13 @@
                                 <tr ng-repeat="(index,m) in module_get">
                                     <td> @{{ index+1 }}</td>
                                     <td> 
-                                        <span ng-click="toggle('edit', m.customer_id)" class="badge badge-primary-lighten btn  p-2">@{{ m.enquiry_number }}</span>
+                                        <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.enquiry_number }}</span>
                                     </td>
-                                    <td>ABC00@{{ index+1 }}</td>
-                                    <td>@{{ index+1 }}</td>
+                                    <td>@{{ m.contact_person }}</td>
+                                    <td>@{{ m.mobile_no }}</td>
                                     <td>@{{ m.enquiry_date }}</td>
                                     <td>
-                                        <div id="toolTip_@{{ index+1 }}" ng-click="toggle('edit', m.customer_id)">
+                                        <div id="toolTip_@{{ index+1 }}" ng-click="toggle('edit', m.id)">
                                             <button type="button" class="btn progress-btn active" data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
                                             <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
                                             <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
@@ -70,18 +65,8 @@
                                     </td>
                                     <td>
                                         <div class="dropdown">
-                                            {{-- <button type="button"  class="btn btn-sm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="dripicons-dots-3 "></i>
-                                            </button> --}}
-                                            
-                                            {{-- <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="{{ route('view-enquiry') }}/@{{ m.customer_id }}">Edit</a>
-                                                <a class="dropdown-item" href="{{ route('admin-estimation-single-view') }}">Technical Estimate</a>
-                                                <a class="dropdown-item" href="{{ route('admin-cost-estimation-single-view') }}">Cost Estimate</a>
-                                                <a class="dropdown-item" href="#">Move to proposal</a>
-                                            </div> --}}
-                                            
-                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.customer_id }}"><i class="fa fa-edit"></i></a>
+                                         
+                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.id }}"><i class="fa fa-edit"></i></a>
                                         </div>
                                     </td>
                                 </tr> 
@@ -184,10 +169,19 @@
                             <div class="card">
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item m-0">
-                                      <h2 class="accordion-header m-0" id="headingOne">
+                                      <h2 class="accordion-header m-0 position-relative" id="headingOne">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                             Project Information
                                         </button>
+                                        <div class="icon m-0 position-absolute" style="right: 10px;top:25%; z-index:111 !important">
+                                            <i 
+                                                data-bs-toggle="collapse" 
+                                                href="#collapseOne" 
+                                                aria-expanded="true" 
+                                                aria-controls="collapseOne" 
+                                                class="accordion-button   bg-primary text-white toggle-btn ">
+                                            </i>
+                                        </div>
                                       </h2>
                                       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
@@ -266,10 +260,19 @@
                                       </div>
                                     </div>
                                     <div class="accordion-item">
-                                      <h2 class="accordion-header" id="headingTwo">
+                                      <h2 class="accordion-header position-relative" id="headingTwo">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                             Services Selection
                                         </button>
+                                        <div class="icon m-0 position-absolute" style="right: 10px;top:25%; z-index:111 !important">
+                                            <i 
+                                                data-bs-toggle="collapse" 
+                                                href="#collapseTwo" 
+                                                aria-expanded="true" 
+                                                aria-controls="collapseTwo" 
+                                                class="accordion-button  collapsed  bg-primary text-white toggle-btn ">
+                                            </i>
+                                        </div>
                                       </h2>
                                       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
@@ -299,10 +302,19 @@
                                       </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThree">
+                                        <h2 class="accordion-header position-relative" id="headingThree">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                 FC Model & Upload Docs 
                                             </button>
+                                            <div class="icon m-0 position-absolute" style="right: 10px;top:25%; z-index:111 !important">
+                                                <i 
+                                                    data-bs-toggle="collapse" 
+                                                    href="#collapseThree" 
+                                                    aria-expanded="true" 
+                                                    aria-controls="collapseThree" 
+                                                    class="accordion-button  collapsed  bg-primary text-white toggle-btn ">
+                                                </i>
+                                            </div>
                                         </h2>
                                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
@@ -365,10 +377,19 @@
                                         </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThreer">
+                                        <h2 class="accordion-header  position-relative" id="headingThreer">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreer" aria-expanded="false" aria-controls="collapseThree">
                                                 Building components
                                             </button>
+                                            <div class="icon m-0 position-absolute" style="right: 10px;top:25%; z-index:111 !important">
+                                                <i 
+                                                    data-bs-toggle="collapse" 
+                                                    href="#collapseThreer" 
+                                                    aria-expanded="true" 
+                                                    aria-controls="collapseThreer" 
+                                                    class="accordion-button  collapsed  bg-primary text-white toggle-btn ">
+                                                </i>
+                                            </div>
                                         </h2>
                                         <div id="collapseThreer" class="accordion-collapse collapse" aria-labelledby="headingThreer" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
@@ -437,10 +458,19 @@
                                         </div>
                                     </div>  
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThreew">
+                                        <h2 class="accordion-header  position-relative" id="headingThreew">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreew" aria-expanded="false" aria-controls="collapseThreew">
                                                 Additional Info
                                             </button>
+                                            <div class="icon m-0 position-absolute" style="right: 10px;top:25%; z-index:111 !important">
+                                                <i 
+                                                    data-bs-toggle="collapse" 
+                                                    href="#collapseThreew" 
+                                                    aria-expanded="true" 
+                                                    aria-controls="collapseThreew" 
+                                                    class="accordion-button  collapsed  bg-primary text-white toggle-btn ">
+                                                </i>
+                                            </div>
                                         </h2>
                                         <div id="collapseThreew" class="accordion-collapse collapse" aria-labelledby="headingThreew" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
@@ -451,12 +481,7 @@
                                                     <div class="p-2">
                                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?
                                                     </div>
-                                                </div>
-                                                <div class="col-md-12 text-center mt-4">
-                                                    <button class="btn button_print progress-btn mx-2 px-3 btn-rounded">
-                                                        Print
-                                                    </button> 
-                                                </div>
+                                                </div> 
                                             </div>
                                         </div>
                                     </div>
@@ -517,23 +542,7 @@
         }
         
     </style>
-@endpush
-
-{{-- @push('custom-scripts')
-    <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
-    <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
-@endpush --}}
+@endpush 
 
 @push('custom-scripts')
 
@@ -681,16 +690,11 @@
                         $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + id )
 
                             .then(function (response) {
-                                
                                 $scope.enqData = response.data;
-
-                                console.log( $scope.enqData);
-
                                 $('#right-modal-progress').modal('show');
-
-                                angular.element(document.querySelector("#loader")).addClass("d-none"); 
-                                
                             });
+                        
+                        
                         break;
                     
                     default:

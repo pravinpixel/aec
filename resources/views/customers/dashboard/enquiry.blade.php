@@ -33,6 +33,14 @@
                         <div class="row">
                             <div class="col-xl-12  ">
                                 <div class="row m-0">
+                                    <div class="card col-sm-3 me-3 tilebox-one">
+                                        <div class="card-body">
+                                            <i class='fa-thumbs-up fa  float-end  dashboard-icon'></i>
+                                            <h6 class=" text-info mt-0">Total enquiries</h6>
+                                            <h2 class="my-2 h3">{{ $totaEnq }}</h2>
+                                        </div> <!-- end card-body-->
+                                    </div>
+
                                     <div class="card col-sm-3 me-3 shadow tilebox-one">
                                         <div class="card-body">
                                             <i class='fa fa-bullhorn float-end  dashboard-icon'></i>
@@ -46,19 +54,10 @@
                                         <div class="card-body">
                                             <i class='fa-thumbs-up fa  float-end  dashboard-icon'></i>
                                             <h6 class=" text-success mt-0">Active enquiries</h6>
-                                            <h2 class="my-2 h3">0</h2>
+                                            <h2 class="my-2 h3">{{ $totaActiveEnq }}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
-                                    <!--end card-->
-
-                                    {{-- <div class="card col-sm-3 tilebox-one">
-                                        <div class="card-body">
-                                            <i class='fa-thumbs-up fa  float-end  dashboard-icon'></i>
-                                            <h6 class=" text-success mt-0">Active enquiries</h6>
-                                            <h2 class="my-2 h4">84</h2>
-                                        </div> <!-- end card-body-->
-                                    </div> --}}
-                                    <!--end card-->
+                                    <!--end card--> 
                                 </div>
                                 <!--end card-->
                             </div> <!-- end col -->
@@ -67,95 +66,107 @@
                         <div class="card"> 
                             <div class="card-body">
                                 <h4 class="page-title mt-0">New enquiries</h4>    
-                                <table id="scroll-vertical-datatable" class="table dt-responsive nowrap table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>S.No</th>
-                                            <th>Enquiry No</th>
-                                            <th>Type of Project</th>
-                                            <th>No. Of Property</th>
-                                            <th>Enquiry Date</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                
-                                    <tbody>
-                                        @foreach ($data as $key => $row)
+                                @if (!$data->isEmpty())
+                                    <table id="scroll-vertical-datatable" class="table dt-responsive nowrap table-striped">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $key +1 }}</td>
-                                                <td> 
-                                                   
-                                                        {{ $row->enquiry_number }}
-                                                    
-                                                </td>
-                                                <td>Construction</td>
-                                                <td>1</td>
-                                                <td>{{ $row->enquiry_date }}</td> 
-                                                <td>	
-                                                    <span class="badge bg-success shadow-sm rounded-pill">Active</span>
-                                                </td>
-                                                <td>                                            
-                                                    <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                </td>
+                                                <th>S.No</th>
+                                                <th>Enquiry No</th>
+                                                <th>Type of Project</th>
+                                                <th>No. Of Property</th>
+                                                <th>Enquiry Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                    
+                                        <tbody>
+                                            @foreach ($data as $key => $row)
+                                                <tr>
+                                                    <td>{{ $key +1 }}</td>
+                                                    <td> 
+                                                    
+                                                            {{ $row->enquiry_number }}
+                                                        
+                                                    </td>
+                                                    <td>Construction</td>
+                                                    <td>1</td>
+                                                    <td>{{ $row->enquiry_date }}</td> 
+                                                    <td>	
+                                                        <span class="badge bg-success shadow-sm rounded-pill">Active</span>
+                                                    </td>
+                                                    <td>                                            
+                                                        <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    @else
+                                    <div class="text-center">
+                                        <small>No new enquiries !</small>
+                                    </div>
+                                @endif
                             </div>
                         </div> 
                         <div class="card"> 
                             <div class="card-body">
                                 <h4 class="page-title mt-0">Active enquiries</h4>    
-                                {{-- <table id="scroll-vertical-datatable" class="table dt-responsive nowrap table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>S.No</th>
-                                            <th>Enquiry No</th>
-                                            <th>Type of Project</th>
-                                            <th>No. Of Property</th>
-                                            <th>Enquiry Date</th>
-                                            <th>Pipeline</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                
-                                    <tbody>
-                                        @foreach ($data as $key => $row)
+                                @if (!$dataActive->isEmpty())
+                                    <table id="scroll-vertical-datatable" class="table dt-responsive nowrap table-striped">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $key +1 }}</td>
-                                                <td> 
-                                                   
-                                                        {{ $row->enquiry_number }}
-                                                    
-                                                </td>
-                                                <td>Construction</td>
-                                                <td>1</td>
-                                                <td>{{ $row->enquiry_date }}</td>
-                                                <td>
-                                                    <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
-                                                        <button class="btn progress-btn active"></button>
-                                                        <button class="btn progress-btn"></button>
-                                                        <button class="btn progress-btn"></button>
-                                                        <button class="btn progress-btn"></button>
-                                                    </div>
-                                                </td>
-                                                <td>	
-                                                    <span class="badge bg-success shadow-sm rounded-pill">Active</span>
-                                                </td>
-                                                <td>                                            
-                                                    <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                </td>
+                                                <th>S.No</th>
+                                                <th>Enquiry No</th>
+                                                <th>Type of Project</th>
+                                                <th>No. Of Property</th>
+                                                <th>Enquiry Date</th>
+                                                <th>Pipeline</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table> --}}
-                                <div class="text-secondary text-center">No Active enquiries</div>
+                                        </thead>
+                                    
+                                        <tbody>
+                                            @foreach ($dataActive as $key => $row)
+                                                <tr>
+                                                    <td>{{ $key +1 }}</td>
+                                                    <td> 
+                                                    
+                                                            {{ $row->enquiry_number }}
+                                                        
+                                                    </td>
+                                                    <td>Construction</td>
+                                                    <td>1</td>
+                                                    <td>{{ $row->enquiry_date }}</td>
+                                                    <td>
+                                                        <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
+                                                            <button class="btn progress-btn active"></button>
+                                                            <button class="btn progress-btn"></button>
+                                                            <button class="btn progress-btn"></button>
+                                                            <button class="btn progress-btn"></button>
+                                                        </div>
+                                                    </td>
+                                                    <td>	
+                                                        <span class="badge bg-success shadow-sm rounded-pill">Active</span>
+                                                    </td>
+                                                    <td>                                            
+                                                        <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    @else
+                                    <div class="text-center">
+                                        <small>No active enquiries !</small>
+                                    </div>
+                                @endif
+                                
                             </div>
                         </div> 
                     </div>

@@ -37,12 +37,10 @@
                                                     <label class="form-label" >Enquiry Date <sup class="text-danger">*</sup></label>
                                                     {{-- <input type="date" class="form-control date" name="enq_date"   ng-model="module.enq_date" ng-init="searchText  = 'can you see me'"> --}}
                                                     <input type="date" class="form-control  " name="enq_date"  ng-model="module.enq_date" >
-                                              
                                                 </div>  
                                             </div>
                                         </div>
                                     </div> 
-                                     
                                         
                                     <div class="col-md-6">
                                         <div class="mb-3">
@@ -185,7 +183,10 @@
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
                     $scope.getItems();
-                    $scope.resetForm();
+                    $scope.module = {};
+                    $scope.enqForm.$setPristine();
+                    $scope.enqForm.$setValidity();
+                    $scope.enqForm.$setUntouched();
                     
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors.email);

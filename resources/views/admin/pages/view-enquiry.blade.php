@@ -16,7 +16,7 @@
                 @include('admin.layouts.page-navigater') 
                
                     <div data-loading> </div>
-               
+                
                 <div class="card border">
                     <div class="card-body py-0"> 
                         <div id="rootwizard">
@@ -686,12 +686,12 @@
         }]); 
 
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
-            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id ?? " " }} ).then(function (response) {
+            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.E = response.data;
             }); 
         });
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
-            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->customer_id ?? " " }} ).then(function (response) {
+            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.E = response.data;
             }); 
             $scope.total = 0;

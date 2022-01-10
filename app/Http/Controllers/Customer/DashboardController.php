@@ -10,14 +10,35 @@ use App\Models\Enquiry;
 class DashboardController extends Controller
 {
     public function enquiryDashborad() {
-        $data           =   Enquiry::where("customer_id", Customer()->id)->get();
-        $totaNewEnq     =   Enquiry::where("customer_id", Customer()->id)->count();
-        $totaActiveEnq  =   Enquiry::where("customer_id", Customer()->id)->count();
+
+        // New Enqs
+        $data           =   Enquiry::where("customer_id", Customer()->id)
+                            ->where("is_active", 0)
+                            ->get();
+
+
+        $totaNewEnq     =   Enquiry::where("customer_id", Customer()->id)
+                            ->where("is_active", 0)
+                            ->count();
+
+        // Total Enq
+        $totaEnq     =   Enquiry::where("customer_id", Customer()->id) 
+                        ->count();
+
+        // Active  Enqs
+        $dataActive     =   Enquiry::where("customer_id", Customer()->id)
+                            ->where("is_active", 1)
+                            ->get();
+        $totaActiveEnq  =   Enquiry::where("customer_id", Customer()->id)
+                                    ->where("is_active", 1)
+                                    ->count();
 
         return view('customers.dashboard.enquiry',
                     compact(
                         'data',  $data , 
+                        'dataActive',  $dataActive ,
                         'totaNewEnq', $totaNewEnq,
+                        'totaEnq', $totaEnq,
                         'totaActiveEnq', $totaActiveEnq,
                     )); 
     }

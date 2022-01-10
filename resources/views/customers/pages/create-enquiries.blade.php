@@ -88,46 +88,7 @@
                                     
                                 </a>
                             </li>
-                        </ul>
-                        {{-- <ul class="nav nav-pills nav-justified form-wizard-header bg-light pt-0">
-                            <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfoForm">
-                                <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 80px;" class="d-flex flex-column justify-content-center align-items-center nav-link text-center rounded-0 p-0 active">
-                                    <i class="fa fa-project-diagram fa-2x mb-1"></i>
-                                    <small class="d-none d-sm-inline">Project Info</small>
-                                </a>
-                            </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection">
-                                <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 80px;" class="d-flex flex-column justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="fa fa-list-alt fa-2x mb-1"></i>
-                                    <small class="d-none d-sm-inline">Service Selection</small>
-                                </a>
-                            </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
-                                <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 80px;" class="d-flex flex-column justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="fa fa-2x fa-file-upload mb-1"></i>
-                                    <small class="d-none d-sm-inline">IFC Model & Uploads</small>
-                                </a>
-                            </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
-                                <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 80px;" class="d-flex flex-column justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="fa fa-2x fa-shapes mb-1"></i>
-                                    <small class="d-none d-sm-inline">Building  Components</small>
-                                </a>
-                            </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation">
-                                <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 80px;" class="d-flex flex-column justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="fa fa-2x fa-info mb-1"></i>
-                                    <small class="d-none d-sm-inline">Additional Info</small>
-                                </a>
-                            </li>
-                            <li class="nav-item"  ng-click="updateWizardStatus(5)" data-target-form="#otherForm">
-                                <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 80px;"  class="d-flex flex-column justify-content-center align-items-center nav-link text-center rounded-0 p-0">
-                                    <i class="fa fa-2x fa-clipboard-check mb-1"></i>
-                                    <small class="d-none d-sm-inline">Review &  Submit </small>
-                                </a>
-                            </li>
-                        </ul> --}}
-
+                        </ul>  
                         <div class="tab-content my-3" >
                             <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
                                 @include('customers.pages.enquiryWizard.project-info')
