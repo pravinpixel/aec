@@ -104,7 +104,7 @@
                                                         </td>
                                                         <td class="text-center" >
                                                             <div class="btn-group">
-                                                                <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggle('edit', m.id)"><i class="fa fa-pencil"></i></button>
+                                                                <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggle('edit', m.id)"><i class="fa fa-edit"></i></button>
                                                                 <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmRoleDelete(m.id)"><i class="fa fa-trash"></i></button>
                                                             </div>
                                                         </td>

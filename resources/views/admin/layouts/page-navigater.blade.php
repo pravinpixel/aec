@@ -3,8 +3,8 @@
         <div class="page-title-box mt-3">
             <div class="page-title-right mt-0">
                 <ol class="breadcrumb align-items-center m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">AEC Prefab</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    {{-- <li class="breadcrumb-item"><a href="javascript: void(0);">AEC Prefab</a></li> --}}
+                    <li class="breadcrumb-item"><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item active">
                         @if (Route::is('admin-dashboard')) Admin Dashboard @endif
                         @if (Route::is('admin-view-sales-enquiries')) List Of Enquiries @endif

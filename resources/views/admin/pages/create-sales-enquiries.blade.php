@@ -35,8 +35,8 @@
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >Enquiry Date <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control date" name="enq_date"   ng-model="module.enq_date" ng-init="searchText  = 'can you see me'">
-                                                    {{-- <input type="date" class="form-control date" name="enq_date"  ng-model="module.enq_date"  id="birthdatepicker" data-toggle="date-picker" data-single-date-picker="true"> --}}
+                                                    {{-- <input type="date" class="form-control date" name="enq_date"   ng-model="module.enq_date" ng-init="searchText  = 'can you see me'"> --}}
+                                                    <input type="date" class="form-control  " name="enq_date"  ng-model="module.enq_date" >
                                               
                                                 </div>  
                                             </div>
@@ -186,6 +186,7 @@
                     Message('success',response.data.msg);
                     $scope.getItems();
                     $scope.resetForm();
+                    
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors.email);
                 });

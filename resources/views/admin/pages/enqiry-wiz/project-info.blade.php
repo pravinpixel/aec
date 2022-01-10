@@ -8,27 +8,27 @@
                     <tbody>
                         <tr>
                             <td width="30%"><b>Project Name</b></td>
-                            <td>ABCD Building</td>
+                            <td>@{{ E.project_name }}</td>
                         </tr> 
                         <tr>
                             <td><b>Construction Site Address</b></td>
-                            <td>Strandgata-12</td>
+                            <td>@{{ E.site_address }}</td>
                         </tr> 
                         <tr>
                             <td><b>Post Code</b></td>
-                            <td>2134</td>
+                            <td>@{{ E.zipcode }}</td>
                         </tr> 
                         <tr>
                             <td><b>Place</b></td>
-                            <td>Austvatd</td>
+                            <td>@{{ E.place }}</td>
                         </tr> 
                         <tr>
                             <td><b>State</b></td>
-                            <td>Hedmark</td>
+                            <td>@{{ E.state }}</td>
                         </tr> 
                         <tr>
                             <td><b>Country</b></td>
-                            <td>Norway</td>
+                            <td>@{{ E.country }}</td>
                         </tr> 
                         <tr>
                             <td><b>Type of Project</b></td>
@@ -40,7 +40,7 @@
                         </tr> 
                         <tr>
                             <td><b>Number of Buildings</b></td>
-                            <td>2</td>
+                            <td>@{{ E.no_of_building }}</td>
                         </tr> 
                         <tr>
                             <td><b>Type of Delivery</b></td>
@@ -48,7 +48,7 @@
                         </tr> 
                         <tr>
                             <td><b>Deliveryd Date</b></td>
-                            <td>2021-02-25</td>
+                            <td>@{{ E.project_delivery_date }}</td>
                         </tr> 
                         <tr>
                             <td><b>State</b></td>
@@ -60,7 +60,7 @@
                         </tr> 
                         <tr>
                             <td><b>E-post</b></td>
-                            <td>dummyemail@gmail.com</td>
+                            <td>@{{ E.customer.email }}</td>
                         </tr> 
                     </tbody>
                 </table>
@@ -70,7 +70,7 @@
                 </div> 
                
                 <div class="text-end pt-2">
-                    <a href="" class="text-primary pe-2 pt-2" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <a href="" class="text-primary pe-2 pt-2" data-bs-toggle="modal" data-bs-target="#right-modal">
                         <i class="fa fa-eye"></i>  Previous chat history
                     </a>
                 </div> 

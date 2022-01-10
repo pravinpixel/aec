@@ -129,13 +129,13 @@
                               <option value="1">User Two</option> 
                               <option value="1">User Three</option> 
                             </select>
-                            <label class="input-group-text btn btn-primary" for="inputGroupSelect01">send</label>
+                            <label class="input-group-text btn btn-info" for="inputGroupSelect01">send</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="text-end">
                             <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                            <a class="btn btn-primary" onclick="submit()" href=""><i class="uil-sync"></i> Update</a>
+                            <a class="btn btn-success" onclick="submit()" href=""><i class="uil-sync"></i> Update</a>
                         </div>
                     </div>
                 </div>

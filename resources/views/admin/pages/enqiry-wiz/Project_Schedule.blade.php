@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div id="gantt_here" style='width:100%; height:calc(80vh - 52px); '></div>
+                <div id="gantt_here" style='width:100%; height:calc(90vh - 52px); '></div>
             </div>
         </div>  
     </div>
@@ -133,22 +133,10 @@
         }
         .navbar-custom, .leftside-menu {
             z-index: 1 !important;
-        }
-        /* .gantt_grid_head_cell, .gantt_task_scale {
-            background: #757CF2 !important;
-            color: white !important
-        } */
-        .gantt_task_scale .gantt_scale_cell {
+        } .gantt_task_scale .gantt_scale_cell {
             color: #757CF2 !important
-        }
-        /* .gantt_grid_head_cell.gantt_grid_head_add {
-            opacity: 1 !important;
-        } */
-    </style> 
-
-    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">
-    <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
- 
+        } 
+    </style>  
     <script>
         var URL = "{{ route("data") }}";
         

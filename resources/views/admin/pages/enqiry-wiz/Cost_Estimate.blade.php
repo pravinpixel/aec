@@ -100,18 +100,7 @@
                             <i ng-click="delete(index)" class="fa fa-trash btn btn-sm text-danger"></i>
                         </td>
                     </tr>
-                    <tr>
-                        {{-- <td colspan="4" class="bg-light-primary border">Sub Totals</td>
-                        <td>@{{  }}</td>
-                        <td>@{{  }}</td>
-                        <td>@{{  }}</td>
-                        <td>@{{  }}</td>
-                        <td>@{{  }}</td>
-                        <td>@{{  }}</td>
-                        <td>@{{  }}</td>
-                        <td>@{{  }}</td>
-                        <td>@{{  }}</td>
-                        <td>{{ total }}</td> --}}
+                    <tr> 
                     </tr> 
                 </tbody>
                 

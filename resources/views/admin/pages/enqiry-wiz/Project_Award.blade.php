@@ -1,31 +1,54 @@
 <div class="card shadow-none p-0" class="accordion accordion-flush" id="accordionFlushExample">
     <div class="row align-items-center">
-        <div class="col-md-12 text-center py-4 mx-auto">
-            <p><b>Customer Response</b></p>
-            <span class="badge badge-outline-success fa-2x"> Approved</span>
-            <span class="badge badge-outline-danger fa-2x"> Denied</span>
+       
+     
+        <div class="text-end my-3  ">
+            <span><strong class="text-secondary">Response status  : </strong></span>
+            <div class="badge badge-outline-success" style="font-size: 22px"> Approved</div>
         </div>
-        <label for="">Select a Contract type</label>
-        <select class="form-select">
-            <option>Offer letter</option>
-            <option>Thankyou letter</option>
-            <option>Invite Mail</option>
-            <option>Contract letter</option>
-        </select>
-        <label for="">Select a type</label>
-        <select class="form-select">
-            <option>PO</option>
-            <option>Contract</option>
-        </select>
+           
+        <div class="col-8 mx-auto py-3">
+            <div class="row mb-3">
+                <label  class="col-3" for="">Response status </label>
+                <div class="col-9">                
+                    <div class="form-control">Approved</div>
+                </div>
+            </div> 
+            <div class="row mb-3">
+                <label  class="col-3" for="">Select a Contract type</label>
+                <div class="col-9">                
+                    <select class="form-select">
+                        <option>PO</option>
+                        <option>Contract </option>
+                    </select>
+                </div>
+            </div> 
+            <div class="row ">
+                <label  class="col-3" for="">Select a mail type</label>
+                <div class="col-9">                
+                    <select class="form-select">
+                        <option>Offer letter</option>
+                        <option>Thankyou letter</option>
+                        <option>Invite Mail</option>
+                        <option>Contract letter</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="offset-3 col-9">                
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-outline-primary btn-sm  w-100 me-2 py-2 "  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> Preview</button>
+                        <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class=" py-2 w-100 btn btn-primary float-right btn-sm  " ><small><i class="fa fa-plus"></i> Create</small></button>
+                    </div>
+                </div>
+            </div> 
+        </div>
     </div>
     <div class="card-body">
         <div class="container p-0"> 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>List of contract  mail's </h4>
-                <div class="btn-gr text-end">
-                    <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> Preview</button>
-                    <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small><i class="fa fa-plus"></i> Create</small></button>
-                </div>
+                
             </div>
             <table class="table table-bordered" id="myTable">
                 <thead>
