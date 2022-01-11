@@ -26,7 +26,5 @@ class ServiceSeeder extends Seeder
         Service::create(['service_name' => 'Element Production Drawings', 'is_active' => 1]);
         Service::create(['service_name' => 'Pre-cut Assembly Drawings', 'is_active' => 1]);
         Service::create(['service_name' => 'Structural Engineering', 'is_active' => 1]);
-        Service::create(['service_name' => 'Others', 'is_active' => 1]);
-       
     }
 }

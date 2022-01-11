@@ -1,5 +1,6 @@
 <form id="projectInfoForm"  method="post" class="form-horizontal" novalidate>
     <div class="row">
+ 
         <div class="col-md-4">
             <div class="form-floating  mb-2">
                 <input disabled value=" {{ GlobalService::dateFormat($customer['enquiry_date']) ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
@@ -9,16 +10,17 @@
                 <input disabled value="{{ $customer['enquiry_number'] ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
                 <label for="floating">Enquiry Number</label>
             </div>
+         
             <div class="form-floating  mb-2">
-                <input value="" type="text" class="form-control form-control-sm" id="floating" name="company_name"  ng-model="projectInfo.company_name" required/>
-                <label for="floating">Campany Name</label>
+                <input type="text" class="form-control form-control-sm" id="floating" name="company_name" disabled value="{{ $enquiry->customer->company_name }}"/>
+                <label for="floating">Company Name</label>
             </div> 
             <div class="form-floating  mb-2">
-                <input value="" type="text" class="form-control form-control-sm" id="floating" name="contact_person" ng-model="projectInfo.contact_person" required/>
+                <input  type="text" class="form-control form-control-sm" id="floating" name="contact_person" value="{{ $enquiry->customer->contact_person }}"  disabled/>
                 <label for="floating">Contact Person</label>
             </div> 
             <div class="form-floating  mb-2">
-                <input value="" type="number" class="form-control form-control-sm" id="floating" name="mobile_no" ng-model="projectInfo.mobile_no" pattern="^\d{4}-\d{3}-\d{4}$"  required />
+                <input  type="text" class="form-control form-control-sm" id="floating" name="mobile_no"  value="{{ $enquiry->customer->mobile_no }}" disabled />
                 <label for="floating">Mobile Number</label>
             </div> 
             <div class="form-floating  mb-2">

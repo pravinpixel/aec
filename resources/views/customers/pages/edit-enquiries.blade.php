@@ -1556,9 +1556,9 @@
                 
             $scope.getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
-                    'company_name'         : $projectInfo.company_name,
-                    'contact_person'       : $projectInfo.contact_person,
-                    'mobile_no'            : $projectInfo.mobile_no,
+                    // 'company_name'         : $projectInfo.company_name,
+                    // 'contact_person'       : $projectInfo.contact_person,
+                    // 'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,

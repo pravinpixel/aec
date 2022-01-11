@@ -15,7 +15,6 @@ class GanttChart extends Model
         'text',
         'start_date',
         'duration',
-        'status'
-        
+        'status' 
     ];
 }

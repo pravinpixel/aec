@@ -36,7 +36,8 @@
                                                 <div class="mb-3">
                                                     <label class="form-label" >Enquiry Date <sup class="text-danger">*</sup></label>
                                                     {{-- <input type="date" class="form-control date" name="enq_date"   ng-model="module.enq_date" ng-init="searchText  = 'can you see me'"> --}}
-                                                    <input type="date" class="form-control  " name="enq_date"  ng-model="module.enq_date" >
+                                                    <input type="date" class="form-control" name="enq_date"  ng-model="enq_date_one" >
+                                                    {{-- <input type="text" class="form-control date" id="birthdatepicker" data-toggle="date-picker" ng-model="module.enq_date"  data-single-date-picker="true"> --}}
                                                 </div>  
                                             </div>
                                         </div>
@@ -151,24 +152,23 @@
             }
             $scope.getItems();
 
-            $scope.example = {
-                value: new Date(),
-                currentDate: new Date()
-            };
+
+            $scope.enq_date_one = new Date();
+             
 
             // $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
             $scope.phoneNumbr = /^(0047|\+47|47)?[2-9]\d{7}$/;
-
+         
 
             $scope.save = function (modalstate, id) {
- 
+  
                 $scope.data = {
                     company_name            :   $scope.module.company_name, 
                     contact_person          :   $scope.module.contact_person,
                     mobile_no               :   $scope.module.mobile_number,
                     email                   :   $scope.module.email,
                     user_name               :   $scope.module.user_name,
-                    customer_enquiry_date   :   $scope.module.enq_date,
+                    customer_enquiry_date   :   $scope.enq_date_one,
                     enquiry_number          :   $scope.myWelcome,
                     remarks                 :   $scope.module.remarks
                 } 

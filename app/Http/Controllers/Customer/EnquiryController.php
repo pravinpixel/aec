@@ -61,12 +61,13 @@ class EnquiryController extends Controller
     }
 
     public function create()
-    {
+    { 
+        $enquiry = $this->customerEnquiryRepo->getEnquiry(Customer()->id);
         Session::forget('enquiry_number');
         $customer['enquiry_date']       =   now();
         $customer['enquiry_number']     =   GlobalService::enquiryNumber();
         $customer['document_types']     =   $this->documentTypeRepo->all();
-        return view('customers.pages.create-enquiries',compact('customer'));
+        return view('customers.pages.create-enquiries',compact('customer','enquiry'));
     }
 
     public function show() 

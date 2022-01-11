@@ -6,8 +6,8 @@
     <p><b>User name : </b> {{ $details['customer_email'] }}</p>
     <p><b>Password  : </b> {{ $details['customer_pws'] }}</p>
     <p><br><strong>Kindly use this username and password to login</strong></p>
-    <a href="{{ route("customers-enquiry-dashboard") }}">Upload your project  information</a>
-    <p><br>For any information contact us </p>
+    <a href="{{ route("customers-enquiry-dashboard")}}">Upload your project information</a>
+    <p><br>For any information contact us</p>
     <p>04321 - 56789</p>
     <p><a href="">aecprefab@gmail.com</a></p>
     <center><b>Thank you</b></center>

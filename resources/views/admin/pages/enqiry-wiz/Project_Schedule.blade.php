@@ -204,7 +204,61 @@
         gantt.ext.zoom.attachEvent("onAfterZoom", function(level, config){
             document.querySelector(".gantt_radio[value='" +config.name+ "']").checked = true;
         }) 
-         
+
+        // gantt.config.show_unscheduled = true;
+        // gantt.config.show_errors = false;
+        
+        // gantt.templates.grid_row_class = function( start, end, task ){
+        //     if ( task.unscheduled == true ){
+                
+        //         return "inv_task";
+        //     }
+        //     return "";
+        // };
+        
+        // gantt.locale.labels.section_priority = "Color";
+        // gantt.locale.labels.section_textColor = "Text Color";
+
+        // var colors = [
+        //     {key: "#FFFFFF", label: "White"},
+        //     {key: "#C0C0C0", label: "Silver"},
+        //     {key: "#808080", label: "Gray"},
+        //     {key: "#000000", label: "Black"},
+        //     {key: "#FF0000", label: "Red"},
+        //     {key: "#800000", label: "Maroon"},
+        //     {key: "#FFFF00", label: "Yellow"},
+        //     {key: "#808000", label: "Olive"},
+        //     {key: "#00FF00", label: "Lime"},
+        //     {key: "#008000", label: "Green"},
+        //     {key: "#00FFFF", label: "Aqua"},
+        //     {key: "#008080", label: "Teal"},
+        //     {key: "#0000FF", label: "Blue"},
+        //     {key: "#000080", label: "Navy"},
+        //     {key: "#FF00FF", label: "Fuchsia"},
+        //     {key: "#800080", label: "Purple"},
+        // ];
+
+        // gantt.config.lightbox.sections = [
+        //     {name: "description", height: 38, map_to: "text", type: "textarea", focus: true},
+        //     {name: "priority", height: 22, map_to: "color", type: "select", options: colors},
+        //     {name: "textColor", height: 22, map_to: "textColor", type: "select", options: colors},
+        //     {name: "time", type: "duration", map_to: "auto"}
+        // ];
+
+        gantt.config.lightbox.sections = [
+            {name: "description", height: 70, map_to: "text", type: "textarea"},
+            {name: "type", type: "typeselect", map_to: "type"},
+            {name: "time", height: 72, type: "duration", map_to: "auto"}
+        ];
+        gantt.templates.rightside_text = function(start, end, task){
+            if(task.type == gantt.config.types.milestone){
+                return task.text;
+            }
+            return "";
+        };
+        gantt.config.order_branch = true;
+
+        
         gantt.plugins({
             fullscreen: true
         });
@@ -213,6 +267,7 @@
         gantt.ext.fullscreen.getFullscreenElement = function() {
             return document.getElementById("myCover");
         }
+        
         gantt.init("gantt_here");
         gantt.load(URL);
         
@@ -227,18 +282,12 @@
          
         gantt.attachEvent("onAfterTaskAdd", function(id,item){
             location.reload()
-            // gantt.refreshData();
-            // gantt.load(URL);
-             
-
         });
         gantt.attachEvent("onAfterTaskUpdate", function(id,item){
             location.reload()
-            // gantt.load(URL);
         });
         gantt.attachEvent("onAfterTaskDelete", function(id,item){
             location.reload()
-            // gantt.load(URL);
         });
 
         gantt.attachEvent("onLinkCreated", function(link){

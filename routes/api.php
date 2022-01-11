@@ -34,7 +34,5 @@ Route::post('/data/task',[ GanttController::class, 'storeData']);
 Route::put('/data/task/{id}',[ GanttController::class, 'updateData']);
 Route::delete('/data/task/{id}',[ GanttController::class, 'deleteData']);
 
-// Route::get('ganttChart/list', [GanttChartController::class, 'ganttChart'])->name('ganttChart.list');
-// Route::post('ganttChart/list/task', [GanttChartController::class, 'createGanttChart'])->name('ganttChart.list.task');
-// Route::put('ganttChart/list/task/{id}', [GanttChartController::class, 'updateGanttChart'])->name('ganttChart.list.task');
-// Route::delete('ganttChart/list/task/{id}', [GanttChartController::class, 'deleteGanttChart'])->name('ganttChart.list.task');
+Route::post('/data/link',[ GanttController::class, 'storeLink']);
+ 

@@ -91,6 +91,7 @@
                         </ul>  
                         <div class="tab-content my-3" >
                             <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
+                             
                                 @include('customers.pages.enquiryWizard.project-info')
                             </div>
                             <div class="tab-pane fade " id="second" ng-controller="ServiceSelection">
@@ -538,7 +539,7 @@
         });
     
        	app.controller('ProjectInfo', function ($scope, $http, $rootScope ) {
-       
+          
             let projectTypefiredOnce = false;
             let deliveryTypefiredOnce = false;
             let buildingTypefiredOnce = false;
@@ -562,8 +563,8 @@
                     method: 'GET',
                     url: '{{ route("delivery-type.index") }}'
                 }).then(function (res) {
-                    deliveryTypefiredOnce = true;
-                    $rootScope.deliveryTypes = res.data;		
+                    deliveryTypefiredOnce       = true;
+                    $rootScope.deliveryTypes    = res.data;		
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -604,9 +605,9 @@
         
             getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
-                    'company_name'         : $projectInfo.company_name,
-                    'contact_person'       : $projectInfo.contact_person,
-                    'mobile_no'            : $projectInfo.mobile_no,
+                    // 'company_name'         : $projectInfo.company_name,
+                    // 'contact_person'       : $projectInfo.contact_person,
+                    // 'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,

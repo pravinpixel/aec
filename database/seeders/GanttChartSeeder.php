@@ -8,6 +8,8 @@ class GanttChartSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *   
+           
      *
      * @return void
      */
