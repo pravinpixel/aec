@@ -105,7 +105,7 @@
                                 @include('customers.pages.enquiryWizard.building-component')
                             </div>
 
-                            <div class="tab-pane fade" id="six">
+                            <div class="tab-pane fade" id="six" ng-controller="AdditionalInfo">
                                 @include('customers.pages.enquiryWizard.additional-info')
                             </div>
                          
@@ -1014,7 +1014,22 @@
             });
         });
 
-
+        app.controller('AdditionalInfo', function($scope, $http, $rootScope) {
+            $scope.addComment = () => {
+                if($scope.additionalInfo == 'undefined') {
+                    return false;
+                }
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'addtional_info', 'data': $scope.additionalInfo}
+                }).then(function (res) {
+                   $scope.comments = res.data;
+                }, function (error) {
+                    console.log(`additional info ${error}`);
+                });         
+            }       
+        });
     </script>
   
 @endpush

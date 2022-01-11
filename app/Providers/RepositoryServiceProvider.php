@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\BuildingComponentRepositoryInterface;
 use App\Interfaces\BuildingTypeRepositoryInterface;
+use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\DeliveryTypeRepositoryInterface;
@@ -15,6 +16,7 @@ use App\Interfaces\ServiceRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
+use App\Repositories\CommentRepository;
 use App\Repositories\CustomerEnquiryRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\DeliveryTypeRepository;
@@ -84,6 +86,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             LayerTypeRepositoryInterface::class,
             LayerTypeRepository::class
+        );
+
+        $this->app->bind(
+            CommentRepositoryInterface::class,
+            CommentRepository::class
         );
     }
 

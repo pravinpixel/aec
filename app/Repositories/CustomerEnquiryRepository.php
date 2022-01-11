@@ -150,4 +150,39 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         return true;    
     }
+
+    public function getBuildingComponent($enquiry) 
+    {
+        $enquiryBuildingComponents = $enquiry->enquiryBuildingComponent()->get();
+        $buildingComponentData = [];
+        foreach( $enquiryBuildingComponents as  $enquiryBuildingComponent) {
+                $buildingComponent = [];  $detail = [];
+                $buildingComponentMaster = $enquiryBuildingComponent->buildingComponent;
+                if($enquiryBuildingComponent->enquiryBuildingComponentDetails()->exists()) {
+                    $enquiryBuildingComponentDetails = $enquiryBuildingComponent->enquiryBuildingComponentDetails()
+                                                                                ->with('deliveryType')
+                                                                                ->get();
+                    foreach($enquiryBuildingComponentDetails as $enquiryBuildingComponentDetail) {
+                        $layer = [];
+                        if($enquiryBuildingComponentDetail->enquiryBuildingComponentLayers()->exists()) {
+                            $enquiryBuildingComponentLayers = $enquiryBuildingComponentDetail->enquiryBuildingComponentLayers()
+                                                                                            ->with(['layerType','layer'])
+                                                                                            ->get();
+                            foreach($enquiryBuildingComponentLayers as $enquiryBuildingComponentLayer) {
+                                $layer['layer'][] = $enquiryBuildingComponentLayer;
+                            }
+                        }
+                        $toArrayDetails = $enquiryBuildingComponentDetail->toArray();
+                        $detail[] = array_merge( $toArrayDetails, $layer);
+                    }
+                    $buildingComponent['detail']= $detail;
+                }
+                $componentAdditionalData = [
+                    'wall' => $buildingComponentMaster->building_component_name,
+                    'icon' => $buildingComponentMaster->building_component_icon
+                ];
+                $buildingComponentData[] = (object)array_merge($buildingComponent, $componentAdditionalData);
+        }
+        return $buildingComponentData;
+    }
 }

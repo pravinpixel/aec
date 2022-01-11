@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\BuildingComponentRepositoryInterface;
+use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
@@ -26,16 +27,20 @@ class EnquiryController extends Controller
     protected $serviceRepo;
     protected $documentTypeRepo;
     protected $buildingComponent;
+    protected $commentRepo;
+
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository, 
         ServiceRepositoryInterface $serviceRepo,
         DocumentTypeRepositoryInterface $documentType,
-        BuildingComponentRepositoryInterface $buildingComponent
+        BuildingComponentRepositoryInterface $buildingComponent,
+        CommentRepositoryInterface $comment
     ){
         $this->customerEnquiryRepo  =   $customerEnquiryRepository;
         $this->serviceRepo          =   $serviceRepo;
         $this->documentTypeRepo     =   $documentType;
-        $this->buildingComponent    = $buildingComponent;
+        $this->buildingComponent    =   $buildingComponent;
+        $this->commentRepo          =   $comment;
     }
 
     public function myEnquiries() 
@@ -53,10 +58,11 @@ class EnquiryController extends Controller
     public function myEnquiriesEdit($id) 
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        $customer['document_types']     =   $this->documentTypeRepo->all();
         if (empty($enquiry)) {
             abort(403, 'Unauthorized action.');
         } else {
-            return view('customers.pages.edit-enquiries',compact('enquiry','id'));
+            return view('customers.pages.edit-enquiries',compact('enquiry','id','customer'));
         }
     }
 
@@ -95,15 +101,14 @@ class EnquiryController extends Controller
         $data = $request->input('data');
         $customer = $this->customerEnquiryRepo->getCustomer(Customer()->id);
         $enquiry_number = $this->getEnquiryNumber();
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
         if($type == 'project_info') {
             $array_merge = array_merge($data, ['enquiry_date' => Carbon::now()]);
             return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($enquiry_number, $customer, $array_merge);
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
-            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
             return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
         } else if($type == 'ifc_model_upload' || $type == 'ifc_model_upload_mandatory') {
-            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
             if($type == 'ifc_model_upload_mandatory') {
                 $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
                 $ficuploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
@@ -126,7 +131,6 @@ class EnquiryController extends Controller
             try {
                 $dataObj = json_decode (json_encode ($data), FALSE);
                 if(!empty($dataObj)) {
-                    $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
                     $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
                     if($response) {
                         DB::commit();
@@ -137,6 +141,10 @@ class EnquiryController extends Controller
                 DB::rollBack();
                 Log::error($ex->getMessage());
             }
+        } else if($type == 'addtional_info') {
+            $insert = ['comment' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
+            $this->commentRepo->create($insert);
+            return $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         }
     }
 
@@ -162,6 +170,7 @@ class EnquiryController extends Controller
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $result['project_info'] = $this->formatProjectInfo($enquiry);
         $result['services'] =  $enquiry->services()->pluck('id');
+        $result['building_component'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         return $result;
     }
 
@@ -193,6 +202,7 @@ class EnquiryController extends Controller
 
     public function edit($id) {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        $customer['document_types']     =   $this->documentTypeRepo->all();
         return view('customers.pages.edit-enquiries',compact('enquiry','id'));
     } 
 
@@ -259,33 +269,7 @@ class EnquiryController extends Controller
         $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
         $result['project_info'] = $this->formatProjectInfo($enquiry);
         $result['services'] =  $enquiry->services()->get();
-       $enquiryBuildingComponents = $enquiry->enquiryBuildingComponent()->get();
-       $buildingComponentData = [];
-       foreach( $enquiryBuildingComponents as  $enquiryBuildingComponent) {
-            $buildingComponent = [];  $detail = [];
-            $buildingComponentName = $enquiryBuildingComponent->buildingComponent->building_component_name;
-            if($enquiryBuildingComponent->enquiryBuildingComponentDetails()->exists()) {
-                $enquiryBuildingComponentDetails = $enquiryBuildingComponent->enquiryBuildingComponentDetails()
-                                                                            ->with('deliveryType')
-                                                                            ->get();
-                foreach($enquiryBuildingComponentDetails as $enquiryBuildingComponentDetail) {
-                    $layer = [];
-                    if($enquiryBuildingComponentDetail->enquiryBuildingComponentLayers()->exists()) {
-                        $enquiryBuildingComponentLayers = $enquiryBuildingComponentDetail->enquiryBuildingComponentLayers()
-                                                                                         ->with(['layerType','layer'])
-                                                                                         ->get();
-                        foreach($enquiryBuildingComponentLayers as $enquiryBuildingComponentLayer) {
-                            $layer['layer'][] = $enquiryBuildingComponentLayer;
-                        }
-                    }
-                    $toArrayDetails = $enquiryBuildingComponentDetail->toArray();
-                    $detail[] = array_merge( $toArrayDetails, $layer);
-                }
-                $buildingComponent['detail']= $detail;
-            }
-            $buildingComponentData[] = (object)array_merge($buildingComponent, ['wall' => $buildingComponentName]);
-       }
-       $result['building_component'] = $buildingComponentData;
+        $result['building_component'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);
         return  $result;
     }
 

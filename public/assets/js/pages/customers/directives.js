@@ -1,8 +1,8 @@
 
-app.directive('viewlist', function() {
+app.directive('viewlist', function(API_URL) {
     var directive = {};
     directive.restrict = 'E';
-    directive.templateUrl = 'view-list';
+    directive.templateUrl = `${API_URL}customers/view-list`;
     directive.scope = {
         viewLists : "=data"
     }
