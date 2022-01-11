@@ -22,4 +22,9 @@ class EnquiryBuildingComponentDetail extends Model
     {
         return $this->hasMany(EnquiryBuildingComponentLayer::class, 'enquiry_bcd_id', 'id');
     }
+
+    public function deliveryType()
+    {
+        return $this->belongsTo(DeliveryType::class, 'building_component_delivery_type_id', 'id');
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\BuildingComponentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
@@ -24,15 +25,17 @@ class EnquiryController extends Controller
     protected $customerEnquiryRepo;
     protected $serviceRepo;
     protected $documentTypeRepo;
-
+    protected $buildingComponent;
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository, 
         ServiceRepositoryInterface $serviceRepo,
-        DocumentTypeRepositoryInterface $documentType
+        DocumentTypeRepositoryInterface $documentType,
+        BuildingComponentRepositoryInterface $buildingComponent
     ){
         $this->customerEnquiryRepo  =   $customerEnquiryRepository;
         $this->serviceRepo          =   $serviceRepo;
         $this->documentTypeRepo     =   $documentType;
+        $this->buildingComponent    = $buildingComponent;
     }
 
     public function myEnquiries() 
@@ -71,11 +74,8 @@ class EnquiryController extends Controller
         return view('customers.pages.enquiry-single-view');
     }
 
-    public function store(Request $request)
+    public function getEnquiryNumber() 
     {
-        $type = $request->input('type');
-        $data = $request->input('data');
-        $customer = $this->customerEnquiryRepo->getCustomer(Customer()->id);
         if (Session::has('enquiry_number')){
             $enquiry_number = Session::get('enquiry_number');
             Log::info("Session already exists {$enquiry_number}");
@@ -85,6 +85,15 @@ class EnquiryController extends Controller
             $enquiry_number = Session::get('enquiry_number');
             Log::info("New session created {$enquiry_number}");
         }
+        return  $enquiry_number;
+    }
+
+    public function store(Request $request)
+    {
+        $type = $request->input('type');
+        $data = $request->input('data');
+        $customer = $this->customerEnquiryRepo->getCustomer(Customer()->id);
+        $enquiry_number = $this->getEnquiryNumber();
         if($type == 'project_info') {
             $array_merge = array_merge($data, ['enquiry_date' => Carbon::now()]);
             return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($enquiry_number, $customer, $array_merge);
@@ -144,21 +153,7 @@ class EnquiryController extends Controller
     
     public function storeFiles(Request $req) {
         
-        dd($req->all());
-        
-        // $input      =   $request->all();
-        $filenames  =   array();
-        
-        // if($file   =   $request->file('filenames')){
-        //     foreach($file as $file){
-                // $name               =   $file->getClientOriginalName();
-                // $file               ->  move('image',$name);
-                // $filenames          =   $name; 
-                // $data               =   new File();
-                // $data['filenames']  =   'images'.'/'.$name;
-                // $data               ->  save();
-        //     }
-        // } 
+      
     }
 
     public function getEnquiry($id)
@@ -188,7 +183,10 @@ class EnquiryController extends Controller
             'country'              => $enquiry->country,
             'no_of_building'       => $enquiry->no_of_building,
             'delivery_type_id'     => $enquiry->delivery_type_id,
-            'project_delivery_date'=> $enquiry->project_delivery_date
+            'project_delivery_date'=> $enquiry->project_delivery_date,
+            'building_type'        =>  $enquiry->buildingType,
+            'project_type'         =>  $enquiry->projectType,
+            'delivery_type'        => $enquiry->deliveryType,
         ];
     }
 
@@ -252,6 +250,42 @@ class EnquiryController extends Controller
             $data = ['msg'=> __('global.something'),  'status' => false];
         }
         return response()->json($data);
+    }
+
+    public function getEnquiryReview()
+    {
+        $enquiry_number = $this->getEnquiryNumber();
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+        $result['project_info'] = $this->formatProjectInfo($enquiry);
+        $result['services'] =  $enquiry->services()->get();
+       $enquiryBuildingComponents = $enquiry->enquiryBuildingComponent()->get();
+       $buildingComponentData = [];
+       foreach( $enquiryBuildingComponents as  $enquiryBuildingComponent) {
+            $buildingComponent = [];  $detail = [];
+            $buildingComponentName = $enquiryBuildingComponent->buildingComponent->building_component_name;
+            if($enquiryBuildingComponent->enquiryBuildingComponentDetails()->exists()) {
+                $enquiryBuildingComponentDetails = $enquiryBuildingComponent->enquiryBuildingComponentDetails()
+                                                                            ->with('deliveryType')
+                                                                            ->get();
+                foreach($enquiryBuildingComponentDetails as $enquiryBuildingComponentDetail) {
+                    $layer = [];
+                    if($enquiryBuildingComponentDetail->enquiryBuildingComponentLayers()->exists()) {
+                        $enquiryBuildingComponentLayers = $enquiryBuildingComponentDetail->enquiryBuildingComponentLayers()
+                                                                                         ->with(['layerType','layer'])
+                                                                                         ->get();
+                        foreach($enquiryBuildingComponentLayers as $enquiryBuildingComponentLayer) {
+                            $layer['layer'][] = $enquiryBuildingComponentLayer;
+                        }
+                    }
+                    $toArrayDetails = $enquiryBuildingComponentDetail->toArray();
+                    $detail[] = array_merge( $toArrayDetails, $layer);
+                }
+                $buildingComponent['detail']= $detail;
+            }
+            $buildingComponentData[] = (object)array_merge($buildingComponent, ['wall' => $buildingComponentName]);
+       }
+       $result['building_component'] = $buildingComponentData;
+        return  $result;
     }
 
 }

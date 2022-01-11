@@ -14,4 +14,9 @@ class BuildingType extends Model
         'building_type_name',
         'is_active'
     ];
+
+    public function enquiry()
+    {
+        return $this->hasOne(Enquiry::class,'building_type_id', 'id');
+    }
 }

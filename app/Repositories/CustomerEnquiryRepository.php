@@ -146,8 +146,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                         }
                     }
                 }
-                return true;
-            }                                
+            }                            
         }
+        return true;    
     }
 }

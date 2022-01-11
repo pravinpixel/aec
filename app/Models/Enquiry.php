@@ -82,5 +82,19 @@ class Enquiry extends Model
         return $this->hasMany(EnquiryBuildingComponent::class, 'enquiry_id', 'id');
     }
 
+    public function buildingType()
+    {
+        return $this->belongsTo(BuildingType::class);
+    }
+
+    public function projectType()
+    {
+        return $this->belongsTo(ProjectType::class);
+    }
+
+    public function deliveryType()
+    {
+        return $this->belongsTo(deliveryType::class);
+    }
 }
 

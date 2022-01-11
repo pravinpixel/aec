@@ -1,4 +1,4 @@
-<div class="row m-0" id="additionalInformation">
+<form class="row" novalidate id="additionalInformation">
     <div class="col-sm-8 mx-auto">
         <div >
             <h3 class="text-center">Specify additional details</h3>
@@ -52,5 +52,5 @@
         </div>
     </div>
     <!-- end col -->
-</div>
+</form>
 <!-- end row -->
