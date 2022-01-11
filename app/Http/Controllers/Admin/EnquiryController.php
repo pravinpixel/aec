@@ -57,15 +57,18 @@ class EnquiryController extends Controller
             return $data;
         }  
         
-        return Enquiry::latest()->get();
+        return Enquiry::with('customer')                        
+                ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
+                ->get();
         
     }
     public function singleIndex($id) {
          
-        return Enquiry::with('customer')                        
-                        ->join("building_types", "building_types.id", "=" ,"enquiries.building_type_id")
-                        ->join("delivery_types", "delivery_types.id", "=" ,"enquiries.delivery_type_id")
-                        ->join("project_types", "project_types.id", "=" ,"enquiries.project_type_id")
+        return  Enquiry::with('customer')                        
+                        ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
+                        ->leftJoin("building_types", "building_types.id", "=" ,"enquiries.building_type_id")
+                        ->leftJoin("delivery_types", "delivery_types.id", "=" ,"enquiries.delivery_type_id")
+                        ->leftJoin("project_types", "project_types.id", "=" ,"enquiries.project_type_id")
                         ->find($id);
     }
    
@@ -119,6 +122,7 @@ class EnquiryController extends Controller
                 'mobile_no'             => $request->mobile_no,
                 'email'                 => strtolower($email),
                 'password'              => Hash::make($password),
+                'password_view'         =>  $password,
                 'created_by'            => 1,
                 'updated_by'            => 1,
                 'is_active'             => 0

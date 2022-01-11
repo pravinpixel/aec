@@ -187,7 +187,7 @@
                                         <div class="accordion-body">
                                             <div class="row mx-0 container ">
                                                 <div class="col-12 text-center">
-                                                    <h4 class="f-20 m-0 p-3">Project Information</h4>
+                                                    <h4 class="f-20 m-0 p-3">Project Information</h4> 
                                                 </div>
                                                 <div class="col-md-6 p-3">
                                                     <table class="table m-0  table-bordered">
@@ -218,7 +218,7 @@
                                                                 </tr> 
                                                                 <tr class="border">
                                                                     <th  class=" ">Type of Project
-                                                                    </th><td  class="bg-white">1</td>
+                                                                    </th><td  class="bg-white">@{{ enqData.project_type_name }}</td>
                                                                 </tr> 
                                                         </tbody>
                                                     </table>
@@ -227,7 +227,7 @@
                                                     <table class="table m-0   table-bordered">
                                                     <tbody><tr class="border">
                                                             <th  class=" ">Type of Building
-                                                            </th><td  class="bg-white">2</td>
+                                                            </th><td  class="bg-white">@{{ enqData.building_type_name }}</td>
                                                         </tr> 
                                                         <tr class="border">
                                                             <th  class=" ">Number of Buildings
@@ -235,15 +235,15 @@
                                                         </tr> 
                                                         <tr class="border">
                                                             <th  class=" ">Type of Delivery
-                                                            </th><td  class="bg-white">1</td>
+                                                            </th><td  class="bg-white">@{{ enqData.delivery_type_name }}</td>
                                                         </tr> 
                                                         <tr class="border">
-                                                            <th  class=" ">Deliveryd Date 
-                                                            </th><td  class="bg-white">2021-02-25</td>
+                                                            <th  class=" ">Delivery Date 
+                                                            </th><td  class="bg-white">@{{ enqData.project_delivery_date }}</td>
                                                         </tr> 
                                                         <tr class="border">
                                                             <th  class=" ">State
-                                                            </th><td  class="bg-white">non</td>
+                                                            </th><td  class="bg-white">@{{ enqData.state }}</td>
                                                         </tr> 
                                                         <tr class="border">
                                                             <th  class=" ">Contact Person name
