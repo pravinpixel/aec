@@ -95,425 +95,19 @@
                             <div class="tab-pane fade " id="second" ng-controller="ServiceSelection">
                                 @include('customers.pages.editEnquiryWizard.service-selection')
                             </div>
-                            <div class="tab-pane fade " id="four">
+                            <div class="tab-pane fade " id="four" ng-controller="IFCModelUpload">
                                 @include('customers.pages.editEnquiryWizard.ifc-model-uploads')
                             </div>
 
                             <div class="tab-pane p-0 h-100 fade " id="five" ng-controller="CrudCtrl">
                                 @include('customers.pages.editEnquiryWizard.building-component')
                             </div>
-
-                            <div class="tab-pane fade" id="six">
-                                @include('customers.pages.editEnquiryWizard.additional-info')
+                           
+                            <div class="tab-pane fade" id="six" ng-controller="AdditionalInfo">
+                                @include('customers.pages.enquiryWizard.additional-info')
                             </div>
-                            <div class="tab-pane fade" id="third">
-                                <div class="summary-group pt-3">
-                                    {{-- ProjectInfo --}}
-                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
-                                        <div class="legend shadow-sm border rounded text-primary">Project Information </div>
-                                        <div class="card-body">
-                                            <table class="table m-0  ">
-                                                <tbody>
-                                                    <tr>
-                                                        <td width="30%"><b>Project Name</b></td>
-                                                        <td>ABCD Building</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Construction Site Address</b></td>
-                                                        <td>Strandgata-12</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Post Code</b></td>
-                                                        <td>2134</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Place</b></td>
-                                                        <td>Austvatd</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>State</b></td>
-                                                        <td>Hedmark</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Country</b></td>
-                                                        <td>Norway</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Type of Project</b></td>
-                                                        <td>1</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Type of Building</b></td>
-                                                        <td>2</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Number of Buildings</b></td>
-                                                        <td>2</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Type of Delivery</b></td>
-                                                        <td>1</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Deliveryd Date</b></td>
-                                                        <td>2021-02-25</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>State</b></td>
-                                                        <td>non</td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>Contact Person name</b></td>
-                                                        <td>XXXXXXX </td>
-                                                    </tr> 
-                                                    <tr>
-                                                        <td><b>E-post</b></td>
-                                                        <td>dummyemail@gmail.com</td>
-                                                    </tr> 
-                                                </tbody>
-                                            </table> 
-                                        </div> 
-                                    </fieldset>
-                                    {{-- ProjectInfo --}}
-                            
-                                    {{-- Selected Services --}}
-                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
-                                        <div class="legend shadow-sm border rounded text-primary">Selected Services</div>
-                                        <div class="card-body">
-                                            <ul class="row m-0 ">
-                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Cras justo odio</li>
-                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Dapibus ac facilisis in</li>
-                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Morbi leo risus</li>
-                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Porta ac consectetur ac</li>
-                                                <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> Vestibulum at eros</li>
-                                            </ul> 
-                                        </div> 
-                                    </fieldset>
-                                    {{-- Selected Services --}}
-                            
-                                    {{-- IFC Models & Uploaded Documents --}}
-                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
-                                        <div class="legend shadow-sm border rounded text-primary">IFC Models & Uploaded Documents</div>
-                                        <div class="card-body">
-                                            <table class="table table-bordered">
-                                                <tr>
-                                                    <th><b>S.No</b></th>
-                                                    <th><b>File name</b></th>
-                                                    <th><b>File Type</b></th>
-                                                    <th><b>View Type</b></th>
-                                                    <th class="text-center" width="150px"><b>Action</b></th>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Document001</td>
-                                                    <td>.docs</td>
-                                                    <td>Plan view</td>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
-                                                        <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Files002</td>
-                                                    <td>.pdf</td>
-                                                    <td>Facade view</td>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
-                                                        <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Files005</td>
-                                                    <td>.png</td>
-                                                    <td>IFC model</td>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
-                                                        <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>myImage</td>
-                                                    <td>.JPEG</td>
-                                                    <td>others</td>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
-                                                        <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
-                                                    </td>
-                                                </tr>
-                                            </table> 
-                                        </div> 
-                                    </fieldset>
-                                    {{-- IFC Models & Uploaded Documents --}}
-                            
-                                    {{-- Building Components --}}
-                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
-                                        <div class="legend shadow-sm border rounded text-primary">Building Components</div>
-                                        <div class="card-body">
-                                            <div  style="max-height: 400px; overflow:auto">
-                                                <table class="table table-bordered" >
-                                                    <tbody>
-                                                        <tr class="table-bold text-center">
-                                                            <th width="150px"> </th>
-                                                            <th style="padding: 0 !important">
-                                                                <table class="table m-0 ">
-                                                                    <tr>
-                                                                        <th width="50%">
-                                                                            Wall details
-                                                                        </th>
-                                                                        <th style="padding: 0 !important" width="50%">
-                                                                            Layer details
-                                                                        </th>
-                                                                    </tr>
-                                                                </table>
-                                                            </th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th width="150px"><b>Wall name</b></th>
-                                                            <th style="padding: 0 !important">
-                                                                <table class="table m-0 ">
-                                                                    <tr>
-                                                                        <td width="50%" style="padding: 0 !important">
-                                                                            <table class="table m-0 table-bordered table-bold">
-                                                                                <tr>
-                                                                                    <th>Floor</th>
-                                                                                    <th>wall Number</th>
-                                                                                    <th>Delivery type</th>
-                                                                                    <th>Total Area</th>
-                                                                                </tr> 
-                                                                            </table>
-                                                                        </td>
-                                                                        <td style="padding: 0 !important" width="50%">
-                                                                            <table class="table m-0 table-bordered">
-                                                                                <tr class="table-bold">
-                                                                                    <th>Name</th>
-                                                                                    <th>Type</th>
-                                                                                    <th>Thickness</th>
-                                                                                    <th>Breadth</th>
-                                                                                </tr> 
-                                                                            </table>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </th>
-                                                        </tr>
-                                                        <tr width="150px">
-                                                            <tr width="180px">
-                                                                <td>Internal  Wall</td>
-                                                                <td style="padding: 0 !important"  >
-                                                                    <table class="table m-0 ">
-                                                                        <tr>
-                                                                            <td width="50%">
-                                                                                <table class="table m-0 table-bordered">
-                                                                                    <tr>
-                                                                                        <td>kids floor</td>
-                                                                                        <td>1</td>
-                                                                                        <td>quick</td>
-                                                                                        <td>1250</td>
-                                                                                    </tr> 
-                                                                                </table>
-                                                                            </td>
-                                                                            <td style="padding: 0 !important" width="50%">
-                                                                                <table class="table m-0 table-bordered">
-                                                                                    <tr>
-                                                                                        <td>fire proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>cold proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>noice proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>abcd proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>others proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td width="50%">
-                                                                                <table class="table m-0 table-bordered">
-                                                                                    <tr>
-                                                                                        <td>kids floor</td>
-                                                                                        <td>1</td>
-                                                                                        <td>quick</td>
-                                                                                        <td>1250</td>
-                                                                                    </tr> 
-                                                                                </table>
-                                                                            </td>
-                                                                            <td style="padding: 0 !important" width="50%">
-                                                                                <table class="table m-0 table-bordered">
-                                                                                    <tr>
-                                                                                        <td>fire proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>cold proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>noice proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>abcd proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>others proof</td>
-                                                                                        <td>precut</td>
-                                                                                        <td>25.54</td>
-                                                                                        <td>254</td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr> 
-                                                            <td>External  Wall</td>
-                                                            <td style="padding: 0 !important"  >
-                                                                <table class="table m-0 ">
-                                                                    <tr>
-                                                                        <td width="50%">
-                                                                            <table class="table m-0 table-bordered">
-                                                                                <tr>
-                                                                                    <td>kids floor</td>
-                                                                                    <td>1</td>
-                                                                                    <td>quick</td>
-                                                                                    <td>1250</td>
-                                                                                </tr> 
-                                                                            </table>
-                                                                        </td>
-                                                                        <td style="padding: 0 !important" width="50%">
-                                                                            <table class="table m-0 table-bordered">
-                                                                                <tr>
-                                                                                    <td>fire proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>cold proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>noice proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>abcd proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>others proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td width="50%">
-                                                                            <table class="table m-0 table-bordered">
-                                                                                <tr>
-                                                                                    <td>kids floor</td>
-                                                                                    <td>1</td>
-                                                                                    <td>quick</td>
-                                                                                    <td>1250</td>
-                                                                                </tr> 
-                                                                            </table>
-                                                                        </td>
-                                                                        <td style="padding: 0 !important" width="50%">
-                                                                            <table class="table m-0 table-bordered">
-                                                                                <tr>
-                                                                                    <td>fire proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>cold proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>noice proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>abcd proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>others proof</td>
-                                                                                    <td>precut</td>
-                                                                                    <td>25.54</td>
-                                                                                    <td>254</td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr> 
-                                                    </tbody>
-                                                </table> 
-                                            </div> 
-                                        </div> 
-                                    </fieldset>
-                                    {{-- Building Components --}}
-                            
-                                    {{-- Additional Info --}}
-                                    <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
-                                        <div class="legend shadow-sm border rounded text-primary">Additional Info</div>
-                                        <div class="card-body pt-4">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?</p>
-                                            
-                                        </div> 
-                                    </fieldset>
-                                    {{-- Additional Info --}}
-                                </div>
+                            <div class="tab-pane fade" id="third"  ng-controller="Review">
+                                @include('customers.pages.enquiryWizard.review')
                             </div>
 
                             <div class="card-footer border-0 p-0 " >
@@ -1026,9 +620,11 @@
                 } else if ($rootScope.currentStep == 2) {
                     $scope.$broadcast('callServiceSelection');
                 } else if ($rootScope.currentStep == 3) {
-
+                    $scope.$broadcast('callIFCModelUpload');
                 } else if ($rootScope.currentStep == 4) {
-                    $scope.$broadcast('buildingComponent');
+                    $scope.$broadcast('callBuildingComponent');
+                } else if ($rootScope.currentStep == 5) {
+                    $scope.$broadcast('callReview');
                 }
             }
         });
@@ -1060,7 +656,7 @@
                     url: '{{ route("delivery-type.index") }}'
                 }).then(function (res) {
                     deliveryTypefiredOnce = true;
-                    $scope.deliveryTypes = res.data;		    
+                    $rootScope.deliveryTypes = res.data;		    
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -1082,7 +678,7 @@
             $scope.getLastEnquiry = () => {
                 $http({
                     method: 'GET',
-                    url: '{{ route('customers.get-enquiry', $id) }}',
+                    url: '{{ route("customers.get-enquiry", [$id,"project_info"]) }}',
                 }).then(function (res){
                     $scope.projectInfo = $scope.getProjectInfoInptuData(res.data.project_info);
                 }, function (error) {
@@ -1142,16 +738,15 @@
             $scope.getLastEnquiry = () => {
                 $http({
                     method: 'GET',
-                    url: '{{ route('customers.get-enquiry',$id) }}',
+                    url: '{{ route("customers.get-enquiry",[$id,"services"]) }}',
                 }).then(function (res){
                     $scope.serviceList = res.data.services;
-            
                 }, function (error) {
                     console.log('projectinfo error');
                 });
             }
             $scope.getLastEnquiry(); 
-        //    if($scope.servicesArray.length == 0) {}
+
            $scope.$on('callServiceSelection', function(e) { 
             if($scope.serviceList.length == 0){
                 $rootScope.currentStep = 1;
@@ -1199,37 +794,14 @@
             let mandatoryUpload= [];
             $scope.PlanView = [];
             $scope.posterTitle = 'click here';
-            
-            $scope.$on('callIFCModelUpload', function(e) {
 
-                mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
-                                                alert(`mandatory file upload ${view}`);
-                                                $rootScope.currentStep = 2;
-                                            });
-                
-                $http({
-                    method: 'POST',
-                    url: '{{ route("customers.store-enquiry") }}',
-                    data: {type: 'ifc_model_upload_mandatory', 'data': false}
-                }).then(function (res) {
-                    if(res.data.status == false) {
-                        res.data.data.map((field) => {
-                            console.log(field);
-                        });
-                    }
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            });
-
-            $scope.fileName= function(element, attribute) {
+            $scope.fileName= function(element) {
                 $scope.$apply(function($scope) {
                     var attribute_name = element.getAttribute('demo-file-model');
                     $scope[`${attribute_name}__file_name`] = element.files[0].name;
                 });
             };
-            $scope.uploadFile = function (view_type) { 
-               
+            $scope.uploadFile = function (view_type) {
                 if(view_type){
                     var file = $scope[view_type];
                     if(typeof(file) == 'undefined') {
@@ -1239,7 +811,7 @@
                     $scope[`${view_type}__error`] = false;
                     var type = 'ifc_model_upload';
                     var view_type = view_type;
-                    var uploadUrl = '{{ route('customers.store-enquiry') }}'
+                    var uploadUrl = '{{ route('customers.update', $id) }}'
                     promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
                     promise.then(function (response) {
                         $scope.getIFCViewList(response, view_type);
@@ -1307,10 +879,46 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             } 
+            $scope.getLastEnquiry = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("customers.get-enquiry",[$id,"ifc_model_uploads"]) }}',
+                }).then(function (res){
+                    res.data.ifc_model_uploads.map( (item, index) => {
+                        let [id, type] = [item.enquiry_id , item.document_type.slug];
+                        console.log(type);
+                        $scope.getIFCViewList(id,type);
+                    });
+                }, function (error) {
+                    console.log('ifc_model_uploads error');
+                });
+            }
             $scope.getDocumentTypes();
+            $scope.getLastEnquiry();                        
+
+            $scope.$on('callIFCModelUpload', function(e) {
+
+                mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
+                                                alert(`mandatory file upload ${view}`);
+                                                $rootScope.currentStep = 2;
+                                            });
+                // $http({
+                //     method: 'POST',
+                //     url: '{{ route("customers.store-enquiry") }}',
+                //     data: {type: 'ifc_model_upload_mandatory', 'data': false}
+                // }).then(function (res) {
+                //     if(res.data.status == false) {
+                //         res.data.data.map((field) => {
+                //             console.log(field);
+                //         });
+                //     }
+                // }, function (error) {
+                //     console.log('This is embarassing. An error has occurred. Please check the log for details');
+                // });
+            }); 
         });
        
-         app.directive('demoFileModel', function ($parse) {
+        app.directive('demoFileModel', function ($parse) {
             return {
                 restrict: 'A', //the directive can be used as an attribute only
                 link: function (scope, element, attrs) {
@@ -1376,19 +984,82 @@
 
         app.controller('CrudCtrl', function ($scope, $http) { 
             $scope.wallGroup = [];
+            $scope.$on('callBuildingComponent', function(e) {
+                // console.log( $scope.wallGroup);
+                $http({
+                    method: 'PUT',
+                    url: '{{ route('customers.update', $id) }}',
+                    data: {type: 'building_component', 'data': $scope.wallGroup}
+                }).then(function (res) {
+                    
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });      
+            });
             $scope.getLastEnquiry = () => {
                 $http({
                     method: 'GET',
-                    url: '{{ route('customers.get-enquiry',$id) }}',
+                    url: '{{ route("customers.get-enquiry",[$id,"building_component"]) }}',
                 }).then(function (res){
-                    res.data.building_component.map( (item , index) => {
-                      
-                        let wall = {
-                            WallId: item.id,
-                            WallName: item.wall,
-                            WallIcon: item.icon,
-                            Details: []
+                    console.log(res);
+                    if(res.data.building_component.length == 0) {
+                        getBuildingComponent = () => {
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("building-component.index") }}'
+                                }).then(function success(response) {
+                                    response.data.map( (item , index) => {
+                                        
+                                        let wall = {
+                                            WallId: item.id,
+                                            WallName: item.building_component_name,
+                                            WallIcon: item.building_component_icon,
+                                            Details: [
+                                                
+                                            ]
+                                        }
+                                        $scope.wallGroup.push(wall);
+                                    });
+                                    $scope.AddWallDetails(0);
+                                }, function error(response) {
+
+
+                                    
+                            });
                         }
+                        getBuildingComponent()
+                        return false;
+                    }
+                    res.data.building_component.map( (item , index) => {
+                        let Details  = [];
+                        if(typeof(item.detail) != 'undefined') {
+                            Details =  item.detail.map( (detail, index) => {
+                                let Layer  = [];
+                                if(typeof(detail.layer) != 'undefined') {
+                                    Layer = detail.layer.map( (layerObj, index) => {
+                                        return {
+                                            LayerName:  layerObj.layer.layer_name,
+                                            LayerType:  layerObj.layer_type.layer_type_name,
+                                            Thickness : Number(layerObj.thickness),
+                                            Breadth:  Number(layerObj.breath),
+                                        }
+                                    });
+                                }
+                                return {
+                                    FloorName   : detail.floor,
+                                    FloorNumber : Number(detail.exd_wall_number),
+                                    TotalArea   : Number(detail.approx_total_area),
+                                    DeliveryType:  detail.building_component_delivery_type_id,
+                                    Layers : Layer
+                                }
+                            });
+                        }
+                        let wall = {
+                                WallId: item.wallId,
+                                WallName: item.wall,
+                                WallIcon: item.icon,
+                                Details: Details
+                            }
                         $scope.wallGroup.push(wall);
                     });
             
@@ -1402,113 +1073,18 @@
                 return $scope.wallGroup;
            }
 
-            // $scope.wallGroup  = [
-            //     {
-            //         "WallName" : "External Wall",
-            //         "WallIcon" : "dripicons-store", 
-            //         "Details": [
-            //             {
-            //                 "FloorName" : "Ground Floor",
-            //                 "FloorNumber" : "1",
-            //                 "TotalArea" : "2500",
-            //                 "DeliveryType" : "Fire Proof",
-                            
-            //                 "Layers": [ 
-            //                     {
-            //                         "LayerName": '',
-            //                         "LayerType": '',
-            //                         "Thickness ": '',
-            //                         "Breadth": '',
-            //                     } 
-            //                 ] 
-            //             } 
-            //         ]
-            //     },
-            //     {
-            //         "WallName" : "Internal Wall",
-            //         "WallIcon" : "uil uil-store-alt", 
-            //         "Details": [
-            //             {
-            //                 "FloorName" : "First Floor",
-            //                 "FloorNumber" : "1",
-            //                 "TotalArea" : "2500",
-            //                 "DeliveryType" : "Fire Proof",
-                            
-            //                 "Layers": [ 
-            //                     {
-            //                         "LayerName": '',
-            //                         "LayerType": '',
-            //                         "Thickness ": '',
-            //                         "Breadth": '',
-            //                     } 
-            //                 ] 
-            //             } 
-            //         ]
-            //     },
-            //     {
-            //         "WallName" : "Partition Wall",
-            //         "WallIcon" : "uil uil-wall", 
-            //         "Details": [
-            //             {
-            //                 "FloorName" : "New Floor",
-            //                 "FloorNumber" : "1",
-            //                 "TotalArea" : "2500",
-            //                 "DeliveryType" : "Fire Proof",
-                            
-            //                 "Layers": [ 
-            //                     {
-            //                         "LayerName": '',
-            //                         "LayerType": '',
-            //                         "Thickness ": '',
-            //                         "Breadth": '',
-            //                     } 
-            //                 ] 
-            //             } 
-            //         ]
-            //     },
-            //     {
-            //         "WallName" : "Ceiling",
-            //         "WallIcon" : "uil uil-layers", 
-            //         "Details": [
-            //             {
-            //                 "FloorName" : "Top Right Floor",
-            //                 "FloorNumber" : "1",
-            //                 "TotalArea" : "2500",
-            //                 "DeliveryType" : "Fire Proof",
-                            
-            //                 "Layers": [ 
-            //                     {
-            //                         "LayerName": '',
-            //                         "LayerType": '',
-            //                         "Thickness ": '',
-            //                         "Breadth": '',
-            //                     } 
-            //                 ] 
-            //             } 
-            //         ]
-            //     },
-            //     {
-            //         "WallName" : "Roof",
-            //         "WallIcon" : "uil uil-mountains-sun", 
-            //         "Details": [
-            //             {
-            //                 "FloorName" : "Top Floor",
-            //                 "FloorNumber" : "1",
-            //                 "TotalArea" : "2500",
-            //                 "DeliveryType" : "Fire Proof",
-                            
-            //                 "Layers": [ 
-            //                     {
-            //                         "LayerName": '',
-            //                         "LayerType": '',
-            //                         "Thickness ": '',
-            //                         "Breadth": '',
-            //                     } 
-            //                 ] 
-            //             } 
-            //         ]
-            //     } 
-            // ]; 
+           getLayer = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("layer.index") }}'
+                    }).then(function success(response) {
+                        $scope.layers = response.data;
+                    }, function error(response) {
+                        // console.log('layer');
+                });
+            }
+            getLayer();
+
             $scope.AddWall  =   function() {
                 $scope.wallGroup.unshift({
                     "WallName" : "",
@@ -1519,10 +1095,10 @@
             }
             $scope.AddWallDetails  =   function(index) {
                 $scope.wallGroup[index].Details.push({
-                    "FloorName" : "Ground Floor",
-                    "FloorNumber" : "1",
-                    "TotalArea" : "2500",
-                    "DeliveryType" : "Fire Proof",
+                    "FloorName" : "",
+                    "FloorNumber" : "",
+                    "TotalArea" : "",
+                    "DeliveryType" : "",
                     "Layers": [
                         {
                             "LayerName": '',
@@ -1558,7 +1134,79 @@
             $scope.removeWall = function(fIndex, Secindex){
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
             } 
+        }).directive('getLayerType', function layerType($http) {
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    element.on('change', function () {
+                        if(typeof(scope.w.WallId) == 'undefined' || typeof(scope.l.LayerName) == 'undefined') {
+                            return false;
+                        }
+                        $http({
+                            method: 'GET',
+                            url: '{{ route("layer-type.get-layer-type") }}',
+                            params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+                            }).then(function success(response) {
+                                scope.layerTypes = response.data;
+                            }, function error(response) {
+                                // console.log('layer');
+                        });
+                    });
+                },
+            };
         });
+
+        app.controller('Review', function($scope, $http, $rootScope) {
+
+            $scope.$on('callReview', function(e) {
+              
+                getEnquiry = ()  => {
+                    $http({
+                        method: 'GET',
+                        url: '{{ route("customers.edit-enquiry-review", $id) }}'
+                    }).then(function (res) {
+                        $scope.project_info = res.data.project_infos;
+                        $scope.services = res.data.services;
+                        $scope.ifc_model_uploads = res.data.ifc_model_uploads;
+                        $scope.building_components = res.data.building_components;
+                        $scope.additional_infos = res.data.additional_infos;
+            
+                    }, function (error) {
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+                }
+                getEnquiry();
+            });
+        });
+
+        app.controller('AdditionalInfo', function($scope, $http, $rootScope) {
+            getLastEnquiry = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("customers.get-enquiry",[$id,"additional_info"]) }}',
+                }).then(function (res){
+                    $scope.comments = res.data.additional_infos;
+                }, function (error) {
+                    console.log('ifc_model_uploads error');
+                });
+            }
+            getLastEnquiry();
+            $scope.addComment = () => {
+                if(typeof($scope.additionalInfo) == 'undefined') {
+                    return false;
+                }
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.update", $id) }}',
+                    data: {type: 'addtional_info', 'data': $scope.additionalInfo}
+                }).then(function (res) {
+                   $scope.comments = res.data;
+                }, function (error) {
+                    console.log(`additional info ${error}`);
+                });         
+            }       
+        });
+
     </script>
    
 @endpush

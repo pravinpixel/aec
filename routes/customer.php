@@ -25,11 +25,11 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::post('store-enquiry',  [EnquiryController::class, 'store'])->name('customers.store-enquiry');     
 
-    Route::put('update-enquiry/{id}',  [EnquiryController::class, 'update'])->name('customers.update');
+    Route::match(['put', 'post'],'update-enquiry/{id}',  [EnquiryController::class, 'update'])->name('customers.update');
     
     Route::post('store-enquiry-files',  [EnquiryController::class, 'storeFiles'])->name('customers.store-enquiry-files');
 
-    Route::get('get-customer-enquiry/{id}',  [EnquiryController::class, 'getEnquiry'])->name('customers.get-enquiry');
+    Route::get('get-customer-enquiry/{id}/{type}',  [EnquiryController::class, 'getEnquiry'])->name('customers.get-enquiry');
 
     Route::get('get-plan-view',  [EnquiryController::class, 'getPlanViewList'])->name('customers.plan-view');
 
@@ -44,6 +44,9 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
     Route::delete('enquiry-document',  [EnquiryController::class, 'delete'])->name('customers.enquiry-document');
 
     Route::get('enquiry-review',  [EnquiryController::class, 'getEnquiryReview'])->name('customers.enquiry-review');
+
+    Route::get('edit-enquiry-review/{id}',  [EnquiryController::class, 'getEditEnquiryReview'])->name('customers.edit-enquiry-review');
+
     
     Route::get('view-list',  function() {
         return view('customers.pages.enquiryWizard.view-list');

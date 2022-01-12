@@ -992,7 +992,7 @@
         });;
 
         app.controller('Review', function($scope, $http, $rootScope) {
-            $scope.project_name = 'Nallu'
+          
             $scope.$on('callReview', function(e) {
               
                 getEnquiry = ()  => {

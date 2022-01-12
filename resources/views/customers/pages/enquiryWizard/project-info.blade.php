@@ -51,7 +51,7 @@
                 <label for="floatingSelect">Type of Building</label>
             </div>
             <div class="form-floating mb-2">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="building_type"  ng-model="projectInfo.project_type_id" required>
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type"  ng-model="projectInfo.project_type_id" required>
                     <option value="">@lang('customer-enquiry.select')</option>
                     <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
                         @{{ projectType.project_type_name }}

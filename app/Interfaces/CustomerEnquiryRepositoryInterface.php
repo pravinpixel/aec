@@ -37,4 +37,6 @@ interface CustomerEnquiryRepositoryInterface
     public function storeBuildingComponent($enquiry,$data);
 
     public function getBuildingComponent($enquiry);
+
+    public function getEnquiryByID($id);
 }

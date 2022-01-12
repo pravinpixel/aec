@@ -171,12 +171,22 @@ class EnquiryController extends Controller
       
     }
 
-    public function getEnquiry($id)
+    public function getEnquiry($id, $type = null)
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
-        $result['project_info'] = $this->formatProjectInfo($enquiry);
-        $result['services'] =  $enquiry->services()->pluck('id');
-        $result['building_component'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
+        if($type == 'project_info') {
+            $result['project_info'] = $this->formatProjectInfo($enquiry);
+        } else if($type == 'services') {
+            $result['services'] =  $enquiry->services()->pluck('id');
+        } else if($type == 'ifc_model_uploads') {
+            $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
+        }  else if($type == 'building_component') {
+            $result['building_component'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
+        } else if($type == 'additional_info') {
+            $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+        }
+        
+     
         return $result;
     }
 
@@ -223,6 +233,45 @@ class EnquiryController extends Controller
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
             return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
+        } else if($type == 'ifc_model_upload') {
+            if($type == 'ifc_model_upload_mandatory') {
+                $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
+                $ficuploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
+                $mandatoryDocs = $this->checkMandatoryFile($mandatoryDocuments , $ficuploads);
+                if(!empty($mandatoryDocs)) {
+                    return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
+                }
+                return response(['status' => true, 'msg' => '', 'data' => '']);
+            }
+            $view_type =  $request->input('view_type');
+            $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
+            $original_name = $request->file('file')->getClientOriginalName();
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $documents =  $this->documentTypeRepo->findBySlug($view_type);
+            $additionalData = ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
+            $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
+            return $enquiry->id;
+        } else if($type == 'building_component') {
+            DB::beginTransaction();
+            try {
+                $dataObj = json_decode (json_encode ($data), FALSE);
+               
+                if(!empty($dataObj)) {
+                    $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
+                    if($response) {
+                        DB::commit();
+                        return true;
+                    }
+                }
+            } catch (Exception $ex) {
+                DB::rollBack();
+                Log::error($ex->getMessage());
+            }
+        } else if($type == 'addtional_info') {
+            $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
+            $this->commentRepo->create($insert);
+            $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+            return response($result);
         }
     }
 
@@ -273,6 +322,17 @@ class EnquiryController extends Controller
     {
         $enquiry_number = $this->getEnquiryNumber();
         $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+        $result['project_infos'] = $this->formatProjectInfo($enquiry);
+        $result['services'] =  $enquiry->services()->get();
+        $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);
+        $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
+        $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+        return  $result;
+    }
+
+    public function getEditEnquiryReview($id) 
+    {
+        $enquiry = $this->customerEnquiryRepo->getEnquiryById($id);
         $result['project_infos'] = $this->formatProjectInfo($enquiry);
         $result['services'] =  $enquiry->services()->get();
         $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);

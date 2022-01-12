@@ -56,6 +56,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     ->find($id);
     }
 
+    public function getEnquiryByID($id) 
+    {
+        return $this->enquiry->find($id);
+    }
+
     public function getEnquiryByEnquiryNo($no)
     {
         return $this->enquiry->where('enquiry_number', $no)->first();
@@ -115,9 +120,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function storeBuildingComponent($enquiry,$buildingComponents) 
     {   
-        EnquiryBuildingComponent::where('enquiry_id', $enquiry->id)->delete();
-        EnquiryBuildingComponentDetail::where('enquiry_id', $enquiry->id)->delete();
         EnquiryBuildingComponentLayer::where('enquiry_id', $enquiry->id)->delete();
+        EnquiryBuildingComponentDetail::where('enquiry_id', $enquiry->id)->delete();
+        EnquiryBuildingComponent::where('enquiry_id', $enquiry->id)->delete();
         foreach($buildingComponents as $buildingComponent) {
             $enquiryBuildingComponent = new EnquiryBuildingComponent();
             $enquiryBuildingComponent->building_component_id = $buildingComponent->WallId;
@@ -179,7 +184,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                 }
                 $componentAdditionalData = [
                     'wall' => $buildingComponentMaster->building_component_name,
-                    'icon' => $buildingComponentMaster->building_component_icon
+                    'icon' => $buildingComponentMaster->building_component_icon,
+                    'wallId' => $buildingComponentMaster->id
                 ];
                 $buildingComponentData[] = (object)array_merge($buildingComponent, $componentAdditionalData);
         }

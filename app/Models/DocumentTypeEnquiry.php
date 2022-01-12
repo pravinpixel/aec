@@ -25,4 +25,5 @@ class DocumentTypeEnquiry extends Pivot
     {
         return $this->belongsTo(DocumentType::class,'document_type_id', 'id');
     }
+    
 }
