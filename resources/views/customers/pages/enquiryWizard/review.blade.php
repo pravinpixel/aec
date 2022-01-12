@@ -86,9 +86,9 @@
                     </tr>
                     <tr ng-repeat="ifc_model_upload in ifc_model_uploads">
                         <td> @{{ $index + 1}} </td>
-                        <td> @{{ ifc_model_upload.pivot.client_file_name }}</td>
-                        <td> @{{ ifc_model_upload.pivot.file_type }}</td>
-                        <td> @{{ ifc_model_upload.document_type_name }}</td>
+                        <td> @{{ ifc_model_upload.client_file_name }}</td>
+                        <td> @{{ ifc_model_upload.file_type }}</td>
+                        <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
                         <td class="text-center">
                             <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
                             <i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i>
@@ -101,7 +101,7 @@
 
         {{-- Building Components --}}
         <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
-            <div class="legend shadow-sm border rounded text-primary">@lang('customer.enquiry.building_component')</div>
+            <div class="legend shadow-sm border rounded text-primary">@lang('customer-enquiry.building_component')</div>
             <div class="card-body">
                 <div  style="max-height: 400px; overflow:auto">
                     <table class="table table-bordered" >
@@ -178,8 +178,21 @@
         <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
             <div class="legend shadow-sm border rounded text-primary">Additional Info</div>
             <div class="card-body pt-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?</p>
-                
+            
+                <table class="table table-bordered">
+                    <tr>
+                        <th>S.no</th>
+                        <th>Date</th>
+                        <th>commented person</th>
+                        <th>comments</th>
+                    </tr>
+                    <tr ng-repeat="additional_info in additional_infos">
+                        <td> @{{ index + 1  }}</td>
+                        <td>@{{ additional_info.created_at }}</td>
+                        <td>@{{ additional_info.customer.full_name }}</td>
+                        <td>@{{ additional_info.comments }}</td>
+                    </tr> 
+                </table>
             </div> 
         </fieldset>
         {{-- Additional Info --}}

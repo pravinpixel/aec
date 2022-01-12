@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\BuildingComponentRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
+use App\Models\Comment;
 use App\Models\Config;
 use App\Models\DocumentType;
 use App\Models\DocumentTypeEnquiry;
@@ -28,20 +30,23 @@ class EnquiryController extends Controller
     protected $documentTypeRepo;
     protected $buildingComponent;
     protected $commentRepo;
+    protected $documentTypeEnquiryRepo;
 
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository, 
         ServiceRepositoryInterface $serviceRepo,
         DocumentTypeRepositoryInterface $documentType,
         BuildingComponentRepositoryInterface $buildingComponent,
-        CommentRepositoryInterface $comment
+        CommentRepositoryInterface $comment,
+        DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo
     ){
-        $this->customerEnquiryRepo  =   $customerEnquiryRepository;
-        $this->serviceRepo          =   $serviceRepo;
-        $this->documentTypeRepo     =   $documentType;
-        $this->buildingComponent    =   $buildingComponent;
-        $this->commentRepo          =   $comment;
-    }
+        $this->customerEnquiryRepo     = $customerEnquiryRepository;
+        $this->serviceRepo             = $serviceRepo;
+        $this->documentTypeRepo        = $documentType;
+        $this->buildingComponent       = $buildingComponent;
+        $this->commentRepo             = $comment;
+        $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
+     }
 
     public function myEnquiries() 
     {
@@ -67,7 +72,7 @@ class EnquiryController extends Controller
     }
 
     public function create()
-    { 
+    {
         $enquiry = $this->customerEnquiryRepo->getEnquiry(Customer()->id);
         Session::forget('enquiry_number');
         $customer['enquiry_date']       =   now();
@@ -142,9 +147,10 @@ class EnquiryController extends Controller
                 Log::error($ex->getMessage());
             }
         } else if($type == 'addtional_info') {
-            $insert = ['comment' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
+            $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
             $this->commentRepo->create($insert);
-            return $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+            $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+            return response($result);      
         }
     }
 
@@ -178,9 +184,9 @@ class EnquiryController extends Controller
     public function formatProjectInfo($enquiry) 
     {
         return [
-            'company_name'         => $enquiry->company_name,
-            'contact_person'       => $enquiry->contact_person,
-            'mobile_no'            => $enquiry->mobile_no,
+            'company_name'         => $enquiry->customer->company_name,
+            'contact_person'       => $enquiry->customer->contact_person,
+            'mobile_no'            => $enquiry->customer->mobile_no,
             'secondary_mobile_no'  => $enquiry->secondary_mobile_no,
             'project_name'         => $enquiry->project_name,
             'zipcode'              => $enquiry->zipcode,
@@ -267,9 +273,11 @@ class EnquiryController extends Controller
     {
         $enquiry_number = $this->getEnquiryNumber();
         $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
-        $result['project_info'] = $this->formatProjectInfo($enquiry);
+        $result['project_infos'] = $this->formatProjectInfo($enquiry);
         $result['services'] =  $enquiry->services()->get();
-        $result['building_component'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);
+        $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);
+        $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
+        $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         return  $result;
     }
 

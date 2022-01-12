@@ -15,10 +15,10 @@ class CreateEnquiryBuildingComponentLayersTable extends Migration
     {
         Schema::create('enquiry_building_component_layers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('enquiry_id');
-            $table->unsignedBigInteger('enquiry_bcd_id');
-            $table->unsignedBigInteger('layer_id');
-            $table->unsignedBigInteger('layer_type_id');
+            $table->unsignedBigInteger('enquiry_id')->unsigned();
+            $table->unsignedBigInteger('enquiry_bcd_id')->unsigned();
+            $table->unsignedBigInteger('layer_id')->unsigned();
+            $table->unsignedBigInteger('layer_type_id')->unsigned();
             $table->string('thickness');
             $table->string('breath');
             $table->foreign('enquiry_id')->references('id')->on('enquiries');

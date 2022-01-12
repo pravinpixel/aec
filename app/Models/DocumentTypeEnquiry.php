@@ -20,4 +20,9 @@ class DocumentTypeEnquiry extends Pivot
     {
         return Carbon::parse($date)->format(Config::get('global.model_date_format'));
     }
+
+    public function documentType()
+    {
+        return $this->belongsTo(DocumentType::class,'document_type_id', 'id');
+    }
 }

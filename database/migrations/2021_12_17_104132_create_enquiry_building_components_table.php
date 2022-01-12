@@ -16,8 +16,8 @@ class CreateEnquiryBuildingComponentsTable extends Migration
     { 
         Schema::create('enquiry_building_components', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('enquiry_id');
-            $table->unsignedBigInteger('building_component_id');
+            $table->unsignedBigInteger('enquiry_id')->unsigned();
+            $table->unsignedBigInteger('building_component_id')->unsigned();
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->foreign('building_component_id')->references('id')->on('building_components');
             $table->timestamps();

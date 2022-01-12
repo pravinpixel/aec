@@ -18,7 +18,9 @@ class CommentRepository implements CommentRepositoryInterface{
     }
 
     public function getCommentByEnquiryId($id) {
-        return $this->model->where('enquiry_id', $id)->get();
+        return $this->model->where('type_id', $id)
+                            ->with('customer')
+                            ->get();
     }
 
 }

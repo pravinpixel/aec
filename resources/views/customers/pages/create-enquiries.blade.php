@@ -528,7 +528,7 @@
                 } else if ($rootScope.currentStep == 3) {
                     $scope.$broadcast('callIFCModelUpload');
                 } else if ($rootScope.currentStep == 4) {
-                    console.log('called 55');
+                   
                     $scope.$broadcast('callBuildingComponent');
                 }
                 else if ($rootScope.currentStep == 5) {
@@ -769,7 +769,7 @@
                 }).then(function (res) {
                     if(res.data.status == false) {
                         res.data.data.map((field) => {
-                            console.log(field);
+                           
                         });
                     }
                 }, function (error) {
@@ -869,7 +869,7 @@
         app.controller('CrudCtrl', function ($scope, $http, $rootScope) { 
            
             $scope.$on('callBuildingComponent', function(e) {
-                console.log( $scope.wallGroup);
+                // console.log( $scope.wallGroup);
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -913,7 +913,7 @@
                     }).then(function success(response) {
                         $scope.layers = response.data;
                     }, function error(response) {
-                        console.log('layer');
+                        // console.log('layer');
                 });
             }
           
@@ -940,9 +940,9 @@
                         }
                     ] 
                 });
-                console.log( $scope.wallGroup);
+                // console.log( $scope.wallGroup);
             } 
-            console.log($scope.wallGroup);
+            // console.log($scope.wallGroup);
             $scope.AddLayers  =   function(fIndex, index) {
                 $scope.wallGroup[fIndex].Details[index].Layers.unshift({
                     "LayerName": '',
@@ -984,7 +984,7 @@
                             }).then(function success(response) {
                                 scope.layerTypes = response.data;
                             }, function error(response) {
-                                console.log('layer');
+                                // console.log('layer');
                         });
                     });
                 },
@@ -1000,12 +1000,12 @@
                         method: 'GET',
                         url: '{{ route("customers.enquiry-review") }}'
                     }).then(function (res) {
-                      
-                        $scope.project_info = res.data.project_info;
+                        $scope.project_info = res.data.project_infos;
                         $scope.services = res.data.services;
                         $scope.ifc_model_uploads = res.data.ifc_model_uploads;
-                        $scope.building_components = res.data.building_component;
-                        console.log( res.data.building_component)
+                        $scope.building_components = res.data.building_components;
+                        $scope.additional_infos = res.data.additional_infos;
+            
                     }, function (error) {
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
                     });

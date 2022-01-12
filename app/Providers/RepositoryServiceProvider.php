@@ -8,6 +8,7 @@ use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\DeliveryTypeRepositoryInterface;
+use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
 use App\Interfaces\LayerRepositoryInterface;
 use App\Interfaces\LayerTypeRepositoryInterface;
@@ -20,6 +21,7 @@ use App\Repositories\CommentRepository;
 use App\Repositories\CustomerEnquiryRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\DeliveryTypeRepository;
+use App\Repositories\DocumentTypeEnquiryRepository;
 use App\Repositories\DocumentTypeRepository;
 use App\Repositories\LayerRepository;
 use App\Repositories\LayerTypeRepository;
@@ -91,6 +93,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CommentRepositoryInterface::class,
             CommentRepository::class
+        );
+
+        $this->app->bind(
+            DocumentTypeEnquiryRepositoryInterface::class,
+            DocumentTypeEnquiryRepository::class
         );
     }
 

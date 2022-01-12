@@ -15,14 +15,14 @@
                 <tr>
                     <th>S.no</th>
                     <th>Date</th>
-                    <th>commented persion</th>
+                    <th>commented person</th>
                     <th>comments</th>
                 </tr>
                 <tr ng-repeat="comment in comments">
                     <td> @{{ index + 1  }}</td>
                     <td>@{{ comment.created_at }}</td>
-                    <td>@{{ comment.user.first_name }}</td>
-                    <td>@{{ comment.comment }}</td>
+                    <td>@{{ comment.customer.full_name }}</td>
+                    <td>@{{ comment.comments }}</td>
                 </tr> 
             </table>
              

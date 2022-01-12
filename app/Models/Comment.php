@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 class Comment extends Model
 {
@@ -17,8 +19,13 @@ class Comment extends Model
         'updated_by'
     ];
 
-    public function user()
+    public function getCreatedAtAttribute($date)
     {
-        return $this->belongsTo(User::class);
+        return  Carbon::parse($date)->format(Config::get('global.model_date_format'));
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'created_by', 'id');
     }
 }
