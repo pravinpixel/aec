@@ -62,21 +62,17 @@
             
             {{-- <li class="side-nav-title side-nav-item mt-1">Sales</li> --}}
 
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarMaps" aria-expanded="false" aria-controls="sidebarMaps" class="side-nav-link">
+            <li class="side-nav-item {{ Route::is(["view-enquiry","admin-create-sales-enquiries"]) ? "menuitem-active" : ""}}">
+                <a data-bs-toggle="collapse" href="#Sales" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                     <span> Sales </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="sidebarMaps">
+                <div class="collapse {{ Route::is("view-enquiry","admin-create-sales-enquiries") ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
-                        <li>
+                        <li class="{{ Route::is("view-enquiry","admin-create-sales-enquiries") ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin-view-sales-enquiries') }}">Enquiries</a>
-                        </li>
-                        
-                        {{-- <li>
-                            <a href="{{ route('admin-create-sales-enquiries') }}">Contracts</a>
-                        </li> --}}
+                        </li> 
                     </ul>
                 </div>
             </li> 
@@ -95,13 +91,13 @@
                 </a> 
             </li> 
 
-            <li class="side-nav-item ">
-                <a data-bs-toggle="collapse" href="#costestimate" aria-expanded="false" aria-controls="costestimate" class="side-nav-link">
+            <li class="side-nav-item {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
+                <a data-bs-toggle="collapse" href="#Administration" aria-expanded="false" aria-controls="Administration" class="side-nav-link">
                     <i class="fa fa-fingerprint" aria-hidden="true"></i>
                     <span>Administration</span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="costestimate">
+                <div class="collapse {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "show" : ""}}" id="Administration">
                     <ul class="side-nav-second-level">
                         <li>
                             <a href="{{ route('cost-estimation-single-view') }}">Cost Estimation</a>
@@ -109,12 +105,9 @@
                         <li>
                             <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
                         </li>
-                        <li>
-                            <a href="{{ route('admin-employee-control-view') }}">Employee Control</a>
-                        </li>
-                        <!-- <li>
-                            <a href="{{ route('admin.employee-add') }}">Add Employee</a>
-                        </li> -->
+                        <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
+                            <a href="{{ route('admin-employee-control-view') }}">Employee Control </a>
+                        </li> 
                     </ul>
                 </div>
             </li> 

@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GanttChartController;
 use App\Http\Controllers\Admin\GanttController;
+use App\Http\Controllers\Admin\GanttTaskController;
+use App\Http\Controllers\Admin\GanttLinkController;
 
 
 /*
@@ -26,13 +28,9 @@ Route::post('/ganttChart/data/task',[ GanttChartController::class, 'storeData'])
 Route::put('/ganttChart/data/task/{id}',[ GanttChartController::class, 'updateData']);
 Route::delete('/ganttChart/data/task/{id}',[ GanttChartController::class, 'deleteData']);
 Route::get('/ganttChart/data',[ GanttChartController::class, 'getData'])->name('ganttChart_data');
-
-
-Route::get('/data',[ GanttController::class, 'getData'])->name('data');
-
-Route::post('/data/task',[ GanttController::class, 'storeData']);
-Route::put('/data/task/{id}',[ GanttController::class, 'updateData']);
-Route::delete('/data/task/{id}',[ GanttController::class, 'deleteData']);
-
-Route::post('/data/link',[ GanttController::class, 'storeLink']);
  
+
+
+Route::get('/data',[ GanttController::class, 'get'])->name('data');
+Route::resource('task', GanttTaskController::class);
+Route::resource('link', GanttLinkController::class); 

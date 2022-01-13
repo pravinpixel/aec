@@ -91,7 +91,6 @@
                         </ul>  
                         <div class="tab-content my-3" >
                             <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
-                             
                                 @include('customers.pages.enquiryWizard.project-info')
                             </div>
                             <div class="tab-pane fade " id="second" ng-controller="ServiceSelection">
@@ -119,7 +118,6 @@
                                     <li class="next list-inline-item float-end" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
                                 </ul>
                             </div>
-
                         </div> <!-- tab-content -->
                     </div> <!-- end #rootwizard--> 
                 </div> <!-- end card-body -->

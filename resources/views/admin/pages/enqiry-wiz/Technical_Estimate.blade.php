@@ -1,7 +1,7 @@
 <div class="row mx-0 mt-3 ">
     <div class="col-lg-9 p-0">
         <div class="card shadow-none p-0">
-            <div class="card-header ">
+            <div class="card-header pb-0 border-0">
                 <div class="card-header pb-2 p-3 text-center border-0">
                     <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ E.enquiry_number }}</span> | <span class="text-success">@{{ E.project_name }}</span> | <span class="text-info">@{{ E.customer.contact_person }}</span></h4>
                 </div>
@@ -27,6 +27,14 @@
                 </div>
             </div>
             <div class="card-body ">
+                <div class="row align-items-center mb-2">
+                    <div class="col-sm-6">
+                        <button class="btn btn-sm btn-outline-primary "><i class="fa fa-plus"></i> Add Building</button>
+                    </div>
+                    <div class="col-sm-6 text-end">
+                        <span class="text-secondary">Total Cost :</span> <b>XXXXX</b> 
+                    </div>
+                </div>
                 <table class="table m-0 table-bordered">
                     <thead class="bg-light">
                         <tr>
@@ -74,12 +82,12 @@
                         </tr> 
                     </tbody> 
                 </table>
-                <button class="btn btn-outline-primary mt-3"><i class="fa fa-plus"></i> Add Component</button>
+                
 
             </div>
             <div class="card-footer ">
-                <div class="row">
-                    <div class="col-md-8">
+                <div class="row m-0">
+                    <div class="col-md-8 p-0">
                         <div class="input-group ">
                             <label class="input-group-text bg-white font-weight-bold" for="inputGroupSelect01">Assign to</label>
                             <select class="form-select" id="inputGroupSelect01">
@@ -91,7 +99,7 @@
                             <label class="input-group-text btn btn-info" for="inputGroupSelect01">send</label>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 p-0">
                         <div class="text-end">
                             <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
                             <a class="btn btn-success" onclick="submit()" href=""><i class="uil-sync"></i> Update</a>

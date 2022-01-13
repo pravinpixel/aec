@@ -9,7 +9,7 @@
                     <li class="breadcrumb-item active">
                         @if (Route::is('admin-dashboard')) Admin Dashboard @endif
                         @if (Route::is('admin-view-sales-enquiries')) List Of Enquiries @endif
-                        @if (Route::is('view-enquiry')) Enquiries details @endif
+                        @if (Route::is('view-enquiry')) Enquiries detail @endif
                         @if (Route::is('admin-create-sales-enquiries')) Create Enquiry @endif
                         @if (Route::is('admin-estimation-view')) List of Estimation's @endif
                         @if (Route::is('admin-estimation-single-view')) Estimation View @endif
@@ -35,7 +35,7 @@
             <h4 class="page-title">
                 @if (Route::is('admin-dashboard')) Admin Dashboard @endif
                 @if (Route::is('admin-view-sales-enquiries')) List Of Enquiries @endif
-                @if (Route::is('view-enquiry')) Enquiries details @endif
+                @if (Route::is('view-enquiry')) Enquiries detail @endif
                 @if (Route::is('admin-create-sales-enquiries')) Create Enquiry  @endif
                 @if (Route::is('admin-estimation-view')) List of Estimation's @endif
                 @if (Route::is('admin-estimation-single-view')) Estimation View @endif

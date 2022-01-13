@@ -14,11 +14,14 @@ class DashboardController extends Controller
     {
         $enquiryCount   =   Enquiry::count();
         $customerCount  =   Customer::count();
-
+        $EnqData        =   Enquiry::with('customer')                        
+                        ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
+                        ->get();
         return view('admin.dashboard.enquiry',
                         compact(
                             'enquiryCount',
-                            'customerCount'
+                            'customerCount',
+                            'EnqData'
                         ));
     }
     public function projectDashboard()

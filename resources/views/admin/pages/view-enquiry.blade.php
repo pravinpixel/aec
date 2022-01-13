@@ -13,9 +13,35 @@
                 
                 <!-- start page title -->
                 
-                @include('admin.layouts.page-navigater') 
-               
-                    <div data-loading> </div>
+                <div class="row ">
+                    <div class="col-12">
+                        <div class="page-title-box mt-3">
+                            <div class="page-title-right mt-0">
+                                <ol class="breadcrumb align-items-center m-0">
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route("admin-dashboard") }}"><i class="fa fa-home"></i></a>
+                                    </li>
+                                    <li class="breadcrumb-item active">
+                                        Enquiries detail
+                                    </li>
+                                    @if (Route::is('view-enquiry')) 
+                                        <li class="breadcrumb-item">
+                                            <a href="">Overview</a>
+                                        </li>
+                                    @endif
+                                    
+                                    <li class="breadcrumb- ms-2">
+                                        <i type="button" onclick="goBack()" class="mdi mdi-backspace text-danger fa-2x"></i> 
+                                    </li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title"><div ng-controller="WizzardCtrl">@{{ E.enquiry_number }} : @{{   E.project_name }}</div></h4>
+                        </div>
+                    </div>
+                </div>
+              
+                
+                <div data-loading> </div>
                 
                 <div class="card border">
                     <div class="card-body py-0"> 
@@ -25,7 +51,7 @@
                                 <li class="nav-item  Project_Info">
                                     <a href="#!/Project_Info"   style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle  bg-success">
+                                            <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
@@ -35,7 +61,7 @@
                                 <li class="nav-item  admin-Technical_Estimate-wiz">
                                     <a href="#!/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle bg-success">
+                                            <div class="inner-circle bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
@@ -45,7 +71,7 @@
                                 <li class="nav-item admin-Cost_Estimate-wiz">
                                     <a href="#!/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle  bg-success">
+                                            <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/budget.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
@@ -55,7 +81,7 @@
                                 <li class="nav-item admin-Project_Schedule-wiz">
                                     <a href="#!/Project_Schedule" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle  bg-success">
+                                            <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
                                             </div>                                                                        
                                         </div>
@@ -65,7 +91,7 @@
                                 <li class="nav-item admin-Proposal_Sharing-wiz">
                                     <a href="#!/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle  bg-success">
+                                            <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/share.png") }}" class="w-50 invert">
                                             </div>                                                                        
                                         </div>
@@ -562,12 +588,13 @@
             font-weight: bold
         }
     </style>   
-    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">
+    {{-- <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> --}}
 @endpush
 
 @push('custom-scripts') 
  
     <!-- end demo js-->
+    {{-- <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script> --}}
     <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
@@ -851,6 +878,6 @@
         });
          
     </script> 
-    <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
+
   
 @endpush

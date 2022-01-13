@@ -7,7 +7,7 @@
             <thead class="bg-light">
                 <tr >
                     <th style="background: #0071A8 !important">Enquiry Date</th>
-                    <th style="background: #0071A8 !important">Person Contact</th>
+                    <th style="background: #0071A8 !important">Project Name</th>
                     <th style="background: #0071A8 !important">Type of Project</th>
                     <th style="background: #0071A8 !important">Enquiry Status</th>
                 </tr>
@@ -15,7 +15,7 @@
             <tbody>
                 <tr>
                     <td>@{{ E.enquiry_date }}</td>
-                    <td>@{{ E.customer.contact_person }}</td>
+                    <td>@{{ E.customer.project_name }}</td>
                     <td>New Construction</td>
                     <td>In Estimation</td>
                 </tr>
@@ -36,7 +36,6 @@
                             <th rowspan="2" class="text-center font-12" style="background: #1d336b !important">Type</th>
                             <th rowspan="2" class="text-center font-12" style="background: #1d336b !important" >Sq.M</th>
                             <th class="text-center font-12" style="background: #1d336b !important" >1 to 2</th>
-                            <th  rowspan="2" class="text-center font-12" style="background: #1d336b !important" ><small>m<sup>2</sup> Gross</small></th>
                             <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">Details</th>
                             <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">Statistics</th>
                             <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">CAD/CAM</th>
@@ -46,15 +45,15 @@
                         </tr>
                         <tr class="bg-light-primary border" >
                             <th class="text-center font-12" style="background: #1d336b !important" >Complexity</th> 
-                            <th class="text-center" style="background: #046b9e !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #046b9e !important"><small>Nok/M<sup>2</sup></small></th>
                             <th class="text-center" style="background: #0571a7 !important"><small>Sum</small></th> 
-                            <th class="text-center" style="background: #046b9e !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #046b9e !important"><small>Nok/M<sup>2</sup></small></th>
                             <th class="text-center" style="background: #0571a7 !important"><small>Sum</small></th> 
-                            <th class="text-center" style="background: #046b9e !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #046b9e !important"><small>Nok/M<sup>2</sup></small></th>
                             <th class="text-center" style="background: #0571a7 !important"><small>Sum</small></th> 
-                            <th class="text-center" style="background: #046b9e !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #046b9e !important"><small>Nok/M<sup>2</sup></small></th>
                             <th class="text-center" style="background: #0571a7 !important"><small>Sum</small></th> 
-                            <th class="text-center" style="background: #1d336b !important"><small>Price/M<sup>2</sup></small></th>
+                            <th class="text-center" style="background: #1d336b !important"><small>Nok/M<sup>2</sup></small></th>
                             <th class="text-center" style="background: #1d336b !important"><small>Sum</small></th>  
                         </tr>
                     </thead>
@@ -82,7 +81,6 @@
                                     <option value="WA">Washington</option>
                                 </select>
                             </td>
-                            <td style="padding:0px !important"><input  type="number" class="my-control"></td>
                             <td style="padding:0px !important"><input  type="number" class="my-control"></td>
                             <td style="padding:0px !important"><input  type="number" class="my-control"></td>
 
@@ -129,7 +127,6 @@
                             <td colspan="2" class="text-center">
                                 <b>Total</b>
                             </td>
-                            <td class="font-12 text-end">01</td>
                             <td class="font-12 text-end">01</td>
                             <td class="font-12 text-end">01</td>
                             <td class="font-12 text-end">01</td>

@@ -53,7 +53,7 @@ Route::prefix('admin')->group(function () {
   
     // ======== END: Dashborads========== 
  
-    Route::get('/sales-view-enquiries', function () {
+    Route::get('/all-enquiries', function () {
         return view('admin.pages.view-sales-enquiries');
     })->name('admin-view-sales-enquiries');         
 
@@ -95,7 +95,7 @@ Route::prefix('admin')->group(function () {
 
   
 
-    Route::get('sales-view-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
+    Route::get('view-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
     
      
 
@@ -105,7 +105,7 @@ Route::prefix('admin')->group(function () {
 
     
 
-    Route::get('/sales-create-enquiries', function () {
+    Route::get('/create-enquiries', function () {
         return view("admin.pages.create-sales-enquiries");
     })->name('admin-create-sales-enquiries');
 
@@ -124,7 +124,7 @@ Route::prefix('admin')->group(function () {
    
     Route::get('/admin-cost-estimation-single-view', [CostEstimationController::class,'cost_estimation_single_view'])->name('cost-estimation-single-view');
     Route::get('/admin-gantt-chart-single-view', [GanttChartController::class,'gantt_chart_single_view'])->name('admin-gantt-chart-single-view');
-    Route::get('/admin-employee-control-view', [EmployeeController::class,'employee_control_view'])->name('admin-employee-control-view');
+    Route::get('/all-employees', [EmployeeController::class,'employee_control_view'])->name('admin-employee-control-view');
 
     Route::get('/proposal-conversation', function () {
         return view('admin.pages.proposal-conversation');
@@ -161,18 +161,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     // Route::get('ganttChartEdit', [GanttChartController::class, 'ganttChartEdit'])->name('ganttChartEdit');
     // Route::get('ganttChartDelete', [GanttChartController::class, 'ganttChartDelete'])->name('ganttChartDelete');
 
-    
+        
 
-// Route::get('/data',[ GanttChartController::class, 'getData'])->name('data');
+    // Route::get('/data',[ GanttChartController::class, 'getData'])->name('data');
 
-// Route::resource('task', 'TaskController');
-// Route::resource('link', 'LinkController');
-Route::post('data/task',[ GanttChartController::class, 'index'])->name('data.task');
+    // Route::resource('task', 'TaskController');
+    // Route::resource('link', 'LinkController');
+    Route::post('data/task',[ GanttChartController::class, 'index'])->name('data.task');
 
 
-// Route::post('task',[ GanttChartController::class, 'storeData'])->name('task');
-// Route::put('task/{id}',[ GanttChartController::class, 'updateData'])->name('task');
-// Route::delete('task/{id}',[ GanttChartController::class, 'deleteData'])->name('task');
+    // Route::post('task',[ GanttChartController::class, 'storeData'])->name('task');
+    // Route::put('task/{id}',[ GanttChartController::class, 'updateData'])->name('task');
+    // Route::delete('task/{id}',[ GanttChartController::class, 'deleteData'])->name('task');
 
 
     Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role');
@@ -184,12 +184,12 @@ Route::post('data/task',[ GanttChartController::class, 'index'])->name('data.tas
     Route::delete('delete_role/{id}', [EmployeeController::class, 'delete_role'])->name('delete_role');
 
     Route::get('employee_role', [EmployeeController::class, 'employee_role'])->name('employee_role');
-    Route::get('employee_add', [EmployeeController::class, 'employee_add'])->name('employee-add');
+    Route::get('add-employee', [EmployeeController::class, 'employee_add'])->name('employee-add');
     Route::post('add_employee', [EmployeeController::class, 'add_employee'])->name('add_employee');
     Route::get('getEmployeeId', [EmployeeController::class, 'getEmployeeId'])->name('getEmployeeId');
     Route::get('get_employee', [EmployeeController::class, 'get_employee'])->name('get_employee');
     Route::delete('employee_delete/{id}', [EmployeeController::class, 'employee_delete'])->name('employee_delete');
-    Route::get('employeeEdit/{id}', [EmployeeController::class, 'employeeEdit'])->name('employeeEdit');
+    Route::get('    /{id}', [EmployeeController::class, 'employeeEdit'])->name('employeeEdit');
     Route::get('get_EditEmployee/{id}', [EmployeeController::class, 'get_EditEmployee'])->name('get_EditEmployee');
     
     Route::POST('update_employee/{id}', [EmployeeController::class, 'update_employee'])->name('update_employee');

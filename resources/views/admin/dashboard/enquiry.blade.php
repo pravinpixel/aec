@@ -50,7 +50,7 @@
 											   <div class="float-end">
 												   <i class="mdi mdi-pulse widget-icon"></i>
 											   </div>
-											   <h5 class="text-muted fw-normal mt-0" title="Growth">WON Opportunities</h5>
+											   <h5 class="text-muted fw-normal mt-0" title="Growth">New Enquiries</h5>
 											   <p class="mb-0 text-muted">
 												   <div class="text-success me-2"><i class="mdi mdi-arrow-up-bold fa-2x"></i> <span class="fa-2x">40</span></div>
 												   <span class="text-nowrap">Since last month</span>  
@@ -64,7 +64,7 @@
 											   <div class="float-end">
 												   <i class="mdi mdi-pulse widget-icon"></i>
 											   </div>
-											   <h5 class="text-muted fw-normal mt-0" title="Growth">Lost Opportunities</h5>
+											   <h5 class="text-muted fw-normal mt-0" title="Growth">Customer response awaiting</h5>
 											   <p class="mb-0 text-muted">
 												   <div class="text-danger me-2"><i class="mdi mdi-arrow-down-bold fa-2x"></i> <span class="fa-2x">3</span></div>
 												   <span class="text-nowrap">Since last month</span>
@@ -79,7 +79,7 @@
 											   <div class="float-end">
 												   <i class="mdi mdi-account-multiple widget-icon"></i>
 											   </div>
-											   <h5 class="text-muted fw-normal mt-0" >No of Enquiries</h5>
+											   <h5 class="text-muted fw-normal mt-0" >Unattended Enquiries</h5>
 											   <h3 class="mt-3 mb-3 text-primary">{{ $enquiryCount }}</h3>
 										   </div> <!-- end card-body-->
 									   </div> <!-- end card-->
@@ -91,7 +91,7 @@
 											   <div class="float-end">
 												   <i class="mdi mdi-cart-plus widget-icon"></i>
 											   </div>
-											   <h5 class="text-muted fw-normal mt-0"  >No of Projects</h5>
+											   <h5 class="text-muted fw-normal mt-0" >Active Enquiries</h5>
 											   <h3 class="mt-3 mb-3 text-info">0</h3>
 												
 										   </div> <!-- end card-body-->
@@ -132,7 +132,38 @@
 						   </div> <!-- end col -->
    
 						   <div class="col-xl-7 col-lg-6">
-							   <div class="card card-h-100">
+								<div class="card">
+									<div class="card-body">
+									 
+										<h4 class="header-title mb-3">Enquiries</h4>
+										<div class="chart-content-bg">
+											<div class="row text-center">
+												<div class="col-md-6">
+													<p class="text-muted mb-0 mt-3">Current Month</p>
+													<h3 class="fw-normal mb-3">
+														<small class="mdi mdi-checkbox-blank-circle text-primary align-middle me-1"></small>
+														<span>$58,254</span>
+													</h3>
+												</div>
+												<div class="col-md-6">
+													<p class="text-muted mb-0 mt-3">Previous Month</p>
+													<h3 class="fw-normal mb-3">
+														<small class="mdi mdi-checkbox-blank-circle text-success align-middle me-1"></small>
+														<span>$69,524</span>
+													</h3>
+												</div>
+											</div>
+										</div>
+
+										<div class="dash-item-overlay d-none d-md-block" dir="ltr">
+											<h5>Total Enquiries: 125</h5>
+										</div>
+										<div dir="ltr">
+											<div id="revenue-chart" class="apex-charts mt-3" data-currentMonth="12,30,23,45" data-colors="#727cf5,#0acf97"></div>
+										</div>
+									</div> <!-- end card-body-->
+								</div> <!-- end card-->
+							   {{-- <div class="card card-h-100">
 								   <div class="card-body">
 									   <div class="dropdown float-end">
 										   <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
@@ -146,12 +177,15 @@
 									   </div>
 									   <h4 class="header-title mb-3">Customers wise sales count</h4>
    
-									   <div dir="ltr">
+									    <div dir="ltr">
 										   <div id="simple-pie" class="apex-charts" data-series="10 ,{{ $customerCount }}" data-labels="New Users 10,Old users {{ $customerCount }}" data-colors="#727cf5,#6c757d,#0acf97,#fa5c7c,#e3eaef"></div>
-									   </div>
+									   </div> 
+									   <div dir="ltr">
+											<div id="revenue-chart" class="apex-charts mt-3" data-colors="#727cf5,#0acf97"></div>
+										</div>
 										   
 								   </div> <!-- end card-body-->
-							   </div> <!-- end card-->
+							   </div> <!-- end card--> --}}
    
 						   </div> <!-- end col -->
 					   </div>
@@ -257,6 +291,7 @@
 									   <h4 class="header-title mb-3">Recent Activities</h4>
    
 									   <div class="table-responsive">
+										   
 										   <table class="table table-centered table-nowrap table-hover mb-0">
 											   <tbody>
 												   @for ($i = 0; $i < 5;  $i++)
@@ -431,21 +466,247 @@
 	<script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
 	<script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
 	<script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
-	<script src="{{ asset('public/assets/js/vendor/Chart.bundle.min.js') }}"></script>
-	<script src="{{ asset('public/assets/js/pages/demo.chartjs.js') }}"></script>
+ 
 	<script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
-	<script src="{{ asset('public/assets/js/vendor/jquery-jvectormap-1.2.2.min.js') }}"></script>
-	<script src="{{ asset('public/assets/js/vendor/jquery-jvectormap-world-mill-en.js') }}"></script>
-	<script src="{{ asset('public/assets/js/pages/demo.dashboard.js') }}"></script>
-	<script src="{{ asset('public/assets/js/pages/demo.apex-pie.js') }}"></script>
-	<script src="{{ asset('public/assets/js/pages/demo.apex-column.js') }}"></script>
-	<script src="{{ asset('public/assets/js/pages/demo.dashboard-analytics.js') }}"></script>
+	<script>
+		(dataColors = $("#distributed-column").data("colors")) && (colors = dataColors.split(","));
+		options = {
+			chart: {
+				height: 380,
+				type: "bar",
+				toolbar: {
+					show: !1
+				},
+				events: {
+					click: function(o, a, t) {
+						console.log(o, a, t)
+					}
+				}
+			},
+			colors: colors,
+			plotOptions: {
+				bar: {
+					columnWidth: "45%",
+					distributed: !0
+				}
+			},
+			dataLabels: {
+				enabled: !1
+			},
+			series: [{
+				data: [21, 22, 10, 28, 16, 21, 13, 30]
+			}],
+			xaxis: {
+				categories: ["John", "Joe", "Jake", "Amber", "Peter", "Mary", "David", "Lily"],
+				labels: {
+					style: {
+						colors: colors,
+						fontSize: "14px"
+					}
+				}
+			},
+			legend: {
+				offsetY: 7
+			},
+			grid: {
+				row: {
+					colors: ["transparent", "transparent"],
+					opacity: .2
+				},
+				borderColor: "#f1f3fa"
+			}
+		};
+		(chart = new ApexCharts(document.querySelector("#distributed-column"), options)).render();
+	</script>
+	<script>
+		! function (o) {
+			"use strict";
+			function e() {
+				this.$body = o("body"), this.charts = []
+			}
+			e.prototype.initCharts = function () {
+				// window.Apex = {
+				// 	chart: {
+				// 		parentHeightOffset: 0,
+				// 		toolbar: {
+				// 			show: !1
+				// 		}
+				// 	},
+				// 	grid: {
+				// 		padding: {
+				// 			left: 0,
+				// 			right: 0
+				// 		}
+				// 	},
+				// 	colors: ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"]
+				// };
+				var e = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"],
+					t = o("#revenue-chart").data("colors");
+					t && (e = t.split(","));
+			 
+				var r = {
+					chart: {
+						height: 280,
+						type: "line",
+						dropShadow: {
+							enabled: !0,
+							opacity: .2,
+							blur: 7,
+							left: -7,
+							top: 7
+						}
+					},
+					dataLabels: {
+						enabled: !1
+					},
+					stroke: {
+						curve: "smooth",
+						width: 4
+					},
+					series: [{
+						name: "Current Month",
+						data:   [10, 20, 15, 25, 20, 30, 20]
+					}, {
+						name: "Previous Month",
+						data: [0, 15, 10, 30, 15, 35, 25]
+					}],
+					colors: e,
+					zoom: {
+						enabled: !1
+					},
+					legend: {
+						show: !1
+					},
+					xaxis: {
+						type: "string",
+						categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+						tooltip: {
+							enabled: !1
+						},
+						axisBorder: {
+							show: !1
+						}
+					},
+					yaxis: {
+						labels: {
+							formatter: function (e) {
+								return e + "k"
+							},
+							offsetX: -15
+						}
+					}
+				};
+				new ApexCharts(document.querySelector("#revenue-chart"), r).render();
 
-	 
+
+
+				e = ["#727cf5", "#e3eaef"];
+				(t = o("#high-performing-product").data("colors")) && (e = t.split(","));
+				r = {
+					chart: {
+						height: 257,
+						type: "bar",
+						stacked: !0
+					},
+					plotOptions: {
+						bar: {
+							horizontal: !1,
+							columnWidth: "20%"
+						}
+					},
+					dataLabels: {
+						enabled: !1
+					},
+					stroke: {
+						show: !0,
+						width: 2,
+						colors: ["transparent"]
+					},
+					series: [{
+						name: "Actual",
+						data: [65, 59, 80, 81, 56, 89, 40, 32, 65, 59, 80, 81]
+					}, {
+						name: "Projection",
+						data: [89, 40, 32, 65, 59, 80, 81, 56, 89, 40, 65, 59]
+					}],
+					zoom: {
+						enabled: !1
+					},
+					legend: {
+						show: !1
+					},
+					colors: e,
+					xaxis: {
+						categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+						axisBorder: {
+							show: !1
+						}
+					},
+					yaxis: {
+						labels: {
+							formatter: function (e) {
+								return e + "k"
+							},
+							offsetX: -15
+						}
+					},
+					fill: {
+						opacity: 1
+					},
+					tooltip: {
+						y: {
+							formatter: function (e) {
+								return "$" + e + "k"
+							}
+						}
+					}
+				};
+				new ApexCharts(document.querySelector("#high-performing-product"), r).render();
+				e = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
+				(t = o("#average-sales").data("colors")) && (e = t.split(","));
+				r = {
+					chart: {
+						height: 208,
+						type: "donut"
+					},
+					legend: {
+						show: !1
+					},
+					stroke: {
+						colors: ["transparent"]
+					},
+					series: [44, 55, 41, 17],
+					labels: ["Direct", "Affilliate", "Sponsored", "E-mail"],
+					colors: e,
+					responsive: [{
+						breakpoint: 480,
+						options: {
+							chart: {
+								width: 200
+							},
+							legend: {
+								position: "bottom"
+							}
+						}
+					}]
+				};
+				new ApexCharts(document.querySelector("#average-sales"), r).render()
+			},e.prototype.init = function () {
+				o("#dash-daterange").daterangepicker({
+					singleDatePicker: !0
+				}), this.initCharts(), this.initMaps()
+			}, o.Dashboard = new e, o.Dashboard.Constructor = e
+		}(window.jQuery),
+		function (t) {
+			"use strict";
+			t(document).ready(function (e) {
+				t.Dashboard.init()
+			})
+		}(window.jQuery);
+	</script>
 	<script>
 		 var app = angular.module('Myapp', ['datatables']).constant('API_URL', $("#baseurl").val()); 
 		app.controller('EnqController', function ($scope, $http, API_URL) {
-             
             getData = function($http, API_URL) {
                 $http({
                     method: 'GET',

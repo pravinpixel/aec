@@ -69,6 +69,7 @@ dataColors && (colors = dataColors.split(","));
     },
     chart = new ApexCharts(document.querySelector("#basic-column"), options);
 chart.render();
+
 colors = ["#727cf5","#252525"];
 (dataColors = $("#datalabels-column").data("colors")) && (colors = dataColors.split(","));
 options = {
@@ -404,7 +405,9 @@ options = {
     }
 };
 (chart = new ApexCharts(document.querySelector("#negative-value-column"), options)).render();
+
 colors = ["#727cf5", "#6c757d", "#0acf97", "#fa5c7c", "#ffbc00", "#39afd1", "#e3eaef", "#313a46"];
+
 (dataColors = $("#distributed-column").data("colors")) && (colors = dataColors.split(","));
 options = {
     chart: {

@@ -1,15 +1,16 @@
 <div class="card shadow-none p-0" class="accordion accordion-flush" id="accordionFlushExample">
     <div class="p-2 mx-auto col-md-8"> 
         <div>
-            <h4 class="p-2 m-0 h5 text-center"> Select a mail type </h4>
+            <h4 class="p-2 m-0 h5 text-center"> Select Proposal type </h4>
         </div>
-        <div>
-            <select class="form-select">
+        <div class="d-flex">
+            <select class="form-select me-2">
                 <option>Offer letter</option>
                 <option>Thankyou letter</option>
                 <option>Invite Mail</option>
                 <option>Contract letter</option>
             </select>
+            <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small> Create</small></button>
         </div> 
     </div> 
     <div class="card-body">
@@ -18,41 +19,8 @@
                 <h4>Proposal Versioning</h4> 
                 <div class="btn-gr text-end">
                     <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#bs-Preview-modal-lg"> <i class="fa fa-eye"></i> preview</button>
-                    <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small><i class="fa fa-plus"></i> Create</small></button>
                 </div>
-            </div>
-            {{-- <div class="accordion" id="myAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne">1. What is HTML?</button>									
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
-                        <div class="card-body">
-                            <p>HTML stands for HyperText Markup Language. HTML is the standard markup language for describing the structure of web pages. <a href="https://www.tutorialrepublic.com/html-tutorial/" target="_blank">Learn more.</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">2. What is Bootstrap?</button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#myAccordion">
-                        <div class="card-body">
-                            <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree">3. What is CSS?</button>                     
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
-                        <div class="card-body">
-                            <p>CSS stands for Cascading Style Sheet. CSS allows you to specify various style properties for a given HTML element such as colors, backgrounds, fonts etc. <a href="https://www.tutorialrepublic.com/css-tutorial/" target="_blank">Learn more.</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+            </div> 
             <table class="table table-bordered" id="myTable">
                 <thead>
                     <tr>
@@ -73,7 +41,7 @@
                                 <div>1</div>                                                    
                             </div>
                         </td>
-                        <td>05 May 2013</td>
+                        <td>05 May 2022</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td>
                         <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
@@ -102,7 +70,7 @@
                                 {{-- <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne_2"></button> --}}
                             </div>
                         </td>
-                        <td>05 May 2013</td>
+                        <td>05 May 2022</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td>
                      
@@ -114,9 +82,10 @@
                                     <i class="dripicons-dots-3 "></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">View</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">View / Edit</a>
                                     <a class="dropdown-item" href="#">Send Mail</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
                                 </div>
                             </div> 
                         </td>
@@ -162,7 +131,7 @@
                                 <div>3</div>                                                    
                             </div>
                         </td>
-                        <td>05 May 2013</td>
+                        <td>05 May 2022</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td>
                        
@@ -174,9 +143,10 @@
                                     <i class="dripicons-dots-3 "></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">View</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">View / Edit</a>
                                     <a class="dropdown-item" href="#">Send Mail</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
                                 </div>
                             </div>
                         </td>
@@ -188,7 +158,7 @@
                                 <div>4</div>                                                    
                             </div>
                         </td>
-                        <td>05 May 2013</td>
+                        <td>05 May 2022</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td>
                       
@@ -200,9 +170,10 @@
                                     <i class="dripicons-dots-3 "></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">View</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">View / Edit</a>
                                     <a class="dropdown-item" href="#">Send Mail</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
                                 </div>
                             </div> 
                         </td>
@@ -248,7 +219,7 @@
                                 <div>5</div>                                                    
                             </div>
                         </td>
-                        <td>05 May 2013</td>
+                        <td>05 May 2022</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td> 
                         <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
@@ -259,9 +230,10 @@
                                     <i class="dripicons-dots-3 "></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">View</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">View / Edit</a>
                                     <a class="dropdown-item" href="#">Send Mail</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
                                 </div>
                             </div>
                         </td>
@@ -273,7 +245,7 @@
                                 <div>6</div>                                                    
                             </div>
                         </td>
-                        <td>05 May 2013</td>
+                        <td>05 May 2022</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td> 
                         <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
@@ -284,9 +256,10 @@
                                     <i class="dripicons-dots-3 "></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">View</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">View / Edit</a>
                                     <a class="dropdown-item" href="#">Send Mail</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
                                 </div>
                             </div>
                         </td>
@@ -298,7 +271,7 @@
                                 <div>7</div>                                                    
                             </div>
                         </td>
-                        <td>05 May 2013</td>
+                        <td>05 May 2022</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">XXXX</td> 
                         <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
@@ -309,9 +282,10 @@
                                     <i class="dripicons-dots-3 "></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">View</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Duplicate</a>
+                                    <a class="dropdown-item" href="#">View / Edit</a>
                                     <a class="dropdown-item" href="#">Send Mail</a>
+                                    <a class="dropdown-item" href="#">Remove</a>
                                 </div>
                             </div> 
                         </td>

@@ -1,6 +1,5 @@
 <form id="projectInfoForm"  method="post" class="form-horizontal" novalidate>
     <div class="row">
- 
         <div class="col-md-4">
             <div class="form-floating  mb-2">
                 <input disabled value=" {{ GlobalService::dateFormat($customer['enquiry_date']) ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
@@ -9,8 +8,7 @@
             <div class="form-floating  mb-2">
                 <input disabled value="{{ $customer['enquiry_number'] ?? '-' }}" type="text" class="form-control form-control-sm" id="floating"  required/>
                 <label for="floating">Enquiry Number</label>
-            </div>
-         
+            </div>         
             <div class="form-floating  mb-2">
                 <input type="text" class="form-control form-control-sm" id="floating" name="company_name" disabled value="{{ $enquiry->customer->company_name }}"/>
                 <label for="floating">Company Name</label>
@@ -27,7 +25,7 @@
                 <input  value="" type="text" class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"  ng-pattern = "mobilenoRegex" ng-model="projectInfo.secondary_mobile_no" required/>
                 <label for="floating">Secondary Mobile Number</label>
             </div> 
-        </div> 
+        </div>
         <div class="col-md-4">
             <div class="form-floating  mb-2">
                 <input type="text" class="form-control form-control-sm" id="floating"   name="project_name" ng-model="projectInfo.project_name" required/>

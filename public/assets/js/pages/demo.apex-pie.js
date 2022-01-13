@@ -46,6 +46,8 @@ var options = {
     },
     chart = new ApexCharts(document.querySelector("#simple-pie"), options);
 chart.render();
+
+
 colors = ["#39afd1", "#ffbc00", "#313a46", "#fa5c7c", "#0acf97"];
 (dataColors = $("#simple-donut").data("colors")) && (colors = dataColors.split(","));
 options = {

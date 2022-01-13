@@ -134,7 +134,7 @@
                                                                 <td>
                                                                     <div class="form-group shadow-sm">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                        <select get-layer-type  class="form-select   form-select-sm" id="floatingSelect" ng-change ="getLayerType(w.WallId,l.LayerName)" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerName" required>
+                                                                        <select get-layer-type  class="form-select form-select-sm" id="floatingSelect"   aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerName" required>
                                                                             <option value="">@lang('customer-enquiry.select')</option>
                                                                             <option ng-repeat="layer in layers" value="@{{ layer.id }}" >
                                                                                 @{{ layer.layer_name }}
@@ -193,8 +193,7 @@
                                                                     </div>
                                                                 </td> 
                                                             </tr>
-                                                        </tbody>
-                                                        
+                                                        </tbody>                                                        
                                                     </table>
                                                 </div>
                                             </div>
