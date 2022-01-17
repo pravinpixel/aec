@@ -1,28 +1,42 @@
 <div class="app" ng-controller="InvoiceCtrl">
     <div class="card mt-3">
-        <div class="card" id="myCover">
-            <div class="card-header border-0 pb-0 pt-3"> 
-                <div class="d-flex justify-content-between">
-                    <div class="btn-group shadow-sm">
-                        <button onclick="gantt.undo()" class="btn btn-light hover-btn border"><i class="mdi mdi-undo"></i></button>
-                        <button onclick="gantt.redo()" class="btn btn-light hover-btn border"><i class="mdi mdi-redo"></i></button>
-                        <button onclick="toggleNav()" class="btn btn-light hover-btn border"><i class="mdi toggle-icons mdi-folder-open mdi-folder"></i></button>                    
-                    </div>
-                   <div class="btn-group shadow-sm">
-                        <label class="btn hover-btn btn-light border"><input class="me-2" type="radio" name="scale" value="day" checked/>Day scale</label>
-                        <label class="btn hover-btn btn-light border"><input class="me-2" type="radio" name="scale" value="week"/>Week scale</label>
-                        <label class="btn hover-btn btn-light border"><input class="me-2" type="radio" name="scale" value="month"/>Month scale</label>
-                        <label class="btn hover-btn btn-light border"><input class="me-2" type="radio" name="scale" value="year"/>Year scale</label>
-                   </div>
-                    <div class="btn-group shadow-sm ">
-                        <button class="btn btn-light hover-btn border" onclick="zoomOut()"><i class="feather-zoom-out"></i></button>
-                        <button class="btn btn-light hover-btn border" onclick="zoomIn()"><i class="feather-zoom-in"></i></button>
-                        <button onclick="gantt.ext.fullscreen.toggle();" class="border btn btn-light hover-btn"><i class="mdi mdi-arrow-expand-all"></i></button>
-                    </div>
-                </div>
-            </div>
+        <div class="card" id="myCover"> 
             <div class="card-body">
-                <div class=" ">
+                <div class="d-flex justify-content-between border">
+                    <div class="btn-group">
+                        <button onclick="toggleNav(this)" class="btn hover-btn rounded-0"><i class="mdi toggle-icons mdi-folder-open mdi-folder"></i></button>                    
+                        <button onclick="gantt.undo()" class="btn hover-btn  rounded-0"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_undo_24.png"> Undo</button>
+                        <button onclick="gantt.redo()" class="btn hover-btn  rounded-0"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_redo_24.png"> Redo</button>
+                        <button onclick="updateCriticalPath(this)" class="btn hover-btn  rounded-0"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_critical_path_24.png"> Critical Path</button>
+                        <div class="dropdown btn p-0 hover-btn  rounded-0">
+                            <button class="dropdown-toggle btn rounded-0 hover-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class=" dripicons-scale"></i> Scale
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><label class="dropdown-item"><input class="me-2" type="radio" name="scale" value="day" checked/>Day scale</label></li>
+                                <li><label class="dropdown-item"><input class="me-2" type="radio" name="scale" value="week"/>Week scale</label></li>
+                                <li><label class="dropdown-item"><input class="me-2" type="radio" name="scale" value="month"/>Month scale</label></li>
+                                <li><label class="dropdown-item"><input class="me-2" type="radio" name="scale" value="year"/>Year scale</label></li>
+                            </ul>
+                        </div> 
+                    </div>
+                    <div class="btn-group">
+                        <div class="dropdown btn p-0 hover-btn rounded-0">
+                            <button class="dropdown-toggle btn hover-btn rounded-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi mdi-export"></i> Export
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"> 
+                                <li onclick='gantt.exportToPNG()'><a href="" class="dropdown-item">PNG</a></li>
+                                <li onclick='gantt.exportToPDF()'><a href="" class="dropdown-item">PDF</a></li>
+                                <li onclick='gantt.exportToExcel()'><a href="" class="dropdown-item">Excel</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn hover-btn  rounded-0" onclick="zoomOut()"><i class="feather-zoom-out"></i></button>
+                        <button class="btn hover-btn  rounded-0" onclick="zoomIn()"><i class="feather-zoom-in"></i></button>
+                        <button onclick="gantt.ext.fullscreen.toggle();" class=" btn hover-btn"><i class="mdi mdi-arrow-expand-all"></i></button>
+                    </div>
+                </div> 
+                <div>
                     <div id="gantt_here" style="min-height: 400px !important" class="w-100"></div>
                 </div>
             </div>
@@ -46,8 +60,10 @@
     <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> 
 
     <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
+    <script src="http://export.dhtmlx.com/gantt/api.js"></script>  
  
     <style>  
+        
         .admin-Project_Schedule-wiz .timeline-step .inner-circle{
             background: #757CF2 !important;
             transform: scale(1.2);
@@ -61,38 +77,45 @@
             color: black !important;
             opacity: .5 !important;
         } 
-        /* .gantt_scale_cell, .updColor, .gantt_grid_head_wbs{
-            background: #122E66 !important;
-            color: white !important 
-        }
        
-        .gantt_grid_data .gantt_row.odd:hover, .gantt_grid_data .gantt_row:hover,
-        .gantt_grid_data .gantt_row.gantt_selected,
-        .gantt_grid_data .gantt_row.odd.gantt_selected,
-        .gantt_task_row.gantt_selected{
-            background: #E5EEF4 !important; 
-        }
-        .gantt_tree_content {
-            overflow:hidden;
-            text-overflow: ellipsis;
-        }
-        .gantt_cell {
-            border: 1px solid #eee !important
-        }
-        .gantt_row {
-            border: 0px solid gray !important
-        } */
-        .gantt_task_line {
-            border-radius: 20px !important;
-            box-shadow: 1px 1px 5px grey;
-            border: 2px solid white !important;
-        }
         .navbar-custom, .leftside-menu {
             z-index: 1 !important;
         }
     </style>  
     <script type="text/javascript">
-        gantt.config.row_height = 45;
+        // ======= PlugIns ============
+            gantt.plugins({
+                auto_scheduling: true,
+                undo: true,
+                fullscreen: true,
+                tooltip: true ,
+                marker: true,
+                critical_path: true 
+            });
+            gantt.config.row_height = 30;
+        // ======= PlugIns ============
+
+        function updateCriticalPath(toggle) {
+            toggle.enabled = !toggle.enabled;
+            if (toggle.enabled) { 
+                gantt.config.highlight_critical_path = true;
+            } else { 
+                gantt.config.highlight_critical_path = false;
+            }
+            gantt.render();
+        }
+        // gantt.config.work_time = true;  // removes non-working time from calculations 
+        // gantt.config.skip_off_time = true;    // hides non-working time in the chart
+        //============ Today Flag ==============
+            var dateToStr = gantt.date.date_to_str(gantt.config.task_date);
+            var markerId = gantt.addMarker({
+                start_date: new Date(), //a Date object that sets the marker's date
+                css: "today", //a CSS class applied to the marker
+                text: "Today", //the marker title
+                title: dateToStr( new Date()) // the marker's tooltip
+            });
+        //============ Today Flag ==============
+
         // ================== Zoom Config ========
             var zoomConfig = {
                 levels: [
@@ -177,38 +200,32 @@
 
         // ================= Zoom Config ====================
 
-        // ====== REST API setTransactionMode ==========
-            gantt.plugins({
-                auto_scheduling: true,
-                undo: true,
-                fullscreen: true
-            });
+        // ====== REST API setTransactionMode ==========            
+            
             var dp = new gantt.dataProcessor("{{ url("api") }}");
             dp.init(gantt);
             dp.setTransactionMode("REST");
         // ====== REST API setTransactionMode ==========
         
         //=== ==Floder Togglle Function =============
-            var nav = false;
-            function openNav() {
-                gantt.eachTask(function(task){
-                    task.$open = false;
-                });
+            function toggleNav(toggle) {
+                toggle.enabled = !toggle.enabled;
+                if (toggle.enabled) {
+                    gantt.eachTask(function(task){
+                        task.$open = false;
+                    });
+                    gantt.render();
+                    $( ".toggle-icons" ).removeClass( "mdi-folder-open" )
+                } else {
+                    gantt.eachTask(function(task){
+                        task.$open = true;
+                    });
+                    gantt.render();
+                    $( ".toggle-icons" ).addClass( "mdi-folder-open" )
+                }
                 gantt.render();
-                $( ".toggle-icons" ).removeClass( "mdi-folder-open" )
-                nav = true;
             }
-            function closeNav() {
-                gantt.eachTask(function(task){
-                    task.$open = true;
-                });
-                gantt.render();
-                $( ".toggle-icons" ).addClass( "mdi-folder-open" )
-                nav = false;
-            }
-            function toggleNav() {
-                nav ? closeNav() : openNav();
-            }
+            
         //=== ==Floder Togglle Function =============
  
         //  ====== Extra Column ==========
@@ -217,7 +234,7 @@
                 {name: "wbs", label: "S.no", width:50,  template: gantt.getWBSCode},
                 {name: "text", label: "Task name", tree: true, width: 170},
                 {name: "start_date", align: "center", width: 90},
-                {name: "duration", align: "center", width: 60},
+                {name: "duration", align: "center", width: 60}, 
                 {name: "add", width: 40}
             ];
         //  ====== Extra Column ==========

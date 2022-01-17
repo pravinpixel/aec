@@ -99,7 +99,7 @@
 								   </div> <!-- end col-->
 							   </div> <!-- end row -->
    
-							   <div class="row">
+							   {{-- <div class="row">
 								   <div class="col-lg-6">
 									   <div class="card widget-flat">
 										   <div class="card-body">
@@ -123,18 +123,17 @@
 											   <h3 class="mt-3 mb-3 text-primary"> {{ $customerCount }}</h3>
 										   </div> <!-- end card-body-->
 									   </div> <!-- end card-->
-								   </div> <!-- end col-->
+								   </div> <!-- end col--> 
    
 								   
 									
-							   </div> <!-- end row -->
+							   </div> <!-- end row --> --}}
    
 						   </div> <!-- end col -->
    
 						   <div class="col-xl-7 col-lg-6">
 								<div class="card">
 									<div class="card-body">
-									 
 										<h4 class="header-title mb-3">Enquiries</h4>
 										<div class="chart-content-bg">
 											<div class="row text-center">
@@ -546,7 +545,7 @@
 			 
 				var r = {
 					chart: {
-						height: 280,
+						height: 200,
 						type: "line",
 						dropShadow: {
 							enabled: !0,
