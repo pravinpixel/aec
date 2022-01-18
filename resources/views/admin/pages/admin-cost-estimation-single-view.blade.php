@@ -18,372 +18,405 @@
 
                 {{-- <!-- {{ route('admin.costEstimationSingleForm') }} --> --}}
             
-                <form action="" id="costEstimationSingleForm" class="card shadow-lg" method="POST" >
+                <form action="" id="costEstimationSingleForm"   method="POST" >
                    {{ csrf_field() }}
-                   <?php  if(isset($arr['detail'])){ ?>
-                    <input type="hidden" name="key" id="key" value="{{  $arr['detail']['id'] }}">
-                  
-                <?php } ?>
-                   
-                    <div class="card-header pb-2 p-3 text-center border-0">
-                        <h4 class="header-title">Admin Cost Estimation</h4>
-                    </div>
-                    <div class="card-body pt-0">
-                        <table class="table shadow-sm border m-0 table-bordered "  id="costEstimateDetailTable">
-                            <thead class="bg-light">
-                                <tr>
-                                    <th>Estimate Date</th>
-                                    <th>Estimate Title</th>
-                                   
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <?php  if(isset($arr['detail'])){ ?>
-                                    <td> <input type="date" class="form-control enquiry_date" name="enquiry_date" id="enquiry_date" value="{{ $arr['detail']['date'] }}" > </td>
-                                    <?php }else { ?>
-                                        <td> <input type="date" class="form-control enquiry_date" name="enquiry_date"  id="enquiry_date" value="<?php echo date('Y-m-d'); ?>" > </td>
-                                   <?php  } ?>
+                    <?php  if(isset($arr['detail'])){ ?>
+                        <input type="hidden" name="key" id="key" value="{{  $arr['detail']['id'] }}">
+                    
+                    <?php } ?>
+                    {{-- <div class="card shadow-lg">
+                        <div class="card-header pb-2 p-3 text-center border-0">
+                            <h4 class="header-title">Admin Cost Estimation</h4>
+                        </div> 
+                        <div class="card-body pt-0">
 
-                                   <?php  if(isset($arr['detail'])){ ?>
-                                    <td><input type="text" class="form-control contact" name="contact" id="contact" value="{{ $arr['detail']['contact'] }}"></td>
-                                    <?php }else { ?>
-                                        <td><input type="text" class="form-control contact" name="contact" id="contact" value=""></td>
-                                        <?php  } ?>
-                                   
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="row">
-        
-                        <div class="row m-0 mt-3 table-rer" >
-                            <table class="table table-bordered border" id="costEstimateTable">
-                                <thead>
-                                    <tr class="bg-light">
-                                        <td colspan="14" class="text-center">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <h4 class="body_heading">Engineering Estimation</h4>
-                                                </div>
-                                                <div class="col-md-3">
-                                                
-                                                    <!-- <button type="button" class="btn btn-primary add_row_cal" id="add_btn">Add Row</input> -->
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="font-weight-bold ">
-                                        <th >Component</th>
-                                        <th>Type</th>
-                                        <th>Sq.M</th>
-                                        <th>Complexity</th>
-                                        <th colspan="2">Details</th>
-                                        <th colspan="2">Statistics</th>
-                                        <th colspan="2">CAD/CAM</th>
-                                        <th colspan="2">Logistics</th>
-                                        <th colspan="2">Total Cost</th>
-                                    </tr>
-                                    <tr class="bg-light border" >
-                                        <th colspan="3" ></th>
-                                        <th ><input type="number" maxlength="6" class="form-control complexity_field" value="" name="complexity_val" id="complexity_val" ></th>
-                                        <th ><small>Price/m²</small></th>
-                                        <th ><small>Sum</small></th> 
-                                        <th ><small>Price/m²</small></th>
-                                        <th ><small>Sum</small></th> 
-                                        <th ><small>Price/m²</small></th>
-                                        <th ><small>Sum</small></th> 
-                                        <th ><small>Price/m²</small></th>
-                                        <th ><small>Sum</small></th> 
-                                        <th ><small>Price/m²</small></th>
-                                        <th ><small>Sum</small></th> 
+                            <table class="table shadow-sm border m-0 table-bordered "  id="costEstimateDetailTable">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Estimate Date</th>
+                                        <th>Estimate Title</th>
                                     </tr>
                                 </thead>
-                                <tbody id="add_estimate">
-                                    <?php  if(isset($arr['calculation'])){  ?>
-                                    
-                                    <?php  $count_data = count($arr['calculation']);   ?>
-                                    <input type="hidden" name="count_data" id="count_data" value="<?php echo $count_data ?>" >
-                                    <?php  $i=0; ?>  
-                                  
-                                    <?php  foreach($arr['calculation'] as $key=>$test){ ?>
-                                     
-                                      <?php ++$i; ?>      
-                                        <input type="hidden" name="addmore[<?php echo $i ?>][test]" value="{{ $test['id'] }}" >
+                                <tbody>
                                     <tr>
-                                        <td  width="380px"> 
-                                            <select class="form-select select2" name="addmore[<?php echo $i ?>][component]" data-toggle="select2">
-                                                <option value="">Select</option>
-                                                <optgroup label="Layer Types">
-                                                    <option value="1"   <?php echo $test['Component'] == "1" ?   "selected" : '' ;?> >External</option>
-                                                    <option value="2" <?php echo $test['Component'] == "2" ?   "selected" : '' ;?> >Internal</option>
-                                                    <option value="3" <?php echo $test['Component'] == "3" ?   "selected" : '' ;?> >Ground Floor</option>
-                                                    
-                                                    <!-- <option value="Partition" <?php echo $test['Component'] == "Partition" ?   "selected" : '' ;?>>Partition</option>
-                                                    <option value="Ceiling" <?php echo $test['Component'] == "Ceiling" ?   "selected" : '' ;?>>Ceiling</option> -->
-                                                    <option value="4" <?php echo $test['Component'] == "4" ?   "selected" : '' ;?>>Roof</option>
-                                                    <option value="5" <?php echo $test['Component'] == "5" ?   "selected" : '' ;?>>Loadbearing</option>
-                                                </optgroup>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select class="form-control select2" name="addmore[<?php echo $i ?>][type]" data-toggle="select2">
-                                                <option value="">Select</option>
-                                                <optgroup label="Layer Types">
-                                                    <option value="1" <?php echo $test['type'] == "1" ?   "selected" : '' ;?> >Panel</option>
-                                                    <option value="2" <?php echo $test['type'] == "2" ?   "selected" : '' ;?>>Precut</option>
-                                                    <option value="3" <?php echo $test['type'] == "3" ?   "selected" : '' ;?>>Structural precut</option>
-                                                </optgroup>
-                                            </select>
-                                        </td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][sqm]"  value="{{ $test['sqm'] }}" class="form-control"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][complexity]" value="{{ $test['complexity'] }}" class="form-control"></td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][detail_price]" value="{{ $test['detail_price'] }}" class="form-control detail_price">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][detail_sum]" value="{{ $test['detail_sum'] }}" class="form-control detail_sum">
-                                            </div>
-                                        </td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][statistic_price]" value="{{ $test['statistic_price'] }}" class="form-control statistic_price">
-                                            </div>
-                                            
-                                        </td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][statistic_sum]" value="{{ $test['statistic_sum'] }}" class="form-control statistic_sum">
-                                            </div>
-                                            
-                                        </td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][cad_cam_price]" value="{{ $test['cad_cam_price'] }}" class="form-control cad_cam_price">
-                                            </div>
-                                            
-                                        </td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][cad_cam_sum]" value="{{ $test['cad_cam_sum'] }}" class="form-control cad_cam_sum">
-                                            </div>
-                                            
-                                        </td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][logistic_price]" value="{{ $test['logistic_price'] }}" class="form-control logistic_price">
-                                            </div>
-                                            
-                                        </td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][logistic_sum]" value="{{ $test['logistic_sum'] }}" class="form-control logistic_sum">
-                                            </div>
-                                            
-                                        </td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][total_price]" value="{{ $test['total_price'] }}" class="form-control total_price">
-                                            </div>
-                                        </td>
-                                        <td >
-                                            <div class="btn-group border">
-                                                <div class="btn  btn-sm kr">kr</div>
-                                                <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][total_sum]" value="{{ $test['total_sum'] }}" class="form-control total_sum">
-                                            </div>
-                                            
-                                        </td>
-                                       
-                                    </tr>
-                               
+                                    <?php  if(isset($arr['detail'])){ ?>
+                                    <th class="bg-white"> <input type="date" class="form-control enquiry_date" name="enquiry_date" id="enquiry_date" value="{{ $arr['detail']['date'] }}" > </th>
+                                    <?php }else { ?>
+                                        <th class="bg-white"> <input type="date" class="form-control enquiry_date" name="enquiry_date"  id="enquiry_date" value="<?php echo date('Y-m-d'); ?>" > </th>
                                     <?php  } ?>
-                                    <?php } else {  ?>
-                                    <?php  $count_data = 0;   ?>
-                                    <input type="hidden" name="count_data" id="count_data" value="<?php echo $count_data ?>" >
-                                    <tr>
-                                        <td width="180px">
-                                            <select class="form-select addmore_component" data-select-id="0" name="addmore[0][component]" required >
-                                                <option value="">Select</option>
-                                                <optgroup label="Layer Types">
-                                                    <option value="1" >External</option>
-                                                    <option value="2">Internal</option>
-                                                    <option value="3" >Ground Floor</option>
-                                                    <option value="4" >Roof</option>
-                                                    <option value="5" >Loadbearing</option>
-                                                </optgroup>
-                                            </select>
-                                        </td>
-                                        <td  width="180px">
-                                            <select class="form-select  addmore_type" required data-select-id="0" name="addmore[0][type]" >
-                                                <option value="">Select</option>
-                                                <optgroup label="Layer Types">
-                                                    <option value="1" >Panel</option>
-                                                    <option value="2">Precut</option>
-                                                    <option value="3" >Structural precut</option>
-                                                </optgroup>
-                                            </select>
-                                        </td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][sqm]" id="sqm__0" value="" class="form-control" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][complexity]" id="complexity__0" value="" class="form-control"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="form-control statistic_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="form-control cad_cam_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="form-control cad_cam_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="form-control logistic_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="form-control logistic_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="form-control total_price" readonly ></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="form-control total_sum" readonly > </td>
-                                    </tr>
-                                <?php  } ?>
-                                </tbody>
-                                <tfoot id="footerform" >
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                                <p class="m-0"><span class="text-secondary" ><span  id="detail_price_id">{{ $arr['detail_price'] }}<span> </span>    <span id="detail_price_edit_id"></span> </p>
-                                                <?php } else { ?>
-                                                <p class="m-0"><span class="text-secondary"></span>    <span id="detail_price_id">0</span> </p>
-                                            <?php } ?>
-                                        </td>
-                                        <td  >
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                                <p class="m-0"><span class="text-secondary" >
-                                                    <!-- Detail Sum : -->
-                                                     <span  id="detail_sum_id">{{ $arr['detail_add'] }}<span> </span>    <span id="detail_sum_edit_id"></span> </p>
-                                                <?php } else { ?>
-                                                <p class="m-0"><span class="text-secondary">
-                                                    <!-- Detail Sum : -->
-                                                </span>    <span id="detail_sum_id">0</span> </p>
-                                                <?php } ?>
-                                        </td>
-                                        <td >
-                                                <?php if(isset($arr['calculation'])){ ?>
-                                                <p class="m-0"><span class="text-secondary"><span  id="statistic_price_id" >  {{ $arr['statistic_price'] }} </span> </span>    <span id="statistic_price_edit_id"></span> </p>
-                                                <?php } else { ?>
-                                                <p class="m-0"><span class="text-secondary"></span>    <span id="statistic_price_id">0</span> </p>
-                                                <?php } ?>  
-                                        </td>
 
-                                        <td>
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                            <p class="m-0"><span class="text-secondary"> <span  id="statistic_sum_id" >  {{ $arr['statistic_sum'] }} </span> </span>    <span id="statistic_sum_edit_id"></span> </p>
-                                            <?php } else { ?>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="statistic_sum_id">0</span> </p>
-                                            <?php } ?>  
-                                        </td>
-
-                                        <td>
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                            <p class="m-0"><span class="text-secondary"> <span  id="cad_cam_price_id" >  {{ $arr['cad_cam_price'] }} </span> </span>    <span id="cad_cam_price_edit_id"></span> </p>
-                                            <?php } else { ?>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="cad_cam_price_id">0</span> </p>
-                                            <?php } ?>  
-                                        </td>
-
-                                        <td>
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                            <p class="m-0"><span class="text-secondary"><span id="cad_cam_sum_id"> {{ $arr['cad_cam_sum'] }}</span> </span>    <span id="cad_cam_sum_edit_id"></span> </p>
-                                            <?php } else { ?>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="cad_cam_sum_id">0</span> </p>
-                                            <?php } ?>
-                                        </td>
-
-                                        <td>
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                            <p class="m-0"><span class="text-secondary"><span  id="logistic_price_id" >  {{ $arr['logistic_price'] }} </span> </span>    <span id="logistic_price_edit_id"></span> </p>
-                                            <?php } else { ?>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="logistic_price_id">0</span> </p>
-                                            <?php } ?>
-                                        </td>
-
-                                        <td>
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                            <p class="m-0"><span class="text-secondary"><span id="logistic_sum_id"> {{ $arr['logistic_sum'] }} </span> </span>    <span id="logistic_sum_edit_id"></span> </p>
-                                            <?php } else { ?>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="logistic_sum_id">0</span> </p>
-                                            <?php } ?>
-                                        </td>
-
-                                        <td  >
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                            <p class="m-0"><span class="text-secondary"> <span  id="total_price_id" >  {{ $arr['total_price'] }} </span> </span>    <span id="total_price_edit_id"></span> </p>
-                                            <?php } else { ?>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="total_price_id">0</span> </p>
-                                            <?php } ?> 
-                                        </td>
-
-                                        <td >
-                                            <?php if(isset($arr['calculation'])){ ?>
-                                            <p class="m-0"><span class="text-secondary"><span id="total_sum_id"> {{ $arr['total_sum'] }}</span></span>    <span id="total_sum_edit_id"></span> </p>
-                                            <?php } else { ?>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="total_sum_id">0</span> </p>
-                                            <?php } ?>
-                                        </td>
-                                        <td>
-                                            <input type="hidden" value="" id="complexity_total" name="complexity_total">
-                                        </td>
+                                    <?php  if(isset($arr['detail'])){ ?>
+                                    <th class="bg-white"><input type="text" class="form-control contact" name="contact" id="contact" value="{{ $arr['detail']['contact'] }}"></th>
+                                    <?php }else { ?>
+                                    <th class="bg-white"><input type="text" class="form-control contact" placeholder="Type here.." name="contact" id="contact" value=""></th>
+                                    <?php  } ?>
                                        
                                     </tr>
-                                </tfoot>
+                                </tbody>
                             </table>
-                                                       
-                        </div>
-                    </div>
-
-
-                    <div class="card-footer">
+    
+                        </div>  
+                    </div> --}}
+                   
+                    <div class="card shadow">
                         
-                        <div class="float-end py-3">
-                        <button type="button" class="btn btn-outline-primary add_row_cal" id="add_btn">Add Row</button>
-                        
-                            <button class="btn btn-outline-primary" type="reset" class="cancel_btn" id="cancel_btn" ><i class="fa fa-ban"> Cancel</i></button>
-                                <?php if(isset($arr['calculation'])){ ?>
-                            <button class="btn btn-primary" type="submit" id="update_btn"><i class="uil-sync"> Update Estimate</i></button>
-                            <?php } else { ?>
-                                <button class="btn btn-primary" type="submit" id="generate_btn">Generate Estimate</button>
-                            <?php } ?>
+                        <div class="card-body   table-rer" >
+                          
+                            <div class="row  mb-2">
+                                <div class="col">
+                                    <div class="mb-2 row align-items-center">
+                                        <label for="" class="text-primary col-3 pe-2">Estimate Date </label>
+                                        <div class="col-9">
+                                            <?php  if(isset($arr['detail'])){ ?>
+                                            <input type="date" class="form-control form-control-sm enquiry_date" name="enquiry_date" id="enquiry_date" value="{{ $arr['detail']['date'] }}" >
+                                            <?php }else { ?>
+                                            <input type="date" class="form-control form-control-sm enquiry_date" name="enquiry_date"  id="enquiry_date" value="<?php echo date('Y-m-d'); ?>" >
+                                            <?php  } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row align-items-center">
+                                        <label for="" class="text-primary pe-2 col-3">Estimate Title</label>
+                                        <div class="col-9">
+                                            <?php  if(isset($arr['detail'])){ ?>
+                                            <input type="text" class="form-control form-control-sm contact" name="contact" id="contact" value="{{ $arr['detail']['contact'] }}">
+                                            <?php }else { ?>
+                                            <input type="text" class="form-control form-control-sm contact" placeholder="Type here.." name="contact" id="contact" value="">
+                                            <?php  } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                            
+ 
+                            <div class="table-responsive">
+                                <table class="table m-0 table-bordered border shadow-sm" id="costEstimateTable">
+                                    <thead>
+                                        <tr class="bg-dark">
+                                            <th colspan="15" class="text-center bg-light text-secondary">
+                                              Engineering Estimation 
+                                            </th> 
+                                        </tr>
+                                        <tr class="font-weight-bold ">
+                                            <th  >Component</th>
+                                            <th >Type</th>
+                                            <th >Sq.M</th>
+                                            <th >Complexity</th>
+                                            <th colspan="2" style="background: #205dcf !important">Details</th>
+                                            <th colspan="2" style="background: #45B9D2 !important">Statistics</th>
+                                            <th colspan="2" style="background: #205dcf !important">CAD/CAM</th>
+                                            <th colspan="2" style="background: #45B9D2 !important">Logistics</th>
+                                            <th colspan="2"  style="background: #205dcf !important">Total Cost</th>
+                                            <th>
+                                                actions
+                                            </th>
+                                        </tr>
+                                        <tr class="bg-light border" >
+                                            <th colspan="3"  ></th>
+                                            <th >
+                                                <!-- <input type="number" maxlength="6" class="form-control form-control-sm complexity_field" value="" placeholder="00 00" name="complexity_val" id="complexity_val" > -->
+                                        </th>
+                                            <th style="background: #205dcf !important"><small>Price/m²</small></th>
+                                            <th style="background: #205dcf !important"><small>Sum</small></th> 
+                                            <th style="background: #45B9D2 !important"><small>Price/m²</small></th>
+                                            <th style="background: #45B9D2 !important"><small>Sum</small></th> 
+                                            <th style="background: #205dcf !important"><small>Price/m²</small></th>
+                                            <th style="background: #205dcf !important"><small>Sum</small></th> 
+                                            <th style="background: #45B9D2 !important"><small>Price/m²</small></th>
+                                            <th style="background: #45B9D2 !important"><small>Sum</small></th> 
+                                            <th  style="background: #205dcf !important"><small>Price/m²</small></th>
+                                            <th  style="background: #205dcf !important"><small>Sum</small></th> 
+                                            <th class="text-center">
+                                                <button type="button" class="add_row_cal shadow-sm btn btn-sm btn-light rounded-pill" id="add_btn">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="add_estimate">
+                                        <?php  if(isset($arr['calculation'])){  ?>
+                                        
+                                        <?php  $count_data = count($arr['calculation']);   ?>
+                                        <input type="hidden" name="count_data" id="count_data" value="<?php echo $count_data ?>" >
+                                        <?php  $i=0; ?>  
+                                        
+                                        <?php  foreach($arr['calculation'] as $key=>$test){ ?>
+                                            
+                                            <?php ++$i; ?>
+                                            <input type="hidden" name="addmore[<?php echo $i ?>][test]" value="{{ $test['id'] }}" >
+                                        <tr>
+                                            <td  width="380px"> 
+                                                <select class="form-select select2" name="addmore[<?php echo $i ?>][component]" data-toggle="select2">
+                                                    <option value="">Select</option>
+                                                    <optgroup label="Layer Types">
+                                                        <option value="1"   <?php echo $test['Component'] == "1" ?   "selected" : '' ;?> >External</option>
+                                                        <option value="2" <?php echo $test['Component'] == "2" ?   "selected" : '' ;?> >Internal</option>
+                                                        <option value="3" <?php echo $test['Component'] == "3" ?   "selected" : '' ;?> >Ground Floor</option>
+                                                        
+                                                        <!-- <option value="Partition" <?php echo $test['Component'] == "Partition" ?   "selected" : '' ;?>>Partition</option>
+                                                        <option value="Ceiling" <?php echo $test['Component'] == "Ceiling" ?   "selected" : '' ;?>>Ceiling</option> -->
+                                                        <option value="4" <?php echo $test['Component'] == "4" ?   "selected" : '' ;?>>Roof</option>
+                                                        <option value="5" <?php echo $test['Component'] == "5" ?   "selected" : '' ;?>>Loadbearing</option>
+                                                    </optgroup>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="form-control select2" name="addmore[<?php echo $i ?>][type]" data-toggle="select2">
+                                                    <option value="">Select</option>
+                                                    <optgroup label="Layer Types">
+                                                        <option value="1" <?php echo $test['type'] == "1" ?   "selected" : '' ;?> >Panel</option>
+                                                        <option value="2" <?php echo $test['type'] == "2" ?   "selected" : '' ;?>>Precut</option>
+                                                        <option value="3" <?php echo $test['type'] == "3" ?   "selected" : '' ;?>>Structural precut</option>
+                                                    </optgroup>
+                                                </select>
+                                            </td>
+                                            <td  ><input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][sqm]"  value="{{ $test['sqm'] }}" class="form-control"></td>
+                                            <td  ><input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][complexity]" value="{{ $test['complexity'] }}" class="form-control"></td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][detail_price]" value="{{ $test['detail_price'] }}" class="form-control detail_price">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][detail_sum]" value="{{ $test['detail_sum'] }}" class="form-control detail_sum">
+                                                </div>
+                                            </td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][statistic_price]" value="{{ $test['statistic_price'] }}" class="form-control statistic_price">
+                                                </div>
+                                                
+                                            </td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][statistic_sum]" value="{{ $test['statistic_sum'] }}" class="form-control statistic_sum">
+                                                </div>
+                                                
+                                            </td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][cad_cam_price]" value="{{ $test['cad_cam_price'] }}" class="form-control cad_cam_price">
+                                                </div>
+                                                
+                                            </td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][cad_cam_sum]" value="{{ $test['cad_cam_sum'] }}" class="form-control cad_cam_sum">
+                                                </div>
+                                                
+                                            </td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][logistic_price]" value="{{ $test['logistic_price'] }}" class="form-control logistic_price">
+                                                </div>
+                                                
+                                            </td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][logistic_sum]" value="{{ $test['logistic_sum'] }}" class="form-control logistic_sum">
+                                                </div>
+                                                
+                                            </td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][total_price]" value="{{ $test['total_price'] }}" class="form-control total_price">
+                                                </div>
+                                            </td>
+                                            <td >
+                                                <div class="btn-group border">
+                                                    <div class="btn  btn-sm kr">kr</div>
+                                                    <input  type="number" maxlength="6" name="addmore[<?php echo $i ?>][total_sum]" value="{{ $test['total_sum'] }}" class="form-control total_sum">
+                                                </div>
+                                                
+                                            </td>
+                                            
+                                        </tr>
+                                    
+                                        <?php  } ?>
+                                        <?php } else {  ?>
+                                        <?php  $count_data = 0;   ?>
+                                        <input type="hidden" name="count_data" id="count_data" value="<?php echo $count_data ?>" >
+                                        <tr>
+                                            <td width="180px">
+                                                <select class="form-select addmore_component" data-select-id="0" name="addmore[0][component]" required style="min-width: 100px !important">
+                                                    <option value="">Select</option>
+                                                    <optgroup label="Layer Types">
+                                                        @foreach($data['component'] as $val)
+                                                        <option value="{{ $val['id'] }}" >{{ $val['building_component_name'] }}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                </select>
+                                            </td>
+                                            <td  width="180px">
+                                                <select class="form-select  addmore_type" required data-select-id="0" name="addmore[0][type]" style="min-width: 100px !important">
+                                                    <option value="">Select</option>
+                                                    <optgroup label="Layer Types">
+                                                    @foreach($data['type'] as $val)
+                                                        <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                                        
+                                                        @endforeach
+                                                    </optgroup>
+                                                </select>
+                                            </td>
+                                            <td  ><input  type="number" maxlength="6" name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="form-control sqm_val" required></td>
+                                            <td  ><input  type="number" maxlength="6" name="addmore[0][complexity]" data-complexity_id="0" id="complexity__0" value="1" class="form-control complexity_val"></td>
+                                            <td  ><input  type="number" maxlength="6" name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="form-control statistic_sum"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="form-control cad_cam_price"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="form-control cad_cam_sum"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="form-control logistic_price"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="form-control logistic_sum"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="form-control total_price" readonly ></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="form-control total_sum" readonly > </td>
+                                        </tr>
+                                    <?php  } ?>
+                                    </tbody>
+                                    <tfoot id="footerform" >
+                                        <tr>
+                                            <td colspan="2">
+                                                <h5 class="text-primary text-center">Totals</h5>
+                                            </td>
+                                            <td>
+                                            <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="sqm_total_id">1</span> </p>
+                                            </td>
+                                            <td>
+                                            <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="complexity_total_id">1</span> </p>
+                                            </td>
+                                            <td>
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                    <p class="m-0 pe-2"><span class="text-secondary" ><span  id="detail_price_id">{{ $arr['detail_price'] }}<span> </span>    <span id="detail_price_edit_id"></span> </p>
+                                                    <?php } else { ?>
+                                                    <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="detail_price_id">0</span> </p>
+                                                <?php } ?>
+                                            </td>
+                                            <td  >
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                    <p class="m-0 pe-2"><span class="text-secondary" >
+                                                        <!-- Detail Sum : -->
+                                                            <span  id="detail_sum_id">{{ $arr['detail_add'] }}<span> </span>    <span id="detail_sum_edit_id"></span> </p>
+                                                    <?php } else { ?>
+                                                    <p class="m-0 pe-2"><span class="text-secondary">
+                                                        <!-- Detail Sum : -->
+                                                    </span>    <span id="detail_sum_id">0</span> </p>
+                                                    <?php } ?>
+                                            </td>
+                                            <td >
+                                                    <?php if(isset($arr['calculation'])){ ?>
+                                                    <p class="m-0 pe-2"><span class="text-secondary"><span  id="statistic_price_id" >  {{ $arr['statistic_price'] }} </span> </span>    <span id="statistic_price_edit_id"></span> </p>
+                                                    <?php } else { ?>
+                                                    <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="statistic_price_id">0</span> </p>
+                                                    <?php } ?>  
+                                            </td>
+        
+                                            <td>
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"> <span  id="statistic_sum_id" >  {{ $arr['statistic_sum'] }} </span> </span>    <span id="statistic_sum_edit_id"></span> </p>
+                                                <?php } else { ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="statistic_sum_id">0</span> </p>
+                                                <?php } ?>  
+                                            </td>
+        
+                                            <td>
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"> <span  id="cad_cam_price_id" >  {{ $arr['cad_cam_price'] }} </span> </span>    <span id="cad_cam_price_edit_id"></span> </p>
+                                                <?php } else { ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="cad_cam_price_id">0</span> </p>
+                                                <?php } ?>  
+                                            </td>
+        
+                                            <td>
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"><span id="cad_cam_sum_id"> {{ $arr['cad_cam_sum'] }}</span> </span>    <span id="cad_cam_sum_edit_id"></span> </p>
+                                                <?php } else { ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="cad_cam_sum_id">0</span> </p>
+                                                <?php } ?>
+                                            </td>
+        
+                                            <td>
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"><span  id="logistic_price_id" >  {{ $arr['logistic_price'] }} </span> </span>    <span id="logistic_price_edit_id"></span> </p>
+                                                <?php } else { ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="logistic_price_id">0</span> </p>
+                                                <?php } ?>
+                                            </td>
+        
+                                            <td>
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"><span id="logistic_sum_id"> {{ $arr['logistic_sum'] }} </span> </span>    <span id="logistic_sum_edit_id"></span> </p>
+                                                <?php } else { ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="logistic_sum_id">0</span> </p>
+                                                <?php } ?>
+                                            </td>
+        
+                                            <td  >
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"> <span  id="total_price_id" >  {{ $arr['total_price'] }} </span> </span>    <span id="total_price_edit_id"></span> </p>
+                                                <?php } else { ?>
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="total_price_id">0</span> </p>
+                                                <?php } ?> 
+                                            </td>
+        
+                                            <td >
+                                                <?php if(isset($arr['calculation'])){ ?>
+                                                    <p class="m-0 pe-2"><span class="text-secondary"><span id="total_sum_id"> {{ $arr['total_sum'] }}</span></span>    <span id="total_sum_edit_id"></span> </p>
+                                                <?php } else { ?>
+                                                    <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="total_sum_id">0</span> </p>
+                                                <?php } ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" value="" id="complexity_total" name="complexity_total">
+                                            </td> 
+                                        </tr>
+                                    </tfoot>
+                                </table> 
+                            </div>   
+                            
+                            <div class="text-end">
+                                <div class="btn-group mt-3">
+                                    <div><button class="btn btn-light btn-sm me-2" type="reset" class="cancel_btn" id="cancel_btn" ><i class="fa fa-ban"> </i> Cancel</button></div>
+                                        <?php if(isset($arr['calculation'])){ ?>
+                                        <div><button class="btn btn-primary btn-sm me-2" type="submit" id="update_btn"><i class="uil-sync"> Update Estimate</i></button></div>
+                                    <?php } else { ?>
+                                        <div><button class="btn btn-primary btn-sm" type="submit" id="generate_btn"> <i class="fa fa-sync"></i> Generate</button></div>
+                                    <?php } ?> 
+                                </div>
+                            </div> 
                         </div>
-                    </div>
-
+                    </div>  
                 </form>    
-                <br>  
-                
-                <br>
-                <br>   
-                <hr> 
-                <div class="card-header pb-2 p-3 text-center border-0">
+
+                 
+                <div class="card">
+                    <div class="card-header pb-2 p-3 text-center border-0">
                         <h4 class="header-title">Estimation List</h4>
                     </div>
-                <table id="estimate-datatable" class="table bordered-table estimate-datatable" style="width:100%">
-                    <thead>
-                        <tr class="text-left">
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                </table>         
+                    <div class="card-body">
+                        <div class=" ">
+                            <table id="estimate-datatable" class="table bordered-table estimate-datatable" style="width:100%">
+                                <thead>
+                                    <tr class="text-left">
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>       
             </div> <!-- container -->
         </div> <!-- content -->
     </div>   
@@ -396,36 +429,67 @@
 <link href="{{ asset('public/assets/css/vendor/select.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 <style>
     .form-control.error {
-        border: 1px solid red !important;
+        border-bottom: 1px solid #fd5454 !important;
+
     }
     .form-select.error {
-        border: 1px solid red !important;
+        border-bottom: 1px solid #fd5454 !important;
     }
     .form-control {
-            padding-right: 0px !important
-        }
-        .btn-group {
-            position: relative;
-        }
-        .kr {
-            position: absolute !important;   
-            left:0
-        }
-        .btn-group .form-control {
-            padding-left:30px !important;
-            text-align:right  !important
-        }
-            .body_heading{
-            color: #8a90ff ;
-            }
-            label.error {
-                color: red !important;
-                display: none !important;
-            }
-    .table td {
-        padding: 0 !important;
+        padding-right: 0px !important;
+        border-radius: 0px !important
     }
-           
+    .form-select {
+        border-radius: 0px !important
+    }
+    .btn-group {
+    position: relative;
+    }
+    .kr {
+    position: absolute !important;   
+    left:0
+    }
+    .btn-group .form-control {
+    padding-left:30px !important;
+    text-align:right  !important
+    }
+    .body_heading{
+    color: #8a90ff ;
+    }
+    label.error {
+    color: red !important;
+    display: none !important;
+    }
+    .table td {
+    padding: 0 !important;
+    text-align: right !important
+    }
+    .table td input,select {
+        border: 0px !important;
+    }   
+    .table td, td input  {
+        text-align: right !important;
+    }   
+   
+    #complexity_val {
+        border: 0 !important;
+        border-bottom: 3px solid white !important;
+        border-radius: 0 !important;
+        background: none !important;
+        color: white !important;
+        font: bold 20px/20px !important
+    } 
+    #complexity_val::placeholder {
+        color: white !important;
+    }
+    #estimate-datatable .even td{
+        text-align: left !important;
+        padding:0 10px !important
+    }
+    #estimate-datatable .odd td{
+        text-align: left !important;
+        padding:0 10px !important
+    }
 </style>
 @endpush
 
@@ -448,6 +512,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        function delete_data(e)
+        {
+            // alert(e)
+            $.ajax({
+                        type: "GET",
+                        url: "{{ route('admin.deleteRowData') }}",
+                        data: {
+                            id:e
+                            }, 
+                            success: function(msg) {
+                            // alert(JSON.stringify(msg))
+                            Message('warning',response.data.msg);
+                            $('#estimate-datatable').DataTable().clear().draw();
+                                // total_sum_val()
+                                // calculation_total()
+                                // sqm_total()
+                            }
+    
+                        });
+        }
         $( document ).ready(function() {
  
             calculation_total()
@@ -472,7 +556,10 @@
                     masterCalculation(comp_val,type_val,row_id)
                  });
                  $('#add_btn').on('click',function(){
-                    calculation_total()
+                    // calculation_total()
+                    sqm_total()
+                    complexity_total()
+                    // $('.complexity_val ').keyup();
                      ++i;
                      comp_val = false; type_val = false;row_id=false;
                     // alert(i)
@@ -493,8 +580,8 @@
                             // alert(JSON.stringify(msg.data))
                                 $('#estimate-datatable').DataTable().clear().draw();
                                 // alert(row_id)
-                                $(`#sqm__${row_id}`).val(msg.data.sqm);
-                                $(`#complexity__${row_id}`).val(msg.data.complexity);
+                                // $(`#sqm__${row_id}`).val(msg.data.sqm);
+                                // $(`#complexity__${row_id}`).val(msg.data.complexity);
                                 $(`#detail_price__${row_id}`).val(msg.data.detail_price);
                                 $(`#detail_sum__${row_id}`).val(msg.data.detail_sum);
                                 $(`#statistic_price__${row_id}`).val(msg.data.statistic_price);
@@ -507,6 +594,7 @@
                                 $(`#total_sum__${row_id}`).val(msg.data['total_sum']);
                                 $("input.error").removeClass("error");
                                 comp_val = false; type_val = false;row_id=false;
+                           
                                 detail_change_price()
                                 detail_change_sum()
                                 statistic_change_price()
@@ -520,6 +608,7 @@
                                 total_price_val()
                                 total_sum_val()
                                 calculation_total()
+                                // sqm_total()
                             }
     
                         });
@@ -530,21 +619,77 @@
             
     }); 
 
+                function sqm_total(e){
+                    // alert(e)
+                    var sqm_val = $('#sqm_total_id').html();
+                    
+                        var elements = document.querySelectorAll('.sqm_val');
+                        // console.log(elements)
+                        var values = [].map.call(elements, function(e) {
+                        return e.value;
+                        });
+                        // console.log(values.length)
+                        // console.log(values.length +1);
+                        let sum_val = 0;
+                        for (let i = 0; i < values.length; i++) {
+                            // alert(values[i])
+                            sum_val +=  Number(values[i]);
+                            }
+                            if(e)
+                            {
+                                sum_val-=1;
+                            }
+                            sum_val+=1;
+                            $('#sqm_total_id').html('');
+                        
+                            $('#sqm_total_id').html(sum_val);
+                        console.log(sum_val);
+                }
+                function complexity_total(e){
+                    // alert(e)
+                    var sqm_val = $('#complexity_total_id').html();
+                    
+                        var elements = document.querySelectorAll('.complexity_val');
+                        console.log(elements)
+                        var values = [].map.call(elements, function(e) {
+                        return e.value;
+                        });
+                        // console.log(values.length)
+                        // console.log(values.length +1);
+                        let complexity_val = 0;
+                        for (let i = 0; i < values.length; i++) {
+                            // alert(values[i])
+                            complexity_val +=  Number(values[i]);
+                            }
+                            if(e)
+                            {
+                                complexity_val-=1;
+                            }
+                            complexity_val+=1;
+                            $('#complexity_total_id').html('');
+                        
+                            $('#complexity_total_id').html(parseFloat(complexity_val).toFixed(2));
+                        console.log(complexity_val);
+                }
                 function detail_change_price(){
+                    //old code/////
                     var detail_edit_val = $('#detail_price_edit').html();
-                    // alert(detail_edit_val)
+                   
                         var elements = document.querySelectorAll('.detail_price');
                         var values = [].map.call(elements, function(e) {
                         return e.value;
                         });
                         let detail_price = 0;
                         for (let i = 0; i < values.length; i++) {
-                            // alert(i)
+                            
                             detail_price +=  Number(values[i]);
                             }
+                           
                             $('#detail_price_id').html('');
                             $('#detail_price_id').html(detail_price);
+                            // alert(detail_price)
                         console.log(detail_price);
+                         //old code/////
                 }
                 function detail_change_sum(){
                     var detail_edit_val = $('#detail_sum_edit').html();
@@ -843,7 +988,7 @@
                     url: "{{ route('admin.costEstimationSingleForm') }}",
                     data: $(this).serialize(), 
                     success: function( msg ) {
-                    
+                    // alert(JSON.stringify(msg))
                         $('#estimate-datatable').DataTable().clear().draw();
                         Message('success', msg.msg);
                         $("#costEstimateTable > tbody").html('');
@@ -862,11 +1007,9 @@
                                             <select class="form-select addmore_component select2" data-select-id="0" name="addmore[0][component]" required  data-toggle="select2">
                                                 <option value="">Select</option>
                                                 <optgroup label="Layer Types">
-                                                    <option value="1"  >External</option>
-                                                    <option value="2">Internal</option>
-                                                    <option value="3" >Ground Floor</option>
-                                                    <option value="4" >Roof</option>
-                                                    <option value="5" >Loadbearing</option>
+                                                        @foreach($data['component'] as $val)
+                                                        <option value="{{ $val['id'] }}" >{{ $val['building_component_name'] }}</option>
+                                                        @endforeach
                                                 </optgroup>
                                             </select>
                                         </td>
@@ -874,89 +1017,100 @@
                                             <select class="form-select select2 addmore_type" required data-select-id="0" name="addmore[0][type]"  data-toggle="select2">
                                                 <option value="">Select</option>
                                                 <optgroup label="Layer Types">
-                                                    <option value="1" >Panel</option>
-                                                    <option value="2">Precut</option>
-                                                    <option value="3" >Structural precut</option>
+                                                        @foreach($data['type'] as $val)
+                                                        <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                                        @endforeach
                                                 </optgroup>
                                             </select>
                                         </td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][sqm]" id="sqm__0" value="" class="form-control" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][complexity]" id="complexity__0" value="" class="form-control"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="form-control statistic_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="form-control cad_cam_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="form-control cad_cam_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="form-control logistic_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="form-control logistic_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="form-control total_price" readonly></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="form-control total_sum" readonly></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="form-control sqm_val" required></td>
+                                            <td  ><input  type="number" maxlength="6" name="addmore[0][complexity]" data-complexity_id="0" id="complexity__0" value="1" class="form-control complexity_val"></td>
+                                            <td  ><input  type="number" maxlength="6" name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="form-control statistic_sum"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="form-control cad_cam_price"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="form-control cad_cam_sum"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="form-control logistic_price"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="form-control logistic_sum"></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="form-control total_price" readonly ></td>
+                                            <td  ><input  type="number" maxlength="8" name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="form-control total_sum" readonly > </td>
                         </tr>
             
             `);
 
             $("#costEstimateTable > tfoot").html(`
             <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            
-                                                <p class="m-0"><span class="text-secondary"></span>    <span id="detail_price_id">0</span> </p>
-                                        
-                                        </td>
-                                        <td >
-                                                <p class="m-0"><span class="text-secondary"></span>    <span id="detail_sum_id">0</span> </p>
-                                        </td>
-                                        <td >
-                                                <p class="m-0"><span class="text-secondary"></span>    <span id="statistic_price_id">0</span> </p>
-            
-                                        </td>
-
-                                        <td>
-                                           
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="statistic_sum_id">0</span> </p>
-                                           
-                                        </td>
-
-                                        <td>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="cad_cam_price_id">0</span> </p>
-                                           
-                                        </td>
-
-                                        <td>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="cad_cam_sum_id">0</span> </p>
-
-                                        </td>
-
-                                        <td>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="logistic_price_id">0</span> </p>
-
-                                        </td>
-
-                                        <td>
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="logistic_sum_id">0</span> </p>
-
-                                        </td>
-
-                                        <td  >
-
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="total_price_id">0</span> </p>
-
-                                        </td>
-
-                                        <td >
-
-                                            <p class="m-0"><span class="text-secondary"></span>    <span id="total_sum_id">0</span> </p>
-                                  
-                                        </td>
-                                        <td>
-                                            <input type="hidden" value="" id="complexity_total" name="complexity_total">
-                                        </td>
-                                       
-                                    </tr>
+                                            <td colspan="2">
+                                                <h5 class="text-primary text-center">Totals</h5>
+                                            </td>
+                                            <td>
+                                            <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="sqm_total_id">1</span> </p>
+                                            </td>
+                                            <td>
+                                            <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="complexity_total_id">1</span> </p>
+                                            </td>
+                                            <td>
+                                               
+                                                    <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="detail_price_id">0</span> </p>
+                                              
+                                            </td>
+                                            <td  >
+                                               
+                                                    <p class="m-0 pe-2"><span class="text-secondary"></span> <span id="detail_sum_id">0</span> </p>
+                                                   
+                                            </td>
+                                            <td >
+              
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="statistic_price_id">0</span> </p>
+                                                   
+                                            </td>
+        
+                                            <td>
+                                               
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="statistic_sum_id">0</span> </p>
+                                                
+                                            </td>
+        
+                                            <td>
+                                                
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="cad_cam_price_id">0</span> </p>
+                                               
+                                            </td>
+        
+                                            <td>
+                                               
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="cad_cam_sum_id">0</span> </p>
+                                                
+                                            </td>
+        
+                                            <td>
+                                               
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="logistic_price_id">0</span> </p>
+                                               
+                                            </td>
+        
+                                            <td>
+                                               
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="logistic_sum_id">0</span> </p>
+                                                
+                                            </td>
+        
+                                            <td  >
+                                               
+                                                <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="total_price_id">0</span> </p>
+                                                
+                                            </td>
+        
+                                            <td >
+                                               
+                                                    <p class="m-0 pe-2"><span class="text-secondary"></span>    <span id="total_sum_id">0</span> </p>
+                                               
+                                            </td>
+                                            <td>
+                                                <input type="hidden" value="" id="complexity_total" name="complexity_total">
+                                            </td> 
+                                        </tr>
 
             `);
             // window.location = "{{ route('cost-estimation-single-view') }}";
@@ -971,7 +1125,7 @@
       
                 $(document).on('click','.edit_data',function (e) {
                     $("#costEstimateTable > tbody").html('');
-                    $("#costEstimateDetailTable > tbody").html('');
+                    // $("#costEstimateDetailTable > tbody").html('');
                     $('#generate_btn').html(`<i class="uil-sync" > Update Estimation</i>`);
                     let estimateId = $(this).data('cost-estimate-id');
                     
@@ -980,11 +1134,16 @@
                     url: "{{ route('admin.costEstimationEdit') }}",
                     data: {id:estimateId}, 
                     success: function( msg ) {
-                        calculation_total()
+                        // alert(JSON.stringify(msg))
+                        $("#enquiry_date").val(msg.data.detail.date);
+                        $("#contact").val(msg.data.detail.contact);
+                        
+                               
                         editCount = msg.data.calculation.length;
                         console.log(editCount);
                         $("#costEstimateTable > tbody").append(`
                          <input type="hidden" name="count_data" id="_count_data_" value="${msg.data.calculation.length}" >
+                         <input type="hidden" name="key" id="key" value="${msg.data.detail.id}">
                          `);
                         //  alert(msg.data.complexity_val)
                         //  $("#costEstimateTable > thead").append(`
@@ -1000,17 +1159,14 @@
                                     
                                     <tr>
                                     <input type="hidden" name="addmore[${i}][test]" value=" ${detail.id }" >
-                                            
+                                   
                                                 <td >
                                                 <select class="form-select select2 addmore_component" data-select-id="0" name="addmore[${i}][component]" data-toggle="select2">
                                                         <option value="">Select</option>
                                                         <optgroup label="Layer Types">
-                                                            <option value="1" ${detail.Component == '1' ? selected : ''}  >External</option>
-                                                            <option value="2" ${detail.Component == '2' ? selected : ''}  >Internal</option>
-                                                            <option value="3" ${detail.Component == '3' ? selected : ''} >Ground Floor</option>
-                                                        
-                                                            <option value="4" ${detail.Component == '4' ? selected : ''} >Roof</option>
-                                                            <option value="5" ${detail.Component == '5' ? selected : ''} >Loadbearing</option>
+                                                            @foreach($data['component'] as $val)
+                                                            <option value="{{ $val['id'] }}" ${detail.Component == "{{ $val['id'] }}" ? selected : ''} >{{ $val['building_component_name'] }}</option>
+                                                            @endforeach
                                                         </optgroup>
                                                     </select>
                                                 </td>
@@ -1018,46 +1174,52 @@
                                                 <select class="form-control select2 addmore_type" data-select-id="0" name="addmore[${i}][type]" data-toggle="select2">
                                                         <option value="">Select</option>
                                                         <optgroup label="Layer Types">
-                                                            <option value="1" ${detail.type == "1" ?   "selected" : '' } >Panel</option>
-                                                            <option value="2" ${detail.type == "2" ?   "selected" : '' }>Precut</option>
-                                                            <option value="3" ${detail.type == "3" ?   "selected" : '' }>Structural precut</option>
+                                                            
+                                                            @foreach($data['type'] as $val)
+                                                            <option value="{{ $val['id'] }}" ${detail.type == "{{ $val['id'] }}" ?   "selected" : '' } >{{ $val['type_name'] }}</option>
+                                                            @endforeach
                                                         </optgroup>
                                                     </select>
                                                 </td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][sqm]"  value="${detail.sqm}" id="sqm__${i}" class="form-control"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][complexity]" value="${detail.complexity}" id="complexity__${i}" class="form-control"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][detail_price]" data-detail-price_id="${i}" value="${detail.detail_price}" id="detail_price__${i}" class="form-control detail_price"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][detail_sum]" data-detail-sum_id="${i}" value="${detail.detail_sum}" id="detail_sum__${i}" class="form-control detail_sum"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][statistic_price]" data-statistic-price_id="${i}" value="${detail.statistic_price}" id="statistic_price__${i}" class="form-control statistic_price"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][statistic_sum]" data-statistic-sum_id="${i}" value="${detail.statistic_sum}" id="statistic_sum__${i}" class="form-control statistic_sum"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][cad_cam_price]" data-cad_cam-price_id="${i}" value="${detail.cad_cam_price}" id="cad_cam_price__${i}" class="form-control cad_cam_price"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][cad_cam_sum]" data-cad_cam-sum_id="${i}" value="${detail.cad_cam_sum}" id="cad_cam_sum__${i}" class="form-control cad_cam_sum"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][logistic_price]" data-logistic-price_id="${i}" value="${detail.logistic_price}" id="logistic_price__${i}" class="form-control logistic_price"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][logistic_sum]" data-logistic-sum_id="${i}" value="${detail.logistic_sum}" id="logistic_sum__${i}" class="form-control logistic_sum"></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][total_price]" data-total-price_id="${i}" value="${detail.total_price}" id="total_price__${i}" class="form-control total_price" readonly></td>
-                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][total_sum]" data-total-sum_id="${i}" value="${detail.total_sum}" id="total_sum__${i}" class="form-control total_sum" readonly></td>
+                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][sqm]" data-sqm_id=${i}  value="${detail.sqm}" id="sqm__${i}" class="form-control sqm_val"></td>
+                                                <td  ><input  type="number" maxlength="6" name="addmore[${i}][complexity]" data-complexity_id=${i} value="${detail.complexity}" id="complexity__${i}" class="form-control complexity_val"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][detail_price]" data-detail-price_id="${i}" value="${detail.detail_price}" id="detail_price__${i}" class="form-control detail_price"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][detail_sum]" data-detail-sum_id="${i}" value="${detail.detail_sum}" id="detail_sum__${i}" class="form-control detail_sum"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][statistic_price]" data-statistic-price_id="${i}" value="${detail.statistic_price}" id="statistic_price__${i}" class="form-control statistic_price"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][statistic_sum]" data-statistic-sum_id="${i}" value="${detail.statistic_sum}" id="statistic_sum__${i}" class="form-control statistic_sum"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][cad_cam_price]" data-cad_cam-price_id="${i}" value="${detail.cad_cam_price}" id="cad_cam_price__${i}" class="form-control cad_cam_price"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][cad_cam_sum]" data-cad_cam-sum_id="${i}" value="${detail.cad_cam_sum}" id="cad_cam_sum__${i}" class="form-control cad_cam_sum"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][logistic_price]" data-logistic-price_id="${i}" value="${detail.logistic_price}" id="logistic_price__${i}" class="form-control logistic_price"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][logistic_sum]" data-logistic-sum_id="${i}" value="${detail.logistic_sum}" id="logistic_sum__${i}" class="form-control logistic_sum"></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][total_price]" data-total-price_id="${i}" value="${detail.total_price}" id="total_price__${i}" class="form-control total_price" readonly></td>
+                                                <td  ><input  type="number" maxlength="8" name="addmore[${i}][total_sum]" data-total-sum_id="${i}" value="${detail.total_sum}" id="total_sum__${i}" class="form-control total_sum" readonly></td>
+                                                <td style="text-align:center !important" class="delete"><span onclick="delete_data(${detail.id })"> <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </span></td>
+                                                
                                             
                                         </tr>
                     
                             `);
                         }
                         
-                        $("#costEstimateDetailTable > tbody").html(`
-                        <tr>
-                             <td> <input type="date" class="form-control enquiry_date" name="enquiry_date"  id="enquiry_date" value="${msg.data.detail.date}" > </td>
-                        <td><input type="text" class="form-control contact" name="contact" id="contact" value="${msg.data.detail.contact}"></td>
-                        <input type="hidden" name="key" id="key" value="${msg.data.detail.id}">
-                        </tr>
-                        `);
+                        // $("#costEstimateDetailTable > tbody").html(`
+                        // <tr>
+                        //      <td> <input type="date" class="form-control enquiry_date" name="enquiry_date"  id="enquiry_date" value="${msg.data.detail.date}" > </td>
+                        // <td><input type="text" class="form-control contact" name="contact" id="contact" value="${msg.data.detail.contact}"></td>
+                        // <input type="hidden" name="key" id="key" value="${msg.data.detail.id}">
+                        // </tr>
+                        // `);
                         $("#costEstimateTable > tfoot").html(`
                             <tr>
+                                <td></td>
+                                <td></td>
                                 <td>
+                                <p class="m-0"><span class="text-secondary"></span>    <span id="sqm_total_id">${msg.data.sqm_total}</span> </p>  
                                 </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                                 <td>
-                                    <p class="m-0"><span class="text-secondary"></span>    <span id="detail_price_id">${msg.data.detail_price}</span> </p>          
+                                <p class="m-0"><span class="text-secondary"></span>    <span id="complexity_total_id">${msg.data.complexity_sum}</span> </p>  
+                                </td>
+                                <td>
+                                    <p class="m-0"><span class="text-secondary"></span>    <span id="detail_price_id">${parseFloat(msg.data.detail_price).toFixed(2)}</span> </p>          
                                 </td>
                                 <td>
                                     <p class="m-0"><span class="text-secondary"></span>    <span id="detail_sum_id">${msg.data.detail_add} </span></p>
@@ -1092,8 +1254,24 @@
                             </tr>
 
                         `);
-                        
-
+                        // $('.detail_sum').keyup();
+                        //     $('.cad_cam_sum').keyup();
+                        //     $('.logistic_sum').keyup();
+                            
+                            detail_change_price()
+                                detail_change_sum()
+                                statistic_change_price()
+                                statistic_change_sum()
+                                cad_cam_change_price()
+                                cad_cam_change_sum()
+                                logistic_change_price()
+                                logistic_change_sum()
+                                total_change_price()
+                                total_change_sum()
+                                total_price_val()
+                                total_sum_val()
+                                calculation_total()
+                                
                      
                     }
                     });
@@ -1102,14 +1280,19 @@
 
 
                 $("#cancel_btn").click(function (e) {
-                    alert()
+                
                     comp_val = false; type_val = false;row_id=false;
                     $("#costEstimationSingleForm").validate().resetForm();
-                    $('#generate_btn').html(`Generate Estimate`);
+                    $('#generate_btn').html(`<i class="fa fa-sync"></i> Generate`);
                     $("#costEstimateTable > tbody").html('');
-                    // $("#costEstimateTable > tbody").val('');
+                    $("#costEstimateTable > tbody").val('');
                         $("#contact").removeAttr('value');
                         // $("#contact").val('');
+                      
+                        // sqm_total_id
+                        $("#sqm_total_id").text(1);
+                        $("#complexity_total_id").text(1);
+                        
                         $("#detail_price_id").text('');
                         $("#detail_sum_id").text('');
                         $("#statistic_price_id").text('');
@@ -1120,8 +1303,8 @@
                         $("#logistic_sum_id").text('');
                         $("#total_price_id").text('');
                         $("#total_sum_id").text('');
-                        $("#enquiry_date").val('<?php echo date('Y-m-d'); ?>');
-                     
+                        $(".enquiry_date").val("<?php echo date('Y-m-d'); ?>");
+                       
                     $("#costEstimateTable > tbody").html(`
                             
                     <tr>
@@ -1129,11 +1312,9 @@
                                             <select class="form-select addmore_component select2" data-select-id="0" name="addmore[0][component]" required  data-toggle="select2">
                                                 <option value="">Select</option>
                                                 <optgroup label="Layer Types">
-                                                    <option value="1" >External</option>
-                                                    <option value="2">Internal</option>
-                                                    <option value="3" >Ground Floor</option>
-                                                    <option value="4" >Roof</option>
-                                                    <option value="5" >Loadbearing</option>
+                                                    @foreach($data['component'] as $val)
+                                                    <option value="{{ $val['id'] }}" >{{ $val['building_component_name'] }}</option>
+                                                    @endforeach
                                                 </optgroup>
                                             </select>
                                         </td>
@@ -1141,24 +1322,24 @@
                                             <select class="form-select select2 addmore_type" required data-select-id="0" name="addmore[0][type]"  data-toggle="select2">
                                                 <option value="">Select</option>
                                                 <optgroup label="Layer Types">
-                                                    <option value="1" >Panel</option>
-                                                    <option value="2">Precut</option>
-                                                    <option value="3" >Structural precut</option>
+                                                    @foreach($data['type'] as $val)
+                                                    <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                                    @endforeach
                                                 </optgroup>
                                             </select>
                                         </td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][sqm]" id="sqm__0" value="" class="form-control" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][complexity]" id="complexity__0" value="" class="form-control"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="form-control statistic_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="form-control cad_cam_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="form-control cad_cam_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="form-control logistic_price"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="form-control logistic_sum"></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="form-control total_price" readonly ></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="form-control total_sum" readonly > </td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="form-control sqm_val" required></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[0][complexity]" data-complexity_id="0" id="complexity__0" value="1" class="form-control complexity_val"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="form-control statistic_sum"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="form-control cad_cam_price"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="form-control cad_cam_sum"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="form-control logistic_price"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="form-control logistic_sum"></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="form-control total_price" readonly ></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="form-control total_sum" readonly > </td>
                                     </tr>
                         
                         `);
@@ -1216,21 +1397,6 @@
                 });
 
 
-            //     $(document).on('click','.delete_data',function (e) {
-                   
-            //        let estimateId = $(this).data('cost-estimate-id');
-            //        $.ajax({
-            //        type: "GET",
-            //        url: "{{ route('admin.costEstimationDelete') }}",
-            //        data: {id:estimateId},  
-            //        success: function( msg ) {
-            //            Message('success', msg.msg);
-            //            $('#estimate-datatable').DataTable().clear().draw();
-                      
-            //        }
-            //        });
-
-            //    });
 
                 var table = $('#estimate-datatable').DataTable({
                     processing: true,
@@ -1254,8 +1420,12 @@
             $(document).ready(function(){
 
                 $("#add_btn").click(function (e) {
+                    // alert()
                  calculation_total()
-                    
+                 sqm_total()
+                 complexity_total()
+                //  sqm_total()
+                //  $('.complexity_val ').keyup();
                     var i = editCount + 1;
                     editCount += 1;
                 $("#add_estimate").append(`
@@ -1264,11 +1434,9 @@
                                             <select class="form-select select2 validateArray addmore_component" data-select-id="${i}" name="addmore[${i}][component]" required data-toggle="select2">
                                                 <option value="">Select</option>
                                                 <optgroup label="Layer Types">
-                                                    <option value="1"  >External</option>
-                                                    <option value="2">Internal</option>
-                                                    <option value="3" >Ground Floor</option>
-                                                    <option value="4" >Roof</option>
-                                                    <option value="5" >Loadbearing</option>
+                                                @foreach($data['component'] as $val)
+                                                        <option value="{{ $val['id'] }}" >{{ $val['building_component_name'] }}</option>
+                                                        @endforeach
                                                 </optgroup>
                                             </select>
                                         </td>
@@ -1276,26 +1444,26 @@
                                             <select class="form-select select2 addmore_type"   required name="addmore[${i}][type]" data-select-id="${i}" data-toggle="select2">
                                                 <option value="">Select</option>
                                                 <optgroup label="Layer Types">
-                                                    <option value="1" >Panel</option>
-                                                    <option value="2">Precut</option>
-                                                    <option value="3" >Structural precut</option>
+                                                @foreach($data['type'] as $val)
+                                                        <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                                        @endforeach
                                                 </optgroup>
                                             </select>
                                         </td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][sqm]" id="sqm__${i}" value="" class="form-control" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][complexity]" id="complexity__${i}" value="" class="form-control" required></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][sqm]" data-sqm_id=${i} id="sqm__${i}" value="1" class="form-control sqm_val" required></td>
+                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][complexity]" data-complexity_id=${i} id="complexity__${i}" value="1" class="form-control complexity_val"  required></td>
                                         <td  ><input  type="number" maxlength="6" name="addmore[${i}][detail_price]"  data-detail-price_id=${i} id="detail_price__${i}" value="0" class="form-control detail_price" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][detail_sum]" data-detail-sum_id=${i} id="detail_sum__${i}" value="0" class="form-control detail_sum" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][statistic_price]" data-statistic-price_id=${i} id="statistic_price__${i}" value="0" class="form-control statistic_price" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][statistic_sum]" data-statistic-sum_id=${i} id="statistic_sum__${i}" value="0" class="form-control statistic_sum" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][cad_cam_price]" data-cad_cam-price_id=${i} id="cad_cam_price__${i}" value="0" class="form-control cad_cam_price" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][cad_cam_sum]" data-cad_cam-sum_id=${i} id="cad_cam_sum__${i}" value="0" class="form-control cad_cam_sum" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][logistic_price]" data-logistic-price_id=${i} id="logistic_price__${i}" value="0" class="form-control logistic_price" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][logistic_sum]" data-logistic-sum_id=${i} id="logistic_sum__${i}" value="0" class="form-control logistic_sum" required></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][total_price]" data-total-price_id=${i} id="total_price__${i}" value="0" class="form-control total_price" readonly></td>
-                                        <td  ><input  type="number" maxlength="6" name="addmore[${i}][total_sum]" data-total-sum_id=${i} id="total_sum__${i}" value="0" class="form-control total_sum" readonly></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][detail_sum]" data-detail-sum_id=${i} id="detail_sum__${i}" value="0" class="form-control detail_sum" required></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][statistic_price]" data-statistic-price_id=${i} id="statistic_price__${i}" value="0" class="form-control statistic_price" required></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][statistic_sum]" data-statistic-sum_id=${i} id="statistic_sum__${i}" value="0" class="form-control statistic_sum" required></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][cad_cam_price]" data-cad_cam-price_id=${i} id="cad_cam_price__${i}" value="0" class="form-control cad_cam_price" required></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][cad_cam_sum]" data-cad_cam-sum_id=${i} id="cad_cam_sum__${i}" value="0" class="form-control cad_cam_sum" required></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][logistic_price]" data-logistic-price_id=${i} id="logistic_price__${i}" value="0" class="form-control logistic_price" required></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][logistic_sum]" data-logistic-sum_id=${i} id="logistic_sum__${i}" value="0" class="form-control logistic_sum" required></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][total_price]" data-total-price_id=${i} id="total_price__${i}" value="0" class="form-control total_price" readonly></td>
+                                        <td  ><input  type="number" maxlength="8" name="addmore[${i}][total_sum]" data-total-sum_id=${i} id="total_sum__${i}" value="0" class="form-control total_sum" readonly></td>
                                        
-                                        <td><button  class="delete btn btn-danger"><i class="fa fa-trash"></i></button></td>
+                                        <td style="text-align:center !important" class="delete"> <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </td>
                                        </tr> `); });
 
                 $(document).on("click", ".delete", function (e) {
@@ -1303,7 +1471,10 @@
                     // editCount += 1;
                     calculation_total()
                     e.preventDefault();
+                    
                 $(this).closest('tr').remove();
+                                sqm_total(1)
+                                complexity_total(1)
                                 detail_change_price()
                                 detail_change_sum()
                                 statistic_change_price()
@@ -1330,8 +1501,8 @@
                 
             });
              $(document).on('keyup','.detail_sum',function(){
+                //  alert()
                     console.log('clicked');
-                    
                     var detail_edit_val = $('#detail_sum_edit').html();
                     // alert(detail_edit_val)
                         var elements = document.querySelectorAll('.detail_sum');
@@ -1351,13 +1522,13 @@
                         console.log(detail_sum);
                 });  
 
-            $(document).on('keyup change','.detail_price',function(){
-                // alert()
-                // alert(editCount)
+                $(document).on('keyup change','.detail_price',function(){
+                        // alert()
+                       
                     console.log('clicked');
                     
                     var detail_edit_val = $('#detail_price_edit').html();
-                    // alert(detail_edit_val)
+                    // alert(editCount)
                         var elements = document.querySelectorAll('.detail_price');
                         var values = [].map.call(elements, function(e) {
                         return e.value;
@@ -1373,16 +1544,52 @@
                             $('#detail_price_id').html('');
                             $('#detail_price_id').html(detail_price);
                             // total_price_val()
+                          
+                        
+                       
+                        var price_val = parseInt($(`#detail_price__${editCount}`).val());
+                        var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        var sqm_val = parseInt($(`#sqm__${editCount}`).val());
+                           
+                            var multiple = price_val * complexity_val * sqm_val ;
+                            $(`#detail_sum__${editCount}`).val(multiple);
+                            // alert(multiple)
+
                             var row_total = parseInt($(`#detail_price__${editCount}`).val()) + parseInt($(`#statistic_price__${editCount}`).val()) + parseInt($(`#cad_cam_price__${editCount}`).val()) + parseInt($(`#logistic_price__${editCount}`).val());
                             $(`#total_price__${editCount}`).html(row_total)
-                        console.log(detail_price);   
-                });
+                        console.log(detail_price);
+                        $('.detail_sum').keyup();
+                            calculation_total()
+
+                    });
                 function total_price_val()
                     {
                         var total_cost_price = parseInt($('#detail_price_id').html()) + parseInt($('#statistic_price_id').html()) + parseInt($('#cad_cam_price_id').html()) + parseInt($('#logistic_price_id').html());
                         $('#total_price_id').html(total_cost_price); 
                         calculation_total()
+
+                        // var sum_total = $('#detail_sum_id').html();
+                        // var sqm_total = $('#sqm_total_id').html();
+                        
+                       
+                        // // alert(typeof (parseInt(sum_total)))
+                        // var total_price = parseInt(sum_total) / parseInt(sqm_total);
+
+                        // alert(total_price)
+                        // $('#detail_price_id').html(total_price);
+
+                        // var statistic_total = $('#statistic_sum_id').html();
+                        // var statistic_sqm_total = $('#sqm_total_id').html();
+                     
+                        // // alert(typeof (parseInt(sum_total)))
+                        // var total_stat = parseInt(statistic_total) / parseInt(statistic_sqm_total);
+
+                        // alert(total_stat)
+                        // $('#statistic_price_id').html(total_stat);
+
+
                     }
+
 
                 function total_sum_val()
                     {
@@ -1392,15 +1599,54 @@
                     }
                 function calculation_total()
                 {
-                   var cal = $('#complexity_val').val();
+                    var cal = $('#sqm_total_id').html();
+                //    alert(cal)
                    var total_sum_id = $('#total_sum_id').html();
+                //    alert(total_sum_id)
                    if(cal)
                    {
                     var ss = (parseInt(total_sum_id))/(parseInt(cal));
                     // alert(ss)
-                    $('#total_price_id').html(ss)
+                    $('#total_price_id').html(parseFloat(ss).toFixed(2))
                     $('#complexity_total').val(ss);
+                    // console.log("ss"+ss)
                    }
+
+                   var detail_total = $('#detail_sum_id').html();
+                        var detail_sqm_total = $('#sqm_total_id').html();
+                        
+                       
+                        // alert(typeof (parseInt(sum_total)))
+                        var detail_total_price = parseInt(detail_total) / parseInt(detail_sqm_total);
+
+                        // alert(total_price)
+                        $('#detail_price_id').html(parseFloat(detail_total_price).toFixed(2));
+
+                        var statistic_total = $('#statistic_sum_id').html();
+                        var statistic_sqm_total = $('#sqm_total_id').html();
+                     
+                        // alert(typeof (parseInt(sum_total)))
+                        var total_stat = parseInt(statistic_total) / parseInt(statistic_sqm_total);
+
+                        // alert(total_stat)
+                        $('#statistic_price_id').html(parseFloat(total_stat).toFixed(2));
+
+
+                        var cad_total = $('#cad_cam_sum_id').html();
+                        var cad_sqm_total = $('#sqm_total_id').html();
+
+                        var cad_stat = parseInt(cad_total) / parseInt(cad_sqm_total);
+                        $('#cad_cam_price_id').html(parseFloat(cad_stat).toFixed(2));
+
+
+                        var log_total = $('#logistic_sum_id').html();
+                        var log_sqm_total = $('#sqm_total_id').html();
+    
+                        var log_stat = parseInt(log_total) / parseInt(log_sqm_total);
+
+                        $('#logistic_price_id').html(parseFloat(log_stat).toFixed(2));
+
+                        
                 }
 
 
@@ -1420,8 +1666,18 @@
                    }
 
                 });
+        //         $(document).on('keyup change','.sqm_val',function(){
+        //        alert()
+        //        var row_id = $(this).data('data-sqm_id');
+        //       //  alert(row_id)
+        //      var row_total_price = parseInt($(`#detail_price__${row_id}`).val()) + parseInt($(`#statistic_price__${row_id}`).val()) + parseInt($(`#cad_cam_price__${row_id}`).val()) + parseInt($(`#logistic_price__${row_id}`).val());
+        //      $(`#total_price__${row_id}`).val(row_total_price)
+        //      total_price_val()
+
+        //   });
+        
                 $(document).on('keyup change','.detail_price',function(){
-               
+            //    alert()
                      var row_id = $(this).data('detail-price_id');
                     //  alert(row_id)
                    var row_total_price = parseInt($(`#detail_price__${row_id}`).val()) + parseInt($(`#statistic_price__${row_id}`).val()) + parseInt($(`#cad_cam_price__${row_id}`).val()) + parseInt($(`#logistic_price__${row_id}`).val());
@@ -1433,8 +1689,17 @@
                     // alert(editCount)
                     var row_id = $(this).data('statistic-price_id');
                     //  alert(row_id)
+                        var price_val = parseInt($(`#statistic_price__${editCount}`).val());
+                        var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        var sqm_val = parseInt($(`#sqm__${editCount}`).val());
+                           
+                            var multiple = price_val * complexity_val * sqm_val ;
+                            $(`#statistic_sum__${editCount}`).val(multiple);
+
                    var row_total_price = parseInt($(`#detail_price__${row_id}`).val()) + parseInt($(`#statistic_price__${row_id}`).val()) + parseInt($(`#cad_cam_price__${row_id}`).val()) + parseInt($(`#logistic_price__${row_id}`).val());
                    $(`#total_price__${row_id}`).val(row_total_price)
+                   $('.detail_sum').keyup();
+                   statistic_change_sum()
                    total_price_val()
                    
                     // alert(row_total)
@@ -1443,25 +1708,47 @@
                 $(document).on('keyup change','.cad_cam_price',function(){
                     // alert(editCount)
                     var row_id = $(this).data('cad_cam-price_id');
+
+                        var cad_val = parseInt($(`#cad_cam_price__${editCount}`).val());
+                        var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        var sqm_val = parseInt($(`#sqm__${editCount}`).val());
+                           
+                            var cad_multiple = cad_val * complexity_val * sqm_val ;
+                            $(`#cad_cam_sum__${editCount}`).val(cad_multiple);
                     //  alert(row_id)
                    var row_total_price = parseInt($(`#detail_price__${row_id}`).val()) + parseInt($(`#statistic_price__${row_id}`).val()) + parseInt($(`#cad_cam_price__${row_id}`).val()) + parseInt($(`#logistic_price__${row_id}`).val());
                    $(`#total_price__${row_id}`).val(row_total_price)
                     // alert(row_total)
+                    
+                    $('.detail_sum').keyup();
+                    $('.cad_cam_sum').keyup();
+                    cad_cam_change_price()
                     total_price_val()
+                    
                 });
                 $(document).on('keyup change','.logistic_price',function(){
                     // alert(editCount)
                     var row_id = $(this).data('logistic-price_id');
+
+                        var logistic_val = parseInt($(`#logistic_price__${editCount}`).val());
+                        var complexity_val = parseFloat($(`#complexity__${editCount}`).val());
+                        var sqm_val = parseFloat($(`#sqm__${editCount}`).val());
+
+                        var logistic_multiple = logistic_val * complexity_val * sqm_val ;
+                        $(`#logistic_sum__${editCount}`).val(logistic_multiple);
                     //  alert(row_id)
                    var row_total_price = parseInt($(`#detail_price__${row_id}`).val()) + parseInt($(`#statistic_price__${row_id}`).val()) + parseInt($(`#cad_cam_price__${row_id}`).val()) + parseInt($(`#logistic_price__${row_id}`).val());
                    $(`#total_price__${row_id}`).val(row_total_price)
                     // alert(row_total)
+                   
+                    $('.logistic_sum').keyup();
+                    logistic_change_price()
                     total_price_val()
                 });
 
 
                 $(document).on('keyup change','.detail_sum',function(){
-
+                    // alert()
                     var row_id = $(this).data('detail-sum_id');
                    var row_total_sum = parseInt($(`#detail_sum__${row_id}`).val()) + parseInt($(`#statistic_sum__${row_id}`).val()) + parseInt($(`#cad_cam_sum__${row_id}`).val()) + parseInt($(`#logistic_sum__${row_id}`).val());
                    $(`#total_sum__${row_id}`).val(row_total_sum)
@@ -1527,8 +1814,196 @@
                             }
                             $('#statistic_price_id').html(statistic_price);
                         console.log(statistic_price);
-                });  
+                }); 
                 
+                $(document).on('keyup','.sqm_val',function(){
+                    // console.log('clicked');
+                    var row_id = $(this).data('sqm_id');
+                        var val = $(this).val();
+                        // alert(val)
+                        $(`#sqm__${row_id}`).attr('value', Number(val));
+                        // $('#sqm__${row_id}').val(val);
+                        // $(`#sqm__${row_id}`).attr('value', val);
+                        var elements = document.querySelectorAll('.sqm_val');
+                        // alert(elements)
+                        
+                        var values = [].map.call(elements, function(e) {
+                        return e.value;
+                        });
+                    
+                        // console.log(values);
+                        // alert(values)
+                        let sqm_val = 0;
+                        for (let i = 0; i < values.length; i++) {
+                            // alert(values[i])
+                            sqm_val +=  Number(values[i]);
+                            }
+                            // sqm_val +=1;
+                           
+                            $('#sqm_total_id').html(sqm_val);
+                        // var price_val = parseInt($(`#detail_price__${editCount}`).val());
+                        // var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        // var sqm_val1 = parseInt($(`#sqm__${editCount}`).val());
+                           
+                        // var statistic_val = parseInt($(`#statistic_price__${editCount}`).val());
+                        // var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        // var sqm_val1 = parseInt($(`#sqm__${editCount}`).val());
+
+                        // var cad_val = parseInt($(`#cad_cam_price__${editCount}`).val());
+                        // var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        // var sqm_val1 = parseInt($(`#sqm__${editCount}`).val());
+
+
+                        // var logistic_val = parseInt($(`#logistic_price__${editCount}`).val());
+                        // var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        // var sqm_val1 = parseInt($(`#sqm__${editCount}`).val());
+
+                        //     var multiple = price_val * complexity_val * sqm_val1 ;
+                        //     $(`#detail_sum__${editCount}`).val(multiple);
+
+                        //     var statistic_multiple = statistic_val * complexity_val * sqm_val1 ;
+                        //     $(`#statistic_sum__${editCount}`).val(statistic_multiple);
+
+                        //     var cad_multiple = cad_val * complexity_val * sqm_val1 ;
+                        //     $(`#cad_cam_sum__${editCount}`).val(cad_multiple);
+
+                        //     var logistic_multiple = logistic_val * complexity_val * sqm_val1 ;
+                        //     $(`#logistic_sum__${editCount}`).val(logistic_multiple);
+                        var price_val = parseInt($(`#detail_price__${row_id}`).val());
+                        
+                        var statistic_val = parseInt($(`#statistic_price__${row_id}`).val());
+                       
+                        var cad_val = parseInt($(`#cad_cam_price__${row_id}`).val());
+                      
+                        var logistic_val = parseInt($(`#logistic_price__${row_id}`).val());
+                        
+                             var a = parseFloat($(`#complexity__${row_id}`).val());
+                             var b = parseFloat($(`#sqm__${row_id}`).val());
+                             var c = ( a * b * price_val);
+                            //  alert(c)
+                            $(`#detail_sum__${row_id}`).val(parseFloat(c).toFixed(2));
+                          
+                            // var statistic_multiple = statistic_val * complexity_val * sqm_val1 ;
+                            var a1 = parseFloat($(`#complexity__${row_id}`).val());
+                             var b1= parseFloat($(`#sqm__${row_id}`).val());
+                             var c1 = ( a1 * b1 * statistic_val);
+                            $(`#statistic_sum__${row_id}`).val(parseFloat(c1).toFixed(2));
+
+                            var a2 = parseFloat($(`#complexity__${row_id}`).val());
+                             var b2 = parseFloat($(`#sqm__${row_id}`).val());
+                             var c2 = ( a2 * b2 * cad_val);
+                            // var cad_multiple = cad_val * complexity_val * sqm_val1 ;
+                            $(`#cad_cam_sum__${row_id}`).val(parseFloat(c2).toFixed(2));
+
+                            // var logistic_multiple .= logistic_val * complexity_val * sqm_val1 ;
+                            var a3 = parseFloat($(`#complexity__${row_id}`).val());
+                             var b3 = parseFloat($(`#sqm__${row_id}`).val());
+                             
+                             var c3 = (b3 * logistic_val);
+                            $(`#logistic_sum__${row_id}`).val(parseFloat(c3).toFixed(2));
+                            // $('#').
+                            $('.detail_sum').keyup();
+                            $('.cad_cam_sum').keyup();
+                            $('.logistic_sum').keyup();
+                            
+                            
+                            calculation_total()
+                            statistic_change_sum()
+                            logistic_change_sum()
+                        console.log(sqm_val);
+                });
+                $(document).on('keyup','.complexity_val',function(){
+                    // console.log('clicked');
+                    // alert()
+                    var row_id = $(this).data('complexity_id');
+                        var val = $(this).val();
+                        $(`#complexity__${row_id}`).attr('value', Number(val));
+                        // $('#sqm__${row_id}').val(val);
+                        // $(`#sqm__${row_id}`).attr('value', val);
+                        var elements = document.querySelectorAll('.complexity_val');
+                        // alert(elements)
+                        
+                        var values = [].map.call(elements, function(e) {
+                        return e.value;
+                        });
+                    
+                        // console.log(values);
+                        // alert(values)
+                        let sqm_val = 0;
+                        for (let i = 0; i < values.length; i++) {
+                            // alert(values[i])
+                            sqm_val +=  Number(values[i]);
+                            }
+                            // sqm_val +=1;
+                           
+                        $('#complexity_total_id').html(parseFloat(sqm_val).toFixed(2));
+                        console.log(sqm_val);
+
+    //                     var floatSum = 0;
+    // $(".complexity_val").each(function(){
+    //     floatSum += +$(this).val();
+    // });
+                        
+                        var price_val = parseInt($(`#detail_price__${row_id}`).val());
+                        // var complexity_val = $(`#complexity__${editCount}`).val();
+                        // // alert(typeof((complexity_val)))
+                        // var sqm_val1 = parseInt($(`#sqm__${editCount}`).val());
+
+                        var statistic_val = parseInt($(`#statistic_price__${row_id}`).val());
+                        // var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        // var sqm_val1 = parseInt($(`#sqm__${editCount}`).val());
+
+                        var cad_val = parseInt($(`#cad_cam_price__${row_id}`).val());
+                        // var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        // var sqm_val1 = parseInt($(`#sqm__${editCount}`).val());
+                           
+                        var logistic_val = parseInt($(`#logistic_price__${row_id}`).val());
+                        // var complexity_val = parseInt($(`#complexity__${editCount}`).val());
+                        // var sqm_val1 = parseInt($(`#sqm__${editCount}`).val());
+                        // alert(parseFloat(price_val))
+                       
+                        // alert(parseFloat(sqm_val1))
+                        var detail_multiple;
+                        // alert(parseFloat(complexity_val))
+                            //  detail_multiple = parseFloat(complexity_val) * 2 ;
+                            // alert(row_id)
+                             var a = parseFloat($(`#complexity__${row_id}`).val());
+                             var b = parseFloat($(`#sqm__${row_id}`).val());
+                             var c = ( a * b * price_val);
+                            //  alert(a)
+                            $(`#detail_sum__${row_id}`).val(parseFloat(c).toFixed(2));
+                          
+                            // var statistic_multiple = statistic_val * complexity_val * sqm_val1 ;
+                            var a1 = parseFloat($(`#complexity__${row_id}`).val());
+                             var b1= parseFloat($(`#sqm__${row_id}`).val());
+                             var c1 = ( a1 * b1 * statistic_val);
+                            $(`#statistic_sum__${row_id}`).val(parseFloat(c1).toFixed(2));
+
+                            var a2 = parseFloat($(`#complexity__${row_id}`).val());
+                             var b2 = parseFloat($(`#sqm__${row_id}`).val());
+                             var c2 = ( a2 * b2 * cad_val);
+                            // var cad_multiple = cad_val * complexity_val * sqm_val1 ;
+                            $(`#cad_cam_sum__${row_id}`).val(parseFloat(c2).toFixed(2));
+
+                            // var logistic_multiple .= logistic_val * complexity_val * sqm_val1 ;
+                            var a3 = parseFloat($(`#complexity__${row_id}`).val());
+                             var b3 = parseFloat($(`#sqm__${row_id}`).val());
+                             
+                             var c3 = (b3 * logistic_val);
+                            $(`#logistic_sum__${row_id}`).val(parseFloat(c3).toFixed(2));
+                            // alert(a3)
+                            // alert(b3)
+                            // alert(c3)
+                            // $('#').
+                            $('.detail_sum').keyup();
+                            $('.cad_cam_sum').keyup();
+                            $('.logistic_sum').keyup();
+                            statistic_change_sum()
+                            cad_cam_change_sum()
+                            logistic_change_sum()
+                            total_change_sum()
+                            calculation_total()
+                });
 
                 $(document).on('keyup','.cad_cam_sum',function(){
                     console.log('clicked');
@@ -1642,18 +2117,18 @@
                 }); 
 
                 Message = function (type, head) {
-            $.toast({
-                heading: head,
-                icon: type,
-                showHideTransition: 'plain', 
-                allowToastClose: true,
-                hideAfter: 5000,
-                stack: 10, 
-                position: 'bootom-left',
-                textAlign: 'left', 
-                loader: true, 
-                loaderBg: '#252525',                
-            });
+                $.toast({
+                    heading: head,
+                    icon: type,
+                    showHideTransition: 'plain', 
+                    allowToastClose: true,
+                    hideAfter: 5000,
+                    stack: 10, 
+                    position: 'bootom-left',
+                    textAlign: 'left', 
+                    loader: true, 
+                    loaderBg: '#252525',                
+                });
         }
             
     </script>

@@ -146,11 +146,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('estimate/list', [CostEstimationController::class, 'getEstimate'])->name('estimate.list');
     Route::get('costEstimationDelete', [CostEstimationController::class,'costEstimationDelete'])->name('costEstimationDelete');
     Route::resource('enquiry', EnquiryController::class);
-   
+    
+     Route::get('deleteRowData', [CostEstimationController::class,'deleteRowData'])->name('deleteRowData');
+
     Route::get('masterCalculation', [CostEstimationController::class, 'masterCalculation'])->name('masterCalculation');
-
-
-
+    Route::get('costMasterVal', [CostEstimationController::class, 'costMasterVal'])->name('costMasterVal');
+    Route::get('get_component', [CostEstimationController::class, 'get_component'])->name('get_component');
+    Route::get('get_type', [CostEstimationController::class, 'get_type'])->name('get_type');
+    
+    Route::put('component_status/{id}', [CostEstimationController::class, 'component_status'])->name('component_status');
+    Route::put('type_status/{id}', [CostEstimationController::class, 'type_status'])->name('type_status');
+    
+    Route::delete('delete_component/{id}', [CostEstimationController::class, 'delete_component'])->name('delete_component');
+    Route::delete('delete_type/{id}', [CostEstimationController::class, 'delete_type'])->name('delete_type');
+    
     // Route::get('/data',[ GanttChartController::class, 'getData'])->name('data');
     // Route::get('/ganttChart/data',[ GanttChartController::class, 'getData'])->name('ganttChart.data');
     // Route::post('ganttChartForm', [GanttChartController::class,'ganttChartForm'])->name('ganttChartForm');
@@ -175,12 +184,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     // Route::delete('task/{id}',[ GanttChartController::class, 'deleteData'])->name('task');
 
 
-    Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role');
+Route::post('add_component', [CostEstimationController::class, 'add_component'])->name('add_component'); 
+Route::post('add_type', [CostEstimationController::class, 'add_type'])->name('add_type'); 
+   
+Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role');
     Route::post('update_role/{id}', [EmployeeController::class, 'update_role'])->name('update_role');
+    Route::post('update_component/{id}', [CostEstimationController::class, 'update_component'])->name('update_component');
+    Route::post('update_type/{id}', [CostEstimationController::class, 'update_type'])->name('update_type');
+    
     Route::get('get_role', [EmployeeController::class, 'get_role'])->name('get_role');
     // Route::get('get_role', [EmployeeController::class, 'get_role'])->name('get_role');
     Route::put('status/{id}', [EmployeeController::class, 'status'])->name('status');
     Route::get('edit_role/{id}', [EmployeeController::class, 'edit_role'])->name('edit_role');
+
+    Route::get('edit_component/{id}', [CostEstimationController::class, 'edit_component'])->name('edit_component');
+    Route::get('edit_type/{id}', [CostEstimationController::class, 'edit_type'])->name('edit_type');
+    
     Route::delete('delete_role/{id}', [EmployeeController::class, 'delete_role'])->name('delete_role');
 
     Route::get('employee_role', [EmployeeController::class, 'employee_role'])->name('employee_role');
@@ -195,6 +214,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::POST('update_employee/{id}', [EmployeeController::class, 'update_employee'])->name('update_employee');
     Route::put('employee_status/{id}', [EmployeeController::class, 'employee_status'])->name('employee_status');
     Route::get('employee-enquiry/{id}', [EmployeeController::class, 'employee_enquiry'])->name('employee-enquiry');
+   
+    Route::get('getMasterCalculation', [EmployeeController::class, 'getMasterCalculation'])->name('getMasterCalculation');
+   
     
 });
 

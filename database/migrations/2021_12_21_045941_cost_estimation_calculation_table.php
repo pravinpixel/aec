@@ -30,6 +30,7 @@ class CostEstimationCalculationTable extends Migration
             $table->string('logistic_sum')->nullable();
             $table->string('total_price')->nullable();
             $table->string('total_sum')->nullable();
+            $table->string('status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->softDeletes();
             $table->timestamps();

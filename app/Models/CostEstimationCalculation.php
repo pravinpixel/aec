@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-  use SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class CostEstimationCalculation extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $table = 'cost_estimation_calculation';
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -25,6 +25,7 @@ class CostEstimationCalculation extends Model
         'logistic_price',
         'logistic_sum',
         'total_price',
-        'total_sum'
+        'total_sum',
+        'status',
     ];
 }

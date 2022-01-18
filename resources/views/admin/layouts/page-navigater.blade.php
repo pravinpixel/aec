@@ -14,12 +14,14 @@
                         @if (Route::is('admin-estimation-view')) List of Estimation's @endif
                         @if (Route::is('admin-estimation-single-view')) Estimation View @endif
                         @if (Route::is('admin-cost-estimation-view')) List of Cost Estimation's  @endif
-                        @if (Route::is('admin-cost-estimation-single-view'))Cost Estimation View @endif
+                        @if (Route::is('cost-estimation-single-view'))Estimation Calculation View @endif
                         @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                         @if (Route::is('gantt-chart')) Gantt Chart @endif
                         @if (Route::is('admin-settings')) Settings @endif
                         @if (Route::is('admin-employee-control-view')) List of Employee @endif
                         @if (Route::is('admin.employee-add')) Create Employee @endif
+                        @if (Route::is('admin.employeeEdit')) Edit Employee @endif
+                        
                     </li>
                     @if (Route::is('view-enquiry')) 
                         <li class="breadcrumb-item">
@@ -40,12 +42,13 @@
                 @if (Route::is('admin-estimation-view')) List of Estimation's @endif
                 @if (Route::is('admin-estimation-single-view')) Estimation View @endif
                 @if (Route::is('admin-cost-estimation-view')) List of Cost Estimation's  @endif
-                @if (Route::is('admin-cost-estimation-single-view'))Cost Estimation View @endif
+                @if (Route::is('cost-estimation-single-view')) Estimation Calculation View @endif
                 @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                 @if (Route::is('gantt-chart')) Gantt Chart @endif
                 @if (Route::is('admin-settings')) Settings @endif
                 @if (Route::is('admin-employee-control-view')) List of Employee @endif
                 @if (Route::is('admin.employee-add')) Create Employee @endif
+                @if (Route::is('admin.employeeEdit')) Edit Employee @endif
             </h4>
         </div>
     </div>

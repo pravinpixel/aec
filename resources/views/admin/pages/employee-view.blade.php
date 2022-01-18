@@ -19,10 +19,7 @@
                 <div class="card">
                     <div  class="card-header ">
                         <div class="d-flex justify-content-between ">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter" class="btn btn-light border">
-                                <i class="mdi mdi-filter-menu"></i> Filters
-                            </button>
-                            <a  href="{{ route('admin.employee-add') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Employee</a>
+                            <a href="{{ route('admin.employee-add') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Employee</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -78,15 +75,19 @@
                                     </td>
                                     <td>@{{ m.job_role }}</td>
                                     <td>	
-                                    <div>
-                                        <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.status == 1" data-switch="primary"/>
-                                        <label for="switch__@{{index}}" data-on-label="On" ng-click="checkIt(index, m.id)" data-off-label="Off"></label>
-                                    </div>    
+                                        {{-- <div>
+                                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.status == 1" data-switch="primary"/>
+                                            <label for="switch__@{{index}}"   ng-click="checkIt(index, m.id)" ></label>
+                                        </div>     --}}
+                                        <div class="form-check form-switch" ng-click="checkIt(index, m.id)">
+                                            <input type="checkbox" class="form-check-input" id="switch__@{{ index }}" ng-checked="m.status == 1">
+                                            <label class="form-check-label" for="switch__@{{index}}" ></label>
+                                        </div>
                                     </td>
                                     <td>
                                     <!-- <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ><i class="fa fa-pencil"></i></button>
                                     <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  "><i class="fa fa-trash"></i></button> -->
-                                    <a class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click=employeeEdit(m.id) "><i class="fa fa-pencil"></i></a>
+                                    <a class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click=employeeEdit(m.id) "><i class="fa fa-edit"></i></a>
                                     <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click="employeeDelete(m.id)" ><i class="fa fa-trash"></i></a>
                                     <!-- <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click=""><i class="fa fa-paper-plane"></i></a> -->
                                         <!-- <div class="dropdown">
@@ -148,7 +149,7 @@
                                                 <div class="col-12 text-center">
                                                     <h4 class="f-20 m-0 p-3">Plat Information</h4>
                                                 </div>
-                                                <div class="col-md-6 p-3">
+                                                <div class="col-md-6 mx-auto p-3">
                                                     <table class="table m-0  table-bordered">
                                                         <tbody>
                                                                 <tr class="border">
@@ -254,160 +255,10 @@
                                         </h2>
                                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
-                                                <table class="table m-0  ">
-                                                                                
-                                                    <tbody>
-                                                        <tr>
-                                                            <th class="">S.no
-                                                            </th><th class="">File Name</th>
-                                                            <th class="">Type</th>
-                                                            <th class="">Action</th>
-                                                        </tr> 
-                                                        <tr class="border">
-                                                        <th class="bg-white">1
-                                                        </th><td class="bg-white">Modelling</td>
-                                                        <td class="bg-white">IFC Modelling</td>
-                                                        <td>
-                                                            <i class="feather-eye text-success mr-3"></i>
-                                                            <i class="feather-trash text-danger"></i>
-                                                        </td>
-                                                    </tr>  
-                                                    <tr class="border">
-                                                        <th class="bg-white">1
-                                                        </th><td class="bg-white">Modelling</td>
-                                                        <td class="bg-white">IFC Modelling</td>
-                                                        <td>
-                                                            <i class="feather-eye text-success mr-3"></i>
-                                                            <i class="feather-trash text-danger"></i>
-                                                        </td>
-                                                    </tr>  
-                                                    <tr class="border">
-                                                        <th class="bg-white">1
-                                                        </th><td class="bg-white">Modelling</td>
-                                                        <td class="bg-white">IFC Modelling</td>
-                                                        <td>
-                                                            <i class="feather-eye text-success mr-3"></i>
-                                                            <i class="feather-trash text-danger"></i>
-                                                        </td>
-                                                    </tr>  
-                                                    <tr class="border">
-                                                        <th class="bg-white">1
-                                                        </th><td class="bg-white">Modelling</td>
-                                                        <td class="bg-white">IFC Modelling</td>
-                                                        <td>
-                                                            <i class="feather-eye text-success mr-3"></i>
-                                                            <i class="feather-trash text-danger"></i>
-                                                        </td>
-                                                    </tr>  
-                                                    <tr class="border">
-                                                        <th class="bg-white">1
-                                                        </th><td class="bg-white">Modelling</td>
-                                                        <td class="bg-white">IFC Modelling</td>
-                                                        <td>
-                                                            <i class="feather-eye text-success mr-3"></i>
-                                                            <i class="feather-trash text-danger"></i>
-                                                        </td>
-                                                    </tr>  
-                                                </tbody></table>
+                                                No data!
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThreer">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreer" aria-expanded="false" aria-controls="collapseThree">
-                                                Building components
-                                            </button>
-                                        </h2>
-                                        <div id="collapseThreer" class="accordion-collapse collapse" aria-labelledby="headingThreer" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <div class="row mx-0 container ">
-                                                    <div class="col-12 text-center">
-                                                        <h4 class="f-20 m-0 p-3">Building components</h4>
-                                                    </div>
-                                                    <div class="col-md-8 p-3 mx-auto">
-                                                        <table class="table m-0 table-bordered " id="menu-table">
-                                                            
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th  class="bg-primary text-white">EW_DEWS
-                                                                    </th>
-                                                                    <th  class="bg-primary text-white">
-                                                                        Delivery Type : Element Type
-                                                                    </th>
-                                                                    <th  class="bg-primary text-white">
-                                                                        Total : 10
-                                                                    </th>
-                                                                </tr> 
-                                                            <tr class="border  ">
-                                                                <td>Layer Details</td>
-                                                                <td>Dimensions ( mm )</td>
-                                                                <td>Estimates length ( mm )</td>
-                                                            </tr>
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td>Horizontal Nails</td>
-                                                                <td>250X298</td>
-                                                                <td>0.58</td>
-                                                            </tr>  
-                                                        </tbody></table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>   -->
-                                    <!-- <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThreew">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreew" aria-expanded="false" aria-controls="collapseThreew">
-                                                Additional Info
-                                            </button>
-                                        </h2>
-                                        <div id="collapseThreew" class="accordion-collapse collapse" aria-labelledby="headingThreew" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <div class="col-md-10 p-0 mx-auto  border">
-                                                    <div class="col-12  text-center p-2  ">
-                                                        Additional Info
-                                                    </div>
-                                                    <div class="p-2">
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 text-center mt-4">
-                                                    <button class="btn button_print progress-btn mx-2 px-3 btn-rounded">
-                                                        Print
-                                                    </button> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                    </div> 
                                 </div> 
                             </div>
                         </div><!-- /.modal-content -->

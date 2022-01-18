@@ -9,6 +9,8 @@ use App\Models\MasterCalculation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\BuildingComponent;
+use App\Models\Type;
 
 use function PHPSTORM_META\type;
 
@@ -19,11 +21,12 @@ class CostEstimationController extends Controller
     public function cost_estimation_single_view()
     {
        $data = CostEstimationDetail::select('cost_estimation_detail.*')->where('status','=','1')->orderBy('id', 'asc')->get()->toArray();
-       
+      $data['component'] = BuildingComponent::where('is_active','=','1')->get();
+      $data['type'] = Type::where('is_active','=','1')->get()->toArray();
+    //   print_r($data['component']);die;
        return view('admin.pages.admin-cost-estimation-single-view',compact('data'));
         // return view('admin.pages.abc',compact('data'));
-        
-        
+
     }
     public function masterCalculation(Request $request)
     {
@@ -35,10 +38,27 @@ class CostEstimationController extends Controller
             $total_sum = 0;
             $data = MasterCalculation::where('component_id',$request->component_id)->where('type_id',$request->type_id)->first()->toArray();
             
+
+           $detail_price_sum = (int)$data['detail_price'];
+           $statistic_price_sum = (int)$data['statistic_price'];
+           $cad_cam_price_sum = (int)$data['cad_cam_price'];
+           $logistic_price_sum = (int)$data['logistic_price'];
+            
+            $data['detail_price_sum'] =  $detail_price_sum;
+            $data['statistic_price_sum'] =  $statistic_price_sum;
+            $data['cad_cam_price_sum'] =  $cad_cam_price_sum;
+            $data['logistic_price_sum'] =  $logistic_price_sum;
+           
+           $total_sum1 = $detail_price_sum + $statistic_price_sum + $cad_cam_price_sum + $logistic_price_sum;
+        //    return $total_price;
           $total_price =  (int)$data['detail_price'] + (int)$data['statistic_price'] +  (int)$data['cad_cam_price'] +  (int)$data['logistic_price'];
           $total_sum =  (int)$data['detail_sum'] + (int)$data['statistic_sum'] +  (int)$data['cad_cam_sum'] +  (int)$data['logistic_sum'];
             
+
+
+
             // print_r(var_dump((int)$total_price));die;
+            $data['total_sum1'] =   $total_price;
             $data['total_price'] =   $total_price;
             $data['total_sum'] =   $total_sum;
             return response(['status' => true, 'data' => $data ,'msg' => trans('Employee Created')], Response::HTTP_OK);
@@ -53,9 +73,8 @@ class CostEstimationController extends Controller
             return DataTables::eloquent($model)
           
                 ->addColumn('action', function($model){
-                    $actionBtn = '<a class="edit edit_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-edit"></i></a> <a class="delete delete_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-trash"></i></a>';
-                    
-                  
+                    $actionBtn = '<a class="edit edit_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-edit"></i></a> <a class="delete delete_data btn btn-outline-danger btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-trash"></i></a>';
+                     
                     return $actionBtn;
                 })
                 ->toJson();
@@ -64,7 +83,7 @@ class CostEstimationController extends Controller
     }
     public function costEstimationSingleForm(Request $request)
     {
-        
+        // print_r($request->all());die();
         if($request->key)
         {
            
@@ -99,8 +118,8 @@ class CostEstimationController extends Controller
                         'logistic_price' => $row['logistic_price'],
                         'logistic_sum' => $row['logistic_sum'],
                         'total_price' => $row['total_price'],
-                        'total_sum' => $row['total_sum']
-                        
+                        'total_sum' => $row['total_sum'],
+                        'status' => 1,
                     ];
                     if(empty($row['test'])) {
                         $res = $data->CostEstimationCalculations()->create($calcData);
@@ -148,7 +167,8 @@ class CostEstimationController extends Controller
                             'logistic_price' => $row['logistic_price'],
                             'logistic_sum' => $row['logistic_sum'],
                             'total_price' => $row['total_price'],
-                            'total_sum' => $row['total_sum']
+                            'total_sum' => $row['total_sum'],
+                            'status' => 1,
                             
                         ];
                         $res = $coustEstimate->CostEstimationCalculations()->create($calcData);
@@ -176,25 +196,34 @@ class CostEstimationController extends Controller
         return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
 
     }
-    // public function delete_role($id)
-    // {
-        
-    //      $module = Role::find($id);
-    //     if (empty($module)) {
-    //         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-    //     }
-    //     $module->status = 2;
-    //     $module->save();
-    //     $module->delete();
-    //     return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
-    // }
-  
-
+   
+    public function costMasterVal(Request $request)
+    {
+        // return $request->field_name;
+        if($request->value)
+        {
+           $model = MasterCalculation::where('component_id',$request->component_id)->where('type_id',$request->type_id)->first();
+        if($model)
+        {
+            $model->{$request->field_name} = $request->value;
+            $model->update();
+           
+        }else{
+            $model = new MasterCalculation();
+            $model->component_id = $request->component_id;
+            $model->type_id = $request->type_id;
+            $model->{$request->field_name} = $request->value;
+            $model->save();
+        }
+        return "true";
+        }
+       
+    }
     public function costEstimationEdit(Request $id)
     {
         
         $arr['detail'] = CostEstimationDetail::where('id',$id->id)->first()->toArray();
-        $arr['calculation'] = CostEstimationCalculation::where('estimation_detail_id',$id->id)->get()->toArray();
+        $arr['calculation'] = CostEstimationCalculation::where('estimation_detail_id',$id->id)->where('status','=',1)->get()->toArray();
        
 
         // $arr['detail']
@@ -212,6 +241,9 @@ class CostEstimationController extends Controller
 
         $total_price = 0;
         $total_sum = 0;
+
+        $sqm_total = 0;
+        $complexity_sum = 0;
         
         foreach($arr['calculation'] as $key=>$val)
         {
@@ -229,6 +261,10 @@ class CostEstimationController extends Controller
 
             $total_price += (int)$val['total_price'];
             $total_sum += (int)$val['total_sum'];
+
+            $sqm_total += (int)$val['sqm'];
+            $complexity_sum += (int)$val['complexity'];
+           
             
         }
         $arr['total_cost'] = $detail_price + $detail_sum + $statistic_price + $statistic_sum + $cad_cam_price + $cad_cam_sum + $logistic_price + $logistic_sum + $total_price + $total_sum;
@@ -247,10 +283,177 @@ class CostEstimationController extends Controller
         $arr['total_price'] = $total_price;
         $arr['total_sum'] = $total_sum;
 
+        $arr['sqm_total'] = $sqm_total;
+        $arr['complexity_sum'] = $complexity_sum;
+
      
         // $total_price/
-     
+        // return 
         return response()->json(['data' => $arr]);
 
     }
+    public function get_component(Type $var = null)
+    {
+        $data = BuildingComponent::all();
+        
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    }
+    public function get_type(Type $var = null)
+    {
+        $data = Type::all();
+        
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    }
+    
+    public function component_status($id)
+    {
+        $module = BuildingComponent::find($id);
+
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->is_active = !$module->is_active;
+        $res = $module->save();
+
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    public function type_status($id)
+    {
+        $module = Type::find($id);
+
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->is_active = !$module->is_active;
+        $res = $module->save();
+
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    
+    public function delete_component($id)
+    {
+        
+         $module = BuildingComponent::find($id);
+        if (empty($module)) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        $module->is_active = 2;
+        $module->save();
+        $module->delete();
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+    }
+    public function delete_type($id)
+    {
+        
+         $module = Type::find($id);
+        if (empty($module)) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        $module->is_active = 2;
+        $module->save();
+        $module->delete();
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+    }
+    
+    public function deleteRowData(Request $id)
+    {
+        // return $id->id."ds";
+        $module = CostEstimationCalculation::find($id->id);
+        if (empty($module)) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        $module->status = 2;
+        $module->save();
+        $module->delete();
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+    }
+    
+    public function add_component(Request $request)
+    {
+        // return $request->all();
+        // dd($request->all());
+        $module = new BuildingComponent;
+        $insert = $request->only($module->getFillable());
+     
+        // $insert['order_id'] =  Module::get()->count() + 1;
+        $res = BuildingComponent::create($insert);
+        if($res) {
+            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
+        }
+        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+    }
+    public function add_type(Request $request)
+    {
+        // return $request->all();
+        // dd($request->all());
+        $module = new Type;
+        $insert = $request->only($module->getFillable());
+     
+        // $insert['order_id'] =  Module::get()->count() + 1;
+        $res = Type::create($insert);
+        if($res) {
+            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
+        }
+        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+    }
+    
+    public function edit_component($id)
+    {
+        $data = BuildingComponent::find($id);
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    }
+    public function edit_type($id)
+    {
+        $data = Type::find($id);
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    }
+    
+    public function update_component( Request $request,$id)
+    {
+        // return $id;
+        
+        $module = BuildingComponent::find($id);
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $res = $module->update($request->only($module->getFillable()));
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    public function update_type( Request $request,$id)
+    {
+        // return $id;
+        
+        $module = Type::find($id);
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $res = $module->update($request->only($module->getFillable()));
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    
+    
 }

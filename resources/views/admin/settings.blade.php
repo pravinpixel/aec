@@ -36,15 +36,15 @@
                                 <i class="mdi mdi-master-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block">Master Estimation</span>
                             </a>
-                            <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                            <a class="nav-link" id="v-pills-component-tab" data-bs-toggle="pill" href="#v-pills-component" role="tab" aria-controls="v-pills-component"
                                 aria-selected="false">
                                 <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                <span class="d-none d-md-block">Menu</span>
+                                <span class="d-none d-md-block">Cost Estimation Component</span>
                             </a>
-                            <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
+                            <a class="nav-link" id="v-pills-type-tab" data-bs-toggle="pill" href="#v-pills-type" role="tab" aria-controls="v-pills-type"
                                 aria-selected="false">
-                                <i class="mdi mdi-settings-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block">Settings</span>
+                                <i class="mdi mdi-type-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Cost Estimation Type</span>
                             </a>
                             <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
                                 aria-selected="false">
@@ -208,7 +208,7 @@
                                                     </td>
                                                     <td class="text-center" >
                                                         <div class="btn-group">
-                                                            <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleRole('edit', m.id)"><i class="fa fa-pencil"></i></button>
+                                                            <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleRole('edit', m.id)"><i class="fa fa-edit"></i></button>
                                                             <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmRoleDelete(m.id)"><i class="fa fa-trash"></i></button>
                                                         </div>
                                                     </td>
@@ -265,59 +265,13 @@
                                     <div class="card-header ">
                                         <div class="d-flex justify-content-between">
                                             <h3 class="haeder-title">Master Estimation</h3>
-                                            <button class="btn btn-primary " ng-click="toggleMaster('add', 0)">Create New Role</button>
+                                            <!-- <button class="btn btn-primary " ng-click="toggleMaster('add', 0)">Create New Role</button> -->
                                         </div>
                                     </div>
-                                    <div class="card-body">
-                                        <table datatable="ng" dt-options="vm.dtOptions" class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Component</th>
-                                                    <th>Type</th>
-                                                    <th>Details Price</th>
-                                                    <th>Details Sum</th>
-                                                    <th>Statistics Price</th>
-                                                    <th>Statistics Sum</th>
-                                                    <th>CAD/CAM Price</th>
-                                                    <th>CAD/CAM Sum</th>
-                                                    <th>Logistics Price</th>
-                                                    <th>Logistics Sum</th>
-                                                    <th>Status</th>
-                                                    <th class="text-center">Actions</th>
-                                                </tr>
-                                            </thead>
-                                        
-                                            <tbody>
-                                                <tr ng-repeat="(index,m) in role_module_get">
-                                                    
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    <td class="align-items-center">@{{ m.role }}</td>
-                                                    
-                                                    <td>
-                                                        <div>
-                                                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.status == 1" data-switch="primary"/>
-                                                            <label for="switch__@{{index}}" data-on-label="On" ng-click="checkIt(index, m.id)" data-off-label="Off"></label>
-                                                        </div>              
-                                                    </td> 
-                                                    <td class="text-center" >
-                                                        <div class="btn-group">
-                                                            <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleRole('edit', m.id)"><i class="fa fa-pencil"></i></button>
-                                                            <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmRoleDelete(m.id)"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                    </td>
-                                                    
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
+                                    <div class="card-body" >
+                                       <div id="calculation_tbl">
+
+                                       </div>
                                     </div>
                                     <div class="card-fooetr"></div>
                                 </div> 
@@ -360,6 +314,13 @@
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
                                 </div>
+                            </div>
+                           
+                            <div class="tab-pane fade" id="v-pills-component" role="tabpanel" aria-labelledby="v-pills-component-tab">
+                               @include('admin.setting-tabs.component')
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-type" role="tabpanel" aria-labelledby="v-pills-type-tab">
+                               @include('admin.setting-tabs.type')
                             </div>
                         </div> <!-- end tab-content-->
                     </div> <!-- end col-->
@@ -444,6 +405,35 @@
 		</script>
 
 		<script >
+
+            $(document).on('keyup change','.cal_submit', function(){
+                // alert()
+                console.log($(this).data('component_id'));
+                console.log($(this).data('type_id'));
+                console.log($(this).data('field_name'));
+                console.log($(this).val());
+                var component_id = $(this).data('component_id');
+                var type_id = $(this).data('type_id');
+                var field_name = $(this).data('field_name');
+                var value = $(this).val();
+                
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.costMasterVal') }}",
+                    data: {
+                        
+                        component_id:component_id,
+                        type_id:type_id,
+                        field_name:field_name,
+                        value:value,
+                    },
+                    success: function( msg ) {
+                    // alert(JSON.stringify(msg))
+                     
+                    }
+                    });
+            });
             
 			// menuController
 
@@ -470,9 +460,67 @@
 					});
 				} 
                 getData($http, API_URL);
-				
+               
 				// getMenuData($http, API_URL);
+                
+                $scope.component_status = function (index  , id) {
 
+                    var url = API_URL + "admin" + "/component_status";
+                    // getData($http, API_URL);
+
+                    if (id) {
+
+                        url += "/" + id;
+                        method = "PUT";
+
+                        $http({
+                            method: method,
+                            url: url,
+                            data: $.param({'status':0}),
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                        }).then(function (response) {
+                            
+                            $scope.getComponentData($http, API_URL);
+
+                            Message('success',response.data.msg);
+
+                        }), (function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+
+                    }
+                    }
+                    $scope.type_status = function (index  , id) {
+                        var url = API_URL + "admin" + "/type_status";
+                        // getData($http, API_URL);
+
+                        if (id) {
+
+                            url += "/" + id;
+                            method = "PUT";
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function (response) {
+                                
+                                $scope.getTypeData($http, API_URL);
+
+                                Message('success',response.data.msg);
+
+                            }), (function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+
+                        }
+                        }
+                    
                     $scope.checkIt = function (index  , id) {
 
                         var url = API_URL + "module" + "/status";
@@ -502,24 +550,80 @@
 
                         }
                     }
-                    getRoleData = function($http, API_URL) {
+                    $scope.getRoleData = function($http, API_URL) {
                         var url = API_URL + "admin" + "/get_role";
-                    angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-                    // http://localhost/AEC_PREFAB/aec/module?page=1
-                    $http({
-                        method: 'GET',
-                        url: url,
-                    }).then(function (response) {
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
 
-                        $scope.role_module_get = response.data.data;		
-                        
-                    }, function (error) {
-                        console.log(error);
-                        console.log('This is embarassing. An error has occurred. Please check the log for details');
-                    });
+                            $scope.role_module_get = response.data.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    } 
+                    $scope.getComponentData = function($http, API_URL) {
+                        var url = API_URL + "admin" + "/get_component";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
+
+                            $scope.component_module_get = response.data.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    } 
+                    $scope.getTypeData = function($http, API_URL) {
+                        var url = API_URL + "admin" + "/get_type";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
+
+                            $scope.type_module_get = response.data.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    
+                    } 
+                    $scope.getTypeData($http, API_URL);
+                    $scope.getComponentData($http, API_URL);
+                    $scope.getMasterCalculation = function($http, API_URL) {
+                    
+                        var url = API_URL + "admin" + "/getMasterCalculation";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        $('#calculation_tbl').html(response.data);
+                            // $scope.master_module_get = response.data.data;	
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
                     } 
 
-                    getRoleData($http, API_URL);
+
+
+                    $scope.getMasterCalculation($http, API_URL);
+                    $scope.getRoleData($http, API_URL);
                     $scope.checkIt = function (index  , id) {
 
                         var url = API_URL + "admin" + "/status";
@@ -538,7 +642,7 @@
 
                             }).then(function (response) {
                                 
-                                getRoleData($http, API_URL);
+                                $scope.getRoleData($http, API_URL);
 
                                 Message('success',response.data.msg);
 
@@ -603,6 +707,70 @@
 			                        $scope.module_role = response.data.data;
                                     
                                     $('#primary-role-modal').modal('show');
+
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                    
+			                    });
+			                break;
+                     
+			            default:
+			                break;
+			        } 
+			       
+			    }
+                $scope.toggleComponent = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.module = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Create Component";
+			                $scope.form_color = "primary";
+                            $('#primary-component-modal').modal('show');
+
+			                break;
+			            case 'edit':
+			                $scope.form_title = "Update Component";
+                            $scope.form_color = "success";
+			                $scope.id = id;
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+			                $http.get(API_URL + 'admin/' +'edit_component/' + id )
+			                    .then(function (response) {
+			                        $scope.module_comp = response.data.data;
+                                    
+                                    $('#primary-component-modal').modal('show');
+
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                    
+			                    });
+			                break;
+                     
+			            default:
+			                break;
+			        } 
+			       
+			    }
+                $scope.toggleType = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.module = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Create Type";
+			                $scope.form_color = "primary";
+                            $('#primary-type-modal').modal('show');
+
+			                break;
+			            case 'edit':
+			                $scope.form_title = "Update Type";
+                            $scope.form_color = "success";
+			                $scope.id = id;
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+			                $http.get(API_URL + 'admin/' +'edit_type/' + id )
+			                    .then(function (response) {
+			                        $scope.module_type = response.data.data;
+                                    
+                                    $('#primary-type-modal').modal('show');
 
                                     angular.element(document.querySelector("#loader")).addClass("d-none"); 
                                     
@@ -692,7 +860,7 @@
 
 						}).then(function (response) {
 							 
-							getRoleData($http, API_URL);
+                            $scope.getRoleData($http, API_URL);
                             $scope.resetForm();
 							    $('#primary-role-modal').modal('hide');
                                 $('#primary-role-modal').reset();
@@ -715,7 +883,7 @@
 
 						}).then(function (response) {
 							 
-							getRoleData($http, API_URL);
+                            $scope.getRoleData($http, API_URL);
                             $scope.resetForm();
 							//location.reload();
 
@@ -733,11 +901,134 @@
 					}
 			        
 			    }
+
+
+                $scope.save_component = function (modalstate, id) {
+					
+			        var url = API_URL + "admin/";
+			        var method = "POST";
+			
+			        //append module id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "update_component/" + id;
+                        // alert(url)
+			            method = "POST";
+                        // alert(url)
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_comp),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getComponentData($http, API_URL);
+                            $scope.resetForm();
+							    $('#primary-component-modal').modal('hide');
+                                $('#primary-component-modal').reset();
+
+                                Message('success',response.data.msg);
+
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+
+			        }else {
+                        url+="add_component";
+                        // alert(url)
+                        console.log($scope.module_comp);
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_comp),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getComponentData($http, API_URL);
+                            // $('#primary-component-modal').reset();
+                            $scope.resetForm();
+							//location.reload();
+							$('#primary-component-modal').modal('hide');
+                            Message('success', response.data.msg);
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
+                $scope.save_type = function (modalstate, id) {
+					
+			        var url = API_URL + "admin/";
+			        var method = "POST";
+			
+			        //append module id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "update_type/" + id;
+                        // alert(url)
+			            method = "POST";
+                        // alert(url)
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_type),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getTypeData($http, API_URL);
+                            $scope.resetForm();
+							    $('#primary-type-modal').modal('hide');
+                                $('#primary-type-modal').reset();
+
+                                Message('success',response.data.msg);
+
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+
+			        }else {
+                        url+="add_type";
+                        // alert(url)
+                        console.log($scope.module_type);
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_type),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getTypeData($http, API_URL);
+                            // $('#primary-component-modal').reset();
+                            $scope.resetForm();
+							//location.reload();
+							$('#primary-type-modal').modal('hide');
+                            Message('success', response.data.msg);
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
                 $scope.resetForm =  function() {
                     $scope.module_role = {};
+                    $scope.module_comp = {};
+                    $scope.module_type = {};
                     $scope.RoleModule.$setPristine();
                     $scope.RoleModule.$setValidity();
                     $scope.RoleModule.$setUntouched();
+                    $scope.ComponentModule.$setPristine();
+                    $scope.ComponentModule.$setValidity();
+                    $scope.ComponentModule.$setUntouched();
+                    $scope.TypeModule.$setPristine();
+                    $scope.TypeModule.$setValidity();
+                    $scope.TypeModule.$setUntouched();
+                    
                 }
 			    //delete record
 			    $scope.confirmDelete = function (id) {
@@ -789,7 +1080,104 @@
 			       
 			    }
 
+                $scope.confirmTypeDelete = function (id) {
+                    var url = API_URL + 'admin/' + 'delete_type/';
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
 
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: url + id                              
+							}).then(function (response) {
+								 
+                                $scope.getTypeData($http, API_URL);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }
+                $scope.confirmComponentDelete = function (id) {
+                    var url = API_URL + 'admin/' + 'delete_component/';
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: url + id                              
+							}).then(function (response) {
+								 
+                                $scope.getComponentData($http, API_URL);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }
                 $scope.confirmRoleDelete = function (id) {
                     var url = API_URL + 'admin/' + 'delete_role/';
 			        // var isConfirmDelete = confirm('Are you sure you want this record?');
@@ -810,7 +1198,7 @@
 								url: url + id                              
 							}).then(function (response) {
 								 
-								getRoleData($http, API_URL);
+                                $scope.getRoleData($http, API_URL);
 
                               
                                 if(response.data.status == false) {

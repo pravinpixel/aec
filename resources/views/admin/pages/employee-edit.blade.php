@@ -21,7 +21,7 @@
                 <div class="col-md-12 mb-4">
                     <div class="card shadow-lg mb-0">
                         <div class="card-body p-4">
-                            <form class="needs-validations"  novalidate name="frm"  >
+                            <form class="needs-validations"  novalidate name="frm" id="frm"  >
                             <input  ng-model="FormData.key" name="key" ng-value="EmpData.id" value="EmpData.id"  ng-model="FormData.id" id="key" type="hidden" >
                                 <div class="row m-0">
                                     <div class="col-md-12 p-0">
@@ -39,6 +39,9 @@
                                         <div class="mb-3">
                                             <label class="form-label" >First name<sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control"  name="epm_fname" id="epm_fname"   ng-value="EmpData.first_Name"   ng-model="FormData.epm_fname" placeholder="Type Here..."ng-required="true">
+                                            <!-- <div class="error-msg">
+                                                <small class="error-text" ng-if="frm.epm_fname.$touched && frm.epm_fname.$error.required">This field is required!</small> 
+                                            </div> -->
                                         </div>
                                     </div>
                                     
@@ -47,6 +50,9 @@
                                         <div class="mb-3">
                                             <label class="form-label" >Last name<sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="epm_lname" id="epm_lname" ng-minlength="1"  ng-value="EmpData.last_name"  ng-model="FormData.epm_lname" placeholder="Type Here..." ng-required="true">
+                                            <!-- <div class="error-msg">
+                                                <small class="error-text" ng-if="frm.epm_lname.$touched && frm.epm_lname.$error.required">This field is required!</small> 
+                                            </div> -->
                                         </div>
                                     </div>  
                                 
@@ -55,13 +61,19 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="validationCustom01">Username<sup class="text-danger">*</sup></label>
                                                 <input type="text" class="form-control" id="epm_username" name="epm_username"  ng-value="EmpData.user_name"  ng-model="FormData.epm_username" placeholder="Type Here..."  ng-required="true">
+                                                <!-- <div class="error-msg">
+                                                    <small class="error-text" ng-if="frm.epm_username.$touched && frm.epm_username.$error.required">This field is required!</small> 
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" >Password<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="epm_password" id="epm_password"  ng-value="EmpData.password"  ng-model="FormData.epm_password" placeholder="Type Here..."  ng-required="true">
+                                            <input type="password" class="form-control" name="epm_password" id="epm_password"  ng-value="EmpData.password"  ng-model="FormData.epm_password" placeholder="Type Here..."  ng-required="true">
+                                            <!-- <div class="error-msg">
+                                                <small class="error-text" ng-if="frm.epm_password.$touched && frm.epm_password.$error.required">This field is required!</small> 
+                                            </div> -->
                                         </div>
                                     </div>
 
@@ -70,14 +82,14 @@
                                 
                                 <div class="mb-3">
                                     <label class="form-label" >Job Role<sup class="text-danger">*</sup></label>
-                                    <!-- <select  class="form-control"  ng-model="FormData.epm_job_role" name="epm_job_role" id="validationCustom02"   ng-required="true">
-                                        
-                                        <option value="@{{ emp.role }}" ng-repeat="emp in employee_module_role">@{{ emp.role }}</option>
-                                    </select> -->
+                                    
                                     <select aria-label="ngSelected demo" ng-model="EmpData.job_role" name="epm_job_role" id="epm_job_role"  class="form-select">
                                         <!-- <option value="@{{ EmpData.job_role}}"   selected>@{{EmpData.job_role}}</option> -->
                                         <option value="@{{ emp.role }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.role }}</option>
                                     </select>
+                                    <!-- <div class="error-msg">
+                                                <small class="error-text" ng-if="frm.epm_job_role.$touched && frm.epm_job_role.$error.required">This field is required!</small> 
+                                    </div> -->
 
                                 </div>
                             </div>
@@ -98,19 +110,25 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
-                                            <input type="number" class="form-control" name="epm_number" id="epm_number"  ng-value="EmpData.number"  ng-model="FormData.epm_number" placeholder="Type Here..."  ng-required="true">
+                                            <input type="number" class="form-control" name="epm_number" min="8" id="epm_number"  ng-value="EmpData.number"  ng-model="FormData.epm_number" placeholder="Type Here..."  ng-required="true">
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" >Email Id<sup class="text-danger">*</sup></label>
                                             <input type="email" class="form-control" name="epm_email" id="epm_email"  ng-value="EmpData.email"  ng-model="FormData.epm_email" placeholder="Type Here..."  ng-required="true">
+                                            <!-- <div class="error-msg">
+                                                <small class="error-text" ng-if="frm.epm_email.$touched && frm.epm_email.$error.required">This field is required!</small> 
+                                                <small class="error-text" ng-if="frm.epm_email.$touched && frm.epm_email.$error.email">Please enter valid email!</small> 
+                                            </div> -->
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="mb-3"> 
                                             <img src="{{ asset('/public/image/') }}/@{{EmpData.image}}" width="60px">
                                         </div>
+                                        
                                     </div>
                                     <div class="col-md-4">
                                        
@@ -118,6 +136,9 @@
                                             <label class="form-label" >Image<sup class="text-danger">*</sup></label>
                                             <label for="files">Select Image File</label>
                                             <input type="file" class="form-control" id="file" ng-model="FormData.file" name="file" />
+                                            <!-- <div class="error-msg">
+                                                <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
+                                            </div>   -->
                                         </div>
                                     </div>
                                  
@@ -159,6 +180,121 @@
 
 @push('custom-scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+     $( document ).ready(function() {
+        
+        $("#frm").validate({
+            
+            
+
+            rules: {
+                'epm_fname': {
+                    required: true,
+                    maxlength: 50
+                },
+                'epm_lname': {
+                    required: true,
+                    maxlength: 50
+                },
+                
+                'epm_username': {
+                    required: true,
+                },
+                'epm_password': {
+                    required: true,
+                },
+                'epm_job_role': {
+                    required: true,
+                },
+                'epm_number': {
+                    required: true,
+                    minlength:8,
+                    maxlength:12,
+                },
+                'epm_email': {
+                    required: true,                        
+                },
+                
+            },
+        //     errorPlacement: function (error, element) {
+        //     console.log('dd', element.attr("name"))
+            
+        //         error.appendTo(".error-msg");
+            
+        // },
+        // errorPlacement: function (error, element) {
+        //     console.log('dd', element.attr("name"))
+        //     if (element.attr("name") == "epm_fname") {
+        //         error.appendTo(".error-msg");
+        //     } else {
+        //         error.insertAfter(element)
+        //     }
+        // },
+            // messages: {
+
+            //     'enquiry_date': {
+            //         required: "Please enter Date",
+            //     },
+            //     'contact': {
+            //         required: "Please enter Title",
+            //     },
+            //     'addmore[0][component]': {
+            //         required: "Please enter value1",
+            //     },
+            //     'addmore[0][type]': {
+            //         required: "Please enter value1",
+            //     },
+            //     'addmore[0][complexity]': {
+            //         required: "Please enter value",
+            //     },
+            //     'addmore[0][sqm]': {
+            //         required: "Please enter value",
+            //     },
+            //     'addmore[0][complexity]': {
+            //         required: "Please enter value",
+            //     },
+            //     'addmore[0][detail_price]': {
+            //         required: "Please enter value",
+            //     },
+            //     'addmore[0][detail_sum]': {
+            //         required: "Please enter sum",
+            //     },
+            //     'addmore[0][statistic_price]': {
+            //         required: "Please enter value",
+            //     },
+            //     'addmore[0][statistic_sum]': {
+            //         required: "Please enter sum",
+            //     },
+            //     'addmore[0][cad_cam_price]': {
+            //         required: "Please enter value",
+            //     },
+            //     'addmore[0][cad_cam_sum]': {
+            //         required: "Please enter sum",
+            //     },
+            //     'addmore[0][logistic_price]': {
+            //         required: "Please enter value",
+            //     },
+            //     'addmore[0][logistic_sum]': {
+            //         required: "Please enter sum",
+            //     },
+            //     'addmore[0][total_price]': {
+            //         required: "Please value",
+            //     },
+            //     'addmore[0][total_sum]': {
+            //         required: "Please enter sum",
+            //     },
+                
+                
+                
+
+            // },
+        
+        
+    }); 
+});
+</script>
+
     <script>
         var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
 
@@ -225,7 +361,11 @@
             // $scope.getItems();
 
             $scope.update = function (modalstate, id) {
+                if(!$("#frm").valid()){
 
+                    return false;
+
+                    }
                 var fd = new FormData();
                 var file_name  =   document.getElementById('file').files[0];
                 var num = $('#epm_number').val();
@@ -277,13 +417,14 @@
                             transformRequest: angular.identity
 
 						}).then(function (response) {
-							 alert(JSON.stringify(response))
+                            Message('success',response.data.msg);
+							//  alert(JSON.stringify(response))
                             window.location.href = API_URL +"admin/admin-employee-control-view";
 							// getData($http, API_URL);
                             $scope.resetForm();
 							    $('#primary-header-modal').modal('hide');
 
-                                Message('success',response.data.msg);
+                                // Message('success',response.data.msg);
 
 						}), (function (error) {
 							console.log(error);

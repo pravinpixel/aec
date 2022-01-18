@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Employee;
+use App\Models\BuildingComponent;
+use App\Models\Type;
+
+use App\Models\MasterCalculation;
+
 use Illuminate\Http\Response;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
@@ -19,7 +24,7 @@ class EmployeeController extends Controller
     {
         return view('admin.pages.employee-add');
     }
-    public function add_role( Request $request)
+    public function add_role(Request $request)
     {
         // return $request->all();
         $module = new Role;
@@ -268,4 +273,30 @@ class EmployeeController extends Controller
          dd ($request->file('file'));
         //  return $val;
     }
+    public function getMasterCalculation()
+    {
+        // print_r("s");die();
+        $data['component'] = BuildingComponent::all();
+        $data['type'] = Type::all();
+        $arr=[];
+	// print_r($data['type']);die();
+        foreach($data['component'] as $key=>$comp)
+        {
+            // print_r($comp->id);die();
+            $arr_type=[];
+            foreach($data['type'] as $key1=>$type )
+            {
+                // print_r($comp['id']." ".$type['id']);
+                // print_r("        ");
+                // $arr[$comp->id][$type];
+                $arr_type[$type->id] = MasterCalculation::where('component_id',$comp['id'])->where('type_id',$type['id'])->first() ?? 0;
+                // array_push($arr['comp_id']['type_id'][],$val);
+            }
+            $arr[$comp->id]=$arr_type;
+        }
+        // dd($arr);
+      return view('admin.pages.calculationView', compact('data','arr'));
+      
+    }
+    
 }
