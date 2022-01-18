@@ -13,7 +13,7 @@
     </a>
 
     <!-- LOGO -->
-    <a href="#" class="logo text-center logo-dark"  style="background:gray !important">
+    <a href="#" class="logo text-center logo-dark" style="background:gray !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 <img src="{{ asset('public/assets/images/logo_customer.png') }}" alt="AEC Prefab" width="100px" style="filter: drop-shadow(2px 4px 6px #555555);">
@@ -47,18 +47,18 @@
                     </ul>
                 </div>
             </li> 
-            <li class="side-nav-item">
+            <li class="side-nav-item {{ Route::is("customers.edit") ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Sales" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
-                    <span> Sales </span>
+                    <span> Sales  </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="Sales">
+                <div class="collapse {{ Route::is("customers.edit") ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
                         <li>
                             <a href="{{ route('customers.create-enquiry') }}">Create enquiry</a>
                         </li>
-                        <li >
+                        <li class="{{ Route::is("customers.edit") ? "menuitem-active" : ""}}">
                             <a href="{{ route('customers-my-enquiries') }}" >Enquiries</a>
                         </li> 
                     </ul>

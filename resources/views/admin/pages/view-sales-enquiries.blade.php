@@ -66,7 +66,7 @@
                                     <td>
                                         <div class="dropdown">
                                          
-                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.id }}"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-outline-info btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.id }}"><i class="mdi mdi-eye"></i></a>
                                         </div>
                                     </td>
                                 </tr> 

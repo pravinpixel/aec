@@ -51,8 +51,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getEnquiry($id) 
     {
+
         return $this->enquiry->with('customer')
-                    ->where('customer_id', Customer()->id)
+                        ->when(Customer(), function($q){
+                            $q->where('customer_id', Customer()->id);
+                        })
                     ->find($id);
     }
 

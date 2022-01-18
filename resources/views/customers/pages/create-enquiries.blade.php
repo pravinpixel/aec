@@ -999,7 +999,7 @@
                         url: '{{ route("customers.enquiry-review") }}'
                     }).then(function (res) {
                         $scope.project_info = res.data.project_infos;
-                        $scope.services = res.data.services;
+                        $scope.services     = res.data.services;
                         $scope.ifc_model_uploads = res.data.ifc_model_uploads;
                         $scope.building_components = res.data.building_components;
                         $scope.additional_infos = res.data.additional_infos;

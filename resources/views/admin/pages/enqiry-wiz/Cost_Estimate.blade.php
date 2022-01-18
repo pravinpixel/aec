@@ -1,6 +1,6 @@
 <form class="card shadow-none p-0" >
     <div class="card-header pb-2 p-3 text-center border-0">
-        <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ E.enquiry_number }}</span> | <span class="text-success">@{{ E.project_name }}</span> | <span class="text-info">@{{ E.customer.contact_person }}</span></h4>
+        <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ E.enquiry_number }}</span> | <span class="text-success">@{{ E.project_info.project_name }}</span> | <span class="text-info">@{{ E.customer_info.contact_person }}</span></h4>
     </div>
     <div class="card-body pt-0 p-0">
         <table class="table shadow-none border m-0 table-borde#E5EEF4 ">
@@ -15,7 +15,7 @@
             <tbody>
                 <tr>
                     <td>@{{ E.enquiry_date }}</td>
-                    <td>@{{ E.customer.project_name }}</td>
+                    <td>@{{ E.project_info.project_name }}</td>
                     <td>New Construction</td>
                     <td>In Estimation</td>
                 </tr>

@@ -27,8 +27,7 @@
                         <th width="15px">S.no</th>
                         <th>Date</th>
                         <th>File Name</th>
-                        <th>File Type</th>
-                       
+                        <th>Version</th>
                         <th>Status</th>
                         <th width="15px">Action</th>
                     </tr>
@@ -43,8 +42,8 @@
                         </td>
                         <td>05 May 2022</td>
                         <td>Dummy Name</td>
-                        <td class="text-primary">XXXX</td>
-                        <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                        <td class="text-primary">R1</td>
+                        <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
                         <td> 
                             <div class="dropdown">
                                 <button type="button" class="toggle-btn btn-light btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,7 +71,7 @@
                         </td>
                         <td>05 May 2022</td>
                         <td>Dummy Name</td>
-                        <td class="text-primary">XXXX</td>
+                        <td class="text-primary">R1</td>
                      
                         <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
@@ -105,7 +104,7 @@
                                             <td>2.3</td>
                                             <td>05-06-2021</td>
                                             <td>XXx</td>
-                                            <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                                            <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
                                         </tr>
                                         <tr>
                                             <td>2.2</td>
@@ -133,9 +132,9 @@
                         </td>
                         <td>05 May 2022</td>
                         <td>Dummy Name</td>
-                        <td class="text-primary">XXXX</td>
+                        <td class="text-primary">R1</td>
                        
-                        <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                        <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -160,7 +159,7 @@
                         </td>
                         <td>05 May 2022</td>
                         <td>Dummy Name</td>
-                        <td class="text-primary">XXXX</td>
+                        <td class="text-primary">R1</td>
                       
                         <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
@@ -193,7 +192,7 @@
                                             <td>4.3</td>
                                             <td>05-06-2021</td>
                                             <td>XXx</td>
-                                            <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                                            <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
                                         </tr>
                                         <tr>
                                             <td>4.2</td>
@@ -221,8 +220,8 @@
                         </td>
                         <td>05 May 2022</td>
                         <td>Dummy Name</td>
-                        <td class="text-primary">XXXX</td> 
-                        <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                        <td class="text-primary">R1</td> 
+                        <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -247,8 +246,8 @@
                         </td>
                         <td>05 May 2022</td>
                         <td>Dummy Name</td>
-                        <td class="text-primary">XXXX</td> 
-                        <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                        <td class="text-primary">R1</td> 
+                        <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -273,7 +272,7 @@
                         </td>
                         <td>05 May 2022</td>
                         <td>Dummy Name</td>
-                        <td class="text-primary">XXXX</td> 
+                        <td class="text-primary">R1</td> 
                         <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
                             
@@ -305,7 +304,7 @@
                                             <td>7.3</td>
                                             <td>05-06-2021</td>
                                             <td>XXx</td>
-                                            <td><span class="badge badge-outline-success rounded-pill">Approved</span></td>
+                                            <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
                                         </tr>
                                         <tr>
                                             <td>7.2</td>
@@ -406,7 +405,7 @@
                                                 Thank you for your request for engineering services. We hereby submit an offer for engineering for manufacturing of elements and associated documentation for installation for your timber framework elementdelivery as specified in this offer to Fjelltunskole at Jørpeland.
                                             </p> 
                                             <ol>
-                                                <li>Price NOK XXper gross m2for XXXXXm2ofOuter Wallareas, summing up to XXX XXX NOK.</li>
+                                                <li>Price NOK XXper gross m2for R1Xm2ofOuter Wallareas, summing up to XXX XXX NOK.</li>
                                                 <li>Price for engineering with respect to loadbearing relates only to building parts that are a part of the delivery.</li>
                                                 <li>All prices are ex VAT.</li>
                                             </ol>
@@ -592,7 +591,7 @@
                                         Thank you for your request for engineering services. We hereby submit an offer for engineering for manufacturing of elements and associated documentation for installation for your timber framework elementdelivery as specified in this offer to Fjelltunskole at Jørpeland.
                                     </p> 
                                     <ol>
-                                        <li>Price NOK XXper gross m2for XXXXXm2ofOuter Wallareas, summing up to XXX XXX NOK.</li>
+                                        <li>Price NOK XXper gross m2for R1Xm2ofOuter Wallareas, summing up to XXX XXX NOK.</li>
                                         <li>Price for engineering with respect to loadbearing relates only to building parts that are a part of the delivery.</li>
                                         <li>All prices are ex VAT.</li>
                                     </ol>

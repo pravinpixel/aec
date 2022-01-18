@@ -35,7 +35,7 @@
                                     </li>
                                 </ol>
                             </div>
-                            <h4 class="page-title"><div ng-controller="WizzardCtrl">@{{ E.enquiry_number }} : @{{   E.project_name }}</div></h4>
+                            <h4 class="page-title"><div ng-controller="WizzardCtrl">@{{ enquiry_number }} : @{{   project_info.project_name }}</div></h4>
                         </div>
                     </div>
                 </div>
@@ -576,7 +576,6 @@
         #SvgjsText1885 {
             display: none !important;
         }
-       
         
         .timeline-step .inner-circle:hover {
             background: #8a90ff !important;
@@ -713,8 +712,14 @@
         }]); 
 
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
-            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (response) {
-                $scope.E = response.data;
+            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                $scope.enquiry_number       = res.data.enquiry_number;
+                $scope.customer_info        = res.data.customer_info;
+                $scope.project_info         = res.data.project_info;
+                $scope.services             = res.data.services;
+                $scope.ifc_model_uploads    = res.data.ifc_model_uploads;
+                $scope.building_components  = res.data.building_component;
+                $scope.additional_infos     = res.data.additional_infos;
             }); 
         });
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
@@ -875,8 +880,7 @@
 
                 alert("Working !");
             }
-        });
-         
+        }); 
     </script> 
 
   

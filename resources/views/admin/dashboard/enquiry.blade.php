@@ -10,8 +10,8 @@
   
 			@if (Route::is('admin-dashboard'))
 				<!-- Start Content-->
-				<div class="container-fluid">
-               
+				<div class="container-fluid"> 
+					
 					<!-- Start Content-->
 					<div>
 					   <!-- start page title -->

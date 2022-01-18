@@ -10,6 +10,12 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Models\Customer;
 use App\Models\Enquiry;
 use App\Services\GlobalService;
+use App\Interfaces\BuildingComponentRepositoryInterface;
+use App\Interfaces\CommentRepositoryInterface;
+use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
+use App\Interfaces\DocumentTypeRepositoryInterface;
+use App\Interfaces\ServiceRepositoryInterface;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,13 +28,35 @@ use Carbon\Carbon;
 
 class EnquiryController extends Controller
 {
+    protected $customerEnquiryRepo;
+    protected $serviceRepo;
+    protected $documentTypeRepo;
+    protected $buildingComponent;
+    protected $commentRepo;
+    protected $documentTypeEnquiryRepo;
+
     
+
     protected $user;
 
-    public function __construct(CustomerRepositoryInterface $customerRepository)
-    {
+    public function __construct(
+        CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
+        ServiceRepositoryInterface $serviceRepo,
+        DocumentTypeRepositoryInterface $documentType,
+        BuildingComponentRepositoryInterface $buildingComponent,
+        CommentRepositoryInterface $comment,
+        DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo,
+        CustomerRepositoryInterface $customerRepository
+    ){
+        $this->customerEnquiryRepo     = $customerEnquiryRepository;
+        $this->serviceRepo             = $serviceRepo;
+        $this->documentTypeRepo        = $documentType;
+        $this->buildingComponent       = $buildingComponent;
+        $this->commentRepo             = $comment;
+        $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
         $this->customer = $customerRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -64,18 +92,56 @@ class EnquiryController extends Controller
     }
     public function singleIndex($id) {
          
-        return  Enquiry::with('customer')                        
-                        ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
-                        ->leftJoin("building_types", "building_types.id", "=" ,"enquiries.building_type_id")
-                        ->leftJoin("delivery_types", "delivery_types.id", "=" ,"enquiries.delivery_type_id")
-                        ->leftJoin("project_types", "project_types.id", "=" ,"enquiries.project_type_id")
-                        ->find($id);
+        // return  Enquiry::with('customer')                        
+        //                 ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
+        //                 ->leftJoin("building_types", "building_types.id", "=" ,"enquiries.building_type_id")
+        //                 ->leftJoin("delivery_types", "delivery_types.id", "=" ,"enquiries.delivery_type_id")
+        //                 ->leftJoin("project_types", "project_types.id", "=" ,"enquiries.project_type_id")
+        //                 ->find($id); 
+        //   return   Enquiry::with('customer','services','buildingType','projectType','deliveryType','documentTypes')->find($id);
+        $enquiry                        =   $this->customerEnquiryRepo->getEnquiry($id);
+        $result['customer_info']        =   $enquiry->customer; 
+        $result["enquiry_number"]       =   $enquiry->enquiry_number;
+        $result["enquiry_date"]         =   $enquiry;
+        $result['project_info']         =   $this->formatProjectInfo($enquiry);
+        $result['services']             =   $enquiry->services;
+        $result['ifc_model_uploads']    =    $enquiry->documentTypes;
+        $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
+        $result['additional_infos']     =   $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+        return $result; 
+        
     }
    
-
+    public function formatProjectInfo($enquiry) 
+    {
+        return [
+            
+            'company_name'         => $enquiry->customer->company_name,
+            'contact_person'       => $enquiry->customer->contact_person,
+            'mobile_no'            => $enquiry->customer->mobile_no,
+            'secondary_mobile_no'  => $enquiry->secondary_mobile_no,
+            'project_name'         => $enquiry->project_name,
+            'zipcode'              => $enquiry->zipcode,
+            'state'                => $enquiry->state,
+            'building_type_id'     => $enquiry->building_type_id,
+            'project_type_id'      => $enquiry->project_type_id,
+            'project_date'         => $enquiry->project_date,
+            'site_address'         => $enquiry->site_address,
+            'place'                => $enquiry->place,
+            'country'              => $enquiry->country,
+            'no_of_building'       => $enquiry->no_of_building,
+            'delivery_type_id'     => $enquiry->delivery_type_id,
+            'project_delivery_date'=> $enquiry->project_delivery_date,
+            'building_type'        =>  $enquiry->buildingType,
+            'project_type'         =>  $enquiry->projectType,
+            'delivery_type'        => $enquiry->deliveryType,
+        ];
+    }
     public function singleIndexPage($id=null) {
         if ($id) {
+            
             $data   =   Enquiry::with('customer')->find($id);
+
             return view('admin.pages.view-enquiry',compact('data',  $data )); 
         }else {
             return redirect()->route('admin-view-sales-enquiries');

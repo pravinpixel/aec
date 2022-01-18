@@ -33,7 +33,7 @@ class EnquiryController extends Controller
     protected $documentTypeEnquiryRepo;
 
     public function __construct(
-        CustomerEnquiryRepositoryInterface $customerEnquiryRepository, 
+        CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
         ServiceRepositoryInterface $serviceRepo,
         DocumentTypeRepositoryInterface $documentType,
         BuildingComponentRepositoryInterface $buildingComponent,
@@ -242,9 +242,9 @@ class EnquiryController extends Controller
             $result['building_component'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         } else if($type == 'additional_info') {
             $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+            
         }
-        
-     
+         
         return $result;
     }
 
