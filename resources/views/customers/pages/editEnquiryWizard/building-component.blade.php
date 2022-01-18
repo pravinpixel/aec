@@ -9,7 +9,7 @@
                 </a>
             </div>
         </div> 
-
+      
         <div class="col-sm-10">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade " ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
@@ -18,14 +18,13 @@
                         <div > <h3> <div> </div></h3> </div>
                         <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Wall</button>
                     </div>
-                    
                     <div ng-repeat="(Secindex,d) in w.Details">  
                         <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
                             
                             <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">@{{ w.WallName }} 1.@{{$index + 1}}</div>
 
                             <div class="accordion-item shadow-sm  ">
-            
+                                
                                 <div class="accordion-header m-0  " style="background:#f1f2fe" id="headingOne">                                                                    
                                     <table class="table table-bordered m-0  ">
                                         <tr>
@@ -46,7 +45,7 @@
                                                     <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
                                                     <select class="form-select  form-select-sm my-2 mt-3"  name="delivery_type" ng-model="d.DeliveryType" required>
                                                         <option value="">@lang('customer-enquiry.select')</option>
-                                                        <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" >
+                                                        <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == d.DeliveryType">
                                                             @{{ deliveryType.delivery_type_name }}
                                                         </option>
                                                     </select>
@@ -132,22 +131,22 @@
                                                     <tbody>
                                                         <tr ng-repeat="(ThreeIndex,l) in d.Layers">
                                                             <td>
-                                                                <div class="form-group shadow-sm">
+                                                                <div class="form-group shadow-sm" get-layer-type>
                                                                     <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                    <select get-layer-type  class="form-select   form-select-sm" id="floatingSelect" ng-change ="getLayerType(w.WallId,l.LayerName)" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerName" required>
-                                                                        <option value="">@lang('customer-enquiry.select')</option>
-                                                                        <option ng-repeat="layer in layers" value="@{{ layer.id }}" >
-                                                                            @{{ layer.layer_name }}
-                                                                        </option>
-                                                                    </select> 
+                                                                    <select class="form-select form-select-sm" id="floatingSelect" ng-change ="getLayerType(w.WallId,l.LayerName)" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
+                                                                            <option value="">@lang('customer-enquiry.select')</option>
+                                                                            <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
+                                                                                @{{ layer.layer_name }}
+                                                                            </option>
+                                                                    </select>
                                                                 </div>
                                                             </td>
-                                                            <td> 
+                                                            <td>
                                                                 <div class="form-group shadow-sm">
                                                                     <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
                                                                     <select  class="form-select  form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerType" required>
                                                                         <option value="">@lang('customer-enquiry.select')</option>
-                                                                        <option ng-repeat="layerType in layerTypes" value="@{{ layerType.id }}" >
+                                                                        <option ng-repeat="layerType in layerTypes" value="@{{ layerType.id }}" ng-selected="layerType.id == l.LayerType">
                                                                             @{{ layerType.layer_type_name }}
                                                                         </option>
                                                                     </select>

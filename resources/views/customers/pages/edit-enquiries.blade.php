@@ -606,7 +606,21 @@
         app.controller('wizard', function($scope, $http, $rootScope) {
             $scope.result = []
             $rootScope.currentStep = 0;
+            $rootScope.projectInfo = false;
+            $rootScope.serviceSelection = false;
+            $rootScope.ifcmodelUpload = false;
+            $rootScope.buildingComponent = false;
+            $rootScope.review = false;
             $scope.updateWizardStatus = (newStep) => {
+                if(newStep == 1) {
+                    $scope.$broadcast('getServiceSelection');
+                } else if (newStep == 2) {
+                    $scope.$broadcast('getIFCModelUpload');
+                } else if (newStep == 3) {
+                    $scope.$broadcast('getBuildingComponent');
+                } else if (newStep == 5) {
+                    $scope.$broadcast('getReview');
+                }
                 $rootScope.currentStep = newStep;
             }
             $scope.gotoStep = function(newStep) {
@@ -624,7 +638,7 @@
                 } else if ($rootScope.currentStep == 4) {
                     $scope.$broadcast('callBuildingComponent');
                 } else if ($rootScope.currentStep == 5) {
-                    $scope.$broadcast('callReview');
+                    $scope.$broadcast('getReview');
                 }
             }
         });
@@ -732,7 +746,7 @@
 
         }); 
 
-        app.controller('ServiceSelection', function ($scope, $http) {
+        app.controller('ServiceSelection', function ($scope, $http, $rootScope) {
             $scope.serviceList = [];
 
             $scope.getLastEnquiry = () => {
@@ -741,11 +755,17 @@
                     url: '{{ route("customers.get-enquiry",[$id,"services"]) }}',
                 }).then(function (res){
                     $scope.serviceList = res.data.services;
+                    $rootScope.serviceSelection = true;
                 }, function (error) {
                     console.log('projectinfo error');
                 });
             }
-            $scope.getLastEnquiry(); 
+
+            $scope.$on('getServiceSelection', function(e) {
+                if($rootScope.serviceSelection) return false;
+                $scope.getLastEnquiry(); 
+            });
+            
 
            $scope.$on('callServiceSelection', function(e) { 
             if($scope.serviceList.length == 0){
@@ -774,14 +794,11 @@
                     $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
                 }
             };
-           let servicefireOnce = false;
            $scope.getServices = () => {
-               if(servicefireOnce){ return; }
                $http({
                    method: 'GET',
                    url: '{{ route("service.index") }}'
                }).then(function (res) {
-                   servicefireOnce = true;
                    $scope.services = res.data;		
                }, function (error) {
                    console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -886,16 +903,18 @@
                 }).then(function (res){
                     res.data.ifc_model_uploads.map( (item, index) => {
                         let [id, type] = [item.enquiry_id , item.document_type.slug];
-                        console.log(type);
+                        $rootScope.callIFCModelUpload = true;
                         $scope.getIFCViewList(id,type);
                     });
                 }, function (error) {
                     console.log('ifc_model_uploads error');
                 });
             }
-            $scope.getDocumentTypes();
-            $scope.getLastEnquiry();                        
-
+            $scope.$on('getIFCModelUpload', function(e) {
+                if($rootScope.callIFCModelUpload) return false;
+                $scope.getDocumentTypes();
+                $scope.getLastEnquiry();                        
+            });
             $scope.$on('callIFCModelUpload', function(e) {
 
                 mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
@@ -982,10 +1001,13 @@
             }
         });
 
-        app.controller('CrudCtrl', function ($scope, $http) { 
+        app.controller('CrudCtrl', function ($scope, $http, $rootScope) { 
             $scope.wallGroup = [];
             $scope.$on('callBuildingComponent', function(e) {
-                // console.log( $scope.wallGroup);
+                if(!$("#buildingComponent")[0].checkValidity()){
+                    $rootScope.currentStep = 3;
+                    return false;
+                }
                 $http({
                     method: 'PUT',
                     url: '{{ route('customers.update', $id) }}',
@@ -1002,12 +1024,15 @@
                     url: '{{ route("customers.get-enquiry",[$id,"building_component"]) }}',
                 }).then(function (res){
                     console.log(res);
+                    $rootScope.buildingComponent = true;
                     if(res.data.building_component.length == 0) {
+                      
                         getBuildingComponent = () => {
                             $http({
                                 method: 'GET',
                                 url: '{{ route("building-component.index") }}'
                                 }).then(function success(response) {
+                                    
                                     response.data.map( (item , index) => {
                                         
                                         let wall = {
@@ -1021,13 +1046,15 @@
                                         $scope.wallGroup.push(wall);
                                     });
                                     $scope.AddWallDetails(0);
+                                  
                                 }, function error(response) {
 
 
                                     
                             });
                         }
-                        getBuildingComponent()
+                        getBuildingComponent();
+                      
                         return false;
                     }
                     res.data.building_component.map( (item , index) => {
@@ -1037,9 +1064,12 @@
                                 let Layer  = [];
                                 if(typeof(detail.layer) != 'undefined') {
                                     Layer = detail.layer.map( (layerObj, index) => {
+                                        console.log(layerObj);
                                         return {
-                                            LayerName:  layerObj.layer.layer_name,
-                                            LayerType:  layerObj.layer_type.layer_type_name,
+                                            LayerName:  String(layerObj.layer.id),
+                                            LayerNameText:  layerObj.layer.layer_name,
+                                            LayerType:  layerObj.layer_type.id,
+                                            LayerTypeText:  layerObj.layer_type.layer_type_name,
                                             Thickness : Number(layerObj.thickness),
                                             Breadth:  Number(layerObj.breath),
                                         }
@@ -1062,13 +1092,14 @@
                             }
                         $scope.wallGroup.push(wall);
                     });
-            
                 }, function (error) {
                     console.log('projectinfo error');
                 });
             }
-            $scope.getLastEnquiry(); 
-
+            $scope.$on('getBuildingComponent', function(e) {
+                if($rootScope.buildingComponent) return false;
+                $scope.getLastEnquiry(); 
+            });
             $scope.getBuildingComponentInptuData = function() {
                 return $scope.wallGroup;
            }
@@ -1134,31 +1165,41 @@
             $scope.removeWall = function(fIndex, Secindex){
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
             } 
-        }).directive('getLayerType', function layerType($http) {
-            return {
-                restrict: 'A',
-                link : function (scope, element, attrs) {
-                    element.on('change', function () {
-                        if(typeof(scope.w.WallId) == 'undefined' || typeof(scope.l.LayerName) == 'undefined') {
-                            return false;
+            }).directive('getLayerType', function layerType($http) {
+                return {
+                    restrict: 'A',
+                    link :  {
+                        pre: function (scope, element, attrs) {
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("layer-type.get-layer-type") }}',
+                                params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+                                }).then(function success(response) {
+                                    scope.layerTypes = response.data;
+                                }, function error(response) {
+                                    // console.log('layer');
+                            });
+                            element.on('change', function () {
+                                if(typeof(scope.w.WallId) == 'undefined' || typeof(scope.l.LayerName) == 'undefined') {
+                                    return false;
+                                }
+                                $http({
+                                    method: 'GET',
+                                    url: '{{ route("layer-type.get-layer-type") }}',
+                                    params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+                                    }).then(function success(response) {
+                                        scope.layerTypes = response.data;
+                                    }, function error(response) {
+                                        // console.log('layer');
+                                });
+                            });
                         }
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("layer-type.get-layer-type") }}',
-                            params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
-                            }).then(function success(response) {
-                                scope.layerTypes = response.data;
-                            }, function error(response) {
-                                // console.log('layer');
-                        });
-                    });
-                },
-            };
-        });
+                    },
+                };
+            });
 
         app.controller('Review', function($scope, $http, $rootScope) {
-
-            $scope.$on('callReview', function(e) {
+            $scope.$on('getReview', function(e) {
               
                 getEnquiry = ()  => {
                     $http({
@@ -1191,6 +1232,7 @@
                 });
             }
             getLastEnquiry();
+         
             $scope.addComment = () => {
                 if(typeof($scope.additionalInfo) == 'undefined') {
                     return false;

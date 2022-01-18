@@ -65,8 +65,8 @@
         <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
             <div class="legend shadow-sm border rounded text-primary">@lang('customer-enquiry.select_service')</div>
             <div class="card-body">
-                <ul class="row m-0 "  ng-repeat="service in services" >
-                    <li class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
+                <ul class="row m-0 ">
+                    <li ng-repeat="service in services" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
                 </ul> 
             </div> 
         </fieldset>
