@@ -76,6 +76,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $enquiry->documentTypes()->attach($documents, $additionalData);
     }
 
+    public function updateWizardStatus($enquiry, $column) 
+    {
+        return $enquiry->update([$column => true]);
+    }
+
     public function getPlanViewList($id) 
     {
         $enquiry = $this->enquiry->with('documentTypes', function($q) {

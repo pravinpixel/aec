@@ -36,6 +36,10 @@ class CreateEnquiriesTable extends Migration
             $table->integer('no_of_building')->nullable();
             $table->datetime('project_delivery_date')->nullable();
             $table->string('status')->nullable();
+            $table->boolean('project_info')->default(0);
+            $table->boolean('service')->default(0);
+            $table->boolean('ifc_model_upload')->default(0);
+            $table->boolean('building_component')->default(0);
             $table->boolean('is_active')->default(0);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

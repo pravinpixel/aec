@@ -1240,7 +1240,7 @@
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.update", $id) }}',
-                    data: {type: 'addtional_info', 'data': $scope.additionalInfo}
+                    data: {type: 'additional_info', 'data': $scope.additionalInfo}
                 }).then(function (res) {
                    $scope.comments = res.data;
                 }, function (error) {

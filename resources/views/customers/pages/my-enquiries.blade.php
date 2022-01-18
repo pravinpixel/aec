@@ -49,15 +49,15 @@
                                                 {{ $row->enquiry_number }}
                                             
                                         </td>
-                                        <td>Construction</td>
-                                        <td>1</td>
+                                        <td>{{ $row->projectType->project_type_name ?? '' }}</td>
+                                        <td>{{ $row->no_of_building ?? '' }}</td>
                                         <td>{{ $row->enquiry_date }}</td>
                                         <td>
                                             <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
-                                                <button class="btn progress-btn active"></button>
-                                                <button class="btn progress-btn"></button>
-                                                <button class="btn progress-btn"></button>
-                                                <button class="btn progress-btn"></button>
+                                                <button class="btn progress-btn {{  $row->project_info == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button>
+                                                <button class="btn progress-btn {{  $row->service == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button>
+                                                <button class="btn progress-btn {{  $row->ifc_model_upload == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button>
+                                                <button class="btn progress-btn {{  $row->building_component == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
                                             </div>
                                         </td>
                                         <td>	

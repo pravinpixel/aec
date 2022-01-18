@@ -18,8 +18,8 @@
                     <th>commented person</th>
                     <th>comments</th>
                 </tr>
-                <tr ng-repeat="comment in comments">
-                    <td> @{{ index + 1  }}</td>
+                <tr ng-repeat="(key,comment) in comments">
+                    <td> @{{ key + 1 }}</td>
                     <td>@{{ comment.created_at }}</td>
                     <td>@{{ comment.customer.full_name }}</td>
                     <td>@{{ comment.comments }}</td>

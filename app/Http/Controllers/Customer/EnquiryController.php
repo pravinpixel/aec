@@ -109,44 +109,35 @@ class EnquiryController extends Controller
         $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
         if($type == 'project_info') {
             $array_merge = array_merge($data, ['enquiry_date' => Carbon::now()]);
-            return $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($enquiry_number, $customer, $array_merge);
+            $res = $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($enquiry_number, $customer, $array_merge);
+            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+            $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
+            return $res;
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
-            return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
+            $res = $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
+            $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'service');
+            return $res;
         } else if($type == 'ifc_model_upload' || $type == 'ifc_model_upload_mandatory') {
             if($type == 'ifc_model_upload_mandatory') {
                 $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
-                $ficuploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
-                $mandatoryDocs = $this->checkMandatoryFile($mandatoryDocuments , $ficuploads);
+                $ifcUploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
+                $mandatoryDocs = $this->checkMandatoryFile($mandatoryDocuments , $ifcUploads);
                 if(!empty($mandatoryDocs)) {
                     return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
                 }
                 return response(['status' => true, 'msg' => '', 'data' => '']);
             }
-            $view_type =  $request->input('view_type');
-            $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
-            $original_name = $request->file('file')->getClientOriginalName();
-            $extension = $request->file('file')->getClientOriginalExtension();
-            $documents =  $this->documentTypeRepo->findBySlug($view_type);
-            $additionalData = ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
-            $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
-            return $enquiry->id;
+            return $this->storeIfcUpload($request, $enquiry);
         } else if ($type == 'building_component') {
             DB::beginTransaction();
             try {
-                $dataObj = json_decode (json_encode ($data), FALSE);
-                if(!empty($dataObj)) {
-                    $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
-                    if($response) {
-                        DB::commit();
-                        return true;
-                    }
-                }
+              $this->storeBuildingComponent($data, $enquiry);
             } catch (Exception $ex) {
                 DB::rollBack();
                 Log::error($ex->getMessage());
             }
-        } else if($type == 'addtional_info') {
+        } else if($type == 'additional_info') {
             $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
             $this->commentRepo->create($insert);
             $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
@@ -154,12 +145,79 @@ class EnquiryController extends Controller
         }
     }
 
+    public function storeIfcUpload($request, $enquiry) 
+    {
+        $view_type =  $request->input('view_type');
+        $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
+        $original_name = $request->file('file')->getClientOriginalName();
+        $extension = $request->file('file')->getClientOriginalExtension();
+        $documents =  $this->documentTypeRepo->findBySlug($view_type);
+        $additionalData = ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
+        $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
+        $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
+        return $enquiry->id;
+    }
 
-    public function checkMandatoryFile($mandatoryDocuments , $ficuploads) 
+    public function storeBuildingComponent($data, $enquiry) 
+    {
+        $dataObj = json_decode (json_encode ($data), FALSE);
+        if(!empty($dataObj)) {
+            $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
+            if($response) {
+                DB::commit();
+                $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'building_component');
+                return true;
+            }
+        }
+    }
+
+    public function update($id, Request $request)
+    {
+        $type = $request->input('type');
+        $data = $request->input('data');
+        $customer = $this->customerEnquiryRepo->getCustomer(Customer()->id);
+        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        if($type == 'project_info') {
+            $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
+            return $this->customerEnquiryRepo->updateEnquiry($id, $data);
+        } else if($type == 'services') {
+            $services = $this->serviceRepo->find($data)->pluck('id');
+            $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'service');
+            return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
+        } else if($type == 'ifc_model_upload') {
+            if($type == 'ifc_model_upload_mandatory') {
+                $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
+                $ifcUploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
+                $mandatoryDocs = $this->checkMandatoryFile($mandatoryDocuments , $ifcUploads);
+                if(!empty($mandatoryDocs)) {
+                    return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
+                }
+                return response(['status' => true, 'msg' => '', 'data' => '']);
+            }
+            return $this->storeIfcUpload($request, $enquiry);
+           
+        } else if($type == 'building_component') {
+            DB::beginTransaction();
+            try {
+                $this->storeBuildingComponent($data, $enquiry);
+            } catch (Exception $ex) {
+                DB::rollBack();
+                Log::error($ex->getMessage());
+            }
+        } else if($type == 'additional_info') {
+            $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
+            $this->commentRepo->create($insert);
+            $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+            return response($result);
+        }
+    }
+
+
+    public function checkMandatoryFile($mandatoryDocuments , $ifcUploads) 
     {
         $mandatoryFile = [];
         foreach($mandatoryDocuments as $mandatoryDocument) {
-            if(!in_array($mandatoryDocument->id, $ficuploads)) {
+            if(!in_array($mandatoryDocument->id, $ifcUploads)) {
                 $mandatoryFile[] = $mandatoryDocument->slug;
             }
         }
@@ -221,59 +279,6 @@ class EnquiryController extends Controller
         $customer['document_types']     =   $this->documentTypeRepo->all();
         return view('customers.pages.edit-enquiries',compact('enquiry','id'));
     } 
-
-    public function update($id, Request $request)
-    {
-        $type = $request->input('type');
-        $data = $request->input('data');
-        $customer = $this->customerEnquiryRepo->getCustomer(Customer()->id);
-        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
-        if($type == 'project_info') {
-            return $this->customerEnquiryRepo->updateEnquiry($id, $data);
-        } else if($type == 'services') {
-            $services = $this->serviceRepo->find($data)->pluck('id');
-            return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
-        } else if($type == 'ifc_model_upload') {
-            if($type == 'ifc_model_upload_mandatory') {
-                $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
-                $ficuploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
-                $mandatoryDocs = $this->checkMandatoryFile($mandatoryDocuments , $ficuploads);
-                if(!empty($mandatoryDocs)) {
-                    return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
-                }
-                return response(['status' => true, 'msg' => '', 'data' => '']);
-            }
-            $view_type =  $request->input('view_type');
-            $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
-            $original_name = $request->file('file')->getClientOriginalName();
-            $extension = $request->file('file')->getClientOriginalExtension();
-            $documents =  $this->documentTypeRepo->findBySlug($view_type);
-            $additionalData = ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
-            $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
-            return $enquiry->id;
-        } else if($type == 'building_component') {
-            DB::beginTransaction();
-            try {
-                $dataObj = json_decode (json_encode ($data), FALSE);
-               
-                if(!empty($dataObj)) {
-                    $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
-                    if($response) {
-                        DB::commit();
-                        return true;
-                    }
-                }
-            } catch (Exception $ex) {
-                DB::rollBack();
-                Log::error($ex->getMessage());
-            }
-        } else if($type == 'addtional_info') {
-            $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
-            $this->commentRepo->create($insert);
-            $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
-            return response($result);
-        }
-    }
 
     public function getPlanViewList(Request $request)
     {

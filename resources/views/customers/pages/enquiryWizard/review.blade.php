@@ -186,8 +186,8 @@
                         <th>commented person</th>
                         <th>comments</th>
                     </tr>
-                    <tr ng-repeat="additional_info in additional_infos">
-                        <td> @{{ index + 1  }}</td>
+                    <tr ng-repeat="(key,additional_info) in additional_infos">
+                        <td> @{{ key + 1  }}</td>
                         <td>@{{ additional_info.created_at }}</td>
                         <td>@{{ additional_info.customer.full_name }}</td>
                         <td>@{{ additional_info.comments }}</td>

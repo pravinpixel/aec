@@ -35,6 +35,10 @@ class Enquiry extends Model
         'project_delivery_date',
         'status',
         'is_active',
+        'project_info',
+        'service',
+        'ifc_model_upload',
+        'building_component',
         'created_by',
         'updated_by'
     ];

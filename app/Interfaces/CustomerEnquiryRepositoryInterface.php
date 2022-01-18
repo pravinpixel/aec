@@ -39,4 +39,6 @@ interface CustomerEnquiryRepositoryInterface
     public function getBuildingComponent($enquiry);
 
     public function getEnquiryByID($id);
+
+    public function updateWizardStatus($enquiry, $column);
 }
