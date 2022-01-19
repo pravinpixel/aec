@@ -118,7 +118,7 @@ class EnquiryController extends Controller
             $res = $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'service');
             return $res;
-        } else if($type == 'ifc_model_upload' || $type == 'ifc_model_upload_mandatory') {
+        } else if($type == 'ifc_model_upload' || $type == 'ifc_model_upload_mandatory' || $type == "ifc_link") {
             if($type == 'ifc_model_upload_mandatory') {
                 $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
                 $ifcUploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
@@ -127,6 +127,8 @@ class EnquiryController extends Controller
                     return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
                 }
                 return response(['status' => true, 'msg' => '', 'data' => '']);
+            } else  if($type == "ifc_link") {
+                return $this->storeIfcLink($request, $enquiry);
             }
             return $this->storeIfcUpload($request, $enquiry);
         } else if ($type == 'building_component') {
@@ -158,6 +160,17 @@ class EnquiryController extends Controller
         return $enquiry->id;
     }
 
+    public function storeIfcLink($request, $enquiry)
+    {
+        $view_type =  $request->input('view_type');
+        $link =  $request->input('link');
+        $documents =  $this->documentTypeRepo->findBySlug($view_type);
+        $additionalData = ['date'=> now(), 'file_name' => $link, 'client_file_name' => $link, 'file_type' => 'link' , 'status' => 'In progress'];
+        $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
+          $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
+        return $enquiry->id;
+    }
+
     public function storeBuildingComponent($data, $enquiry) 
     {
         $dataObj = json_decode (json_encode ($data), FALSE);
@@ -184,7 +197,7 @@ class EnquiryController extends Controller
             $services = $this->serviceRepo->find($data)->pluck('id');
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'service');
             return $this->customerEnquiryRepo->createCustomerEnquiryServices($enquiry,$services);
-        } else if($type == 'ifc_model_upload') {
+        } else if($type == 'ifc_model_upload' || $type == 'ifc_model_upload_mandatory' || $type == "ifc_link") {
             if($type == 'ifc_model_upload_mandatory') {
                 $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
                 $ifcUploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
@@ -193,6 +206,8 @@ class EnquiryController extends Controller
                     return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
                 }
                 return response(['status' => true, 'msg' => '', 'data' => '']);
+            } else  if($type == "ifc_link") {
+                return $this->storeIfcLink($request, $enquiry);
             }
             return $this->storeIfcUpload($request, $enquiry);
            

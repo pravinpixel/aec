@@ -14,10 +14,11 @@
                             </small>
                         </div>
                     </label>
-                    <small class="text-center my-1">(OR)</small>
-                    <input type="text" class="form-control rounded-pill border" placeholder="Other links">
-                    <small ng-show="{{ $documentType->slug }}__error" class="text-center text-danger w-100" style="position: absolute;top:0;left:0;background:#F9E2E5"><strong>This field is required.</strong></small>
                     <button ng-click="uploadFile('{{ $documentType->slug }}')" class="btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</button>
+                    <small class="text-center my-1">(OR)</small>
+                    <input type="text" ng-model="{{  $documentType->slug  }}__link" class="form-control rounded-pill border" placeholder="Other links">
+                    <button ng-click="uploadLink('{{ $documentType->slug }}')" class="btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</button>
+                    <small ng-show="{{ $documentType->slug }}__error" class="text-center text-danger w-100" style="position: absolute;top:0;left:0;background:#F9E2E5"><strong>This field is required.</strong></small>
                     {{-- <span class="file-submit-btn" ng-click="uploadFile('{{ $documentType->slug }}')" > <i class="fa fa-upload"></i> </span> --}}
                 </div>
             </div>

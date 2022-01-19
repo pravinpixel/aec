@@ -713,7 +713,7 @@
                 }
                 $http({
                     method: 'PUT',
-                    url: '{{ route('customers.update', $id) }}',
+                    url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'project_info', 'data': $scope.getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
                     
@@ -774,7 +774,7 @@
             }              
                $http({
                     method: 'PUT',
-                    url: '{{ route('customers.update', $id) }}',
+                    url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
                 }).then(function (res) {
                     
@@ -828,7 +828,7 @@
                     $scope[`${view_type}__error`] = false;
                     var type = 'ifc_model_upload';
                     var view_type = view_type;
-                    var uploadUrl = '{{ route('customers.update', $id) }}'
+                    var uploadUrl = '{{ route('customers.update-enquiry', $id) }}'
                     promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
                     promise.then(function (response) {
                         $scope.getIFCViewList(response, view_type);
@@ -846,6 +846,32 @@
                  
                 }
             }
+
+            $scope.uploadLink = function (view_type) { 
+                var link = $scope[`${view_type}__link`];
+                if(typeof(link) == 'undefined') {
+                    $scope[`${view_type}__error`] = true;
+                    return  false;
+                }
+                $scope[`${view_type}__error`] = false;
+               
+                var uploadUrl = '{{ route('customers.update-enquiry', $id) }}';
+                promise = fileUploadService.uploadLinkToUrl(link, 'ifc_link', view_type, uploadUrl);
+                promise.then(function (response) {
+                    console.log(response);
+                    $scope.getIFCViewList(response, view_type);
+                    $scope.serverResponse = response;
+                    $scope[`${view_type}__file_name`] = '';
+                    $scope[`${view_type}__link`] = undefined;
+                    const index = mandatoryUpload.indexOf(view_type);
+                    if (index > -1) {
+                        mandatoryUpload.splice(index, 1);
+                    }
+                    $scope[`${view_type}mandatory`] = 'true';
+                }, function () {
+                    $scope.serverResponse = 'An error has occurred';
+                });   
+           }
         
             $scope.getIFCViewList = (id, view_type) => {
               
@@ -999,6 +1025,22 @@
 
                 return deffered.promise;
             }
+            this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl) {
+                var fileFormData = new FormData();
+                fileFormData.append('link', link);
+                fileFormData.append('type', type);
+                fileFormData.append('view_type',view_type);
+                var deffered = $q.defer();
+                $http.post(uploadUrl, fileFormData, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }).success(function (response) {
+                    deffered.resolve(response);
+                }).error(function (response) {
+                    deffered.reject(response);
+                });
+                return deffered.promise;
+            }
         });
 
         app.controller('CrudCtrl', function ($scope, $http, $rootScope) { 
@@ -1010,7 +1052,7 @@
                 }
                 $http({
                     method: 'PUT',
-                    url: '{{ route('customers.update', $id) }}',
+                    url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'building_component', 'data': $scope.wallGroup}
                 }).then(function (res) {
                     
@@ -1239,7 +1281,7 @@
                 }
                 $http({
                     method: 'POST',
-                    url: '{{ route("customers.update", $id) }}',
+                    url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'additional_info', 'data': $scope.additionalInfo}
                 }).then(function (res) {
                    $scope.comments = res.data;
