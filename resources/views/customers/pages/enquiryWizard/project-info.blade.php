@@ -22,7 +22,7 @@
                 <label for="floating">Mobile Number</label>
             </div> 
             <div class="form-floating  mb-2">
-                <input  value="" type="text" class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"  ng-pattern = "mobilenoRegex" ng-model="projectInfo.secondary_mobile_no" required/>
+                <input  value="" type="text" class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no" required/>
                 <label for="floating">Secondary Mobile Number</label>
             </div> 
         </div>
