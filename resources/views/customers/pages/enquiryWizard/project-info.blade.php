@@ -16,15 +16,15 @@
             <div class="form-floating  mb-2">
                 <input  type="text" class="form-control form-control-sm" id="floating" name="contact_person" value="{{ $enquiry->customer->contact_person }}"  disabled/>
                 <label for="floating">Contact Person</label>
-            </div> 
+            </div>
             <div class="form-floating  mb-2">
-                <input  type="text" class="form-control form-control-sm" id="floating" name="mobile_no"  value="{{ $enquiry->customer->mobile_no }}" disabled />
+                <input  type="text" pattern="{{ config('global.mobile_no_pattern') }}" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating" name="mobile_no"  value="{{ $enquiry->customer->mobile_no }}" disabled />
                 <label for="floating">Mobile Number</label>
-            </div> 
+            </div>
             <div class="form-floating  mb-2">
-                <input  value="" type="text" class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no" required/>
+                <input  value="" type="text" pattern="{{ config('global.mobile_no_pattern') }}" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no" required/>
                 <label for="floating">Secondary Mobile Number</label>
-            </div> 
+            </div>
         </div>
         <div class="col-md-4">
             <div class="form-floating  mb-2">
@@ -76,7 +76,7 @@
                 <label for="floating">Country</label>
             </div>
             <div class="form-floating  mb-2">
-                <input type="number" class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required/>
+                <input type="text" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required/>
                 <label for="floating">No of Buildings</label>
             </div>
             <div class="form-floating mb-2">

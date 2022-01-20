@@ -24,7 +24,7 @@
                 <label for="floating">Mobile Number</label>
             </div> 
             <div class="form-floating  mb-2">
-                <input  value="" type="text" class="form-control form-control-sm" id="floating"  name="secondary_mobile_no" ng-model="projectInfo.secondary_mobile_no" required/>
+                <input  value="" type="text"  pattern="{{ config('global.mobile_no_pattern') }}" onkeypress="return isNumber(event)" class="form-control form-control-sm" id="floating"  name="secondary_mobile_no" ng-model="projectInfo.secondary_mobile_no" required/>
                 <label for="floating">Secondary Mobile Number</label>
             </div> 
         </div> 
@@ -76,7 +76,7 @@
                 <label for="floating">Country</label>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required/>
+                <input type="text" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required/>
                 <label for="floating">No of Buildings</label>
             </div>
             <div class="form-floating mb-2">

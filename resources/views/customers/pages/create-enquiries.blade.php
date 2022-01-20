@@ -115,7 +115,7 @@
                             <div class="card-footer border-0 p-0 " >
                                 <ul class="list-inline wizard mb-0 pt-3">
                                     <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-outline-primary">Previous</a></li>
-                                    <li class="next list-inline-item float-end" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
+                                    <li class="next list-inline-item float-end" id="next_" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
                                 </ul>
                             </div>
                         </div> <!-- tab-content -->
@@ -409,6 +409,7 @@
           
 @push('custom-styles')
     <link rel="stylesheet" href="{{ asset('public/assets/css/pages/customer-enquiry.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/css/angularjs/ui-notification.css') }}">
     <style>
         fieldset:hover ,   fieldset:hover  .legend {
             border: 1px solid #757CF2 !important
@@ -496,13 +497,16 @@
     <script src="{{ asset('public/assets/js/ui/component.fileupload.js') }}"></script>
    
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
-
+    <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
     <script >
-        var app = angular.module('App', []).constant('API_URL', $("#baseurl").val());           
+        var app = angular.module('App', ['ui-notification']).constant('API_URL', $("#baseurl").val());           
     </script>
-        <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
+    <style>
+        
+    </style>
+    <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
+      
     <script>
         // const result = [];
         app.controller('wizard', function($scope, $http,$rootScope) {
@@ -526,7 +530,6 @@
                 } else if ($rootScope.currentStep == 3) {
                     $scope.$broadcast('callIFCModelUpload');
                 } else if ($rootScope.currentStep == 4) {
-                   
                     $scope.$broadcast('callBuildingComponent');
                 }
                 else if ($rootScope.currentStep == 5) {
@@ -536,12 +539,12 @@
           
         });
     
-       	app.controller('ProjectInfo', function ($scope, $http, $rootScope ) {
+       	app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification ) {
           
             let projectTypefiredOnce = false;
             let deliveryTypefiredOnce = false;
             let buildingTypefiredOnce = false;
-            $scope.mobilenoRegex = /^[0-9]{1,8}$/;
+
             getProjectType = () => {
                 if(projectTypefiredOnce){ return; }
                 $http({
@@ -587,6 +590,7 @@
 
             $scope.$on('callProjectInfo', function(e) {  
                 if(!$("#projectInfoForm")[0].checkValidity()){
+                    Notification.error({message: `Please fill required field`, delay: 4000});
                     $rootScope.currentStep = 0;
                     return false;
                 }
@@ -603,9 +607,6 @@
         
             getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
-                    // 'company_name'         : $projectInfo.company_name,
-                    // 'contact_person'       : $projectInfo.contact_person,
-                    // 'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
@@ -625,11 +626,12 @@
 
         }); 
 
-        app.controller('ServiceSelection', function ($scope, $http, $rootScope) {
+        app.controller('ServiceSelection', function ($scope, $http, $rootScope, Notification) {
             $scope.serviceList = [];
 
            $scope.$on('callServiceSelection', function(e) { 
                 if($scope.serviceList.length == 0){
+                    Notification.error({message: `Please select any service`, delay: 4000});
                     $scope.service_selection_mandatory = null;
                     $rootScope.currentStep = 1;
                     return false;
@@ -763,32 +765,33 @@
             }
         });
 
-        app.controller('IFCModelUpload', function ($scope, $http, $parse, fileUploadService,  $rootScope) {
-            let mandatoryUpload= [];
+        app.controller('IFCModelUpload', function ($scope, $http, $parse, $timeout, fileUploadService, Notification, $rootScope) {
+            $scope.mandatoryUpload = [];
             $scope.PlanView = [];
             $scope.posterTitle = 'click here';
-            
             $scope.$on('callIFCModelUpload', function(e) {
+                e.preventDefault();
+                if($scope.mandatoryUpload.length > 0) {
+                    Notification.error({message: `${$scope.mandatoryUpload[0].replace('_',' ')} field is mandatory`, delay: 4000});
+                    $rootScope.currentStep = 2;
+                    return false;
+                }
+            });
 
-                mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
-                                                alert(`mandatory file upload ${view}`);
-                                                $rootScope.currentStep = 2;
-                                            });
-                
+            getMandatoryFileType = () => {
                 $http({
                     method: 'POST',
-                    url: '{{ route("customers.store-enquiry") }}',
+                    url: '{{ route('customers.store-enquiry') }}',
                     data: {type: 'ifc_model_upload_mandatory', 'data': false}
                 }).then(function (res) {
                     if(res.data.status == false) {
-                        res.data.data.map((field) => {
-                           
-                        });
+                        $scope.mandatoryUpload =  res.data.data;
                     }
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            });
+                }); 
+            }
+          
 
             $scope.fileName= function(element, attribute) {
                 $scope.$apply(function($scope) {
@@ -814,9 +817,9 @@
                         $scope.serverResponse = response;
                         $scope[`${view_type}__file_name`] = '';
                         $scope[`${view_type}`] = undefined;
-                        const index = mandatoryUpload.indexOf(view_type);
+                        const index = $scope.mandatoryUpload.indexOf(view_type);
                         if (index > -1) {
-                            mandatoryUpload.splice(index, 1);
+                            $scope.mandatoryUpload.splice(index, 1);
                         }
                         $scope[`${view_type}mandatory`] = 'true';
                     }, function () {
@@ -841,9 +844,9 @@
                     $scope.serverResponse = response;
                     $scope[`${view_type}__file_name`] = '';
                     $scope[`${view_type}__link`] = undefined;
-                    const index = mandatoryUpload.indexOf(view_type);
+                    const index = $scope.mandatoryUpload.indexOf(view_type);
                     if (index > -1) {
-                        mandatoryUpload.splice(index, 1);
+                        $scope.mandatoryUpload.splice(index, 1);
                     }
                     $scope[`${view_type}mandatory`] = 'true';
                 }, function () {
@@ -877,6 +880,7 @@
                 }).then(function (res) {
                     if(res.status) {
                         $scope.getIFCViewList(enquiry_id, view_type);
+                        getMandatoryFileType();
                         $("#exampleModal").modal('hide');
                         return false;
                     }
@@ -894,7 +898,7 @@
                 }).then(function (res) {
                     documentTypefireOnce = true;
                     res.data.map((item) => {
-                        item.is_mandatory == 1 && mandatoryUpload.push(item.slug);
+                        item.is_mandatory == 1 && $scope.mandatoryUpload.push(item.slug);
                     });
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -907,11 +911,15 @@
         app.controller('CrudCtrl', function ($scope, $http, $rootScope) { 
            
             $scope.$on('callBuildingComponent', function(e) {
-                // console.log( $scope.wallGroup);
+                if(!$("#buildingComponent")[0].checkValidity()){
+                    Notification.error({message: `Please fill required field`, delay: 4000});
+                    $rootScope.currentStep = 0;
+                    return false;
+                }
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
-                    data: {type: 'building_component', 'data': $scope.wallGroup}
+                    data: {type: 'building_component', data: $scope.wallGroup}
                 }).then(function (res) {
                     
                 }, function (error) {
@@ -1052,7 +1060,7 @@
             });
         });
 
-        app.controller('AdditionalInfo', function($scope, $http, $rootScope) {
+        app.controller('AdditionalInfo', function($scope, $http, $rootScope, Notification) {
             $scope.addComment = () => {
                 if($scope.additionalInfo == 'undefined') {
                     return false;
@@ -1063,6 +1071,7 @@
                     data: {type: 'additional_info', 'data': $scope.additionalInfo}
                 }).then(function (res) {
                    $scope.comments = res.data;
+                   Notification.success({message: `Comments added successfully`, delay: 4000});
                 }, function (error) {
                     console.log(`additional info ${error}`);
                 });         

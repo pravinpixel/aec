@@ -408,6 +408,7 @@
           
 @push('custom-styles')
     <link rel="stylesheet" href="{{ asset('public/assets/css/pages/customer-enquiry.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/css/angularjs/ui-notification.css') }}">
     <style>
         .table tbody tr td {
             padding: 5px !important
@@ -597,8 +598,9 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
+    <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
     <script >
-        var app = angular.module('App', []).constant('API_URL', $("#baseurl").val());           
+        var app = angular.module('App', ['ui-notification']).constant('API_URL', $("#baseurl").val());           
     </script>
       <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
     <script>
@@ -631,12 +633,16 @@
                 $rootScope.currentStep = newStep;
                 if($rootScope.currentStep == 1 ) {
                     $scope.$broadcast('callProjectInfo');
+                    $scope.$broadcast('getServiceSelection');
                 } else if ($rootScope.currentStep == 2) {
                     $scope.$broadcast('callServiceSelection');
+                    $scope.$broadcast('getIFCModelUpload');
                 } else if ($rootScope.currentStep == 3) {
                     $scope.$broadcast('callIFCModelUpload');
+                    $scope.$broadcast('getBuildingComponent');
                 } else if ($rootScope.currentStep == 4) {
                     $scope.$broadcast('callBuildingComponent');
+                    $scope.$broadcast('getReview');
                 } else if ($rootScope.currentStep == 5) {
                     $scope.$broadcast('getReview');
                 }
@@ -807,8 +813,8 @@
            $scope.getServices();
         }); 
 
-        app.controller('IFCModelUpload', function ($scope, $http, $parse, fileUploadService,  $rootScope) {
-            let mandatoryUpload= [];
+        app.controller('IFCModelUpload', function ($scope, $http, $parse, fileUploadService,  $rootScope, Notification) {
+            $scope.mandatoryUpload= [];
             $scope.PlanView = [];
             $scope.posterTitle = 'click here';
 
@@ -835,9 +841,9 @@
                         $scope.serverResponse = response;
                         $scope[`${view_type}__file_name`] = '';
                         $scope[`${view_type}`] = undefined;
-                        const index = mandatoryUpload.indexOf(view_type);
+                        const index = $scope.mandatoryUpload.indexOf(view_type);
                         if (index > -1) {
-                            mandatoryUpload.splice(index, 1);
+                            $scope.mandatoryUpload.splice(index, 1);
                         }
                         $scope[`${view_type}mandatory`] = 'true';
                     }, function () {
@@ -863,9 +869,9 @@
                     $scope.serverResponse = response;
                     $scope[`${view_type}__file_name`] = '';
                     $scope[`${view_type}__link`] = undefined;
-                    const index = mandatoryUpload.indexOf(view_type);
+                    const index = $scope.mandatoryUpload.indexOf(view_type);
                     if (index > -1) {
-                        mandatoryUpload.splice(index, 1);
+                        $scope.mandatoryUpload.splice(index, 1);
                     }
                     $scope[`${view_type}mandatory`] = 'true';
                 }, function () {
@@ -900,6 +906,7 @@
                     if(res.status) {
                         $scope.getIFCViewList(enquiry_id, view_type);
                         $("#exampleModal").modal('hide');
+                        getMandatoryFileType();
                         return false;
                     }
                     return false;
@@ -916,7 +923,7 @@
                 }).then(function (res) {
                     documentTypefireOnce = true;
                     res.data.map((item) => {
-                        item.is_mandatory == 1 && mandatoryUpload.push(item.slug);
+                        item.is_mandatory == 1 &&  ($scope[`${item.slug}mandatory`] = true);
                     });
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -939,28 +946,33 @@
             $scope.$on('getIFCModelUpload', function(e) {
                 if($rootScope.callIFCModelUpload) return false;
                 $scope.getDocumentTypes();
-                $scope.getLastEnquiry();                        
+                $scope.getLastEnquiry();     
+                getMandatoryFileType();                   
             });
             $scope.$on('callIFCModelUpload', function(e) {
-
-                mandatoryUpload.length != 0 && mandatoryUpload.map((view) => {
-                                                alert(`mandatory file upload ${view}`);
-                                                $rootScope.currentStep = 2;
-                                            });
-                // $http({
-                //     method: 'POST',
-                //     url: '{{ route("customers.store-enquiry") }}',
-                //     data: {type: 'ifc_model_upload_mandatory', 'data': false}
-                // }).then(function (res) {
-                //     if(res.data.status == false) {
-                //         res.data.data.map((field) => {
-                //             console.log(field);
-                //         });
-                //     }
-                // }, function (error) {
-                //     console.log('This is embarassing. An error has occurred. Please check the log for details');
-                // });
+                if($scope.mandatoryUpload.length > 0) {
+                    Notification.error({message: `${$scope.mandatoryUpload[0].replace('_',' ')} field is mandatory`, delay: 4000});
+                    $rootScope.currentStep = 2;
+                    return false;
+                }
             }); 
+            getMandatoryFileType = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route('customers.update-enquiry', $id) }}',
+                    data: {type: 'ifc_model_upload_mandatory', 'data': false}
+                }).then(function (res) {
+                    if(res.data.status == false) {
+                       $scope.mandatoryUpload.length = 0;
+                       res.data.data.map( (item) => {
+                        delete $scope[`${item}mandatory`];
+                        $scope.mandatoryUpload.push(item);
+                       });
+                    }
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                }); 
+            }
         });
        
         app.directive('demoFileModel', function ($parse) {
@@ -1065,7 +1077,6 @@
                     method: 'GET',
                     url: '{{ route("customers.get-enquiry",[$id,"building_component"]) }}',
                 }).then(function (res){
-                    console.log(res);
                     $rootScope.buildingComponent = true;
                     if(res.data.building_component.length == 0) {
                       
@@ -1106,7 +1117,7 @@
                                 let Layer  = [];
                                 if(typeof(detail.layer) != 'undefined') {
                                     Layer = detail.layer.map( (layerObj, index) => {
-                                        console.log(layerObj);
+                                       
                                         return {
                                             LayerName:  String(layerObj.layer.id),
                                             LayerNameText:  layerObj.layer.layer_name,
@@ -1153,7 +1164,7 @@
                     }).then(function success(response) {
                         $scope.layers = response.data;
                     }, function error(response) {
-                        // console.log('layer');
+                        
                 });
             }
             getLayer();
@@ -1219,7 +1230,7 @@
                                 }).then(function success(response) {
                                     scope.layerTypes = response.data;
                                 }, function error(response) {
-                                    // console.log('layer');
+                                  
                             });
                             element.on('change', function () {
                                 if(typeof(scope.w.WallId) == 'undefined' || typeof(scope.l.LayerName) == 'undefined') {
@@ -1232,7 +1243,7 @@
                                     }).then(function success(response) {
                                         scope.layerTypes = response.data;
                                     }, function error(response) {
-                                        // console.log('layer');
+                                     
                                 });
                             });
                         }
@@ -1262,7 +1273,7 @@
             });
         });
 
-        app.controller('AdditionalInfo', function($scope, $http, $rootScope) {
+        app.controller('AdditionalInfo', function($scope, $http, $rootScope, Notification) {
             getLastEnquiry = () => {
                 $http({
                     method: 'GET',
@@ -1285,6 +1296,7 @@
                     data: {type: 'additional_info', 'data': $scope.additionalInfo}
                 }).then(function (res) {
                    $scope.comments = res.data;
+                   Notification.success({message: `Comments added successfully`, delay: 4000});
                 }, function (error) {
                     console.log(`additional info ${error}`);
                 });         

@@ -37,7 +37,7 @@
                                             <th  class="bg-light">
                                                 <div class="form-group">
                                                     <label class="form-lable text-dark shadow-sm position-absolute border">Wall Number</label>
-                                                    <input type="number" class="form-control form-control-sm my-2  mt-3" ng-model="d.FloorNumber" placeholder="Type here..." required>
+                                                    <input type="text" onkeypress="return isNumber(event)"  class="form-control form-control-sm my-2  mt-3" ng-model="d.FloorNumber" placeholder="Type here..." required>
                                                 </div>
                                             </th>
                                             <th  class="bg-light">
@@ -54,7 +54,7 @@
                                             <th  class="bg-light">
                                                 <div class="form-group">
                                                     <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area</label>
-                                                    <input type="number" class="form-control form-control-sm my-2  mt-3" name="@{{Secindex}}TotalArea" ng-model="d.TotalArea" required>
+                                                    <input  type="text" onkeypress="return isNumber(event)" class="form-control form-control-sm my-2  mt-3" name="@{{Secindex}}TotalArea" ng-model="d.TotalArea" required>
                                                 </div>
                                             </th> 
                                             <th  class="bg-light">
@@ -156,12 +156,12 @@
                                                                 <div class="btn-group shadow-sm border rounded">
                                                                     <div class="form-group">
                                                                         <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
-                                                                        <input type="number" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
+                                                                        <input  type="text" onkeypress="return isNumber(event)" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
                                                                     </div>
                                                                     <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >x</span>
                                                                     <div class="form-group">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
-                                                                        <input type="number" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
+                                                                        <input  type="text" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
                                                                     </div>
                                                                     <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
                                                                 </div>
