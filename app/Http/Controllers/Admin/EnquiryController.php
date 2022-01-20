@@ -73,6 +73,7 @@ class EnquiryController extends Controller
             $to         =   Carbon::parse($req_to)->startOfDay();
             $status     =   $req->status;
             $type       =   $req->type;
+            
             $data       =   Enquiry::whereBetween('created_at', [$from, $to])
                                         ->when($status,  function($q) use($status) {
                                             $q->where('status', $status);
@@ -87,56 +88,25 @@ class EnquiryController extends Controller
         
         return Enquiry::with('customer')                        
                 ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
+                ->select("enquiries.*")
                 ->get();
         
     }
     public function singleIndex($id) {
-         
-        // return  Enquiry::with('customer')                        
-        //                 ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
-        //                 ->leftJoin("building_types", "building_types.id", "=" ,"enquiries.building_type_id")
-        //                 ->leftJoin("delivery_types", "delivery_types.id", "=" ,"enquiries.delivery_type_id")
-        //                 ->leftJoin("project_types", "project_types.id", "=" ,"enquiries.project_type_id")
-        //                 ->find($id); 
-        //   return   Enquiry::with('customer','services','buildingType','projectType','deliveryType','documentTypes')->find($id);
         $enquiry                        =   $this->customerEnquiryRepo->getEnquiry($id);
         $result['customer_info']        =   $enquiry->customer; 
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
-        $result["enquiry_date"]         =   $enquiry;
-        $result['project_info']         =   $this->formatProjectInfo($enquiry);
+        $result["enquiry"]              =   $this->customerEnquiryRepo->formatEnqInfo($enquiry);
+        $result['project_info']         =   $this->customerEnquiryRepo->formatProjectInfo($enquiry);
         $result['services']             =   $enquiry->services;
-        $result['ifc_model_uploads']    =    $enquiry->documentTypes;
+        $result['ifc_model_uploads']    =   $enquiry->documentTypes;
+        // $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['additional_infos']     =   $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         return $result; 
         
     }
-   
-    public function formatProjectInfo($enquiry) 
-    {
-        return [
-            
-            'company_name'         => $enquiry->customer->company_name,
-            'contact_person'       => $enquiry->customer->contact_person,
-            'mobile_no'            => $enquiry->customer->mobile_no,
-            'secondary_mobile_no'  => $enquiry->secondary_mobile_no,
-            'project_name'         => $enquiry->project_name,
-            'zipcode'              => $enquiry->zipcode,
-            'state'                => $enquiry->state,
-            'building_type_id'     => $enquiry->building_type_id,
-            'project_type_id'      => $enquiry->project_type_id,
-            'project_date'         => $enquiry->project_date,
-            'site_address'         => $enquiry->site_address,
-            'place'                => $enquiry->place,
-            'country'              => $enquiry->country,
-            'no_of_building'       => $enquiry->no_of_building,
-            'delivery_type_id'     => $enquiry->delivery_type_id,
-            'project_delivery_date'=> $enquiry->project_delivery_date,
-            'building_type'        =>  $enquiry->buildingType,
-            'project_type'         =>  $enquiry->projectType,
-            'delivery_type'        => $enquiry->deliveryType,
-        ];
-    }
+    
     public function singleIndexPage($id=null) {
         if ($id) {
             
@@ -178,7 +148,8 @@ class EnquiryController extends Controller
                 return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
             }
             $email      =   $request->email;
-            $password   =   Str::random(8);
+            $password   =   "12345678";
+            // $password   =   Str::random(8);
             $data = [
                 'customer_enquiry_date' => $request->customer_enquiry_date,
                 'full_name'             => $request->user_name,
@@ -285,5 +256,5 @@ class EnquiryController extends Controller
             return response(['status' => true, 'msg' => trans('enquiry.status_updated'), 'data' => $customer], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('enquiry.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
-    } 
+    }  
 }
