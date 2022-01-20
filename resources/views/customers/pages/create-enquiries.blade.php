@@ -725,7 +725,6 @@
         });
         
         app.service('fileUploadService', function ($http, $q) {
-                    
             this.uploadFileToUrl = function (file, type, view_type,  uploadUrl) {
                 var fileFormData = new FormData();
                 fileFormData.append('file', file);
@@ -744,6 +743,22 @@
                     deffered.reject(response);
                 });
 
+                return deffered.promise;
+            }
+            this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl) {
+                var fileFormData = new FormData();
+                fileFormData.append('link', link);
+                fileFormData.append('type', type);
+                fileFormData.append('view_type',view_type);
+                var deffered = $q.defer();
+                $http.post(uploadUrl, fileFormData, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }).success(function (response) {
+                    deffered.resolve(response);
+                }).error(function (response) {
+                    deffered.reject(response);
+                });
                 return deffered.promise;
             }
         });
@@ -810,6 +825,31 @@
                  
                 }
             }
+            $scope.uploadLink = function (view_type) { 
+                var link = $scope[`${view_type}__link`];
+                if(typeof(link) == 'undefined') {
+                    $scope[`${view_type}__error`] = true;
+                    return  false;
+                }
+                $scope[`${view_type}__error`] = false;
+               
+                var uploadUrl = '{{ route('customers.store-enquiry') }}'
+                promise = fileUploadService.uploadLinkToUrl(link, 'ifc_link', view_type, uploadUrl);
+                promise.then(function (response) {
+                    console.log(response);
+                    $scope.getIFCViewList(response, view_type);
+                    $scope.serverResponse = response;
+                    $scope[`${view_type}__file_name`] = '';
+                    $scope[`${view_type}__link`] = undefined;
+                    const index = mandatoryUpload.indexOf(view_type);
+                    if (index > -1) {
+                        mandatoryUpload.splice(index, 1);
+                    }
+                    $scope[`${view_type}mandatory`] = 'true';
+                }, function () {
+                    $scope.serverResponse = 'An error has occurred';
+                });   
+           }
         
             $scope.getIFCViewList = (id, view_type) => {
               
