@@ -4,22 +4,23 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnquiryBuildingComponentsTable extends Migration
+class CreateEnquiryTechnicalEstimatesTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
-     * for walls
      */
     public function up()
-    { 
-        Schema::create('enquiry_building_components', function (Blueprint $table) {
+    {
+        Schema::create('enquiry_technical_estimates', function (Blueprint $table) {
             $table->id();
+            $table->string('created_by')->nullable();
             $table->unsignedBigInteger('enquiry_id')->unsigned();
-            $table->unsignedBigInteger('building_component_id')->unsigned();
+            // $table->unsignedBigInteger('building_component_id')->unsigned();
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->integer('total_wall_area')->default(0);
+            $table->string('wall')->nullable();
             $table->foreign('building_component_id')->references('id')->on('building_components');
             $table->timestamps();
         });
@@ -32,6 +33,6 @@ class CreateEnquiryBuildingComponentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enquiry_building_components');
+        Schema::dropIfExists('enquiry_technical_estimates');
     }
 }

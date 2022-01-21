@@ -121,8 +121,8 @@ class EnquiryController extends Controller
         } else if($type == 'ifc_model_upload' || $type == 'ifc_model_upload_mandatory' || $type == "ifc_link") {
             if($type == 'ifc_model_upload_mandatory') {
                 $mandatoryDocuments =  $this->documentTypeRepo->getMandatoryField();
-                $ifcUploads = $enquiry->documentTypes()->get()->pluck('id')->toArray();
-                $mandatoryDocs = $this->checkMandatoryFile($mandatoryDocuments , $ifcUploads);
+                $ifcUploads         = $enquiry->documentTypes()->get()->pluck('id')->toArray();
+                $mandatoryDocs      = $this->checkMandatoryFile($mandatoryDocuments , $ifcUploads);
                 if(!empty($mandatoryDocs)) {
                     return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
                 }
@@ -134,7 +134,10 @@ class EnquiryController extends Controller
         } else if ($type == 'building_component') {
             DB::beginTransaction();
             try {
-              $this->storeBuildingComponent($data, $enquiry);
+                $this->Storecostestimate($data, $enquiry);
+                $this->storeBuildingComponent($data, $enquiry);
+              
+              DB::commit();
             } catch (Exception $ex) {
                 DB::rollBack();
                 Log::error($ex->getMessage());
@@ -146,18 +149,13 @@ class EnquiryController extends Controller
             return response($result);      
         }
     }
-
-    public function storeIfcUpload($request, $enquiry) 
-    {
-        $view_type =  $request->input('view_type');
-        $path =  $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
-        $original_name = $request->file('file')->getClientOriginalName();
-        $extension = $request->file('file')->getClientOriginalExtension();
-        $documents =  $this->documentTypeRepo->findBySlug($view_type);
-        $additionalData = ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name, 'file_type' => $extension , 'status' => 'In progress'];
-        $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
-        $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
-        return $enquiry->id;
+    public function Storecostestimate($data, $enquiry) {
+    //    dd($data);
+        //    EnquiryTechnicalEstimate
+        $dataObj = json_decode (json_encode ($data), FALSE);
+        if(!empty($dataObj)) {
+            $response = $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$dataObj);
+        }
     }
 
     public function storeIfcLink($request, $enquiry)
@@ -177,11 +175,24 @@ class EnquiryController extends Controller
         if(!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
             if($response) {
-                DB::commit();
+               
                 $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'building_component');
                 return true;
             }
         }
+    }
+
+    public function storeIfcUpload($request, $enquiry) 
+    {
+        $view_type          =   $request->input('view_type');
+        $path               =   $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
+        $original_name      =   $request->file('file')->getClientOriginalName();
+        $extension          =   $request->file('file')->getClientOriginalExtension();
+        $documents          =   $this->documentTypeRepo->findBySlug($view_type);
+        $additionalData     =   ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name,'file_type' => $extension , 'status' => 'In progress'];
+        $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
+        $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
+        return $enquiry->id;
     }
 
     public function update($id, Request $request)
@@ -214,7 +225,9 @@ class EnquiryController extends Controller
         } else if($type == 'building_component') {
             DB::beginTransaction();
             try {
+                $this->Storecostestimate($data, $enquiry);
                 $this->storeBuildingComponent($data, $enquiry);
+                DB::commit();
             } catch (Exception $ex) {
                 DB::rollBack();
                 Log::error($ex->getMessage());
@@ -257,9 +270,7 @@ class EnquiryController extends Controller
             $result['building_component'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         } else if($type == 'additional_info') {
             $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
-            
         }
-         
         return $result;
     }
 
@@ -293,7 +304,7 @@ class EnquiryController extends Controller
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $customer['document_types']     =   $this->documentTypeRepo->all();
         return view('customers.pages.edit-enquiries',compact('enquiry','id'));
-    } 
+    }
 
     public function getPlanViewList(Request $request)
     {
@@ -304,8 +315,8 @@ class EnquiryController extends Controller
 
     public function getFacaeViewList(Request $request)
     {
-        $id = $request->input('id');
-        $data = $this->customerEnquiryRepo->getFacaeViewList($id);
+        $id     = $request->input('id');
+        $data   = $this->customerEnquiryRepo->getFacaeViewList($id);
         return response()->json( $data);
     }
 

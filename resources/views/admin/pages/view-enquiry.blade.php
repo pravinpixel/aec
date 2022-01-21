@@ -602,6 +602,27 @@
     <script>
           
 		var app = angular.module('myApp', ['ngRoute']).constant('API_URL', $("#baseurl").val()); 
+        // app.directive('MasterCost', function layerType($http) {
+        //     return {
+        //         restrict: 'A',
+        //         link : function (scope, element, attrs) {
+        //             element.on('change', function () {
+        //                 if(scope.w.WallId == 'undefined' || scope.l.LayerName == 'undefined') {
+        //                     return false;
+        //                 }
+        //                 $http({
+        //                     method: 'GET',
+        //                     url: '{{ route("layer-type.get-layer-type") }}',
+        //                     params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+        //                     }).then(function success(response) {
+        //                         scope.layerTypes = response.data;
+        //                     }, function error(response) {
+        //                         // console.log('layer');
+        //                 });
+        //             });
+        //         },
+        //     };
+        // });
         app.directive('loading',   ['$http' ,function ($http, $scope) {  
             return {  
                 restrict: 'A',  
@@ -722,10 +743,60 @@
                 $scope.additional_infos     = res.data.additional_infos;
             }); 
         });
+   
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
-            $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (response) {
-                $scope.E = response.data;
-            }); 
+            
+            $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
+                $scope.enquiry             = response.data; 
+                $scope.building_component  = response.data.building_component; 
+
+                $scope.sum = function(list) {
+                    var Bigtotal=0;
+                    angular.forEach(list , function(item){
+
+                        Bigtotal+= Number(item.total_wall_area);
+                    });
+                    return Bigtotal;
+                }
+                $scope.Add_Wall = function() {
+                    $scope.building_component.push(
+                        
+                        {
+                            "building_component": {
+                            "building_component_name"   : "type", 
+                            },
+                            "total_wall_area" : 0
+                        }
+                    )
+                }
+                $scope.Delete_Wall   =   function(index) {
+                    $scope.building_component.splice(index,1);
+                } 
+                
+            });
+            $scope.technicalestimate  = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
+                    $scope.building_component  = response.data.building_component;  
+                });
+            } 
+            $scope.updateTechnicalEstimate  = function() {
+               
+                $http({
+                    method: "POST",
+                    url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ,
+                    // data : $scope.building_component,
+                    data: $.param({ data : $scope.building_component}),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    
+                    Message('success',response.data.msg);
+                    $scope.technicalestimate(); 
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            } 
             $scope.total = 0;
             $scope.CostEstimate  = [
                 {
@@ -833,7 +904,7 @@
                     } 
                 },
             ]; 
-            $scope.create  =   function() {
+            $scope.create  = function() {
                 $scope.CostEstimate.unshift({
                     "Component"     : "",
                     "Type"          : "", 
@@ -864,7 +935,6 @@
                 $scope.getTotal();
             }
             $scope.delete   =   function(index) {
-                // alert(index);
                 $scope.CostEstimate.splice(index,1);
             }
             $scope.getTotal = function(){
@@ -881,6 +951,20 @@
                 alert("Working !");
             }
         }); 
+        Message = function (type, head) {
+            $.toast({
+                heading: head,
+                icon: type,
+                showHideTransition: 'plain', 
+                allowToastClose: true,
+                hideAfter: 5000,
+                stack: 10, 
+                position: 'bootom-left',
+                textAlign: 'left', 
+                loader: true, 
+                loaderBg: '#252525',                
+            });
+        }
     </script> 
 
   

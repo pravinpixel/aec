@@ -10,6 +10,8 @@ use App\Models\EnquiryBuildingComponent;
 use App\Models\EnquiryBuildingComponentDetail;
 use App\Models\EnquiryBuildingComponentLayer;
 use App\Models\EnquiryService;
+use App\Models\EnquiryTechnicalEstimate;
+
 use App\Models\Service;
 
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
@@ -125,13 +127,15 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         return false;
     }
-
+    
     public function storeBuildingComponent($enquiry,$buildingComponents) 
     {   
         EnquiryBuildingComponentLayer::where('enquiry_id', $enquiry->id)->delete();
         EnquiryBuildingComponentDetail::where('enquiry_id', $enquiry->id)->delete();
         EnquiryBuildingComponent::where('enquiry_id', $enquiry->id)->delete();
+
         foreach($buildingComponents as $buildingComponent) {
+            $total_wall_area = 0;
             $enquiryBuildingComponent = new EnquiryBuildingComponent();
             $enquiryBuildingComponent->building_component_id = $buildingComponent->WallId;
             $enquiryBuildingComponent->enquiry_id = $enquiry->id;
@@ -145,6 +149,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     $enquiryBuildingComponentDetail->exd_wall_number                     = $buildingComponentDetail->FloorNumber;
                     $enquiryBuildingComponentDetail->approx_total_area                   = $buildingComponentDetail->TotalArea;
                     $enquiryBuildingComponentDetail->enquiry_building_component_id       = $enquiryBuildingComponent->id;
+                    $total_wall_area +=  $buildingComponentDetail->TotalArea; 
+                   
                     $enquiryBuildingComponentDetail->save();
                     if(!empty($buildingComponentDetail->Layers)) {
                         foreach($buildingComponentDetail->Layers as $buildingComponentLayer) {
@@ -159,7 +165,47 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                         }
                     }
                 }
+                $enquiryBuildingComponent->total_wall_area = $total_wall_area;
+                $enquiryBuildingComponent->save();
             }                            
+        }
+        return true;    
+    }
+
+    public function storeTechnicalEstimateCost($enquiry,$buildingComponents) 
+    {   
+        // EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete();
+
+        foreach($buildingComponents as $buildingComponent) {
+            $total_wall_area = 0;
+            $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
+
+            $enquiryBuildingComponent->building_component_id = $buildingComponent->WallId;
+            $enquiryBuildingComponent->wall = $buildingComponent->WallName;
+
+            $enquiryBuildingComponent->enquiry_id = $enquiry->id;
+            $enquiryBuildingComponent->save();
+            if($enquiryBuildingComponent && !empty($buildingComponent->Details)) {
+                foreach($buildingComponent->Details as $buildingComponentDetail) {
+                    $total_wall_area +=  $buildingComponentDetail->TotalArea; 
+                }
+                $enquiryBuildingComponent->total_wall_area = $total_wall_area;
+                $enquiryBuildingComponent->save();
+            }
+        }
+        return true;    
+    }
+
+    public function updateTechnicalEstimateCost($enquiry,$buildingComponents) 
+    {   
+        EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete(); 
+
+        foreach($buildingComponents as $buildingComponent) {
+            $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
+            $enquiryBuildingComponent->enquiry_id = $enquiry->id;
+            $enquiryBuildingComponent->wall = $buildingComponent->wall;
+            $enquiryBuildingComponent->total_wall_area = $buildingComponent->total_wall_area;
+            $enquiryBuildingComponent->save(); 
         }
         return true;    
     }
@@ -168,6 +214,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     {
         $enquiryBuildingComponents = $enquiry->enquiryBuildingComponent()->get();
         $buildingComponentData = [];
+
         foreach( $enquiryBuildingComponents as  $enquiryBuildingComponent) {
                 $buildingComponent = [];  $detail = [];
                 $buildingComponentMaster = $enquiryBuildingComponent->buildingComponent;
@@ -193,10 +240,46 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                 $componentAdditionalData = [
                     'wall' => $buildingComponentMaster->building_component_name,
                     'icon' => $buildingComponentMaster->building_component_icon,
-                    'wallId' => $buildingComponentMaster->id
+                    'wallId' => $buildingComponentMaster->id,
+                    'totalWallArea' => $enquiryBuildingComponent->total_wall_area
                 ];
                 $buildingComponentData[] = (object)array_merge($buildingComponent, $componentAdditionalData);
         }
         return $buildingComponentData;
+    } 
+
+    public function formatEnqInfo ($enquiry)   {
+            return [
+                'enquiry_number'        =>  $enquiry->enquiry_number,
+                'enquiry_date'          =>  $enquiry->enquiry_date,
+                'contact_person'        =>  $enquiry->customer->contact_person, 
+                'project_name'          => $enquiry->project_name,
+            ];
     }
+    public function formatProjectInfo($enquiry) 
+    {
+        return [
+            
+            'company_name'         => $enquiry->customer->company_name,
+            'contact_person'       => $enquiry->customer->contact_person,
+            'mobile_no'            => $enquiry->customer->mobile_no,
+            'secondary_mobile_no'  => $enquiry->secondary_mobile_no,
+            'project_name'         => $enquiry->project_name,
+            'zipcode'              => $enquiry->zipcode,
+            'state'                => $enquiry->state,
+            'building_type_id'     => $enquiry->building_type_id,
+            'project_type_id'      => $enquiry->project_type_id,
+            'project_date'         => $enquiry->project_date,
+            'site_address'         => $enquiry->site_address,
+            'place'                => $enquiry->place,
+            'country'              => $enquiry->country,
+            'no_of_building'       => $enquiry->no_of_building,
+            'delivery_type_id'     => $enquiry->delivery_type_id,
+            'project_delivery_date'=> $enquiry->project_delivery_date,
+            'building_type'        =>  $enquiry->buildingType,
+            'project_type'         =>  $enquiry->projectType,
+            'delivery_type'        => $enquiry->deliveryType,
+        ];
+    }
+
 }

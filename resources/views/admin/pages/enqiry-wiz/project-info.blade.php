@@ -159,10 +159,11 @@
             <div class="legend shadow-sm border rounded text-primary">Building Components</div>
             <div class="card-body">
                 <div  style="max-height: 400px; overflow:auto">
-                    <table class="table table-bordered" >
-                        <tbody>
+                   
+                    <table class="table table-bordered" ng-init="total = 0 ">
+                        <tbody >
                             <tr class="table-bold text-center">
-                                <th width="150px"> </th>
+                                <th width="150px"></th>
                                 <th style="padding: 0 !important">
                                     <table class="table m-0 ">
                                         <tr>
@@ -175,11 +176,10 @@
                                         </tr>
                                     </table>
                                 </th>
-                            </tr>
-                             
-                            <tr  ng-repeat="building_component in building_components">
-                                <td>@{{ building_component.wall }}</td>
-                                <td style="padding: 0 !important"  >
+                            </tr> 
+                            <tr ng-repeat="building_component in building_components" >
+                                <td>@{{ building_component.wall }} @{{ total }}</td>
+                                <td style="padding: 0 !important" >
                                     <table class="table m-0 ">
                                         <tr ng-repeat="detail in building_component.detail"> 
                                             <td width="50%">
@@ -188,13 +188,13 @@
                                                         <th>Floor</th>
                                                         <th>wall Number</th>
                                                         <th>Delivery type</th>
-                                                        <th>Total Area</th>
+                                                        <th >Total Area </th>
                                                     </tr> 
                                                     <tr>
                                                         <td>@{{ detail.floor }}</td>
                                                         <td>@{{ detail.exd_wall_number }}</td>
                                                         <td>@{{ detail.delivery_type.delivery_type_name }}</td>
-                                                        <td>@{{ detail.approx_total_area }}</td>
+                                                        <td ng-init="$parent.total = $parent.total ++ detail.approx_total_area">@{{ detail.approx_total_area }}</td>
                                                     </tr> 
                                                 </table>
                                             </td>
@@ -211,16 +211,14 @@
                                                         <td>@{{ layer.layer_type.layer_type_name }}</td>
                                                         <td>@{{ layer.thickness }}</td>
                                                         <td>@{{ layer.breath }}</td>
-                                                    </tr>
-                                                    
+                                                    </tr> 
                                                 </table>
                                             </td>
                                         </tr> 
-                                    </table>
+                                    </table> 
                                 </td>
                             </tr>  
-                        </tbody>
-                     
+                        </tbody>                     
                     </table> 
                 </div> 
                 <div class="input-group mt-3">
@@ -281,4 +279,4 @@
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
     }
-</style>
+</style> 

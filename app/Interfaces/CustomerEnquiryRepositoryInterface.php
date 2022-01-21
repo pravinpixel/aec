@@ -36,9 +36,18 @@ interface CustomerEnquiryRepositoryInterface
     
     public function storeBuildingComponent($enquiry,$data);
 
+    public function storeTechnicalEstimateCost($enquiry,$data);
+
+    public function updateTechnicalEstimateCost($enquiry,$data);
+
     public function getBuildingComponent($enquiry);
 
     public function getEnquiryByID($id);
 
-    public function updateWizardStatus($enquiry, $column);
+    public function updateWizardStatus($enquiry, $column); 
+
+    public function formatEnqInfo($enquiry); 
+
+    public function formatProjectInfo($enquiry); 
+    
 }

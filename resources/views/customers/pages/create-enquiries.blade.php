@@ -996,8 +996,7 @@
                     "Thickness ": '',
                     "Breadth": '',
                 });
-                
-            }    
+            }
             $scope.delWall = function(index){
                 $scope.wallGroup.splice(index,1);
             } 

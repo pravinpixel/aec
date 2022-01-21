@@ -47,8 +47,8 @@
                                     <td> 
                                         <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.enquiry_number }}</span>
                                     </td>
-                                    <td>@{{ m.contact_person }}</td>
-                                    <td>@{{ m.mobile_no }}</td>
+                                    <td>@{{ m.customer.contact_person }}</td>
+                                    <td>@{{ m.customer.mobile_no }}</td>
                                     <td>@{{ m.enquiry_date }}</td>
                                     <td>
                                         <div id="toolTip_@{{ index+1 }}" ng-click="toggle('edit', m.id)">
@@ -65,7 +65,6 @@
                                     </td>
                                     <td>
                                         <div class="dropdown">
-                                         
                                             <a class="btn btn-outline-info btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.id }}"><i class="mdi mdi-eye"></i></a>
                                         </div>
                                     </td>

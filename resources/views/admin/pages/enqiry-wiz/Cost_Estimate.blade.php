@@ -1,9 +1,9 @@
 <form class="card shadow-none p-0" >
     <div class="card-header pb-2 p-3 text-center border-0">
-        <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ E.enquiry_number }}</span> | <span class="text-success">@{{ E.project_info.project_name }}</span> | <span class="text-info">@{{ E.customer_info.contact_person }}</span></h4>
+        <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
     </div>
     <div class="card-body pt-0 p-0">
-        <table class="table shadow-none border m-0 table-borde#E5EEF4 ">
+        <table class="table shadow-none border m-0 table-bordered">
             <thead class="bg-light">
                 <tr >
                     <th style="background: #0071A8 !important">Enquiry Date</th>
@@ -14,10 +14,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@{{ E.enquiry_date }}</td>
-                    <td>@{{ E.project_info.project_name }}</td>
-                    <td>New Construction</td>
-                    <td>In Estimation</td>
+                    <td>@{{ enquiry.enquiry.enquiry_date }}</td>
+                    <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
+                    <td>@{{ enquiry.enquiry.project_type.project_type_name  }}</td>
+                    <td class="text-center"><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
                 </tr>
             </tbody>
         </table>
@@ -60,14 +60,15 @@
                     
                     <tbody >
                         <tr ng-repeat="(index,C) in CostEstimate" > 
-                            <td style="padding: 0 !important">
-                                <select class="form-select select" data-toggle="select">
-                                    <option>-- Select --</option>
-                                    <option value="External"  >External</option>
-                                    <option value="Internal">Internal</option>
-                                    <option value="Ground Floor" >Ground Floor</option>
-                                    <option value="Roof" >Roof</option>
-                                    <option value="Loadbearing" >Loadbearing</option>
+                            <td>
+                                <select class="form-select form-select-sm" id="floatingSelect" aria-label="Floating label select example" required>
+                                        <option value="">-- Select ---</option>
+                                        <option>-- Select --</option>
+                                        <option value="External"  >External</option>
+                                        <option value="Internal">Internal</option>
+                                        <option value="Ground Floor" >Ground Floor</option>
+                                        <option value="Roof" >Roof</option>
+                                        <option value="Loadbearing" >Loadbearing</option>
                                 </select>
                             </td>
                             <td style="padding: 0 !important">
@@ -80,7 +81,18 @@
                                     <option value="OR">Oregon</option>
                                     <option value="WA">Washington</option>
                                 </select>
+                            </td> 
+                            {{-- <td style="padding: 0 !important">
+                                <select class="form-select select" data-toggle="select">
+                                    <option>-- Select --</option>
+                                    <option value="External"  >External</option>
+                                    <option value="Internal">Internal</option>
+                                    <option value="Ground Floor" >Ground Floor</option>
+                                    <option value="Roof" >Roof</option>
+                                    <option value="Loadbearing" >Loadbearing</option>
+                                </select>
                             </td>
+                           --}}
                             <td style="padding:0px !important"><input  type="number" class="my-control"></td>
                             <td style="padding:0px !important"><input  type="number" class="my-control"></td>
 
@@ -142,7 +154,6 @@
                             <td class="text-center">-</td>
                         </tr> 
                     </tbody>
-                    
                 </table>
             </div>
             
@@ -188,7 +199,6 @@
 </form>
 
 <style>
-  
     .table tbody tr td {
         padding: 2px !important
     }
@@ -227,7 +237,7 @@
     
 </style>
 @if (Route::is('admin-Cost_Estimate-wiz')) 
-    <style>
+        <style>
         .admin-Cost_Estimate-wiz .timeline-step .inner-circle{
             background: #757CF2 !important;
             transform: scale(1.2);
