@@ -39,12 +39,12 @@
                             <a class="nav-link" id="v-pills-component-tab" data-bs-toggle="pill" href="#v-pills-component" role="tab" aria-controls="v-pills-component"
                                 aria-selected="false">
                                 <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                <span class="d-none d-md-block">Cost Estimation Component</span>
+                                <span class="d-none d-md-block">Building Component</span>
                             </a>
                             <a class="nav-link" id="v-pills-type-tab" data-bs-toggle="pill" href="#v-pills-type" role="tab" aria-controls="v-pills-type"
                                 aria-selected="false">
                                 <i class="mdi mdi-type-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block">Cost Estimation Type</span>
+                                <span class="d-none d-md-block">Building Type</span>
                             </a>
                             <a class="nav-link" id="v-pills-project_type-tab" data-bs-toggle="pill" href="#v-pills-project_type" role="tab" aria-controls="v-pills-project_type"
                                 aria-selected="false">
@@ -156,7 +156,7 @@
                                                     <div class="modal-body">
                                                         <form name="module" class="form-horizontal" novalidate="">
                                                             <div class="form-group error mb-2">
-                                                                <label for="inputEmail3" class="col-sm-12 control-label mb-2">Menu Name</label>
+                                                                <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Menu Name</label>
                                                                 <div class="col-sm-12">
                                                                     <input type="text" class="form-control has-error" id="name" name="name" placeholder="Type Here.." ng-model="module.module_name" ng-required="true">
                                                                     <small class="help-inline text-danger">This  Fields is Required</small>
@@ -164,14 +164,14 @@
                                                             </div> 
                                                             <div class="row">
                                                                 <div class="form-group col error">
-                                                                    <label for="inputEmail3" class="col-sm-12 control-label mb-2">Order Id</label>
+                                                                    <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Order Id</label>
                                                                     <div class="col-sm-12 me-2">
                                                                         <input type="number" class="form-control has-error" id="name" name="name" placeholder="Type Here.." ng-model="module.order_id" ng-required="true">
                                                                         <small class="help-inline text-danger" >This  Fields is Required</small>
                                                                     </div>
                                                                 </div> 
                                                                 <div class="form-group col error">
-                                                                    <label for="inputEmail3" class="col-sm-12 control-label mb-2">Menu Icon</label>
+                                                                    <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Menu Icon</label>
                                                                     <div class="col-sm-12">
                                                                         <input type="text" class="form-control has-error" id="name" name="name" placeholder="Type Here.." ng-model="module.icon" ng-required="true">
                                                                         <small class="help-inline text-danger"  >This  Fields is Required</small>
@@ -194,7 +194,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save(modalstate, id); $event.stopPropagation();" ng-disabled="frmusers.$invalid">Submit</button>
+                                                        <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save(modalstate, id); $event.stopPropagation();" ng-disabled="module.$invalid">Submit</button>
                                                     </div>
                                                 </div><!-- /.modal-content -->
                                             </div><!-- /.modal-dialog -->
@@ -280,7 +280,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_role(modalstate, id); $event.stopPropagation();" ng-disabled="module.$invalid">Submit</button>
+                                                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_role(modalstate, id); $event.stopPropagation();" ng-disabled="module_role.$invalid">Submit</button>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
@@ -301,7 +301,7 @@
                                     </div>
                                     <div class="card-fooetr"></div>
                                 </div> 
-                                <div id="primary-role-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="@{{form_color}}-header-modalLabel" aria-hidden="true">
+                                <!-- <div id="primary-role-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="@{{form_color}}-header-modalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header modal-colored-header bg-@{{form_color}}">
@@ -337,9 +337,9 @@
                                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                                                 <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_role(modalstate, id); $event.stopPropagation();" ng-disabled="module.$invalid">Submit</button>
                                             </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div>
+                                        </div>
+                                    </div>
+                                </div> -->
                             </div>
                            
                             <div class="tab-pane fade" id="v-pills-component" role="tabpanel" aria-labelledby="v-pills-component-tab">
@@ -362,6 +362,9 @@
                             </div>
                             <div class="tab-pane fade" id="v-pills-layerType" role="tabpanel" aria-labelledby="v-pills-layerType-tab">
                                @include('admin.setting-tabs.layerType')
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-service" role="tabpanel" aria-labelledby="v-pills-service-tab">
+                               @include('admin.setting-tabs.service')
                             </div>
                             
                             
@@ -449,6 +452,8 @@
 
 		<script >
 
+
+
             $(document).on('keyup change','.cal_submit', function(){
                 // alert()
                 console.log($(this).data('component_id'));
@@ -477,7 +482,6 @@
                     }
                     });
             });
-            
 			// menuController
 
 			app.controller('moduleController', function ($scope, $http, API_URL) {
@@ -591,6 +595,35 @@
 
                         }
                         }
+                        $scope.service_status = function (index  , id) {
+                        var url = API_URL + "admin" + "/service-status";
+                        // getData($http, API_URL);
+
+                        if (id) {
+
+                            url += "/" + id;
+                            method = "PUT";
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function (response) {
+                                
+                                $scope.getServiceData($http, API_URL);
+
+                                Message('success',response.data.msg);
+
+                            }), (function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+
+                        }
+                        }
+                        
                         $scope.layerType_status = function (index  , id) {
                         var url = API_URL + "admin" + "/layerType-status";
                         // getData($http, API_URL);
@@ -824,7 +857,7 @@
                             url: url,
                         }).then(function (response) {
 
-                            $scope.deliveryLayer_module_get = response.data.data;		
+                            $scope.deliveryLayer_module_get = response.data;		
                             
                         }, function (error) {
                             console.log(error);
@@ -841,7 +874,24 @@
                             url: url,
                         }).then(function (response) {
 
-                            $scope.layer_module_get = response.data.data;		
+                            $scope.layer_module_get = response.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    
+                    } 
+                    $scope.getServiceData = function($http, API_URL) {
+                        var url = API_URL + "admin" + "/get-service";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
+
+                            $scope.service_module_get = response.data;		
                             
                         }, function (error) {
                             console.log(error);
@@ -875,7 +925,7 @@
                             url: url,
                         }).then(function (response) {
 
-                            $scope.document_module_get = response.data.data;		
+                            $scope.document_module_get = response.data;		
                             
                         }, function (error) {
                             console.log(error);
@@ -884,6 +934,7 @@
                     
                     }
                     
+                    $scope.getServiceData($http, API_URL); 
                     $scope.getLayerTypeData($http, API_URL); 
                     $scope.getDeliveryLayerData($http, API_URL); 
                     $scope.getLayerData($http, API_URL); 
@@ -1164,6 +1215,39 @@
 			                        $scope.module_layer = response.data.data;
                                     
                                     $('#primary-layer-modal').modal('show');
+
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                    
+			                    });
+			                break;
+                     
+			            default:
+			                break;
+			        } 
+			       
+			    }
+                $scope.toggleService = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.module = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Create Service";
+			                $scope.form_color = "primary";
+                            $scope.resetForm();
+                            $('#primary-service-modal').modal('show');
+
+			                break;
+			            case 'edit':
+			                $scope.form_title = "Update Service";
+                            $scope.form_color = "success";
+			                $scope.id = id;
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+			                $http.get(API_URL + 'admin/' +'edit-service/' + id )
+			                    .then(function (response) {
+			                        $scope.module_service = response.data.data;
+                                    
+                                    $('#primary-service-modal').modal('show');
 
                                     angular.element(document.querySelector("#loader")).addClass("d-none"); 
                                     
@@ -1604,6 +1688,62 @@
 					}
 			        
 			    }
+                $scope.save_service = function (modalstate, id) {
+					
+			        var url = API_URL + "admin/";
+			        var method = "POST";
+			
+			        //append module id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "update-service/" + id;
+                        // alert(url)
+			            method = "POST";
+                        // alert(url)
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_service),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getServiceData($http, API_URL);
+                            $scope.resetForm();
+							    $('#primary-service-modal').modal('hide');
+                                // $('#primary-layer-modal').reset();
+
+                                Message('success',response.data.msg);
+
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+
+			        }else {
+                        url+="add-service";
+                        // alert(url)
+                        console.log($scope.module_service);
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_service),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getServiceData($http, API_URL);
+                            // $('#primary-component-modal').reset();
+                            $scope.resetForm();
+							//location.reload();
+							$('#primary-service-modal').modal('hide');
+                            Message('success', response.data.msg);
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
                 $scope.save_layerType = function (modalstate, id) {
 					
 			        var url = API_URL + "admin/";
@@ -1837,6 +1977,7 @@
                     $scope.module_type = {};
                     $scope.module_pType = {};
                     $scope.module_layer = {};
+                    $scope.module_service = {};
                     $scope.module_layerType = {};
                     $scope.module_deliveryLayer = {};
                     $scope.module_document = {};
@@ -1864,6 +2005,9 @@
                     $scope.LayerTypeModule.$setPristine();
                     $scope.LayerTypeModule.$setValidity();
                     $scope.LayerTypeModule.$setUntouched();
+                    $scope.ServiceModule.$setPristine();
+                    $scope.ServiceModule.$setValidity();
+                    $scope.ServiceModule.$setUntouched();
                     
                     
                 }
@@ -2016,6 +2160,56 @@
 					});
 			       
 			    }
+                $scope.confirmServiceDelete = function (id) {
+                    var url = API_URL + 'admin/' + 'delete-service/';
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: url + id                              
+							}).then(function (response) {
+								 
+                                $scope.getServiceData($http, API_URL);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }
+                
                 $scope.confirmLayerTypeDelete = function (id) {
                     var url = API_URL + 'admin/' + 'delete-layerType/';
 			        // var isConfirmDelete = confirm('Are you sure you want this record?');

@@ -53,7 +53,7 @@
                                                     <div class="form-group error mb-2">
                                                         <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Component Name</label>
                                                         <div class="col-sm-12">
-                                                            <input type="text" class="form-control has-error" id="building_component_name" name="building_component_name" placeholder="Type Here.." ng-model="module_comp.building_component_name" ng-required="true" required>
+                                                            <input type="text" class="form-control has-error" id="building_component_name" name="building_component_name" placeholder="Type Here.." ng-model="module_comp.building_component_name" ng-required="true">
                                                             <small class="help-inline text-danger">This  Fields is Required</small>
                                                         </div>
                                                     </div> 

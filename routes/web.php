@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Master\DocumentTypeController;
 use App\Http\Controllers\Admin\Master\LayerController;
 use App\Http\Controllers\Admin\Master\DeliveryTypeController;
 use App\Http\Controllers\Admin\Master\LayerTypeController;
+use App\Http\Controllers\Admin\Master\ServiceController;
 
 use App\Http\Controllers\Auth\AuthController;
 
@@ -161,6 +162,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('get_type', [CostEstimationController::class, 'get_type'])->name('get_type');
     Route::get('get_document', [DocumentTypeController::class, 'index'])->name('get_document');
     Route::get('get-layer', [LayerController::class, 'index'])->name('get-layer');
+    Route::get('get-service', [ServiceController::class, 'index'])->name('get-service');
     Route::get('get-layerType', [LayerTypeController::class, 'index'])->name('get-layerType');
     Route::get('component-data', [LayerTypeController::class, 'component_data'])->name('component-data');
     Route::get('layer-data', [LayerTypeController::class, 'layer_data'])->name('layer-data');
@@ -172,6 +174,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::put('component_status/{id}', [CostEstimationController::class, 'component_status'])->name('component_status');
     Route::put('type_status/{id}', [CostEstimationController::class, 'type_status'])->name('type_status');
     Route::put('layer-status/{id}', [LayerController::class, 'layer_status'])->name('layer-status');
+    Route::put('service-status/{id}', [ServiceController::class, 'service_status'])->name('service-status');
+
     Route::put('layerType-status/{id}', [LayerTypeController::class, 'layerType_status'])->name('layerType-status');
 
 
@@ -185,6 +189,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::delete('delete_component/{id}', [CostEstimationController::class, 'delete_component'])->name('delete_component');
     Route::delete('delete_type/{id}', [CostEstimationController::class, 'delete_type'])->name('delete_type');
     Route::delete('delete-layer/{id}', [LayerController::class, 'destroy'])->name('delete-layer');
+    Route::delete('delete-service/{id}', [ServiceController::class, 'destroy'])->name('delete-service');
+
     Route::delete('delete-layerType/{id}', [LayerTypeController::class, 'destroy'])->name('delete-layerType');
    
 
@@ -224,7 +230,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 Route::post('add_component', [CostEstimationController::class, 'add_component'])->name('add_component'); 
 Route::post('add_type', [CostEstimationController::class, 'add_type'])->name('add_type'); 
 Route::post('add-document', [DocumentTypeController::class, 'create'])->name('add-document'); 
-Route::post('add-layer', [LayerController::class, 'store'])->name('add-layer'); 
+Route::post('add-layer', [LayerController::class, 'store'])->name('add-layer');
+Route::post('add-service', [ServiceController::class, 'store'])->name('add-service');
+
 Route::post('add-deliveryLayer', [DeliveryTypeController::class, 'store'])->name('add-deliveryLayer'); 
 
 
@@ -236,7 +244,8 @@ Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role
     Route::post('update_type/{id}', [CostEstimationController::class, 'update_type'])->name('update_type');
 
     Route::post('update-layer/{id}', [LayerController::class, 'update'])->name('update-layer');
-
+    Route::post('update-service/{id}', [ServiceController::class, 'update'])->name('update-service');
+    
     Route::post('update-layerType/{id}', [LayerTypeController::class, 'update'])->name('update-layerType');
 
     Route::post('update-deliveryLayer/{id}', [DeliveryTypeController::class, 'update'])->name('update-deliveryLayer');
@@ -252,7 +261,8 @@ Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role
     Route::get('edit_component/{id}', [CostEstimationController::class, 'edit_component'])->name('edit_component');
     Route::get('edit_type/{id}', [CostEstimationController::class, 'edit_type'])->name('edit_type');
     Route::get('edit-layer/{id}', [LayerController::class, 'edit'])->name('edit-layer');
-
+    Route::get('edit-service/{id}', [ServiceController::class, 'edit'])->name('edit-service');
+    
     Route::get('edit-layerType/{id}', [LayerTypeController::class, 'edit'])->name('edit-layerType');
 
     

@@ -67,7 +67,7 @@
                     </div> 
                     
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Building Type</label>
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Layer Type</label>
                         <div class="col-sm-12">
                             <select  class="form-select" aria-label="ngSelected"  ng-model="module_layerType.layer_id" name="layer_id"    ng-required="true">
                                 <option value="" selected>Select</option>  

@@ -7,7 +7,7 @@ use App\Interfaces\ProjectTypeRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
+use App\Http\Requests\ProjectTypeCreateRequest;
 class ProjectTypeController extends Controller
 {
     protected $projectTypeRepository;
@@ -32,7 +32,7 @@ class ProjectTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): JsonResponse 
+    public function store(ProjectTypeCreateRequest $request): JsonResponse 
     {
         $projectType = $request->only([
             "project_type_name","is_active"
@@ -68,7 +68,7 @@ class ProjectTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id,Request $request): JsonResponse 
+    public function update($id,ProjectTypeCreateRequest $request): JsonResponse 
     {
         
         $projectType = $request->only([

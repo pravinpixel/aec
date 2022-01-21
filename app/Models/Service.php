@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Service extends Model
 {
     use HasFactory , SoftDeletes;
-
-    public $fillabl = [
+    protected $table = 'services';
+    protected $primaryKey = 'id';
+    public $fillable = [
         'service_name',
         'is_active'
     ];

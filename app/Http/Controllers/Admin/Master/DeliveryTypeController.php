@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\DeliveryType;
+use App\Http\Requests\DeliveryTypeCreateRequest;
 class DeliveryTypeController extends Controller
 {
     protected $deliveryTypeRepository;
@@ -23,12 +24,13 @@ class DeliveryTypeController extends Controller
      */
     public function index()
     {
-        $data = DeliveryType::orderBy('id', 'DESC')->get();
-        // dd($data);
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        return response()->json($this->deliveryTypeRepository->all());
+        // $data = DeliveryType::orderBy('id', 'DESC')->get();
+        // // dd($data);
+        // if( !empty( $data ) ) {
+        //     return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        // } 
+        // return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -37,7 +39,7 @@ class DeliveryTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) 
+    public function store(DeliveryTypeCreateRequest $request) 
     {
         $module = new DeliveryType;
         $insert = $request->only($module->getFillable());
@@ -81,7 +83,7 @@ class DeliveryTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id) 
+    public function update(DeliveryTypeCreateRequest $request,$id) 
     {
         // return $request->delivery_type_name;
         $module = DeliveryType::find($id);

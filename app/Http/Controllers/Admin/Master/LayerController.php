@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Layer;
+use App\Http\Requests\LayerCreateRequest;
 class LayerController extends Controller
 {
     protected $layerType;
@@ -23,12 +24,13 @@ class LayerController extends Controller
      */
     public function index()
     {
-        $data = Layer::orderBy('id', 'DESC')->get();
-        // dd($data);
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        return response()->json($this->layerType->all());
+        // $data = Layer::orderBy('id', 'DESC')->get();
+        // // dd($data);
+        // if( !empty( $data ) ) {
+        //     return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        // } 
+        // return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -37,7 +39,7 @@ class LayerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LayerCreateRequest $request)
     {
         $module = new Layer;
         $insert = $request->only($module->getFillable());
@@ -72,7 +74,7 @@ class LayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(LayerCreateRequest $request,$id)
     {
         $module = Layer::find($id);
         if( empty( $module ) ) {

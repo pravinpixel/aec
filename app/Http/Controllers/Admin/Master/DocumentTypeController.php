@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\DocumentType;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-
+use App\Http\Requests\DocumentTypeCreateRequest;
 
 class DocumentTypeController extends Controller
 {
@@ -24,13 +24,14 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-        // return response()->json($this->documentTypeRepo->all());
-        $data = DocumentType::all();
         
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        return response()->json($this->documentTypeRepo->all());
+        // $data = DocumentType::all();
+        
+        // if( !empty( $data ) ) {
+        //     return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        // } 
+        // return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -38,7 +39,7 @@ class DocumentTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(DocumentTypeCreateRequest $request)
     {
         
         $module = new DocumentType;
@@ -103,7 +104,7 @@ class DocumentTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DocumentTypeCreateRequest $request, $id)
     {
         $module = DocumentType::find($id);
         if( empty( $module ) ) {

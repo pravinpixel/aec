@@ -8,7 +8,7 @@ use App\Models\Role;
 use App\Models\Employee;
 use App\Models\BuildingComponent;
 use App\Models\Type;
-
+use App\Http\Requests\RoleCreateRequest;
 use App\Models\MasterCalculation;
 
 use Illuminate\Http\Response;
@@ -24,7 +24,7 @@ class EmployeeController extends Controller
     {
         return view('admin.pages.employee-add');
     }
-    public function add_role(Request $request)
+    public function add_role(RoleCreateRequest $request)
     {
         // return $request->all();
         $module = new Role;
@@ -36,7 +36,7 @@ class EmployeeController extends Controller
         }
         return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
-    public function update_role( Request $request,$id)
+    public function update_role( RoleCreateRequest $request,$id)
     {
         // return $id;
         

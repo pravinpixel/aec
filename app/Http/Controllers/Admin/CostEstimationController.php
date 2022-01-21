@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\CostEstimationDetail;
 use App\Models\CostEstimationCalculation;
 use App\Models\MasterCalculation;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\BuildingComponent;
 use App\Models\Type;
-
+use App\Http\Requests\ComponentCreateRequest;
+use App\Http\Requests\TypeCreateRequest;
 use function PHPSTORM_META\type;
 
 class CostEstimationController extends Controller
@@ -380,7 +382,7 @@ class CostEstimationController extends Controller
         return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
     
-    public function add_component(Request $request)
+    public function add_component(ComponentCreateRequest $request)
     {
         // return $request->all();
         // dd($request->all());
@@ -394,7 +396,7 @@ class CostEstimationController extends Controller
         }
         return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
-    public function add_type(Request $request)
+    public function add_type(TypeCreateRequest $request)
     {
         // return $request->all();
         // dd($request->all());
@@ -426,7 +428,7 @@ class CostEstimationController extends Controller
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
     
-    public function update_component( Request $request,$id)
+    public function update_component( ComponentCreateRequest $request,$id)
     {
         // return $id;
         
@@ -440,7 +442,7 @@ class CostEstimationController extends Controller
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
-    public function update_type( Request $request,$id)
+    public function update_type(TypeCreateRequest $request,$id)
     {
         // return $id;
         
