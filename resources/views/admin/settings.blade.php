@@ -46,10 +46,36 @@
                                 <i class="mdi mdi-type-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block">Cost Estimation Type</span>
                             </a>
-                            <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                            <a class="nav-link" id="v-pills-project_type-tab" data-bs-toggle="pill" href="#v-pills-project_type" role="tab" aria-controls="v-pills-project_type"
                                 aria-selected="false">
                                 <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                <span class="d-none d-md-block">Menu</span>
+                                <span class="d-none d-md-block">Project Type</span>
+                            </a>
+                            <a class="nav-link" id="v-pills-document-tab" data-bs-toggle="pill" href="#v-pills-document" role="tab" aria-controls="v-pills-document"
+                                aria-selected="false">
+                                <i class="mdi mdi-document-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Document Type</span>
+                            </a>
+                            <a class="nav-link" id="v-pills-layer-tab" data-bs-toggle="pill" href="#v-pills-layer" role="tab" aria-controls="v-pills-layer"
+                                aria-selected="false">
+                                <i class="mdi mdi-layer-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Layer</span>
+                            </a>
+                            
+                            <a class="nav-link" id="v-pills-DeliveryLayer-tab" data-bs-toggle="pill" href="#v-pills-DeliveryLayer" role="tab" aria-controls="v-pills-DeliveryLayer"
+                                aria-selected="false">
+                                <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Delivery Type</span>
+                            </a>
+                            <a class="nav-link" id="v-pills-layerType-tab" data-bs-toggle="pill" href="#v-pills-layerType" role="tab" aria-controls="v-pills-layerType"
+                                aria-selected="false">
+                                <i class="mdi mdi-layerType-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Layer Type</span>
+                            </a>
+                            <a class="nav-link" id="v-pills-service-tab" data-bs-toggle="pill" href="#v-pills-service" role="tab" aria-controls="v-pills-service"
+                                aria-selected="false">
+                                <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Service Development</span>
                             </a>
                             <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
                                 aria-selected="false">
@@ -230,7 +256,7 @@
                                             <div class="modal-body">
                                                 <form name="RoleModule" class="form-horizontal" novalidate="">
                                                     <div class="form-group error mb-2">
-                                                        <label for="inputEmail3" class="col-sm-12 control-label mb-2">Role Name</label>
+                                                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Role Name</label>
                                                         <div class="col-sm-12">
                                                             <input type="text" class="form-control has-error" id="role_name" name="role_name" placeholder="Type Here.." ng-model="module_role.role" ng-required="true" required>
                                                             <small class="help-inline text-danger">This  Fields is Required</small>
@@ -322,6 +348,23 @@
                             <div class="tab-pane fade" id="v-pills-type" role="tabpanel" aria-labelledby="v-pills-type-tab">
                                @include('admin.setting-tabs.type')
                             </div>
+                            <div class="tab-pane fade" id="v-pills-project_type" role="tabpanel" aria-labelledby="v-pills-project_type-tab">
+                               @include('admin.setting-tabs.project_type')
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-document" role="tabpanel" aria-labelledby="v-pills-document-tab">
+                               @include('admin.setting-tabs.document')
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-layer" role="tabpanel" aria-labelledby="v-pills-layer-tab">
+                               @include('admin.setting-tabs.layer')
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-DeliveryLayer" role="tabpanel" aria-labelledby="v-pills-DeliveryLayer-tab">
+                               @include('admin.setting-tabs.deliveryLayer')
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-layerType" role="tabpanel" aria-labelledby="v-pills-layerType-tab">
+                               @include('admin.setting-tabs.layerType')
+                            </div>
+                            
+                            
                         </div> <!-- end tab-content-->
                     </div> <!-- end col-->
                 </div>
@@ -351,7 +394,7 @@
             padding: 5px 15px !important
         }
         .table thead tr th {
-            padding: 15px !important
+            padding: 10px !important
         }
         
         .form-control.ng-touched   {
@@ -520,6 +563,179 @@
 
                         }
                         }
+                        $scope.layer_status = function (index  , id) {
+                        var url = API_URL + "admin" + "/layer-status";
+                        // getData($http, API_URL);
+
+                        if (id) {
+
+                            url += "/" + id;
+                            method = "PUT";
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function (response) {
+                                
+                                $scope.getLayerData($http, API_URL);
+
+                                Message('success',response.data.msg);
+
+                            }), (function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+
+                        }
+                        }
+                        $scope.layerType_status = function (index  , id) {
+                        var url = API_URL + "admin" + "/layerType-status";
+                        // getData($http, API_URL);
+
+                        if (id) {
+
+                            url += "/" + id;
+                            method = "PUT";
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function (response) {
+                                
+                                $scope.getLayerTypeData($http, API_URL);
+
+                                Message('success',response.data.msg);
+
+                            }), (function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+
+                        }
+                        }
+                        $scope.deliveryLayer_status = function (index  , id) {
+                        var url = API_URL + "admin" + "/deliveryLayer-status";
+                        // getData($http, API_URL);
+
+                        if (id) {
+
+                            url += "/" + id;
+                            method = "PUT";
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function (response) {
+                                
+                                $scope.getDeliveryLayerData($http, API_URL);
+
+                                Message('success',response.data.msg);
+
+                            }), (function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+
+                        }
+                        }
+                        
+                        $scope.document_status = function (index  , id) {
+                         
+                        var url = API_URL + "admin" + "/document_status";
+                        // getData($http, API_URL);
+
+                        if (id) {
+
+                            url += "/" + id;
+                            method = "PUT";
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function (response) {
+                                
+                                $scope.getDocumentData($http, API_URL);
+
+                                Message('success',response.data.msg);
+
+                            }), (function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+
+                        }
+                        }
+                        $scope.document_mandatory = function (index  , id) {
+                         
+                        var url = API_URL + "admin" + "/document_mandatory";
+                        // getData($http, API_URL);
+
+                        if (id) {
+
+                            url += "/" + id;
+                            method = "PUT";
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function (response) {
+                                
+                                $scope.getDocumentData($http, API_URL);
+
+                                Message('success',response.data.msg);
+
+                            }), (function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+
+                        }
+                        }
+                        
+                        $scope.pType_status = function (index  , id) {
+                        var url = API_URL + "projectTypeStatus";
+                        // getData($http, API_URL);
+
+                        if (id) {
+
+                            url += "/" + id;
+                            method = "PUT";
+
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function (response) {
+                                
+                                $scope.getProjectTypeData($http);
+
+                                Message('success',response.data.msg);
+
+                            }), (function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+
+                        }
+                        }
+                        
                     
                     $scope.checkIt = function (index  , id) {
 
@@ -599,8 +815,151 @@
                         });
                     
                     } 
+                    $scope.getDeliveryLayerData = function($http, API_URL) {
+                        var url = API_URL + "admin" + "/get-deliveryLayer";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
+
+                            $scope.deliveryLayer_module_get = response.data.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    
+                    } 
+                    $scope.getLayerData = function($http, API_URL) {
+                        var url = API_URL + "admin" + "/get-layer";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
+
+                            $scope.layer_module_get = response.data.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    
+                    } 
+                    $scope.getLayerTypeData = function($http, API_URL) {
+                        var url = API_URL + "admin" + "/get-layerType";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
+
+                            $scope.layerType_module_get = response.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    
+                    } 
+                    $scope.getDocumentData = function($http, API_URL) {
+                        var url = API_URL + "admin" + "/get_document";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: url,
+                        }).then(function (response) {
+
+                            $scope.document_module_get = response.data.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    
+                    }
+                    
+                    $scope.getLayerTypeData($http, API_URL); 
+                    $scope.getDeliveryLayerData($http, API_URL); 
+                    $scope.getLayerData($http, API_URL); 
+                    $scope.getDocumentData($http, API_URL); 
+                    $scope.getProjectTypeData = function($http) {
+                        // var url = API_URL + "admin" + "/project-type";
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: "{{ route('project-type.index') }}",
+                        }).then(function (response) {
+
+                            $scope.pType_module_get = response.data;		
+                            
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                    
+                    } 
+                    
+              
+                    $scope.getProjectTypeData($http);
                     $scope.getTypeData($http, API_URL);
                     $scope.getComponentData($http, API_URL);
+                    $scope.confirmpTypeDelete = function (id) {
+                        
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: API_URL + 'project-type/' + id                                
+							}).then(function (response) {
+								 
+								
+                                $scope.getProjectTypeData($http);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }
                     $scope.getMasterCalculation = function($http, API_URL) {
                     
                         var url = API_URL + "admin" + "/getMasterCalculation";
@@ -758,6 +1117,7 @@
 			            case 'add':
 			                $scope.form_title = "Create Type";
 			                $scope.form_color = "primary";
+                            $scope.resetForm();
                             $('#primary-type-modal').modal('show');
 
 			                break;
@@ -782,6 +1142,179 @@
 			        } 
 			       
 			    }
+                $scope.toggleLayer = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.module = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Create Layer";
+			                $scope.form_color = "primary";
+                            $scope.resetForm();
+                            $('#primary-layer-modal').modal('show');
+
+			                break;
+			            case 'edit':
+			                $scope.form_title = "Update Layer";
+                            $scope.form_color = "success";
+			                $scope.id = id;
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+			                $http.get(API_URL + 'admin/' +'edit-layer/' + id )
+			                    .then(function (response) {
+			                        $scope.module_layer = response.data.data;
+                                    
+                                    $('#primary-layer-modal').modal('show');
+
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                    
+			                    });
+			                break;
+                     
+			            default:
+			                break;
+			        } 
+			       
+			    }
+                $scope.toggleLayerType = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.module = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Create Layer Type";
+			                $scope.form_color = "primary";
+                            $scope.resetForm();
+                            $('#primary-layerType-modal').modal('show');
+
+			                break;
+			            case 'edit':
+			                $scope.form_title = "Update Layer Type";
+                            $scope.form_color = "success";
+			                $scope.id = id;
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+			                $http.get(API_URL + 'admin/' +'edit-layerType/' + id )
+			                    .then(function (response) {
+                                    // alert(JSON.stringify(response.data))
+			                        $scope.module_layerType = response.data.data;
+                                    
+                                    $('#primary-layerType-modal').modal('show');
+
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                    
+			                    });
+			                break;
+                     
+			            default:
+			                break;
+			        } 
+			       
+			    }
+                $scope.toggleDeliveryLayer = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.module = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Create Delivery Layer";
+			                $scope.form_color = "primary";
+                            $scope.resetForm();
+                            $('#primary-deliveryLayer-modal').modal('show');
+
+			                break;
+			            case 'edit':
+			                $scope.form_title = "Update Delivery Layer";
+                            $scope.form_color = "success";
+			                $scope.id = id;
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+			                $http.get(API_URL + 'admin/' +'edit-deliveryLayer/' + id )
+			                    .then(function (response) {
+			                        $scope.module_deliveryLayer = response.data.data;
+                                    
+                                    $('#primary-deliveryLayer-modal').modal('show');
+
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                    
+			                    });
+			                break;
+                     
+			            default:
+			                break;
+			        } 
+			       
+			    }
+                $scope.toggleDocument = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.module = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Create Document";
+			                $scope.form_color = "primary";
+                            $scope.resetForm();
+                            $('#primary-document-modal').modal('show');
+
+			                break;
+			            case 'edit':
+			                $scope.form_title = "Update Document";
+                            $scope.form_color = "success";
+			                $scope.id = id;
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+			                $http.get(API_URL + 'admin/' +'edit-document/' + id )
+			                    .then(function (response) {
+			                        $scope.module_document = response.data.data;
+                                    
+                                    $('#primary-document-modal').modal('show');
+
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                    
+			                    });
+			                break;
+                     
+			            default:
+			                break;
+			        } 
+			       
+			    }
+                $scope.togglepType = function (modalstate, id) {
+			        $scope.modalstate = modalstate;
+			        $scope.module = null;
+			
+			        switch (modalstate) {
+			            case 'add':
+			                $scope.form_title = "Create Project Type";
+			                $scope.form_color = "primary";
+                            $scope.resetForm();
+                            $('#primary-pType-modal').modal('show');
+
+			                break;
+			            case 'edit':
+			                $scope.form_title = "Update Project Type";
+                            $scope.form_color = "success";
+			                $scope.id = id;
+                            method = "GET";
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                            $http({
+							method: method,
+							url: API_URL +'project-type/' + id ,
+							
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+			                        $scope.module_pType = response.data.data;
+                                    
+                                    $('#primary-pType-modal').modal('show');
+
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                    
+			                    });
+			                break;
+                     
+			            default:
+			                break;
+			        } 
+			       
+			    }
+                
 			
 			    //save new record and update existing record
 			    $scope.save = function (modalstate, id) {
@@ -1015,10 +1548,298 @@
 					}
 			        
 			    }
+                $scope.save_layer = function (modalstate, id) {
+					
+			        var url = API_URL + "admin/";
+			        var method = "POST";
+			
+			        //append module id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "update-layer/" + id;
+                        // alert(url)
+			            method = "POST";
+                        // alert(url)
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_layer),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getLayerData($http, API_URL);
+                            $scope.resetForm();
+							    $('#primary-layer-modal').modal('hide');
+                                // $('#primary-layer-modal').reset();
+
+                                Message('success',response.data.msg);
+
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+
+			        }else {
+                        url+="add-layer";
+                        // alert(url)
+                        console.log($scope.module_layer);
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_layer),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getLayerData($http, API_URL);
+                            // $('#primary-component-modal').reset();
+                            $scope.resetForm();
+							//location.reload();
+							$('#primary-layer-modal').modal('hide');
+                            Message('success', response.data.msg);
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
+                $scope.save_layerType = function (modalstate, id) {
+					
+			        var url = API_URL + "admin/";
+			        var method = "POST";
+			
+			        //append module id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "update-layerType/" + id;
+                        // alert(url)
+			            method = "POST";
+                        // alert(url)
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_layerType),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getLayerTypeData($http, API_URL);
+                            $scope.resetForm();
+							    $('#primary-layerType-modal').modal('hide');
+                                // $('#primary-layer-modal').reset();
+
+                                Message('success',response.data.msg);
+
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+
+			        }else {
+                        url+="add-layerType";
+                        // alert(url)
+                        console.log($scope.module_layerType);
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_layerType),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getLayerTypeData($http, API_URL);
+                            // $('#primary-component-modal').reset();
+                            $scope.resetForm();
+							//location.reload();
+							$('#primary-layerType-modal').modal('hide');
+                            Message('success', response.data.msg);
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
+                $scope.save_deliveryLayer = function (modalstate, id) {
+					
+			        var url = API_URL + "admin/";
+			        var method = "POST";
+			
+			        //append module id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "update-deliveryLayer/" + id;
+                        // alert(url)
+			            method = "POST";
+                        // alert(url)
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_deliveryLayer),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getDeliveryLayerData($http, API_URL);
+                            $scope.resetForm();
+							    $('#primary-deliveryLayer-modal').modal('hide');
+                                // $('#primary-layer-modal').reset();
+
+                                Message('success',response.data.msg);
+
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+
+			        }else {
+                        url+="add-deliveryLayer";
+                        // alert(url)
+                        console.log($scope.module_deliveryLayer);
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_deliveryLayer),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getDeliveryLayerData($http, API_URL);
+                            // $('#primary-component-modal').reset();
+                            $scope.resetForm();
+							//location.reload();
+							$('#primary-deliveryLayer-modal').modal('hide');
+                            Message('success', response.data.msg);
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
+                
+                $scope.save_document = function (modalstate, id) {
+					
+			        var url = API_URL + "admin/";
+			        var method = "POST";
+			
+			        //append module id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "update-document/" + id;
+                        // alert(url)
+			            method = "POST";
+                        // alert(url)
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_document),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getDocumentData($http, API_URL);
+                            $scope.resetForm();
+							    $('#primary-document-modal').modal('hide');
+                                // $('#primary-document-modal').reset();
+
+                                Message('success',response.data.msg);
+
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+
+			        }else {
+                        url+="add-document";
+                        // alert(url)
+                        console.log($scope.module_document);
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_document),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getDocumentData($http, API_URL);
+                            // $('#primary-component-modal').reset();
+                            $scope.resetForm();
+							//location.reload();
+							$('#primary-document-modal').modal('hide');
+                            Message('success', response.data.msg);
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
+                
+                $scope.save_pType = function (modalstate, id) {
+					
+			        var url = API_URL;
+			        var method = "POST";
+			
+			        //append module id to the URL if the form is in edit mode
+			        if (modalstate === 'edit') {
+			            url += "project-type/" + id;
+                        // alert(url)
+			            method = "PUT";
+                       
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_pType),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+						
+                            $scope.getProjectTypeData($http);
+                           
+							    $('#primary-pType-modal').modal('hide');
+                                $scope.resetForm();
+                                // $('#primary-pType-modal').reset();
+
+                                Message('success',response.data.msg);
+
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+
+			        }else {
+                        url+="project-type";
+                        // alert(url)
+                        console.log($scope.module_pType);
+						$http({
+							method: method,
+							url: url,
+							data: $.param($scope.module_pType),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function (response) {
+							 
+                            $scope.getProjectTypeData($http);
+                            // $('#primary-component-modal').reset();
+                            $scope.resetForm();
+							//location.reload();
+							$('#primary-pType-modal').modal('hide');
+                            Message('success', response.data.msg);
+						}), (function (error) {
+							console.log(error);
+							console.log('This is embarassing. An error has occurred. Please check the log for details');
+						});
+					}
+			        
+			    }
                 $scope.resetForm =  function() {
                     $scope.module_role = {};
                     $scope.module_comp = {};
                     $scope.module_type = {};
+                    $scope.module_pType = {};
+                    $scope.module_layer = {};
+                    $scope.module_layerType = {};
+                    $scope.module_deliveryLayer = {};
+                    $scope.module_document = {};
                     $scope.RoleModule.$setPristine();
                     $scope.RoleModule.$setValidity();
                     $scope.RoleModule.$setUntouched();
@@ -1028,6 +1849,22 @@
                     $scope.TypeModule.$setPristine();
                     $scope.TypeModule.$setValidity();
                     $scope.TypeModule.$setUntouched();
+                    $scope.pTypeModule.$setPristine();
+                    $scope.pTypeModule.$setValidity();
+                    $scope.pTypeModule.$setUntouched();
+                    $scope.DocumentModule.$setPristine();
+                    $scope.DocumentModule.$setValidity();
+                    $scope.DocumentModule.$setUntouched();
+                    $scope.LayerModule.$setPristine();
+                    $scope.LayerModule.$setValidity();
+                    $scope.LayerModule.$setUntouched();
+                    $scope.deliveryLayerModule.$setPristine();
+                    $scope.deliveryLayerModule.$setValidity();
+                    $scope.deliveryLayerModule.$setUntouched();
+                    $scope.LayerTypeModule.$setPristine();
+                    $scope.LayerTypeModule.$setValidity();
+                    $scope.LayerTypeModule.$setUntouched();
+                    
                     
                 }
 			    //delete record
@@ -1079,7 +1916,8 @@
 					});
 			       
 			    }
-
+                
+                
                 $scope.confirmTypeDelete = function (id) {
                     var url = API_URL + 'admin/' + 'delete_type/';
 			        // var isConfirmDelete = confirm('Are you sure you want this record?');
@@ -1129,6 +1967,241 @@
 					});
 			       
 			    }
+                $scope.confirmLayerDelete = function (id) {
+                    var url = API_URL + 'admin/' + 'delete-layer/';
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: url + id                              
+							}).then(function (response) {
+								 
+                                $scope.getLayerData($http, API_URL);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }
+                $scope.confirmLayerTypeDelete = function (id) {
+                    var url = API_URL + 'admin/' + 'delete-layerType/';
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: url + id                              
+							}).then(function (response) {
+								 
+                                $scope.getLayerTypeData($http, API_URL);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }
+
+                getComponentLayerData = function($http, API_URL) {
+
+                    angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                    // http://localhost/AEC_PREFAB/aec/module?page=1
+                    $http({
+                        method: 'GET',
+                        url: API_URL + "admin/component-data"
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        $scope.component_module_name = response.data.data;		
+                        // $scope.employee_module.epm_id = response.data.data.emp_id.id;
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+                    }
+                    getLayerTypeData = function($http, API_URL) {
+
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        // http://localhost/AEC_PREFAB/aec/module?page=1
+                        $http({
+                            method: 'GET',
+                            url: API_URL + "admin/layer-data"
+                        }).then(function (response) {
+                            // alert(JSON.stringify(response))
+                            $scope.layer_module_name = response.data.data;		
+                            // $scope.employee_module.epm_id = response.data.data.emp_id.id;
+                        }, function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+                        }
+                    
+                        getLayerTypeData($http, API_URL);
+                    getComponentLayerData($http, API_URL);
+
+                $scope.confirmDeliveryLayerDelete = function (id) {
+                    var url = API_URL + 'admin/' + 'delete-deliveryLayer/';
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: url + id                              
+							}).then(function (response) {
+								 
+                                $scope.getDeliveryLayerData($http, API_URL);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }
+                
+                $scope.confirmDocumentDelete = function (id) {
+                    var url = API_URL + 'admin/' + 'delete_document/';
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: url + id                              
+							}).then(function (response) {
+								 
+                                $scope.getDocumentData($http, API_URL);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }
+                
                 $scope.confirmComponentDelete = function (id) {
                     var url = API_URL + 'admin/' + 'delete_component/';
 			        // var isConfirmDelete = confirm('Are you sure you want this record?');

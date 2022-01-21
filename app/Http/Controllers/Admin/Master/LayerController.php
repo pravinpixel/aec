@@ -7,7 +7,7 @@ use App\Interfaces\LayerRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
+use App\Models\Layer;
 class LayerController extends Controller
 {
     protected $layerType;
@@ -23,7 +23,12 @@ class LayerController extends Controller
      */
     public function index()
     {
-        return response()->json($this->layerType->all());
+        $data = Layer::orderBy('id', 'DESC')->get();
+        // dd($data);
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -32,18 +37,17 @@ class LayerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): JsonResponse 
+    public function store(Request $request)
     {
-        $layerType = $request->only([
-           
-        ]);
-
-        return response()->json(
-            [
-                'data' => $this->layerType->create($layerType)
-            ],
-            Response::HTTP_CREATED
-        );
+        $module = new Layer;
+        $insert = $request->only($module->getFillable());
+     
+        // $insert['order_id'] =  Module::get()->count() + 1;
+        $res = Layer::create($insert);
+        if($res) {
+            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
+        }
+        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
 
     /**
@@ -52,13 +56,13 @@ class LayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request): JsonResponse 
+    public function edit($id) 
     {
-        $layerTypeId = $request->route('id');
-
-        return response()->json([
-            'data' => $this->layerType->find($layerTypeId)
-        ]);
+        $data = Layer::find($id);
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -68,16 +72,17 @@ class LayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request): JsonResponse 
+    public function update(Request $request,$id)
     {
-        $layerTypeId = $request->route('id');
-        $layerType = $request->only([
-           
-        ]);
-
-        return response()->json([
-            'data' => $this->layerType->update($layerType, $layerTypeId)
-        ]);
+        $module = Layer::find($id);
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $res = $module->update($request->only($module->getFillable()));
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
     /**
      * Remove the specified resource from storage.
@@ -85,10 +90,30 @@ class LayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request): JsonResponse 
+    public function layer_status($id)
     {
-        $layerTypeId = $request->route('id');
-        $this->layerType->delete($layerTypeId);
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        $module = Layer::find($id);
+
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->is_active = !$module->is_active;
+        $res = $module->save();
+
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    public function destroy($id) 
+    {
+        $module = Layer::find($id);
+        if (empty($module)) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        $module->is_active = 2;
+        $module->save();
+        $module->delete();
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
 }

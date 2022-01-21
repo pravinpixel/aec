@@ -10,7 +10,7 @@ class DeliveryType extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public $fillabel = [
+    public $fillable = [
         'delivery_type_name',
         'is_active'
     ];

@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 use App\Interfaces\DocumentTypeRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Models\DocumentType;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+
 
 class DocumentTypeController extends Controller
 {
@@ -20,7 +24,13 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-        return response()->json($this->documentTypeRepo->all());
+        // return response()->json($this->documentTypeRepo->all());
+        $data = DocumentType::all();
+        
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -28,9 +38,25 @@ class DocumentTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        
+        $module = new DocumentType;
+        $module->document_type_name = $request->document_type_name;
+        $module->slug = Str::slug($request->document_type_name, "_");
+        $module->is_active = $request->is_active;
+        if($request->is_mandatory == true)
+        {
+            $module->is_mandatory = 1;
+        }
+        else{
+            $module->is_mandatory = 0;
+        }
+        $res = $module->save();
+        if($res) {
+            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
+        }
+        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
 
     /**
@@ -63,7 +89,11 @@ class DocumentTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DocumentType::find($id);
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -75,7 +105,23 @@ class DocumentTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $module = DocumentType::find($id);
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+      
+        $module->document_type_name = $request->document_type_name;
+        
+        $module->slug = Str::slug($request->document_type_name, "_");
+        $module->is_active = $request->is_active;
+        $module->is_mandatory =  !$module->is_mandatory;
+        
+        $res = $module->update();
+        // $res = $module->update($request->only($module->getFillable()));
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -86,6 +132,43 @@ class DocumentTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $module = DocumentType::find($id);
+        if (empty($module)) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        $module->is_active = 2;
+        $module->save();
+        $module->delete();
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+    }
+    public function document_status($id)
+    {
+        $module = DocumentType::find($id);
+
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->is_active = !$module->is_active;
+        $res = $module->save();
+
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    public function document_mandatory($id)
+    {
+        $module = DocumentType::find($id);
+
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->is_mandatory = !$module->is_mandatory;
+        $res = $module->save();
+
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

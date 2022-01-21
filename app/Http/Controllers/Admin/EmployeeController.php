@@ -100,7 +100,7 @@ class EmployeeController extends Controller
     public function employee_role()
     {
         # code...
-        $data = Role::select('id','role')->get();
+        $data = Role::select('id','role')->where('status','=','1')->get();
         
         // return $data;
         if( !empty( $data ) ) {
@@ -217,8 +217,7 @@ class EmployeeController extends Controller
     }
     public function employeeEdit($id)
     {
-      
-      
+
         $id = $id;
         return view('admin.pages.employee-edit',compact('id'));
        

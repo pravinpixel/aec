@@ -34,9 +34,23 @@ class ProjectTypeRepository implements ProjectTypeRepositoryInterface{
 
     public function delete($id)
     {
-        return $this->model->destroy($id);
+         $projectType = $this->model->find($id);
+         $projectType->is_active=2;
+         $projectType->save();
+         return $projectType->delete();
     }
-
+    public function updateStatus($id)
+    {
+        // return $this->model->find($id);
+        // $module->is_active = !$module->is_active;
+        if (null ==  $projectType = $this->model->find($id)) {
+            throw new ModelNotFoundException("Status Not Updated");
+        }
+        $projectType->is_active =  !$projectType->is_active;
+        $projectType->save();
+        return  $projectType;
+        
+    }
     public function find($id)
     {
         if (null ==  $projectType = $this->model->find($id)) {

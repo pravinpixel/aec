@@ -1,8 +1,8 @@
 <div class="card">                              <!-- @{{component_module_get}} -->
     <div class="card-header ">
         <div class="d-flex justify-content-between">
-            <h3 class="haeder-title">Cost Estimation Type</h3>
-            <button class="btn btn-primary " ng-click="toggleType('add', 0)">Create New Type</button>
+            <h3 class="haeder-title">Layer</h3>
+            <button class="btn btn-primary " ng-click="toggleLayer('add', 0)">Create New Layer</button>
         </div>
     </div>
     <div class="card-body">
@@ -16,20 +16,20 @@
             </thead>
         
             <tbody>
-                <tr ng-repeat="(index,type) in type_module_get">
+                <tr ng-repeat="(index,layer) in layer_module_get">
                     
-                    <td class="align-items-center">@{{ type.type_name }}</td>
+                    <td class="align-items-center">@{{ layer.layer_name }}</td>
 
                     <td>
                         <div>
-                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="type.is_active == 1" data-switch="primary"/>
-                            <label for="switch__@{{index}}" data-on-label="On" ng-click="type_status(index,type.id)" data-off-label="Off"></label>
+                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="layer.is_active == 1" data-switch="primary"/>
+                            <label for="switch__@{{index}}" data-on-label="On" ng-click="layer_status(index,layer.id)" data-off-label="Off"></label>
                         </div>              
                     </td>
                     <td class="text-center" >
                         <div class="btn-group">
-                            <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleType('edit', type.id)"><i class="fa fa-edit"></i></button>
-                            <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmTypeDelete(type.id)"><i class="fa fa-trash"></i></button>
+                            <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleLayer('edit', layer.id)"><i class="fa fa-edit"></i></button>
+                            <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmLayerDelete(layer.id)"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
                     
@@ -40,7 +40,7 @@
     </div>
     <div class="card-fooetr"></div>
 </div> 
-<div id="primary-type-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="@{{form_color}}-header-modalLabel" aria-hidden="true">
+<div id="primary-layer-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="@{{form_color}}-header-modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header modal-colored-header bg-@{{form_color}}">
@@ -48,11 +48,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-                <form name="TypeModule" class="form-horizontal" novalidate="">
+                <form name="LayerModule" class="form-horizontal" novalidate="">
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Type Name</label>
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Layer Name</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control has-error" id="type_name" name="type_name" placeholder="Type Here.." ng-model="module_type.type_name" ng-required="true" required>
+                            <input type="text" class="form-control has-error" id="layer_name" name="layer_name" placeholder="Type Here.." ng-model="module_layer.layer_name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
                     </div> 
@@ -60,11 +60,11 @@
                         <div class="col-12 pt-3">
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
-                                    <input type="radio"  ng-checked="module_type.is_active == 1" id="active" value="1" ng-model="module_type.is_active" name="is_active" class="form-check-input"  ng-required="true">
+                                    <input type="radio"  ng-checked="module_layer.is_active == 1" id="active" value="1" ng-model="module_layer.is_active" name="is_active" class="form-check-input"  ng-required="true">
                                     <label class="form-check-label" for="active">Active</label>
                                 </div>
                                 <div class="form-check form-check-inline form-radio-dark">
-                                    <input type="radio" ng-checked="module_type.is_active == 0" id="Deactive" value="0" ng-model="module_type.is_active" name="is_active" class="form-check-input" ng-required="true">
+                                    <input type="radio" ng-checked="module_layer.is_active == 0" id="Deactive" value="0" ng-model="module_layer.is_active" name="is_active" class="form-check-input" ng-required="true">
                                     <label class="form-check-label" for="Deactive">Deactive</label>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_type(modalstate, id); $event.stopPropagation();" ng-disabled="module_type.$invalid">Submit</button>
+                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_layer(modalstate, id); $event.stopPropagation();" ng-disabled="module_layer.$invalid">Submit</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

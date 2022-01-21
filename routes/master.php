@@ -14,6 +14,8 @@ Route::resource('building-type', BuildingTypeController::class);
 
 Route::resource('delivery-type', DeliveryTypeController::class);
 
+Route::put('projectTypeStatus/{id}', [ProjectTypeController::class,'updateStatus'])->name('project-type.update-status');
+
 Route::resource('project-type', ProjectTypeController::class);
 
 Route::resource('service', ServiceController::class);

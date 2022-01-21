@@ -12,7 +12,7 @@ class LayerType extends Model
     public $fillable = [
         'building_component_id',
         'layer_id',
-        'layer_name',
+        'layer_type_name',
         'is_active',
     ];
 }
