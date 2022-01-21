@@ -35,12 +35,13 @@ class ProjectTypeController extends Controller
     public function store(Request $request): JsonResponse 
     {
         $projectType = $request->only([
-           
+            "project_type_name","is_active"
         ]);
 
         return response()->json(
             [
-                'data' => $this->projectTypeRepository->create($projectType)
+                'data' => $this->projectTypeRepository->create($projectType),
+                'status' => true, 'msg' => trans('module.inserted')
             ],
             Response::HTTP_CREATED
         );
@@ -52,12 +53,11 @@ class ProjectTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request): JsonResponse 
+    public function show($id): JsonResponse 
     {
-        $projectType = $request->route('id');
 
         return response()->json([
-            'data' => $this->projectTypeRepository->find($projectType)
+            'data' => $this->projectTypeRepository->find($id)
         ]);
     }
 
@@ -68,15 +68,17 @@ class ProjectTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request): JsonResponse 
+    public function update($id,Request $request): JsonResponse 
     {
-        $projectTypeId = $request->route('id');
+        
         $projectType = $request->only([
-           
+            "project_type_name","is_active"
         ]);
 
         return response()->json([
-            'data' => $this->projectTypeRepository->update($projectType, $projectTypeId)
+            'data' => $this->projectTypeRepository->update($projectType, $id),
+            'status' => true, 'msg' => trans('module.updated'),
+             
         ]);
     }
     /**
@@ -85,11 +87,20 @@ class ProjectTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request): JsonResponse 
+    public function updateStatus(Request $request)
     {
+        # code...
         $projectType = $request->route('id');
+        $this->projectTypeRepository->updateStatus($projectType);
+        // return response()->json(null, Response::HTTP_NO_CONTENT);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $projectType], Response::HTTP_OK);
+    }
+    public function destroy($id) 
+    {
+        // dd($request->id);
+        $projectType = $id;
         $this->projectTypeRepository->delete($projectType);
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$projectType], Response::HTTP_OK);
     }
 
 }

@@ -32,5 +32,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(GanttChartSeeder::class);
         $this->call(TasksTableSeeder::class);
         $this->call(LinksTableSeeder::class);
+        $this->call(CostTasksTableSeeder::class);
+        $this->call(CostLinksTableSeeder::class);
+        
     }
 }

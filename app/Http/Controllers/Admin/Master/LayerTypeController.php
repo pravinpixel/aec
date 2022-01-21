@@ -8,6 +8,9 @@ use App\Repositories\LayerTypeRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\BuildingComponent;
+use App\Models\LayerType;
+use App\Models\Layer;
 
 class LayerTypeController extends Controller
 {
@@ -33,20 +36,19 @@ class LayerTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): JsonResponse 
+    public function store(Request $request)
     {
-        $layerType = $request->only([
-           
-        ]);
-
-        return response()->json(
-            [
-                'data' => $this->layerType->create($layerType)
-            ],
-            Response::HTTP_CREATED
-        );
+        // dd($request->all());
+        $module = new LayerType;
+        $insert = $request->only($module->getFillable());
+     
+        // $insert['order_id'] =  Module::get()->count() + 1;
+        $res = LayerType::create($insert);
+        if($res) {
+            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
+        }
+        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
-
     /**
      * Display the specified resource.
      *
@@ -69,16 +71,26 @@ class LayerTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request): JsonResponse 
+    public function update(Request $request,$id) 
     {
-        $layerTypeId = $request->route('id');
-        $layerType = $request->only([
-           
-        ]);
-
-        return response()->json([
-            'data' => $this->layerType->update($layerType, $layerTypeId)
-        ]);
+        // return $id;
+        $module = LayerType::find($id);
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $res = $module->update($request->only($module->getFillable()));
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    public function edit($id) 
+    {
+        $data = LayerType::find($id);
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
     /**
      * Remove the specified resource from storage.
@@ -86,11 +98,39 @@ class LayerTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request): JsonResponse 
+    public function component_data()
     {
-        $layerTypeId = $request->route('id');
-        $this->layerType->delete($layerTypeId);
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        # code...
+        $data = BuildingComponent::select('id','building_component_name')->where('is_active','=','1')->get();
+        
+        // return $data;
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    }
+    public function layer_data()
+    {
+        # code...
+        $data = Layer::select('id','layer_name')->where('is_active','=','1')->get();
+        
+        // return $data;
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    }
+    
+    public function destroy($id) 
+    {
+        $module = LayerType::find($id);
+        if (empty($module)) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        $module->is_active = 2;
+        $module->save();
+        $module->delete();
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
 
     public function getLayerTypeByComponentId(Request $request)
@@ -100,4 +140,20 @@ class LayerTypeController extends Controller
         $result = $this->layerType->getLayerTypeByComponentId($building_component_id, $layer_id);
         return response()->json($result);
     }
+    public function layerType_status($id)
+    {
+        $module = LayerType::find($id);
+
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->is_active = !$module->is_active;
+        $res = $module->save();
+
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    
 }

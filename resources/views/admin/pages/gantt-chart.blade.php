@@ -15,45 +15,48 @@
                     @include('admin.layouts.page-navigater')
                 
                     <div class="app" ng-controller="InvoiceCtrl">
-                        <div class="card mt-3" >
-                            <div class="card shadow-sm border" id="myCover" >
-                                <div class="gantt_control card-header p-0">
-                                    <div class="row m-0 p-0 bg-light"> 
-                                        <div class="btn-group text-center align-items-center justify-content-center col-10 p-0">
-                                            <div class="form-check  px-4">
-                                                <input type="radio" id="customRadiocolor1" name="scale" value="day" class="form-check-input" >
-                                                <label class="form-check-label" for="customRadiocolor1">Day scale</label>
-                                            </div>
-                                            <div class="form-check form-radio-success  px-4">
-                                                <input type="radio" id="customRadiocolor2" name="scale" value="week" class="form-check-input" checked>
-                                                <label class="form-check-label" for="customRadiocolor2">Week scale</label>
-                                            </div>
-                                            <div class="form-check form-radio-info  px-4">
-                                                <input type="radio" id="customRadiocolor3" name="scale"  value="month" class="form-check-input" >
-                                                <label class="form-check-label" for="customRadiocolor3">Month scale</label>
-                                            </div>
-                                            <div class="form-check form-radio-secondary  px-4">
-                                                <input type="radio" id="customRadiocolor6" name="scale" value="quarter" class="form-check-input" >
-                                                <label class="form-check-label" for="customRadiocolor6">Quarter scale</label>
-                                            </div>
-                                            <div class="form-check form-radio-warning px-4">
-                                                <input type="radio" id="customRadiocolor4" name="scale"  value="year" class="form-check-input" >
-                                                <label class="form-check-label" for="customRadiocolor4">Year scale</label>
+                        <div class="card mt-3">
+                            <div class="card" id="myCover"> 
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between border">
+                                        <div class="btn-group">
+                                            <button onclick="toggleNav(this)" class="btn hover-btn rounded-0"><i class="mdi toggle-icons mdi-folder-open mdi-folder"></i></button>                    
+                                            <button onclick="gantt.undo()" class="btn hover-btn  rounded-0"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_undo_24.png"> Undo</button>
+                                            <button onclick="gantt.redo()" class="btn hover-btn  rounded-0"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_redo_24.png"> Redo</button>
+                                            <button onclick="updateCriticalPath(this)" class="btn hover-btn  rounded-0"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_critical_path_24.png"> Critical Path</button>
+                                            <div class="dropdown btn p-0 hover-btn  rounded-0">
+                                                <button class="dropdown-toggle btn rounded-0 hover-btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class=" dripicons-scale"></i> Scale
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><label class="dropdown-item"><input class="me-2" type="radio" name="scale" value="day" checked/>Day scale</label></li>
+                                                    <li><label class="dropdown-item"><input class="me-2" type="radio" name="scale" value="week"/>Week scale</label></li>
+                                                    <li><label class="dropdown-item"><input class="me-2" type="radio" name="scale" value="month"/>Month scale</label></li>
+                                                    <li><label class="dropdown-item"><input class="me-2" type="radio" name="scale" value="year"/>Year scale</label></li>
+                                                </ul>
                                             </div> 
                                         </div>
-                                        <div class="gantt_control text-end p-0 col">
-                                            <div class="btn-group badge-primary-lighten text-white">
-                                                <button class="btn text-primary" onclick="zoomOut()"><i class="feather-zoom-out"></i></button>
-                                                <button class="btn text-primary" onclick="zoomIn()"><i class="feather-zoom-in"></i></button>
-                                                <button class="btn text-primary" onclick="gantt.ext.fullscreen.toggle();"><i class="feather-maximize"></i></button>
+                                        <div class="btn-group">
+                                            <div class="dropdown btn p-0 hover-btn rounded-0">
+                                                <button class="dropdown-toggle btn hover-btn rounded-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="mdi mdi-export"></i> Export
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"> 
+                                                    <li onclick='gantt.exportToPNG()'><a href="" class="dropdown-item">PNG</a></li>
+                                                    <li onclick='gantt.exportToPDF()'><a href="" class="dropdown-item">PDF</a></li>
+                                                    <li onclick='gantt.exportToExcel()'><a href="" class="dropdown-item">Excel</a></li>
+                                                </ul>
                                             </div>
+                                            <button class="btn hover-btn  rounded-0" onclick="zoomOut()"><i class="feather-zoom-out"></i></button>
+                                            <button class="btn hover-btn  rounded-0" onclick="zoomIn()"><i class="feather-zoom-in"></i></button>
+                                            <button onclick="gantt.ext.fullscreen.toggle();" class=" btn hover-btn"><i class="mdi mdi-arrow-expand-all"></i></button>
                                         </div>
+                                    </div> 
+                                    <div>
+                                        <div id="gantt_here" style="min-height: 400px !important" class="w-100"></div>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <div id="gantt_here" style='width:100%; height:calc(95vh - 52px); '></div>
-                                </div>
-                            </div>  
+                            </div> 
                         </div> 
                     </div>
                     
@@ -67,42 +70,77 @@
 
     @push('custom-styles')
         
-        <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet" />
-        <style>
-            /* .gantt_container {
-                min-height: 300px !important;
-            }  */
-             .admin-Project_Schedule-wiz .timeline-step .inner-circle{
-                background: #757CF2 !important;
-                transform: scale(1.2);
-                box-shadow: 0px 5px 10px #4f4f4fb2 !important
-            }
-            .navbar-custom, .leftside-menu {
-                z-index: 1 !important;
-            }
-            /*.gantt_grid_head_cell, .gantt_task_scale {
-                background: #757CF2 !important;
-                color: white !important
-            }
-            .gantt_task_scale .gantt_scale_cell {
-                color: white !important
-            }
-            .gantt_grid_head_cell.gantt_grid_head_add {
-                opacity: 1 !important;
-            } */
-           
-        </style> 
+    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> 
+
+<style>  
+    
+    .admin-Project_Schedule-wiz .timeline-step .inner-circle{
+        background: #757CF2 !important;
+        transform: scale(1.2);
+        box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    } 
+    .hover-btn:hover {
+        background: #d1d1d1 !important
+    }
+    .weekend {
+        background: #EEF2F7 !important;
+        color: black !important;
+        opacity: .5 !important;
+    } 
+   
+    .navbar-custom, .leftside-menu {
+        z-index: 1 !important;
+    }
+</style>  
     @endpush
     
 
     @push('custom-scripts')
         
 
-        <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
-        
-        <script>
-            var URL = "{{ route("ganttChart_data") }}";
-            
+ 
+ 
+
+    
+   
+    <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script>
+    <script src="http://export.dhtmlx.com/gantt/api.js"></script>  
+   
+    <script type="text/javascript">
+        // ======= PlugIns ============
+            gantt.plugins({
+                auto_scheduling: true,
+                undo: true,
+                fullscreen: true,
+                tooltip: true ,
+                marker: true,
+                critical_path: true 
+            });
+            gantt.config.row_height = 30;
+        // ======= PlugIns ============
+
+        function updateCriticalPath(toggle) {
+            toggle.enabled = !toggle.enabled;
+            if (toggle.enabled) { 
+                gantt.config.highlight_critical_path = true;
+            } else { 
+                gantt.config.highlight_critical_path = false;
+            }
+            gantt.render();
+        }
+        // gantt.config.work_time = true;  // removes non-working time from calculations 
+        // gantt.config.skip_off_time = true;    // hides non-working time in the chart
+        //============ Today Flag ==============
+            var dateToStr = gantt.date.date_to_str(gantt.config.task_date);
+            var markerId = gantt.addMarker({
+                start_date: new Date(), //a Date object that sets the marker's date
+                css: "today", //a CSS class applied to the marker
+                text: "Today", //the marker title
+                title: dateToStr( new Date()) // the marker's tooltip
+            });
+        //============ Today Flag ==============
+
+        // ================== Zoom Config ========
             var zoomConfig = {
                 levels: [
                     {
@@ -167,52 +205,7 @@
             gantt.ext.zoom.attachEvent("onAfterZoom", function(level, config){
                 document.querySelector(".gantt_radio[value='" +config.name+ "']").checked = true;
             }) 
-            
-            gantt.plugins({
-                fullscreen: true
-            });
-            
 
-            gantt.ext.fullscreen.getFullscreenElement = function() {
-                return document.getElementById("myCover");
-            }
-            gantt.init("gantt_here");
-            gantt.load(URL);
-            
-            // gantt.config.root_id = "root"; 
-
-            gantt.attachEvent("onTaskCreated", function(task){
-                task.enqid = enquiryid;
-                task.etype = 0; 
-                gantt.render();
-                return true;
-            });
-            
-            gantt.attachEvent("onAfterTaskAdd", function(id,item){
-                location.reload()
-            });
-            gantt.attachEvent("onAfterTaskUpdate", function(id,item){
-                location.reload()
-            });
-            gantt.attachEvent("onAfterTaskDelete", function(id,item){
-                location.reload()
-            });
-
-            gantt.attachEvent("onLinkCreated", function(link){
-                link.enqid = enquiryid;
-                link.etype = 0;
-                gantt.render();
-                return true; 
-            });
-            
-            gantt.attachEvent("onLightboxSave", function(id, task, is_new){
-                var task = gantt.getTask(id); 
-                task.text = "Task #10";  
-                gantt.refreshTask(id);
-                gantt.render();
-                return true;
-            });
-            
             function zoomIn(){
                 gantt.ext.zoom.zoomIn();
             }
@@ -229,48 +222,125 @@
                 };
             } 
 
-            var dp = new gantt.dataProcessor(URL);
-            var enquiryid = 0 ;
+        // ================= Zoom Config ====================
+
+        // ====== REST API setTransactionMode ==========            
+            
+            var dp = new gantt.dataProcessor("{{ url("api/cost") }}");
             dp.init(gantt);
             dp.setTransactionMode("REST");
-            
-            gantt.attachEvent("onTaskCreated", function(task){
-                task.enqid = enquiryid;
-                task.etype = 0;
-                gantt.render();
-                return true;
-                console.log(enquiryid);
-
-            });
-            
-            // console.log(enquiryid);
-            
-            gantt.attachEvent("onLinkCreated", function(link){
-                link.enqid = enquiryid;
-                link.etype = 0;
-                gantt.render();
-                return true;
-            });
-            
-            gantt.attachEvent("onLightboxSave", function(id, task, is_new){
-                
-                var task = gantt.getTask(id);
-
-                task.text = "Task #10"; 
-
-                gantt.refreshTask(id);
-                gantt.render();
-                return true;
-            });
-            
-            // resourcesStore.parse([// resources
-            //     {key: '', label: "Invoice"},
-                
-            // ]);
-
-            
-        </script>
+        // ====== REST API setTransactionMode ==========
         
+        //=== ==Floder Togglle Function =============
+            function toggleNav(toggle) {
+                toggle.enabled = !toggle.enabled;
+                if (toggle.enabled) {
+                    gantt.eachTask(function(task){
+                        task.$open = false;
+                    });
+                    gantt.render();
+                    $( ".toggle-icons" ).removeClass( "mdi-folder-open" )
+                } else {
+                    gantt.eachTask(function(task){
+                        task.$open = true;
+                    });
+                    gantt.render();
+                    $( ".toggle-icons" ).addClass( "mdi-folder-open" )
+                }
+                gantt.render();
+            }
+            
+        //=== ==Floder Togglle Function =============
+ 
+        //  ====== Extra Column ==========
+            gantt.config.auto_types = true;
+            gantt.config.columns = [
+                {name: "wbs", label: "S.no", width:50,  template: gantt.getWBSCode},
+                {name: "text", label: "Task name", tree: true, width: 170},
+                {name: "start_date", align: "center", width: 90},
+                {name: "duration", align: "center", width: 60}, 
+                {name: "add", width: 40}
+            ];
+        //  ====== Extra Column ==========
+
+         
+        // =========Weekend Color code changing ============
+            var daysStyle = function(date){
+                var dateToStr = gantt.date.date_to_str("%D");
+                if (dateToStr(date) == "Sun"||dateToStr(date) == "Sat")  return "weekend";        
+                return "";
+            }; 
+            
+            gantt.templates.scale_cell_class = function(date) {
+                if (!gantt.isWorkTime(date))
+                    return "weekend";
+            };
+            gantt.templates.timeline_cell_class = function(item, date) {
+                if (!gantt.isWorkTime(date))
+                    return "weekend";
+            };
+            gantt.config.work_time = true;
+            gantt.config.auto_scheduling = true;
+            gantt.config.auto_scheduling_strict = true;
+        // =========Weekend Color code changing ============
+ 
+        //  Date Formate
+        gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
+
+        //  Select Html element For Gantt Chart
+        gantt.init("gantt_here");
+
+        // Load Data For Gantt Chart
+        gantt.load("{{ route("costData") }}");
+ 
+
+        // =============== Expand  fullscreen =============
+    
+            gantt.ext.fullscreen.getFullscreenElement = function() {
+                return document.getElementById("myCover");
+            } 
+        // =============== Expand  fullscreen =============
+         
+        // =============== For Milestone Input ========
+            gantt.config.scales = [{unit:"day", format:"%D", css:daysStyle }];
+                
+                var colors = [
+                    {key:"", label:"Default"},
+                    {key:"#4B0082",label:"Indigo"},
+                    {key:"#FFFFF0",label:"Ivory"},
+                    {key:"#F0E68C",label:"Khaki"} 
+                ];
+
+                var Type_of_Task = [
+                    {key:"task",label:"Task"},
+                    {key:"milestone",label:"Milestone"},
+                ];
+                    
+            gantt.config.lightbox.sections = [
+                {name: "description", height: 70, map_to: "text", type: "textarea"}, 
+                {name: "type", type: "select", height: 30, map_to: "type", options:Type_of_Task},
+                // {name: "priority", type: "select", height: 30, map_to: "color", options:colors},
+                {name: "time", height: 72, type: "duration", map_to: "auto"},
+            ];
+        // =============== For Milestone Input ========
+
+        
+        // ============= Color Code Changing===========
+            gantt.templates.grid_header_class = function(columnName, column){
+                if(columnName == 'duration' ||columnName == 'text') {
+                    return "updColor";
+                }
+                
+                if(columnName == 'start_date' ||columnName == 'text') {
+                    return "updColor"; 
+                }
+                
+            };
+        // ============= Color Code Changing===========
+
+         
+    </script> 
+
     
         
     @endpush

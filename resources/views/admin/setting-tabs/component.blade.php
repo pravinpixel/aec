@@ -2,7 +2,7 @@
                                     <!-- @{{component_module_get}} -->
                                     <div class="card-header ">
                                         <div class="d-flex justify-content-between">
-                                            <h3 class="haeder-title">Component</h3>
+                                            <h3 class="haeder-title">Cost Estimation Component</h3>
                                             <button class="btn btn-primary " ng-click="toggleComponent('add', 0)">Create New Component</button>
                                         </div>
                                     </div>
@@ -51,7 +51,7 @@
                                             <div class="modal-body">
                                                 <form name="ComponentModule" class="form-horizontal" novalidate="">
                                                     <div class="form-group error mb-2">
-                                                        <label for="inputEmail3" class="col-sm-12 control-label mb-2">Component Name</label>
+                                                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Component Name</label>
                                                         <div class="col-sm-12">
                                                             <input type="text" class="form-control has-error" id="building_component_name" name="building_component_name" placeholder="Type Here.." ng-model="module_comp.building_component_name" ng-required="true" required>
                                                             <small class="help-inline text-danger">This  Fields is Required</small>
@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_component(modalstate, id); $event.stopPropagation();" ng-disabled="module.$invalid">Submit</button>
+                                                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_component(modalstate, id); $event.stopPropagation();" ng-disabled="module_comp.$invalid">Submit</button>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->

@@ -6,10 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DocumentType extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     public function getCreatedAtAttribute($date)
     {

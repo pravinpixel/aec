@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CostEstimationController;
 use App\Http\Controllers\Admin\GanttChartController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\Master\ProjectTypeController;
+use App\Http\Controllers\Admin\Master\DocumentTypeController;
+use App\Http\Controllers\Admin\Master\LayerController;
+use App\Http\Controllers\Admin\Master\DeliveryTypeController;
+use App\Http\Controllers\Admin\Master\LayerTypeController;
+
 use App\Http\Controllers\Auth\AuthController;
 
 /*
@@ -124,7 +130,7 @@ Route::prefix('admin')->group(function () {
    
     Route::get('/admin-cost-estimation-single-view', [CostEstimationController::class,'cost_estimation_single_view'])->name('cost-estimation-single-view');
     Route::get('/admin-gantt-chart-single-view', [GanttChartController::class,'gantt_chart_single_view'])->name('admin-gantt-chart-single-view');
-    Route::get('/all-employees', [EmployeeController::class,'employee_control_view'])->name('admin-employee-control-view');
+    Route::get('/admin-employee-control-view', [EmployeeController::class,'employee_control_view'])->name('admin-employee-control-view');
 
     Route::get('/proposal-conversation', function () {
         return view('admin.pages.proposal-conversation');
@@ -153,12 +159,43 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('costMasterVal', [CostEstimationController::class, 'costMasterVal'])->name('costMasterVal');
     Route::get('get_component', [CostEstimationController::class, 'get_component'])->name('get_component');
     Route::get('get_type', [CostEstimationController::class, 'get_type'])->name('get_type');
+    Route::get('get_document', [DocumentTypeController::class, 'index'])->name('get_document');
+    Route::get('get-layer', [LayerController::class, 'index'])->name('get-layer');
+    Route::get('get-layerType', [LayerTypeController::class, 'index'])->name('get-layerType');
+    Route::get('component-data', [LayerTypeController::class, 'component_data'])->name('component-data');
+    Route::get('layer-data', [LayerTypeController::class, 'layer_data'])->name('layer-data');
+
+    
+    Route::get('get-deliveryLayer', [DeliveryTypeController::class, 'index'])->name('get-deliveryLayer');
+   
     
     Route::put('component_status/{id}', [CostEstimationController::class, 'component_status'])->name('component_status');
     Route::put('type_status/{id}', [CostEstimationController::class, 'type_status'])->name('type_status');
+    Route::put('layer-status/{id}', [LayerController::class, 'layer_status'])->name('layer-status');
+    Route::put('layerType-status/{id}', [LayerTypeController::class, 'layerType_status'])->name('layerType-status');
+
+
+
+    Route::put('deliveryLayer-status/{id}', [DeliveryTypeController::class, 'deliveryLayer_status'])->name('deliveryLayer-status');
+    
+    
+    Route::put('document_status/{id}', [DocumentTypeController::class, 'document_status'])->name('document_status');
+    Route::put('document_mandatory/{id}', [DocumentTypeController::class, 'document_mandatory'])->name('document_mandatory');
     
     Route::delete('delete_component/{id}', [CostEstimationController::class, 'delete_component'])->name('delete_component');
     Route::delete('delete_type/{id}', [CostEstimationController::class, 'delete_type'])->name('delete_type');
+    Route::delete('delete-layer/{id}', [LayerController::class, 'destroy'])->name('delete-layer');
+    Route::delete('delete-layerType/{id}', [LayerTypeController::class, 'destroy'])->name('delete-layerType');
+   
+
+    Route::delete('delete-deliveryLayer/{id}', [DeliveryTypeController::class, 'destroy'])->name('delete-deliveryLayer');
+    
+    
+
+
+    Route::delete('delete_document/{id}', [DocumentTypeController::class, 'destroy'])->name('delete_document');
+
+    
     
     // Route::get('/data',[ GanttChartController::class, 'getData'])->name('data');
     // Route::get('/ganttChart/data',[ GanttChartController::class, 'getData'])->name('ganttChart.data');
@@ -186,11 +223,26 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 
 Route::post('add_component', [CostEstimationController::class, 'add_component'])->name('add_component'); 
 Route::post('add_type', [CostEstimationController::class, 'add_type'])->name('add_type'); 
-   
+Route::post('add-document', [DocumentTypeController::class, 'create'])->name('add-document'); 
+Route::post('add-layer', [LayerController::class, 'store'])->name('add-layer'); 
+Route::post('add-deliveryLayer', [DeliveryTypeController::class, 'store'])->name('add-deliveryLayer'); 
+
+
+Route::post('add-layerType', [LayerTypeController::class, 'store'])->name('add-layerType'); 
+
 Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role');
     Route::post('update_role/{id}', [EmployeeController::class, 'update_role'])->name('update_role');
     Route::post('update_component/{id}', [CostEstimationController::class, 'update_component'])->name('update_component');
     Route::post('update_type/{id}', [CostEstimationController::class, 'update_type'])->name('update_type');
+
+    Route::post('update-layer/{id}', [LayerController::class, 'update'])->name('update-layer');
+
+    Route::post('update-layerType/{id}', [LayerTypeController::class, 'update'])->name('update-layerType');
+
+    Route::post('update-deliveryLayer/{id}', [DeliveryTypeController::class, 'update'])->name('update-deliveryLayer');
+    
+    Route::post('update-document/{id}', [DocumentTypeController::class, 'update'])->name('update-document');
+    
     
     Route::get('get_role', [EmployeeController::class, 'get_role'])->name('get_role');
     // Route::get('get_role', [EmployeeController::class, 'get_role'])->name('get_role');
@@ -199,16 +251,26 @@ Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role
 
     Route::get('edit_component/{id}', [CostEstimationController::class, 'edit_component'])->name('edit_component');
     Route::get('edit_type/{id}', [CostEstimationController::class, 'edit_type'])->name('edit_type');
+    Route::get('edit-layer/{id}', [LayerController::class, 'edit'])->name('edit-layer');
+
+    Route::get('edit-layerType/{id}', [LayerTypeController::class, 'edit'])->name('edit-layerType');
+
+    
+
+    Route::get('edit-deliveryLayer/{id}', [DeliveryTypeController::class, 'edit'])->name('edit-deliveryLayer');
+    
+    Route::get('edit-document/{id}', [DocumentTypeController::class, 'edit'])->name('edit-document');
     
     Route::delete('delete_role/{id}', [EmployeeController::class, 'delete_role'])->name('delete_role');
 
     Route::get('employee_role', [EmployeeController::class, 'employee_role'])->name('employee_role');
+    
     Route::get('add-employee', [EmployeeController::class, 'employee_add'])->name('employee-add');
     Route::post('add_employee', [EmployeeController::class, 'add_employee'])->name('add_employee');
     Route::get('getEmployeeId', [EmployeeController::class, 'getEmployeeId'])->name('getEmployeeId');
     Route::get('get_employee', [EmployeeController::class, 'get_employee'])->name('get_employee');
     Route::delete('employee_delete/{id}', [EmployeeController::class, 'employee_delete'])->name('employee_delete');
-    Route::get('    /{id}', [EmployeeController::class, 'employeeEdit'])->name('employeeEdit');
+    Route::get('employeeEdit/{id}', [EmployeeController::class, 'employeeEdit'])->name('employeeEdit');
     Route::get('get_EditEmployee/{id}', [EmployeeController::class, 'get_EditEmployee'])->name('get_EditEmployee');
     
     Route::POST('update_employee/{id}', [EmployeeController::class, 'update_employee'])->name('update_employee');

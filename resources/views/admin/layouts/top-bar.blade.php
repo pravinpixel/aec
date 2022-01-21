@@ -97,7 +97,7 @@
                         
                         <div class="row g-0 p-0 m-0">
                             <div class="col p-2">
-                                <a class="dropdown-icon-item" href="{{ route('cost-estimation-single-view') }}">
+                                <a class="dropdown-icon-item" href="{{ route('admin-gantt-chart-single-view') }}">
                                     <img src="{{ asset('public/assets/images/gantt-chart.png') }}" alt="slack">
                                     <span>Gantt chart</span>
                                 </a>
