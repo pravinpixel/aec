@@ -2,8 +2,8 @@
 
 @section('customer-content')
    
-    <div class="content-page">
-        <div class="content">
+    <div class="content-page" ng-app="App">
+        <div class="content" ng-controller="enquiryModalCtrl">
 
             @include('customers.layouts.top-bar')
 
@@ -15,7 +15,6 @@
                 @include('customers.layouts.page-navigater')
 
                 <!-- end page title --> 
-               
                 <div class="card">
                     <div  class="card-header ">
                         <div class="d-flex justify-content-between ">
@@ -44,20 +43,16 @@
                                 @foreach ($data as $key => $row)
                                     <tr>
                                         <td>{{ $key +1 }}</td>
-                                        <td> 
-                                           
-                                                {{ $row->enquiry_number }}
-                                            
-                                        </td>
+                                        <td ng-click="getEnquiry('project_info',{{  $row->id  }})"> <span class="badge badge-primary-lighten btn p-2" >{{ $row->enquiry_number }} </span> </td>
                                         <td>{{ $row->projectType->project_type_name ?? '' }}</td>
                                         <td>{{ $row->no_of_building ?? '' }}</td>
                                         <td>{{ $row->enquiry_date }}</td>
                                         <td>
-                                            <div class="btn-group" data-bs-toggle="modal" data-bs-target="#right-modal-progress">
-                                                <button class="btn progress-btn {{  $row->project_info == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button>
-                                                <button class="btn progress-btn {{  $row->service == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button>
-                                                <button class="btn progress-btn {{  $row->ifc_model_upload == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button>
-                                                <button class="btn progress-btn {{  $row->building_component == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
+                                            <div class="btn-group">
+                                                <button ng-click="getEnquiry('project_info',{{  $row->id  }})" class="btn progress-btn {{  $row->project_info == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button>
+                                                <button ng-click="getEnquiry('service',{{  $row->id  }})" class="btn progress-btn {{  $row->service == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button>
+                                                <button ng-click="getEnquiry('ifc_model',{{  $row->id  }})" class="btn progress-btn {{  $row->ifc_model_upload == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button>
+                                                <button ng-click="getEnquiry('building_component',{{  $row->id  }})" class="btn progress-btn {{  $row->building_component == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
                                             </div>
                                         </td>
                                         <td>	
@@ -75,7 +70,7 @@
                     </div>
                 </div> 
             </div> <!-- container -->
-
+            @include('customers.pages.enquiryWizard.enquiry-detail-modal')
         </div> <!-- content --> 
     </div> 
 
@@ -139,320 +134,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-    <div id="right-modal-progress" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
-            <div class="modal-content h-100 p-4" style="overflow: auto">
-                
-                    <button type="button" class="btn-close me-3" data-bs-dismiss="modal" aria-hidden="true"></button>
-              
-                <h3>Project Name : <b>XXX</b></h3>
-                <div class="card mt-3">
-                    <div class="card-body p-2">
-                        <table class="table table-bordered m-0">
-                            <tr>
-                                <th>Enquiry Number</th>
-                                <th>Name</th>
-                                <th>Company Name</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Type Of Project</th>
-                            </tr>
-                            <tr>
-                                <td>ENQXXX</td>
-                                <td>Nishantha Kumar</td>
-                                <td>Solen Tech</td>
-                                <td>9876764875</td>
-                                <td>NishanthaNishantha@gmail.com</td>
-                                <td>New</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div> 
-                <div class="card">
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item m-0">
-                          <h2 class="accordion-header m-0" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Project Information
-                            </button>
-                          </h2>
-                          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="row mx-0 container ">
-                                    <div class="col-12 text-center">
-                                        <h4 class="f-20 m-0 p-3">Project Information</h4>
-                                    </div>
-                                    <div class="col-md-6 p-3">
-                                        <table class="table m-0  table-bordered">
-                                            <tbody>
-                                                    <tr class="border">
-                                                        <th  class=" ">Project Name
-                                                        </th><td  class="bg-white">ABCD Building</td>
-                                                    </tr> 
-                                                    <tr class="border">
-                                                        <th  class=" ">Construction Site Address
-                                                        </th><td  class="bg-white">Strandgata-12</td>
-                                                    </tr> 
-                                                    <tr class="border">
-                                                        <th  class=" ">Post Code
-                                                        </th><td  class="bg-white">2134</td>
-                                                    </tr> 
-                                                    <tr class="border">
-                                                        <th  class=" ">Place
-                                                        </th><td  class="bg-white">Austvath</td>
-                                                    </tr> 
-                                                    <tr class="border">
-                                                        <th  class=" ">State
-                                                        </th><td  class="bg-white">Hedmark</td>
-                                                    </tr> 
-                                                    <tr class="border">
-                                                        <th  class=" ">Country
-                                                        </th><td  class="bg-white">Norway</td>
-                                                    </tr> 
-                                                    <tr class="border">
-                                                        <th  class=" ">Type of Project
-                                                        </th><td  class="bg-white">1</td>
-                                                    </tr> 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6 p-3">
-                                        <table class="table m-0   table-bordered">
-                                        <tbody><tr class="border">
-                                                <th  class=" ">Type of Building
-                                                </th><td  class="bg-white">2</td>
-                                            </tr> 
-                                            <tr class="border">
-                                                <th  class=" ">Number of Buildings
-                                                </th><td  class="bg-white">2</td>
-                                            </tr> 
-                                            <tr class="border">
-                                                <th  class=" ">Type of Delivery
-                                                </th><td  class="bg-white">1</td>
-                                            </tr> 
-                                            <tr class="border">
-                                                <th  class=" ">Deliveryd Date 
-                                                </th><td  class="bg-white">2021-02-25</td>
-                                            </tr> 
-                                            <tr class="border">
-                                                <th  class=" ">State
-                                                </th><td  class="bg-white">non</td>
-                                            </tr> 
-                                            <tr class="border">
-                                                <th  class=" ">Contact Person name
-                                                </th><td  class="bg-white">XXXXXXX </td>
-                                            </tr> 
-                                            <tr class="border">
-                                                <th  class=" ">E-post
-                                                </th><td  class="bg-white">dummyemail@gmail.com</td>
-                                            </tr> 
-                                        </tbody></table>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Services Selection
-                            </button>
-                          </h2>
-                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="row mx-0 container ">
-                                    <div class="col-12 text-center">
-                                        <h4 class="f-20 m-0 p-3">Selected Services</h4>
-                                    </div>
-                                    <div class="col-md-6 p-3 mx-auto">
-                                        <table class="table m-0   table-bordered">
-                                            <tbody>
-                                                <tr class="border">
-                                                    <th class="bg-primary text-white">S.no</th>
-                                                    <th class="bg-primary text-white">Services</th>
-                                                </tr> 
-                                            <tr class="border">
-                                                <td class=" ">1
-                                                </td><td class="bg-white">CAD / CAM Modelling</td>
-                                            </tr>  
-                                            <tr class="border">
-                                                <td class=" ">2
-                                                </td><td class="bg-white">Approval Drawings</td>
-                                            </tr>  
-                                        </tbody></table>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    FC Model & Upload Docs 
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <table class="table m-0  ">
-                                                                    
-                                        <tbody>
-                                            <tr>
-                                                <th class="">S.no
-                                                </th><th class="">File Name</th>
-                                                <th class="">Type</th>
-                                                <th class="">Action</th>
-                                            </tr> 
-                                            <tr class="border">
-                                            <th class="bg-white">1
-                                            </th><td class="bg-white">Modelling</td>
-                                            <td class="bg-white">IFC Modelling</td>
-                                            <td>
-                                                <i class="feather-eye text-success mr-3"></i>
-                                                <i class="feather-trash text-danger"></i>
-                                            </td>
-                                        </tr>  
-                                        <tr class="border">
-                                            <th class="bg-white">1
-                                            </th><td class="bg-white">Modelling</td>
-                                            <td class="bg-white">IFC Modelling</td>
-                                            <td>
-                                                <i class="feather-eye text-success mr-3"></i>
-                                                <i class="feather-trash text-danger"></i>
-                                            </td>
-                                        </tr>  
-                                        <tr class="border">
-                                            <th class="bg-white">1
-                                            </th><td class="bg-white">Modelling</td>
-                                            <td class="bg-white">IFC Modelling</td>
-                                            <td>
-                                                <i class="feather-eye text-success mr-3"></i>
-                                                <i class="feather-trash text-danger"></i>
-                                            </td>
-                                        </tr>  
-                                        <tr class="border">
-                                            <th class="bg-white">1
-                                            </th><td class="bg-white">Modelling</td>
-                                            <td class="bg-white">IFC Modelling</td>
-                                            <td>
-                                                <i class="feather-eye text-success mr-3"></i>
-                                                <i class="feather-trash text-danger"></i>
-                                            </td>
-                                        </tr>  
-                                        <tr class="border">
-                                            <th class="bg-white">1
-                                            </th><td class="bg-white">Modelling</td>
-                                            <td class="bg-white">IFC Modelling</td>
-                                            <td>
-                                                <i class="feather-eye text-success mr-3"></i>
-                                                <i class="feather-trash text-danger"></i>
-                                            </td>
-                                        </tr>  
-                                    </tbody></table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThreer">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreer" aria-expanded="false" aria-controls="collapseThree">
-                                    Building components
-                                </button>
-                            </h2>
-                            <div id="collapseThreer" class="accordion-collapse collapse" aria-labelledby="headingThreer" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <div class="row mx-0 container ">
-                                        <div class="col-12 text-center">
-                                            <h4 class="f-20 m-0 p-3">Building components</h4>
-                                        </div>
-                                        <div class="col-md-8 p-3 mx-auto">
-                                            <table class="table m-0 table-bordered ">
-                                                
-                                                <tbody>
-                                                    <tr>
-                                                        <th  class="bg-primary text-white">EW_DEWS
-                                                        </th>
-                                                        <th  class="bg-primary text-white">
-                                                            Delivery Type : Element Type
-                                                        </th>
-                                                        <th  class="bg-primary text-white">
-                                                            Total : 10
-                                                        </th>
-                                                    </tr> 
-                                                <tr class="border  ">
-                                                    <td>Layer Details</td>
-                                                    <td>Dimensions ( mm )</td>
-                                                    <td>Estimates length ( mm )</td>
-                                                </tr>
-                                                <tr class="border">
-                                                    <td>Horizontal Nails</td>
-                                                    <td>250X298</td>
-                                                    <td>0.58</td>
-                                                </tr>  
-                                                <tr class="border">
-                                                    <td>Horizontal Nails</td>
-                                                    <td>250X298</td>
-                                                    <td>0.58</td>
-                                                </tr>  
-                                                <tr class="border">
-                                                    <td>Horizontal Nails</td>
-                                                    <td>250X298</td>
-                                                    <td>0.58</td>
-                                                </tr>  
-                                                <tr class="border">
-                                                    <td>Horizontal Nails</td>
-                                                    <td>250X298</td>
-                                                    <td>0.58</td>
-                                                </tr>  
-                                                <tr class="border">
-                                                    <td>Horizontal Nails</td>
-                                                    <td>250X298</td>
-                                                    <td>0.58</td>
-                                                </tr>  
-                                                <tr class="border">
-                                                    <td>Horizontal Nails</td>
-                                                    <td>250X298</td>
-                                                    <td>0.58</td>
-                                                </tr>  
-                                                <tr class="border">
-                                                    <td>Horizontal Nails</td>
-                                                    <td>250X298</td>
-                                                    <td>0.58</td>
-                                                </tr>  
-                                            </tbody></table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThreew">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreew" aria-expanded="false" aria-controls="collapseThreew">
-                                    Additional Info
-                                </button>
-                            </h2>
-                            <div id="collapseThreew" class="accordion-collapse collapse" aria-labelledby="headingThreew" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <div class="col-md-10 p-0 mx-auto  border">
-                                        <div class="col-12  text-center p-2  ">
-                                            Additional Info
-                                        </div>
-                                        <div class="p-2">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus numquam illum sint perspiciatis tempore cumque ipsa asperiores tempora earum molestias aperiam doloremque facere placeat officiis iure, ea eum architecto sunt?
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 text-center mt-4">
-                                        <button class="btn button_print btn-info mx-2 px-3 btn-rounded">
-                                            Print
-                                        </button> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+<!-- /.modal -->
 
 @endsection
 
@@ -503,6 +185,7 @@
 @endpush
 
 @push('custom-scripts')
+    <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
     <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
@@ -515,4 +198,35 @@
     <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
+    <script>
+        var app = angular.module('App', []).constant('API_URL', $("#baseurl").val());
+        app.controller('enquiryModalCtrl', function($scope,  $http, API_URL) {
+           
+            $scope.getEnquiry = (type,id) =>  {
+                $(".accordion-collapse").addClass('collapsed');
+                $(".accordion-collapse").removeClass('show');
+                $(".accordion-collapse").addClass('collapse');
+                    $http({
+                        method: 'GET',
+                        url: `${API_URL}customers/edit-enquiry-review/${id}`,
+                    }).then(function (res){
+                        $scope.enquiry = res.data;
+                        $("#right-modal-progress").modal('show');
+                        // $(`[data-bs-target=#${old}]`).addClass('collapsed');
+                        $(`#${type}`).addClass('show');
+                     
+                    }, function (error) {
+                        console.log('ifc_model_uploads error');
+                    });
+            }
+
+            $scope.printToCart = function(printSectionId) {
+                var innerContents = document.getElementById(printSectionId).innerHTML;
+                var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+                popupWinindow.document.open();
+                popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
+                popupWinindow.document.close();
+            }
+        });
+    </script>
 @endpush

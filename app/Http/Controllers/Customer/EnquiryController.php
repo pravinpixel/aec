@@ -278,6 +278,7 @@ class EnquiryController extends Controller
     public function formatProjectInfo($enquiry) 
     {
         return [
+            'enquiry_no'           => $enquiry->enquiry_number,
             'company_name'         => $enquiry->customer->company_name,
             'contact_person'       => $enquiry->customer->contact_person,
             'mobile_no'            => $enquiry->customer->mobile_no,
