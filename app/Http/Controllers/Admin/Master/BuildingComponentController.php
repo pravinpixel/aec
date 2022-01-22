@@ -35,7 +35,8 @@ class BuildingComponentController extends Controller
     public function store(Request $request): JsonResponse 
     {
         $buildingComponent = $request->only([
-           
+           'building_component_name',
+           'is_active'
         ]);
 
         return response()->json(
@@ -72,7 +73,8 @@ class BuildingComponentController extends Controller
     {
         $buildingComponentId = $request->route('id');
         $buildingComponent = $request->only([
-           
+            'building_component_name',
+            'is_active'
         ]);
 
         return response()->json([

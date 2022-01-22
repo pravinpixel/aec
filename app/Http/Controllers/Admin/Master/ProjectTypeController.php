@@ -89,15 +89,12 @@ class ProjectTypeController extends Controller
      */
     public function updateStatus(Request $request)
     {
-        # code...
         $projectType = $request->route('id');
         $this->projectTypeRepository->updateStatus($projectType);
-        // return response()->json(null, Response::HTTP_NO_CONTENT);
         return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $projectType], Response::HTTP_OK);
     }
     public function destroy($id) 
     {
-        // dd($request->id);
         $projectType = $id;
         $this->projectTypeRepository->delete($projectType);
         return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$projectType], Response::HTTP_OK);

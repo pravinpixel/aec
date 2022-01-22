@@ -11,11 +11,11 @@ use App\Models\Layer;
 use App\Http\Requests\LayerCreateRequest;
 class LayerController extends Controller
 {
-    protected $layerType;
+    protected $layerRepository;
 
-    public function __construct(LayerRepositoryInterface $layerType)
+    public function __construct(LayerRepositoryInterface $layerRepository)
     {
-        $this->layerType = $layerType;
+        $this->layerRepository = $layerRepository;
     }
     /**
      * Display a listing of the resource.
@@ -24,13 +24,8 @@ class LayerController extends Controller
      */
     public function index()
     {
-        return response()->json($this->layerType->all());
-        // $data = Layer::orderBy('id', 'DESC')->get();
-        // // dd($data);
-        // if( !empty( $data ) ) {
-        //     return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        // } 
-        // return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        return response()->json($this->layerRepository->all());
+    
     }
 
     /**
@@ -41,15 +36,17 @@ class LayerController extends Controller
      */
     public function store(LayerCreateRequest $request)
     {
-        $module = new Layer;
-        $insert = $request->only($module->getFillable());
-     
-        // $insert['order_id'] =  Module::get()->count() + 1;
-        $res = Layer::create($insert);
-        if($res) {
-            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
-        }
-        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+        $layer = $request->only([
+            "building_component_id","layer_id","layer_type_name","is_active"
+        ]);
+
+        return response()->json(
+            [
+                'data' => $this->layerRepository->create($layer),
+                'status' => true, 'msg' => trans('module.inserted')
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -60,7 +57,7 @@ class LayerController extends Controller
      */
     public function edit($id) 
     {
-        $data = Layer::find($id);
+        $data = $this->layerRepository->find($id);
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
@@ -76,15 +73,15 @@ class LayerController extends Controller
      */
     public function update(LayerCreateRequest $request,$id)
     {
-        $module = Layer::find($id);
-        if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        } 
-        $res = $module->update($request->only($module->getFillable()));
-        if( $res ) {
-            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
-        }
-        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+        $layer = $request->only([
+            "building_component_id","layer_id","layer_type_name","is_active"
+        ]);
+
+        return response()->json([
+            'data' => $this->layerRepository->update($layer, $id),
+            'status' => true, 'msg' => trans('module.updated'),
+             
+        ]);
     }
     /**
      * Remove the specified resource from storage.
@@ -94,7 +91,7 @@ class LayerController extends Controller
      */
     public function layer_status($id)
     {
-        $module = Layer::find($id);
+        $module = $this->layerRepository->find($id);
 
         if( empty( $module ) ) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
@@ -107,15 +104,10 @@ class LayerController extends Controller
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
+    
     public function destroy($id) 
     {
-        $module = Layer::find($id);
-        if (empty($module)) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        }
-        $module->is_active = 2;
-        $module->save();
-        $module->delete();
-        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+        $this->layerRepository->delete($id);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
 }
