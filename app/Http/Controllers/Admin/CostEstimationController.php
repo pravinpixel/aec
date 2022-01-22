@@ -185,6 +185,32 @@ class CostEstimationController extends Controller
         
        return back();
     }
+
+    public function getMasterCalculation()
+    {
+        // print_r("s");die();
+        $data['component'] = BuildingComponent::all();
+        $data['type'] = Type::all();
+        $arr=[];
+	// print_r($data['type']);die();
+        foreach($data['component'] as $key=>$comp)
+        {
+            // print_r($comp->id);die();
+            $arr_type=[];
+            foreach($data['type'] as $key1=>$type )
+            {
+                // print_r($comp['id']." ".$type['id']);
+                // print_r("        ");
+                // $arr[$comp->id][$type];
+                $arr_type[$type->id] = MasterCalculation::where('component_id',$comp['id'])->where('type_id',$type['id'])->first() ?? 0;
+                // array_push($arr['comp_id']['type_id'][],$val);
+            }
+            $arr[$comp->id]=$arr_type;
+        }
+        // dd($arr);
+      return view('admin.pages.calculationView', compact('data','arr'));
+      
+    }
     public function costEstimationDelete(Request $id)
     {
       

@@ -260,6 +260,8 @@ Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role
 
     Route::get('edit_component/{id}', [CostEstimationController::class, 'edit_component'])->name('edit_component');
     Route::get('edit_type/{id}', [CostEstimationController::class, 'edit_type'])->name('edit_type');
+    Route::get('getMasterCalculation', [CostEstimationController::class, 'getMasterCalculation'])->name('getMasterCalculation');
+    
     Route::get('edit-layer/{id}', [LayerController::class, 'edit'])->name('edit-layer');
     Route::get('edit-service/{id}', [ServiceController::class, 'edit'])->name('edit-service');
     
@@ -287,7 +289,7 @@ Route::post('add_role', [EmployeeController::class, 'add_role'])->name('add_role
     Route::put('employee_status/{id}', [EmployeeController::class, 'employee_status'])->name('employee_status');
     Route::get('employee-enquiry/{id}', [EmployeeController::class, 'employee_enquiry'])->name('employee-enquiry');
    
-    Route::get('getMasterCalculation', [EmployeeController::class, 'getMasterCalculation'])->name('getMasterCalculation');
+ 
    
     
 });

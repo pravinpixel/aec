@@ -1540,6 +1540,7 @@
 						}).then(function (response) {
 							 
                             $scope.getComponentData($http, API_URL);
+                             $scope.getMasterCalculation($http, API_URL);
                             $scope.resetForm();
 							    $('#primary-component-modal').modal('hide');
                                 $('#primary-component-modal').reset();
@@ -1565,6 +1566,7 @@
 							 
                             $scope.getComponentData($http, API_URL);
                             // $('#primary-component-modal').reset();
+                            $scope.getMasterCalculation($http, API_URL);
                             $scope.resetForm();
 							//location.reload();
 							$('#primary-component-modal').modal('hide');
@@ -1601,7 +1603,7 @@
                                 $('#primary-type-modal').reset();
 
                                 Message('success',response.data.msg);
-
+                            
 						}), (function (error) {
 							console.log(error);
 							console.log('This is embarassing. An error has occurred. Please check the log for details');

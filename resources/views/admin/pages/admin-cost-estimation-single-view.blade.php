@@ -145,7 +145,7 @@
                                                     </select>
                                                 </td>
                                                 <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="my-control sqm_val" required></td>
-                                                <td  ><input  type="number"  name="addmore[0][complexity]" data-complexity_id="0" id="complexity__0" value="1" class="my-control complexity_val"></td>
+                                                <td  ><input  type="number"  name="addmore[0][complexity]" step="0.1" min="1" max="2" data-complexity_id="0" id="complexity__0" value="1" class="my-control complexity_val"></td>
                                                 <td  ><input  type="number"  name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
                                                 <td  ><input  type="number"  name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
                                                 <td  ><input  type="number"  name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
@@ -441,7 +441,7 @@
                                                     </select>
                                                 </td>
                                                 <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="form-control sqm_val" required></td>
-                                                <td  ><input  type="number"  name="addmore[0][complexity]" data-complexity_id="0" id="complexity__0" value="1" class="form-control complexity_val"></td>
+                                                <td  ><input  type="number"  name="addmore[0][complexity]"  step="0.1" min="1" max="2" data-complexity_id="0" id="complexity__0" value="1" class="form-control complexity_val"></td>
                                                 <td  ><input  type="number"  name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
                                                 <td  ><input  type="number"  name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
                                                 <td  ><input  type="number"  name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
@@ -811,7 +811,7 @@
                  });
                  $('#add_btn').on('click',function(){
                     // calculation_total()
-                    sqm_total()
+                    // sqm_total()
                     complexity_total()
                     // $('.complexity_val ').keyup();
                      ++i;
@@ -848,7 +848,7 @@
                                 $(`#total_sum__${row_id}`).val(msg.data['total_sum']);
                                 $("input.error").removeClass("error");
                                 comp_val = false; type_val = false;row_id=false;
-                           
+                              
                                 detail_change_price()
                                 detail_change_sum()
                                 statistic_change_price()
@@ -862,6 +862,8 @@
                                 total_price_val()
                                 total_sum_val()
                                 calculation_total()
+                                $('.detail_sum').keyup();
+                                $('.complexity_val').keyup();
                                 // sqm_total()
                             }
     
@@ -1121,6 +1123,7 @@
                             
                             'complexity_val': {
                                 required: true,
+                                max: 2,
                             },
                             'addmore[0][component]': {
                                 required: true,
@@ -1274,7 +1277,7 @@
                                 </select>
                             </td>
                             <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="my-control sqm_val" required></td>
-                                <td  ><input  type="number"  name="addmore[0][complexity]" data-complexity_id="0" id="complexity__0" value="1" class="my-control complexity_val"></td>
+                                <td  ><input  type="number"  name="addmore[0][complexity]"  step="0.1" min="1" max="2" data-complexity_id="0" id="complexity__0" value="1" class="my-control complexity_val"></td>
                                 <td  ><input  type="number"  name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
                                 <td  ><input  type="number"  name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
                                 <td  ><input  type="number"  name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
@@ -1432,7 +1435,7 @@
                                                     </select>
                                                 </td>
                                                 <td  ><input  type="number"  name="addmore[${i}][sqm]" data-sqm_id=${i}  value="${detail.sqm}" id="sqm__${i}" class="my-control sqm_val"></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][complexity]" data-complexity_id=${i} value="${detail.complexity}" id="complexity__${i}" class="my-control complexity_val"></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][complexity]" data-complexity_id=${i}  step="0.1" min="1" max="2" value="${detail.complexity}" id="complexity__${i}" class="my-control complexity_val"></td>
                                                 <td  ><input  type="number"  name="addmore[${i}][detail_price]" data-detail-price_id="${i}" value="${detail.detail_price}" id="detail_price__${i}" class="my-control detail_price"></td>
                                                 <td  ><input  type="number" name="addmore[${i}][detail_sum]" data-detail-sum_id="${i}" value="${detail.detail_sum}" id="detail_sum__${i}" class="my-control detail_sum"></td>
                                                 <td  ><input  type="number" name="addmore[${i}][statistic_price]" data-statistic-price_id="${i}" value="${detail.statistic_price}" id="statistic_price__${i}" class="my-control statistic_price"></td>
@@ -1575,7 +1578,7 @@
                                             </select>
                                         </td>
                                         <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="my-control sqm_val" required></td>
-                                        <td  ><input  type="number" name="addmore[0][complexity]" data-complexity_id="0" id="complexity__0" value="1" class="my-control complexity_val"></td>
+                                        <td  ><input  type="number" name="addmore[0][complexity]" data-complexity_id="0"  step="0.1" min="1" max="2" id="complexity__0" value="1" class="my-control complexity_val"></td>
                                         <td  ><input  type="number"  name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
                                         <td  ><input  type="number"  name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
                                         <td  ><input  type="number"  name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
@@ -1693,7 +1696,7 @@
                                             </select>
                                         </td>
                                         <td  ><input  type="number" name="addmore[${i}][sqm]" data-sqm_id=${i} id="sqm__${i}" value="1" class="my-control sqm_val" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][complexity]" data-complexity_id=${i} id="complexity__${i}" value="1" class="my-control complexity_val"  required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][complexity]" data-complexity_id=${i} id="complexity__${i}"  step="0.1" min="1" max="2" value="1" class="my-control complexity_val"  required></td>
                                         <td  ><input  type="number" name="addmore[${i}][detail_price]"  data-detail-price_id=${i} id="detail_price__${i}" value="0" class="my-control detail_price" required></td>
                                         <td  ><input  type="number" name="addmore[${i}][detail_sum]" data-detail-sum_id=${i} id="detail_sum__${i}" value="0" class="my-control detail_sum" required></td>
                                         <td  ><input  type="number" name="addmore[${i}][statistic_price]" data-statistic-price_id=${i} id="statistic_price__${i}" value="0" class="my-control statistic_price" required></td>
@@ -2278,7 +2281,7 @@
                             $('.cad_cam_sum').keyup();
                             $('.logistic_sum').keyup();
                             
-                            
+                            $('.complexity_val').keyup();
                             calculation_total()
                             statistic_change_sum()
                             logistic_change_sum()
