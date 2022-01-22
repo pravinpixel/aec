@@ -24,7 +24,7 @@
             </div>
         @endforeach
     </div>
-    @include('customers.pages.modal') 
+    @include('customer.enquiry.modal') 
     @foreach($customer['document_types']  as $key => $documentType)
         <div class="table-header">
             <h1>{{  Str::of($documentType->document_type_name)->upper() }}</h1>

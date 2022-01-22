@@ -3,7 +3,7 @@
 <html lang="en">
     
     <head>
-        @include('customers.layouts.head')
+        @include('customer.layouts.head')
         
         @stack('custom-styles')
 
@@ -15,7 +15,7 @@
         <div class="wrapper">
 
             <!-- ========== Left Sidebar Start ========== -->
-                @include('customers.layouts.side-bar')
+                @include('customer.layouts.side-bar')
             <!--========== Left Sidebar End ========== -->
 
             <!--========== Start Page Content here ==========-->
@@ -23,7 +23,7 @@
             <!--========== End Page content ==========-->
 
             <!--========== Start Page Footer ==========-->
-                @include('customers.layouts.footer')
+                @include('customer.layouts.footer')
             <!--========== End Page Footer ==========-->
 
         </div>

@@ -5,14 +5,14 @@
     <div class="content-page" ng-app="App">
         <div class="content" ng-controller="enquiryModalCtrl">
 
-            @include('customers.layouts.top-bar')
+            @include('customer.layouts.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 
-                @include('customers.layouts.page-navigater')
+                @include('customer.layouts.page-navigater')
 
                 <!-- end page title --> 
                 <div class="card">
@@ -70,7 +70,7 @@
                     </div>
                 </div> 
             </div> <!-- container -->
-            @include('customers.pages.enquiryWizard.enquiry-detail-modal')
+            @include('customer.enquiry.detail-modal')
         </div> <!-- content --> 
     </div> 
 

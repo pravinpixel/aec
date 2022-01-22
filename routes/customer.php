@@ -49,7 +49,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     
     Route::get('view-list',  function() {
-        return view('customers.pages.enquiryWizard.view-list');
+        return view('customer.enquiry.view-list');
     });
    
 });

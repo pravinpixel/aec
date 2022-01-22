@@ -33,7 +33,7 @@ class DashboardController extends Controller
                                     ->where("is_active", 1)
                                     ->count();
 
-        return view('customers.dashboard.enquiry',
+        return view('customer.dashboard.enquiry',
                     compact(
                         'data',  $data , 
                         'dataActive',  $dataActive ,
@@ -43,7 +43,7 @@ class DashboardController extends Controller
                     )); 
     }
     public function projectDashborad() {
-        return view('customers.dashboard.project');
+        return view('customer.dashboard.project');
         
     }
 }

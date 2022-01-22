@@ -51,13 +51,13 @@ class EnquiryController extends Controller
     public function myEnquiries() 
     {
         $data   =   Enquiry::where("customer_id", Customer()->id)->get();
-        return view('customers.pages.my-enquiries',compact('data',  $data )); 
+        return view('customer.enquiry.index',compact('data',  $data )); 
     }
 
     public function myProjects() 
     {
         $data   =   Enquiry::where("customer_id", Customer()->id)->get();
-        return view('customers.pages.my-projects',compact('data',  $data )); 
+        return view('customer.pages.my-projects',compact('data',  $data )); 
     }
     
     public function myEnquiriesEdit($id) 
@@ -67,7 +67,7 @@ class EnquiryController extends Controller
         if (empty($enquiry)) {
             abort(403, 'Unauthorized action.');
         } else {
-            return view('customers.pages.edit-enquiries',compact('enquiry','id','customer'));
+            return view('customer.enquiry.edit',compact('enquiry','id','customer'));
         }
     }
 
@@ -78,7 +78,7 @@ class EnquiryController extends Controller
         $customer['enquiry_date']       =   now();
         $customer['enquiry_number']     =   GlobalService::enquiryNumber();
         $customer['document_types']     =   $this->documentTypeRepo->all();
-        return view('customers.pages.create-enquiries',compact('customer','enquiry'));
+        return view('customer.enquiry.create',compact('customer','enquiry'));
     }
 
     public function show() 
@@ -304,7 +304,7 @@ class EnquiryController extends Controller
     public function edit($id) {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $customer['document_types']     =   $this->documentTypeRepo->all();
-        return view('customers.pages.edit-enquiries',compact('enquiry','id'));
+        return view('customer.enquiry.edit',compact('enquiry','id'));
     }
 
     public function getPlanViewList(Request $request)
