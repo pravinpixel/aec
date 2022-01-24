@@ -14,17 +14,18 @@ class ServiceSeeder extends Seeder
      */
     public function run()
     {
-        Service::create(['service_name' => 'Approval Drawings, Sections & Plans', 'is_active' => 1]);
-        Service::create(['service_name' => 'Bill of Materials', 'is_active' => 1]);
-        Service::create(['service_name' => 'Building Information Model', 'is_active' => 1]);
-        Service::create(['service_name' => 'CAD/CAM Modeling', 'is_active' => 1]);
-        Service::create(['service_name' => 'CNS Machine Data for Pre-cut', 'is_active' => 1]);
-        Service::create(['service_name' => 'Construction Logistics', 'is_active' => 1]);
-        Service::create(['service_name' => 'Construction Procedure', 'is_active' => 1]);
-        Service::create(['service_name' => 'Details of Connections', 'is_active' => 1]);
-        Service::create(['service_name' => 'Element Installation Drawings', 'is_active' => 1]);
-        Service::create(['service_name' => 'Element Production Drawings', 'is_active' => 1]);
-        Service::create(['service_name' => 'Pre-cut Assembly Drawings', 'is_active' => 1]);
-        Service::create(['service_name' => 'Structural Engineering', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'GA Drawing & Plan Drawing', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'IFC Control Model', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'Logistics Planning Drawing', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'Connection Details', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'CNC Data', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'Installation Sequence Drawing', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'Global Static Calculation (RIB)', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'Fabrication Drawing', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'Element Static Calculation', 'is_active' => 1]);
+        Service::create(['output_type_id' => 1,'service_name' => 'Bill of Material', 'is_active' => 1]);
+
+        Service::create(['output_type_id' => 2,'service_name' => 'Approval Drawings, Sections & Plans', 'is_active' => 1]);
+        Service::create(['output_type_id' => 2,'service_name' => 'Bill of Materials', 'is_active' => 1]);
     }
 }
