@@ -56,7 +56,7 @@
                                             </div>
                                         </td>
                                         <td>	
-                                            <span class="badge bg-success shadow-sm rounded-pill">Active</span>
+                                            <span class="badge bg-success shadow-sm rounded-pill"> {{ $row->status }} </span>
                                         </td>
                                         <td>                                            
                                             <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">

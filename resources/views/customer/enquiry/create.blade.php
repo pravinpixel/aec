@@ -23,7 +23,7 @@
                                
                     <div id="rootwizard" ng-controller="wizard">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                            <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfoForm">
+                            <li class="nav-item"  data-target-form="#projectInfoForm" style="pointer-events:none">
                                 <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step active">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -33,7 +33,7 @@
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection">
+                            <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" >
                                 <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step  ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -44,7 +44,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
+                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" style="pointer-events:none">
                                 <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -55,7 +55,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
+                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
                                 <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -66,7 +66,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation">
+                            <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
                                 <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -77,7 +77,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item last"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit">
+                            <li class="nav-item last"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
                                 <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 40px;"  class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -115,7 +115,9 @@
                             <div class="card-footer border-0 p-0 " >
                                 <ul class="list-inline wizard mb-0 pt-3">
                                     <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-outline-primary">Previous</a></li>
-                                    <li class="next list-inline-item float-end" id="next_" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
+                                    <li class="next list-inline-item float-end" ng-show="currentStep <= 4" id="next_" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
+                                    <li class="next list-inline-item float-end" ng-show="currentStep > 4" id="next_" ng-click="saveOrSubmit('Active')" ><a href="#" class="btn btn-primary">Submit</a></li>
+                                    <li class="next list-inline-item float-end" ng-show="currentStep > 4" id="next_" ng-click="saveOrSubmit('In-Complete')" ><a href="#" class="btn btn-primary">Save & Submit Later</a></li>
                                 </ul>
                             </div>
                         </div> <!-- tab-content -->
@@ -508,8 +510,8 @@
     <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
       
     <script>
-        // const result = [];
-        app.controller('wizard', function($scope, $http,$rootScope) {
+  
+        app.controller('wizard', function($scope, $http,$rootScope, Notification) {
             $scope.result = []
             $rootScope.currentStep = 0;
 
@@ -536,7 +538,19 @@
                     $scope.$broadcast('callReview');
                 }
             }
-          
+
+            $rootScope.saveOrSubmit = (value) => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route('customers.store-enquiry') }}',
+                    data: {type: 'save_or_submit', data: value}
+                    }).then(function successCallback(response) {
+                        return location.href = '{{ route('customers-my-enquiries') }}'
+                    }, function errorCallback(response) {
+                        Notification.error({'message':'Something went wrong',delay: 4000});
+                    });
+            }
+            
         });
     
        	app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification ) {
@@ -599,7 +613,7 @@
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'project_info', 'data': getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
-                    
+                    Notification.success({'message': 'Project Information inserted successfully', delay: 4000});
                 }, function (error) {
                     console.log(`callprojectinfo ${error}`);
                 });         
@@ -631,18 +645,18 @@
 
            $scope.$on('callServiceSelection', function(e) { 
                 if($scope.serviceList.length == 0){
+                    $rootScope.currentStep = 1;
                     Notification.error({message: `Please select any service`, delay: 4000});
                     $scope.service_selection_mandatory = null;
-                    $rootScope.currentStep = 1;
                     return false;
                 }
-                $scope.service_selection_mandatory = true;      
+                $scope.service_selection_mandatory = true;    
                $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
                 }).then(function (res) {
-                    
+                    Notification.success({'message': 'Service selection inserted successfully', delay: 4000});
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });         
@@ -659,20 +673,20 @@
                     $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
                 }
             };
-           let servicefireOnce = false;
-           $scope.getServices = () => {
-               if(servicefireOnce){ return; }
+           let outputTypefireOnce = false;
+           $scope.getOutputTypes = () => {
+               if(outputTypefireOnce){ return; }
                $http({
                    method: 'GET',
-                   url: '{{ route("service.index") }}'
+                   url: '{{ route("output-type.index") }}'
                }).then(function (res) {
-                    servicefireOnce = true;
-                    $scope.services = res.data;	
+                    outputTypefireOnce = true;
+                    $scope.outputTypes = res.data;	
                }, function (error) {
                    console.log('This is embarassing. An error has occurred. Please check the log for details');
                });
            } 
-           $scope.getServices();
+           $scope.getOutputTypes();
         }); 
 
         app.directive('demoFileModel', function ($parse) {
@@ -813,6 +827,7 @@
                     var uploadUrl = '{{ route('customers.store-enquiry') }}'
                     promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
                     promise.then(function (response) {
+                        Notification.success({'message': `${view_type.replace('_',' ')} uploaded successfully`, delay: 4000});
                         $scope.getIFCViewList(response, view_type);
                         $scope.serverResponse = response;
                         $scope[`${view_type}__file_name`] = '';
@@ -839,7 +854,7 @@
                 var uploadUrl = '{{ route('customers.store-enquiry') }}'
                 promise = fileUploadService.uploadLinkToUrl(link, 'ifc_link', view_type, uploadUrl);
                 promise.then(function (response) {
-                    console.log(response);
+                    Notification.success({'message': `${view_type.replace('_',' ')} uploaded successfully`, delay: 4000});
                     $scope.getIFCViewList(response, view_type);
                     $scope.serverResponse = response;
                     $scope[`${view_type}__file_name`] = '';
@@ -906,9 +921,8 @@
             } 
             $scope.getDocumentTypes();
         });
-       
 
-        app.controller('CrudCtrl', function ($scope, $http, $rootScope) { 
+        app.controller('CrudCtrl', function ($scope, $http, $rootScope, Notification) { 
            
             $scope.$on('callBuildingComponent', function(e) {
                 if(!$("#buildingComponent")[0].checkValidity()){
@@ -921,7 +935,7 @@
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'building_component', data: $scope.wallGroup}
                 }).then(function (res) {
-                    
+                    Notification.success({'message': `Inserted building component successfully`, delay: 4000});
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });   
@@ -1034,7 +1048,7 @@
                     });
                 },
             };
-        });;
+        });
 
         app.controller('Review', function($scope, $http, $rootScope) {
           
@@ -1046,7 +1060,7 @@
                         url: '{{ route("customers.enquiry-review") }}'
                     }).then(function (res) {
                         $scope.project_info = res.data.project_infos;
-                        $scope.services     = res.data.services;
+                        $scope.outputTypes     = res.data.services;
                         $scope.ifc_model_uploads = res.data.ifc_model_uploads;
                         $scope.building_components = res.data.building_components;
                         $scope.additional_infos = res.data.additional_infos;

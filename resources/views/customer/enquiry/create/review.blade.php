@@ -1,4 +1,4 @@
-<div class="" id="reviewSubmit">
+<form class="" id="reviewSubmit">
     <div class="summary-group pt-3">
         {{-- ProjectInfo --}}
         <fieldset class="border position-relative rounded my-3 mb-4 shadow-sm">    	
@@ -197,4 +197,4 @@
         </fieldset>
         {{-- Additional Info --}}
     </div>
-</div>
+</form>

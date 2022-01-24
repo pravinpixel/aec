@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Enquiry;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Laracasts\Flash\Flash;
 
 class EnquiryController extends Controller
 {
@@ -147,6 +148,14 @@ class EnquiryController extends Controller
             $this->commentRepo->create($insert);
             $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
             return response($result);      
+        } else if($type == 'save_or_submit') {
+            $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
+            if($status == 'active') {
+                Flash::success(__('global.enquiry_submitted'));
+                return true;
+            }
+            Flash::success(__('global.enquiry_saved'));
+            return true;
         }
     }
     public function Storecostestimate($data, $enquiry) {
@@ -237,6 +246,14 @@ class EnquiryController extends Controller
             $this->commentRepo->create($insert);
             $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
             return response($result);
+        } else if($type == 'save_or_submit') {
+            $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
+            if($status == 'Active') {
+                Flash::success(__('global.enquiry_submitted'));
+                return true;
+            }
+            Flash::success(__('global.enquiry_saved'));
+            return true;
         }
     }
 
