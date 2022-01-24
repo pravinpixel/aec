@@ -4,9 +4,10 @@ include 'master.php';
 include 'adminAPI.php';
 include 'master.php';
 include 'customer.php';
+include 'enquiry.php';
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\EnquiryController;
+use App\Http\Controllers\Admin\Enquiry\EnquiryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CostEstimationController;
 use App\Http\Controllers\Admin\GanttChartController;
@@ -17,7 +18,6 @@ use App\Http\Controllers\Admin\Master\LayerController;
 use App\Http\Controllers\Admin\Master\DeliveryTypeController;
 use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\ServiceController;
-
 use App\Http\Controllers\Auth\AuthController;
 
 /*
@@ -59,63 +59,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/project-dashboard', [DashboardController::class,'projectDashboard'])->name("admin-project-dashboard");
   
     // ======== END: Dashborads========== 
- 
-    Route::get('/all-enquiries', function () {
-        return view('admin.pages.view-sales-enquiries');
-    })->name('admin-view-sales-enquiries');         
-
-    // Enquiry Wiz
-        Route::get('/admin-enquiry', function () {
-            return view('admin.pages.enqiry-wiz.enquiry');
-        })->name('admin-enquiry-wiz');
-
-        Route::get('/admin-project-info', function () {
-            return view('admin.pages.enqiry-wiz.project-info');
-        })->name('admin-project-info-wiz');
-
-        Route::get('/admin-Technical_Estimate', function () {
-            return view('admin.pages.enqiry-wiz.Technical_Estimate');
-        })->name('admin-Technical_Estimate-wiz');
-
-        Route::get('/admin-Cost_Estimate', function () {
-            return view('admin.pages.enqiry-wiz.Cost_Estimate');
-        })->name('admin-Cost_Estimate-wiz');
-
-        Route::get('/admin-Project_Schedule', function () {
-            return view('admin.pages.enqiry-wiz.Project_Schedule');
-        })->name('admin-Project_Schedule-wiz');
-
-        Route::get('/admin-Proposal_Sharing', function () {
-            return view('admin.pages.enqiry-wiz.Proposal_Sharing');
-        })->name('admin-Proposal_Sharing-wiz');
-
-        Route::get('/admin-Project_Award', function () {
-            return view('admin.pages.enqiry-wiz.Project_Award');
-        })->name('admin-Project_Award-wiz');
-        
-        Route::get('/admin-Delivery', function () {
-            return view('admin.pages.enqiry-wiz.Delivery');
-        })->name('admin-Delivery-wiz');
-
-        
-    // wiz Enquiry Wiz
-
   
-
-    Route::get('view-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
-    
+ 
      
 
     Route::get('/quotation', function () {
         return view('admin.pages.quotation'); 
     })->name('quotation');
-
-    
-
-    Route::get('/create-enquiries', function () {
-        return view("admin.pages.create-sales-enquiries");
-    })->name('admin-create-sales-enquiries');
-
+ 
 
     Route::get('/estimation-view', function () {
         return view('admin.pages.estimation-view');

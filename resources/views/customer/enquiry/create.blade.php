@@ -7,14 +7,14 @@
     <div class="content-page" ng-app="App">
         <div class="content">
 
-            @include('customer.layouts.top-bar')
+            @include('customer.includes.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 
-                @include('customer.layouts.page-navigater') 
+                @include('customer.includes.page-navigater') 
             </div>                
           
  

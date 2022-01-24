@@ -5,14 +5,14 @@
         <div class="content-page" ng-app="">
             <div class="content">
 
-                @include('admin.layouts.top-bar')
+                @include('admin.includes.top-bar')
 
                 <!-- Start Content-->
                 <div class="container-fluid">
                     
                     <!-- start page title -->
                     
-                    @include('admin.layouts.page-navigater')
+                    @include('admin.includes.page-navigater')
                 
                     <div class="app" ng-controller="InvoiceCtrl">
                         <div class="card mt-3">

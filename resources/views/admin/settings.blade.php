@@ -6,14 +6,14 @@
     <div class="content-page" ng-app="Setting_App">
         <div class="content"  ng-controller="moduleController" >
 
-            @include('admin.layouts.top-bar')
+            @include('admin.includes.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 
-                @include('admin.layouts.page-navigater')
+                @include('admin.includes.page-navigater')
 
                 <!-- end page title --> 
 

@@ -6,7 +6,7 @@
     <div class="content-page">
         <div class="content">
 
-            @include('admin.layouts.top-bar')
+            @include('admin.includes.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid ">
@@ -23,10 +23,7 @@
                                             <span class="input-group-text bg-primary border-primary text-white">
                                                 <i class="mdi mdi-calendar-range font-13"></i>
                                             </span>
-                                        </div>
-                                            {{-- <a href="javascript: void(0);" class="btn btn-primary ms-2">
-                                                <i class="mdi mdi-autorenew"></i>
-                                            </a> --}}
+                                        </div> 
                                     </form>
                                 </div>
                                 <h4 class="page-title">Project Summary</h4>
@@ -91,10 +88,9 @@
                                     <div class="card-body">
                                         <a href="" class="p-0 float-end">Export <i class="mdi mdi-download ms-1"></i></a>
                                         <h4 class="header-title mt-1 mb-3">Awarded Projects</h4>
-
                                         <div class="table-responsive table-m">
-                                            <table class="table table-sm table-centered mb-0 font-14">
-                                                <thead class="table-light">
+                                            <table class="custom table table-sm table-centered mb-0 font-14">
+                                                <thead>
                                                     <tr>
                                                         <th>S:NO</th>
                                                         <th>Project Name</th>
@@ -816,87 +812,7 @@
     </div> 
 
 @endsection
-
-@push('custom-styles')
- <!-- third party css -->
-   <link href="{{ asset('public/assets/css/vendor/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
-       
-    <style>
-         
-        li.nav-item .timeline-step::after {
-            content: "";
-            position: absolute;
-            top: 34%;
-            right: -38px;
-            border: 1px dashed;
-            width: 50%; 
-        }
-        li.nav-item {
-            position: relative;
-        }
-        .timeline-steps  {
-            display: flex;
-            justify-content:space-between;
-            /* align-items: center; */
-            position: relative;
-         
-        }
-        .timeline-step {
-            padding: 10px;
-            z-index: 1;
-            border-radius: 15px;
-            margin: 10px
-        }
-        .inner-circle {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 10px #bdbdbd;
-            background: white;
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            color: white;
-            border: 3px solid white;
-            transform: scale(1.1);
-
-        }
-        .timeline-content {
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .admin-Delivery-wiz .timeline-step::after {
-            visibility: hidden;
-        }
-        .table td,th {
-            padding: 5px 10px !important ;
-            vertical-align: middle !important
-        }
-        .table thead,th {
-            background: #757CF2 !important;
-            color: white
-        }
-        
-         .table tbody thead,th {
-            background: #757CF2 !important
-        }
-        .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
-            background:  white !important
-        }
-        .daterangepicker td.active, .daterangepicker td.active:hover {
-            background: #757CF2 !important
-        }
-        .dashboard-icon {
-            font-size: 3rem !important;
-        }
-        #SvgjsText1885 {
-            display: none !important;
-        }
-    </style> 
-@endpush
-
+ 
 @push('custom-scripts')
     <!-- third party js -->
     <script src="{{ asset('public/assets/js/vendor/Chart.bundle.min.js') }}"></script>

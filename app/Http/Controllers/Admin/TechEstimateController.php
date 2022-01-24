@@ -21,12 +21,12 @@ class TechEstimateController extends Controller
     }
 
     public function index(Request $request , $id)    {
-        $enquiry                        =   $this->customerEnquiryRepo->getEnquiry($id);
-        $result['customer_info']        =   $enquiry->customer; 
-        $result['project_type']         =   $enquiry->projectType->project_type_name;
-        $result["enquiry"]              =   $enquiry;
-        $result['building_component']   =   EnquiryTechnicalEstimate::where("enquiry_id", $id)->with("buildingComponent")->get();
-        $result['ifc_model_uploads']    = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
+        $enquiry                        =   $this->customerEnquiryRepo->getEnquiryByID($id);
+        $result['customer_info']        =   $enquiry->customer ?? ""; 
+        $result['project_type']         =   $enquiry->projectType->project_type_name ?? '';
+        $result["enquiry"]              =   $enquiry ?? "";
+        $result['building_component']   =   EnquiryTechnicalEstimate::where("enquiry_id", $id)->with("buildingComponent")->get() ?? "";
+        $result['ifc_model_uploads']    = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id) ?? "";
         return $result;
     }
     public function update(Request $request , $id)

@@ -2,17 +2,13 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-         
-    <div class="content-page"  ng-app="myApp">
-        <div class="content">
-
-            @include('admin.layouts.top-bar')
-
+    <div class="content-page">
+        
+        <div class="content"> 
+            @include('admin.includes.top-bar') 
             <!-- Start Content-->
-            <div class="container-fluid">
-                
-                <!-- start page title -->
-                
+            <div class="container-fluid"> 
+                <!-- start page title --> 
                 <div class="row ">
                     <div class="col-12">
                         <div class="page-title-box mt-3">
@@ -38,11 +34,7 @@
                             <h4 class="page-title"><div ng-controller="WizzardCtrl">@{{ enquiry_number }} : @{{   project_info.project_name }}</div></h4>
                         </div>
                     </div>
-                </div>
-              
-                
-                <div data-loading> </div>
-                
+                </div> 
                 <div class="card border">
                     <div class="card-body py-0"> 
                         <div id="rootwizard">
@@ -126,11 +118,8 @@
                         </div> <!-- end card-body -->
                     </div> <!-- end card-body -->
                 </div>   
-            </div> <!-- container -->
-
-        </div> <!-- content -->
-
-
+            </div> <!-- container --> 
+        </div> <!-- content --> 
     </div> 
     <div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-right" style="width:100% !important">
@@ -408,250 +397,42 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal --> 
-    
-@endsection
-          
-@push('custom-styles') 
-    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
-    <style>
-      
-        @media (min-width: 1200px) {
-            .modal-xxl {
-                width: 100% !important
-            }
-        }
-        .x-y-center {
-            display: flex !important;
-            justify-content: center;
-            align-items: center 
-        } 
-        thead, tbody, tfoot, tr, td, th {
-            vertical-align: middle !important;
-        }
-        .accordion-button::after {
-            margin:0px auto !important
-        }
-        /* .table > :not(caption) > * > * {
-            padding: 0 !important
-        } */ 
-        .form-lable {
-            background: #f1f2fe;
-            border-radius: 5px;
-            padding: 0 5px;
-            top: -10px;
-            left: 10px;
-            font-size:12px;
-        }
-        .form-group {
-            position: relative;
-        }
-        .form-control-sm,.form-select-sm {
-            padding-top:  15px !important
-        }
-        .accordion-body .table tbody tr:nth-child(1) .form-lable {
-            display: block !important
-        }
-        
-        .accordion-body .table tbody tr  .form-lable {
-           display: none
-        }
-        .accordion-body .table tbody tr  .form-control-sm,.form-select-sm {
-            padding-top: 7px !important
-        }
-        .accordion-body .table tbody tr:nth-child(1)  .form-control-sm,.form-select-sm {
-            padding-top:  13px !important
-        }
-        .accordion-body .table tbody tr td {
-            padding:  0 10px 5px 0  !important
-        }
-        .accordion-body .table tbody tr td .form-select,.form-control,.input-group-text  {
-            line-height: 1.2 !important
-        } 
-        .wall-delete-btn {
-            padding: 8px 10px;
-            right: 0;
-            z-index: 11;
-            border-radius:0 3px 0 10px !important
-        }
-        .more-btn-layer.collapsed .fa {
-            transform: rotate(0deg) !important;
-            transition: all .5s
-        }  
-        .more-btn-layer .fa {
-            transform: rotate(180deg) !important;
-            transition: all .5s
-        }   
-        .p1 {
-            padding: 5px !important
-        }     
-       .gantt_container {
-            min-height: 300px !important;
-        }
-    </style>
-     <style>
-         .form-floating > .form-control {
-             padding-bottom: 0px !important
-         }
-         .form-floating > label {
-            font-weight: bold !important;
-            color: #4E52A1 !important
-         }
-         .toggle-btn {
-            border-radius: 5px !important;
-            padding: 2px;
-            font-size: 12px !important;
-            cursor: pointer;
-            margin-right: 5px !important
-        }
-        li.nav-item .timeline-step::after {
-            content: "";
-            position: absolute;
-            top: 34%;
-            right: -38px;
-            border: 1px dashed;
-            width: 50%; 
-        }
-        li.nav-item {
-            position: relative;
-        }
-        .admin-Delivery-wiz .timeline-step::after {
-            visibility: hidden;
-        }
-        
-        .timeline-steps  {
-            display: flex;
-            justify-content:space-between;
-            /* align-items: center; */
-            position: relative;
-         
-        }
-        .timeline-step {
-            padding: 10px;
-            z-index: 1;
-            border-radius: 15px;
-            margin: 10px
-        }
-        .inner-circle {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 10px #bdbdbd;
-            background: white;
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            color: white;
-            border: 3px solid white;
-            transform: scale(1.1);
-
-        }
-        .timeline-content {
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            flex-direction: column;
-        }
- 
-        .table td,th {
-            padding: 5px 10px !important ;
-            vertical-align: middle !important
-        }
-        .table thead,th {
-            background: #757CF2 !important;
-            color: white
-        }
-        
-        .table tbody thead,th {
-            background: #757CF2 !important
-        }
-        .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
-            background:  white !important
-        }
-        .daterangepicker td.active, .daterangepicker td.active:hover {
-            background: #757CF2 !important
-        }
-        .dashboard-icon {
-            font-size: 3rem !important;
-        }
-        #SvgjsText1885 {
-            display: none !important;
-        }
-        
-        .timeline-step .inner-circle:hover {
-            background: #8a90ff !important;
-        }
-        
-        .bg-light-primary {
-            background: #ebecfd !important;
-            color: #8a90ff !important;
-            font-weight: bold
-        }
-    </style>   
-    {{-- <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> --}}
-@endpush
+@endsection 
 
 @push('custom-scripts') 
- 
-    <!-- end demo js-->
-    {{-- <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script> --}}
-    <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
-   
+    <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script>
-          
-		var app = angular.module('myApp', ['ngRoute']).constant('API_URL', $("#baseurl").val()); 
-        // app.directive('MasterCost', function layerType($http) {
-        //     return {
-        //         restrict: 'A',
-        //         link : function (scope, element, attrs) {
-        //             element.on('change', function () {
-        //                 if(scope.w.WallId == 'undefined' || scope.l.LayerName == 'undefined') {
-        //                     return false;
-        //                 }
-        //                 $http({
-        //                     method: 'GET',
-        //                     url: '{{ route("layer-type.get-layer-type") }}',
-        //                     params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
-        //                     }).then(function success(response) {
-        //                         scope.layerTypes = response.data;
-        //                     }, function error(response) {
-        //                         // console.log('layer');
-        //                 });
-        //             });
-        //         },
-        //     };
-        // });
-        app.directive('loading',   ['$http' ,function ($http, $scope) {  
-            return {  
-                restrict: 'A',  
-                template: `
-                    <div class="linear-activity">
-                        <div class="indeterminate"></div>
-                    </div>
-                `,  
-                link: function (scope, elm, attrs)  
-                {  
-                    scope.isLoading = function () {   
-   
-                        return $http.pendingRequests.length > 0;  
-                    };        
-                    scope.$watch(scope.isLoading, function (v){  
-                        if(v){  
-                            elm.show();  
-                        }else{  
-                            elm.hide();  
-                        }  
-                    });  
-                }  
+        app.directive('getCostEstimateData',   ['$http' ,function ($http, $scope) {  
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    element.on('change', function () {
+                         console.log(scope.index);
+                        if(scope.t.type_name == 'undefined' || scope.c.building_component_name == 'undefined') {
+                            return false;
+                        }
+                        $http({
+                            method: 'GET',
+                            url: '{{ route("CostEstimateMasterValue") }}',
+                            params : {component_id: scope.c.building_component_name, type_id: scope.t.type_name}
+                            }).then(function success(response) {
+                                scope.masterData = response.data; 
+                                console.log(scope.CostEstimate);
+
+                                scope.CostEstimate[scope.index].sqm = response.data.sqm;
+
+                                console.log(scope.CostEstimate);
+                            }, function error(response) { 
+                        });
+                        
+                    });
+                },
             };
-        }]);
-      
+        }]);        
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
-                templateUrl : " {{ route('admin-project-info-wiz') }}",
+                templateUrl : "{{ route('admin-project-info-wiz') }}",
                 controller : "WizzardCtrl"
             })
             .when("/Project_Info", {
@@ -678,60 +459,6 @@
                 templateUrl : "{{ route('admin-Delivery-wiz') }}"
             })
         }); 
-        app.controller('InvoiceCtrl', ['$scope', function($scope) {
-            $scope.Milestone  = [
-                {
-                    "Date"          : "15/25/2021",
-                    "Description"   : "Lorem iposium itsa trsantulamn ",
-                    "Percentage"    : "25%",
-                    "Amount"        : "2500",
-                }, 
-                {
-                    "Date"          : "18/25/2021",
-                    "Description"   : "Lorem iposium itsa trsantulamn ",
-                    "Percentage"    : "10%",
-                    "Amount"        : "1500",
-                }, 
-                {
-                    "Date"          : "19/25/2021",
-                    "Description"   : "Lorem iposium itsa trsantulamn ",
-                    "Percentage"    : "35%",
-                    "Amount"        : "3500",
-                }, 
-            ]; 
-                
-            $scope.delete = function(index){
-                alert("Are sure!! want to delete ?");
-                $scope.Milestone.splice(index,1);
-            } 
-            
-            $scope.submit = function() {
-                $scope.Milestone.unshift({
-                    "Date"          : $scope.Date,
-                    "Description"   : $scope.Description,
-                    "Percentage"    : $scope.Percentage,
-                    "Amount"        : $scope.Amount,
-                });
-                $scope.Date         = '';
-                $scope.Description  = '';
-                $scope.Percentage   = '';
-                $scope.Amount       = '';
-                $scope.userForm.$setPristine();
-                $scope.userForm.$setValidity();
-                $scope.userForm.$setUntouched();
-            } 
-            $scope.PercentageCal   =    function() {
-                var cal = $scope.Budget*($scope.Percentage/100);
-                $scope.PResult = cal  
-            }
-            $scope.AmountCal   =    function() {
-                var cal = ( $scope.Amount/ $scope.Budget)*100 ;
-                
-                $scope.Result = cal  
-            } 
-           
-        }]); 
-
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
             $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                 $scope.enquiry_number       = res.data.enquiry_number;
@@ -743,7 +470,6 @@
                 $scope.additional_infos     = res.data.additional_infos;
             }); 
         });
-   
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
             
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
@@ -758,9 +484,9 @@
                     });
                     return Bigtotal;
                 }
+
                 $scope.Add_Wall = function() {
                     $scope.building_component.push(
-                        
                         {
                             "building_component": {
                             "building_component_name"   : "type", 
@@ -771,9 +497,8 @@
                 }
                 $scope.Delete_Wall   =   function(index) {
                     $scope.building_component.splice(index,1);
-                } 
-                
-            });
+                }  
+            }); 
             $scope.technicalestimate  = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                     $scope.building_component  = response.data.building_component;  
@@ -802,7 +527,7 @@
                 {
                     "Component"     : "",
                     "Type"          : "", 
-                    "SqM"           : "", 
+                    "sqm"           : "",
                     "Complexity"    : "", 
                     "Details": {
                         "PriceM2"   : "1", 
@@ -824,91 +549,13 @@
                         "PriceM2"   : "", 
                         "Sum"       : "10", 
                     } 
-                },
-                {
-                    "Component"     : "",
-                    "Type"          : "", 
-                    "SqM"           : "", 
-                    "Complexity"    : "", 
-                    "Details": {
-                        "PriceM2"   : "1", 
-                        "Sum"       : ""
-                    },
-                    "Statistics": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    },
-                    "CadCam	": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    } ,
-                    "Logistics": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    } ,
-                    "TotalCost": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "1", 
-                    } 
-                },
-                {
-                    "Component"     : "",
-                    "Type"          : "", 
-                    "SqM"           : "", 
-                    "Complexity"    : "", 
-                    "Details": {
-                        "PriceM2"   : "1", 
-                        "Sum"       : ""
-                    },
-                    "Statistics": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    },
-                    "CadCam	": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    } ,
-                    "Logistics": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    } ,
-                    "TotalCost": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "1", 
-                    } 
-                },
-                {
-                    "Component"     : "",
-                    "Type"          : "", 
-                    "SqM"           : "", 
-                    "Complexity"    : "", 
-                    "Details": {
-                        "PriceM2"   : "1", 
-                        "Sum"       : ""
-                    },
-                    "Statistics": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    },
-                    "CadCam	": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    } ,
-                    "Logistics": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    } ,
-                    "TotalCost": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "1", 
-                    } 
-                },
+                } 
             ]; 
             $scope.create  = function() {
                 $scope.CostEstimate.unshift({
                     "Component"     : "",
                     "Type"          : "", 
-                    "SqM"           : "", 
+                    "sqm"           : "", 
                     "Complexity"    : "", 
                     "Details": {
                         "PriceM2"   : "", 
@@ -950,22 +597,26 @@
 
                 alert("Working !");
             }
-        }); 
-        Message = function (type, head) {
-            $.toast({
-                heading: head,
-                icon: type,
-                showHideTransition: 'plain', 
-                allowToastClose: true,
-                hideAfter: 5000,
-                stack: 10, 
-                position: 'bootom-left',
-                textAlign: 'left', 
-                loader: true, 
-                loaderBg: '#252525',                
+            // =========== Cost Estimate  ============
+            $http.get("{{ route("CostEstimateData") }}").then(function (response) {
+                $scope.cost = response.data; 
             });
-        }
-    </script> 
 
-  
+            $scope.squarMeeter = function(list) {
+                var Bigtotal=0;
+                angular.forEach(list , function(item){
+                    Bigtotal+= Number(item.sqm);
+                });
+                return Bigtotal;
+            }
+         
+            $scope.totalAmount = function(){
+                var total = 0;
+                for(count=0;count<$scope.CostEstimate.length;count++){
+                    total += Number($scope.CostEstimate[count].sqm);
+                }
+                return total;
+            };
+        }); 
+    </script> 
 @endpush

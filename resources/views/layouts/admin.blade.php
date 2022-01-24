@@ -3,28 +3,34 @@
 <html lang="en">
     
     <head>
-        @include('admin.layouts.head')
+        @include('admin.includes.head')
         
         @stack('custom-styles')       
     </head>
     
 
-    <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false}'>
+    <body  data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
 
-        
         <!-- Begin page -->
-        <div class="wrapper">
+        <div class="wrapper" ng-app="myApp">
+
+            {{--===========  AJAX LOADER ======== --}}
+                <div data-loading></div>
+            {{--===========  AJAX LOADER ======== --}}
 
             <!-- ========== Left Sidebar Start ========== -->
-                @include('admin.layouts.side-bar')
+                @include('admin.includes.side-bar')
             <!--========== Left Sidebar End ========== -->
 
             <!--========== Start Page Content here ==========-->
-                @yield('admin-content')
+  
+                <div class="main-content-rapper" >
+                    @yield('admin-content')
+                </div>
             <!--========== End Page content ==========-->
 
             <!--========== Start Page Footer ==========-->
-                @include('admin.layouts.footer')
+                @include('admin.includes.footer')
             <!--========== End Page Footer ==========-->
 
         </div>
@@ -116,17 +122,14 @@
             </div> 
             <div class="rightbar-overlay"></div>
         <!-- /End-bar -->
+            
+        
 
-         
+        <!--  Footer Scripts  -->
+        @include('admin.includes.footer-scripts')
 
-        <!-- bundle -->
-        <script src="{{ asset('public/assets/js/vendor.min.js') }}"></script>
-        <script src="{{ asset('public/assets/js/app.min.js') }}"></script>
-        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-        <script> FilePond.parse(document.body); </script>
-        {{-- Push Scripts --}}
+        <!--  Push Scripts  -->        
         @stack('custom-scripts')
-       
         <script>
             function goBack() {
                 window.history.back();

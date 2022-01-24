@@ -227,7 +227,6 @@ class CostEstimationController extends Controller
    
     public function costMasterVal(Request $request)
     {
-        // return $request->field_name;
         if($request->value)
         {
            $model = MasterCalculation::where('component_id',$request->component_id)->where('type_id',$request->type_id)->first();

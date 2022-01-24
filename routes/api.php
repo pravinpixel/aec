@@ -3,9 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GanttChartController;
-use App\Http\Controllers\Admin\GanttController;
-use App\Http\Controllers\Admin\GanttTaskController;
-use App\Http\Controllers\Admin\GanttLinkController;
+
+use App\Http\Controllers\Admin\Enquiry\GanttChart\GanttController;
+use App\Http\Controllers\Admin\Enquiry\GanttChart\GanttTaskController;
+use App\Http\Controllers\Admin\Enquiry\GanttChart\GanttLinkController;
+
 use App\Http\Controllers\Admin\CostGanttTaskController;
 use App\Http\Controllers\Admin\CostGanttLinkController;
 
@@ -33,9 +35,9 @@ Route::get('/ganttChart/data',[ GanttChartController::class, 'getData'])->name('
  
 
 
-Route::get('/data',[ GanttController::class, 'get'])->name('data'); 
-Route::resource('task', GanttTaskController::class);
-Route::resource('link', GanttLinkController::class); 
+Route::get('enquiry/data',[ GanttController::class, 'get'])->name('enquiry.data'); 
+Route::resource('enquiry/task', GanttTaskController::class);
+Route::resource('enquiry/link', GanttLinkController::class); 
 
 
 Route::get('/costData',[ GanttChartController::class, 'get'])->name('costData'); 

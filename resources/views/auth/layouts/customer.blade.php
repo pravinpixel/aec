@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('customer.layouts.head')
+    @include('customer.includes.head')
 </head>
         
     <!-- Begin page -->

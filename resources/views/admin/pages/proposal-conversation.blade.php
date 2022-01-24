@@ -5,14 +5,14 @@
     <div class="content-page">
         <div class="content">
 
-            @include('admin.layouts.top-bar')
+            @include('admin.includes.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 
-                @include('admin.layouts.page-navigater')
+                @include('admin.includes.page-navigater')
               
                 <div class="card shadow-lg border" class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="card-header pt-3 text-center">

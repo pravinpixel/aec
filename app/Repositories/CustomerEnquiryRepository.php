@@ -63,7 +63,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getEnquiryByID($id) 
     {
-        return $this->enquiry->find($id);
+        return $this->enquiry->with('customer')->find($id);
     }
 
     public function getEnquiryByEnquiryNo($no)

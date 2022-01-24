@@ -1,0 +1,241 @@
+/* ========= Custom Data Tables ========== */
+    #scroll-vertical-datatable th{
+        padding:  0px !important     
+    }
+    #scroll-vertical-datatable_wrapper .row:nth-child(1) {
+        display: none !important
+    }
+    table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
+        top : 2px !important
+    }
+    table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+        top : 2px !important
+    }
+/* ========= Custom Data Tables ========== */
+
+/*  ============  Custom According Button ============= */
+
+    .custom-accordion-button.accordion-button::before {
+        position: absolute;
+        content: "";
+        height: 7px;
+        width: 2px;
+        background: white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(90deg)
+    }
+    .accordion-button:not(.collapsed)::after {
+        visibility: hidden !important;
+    }
+    .custom-accordion-button.accordion-button:not(.collapsed)::after {
+        position: absolute;
+        content: "";
+        height: 7px;
+        width: 2px;
+        background: white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(90deg)
+    }
+    .custom-accordion-button.accordion-button{
+        padding: 7px 6px;
+        position: relative;
+        cursor: pointer;
+    }
+
+/*  ============  Custom According Button ============= */
+
+/*  ============ Custom Input ========== */
+    .my-control {
+        border-radius: 0 !important;
+        display: flex !important;
+        justify-content: center ;
+        align-content: center ;
+        width: 100%;
+        height: 100%;
+        margin: 0 !important;
+        border: 1px !important;
+        outline: 0 !important;
+        text-align: right !important;
+        font-size: 12px !important;
+        background: transparent !important;
+    }
+    .custom-form-select.form-select {
+        padding: 2px 2px 2px 10px !important;
+        min-width: 100px !important;
+        background-size: 9px 14px !important;
+        font-size: 12px !important;
+        cursor: pointer;
+    }
+    .custom-form-select.form-select option {
+        appearance: none !important;
+    }
+/*  ============ Custom Input ========== */
+
+
+@keyframes pop {
+    0%    { transform: translateY(-6px) }
+    100%  { transform: translateY(0px) }
+}
+.error-msg {
+    position: relative; 
+}
+.error-text , .error {
+    left: 0;
+    top: 50%;
+    color: red;
+    animation: pop .2s;
+    font-weight: normal !important;
+}
+.invert {
+    filter: invert(1) !important
+}
+.accordion-button::after {
+    position: absolute;
+    content: "";
+    height: 7px;
+    width: 2px;
+    background: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.icon {
+    margin-right: 10px !important
+}
+.linear-activity {
+    overflow: hidden;
+    width: 100%;
+    height: 4px;
+    background-color: #E6E7FC;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 11111111111 !important;
+}
+
+.determinate {
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+    -webkit-transition: width 200ms ease-out .5s;
+    -moz-transition: width 200ms ease-out .5s;
+        -o-transition: width 200ms ease-out .5s;
+            transition: width 200ms ease-out .5s;
+    background-color: #757CF2;
+}
+
+.indeterminate {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.indeterminate:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: #757CF2;
+    animation: indeterminate_first .5s infinite ease-out;
+}
+
+.indeterminate:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: #757CF2;
+    animation: indeterminate_second .5s infinite ease-in;
+}
+.ng-touched.ng-invalid-required , input.error{      
+    border-bottom: red solid 1px ; 
+}              .ng-touched.ng-invalid-pattern ,  .ng-invalid-email.ng-valid-required , .ng-invalid-maxlength{
+    border-bottom: red solid 1px  !important;
+    background-image: none !important 
+}
+
+@keyframes indeterminate_first {
+    0% {
+        left: -100%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
+
+@keyframes indeterminate_second {
+    0% {
+        left: -150%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
+
+
+/* ================== View Enquires Tab =========================== */
+.progress-btn {
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+    background: lightgray
+}
+.progress-btn.active {
+    background: #20CF98 !important
+} 
+.timeline-steps  {
+    display: flex;
+    justify-content:space-between;
+    position: relative;
+}
+.timeline-step {
+    padding: 10px;
+    z-index: 1;
+    border-radius: 15px;
+    margin: 10px
+}
+.inner-circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px #bdbdbd;
+    background: white;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    color: white;
+    border: 3px solid white;
+    transform: scale(1.1);
+
+}
+.timeline-content {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+}
+ 
+.font-12 {
+    font-size: 12px !important;
+}
+small {
+    font-weight: lighter !important 
+} 
+
+
+/* Project Information */
+fieldset:hover ,   fieldset:hover  .legend {
+    border: 1px solid var(--primary-bg) !important
+}
+.legend {
+  top: -15px;
+  position: absolute;
+  font-weight: bold;
+  line-height: 25px;
+  padding: 0px 10px;
+  background: white;
+  left: 25px;
+}

@@ -7,14 +7,14 @@
     <div class="content-page">
         <div class="content">
 
-            @include('admin.layouts.top-bar')
+            @include('admin.includes.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 
-                @include('admin.layouts.page-navigater')
+                @include('admin.includes.page-navigater')
 
                 {{-- <!-- {{ route('admin.costEstimationSingleForm') }} --> --}}
             

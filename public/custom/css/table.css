@@ -1,0 +1,16 @@
+.custom.table tr td , .table > :not(caption) > * > * {
+    vertical-align: middle !important;
+    padding: 5px 10px !important;
+}
+.custom.table tr td:nth-child(1) {
+    text-align: center !important;
+}
+.custom.table tr th{
+    background: var(--primary-bg) !important;
+    color: var(--text-light);
+}
+.custom.table thead th   {
+    vertical-align: middle !important;
+    padding: 7px 10px !important;
+}
+ 

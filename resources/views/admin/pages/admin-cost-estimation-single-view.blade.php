@@ -7,14 +7,14 @@
     <div class="content-page">
         <div class="content">
 
-            @include('admin.layouts.top-bar')
+            @include('admin.includes.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 
-                @include('admin.layouts.page-navigater')
+                @include('admin.includes.page-navigater')
 
                 {{-- <!-- {{ route('admin.costEstimationSingleForm') }} --> --}}
             
@@ -22,7 +22,6 @@
                   @csrf
                     <?php  if(isset($arr['detail'])){ ?>
                         <input type="hidden" name="key" id="key" value="{{  $arr['detail']['id'] }}">
-                    
                     <?php } ?>
                     {{-- <div class="card shadow-lg">
                         <div class="card-header pb-2 p-3 text-center border-0">
@@ -569,8 +568,6 @@
                         </div>
                     </div>  
                 </form>    
-
-                 
                 <div class="card">
                     <div class="card-header pb-2 p-3 text-center border-0">
                         <h4 class="header-title">Estimation List</h4>
@@ -588,7 +585,8 @@
                             </table>
                         </div>
                     </div>
-                </div>       
+                </div>
+
             </div> <!-- container -->
         </div> <!-- content -->
     </div>   
@@ -713,7 +711,7 @@
     <script src="{{ asset('public/assets/js/vendor/buttons.print.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+   
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         function delete_data(e)
@@ -786,94 +784,92 @@
     
             //             });
         }
-        $( document ).ready(function() {
- 
-            calculation_total()
-            var i=0;
-            var comp_val = false;
-            var type_val = false;
-            var row_id = false;
-
-            $(document).on('change','.addmore_component',function(){
-                    comp_val = $(this).val();
-                    // alert(comp_val)
-                    var row_id = $(this).data('select-id');
-                    // alert(row_id)
-                    masterCalculation(comp_val,type_val,row_id)
-                   
-                 });
-
-       
-                $(document).on('change','.addmore_type',function(){
-                   type_val = $(this).val();
-                   var row_id = $(this).data('select-id');
-                    masterCalculation(comp_val,type_val,row_id)
-                 });
-                 $('#add_btn').on('click',function(){
-                    // calculation_total()
-                    // sqm_total()
-                    complexity_total()
-                    // $('.complexity_val ').keyup();
-                     ++i;
-                     comp_val = false; type_val = false;row_id=false;
-                    // alert(i)
-                 });
-                 function masterCalculation(comp_val,type_val,row_id)
-                 {
-                    
-                    if(comp_val && type_val){
-                      
-                        $.ajax({
-                        type: "GET",
-                        url: "{{ route('admin.masterCalculation') }}",
-                        data: {
-                            component_id:comp_val,
-                            type_id:type_val
-                            }, 
-                            success: function(msg) {
-                            // alert(JSON.stringify(msg.data))
-                                $('#estimate-datatable').DataTable().clear().draw();
-                                // alert(row_id)
-                                // $(`#sqm__${row_id}`).val(msg.data.sqm);
-                                // $(`#complexity__${row_id}`).val(msg.data.complexity);
-                                $(`#detail_price__${row_id}`).val(msg.data.detail_price);
-                                $(`#detail_sum__${row_id}`).val(msg.data.detail_sum);
-                                $(`#statistic_price__${row_id}`).val(msg.data.statistic_price);
-                                $(`#statistic_sum__${row_id}`).val(msg.data.statistic_sum);
-                                $(`#cad_cam_price__${row_id}`).val(msg.data.cad_cam_price);
-                                $(`#cad_cam_sum__${row_id}`).val(msg.data.cad_cam_sum);
-                                $(`#logistic_price__${row_id}`).val(msg.data.logistic_price);
-                                $(`#logistic_sum__${row_id}`).val(msg.data.logistic_sum);
-                                $(`#total_price__${row_id}`).val(msg.data['total_price']);
-                                $(`#total_sum__${row_id}`).val(msg.data['total_sum']);
-                                $("input.error").removeClass("error");
-                                comp_val = false; type_val = false;row_id=false;
-                              
-                                detail_change_price()
-                                detail_change_sum()
-                                statistic_change_price()
-                                statistic_change_sum()
-                                cad_cam_change_price()
-                                cad_cam_change_sum()
-                                logistic_change_price()
-                                logistic_change_sum()
-                                total_change_price()
-                                total_change_sum()
-                                total_price_val()
-                                total_sum_val()
-                                calculation_total()
-                                $('.detail_sum').keyup();
-                                $('.complexity_val').keyup();
-                                // sqm_total()
-                            }
+            $( document ).ready(function() {
     
-                        });
-                    }
-                        
+                calculation_total()
+                var i=0;
+                var comp_val = false;
+                var type_val = false;
+                var row_id = false;
 
-                 }
-            
-    }); 
+                $(document).on('change','.addmore_component',function(){
+                        comp_val = $(this).val();
+                        // alert(comp_val)
+                        var row_id = $(this).data('select-id');
+                        // alert(row_id)
+                        masterCalculation(comp_val,type_val,row_id)
+                    
+                    });
+
+        
+                    $(document).on('change','.addmore_type',function(){
+                    type_val = $(this).val();
+                    var row_id = $(this).data('select-id');
+                        masterCalculation(comp_val,type_val,row_id)
+                    });
+                    $('#add_btn').on('click',function(){
+                        // calculation_total()
+                        sqm_total()
+                        complexity_total()
+                        // $('.complexity_val ').keyup();
+                        ++i;
+                        comp_val = false; type_val = false;row_id=false;
+                        // alert(i)
+                    });
+                    function masterCalculation(comp_val,type_val,row_id)
+                    {
+                        
+                        if(comp_val && type_val){
+                        
+                            $.ajax({
+                            type: "GET",
+                            url: "{{ route('admin.masterCalculation') }}",
+                            data: {
+                                component_id:comp_val,
+                                type_id:type_val
+                                }, 
+                                success: function(msg) {
+                                // alert(JSON.stringify(msg.data))
+                                    $('#estimate-datatable').DataTable().clear().draw();
+                                    // alert(row_id)
+                                    // $(`#sqm__${row_id}`).val(msg.data.sqm);
+                                    // $(`#complexity__${row_id}`).val(msg.data.complexity);
+                                    $(`#detail_price__${row_id}`).val(msg.data.detail_price);
+                                    $(`#detail_sum__${row_id}`).val(msg.data.detail_sum);
+                                    $(`#statistic_price__${row_id}`).val(msg.data.statistic_price);
+                                    $(`#statistic_sum__${row_id}`).val(msg.data.statistic_sum);
+                                    $(`#cad_cam_price__${row_id}`).val(msg.data.cad_cam_price);
+                                    $(`#cad_cam_sum__${row_id}`).val(msg.data.cad_cam_sum);
+                                    $(`#logistic_price__${row_id}`).val(msg.data.logistic_price);
+                                    $(`#logistic_sum__${row_id}`).val(msg.data.logistic_sum);
+                                    $(`#total_price__${row_id}`).val(msg.data['total_price']);
+                                    $(`#total_sum__${row_id}`).val(msg.data['total_sum']);
+                                    $("input.error").removeClass("error");
+                                    comp_val = false; type_val = false;row_id=false;
+                            
+                                    detail_change_price()
+                                    detail_change_sum()
+                                    statistic_change_price()
+                                    statistic_change_sum()
+                                    cad_cam_change_price()
+                                    cad_cam_change_sum()
+                                    logistic_change_price()
+                                    logistic_change_sum()
+                                    total_change_price()
+                                    total_change_sum()
+                                    total_price_val()
+                                    total_sum_val()
+                                    calculation_total()
+                                    // sqm_total()
+                                }
+        
+                            });
+                        }
+                            
+
+                    }
+                
+        }); 
 
                 function sqm_total(e){
                     // alert(e)
@@ -1593,8 +1589,8 @@
                         
                         `);
                         
-// var table = $('#costEstimateTable').DataTable(); 
-// table.fnFilterClear();
+        // var table = $('#costEstimateTable').DataTable(); 
+        // table.fnFilterClear();
                 })
  
                 $(document).on('click','.delete_data',function (e) {
@@ -2314,10 +2310,10 @@
                         $('#complexity_total_id').html(parseFloat(sqm_val).toFixed(2));
                         console.log(sqm_val);
 
-    //                     var floatSum = 0;
-    // $(".complexity_val").each(function(){
-    //     floatSum += +$(this).val();
-    // });
+                    //                     var floatSum = 0;
+                    // $(".complexity_val").each(function(){
+                    //     floatSum += +$(this).val();
+                    // });
                         
                         var price_val = parseInt($(`#detail_price__${row_id}`).val());
                         // var complexity_val = $(`#complexity__${editCount}`).val();
@@ -2506,7 +2502,5 @@
                 });
         }
             
-    </script>
- 
-       
+    </script> 
 @endpush
