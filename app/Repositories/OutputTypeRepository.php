@@ -16,7 +16,7 @@ class OutputTypeRepository implements OutputTypeRepositoryInterface{
 
     public function all()
     {
-        return $this->model->all();
+        return $this->model->with('services')->get();
     }
 
     public function create(array $data)

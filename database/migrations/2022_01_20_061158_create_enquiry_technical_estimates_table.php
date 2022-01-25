@@ -17,7 +17,7 @@ class CreateEnquiryTechnicalEstimatesTable extends Migration
             $table->id();
             $table->string('created_by')->nullable();
             $table->unsignedBigInteger('enquiry_id')->unsigned();
-            // $table->unsignedBigInteger('building_component_id')->unsigned();
+            $table->unsignedBigInteger('building_component_id')->nullable();
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->integer('total_wall_area')->default(0);
             $table->string('wall')->nullable(); 

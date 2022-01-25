@@ -290,4 +290,15 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         ];
     }
 
+    public function updateStatusById($enquiry, $status)
+    {
+        if($enquiry->project_info == 1 
+        && $enquiry->service == 1
+        && $enquiry->ifc_model_upload == 1
+        && $enquiry->building_component == 1) {
+            $enquiry->update(['status' => $status]);
+            return  $status;
+        }
+        return false;
+    }
 }

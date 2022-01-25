@@ -17,7 +17,7 @@ class DocumentTypeRepository implements DocumentTypeRepositoryInterface{
 
     public function all()
     {
-        return $this->model->all();
+        return $this->model->where('is_active',1)->get();
     }
 
     public function create(array $data)

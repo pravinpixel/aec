@@ -12,6 +12,7 @@ use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
 use App\Interfaces\LayerRepositoryInterface;
 use App\Interfaces\LayerTypeRepositoryInterface;
+use App\Interfaces\OutputTypeRepositoryInterface;
 use App\Interfaces\ProjectTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
@@ -25,6 +26,7 @@ use App\Repositories\DocumentTypeEnquiryRepository;
 use App\Repositories\DocumentTypeRepository;
 use App\Repositories\LayerRepository;
 use App\Repositories\LayerTypeRepository;
+use App\Repositories\OutputTypeRepository;
 use App\Repositories\ProjectTypeRepository;
 use App\Repositories\ServiceRepository;
 use App\Repositories\UserRepository;
@@ -99,6 +101,12 @@ class RepositoryServiceProvider extends ServiceProvider
             DocumentTypeEnquiryRepositoryInterface::class,
             DocumentTypeEnquiryRepository::class
         );
+
+        $this->app->bind(
+            OutputTypeRepositoryInterface::class,
+            OutputTypeRepository::class
+        );
+        
     }
 
     /**
