@@ -257,7 +257,7 @@
                                       </div>
                                     </div>
                                     <div class="accordion-item">
-                                      <h2 class="accordion-header position-relative" id="headingTwo">
+                                      <h2 class="accordion-header m-0 position-relative" id="headingTwo">
                                         <button class="accordion-button custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                             Services Selection
                                         </button>
@@ -299,7 +299,7 @@
                                       </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header position-relative" id="headingThree">
+                                        <h2 class="accordion-header  m-0 position-relative" id="headingThree">
                                             <button class="accordion-button custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                 FC Model & Upload Docs 
                                             </button>
@@ -374,7 +374,7 @@
                                         </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header  position-relative" id="headingThreer">
+                                        <h2 class="accordion-header  m-0 position-relative" id="headingThreer">
                                             <button class="accordion-button custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreer" aria-expanded="false" aria-controls="collapseThree">
                                                 Building components
                                             </button>
@@ -455,7 +455,7 @@
                                         </div>
                                     </div>  
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header  position-relative" id="headingThreew">
+                                        <h2 class="accordion-header  m-0 position-relative" id="headingThreew">
                                             <button class="accordion-button custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreew" aria-expanded="false" aria-controls="collapseThreew">
                                                 Additional Info
                                             </button>

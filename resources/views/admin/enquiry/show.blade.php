@@ -198,36 +198,34 @@
                     $scope.additional_infos     = res.data.additional_infos;
                 });
             }
-            $scope.toggle = function (modalstate, id) {
+            $scope.showCommentsToggle = function (modalstate, type, header) {
                 $scope.modalstate = modalstate;
                 $scope.module = null;
+                $scope.chatHeader   = header;
+                console.log($scope.chatHeader);
                 switch (modalstate) {
                     case 'viewConversations':
-                        $scope.form_title = "Edit an Update";
-                        $scope.form_color = "success";
-                        $scope.id = id;
-                        
-
-                        $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + id )
-
+                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type )
                             .then(function (response) {
-                                $scope.enqData = response.data;
+                                $scope.commentsData = response.data.chatHistory; 
+                                $scope.chatType     = response.data.chatType; 
+                                
                                 $('#right-modal').modal('show');
-                            });
+                        });
                         break;
                     default:
                         break;
                 } 
-                
             }
             $scope.GetCommentsData();
 
-            $scope.sendComments  = function(type, created_by) { 
+             
+            $scope.sendInboxComments  = function(type) { 
                 $scope.sendCommentsData = {
-                    "comments"        :   $scope.comments,
+                    "comments"        :   $scope.inlineComments,
                     "enquiry_id"      :   $scope.enquiry_id,
-                    "type"            :   type,
-                    "created_by"      :   created_by,
+                    "type"            :   $scope.chatType,
+                    "created_by"      :   type,
                 }
                 console.log($scope.sendCommentsData);
                 $http({
@@ -238,7 +236,31 @@
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
                 }).then(function successCallback(response) {
-                    $scope.GetCommentsData();
+                    document.getElementById("Inbox__commentsForm").reset();
+                    $scope.showCommentsToggle('viewConversations', $scope.chatType);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+            $scope.sendComments  = function(type, created_by) { 
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope[`${type}__comments`],
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   type,
+                    "created_by"      :   created_by,
+                }
+              
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById(`${type}__commentsForm`).reset();
+                    // $scope.GetCommentsData();
                     Message('success',response.data.msg);
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
@@ -393,5 +415,5 @@
                 return total;
             };
         }); 
-    </script> 
+    </script>  
 @endpush

@@ -188,7 +188,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             $total_wall_area = 0;
             $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
 
-            $enquiryBuildingComponent->building_component_id = $buildingComponent->WallId;
+            // $enquiryBuildingComponent->building_component_id = $buildingComponent->WallId;
             $enquiryBuildingComponent->wall = $buildingComponent->WallName;
 
             $enquiryBuildingComponent->enquiry_id = $enquiry->id;

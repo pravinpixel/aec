@@ -43,7 +43,15 @@
         position: relative;
         cursor: pointer;
     }
-
+    
+    .message-box.Customer {
+        background:  red !important;
+    }
+    .message-box.Customer .ctext-wrap:after {
+        left: -11px !important;
+        top: 0;
+    }
+     
 /*  ============  Custom According Button ============= */
 
 /*  ============ Custom Input ========== */
@@ -227,15 +235,13 @@ small {
 
 
 /* Project Information */
-fieldset:hover ,   fieldset:hover  .legend {
+.accordion-header.custom:hover {
     border: 1px solid var(--primary-bg) !important
 }
-.legend {
-  top: -15px;
-  position: absolute;
-  font-weight: bold;
-  line-height: 25px;
-  padding: 0px 10px;
-  background: white;
-  left: 25px;
+.accordion-header.custom {
+    border: 1px solid  white !important;
+    transition: all .3s !important;
+}
+.ctext-wrap {
+    min-width: 50% !important;
 }
