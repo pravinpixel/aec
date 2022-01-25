@@ -97,11 +97,12 @@ class EnquiryController extends Controller
         $enquiry                        =   $this->customerEnquiryRepo->getEnquiryByID($id);
         $result['customer_info']        =   $enquiry->customer; 
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
+        $result["enquiry_comments"]     =   $this->customerEnquiryRepo->getEnquiryComments($id);
+        $result["enquiry_id"]           =   $enquiry->id;
         $result["enquiry"]              =   $this->customerEnquiryRepo->formatEnqInfo($enquiry);
         $result['project_info']         =   $this->customerEnquiryRepo->formatProjectInfo($enquiry);
         $result['services']             =   $enquiry->services;
-        $result['ifc_model_uploads']    =   $enquiry->documentTypes;
-        // $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
+        $result['ifc_model_uploads']    =   $enquiry->documentTypes; 
         $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['additional_infos']     =   $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         return $result; 

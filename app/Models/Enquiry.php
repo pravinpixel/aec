@@ -99,6 +99,7 @@ class Enquiry extends Model
     public function deliveryType()
     {
         return $this->belongsTo(DeliveryType::class);
-    }
+    } 
+        
 }
 

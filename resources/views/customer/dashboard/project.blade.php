@@ -6,7 +6,7 @@
     <div class="content-page">
         <div class="content">
 
-            @include('customers.includes.top-bar')
+            @include('customer.includes.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid ">

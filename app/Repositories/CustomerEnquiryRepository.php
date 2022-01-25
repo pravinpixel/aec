@@ -11,6 +11,8 @@ use App\Models\EnquiryBuildingComponentDetail;
 use App\Models\EnquiryBuildingComponentLayer;
 use App\Models\EnquiryService;
 use App\Models\EnquiryTechnicalEstimate;
+use App\Models\EnquiryComments;
+
 
 use App\Models\Service;
 
@@ -66,6 +68,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $this->enquiry->with('customer')->find($id);
     }
 
+    public function getEnquiryComments($id) 
+    {
+        return EnquiryComments::where("enquiry_id", '=', $id)
+                                ->where("type", "=" , "project_infomation")
+                                ->get();
+    }
     public function getEnquiryByEnquiryNo($no)
     {
         return $this->enquiry->where('enquiry_number', $no)->first();

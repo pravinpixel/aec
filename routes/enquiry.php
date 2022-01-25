@@ -1,6 +1,7 @@
 <?php 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Enquiry\EnquiryController;
+use App\Http\Controllers\Admin\Enquiry\EnquiryCommentsController;
 
 
 Route::prefix('admin')->group(function () {
@@ -14,6 +15,8 @@ Route::prefix('admin')->group(function () {
     })->name('admin.enquiry-create');
 
     Route::get('show-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
+    Route::post('add-comments', [EnquiryCommentsController::class,'store'])->name("enquiry.comments");
+    Route::get('show-comments', [EnquiryCommentsController::class,'show'])->name("enquiry.show-comments");
     
     //----- Project Summary ------
     Route::get('/admin-project-summary', function () {
@@ -43,5 +46,6 @@ Route::prefix('admin')->group(function () {
     
     Route::get('/admin-move-to-project', function () {
         return view('admin.enquiry.wizard.move-to-project');
-    })->name('enquiry.move-to-project');
+    })->name('enquiry.move-to-project'); 
+
 });
