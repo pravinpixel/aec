@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLayersTable extends Migration
+class CreateCustomerLayersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateLayersTable extends Migration
      */
     public function up()
     {
-        Schema::create('layers', function (Blueprint $table) {
+        Schema::create('customer_layers', function (Blueprint $table) {
             $table->id();
-            $table->string('layer_name');
-            $table->unsignedBigInteger('building_component_id')->nullable();
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('layer_id');
             $table->boolean('is_active')->default(1);
-            $table->foreign('building_component_id')->references('id')->on('building_components');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('layer_id')->references('id')->on('layers')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ class CreateLayersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('layers');
+        Schema::dropIfExists('customer_layers');
     }
 }

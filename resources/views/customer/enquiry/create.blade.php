@@ -55,7 +55,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
+                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
                                 <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -1032,10 +1032,11 @@
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
-                    element.on('change', function () {
-                        if(scope.w.WallId == 'undefined' || scope.l.LayerName == 'undefined') {
+                    element.on('click', function () {
+                        if(scope.w.WallId == 'undefined') {
                             return false;
                         }
+                      
                         $http({
                             method: 'GET',
                             url: '{{ route("layer-type.get-layer-type") }}',
@@ -1045,6 +1046,23 @@
                             }, function error(response) {
                                 // console.log('layer');
                         });
+                    });
+                },
+            };
+        }).directive('getCustomerLayer', function customerLayer($http) {
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    console.log(scope.w.WallId);
+                    $http({
+                        method: 'GET',
+                        url: '{{ route("customer-layer.get") }}',
+                        params : {building_component_id: scope.w.WallId}
+                        }).then(function success(response) {
+                            console.log(response);
+                            scope.layers = response.data;
+                        }, function error(response) {
+                            // console.log('layer');
                     });
                 },
             };

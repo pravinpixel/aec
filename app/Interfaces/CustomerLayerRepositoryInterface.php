@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface LayerRepositoryInterface
+interface CustomerLayerRepositoryInterface
 {
     public function all();
     public function create(array  $data);
@@ -10,5 +10,4 @@ interface LayerRepositoryInterface
     public function delete($id);
     public function find($id);
     public function get($request);
-    public function getByBuildingComponentId($id);
 }

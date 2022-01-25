@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\LayerRepositoryInterface;
-use App\Models\Layer;
+use App\Interfaces\CustomerLayerRepositoryInterface;
+use App\Models\CustomerLayer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class LayerRepository implements LayerRepositoryInterface{
+class CustomerLayerRepository implements CustomerLayerRepositoryInterface{
     protected $model;
 
-    public function __construct(Layer $layer)
+    public function __construct(CustomerLayer $customerLayer)
     {
-        $this->model = $layer;
+        $this->model = $customerLayer;
     }
 
     public function all()
@@ -37,19 +37,14 @@ class LayerRepository implements LayerRepositoryInterface{
 
     public function find($id)
     {
-        if (null == $layer = $this->model->find($id)) {
-            throw new ModelNotFoundException("Building Component not found");
+        if (null == $customerLayer = $this->model->find($id)) {
+            throw new ModelNotFoundException("Building Type not found");
         }
-        return $layer;
+        return $customerLayer;
     }
 
     public function get($request)
     {
-        return $this->model->where('is_active',1)->get();
-    }
-
-    public function getByBuildingComponentId($id)
-    {
-        return $this->model->where(['is_active' => 1, 'building_component_id' => $id])->get();
+        return $this->model->with(['layer'])->where('is_active',1)->get();
     }
 }

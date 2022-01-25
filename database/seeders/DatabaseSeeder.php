@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProjectTypeSeeder::class);
         $this->call(OutputTypeSeeder::class);
         $this->call(ServiceSeeder::class);
-        $this->call(LayerSeeder::class);
-        $this->call(LayerTypeSeeder::class);
+        // $this->call(LayerSeeder::class);
+        // $this->call(LayerTypeSeeder::class);
         $this->call(DocumentTypeSeeder::class);
         // $this->call(GanttChartSeeder::class);
         $this->call(TasksTableSeeder::class);

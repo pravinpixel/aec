@@ -6,6 +6,7 @@ use App\Interfaces\BuildingComponentRepositoryInterface;
 use App\Interfaces\BuildingTypeRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use App\Interfaces\CustomerLayerRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\DeliveryTypeRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
@@ -20,6 +21,7 @@ use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\CustomerEnquiryRepository;
+use App\Repositories\CustomerLayerRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\DeliveryTypeRepository;
 use App\Repositories\DocumentTypeEnquiryRepository;
@@ -105,6 +107,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             OutputTypeRepositoryInterface::class,
             OutputTypeRepository::class
+        );
+
+        $this->app->bind(
+            CustomerLayerRepositoryInterface::class,
+            CustomerLayerRepository::class
         );
         
     }
