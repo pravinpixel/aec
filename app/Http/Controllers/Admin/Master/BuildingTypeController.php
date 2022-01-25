@@ -92,4 +92,9 @@ class BuildingTypeController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    public function get(Request $request)
+    {
+        return response()->json($this->buildingType->get($request));
+    }
+
 }

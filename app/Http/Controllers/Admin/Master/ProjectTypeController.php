@@ -100,4 +100,8 @@ class ProjectTypeController extends Controller
         return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$projectType], Response::HTTP_OK);
     }
 
+    public function get(Request $request)
+    {
+        return response()->json($this->projectTypeRepository->get($request));
+    }
 }

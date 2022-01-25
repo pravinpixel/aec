@@ -42,4 +42,9 @@ class ServiceRepository implements ServiceRepositoryInterface{
         }
         return $service;
     }
+    
+    public function get($request)
+    {
+        return $this->model->where('is_active',1)->get();
+    }
 }

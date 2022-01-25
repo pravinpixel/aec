@@ -11,4 +11,5 @@ interface DocumentTypeRepositoryInterface
     public function findByName($name);
     public function findBySlug($slug);
     public function getMandatoryField();
+    public function get($request);
 }

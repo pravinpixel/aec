@@ -93,4 +93,9 @@ class BuildingComponentController extends Controller
         $this->buildingComponent->delete($buildingComponentId);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function get(Request $request)
+    {
+        return response()->json($this->buildingComponent->get($request));
+    }
 }

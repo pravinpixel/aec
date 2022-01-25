@@ -670,7 +670,7 @@
                 if(projectTypefiredOnce){ return; }
                 $http({
                     method: 'GET',
-                    url: '{{ route("project-type.index") }}'
+                    url: '{{ route("project-type.get") }}'
                 }).then(function (res) {
                     projectTypefiredOnce = true;
                     $scope.projectTypes = res.data;		
@@ -683,7 +683,7 @@
                 if(deliveryTypefiredOnce){ return; }
                 $http({
                     method: 'GET',
-                    url: '{{ route("delivery-type.index") }}'
+                    url: '{{ route("delivery-type.get") }}'
                 }).then(function (res) {
                     deliveryTypefiredOnce = true;
                     $rootScope.deliveryTypes = res.data;		    
@@ -696,7 +696,7 @@
                 if(buildingTypefiredOnce){ return; }
                 $http({
                     method: 'GET',
-                    url: '{{ route("building-type.index") }}'
+                    url: '{{ route("building-type.get") }}'
                 }).then(function (res) {
                     buildingTypefiredOnce = true;
                     $scope.buildingTypes = res.data;		
@@ -813,7 +813,7 @@
            $scope.getOutputType = () => {
                $http({
                    method: 'GET',
-                   url: '{{ route("output-type.index") }}'
+                   url: '{{ route("output-type.get") }}'
                }).then(function (res) {
                    $scope.outputTypes = res.data;		
                }, function (error) {
@@ -930,7 +930,7 @@
                 if(documentTypefireOnce){ return; }
                 $http({
                     method: 'GET',
-                    url: '{{ route("document-type.index") }}'
+                    url: '{{ route("document-type.get") }}'
                 }).then(function (res) {
                     documentTypefireOnce = true;
                     res.data.map((item) => {
@@ -1095,7 +1095,7 @@
                         getBuildingComponent = () => {
                             $http({
                                 method: 'GET',
-                                url: '{{ route("building-component.index") }}'
+                                url: '{{ route("building-component.get") }}'
                                 }).then(function success(response) {
                                     
                                     response.data.map( (item , index) => {
@@ -1172,7 +1172,7 @@
            getLayer = () => {
                 $http({
                     method: 'GET',
-                    url: '{{ route("layer.index") }}'
+                    url: '{{ route("layer.get") }}'
                     }).then(function success(response) {
                         $scope.layers = response.data;
                     }, function error(response) {

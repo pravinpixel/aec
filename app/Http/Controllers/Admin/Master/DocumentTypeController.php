@@ -172,4 +172,9 @@ class DocumentTypeController extends Controller
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
+
+    public function get(Request $request)
+    {
+        return response()->json($this->documentTypeRepo->get($request));
+    }
 }

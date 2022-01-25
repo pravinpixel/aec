@@ -111,4 +111,9 @@ class OutputTypeController extends Controller
         $this->outputTypeRepository->delete($id);
         return response()->json(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
+
+    public function get(Request $request)
+    {
+        return response()->json($this->outputTypeRepository->get($request));
+    }
 }

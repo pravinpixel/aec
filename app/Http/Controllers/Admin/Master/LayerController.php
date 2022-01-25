@@ -110,4 +110,9 @@ class LayerController extends Controller
         $this->layerRepository->delete($id);
         return response()->json(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
+
+    public function get(Request $request)
+    {
+        return response()->json($this->layerRepository->get($request));
+    }
 }

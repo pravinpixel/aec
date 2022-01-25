@@ -43,4 +43,9 @@ class DeliveryTypeRepository implements DeliveryTypeRepositoryInterface{
         }
         return $deliveryType;
     }
+
+    public function get($request)
+    {
+        return $this->model->where('is_active',1)->get();
+    }
 }

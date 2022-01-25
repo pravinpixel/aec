@@ -131,5 +131,8 @@ class ServiceController extends Controller
     }
     
 
-    
+    public function get(Request $request)
+    {
+        return response()->json($this->serviceRepository->get($request));
+    }
 }

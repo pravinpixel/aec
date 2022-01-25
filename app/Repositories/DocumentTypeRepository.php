@@ -57,4 +57,9 @@ class DocumentTypeRepository implements DocumentTypeRepositoryInterface{
     {
         return $this->model->where('is_mandatory',1)->get();
     }
+
+    public function get($request)
+    {
+        return $this->model->where('is_active',1)->get();
+    }
 }

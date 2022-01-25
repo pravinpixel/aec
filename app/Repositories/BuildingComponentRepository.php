@@ -42,4 +42,9 @@ class BuildingComponentRepository implements BuildingComponentRepositoryInterfac
         }
         return $buildingComponent;
     }
+
+    public function get($request)
+    {
+        return $this->model->where('is_active',1)->get();
+    }
 }

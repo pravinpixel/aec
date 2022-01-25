@@ -12,4 +12,5 @@ interface LayerTypeRepositoryInterface
     public function delete($id);
     public function find($id);
     public function getLayerTypeByComponentId($building_component_id, $layer_id);
+    public function get($request);
 }

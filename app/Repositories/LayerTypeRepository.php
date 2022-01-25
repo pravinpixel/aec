@@ -47,4 +47,9 @@ class LayerTypeRepository implements LayerTypeRepositoryInterface{
     {
         return $this->model->where(['building_component_id' => $building_component_id, 'layer_id' => $layer_id])->get();
     }
+
+    public function get($request)
+    {
+        return $this->model->where('is_active',1)->get();
+    }
 }
