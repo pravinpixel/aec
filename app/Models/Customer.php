@@ -46,9 +46,17 @@ class Customer extends Model
         return $this->hasMany(Enquiry::class, 'customer_id', 'id');
     }
    
-
+    
     public function latestEnquiry()
     {
         return $this->hasOne(Enquiry::class, 'customer_id', 'id')->latest();
     }
+
+    public function layers()
+    {
+        return $this->belongsToMany(Layer::class)
+                        ->wherePivot('is_active',1)
+                        ->withTimestamps();
+    }
+
 }

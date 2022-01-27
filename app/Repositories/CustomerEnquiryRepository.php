@@ -166,7 +166,6 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                             $buildingComponentDetailLayer->enquiry_id     = $enquiry->id;
                             $buildingComponentDetailLayer->enquiry_bcd_id = $enquiryBuildingComponentDetail->id;
                             $buildingComponentDetailLayer->layer_id       = $buildingComponentLayer->LayerName;
-                            $buildingComponentDetailLayer->layer_type_id  = $buildingComponentLayer->LayerType;
                             $buildingComponentDetailLayer->thickness      = $buildingComponentLayer->Thickness;
                             $buildingComponentDetailLayer->breath         = $buildingComponentLayer->Breadth;
                             $buildingComponentDetailLayer->save();
@@ -247,6 +246,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                 }
                 $componentAdditionalData = [
                     'wall' => $buildingComponentMaster->building_component_name,
+                    'top_position' => $buildingComponentMaster->top_position,
+                    'bottom_position' => $buildingComponentMaster->bottom_position,
                     'icon' => $buildingComponentMaster->building_component_icon,
                     'wallId' => $buildingComponentMaster->id,
                     'totalWallArea' => $enquiryBuildingComponent->total_wall_area

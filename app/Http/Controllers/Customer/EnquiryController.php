@@ -324,6 +324,20 @@ class EnquiryController extends Controller
         return view('customer.enquiry.edit',compact('enquiry','id'));
     }
 
+
+    public function getIncompletePanel($enquiry)
+    {
+        if($enquiry->project_info == 0) {
+            return 'project_info';
+        } else if($enquiry->service == 0) {
+            return 'service';
+        } else if($enquiry->ifc_model_upload == 0) {
+            return 'ifc_model_upload';
+        } else if($enquiry->building_component == 0) {
+            return 'building_component';
+        }
+    }
+
     public function getPlanViewList(Request $request)
     {
         $id = $request->input('id');

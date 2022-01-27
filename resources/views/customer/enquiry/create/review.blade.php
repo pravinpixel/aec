@@ -147,13 +147,11 @@
                                                 <table class="table m-0 table-bordered">
                                                     <tr class="table-bold">
                                                         <th>Name</th>
-                                                        <th>Type</th>
                                                         <th>Thickness</th>
                                                         <th>Breadth</th>
                                                     </tr> 
                                                     <tr ng-repeat="layer in detail.layer">
                                                         <td>@{{ layer.layer.layer_name }}</td>
-                                                        <td>@{{ layer.layer_type.layer_type_name }}</td>
                                                         <td>@{{ layer.thickness }}</td>
                                                         <td>@{{ layer.breath }}</td>
                                                     </tr>

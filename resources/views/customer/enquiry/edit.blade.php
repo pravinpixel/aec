@@ -22,7 +22,7 @@
                     <div id="rootwizard" ng-controller="wizard">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                             <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfoForm" style="pointer-events:none">
-                                <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step active">
+                                <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-project-diagram fa-2x "></i>
@@ -32,7 +32,7 @@
                                 </a>
                             </li>
                             <li class="nav-item"  data-target-form="#serviceSelection" style="pointer-events:none">
-                                <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
+                                <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
@@ -43,7 +43,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" style="pointer-events:none">
-                                <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
+                                <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
@@ -54,7 +54,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
-                                <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
+                                <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
@@ -65,7 +65,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
-                                <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
+                                <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-2x fa-info mb-1"></i>
@@ -75,7 +75,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item last"  ng-click="updateWizardStatus(5)" data-target-form="#reviewSubmit"  >
+                            <li class="nav-item last"  ng-click="updateWizardStatus(5)" data-target-form="#reviewSubmit">
                                 <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 40px;"  class="timeline-step">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -92,14 +92,14 @@
                             <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
                                 @include('customer.enquiry.edit.project-info')
                             </div>
-                            <div class="tab-pane fade " id="second" ng-controller="ServiceSelection">
+                            <div class="tab-pane fade" id="second" ng-controller="ServiceSelection">
                                 @include('customer.enquiry.edit.service-selection')
                             </div>
-                            <div class="tab-pane fade " id="four" ng-controller="IFCModelUpload">
+                            <div class="tab-pane fade" id="four" ng-controller="IFCModelUpload">
                                 @include('customer.enquiry.edit.ifc-model-uploads')
                             </div>
 
-                            <div class="tab-pane p-0 h-100 fade " id="five" ng-controller="CrudCtrl">
+                            <div class="tab-pane p-0 h-100  fade" id="five" ng-controller="CrudCtrl">
                                 @include('customer.enquiry.edit.building-component')
                             </div>
                            
@@ -1101,9 +1101,11 @@
                                     response.data.map( (item , index) => {
                                         
                                         let wall = {
-                                            WallId: item.id,
-                                            WallName: item.building_component_name,
-                                            WallIcon: item.building_component_icon,
+                                            WallId    : item.id,
+                                            WallName  : item.building_component_name,
+                                            WallIcon  : item.building_component_icon,
+                                            WallTop   : item.top_position,
+                                            WallBottom: item.bottom_position,
                                             Details: [
                                                 
                                             ]
@@ -1133,8 +1135,6 @@
                                         return {
                                             LayerName:  String(layerObj.layer.id),
                                             LayerNameText:  layerObj.layer.layer_name,
-                                            LayerType:  layerObj.layer_type.id,
-                                            LayerTypeText:  layerObj.layer_type.layer_type_name,
                                             Thickness : Number(layerObj.thickness),
                                             Breadth:  Number(layerObj.breath),
                                         }
@@ -1150,9 +1150,11 @@
                             });
                         }
                         let wall = {
-                                WallId: item.wallId,
-                                WallName: item.wall,
-                                WallIcon: item.icon,
+                                WallId    : item.wallId,
+                                WallName  : item.wall,
+                                WallIcon  : item.icon,
+                                WallTop   : item.top_position,
+                                WallBottom: item.bottom_position,
                                 Details: Details
                             }
                         $scope.wallGroup.push(wall);
@@ -1199,7 +1201,7 @@
                         {
                             "LayerName": '',
                             "LayerType": '',
-                            "Thickness ": '',
+                            "Thickness": '',
                             "Breadth": '',
                         }
                     ] 
@@ -1209,7 +1211,7 @@
                 $scope.wallGroup[fIndex].Details[index].Layers.unshift({
                     "LayerName": '',
                     "LayerType": '',
-                    "Thickness ": '',
+                    "Thickness": '',
                     "Breadth": '',
                 });
             }    
@@ -1261,6 +1263,23 @@
                         }
                     },
                 };
+        }).directive('getCustomerLayer', function customerLayer($http) {
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    console.log(scope.w.WallId);
+                    $http({
+                        method: 'GET',
+                        url: '{{ route("customer-layer.get") }}',
+                        params : {building_component_id: scope.w.WallId}
+                        }).then(function success(response) {
+                            console.log(response);
+                            scope.layers = response.data;
+                        }, function error(response) {
+                            // console.log('layer');
+                    });
+                },
+            };
         });
 
         app.controller('Review', function($scope, $http, $rootScope, Notification) {
@@ -1286,18 +1305,6 @@
         });
 
         app.controller('AdditionalInfo', function($scope, $http, $rootScope, Notification) {
-            getLastEnquiry = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("customers.get-enquiry",[$id,"additional_info"]) }}',
-                }).then(function (res){
-                    $scope.comments = res.data.additional_infos;
-                }, function (error) {
-                    console.log('ifc_model_uploads error');
-                });
-            }
-            getLastEnquiry();
-         
             $scope.addComment = () => {
                 if(typeof($scope.additionalInfo) == 'undefined') {
                     return false;
@@ -1307,7 +1314,7 @@
                     url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'additional_info', 'data': $scope.additionalInfo}
                 }).then(function (res) {
-                   $scope.comments = res.data;
+                   $scope.additionalInfo = '';
                    Notification.success({message: `Comments added successfully`, delay: 4000});
                 }, function (error) {
                     console.log(`additional info ${error}`);

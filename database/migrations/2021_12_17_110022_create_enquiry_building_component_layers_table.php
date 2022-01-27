@@ -18,7 +18,7 @@ class CreateEnquiryBuildingComponentLayersTable extends Migration
             $table->unsignedBigInteger('enquiry_id')->unsigned();
             $table->unsignedBigInteger('enquiry_bcd_id')->unsigned();
             $table->unsignedBigInteger('layer_id')->unsigned();
-            $table->unsignedBigInteger('layer_type_id')->unsigned();
+            // $table->unsignedBigInteger('layer_type_id')->unsigned();
             $table->string('thickness');
             $table->string('breath');
             $table->foreign('enquiry_id')->references('id')->on('enquiries');

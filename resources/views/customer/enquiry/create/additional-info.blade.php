@@ -11,21 +11,6 @@
              
             </div>
             <button class="btn btn-info" ng-click="addComment()">Add</button>
-            <table class="table table-bordered">
-                <tr>
-                    <th>S.no</th>
-                    <th>Date</th>
-                    <th>commented person</th>
-                    <th>comments</th>
-                </tr>
-                <tr ng-repeat="(key,comment) in comments">
-                    <td> @{{ key + 1 }}</td>
-                    <td>@{{ comment.created_at }}</td>
-                    <td>@{{ comment.customer.full_name }}</td>
-                    <td>@{{ comment.comments }}</td>
-                </tr> 
-            </table>
-             
         </div>
     </div>
     <!-- end col -->

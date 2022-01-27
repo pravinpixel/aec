@@ -26,4 +26,9 @@ class Layer extends Model
     {
         return $this->hasMany(CustomerLayer::class);
     }
+
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class,'customer_layer','layer_id','customer_id');
+    }
 }

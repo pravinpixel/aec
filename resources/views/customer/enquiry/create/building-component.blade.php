@@ -127,13 +127,14 @@
                                                 </div>
                                             </div>
                                             <div class="card-body pt-4">
+                                                <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallTop"> @{{ w.WallTop }}</p>
                                                 <table class="table table-borderless m-0 " > 
                                                     <tbody>
                                                         <tr ng-repeat="(ThreeIndex,l) in d.Layers">
                                                             <td>
                                                                 <div class="form-group shadow-sm">
                                                                     <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                    <select class="form-select form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
+                                                                    <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
                                                                             <option value="">@lang('customer-enquiry.select')</option>
                                                                             <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
                                                                                 @{{ layer.layer_name }}
@@ -193,8 +194,8 @@
                                                             </td> 
                                                         </tr>
                                                     </tbody>
-                                                    
                                                 </table>
+                                                <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallBottom"> @{{ w.WallBottom }}</p>
                                             </div>
                                         </div>
                                     </div>

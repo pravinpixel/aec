@@ -17,6 +17,8 @@ class CreateBuildingComponentsTable extends Migration
             $table->id();
             $table->string('building_component_name')->nullable();
             $table->string('building_component_icon')->nullable();
+            $table->string('top_position')->nullable();
+            $table->string('bottom_position')->nullable();
             $table->integer('order_id')->nullable();
             $table->boolean('is_active')->default(1);
             $table->softDeletes();

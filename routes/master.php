@@ -40,6 +40,5 @@ Route::get('layer-type/get-layer-type', [LayerTypeController::class,'getLayerTyp
 Route::resource('layer-type', LayerTypeController::class);
 
 Route::get('get-customer-layer', [CustomerLayerController::class,'get'])->name('customer-layer.get');
-Route::resource('customer-layer', CustomerLayerController::class);
 
 

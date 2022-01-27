@@ -33,7 +33,7 @@
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" >
+                            <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
                                 <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step  ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -44,7 +44,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" >
+                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" style="pointer-events:none">
                                 <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -55,7 +55,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
+                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
                                 <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -949,9 +949,11 @@
                         response.data.map( (item , index) => {
                             
                             let wall = {
-                                WallId: item.id,
-                                WallName: item.building_component_name,
-                                WallIcon: item.building_component_icon,
+                                WallId    : item.id,
+                                WallName  : item.building_component_name,
+                                WallIcon  : item.building_component_icon,
+                                WallTop   : item.top_position,
+                                WallBottom: item.bottom_position,
                                 Details: [
                                     
                                 ]
@@ -994,8 +996,7 @@
                     "Layers": [
                         {
                             "LayerName": '',
-                            "LayerType": '',
-                            "Thickness ": '',
+                            "Thickness": '',
                             "Breadth": '',
                         }
                     ] 
@@ -1053,13 +1054,13 @@
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
-                    console.log(scope.w.WallId);
+                    // console.log(scope.w.WallId);
                     $http({
                         method: 'GET',
                         url: '{{ route("customer-layer.get") }}',
                         params : {building_component_id: scope.w.WallId}
                         }).then(function success(response) {
-                            console.log(response);
+                            // console.log(response);
                             scope.layers = response.data;
                         }, function error(response) {
                             // console.log('layer');
@@ -1101,7 +1102,7 @@
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'additional_info', 'data': $scope.additionalInfo}
                 }).then(function (res) {
-                   $scope.comments = res.data;
+                   $scope.additionalInfo = '';
                    Notification.success({message: `Comments added successfully`, delay: 4000});
                 }, function (error) {
                     console.log(`additional info ${error}`);

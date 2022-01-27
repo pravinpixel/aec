@@ -3,13 +3,13 @@
 namespace App\Repositories;
 
 use App\Interfaces\CustomerLayerRepositoryInterface;
-use App\Models\CustomerLayer;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CustomerLayerRepository implements CustomerLayerRepositoryInterface{
     protected $model;
 
-    public function __construct(CustomerLayer $customerLayer)
+    public function __construct(Customer $customerLayer)
     {
         $this->model = $customerLayer;
     }
@@ -45,6 +45,12 @@ class CustomerLayerRepository implements CustomerLayerRepositoryInterface{
 
     public function get($request)
     {
-        return $this->model->with(['layer'])->where('is_active',1)->get();
+        $buildingComponent = $request->input('building_component_id') ?? null;
+        if(!empty(Customer()->id) && !is_null($buildingComponent) ) {
+            $customer = $this->model->find(1);
+            return  $customer->layers()
+                            ->where('layers.building_component_id', $buildingComponent)
+                            ->get();
+        }
     }
 }
