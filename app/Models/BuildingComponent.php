@@ -16,4 +16,9 @@ class BuildingComponent extends Model
         'order_id',
         'is_active'
     ];
+
+    public function layers()
+    {
+        return $this->hasMany(Layer::class);
+    }
 }

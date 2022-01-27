@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Master\BuildingComponentController;
 use App\Http\Controllers\Admin\Master\LayerController;
 use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\OutputTypeController;
+use App\Http\Controllers\Customer\Master\CustomerLayerController;
 
 Route::get('get-building-type', [BuildingTypeController::class,'get'])->name('building-type.get');
 Route::resource('building-type', BuildingTypeController::class);
@@ -37,5 +38,8 @@ Route::get('get-layer', [LayerController::class,'get'])->name('layer.get');
 Route::resource('layer', LayerController::class);
 Route::get('layer-type/get-layer-type', [LayerTypeController::class,'getLayerTypeByComponentId'])->name('layer-type.get-layer-type');
 Route::resource('layer-type', LayerTypeController::class);
+
+Route::get('get-customer-layer', [CustomerLayerController::class,'get'])->name('customer-layer.get');
+Route::resource('customer-layer', CustomerLayerController::class);
 
 

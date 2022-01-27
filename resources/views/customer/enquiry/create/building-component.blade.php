@@ -12,7 +12,7 @@
       
         <div class="col-sm-10">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade " ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
+                <div class="tab-pane fade"  get-customer-layer  ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
                 
                     <div class="d-flex justify-content-between align-items-center">
                         <div > <h3> <div> </div></h3> </div>
@@ -131,9 +131,9 @@
                                                     <tbody>
                                                         <tr ng-repeat="(ThreeIndex,l) in d.Layers">
                                                             <td>
-                                                                <div class="form-group shadow-sm" get-layer-type>
+                                                                <div class="form-group shadow-sm">
                                                                     <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                    <select class="form-select form-select-sm" id="floatingSelect" ng-change ="getLayerType(w.WallId,l.LayerName)" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
+                                                                    <select class="form-select form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
                                                                             <option value="">@lang('customer-enquiry.select')</option>
                                                                             <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
                                                                                 @{{ layer.layer_name }}
@@ -142,7 +142,7 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <div class="form-group shadow-sm">
+                                                                {{-- <div class="form-group shadow-sm">
                                                                     <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
                                                                     <select  class="form-select  form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerType" required>
                                                                         <option value="">@lang('customer-enquiry.select')</option>
@@ -150,7 +150,7 @@
                                                                             @{{ layerType.layer_type_name }}
                                                                         </option>
                                                                     </select>
-                                                                </div>
+                                                                </div>ng-change ="getLayerType(w.WallId,l.LayerName)" --}}
                                                             </td>
                                                             <td width="35%"> 
                                                                 <div class="btn-group shadow-sm border rounded">
