@@ -633,7 +633,7 @@
                 } else if (newStep == 3) {
                     $scope.$broadcast('getBuildingComponent');
                 } else if (newStep == 5) {
-                    $scope.broadcast('callAdditionalInfo')
+                    $scope.$broadcast('callAdditionalInfo')
                     $scope.$broadcast('getReview');
                 }
                 $rootScope.currentStep = newStep;

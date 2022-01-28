@@ -517,7 +517,7 @@
                     $scope.$broadcast('callBuildingComponent');
                 }
                 else if ($rootScope.currentStep == 5) {
-                    $scope.broadcast('callAdditionalInfo')
+                    $scope.$broadcast('callAdditionalInfo')
                     $scope.$broadcast('callReview');
                 }
             }
