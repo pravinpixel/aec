@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class EnquiryTechnicalEstimate extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'build_json',
+        'enquiry_id'
+    ];
     public function buildingComponent()
     {
         return $this->belongsTo(BuildingComponent::class);

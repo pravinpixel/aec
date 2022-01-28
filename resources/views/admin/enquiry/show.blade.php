@@ -30,7 +30,10 @@
                                     </li>
                                 </ol>
                             </div>
-                            <h4 class="page-title"><div ng-controller="WizzardCtrl">@{{ enquiry_number }} : @{{   project_info.project_name }}</div></h4>
+                            <h4 class="page-title" ng-controller="WizzardCtrl">
+                                    @{{ enquiry_number }} - @{{   project_info.project_name }}
+                                    {{-- EQ/2022/0001 - Project Name --}}
+                            </h4>
                         </div>
                     </div>
                 </div> 
@@ -141,10 +144,8 @@
                             params : {component_id: scope.c.building_component_name, type_id: scope.t.type_name}
                             }).then(function success(response) {
                                 scope.masterData = response.data; 
-                                console.log(scope.CostEstimate);
-
-                                scope.CostEstimate[scope.index].sqm = response.data.sqm;
-
+                                console.log(scope.CostEstimate); 
+                                scope.CostEstimate[scope.index].sqm = response.data.sqm; 
                                 console.log(scope.CostEstimate);
                             }, function error(response) { 
                         });
@@ -152,7 +153,25 @@
                     });
                 },
             };
-        }]);        
+        }]);  
+        app.directive('getTotalComponents',   ['$http' ,function ($http, $scope) {  
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    element.on('focusout', function () {
+                        var index       = scope.index;
+                        console.log(scope.building_building[index]);
+                        let bcd = scope.building_building[index].building_component_number.map((item,i) => {
+                            return item.sqfeet;
+                        });
+                        
+                        let result = bcd.reduce((previousValue, currentValue) => previousValue + currentValue);
+
+                        scope.building_building[index].total_component_area = result; 
+                    });
+                },
+            };
+        }]);      
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -271,54 +290,48 @@
             
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.enquiry             = response.data; 
-                $scope.building_component  = response.data.building_component; 
-
-                $scope.sum = function(list) {
-                    var Bigtotal=0;
-                    angular.forEach(list , function(item){
-
-                        Bigtotal+= Number(item.total_wall_area);
-                    });
-                    return Bigtotal;
-                }
-
-                $scope.Add_Wall = function() {
-                    $scope.building_component.push(
+                $scope.building_building  = response.data.building_component; 
+                $scope.Add_building = function() {
+                    $scope.building_building.push(
                         {
-                            "building_component": {
-                            "building_component_name"   : "type", 
-                            },
-                            "total_wall_area" : 0
+                            "building_number": 1, 
+                            "building_component_number": [
+                                {
+                                    "name": '',
+                                    "sqfeet": ''
+                                } 
+                            ] ,
+                            "total_component_area" : 12
                         }
                     )
                 }
-                $scope.Delete_Wall   =   function(index) {
-                    $scope.building_component.splice(index,1);
+                $scope.Add_component = function(index) {
+                    $scope.building_building[index].building_component_number.push(
+                        {
+                            "name": '',
+                        }
+                    )
+                }
+                $scope.Delete_building   =   function(index) {
+                    $scope.building_building.splice(index,1);
                 }  
-            }); 
-            $scope.technicalestimate  = function() {
-                $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
-                    $scope.building_component  = response.data.building_component;  
-                });
-            } 
+                $scope.Delete_component   =   function(index, secindex) {
+                    $scope.building_building[index].building_component_number.splice(secindex,1);
+                }  
+            });
+           
             $scope.updateTechnicalEstimate  = function() {
-               
                 $http({
                     method: "POST",
                     url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ,
                     // data : $scope.building_component,
-                    data: $.param({ data : $scope.building_component}),
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
-                    }
+                    data:{ data : $scope.building_building},
                 }).then(function successCallback(response) {
-                    
                     Message('success',response.data.msg);
-                    $scope.technicalestimate(); 
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
-            } 
+            }
             $scope.total = 0;
             $scope.CostEstimate  = [
                 {
@@ -387,33 +400,27 @@
                     $scope.total +=  parseInt($scope.CostEstimate[i].TotalCost.Sum);
                 }
                 return $scope.total;
-            }
-             
-            $scope.call = function() {
-                $scope.getTotal();
-
-                alert("Working !");
-            }
+            } 
             // =========== Cost Estimate  ============
             $http.get("{{ route("CostEstimateData") }}").then(function (response) {
                 $scope.cost = response.data; 
             });
 
-            $scope.squarMeeter = function(list) {
-                var Bigtotal=0;
-                angular.forEach(list , function(item){
-                    Bigtotal+= Number(item.sqm);
-                });
-                return Bigtotal;
-            }
+            // $scope.squarMeeter = function(list) {
+            //     var Bigtotal=0;
+            //     angular.forEach(list , function(item){
+            //         Bigtotal+= Number(item.sqm);
+            //     });
+            //     return Bigtotal;
+            // }
          
-            $scope.totalAmount = function(){
-                var total = 0;
-                for(count=0;count<$scope.CostEstimate.length;count++){
-                    total += Number($scope.CostEstimate[count].sqm);
-                }
-                return total;
-            };
+            // $scope.totalAmount = function(){
+            //     var total = 0;
+            //     for(count=0;count<$scope.CostEstimate.length;count++){
+            //         total += Number($scope.CostEstimate[count].sqm);
+            //     }
+            //     return total;
+            // };
         }); 
     </script>  
 @endpush

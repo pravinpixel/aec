@@ -206,7 +206,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function updateTechnicalEstimateCost($enquiry,$buildingComponents) 
     {   
         EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete(); 
-
+        // build_json
         foreach($buildingComponents as $buildingComponent) {
             $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
             $enquiryBuildingComponent->enquiry_id = $enquiry->id;
