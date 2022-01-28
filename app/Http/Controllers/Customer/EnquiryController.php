@@ -65,10 +65,12 @@ class EnquiryController extends Controller
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $customer['document_types']     =   $this->documentTypeRepo->all();
+        $activeTab     =   $this->getIncompletePanel($enquiry)[0] ??'';
+        $activeCount     =   $this->getIncompletePanel($enquiry)[1] ??'';
         if (empty($enquiry)) {
             abort(403, 'Unauthorized action.');
         } else {
-            return view('customer.enquiry.edit',compact('enquiry','id','customer'));
+            return view('customer.enquiry.edit',compact('enquiry','id','customer','activeTab','activeCount'));
         }
     }
 
@@ -328,13 +330,13 @@ class EnquiryController extends Controller
     public function getIncompletePanel($enquiry)
     {
         if($enquiry->project_info == 0) {
-            return 'project_info';
+            return ['project_info', 0];
         } else if($enquiry->service == 0) {
-            return 'service';
+            return ['service',1];
         } else if($enquiry->ifc_model_upload == 0) {
-            return 'ifc_model_upload';
+            return ['ifc_model_upload',2];
         } else if($enquiry->building_component == 0) {
-            return 'building_component';
+            return ['building_component',3];
         }
     }
 

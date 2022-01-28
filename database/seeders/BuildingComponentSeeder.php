@@ -21,33 +21,33 @@ class BuildingComponentSeeder extends Seeder
         $roof = BuildingComponent::create(['building_component_name' => 'Roof',  'building_component_icon' =>'uil uil-mountains-sun', 'top_position'=> 'Exterior',  'bottom_position'=> 'Bottom', 'order_id'=> 5, 'is_active' => 1]);
 
         $externalWall->layers()->createMany([
-            ['layer_name' => 'Construction'],
-            ['layer_name' => 'External planking'],
-            ['layer_name' => 'External Cladding']
+            ['layer_name' => 'Construction','user_type' => 'admin'],
+            ['layer_name' => 'External planking','user_type' => 'admin'],
+            ['layer_name' => 'External Cladding','user_type' => 'admin']
         ]);
 
         $internalWall->layers()->createMany([
-            ['layer_name' => 'Internal planking'],
-            ['layer_name' => 'Facade plaster'],
-            ['layer_name' => 'Facade wood']
+            ['layer_name' => 'Internal planking','user_type' => 'admin'],
+            ['layer_name' => 'Facade plaster','user_type' => 'admin'],
+            ['layer_name' => 'Facade wood','user_type' => 'admin']
         ]);
         
         $partitionWall->layers()->createMany([
-            ['layer_name' => 'Insulation'],
-            ['layer_name' => 'Dry lining'],
-            ['layer_name' => 'Horizontal Nailers']
+            ['layer_name' => 'Insulation','user_type' => 'admin'],
+            ['layer_name' => 'Dry lining','user_type' => 'admin'],
+            ['layer_name' => 'Horizontal Nailers','user_type' => 'admin']
         ]);
 
         $ceiling->layers()->createMany([
-            ['layer_name' => 'Planking'],
-            ['layer_name' => 'Vapour Barrier'],
-            ['layer_name' => 'Vertical Nailers']
+            ['layer_name' => 'Planking','user_type' => 'admin'],
+            ['layer_name' => 'Vapour Barrier','user_type' => 'admin'],
+            ['layer_name' => 'Vertical Nailers','user_type' => 'admin']
         ]);
 
         $roof->layers()->createMany([
-            ['layer_name' => 'Planking'],
-            ['layer_name' => 'Vapour Barrier'],
-            ['layer_name' => 'Vertical Nailers']
+            ['layer_name' => 'Planking','user_type' => 'admin'],
+            ['layer_name' => 'Vapour Barrier','user_type' => 'admin'],
+            ['layer_name' => 'Vertical Nailers','user_type' => 'admin']
         ]);
     }
 }

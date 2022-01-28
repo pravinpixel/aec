@@ -18,6 +18,8 @@ class CreateLayersTable extends Migration
             $table->string('layer_name');
             $table->unsignedBigInteger('building_component_id')->nullable();
             $table->boolean('is_active')->default(1);
+            $table->string('user_type')->nullable();
+            $table->integer('created_by')->nullable();
             $table->foreign('building_component_id')->references('id')->on('building_components');
             $table->softDeletes();
             $table->timestamps();

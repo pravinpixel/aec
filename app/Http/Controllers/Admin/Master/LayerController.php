@@ -118,6 +118,6 @@ class LayerController extends Controller
 
     public function getByBuildingComponentId(Request $request)
     {
-        return response()->json($this->layerRepository->getByBuildingComponentId($request));
+        return response()->json($this->layerRepository->getByBuildingComponentId($request->building_component_id));
     }
 }

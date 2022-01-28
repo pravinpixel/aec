@@ -18,10 +18,18 @@
                         <div > <h3> <div> </div></h3> </div>
                         <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Wall</button>
                     </div>
+                    
+                    <div ng-if="!w.Details.length">
+                        <div class="text-center pt-5">
+                            <h1 class="h4">Please click to add new wall</p>
+                            <img src="{{ asset("public/assets/images/bg-emty.png") }}" width="50%">
+                        </div>
+                    </div>
+
                     <div ng-repeat="(Secindex,d) in w.Details">  
                         <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
                             
-                            <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">@{{ w.WallName }} 1.@{{$index + 1}}</div>
+                            <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">@{{ w.WallName }} @{{$index + 1}}</div>
 
                             <div class="accordion-item shadow-sm  ">
                                 
@@ -54,7 +62,7 @@
                                             <th  class="bg-light">
                                                 <div class="form-group">
                                                     <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area</label>
-                                                    <input  type="text" onkeypress="return isNumber(event)" class="form-control form-control-sm my-2  mt-3" name="@{{Secindex}}TotalArea" ng-model="d.TotalArea" required>
+                                                    <input type="number" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm my-2  mt-3" name="@{{Secindex}}TotalArea" ng-model="d.TotalArea" required>
                                                 </div>
                                             </th> 
                                             <th  class="bg-light">
@@ -157,12 +165,12 @@
                                                                 <div class="btn-group shadow-sm border rounded">
                                                                     <div class="form-group">
                                                                         <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
-                                                                        <input type="text" onkeypress="return isNumber(event)" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
+                                                                        <input type="number" step="0.01" min="0" onkeypress="return isNumber(event)" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
                                                                     </div>
                                                                     <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >x</span>
                                                                     <div class="form-group">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
-                                                                        <input  type="text" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
+                                                                        <input  type="number" step="0.01"  min="0" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
                                                                     </div>
                                                                     <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
                                                                 </div>

@@ -89,7 +89,7 @@
                                 </a>
                             </li>
                         </ul>  
-                        <div class="tab-content my-3" >
+                        <div class="tab-content my-3">
                             <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
                                 @include('customer.enquiry.create.project-info')
                             </div>
@@ -535,6 +535,7 @@
                     $scope.$broadcast('callBuildingComponent');
                 }
                 else if ($rootScope.currentStep == 5) {
+                    $scope.broadcast('callAdditionalInfo')
                     $scope.$broadcast('callReview');
                 }
             }
@@ -1057,7 +1058,7 @@
                     // console.log(scope.w.WallId);
                     $http({
                         method: 'GET',
-                        url: '{{ route("customer-layer.get") }}',
+                        url: '{{ route("layer.get-layer-by-building-component") }}',
                         params : {building_component_id: scope.w.WallId}
                         }).then(function success(response) {
                             // console.log(response);
@@ -1093,7 +1094,7 @@
         });
 
         app.controller('AdditionalInfo', function($scope, $http, $rootScope, Notification) {
-            $scope.addComment = () => {
+            $scope.$on('callAdditionalInfo', function(e) {
                 if($scope.additionalInfo == 'undefined') {
                     return false;
                 }
@@ -1107,8 +1108,14 @@
                 }, function (error) {
                     console.log(`additional info ${error}`);
                 });         
-            }       
+            });       
         });
+
+        window.onbeforeunload = function(e) {
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            e.returnValue = dialogText;
+            return dialogText;
+        };
     </script>
   
 @endpush

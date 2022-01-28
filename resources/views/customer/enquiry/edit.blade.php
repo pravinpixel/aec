@@ -61,7 +61,6 @@
                                         </div>                                                                        
                                         <span class="d-none d-sm-inline mt-2">Building  Components</span>
                                     </div>
-                                    
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
@@ -634,6 +633,7 @@
                 } else if (newStep == 3) {
                     $scope.$broadcast('getBuildingComponent');
                 } else if (newStep == 5) {
+                    $scope.broadcast('callAdditionalInfo')
                     $scope.$broadcast('getReview');
                 }
                 $rootScope.currentStep = newStep;
@@ -654,6 +654,7 @@
                 } else if ($rootScope.currentStep == 4) {
                     $scope.$broadcast('callBuildingComponent');
                 } else if ($rootScope.currentStep == 5) {
+                    $scope.$broadcast('callAdditionalInfo');
                     $scope.$broadcast('getReview');
                 }
             }
@@ -956,9 +957,9 @@
             }
             $scope.$on('getIFCModelUpload', function(e) {
                 if($rootScope.callIFCModelUpload) return false;
+                getMandatoryFileType();   
                 $scope.getDocumentTypes();
-                $scope.getLastEnquiry();     
-                getMandatoryFileType();                   
+                $scope.getLastEnquiry();                     
             });
             $scope.$on('callIFCModelUpload', function(e) {
                 if($scope.mandatoryUpload.length > 0) {
@@ -1270,7 +1271,7 @@
                     console.log(scope.w.WallId);
                     $http({
                         method: 'GET',
-                        url: '{{ route("customer-layer.get") }}',
+                        url: '{{ route("layer.get-layer-by-building-component") }}',
                         params : {building_component_id: scope.w.WallId}
                         }).then(function success(response) {
                             console.log(response);
@@ -1305,7 +1306,7 @@
         });
 
         app.controller('AdditionalInfo', function($scope, $http, $rootScope, Notification) {
-            $scope.addComment = () => {
+            $scope.$on('callAdditionalInfo', function(e) {
                 if(typeof($scope.additionalInfo) == 'undefined') {
                     return false;
                 }
@@ -1319,9 +1320,14 @@
                 }, function (error) {
                     console.log(`additional info ${error}`);
                 });         
-            }       
+            });    
         });
-
+        
+        window.onbeforeunload = function(e) {
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            e.returnValue = dialogText;
+            return dialogText;
+        };
     </script>
    
 @endpush

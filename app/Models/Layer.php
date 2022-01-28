@@ -14,7 +14,8 @@ class Layer extends Model
     protected $primaryKey = 'id';
     public $fillable = [
         'layer_name',
-      
+        'user_type',
+        'created_by',
         'is_active'
     ];
     public function layerTypes()

@@ -8,9 +8,7 @@
                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" ng-model="additionalInfo" style="height: 100px;"></textarea>
                     <label for="floatingTextarea">Comments</label>
                 </div>
-             
             </div>
-            <button class="btn btn-info" ng-click="addComment()">Add</button>
         </div>
     </div>
     <!-- end col -->

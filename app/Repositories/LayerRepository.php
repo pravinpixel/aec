@@ -50,6 +50,16 @@ class LayerRepository implements LayerRepositoryInterface{
 
     public function getByBuildingComponentId($id)
     {
-        return $this->model->where(['is_active' => 1, 'building_component_id' => $id])->get();
+        return $this->model->where([
+            'is_active' => 1, 
+            'building_component_id' => $id,
+            'user_type' => 'admin'
+        ])
+        ->when(Customer(), function($q){
+            $q->Orwhere([
+                'created_by' => Customer()->id,
+            ]);
+        })
+        ->get();
     }
 }
