@@ -1,4 +1,5 @@
 <div class="row mx-0 mt-3 " ng-controller="Cost_Estimate">
+   
     <div class="col-lg-9 p-0">
         <div class="card shadow-none p-0 m-0">
             <div class="card-header pb-0 border-0">
@@ -26,7 +27,7 @@
                     </table> 
                 </div>
             </div> 
-            <div class="card-body mb-0 pb-0">
+            <div class="card-body mb-0 pb-0" >
                 <div class="row align-items-center mb-2">
                     <div class="col-sm-6">                        
                         <button class="btn btn-sm btn-primary " ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button>
@@ -35,7 +36,7 @@
                         <span class="text-secondary">Total Area :</span> <b>  </b> 
                     </div>
                 </div> 
-                <div >
+                <div > 
                     <table ng-repeat="(index,buliding) in building_building" class="table  border shadow-sm table-bordered">
                         <thead class="bg-light">
                             <tr>
@@ -45,7 +46,7 @@
                                 <th class="text-center"> 
                                     <div class="btn-group border">
                                         <button type="button" class="btn btn-outline-primary btn-sm " ng-click="Add_component(index)"><i class="mdi mdi-plus"></i> Add</button>
-                                        <button type="button" class="btn btn-outline-primary  btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button type="button" class="btn btn-primary  btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="visually-hidden">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu">
@@ -85,21 +86,25 @@
         </div> 
     </div>
     <div class="col-lg-3 p-0">
+        
         <div class="card mt-lg-5">
             <div class="card-header">
                 <h4 class="m-0">Reference Doc's </h4>
             </div>
             <div>
                 <ul class="list-group mt-0" ng-repeat="doc in enquiry.ifc_model_uploads">
-                    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ps-2">
                         <div class="d-flex align-items-center">
-                            <div>
-                                <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'technical_estimate', 'Building Components')">
+                            <div class="h-100 p-0 ">
+                                <a class="text-primary btn btn-sm btn-light border rounded-pill me-1"  ng-click="showTechCommentsToggle('viewTechicalDocsConversations', 'techical_estimation', doc.id)">
                                     <i class="uil-comment-alt-lines"></i>
                                 </a>
                             </div>
-                            <div class="d-flex  flex-column">
-                                @{{ doc.document_type.document_type_name }} <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
+                            <div>
+                                <div class="d-flex flex-column">
+                                 
+                                    @{{ doc.document_type.document_type_name }} <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
+                                </div>
                             </div>
                         </div>
                         <a target="_child" href="{{ asset("public/uploads/") }}/@{{ doc.file_name }}" class="badge bg-primary rounded-pill"><i class="text-white fa fa-eye"></i></a>
@@ -144,7 +149,7 @@
             </div>
         </div>
     </div>
-    @include("admin.enquiry.models.chat-box")
+    @include("admin.enquiry.models.technical-estimation-chat-box")
 </div>
 {{-- @{{ building_component }} --}}
 @if (Route::is('enquiry.technical-estimation'))

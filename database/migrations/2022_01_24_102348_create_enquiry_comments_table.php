@@ -18,7 +18,9 @@ class CreateEnquiryCommentsTable extends Migration
             $table->integer("enquiry_id");
             $table->string("type")->nullable();
             $table->text('comments')->nullable();
+            $table->text('file_id')->nullable();
             $table->string('created_by')->nullable();
+            $table->string('role_by')->nullable();
             $table->timestamps();
         });
     }

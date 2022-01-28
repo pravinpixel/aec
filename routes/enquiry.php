@@ -17,6 +17,14 @@ Route::prefix('admin')->group(function () {
     Route::get('show-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
     Route::post('add-comments', [EnquiryCommentsController::class,'store'])->name("enquiry.comments");
     Route::get('show-comments/{id}/type/{type}', [EnquiryCommentsController::class,'show'])->name("enquiry.show-comments");
+
+    Route::get('show-tech-comments/{id}/type/{type}', [EnquiryCommentsController::class,'showTechChat'])->name("enquiry.show-tech-comments");
+
+
+
+
+ 
+
     
     //----- Project Summary ------
     Route::get('/admin-project-summary', function () {

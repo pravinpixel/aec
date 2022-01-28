@@ -5,10 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EnquiryComments extends Model
+class EnquiryTechnicalEstimateComments extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['enquiry_id', 'type', 'created_by', 'comments', 'file_id', 'role_by'];
- 
 }

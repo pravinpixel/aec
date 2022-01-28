@@ -28,7 +28,8 @@ class TechEstimateController extends Controller
         $result['customer_info']        =   $enquiry->customer ?? ""; 
         $result['project_type']         =   $enquiry->projectType->project_type_name ?? '';
         $result["enquiry"]              =   $enquiry ?? "";
-        $result['building_component']   =   isset($data->build_json) ? json_decode($data->build_json ): "x`";
+        $result['building_component']   =   json_decode($data->build_json) ?? '';
+
         $result['ifc_model_uploads']    =   $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id) ?? "";
         
         return  $result;
@@ -38,7 +39,7 @@ class TechEstimateController extends Controller
     {
         $data = $request->input("data");
       
-        EnquiryTechnicalEstimate::updateOrCreate(['enquiry_id'=>1],[
+        EnquiryTechnicalEstimate::updateOrCreate(['enquiry_id'=>$id],[
             'build_json'    => json_encode($data),
             'total_wall_area'    =>  1 ,
             'wall'    =>  1 ,

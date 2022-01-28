@@ -181,25 +181,34 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function storeTechnicalEstimateCost($enquiry,$buildingComponents) 
     {   
-        // EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete();
+        EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete();
+       
+        $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
 
+        $building_component_number = [];
+        $total_wall_area_all = 0;
         foreach($buildingComponents as $buildingComponent) {
+          
             $total_wall_area = 0;
-            $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
-
-            // $enquiryBuildingComponent->building_component_id = $buildingComponent->WallId;
-            $enquiryBuildingComponent->wall = $buildingComponent->WallName;
-
-            $enquiryBuildingComponent->enquiry_id = $enquiry->id;
-            $enquiryBuildingComponent->save();
+           
             if($enquiryBuildingComponent && !empty($buildingComponent->Details)) {
+
                 foreach($buildingComponent->Details as $buildingComponentDetail) {
                     $total_wall_area +=  $buildingComponentDetail->TotalArea; 
+                   
                 }
+                $total_wall_area_all += $total_wall_area; 
                 $enquiryBuildingComponent->total_wall_area = $total_wall_area;
-                $enquiryBuildingComponent->save();
+               
             }
+            $building_component_number[] = ["name"=> $buildingComponent->WallName,"sqfeet"=> $total_wall_area];
         }
+        $build_json = ['building_number' => 1, 'building_component_number' => $building_component_number, "total_component_area" =>  $total_wall_area_all];
+        $enquiryBuildingComponent->enquiry_id = $enquiry->id;
+        $enquiryBuildingComponent->total_wall_area = $total_wall_area_all;// $enquiry->id;
+        \Log::info(json_encode([$build_json]));
+        $enquiryBuildingComponent->build_json = json_encode([$build_json]);
+        $enquiryBuildingComponent->save();
         return true;    
     }
 

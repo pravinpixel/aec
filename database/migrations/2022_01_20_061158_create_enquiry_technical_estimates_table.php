@@ -20,6 +20,7 @@ class CreateEnquiryTechnicalEstimatesTable extends Migration
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->integer('total_wall_area')->default(0);
             $table->string('wall')->nullable(); 
+            $table->text('build_json')->nullable(); 
             $table->timestamps();
         });
     }
