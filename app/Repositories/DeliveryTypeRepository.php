@@ -33,9 +33,24 @@ class DeliveryTypeRepository implements DeliveryTypeRepositoryInterface{
 
     public function delete($id)
     {
-        return $this->model->destroy($id);
+        $deliveryType = $this->model->find($id);
+        $deliveryType->is_active=2;
+        $deliveryType->save();
+        return $deliveryType->delete();
     }
 
+    public function updateStatus($id)
+    {
+        // return $this->model->find($id);
+        // $module->is_active = !$module->is_active;
+        if (null ==  $deliveryType = $this->model->find($id)) {
+            throw new ModelNotFoundException("Status Not Updated");
+        }
+        $deliveryType->is_active =  !$deliveryType->is_active;
+        $deliveryType->save();
+        return  $deliveryType;
+        
+    }
     public function find($id)
     {
         if (null == $deliveryType = $this->model->find($id)) {

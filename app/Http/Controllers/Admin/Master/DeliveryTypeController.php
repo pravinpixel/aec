@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\DeliveryType;
 use App\Http\Requests\DeliveryTypeCreateRequest;
+use App\Http\Requests\DeliveryTypeUpdateRequest;
+
 class DeliveryTypeController extends Controller
 {
     protected $deliveryTypeRepository;
@@ -36,13 +38,13 @@ class DeliveryTypeController extends Controller
      */
     public function store(DeliveryTypeCreateRequest $request) 
     {
-        $deliveryType = $request->only([
+        $projectType = $request->only([
             "delivery_type_name","is_active"
         ]);
 
         return response()->json(
             [
-                'data' => $this->deliveryTypeRepository->create($deliveryType),
+                'data' => $this->deliveryTypeRepository->create($projectType),
                 'status' => true, 'msg' => trans('module.inserted')
             ],
             Response::HTTP_CREATED
@@ -65,12 +67,10 @@ class DeliveryTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request): JsonResponse 
+    public function show($id): JsonResponse 
     {
-        $deliveryType = $request->route('id');
-
         return response()->json([
-            'data' => $this->deliveryTypeRepository->find($deliveryType)
+            'data' => $this->deliveryTypeRepository->find($id)
         ]);
     }
 
@@ -81,16 +81,17 @@ class DeliveryTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DeliveryTypeCreateRequest $request,$id) 
-    {
-        $deliveryType = $request->only([
+    public function update(DeliveryTypeUpdateRequest $request,$id) 
+    { 
+        $projectType = $request->only([
             "delivery_type_name","is_active"
-        ]);
+    ]);
 
-        return response()->json([
-            'data' => $this->deliveryTypeRepository->update($deliveryType, $id),
-            'status' => true, 'msg' => trans('module.updated'),
-        ]);
+    return response()->json([
+        'data' => $this->deliveryTypeRepository->update($projectType, $id),
+        'status' => true, 'msg' => trans('module.updated'),
+         
+    ]);
     }
     /**
      * Remove the specified resource from storage.
@@ -100,24 +101,16 @@ class DeliveryTypeController extends Controller
      */
     public function destroy($id) 
     {
-        $this->deliveryTypeRepository->delete($id);
-        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+        $projectType = $id;
+        $this->deliveryTypeRepository->delete($projectType);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$projectType], Response::HTTP_OK);
     }
     
-    public function deliveryLayer_status($id)
+    public function status(Request $request)
     {
-        $module = $this->deliveryTypeRepository->find($id);
-
-        if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        } 
-        $module->is_active = !$module->is_active;
-        $res = $module->save();
-
-        if( $res ) {
-            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
-        }
-        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+        $deliveryType = $request->route('id');
+        $this->deliveryTypeRepository->updateStatus($deliveryType);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $deliveryType], Response::HTTP_OK);
     }
 
     public function get(Request $request)

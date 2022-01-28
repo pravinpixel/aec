@@ -37,3 +37,5 @@
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
  
 <!-- ========= For Vendors Js ===========-->
+<!-- ========= For Validation Js ===========-->
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>

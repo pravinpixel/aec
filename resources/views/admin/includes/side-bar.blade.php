@@ -72,9 +72,13 @@
                     <ul class="side-nav-second-level">
                         <li class="{{ Route::is("view-enquiry","admin.enquiry-create") ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin.enquiry-list') }}">Enquiries</a>
+                        </li>
+                        <li class="{{ Route::is(["admin-documentary-view","admin.admin-documentary-view","admin.admin-documentary-view"]) ? "menuitem-active" : ""}}">
+                            <a href="{{ route('admin-documentary-view') }}">Contract </a>
                         </li> 
                     </ul>
                 </div>
+                
             </li> 
  
 

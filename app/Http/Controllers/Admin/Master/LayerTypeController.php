@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\BuildingComponent;
 use App\Http\Requests\LayerTypeCreateRequest;
+use App\Http\Requests\LayerTypeUpdateRequest;
+
 use App\Models\LayerType;
 use App\Models\Layer;
 
@@ -39,16 +41,18 @@ class LayerTypeController extends Controller
      */
     public function store(LayerTypeCreateRequest $request)
     {
-        // dd($request->all());
-        $module = new LayerType;
-        $insert = $request->only($module->getFillable());
-     
-        // $insert['order_id'] =  Module::get()->count() + 1;
-        $res = LayerType::create($insert);
-        if($res) {
-            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
-        }
-        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+        $service = $request->only([
+            "building_component_id","layer_id","layer_type_name","is_active"
+        ]);
+
+        return response()->json(
+            [
+                'data' => $this->layerType->create($service),
+                'status' => true, 'msg' => trans('module.inserted')
+            ],
+            Response::HTTP_CREATED
+        );
+
     }
     /**
      * Display the specified resource.
@@ -56,12 +60,10 @@ class LayerTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request): JsonResponse 
+    public function show($id): JsonResponse 
     {
-        $layerTypeId = $request->route('id');
-
         return response()->json([
-            'data' => $this->layerType->find($layerTypeId)
+            'data' => $this->layerType->find($id)
         ]);
     }
 
@@ -72,18 +74,17 @@ class LayerTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(LayerTypeCreateRequest $request,$id) 
+    public function update(LayerTypeUpdateRequest $request,$id) 
     {
-        // return $id;
-        $module = LayerType::find($id);
-        if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        } 
-        $res = $module->update($request->only($module->getFillable()));
-        if( $res ) {
-            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
-        }
-        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+        $service = $request->only([
+            "building_component_id","layer_id","layer_type_name","is_active"
+        ]);
+
+        return response()->json([
+            'data' => $this->layerType->update($service, $id),
+            'status' => true, 'msg' => trans('module.updated'),
+             
+        ]);
     }
     public function edit($id) 
     {
@@ -99,7 +100,7 @@ class LayerTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function component_data()
+    public function componentData()
     {
         # code...
         $data = BuildingComponent::select('id','building_component_name')->where('is_active','=','1')->get();
@@ -110,7 +111,7 @@ class LayerTypeController extends Controller
         } 
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
-    public function layer_data()
+    public function layerData()
     {
         # code...
         $data = Layer::select('id','layer_name')->where('is_active','=','1')->get();
@@ -124,14 +125,9 @@ class LayerTypeController extends Controller
     
     public function destroy($id) 
     {
-        $module = LayerType::find($id);
-        if (empty($module)) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        }
-        $module->is_active = 2;
-        $module->save();
-        $module->delete();
-        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+        $service = $id;
+        $this->layerType->delete($service);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$service], Response::HTTP_OK);
     }
 
     public function getLayerTypeByComponentId(Request $request)
@@ -141,20 +137,12 @@ class LayerTypeController extends Controller
         $result = $this->layerType->getLayerTypeByComponentId($building_component_id, $layer_id);
         return response()->json($result);
     }
-    public function layerType_status($id)
+    public function status(Request $request)
     {
-        $module = LayerType::find($id);
-
-        if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        } 
-        $module->is_active = !$module->is_active;
-        $res = $module->save();
-
-        if( $res ) {
-            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
-        }
-        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+        // return 1;
+        $layerType = $request->route('id');
+        $this->layerType->updateStatus($layerType);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $layerType], Response::HTTP_OK);
     }
     
 

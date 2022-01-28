@@ -24,8 +24,8 @@ class ProjectTypeCreateRequest extends FormRequest
     public function rules()
     {
         return [
-       
-          'project_type_name' => 'required',
+
+          'project_type_name' =>  ['required', Rule::unique('project_types')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

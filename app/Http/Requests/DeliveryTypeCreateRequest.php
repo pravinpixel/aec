@@ -24,7 +24,7 @@ class DeliveryTypeCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'delivery_type_name' => 'required',
+            'delivery_type_name' =>  ['required', Rule::unique('delivery_types')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

@@ -32,9 +32,23 @@ class BuildingComponentRepository implements BuildingComponentRepositoryInterfac
 
     public function delete($id)
     {
-        return $this->model->destroy($id);
+        $projectType = $this->model->find($id);
+         $projectType->is_active=2;
+         $projectType->save();
+         return $projectType->delete();
     }
-
+    public function updateStatus($id)
+    {
+        // return $this->model->find($id);
+        // $module->is_active = !$module->is_active;
+        if (null ==  $buildingComponent = $this->model->find($id)) {
+            throw new ModelNotFoundException("Status Not Updated");
+        }
+        $buildingComponent->is_active =  !$buildingComponent->is_active;
+        $buildingComponent->save();
+        return  $buildingComponent;
+        
+    }
     public function find($id)
     {
         if (null == $buildingComponent = $this->model->find($id)) {

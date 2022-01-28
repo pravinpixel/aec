@@ -32,7 +32,11 @@ class LayerTypeRepository implements LayerTypeRepositoryInterface{
 
     public function delete($id)
     {
-        return $this->model->destroy($id);
+        $layerType = $this->model->find($id);
+        $layerType->is_active=2;
+        $layerType->save();
+        return $layerType->delete();
+        // return $this->model->destroy($id);
     }
 
     public function find($id)
@@ -42,7 +46,17 @@ class LayerTypeRepository implements LayerTypeRepositoryInterface{
         }
         return $layerType;
     }
-
+    public function updateStatus($id)
+    {
+      
+        if (null ==  $projectType = $this->model->find($id)) {
+            throw new ModelNotFoundException("Status Not Updated");
+        }
+        $projectType->is_active =  !$projectType->is_active;
+        $projectType->save();
+        return  $projectType;
+        
+    }
     public function getLayerTypeByComponentId($building_component_id, $layer_id)
     {
         return $this->model->where(['building_component_id' => $building_component_id, 'layer_id' => $layer_id])->get();

@@ -139,7 +139,7 @@
                                                     <select class="form-select  addmore_type" required data-select-id="0" name="addmore[0][type]" style="min-width: 100px !important">
                                                         <option value="">Select</option>
                                                         @foreach($data['type'] as $val)
-                                                            <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                                            <option value="{{ $val['id'] }}" >{{ $val['building_type_name'] }}</option>
                                                             @endforeach
                                                     </select>
                                                 </td>
@@ -433,7 +433,7 @@
                                                         <option value="">Select</option>
                                                         <optgroup label="Layer Types">
                                                         @foreach($data['type'] as $val)
-                                                            <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                                            <option value="{{ $val['id'] }}" >{{ $val['building_type_name'] }}</option>
                                                             
                                                             @endforeach
                                                         </optgroup>
@@ -1268,7 +1268,7 @@
                                 <select class="form-select select2 addmore_type" required data-select-id="0" name="addmore[0][type]"  data-toggle="select2">
                                     <option value="">Select</option>
                                             @foreach($data['type'] as $val)
-                                            <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                            <option value="{{ $val['id'] }}" >{{ $val['building_type_name'] }}</option>
                                             @endforeach
                                 </select>
                             </td>
@@ -1425,7 +1425,7 @@
                                                        
                                                             
                                                             @foreach($data['type'] as $val)
-                                                            <option value="{{ $val['id'] }}" ${detail.type == "{{ $val['id'] }}" ?   "selected" : '' } >{{ $val['type_name'] }}</option>
+                                                            <option value="{{ $val['id'] }}" ${detail.type == "{{ $val['id'] }}" ?   "selected" : '' } >{{ $val['building_type_name'] }}</option>
                                                             @endforeach
                                                     
                                                     </select>
@@ -1569,7 +1569,7 @@
                                                 <option value="">Select</option>
                                                  
                                                     @foreach($data['type'] as $val)
-                                                    <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                                    <option value="{{ $val['id'] }}" >{{ $val['building_type_name'] }}</option>
                                                     @endforeach
                                             </select>
                                         </td>
@@ -1687,7 +1687,7 @@
                                             <select class="form-select select2 addmore_type"   required name="addmore[${i}][type]" data-select-id="${i}" data-toggle="select2">
                                                 <option value="">Select</option>
                                                 @foreach($data['type'] as $val)
-                                                        <option value="{{ $val['id'] }}" >{{ $val['type_name'] }}</option>
+                                                        <option value="{{ $val['id'] }}" >{{ $val['building_type_name'] }}</option>
                                                         @endforeach
                                             </select>
                                         </td>

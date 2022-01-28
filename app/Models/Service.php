@@ -13,7 +13,8 @@ class Service extends Model
     protected $primaryKey = 'id';
     public $fillable = [
         'service_name',
-        'is_active'
+        'is_active',
+        'output_type_id',
     ];
 
     public function enquiries()

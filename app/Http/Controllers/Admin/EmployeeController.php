@@ -9,6 +9,8 @@ use App\Models\Employee;
 use App\Models\BuildingComponent;
 use App\Models\Type;
 use App\Http\Requests\RoleCreateRequest;
+use App\Http\Requests\RoleUpdateRequest;
+
 use App\Models\MasterCalculation;
 
 use Illuminate\Http\Response;
@@ -18,97 +20,26 @@ class EmployeeController extends Controller
 {
     public function employee_control_view()
     {
-        return view('admin.pages.employee-view');
+        return view('admin.pages.employee.employee-view');
     }
     public function employee_add()
     {
-        return view('admin.pages.employee-add');
-    }
-    public function add_role(RoleCreateRequest $request)
-    {
-        // return $request->all();
-        $module = new Role;
-        $insert = $request->only($module->getFillable());
-        // $insert['order_id'] =  Module::get()->count() + 1;
-        $res = Role::create($insert);
-        if($res) {
-            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
-        }
-        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
-    }
-    public function update_role( RoleCreateRequest $request,$id)
-    {
-        // return $id;
-        
-        $module = Role::find($id);
-        if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        } 
-        $res = $module->update($request->only($module->getFillable()));
-        if( $res ) {
-            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
-        }
-        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-    
-    public function get_role()
-    {
-        // return 1;
-        $data = Role::all();
-        
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-    }
-    public function status($id)
-    {
-        $module = Role::find($id);
-
-        if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        } 
-        $module->status = !$module->status;
-        $res = $module->save();
-
-        if( $res ) {
-            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
-        }
-        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-    public function edit_role($id)
-    {
-        $data = Role::find($id);
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-    }
-    public function delete_role($id)
-    {
-        
-         $module = Role::find($id);
-        if (empty($module)) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        }
-        $module->status = 2;
-        $module->save();
-        $module->delete();
-        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+        return view('admin.pages.employee.employee-add');
     }
 
-    public function employee_role()
+    public function employeeRole()
     {
         # code...
-        $data = Role::select('id','role')->where('status','=','1')->get();
+        $data = Role::select('id','role_name')->where('status','=','1')->get();
         
         // return $data;
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
+        
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
-    public function add_employee(Request $request)
+    public function addEmployee(Request $request)
     {
         # code...
         // return $request->all();
@@ -145,7 +76,7 @@ class EmployeeController extends Controller
         return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
 
-    public function update_employee($id,Request $request)
+    public function updateEmployee($id,Request $request)
     {
         // return $request->all();
         $module = Employee::find($id);
@@ -173,7 +104,7 @@ class EmployeeController extends Controller
 
 
         $module->update();
-        return response(['status' => true, 'msg' => trans('module.Updated')], Response::HTTP_OK);
+        return response(['status' => true, 'msg' => trans('module.updated')], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
@@ -190,7 +121,7 @@ class EmployeeController extends Controller
         }
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
-    public function get_employee()
+    public function getEmployee()
     {
         # code..
        
@@ -202,7 +133,7 @@ class EmployeeController extends Controller
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
 
     }
-    public function employee_delete($id)
+    public function employeeDelete($id)
     {
         # code...
     
@@ -219,10 +150,10 @@ class EmployeeController extends Controller
     {
 
         $id = $id;
-        return view('admin.pages.employee-edit',compact('id'));
+        return view('admin.pages.employee.employee-edit',compact('id'));
        
     }
-    public function get_EditEmployee($id)
+    public function getEditEmployee($id)
     {
         // return $id;
         $data = Employee::find($id);
@@ -232,7 +163,7 @@ class EmployeeController extends Controller
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
    
-    public function employee_status($id)
+    public function employeeStatus($id)
     {
         $module = Employee::find($id);
 
@@ -267,11 +198,7 @@ class EmployeeController extends Controller
         // dd("s");
         return view('admin.pages.employee');
     }
-    public function dummyEmployee(Request $request)
-    {
-         dd ($request->file('file'));
-        //  return $val;
-    }
+    
    
     
 }

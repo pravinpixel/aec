@@ -17,6 +17,7 @@ class CreateOutputTypesTable extends Migration
             $table->id();
             $table->string('output_type_name');
             $table->boolean('is_active')->default(1);
+            $table->string('order_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

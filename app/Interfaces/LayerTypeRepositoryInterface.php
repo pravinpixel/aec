@@ -11,6 +11,7 @@ interface LayerTypeRepositoryInterface
     public function update(array $data, $id);
     public function delete($id);
     public function find($id);
+    public function updateStatus($id);
     public function getLayerTypeByComponentId($building_component_id, $layer_id);
     public function get($request);
 }

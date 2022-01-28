@@ -13,7 +13,11 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Models\BuildingComponent;
 use App\Models\Type;
 use App\Http\Requests\ComponentCreateRequest;
+use App\Http\Requests\ComponentUpdateRequest;
+
 use App\Http\Requests\TypeCreateRequest;
+use App\Http\Requests\TypeUpdateRequest;
+
 use function PHPSTORM_META\type;
 
 class CostEstimationController extends Controller
@@ -32,6 +36,7 @@ class CostEstimationController extends Controller
     }
     public function masterCalculation(Request $request)
     {
+       
         // return $request->type_id;
         if($request->component_id && $request->type_id)
         {
@@ -189,8 +194,8 @@ class CostEstimationController extends Controller
     public function getMasterCalculation()
     {
         // print_r("s");die();
-        $data['component'] = BuildingComponent::all();
-        $data['type'] = Type::all();
+        $data['component'] = BuildingComponent::where('is_active','=','1')->get();
+        $data['type'] = Type::where('is_active','=','1')->get();
         $arr=[];
 	// print_r($data['type']);die();
         foreach($data['component'] as $key=>$comp)
@@ -202,10 +207,11 @@ class CostEstimationController extends Controller
                 // print_r($comp['id']." ".$type['id']);
                 // print_r("        ");
                 // $arr[$comp->id][$type];
-                $arr_type[$type->id] = MasterCalculation::where('component_id',$comp['id'])->where('type_id',$type['id'])->first() ?? 0;
+                $arr_type[$type->id] = MasterCalculation::where('component_id',$comp['id'])->where('type_id',$type['id'])->where('status','=','1')->first() ?? 0;
                 // array_push($arr['comp_id']['type_id'][],$val);
             }
             $arr[$comp->id]=$arr_type;
+            // print_r($arr);die;
         }
         // dd($arr);
       return view('admin.pages.calculationView', compact('data','arr'));
@@ -224,7 +230,18 @@ class CostEstimationController extends Controller
         return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
 
     }
-   
+   public function colDelete(Request $request)
+   {
+    //    return $request->all();
+       $data = MasterCalculation::find($request->delete_id);
+        if (empty($data)) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        $data->status = 2;
+        $data->update();
+        // $data->delete();
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+   }
     public function costMasterVal(Request $request)
     {
         if($request->value)
@@ -233,6 +250,7 @@ class CostEstimationController extends Controller
         if($model)
         {
             $model->{$request->field_name} = $request->value;
+            $model->status = 1;
             $model->update();
            
         }else{
@@ -240,6 +258,7 @@ class CostEstimationController extends Controller
             $model->component_id = $request->component_id;
             $model->type_id = $request->type_id;
             $model->{$request->field_name} = $request->value;
+            $model->status = 1;
             $model->save();
         }
         return "true";
@@ -319,7 +338,7 @@ class CostEstimationController extends Controller
         return response()->json(['data' => $arr]);
 
     }
-    public function get_component(Type $var = null)
+    public function getComponent(Type $var = null)
     {
         $data = BuildingComponent::all();
         
@@ -328,17 +347,17 @@ class CostEstimationController extends Controller
         } 
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
-    public function get_type(Type $var = null)
-    {
-        $data = Type::all();
+    // public function getType(Type $var = null)
+    // {
+    //     $data = Type::all();
         
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-    }
+    //     if( !empty( $data ) ) {
+    //         return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+    //     } 
+    //     return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    // }
     
-    public function component_status($id)
+    public function componentStatus($id)
     {
         $module = BuildingComponent::find($id);
 
@@ -353,7 +372,7 @@ class CostEstimationController extends Controller
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
-    public function type_status($id)
+    public function typeStatus($id)
     {
         $module = Type::find($id);
 
@@ -369,7 +388,7 @@ class CostEstimationController extends Controller
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
     
-    public function delete_component($id)
+    public function deleteComponent($id)
     {
         
          $module = BuildingComponent::find($id);
@@ -381,18 +400,18 @@ class CostEstimationController extends Controller
         $module->delete();
         return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
-    public function delete_type($id)
-    {
+    // public function deleteType($id)
+    // {
         
-         $module = Type::find($id);
-        if (empty($module)) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        }
-        $module->is_active = 2;
-        $module->save();
-        $module->delete();
-        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
-    }
+    //      $module = Type::find($id);
+    //     if (empty($module)) {
+    //         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    //     }
+    //     $module->is_active = 2;
+    //     $module->save();
+    //     $module->delete();
+    //     return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+    // }
     
     public function deleteRowData(Request $id)
     {
@@ -407,36 +426,35 @@ class CostEstimationController extends Controller
         return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
     
-    public function add_component(ComponentCreateRequest $request)
+    public function addComponent(ComponentCreateRequest $request)
     {
-        // return $request->all();
-        // dd($request->all());
+      
         $module = new BuildingComponent;
         $insert = $request->only($module->getFillable());
      
-        // $insert['order_id'] =  Module::get()->count() + 1;
+      
         $res = BuildingComponent::create($insert);
         if($res) {
             return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
         }
         return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
-    public function add_type(TypeCreateRequest $request)
-    {
-        // return $request->all();
-        // dd($request->all());
-        $module = new Type;
-        $insert = $request->only($module->getFillable());
+    // public function addType(TypeCreateRequest $request)
+    // {
+    //     // return $request->all();
+    //     // dd($request->all());
+    //     $module = new Type;
+    //     $insert = $request->only($module->getFillable());
      
-        // $insert['order_id'] =  Module::get()->count() + 1;
-        $res = Type::create($insert);
-        if($res) {
-            return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
-        }
-        return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
-    }
+    //     // $insert['order_id'] =  Module::get()->count() + 1;
+    //     $res = Type::create($insert);
+    //     if($res) {
+    //         return response(['status' => true, 'data' => $res ,'msg' => trans('module.inserted')], Response::HTTP_OK);
+    //     }
+    //     return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+    // }
     
-    public function edit_component($id)
+    public function editComponent($id)
     {
         $data = BuildingComponent::find($id);
         if( !empty( $data ) ) {
@@ -444,16 +462,16 @@ class CostEstimationController extends Controller
         } 
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
-    public function edit_type($id)
-    {
-        $data = Type::find($id);
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-    }
+    // public function editType($id)
+    // {
+    //     $data = Type::find($id);
+    //     if( !empty( $data ) ) {
+    //         return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+    //     } 
+    //     return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    // }
     
-    public function update_component( ComponentCreateRequest $request,$id)
+    public function updateComponent( ComponentUpdateRequest $request,$id)
     {
         // return $id;
         
@@ -467,20 +485,19 @@ class CostEstimationController extends Controller
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
-    public function update_type(TypeCreateRequest $request,$id)
-    {
-        // return $id;
-        
-        $module = Type::find($id);
-        if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        } 
-        $res = $module->update($request->only($module->getFillable()));
-        if( $res ) {
-            return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
-        }
-        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
+    // public function updateType(TypeUpdateRequest $request,$id)
+    // {
+
+    //     $module = Type::find($id);
+    //     if( empty( $module ) ) {
+    //         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    //     } 
+    //     $res = $module->update($request->only($module->getFillable()));
+    //     if( $res ) {
+    //         return response(['status' => true, 'msg' => trans('module.updated'), 'data' => $module], Response::HTTP_OK);
+    //     }
+    //     return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
+    // }
     
     
 }

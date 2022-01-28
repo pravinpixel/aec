@@ -25,7 +25,8 @@ class ModuleCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'module_name' => 'required',
+            // 'module_name' => 'required|unique:modules',
+            'module_name' =>  ['required', Rule::unique('modules')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

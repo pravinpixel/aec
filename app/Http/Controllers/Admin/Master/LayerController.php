@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Layer;
 use App\Http\Requests\LayerCreateRequest;
+use App\Http\Requests\LayerUpdateRequest;
+
 class LayerController extends Controller
 {
     protected $layerRepository;
@@ -36,13 +38,13 @@ class LayerController extends Controller
      */
     public function store(LayerCreateRequest $request)
     {
-        $layer = $request->only([
-            "building_component_id","layer_id","layer_type_name","is_active"
+        $projectType = $request->only([
+            "layer_name","is_active"
         ]);
 
         return response()->json(
             [
-                'data' => $this->layerRepository->create($layer),
+                'data' => $this->layerRepository->create($projectType),
                 'status' => true, 'msg' => trans('module.inserted')
             ],
             Response::HTTP_CREATED
@@ -71,10 +73,18 @@ class LayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(LayerCreateRequest $request,$id)
+    public function show($id): JsonResponse 
+    {
+
+        return response()->json([
+            'data' => $this->layerRepository->find($id)
+        ]);
+    }
+
+    public function update(LayerUpdateRequest $request,$id)
     {
         $layer = $request->only([
-            "building_component_id","layer_id","layer_type_name","is_active"
+            "layer_name","is_active"
         ]);
 
         return response()->json([
@@ -89,28 +99,20 @@ class LayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layer_status($id)
-    {
-        $module = $this->layerRepository->find($id);
-
-        if( empty( $module ) ) {
-            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-        } 
-        $module->is_active = !$module->is_active;
-        $res = $module->save();
-
-        if( $res ) {
-            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
-        }
-        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
+    
     
     public function destroy($id) 
     {
-        $this->layerRepository->delete($id);
-        return response()->json(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+        $projectType = $id;
+        $this->layerRepository->delete($projectType);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$projectType], Response::HTTP_OK);
     }
-
+    public function status(Request $request)
+    {
+        $projectType = $request->route('id');
+        $this->layerRepository->updateStatus($projectType);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $projectType], Response::HTTP_OK);
+    }
     public function get(Request $request)
     {
         return response()->json($this->layerRepository->get($request));

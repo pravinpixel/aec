@@ -32,7 +32,10 @@ class OutputTypeRepository implements OutputTypeRepositoryInterface{
 
     public function delete($id)
     {
-        return $this->model->destroy($id);
+        $outputType = $this->model->find($id);
+        $outputType->is_active=2;
+        $outputType->save();
+        return $outputType->delete();
     }
 
     public function find($id)
@@ -41,6 +44,17 @@ class OutputTypeRepository implements OutputTypeRepositoryInterface{
             throw new ModelNotFoundException("Service not found");
         }
         return $outputType;
+    }
+    public function updateStatus($id)
+    {
+
+        if (null ==  $outputType = $this->model->find($id)) {
+            throw new ModelNotFoundException("Status Not Updated");
+        }
+        $outputType->is_active =  !$outputType->is_active;
+        $outputType->save();
+        return  $outputType;
+        
     }
 
     public function get($request)

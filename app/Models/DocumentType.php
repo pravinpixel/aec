@@ -11,7 +11,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class DocumentType extends Model
 {
     use HasFactory,SoftDeletes;
-
+    public $fillable = [
+        'document_type_name',
+        'is_mandatory',
+        'slug',
+        'is_active'
+    ];
     public function getCreatedAtAttribute($date)
     {
         return  Carbon::parse($date)->format(Config ::get('global.model_date_format'));

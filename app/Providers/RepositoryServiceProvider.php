@@ -17,6 +17,9 @@ use App\Interfaces\OutputTypeRepositoryInterface;
 use App\Interfaces\ProjectTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\ModuleRepositoryInterface;
+use App\Interfaces\RoleRepositoryInterface;
+use App\Interfaces\DocumentaryRepositoryInterface;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
 use App\Repositories\CommentRepository;
@@ -32,6 +35,9 @@ use App\Repositories\OutputTypeRepository;
 use App\Repositories\ProjectTypeRepository;
 use App\Repositories\ServiceRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\ModuleRepository;
+use App\Repositories\RoleRepository;
+use App\Repositories\DocumentaryRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -112,6 +118,19 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CustomerLayerRepositoryInterface::class,
             CustomerLayerRepository::class
+        );
+        
+        $this->app->bind(
+            ModuleRepositoryInterface::class,
+            ModuleRepository::class
+        );
+        $this->app->bind(
+            RoleRepositoryInterface::class,
+            RoleRepository::class
+        );
+        $this->app->bind(
+            DocumentaryRepositoryInterface::class,
+            DocumentaryRepository::class
         );
         
     }

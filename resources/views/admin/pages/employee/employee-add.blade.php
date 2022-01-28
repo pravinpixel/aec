@@ -75,7 +75,7 @@
                                             <label class="form-label" >Job Role<sup class="text-danger">*</sup></label>
                                             <select  class="form-select"  ng-model="FormData.epm_job_role" name="epm_job_role"    ng-required="true">
                                                 <option value="" selected>Select</option>  
-                                                <option value="@{{ emp.role }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.role }}</option>  
+                                                <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.role_name }}</option>  
                                             </select>
                                             <div class="error-msg">
                                                 <small class="error-text" ng-if="frm.epm_job_role.$touched && frm.epm_job_role.$error.required">This field is required!</small> 
@@ -238,7 +238,7 @@
 
 
 
-        var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
+        // var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
 
         app.directive('validFile',function(){
             return {
@@ -274,24 +274,24 @@
            getEmployeId($http, API_URL);
            $scope.phoneNumber =/^\+?\d{3}[- ]?\d{3}[- ]?\d{6}$/;
     
-        //    $scope.ph_numbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
-           getEmployeeData = function($http, API_URL) {
+         //    $scope.ph_numbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+        //    getEmployeeData = function($http, API_URL) {
 
-            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-            // http://localhost/AEC_PREFAB/aec/module?page=1
-            $http({
-                method: 'GET',
-                url: API_URL + "admin/get_employee"
-            }).then(function (response) {
+        //     angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+        //     // http://localhost/AEC_PREFAB/aec/module?page=1
+        //     $http({
+        //         method: 'GET',
+        //         url: API_URL + "admin/get_employee"
+        //     }).then(function (response) {
              
-                $scope.employee_module = response.data.data;		
+        //         $scope.employee_module = response.data.data;		
                 
-            }, function (error) {
-                console.log(error);
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });
-            }
-            getEmployeeData($http, API_URL);
+        //     }, function (error) {
+        //         console.log(error);
+        //         console.log('This is embarassing. An error has occurred. Please check the log for details');
+        //     });
+        //     }
+        //     getEmployeeData($http, API_URL);
             
             getRoleData = function($http, API_URL) {
 
@@ -299,7 +299,7 @@
             // http://localhost/AEC_PREFAB/aec/module?page=1
             $http({
                 method: 'GET',
-                url: API_URL + "admin/employee_role"
+                url: API_URL + "admin/employee-role"
             }).then(function (response) {
                 // alert(JSON.stringify(response))
                 $scope.employee_module_role = response.data.data;		
@@ -348,7 +348,7 @@
 			            var url = API_URL + "admin/";
 			            var method = "POST";
                    
-                        url+="add_employee";
+                        url+="add-employee";
 
                             // $scope.data = {
                                 

@@ -32,7 +32,21 @@ class LayerRepository implements LayerRepositoryInterface{
 
     public function delete($id)
     {
-        return $this->model->destroy($id);
+        $layer = $this->model->find($id);
+        $layer->is_active=2;
+        $layer->save();
+        return $layer->delete();
+    }
+    public function updateStatus($id)
+    {
+
+        if (null ==  $layer = $this->model->find($id)) {
+            throw new ModelNotFoundException("Status Not Updated");
+        }
+        $layer->is_active =  !$layer->is_active;
+        $layer->save();
+        return  $layer;
+        
     }
 
     public function find($id)

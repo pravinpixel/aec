@@ -7,14 +7,15 @@ use App\Interfaces\BuildingTypeRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
+use App\Http\Requests\TypeCreateRequest;
+use App\Http\Requests\TypeUpdateRequest;
 class BuildingTypeController extends Controller
 {
-    protected $buildingType;
+    protected $buildingTypeRepository;
 
     public function __construct(BuildingTypeRepositoryInterface $buildingTypeRepository)
     {
-        $this->buildingType = $buildingTypeRepository;
+        $this->buildingTypeRepository = $buildingTypeRepository;
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class BuildingTypeController extends Controller
      */
     public function index()
     {
-        return response()->json($this->buildingType->all());
+        return response()->json($this->buildingTypeRepository->all());
     }
 
     /**
@@ -32,15 +33,16 @@ class BuildingTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): JsonResponse 
+    public function store(TypeCreateRequest $request): JsonResponse 
     {
-        $buildingType = $request->only([
-           
+        $projectType = $request->only([
+            "building_type_name","is_active"
         ]);
 
         return response()->json(
             [
-                'data' => $this->buildingType->create($buildingType)
+                'data' => $this->buildingTypeRepository->create($projectType),
+                'status' => true, 'msg' => trans('module.inserted')
             ],
             Response::HTTP_CREATED
         );
@@ -52,12 +54,10 @@ class BuildingTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request): JsonResponse 
+    public function show($id): JsonResponse 
     {
-        $buildingTypeId = $request->route('id');
-
         return response()->json([
-            'data' => $this->buildingType->find($buildingTypeId)
+            'data' => $this->buildingTypeRepository->find($id)
         ]);
     }
 
@@ -68,16 +68,23 @@ class BuildingTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request): JsonResponse 
+    public function update($id,TypeUpdateRequest $request): JsonResponse 
     {
-        $buildingTypeId = $request->route('id');
-        $buildingType = $request->only([
-           
+        $projectType = $request->only([
+            "building_type_name","is_active"
         ]);
 
         return response()->json([
-            'data' => $this->buildingType->update($buildingType, $buildingTypeId)
+            'data' => $this->buildingTypeRepository->update($projectType, $id),
+            'status' => true, 'msg' => trans('module.updated'),
+             
         ]);
+    }
+    public function status(Request $request)
+    {
+        $projectType = $request->route('id');
+        $this->buildingTypeRepository->updateStatus($projectType);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $projectType], Response::HTTP_OK);
     }
     /**
      * Remove the specified resource from storage.
@@ -85,16 +92,16 @@ class BuildingTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request): JsonResponse 
+    public function destroy($id): JsonResponse 
     {
-        $buildingTypeId = $request->route('id');
-        $this->buildingType->delete($buildingTypeId);
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        $projectType = $id;
+        $this->buildingTypeRepository->delete($projectType);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$projectType], Response::HTTP_OK);
     }
 
     public function get(Request $request)
     {
-        return response()->json($this->buildingType->get($request));
+        return response()->json($this->buildingTypeRepository->get($request));
     }
 
 }

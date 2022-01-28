@@ -1,7 +1,7 @@
 <div class="card">                              <!-- @{{component_module_get}} -->
     <div class="card-header ">
         <div class="d-flex justify-content-between">
-            <h3 class="haeder-title">Layer</h3>
+            <h3 class="haeder-title">Service</h3>
             <button class="btn btn-primary " ng-click="toggleService('add', 0)">Create New Service</button>
         </div>
     </div>
@@ -11,6 +11,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Status</th>
+                    <th>Output Type</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -24,8 +25,11 @@
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="service.is_active == 1" data-switch="primary"/>
                             <label for="switch__@{{index}}" data-on-label="On" ng-click="service_status(index,service.id)" data-off-label="Off"></label>
-                        </div>              
+                        </div> 
+                        <span ng-if="service.is_active == 1" class="d-none">1</span>              
+                        <span ng-if="service.is_active == 0" class="d-none">0</span>             
                     </td>
+                    <td class="align-items-center">@{{ service.output_type_name }}</td>
                     <td class="text-center" >
                         <div class="btn-group">
                             <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleService('edit', service.id)"><i class="fa fa-edit"></i></button>
@@ -55,7 +59,17 @@
                             <input type="text" class="form-control has-error" id="service_name" name="service_name" placeholder="Type Here.." ng-model="module_service.service_name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
-                    </div> 
+                    </div>
+                    <div class="form-group error mb-2">
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Output Type</label>
+                        <div class="col-sm-12">
+                            <select  class="form-select"  ng-model="module_service.output_type_id" name="output_type_id"    ng-required="true">
+                                <option value="" selected>Select</option>  
+                                <option value="@{{ emp.id }}"  ng-selected="emp.id == module_service.output_type_id" ng-repeat="(index,emp) in output_module_name">@{{ emp.output_type_name }}</option>  
+                            </select>
+                           
+                        </div>
+                    </div>  
                     <div class="row">
                         <div class="col-12 pt-3">
                             <div>
@@ -65,17 +79,18 @@
                                 </div>
                                 <div class="form-check form-check-inline form-radio-dark">
                                     <input type="radio" ng-checked="module_service.is_active == 0" id="Deactive" value="0" ng-model="module_service.is_active" name="is_active" class="form-check-input" ng-required="true">
-                                    <label class="form-check-label" for="Deactive">Deactive</label>
+                                    <label class="form-check-label" for="Deactive">Inactive</label>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_service(modalstate, id); $event.stopPropagation();" ng-disabled="ServiceModule.$invalid">Submit</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_service(modalstate, id); $event.stopPropagation();" ng-disabled="module_service.$invalid">Submit</button>
-            </div>
+           
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div> 

@@ -1,8 +1,8 @@
 <div class="card">                              <!-- @{{component_module_get}} -->
     <div class="card-header ">
         <div class="d-flex justify-content-between">
-            <h3 class="haeder-title">Cost Estimation Type</h3>
-            <button class="btn btn-primary " ng-click="toggleType('add', 0)">Create New Type</button>
+            <h3 class="haeder-title">Building Type</h3>
+            <button class="btn btn-primary " ng-click="toggleType('add', 0)">Create New Building Type</button>
         </div>
     </div>
     <div class="card-body">
@@ -10,6 +10,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    
                     <th>Status</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -18,13 +19,15 @@
             <tbody>
                 <tr ng-repeat="(index,type) in type_module_get">
                     
-                    <td class="align-items-center">@{{ type.type_name }}</td>
-
+                    <td class="align-items-center">@{{ type.building_type_name }}</td>
+                   
                     <td>
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="type.is_active == 1" data-switch="primary"/>
                             <label for="switch__@{{index}}" data-on-label="On" ng-click="type_status(index,type.id)" data-off-label="Off"></label>
-                        </div>              
+                        </div>  
+                        <span ng-if="type.is_active == 1" class="d-none">1</span>              
+                        <span ng-if="type.is_active == 0" class="d-none">0</span>               
                     </td>
                     <td class="text-center" >
                         <div class="btn-group">
@@ -52,10 +55,11 @@
                     <div class="form-group error mb-2">
                         <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Type Name</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control has-error" id="type_name" name="type_name" placeholder="Type Here.." ng-model="module_type.type_name" ng-required="true" required>
+                            <input type="text" class="form-control has-error" id="type_name" name="type_name" placeholder="Type Here.." ng-model="module_type.building_type_name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
                     </div> 
+                   
                     <div class="row">
                         <div class="col-12 pt-3">
                             <div>
@@ -65,17 +69,18 @@
                                 </div>
                                 <div class="form-check form-check-inline form-radio-dark">
                                     <input type="radio" ng-checked="module_type.is_active == 0" id="Deactive" value="0" ng-model="module_type.is_active" name="is_active" class="form-check-input" ng-required="true">
-                                    <label class="form-check-label" for="Deactive">Deactive</label>
+                                    <label class="form-check-label" for="Deactive">Inactive</label>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_type(modalstate, id); $event.stopPropagation();" ng-disabled="TypeModule.$invalid">Submit</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_type(modalstate, id); $event.stopPropagation();" ng-disabled="module_type.$invalid">Submit</button>
-            </div>
+           
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div> 

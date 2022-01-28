@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Type extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'type';
+    protected $table = 'building_types';
     protected $primaryKey = 'id';
     public $fillable = [
-        'type_name',
-        'order_id',
+        'building_type_name',
         'is_active'
     ];
 }

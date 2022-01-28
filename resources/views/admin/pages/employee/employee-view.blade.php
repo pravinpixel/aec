@@ -361,9 +361,7 @@
         });
     </script>
     <!-- AngularJS Application Scripts -->
-		<script >
-			var app = angular.module('AdminEnqView', ['datatables']).constant('API_URL', $("#baseurl").val());           
-		</script>
+		
 
 		<script >
             
@@ -384,7 +382,7 @@
                 
 					$http({
 						method: 'GET',
-						url: API_URL + "admin/get_employee"
+						url: API_URL + "admin/get-employee"
 					}).then(function (response) {
 
                         // angular.element(document.querySelector("#loader")).addClass("d-none");
@@ -440,7 +438,7 @@
                         var url = API_URL + "admin/";
                         if(id)
                         {
-                            url += "employee_status/" + id;
+                            url += "employee-status/" + id;
                             method = "PUT";
                             $http({
                                 method: method,
@@ -458,7 +456,7 @@
                  }
 
                 $scope.employeeDelete = function (id) {
-                    var url = API_URL + 'admin/' + 'employee_delete/';
+                    var url = API_URL + 'admin/' + 'employee-delete/';
 			        // var isConfirmDelete = confirm('Are you sure you want this record?');
 					swal({
 						title: "Are you sure?",

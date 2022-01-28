@@ -12,7 +12,7 @@ class BuildingComponent extends Model
 
     public $fillable = [
         'building_component_name',
-        'total_wall_area',
+        'building_component_icon',
         'order_id',
         'is_active'
     ];

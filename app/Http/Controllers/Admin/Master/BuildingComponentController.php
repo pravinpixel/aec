@@ -7,7 +7,8 @@ use App\Interfaces\BuildingComponentRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
+use App\Http\Requests\ComponentCreateRequest;
+use App\Http\Requests\ComponentUpdateRequest;
 class BuildingComponentController extends Controller
 {
     protected $buildingComponent;
@@ -32,16 +33,16 @@ class BuildingComponentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): JsonResponse 
+    public function store(ComponentCreateRequest $request): JsonResponse 
     {
-        $buildingComponent = $request->only([
-           'building_component_name',
-           'is_active'
+        $projectType = $request->only([
+            "building_component_name","building_component_icon","order_id","is_active"
         ]);
 
         return response()->json(
             [
-                'data' => $this->buildingComponent->create($buildingComponent)
+                'data' => $this->buildingComponent->create($projectType),
+                'status' => true, 'msg' => trans('module.inserted')
             ],
             Response::HTTP_CREATED
         );
@@ -53,12 +54,10 @@ class BuildingComponentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request): JsonResponse 
+    public function show($id): JsonResponse 
     {
-        $buildingComponentId = $request->route('id');
-
         return response()->json([
-            'data' => $this->buildingComponent->find($buildingComponentId)
+            'data' => $this->buildingComponent->find($id)
         ]);
     }
 
@@ -69,17 +68,23 @@ class BuildingComponentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request): JsonResponse 
+    public function update($id,ComponentUpdateRequest $request): JsonResponse 
     {
-        $buildingComponentId = $request->route('id');
-        $buildingComponent = $request->only([
-            'building_component_name',
-            'is_active'
+        $projectType = $request->only([
+            "building_component_name","building_component_icon","order_id","is_active"
         ]);
 
         return response()->json([
-            'data' => $this->buildingComponent->update($buildingComponent, $buildingComponentId)
+            'data' => $this->buildingComponent->update($projectType, $id),
+            'status' => true, 'msg' => trans('module.updated'),
+             
         ]);
+    }
+    public function status(Request $request)
+    {
+        $projectType = $request->route('id');
+        $this->buildingComponent->updateStatus($projectType);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $projectType], Response::HTTP_OK);
     }
     /**
      * Remove the specified resource from storage.
@@ -87,11 +92,11 @@ class BuildingComponentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request): JsonResponse 
+    public function destroy( $id): JsonResponse 
     {
-        $buildingComponentId = $request->route('id');
-        $this->buildingComponent->delete($buildingComponentId);
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        $projectType = $id;
+        $this->buildingComponent->delete($projectType);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$projectType], Response::HTTP_OK);
     }
 
     public function get(Request $request)

@@ -24,7 +24,7 @@ class DocumentTypeCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'document_type_name' => 'required',
+            'document_type_name' =>  ['required',Rule::unique('document_types')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

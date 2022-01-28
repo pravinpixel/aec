@@ -17,10 +17,11 @@
                         @if (Route::is('cost-estimation-single-view'))Estimation Calculation View @endif
                         @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                         @if (Route::is('gantt-chart')) Gantt Chart @endif
-                        @if (Route::is('admin-settings')) Settings @endif
+                        @if (Route::is('admin-settings')) Setup @endif
                         @if (Route::is('admin-employee-control-view')) List of Employee @endif
                         @if (Route::is('admin.employee-add')) Create Employee @endif
                         @if (Route::is('admin.employeeEdit')) Edit Employee @endif 
+                        @if (Route::is('admin-documentary-view')) Documentary @endif 
                     </li>
                     @if (Route::is('view-enquiry')) 
                         <li class="breadcrumb-item">
@@ -43,10 +44,11 @@
                 @if (Route::is('cost-estimation-single-view')) Estimation Calculation View @endif
                 @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                 @if (Route::is('gantt-chart')) Gantt Chart @endif
-                @if (Route::is('admin-settings')) Settings @endif
+                @if (Route::is('admin-settings')) Setup @endif
                 @if (Route::is('admin-employee-control-view')) List of Employee @endif
                 @if (Route::is('admin.employee-add')) Create Employee @endif
                 @if (Route::is('admin.employeeEdit')) Edit Employee @endif
+                @if (Route::is('admin-documentary-view')) Documentary @endif
             </h4>
         </div>
     </div>

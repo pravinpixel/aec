@@ -24,7 +24,9 @@
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="pType.is_active == 1" data-switch="primary"/>
                             <label for="switch__@{{index}}" data-on-label="On" ng-click="pType_status(index,pType.id)" data-off-label="Off"></label>
-                        </div>              
+                        </div> 
+                        <span ng-if="pType.is_active == 1" class="d-none">1</span>              
+                        <span ng-if="pType.is_active == 0" class="d-none">0</span>              
                     </td>
                     <td class="text-center" >
                         <div class="btn-group">
@@ -65,17 +67,18 @@
                                 </div>
                                 <div class="form-check form-check-inline form-radio-dark">
                                     <input type="radio" ng-checked="module_pType.is_active == 0" id="Deactive" value="0" ng-model="module_pType.is_active" name="is_active" class="form-check-input" ng-required="true">
-                                    <label class="form-check-label" for="Deactive">Deactive</label>
+                                    <label class="form-check-label" for="Deactive">Inactive</label>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_pType(modalstate, id); $event.stopPropagation();" ng-disabled="pTypeModule.$invalid">Submit</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="save_pType(modalstate, id); $event.stopPropagation();" ng-disabled="module_pType.$invalid">Submit</button>
-            </div>
+           
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div> 

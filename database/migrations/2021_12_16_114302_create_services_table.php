@@ -15,7 +15,7 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('output_type_id');
+            $table->unsignedBigInteger('output_type_id')->nullable();
             $table->string('service_name');
             $table->boolean('is_active')->default(1);
             $table->integer('order_id')->nullable();

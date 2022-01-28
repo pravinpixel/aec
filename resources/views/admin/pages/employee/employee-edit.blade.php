@@ -85,7 +85,7 @@
                                     
                                     <select aria-label="ngSelected demo" ng-model="EmpData.job_role" name="epm_job_role" id="epm_job_role"  class="form-select">
                                         <!-- <option value="@{{ EmpData.job_role}}"   selected>@{{EmpData.job_role}}</option> -->
-                                        <option value="@{{ emp.role }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.role }}</option>
+                                        <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.role_name }}</option>
                                     </select>
                                     <!-- <div class="error-msg">
                                                 <small class="error-text" ng-if="frm.epm_job_role.$touched && frm.epm_job_role.$error.required">This field is required!</small> 
@@ -217,78 +217,6 @@
                 },
                 
             },
-        //     errorPlacement: function (error, element) {
-        //     console.log('dd', element.attr("name"))
-            
-        //         error.appendTo(".error-msg");
-            
-        // },
-        // errorPlacement: function (error, element) {
-        //     console.log('dd', element.attr("name"))
-        //     if (element.attr("name") == "epm_fname") {
-        //         error.appendTo(".error-msg");
-        //     } else {
-        //         error.insertAfter(element)
-        //     }
-        // },
-            // messages: {
-
-            //     'enquiry_date': {
-            //         required: "Please enter Date",
-            //     },
-            //     'contact': {
-            //         required: "Please enter Title",
-            //     },
-            //     'addmore[0][component]': {
-            //         required: "Please enter value1",
-            //     },
-            //     'addmore[0][type]': {
-            //         required: "Please enter value1",
-            //     },
-            //     'addmore[0][complexity]': {
-            //         required: "Please enter value",
-            //     },
-            //     'addmore[0][sqm]': {
-            //         required: "Please enter value",
-            //     },
-            //     'addmore[0][complexity]': {
-            //         required: "Please enter value",
-            //     },
-            //     'addmore[0][detail_price]': {
-            //         required: "Please enter value",
-            //     },
-            //     'addmore[0][detail_sum]': {
-            //         required: "Please enter sum",
-            //     },
-            //     'addmore[0][statistic_price]': {
-            //         required: "Please enter value",
-            //     },
-            //     'addmore[0][statistic_sum]': {
-            //         required: "Please enter sum",
-            //     },
-            //     'addmore[0][cad_cam_price]': {
-            //         required: "Please enter value",
-            //     },
-            //     'addmore[0][cad_cam_sum]': {
-            //         required: "Please enter sum",
-            //     },
-            //     'addmore[0][logistic_price]': {
-            //         required: "Please enter value",
-            //     },
-            //     'addmore[0][logistic_sum]': {
-            //         required: "Please enter sum",
-            //     },
-            //     'addmore[0][total_price]': {
-            //         required: "Please value",
-            //     },
-            //     'addmore[0][total_sum]': {
-            //         required: "Please enter sum",
-            //     },
-                
-                
-                
-
-            // },
         
         
     }); 
@@ -296,20 +224,16 @@
 </script>
 
     <script>
-        var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
 
         app.controller('SalesController', function ($scope, $http, API_URL) { 
            
-  
-            
-        //    getEmployeId($http, API_URL);
            $scope.callEmployee = () =>  {
           
                 var id = {{ $id }} ;
                     // alert(id) 
                     $http({
                     method: 'GET',
-                    url: API_URL + "admin/get_EditEmployee/" + id,
+                    url: API_URL + "admin/get-editEmployee/" + id,
                 }).then(function(res){
                
                     $scope.EmpData =    res.data.data
@@ -319,24 +243,7 @@
                 });
             },
             $scope.callEmployee ();
-          
-           getEmployeeData = function($http, API_URL) {
-
-            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-            // http://localhost/AEC_PREFAB/aec/module?page=1
-            $http({
-                method: 'GET',
-                url: API_URL + "admin/get_employee"
-            }).then(function (response) {
-            
-                $scope.employee_module = response.data.data;		
-                
-            }, function (error) {
-                console.log(error);
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });
-            }
-            getEmployeeData($http, API_URL);
+      
            
             getRoleData = function($http, API_URL) {
 
@@ -344,7 +251,7 @@
             // http://localhost/AEC_PREFAB/aec/module?page=1
             $http({
                 method: 'GET',
-                url: API_URL + "admin/employee_role"
+                url: API_URL + "admin/employee-role"
             }).then(function (response) {
                 // alert(JSON.stringify(response))
                 $scope.employee_module_role = response.data.data;		
@@ -404,7 +311,7 @@
                     console.log(id)
 			        if (id) {
                     
-			            url += "update_employee/" + id;
+			            url += "update-employee/" + id;
                         // alert(url)
 			            method = "POST";
                         console.log(fd)
@@ -435,168 +342,7 @@
 			        
 			    }
             
-                // $scope.update = function (modalstate, id) {
-			    //     var url = API_URL + "admin/";
-			    //     var method = "POST";
-                //     // alert($scope.FormData.epm_number)
-                //     var id = $scope.FormData.key;
-			    //     //append module id to the URL if the form is in edit mode
-			    //     if ($scope.FormData.key) {
-			    //         url += "update_employee/" + id;
-                //         // alert(url)
-			    //         method = "PUT";
-                //         $scope.data = {
-                                
-                //                 epm_id  :   $scope.FormData.epm_id,
-                //                 epm_fname  :   $scope.FormData.epm_fname,
-                //                 epm_lname       :   $scope.FormData.epm_lname,
-                //                 epm_username           :   $scope.FormData.epm_username,
-                //                 epm_password       :   $scope.FormData.epm_password,
-                //                 epm_job_role         :   $scope.FormData.epm_job_role,
-                //                 epm_number       :   $scope.FormData.epm_number,
-                //                 epm_email  :   $scope.FormData.epm_email,
-                //                 // epm_image :f,
-                                
-                //             }
-                //         // alert(JSON.stringify($scope.data))
-				// 		$http({
-				// 			method: method,
-				// 			url: url,
-				// 			data: $.param($scope.data),
-				// 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-				// 		}).then(function (response) {
-							 
-                //             window.location.href = API_URL +"admin/admin-employee-control-view";
-				// 			// getData($http, API_URL);
-                //             $scope.resetForm();
-				// 			    $('#primary-header-modal').modal('hide');
-
-                //                 Message('success',response.data.msg);
-
-				// 		}), (function (error) {
-				// 			console.log(error);
-				// 			console.log('This is embarassing. An error has occurred. Please check the log for details');
-				// 		});
-
-			    //     }
-			        
-			    // }
-
-            // $scope.submit = function (modalstate, id) {
-					
-			//         var url = API_URL + "admin/";
-			//         var method = "POST";
-            //         // alert(image_emp)
-			//         //append module id to the URL if the form is in edit mode
-			//         if (modalstate === 'edit') {
-			//             url += "update_role/" + id;
-            //             // alert(url)
-			//             method = "POST";
-            //             // alert(url)
-			// 			$http({
-			// 				method: method,
-			// 				url: url,
-			// 				data: $.param($scope.module),
-			// 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-			// 			}).then(function (response) {
-							 
-			// 				getData($http, API_URL);
-            //                 $scope.resetForm();
-			// 				    $('#primary-header-modal').modal('hide');
-
-            //                     Message('success',response.data.msg);
-
-			// 			}), (function (error) {
-			// 				console.log(error);
-			// 				console.log('This is embarassing. An error has occurred. Please check the log for details');
-			// 			});
-
-			//         }else {
-                       
-            //             url+="add_employee";
-                       
-            //             // alert(JSON.stringify(fd))
-                        
-            //                     $scope.data = {
-                                
-            //                     epm_id  :   $scope.myWelcome,
-            //                     epm_fname  :   $scope.FormData.epm_fname,
-            //                     epm_lname       :   $scope.FormData.epm_lname,
-            //                     epm_username           :   $scope.FormData.epm_username,
-            //                     epm_password       :   $scope.FormData.epm_password,
-            //                     epm_job_role         :   $scope.FormData.epm_job_role,
-            //                     epm_number       :   $scope.FormData.epm_number,
-            //                     epm_email  :   $scope.FormData.epm_email,
-            //                     // epm_image :f,
-                                
-            //                 }
-                      
-			// 			$http({
-			// 				method: method,
-			// 				url: url,
-			// 				data: $.param($scope.data),
-                            
-			// 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-			// 			}).then(function (response) {
-			// 				//  alert(JSON.stringify(response))
-			// 				getData($http, API_URL);
-            //                 // getEmployeId($http, API_URL);
-            //                 getRoleData($http, API_URL);
-            //                 getEmployeeData($http, API_URL);
-            //                 $("#employee_module").trigger("reset");
-			// 				//location.reload();
-            //                 $scope.resetForm();
-            //                 Message('success', response.data.msg);
-
-			// 			}), (function (error) {
-			// 				console.log(error);
-			// 				console.log('This is embarassing. An error has occurred. Please check the log for details');
-			// 			});
-			// 		}
-			        
-			//     }
-
-            //save new record and update existing record
-            // $scope.save = function (modalstate, id) {
-
-            //     $scope.day = new Date();
-
-            //     $scope.data = {
-            //         company_name    :   $scope.module.company_name, 
-            //         contact_person  :   $scope.module.contact_person,
-            //         mobile_no       :   $scope.module.mobile_number,
-            //         email           :   $scope.module.email,
-            //         user_name       :   $scope.module.user_name,
-            //         enquiry_number  :   $scope.myWelcome,
-            //         remarks         :   $scope.module.remarks
-            //     }
-  
-            //     $http({
-            //         method: "POST",
-            //         url: API_URL + "admin/enquiry",
-            //         // data: $.param($scope.module),
-            //         data: $.param($scope.data),
-            //         headers: { 
-            //             'Content-Type': 'application/x-www-form-urlencoded' 
-            //         }
-            //     }).then(function (response) {
-            //         // $scope.getItems();
-
-            //         $scope.module = {};
-            //         $scope.frm.$setPristine();
-                     
-            //         if(response.data.errors) {
-            //             Message('success',response.data.errors);
-            //         }
-            //         Message('success',response.data.msg);
-
-            //     }), (function (error) { 
-            //         console.log(error); 
-            //     }); 
-            // }  
+               
             $scope.resetForm =  function() {
                     $scope.FormData = {};
                     $scope.frm.$setPristine();

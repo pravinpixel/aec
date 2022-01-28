@@ -24,7 +24,7 @@ class TypeCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_name' => 'required',
+            'building_type_name' =>  ['required', Rule::unique('building_types')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

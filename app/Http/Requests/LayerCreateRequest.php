@@ -24,7 +24,8 @@ class LayerCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'layer_name' => 'required',
+            'layer_name' =>  ['required', Rule::unique('layers')->ignore($this->id)->whereNull('deleted_at')],
+           
         ];
     }
 }
