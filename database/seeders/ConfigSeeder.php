@@ -15,8 +15,10 @@ class ConfigSeeder extends Seeder
     public function run()
     {
         Config::create(
-            ['enquiry_prefix' => 'ENQ', 
+            ['enquiry_prefix' => 'EQ', 
             'enquiry_number' => '001',
+            'enquiry_year' => '2022', 
+            'customer_enquiry_year' => '2022', 
             'customer_prefix' => 'CENQ', 
             'customer_enquiry_number' => '001'
         ]);

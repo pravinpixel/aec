@@ -14,7 +14,7 @@ app.controller('EnqController', function ($scope, $http, API_URL) {
             // angular.element(document.querySelector("#loader")).addClass("d-none");
             
             $scope.module_get = response.data;
-                
+               
         }, function (error) {
             console.log(error);
             console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -100,7 +100,7 @@ app.controller('EnqController', function ($scope, $http, API_URL) {
             case 'add':
                 $scope.form_title = "Create New";
                 $scope.form_color = "primary";
-                $('#right-modal-progress').modal('show');
+                $('#enquiry-qucik-view-model').modal('show');
                 break;
             case 'edit':
                 $scope.form_title = "Edit an Update";
@@ -111,8 +111,17 @@ app.controller('EnqController', function ($scope, $http, API_URL) {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + id )
 
                     .then(function (response) {
+                        $scope.enquiry_number       = response.data.enquiry_number;
+                        $scope.enquiry_comments     = response.data.enquiry_comments;
+                        $scope.enquiry_id           = response.data.enquiry_id;
+                        $scope.customer_info        = response.data.customer_info;
+                        $scope.project_info         = response.data.project_info;
+                        $scope.services             = response.data.services;
+                        $scope.ifc_model_uploads    = response.data.ifc_model_uploads;
+                        $scope.building_components  = response.data.building_component;
+                        $scope.additional_infos     = response.data.additional_infos;
                         $scope.enqData = response.data;
-                        $('#right-modal-progress').modal('show');
+                        $('#enquiry-qucik-view-model').modal('show');
                     });
                 
                 
@@ -168,7 +177,7 @@ app.controller('EnqController', function ($scope, $http, API_URL) {
 
                 //location.reload();
 
-                $('#right-modal-progress').modal('hide');
+                $('#enquiry-qucik-view-model').modal('hide');
 
 
                 Message('success', response.data.msg);
@@ -180,5 +189,71 @@ app.controller('EnqController', function ($scope, $http, API_URL) {
         }
         
     } 
+     
+    $scope.showCommentsToggle = function (modalstate, type, header) {
+        $scope.modalstate = modalstate;
+        $scope.module = null;
+        $scope.chatHeader   = header; 
+        switch (modalstate) {
+            case 'viewConversations':
+                $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                    $scope.commentsData = response.data.chatHistory; 
+                    $scope.chatType     = response.data.chatType;  
+                    $('#viewConversations-modal').modal('show');
+                });
+                break;
+            default:
+                break;
+        } 
+    }
+    // $scope.GetCommentsData();
+
+     
+    $scope.sendInboxComments  = function(type) { 
+        $scope.sendCommentsData = {
+            "comments"        :   $scope.inlineComments,
+            "enquiry_id"      :   $scope.enquiry_id,
+            "type"            :   $scope.chatType,
+            "created_by"      :   type,
+        }
     
+        $http({
+            method: "POST",
+            url:  API_URL + 'admin/add-comments' ,
+            data: $.param($scope.sendCommentsData),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded' 
+            }
+        }).then(function successCallback(response) {
+            document.getElementById("Inbox__commentsForm").reset();
+            $scope.showCommentsToggle('viewConversations', $scope.chatType);
+            Message('success',response.data.msg);
+        }, function errorCallback(response) {
+            Message('danger',response.data.errors);
+        });
+    }
+    
+    $scope.sendComments  = function(type, created_by) { 
+        $scope.sendCommentsData = {
+            "comments"        :   $scope[`${type}__comments`],
+            "enquiry_id"      :   $scope.enquiry_id,
+            "type"            :   type,
+            "created_by"      :   created_by,
+        }
+      
+        $http({
+            method: "POST",
+            url:  API_URL + 'admin/add-comments' ,
+            data: $.param($scope.sendCommentsData),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded' 
+            }
+        }).then(function successCallback(response) {
+            document.getElementById(`${type}__commentsForm`).reset();
+            // $scope.GetCommentsData();
+            Message('success',response.data.msg);
+        }, function errorCallback(response) {
+            Message('danger',response.data.errors);
+        });
+    }
 }); 

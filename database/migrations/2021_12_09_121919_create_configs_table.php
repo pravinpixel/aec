@@ -16,8 +16,10 @@ class CreateConfigsTable extends Migration
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
             $table->string('enquiry_prefix');
+            $table->string('enquiry_year');
             $table->integer('enquiry_number');
             $table->string('customer_prefix');
+            $table->integer('customer_enquiry_year');
             $table->integer('customer_enquiry_number');
             $table->timestamps();
         });

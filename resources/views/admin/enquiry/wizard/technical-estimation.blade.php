@@ -93,7 +93,11 @@
                 <ul class="list-group mt-0" ng-repeat="doc in enquiry.ifc_model_uploads">
                     <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
                         <div class="d-flex align-items-center">
-                            <div><a href="" data-bs-toggle="modal" data-bs-target="#right-modal" class="form-check-input me-2 border-0"><i class="uil-comment-alt-lines"></i></a></div>
+                            <div>
+                                <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'technical_estimate', 'Building Components')">
+                                    <i class="uil-comment-alt-lines"></i>
+                                </a>
+                            </div>
                             <div class="d-flex  flex-column">
                                 @{{ doc.document_type.document_type_name }} <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
                             </div>
@@ -139,7 +143,8 @@
                 <a href="#!/cost-estimation" class="btn btn-primary">Next</a>
             </div>
         </div>
-    </div> 
+    </div>
+    @include("admin.enquiry.models.chat-box")
 </div>
 {{-- @{{ building_component }} --}}
 @if (Route::is('enquiry.technical-estimation'))

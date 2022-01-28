@@ -1,4 +1,5 @@
 <div ng-controller="WizzardCtrl">
+  
     <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
         {{-- ProjectInfo --}}
             <fieldset class="accordion-item">
@@ -107,7 +108,7 @@
                             </tbody>
                         </table>
                         <form id="project_infomation__commentsForm" ng-submit="sendComments('project_infomation','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                            <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-2">
@@ -129,9 +130,9 @@
                     <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                         <i data-bs-toggle="collapse" 
                             href="#selected_service" 
-                            aria-expanded="true" 
+                            aria-expanded="false" 
                             aria-controls="selected_service" 
-                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn "
+                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
                             >
                         </i>
                     </div>
@@ -142,7 +143,7 @@
                             <li ng-repeat="service in services" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
                         </ul>  
                         <form id="selected_service__commentsForm" ng-submit="sendComments('selected_service','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                            <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
@@ -166,7 +167,7 @@
                         href="#IFC_Models_Upload_Docs" 
                         aria-expanded="false" 
                         aria-controls="IFC_Models_Upload_Docs" 
-                        class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                        class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed ">
                         </i>
                     </div>
                 </div>
@@ -197,7 +198,7 @@
                             </thead>
                         </table>
                         <form id="IFC_Models_Upload_Docs__commentsForm" ng-submit="sendComments('IFC_Models_Upload_Docs','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="IFC_Models_Upload_Docs__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                            <input required type="text" ng-model="IFC_Models_Upload_Docs__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
@@ -221,7 +222,7 @@
                             href="#building_components" 
                             aria-expanded="false" 
                             aria-controls="building_components" 
-                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn "></i>
+                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
                 </div>
                 <div id="building_components" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
@@ -289,7 +290,7 @@
                             </table> 
                         </div> 
                         <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
@@ -313,7 +314,7 @@
                             href="#add_info" 
                             aria-expanded="false" 
                             aria-controls="add_info" 
-                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn "></i>
+                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
                 </div>
                 <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
@@ -333,7 +334,7 @@
                             </tr> 
                         </table>
                         <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                            <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
@@ -345,45 +346,8 @@
                 </div>
             </fieldset> 
         {{-- Additional Info --}}
-    </div>
-
-    <div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog h-100 modal-right" style="width:100% !important">            
-            <div class="modal-content h-100 d-flex justify-content-center bg-light align-items-center" >
-                <div class="card w-100 h-100">
-                    <div class="card-header bg-primary pt-3 d-flex justify-content-between align-items-center">
-                        <h4 class="text-white text-center m-0">  {{--  @{{ chatHeader }} --}} Chat Box  </h4> 
-                        <button type="button" class="btn rounded-pill btn-outline-light" data-bs-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
-                    </div>
-                    <div class="card-body m-0 p-0 py-3 h-100" style="min-height:70vh;overflow:auto">
-                        <ul class="conversation-list h-100">
-                            <li class="clearfix @{{ msg.created_by }}_odd" ng-repeat="msg in commentsData">
-                                <div class="chat-avatar">
-                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"  alt="@{{ msg.created_by }} Image">                                    
-                                    <i>@{{ msg.created_by }}</i>
-                                </div>
-                                <div class="conversation-text">
-                                    <div class="ctext-wrap"> 
-                                        <p>
-                                           @{{ msg.comments }}
-                                        </p> 
-                                        <small style="font-size: 10px !important" class="text-secondary">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
-                                    </div>
-                                </div> 
-                            </li> 
-                        </ul>
-                    </div>
-                    <div class="card-footer bg-light">
-                        <form id="Inbox__commentsForm" ng-submit="sendInboxComments('Admin')" class="d-flex align-items-center">
-                            <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
-                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                        </form> 
-                    </div>
-                </div> 
-                <!-- end row -->
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    </div>   
+    @include("admin.enquiry.models.chat-box")
 </div>
 <style>
     .Project_Info .timeline-step .inner-circle{

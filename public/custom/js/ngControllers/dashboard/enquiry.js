@@ -5,6 +5,7 @@ app.controller('EnqController', function ($scope, $http, API_URL) {
             method: 'GET',
             url: API_URL + "admin/api/v2/customers-enquiry"
         }).then(function (response) {
+           
             $scope.module_get = response.data;
         }, function (error) {
             console.log(error);

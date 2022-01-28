@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute','datatables']).constant('API_URL', $("#baseurl").val());
+var app = angular.module('App', ['ngRoute','datatables']).constant('API_URL', $("#baseurl").val());
 
 app.directive('loading',   ['$http' ,function ($http, $scope) {  
     return {  
@@ -24,3 +24,14 @@ app.directive('loading',   ['$http' ,function ($http, $scope) {
         }  
     };
 }]);
+// app.config(function(NotificationProvider) {
+//     NotificationProvider.setOptions({
+//         delay: 10000,
+//         startTop: 20,
+//         startRight: 10,
+//         verticalSpacing: 20,
+//         horizontalSpacing: 20,
+//         positionX: 'left',
+//         positionY: 'bottom'
+//     });
+// }); 

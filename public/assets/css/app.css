@@ -4381,33 +4381,6 @@ textarea.form-control-lg {
   .alert-secondary .alert-link {
     color: #34383c; }
 
-.alert-success {
-  color: #067c5b;
-  background-color: #cef5ea;
-  border-color: #b6f1e0; }
-  .alert-success .alert-link {
-    color: #056349; }
-
-.alert-info {
-  color: #22697d;
-  background-color: #d7eff6;
-  border-color: #c4e7f1; }
-  .alert-info .alert-link {
-    color: #1b5464; }
-
-.alert-warning {
-  color: #997100;
-  background-color: #fff2cc;
-  border-color: #ffebb3; }
-  .alert-warning .alert-link {
-    color: #7a5a00; }
-
-.alert-danger {
-  color: #96374a;
-  background-color: #fedee5;
-  border-color: #feced8; }
-  .alert-danger .alert-link {
-    color: #782c3b; }
 
 .alert-light {
   color: #8f9194;

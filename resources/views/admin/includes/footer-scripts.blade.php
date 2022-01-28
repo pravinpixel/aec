@@ -6,6 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script> 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
+
 <!-- ====== Ajax Call Loader Js ========== -->
 <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
 
@@ -14,6 +15,9 @@
 
 <!-- =========  Angular APP ======== JS -->
 <script src="{{ asset("public/custom/js/ngControllers/ngApp.js") }}"></script>
+
+<!-- =========  Alerts JS ======== JS -->
+
 <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
 
 

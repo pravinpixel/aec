@@ -3,4 +3,9 @@
    --primary-bg-light : #E4EBF2;
    --text-light : white;
    --secondary-bg : #4199FC;  
+
+   --success-color: #1F8755;
+   --warning-color: #87661f;
+   --info-color: #1f8087;
+   --danger-color: #871f1f;
 }

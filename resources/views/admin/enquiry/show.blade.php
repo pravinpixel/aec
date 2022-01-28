@@ -202,6 +202,7 @@
                 templateUrl : "{{ route('enquiry.move-to-project') }}"
             })
         }); 
+       
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
             // enquiry.show-comments
             $scope.GetCommentsData = function() {
@@ -220,16 +221,13 @@
             $scope.showCommentsToggle = function (modalstate, type, header) {
                 $scope.modalstate = modalstate;
                 $scope.module = null;
-                $scope.chatHeader   = header;
-                console.log($scope.chatHeader);
+                $scope.chatHeader   = header; 
                 switch (modalstate) {
                     case 'viewConversations':
-                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type )
-                            .then(function (response) {
-                                $scope.commentsData = response.data.chatHistory; 
-                                $scope.chatType     = response.data.chatType; 
-                                
-                                $('#right-modal').modal('show');
+                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                            $scope.commentsData = response.data.chatHistory; 
+                            $scope.chatType     = response.data.chatType;  
+                            $('#viewConversations-modal').modal('show');
                         });
                         break;
                     default:
@@ -262,6 +260,7 @@
                     Message('danger',response.data.errors);
                 });
             }
+            
             $scope.sendComments  = function(type, created_by) { 
                 $scope.sendCommentsData = {
                     "comments"        :   $scope[`${type}__comments`],
@@ -284,7 +283,7 @@
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
-            } 
+            }
         });
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
             
@@ -405,22 +404,79 @@
             $http.get("{{ route("CostEstimateData") }}").then(function (response) {
                 $scope.cost = response.data; 
             });
+            //  =====================
+                $scope.GetCommentsData = function() {
+                    $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                        $scope.enquiry_number       = res.data.enquiry_number;
+                        $scope.enquiry_comments     = res.data.enquiry_comments;
+                        $scope.enquiry_id           = res.data.enquiry_id;
+                    });
+                }
+                $scope.showCommentsToggle = function (modalstate, type, header) {
+                    $scope.modalstate = modalstate;
+                    $scope.module = null;
+                    $scope.chatHeader   = header; 
+                    switch (modalstate) {
+                        case 'viewConversations':
+                            $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                                $scope.commentsData = response.data.chatHistory; 
+                                $scope.chatType     = response.data.chatType;  
+                                $('#viewConversations-modal').modal('show');
+                            });
+                            break;
+                        default:
+                            break;
+                    } 
+                }
+                $scope.GetCommentsData();
 
-            // $scope.squarMeeter = function(list) {
-            //     var Bigtotal=0;
-            //     angular.forEach(list , function(item){
-            //         Bigtotal+= Number(item.sqm);
-            //     });
-            //     return Bigtotal;
-            // }
-         
-            // $scope.totalAmount = function(){
-            //     var total = 0;
-            //     for(count=0;count<$scope.CostEstimate.length;count++){
-            //         total += Number($scope.CostEstimate[count].sqm);
-            //     }
-            //     return total;
-            // };
+                
+                $scope.sendInboxComments  = function(type) { 
+                    $scope.sendCommentsData = {
+                        "comments"        :   $scope.inlineComments,
+                        "enquiry_id"      :   $scope.enquiry_id,
+                        "type"            :   $scope.chatType,
+                        "created_by"      :   type,
+                    }
+                    console.log($scope.sendCommentsData);
+                    $http({
+                        method: "POST",
+                        url:  "{{ route('enquiry.comments') }}" ,
+                        data: $.param($scope.sendCommentsData),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded' 
+                        }
+                    }).then(function successCallback(response) {
+                        document.getElementById("Inbox__commentsForm").reset();
+                        $scope.showCommentsToggle('viewConversations', $scope.chatType);
+                        Message('success',response.data.msg);
+                    }, function errorCallback(response) {
+                        Message('danger',response.data.errors);
+                    });
+                }
+                $scope.sendComments  = function(type, created_by) { 
+                    $scope.sendCommentsData = {
+                        "comments"        :   $scope[`${type}__comments`],
+                        "enquiry_id"      :   $scope.enquiry_id,
+                        "type"            :   type,
+                        "created_by"      :   created_by,
+                    }
+                
+                    $http({
+                        method: "POST",
+                        url:  "{{ route('enquiry.comments') }}" ,
+                        data: $.param($scope.sendCommentsData),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded' 
+                        }
+                    }).then(function successCallback(response) {
+                        document.getElementById(`${type}__commentsForm`).reset();
+                        // $scope.GetCommentsData();
+                        Message('success',response.data.msg);
+                    }, function errorCallback(response) {
+                        Message('danger',response.data.errors);
+                    });
+                }
         }); 
     </script>  
 @endpush

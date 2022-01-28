@@ -489,25 +489,7 @@
     </style>
 @endpush
 
-@push('custom-scripts')
-
-    
-
-    <!-- end demo js-->
-    <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dropzone.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/ui/component.fileupload.js') }}"></script>
-   
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
-    <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
-    <script >
-        var app = angular.module('App', ['ui-notification']).constant('API_URL', $("#baseurl").val());           
-    </script>
-    <style>
-        
-    </style>
-    <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
+@push('custom-scripts') 
       
     <script>
   

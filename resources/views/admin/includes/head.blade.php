@@ -31,4 +31,5 @@
 
 <!-- ====== Ajax Call Loader Css ========== -->
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
- 
+
+<!-- ========= Alert js Notifications ========== -->

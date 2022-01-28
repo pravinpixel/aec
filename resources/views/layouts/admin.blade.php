@@ -9,14 +9,22 @@
     </head>
     
 
-    <body  data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+    <body data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
 
         <!-- Begin page -->
-        <div class="wrapper" ng-app="myApp">
+        <div class="wrapper" ng-app="App">
 
             {{--===========  AJAX LOADER ======== --}}
                 <div data-loading></div>
             {{--===========  AJAX LOADER ======== --}}
+
+            {{-- ======= Alert Part ========== --}}
+            <div class="alert-container" id="alert">
+                {{-- <div class="alert alert-custom alert-danger fade show text-center" role="alert" data-bs-dismiss="alert" aria-label="Close">
+                    <span>You should check in on</span> 
+                </div> --}}
+            </div>
+            {{-- ======= Alert Part ========== --}}
 
             <!-- ========== Left Sidebar Start ========== -->
                 @include('admin.includes.side-bar')
@@ -122,8 +130,7 @@
             </div> 
             <div class="rightbar-overlay"></div>
         <!-- /End-bar -->
-            
-        
+ 
 
         <!--  Footer Scripts  -->
         @include('admin.includes.footer-scripts')
