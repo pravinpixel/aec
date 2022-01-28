@@ -622,7 +622,7 @@
                     }).then(function successCallback(response) {
                         return location.href = '{{ route('customers-my-enquiries') }}'
                     }, function errorCallback(response) {
-                        Notification.error({'message':'Something went wrong',delay: 4000});
+                        Message('danger', 'Something went wrong');
                     });
             }
             $scope.updateWizardStatus = (newStep) => {
@@ -733,7 +733,7 @@
                     url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'project_info', 'data': $scope.getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
-                    Notification.success({'message': `Project Information updated successfully`, delay: 4000});
+                    Message('success', 'Project Information updated successfully');
                 }, function (error) {
                     console.log(`callprojectinfo ${error}`);
                 });         
@@ -785,7 +785,7 @@
             if($scope.serviceList.length == 0){
                 $rootScope.currentStep = 1;
                 $scope.service_selection_mandatory = null;
-                Notification.error({message: `Please select any service`, delay: 4000});   
+                Message('error',`Please select any service`);
                 return false;
             }     
             $scope.service_selection_mandatory = true;         
@@ -794,7 +794,7 @@
                     url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
                 }).then(function successCallback(response) {
-                    Notification.success({'message': `Service selection updated successfully`, delay: 4000});
+                    Message('success',`Service selection updated successfully`);
                     $rootScope.$broadcast('getIFCModelUpload');
                 }, function errorCallback(response) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -848,7 +848,7 @@
                     var uploadUrl = '{{ route('customers.update-enquiry', $id) }}'
                     promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
                     promise.then(function (response) {
-                        Notification.success({'message': `${view_type.replace('_',' ')} uploaded successfully`, delay: 4000});
+                        Message('success',`${view_type.replace('_',' ')} uploaded successfully`);
                         $scope.getIFCViewList(response, view_type);
                         $scope.serverResponse = response;
                         $scope[`${view_type}__file_name`] = '';
@@ -876,7 +876,7 @@
                 var uploadUrl = '{{ route('customers.update-enquiry', $id) }}';
                 promise = fileUploadService.uploadLinkToUrl(link, 'ifc_link', view_type, uploadUrl);
                 promise.then(function (response) {
-                    Notification.success({'message': `${view_type.replace('_',' ')} uploaded successfully`, delay: 4000});
+                    Message('success',`${view_type.replace('_',' ')} uploaded successfully`);
                     $scope.getIFCViewList(response, view_type);
                     $scope.serverResponse = response;
                     $scope[`${view_type}__file_name`] = '';
@@ -962,8 +962,9 @@
                 $scope.getLastEnquiry();                     
             });
             $scope.$on('callIFCModelUpload', function(e) {
+                console.log($scope.mandatoryUpload.length);
                 if($scope.mandatoryUpload.length > 0) {
-                    Notification.error({message: `${$scope.mandatoryUpload[0].replace('_',' ')} field is mandatory`, delay: 4000});
+                    Message('danger',`${$scope.mandatoryUpload[0].replace('_',' ')} field is mandatory`);
                     $rootScope.currentStep = 2;
                     return false;
                 }
@@ -1072,7 +1073,7 @@
             $scope.$on('callBuildingComponent', function(e) {
                 if(!$("#buildingComponent")[0].checkValidity()){
                     $rootScope.currentStep = 3;
-                    Notification.error({message: `Please fill required fields`, delay: 4000});
+                    Message('danger', `Please fill required fields`);
                     return false;
                 }
                 $http({
@@ -1080,9 +1081,10 @@
                     url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'building_component', 'data': $scope.wallGroup}
                 }).then(function (res) {
-                    Notification.success({'message': `Building Component updated successfully`, delay: 4000});
+                    Message('success', `Building Component updated successfully`);
                 }, function (error) {
-                    Notification.error({'message': `Somethig went wrong`, delay: 4000});
+                    Message('error', `Somethig went wrong`);
+
                 });      
             });
             $scope.getLastEnquiry = () => {
@@ -1268,16 +1270,16 @@
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
-                    console.log(scope.w.WallId);
+                  
                     $http({
                         method: 'GET',
                         url: '{{ route("layer.get-layer-by-building-component") }}',
                         params : {building_component_id: scope.w.WallId}
                         }).then(function success(response) {
-                            console.log(response);
+                           
                             scope.layers = response.data;
                         }, function error(response) {
-                            // console.log('layer');
+                       
                     });
                 },
             };
@@ -1316,7 +1318,7 @@
                     data: {type: 'additional_info', 'data': $scope.additionalInfo}
                 }).then(function (res) {
                    $scope.additionalInfo = '';
-                   Notification.success({message: `Comments added successfully`, delay: 4000});
+                   Message('success', `Comments added successfully`);
                 }, function (error) {
                     console.log(`additional info ${error}`);
                 });         

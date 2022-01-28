@@ -10,7 +10,9 @@
     </head>
 
     <body data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
-        
+        {{-- ======= Alert Part ========== --}}
+        <div class="alert-container" id="alert"></div>
+        {{-- ======= Alert Part ========== --}}
         <!-- Begin page -->
         <div class="wrapper">
 
@@ -39,6 +41,9 @@
     
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
+        <!-- =========  Alerts JS ======== JS -->
+
+        <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
 
         <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
 

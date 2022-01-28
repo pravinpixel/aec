@@ -18,27 +18,12 @@
 <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
 <input type="hidden" name="baseurl" value="{{URL::to('/')}}/" id="baseurl">
 <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
+<link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}"> 
 
 <style>
     .filepond--credits {
         display: none !important
-    }
-    .alert {
-        width: 300px;
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        box-shadow: 2px 2px 3px;
-        z-index: 11 !important;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: row-reverse;
-        font-weight: bold;
-        font-weight: bold;
-        opacity: .8;
-        text-transform: lowercase !important;
-    }
+    } 
     
     .invert {
         filter: invert(1) !important

@@ -530,7 +530,7 @@
                     }).then(function successCallback(response) {
                         return location.href = '{{ route('customers-my-enquiries') }}'
                     }, function errorCallback(response) {
-                        Notification.error({'message':'Something went wrong',delay: 4000});
+                        Message('danger',"Something went wrong!");
                     });
             }
             
@@ -587,7 +587,7 @@
 
             $scope.$on('callProjectInfo', function(e) {  
                 if(!$("#projectInfoForm")[0].checkValidity()){
-                    Notification.error({message: `Please fill required field`, delay: 4000});
+                    Message('danger',"Please fill required field");
                     $rootScope.currentStep = 0;
                     return false;
                 }
@@ -596,7 +596,7 @@
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'project_info', 'data': getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
-                    Notification.success({'message': 'Project Information inserted successfully', delay: 4000});
+                    Message('success',"Project Information inserted successfully");
                 }, function (error) {
                     console.log(`callprojectinfo ${error}`);
                 });         
@@ -629,7 +629,7 @@
            $scope.$on('callServiceSelection', function(e) { 
                 if($scope.serviceList.length == 0){
                     $rootScope.currentStep = 1;
-                    Notification.error({message: `Please select any service`, delay: 4000});
+                    Message('danger',"Please select any service");
                     $scope.service_selection_mandatory = null;
                     return false;
                 }
@@ -639,7 +639,7 @@
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
                 }).then(function (res) {
-                    Notification.success({'message': 'Service selection inserted successfully', delay: 4000});
+                    Message('success',"Service selection inserted successfully");
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });         
@@ -769,7 +769,7 @@
             $scope.$on('callIFCModelUpload', function(e) {
                 e.preventDefault();
                 if($scope.mandatoryUpload.length > 0) {
-                    Notification.error({message: `${$scope.mandatoryUpload[0].replace('_',' ')} field is mandatory`, delay: 4000});
+                    Message('danger',`${$scope.mandatoryUpload[0].replace('_',' ')} field is mandatory`);
                     $rootScope.currentStep = 2;
                     return false;
                 }
@@ -810,7 +810,7 @@
                     var uploadUrl = '{{ route('customers.store-enquiry') }}'
                     promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
                     promise.then(function (response) {
-                        Notification.success({'message': `${view_type.replace('_',' ')} uploaded successfully`, delay: 4000});
+                        Message('danger',`${view_type.replace('_',' ')} uploaded successfully`);
                         $scope.getIFCViewList(response, view_type);
                         $scope.serverResponse = response;
                         $scope[`${view_type}__file_name`] = '';
@@ -837,7 +837,7 @@
                 var uploadUrl = '{{ route('customers.store-enquiry') }}'
                 promise = fileUploadService.uploadLinkToUrl(link, 'ifc_link', view_type, uploadUrl);
                 promise.then(function (response) {
-                    Notification.success({'message': `${view_type.replace('_',' ')} uploaded successfully`, delay: 4000});
+                    Message('success',`${view_type.replace('_',' ')} uploaded successfully`);
                     $scope.getIFCViewList(response, view_type);
                     $scope.serverResponse = response;
                     $scope[`${view_type}__file_name`] = '';
@@ -909,7 +909,7 @@
            
             $scope.$on('callBuildingComponent', function(e) {
                 if(!$("#buildingComponent")[0].checkValidity()){
-                    Notification.error({message: `Please fill required field`, delay: 4000});
+                    Message('danger',`Please fill required field`);
                     $rootScope.currentStep = 0;
                     return false;
                 }
@@ -918,7 +918,7 @@
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'building_component', data: $scope.wallGroup}
                 }).then(function (res) {
-                    Notification.success({'message': `Inserted building component successfully`, delay: 4000});
+                    Message('danger',`Inserted building component successfully`);
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });   
@@ -1086,7 +1086,7 @@
                     data: {type: 'additional_info', 'data': $scope.additionalInfo}
                 }).then(function (res) {
                    $scope.additionalInfo = '';
-                   Notification.success({message: `Comments added successfully`, delay: 4000});
+                   Message('success',`Comments added successfully`);
                 }, function (error) {
                     console.log(`additional info ${error}`);
                 });         
