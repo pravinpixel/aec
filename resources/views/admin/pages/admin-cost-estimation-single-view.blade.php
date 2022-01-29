@@ -128,7 +128,7 @@
                     
                                             <tr>
                                                 <td width="180px">
-                                                    <select class="form-select addmore_component" data-select-id="0" name="addmore[0][component]" required style="min-width: 100px !important">
+                                                    <select class="form-select addmore_component" data-select-id="0" name="addmore[0][component]" id="addmore[0][component]" required style="min-width: 100px !important">
                                                         <option value="">Select</option>
                                                             @foreach($data['component'] as $val)
                                                             <option value="{{ $val['id'] }}" >{{ $val['building_component_name'] }}</option>
@@ -136,25 +136,25 @@
                                                     </select>
                                                 </td>
                                                 <td  width="180px">
-                                                    <select class="form-select  addmore_type" required data-select-id="0" name="addmore[0][type]" style="min-width: 100px !important">
+                                                    <select class="form-select  addmore_type" required data-select-id="0" name="addmore[0][type]" id="addmore[0][type]" style="min-width: 100px !important">
                                                         <option value="">Select</option>
                                                         @foreach($data['type'] as $val)
                                                             <option value="{{ $val['id'] }}" >{{ $val['building_type_name'] }}</option>
                                                             @endforeach
                                                     </select>
                                                 </td>
-                                                <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="my-control sqm_val" required></td>
+                                                <td  ><input  type="number"  name="addmore[0][sqm]" min="1" data-sqm_id="0" id="sqm__0" value="1" class="my-control sqm_val" required></td>
                                                 <td  ><input  type="number"  name="addmore[0][complexity]" step="0.1" min="1" max="2" data-complexity_id="0" id="complexity__0" value="1" class="my-control complexity_val"></td>
-                                                <td  ><input  type="number"  name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
-                                                <td  ><input  type="number"  name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
-                                                <td  ><input  type="number"  name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="my-control statistic_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="my-control cad_cam_price"></td>
-                                                <td  ><input  type="number"  name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="my-control cad_cam_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="my-control logistic_price"></td>
-                                                <td  ><input  type="number"  name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
-                                                <td  ><input  type="number"  name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > </td>
+                                                <td  ><input  type="number"  name="addmore[0][detail_price]" min="0" data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
+                                                <td  ><input  type="number"  name="addmore[0][detail_sum]" min="0" data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[0][statistic_price]" min="0" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
+                                                <td  ><input  type="number"  name="addmore[0][statistic_sum]" min="0" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="my-control statistic_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[0][cad_cam_price]" min="0" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="my-control cad_cam_price"></td>
+                                                <td  ><input  type="number"  name="addmore[0][cad_cam_sum]" min="0" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="my-control cad_cam_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[0][logistic_price]" min="0" data-logistic-price_id="0" id="logistic_price__0" value="0" class="my-control logistic_price"></td>
+                                                <td  ><input  type="number"  name="addmore[0][logistic_sum]" min="0" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[0][total_price]" min="0" data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
+                                                <td  ><input  type="number"  name="addmore[0][total_sum]" min="0" data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > </td>
                                             </tr> 
                                     </tbody>
                                     <tfoot id="footerform" >
@@ -439,18 +439,18 @@
                                                         </optgroup>
                                                     </select>
                                                 </td>
-                                                <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="form-control sqm_val" required></td>
+                                                <td  ><input  type="number"  name="addmore[0][sqm]" min="1" data-sqm_id="0" id="sqm__0" value="1" class="form-control sqm_val" required></td>
                                                 <td  ><input  type="number"  name="addmore[0][complexity]"  step="0.1" min="1" max="2" data-complexity_id="0" id="complexity__0" value="1" class="form-control complexity_val"></td>
-                                                <td  ><input  type="number"  name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
-                                                <td  ><input  type="number"  name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
-                                                <td  ><input  type="number"  name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="form-control statistic_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="form-control cad_cam_price"></td>
-                                                <td  ><input  type="number"  name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="form-control cad_cam_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="form-control logistic_price"></td>
-                                                <td  ><input  type="number"  name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="form-control logistic_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="form-control total_price" readonly ></td>
-                                                <td  ><input  type="number"  name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="form-control total_sum" readonly > </td>
+                                                <td  ><input  type="number"  name="addmore[0][detail_price]"  min="0"  data-detail-price_id="0" id="detail_price__0" value="0" class="form-control detail_price"></td>
+                                                <td  ><input  type="number"  name="addmore[0][detail_sum]"   min="0" data-detail-sum_id="0" id="detail_sum__0" value="0" class="form-control detail_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[0][statistic_price]"  min="0"  data-statistic-price_id="0" id="statistic_price__0" value="0" class="form-control statistic_price"></td>
+                                                <td  ><input  type="number"  name="addmore[0][statistic_sum]"   min="0" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="form-control statistic_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[0][cad_cam_price]"  min="0"  data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="form-control cad_cam_price"></td>
+                                                <td  ><input  type="number"  name="addmore[0][cad_cam_sum]"  min="0"  data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="form-control cad_cam_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[0][logistic_price]"  min="0"  data-logistic-price_id="0" id="logistic_price__0" value="0" class="form-control logistic_price"></td>
+                                                <td  ><input  type="number"  name="addmore[0][logistic_sum]"  min="0"  data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="form-control logistic_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[0][total_price]"  min="0"  data-total-price_id="0" id="total_price__0" value="0" class="form-control total_price" readonly ></td>
+                                                <td  ><input  type="number"  name="addmore[0][total_sum]"  min="0"  data-total-sum_id="0" id="total_sum__0" value="0" class="form-control total_sum" readonly > </td>
                                             </tr>
                                         <?php  } ?>
                                         </tbody>
@@ -741,14 +741,14 @@
                                 $('#estimate-datatable').DataTable().clear().draw();
                               
                                 if(response.data.status == false) {
-                                    alert("false")
+                                
                                     Message('warning',response.data.msg);
                                     // angular.element(document.querySelector("#loader")).addClass("d-none"); 
 
                                 }
                                 
                                 if(response.data.status == true) {
-                                   alert("true")
+                                
                                     Message('success', response.data.msg);
                                 }  
                                 
@@ -795,6 +795,7 @@
                 $(document).on('change','.addmore_component',function(){
                         comp_val = $(this).val();
                         // alert(comp_val)
+                        
                         var row_id = $(this).data('select-id');
                         // alert(row_id)
                         masterCalculation(comp_val,type_val,row_id)
@@ -803,8 +804,11 @@
 
         
                     $(document).on('change','.addmore_type',function(){
+                        
                     type_val = $(this).val();
                     var row_id = $(this).data('select-id');
+
+
                         masterCalculation(comp_val,type_val,row_id)
                     });
                     $('#add_btn').on('click',function(){
@@ -861,6 +865,7 @@
                                     total_sum_val()
                                     calculation_total()
                                     // sqm_total()
+                                    $('.complexity_val').keyup();
                                 }
         
                             });
@@ -1272,18 +1277,18 @@
                                             @endforeach
                                 </select>
                             </td>
-                            <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="my-control sqm_val" required></td>
+                            <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" min="1" id="sqm__0" value="1" class="my-control sqm_val" required></td>
                                 <td  ><input  type="number"  name="addmore[0][complexity]"  step="0.1" min="1" max="2" data-complexity_id="0" id="complexity__0" value="1" class="my-control complexity_val"></td>
-                                <td  ><input  type="number"  name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
-                                <td  ><input  type="number"  name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
-                                <td  ><input  type="number"  name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
-                                <td  ><input  type="number"  name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="my-control statistic_sum"></td>
-                                <td  ><input  type="number"  name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="my-control cad_cam_price"></td>
-                                <td  ><input  type="number"  name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="my-control cad_cam_sum"></td>
-                                <td  ><input  type="number"  name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="my-control logistic_price"></td>
-                                <td  ><input  type="number"  name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
-                                <td  ><input  type="number"  name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
-                                <td  ><input  type="number"  name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > 
+                                <td  ><input  type="number"  name="addmore[0][detail_price]" min="0" data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
+                                <td  ><input  type="number"  name="addmore[0][detail_sum]" min="0" data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
+                                <td  ><input  type="number"  name="addmore[0][statistic_price]" min="0" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
+                                <td  ><input  type="number"  name="addmore[0][statistic_sum]" min="0" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="my-control statistic_sum"></td>
+                                <td  ><input  type="number"  name="addmore[0][cad_cam_price]" min="0" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="my-control cad_cam_price"></td>
+                                <td  ><input  type="number"  name="addmore[0][cad_cam_sum]" min="0" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="my-control cad_cam_sum"></td>
+                                <td  ><input  type="number"  name="addmore[0][logistic_price]" min="0" data-logistic-price_id="0" id="logistic_price__0" value="0" class="my-control logistic_price"></td>
+                                <td  ><input  type="number"  name="addmore[0][logistic_sum]" min="0" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
+                                <td  ><input  type="number"  name="addmore[0][total_price]" min="0" data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
+                                <td  ><input  type="number"  name="addmore[0][total_sum]" min="0" data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > 
                             </td>
                         </tr>
             
@@ -1430,18 +1435,18 @@
                                                     
                                                     </select>
                                                 </td>
-                                                <td  ><input  type="number"  name="addmore[${i}][sqm]" data-sqm_id=${i}  value="${detail.sqm}" id="sqm__${i}" class="my-control sqm_val"></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][sqm]" data-sqm_id=${i} min="1" value="${detail.sqm}" id="sqm__${i}" class="my-control sqm_val"></td>
                                                 <td  ><input  type="number"  name="addmore[${i}][complexity]" data-complexity_id=${i}  step="0.1" min="1" max="2" value="${detail.complexity}" id="complexity__${i}" class="my-control complexity_val"></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][detail_price]" data-detail-price_id="${i}" value="${detail.detail_price}" id="detail_price__${i}" class="my-control detail_price"></td>
-                                                <td  ><input  type="number" name="addmore[${i}][detail_sum]" data-detail-sum_id="${i}" value="${detail.detail_sum}" id="detail_sum__${i}" class="my-control detail_sum"></td>
-                                                <td  ><input  type="number" name="addmore[${i}][statistic_price]" data-statistic-price_id="${i}" value="${detail.statistic_price}" id="statistic_price__${i}" class="my-control statistic_price"></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][statistic_sum]" data-statistic-sum_id="${i}" value="${detail.statistic_sum}" id="statistic_sum__${i}" class="my-control statistic_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][cad_cam_price]" data-cad_cam-price_id="${i}" value="${detail.cad_cam_price}" id="cad_cam_price__${i}" class="my-control cad_cam_price"></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][cad_cam_sum]" data-cad_cam-sum_id="${i}" value="${detail.cad_cam_sum}" id="cad_cam_sum__${i}" class="my-control cad_cam_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][logistic_price]" data-logistic-price_id="${i}" value="${detail.logistic_price}" id="logistic_price__${i}" class="my-control logistic_price"></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][logistic_sum]" data-logistic-sum_id="${i}" value="${detail.logistic_sum}" id="logistic_sum__${i}" class="my-control logistic_sum"></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][total_price]" data-total-price_id="${i}" value="${detail.total_price}" id="total_price__${i}" class="my-control total_price" readonly></td>
-                                                <td  ><input  type="number"  name="addmore[${i}][total_sum]" data-total-sum_id="${i}" value="${detail.total_sum}" id="total_sum__${i}" class="my-control total_sum" readonly></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][detail_price]" min="0" data-detail-price_id="${i}" value="${detail.detail_price}" id="detail_price__${i}" class="my-control detail_price"></td>
+                                                <td  ><input  type="number" name="addmore[${i}][detail_sum]" min="0"  data-detail-sum_id="${i}" value="${detail.detail_sum}" id="detail_sum__${i}" class="my-control detail_sum"></td>
+                                                <td  ><input  type="number" name="addmore[${i}][statistic_price]" min="0"  data-statistic-price_id="${i}" value="${detail.statistic_price}" id="statistic_price__${i}" class="my-control statistic_price"></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][statistic_sum]" min="0"  data-statistic-sum_id="${i}" value="${detail.statistic_sum}" id="statistic_sum__${i}" class="my-control statistic_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][cad_cam_price]" min="0"  data-cad_cam-price_id="${i}" value="${detail.cad_cam_price}" id="cad_cam_price__${i}" class="my-control cad_cam_price"></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][cad_cam_sum]" min="0"  data-cad_cam-sum_id="${i}" value="${detail.cad_cam_sum}" id="cad_cam_sum__${i}" class="my-control cad_cam_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][logistic_price]" min="0"  data-logistic-price_id="${i}" value="${detail.logistic_price}" id="logistic_price__${i}" class="my-control logistic_price"></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][logistic_sum]" min="0"  data-logistic-sum_id="${i}" value="${detail.logistic_sum}" id="logistic_sum__${i}" class="my-control logistic_sum"></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][total_price]"  min="0" data-total-price_id="${i}" value="${detail.total_price}" id="total_price__${i}" class="my-control total_price" readonly></td>
+                                                <td  ><input  type="number"  name="addmore[${i}][total_sum]" min="0"  data-total-sum_id="${i}" value="${detail.total_sum}" id="total_sum__${i}" class="my-control total_sum" readonly></td>
                                                 <td style="text-align:center !important" class="delete" data-delete-row_id="${detail.id}"><span onclick="delete_data(${detail.id })"> <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </span></td>
                                                 
                                             
@@ -1573,18 +1578,18 @@
                                                     @endforeach
                                             </select>
                                         </td>
-                                        <td  ><input  type="number"  name="addmore[0][sqm]" data-sqm_id="0" id="sqm__0" value="1" class="my-control sqm_val" required></td>
+                                        <td  ><input  type="number"  name="addmore[0][sqm]" min="1" data-sqm_id="0" id="sqm__0" value="1" class="my-control sqm_val" required></td>
                                         <td  ><input  type="number" name="addmore[0][complexity]" data-complexity_id="0"  step="0.1" min="1" max="2" id="complexity__0" value="1" class="my-control complexity_val"></td>
-                                        <td  ><input  type="number"  name="addmore[0][detail_price]" data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
-                                        <td  ><input  type="number"  name="addmore[0][detail_sum]" data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
-                                        <td  ><input  type="number"  name="addmore[0][statistic_price]" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
-                                        <td  ><input  type="number"  name="addmore[0][statistic_sum]" data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="my-control statistic_sum"></td>
-                                        <td  ><input  type="number"  name="addmore[0][cad_cam_price]" data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="my-control cad_cam_price"></td>
-                                        <td  ><input  type="number"  name="addmore[0][cad_cam_sum]" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="my-control cad_cam_sum"></td>
-                                        <td  ><input  type="number"  name="addmore[0][logistic_price]" data-logistic-price_id="0" id="logistic_price__0" value="0" class="my-control logistic_price"></td>
-                                        <td  ><input  type="number"  name="addmore[0][logistic_sum]" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
-                                        <td  ><input  type="number"  name="addmore[0][total_price]" data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
-                                        <td  ><input  type="number"  name="addmore[0][total_sum]" data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > </td>
+                                        <td  ><input  type="number"  name="addmore[0][detail_price]" min="0"  data-detail-price_id="0" id="detail_price__0" value="0" class="my-control detail_price"></td>
+                                        <td  ><input  type="number"  name="addmore[0][detail_sum]" min="0"  data-detail-sum_id="0" id="detail_sum__0" value="0" class="my-control detail_sum"></td>
+                                        <td  ><input  type="number"  name="addmore[0][statistic_price]" min="0" data-statistic-price_id="0" id="statistic_price__0" value="0" class="my-control statistic_price"></td>
+                                        <td  ><input  type="number"  name="addmore[0][statistic_sum]" min="0"  data-statistic-sum_id="0" id="statistic_sum__0" value="0" class="my-control statistic_sum"></td>
+                                        <td  ><input  type="number"  name="addmore[0][cad_cam_price]" min="0"  data-cad_cam-price_id="0" id="cad_cam_price__0" value="0" class="my-control cad_cam_price"></td>
+                                        <td  ><input  type="number"  name="addmore[0][cad_cam_sum]"  min="0" data-cad_cam-sum_id="0" id="cad_cam_sum__0" value="0" class="my-control cad_cam_sum"></td>
+                                        <td  ><input  type="number"  name="addmore[0][logistic_price]" min="0"  data-logistic-price_id="0" id="logistic_price__0" value="0" class="my-control logistic_price"></td>
+                                        <td  ><input  type="number"  name="addmore[0][logistic_sum]" min="0"  data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
+                                        <td  ><input  type="number"  name="addmore[0][total_price]" min="0"  data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
+                                        <td  ><input  type="number"  name="addmore[0][total_sum]" min="0"  data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > </td>
                                     </tr>
                         
                         `);
@@ -1676,7 +1681,7 @@
                 $("#add_estimate").append(`
                                         <tr>
                                         <td width="180px">
-                                            <select class="form-select select2 validateArray addmore_component" data-select-id="${i}" name="addmore[${i}][component]" required data-toggle="select2">
+                                            <select class="form-select select2 validateArray addmore_component" data-select-id="${i}" name="addmore[${i}][component]" id="addmore[${i}][component]" required data-toggle="select2">
                                                 <option value="">Select</option>
                                                 @foreach($data['component'] as $val)
                                                         <option value="{{ $val['id'] }}" >{{ $val['building_component_name'] }}</option>
@@ -1684,25 +1689,25 @@
                                             </select>
                                         </td>
                                         <td  width="180px">
-                                            <select class="form-select select2 addmore_type"   required name="addmore[${i}][type]" data-select-id="${i}" data-toggle="select2">
+                                            <select class="form-select select2 addmore_type"   required name="addmore[${i}][type]" id="addmore[${i}][type]" data-select-id="${i}" data-toggle="select2">
                                                 <option value="">Select</option>
                                                 @foreach($data['type'] as $val)
                                                         <option value="{{ $val['id'] }}" >{{ $val['building_type_name'] }}</option>
                                                         @endforeach
                                             </select>
                                         </td>
-                                        <td  ><input  type="number" name="addmore[${i}][sqm]" data-sqm_id=${i} id="sqm__${i}" value="1" class="my-control sqm_val" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][sqm]" min="1" data-sqm_id=${i} id="sqm__${i}" value="1" class="my-control sqm_val" required></td>
                                         <td  ><input  type="number" name="addmore[${i}][complexity]" data-complexity_id=${i} id="complexity__${i}"  step="0.1" min="1" max="2" value="1" class="my-control complexity_val"  required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][detail_price]"  data-detail-price_id=${i} id="detail_price__${i}" value="0" class="my-control detail_price" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][detail_sum]" data-detail-sum_id=${i} id="detail_sum__${i}" value="0" class="my-control detail_sum" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][statistic_price]" data-statistic-price_id=${i} id="statistic_price__${i}" value="0" class="my-control statistic_price" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][statistic_sum]" data-statistic-sum_id=${i} id="statistic_sum__${i}" value="0" class="my-control statistic_sum" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][cad_cam_price]" data-cad_cam-price_id=${i} id="cad_cam_price__${i}" value="0" class="my-control cad_cam_price" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][cad_cam_sum]" data-cad_cam-sum_id=${i} id="cad_cam_sum__${i}" value="0" class="my-control cad_cam_sum" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][logistic_price]" data-logistic-price_id=${i} id="logistic_price__${i}" value="0" class="my-control logistic_price" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][logistic_sum]" data-logistic-sum_id=${i} id="logistic_sum__${i}" value="0" class="my-control logistic_sum" required></td>
-                                        <td  ><input  type="number" name="addmore[${i}][total_price]" data-total-price_id=${i} id="total_price__${i}" value="0" class="my-control total_price" readonly></td>
-                                        <td  ><input  type="number" name="addmore[${i}][total_sum]" data-total-sum_id=${i} id="total_sum__${i}" value="0" class="my-control total_sum" readonly></td>
+                                        <td  ><input  type="number" name="addmore[${i}][detail_price]" min="0"  data-detail-price_id=${i} id="detail_price__${i}" value="0" class="my-control detail_price" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][detail_sum]" min="0" data-detail-sum_id=${i} id="detail_sum__${i}" value="0" class="my-control detail_sum" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][statistic_price]" min="0" data-statistic-price_id=${i} id="statistic_price__${i}" value="0" class="my-control statistic_price" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][statistic_sum]" min="0" data-statistic-sum_id=${i} id="statistic_sum__${i}" value="0" class="my-control statistic_sum" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][cad_cam_price]" min="0" data-cad_cam-price_id=${i} id="cad_cam_price__${i}" value="0" class="my-control cad_cam_price" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][cad_cam_sum]" min="0" data-cad_cam-sum_id=${i} id="cad_cam_sum__${i}" value="0" class="my-control cad_cam_sum" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][logistic_price]" min="0" data-logistic-price_id=${i} id="logistic_price__${i}" value="0" class="my-control logistic_price" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][logistic_sum]" min="0" data-logistic-sum_id=${i} id="logistic_sum__${i}" value="0" class="my-control logistic_sum" required></td>
+                                        <td  ><input  type="number" name="addmore[${i}][total_price]" min="0" data-total-price_id=${i} id="total_price__${i}" value="0" class="my-control total_price" readonly></td>
+                                        <td  ><input  type="number" name="addmore[${i}][total_sum]" min="0" data-total-sum_id=${i} id="total_sum__${i}" value="0" class="my-control total_sum" readonly></td>
                                        
                                         <td style="text-align:center !important" class="delete_row_btn"> <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </td>
                                        </tr> `); });
@@ -1752,14 +1757,14 @@
                                 $('#estimate-datatable').DataTable().clear().draw();
                               
                                 if(response.data.status == false) {
-                                    alert("false")
+                                  
                                     Message('warning',response.data.msg);
                                     // angular.element(document.querySelector("#loader")).addClass("d-none"); 
 
                                 }
                                 
                                 if(response.data.status == true) {
-                                   alert("true")
+                                  
                                     Message('success', response.data.msg);
                                 }  
                                 

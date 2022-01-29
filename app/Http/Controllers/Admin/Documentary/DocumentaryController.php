@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Contract;
+namespace App\Http\Controllers\Admin\Documentary;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\OutputTypeRepository;

@@ -11,9 +11,9 @@ class Documentary extends Model
     use HasFactory, SoftDeletes;
 
     public $fillable = [
-        // 'building_component_name',
-        // 'building_component_icon',
-        // 'order_id',
-        // 'is_active'
+        'documentary_type',
+        'documentary_title',
+        'documentary_content',
+        'is_active'
     ];
 }
