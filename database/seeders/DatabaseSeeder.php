@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(AdminSeeder::class);
         
         $this->call(MasterCalculationSeeder::class);
-        $this->call(TypeSeeder::class);
+        // $this->call(TypeSeeder::class);
         $this->call(EstimationComponentSeeder::class);
         $this->call(ConfigSeeder::class);
         $this->call(BuildingComponentSeeder::class);

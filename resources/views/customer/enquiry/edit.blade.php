@@ -16,13 +16,15 @@
                 
                 @include('customer.includes.page-navigater') 
             </div>                
-
+          
+ 
             <div class="card border">
                 <div class="card-body pt-0 pb-0">
+                               
                     <div id="rootwizard" ng-controller="wizard">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                            <li class="nav-item" ng-click="updateWizardStatus(0)" data-target-form="#projectInfoForm" style="pointer-events:none">
-                                <a href="#first" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step ">
+                            <li class="nav-item"  data-target-form="#projectInfoForm" style="pointer-events:none"> 
+                                <a href="#!/" style="min-height: 40px;" class="timeline-step {{$enquiry->project_info == '1' ? "active" : ""}} " id="project-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-project-diagram fa-2x "></i>
@@ -31,8 +33,8 @@
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item"  data-target-form="#serviceSelection" style="pointer-events:none">
-                                <a href="#second" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step">
+                            <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
+                                <a href="#!/service" style="min-height: 40px;" class="timeline-step  {{$enquiry->service == 1 ? 'active' : ''}}" id="service">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
@@ -43,7 +45,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" style="pointer-events:none">
-                                <a href="#four" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step">
+                                <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step {{$enquiry->ifc_model_upload == 1 ? 'active' : ''}}" id="ifc-model-upload">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
@@ -54,28 +56,28 @@
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
-                                <a href="#five" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step">
+                                <a href="#!/building-component"  style="min-height: 40px;" class="timeline-step {{$enquiry->building_component == 1 ? 'active' : ''}}" id="building-component">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
                                         </div>                                                                        
                                         <span class="d-none d-sm-inline mt-2">Building  Components</span>
                                     </div>
+                                    
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
-                                <a href="#six" data-bs-toggle="tab" data-toggle="tab" style="min-height: 40px;" class="timeline-step">
+                                <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step" id="additional-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-2x fa-info mb-1"></i>
                                         </div>       
                                         <span class="d-none d-sm-inline mt-2">Additional Info</span>                                                                 
                                     </div>
-                                    
                                 </a>
                             </li>
-                            <li class="nav-item last"  ng-click="updateWizardStatus(5)" data-target-form="#reviewSubmit">
-                                <a href="#third" data-bs-toggle="tab" data-toggle="tab"style="min-height: 40px;"  class="timeline-step">
+                            <li class="nav-item last"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
+                                <a href="#!/review" style="min-height: 40px;"  class="timeline-step" id="review">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-2x fa-clipboard-check mb-1"></i>
@@ -85,41 +87,11 @@
                                     
                                 </a>
                             </li>
-                        </ul>
-
+                        </ul>  
                         <div class="tab-content my-3" >
-                            <div class="tab-pane active" id="first" ng-controller="ProjectInfo">
-                                @include('customer.enquiry.edit.project-info')
-                            </div>
-                            <div class="tab-pane fade" id="second" ng-controller="ServiceSelection">
-                                @include('customer.enquiry.edit.service-selection')
-                            </div>
-                            <div class="tab-pane fade" id="four" ng-controller="IFCModelUpload">
-                                @include('customer.enquiry.edit.ifc-model-uploads')
-                            </div>
-
-                            <div class="tab-pane p-0 h-100  fade" id="five" ng-controller="CrudCtrl">
-                                @include('customer.enquiry.edit.building-component')
-                            </div>
-                           
-                            <div class="tab-pane fade" id="six" ng-controller="AdditionalInfo">
-                                @include('customer.enquiry.create.additional-info')
-                            </div>
-                            <div class="tab-pane fade" id="third"  ng-controller="Review">
-                                @include('customer.enquiry.create.review')
-                            </div>
-
-                            <div class="card-footer border-0 p-0 " >
-                                <ul class="list-inline wizard mb-0 pt-3">
-                                    <li class="previous list-inline-item disabled" ng-click="gotoStep(currentStep - 1)"><a href="#" class="btn btn-primary">Previous</a></li>
-                                    <li class="next list-inline-item float-end" ng-show="currentStep <= 4" ng-click="gotoStep(currentStep + 1)" ><a href="#" class="btn btn-primary">Next</a></li>
-                                    <li class="next list-inline-item float-end" ng-show="currentStep > 4" id="next_" ng-click="saveOrSubmit('Active')" ><a href="#" class="btn btn-primary">Submit</a></li>
-                                    <li class="next list-inline-item float-end" ng-show="currentStep > 4" id="next_" ng-click="saveOrSubmit('In-Complete')" ><a href="#" class="btn btn-primary">Save & Submit Later</a></li>
-                                </ul>
-                            </div>
-
+                           <ng-view></ng-view>
                         </div> <!-- tab-content -->
-                    </div> <!-- end #rootwizard-->
+                    </div> <!-- end #rootwizard--> 
                 </div> <!-- end card-body -->
             </div>
             </div> <!-- container -->
@@ -411,145 +383,6 @@
     <link rel="stylesheet" href="{{ asset('public/assets/css/pages/customer-enquiry.css') }}">
     <link rel="stylesheet" href="{{ asset('public/assets/css/angularjs/ui-notification.css') }}">
     <style>
-        .table tbody tr td {
-            padding: 5px !important
-        }
-        @media (min-width: 1200px) {
-            .modal-xxl {
-                width: 100% !important
-            }
-        }
-        .x-y-center {
-            display: flex !important;
-            justify-content: center;
-            align-items: center 
-        } 
-        thead, tbody, tfoot, tr, td, th {
-            vertical-align: middle !important;
-        }
-        .accordion-button::after {
-            margin:0px auto !important
-        }
-        .table > :not(caption) > * > * {
-            padding: 0 !important
-        }
-        .table tr th  {
-            padding: 0 10px !important
-        }
-        .form-lable {
-            background: #f1f2fe;
-            border-radius: 5px;
-            padding: 0 5px;
-            top: -10px;
-            left: 10px;
-            font-size:12px;
-        }
-        .form-group {
-            position: relative;
-        }
-        .form-control-sm,.form-select-sm {
-            padding-top:  15px !important
-        }
-        .accordion-body .table tbody tr:nth-child(1) .form-lable {
-            display: block !important
-        }
-        
-        .accordion-body .table tbody tr  .form-lable {
-           display: none
-        }
-        .accordion-body .table tbody tr  .form-control-sm,.form-select-sm {
-            padding-top: 7px !important
-        }
-        .accordion-body .table tbody tr:nth-child(1)  .form-control-sm,.form-select-sm {
-            padding-top:  13px !important
-        }
-        .accordion-body .table tbody tr td {
-            padding:  0 10px 5px 0  !important
-        }
-        .accordion-body .table tbody tr td .form-select,.form-control,.input-group-text  {
-            line-height: 1.2 !important
-        } 
-        .wall-delete-btn {
-            padding: 8px 10px;
-            right: 0;
-            z-index: 11;
-            border-radius:0 3px 0 10px !important
-        }
-        .more-btn-layer.collapsed .fa {
-            transform: rotate(0deg) !important;
-            transition: all .5s
-        }  
-        .more-btn-layer .fa {
-            transform: rotate(180deg) !important;
-            transition: all .5s
-        }   
-        .p1 {
-            padding: 5px !important
-        }     
-        
-        .time-bar {
-            width: 100% !important;
-            height: 1px;
-            position: absolute;
-            border: 1px dashed  gray;
-            top: 45px
-        }
-        .timeline-steps  {
-            display: flex;
-            justify-content:space-between;
-            /* align-items: center; */
-            position: relative;
-         
-        }
-        .timeline-step {
-            padding: 10px;
-            z-index: 1;
-            border-radius: 15px;
-            margin: 10px
-        }
-        .inner-circle {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 10px #bdbdbd;
-            background: white;
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            color: white;
-            border: 3px solid white
-        }
-        .timeline-content {
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            flex-direction: column;
-        }
- 
-        .table td,th {
-            padding: 5px 10px !important ;
-            vertical-align: middle !important
-        }
-        .table thead,th {
-            background: #757CF2 !important;
-            color: white
-        }
-        
-         .table tbody thead,th {
-            background: #757CF2 !important
-        }
-        .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
-            background:  white !important
-        }
-        .daterangepicker td.active, .daterangepicker td.active:hover {
-            background: #757CF2 !important
-        }
-        .dashboard-icon {
-            font-size: 3rem !important;
-        }
-        #SvgjsText1885 {
-            display: none !important;
-        }
         fieldset:hover ,   fieldset:hover  .legend {
             border: 1px solid #757CF2 !important
         }
@@ -564,6 +397,9 @@
         } 
         .table-bold {
             font-weight: bold !important
+        }
+        .timeline-step {
+            display: inline !important;
         }
         .timeline-step.active .inner-circle {
             background: #757CF2 !important
@@ -585,36 +421,527 @@
         li.nav-item {
             position: relative;
         }
-    </style>   
+        /* .timeline-steps  {
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            position: relative; 
+        }
+        .timeline-step {
+           
+            z-index: 1;
+            
+            /* margin: 10px */
+        } */
+        .inner-circle {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px #bdbdbd;
+            background: white;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            color: white;
+            border: 3px solid white;
+            transform: scale(1.1);
+
+        }
+        .timeline-content {
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            /* flex-direction: column; */
+        }
+        .admin-Delivery-wiz .timeline-step::after {
+            visibility: hidden;
+        } 
+    </style>
 @endpush
 
 @push('custom-scripts')
 
-    
-
-    <!-- end demo js-->
-    <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dropzone.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/ui/component.fileupload.js') }}"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
-    <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
-    <script >
-        var app = angular.module('App', ['ui-notification']).constant('API_URL', $("#baseurl").val());           
-    </script>
-      <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
     <script>
-     
-        app.controller('wizard', function($scope, $http, $rootScope) {
-            $scope.result = []
-            $rootScope.currentStep = 0;
-            $rootScope.projectInfo = false;
-            $rootScope.serviceSelection = false;
-            $rootScope.ifcmodelUpload = false;
-            $rootScope.buildingComponent = false;
-            $rootScope.review = false;
-            $rootScope.saveOrSubmit = (value) => {
+        app.config(function($routeProvider) {
+            $routeProvider
+            .when("/", {
+                templateUrl : "{{ route('enquiry.project-info') }}",
+                controller : "ProjectInfo"
+            })
+            .when("/service", {
+                templateUrl : "{{ route('enquiry.service') }}",
+                controller : "Service"
+            })
+            .when("/ifc-model-upload", {
+                templateUrl : "{{ route('enquiry.ifc-model-upload') }}",
+                controller : "IFCModelUpload"
+            })
+            .when("/building-component", {
+                templateUrl : "{{ route('enquiry.building-component') }}",
+                controller : "BuildingComponent"
+            })
+            .when("/additional-info", {
+                templateUrl : "{{ route('enquiry.additional-info') }}",
+                controller : "AdditionalInfo"
+            })
+            .when("/review", {
+                templateUrl : "{{ route('enquiry.review') }}",
+                controller : "Review"
+            })
+        }); 
+        app.controller('wizard', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
+            $location.path('/{{$activeTab}}');
+        });
+      
+        app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
+            $("#project-info").addClass('active');
+            let enquiry_id = {{$id}};
+            console.log('enquiry_id',enquiry_id);
+            $http({
+                method: 'GET',
+                url: '{{ route('get-login-customer') }}'
+            }).then( function(res) {
+                $scope.customer = res.data.customer
+            }, function (err) {
+                console.log('get enquiry error');
+            });
+            getProjectType = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("project-type.get") }}'
+                }).then(function (res) {
+                    $scope.projectTypes = res.data;		
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+            getDeliveryType = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("delivery-type.get") }}'
+                }).then(function (res) {
+                    $rootScope.deliveryTypes    = res.data;		
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+            getBuildingType = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("building-type.get") }}'
+                }).then(function (res) {
+                    $scope.buildingTypes = res.data;		
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+            getProjectInfoInptuData = function($projectInfo) {
+               
+                $scope.data = {
+                    'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
+                    'enquiry_date'         : new Date($projectInfo.enquiry_date),
+                    'enquiry_number'       : $projectInfo.enquiry_number,
+                    'project_name'         : $projectInfo.project_name,
+                    'zipcode'              : $projectInfo.zipcode,
+                    'state'                : $projectInfo.state,
+                    'building_type_id'     : $projectInfo.building_type_id,
+                    'project_type_id'      : $projectInfo.project_type_id,
+                    'project_date'         : new Date($projectInfo.project_date),
+                    'site_address'         : $projectInfo.site_address,
+                    'place'                : $projectInfo.place,
+                    'country'              : $projectInfo.country,
+                    'no_of_building'       : $projectInfo.no_of_building,
+                    'delivery_type_id'     : $projectInfo.delivery_type_id,
+                    'project_delivery_date': new Date($projectInfo.project_delivery_date),
+                };
+                return  $scope.data;
+            }
+            getLastEnquiry = (enquiry_id) => {
+                console.log(enquiry_id);
+                if(typeof(enquiry_id) == 'undefined' ||enquiry_id == ''){
+                    return false;
+                } 
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/project_info`,
+                }).then(function (res) {
+                    $scope.enquiry_number = res.data.project_info.enquiry_no;
+                    $scope.enquiry_date = new Date(res.data.project_info.enquiry_date);
+                    $scope.projectInfo = getProjectInfoInptuData(res.data.project_info);
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+            getLastEnquiry(enquiry_id);
+            getProjectType();
+            getBuildingType();
+            getDeliveryType();
+
+            $scope.submitProjectInfoForm = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.update-enquiry", $id) }}',
+                    data: {type: 'project_info', 'data': getProjectInfoInptuData($scope.projectInfo)}
+                }).then(function (res) {
+                    $location.path('/service');
+                    Message('success','Project Information inserted successfully');
+                }, function (error) {
+                    console.log(`storeprojectinfo ${error}`);
+                }); 
+            }
+        }); 
+
+        app.controller('Service', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+            $("#service").addClass('active');
+            $scope.serviceList = [];
+            let enquiry_id = {{$id}};
+            $http({
+                method: 'GET',
+                url: '{{ route('get-customer-enquiry') }}'
+            }).then( function(res) {
+                    if(res.data.status == "false") {
+                        $scope.enquiry_number = res.data.enquiry_number;
+                        enquiry_id = res.data.enquiry_id
+                        getLastEnquiry(enquiry_id);
+                    } else {
+                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                    }
+                }, function (err) {
+                    console.log('get enquiry error');
+            });
+            getLastEnquiry = (enquiry_id) => {
+                if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
+                    return false;
+                } 
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/services`,
+                }).then(function (res) {
+                    $scope.serviceList = res.data.services;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+            getOutputTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("output-type.get") }}'
+                }).then(function (res) {
+                        $scope.outputTypes = res.data;	
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+            getServiceSelectionInptuData = function() {
+                return Object.assign({}, $scope.serviceList);
+            }
+            $scope.changeService = function(list, active){
+                if (active) {
+                    $scope.serviceList.push(list);
+                }else {
+                    if($scope.serviceList.indexOf(list) > -1)  $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
+                }
+            };
+            $scope.submitService = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.update-enquiry", $id) }}',
+                    data: {type: 'services', 'data': getServiceSelectionInptuData()}
+                }).then(function (res) {
+                    $location.path('/ifc-model-upload');
+                    Message('success','Service selection inserted successfully');
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });         
+            }
+            getOutputTypes();
+        });
+        
+        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location) { 
+            $("#building-component").addClass('active');
+            $scope.wallGroup = [];
+            let enquiry_id = {{$id}};
+            $http({
+                method: 'GET',
+                url: '{{ route('get-customer-enquiry') }}'
+            }).then( function(res) {
+                    if(res.data.status == "false") {
+                        $scope.enquiry_number = res.data.enquiry_number;
+                        enquiry_id = res.data.enquiry_id
+                        getLastEnquiry(enquiry_id);
+                    } else {
+                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                    }
+                }, function (err) {
+                    console.log('get enquiry error');
+            });
+           
+
+            getDeliveryType = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("delivery-type.get") }}'
+                }).then(function (res) {
+                    $scope.deliveryTypes = res.data;		    
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
+            getDeliveryType();
+            getBuildingComponent = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("building-component.get") }}'
+                    }).then(function success(response) {
+                        
+                        response.data.map( (item , index) => {
+                            
+                            let wall = {
+                                WallId    : item.id,
+                                WallName  : item.building_component_name,
+                                WallIcon  : item.building_component_icon,
+                                WallTop   : item.top_position,
+                                WallBottom: item.bottom_position,
+                                Details: [
+                                    
+                                ]
+                            }
+                            $scope.wallGroup.push(wall);
+                        });
+                        $scope.AddWallDetails(0);
+                        
+                    }, function error(response) {
+                });
+            }
+            getLastEnquiry = (enquiry_id) => {
+                if(typeof(enquiry_id) == 'undefined' || enquiry_id == '')  {
+                    getBuildingComponent(); 
+                    return false;
+                }
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
+                }).then(function (res){
+                    if(res.data.building_component.length == 0) {
+                        getBuildingComponent();
+                        return false;
+                    }
+                    res.data.building_component.map( (item , index) => {
+                        let Details  = [];
+                        if(typeof(item.detail) != 'undefined') {
+                            Details =  item.detail.map( (detail, index) => {
+                                let Layer  = [];
+                                if(typeof(detail.layer) != 'undefined') {
+                                    Layer = detail.layer.map( (layerObj, index) => {
+                                       
+                                        return {
+                                            LayerName:  String(layerObj.layer.id),
+                                            LayerNameText:  layerObj.layer.layer_name,
+                                            Thickness : Number(layerObj.thickness),
+                                            Breadth:  Number(layerObj.breath),
+                                        }
+                                    });
+                                }
+                                return {
+                                    FloorName   : detail.floor,
+                                    FloorNumber : Number(detail.exd_wall_number),
+                                    TotalArea   : Number(detail.approx_total_area),
+                                    DeliveryType:  detail.building_component_delivery_type_id,
+                                    Layers : Layer
+                                }
+                            });
+                        }
+                        let wall = {
+                                WallId    : item.wallId,
+                                WallName  : item.wall,
+                                WallIcon  : item.icon,
+                                WallTop   : item.top_position,
+                                WallBottom: item.bottom_position,
+                                Details: Details
+                            }
+                        $scope.wallGroup.push(wall);
+                    });
+                }, function (error) {
+                    console.log('building component error');
+                });
+            }
+            
+            $scope.submitBuildingComponent = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route('customers.update-enquiry', $id) }}',
+                    data: {type: 'building_component', 'data': $scope.wallGroup}
+                }).then(function (res) {
+                    $location.path('/additional-info')
+                    Message('success', `Building Component updated successfully`);
+                }, function (error) {
+                    Message('error', `Somethig went wrong`);
+                }); 
+            }
+            $scope.AddWallDetails  =   function(index) {
+                $scope.wallGroup[index].Details.push({
+                    "FloorName" : "",
+                    "FloorNumber" : "",
+                    "TotalArea" : "",
+                    "DeliveryType" : "",
+                    "Layers": [
+                        {
+                            "LayerName": '',
+                            "Thickness": '',
+                            "Breadth": '',
+                        }
+                    ] 
+                });
+                // console.log( $scope.wallGroup);
+            } 
+            // console.log($scope.wallGroup);
+            $scope.AddLayers  =   function(fIndex, index) {
+                $scope.wallGroup[fIndex].Details[index].Layers.unshift({
+                    "LayerName": '',
+                    "LayerType": '',
+                    "Thickness ": '',
+                    "Breadth": '',
+                });
+            }
+            $scope.delWall = function(index){
+                $scope.wallGroup.splice(index,1);
+            } 
+            $scope.delWallTwo = function(fIndex){
+                $scope.wallGroup.splice(fIndex,1);
+            }  
+            $scope.RemoveDetails = function(fIndex, Secindex){
+                $scope.wallGroup[fIndex].Details.splice(Secindex,1);                
+            }
+            $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){
+                $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
+            }  
+            $scope.removeWall = function(fIndex, Secindex){
+                $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
+            } 
+            }).directive('getLayerType', function layerType($http) {
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    element.on('click', function () {
+                        if(scope.w.WallId == 'undefined') {
+                            return false;
+                        }
+                        $http({
+                            method: 'GET',
+                            url: '{{ route("layer-type.get-layer-type") }}',
+                            params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+                            }).then(function success(response) {
+                                scope.layerTypes = response.data;
+                            }, function error(response) {
+                        });
+                    });
+                },
+            };
+            }).directive('getCustomerLayer', function customerLayer($http) {
+                return {
+                    restrict: 'A',
+                    link : function (scope, element, attrs) {
+                        $http({
+                            method: 'GET',
+                            url: '{{ route("layer.get-layer-by-building-component") }}',
+                            params : {building_component_id: scope.w.WallId}
+                            }).then(function success(response) {
+                                scope.layers = response.data;
+                            }, function error(response) {
+                        });
+                    },
+                };
+            });
+
+
+        app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+            $("#additional-info").addClass('active');
+            let enquiry_id = {{$id}};
+            $http({
+                method: 'GET',
+                url: '{{ route('get-customer-enquiry') }}'
+            }).then( function(res) {
+                    if(res.data.status == "false") {
+                        $scope.enquiry_number = res.data.enquiry_number;
+                        enquiry_id = res.data.enquiry_id
+                        getLastEnquiry(enquiry_id);
+                    } else {
+                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                    }
+                }, function (err) {
+                    console.log('get enquiry error');
+            });
+
+            getLastEnquiry = (enquiry_id) => {
+                if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
+                    return false;
+                } 
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/additional_info`,
+                }).then(function (res) {
+                    $scope.additionalInfo = res.data.additional_info;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+
+            $scope.submitAdditionalinfoForm = () => {
+                if($scope.additionalInfo == ''){
+                    $location.path('/review');
+                    return false;
+                }
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.update-enquiry", $id) }}',
+                    data: {type: 'additional_info', 'data': $scope.additionalInfo}
+                }).then(function (res) {
+                    $location.path('/review');
+                    Message('success',`Comments added successfully`);
+                }, function (error) {
+                    Message(`additional info ${error}`);
+                });
+            }  
+        });
+
+
+        app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+            $("#review").addClass('active');
+            let enquiry_id = {{$id}};
+            $http({
+                method: 'GET',
+                url: '{{ route('get-customer-enquiry') }}'
+            }).then( function(res) {
+                    if(res.data.status == "false") {
+                        $scope.enquiry_number = res.data.enquiry_number;
+                        enquiry_id = res.data.enquiry_id
+                        getLastEnquiry(enquiry_id);
+                    } else {
+                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                    }
+                }, function (err) {
+                    console.log('get enquiry error');
+            });
+
+            getLastEnquiry = (enquiry_id)  => {
+                if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
+                    return false;
+                }
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/edit-enquiry-review/${enquiry_id}`,
+                }).then(function (res) {
+                    $scope.project_info = res.data.project_infos;
+                    $scope.outputTypes = res.data.services;
+                    $scope.ifc_model_uploads = res.data.ifc_model_uploads;
+                    $scope.building_components = res.data.building_components;
+                    $scope.additional_infos = res.data.additional_infos;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+
+            $scope.saveOrSubmit = (value) => {
                 $http({
                     method: 'POST',
                     url: '{{ route('customers.update-enquiry', $id) }}',
@@ -625,247 +952,60 @@
                         Message('danger', 'Something went wrong');
                     });
             }
-            $scope.updateWizardStatus = (newStep) => {
-                if(newStep == 1) {
-                    $scope.$broadcast('getServiceSelection');
-                } else if (newStep == 2) {
-                    $scope.$broadcast('getIFCModelUpload');
-                } else if (newStep == 3) {
-                    $scope.$broadcast('getBuildingComponent');
-                } else if (newStep == 5) {
-                    $scope.$broadcast('callAdditionalInfo')
-                    $scope.$broadcast('getReview');
-                }
-                $rootScope.currentStep = newStep;
-            }
-            $scope.gotoStep = function(newStep) {
-                if($rootScope.currentStep > newStep) {
-                    $rootScope.currentStep = newStep;
-                    return false;
-                }
-                $rootScope.currentStep = newStep;
-                if($rootScope.currentStep == 1 ) {
-                    $scope.$broadcast('callProjectInfo');
-                    $scope.$broadcast('getServiceSelection');
-                } else if ($rootScope.currentStep == 2) {
-                    $scope.$broadcast('callServiceSelection');
-                } else if ($rootScope.currentStep == 3) {
-                    $scope.$broadcast('callIFCModelUpload');
-                } else if ($rootScope.currentStep == 4) {
-                    $scope.$broadcast('callBuildingComponent');
-                } else if ($rootScope.currentStep == 5) {
-                    $scope.$broadcast('callAdditionalInfo');
-                    $scope.$broadcast('getReview');
-                }
-            }
         });
-    
-       	app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification) {
-       
-            let projectTypefiredOnce = false;
-            let deliveryTypefiredOnce = false;
-            let buildingTypefiredOnce = false;
-           
-
-            $scope.getProjectType = () => {
-                if(projectTypefiredOnce){ return; }
+        app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+            $("#ifc-model-upload").addClass('active');
+            getDocumentTypes = () => {
                 $http({
                     method: 'GET',
-                    url: '{{ route("project-type.get") }}'
+                    url: '{{ route("document-type.get") }}'
                 }).then(function (res) {
-                    projectTypefiredOnce = true;
-                    $scope.projectTypes = res.data;		
+                    $scope.documentTypes = res.data;
+                    res.data.map((item) => {
+                        item.is_mandatory == 1 &&  ($scope[`${item.slug}mandatory`] = true);
+                    });
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             } 
-
-            $scope.getDeliveryType = () => {
-                if(deliveryTypefiredOnce){ return; }
-                $http({
-                    method: 'GET',
-                    url: '{{ route("delivery-type.get") }}'
-                }).then(function (res) {
-                    deliveryTypefiredOnce = true;
-                    $rootScope.deliveryTypes = res.data;		    
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            } 
-  
-            $scope.getBuildingType = () => {
-                if(buildingTypefiredOnce){ return; }
-                $http({
-                    method: 'GET',
-                    url: '{{ route("building-type.get") }}'
-                }).then(function (res) {
-                    buildingTypefiredOnce = true;
-                    $scope.buildingTypes = res.data;		
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            } 
-
-            $scope.getLastEnquiry = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("customers.get-enquiry", [$id,"project_info"]) }}',
-                }).then(function (res){
-                    $scope.projectInfo = $scope.getProjectInfoInptuData(res.data.project_info);
-                }, function (error) {
-                    console.log('projectinfo error');
-                });
-            }
-
-
-            $scope.getProjectType();
-            $scope.getBuildingType();
-            $scope.getDeliveryType();
-            $scope.getLastEnquiry(); 
-
-            $scope.$on('callProjectInfo', function(e) {  
-                if(!$("#projectInfoForm")[0].checkValidity()){
-                    $rootScope.currentStep = 0;
-                    return false;
-                }
-                $http({
-                    method: 'PUT',
-                    url: '{{ route('customers.update-enquiry', $id) }}',
-                    data: {type: 'project_info', 'data': $scope.getProjectInfoInptuData($scope.projectInfo)}
-                }).then(function (res) {
-                    Message('success', 'Project Information updated successfully');
-                }, function (error) {
-                    console.log(`callprojectinfo ${error}`);
-                });         
-            });
-                
-            $scope.getProjectInfoInptuData = function($projectInfo) {
-                $scope.data = {
-                    'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
-                    'project_name'         : $projectInfo.project_name,
-                    'zipcode'              : $projectInfo.zipcode,
-                    'state'                : $projectInfo.state,
-                    'building_type_id'     : $projectInfo.building_type_id,
-                    'project_type_id'      : $projectInfo.project_type_id,
-                    'project_date'         : $projectInfo.project_date,
-                    'site_address'         : $projectInfo.site_address,
-                    'place'                : $projectInfo.place,
-                    'country'              : $projectInfo.country,
-                    'no_of_building'       : $projectInfo.no_of_building,
-                    'delivery_type_id'     : $projectInfo.delivery_type_id,
-                    'project_delivery_date': $projectInfo.project_delivery_date,
-                };
-                return  $scope.data;
-            }
-
-        }); 
-
-        app.controller('ServiceSelection', function ($scope, $http, $rootScope, Notification) {
-            $scope.serviceList = [];
-
-            $scope.getLastEnquiry = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("customers.get-enquiry",[$id,"services"]) }}',
-                }).then(function (res){
-                    $scope.serviceList = res.data.services;
-                    $rootScope.serviceSelection = true;
-                }, function (error) {
-                    console.log('projectinfo error');
-                });
-            }
-
-            $scope.$on('getServiceSelection', function(e) {
-                if($rootScope.serviceSelection) return false;
-                $scope.getLastEnquiry(); 
-            });
-            
-
-           $scope.$on('callServiceSelection', function(e) { 
-            if($scope.serviceList.length == 0){
-                $rootScope.currentStep = 1;
-                $scope.service_selection_mandatory = null;
-                Message('error',`Please select any service`);
-                return false;
-            }     
-            $scope.service_selection_mandatory = true;         
-               $http({
-                    method: 'PUT',
-                    url: '{{ route('customers.update-enquiry', $id) }}',
-                    data: {type: 'services', 'data': $scope.getServiceSelectionInptuData()}
-                }).then(function successCallback(response) {
-                    Message('success',`Service selection updated successfully`);
-                    $rootScope.$broadcast('getIFCModelUpload');
-                }, function errorCallback(response) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            });
-           $scope.getServiceSelectionInptuData = function() {
-                return Object.assign({}, $scope.serviceList);
-           }
-    
-            $scope.changeService = function(list, active){
-                if (active) {
-                    $scope.serviceList.push(list);
-                }else {
-                    $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
-                }
-            };
-           $scope.getOutputType = () => {
-               $http({
-                   method: 'GET',
-                   url: '{{ route("output-type.get") }}'
-               }).then(function (res) {
-                   $scope.outputTypes = res.data;		
-               }, function (error) {
-                   console.log('This is embarassing. An error has occurred. Please check the log for details');
-               });
-           } 
-           $scope.getOutputType();
-        }); 
-
-        app.controller('IFCModelUpload', function ($scope, $http, $parse, fileUploadService,  $rootScope, Notification) {
-            $scope.mandatoryUpload= [];
-            $scope.PlanView = [];
-            $scope.posterTitle = 'click here';
+            getDocumentTypes();
 
             $scope.fileName= function(element) {
-                $scope.$apply(function($scope) {
+            $scope.$apply(function($scope) {
                     var attribute_name = element.getAttribute('demo-file-model');
                     $scope[`${attribute_name}__file_name`] = element.files[0].name;
                 });
             };
-            $scope.uploadFile = function (view_type) {
-                if(view_type){
-                    var file = $scope[view_type];
-                    if(typeof(file) == 'undefined') {
-                        $scope[`${view_type}__error`] = true;
-                        return  false;
-                    }
-                    $scope[`${view_type}__error`] = false;
-                    var type = 'ifc_model_upload';
-                    var view_type = view_type;
-                    var uploadUrl = '{{ route('customers.update-enquiry', $id) }}'
-                    promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
-                    promise.then(function (response) {
-                        Message('success',`${view_type.replace('_',' ')} uploaded successfully`);
-                        $scope.getIFCViewList(response, view_type);
-                        $scope.serverResponse = response;
-                        $scope[`${view_type}__file_name`] = '';
-                        $scope[`${view_type}`] = undefined;
-                        const index = $scope.mandatoryUpload.indexOf(view_type);
-                        if (index > -1) {
-                            $scope.mandatoryUpload.splice(index, 1);
-                        }
-                        $scope[`${view_type}mandatory`] = 'true';
-                    }, function () {
-                        $scope.serverResponse = 'An error has occurred';
-                    });
-                 
+        $scope.uploadFile = function (view_type) {
+            if(view_type){
+                var file = $scope[view_type];
+                if(typeof(file) == 'undefined') {
+                    $scope[`${view_type}__error`] = true;
+                    return  false;
                 }
+                $scope[`${view_type}__error`] = false;
+                var type = 'ifc_model_upload';
+                var view_type = view_type;
+                var uploadUrl = '{{ route('customers.store-enquiry') }}'
+                promise = fileUploadService.uploadFileToUrl(file, type, view_type, uploadUrl);
+                promise.then(function (response) {
+                    Message('success',`${view_type.replace('_',' ')} uploaded successfully`);
+                    $scope.getIFCViewList(response, view_type);
+                    $scope.serverResponse = response;
+                    $scope[`${view_type}__file_name`] = '';
+                    $scope[`${view_type}`] = undefined;
+                    const index = $scope.mandatoryUpload.indexOf(view_type);
+                    if (index > -1) {
+                        $scope.mandatoryUpload.splice(index, 1);
+                    }
+                    $scope[`${view_type}mandatory`] = 'true';
+                }, function () {
+                    $scope.serverResponse = 'An error has occurred';
+                });
             }
+        }
 
-            $scope.uploadLink = function (view_type) { 
+        $scope.uploadLink = function (view_type) { 
                 var link = $scope[`${view_type}__link`];
                 if(typeof(link) == 'undefined') {
                     $scope[`${view_type}__error`] = true;
@@ -873,7 +1013,7 @@
                 }
                 $scope[`${view_type}__error`] = false;
                
-                var uploadUrl = '{{ route('customers.update-enquiry', $id) }}';
+                var uploadUrl = '{{ route('customers.store-enquiry') }}';
                 promise = fileUploadService.uploadLinkToUrl(link, 'ifc_link', view_type, uploadUrl);
                 promise.then(function (response) {
                     Message('success',`${view_type.replace('_',' ')} uploaded successfully`);
@@ -890,105 +1030,20 @@
                     $scope.serverResponse = 'An error has occurred';
                 });   
            }
-        
-            $scope.getIFCViewList = (id, view_type) => {
-              
-                $http({
-                    method: 'GET',
-                    url: '{{ route('customers.get-view-list') }}',
-                    params: {id: id, view_type: view_type},
-                }).then(function (res) {
-                    $scope[`${view_type}List`] = res.data;
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            }
 
-            $scope.performAction = function()  {
-                let route      = $("#exampleModalRoute").val();
-                let method     = $("#exampleModalMethod").val();
-                let id         = $("#exampleModalId").val();
-                let enquiry_id = $("#exampleModalEnquiryId").val();
-                let view_type  = $("#exampleModalViewType").val();
-                $http({
-                    method: method,
-                    url: route,
-                    params: {id: id},
-                }).then(function (res) {
-                    if(res.status) {
-                        $scope.getIFCViewList(enquiry_id, view_type);
-                        $("#exampleModal").modal('hide');
-                        getMandatoryFileType();
-                        return false;
-                    }
-                    return false;
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            }
-            let documentTypefireOnce = false;
-            $scope.getDocumentTypes = () => {
-                if(documentTypefireOnce){ return; }
-                $http({
-                    method: 'GET',
-                    url: '{{ route("document-type.get") }}'
-                }).then(function (res) {
-                    documentTypefireOnce = true;
-                    res.data.map((item) => {
-                        item.is_mandatory == 1 &&  ($scope[`${item.slug}mandatory`] = true);
-                    });
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            } 
-            $scope.getLastEnquiry = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("customers.get-enquiry",[$id,"ifc_model_uploads"]) }}',
-                }).then(function (res){
-                    res.data.ifc_model_uploads.map( (item, index) => {
-                        let [id, type] = [item.enquiry_id , item.document_type.slug];
-                        $rootScope.callIFCModelUpload = true;
-                        $scope.getIFCViewList(id,type);
-                    });
-                }, function (error) {
-                    console.log('ifc_model_uploads error');
-                });
-            }
-            $scope.$on('getIFCModelUpload', function(e) {
-                if($rootScope.callIFCModelUpload) return false;
-                getMandatoryFileType();   
-                $scope.getDocumentTypes();
-                $scope.getLastEnquiry();                     
-            });
-            $scope.$on('callIFCModelUpload', function(e) {
-                console.log($scope.mandatoryUpload.length);
-                if($scope.mandatoryUpload.length > 0) {
-                    Message('danger',`${$scope.mandatoryUpload[0].replace('_',' ')} field is mandatory`);
-                    $rootScope.currentStep = 2;
-                    return false;
-                }
-            }); 
-            getMandatoryFileType = () => {
-                $http({
-                    method: 'POST',
-                    url: '{{ route('customers.update-enquiry', $id) }}',
-                    data: {type: 'ifc_model_upload_mandatory', 'data': false}
-                }).then(function (res) {
-                    if(res.data.status == false) {
-                       $scope.mandatoryUpload.length = 0;
-                       res.data.data.map( (item) => {
-                        delete $scope[`${item}mandatory`];
-                        $scope.mandatoryUpload.push(item);
-                       });
-                    }
-                    $rootScope.$broadcast('getBuildingComponent');
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                }); 
-            }
+            $scope.getIFCViewList = (id, view_type) => {
+              $http({
+                  method: 'GET',
+                  url: '{{ route('customers.get-view-list') }}',
+                  params: {id: id, view_type: view_type},
+              }).then(function (res) {
+                  $scope[`${view_type}`] = res.data;
+              }, function (error) {
+                  console.log('This is embarassing. An error has occurred. Please check the log for details');
+              });
+          }
         });
-       
+
         app.directive('demoFileModel', function ($parse) {
             return {
                 restrict: 'A', //the directive can be used as an attribute only
@@ -1068,268 +1123,12 @@
             }
         });
         
-        app.controller('CrudCtrl', function ($scope, $http, $rootScope, Notification) { 
-            $scope.wallGroup = [];
-            $scope.$on('callBuildingComponent', function(e) {
-                if(!$("#buildingComponent")[0].checkValidity()){
-                    $rootScope.currentStep = 3;
-                    Message('danger', `Please fill required fields`);
-                    return false;
-                }
-                $http({
-                    method: 'PUT',
-                    url: '{{ route('customers.update-enquiry', $id) }}',
-                    data: {type: 'building_component', 'data': $scope.wallGroup}
-                }).then(function (res) {
-                    Message('success', `Building Component updated successfully`);
-                }, function (error) {
-                    Message('error', `Somethig went wrong`);
-
-                });      
-            });
-            $scope.getLastEnquiry = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("customers.get-enquiry",[$id,"building_component"]) }}',
-                }).then(function (res){
-                    $rootScope.buildingComponent = true;
-                    if(res.data.building_component.length == 0) {
-                      
-                        getBuildingComponent = () => {
-                            $http({
-                                method: 'GET',
-                                url: '{{ route("building-component.get") }}'
-                                }).then(function success(response) {
-                                    
-                                    response.data.map( (item , index) => {
-                                        
-                                        let wall = {
-                                            WallId    : item.id,
-                                            WallName  : item.building_component_name,
-                                            WallIcon  : item.building_component_icon,
-                                            WallTop   : item.top_position,
-                                            WallBottom: item.bottom_position,
-                                            Details: [
-                                                
-                                            ]
-                                        }
-                                        $scope.wallGroup.push(wall);
-                                    });
-                                    $scope.AddWallDetails(0);
-                                  
-                                }, function error(response) {
-
-
-                                    
-                            });
-                        }
-                        getBuildingComponent();
-                      
-                        return false;
-                    }
-                    res.data.building_component.map( (item , index) => {
-                        let Details  = [];
-                        if(typeof(item.detail) != 'undefined') {
-                            Details =  item.detail.map( (detail, index) => {
-                                let Layer  = [];
-                                if(typeof(detail.layer) != 'undefined') {
-                                    Layer = detail.layer.map( (layerObj, index) => {
-                                       
-                                        return {
-                                            LayerName:  String(layerObj.layer.id),
-                                            LayerNameText:  layerObj.layer.layer_name,
-                                            Thickness : Number(layerObj.thickness),
-                                            Breadth:  Number(layerObj.breath),
-                                        }
-                                    });
-                                }
-                                return {
-                                    FloorName   : detail.floor,
-                                    FloorNumber : Number(detail.exd_wall_number),
-                                    TotalArea   : Number(detail.approx_total_area),
-                                    DeliveryType:  detail.building_component_delivery_type_id,
-                                    Layers : Layer
-                                }
-                            });
-                        }
-                        let wall = {
-                                WallId    : item.wallId,
-                                WallName  : item.wall,
-                                WallIcon  : item.icon,
-                                WallTop   : item.top_position,
-                                WallBottom: item.bottom_position,
-                                Details: Details
-                            }
-                        $scope.wallGroup.push(wall);
-                    });
-                }, function (error) {
-                    console.log('projectinfo error');
-                });
-            }
-            $scope.$on('getBuildingComponent', function(e) {
-                if($rootScope.buildingComponent) return false;
-                $scope.getLastEnquiry(); 
-            });
-            $scope.getBuildingComponentInptuData = function() {
-                return $scope.wallGroup;
-           }
-
-           getLayer = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("layer.get") }}'
-                    }).then(function success(response) {
-                        $scope.layers = response.data;
-                    }, function error(response) {
-                        
-                });
-            }
-            getLayer();
-
-            $scope.AddWall  =   function() {
-                $scope.wallGroup.unshift({
-                    "WallName" : "",
-                    "Details": [{
-                        "Layers": [] 
-                    }]
-                });
-            }
-            $scope.AddWallDetails  =   function(index) {
-                $scope.wallGroup[index].Details.push({
-                    "FloorName" : "",
-                    "FloorNumber" : "",
-                    "TotalArea" : "",
-                    "DeliveryType" : "",
-                    "Layers": [
-                        {
-                            "LayerName": '',
-                            "LayerType": '',
-                            "Thickness": '',
-                            "Breadth": '',
-                        }
-                    ] 
-                });
-            } 
-            $scope.AddLayers  =   function(fIndex, index) {
-                $scope.wallGroup[fIndex].Details[index].Layers.unshift({
-                    "LayerName": '',
-                    "LayerType": '',
-                    "Thickness": '',
-                    "Breadth": '',
-                });
-            }    
-            $scope.delWall = function(index){
-                
-                $scope.wallGroup.splice(index,1);
-            } 
-            $scope.delWallTwo = function(fIndex){
-                $scope.wallGroup.splice(fIndex,1);
-            }  
-            $scope.RemoveDetails = function(fIndex, Secindex){
-                $scope.wallGroup[fIndex].Details.splice(Secindex,1);                
-            }
-
-            $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){
-                $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
-            }  
-            $scope.removeWall = function(fIndex, Secindex){
-                $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
-            } 
-            }).directive('getLayerType', function layerType($http) {
-                return {
-                    restrict: 'A',
-                    link :  {
-                        pre: function (scope, element, attrs) {
-                            $http({
-                                method: 'GET',
-                                url: '{{ route("layer-type.get-layer-type") }}',
-                                params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
-                                }).then(function success(response) {
-                                    scope.layerTypes = response.data;
-                                }, function error(response) {
-                                  
-                            });
-                            element.on('change', function () {
-                                if(typeof(scope.w.WallId) == 'undefined' || typeof(scope.l.LayerName) == 'undefined') {
-                                    return false;
-                                }
-                                $http({
-                                    method: 'GET',
-                                    url: '{{ route("layer-type.get-layer-type") }}',
-                                    params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
-                                    }).then(function success(response) {
-                                        scope.layerTypes = response.data;
-                                    }, function error(response) {
-                                     
-                                });
-                            });
-                        }
-                    },
-                };
-        }).directive('getCustomerLayer', function customerLayer($http) {
-            return {
-                restrict: 'A',
-                link : function (scope, element, attrs) {
-                  
-                    $http({
-                        method: 'GET',
-                        url: '{{ route("layer.get-layer-by-building-component") }}',
-                        params : {building_component_id: scope.w.WallId}
-                        }).then(function success(response) {
-                           
-                            scope.layers = response.data;
-                        }, function error(response) {
-                       
-                    });
-                },
-            };
-        });
-
-        app.controller('Review', function($scope, $http, $rootScope, Notification) {
-            $scope.$on('getReview', function(e) {
-              
-                getEnquiry = ()  => {
-                    $http({
-                        method: 'GET',
-                        url: '{{ route("customers.edit-enquiry-review", $id) }}'
-                    }).then(function (res) {
-                        $scope.project_info = res.data.project_infos;
-                        $scope.outputTypes = res.data.services;
-                        $scope.ifc_model_uploads = res.data.ifc_model_uploads;
-                        $scope.building_components = res.data.building_components;
-                        $scope.additional_infos = res.data.additional_infos;
-            
-                    }, function (error) {
-                        console.log('This is embarassing. An error has occurred. Please check the log for details');
-                    });
-                }
-                getEnquiry();
-            });
-        });
-
-        app.controller('AdditionalInfo', function($scope, $http, $rootScope, Notification) {
-            $scope.$on('callAdditionalInfo', function(e) {
-                if(typeof($scope.additionalInfo) == 'undefined') {
-                    return false;
-                }
-                $http({
-                    method: 'POST',
-                    url: '{{ route('customers.update-enquiry', $id) }}',
-                    data: {type: 'additional_info', 'data': $scope.additionalInfo}
-                }).then(function (res) {
-                   $scope.additionalInfo = '';
-                   Message('success', `Comments added successfully`);
-                }, function (error) {
-                    console.log(`additional info ${error}`);
-                });         
-            });    
-        });
-        
         window.onbeforeunload = function(e) {
             var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
             e.returnValue = dialogText;
             return dialogText;
         };
-    </script>
-   
+</script>
+
+  
 @endpush

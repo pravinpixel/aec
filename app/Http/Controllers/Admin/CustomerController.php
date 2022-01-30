@@ -84,4 +84,10 @@ class CustomerController extends Controller
     {
         //
     }
+
+    public function getLoginCustomer()
+    {
+        $customer =  Customer::find(Customer()->id);
+        return response(['status' => true, 'customer' =>  $customer]);
+    }
 }

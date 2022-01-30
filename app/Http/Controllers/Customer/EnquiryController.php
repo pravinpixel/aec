@@ -64,6 +64,8 @@ class EnquiryController extends Controller
     public function myEnquiriesEdit($id) 
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        $activeTab     =   $this->getIncompletePanel($enquiry)[0] ??'';
+        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $customer['document_types']     =   $this->documentTypeRepo->all();
         $activeTab     =   $this->getIncompletePanel($enquiry)[0] ??'';
         $activeCount     =   $this->getIncompletePanel($enquiry)[1] ??'';
@@ -101,6 +103,16 @@ class EnquiryController extends Controller
             Log::info("New session created {$enquiry_number}");
         }
         return  $enquiry_number;
+    }
+
+    public function getCurrentEnquiry(Request $request)
+    {
+        if (Session::has('enquiry_number')){
+            $enquiry_number = Session::get('enquiry_number');
+            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+            return response(['status' => 'false',  'enquiry_number'=>  $enquiry_number, 'enquiry_id' => $enquiry->id ?? '']);
+        }
+        return response(['status' => 'false',  'enquiry_number'=>  $this->getEnquiryNumber()]);
     }
 
     public function store(Request $request)
@@ -236,8 +248,9 @@ class EnquiryController extends Controller
         } else if($type == 'building_component') {
             DB::beginTransaction();
             try {
-                $this->Storecostestimate($data, $enquiry);
+                
                 $this->storeBuildingComponent($data, $enquiry);
+                $this->Storecostestimate($data, $enquiry);
                 DB::commit();
             } catch (Exception $ex) {
                 DB::rollBack();
@@ -298,6 +311,7 @@ class EnquiryController extends Controller
     {
         return [
             'enquiry_no'           => $enquiry->enquiry_number,
+            'enquiry_date'         => $enquiry->enquiry_date,
             'company_name'         => $enquiry->customer->company_name,
             'contact_person'       => $enquiry->customer->contact_person,
             'mobile_no'            => $enquiry->customer->mobile_no,
@@ -330,13 +344,15 @@ class EnquiryController extends Controller
     public function getIncompletePanel($enquiry)
     {
         if($enquiry->project_info == 0) {
-            return ['project_info', 0];
+            return ['', 0];
         } else if($enquiry->service == 0) {
             return ['service',1];
         } else if($enquiry->ifc_model_upload == 0) {
-            return ['ifc_model_upload',2];
+            return ['ifc-model-upload',2];
         } else if($enquiry->building_component == 0) {
-            return ['building_component',3];
+            return ['building-component',3];
+        } else {
+            return ['review',4];
         }
     }
 

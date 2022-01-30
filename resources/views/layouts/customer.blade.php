@@ -40,7 +40,8 @@
         <script src="{{ asset('public/assets/js/ui/component.fileupload.js') }}"></script>
     
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
         <!-- =========  Alerts JS ======== JS -->
 
         <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
@@ -48,7 +49,7 @@
         <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
 
         <script>
-            var app = angular.module('App', ['ui-notification']).constant('API_URL', $("#baseurl").val());           
+            var app = angular.module('App', ['ui-notification','ngRoute']).constant('API_URL', $("#baseurl").val());           
         </script> 
         <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
         {{-- Push Scripts --}}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Customer\EnquiryController;
 use App\Http\Controllers\Customer\DashboardController;
 
@@ -47,9 +48,35 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::get('edit-enquiry-review/{id}',  [EnquiryController::class, 'getEditEnquiryReview'])->name('customers.edit-enquiry-review');
 
+    Route::get('get-login-customer', [CustomerController::class,'getLoginCustomer'])->name('get-login-customer');
+
+    Route::get('get-customer-enquiry',[EnquiryController::class,'getCurrentEnquiry'])->name('get-customer-enquiry');
     
     Route::get('view-list',  function() {
         return view('customer.enquiry.view-list');
     });
-   
+
+    Route::get('enquiry/project-info', function(){
+        return view('customer.enquiry.wizard.project-info');
+    })->name('enquiry.project-info');
+    
+    Route::get('enquiry/service', function(){
+        return view('customer.enquiry.wizard.service');
+    })->name('enquiry.service');
+
+    Route::get('enquiry/ifc-model-upload', function(){
+        return view('customer.enquiry.wizard.ifc-model-upload');
+    })->name('enquiry.ifc-model-upload');
+
+    Route::get('enquiry/building-component', function(){
+        return view('customer.enquiry.wizard.building-component');
+    })->name('enquiry.building-component');
+
+    Route::get('enquiry/additional-info', function(){
+        return view('customer.enquiry.wizard.additional-info');
+    })->name('enquiry.additional-info');
+
+    Route::get('enquiry/review', function(){
+        return view('customer.enquiry.wizard.review');
+    })->name('enquiry.review');
 });
