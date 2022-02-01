@@ -206,7 +206,6 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $build_json = ['building_number' => 1, 'building_component_number' => $building_component_number, "total_component_area" =>  $total_wall_area_all];
         $enquiryBuildingComponent->enquiry_id = $enquiry->id;
         $enquiryBuildingComponent->total_wall_area = $total_wall_area_all;// $enquiry->id;
-        \Log::info(json_encode([$build_json]));
         $enquiryBuildingComponent->build_json = json_encode([$build_json]);
         $enquiryBuildingComponent->save();
         return true;    

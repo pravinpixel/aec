@@ -1044,6 +1044,7 @@
                     console.log('get enquiry error');
             });
             getLastEnquiry = (enquiry_id) => {
+                let slug = [];
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
                     return false;
                 } 
@@ -1053,7 +1054,10 @@
                 }).then(function (res) {
                     res.data.ifc_model_uploads.map( (item, index) => {
                         let [id, type] = [item.enquiry_id , item.document_type.slug];
-                        getIFCViewList(id,type);
+                        if(slug.indexOf(type) == -1) {
+                            slug.push(type);
+                            getIFCViewList(id,type);
+                        }
                     });
                   
                 }, function (error) {
@@ -1068,7 +1072,7 @@
                 }).then(function (res) {
                     $scope.documentTypes = res.data.map((item, index) => {
                         item.is_mandatory == 1 &&  ($scope.mandatory.push(item.slug));
-                        $scope.documentLists[`${item.slug}`] = [];
+                        $scope.documentLists[`${item.slug}`] = 0;
                         return {...item, ...{'file_name': ''}};
                     });
                     console.log($scope.documentLists);
@@ -1126,9 +1130,9 @@
                 }
                 var type = 'ifc_model_upload';
                 var uploadUrl = '{{ route('customers.store-enquiry') }}';
-                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl);
+                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
                 promise.then(function (response) {
-                        console.log(response);
+                        $scope[filename] = '';
                         Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
                     }, function () {
@@ -1138,15 +1142,15 @@
 
             $scope.uploadLink = (filename, file_type) => {
                 var file = $(`#${filename}`).val();
-                if(typeof(file) == 'undefined'){
+                if(typeof(file) == 'undefined' || file == ''){
                     Message('danger',`Please upload ${file_type.replaceAll('_',' ') } link`);
                     return false;
                 }
                 var type = 'ifc_link';
                 var uploadUrl = '{{ route('customers.store-enquiry') }}';
-                promise = fileUpload.uploadLinkToUrl(file, type, file_type, uploadUrl);
+                promise = fileUpload.uploadLinkToUrl(file, type, file_type, uploadUrl, $scope);
                 promise.then(function (response) {
-                        console.log(response.data);
+                        $scope[filename] = '';
                         Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
                     }, function () {
@@ -1201,7 +1205,9 @@
             
 
             app.service('fileUpload', function ($http, $q) {
-                this.uploadFileToUrl = function(file, type, view_type, uploadUrl){
+               
+                this.uploadFileToUrl = function(file, type, view_type, uploadUrl, $scope){
+                    $scope[`${view_type}showProgress`] = true;
                     var fd = new FormData();
                     fd.append('file', file);
                     fd.append('type', type);
@@ -1210,8 +1216,16 @@
                     var deffered = $q.defer();
                     $http.post(uploadUrl, fd, {
                         transformRequest: angular.identity,
-                        headers: {'Content-Type': undefined}
+                        headers: {'Content-Type':undefined, 'Process-Data': false},
+                        uploadEventHandlers: {
+                            progress: function (e) {
+                                    if (e.lengthComputable) {
+                                        // $scope[`${view_type}showProgress`] = false;
+                                    }
+                            }
+                        }
                     }).then(function (response) {
+                        $scope[`${view_type}showProgress`] = false;
                         deffered.resolve(response);
                     },function (response) {
                         deffered.reject(response);
@@ -1219,7 +1233,11 @@
                     return deffered.promise;
                 }
 
-                this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl) {
+                this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl, $scope) {
+                    if(link == '' || typeof(link) == 'undefined'){
+                        return false;
+                    }
+                    $scope[`${view_type}showProgress`] = true;
                     var fd = new FormData();
                     fd.append('link', link);
                     fd.append('type', type);
@@ -1228,8 +1246,16 @@
                   
                     $http.post(uploadUrl, fd, {
                         transformRequest: angular.identity,
-                        headers: {'Content-Type': undefined}
+                        headers: {'Content-Type':undefined, 'Process-Data': false},
+                        uploadEventHandlers: {
+                            progress: function (e) {
+                                    if (e.lengthComputable) {
+                                        // $scope[`${view_type}showProgress`] = false;
+                                    }
+                            }
+                        }
                     }).then(function (response) {
+                        $scope[`${view_type}showProgress`] = false;
                         deffered.resolve(response);
                     },function (response) {
                         deffered.reject(response);

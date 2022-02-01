@@ -1,4 +1,5 @@
 <form ng-submit="submitIFC()">
+
         <div class="row">
             <div ng-repeat="documentType in documentTypes" class="col-md-4">
                 <div  class="card p-3 shadow-sm file-upload-card" style="overflow: hidden">
@@ -14,9 +15,13 @@
                     <small class="text-center my-1">(OR)</small>
                     <input type="text" id="@{{'link' +documentType.slug}}" class="form-control rounded-pill border" placeholder="links">
                     <a ng-click="uploadLink('link' + documentType.slug,documentType.slug)" class="btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</a>
+                    <div class="progress mt-2">
+                        <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                    </div>
                 </div>
             </div>
         </div>
+       
         @include('customer.enquiry.modal')
         <div ng-repeat="documentType in documentTypes">
             <div class="table-header">

@@ -87,6 +87,7 @@ class Enquiry extends Model
     {
         return $this->belongsToMany(DocumentType::class)
                         ->whereNull('document_type_enquiry.deleted_at')
+                        ->where('is_active',1)
                         ->withPivot('id','file_name','status','file_type','client_file_name','approved_by','date','created_at','updated_at')
                         ->withTimestamps();
     }

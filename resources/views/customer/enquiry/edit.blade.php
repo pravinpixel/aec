@@ -978,6 +978,7 @@
                     console.log('get enquiry error');
             });
             getLastEnquiry = (enquiry_id) => {
+                let slug = [];
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
                     return false;
                 } 
@@ -987,7 +988,10 @@
                 }).then(function (res) {
                     res.data.ifc_model_uploads.map( (item, index) => {
                         let [id, type] = [item.enquiry_id , item.document_type.slug];
-                        getIFCViewList(id,type);
+                        if(slug.indexOf(type) == -1) {
+                            slug.push(type);
+                            getIFCViewList(id,type);
+                        }
                     });
                   
                 }, function (error) {
