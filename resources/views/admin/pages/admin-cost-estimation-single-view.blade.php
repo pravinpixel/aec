@@ -64,7 +64,7 @@
                             <div class="row mx-0 mb-2">
                                 <div class="col">
                                     <div class="mb-2 row align-items-center">
-                                        <label for="" class="text-primary col-3 p-0">Estimate Date </label>
+                                        <label for="" class="text-primary col-3 p-0 ">Estimate Date </label>
                                         <div class="col-9">
                                             <?php  if(isset($arr['detail'])){ ?>
                                             <input type="date" class="form-control form-control-sm enquiry_date" name="enquiry_date" id="enquiry_date" value="{{ $arr['detail']['date'] }}" >
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="row align-items-center">
-                                        <label for="" class="text-primary p-0 col-3">Estimate Title</label>
+                                        <label for="" class="text-primary p-0 col-3 ">Estimate Title</label>
                                         <div class="col-9">
                                             <?php  if(isset($arr['detail'])){ ?>
                                             <input type="text" class="form-control form-control-sm contact" name="contact" id="contact" value="{{ $arr['detail']['contact'] }}">
@@ -89,10 +89,10 @@
                             </div> 
 
                             <div class="table-responsives p-0">
-                                <table class="table table-bordered border"  id="costEstimateTable">
+                                <table class="cost-estimate-table table table-bordered border"  id="costEstimateTable">
                                     <thead>
                                         <tr  style="background: #0D2E67 !important">
-                                            <td colspan="16" class="text-center"><h5 class="m-0 py-1">Engineering Estimation</h5></td>
+                                            <td colspan="16" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
                                         </tr>
                                         <tr class="font-weight-bold ">
                                             <th rowspan="2" class="text-center " style="background: #1d336b !important">
@@ -107,7 +107,7 @@
                                             <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">CAD/CAM</th>
                                             <th colspan="2" class="font-12 text-center" style="background: #0071A8 !important">Logistics</th>
                                             <th colspan="2" class="font-12 text-center" style="background: #1d336b !important">Total Cost</th>
-                                            <td rowspan="2" class="font-12 text-center" style="background: #1d336b !important"><b>Action</b></td>
+                                            <td rowspan="2" class="font-12 text-center text-white" style="background: #1d336b !important"><b>Action</b></td>
                                         </tr>
                                         <tr class="bg-light-primary border" >
                                             <th class="text-center font-12" style="background: #1d336b !important" >Complexity</th> 

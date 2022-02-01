@@ -1,11 +1,11 @@
-<form class="card shadow-none p-0" >
+<form class="card shadow-none p-0">
     <div class="card-header pb-2 p-3 text-center border-0">
         <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
     </div>
     <div class="card-body pt-0 p-0">
         <table class="table shadow-none border m-0 table-bordered">
             <thead class="bg-light">
-                <tr >
+                <tr class="text-white">
                     <th style="background: var(--secondary-bg) !important">Enquiry Date</th>
                     <th style="background: var(--secondary-bg) !important">Project Name</th>
                     <th style="background: var(--secondary-bg) !important">Type of Project</th>
@@ -23,10 +23,10 @@
         </table>
         <div class="row m-0 mt-3">
             <div class="table-responsive p-0">  
-                <table class="table table-bordered border">
+                <table class="cost-estimate-table table table-bordered border">
                     <thead>
                         <tr  style="background: var(--primary-bg) !important">
-                            <td colspan="16" class="text-center"><h5 class="m-0 py-1">Engineering Estimation</h5></td>
+                            <td colspan="16" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
                         </tr>
                         <tr class="font-weight-bold ">
                             <th rowspan="2" class="text-center " style="background: var(--primary-bg) !important">
@@ -41,9 +41,9 @@
                             <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">CAD/CAM</th>
                             <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Logistics</th>
                             <th colspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">Total Cost</th>
-                            <td rowspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">Action</td>
+                            <td rowspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
                         </tr>
-                        <tr class="bg-light-primary border" >
+                        <tr class="bg-light-primary border">
                             <th class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
                             <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
                             <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
@@ -60,59 +60,59 @@
                     <tbody> 
                         <tr ng-repeat="(index,C) in CostEstimate"> 
                             <td> 
-                                <select class="form-select form-select-sm" get-cost-estimate-data required ng-model="c.building_component_name" name="building_component_name">
+                                <select class="my-select" get-cost-estimate-data required ng-model="c.building_component_name" name="building_component_name">
                                     <option value="">-- Select -- </option> 
                                     <option value="@{{ c.id }}" ng-repeat="c in cost.component">@{{ c.building_component_name }}</option>
                                 </select>
                             </td>
                             
-                            <td style="padding: 0 !important" >
-                                <select get-cost-estimate-data class="form-select form-select-sm" required  ng-model="t.type_name" ng-change="getCostEstimateData(index)" name="type_name">
+                            <td style="padding: 0 !important">
+                                <select get-cost-estimate-data class="my-select" required  ng-model="t.type_name" ng-change="getCostEstimateData(index)" name="type_name">
                                     <option value="">-- Select ---</option> 
-                                    <option value="@{{ t.id }}" ng-repeat="t in cost.type">@{{ t.type_name }}</option>
+                                    <option value="@{{ Ctype.id }}" ng-repeat="Ctype in cost.type">@{{ Ctype.building_type_name }}</option>
                                 </select>
                             </td>
 
-                            <td style="padding:0px !important"><input ng-model="C.sqm" ng-value="masterData.sqm" name="sqm" type="number" class="my-control"></td>
-                            <td style="padding:0px !important"><input  type="number" class="my-control" ng-value="masterData.complexity" name="complexity"></td>
+                            <td style="padding:0px !important"><input get-cost-details-total ng-keyup="getCostDetailsTotal(index)" type="number" min="0" ng-model="C.sqm" ng-value="masterData.sqm" name="sqm" class="my-control"></td>
+                            <td style="padding:0px !important"><input get-cost-details-total ng-keyup="getCostDetailsTotal(index)" type="number" min="0" ng-model="C.complexity"  ng-value="masterData.complexity" name="complexity" class="my-control"></td>
         
                             {{-- Details --}}
                             <td style="background: var(--primary-bg-light) !important">
-                                <input  type="number" class="my-control"  ng-value="masterData.detail_price" name="detail_price">
+                                <input get-cost-details-total ng-keyup="getCostDetailsTotal(index)" type="number" min="0" class="my-control"  ng-model="C.Details.PriceM2" ng-value="masterData.detail_price" name="detail_price">
                             </td>
                             <td style="background: var(--primary-bg-light) !important">
-                                <input  type="number" class="my-control" ng-value="masterData.detail_sum" name="detail_sum">
+                                <input disabled type="text" class="my-control" ng-model="C.Details.Sum" name="detail_sum">
                             </td>
         
                             {{-- Statistics --}}
                             <td style="background:  var(--primary-bg-light) !important">
-                                <input type="number" class="my-control"  ng-value="masterData.statistic_price" name="statistic_price">
+                                <input type="number" min="0" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" class="my-control"  ng-model="C.Statistics.PriceM2"  ng-value="masterData.statistic_price" name="statistic_price">
                             </td>
                             <td style="background:  var(--primary-bg-light) !important">
-                                <input  type="number" class="my-control" ng-value="masterData.statistic_sum" name="statistic_sum">
+                                <input disabled type="number" min="0" class="my-control"  ng-model="C.Statistics.Sum" ng-value="masterData.statistic_sum" name="statistic_sum">
                             </td>
         
                             {{-- CAD/CAM --}}
                             <td style="background:  var(--primary-bg-light) !important">
-                                <input  type="number" class="my-control" ng-value="masterData.cad_cam_price" name="cad_cam_price">
+                                <input  type="number" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.CadCam.PriceM2" ng-value="masterData.cad_cam_price" name="cad_cam_price">
                             </td>
                             <td style="background:  var(--primary-bg-light) !important">
-                                <input  type="number" class="my-control" ng-value="masterData.cad_cam_sum" name="cad_cam_sum">
+                                <input disabled type="number" min="0" class="my-control" ng-model="C.CadCam.Sum" ng-value="masterData.cad_cam_sum" name="cad_cam_sum">
                             </td>
         
                             {{-- Logistics --}}
                             <td style="background:  var(--primary-bg-light) !important">
-                                <input  type="number" class="my-control" ng-value="masterData.logistic_price" name="logistic_price">
+                                <input  type="number" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.Logistics.PriceM2" ng-value="masterData.logistic_price" name="logistic_price">
                             </td>
                             <td style="background:  var(--primary-bg-light) !important">
-                                <input  type="number" class="my-control" ng-value="masterData.logistic_sum" name="logistic_sum">
+                                <input disabled  type="number" min="0" class="my-control" ng-model="C.Logistics.Sum" ng-value="masterData.logistic_sum" name="logistic_sum">
                             </td>
         
                             {{-- Total Cost --}}
-                            <td><input  type="number" class="my-control" ng-value="masterData.total_price" name="total_price"></td>
-                            <td><input  type="number" class="my-control" ng-value="masterData.total_sum" name="total_sum"></td>
+                            <td><input disabled type="number" min="0" class="my-control" ng-value="C.TotalCost.PriceM2" name="total_price"></td>
+                            <td><input disabled type="number" min="0" class="my-control" ng-value="C.TotalCost.Sum" name="total_sum"></td>
                             <td class="text-center" style="padding: 0 !important">
-                                <i ng-click="delete(index)" class="fa fa-trash btn rounded-pill btn-sm btn-outline-danger px-1 py-0"></i>
+                                <i ng-click="delete(index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
                             </td>
                         </tr>
                         <tr class="text-white " style="background: var(--primary-bg)"> 
@@ -135,6 +135,7 @@
                         </tr> 
                     </tbody>
                 </table>  
+                @{{ CostEstimate }} 
             </div>
             <div class="col-12 shadow text-dark bg-white border p-2 rounded">
                 <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>XXXXX</b> </h4>
@@ -170,7 +171,7 @@
                 <a href="#!/technical-estimation" class="btn btn-outline-primary">Prev</a>
             </div>
             <div>
-                <a href="#!/project-schedule" class="btn btn-primary">Next</a>
+                <a href="#!/proposal-sharing" class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 
@@ -181,6 +182,17 @@
             background: var(--primary-bg) !important;
             transform: scale(1.2);
             box-shadow: 0px 5px 10px #4f4f4fb2 !important
+        }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
         }
     </style>
 @endif

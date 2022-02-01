@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="scroll-vertical-datatable" class="table dt-responsive nowrap table-striped">
+                        <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap table-striped">
                             <thead>
                                 <tr>
                                     <th>S.No</th>

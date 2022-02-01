@@ -12,13 +12,18 @@
 
 <!-- App css -->
 <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css" id="light-style" />
-<link href="{{ asset('public/assets/css/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="dark-style" />
+<link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css"  />
+{{-- <link href="{{ asset('public/assets/css/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="dark-style" /> --}}
 <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
 <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
 <input type="hidden" name="baseurl" value="{{URL::to('/')}}/" id="baseurl">
 <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
 <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}"> 
+<link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
+<link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}"> 
+
+<!-- SimpleMDE css -->
+<link href="{{ asset('public/assets/css/vendor/simplemde.min.css') }}" rel="stylesheet" type="text/css" />
 
 <style>
     .filepond--credits {

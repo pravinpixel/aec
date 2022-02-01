@@ -63,6 +63,16 @@ class Enquiry extends Model
         return GlobalService::DBDateFormat($value);
     }
 
+    public function setProjectDateAttribute($value)
+    {
+        $this->attributes['project_date'] = GlobalService::DBDateFormat($value);
+    }
+
+    public function setProjectDeliveryDateAttribute($value)
+    {
+        $this->attributes['project_delivery_date'] = GlobalService::DBDateFormat($value);
+    }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id', 'id');

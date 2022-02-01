@@ -1,4 +1,4 @@
-<div class="row mx-0 mt-3 " ng-controller="Cost_Estimate">
+<div class="row mx-0 mt-3 " ng-controller="Tech_Estimate">
    
     <div class="col-lg-9 p-0">
         <div class="card shadow-none p-0 m-0">
@@ -33,7 +33,7 @@
                         <button class="btn btn-sm btn-primary " ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button>
                     </div>
                     <div class="col-sm-6 text-end">
-                        <span class="text-secondary">Total Area :</span> <b>  </b> 
+                        {{-- <span class="text-secondary">Total Area :</span> <b>  </b>  --}}
                     </div>
                 </div> 
                 <div > 
@@ -62,10 +62,10 @@
                             <tr ng-repeat="(secindex,est) in buliding.building_component_number">
                                 <td>@{{ secindex+1 }}</td>
                                 <td style="padding:0 !important">
-                                    <input type="text" ng-model="est.name" class="form-control form-control-sm rounded-0 border-0">
+                                    <input type="text" required placeholder="Type here.." ng-model="est.name" class="form-control form-control-sm rounded-0 border-0">
                                 </td>
                                 <td  style="padding:0 !important" > 
-                                    <input type="number" get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet" >
+                                    <input type="number" min="0" required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
                                 </td>
                                 <td class="text-center"  style="padding:0 !important">
                                     <a href="" class="btn btn-sm text-danger w-100 btn-outline-light"ng-click="Delete_component(index, secindex)" ><i class="fa fa-trash"></i></a>

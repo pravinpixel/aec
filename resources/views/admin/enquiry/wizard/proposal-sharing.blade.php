@@ -333,7 +333,7 @@
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
-                <a href="#!/project-schedule" class="btn btn-outline-primary">Prev</a>
+                <a href="#!/cost-estimation" class="btn btn-outline-primary">Prev</a>
             </div>
             <div>
                 <a href="#!/response-status" class="btn btn-primary">Next</a>

@@ -27,7 +27,10 @@
                     <div ng-repeat="(Secindex,d) in w.Details">  
                         <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
                             
-                            <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">@{{ w.WallName }}@{{$index + 1}}</div>
+                            <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">
+                                @{{ w.WallName }}@{{$index + 1}}
+                                
+                            </div>
 
                             <div class="accordion-item shadow-sm  ">
                                 
@@ -68,9 +71,12 @@
                                                     <button class="btn-light shadow-sm border btn more-btn-layer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" aria-expanded="true" aria-controls="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}">
                                                         <i class="fa fa-chevron-down"></i>
                                                     </button>                             
-                                                    {{-- <span  class="position-absolute wall-delete-btn  badge bg-danger">
+                                                    {{-- <span  class="position-absolute wall-delete-btn  badge bg-danger" >
                                                         <i class="fa fa-trash"></i>
                                                     </span>  --}}
+                                                    
+                                                    <button  type="button" class="ms-2 btn btn-outline-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
+
                                                 </div>
                                             </th>
                                         </tr>
@@ -107,7 +113,6 @@
                                                                 <button class="btn-sm float-end btn btn-outline-primary me-2" ng-click="AddLayers(fIndex , Secindex)" title="Add New Layer" ><i class="fa fa-plus" ></i> Add Layer</button>
                                                                 {{-- <button ng-click="RemoveDetails(fIndex , Secindex)" class=" btn-danger btn shadow-lg  RemoveDetails" type="button"><i class="fa fa-trash"></i></button> --}}
                                                                 
-                                                                <button  type="button" class="btn btn-outline-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
                                                                 <div id="ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content text-center">

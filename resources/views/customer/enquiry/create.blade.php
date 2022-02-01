@@ -37,7 +37,7 @@
                             <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
                                 <a href="#!/service" style="min-height: 40px;" class="timeline-step" id="service">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
                                         </div>        
                                         <span class="d-none d-sm-inline mt-2">Service Selection</span>                                                                
@@ -48,7 +48,7 @@
                             <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
                                 <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
                                         </div>                                                                        
                                         <span class="d-none d-sm-inline mt-2">IFC Model & Uploads</span>
@@ -59,7 +59,7 @@
                             <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
                                 <a href="#!/building-component"  style="min-height: 40px;" class="timeline-step" id="building-component">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
                                         </div>                                                                        
                                         <span class="d-none d-sm-inline mt-2">Building  Components</span>
@@ -70,7 +70,7 @@
                             <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
                                 <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step" id="additional-info">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-info mb-1"></i>
                                         </div>       
                                         <span class="d-none d-sm-inline mt-2">Additional Info</span>                                                                 
@@ -80,7 +80,7 @@
                             <li class="nav-item last"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
                                 <a href="#!/review" style="min-height: 40px;"  class="timeline-step" id="review">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-clipboard-check mb-1"></i>
                                         </div>                   
                                         <span class="d-none d-sm-inline mt-2">Review &  Submit </span>                                                     
@@ -490,9 +490,11 @@
                 controller : "Review"
             })
         }); 
+        
         app.controller('wizard', function($scope, $http,$rootScope, Notification) {
             
         });
+ 
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $scope.enquiry_date = new Date();
             $("#project-info").addClass('active');
@@ -511,6 +513,7 @@
                 }, function (err) {
                     console.log('get enquiry error');
             });
+ 
 
             $http({
                 method: 'GET',
@@ -550,7 +553,63 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             }
+          
+
+            getProjectType();
+            getBuildingType();
+            getDeliveryType();
+
+             
+
+
+            $scope.getZipcodeData = function() {
+          
+                if(typeof($scope.projectInfo.zipcode) == 'undefined'){
+                    return false;
+                }
+                
+                if($scope.projectInfo.zipcode.length > 3) { 
+                    
+                    $http({
+                        method: 'GET',
+                        url: 'https://api.zippopotam.us/NO/'+ $scope.projectInfo.zipcode
+                    }).then(function (res) {
+
+                        $scope.zipcodeData = res.data;
+                        console.log("API working") 
+                        $scope.project_information = {
+                            'state'     :  $scope.zipcodeData.places[0].state,
+                            'place'     :  $scope.zipcodeData.places[0]['place name'],
+                            'country'   :  $scope.zipcodeData.country,
+                        };
+
+                    }, function (error) {
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+                } 
+            } 
+            
+ 
             getProjectInfoInptuData = function($projectInfo) {
+                $scope.data = {
+                    'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
+                    'enquiry_date'         : new Date($projectInfo.enquiry_date),
+                    'project_name'         : $projectInfo.project_name,
+                    'zipcode'              : $projectInfo.zipcode,
+                    'state'                : $scope.project_information.state,
+                    'building_type_id'     : $projectInfo.building_type_id,
+                    'project_type_id'      : $projectInfo.project_type_id,
+                    'project_date'         : new Date($projectInfo.project_date),
+                    'site_address'         : $projectInfo.site_address,
+                    'place'                : $scope.project_information.place,
+                    'country'              : $scope.project_information.country,
+                    'no_of_building'       : $projectInfo.no_of_building,
+                    'delivery_type_id'     : $projectInfo.delivery_type_id,
+                    'project_delivery_date': new Date($projectInfo.project_delivery_date),
+                };
+                return  $scope.data;
+            }
+            getProjectInfoInptuDataFormat = function($projectInfo) {
                 $scope.data = {
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
@@ -578,7 +637,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/project_info`,
                 }).then(function (res) {
-                    $scope.projectInfo = getProjectInfoInptuData(res.data.project_info);
+                    $scope.projectInfo = getProjectInfoInptuDataFormat(res.data.project_info);
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -909,7 +968,9 @@
                     $location.path('/review');
                     Message('success',`Comments added successfully`);
                 }, function (error) {
-                    Message(`additional info ${error}`);
+        
+                    Message('danger',`additional info ${error}`);
+
                 });
             }  
         });

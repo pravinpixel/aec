@@ -1,11 +1,17 @@
 :root {
-   --primary-bg : #114C90;
+   --primary-bg : #0C326C;
    --primary-bg-light : #E4EBF2;
    --text-light : white;
    --secondary-bg : #4199FC;  
+
+   --sidebar-bg :#292A2D;
+   --side-bar-text-color :gray;
+   /* 313A46 */
 
    --success-color: #1F8755;
    --warning-color: #87661f;
    --info-color: #1f8087;
    --danger-color: #871f1f;
 }
+
+

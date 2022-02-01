@@ -22,7 +22,7 @@ File: Main Css File
   --bs-yellow: #ffbc00;
   --bs-green: #0acf97;
   --bs-teal: #02a8b5;
-  --bs-cyan: #39afd1;
+  --bs-cyan: var(--secondary-bg);
   --bs-white: #fff;
   --bs-gray: #98a6ad;
   --bs-gray-dark: #343a40;
@@ -39,7 +39,7 @@ File: Main Css File
   /* --bs-primary: #2871BF; */
   --bs-secondary: #6c757d;
   --bs-success: #0acf97;
-  --bs-info: #39afd1;
+  --bs-info: var(--secondary-bg);
   --bs-warning: #ffbc00;
   --bs-danger: #fa5c7c;
   --bs-light: #eef2f7;
@@ -230,7 +230,7 @@ pre {
 
 code {
   font-size: 87.5%;
-  color: #39afd1;
+  color: var(--secondary-bg);
   word-wrap: break-word; }
   a > code {
     color: inherit; }
@@ -2630,15 +2630,15 @@ textarea.form-control-lg {
 
 .btn-info {
   color: #fff;
-  background-color: #39afd1;
-  border-color: #39afd1; }
+  background-color: var(--secondary-bg);
+  border-color: var(--secondary-bg); }
   .btn-info:hover {
     color: #fff;
-    background-color: #3095b2;
+    background-color: var(--primary-bg);
     border-color: #2e8ca7; }
   .btn-check:focus + .btn-info, .btn-info:focus {
     color: #fff;
-    background-color: #3095b2;
+    background-color: var(--primary-bg);
     border-color: #2e8ca7;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(87, 187, 216, 0.5);
             box-shadow: 0 0 0 0.2rem rgba(87, 187, 216, 0.5); }
@@ -2655,8 +2655,8 @@ textarea.form-control-lg {
               box-shadow: 0 0 0 0.2rem rgba(87, 187, 216, 0.5); }
   .btn-info:disabled, .btn-info.disabled {
     color: #fff;
-    background-color: #39afd1;
-    border-color: #39afd1; }
+    background-color: var(--secondary-bg);
+    border-color: var(--secondary-bg); }
 
 .btn-warning {
   color: #313a46;
@@ -2848,26 +2848,26 @@ textarea.form-control-lg {
     background-color: transparent; }
 
 .btn-outline-info {
-  color: #39afd1;
-  border-color: #39afd1; }
+  color: var(--secondary-bg);
+  border-color: var(--secondary-bg); }
   .btn-outline-info:hover {
     color: #fff;
-    background-color: #39afd1;
-    border-color: #39afd1; }
+    background-color: var(--secondary-bg);
+    border-color: var(--secondary-bg); }
   .btn-check:focus + .btn-outline-info, .btn-outline-info:focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(57, 175, 209, 0.5);
             box-shadow: 0 0 0 0.2rem rgba(57, 175, 209, 0.5); }
   .btn-check:checked + .btn-outline-info,
   .btn-check:active + .btn-outline-info, .btn-outline-info:active, .btn-outline-info.active, .btn-outline-info.dropdown-toggle.show {
     color: #fff;
-    background-color: #39afd1;
-    border-color: #39afd1; }
+    background-color: var(--secondary-bg);
+    border-color: var(--secondary-bg); }
     .btn-check:checked + .btn-outline-info:focus,
     .btn-check:active + .btn-outline-info:focus, .btn-outline-info:active:focus, .btn-outline-info.active:focus, .btn-outline-info.dropdown-toggle.show:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(57, 175, 209, 0.5);
               box-shadow: 0 0 0 0.2rem rgba(57, 175, 209, 0.5); }
   .btn-outline-info:disabled, .btn-outline-info.disabled {
-    color: #39afd1;
+    color: var(--secondary-bg);
     background-color: transparent; }
 
 .btn-outline-warning {
@@ -5706,9 +5706,9 @@ textarea.form-control-lg {
     color: #09b080; }
 
 .link-info {
-  color: #39afd1; }
+  color: var(--secondary-bg); }
   .link-info:hover, .link-info:focus {
-    color: #3095b2; }
+    color: var(--primary-bg); }
 
 .link-warning {
   color: #ffbc00; }
@@ -6075,7 +6075,7 @@ textarea.form-control-lg {
   border-color: #0acf97 !important; }
 
 .border-info {
-  border-color: #39afd1 !important; }
+  border-color: var(--secondary-bg) !important; }
 
 .border-warning {
   border-color: #ffbc00 !important; }
@@ -9643,7 +9643,7 @@ body {
 .leftside-menu {
   width: 260px;
   z-index: 10;
-  background: linear-gradient(135deg, #8f75da 0%, var(--primary-bg) 60%);
+  background: var(--sidebar-bg);
   bottom: 0;
   position: fixed;
   top: 0;
@@ -9657,7 +9657,7 @@ body {
   .side-nav ul {
     list-style-type: none; }
   .side-nav .side-nav-link {
-    color: #cedce4;
+    color: var(--side-bar-text-color);
     display: block;
     padding: 10px 30px;
     font-size: 0.9375rem;
@@ -9724,7 +9724,7 @@ body {
   .side-nav-third-level li a,
   .side-nav-forth-level li a {
     padding: 8px 30px 8px 65px;
-    color: #cedce4;
+    color: var(--side-bar-text-color);
     display: block;
     position: relative;
     -webkit-transition: all 0.4s;
@@ -10929,14 +10929,14 @@ body[data-layout="topnav"] .container-fluid, body[data-layout="topnav"] .contain
     background-color: rgba(10, 207, 151, 0.4); }
 
 .badge-info-lighten {
-  color: #39afd1;
+  color: var(--secondary-bg);
   background-color: rgba(57, 175, 209, 0.18); }
   .badge-info-lighten[href] {
-    color: #39afd1;
+    color: var(--secondary-bg);
     text-decoration: none;
     background-color: rgba(57, 175, 209, 0.18); }
   .badge-info-lighten[href]:hover, .badge-info-lighten[href]:focus {
-    color: #39afd1;
+    color: var(--secondary-bg);
     text-decoration: none;
     background-color: rgba(57, 175, 209, 0.4); }
 
@@ -11028,15 +11028,15 @@ body[data-layout="topnav"] .container-fluid, body[data-layout="topnav"] .contain
     background-color: rgba(10, 207, 151, 0.2); }
 
 .badge-outline-info {
-  color: #39afd1;
-  border: 1px solid #39afd1;
+  color: var(--secondary-bg);
+  border: 1px solid var(--secondary-bg);
   background-color: transparent; }
   .badge-outline-info[href] {
-    color: #39afd1;
+    color: var(--secondary-bg);
     text-decoration: none;
     background-color: rgba(57, 175, 209, 0.2); }
   .badge-outline-info[href]:hover, .badge-outline-info[href]:focus {
-    color: #39afd1;
+    color: var(--secondary-bg);
     text-decoration: none;
     background-color: rgba(57, 175, 209, 0.2); }
 
@@ -11225,8 +11225,8 @@ body[data-layout="topnav"] .container-fluid, body[data-layout="topnav"] .contain
 
 .form-checkbox-info .form-check-input:checked,
 .form-radio-info .form-check-input:checked {
-  background-color: #39afd1;
-  border-color: #39afd1; }
+  background-color: var(--secondary-bg);
+  border-color: var(--secondary-bg); }
 
 .form-checkbox-warning .form-check-input:checked,
 .form-radio-warning .form-check-input:checked {
@@ -11369,7 +11369,7 @@ body[data-layout="topnav"] .container-fluid, body[data-layout="topnav"] .contain
 
 .hljs-built_in,
 .hljs-builtin-name {
-  color: #39afd1; }
+  color: var(--secondary-bg); }
 
 .hljs-meta {
   color: #343a40;
@@ -11617,7 +11617,7 @@ strong {
     .ribbon-box .ribbon-success:before {
       border-color: #09b785 transparent transparent; }
   .ribbon-box .ribbon-info {
-    background: #39afd1; }
+    background: var(--secondary-bg); }
     .ribbon-box .ribbon-info:before {
       border-color: #2da2c3 transparent transparent; }
   .ribbon-box .ribbon-warning {
@@ -11701,7 +11701,7 @@ strong {
       border-right: 3px solid #09b785;
       border-top: 3px solid #09b785; }
   .ribbon-box .ribbon-two-info span {
-    background: #39afd1; }
+    background: var(--secondary-bg); }
     .ribbon-box .ribbon-two-info span:before {
       border-left: 3px solid #2da2c3;
       border-top: 3px solid #2da2c3; }
@@ -11820,7 +11820,7 @@ input[data-switch="success"]:checked + label {
   background-color: #0acf97; }
 
 input[data-switch="info"]:checked + label {
-  background-color: #39afd1; }
+  background-color: var(--secondary-bg); }
 
 input[data-switch="warning"]:checked + label {
   background-color: #ffbc00; }
@@ -15349,9 +15349,9 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
   border-color: #0acf97; }
 
 .jq-icon-info {
-  background-color: #39afd1;
+  background-color: var(--secondary-bg);
   color: #fff;
-  border-color: #39afd1; }
+  border-color: var(--secondary-bg); }
 
 .jq-icon-warning {
   background-color: #ffbc00;
@@ -15891,3 +15891,24 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 
 .gantt-container .popup-wrapper .pointer {
   display: none; }
+
+  .progress-btn {
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+    background: lightgray
+}
+.progress-btn.active {
+    background: #20CF98 !important
+} 
+.side-nav-item .menuitem-active {
+  position: relative ;
+}
+
+.side-nav-item .menuitem-active::after {
+  position: absolute;
+  background: white;
+  height: 1px;
+  width: 20%;
+  content: '';
+  left: 25%;
+  top: 82%;
+}

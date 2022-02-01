@@ -93,7 +93,7 @@
                                         <h4 class="header-title mt-1 mb-3">Awarded Projects</h4>
 
                                         <div class="table-responsive table-m">
-                                            <table class="table table-sm table-centered mb-0 font-14">
+                                            <table class="table custom table-sm table-centered mb-0 font-14">
                                                 <thead class="table-light">
                                                     <tr>
                                                         <th>S:NO</th>

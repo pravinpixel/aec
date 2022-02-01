@@ -9,7 +9,7 @@
     </head>
     
 
-    <body data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+    <body>
 
         <!-- Begin page -->
         <div class="wrapper" ng-app="App">
@@ -19,11 +19,7 @@
             {{--===========  AJAX LOADER ======== --}}
 
             {{-- ======= Alert Part ========== --}}
-            <div class="alert-container" id="alert">
-                {{-- <div class="alert alert-custom alert-danger fade show text-center" role="alert" data-bs-dismiss="alert" aria-label="Close">
-                    <span>You should check in on</span> 
-                </div> --}}
-            </div>
+            <div class="alert-container" id="alert"></div>
             {{-- ======= Alert Part ========== --}}
 
             <!-- ========== Left Sidebar Start ========== -->
@@ -33,6 +29,7 @@
             <!--========== Start Page Content here ==========-->
   
                 <div class="main-content-rapper" >
+                    {{-- <h1 class="fixed-top ps-5 ms-5" >counter : @{{ counter }}</h1> --}}
                     @yield('admin-content')
                 </div>
             <!--========== End Page content ==========-->

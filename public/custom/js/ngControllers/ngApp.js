@@ -1,6 +1,6 @@
 var app = angular.module('App', ['ngRoute','datatables']).constant('API_URL', $("#baseurl").val());
 
-app.directive('loading',   ['$http' ,function ($http, $scope) {  
+app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  
         restrict: 'A',  
         template: `
@@ -13,7 +13,22 @@ app.directive('loading',   ['$http' ,function ($http, $scope) {
             scope.isLoading = function () {   
 
                 return $http.pendingRequests.length > 0;  
-            };        
+            };  
+
+            var timestop;
+
+            scope.counter = 0;
+
+            scope.increment = function() {
+                scope.counter++;
+                // $scope.timeout = $timeout(scope.increment, 1000);
+            };   
+            
+            var i;
+            for(i = 0; i < 100; i++) {
+                scope.counter++                
+            }
+
             scope.$watch(scope.isLoading, function (v){  
                 if(v){  
                     elm.show();  
@@ -23,15 +38,4 @@ app.directive('loading',   ['$http' ,function ($http, $scope) {
             });  
         }  
     };
-}]);
-// app.config(function(NotificationProvider) {
-//     NotificationProvider.setOptions({
-//         delay: 10000,
-//         startTop: 20,
-//         startRight: 10,
-//         verticalSpacing: 20,
-//         horizontalSpacing: 20,
-//         positionX: 'left',
-//         positionY: 'bottom'
-//     });
-// }); 
+}]); 

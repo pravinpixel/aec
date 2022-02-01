@@ -1,4 +1,4 @@
-<div class="leftside-menu">
+<div class="leftside-menu menuitem-active">
     
     <!-- LOGO -->
     <a href="#" class="logo text-center logo-light shadow-lg"  style="background:white !important">

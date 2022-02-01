@@ -1,4 +1,5 @@
 <form id="projectInfoForm"  method="post" class="form-horizontal" novalidate>
+   
     <div class="row">
         <div class="col-md-4">
             <div class="form-floating  mb-2">
@@ -32,11 +33,11 @@
                 <label for="floating">Project Name</label>
             </div>
             <div class="form-floating mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="zipcode" ng-model="projectInfo.zipcode" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="zipcode" ng-keyup="getZipcodeData()" ng-model="projectInfo.zipcode" required/>
                 <label for="floating">Zipcode</label>
             </div>
-            <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" naem="state" ng-model="projectInfo.state" required/>
+            <div class="form-floating mb-2"> 
+                <input type="text" class="form-control form-control-sm" id="floating"   naem="state" ng-model="project_information.state" required/>
                 <label for="floating">State</label>
             </div>
             <div class="form-floating mb-2">
@@ -59,7 +60,7 @@
             </div>
             <div class="form-floating  mb-2">
                 <input type="date" class="form-control form-control-sm" id="project_date"  name="project_date" ng-model="projectInfo.project_date" required/>
-                <label for="floating">Project Start Date</label>
+                <label for="floating">Project Start Date</label> 
             </div>
         </div> 
         <div class="col-md-4">
@@ -68,11 +69,11 @@
                 <label for="floating">Site Address</label>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="place" ng-model="projectInfo.place" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="place" ng-model="project_information.place" required/>
                 <label for="floating">Place</label>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="country" ng-model="projectInfo.country" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="country" ng-model="project_information.country" required/>
                 <label for="floating">Country</label>
             </div>
             <div class="form-floating  mb-2">
@@ -94,4 +95,9 @@
             </div>
         </div>
     </div>
+    <style>
+        label {
+            color:  gray !important
+        }
+    </style>
 </form>

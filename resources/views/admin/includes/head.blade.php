@@ -10,8 +10,8 @@
 
 <!-- App css -->
 <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css" id="light-style" />
-<link href="{{ asset('public/assets/css/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="dark-style" />
+<link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css"   />
+{{-- <link href="{{ asset('public/assets/css/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="dark-style" /> --}}
 <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}">
 <!-- Icons Css -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

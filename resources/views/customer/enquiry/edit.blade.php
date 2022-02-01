@@ -36,7 +36,7 @@
                             <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
                                 <a href="#!/service" style="min-height: 40px;" class="timeline-step  {{$enquiry->service == 1 ? 'active' : ''}}" id="service">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
                                         </div>        
                                         <span class="d-none d-sm-inline mt-2">Service Selection</span>                                                                
@@ -47,7 +47,7 @@
                             <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" style="pointer-events:none">
                                 <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step {{$enquiry->ifc_model_upload == 1 ? 'active' : ''}}" id="ifc-model-upload">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
                                         </div>                                                                        
                                         <span class="d-none d-sm-inline mt-2">IFC Model & Uploads</span>
@@ -58,7 +58,7 @@
                             <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
                                 <a href="#!/building-component"  style="min-height: 40px;" class="timeline-step {{$enquiry->building_component == 1 ? 'active' : ''}}" id="building-component">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
                                         </div>                                                                        
                                         <span class="d-none d-sm-inline mt-2">Building  Components</span>
@@ -69,7 +69,7 @@
                             <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
                                 <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step" id="additional-info">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-info mb-1"></i>
                                         </div>       
                                         <span class="d-none d-sm-inline mt-2">Additional Info</span>                                                                 
@@ -79,7 +79,7 @@
                             <li class="nav-item last"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
                                 <a href="#!/review" style="min-height: 40px;"  class="timeline-step" id="review">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-clipboard-check mb-1"></i>
                                         </div>                   
                                         <span class="d-none d-sm-inline mt-2">Review &  Submit </span>                                                     
