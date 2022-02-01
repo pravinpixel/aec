@@ -6,7 +6,6 @@ app.directive('viewlist', function(API_URL) {
     directive.scope = {
         viewLists : "=data"
     }
-
     return directive;
  });
  app.directive('filename', function() {
