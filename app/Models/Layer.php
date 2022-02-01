@@ -14,6 +14,7 @@ class Layer extends Model
     protected $primaryKey = 'id';
     public $fillable = [
         'layer_name',
+        'building_component_id',
         'user_type',
         'created_by',
         'is_active'

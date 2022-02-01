@@ -729,6 +729,7 @@
         app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location) { 
             $("#building-component").addClass('active');
             $scope.wallGroup = [];
+            let building_component_id;
             let enquiry_id;
             $http({
                 method: 'GET',
@@ -744,7 +745,34 @@
                 }, function (err) {
                     console.log('get enquiry error');
             });
-           
+            $scope.callLayerModal = (wall_id) => {
+                building_component_id = wall_id;
+                $("#add-layer-modal").modal('show');
+            }
+            $scope.submitLayer = () => {
+                if($scope.layer_name =='' || typeof($scope.layer_name)) {
+                    return false;
+                }
+             
+                $http({
+                    method: 'POST',
+                    url: '{{ route('layer.store-layer-from-customer') }}',
+                    data: {building_component_id: building_component_id, layer_name:  $scope.layer_name}
+                    }).then(function successCallback(response) {
+                        $("#add-layer-modal").modal('hide');
+                        Message('success', 'Layer added successfully');
+                        $http({
+                            method: 'GET',
+                            url: '{{ route("layer.get-layer-by-building-component") }}',
+                            params : {building_component_id: building_component_id}
+                            }).then(function success(response) {
+                                $scope.layers = response.data;
+                            }, function error(response) {
+                        });
+                    }, function errorCallback(response) {
+                        Message('danger', 'Something went wrong');
+                    });
+            }
 
             getDeliveryType = () => {
                 $http({
@@ -910,14 +938,14 @@
                 return {
                     restrict: 'A',
                     link : function (scope, element, attrs) {
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("layer.get-layer-by-building-component") }}',
-                            params : {building_component_id: scope.w.WallId}
-                            }).then(function success(response) {
-                                scope.layers = response.data;
-                            }, function error(response) {
-                        });
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("layer.get-layer-by-building-component") }}',
+                                params : {building_component_id: scope.w.WallId}
+                                }).then(function success(response) {
+                                    scope.layers = response.data;
+                                }, function error(response) {
+                            });
                     },
                 };
             });

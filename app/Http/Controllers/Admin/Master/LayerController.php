@@ -122,4 +122,18 @@ class LayerController extends Controller
     {
         return response()->json($this->layerRepository->getByBuildingComponentId($request->building_component_id));
     }
+
+    public function storeLayerFromCustomer(Request $request)
+    {
+        $requestData = $request->only([
+            "layer_name","building_component_id"
+        ]);
+        return response()->json(
+            [
+                'data' => $this->layerRepository->updateOrCreate($requestData),
+                'status' => true, 'msg' => trans('module.inserted')
+            ],
+            Response::HTTP_CREATED
+        );
+    }
 }

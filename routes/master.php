@@ -83,6 +83,7 @@ Route::resource('building-component', BuildingComponentController::class);
 Route::get('get-layer', [LayerController::class,'get'])->name('layer.get');
 Route::get('get-layer-by-building-component', [LayerController::class,'getByBuildingComponentId'])->name('layer.get-layer-by-building-component');
 Route::put('layer/status/{id}', [LayerController::class,'status'] )->name('layer.status');
+Route::post('layer/store-layer-from-customer', [LayerController::class,'storeLayerFromCustomer'] )->name('layer.store-layer-from-customer');
 Route::resource('layer', LayerController::class);
 
 

@@ -76,4 +76,14 @@ class LayerRepository implements LayerRepositoryInterface{
         })
         ->get();
     }
+
+    public function updateOrCreate($data)
+    {
+        return $this->model->updateOrCreate([
+            'created_by' => Customer()->id,
+            'building_component_id' => $data['building_component_id'],
+            'user_type' => 'customer',
+            'layer_name' => $data['layer_name']
+        ], [ ]);
+    }
 }

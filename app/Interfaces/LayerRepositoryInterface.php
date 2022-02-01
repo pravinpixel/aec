@@ -12,4 +12,5 @@ interface LayerRepositoryInterface
     public function find($id);
     public function get($request);
     public function getByBuildingComponentId($id);
+    public function updateOrCreate($data);
 }

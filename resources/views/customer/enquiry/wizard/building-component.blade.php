@@ -143,14 +143,17 @@
                                                     <tbody>
                                                         <tr ng-repeat="(ThreeIndex,l) in d.Layers">
                                                             <td>
-                                                                <div class="form-group shadow-sm">
-                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                    <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
-                                                                            <option value="">@lang('customer-enquiry.select')</option>
-                                                                            <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
-                                                                                @{{ layer.layer_name }}
-                                                                            </option>
-                                                                    </select>
+                                                                <div class="btn-group w-100">
+                                                                    <div class="form-group w-100 ">
+                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
+                                                                        <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
+                                                                                <option value="">@lang('customer-enquiry.select')</option>
+                                                                                <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
+                                                                                    @{{ layer.layer_name }}
+                                                                                </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center" ng-click="callLayerModal(w.WallId)" title="Add layer name"><i class="fa fa-plus"></i></div>
                                                                 </div>
                                                             </td>
                                                             <td>
@@ -218,6 +221,7 @@
             </div> 
         </div> 
     </div> 
+    @include('customer.enquiry.add-layer-modal')
     <div class="card-footer border-0 p-0 " >
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-outline-primary">Previous</a></li>
