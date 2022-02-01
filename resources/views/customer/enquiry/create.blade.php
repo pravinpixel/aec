@@ -45,7 +45,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
+                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload"  style="pointer-events:none">
                                 <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -956,7 +956,7 @@
             }
 
             $scope.submitAdditionalinfoForm = () => {
-                if($scope.additionalInfo == ''){
+                if($scope.additionalInfo == '' || typeof($scope.additionalInfo) == 'undefined'){
                     $location.path('/review');
                     return false;
                 }
@@ -1024,52 +1024,104 @@
                     });
             }
         });
-        
-        app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload){
+        app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload ){
             $("#ifc-model-upload").addClass('active');
             $scope.documentLists = [];
             $scope.mandatory = [];
+            let enquiry_id;
+            $http({
+                method: 'GET',
+                url: '{{ route('get-customer-enquiry') }}'
+            }).then( function(res) {
+                    if(res.data.status == "false") {
+                        $scope.enquiry_number = res.data.enquiry_number;
+                        enquiry_id = res.data.enquiry_id
+                        getLastEnquiry(enquiry_id);
+                    } else {
+                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                    }
+                }, function (err) {
+                    console.log('get enquiry error');
+            });
+            getLastEnquiry = (enquiry_id) => {
+                if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
+                    return false;
+                } 
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/ifc_model_uploads`,
+                }).then(function (res) {
+                    res.data.ifc_model_uploads.map( (item, index) => {
+                        let [id, type] = [item.enquiry_id , item.document_type.slug];
+                        getIFCViewList(id,type);
+                    });
+                  
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+
             getDocumentTypes = () => {
                 $http({
                     method: 'GET',
                     url: '{{ route("document-type.get") }}'
                 }).then(function (res) {
-                    $scope.documentTypes = res.data;
-                    res.data.map((item, index) => {
+                    $scope.documentTypes = res.data.map((item, index) => {
                         item.is_mandatory == 1 &&  ($scope.mandatory.push(item.slug));
                         $scope.documentLists[`${item.slug}`] = [];
+                        return {...item, ...{'file_name': ''}};
                     });
                     console.log($scope.documentLists);
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
-            }
+            } 
             getDocumentTypes();
+
             getIFCViewList = (id, view_type) => {
-              $http({
-                  method: 'GET',
-                  url: '{{ route('customers.get-view-list') }}',
-                  params: {id: id, view_type: view_type},
-              }).then(function (res) {
-                  $scope.documentLists[`${view_type}`] = {...$scope.documentLists[`${view_type}`], ...res.data};
-                  console.log($scope.documentLists)
-              }, function (error) {
-                  console.log('This is embarassing. An error has occurred. Please check the log for details');
-              });
+                $scope.documentLists[`${view_type}`] = [];
+                $http({
+                    method: 'GET',
+                    url: '{{ route('customers.get-view-list') }}',
+                    params: {id: id, view_type: view_type},
+                }).then(function (res) {
+                    $scope.documentLists[`${view_type}`] = [...$scope.documentLists[`${view_type}`], ...res.data];
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
 
+            $scope.fileName= function(element) {
+                $scope.$apply(function($scope) {
+                        var attribute_name = element.getAttribute('demo-file-model');
+                        $scope[`${attribute_name}`] = element.files[0].name;
+                });
+            };
+
             $scope.submitIFC  = () => {
-                if($scope.mandatory.length > 0){
-                    Message('danger', `${$scope.mandatory[0]} field is required`);
-                    return false;
-                }
-                $location.path('/building-component');
+                $http({
+                    method: 'POST',
+                    url: '{{ route('customers.store-enquiry') }}',
+                    data: {type: 'ifc_model_upload_mandatory', 'data': false}
+                }).then(function (res) {
+                    if(res.data.status == false) {
+                       res.data.data.map( (item) => {
+                            Message('danger', `${item.replaceAll('_',' ')} field is required`);
+                            return false;
+                       });
+                    } else  {
+                        $location.path('/building-component');
+                    }
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                }); 
+                
             }
 
             $scope.uploadFile = (filename, file_type) => {
                 var file = $scope[filename];
                 if(typeof(file) == 'undefined'){
-                    Message('danger',`Please upload ${file_type.replace('_',' ') } file or link`);
+                    Message('danger',`Please upload ${file_type.replaceAll('_',' ') } file or link`);
                     return false;
                 }
                 var type = 'ifc_model_upload';
@@ -1077,40 +1129,54 @@
                 promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl);
                 promise.then(function (response) {
                         console.log(response);
-                        Message('success',`${file_type.replace('_',' ')} uploaded successfully`);
-                        let index = $scope.mandatory.indexOf(file_type);
-                        if (index > -1) {
-                            $scope.mandatory.splice(index, 1);
-                        }
+                        Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
                     }, function () {
                         $scope.serverResponse = 'An error has occurred';
                     });
-            };
+                }
 
             $scope.uploadLink = (filename, file_type) => {
-                var file = $scope[filename];
+                var file = $(`#${filename}`).val();
                 if(typeof(file) == 'undefined'){
-                    Message('danger',`Please upload ${file_type.replace('_',' ') } link`);
+                    Message('danger',`Please upload ${file_type.replaceAll('_',' ') } link`);
                     return false;
                 }
                 var type = 'ifc_link';
                 var uploadUrl = '{{ route('customers.store-enquiry') }}';
-                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl);
+                promise = fileUpload.uploadLinkToUrl(file, type, file_type, uploadUrl);
                 promise.then(function (response) {
-                        console.log(response);
-                        Message('success',`${file_type.replace('_',' ')} uploaded successfully`);
-                        let index = $scope.mandatory.indexOf(file_type);
-                        if (index > -1) {
-                            $scope.mandatory.splice(index, 1);
-                        }
+                        console.log(response.data);
+                        Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
                     }, function () {
                         $scope.serverResponse = 'An error has occurred';
                     });
-            };
-       
-            
+            }
+
+            $scope.performAction = function()  {
+                let route      = $("#exampleModalRoute").val();
+                let method     = $("#exampleModalMethod").val();
+                let id         = $("#exampleModalId").val();
+                let enquiry_id = $("#exampleModalEnquiryId").val();
+                let view_type  = $("#exampleModalViewType").val();
+                $http({
+                    method: method,
+                    url: route,
+                    params: {id: id},
+                }).then(function (res) {
+                    if(res.status) {
+                        getIFCViewList(enquiry_id, view_type);
+                        $("#exampleModal").modal('hide');
+                        Message('success','deleted successfully');
+                        return false;
+                    }
+                    return false;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+          
         });
         
             app.directive('fileModel', function ($parse) {
@@ -1151,16 +1217,34 @@
                         deffered.reject(response);
                     });
 
-                    return deffered.promise;
-
-                }
-            });
-
-            window.onbeforeunload = function(e) {
-                var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
-                e.returnValue = dialogText;
-                return dialogText;
-            };
+                }).error(function (response) {
+                    deffered.reject(response);
+                });
+                return deffered.promise;
+            }
+            this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl) {
+                var fileFormData = new FormData();
+                fileFormData.append('link', link);
+                fileFormData.append('type', type);
+                fileFormData.append('view_type',view_type);
+                var deffered = $q.defer();
+                $http.post(uploadUrl, fileFormData, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }).success(function (response) {
+                    deffered.resolve(response);
+                }).error(function (response) {
+                    deffered.reject(response);
+                });
+                return deffered.promise;
+            }
+        });
+        
+        window.onbeforeunload = function(e) {
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            e.returnValue = dialogText;
+            return dialogText;
+        };
 </script>
 
   

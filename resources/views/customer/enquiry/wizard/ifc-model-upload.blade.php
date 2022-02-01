@@ -1,15 +1,20 @@
 <form ng-submit="submitIFC()">
-        <div class="" ng-repeat="documentType in documentTypes">
-            <div class="col-md-3 card p-3 shadow-sm file-upload-card" style="overflow: hidden">
-                <h1>@{{  documentType.document_type_name }}</h1>
-                <p class="text-disable text-center">Click here to save your file</p>
-                <label class="drop-box shadow-sm" for="@{{ documentType.slug }}">
-                    <div class="text">
-                        <input type="file" file-model="@{{'file' + documentType.slug}}" class="file-upload-input" id ="@{{ documentType.slug }}"/>
-                        <label for="@{{ documentType.slug }}"><i class="fa fa-folder-plus fa-2x text-primary"></i></label>
-                    </div>
-                </label>
-                <a ng-click="uploadFile('file' + documentType.slug, documentType.slug)" class="btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</a>
+        <div class="row">
+            <div ng-repeat="documentType in documentTypes" class="col-md-4">
+                <div  class="card p-3 shadow-sm file-upload-card" style="overflow: hidden">
+                    <h1>@{{  documentType.document_type_name }}</h1>
+                    <p class="text-disable text-center">Click here to save your file</p>
+                    <label class="drop-box shadow-sm" for="@{{ documentType.slug }}">
+                        <div class="text">
+                            <input type="file" file-model="@{{'file' + documentType.slug}}" onchange="angular.element(this).scope().fileName(this)"id ="@{{ documentType.slug }}"/>
+                            <label for="@{{ documentType.slug }}"><i class="fa fa-folder-plus fa-2x text-primary"></i></label>
+                        </div>
+                    </label> @{{ documentType.file_name }}
+                    <a ng-click="uploadFile('file' + documentType.slug, documentType.slug)" class="btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</a>
+                    <small class="text-center my-1">(OR)</small>
+                    <input type="text" id="@{{'link' +documentType.slug}}" class="form-control rounded-pill border" placeholder="links">
+                    <a ng-click="uploadLink('link' + documentType.slug,documentType.slug)" class="btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</a>
+                </div>
             </div>
         </div>
         @include('customer.enquiry.modal')
@@ -17,7 +22,7 @@
             <div class="table-header">
                 <h1>@{{documentType.document_type_name }}</h1>
                 <br>
-                {{-- <viewlist data="documentType[documentType.slug]"></viewlist><br/> --}}
+                <viewlist data="documentLists[documentType.slug]"></viewlist><br/>
             </div>
         </div> 
 

@@ -349,8 +349,8 @@
     <div class="card-footer border-0 p-0 ">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/additional-info" class="btn btn-outline-primary">Previous</a></li>
-            <li class="next list-inline-item float-end"  ng-click="saveOrSubmit('Active')" ><a href="#" class="btn btn-primary">Submit</a></li>
-            <li class="next list-inline-item float-end"  ng-click="saveOrSubmit('In-Complete')" ><a href="#" class="btn btn-primary">Save & Submit Later</a></li>
+            <li class="next list-inline-item float-end"  ng-click="saveOrSubmit('Active')" ><a class="btn btn-primary">Submit</a></li>
+            <li class="next list-inline-item float-end"  ng-click="saveOrSubmit('In-Complete')" ><a class="btn btn-primary">Save & Submit Later</a></li>
         </ul>
     </div>
  

@@ -19,7 +19,7 @@
             <td><span class="badge badge-outline-success rounded-pill"> @{{  viewList.pivot.status }} </span></td>
             <td>
                 <i class="feather-eye btn-success btn mr-3"></i>
-                <a href="#" custom-modal="modal" modal-title="Delete" modal-body="Are you sure to perform this action" modal-route="{{ route('customers.enquiry-document') }}" modal-enquiry-id="@{{  viewList.pivot.enquiry_id }}"   modal-view-type="@{{  viewList.slug }}"  modal-id="@{{  viewList.pivot.id }}"  modal-method="DELETE" >  
+                <a href="" custom-modal="modal" modal-title="Delete" modal-body="Are you sure to perform this action" modal-route="{{ route('customers.enquiry-document') }}" modal-enquiry-id="@{{  viewList.pivot.enquiry_id }}"   modal-view-type="@{{  viewList.slug }}"  modal-id="@{{  viewList.pivot.id }}"  modal-method="DELETE" >  
                     <i class="feather-trash btn-danger btn  mr-3"> </i>
                 </a> 
 

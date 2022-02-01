@@ -220,7 +220,7 @@
     </div> 
     <div class="card-footer border-0 p-0 " >
         <ul class="list-inline wizard mb-0 pt-3">
-            <li class="previous list-inline-item disabled"><a href="#/ifc-model-upload" class="btn btn-outline-primary">Previous</a></li>
+            <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-outline-primary">Previous</a></li>
             <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()" ng-disabled ="buildingComponentForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
         </ul>
     </div>
