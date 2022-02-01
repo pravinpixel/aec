@@ -79,7 +79,7 @@ class EnquiryController extends Controller
     public function create()
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry(Customer()->id);
-        // Session::forget('enquiry_number');
+        Session::forget('enquiry_number');
         $customer['enquiry_date']       =   now();
         $customer['enquiry_number']     =   GlobalService::enquiryNumber();
         $customer['document_types']     =   $this->documentTypeRepo->all();
