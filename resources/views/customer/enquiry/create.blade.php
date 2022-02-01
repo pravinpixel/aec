@@ -1216,30 +1216,29 @@
                     },function (response) {
                         deffered.reject(response);
                     });
+                    return deffered.promise;
+                }
 
-                }).error(function (response) {
-                    deffered.reject(response);
-                });
-                return deffered.promise;
-            }
-            this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl) {
-                var fileFormData = new FormData();
-                fileFormData.append('link', link);
-                fileFormData.append('type', type);
-                fileFormData.append('view_type',view_type);
-                var deffered = $q.defer();
-                $http.post(uploadUrl, fileFormData, {
-                    transformRequest: angular.identity,
-                    headers: {'Content-Type': undefined}
-                }).success(function (response) {
-                    deffered.resolve(response);
-                }).error(function (response) {
-                    deffered.reject(response);
-                });
-                return deffered.promise;
-            }
-        });
-        
+                this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl) {
+                    var fd = new FormData();
+                    fd.append('link', link);
+                    fd.append('type', type);
+                    fd.append('view_type',view_type);
+                    var deffered = $q.defer();
+                  
+                    $http.post(uploadUrl, fd, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type': undefined}
+                    }).then(function (response) {
+                        deffered.resolve(response);
+                    },function (response) {
+                        deffered.reject(response);
+                    });
+                    return deffered.promise;
+                }
+              
+            });
+
         window.onbeforeunload = function(e) {
             var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
             e.returnValue = dialogText;
