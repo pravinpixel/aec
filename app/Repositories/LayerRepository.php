@@ -64,17 +64,17 @@ class LayerRepository implements LayerRepositoryInterface{
 
     public function getByBuildingComponentId($id)
     {
-        return $this->model->where([
+        $adminLayers = $this->model->where([
             'is_active' => 1, 
             'building_component_id' => $id,
             'user_type' => 'admin'
-        ])
-        ->when(Customer(), function($q){
-            $q->Orwhere([
-                'created_by' => Customer()->id,
-            ]);
-        })
-        ->get();
+        ])->get()->toArray();
+        $customerLayers = $this->model->where([
+            'is_active' => 1, 
+            'building_component_id' => $id,
+            'created_by' => Customer()->id ?? false,
+        ])->get()->toArray();
+        return array_merge($adminLayers,  $customerLayers);
     }
 
     public function updateOrCreate($data)

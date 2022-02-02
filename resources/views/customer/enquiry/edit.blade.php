@@ -661,6 +661,7 @@
         app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location) { 
             $("#building-component").addClass('active');
             $scope.wallGroup = [];
+            $scope.layerAdd = true;
             let enquiry_id = {{$id}};
             $http({
                 method: 'GET',
@@ -677,6 +678,27 @@
                     console.log('get enquiry error');
             });
            
+            $scope.callLayerModal = (wall_id) => {
+                building_component_id = wall_id;
+                $("#add-layer-modal").modal('show');
+            }
+            $scope.submitLayer = () => {
+                if($scope.layer_name =='' || typeof($scope.layer_name) == 'undefined') {
+                    return false;
+                }
+                $http({
+                    method: 'POST',
+                    url: '{{ route('layer.store-layer-from-customer') }}',
+                    data: {building_component_id: building_component_id, layer_name:  $scope.layer_name}
+                }).then(function successCallback(response) {
+                    $scope.layerAdd  = !$scope.layerAdd;
+                    $("#add-layer-modal").modal('hide');
+                    $scope.layer_name = '';
+                    Message('success', 'Layer added successfully');
+                }, function errorCallback(response) {
+                    Message('danger', 'Something went wrong');
+                });
+            }
 
             getDeliveryType = () => {
                 $http({
@@ -842,13 +864,15 @@
                 return {
                     restrict: 'A',
                     link : function (scope, element, attrs) {
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("layer.get-layer-by-building-component") }}',
-                            params : {building_component_id: scope.w.WallId}
-                            }).then(function success(response) {
-                                scope.layers = response.data;
-                            }, function error(response) {
+                        scope.$watch('layerAdd', function() {
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("layer.get-layer-by-building-component") }}',
+                                params : {building_component_id: scope.w.WallId}
+                                }).then(function success(response) {
+                                    scope.layers = response.data;
+                                }, function error(response) {
+                            });
                         });
                     },
                 };

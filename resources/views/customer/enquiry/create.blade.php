@@ -729,6 +729,7 @@
         app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location) { 
             $("#building-component").addClass('active');
             $scope.wallGroup = [];
+            $scope.layerAdd = true;
             let building_component_id;
             let enquiry_id;
             $http({
@@ -750,30 +751,24 @@
                 $("#add-layer-modal").modal('show');
             }
             $scope.submitLayer = () => {
-                if($scope.layer_name =='' || typeof($scope.layer_name)) {
+               
+                if($scope.layer_name =='' || typeof($scope.layer_name) == 'undefined') {
                     return false;
                 }
-             
                 $http({
                     method: 'POST',
                     url: '{{ route('layer.store-layer-from-customer') }}',
                     data: {building_component_id: building_component_id, layer_name:  $scope.layer_name}
                     }).then(function successCallback(response) {
+                        $scope.layerAdd  = !$scope.layerAdd;
                         $("#add-layer-modal").modal('hide');
+                        $scope.layer_name = '';
                         Message('success', 'Layer added successfully');
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("layer.get-layer-by-building-component") }}',
-                            params : {building_component_id: building_component_id}
-                            }).then(function success(response) {
-                                $scope.layers = response.data;
-                            }, function error(response) {
-                        });
                     }, function errorCallback(response) {
                         Message('danger', 'Something went wrong');
                     });
             }
-
+         
             getDeliveryType = () => {
                 $http({
                     method: 'GET',
@@ -938,6 +933,7 @@
                 return {
                     restrict: 'A',
                     link : function (scope, element, attrs) {
+                        scope.$watch('layerAdd', function() {
                             $http({
                                 method: 'GET',
                                 url: '{{ route("layer.get-layer-by-building-component") }}',
@@ -946,6 +942,7 @@
                                     scope.layers = response.data;
                                 }, function error(response) {
                             });
+                        });
                     },
                 };
             });

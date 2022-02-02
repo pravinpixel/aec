@@ -152,6 +152,10 @@
                                                                                     @{{ layer.layer_name }}
                                                                                 </option>
                                                                         </select>
+                                                                        {{-- <select name="l.LayerName"   ng-model="l.LayerName" 
+                                                                                ng-options="layer.id as (layer.layer_name) for layer in layers">
+                                                                            <option></option>
+                                                                        </select> --}}
                                                                     </div>
                                                                     <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center" ng-click="callLayerModal(w.WallId)" title="Add layer name"><i class="fa fa-plus"></i></div>
                                                                 </div>
@@ -173,7 +177,7 @@
                                                                         <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
                                                                         <input  type="number" step="0.01" onkeypress="return isNumber(event)" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
                                                                     </div>
-                                                                    <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >x</span>
+                                                                    <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >.mm</span>
                                                                     <div class="form-group">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
                                                                         <input   type="number" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
