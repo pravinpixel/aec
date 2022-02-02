@@ -577,6 +577,41 @@
             getBuildingType();
             getDeliveryType();
 
+            $scope.getZipcodeData = function() {
+                let zipcode = $("#zipcode").val();
+                if(typeof(zipcode) == 'undefined' || zipcode.length != 4){
+                    return false;
+                }
+                $http({
+                    method: 'GET',
+                    url: `https://api.zippopotam.us/NO/${zipcode}`
+                }).then(function successCallback(res) {
+                    $scope.zipcodeData = res.data;
+                    console.log("API working") 
+                    $scope.projectInfo = {
+                        ...$scope.projectInfo, 
+                        ...{
+                            'state'     :  $scope.zipcodeData.places[0].state,
+                            'place'     :  $scope.zipcodeData.places[0]['place name'],
+                            'country'   :  $scope.zipcodeData.country,
+                            'zipcode'   :  zipcode,
+                        }
+                    };
+                }, function errorCallback(error) {
+                    Message('danger', 'Invalid zipcode');
+                    $scope.projectInfo = {
+                        ...$scope.projectInfo, 
+                        ...{
+                            'state'     : '',
+                            'place'     : '',
+                            'country'   : '',
+                            'zipcode'   :  zipcode,
+                        }
+                    };
+                    return false;
+                });
+            } 
+
             $scope.submitProjectInfoForm = () => {
                 $http({
                     method: 'POST',

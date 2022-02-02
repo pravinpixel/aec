@@ -34,12 +34,12 @@
                 <small class="text-danger" ng-show="projectInfoForm.project_name.$touched && projectInfoForm.project_name.$invalid">This field is required</small>
             </div>
             <div class="form-floating mb-2">
-                <input type="text" class="form-control form-control-sm" ng-keyup="getZipcodeData()" id="floating" name="zipcode" ng-model="projectInfo.zipcode" required/>
+                <input type="text" class="form-control form-control-sm" ng-keyup="getZipcodeData()" id="zipcode" name="zipcode" ng-model="projectInfo.zipcode" required/>
                 <label for="floating">Zipcode</label>
                 <small class="text-danger" ng-show="projectInfoForm.zipcode.$touched && projectInfoForm.zipcode.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" naem="state" ng-model="project_information.state" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" naem="state" ng-model="projectInfo.state" required/>
                 <label for="floating">State  </label>
                 <small class="text-danger" ng-show="projectInfoForm.state.$touched && projectInfoForm.state.$invalid">This field is required</small>
             </div>
@@ -76,12 +76,12 @@
                 <small class="text-danger" ng-show="projectInfoForm.site_address.$touched && projectInfoForm.site_address.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="place" ng-model="project_information.place" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="place" ng-model="projectInfo.place" required/>
                 <label for="floating">Place</label>
                 <small class="text-danger" ng-show="projectInfoForm.place.$touched && projectInfoForm.place.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="country" ng-model="project_information.country" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="country" ng-model="projectInfo.country" required/>
                 <label for="floating">Country</label>
                 <small class="text-danger" ng-show="projectInfoForm.country.$touched && projectInfoForm.country.$invalid">This field is required</small>
             </div>

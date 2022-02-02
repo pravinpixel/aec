@@ -19,8 +19,7 @@
     border-radius: 0 0 20px 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    line-height: 10px;
+    align-items: center;    
     box-shadow: 0 0 21px gray !important;
     border: 2px solid white !important;
     border-top: none !important;
@@ -30,6 +29,11 @@
     color: white !important;
     font-weight: lighter !important;
     transition: all .5s !important
+}
+.alert-custom strong {
+    line-height: 15px;
+    font-weight: lighter !important;
+    padding-top: 10px;
 }
 .alert-custom:hover {
     box-shadow: 0 0 5px !important;

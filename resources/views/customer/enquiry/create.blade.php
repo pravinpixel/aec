@@ -563,30 +563,38 @@
 
 
             $scope.getZipcodeData = function() {
-          
-                if(typeof($scope.projectInfo.zipcode) == 'undefined'){
+                let zipcode = $("#zipcode").val();
+                if(typeof(zipcode) == 'undefined' || zipcode.length != 4){
                     return false;
                 }
-                
-                if($scope.projectInfo.zipcode.length > 3) { 
-                    
-                    $http({
-                        method: 'GET',
-                        url: 'https://api.zippopotam.us/NO/'+ $scope.projectInfo.zipcode
-                    }).then(function (res) {
-
-                        $scope.zipcodeData = res.data;
-                        console.log("API working") 
-                        $scope.project_information = {
+                $http({
+                    method: 'GET',
+                    url: `https://api.zippopotam.us/NO/${zipcode}`
+                }).then(function successCallback(res) {
+                    $scope.zipcodeData = res.data;
+                    console.log("API working") 
+                    $scope.projectInfo = {
+                        ...$scope.projectInfo, 
+                        ...{
                             'state'     :  $scope.zipcodeData.places[0].state,
                             'place'     :  $scope.zipcodeData.places[0]['place name'],
                             'country'   :  $scope.zipcodeData.country,
-                        };
-
-                    }, function (error) {
-                        console.log('This is embarassing. An error has occurred. Please check the log for details');
-                    });
-                } 
+                            'zipcode'   :  zipcode,
+                        }
+                    };
+                }, function errorCallback(error) {
+                    Message('danger', 'Invalid zipcode');
+                    $scope.projectInfo = {
+                        ...$scope.projectInfo, 
+                        ...{
+                            'state'     : '',
+                            'place'     : '',
+                            'country'   : '',
+                            'zipcode'   :  zipcode,
+                        }
+                    };
+                    return false;
+                });
             } 
             
  
@@ -596,13 +604,13 @@
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
-                    'state'                : $scope.project_information.state,
+                    'state'                : $projectInfo.state,
                     'building_type_id'     : $projectInfo.building_type_id,
                     'project_type_id'      : $projectInfo.project_type_id,
                     'project_date'         : new Date($projectInfo.project_date),
                     'site_address'         : $projectInfo.site_address,
-                    'place'                : $scope.project_information.place,
-                    'country'              : $scope.project_information.country,
+                    'place'                : $projectInfo.place,
+                    'country'              : $projectInfo.country,
                     'no_of_building'       : $projectInfo.no_of_building,
                     'delivery_type_id'     : $projectInfo.delivery_type_id,
                     'project_delivery_date': new Date($projectInfo.project_delivery_date),
@@ -610,6 +618,7 @@
                 return  $scope.data;
             }
             getProjectInfoInptuDataFormat = function($projectInfo) {
+                console.log('$projectInfo',$projectInfo);
                 $scope.data = {
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
