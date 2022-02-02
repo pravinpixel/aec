@@ -33,3 +33,47 @@
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
 
 <!-- ========= Alert js Notifications ========== -->
+
+<style>
+    .conversation-list  li.Admin_odd {
+        flex-direction: row-reverse;
+    }
+    .conversation-list  li.Admin_odd  .conversation-text {
+        background: #BFDDFE;
+        padding: 15px;
+        font-size: 14px;
+        font-weight: bold ;
+        border-radius: 5px;
+        text-align: right;
+        position: relative;
+    } 
+
+    .conversation-list  li.Customer_odd  .conversation-text {
+        background: #eee;
+        padding: 15px;
+        font-size: 14px;
+        font-weight: bold ;
+        border-radius: 5px;
+        text-align: left;
+        position: relative;
+    }  
+    .conversation-list  li.Admin_odd  .conversation-text::after{
+        position: absolute;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: #BFDDFE;
+        top: 0;
+        clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
+    } 
+    .conversation-list  li.Customer_odd  .conversation-text::after{
+        position: absolute;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: #eee;
+        top: 0;
+        clip-path:polygon(0 9%, 0 0, 100% 0, 103% 100%) ;
+        left:-11px !important
+    }    
+</style>

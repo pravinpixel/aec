@@ -151,31 +151,31 @@
         
                 {{-- Selected Services --}}
                     <fieldset class="accordion-item">
-                        <div class="accordion-header custom m-0 position-relative" id="selected_service_header">
-                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#selected_service" aria-expanded="false" aria-controls="selected_service">
+                        <div class="accordion-header custom m-0 position-relative" id="service_header">
+                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#service" aria-expanded="false" aria-controls="service">
                                 Selected Services
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                                 <i data-bs-toggle="collapse" 
-                                    href="#selected_service" 
+                                    href="#service" 
                                     aria-expanded="true" 
-                                    aria-controls="selected_service" 
+                                    aria-controls="service" 
                                     class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
                                     >
                                 </i>
                             </div>
                         </div>
-                        <div id="selected_service" class="accordion-collapse collapse" aria-labelledby="selected_service_header" data-bs-parent="#summaryGroup">
+                        <div id="service" class="accordion-collapse collapse" aria-labelledby="service_header" data-bs-parent="#summaryGroup">
                             <div class="accordion-body">  
                                 <ul class="row m-0 " >
                                     <li ng-repeat="service in services" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
                                 </ul>  
-                                <form id="selected_service__commentsForm" ng-submit="sendComments('selected_service','Admin')" class="input-group mt-3">
-                                    <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <form id="service__commentsForm" ng-submit="sendComments('service','Admin')" class="input-group mt-3">
+                                    <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'selected_service', 'Selected Services')">
+                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div>
@@ -186,20 +186,20 @@
         
                 {{-- IFC Models & Uploaded Documents --}}
                     <fieldset class="accordion-item">
-                        <div class="accordion-header custom m-0 position-relative" id="IFC_Models_Upload_Docs_header">
-                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#IFC_Models_Upload_Docs" aria-expanded="false" aria-controls="IFC_Models_Upload_Docs">
+                        <div class="accordion-header custom m-0 position-relative" id="ifc_model_header">
+                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#ifc_model" aria-expanded="false" aria-controls="ifc_model">
                                 IFC Models & Uploaded Documents
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                                 <i data-bs-toggle="collapse" 
-                                href="#IFC_Models_Upload_Docs" 
+                                href="#ifc_model" 
                                 aria-expanded="false" 
-                                aria-controls="IFC_Models_Upload_Docs" 
+                                aria-controls="ifc_model" 
                                 class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed ">
                                 </i>
                             </div>
                         </div>
-                        <div id="IFC_Models_Upload_Docs" class="accordion-collapse collapse " aria-labelledby="IFC_Models_Upload_Docs_header" data-bs-parent="#summaryGroup">
+                        <div id="ifc_model" class="accordion-collapse collapse " aria-labelledby="ifc_model_header" data-bs-parent="#summaryGroup">
                             <div class="accordion-body"> 
                                 <table class="table custom table-hover">
                                     <thead>
@@ -225,12 +225,12 @@
                                         </tbody>
                                     </thead>
                                 </table>
-                                <form id="IFC_Models_Upload_Docs__commentsForm" ng-submit="sendComments('IFC_Models_Upload_Docs','Admin')" class="input-group mt-3">
-                                    <input required type="text" ng-model="IFC_Models_Upload_Docs__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Admin')" class="input-group mt-3">
+                                    <input required type="text" ng-model="ifc_model__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'IFC_Models_Upload_Docs', 'IFC Models & Uploaded Documents')">
+                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'ifc_model', 'IFC Models & Uploaded Documents')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div>
@@ -241,19 +241,19 @@
         
                 {{-- Building Components --}}
                     <fieldset class="accordion-item">
-                        <div class="accordion-header custom m-0 position-relative" id="building_components_header">
-                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#building_components" aria-expanded="false" aria-controls="building_components">
+                        <div class="accordion-header custom m-0 position-relative" id="building_component_header">
+                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#building_component" aria-expanded="false" aria-controls="building_component">
                                 Building Components
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                                 <i data-bs-toggle="collapse" 
-                                    href="#building_components" 
+                                    href="#building_component" 
                                     aria-expanded="false" 
-                                    aria-controls="building_components" 
+                                    aria-controls="building_component" 
                                     class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                             </div>
                         </div>
-                        <div id="building_components" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                        <div id="building_component" class="accordion-collapse collapse  " aria-labelledby="building_component_header" data-bs-parent="#summaryGroup">
                             <div class="accordion-body">  
                                 <div  style="max-height: 400px; overflow:auto"> 
                                     <table class="table table-bordered" ng-init="total = 0 ">
@@ -273,7 +273,7 @@
                                                     </table>
                                                 </th>
                                             </tr> 
-                                            <tr ng-repeat="building_component in building_components" >
+                                            <tr ng-repeat="building_component in building_component" >
                                                 <td>@{{ building_component.wall }} @{{ total }}</td>
                                                 <td style="padding: 0 !important" >
                                                     <table class="table m-0 ">
@@ -317,12 +317,12 @@
                                         </tbody>                     
                                     </table> 
                                 </div> 
-                                <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
-                                    <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <form id="building_component__commentsForm" ng-submit="sendComments('building_component','Admin')" class="input-group mt-3">
+                                    <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
+                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_component', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div> 

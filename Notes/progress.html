@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>AngularJS Progress Bar with PHP/MySQLi</title>
+    <meta charset="utf-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>  
+</head>
+<style>
+    td{
+        word-break: break-all;
+    }
+</style>
+<body ng-app="app" ng-controller="uploader" ng-init="fetch()">
+<div class="container">
+    <h1 class="page-header text-center">AngularJS Progress Bar with PHP/MySQLi</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <h3 class="text-center">Upload File/s</h3>
+            <hr>
+            <label>File:</label>
+            <input type="file" file-input="files" multiple>
+            <hr>
+            <button class="btn btn-primary" ng-click="upload()"><span class="glyphicon glyphicon-download-alt"></span> Upload</button>
+            <progress id="progress" max="100" value="{{progressBar}}" ng-show="showProgress" style="height:30px; width:100%; margin-top:30px;"></progress>
+            <div class="text-center">{{progressCounter}}</div>
+            <div ng-show="error" class="alert alert-danger text-center" style="margin-top:30px;">
+                <button type="button" class="close" ng-click="clearMessage()"><span aria-hidden="true">&times;</span></button>
+                <span class="glyphicon glyphicon-remove"></span> {{ errorMessage }}
+            </div>
+            <div ng-show="success" class="alert alert-success text-center" style="margin-top:30px;">
+                <button type="button" class="close" ng-click="clearMessage()"><span aria-hidden="true">&times;</span></button>
+                <span class="glyphicon glyphicon-check"></span> {{ successMessage }}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th width="25%">Original FileName</th>
+                    <th width="25%">New FileName</th>
+                    <th width="25%">Type</th>
+                    <th width="25%">File Location</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="upload in uploads">
+                        <td>{{ upload.original }}</td>
+                        <td>{{ upload.new }}</td>
+                        <td>{{ upload.type }}</td>
+                        <td>upload/{{ upload.new }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <div class="col-md-4" ng-repeat="image in images">
+                <img ng-src="upload/{{ image.filename }}" width="100%" height="250px" class="thumbnail">
+            </div> -->
+        </div>
+    </div>
+</div>
+<script>
+    var app = angular.module('app', []);
+    app.directive('fileInput', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function($scope, elm, attrs){
+                elm.bind('change', function(){
+                    $parse(attrs.fileInput).assign($scope, elm[0].files);
+                    $scope.$apply();
+                });
+            }
+        }
+    }]);
+    app.controller('uploader', function($scope, $http){
+        $scope.showProgress = false;
+        $scope.error = false;
+        $scope.errorMessage = "";
+        $scope.success = false;
+        $scope.successMessage = "";
+        $scope.upload = function(){
+    
+            var uploadForm = new FormData();
+            angular.forEach($scope.files, function(file){
+                uploadForm.append('file[]', file);
+            });
+            $http.post('upload.php', uploadForm, {
+                transformRequest:angular.identity, 
+                headers: {'Content-Type':undefined, 'Process-Data': false},
+                uploadEventHandlers: {
+                    progress: function (e) {
+                            if (e.lengthComputable) {
+                                    $scope.showProgress = true;
+                                    $scope.progressBar = (e.loaded / e.total) * 100;
+                                    $scope.progressCounter = $scope.progressBar.toFixed(2) + ' %';
+                            }
+                    }
+                }
+            })
+            .success(function(response){
+                console.log(response);
+                if(response.error){
+                    $scope.error = true;
+                    $scope.errorMessage = response.message;
+                }
+                else{
+                    $scope.success = true;
+                    $scope.successMessage = response.message;
+                    $scope.fetch();
+                }
+            })
+        }
+    
+        $scope.fetch = function(){
+            $http.get('fetch.php')
+            .success(function(data){
+                $scope.uploads = data;
+            });
+    
+        }
+    
+        $scope.clearMessage = function(){
+            $scope.error = false;
+            $scope.errorMessage = "";
+            $scope.success = false;
+            $scope.successMessage = "";
+        }   
+    });
+</script>
+</body>
+</html>

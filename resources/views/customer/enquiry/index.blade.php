@@ -70,7 +70,8 @@
                     </div>
                 </div> 
             </div> <!-- container -->
-            @include('customer.enquiry.detail-modal')
+            @include('customer.enquiry.models.detail-modal')
+            @include('customer.enquiry.models.chat-box')
         </div> <!-- content --> 
     </div> 
 
@@ -139,6 +140,7 @@
 @endsection
 
 @push('custom-styles')
+
     <link href="{{ asset('public/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/css/vendor/responsive.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/css/vendor/buttons.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
@@ -184,22 +186,9 @@
     </style>
 @endpush
 
-@push('custom-scripts')
+@push('custom-scripts') 
     
-    <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
     <script>
- 
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL) {
            
             $scope.getEnquiry = (type,id) =>  {
@@ -211,8 +200,8 @@
                         url: `${API_URL}customers/edit-enquiry-review/${id}`,
                     }).then(function (res){
                         $scope.enquiry = res.data;
-                        $("#right-modal-progress").modal('show');
-                        // $(`[data-bs-target=#${old}]`).addClass('collapsed');
+                        $scope.enquiry_id = res.data.project_infos.enquiry_id;
+                        $("#right-modal-progress").modal('show'); 
                         $(`#${type}`).addClass('show');
                      
                     }, function (error) {
@@ -226,6 +215,69 @@
                 popupWinindow.document.open();
                 popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
                 popupWinindow.document.close();
+            }
+            $scope.glued = true;
+            $scope.sendComments  = function(type, created_by) { 
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope[`${type}__comments`],
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   type,
+                    "created_by"      :   created_by,
+                } 
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById(`${type}__commentsForm`).reset();
+                    // $scope.GetCommentsData();
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            $scope.showCommentsToggle = function (modalstate, type, header) {
+                $scope.modalstate = modalstate;
+                $scope.module = null;
+                $scope.chatHeader   = header; 
+                switch (modalstate) {
+                    case 'viewConversations':
+                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                            $scope.commentsData = response.data.chatHistory; 
+                            $scope.chatType     = response.data.chatType;  
+                            $('#viewConversations-modal').modal('show');
+                        });
+                        break;
+                    default:
+                        break;
+                } 
+            }
+            $scope.sendInboxComments  = function(type) {
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   $scope.chatType,
+                    "created_by"      :   type,
+                }
+                console.log($scope.sendCommentsData);
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById("Inbox__commentsForm").reset();
+                    $scope.showCommentsToggle('viewConversations', $scope.chatType);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
             }
         });
     </script>

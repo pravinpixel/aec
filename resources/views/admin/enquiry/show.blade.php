@@ -355,10 +355,7 @@
                     }, function errorCallback(response) {
                         Message('danger',response.data.errors);
                     });
-                } 
-
-
-                
+                }  
                 $scope.sendInboxComments  = function(type) { 
                     $scope.sendCommentsData = {
                         "comments"        :   $scope.inlineComments,

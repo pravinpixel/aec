@@ -1,4 +1,4 @@
-<div id="viewConversations-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="viewConversations-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >
     <div class="modal-dialog h-100 modal-right" style="width:100% !important">            
         <div class="modal-content h-100 d-flex justify-content-center bg-light align-items-center" >
             <div class="card w-100 h-100">
@@ -15,23 +15,23 @@
                             </div>
                             <div class="conversation-text">
                                 <div class="ctext-wrap"> 
-                                    <p>
+                                    <div>
                                        @{{ msg.comments }}
-                                    </p> 
-                                    <small style="font-size: 10px !important" class="text-secondary">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
+                                    </div> 
+                                    <small class="timesOfMsg">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
                                 </div>
                             </div> 
                         </li> 
                     </ul>
                 </div>
                 <div class="card-footer bg-light">
-                    <form id="Inbox__commentsForm" ng-submit="sendInboxComments('Admin')" class="d-flex align-items-center">
+                    <form id="Inbox__commentsForm" ng-submit="sendInboxComments('Customer')" class="d-flex align-items-center">
                         <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
                         <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                     </form> 
                 </div>
-            </div> 
-            <!-- end row -->
+            </div>  
         </div><!-- /.modal-content -->
+        
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

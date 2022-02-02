@@ -450,7 +450,6 @@
 	<script src="{{ asset('public/assets/js/pages/demo.dashboard.js') }}"></script>
 	<script src="{{ asset('public/assets/js/pages/demo.apex-pie.js') }}"></script>
 	<script src="{{ asset('public/assets/js/pages/demo.apex-column.js') }}"></script>
-	<script src="{{ asset('public/assets/js/pages/demo.dashboard-analytics.js') }}"></script>
-	 
+	<script src="{{ asset('public/assets/js/pages/demo.dashboard-analytics.js') }}"></script> 
 @endpush
  
