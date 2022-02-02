@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Admin\Documentary;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\OutputTypeRepository;
+use App\Repositories\DocumentaryRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Requests\OutputTypeCreateRequest;
-use App\Http\Requests\OutputTypeUpdateRequest;
+use Illuminate\Support\Facades\Config;
+use App\Http\Requests\DocumentaryCreateRequest;
+use App\Http\Requests\DocumentaryUpdateRequest;
 class DocumentaryController extends Controller
 {
-    protected $outputTypeRepository;
+    protected $documentaryRepository;
 
-    public function __construct(OutputTypeRepository $outputType)
+    public function __construct(DocumentaryRepository $Documentary)
     {
-        $this->outputTypeRepository = $outputType;
+        $this->documentaryRepository = $Documentary;
     }
     /**
      * Display a listing of the resource.
@@ -28,13 +29,14 @@ class DocumentaryController extends Controller
     }
     public function index()
     {
-        return response()->json($this->outputTypeRepository->all());
+        // return 1;
+        return response()->json($this->documentaryRepository->all());
     
     }
 
     public function create()
     {
-       
+        return view('admin.pages.documentary.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -42,15 +44,16 @@ class DocumentaryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OutputTypeCreateRequest $request)
+    public function store(DocumentaryCreateRequest $request)
     {
+        return $request->all();
         $outputType = $request->only([
-            "output_type_name","order_id","is_active"
+           "documentary_title","documentary_type","documentary_content","is_active"
         ]);
 
         return response()->json(
             [
-                'data' => $this->outputTypeRepository->create($outputType),
+                'data' => $this->documentaryRepository->create($outputType),
                 'status' => true, 'msg' => trans('module.inserted')
             ],
             Response::HTTP_CREATED
@@ -65,7 +68,7 @@ class DocumentaryController extends Controller
      */
     public function edit($id) 
     {
-        $data = $this->outputTypeRepository->find($id);
+        $data = $this->documentaryRepository->find($id);
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
@@ -74,11 +77,11 @@ class DocumentaryController extends Controller
 
 
 
-    public function show($id): JsonResponse 
+    public function show($id)
     {
-
+        
         return response()->json([
-            'data' => $this->outputTypeRepository->find($id)
+            'data' => $this->documentaryRepository->find($id)
         ]);
     }
 
@@ -89,14 +92,14 @@ class DocumentaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(OutputTypeUpdateRequest $request,$id)
+    public function update(DocumentaryUpdateRequest $request,$id)
     {
         $layer = $request->only([
-            "output_type_name","order_id","is_active"
+            "documentary_title","documentary_type","documentary_content","is_active"
         ]);
 
         return response()->json([
-            'data' => $this->outputTypeRepository->update($layer, $id),
+            'data' => $this->documentaryRepository->update($layer, $id),
             'status' => true, 'msg' => trans('module.updated'),
              
         ]);
@@ -107,37 +110,41 @@ class DocumentaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function layer_status($id)
-    // {
-    //     $module = $this->outputTypeRepository->find($id);
-
-    //     if( empty( $module ) ) {
-    //         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
-    //     } 
-    //     $module->is_active = !$module->is_active;
-    //     $res = $module->save();
-
-    //     if( $res ) {
-    //         return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
-    //     }
-    //     return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
-    // }
+  
     public function status(Request $request)
     {
         $output = $request->route('id');
-        $this->outputTypeRepository->updateStatus($output);
+        $this->documentaryRepository->updateStatus($output);
         return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $output], Response::HTTP_OK);
     }
     
     public function destroy($id) 
     {
         $output = $id;
-        $this->outputTypeRepository->delete($output);
+        $this->documentaryRepository->delete($output);
         return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$output], Response::HTTP_OK);
+    }
+
+    public function documentaryEdit($id)
+    {
+        $id = $id;
+        return view('admin.pages.documentary.edit',compact('id'));
     }
 
     public function get(Request $request)
     {
-        return response()->json($this->outputTypeRepository->get($request));
+        return response()->json($this->documentaryRepository->get($request));
+    }
+    public function getEnquirie(Request $request)
+    {
+        $data = Config::get('documentary.enquiries');
+        return response()->json($data);
+        // return response()->json($this->documentaryRepository->getEnquirie($request));
+    }
+    public function getCustomer(Request $request)
+    {
+        $data = Config::get('documentary.customers');
+        return response()->json($data);
+        // return response()->json($this->documentaryRepository->getCustomers($request));
     }
 }

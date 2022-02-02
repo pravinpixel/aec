@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\Master\LayerController;
 use App\Http\Controllers\Admin\Master\DeliveryTypeController;
 use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\ServiceController;
-use App\Http\Controllers\Admin\Contract\DocumentaryController;
+use App\Http\Controllers\Admin\Documentary\DocumentaryController;
 
 use App\Http\Controllers\Auth\AuthController;
 
@@ -100,13 +100,12 @@ Route::prefix('admin')->group(function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
     
     Route::get('add-documentary', [DocumentaryController::class, 'create'])->name('add-documentary');
-    //Building Component
-    // Route::post('add-component', [CostEstimationController::class, 'addComponent'])->name('add-component');
-    // Route::get('edit-component/{id}', [CostEstimationController::class, 'editComponent'])->name('edit-component'); 
-    // Route::post('update-component/{id}', [CostEstimationController::class, 'updateComponent'])->name('update-component');
-    // Route::put('component-status/{id}', [CostEstimationController::class, 'componentStatus'])->name('component-status');
-    // Route::delete('delete-component/{id}', [CostEstimationController::class, 'deleteComponent'])->name('delete-component');
-    // Route::get('get-component', [CostEstimationController::class, 'getComponent'])->name('get-component');
+    Route::get('documentary/enquirie',[DocumentaryController::class,'getEnquirie'])->name('documentary.enquirie');
+    Route::get('documentary/customer',[DocumentaryController::class,'getCustomer'])->name('documentary.customer');
+    Route::put('documentary/status/{id}', [DocumentaryController::class,'status'] )->name('documentary.status');
+    Route::get('documentaryEdit/{id}', [DocumentaryController::class, 'documentaryEdit'])->name('documentaryEdit');
+    Route::resource('documentary', DocumentaryController::class);
+   
 
 });
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
@@ -153,6 +152,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::post('data/task',[ GanttChartController::class, 'index'])->name('data.task');
 
     Route::get('getMasterCalculation', [CostEstimationController::class, 'getMasterCalculation'])->name('getMasterCalculation');
+    Route::get('deleteTableData', [CostEstimationController::class,'deleteTableData'])->name('deleteTableData');
      
 });
 

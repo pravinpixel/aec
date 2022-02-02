@@ -11,4 +11,6 @@ interface DocumentaryRepositoryInterface
     public function updateStatus($id);
     public function find($id);
     public function get($request);
+    public function getEnquirie($request);
+    public function getCustomers($request);
 }

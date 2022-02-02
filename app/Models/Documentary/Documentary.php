@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Documentary extends Model
 {
     use HasFactory, SoftDeletes;
-
+    protected $table = 'documentary';
+    protected $primaryKey = 'id';
     public $fillable = [
         'documentary_type',
         'documentary_title',

@@ -22,6 +22,7 @@
                         @if (Route::is('admin.employee-add')) Create Employee @endif
                         @if (Route::is('admin.employeeEdit')) Edit Employee @endif 
                         @if (Route::is('admin-documentary-view')) Documentary @endif 
+                        @if (Route::is('admin.add-documentary')) Create Documentary @endif
                     </li>
                     @if (Route::is('view-enquiry')) 
                         <li class="breadcrumb-item">
@@ -49,6 +50,8 @@
                 @if (Route::is('admin.employee-add')) Create Employee @endif
                 @if (Route::is('admin.employeeEdit')) Edit Employee @endif
                 @if (Route::is('admin-documentary-view')) Documentary @endif
+                @if (Route::is('admin.add-documentary')) Create Documentary @endif
+                
             </h4>
         </div>
     </div>

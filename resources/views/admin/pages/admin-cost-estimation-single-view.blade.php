@@ -155,6 +155,7 @@
                                                 <td  ><input  type="number"  name="addmore[0][logistic_sum]" min="0" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
                                                 <td  ><input  type="number"  name="addmore[0][total_price]" min="0" data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
                                                 <td  ><input  type="number"  name="addmore[0][total_sum]" min="0" data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > </td>
+                                                <td style="text-align:center !important" class="delete_row_btn" data-delete_row_id="0"><span > <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </span></td>
                                             </tr> 
                                     </tbody>
                                     <tfoot id="footerform" >
@@ -714,7 +715,7 @@
    
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        function delete_data(e)
+        function delete_TableData(e)
         {
 
             swal({
@@ -728,7 +729,7 @@
 						if (willDelete) {
 							$.ajax({
                                 type: "GET",
-                        url: "{{ route('admin.deleteRowData') }}",
+                        url: "{{ route('admin.deleteTableData') }}",
                         data: {
                             
                             id:e
@@ -784,42 +785,13 @@
     
             //             });
         }
-            $( document ).ready(function() {
-    
-                calculation_total()
-                var i=0;
-                var comp_val = false;
-                var type_val = false;
-                var row_id = false;
-
-                $(document).on('change','.addmore_component',function(){
-                        comp_val = $(this).val();
-                        // alert(comp_val)
-                        
-                        var row_id = $(this).data('select-id');
-                        // alert(row_id)
-                        masterCalculation(comp_val,type_val,row_id)
-                    
-                    });
-
-        
-                    $(document).on('change','.addmore_type',function(){
-                        
-                    type_val = $(this).val();
-                    var row_id = $(this).data('select-id');
-
-
-                        masterCalculation(comp_val,type_val,row_id)
-                    });
-                    $('#add_btn').on('click',function(){
-                        // calculation_total()
-                        sqm_total()
-                        complexity_total()
-                        // $('.complexity_val ').keyup();
-                        ++i;
-                        comp_val = false; type_val = false;row_id=false;
-                        // alert(i)
-                    });
+        function editComponent(rowId)
+                    {
+                        var compoId = $('#componentId_'+rowId).val();
+                        var typeId = $('#typeId_'+rowId).val();
+                           
+                            masterCalculation(compoId,typeId,rowId)
+                    }
                     function masterCalculation(comp_val,type_val,row_id)
                     {
                         
@@ -835,7 +807,7 @@
                                 success: function(msg) {
                                 // alert(JSON.stringify(msg.data))
                                     $('#estimate-datatable').DataTable().clear().draw();
-                                    // alert(row_id)
+                                   
                                     // $(`#sqm__${row_id}`).val(msg.data.sqm);
                                     // $(`#complexity__${row_id}`).val(msg.data.complexity);
                                     $(`#detail_price__${row_id}`).val(msg.data.detail_price);
@@ -873,8 +845,72 @@
                             
 
                     }
+            $( document ).ready(function() {
+    
+                calculation_total()
+                var i=0;
+                var comp_val = false;
+                var type_val = false;
+                var row_id = false;
+
+                $(document).on('change','.addmore_component',function(){
+
+                    // if(type_val == false)
+                    // {
+                    //     var data_type = $(this).data('select-type-val');
+                    // }
+                    // alert(data_type)
+                   console.log( $(this).data('select-type-val'))
+                   comp_val = $(this).val();
+                   
+                    //    alert(comp_val)
+                        //    if(data_type)
+                        //    {
+                        //     type_val =  data_type;
+                        //    }
+                  
+                        
+                    var row_id = $(this).data('select-id');
+                    // alert(row_id)
+                    masterCalculation(comp_val,type_val,row_id)
+                    
+                    });
+
+        
+                    $(document).on('change','.addmore_type',function(){
+                        // if(comp_val == false)
+                        //     {
+                        //         var data_compnent = $(this).data('select-component-val');
+                        //     }
+                        //     alert(data_compnent)
+                        // var data_compnent = $(this).data('select-component-val');
+                       
+                        type_val = $(this).val();
+                        // alert(type_val)
+                       
+                        // if(data_compnent)
+                        // {
+                        //     comp_val =  data_compnent;
+                        // }
+                   
+                        var row_id = $(this).data('select-id');
+
+
+                        masterCalculation(comp_val,type_val,row_id)
+                    });
+                    
+                    $('#add_btn').on('click',function(){
+                        // calculation_total()
+                        sqm_total()
+                        complexity_total()
+                        // $('.complexity_val ').keyup();
+                        ++i;
+                        comp_val = false; type_val = false;row_id=false;
+                        // alert(i)
+                    });
+                    
                 
-        }); 
+            }); 
 
                 function sqm_total(e){
                     // alert(e)
@@ -1260,7 +1296,7 @@
                         
                         $("#costEstimateTable > tbody").html(`
                             
-                        <tr  class="text-white " style="background: #0D2E67">
+                        <tr  class="text-white ">
                             <td width="180px">
                                 <select class="form-select addmore_component select2" data-select-id="0" name="addmore[0][component]" required  data-toggle="select2">
                                     <option value="">Select</option>
@@ -1289,6 +1325,7 @@
                                 <td  ><input  type="number"  name="addmore[0][logistic_sum]" min="0" data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
                                 <td  ><input  type="number"  name="addmore[0][total_price]" min="0" data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
                                 <td  ><input  type="number"  name="addmore[0][total_sum]" min="0" data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > 
+                                <td style="text-align:center !important" class="delete_row_btn" data-delete_row_id="0"><span > <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </span></td>
                             </td>
                         </tr>
             
@@ -1404,8 +1441,9 @@
                         //  <input type="number" maxlength="6" class="form-control complexity_field" value="${msg.data.detail.complexity_val}" name="complexity_val" id="complexity_val" >
                         //  `);
                          $('#complexity_val').val(`${msg.data.detail.complexity_val}`);
-                        for(i=0;i<msg.data.calculation.length;i++){
+                        for(var i=0; i<msg.data.calculation.length; i++){
                             // alert(JSON.stringify(msg.data.detail.complexity_val))
+                           
                             let detail = msg.data.calculation[i];let selected = 'selected';
                            
                             console.log(detail);
@@ -1414,8 +1452,8 @@
                                     <tr >
                                     <input type="hidden" name="addmore[${i}][test]" value=" ${detail.id }" >
                                    
-                                                <td >
-                                                <select class="form-select addmore_component" data-select-id="0" name="addmore[${i}][component]">
+                                                <td width="180px">
+                                                <select class="form-select select2" onchange="editComponent(${i})" id="componentId_${i}" data-select-id="${i}" data-select-type-val="${detail.type}"  name="addmore[${i}][component]">
                                                         <option value="">Select</option>
                                                         
                                                             @foreach($data['component'] as $val)
@@ -1424,8 +1462,8 @@
                                                 
                                                     </select>
                                                 </td>
-                                                <td >
-                                                <select class="form-select addmore_type" data-select-id="0" name="addmore[${i}][type]">
+                                                <td width="180px" >
+                                                <select class="form-select select2"  onchange="editComponent(${i})" id="typeId_${i}" data-select-id="${i}"  data-select-component-val="${detail.Component}" name="addmore[${i}][type]">
                                                         <option value="">Select</option>
                                                        
                                                             
@@ -1447,8 +1485,8 @@
                                                 <td  ><input  type="number"  name="addmore[${i}][logistic_sum]" min="0"  data-logistic-sum_id="${i}" value="${detail.logistic_sum}" id="logistic_sum__${i}" class="my-control logistic_sum"></td>
                                                 <td  ><input  type="number"  name="addmore[${i}][total_price]"  min="0" data-total-price_id="${i}" value="${detail.total_price}" id="total_price__${i}" class="my-control total_price" readonly></td>
                                                 <td  ><input  type="number"  name="addmore[${i}][total_sum]" min="0"  data-total-sum_id="${i}" value="${detail.total_sum}" id="total_sum__${i}" class="my-control total_sum" readonly></td>
-                                                <td style="text-align:center !important" class="delete" data-delete-row_id="${detail.id}"><span onclick="delete_data(${detail.id })"> <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </span></td>
-                                                
+                                                <td style="text-align:center !important" class="delete" data-delete-row_id="${detail.id}"><span > <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </span></td>
+                                          
                                             
                                         </tr>
                     
@@ -1590,6 +1628,7 @@
                                         <td  ><input  type="number"  name="addmore[0][logistic_sum]" min="0"  data-logistic-sum_id="0" id="logistic_sum__0" value="0" class="my-control logistic_sum"></td>
                                         <td  ><input  type="number"  name="addmore[0][total_price]" min="0"  data-total-price_id="0" id="total_price__0" value="0" class="my-control total_price" readonly ></td>
                                         <td  ><input  type="number"  name="addmore[0][total_sum]" min="0"  data-total-sum_id="0" id="total_sum__0" value="0" class="my-control total_sum" readonly > </td>
+                                        <td style="text-align:center !important" class="delete_row_btn" data-delete_row_id="0"><span > <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </span></td>
                                     </tr>
                         
                         `);
@@ -1709,14 +1748,13 @@
                                         <td  ><input  type="number" name="addmore[${i}][total_price]" min="0" data-total-price_id=${i} id="total_price__${i}" value="0" class="my-control total_price" readonly></td>
                                         <td  ><input  type="number" name="addmore[${i}][total_sum]" min="0" data-total-sum_id=${i} id="total_sum__${i}" value="0" class="my-control total_sum" readonly></td>
                                        
-                                        <td style="text-align:center !important" class="delete_row_btn"> <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </td>
+                                        <td style="text-align:center !important" class="delete_row_btn" data-delete_row_id=${i}> <i style="cursor:pointer;font-size:18px" class="fa fa-trash-alt shadow-sm btn text-danger"></i> </td>
                                        </tr> `); });
 
+//                     ********* Edit Cost Estimation row deleted Function *******
                 $(document).on("click", ".delete", function (e) {
-                        // alert()
-                    // editCount += 1;
+
                         var row_del = $(this).data('delete-row_id');
-                        // alert(row_del)
                             swal({
                             title: "Are you sure?",
                             text: "Once deleted, you will not be able to recover this Data!",
@@ -1724,9 +1762,8 @@
                             buttons: true,
                             dangerMode: true,
                             }).then((willDelete) => {
-                        // alert(willDelete)
 						if (willDelete) {
-
+                      
                                 e.preventDefault();
                                 $(this).closest('tr').remove();
                                 sqm_total(1)
@@ -1809,7 +1846,7 @@
                         var values = [].map.call(elements, function(e) {
                         return e.value;
                         });
-                        // alert(values.length)
+                    
                         if(values.length == 0)
                         {
                             $( "#add_btn" ).trigger( "click" );
@@ -1829,10 +1866,41 @@
                         }
                         
                 }
-
-                $(document).on("click", ".delete_row_btn", function (e) {
-                    // alert()
+                function total_zero_row(e)
+                {
+            
+                    
+                       
+                        if(e == 0)
+                        {
+                            $( "#add_btn" ).trigger( "click" );
+                                sqm_total(1)
+                                complexity_total(1)
+                                detail_change_price()
+                                detail_change_sum()
+                                statistic_change_price()
+                                statistic_change_sum()
+                                cad_cam_change_price()
+                                cad_cam_change_sum()
+                                logistic_change_price()
+                                logistic_change_sum()
+                                total_change_price()
+                                total_change_sum()
                                 calculation_total()
+                        }
+                        
+                }
+
+ //                     ********* Add Cost Estimation row deleted Function *******
+                $(document).on("click", ".delete_row_btn", function (e) {
+                  var elements = document.querySelectorAll('.detail_price');
+                        var values = [].map.call(elements, function(e) {
+                        return e.value;
+                        });
+                     
+                        if(values.length != 1)
+                        {
+                            calculation_total()
                                 e.preventDefault();
                                 $(this).closest('tr').remove();
                                 sqm_total(1)
@@ -1848,6 +1916,8 @@
                                 total_change_price()
                                 total_change_sum()
                                 calculation_total()
+                        }
+                               
 
                 });
                 function sum(arr) {

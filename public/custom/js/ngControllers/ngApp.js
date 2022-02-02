@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngRoute','datatables']).constant('API_URL', $("#baseurl").val());
+var app = angular.module('App', ['ngRoute','datatables','textAngular']).constant('API_URL', $("#baseurl").val());
 
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  

@@ -66,25 +66,25 @@
                                 <small>  {{ $type['building_type_name'] }}   </small>
                             </td> 
                             <td style="padding: 0 !important;">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->detail_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="detail_price"  class="cal_submit" name="detail_price<?php echo $i ?>">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->detail_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="detail_price"  class="cal_submit text-center" name="detail_price<?php echo $i ?>">
                             </td>
                             <!-- <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->detail_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="detail_sum"  class="cal_submit" name="detail_sum<?php echo $i ?>">
                             </td> -->
                             <td style="padding: 0 !important;">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->statistic_price  ?? 0}}"  data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="statistic_price" class="cal_submit" name="statistic_price<?php echo $i ?>">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->statistic_price  ?? 0}}"  data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="statistic_price" class="cal_submit text-center" name="statistic_price<?php echo $i ?>">
                             </td>
                             <!-- <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->statistic_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="statistic_sum"  class="cal_submit" name="statistic_sum<?php echo $i ?>">
                             </td> -->
                             <td style="padding: 0 !important;">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->cad_cam_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="cad_cam_price" class="cal_submit" name="cad_cam_price<?php echo $i ?>" >
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->cad_cam_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="cad_cam_price" class="cal_submit text-center" name="cad_cam_price<?php echo $i ?>" >
                             </td>
                             <!-- <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->cad_cam_sum ?? 0 }}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="cad_cam_sum"  class="cal_submit" name="cad_cam_sum<?php echo $i ?>">
                             </td> -->
                             <td style="padding: 0 !important;">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->logistic_price ?? 0 }}"  data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="logistic_price" class="cal_submit" name="logistic_price<?php echo $i ?>">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->logistic_price ?? 0 }}"  data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="logistic_price" class="cal_submit text-center" name="logistic_price<?php echo $i ?>">
                             </td>
                             <!-- <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->logistic_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="logistic_sum"  class="cal_submit" name="logistic_sum<?php echo $i ?>">
@@ -111,9 +111,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#ddlCountry,#ddlAge").on("change", function () {
-           
+          
             var country = $('#ddlCountry').find("option:selected").val();
             var age = $('#ddlAge').find("option:selected").val();
+           
             SearchData(country, age)
         });
 
@@ -128,12 +129,14 @@
     
         }
     function SearchData(selectComponent, selectType) {
+      
         if (selectComponent.toUpperCase() == 'ALL' && selectType.toUpperCase() == 'ALL') {
             $('#table11 tbody tr').show();
         } else {
             $('#table11 tbody tr:has(td)').each(function () {
-                var component = $.trim($(this).find('td:eq(0)').text());
-                var type = $.trim($(this).find('td:eq(1)').text());
+                var component = $.trim($(this).find('td:eq(1)').text());
+                var type = $.trim($(this).find('td:eq(2)').text());
+               
                 if(selectType == '' && selectComponent == component){
                     $(this).show();
                 } else if(selectComponent == '' && selectType == type ){

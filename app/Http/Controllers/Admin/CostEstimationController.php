@@ -103,13 +103,26 @@ class CostEstimationController extends Controller
             return DataTables::eloquent($model)
           
                 ->addColumn('action', function($model){
-                    $actionBtn = '<a class="edit edit_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-edit"></i></a> <a class="delete delete_data btn btn-outline-danger btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-trash"></i></a>';
+                    $actionBtn = '<a class="edit edit_data btn btn-primary btn-sm" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-edit"></i></a> <a class=" btn btn-outline-danger btn-sm"  onclick="delete_TableData('.$model->id.')" data-cost-estimate-id="'.$model->id.'" ><i class="fa fa-trash"></i></a>';
                      
                     return $actionBtn;
                 })
                 ->toJson();
             
         }
+    }
+    public function deleteTableData(Request $request)
+    {
+        // return $request->all();
+       
+        $module = CostEstimationDetail::find($request->id);
+        if (empty($module)) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        $module->status = 2;
+        $module->save();
+        $module->delete();
+        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
     public function costEstimationSingleForm(Request $request)
     {
@@ -424,6 +437,7 @@ class CostEstimationController extends Controller
     
     public function deleteRowData(Request $id)
     {
+        
         // return $id->id."ds";
         $module = CostEstimationCalculation::find($id->id);
         if (empty($module)) {

@@ -2,8 +2,8 @@
 
 @section('admin-content')
    
-    <div class="content-page"  ng-app="AdminEnqView">
-        <div class="content"  ng-controller="EnqController" >
+    <div class="content-page"  ng-app="DocumentaryView">
+        <div class="content"  ng-controller="DocumentaryController" >
 
             @include('admin.includes.top-bar')
 
@@ -14,11 +14,47 @@
                 <div class="card">
                     <div  class="card-header ">
                         <div class="d-flex justify-content-between ">
-                            <a href="{{ route('admin.add-documentary') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Contract</a>
+                            <a href="{{ route('admin.add-documentary') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Documentary</a>
                         </div>
                     </div>
                     <div class="card-body">
+                        <table datatable="ng" dt-options="vm.dtOptions" class="table dt-responsive nowrap table-striped">
+                            <thead>
+                                <tr>
+                                 
+                                    <th>Documentary Title</th>
+                                    <th>Documentary Type</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
                         
+                            <tbody> 
+                                <tr ng-repeat="(index,m) in documentary">
+                                   
+                                    <td> 
+                                        @{{ m.documentary_title }}
+                                    </td>
+                                    <td>@{{ m.documentary_type }}</td>                                  
+                                    <td>	
+                                        {{-- <div>
+                                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.is_active == 1" data-switch="primary"/>
+                                            <label for="switch__@{{index}}"   ng-click="documentary_status(index, m.id)" ></label>
+                                        </div>     --}}
+                                        <div class="form-check form-switch" ng-click="documentary_status(index, m.id)">
+                                            <input type="checkbox" class="form-check-input" id="switch__@{{ index }}" ng-checked="m.is_active == 1">
+                                            <label class="form-check-label" for="switch__@{{index}}" ></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                    
+                                    <a class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="documentaryEdit(m.id)"><i class="fa fa-edit"></i></a>
+                                    <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click="documentaryDelete(m.id)" ><i class="fa fa-trash"></i></a>
+                                   
+                                    </td>
+                                </tr> 
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>
@@ -115,6 +151,135 @@
  
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
-    
+    <script>
+        $('#menu-table').DataTable({
+            "ordering": false
+        });
+    </script>
+        <script >
+
+            app.controller('DocumentaryController', function ($scope, $http, API_URL) {
+			    
+			    //fetch users listing from 
+                $scope.documentaryEdit = (id) => {
+                    alert(id)
+                    let route =  $("#baseurl").val();
+                    // console.log(route+'admin/employeeEdit/'+id);
+                    window.location.href = route+'admin/documentaryEdit/'+id;
+                }
+
+
+
+				
+				getData = function($http, API_URL) {
+
+                    angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                
+					$http({
+						method: 'GET',
+						url: API_URL + "admin/documentary"
+					}).then(function (response) {
+
+                        // angular.element(document.querySelector("#loader")).addClass("d-none");
+                        
+						$scope.documentary = response.data;
+						 
+					}, function (error) {
+						console.log(error);
+						console.log('This is embarassing. An error has occurred. Please check the log for details');
+					});
+				} 
+                getData($http, API_URL);
+
+                 $scope.documentary_status = function(index, id){
+                        var url = API_URL + "admin/" + "documentary/";
+                        if(id)
+                        {
+                            url += "status/" + id;
+                            method = "PUT";
+                            $http({
+                                method: method,
+                                url: url,
+                                data: $.param({'status':0}),
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                            }).then(function(response){
+                                Message('success',response.data.msg);
+                            }),(function(error){
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+                        }
+                 }
+
+                $scope.documentaryDelete = function (id) {
+                    var url = API_URL + 'admin/' + 'documentary/';
+			        // var isConfirmDelete = confirm('Are you sure you want this record?');
+					swal({
+						title: "Are you sure?",
+						text: "Once deleted, you will not be able to recover this Data!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					}).then((willDelete) => {
+
+						if (willDelete) {
+
+                            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+
+							$http({
+								method: 'DELETE',
+								url: url + id                              
+							}).then(function (response) {
+								 
+								getData($http, API_URL);
+
+                              
+                                if(response.data.status == false) {
+                                    
+                                    Message('warning',response.data.msg);
+                                    angular.element(document.querySelector("#loader")).addClass("d-none"); 
+
+                                }
+                                
+                                if(response.data.status == true) {
+                                   
+                                    Message('success', response.data.msg);
+                                }  
+                                
+                                    
+							}, function (error) {
+								console.log(error);
+                                Message('warning',response.data.msg);
+								console.log('Unable to delete');
+							});
+
+						} else {
+							swal("Your Data is safe!");
+						}
+ 
+					});
+			       
+			    }			
+			  
+			
+			    
+			}); 
+            Message = function (type, head) {
+                $.toast({
+                    heading: head,
+                    icon: type,
+                    showHideTransition: 'plain', 
+                    allowToastClose: true,
+                    hideAfter: 5000,
+                    stack: 10, 
+                    position: 'bootom-left',
+                    textAlign: 'left', 
+                    loader: true, 
+                    loaderBg: '#252525',                
+                });
+            }
+        </script>
+            
        
 @endpush

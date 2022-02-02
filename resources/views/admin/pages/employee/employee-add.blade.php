@@ -26,7 +26,7 @@
                                 <div class="row m-0">
                                     <div class="col-md-12 ">
                                         <div class="m">                                             
-                                            <label class="form-label"  >Enquiry Number  <sup class="text-danger">*</sup></label>
+                                            <label class="form-label"  >Employee Id  <sup class="text-danger">*</sup></label>
                                             <input ng-disabled="true" type="text" ng-value="myWelcome" value="/@{$data[employee_id]}" class="form-control"  ng-required="true">
                                         </div>
                                     </div> 
