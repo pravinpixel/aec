@@ -57,7 +57,7 @@ class OutputTypeRepository implements OutputTypeRepositoryInterface{
         
     }
 
-    public function get($request)
+    public function get()
     {
         return $this->model->with('services')->where('is_active',1)->get();
     }

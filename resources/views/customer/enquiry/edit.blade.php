@@ -67,7 +67,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
-                                <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step" id="additional-info">
+                                <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step {{$enquiry->additional_info == 1 ? 'active' : ''}}"  id="additional-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-info mb-1"></i>

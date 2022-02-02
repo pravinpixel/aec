@@ -138,8 +138,12 @@
                 </div>
                 <div id="selected_service" class="accordion-collapse collapse" aria-labelledby="selected_service_header" data-bs-parent="#summaryGroup">
                     <div class="accordion-body">  
-                        <ul class="row m-0 " >
-                            <li ng-repeat="service in services" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
+                        <ul>
+                            <li ng-repeat="(key,outputType) in outputTypes" class=""> @{{ key }}
+                                <ul  class="row m-0 ">
+                                    <li ng-repeat="service in outputType" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
+                                </ul>
+                            </li>
                         </ul>  
                         <form id="selected_service__commentsForm" ng-submit="sendComments('selected_service','Admin')" class="input-group mt-3">
                             <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
@@ -185,12 +189,11 @@
                                     <tr ng-repeat="ifc_model_upload in ifc_model_uploads">
                                         <td> @{{ $index + 1}} </td>
                                         <td> @{{ ifc_model_upload.created_at }}</td>
-                                        <td> @{{ ifc_model_upload.pivot.file_type }}</td>
-                                        <td> @{{ ifc_model_upload.document_type_name }}</td>
+                                        <td> @{{ ifc_model_upload.file_type }}</td>
+                                        <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
                                         <td class="text-center">
-                                            
-                                            <a download="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            <a download="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -329,7 +332,7 @@
                                 <td> @{{ index + 1  }}</td>
                                 <td>@{{ additional_info.created_at }}</td>
                                 <td>@{{ additional_info.customer.full_name }}</td>
-                                <td>@{{ additional_info.comments }}</td>
+                                <td>   @{{ additional_info.comments }} </td>
                             </tr> 
                         </table>
                         <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">

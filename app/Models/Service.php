@@ -21,4 +21,9 @@ class Service extends Model
     {
         return $this->belongsToMany(Enquiry::class);
     }
+
+    public function outputType()
+    {
+        return $this->belongsTo(OutputType::class);
+    }
 }

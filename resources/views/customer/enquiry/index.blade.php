@@ -13,7 +13,7 @@
                 <!-- start page title -->
                 
                 @include('customer.includes.page-navigater')
-
+                <h6>New Enquiries</h6>
                 <!-- end page title --> 
                 <div class="card">
                     <div  class="card-header ">
@@ -40,7 +40,115 @@
                             </thead>
                         
                             <tbody>
-                                @foreach ($data as $key => $row)
+                                @foreach ($data['new_enquiries'] as $key => $row)
+                                    <tr>
+                                        <td>{{ $key +1 }}</td>
+                                        <td ng-click="getEnquiry('project_info',{{  $row->id  }})"> <span class="badge badge-primary-lighten btn p-2" >{{ $row->enquiry_number }} </span> </td>
+                                        <td>{{ $row->projectType->project_type_name ?? '' }}</td>
+                                        <td>{{ $row->no_of_building ?? '' }}</td>
+                                        <td>{{ $row->enquiry_date }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button ng-click="getEnquiry('project_info',{{  $row->id  }})" class="btn progress-btn {{  $row->project_info == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button>
+                                                <button ng-click="getEnquiry('service',{{  $row->id  }})" class="btn progress-btn {{  $row->service == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button>
+                                                <button ng-click="getEnquiry('ifc_model',{{  $row->id  }})" class="btn progress-btn {{  $row->ifc_model_upload == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button>
+                                                <button ng-click="getEnquiry('building_component',{{  $row->id  }})" class="btn progress-btn {{  $row->building_component == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
+                                            </div>
+                                        </td>
+                                        <td>	
+                                            <span class="badge bg-success shadow-sm rounded-pill"> {{ $row->status }} </span>
+                                        </td>
+                                        <td>                                            
+                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <h6>Active Enquiries</h6>
+                <div class="card">
+                    <div  class="card-header ">
+                        <div class="d-flex justify-content-between ">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter" class="btn btn-light border">
+                                <i class="mdi mdi-filter-menu"></i> Filters
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap table-striped">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Enquiry No</th>
+                                    <th>Type of Project</th>
+                                    <th>No. Of Property</th>
+                                    <th>Enquiry Date</th>
+                                    <th>Pipeline</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        
+                            <tbody>
+                                @foreach ($data['active_enquiries'] as $key => $row)
+                                    <tr>
+                                        <td>{{ $key +1 }}</td>
+                                        <td ng-click="getEnquiry('project_info',{{  $row->id  }})"> <span class="badge badge-primary-lighten btn p-2" >{{ $row->enquiry_number }} </span> </td>
+                                        <td>{{ $row->projectType->project_type_name ?? '' }}</td>
+                                        <td>{{ $row->no_of_building ?? '' }}</td>
+                                        <td>{{ $row->enquiry_date }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button ng-click="getEnquiry('project_info',{{  $row->id  }})" class="btn progress-btn {{  $row->project_info == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button>
+                                                <button ng-click="getEnquiry('service',{{  $row->id  }})" class="btn progress-btn {{  $row->service == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button>
+                                                <button ng-click="getEnquiry('ifc_model',{{  $row->id  }})" class="btn progress-btn {{  $row->ifc_model_upload == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button>
+                                                <button ng-click="getEnquiry('building_component',{{  $row->id  }})" class="btn progress-btn {{  $row->building_component == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
+                                            </div>
+                                        </td>
+                                        <td>	
+                                            <span class="badge bg-success shadow-sm rounded-pill"> {{ $row->status }} </span>
+                                        </td>
+                                        <td>                                            
+                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <h6>Completed Enquiries</h6>
+                <div class="card">
+                    <div  class="card-header ">
+                        <div class="d-flex justify-content-between ">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter" class="btn btn-light border">
+                                <i class="mdi mdi-filter-menu"></i> Filters
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap table-striped">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Enquiry No</th>
+                                    <th>Type of Project</th>
+                                    <th>No. Of Property</th>
+                                    <th>Enquiry Date</th>
+                                    <th>Pipeline</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        
+                            <tbody>
+                                @foreach ($data['complete_enquiries'] as $key => $row)
                                     <tr>
                                         <td>{{ $key +1 }}</td>
                                         <td ng-click="getEnquiry('project_info',{{  $row->id  }})"> <span class="badge badge-primary-lighten btn p-2" >{{ $row->enquiry_number }} </span> </td>

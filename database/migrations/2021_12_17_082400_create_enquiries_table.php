@@ -40,6 +40,7 @@ class CreateEnquiriesTable extends Migration
             $table->boolean('service')->default(0);
             $table->boolean('ifc_model_upload')->default(0);
             $table->boolean('building_component')->default(0);
+            $table->boolean('additional_info')->default(0);
             $table->boolean('is_active')->default(0);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

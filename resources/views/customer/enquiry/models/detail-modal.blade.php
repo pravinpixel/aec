@@ -167,8 +167,12 @@
                         </div>
                         <div id="service" class="accordion-collapse collapse" aria-labelledby="service_header" data-bs-parent="#summaryGroup">
                             <div class="accordion-body">  
-                                <ul class="row m-0 " >
-                                    <li ng-repeat="(key, service) in enquiry.services" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
+                                <ul>
+                                    <li ng-repeat="(key,outputType) in enquiry.services" class=""> @{{ key }}
+                                        <ul  class="row m-0 ">
+                                            <li ng-repeat="service in outputType" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
+                                        </ul>
+                                    </li>
                                 </ul>  
                                 <form id="service__commentsForm" ng-submit="sendComments('service','Customer')" class="input-group mt-3">
                                     <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
@@ -274,7 +278,7 @@
                                                 </th>
                                             </tr>
                                             
-                                            <tr  ng-repeat="building_component in enquiry.building_component">
+                                            <tr  ng-repeat="building_component in enquiry.building_components">
                                                 <td>@{{ building_component.wall }}</td>
                                                 <td style="padding: 0 !important"  >
                                                     <table class="table m-0 ">

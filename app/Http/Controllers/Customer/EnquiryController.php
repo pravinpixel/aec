@@ -8,6 +8,7 @@ use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
+use App\Interfaces\OutputTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use App\Models\Comment;
 use App\Models\Config;
@@ -32,6 +33,7 @@ class EnquiryController extends Controller
     protected $buildingComponent;
     protected $commentRepo;
     protected $documentTypeEnquiryRepo;
+    protected $outputTypeRepository;
 
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
@@ -39,7 +41,8 @@ class EnquiryController extends Controller
         DocumentTypeRepositoryInterface $documentType,
         BuildingComponentRepositoryInterface $buildingComponent,
         CommentRepositoryInterface $comment,
-        DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo
+        DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo,
+        OutputTypeRepositoryInterface $outputTypeRepository
     ){
         $this->customerEnquiryRepo     = $customerEnquiryRepository;
         $this->serviceRepo             = $serviceRepo;
@@ -47,11 +50,14 @@ class EnquiryController extends Controller
         $this->buildingComponent       = $buildingComponent;
         $this->commentRepo             = $comment;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
+        $this->outputTypeRepository    = $outputTypeRepository;
      }
 
     public function myEnquiries() 
     {
-        $data   =   Enquiry::where("customer_id", Customer()->id)->get();
+        $data['new_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'In-Complete'])->get();
+        $data['active_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'Active'])->get();
+        $data['complete_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'Completed'])->get();
         return view('customer.enquiry.index',compact('data',  $data )); 
     }
 
@@ -161,6 +167,7 @@ class EnquiryController extends Controller
             $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
             $this->commentRepo->create($insert);
             $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+            $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'additional_info');
             return response($result);      
         } else if($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
@@ -352,8 +359,10 @@ class EnquiryController extends Controller
             return ['ifc-model-upload',2];
         } else if($enquiry->building_component == 0) {
             return ['building-component',3];
+        } else if($enquiry->additional_info == 0) {
+            return ['additional-info',4];
         } else {
-            return ['review',4];
+            return ['review',5];
         }
     }
 
@@ -414,13 +423,28 @@ class EnquiryController extends Controller
 
     public function getEditEnquiryReview($id) 
     {
+        $outputTypes =  $this->outputTypeRepository->get();
         $enquiry = $this->customerEnquiryRepo->getEnquiryById($id);
+        $services = $enquiry->services()->get();
         $result['project_infos'] = $this->formatProjectInfo($enquiry);
-        $result['services'] =  $enquiry->services()->get();
+        $result['services'] =  $this->formatServices($outputTypes, $services);
         $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);
         $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
         $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         return  $result;
+    }
+
+    public function formatServices($outputTypes, $services)
+    {
+        $result = [];
+        foreach($outputTypes as $outputType) {
+            foreach($services as $service) {
+                if($service->output_type_id == $outputType->id){
+                    $result[$outputType->output_type_name][] = $service;
+                }
+            }
+        }
+        return $result;
     }
 
 }
