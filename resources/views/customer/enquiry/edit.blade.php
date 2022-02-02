@@ -990,16 +990,16 @@
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
             }).then( function(res) {
-                    getLastEnquiry(enquiry_id);
-                    if(res.data.status == "false") {
-                        $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
-                      
-                    } else {
-                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
-                    }
-                }, function (err) {
-                    console.log('get enquiry error');
+            getLastEnquiry(enquiry_id);
+                if(res.data.status == "false") {
+                    $scope.enquiry_number = res.data.enquiry_number;
+                    enquiry_id = res.data.enquiry_id
+                    
+                } else {
+                    $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                }
+            }, function (err) {
+                console.log('get enquiry error');
             });
             getLastEnquiry = (enquiry_id) => {
                 let slug = [];
@@ -1088,9 +1088,9 @@
                 }
                 var type = 'ifc_model_upload';
                 var uploadUrl = '{{ route('customers.update-enquiry', $id) }}',
-                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl);
+                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
                 promise.then(function (response) {
-                        console.log(response);
+                        $scope[filename] = '';
                         Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
                     }, function () {
@@ -1100,15 +1100,15 @@
 
             $scope.uploadLink = (filename, file_type) => {
                 var file = $(`#${filename}`).val();
-                if(typeof(file) == 'undefined'){
+                if(typeof(file) == 'undefined'  || file == ''){
                     Message('danger',`Please upload ${file_type.replaceAll('_',' ') } link`);
                     return false;
                 }
                 var type = 'ifc_link';
                 var uploadUrl = '{{ route('customers.update-enquiry', $id) }}',
-                promise = fileUpload.uploadLinkToUrl(file, type, file_type, uploadUrl);
+                promise = fileUpload.uploadLinkToUrl(file, type, file_type, uploadUrl, $scope);
                 promise.then(function (response) {
-                        console.log(response.data);
+                        $scope[filename] = '';
                         Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
                     }, function () {
@@ -1137,8 +1137,91 @@
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
-                }
+            }
+        });
+
+        app.directive('fileModel', function ($parse) {
+                return {
+                    restrict: 'A',
+                    link: function(scope, element, attrs) {
+                        var model, modelSetter;
+                        attrs.$observe('fileModel', function(fileModel){
+                            model = $parse(attrs.fileModel);
+                            modelSetter = model.assign;
+                        });
+                        
+                        element.bind('change', function(){
+                            scope.$apply(function(){
+                                modelSetter(scope.$parent, element[0].files[0]);
+                            });
+                        });
+                    }
+                };
             });
+
+            
+
+            app.service('fileUpload', function ($http, $q) {
+               
+                this.uploadFileToUrl = function(file, type, view_type, uploadUrl, $scope){
+                    $scope[`${view_type}showProgress`] = true;
+                    var fd = new FormData();
+                    fd.append('file', file);
+                    fd.append('type', type);
+                    fd.append('view_type', view_type);
+                  
+                    var deffered = $q.defer();
+                    $http.post(uploadUrl, fd, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type':undefined, 'Process-Data': false},
+                        uploadEventHandlers: {
+                            progress: function (e) {
+                                    if (e.lengthComputable) {
+                                        // $scope[`${view_type}showProgress`] = false;
+                                    }
+                            }
+                        }
+                    }).then(function (response) {
+                        $scope[`${view_type}showProgress`] = false;
+                        deffered.resolve(response);
+                    },function (response) {
+                        deffered.reject(response);
+                    });
+                    return deffered.promise;
+                }
+
+                this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl, $scope) {
+                    if(link == '' || typeof(link) == 'undefined'){
+                        return false;
+                    }
+                    $scope[`${view_type}showProgress`] = true;
+                    var fd = new FormData();
+                    fd.append('link', link);
+                    fd.append('type', type);
+                    fd.append('view_type',view_type);
+                    var deffered = $q.defer();
+                  
+                    $http.post(uploadUrl, fd, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type':undefined, 'Process-Data': false},
+                        uploadEventHandlers: {
+                            progress: function (e) {
+                                    if (e.lengthComputable) {
+                                        // $scope[`${view_type}showProgress`] = false;
+                                    }
+                            }
+                        }
+                    }).then(function (response) {
+                        $scope[`${view_type}showProgress`] = false;
+                        deffered.resolve(response);
+                    },function (response) {
+                        deffered.reject(response);
+                    });
+                    return deffered.promise;
+                }
+              
+            });
+        
         window.onbeforeunload = function(e) {
             var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
             e.returnValue = dialogText;
