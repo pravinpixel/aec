@@ -6,28 +6,18 @@
             'body'       => $message['message']
         ])
     @else
-        <div class="alert
-                    alert-{{ $message['level'] }}
-                    {{ $message['important'] ? 'alert-important' : '' }}"
-                    role="alert"
-                    style="z-index: 11111111111 !important;opacity:1 !important"
-        >
-            
-            <button type="button"
-                    class="btn-close"
-                    aria-label="Close"
-                    data-bs-dismiss="alert"> 
-            </button>
-   
+      
+            <div class="alert alert-custom alert-{{ $message['level']}} {{ $message['important'] ? 'alert-important' : '' }} fade show text-center" role="alert" data-bs-dismiss="alert" aria-label="Close">
+                <strong>{!! $message['message'] !!}</strong> 
+            </div>
 
-            {!! $message['message'] !!}
-        </div>
+            
+         
     @endif
 @endforeach
 
-@if($errors->all())
-    <div class="alert alert-danger" style="z-index: 11111111111 !important;opacity:1 !important">
-        <button type="button" class="btn-close" data-dismiss="Close" data-bs-dismiss="alert"></button>
+@if($errors->all()) 
+    <div class="alert alert-custom  alert-dangerfade show text-center" role="alert" data-bs-dismiss="alert" aria-label="Close" style="z-index: 11111111111 !important;opacity:1 !important">
         <strong>{{ collect($errors->all(':message'))->first() }}</strong>
     </div>
 @endif
