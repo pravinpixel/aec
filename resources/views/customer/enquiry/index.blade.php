@@ -185,7 +185,7 @@
 @endpush
 
 @push('custom-scripts')
-    <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
+    
     <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
@@ -199,7 +199,7 @@
     <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
     <script>
-        var app = angular.module('App', []).constant('API_URL', $("#baseurl").val());
+ 
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL) {
            
             $scope.getEnquiry = (type,id) =>  {
