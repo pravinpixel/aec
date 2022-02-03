@@ -85,7 +85,12 @@ class EnquiryController extends Controller
     public function create()
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry(Customer()->id);
-        Session::forget('enquiry_number');
+        $enquiry_number = $this->getEnquiryNumber();
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+        if(!empty($enquiry)) {
+            Session::forget('enquiry_number');
+            $this->getEnquiryNumber();
+        }
         $customer['enquiry_date']       =   now();
         $customer['enquiry_number']     =   GlobalService::enquiryNumber();
         $customer['document_types']     =   $this->documentTypeRepo->all();
@@ -164,11 +169,11 @@ class EnquiryController extends Controller
                 Log::error($ex->getMessage());
             }
         } else if($type == 'additional_info') {
-            $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
-            $this->commentRepo->create($insert);
+            $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => Customer()->id];
+            $this->commentRepo->updateOrCreate($insert);
             $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'additional_info');
-            return response($result);      
+            return response($result);
         } else if($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
             if($status == 'active') {
@@ -265,7 +270,7 @@ class EnquiryController extends Controller
             }
         } else if($type == 'additional_info') {
             $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
-            $this->commentRepo->create($insert);
+            $this->commentRepo->updateOrCreate($insert);
             $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
             return response($result);
         } else if($type == 'save_or_submit') {

@@ -17,10 +17,18 @@ class CommentRepository implements CommentRepositoryInterface{
         return $this->model->create($data);
     }
 
+    public function updateOrCreate(array  $data){
+ 
+        return $this->model->updateOrCreate([
+            'type' => $data['type'],
+            'type_id' => $data['type_id'],
+        ],['comments' => $data['comments'], 'created_by' => $data['created_by'] ]);
+    }
+
     public function getCommentByEnquiryId($id) {
         return $this->model->where('type_id', $id)
                             ->with('customer')
-                            ->get();
+                            ->first();
     }
 
     public function get($request)

@@ -4,11 +4,12 @@
             <h3 class="text-center">Specify additional details</h3>
             <div class="py-3">
                 <div class="form-floating">
-                    {{-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" ng-model="additionalInfo" style="height: 100px;"></textarea> --}}
-                    <div text-angular="text-angular" name="additionalInfo" ng-model="additionalInfo" ta-disabled='disabled'></div>
-                    <input  type="hidden" ng-model="additionalInfo">
-                    <div ng-bind-html="additionalInfo"></div>
-                    <div class="d-none" ta-bind="text" ng-model="additionalInfo" ta-readonly='disabled'></div>
+                    @{{ additionalInfo }}
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" ng-model="additionalInfo" style="height: 100px;"></textarea>
+                    {{-- <div text-angular="text-angular" name="additionalInfo" ng-model="additionalInfo" ta-disabled='disabled'></div>
+                    <input  type="text" value="@{{ additionalInfo }}">
+                    <div ></div>
+                    <div class="d-none" ta-bind="text" ng-model="additionalInfo" ta-readonly='disabled'></div> --}}
                 </div> 
             </div>
         </div>

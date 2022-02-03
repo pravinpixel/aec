@@ -983,7 +983,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/additional_info`,
                 }).then(function (res) {
-                    $scope.additionalInfo = res.data.additional_info;
+                    $scope.additionalInfo = res.data.additional_infos.comments ?? '';
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
