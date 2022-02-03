@@ -14,7 +14,6 @@
 
             {{--===========  AJAX LOADER ======== --}}
                 <div data-loading></div>
-                
             {{--===========  AJAX LOADER ======== --}}
 
             {{-- ======= Alert Part ========== --}}

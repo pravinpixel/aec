@@ -4,10 +4,8 @@
 @section('admin-content')
          
     
-    <div class="content-page" ng-app="AppSale">
+    <div class="content-page">
         <div class="content" ng-controller="SalesController">
-            <div data-loading> </div>
-
             @include('admin.includes.top-bar')
 
             <!-- Start Content-->

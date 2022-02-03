@@ -31,10 +31,6 @@
 
 <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
 <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
-
-<script>
-    var app = angular.module('App', ['ui-notification','ngRoute','textAngular','luegg.directives']).constant('API_URL', $("#baseurl").val());           
-</script> 
-
+<script src="{{ asset('public/custom/js/ngControllers/ngCustomerApp.js') }}"></script>
 <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
 {{-- Angular JS  --}}

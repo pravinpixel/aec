@@ -9,12 +9,19 @@
 
     </head>
 
-    <body>
+    <body ng-app="App">
+        
         {{-- ======= Alert Part ========== --}}
-        <div class="alert-container" id="alert"></div>
+            <div class="alert-container" id="alert"></div>
         {{-- ======= Alert Part ========== --}}
+
+        {{--===========  AJAX LOADER ======== --}}
+            <div data-loading></div>
+        {{--===========  AJAX LOADER ======== --}}
+
         <!-- Begin page -->
         <div class="wrapper">
+            
 
             <!-- ========== Left Sidebar Start ========== -->
                 @include('customer.includes.side-bar')

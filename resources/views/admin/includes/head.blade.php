@@ -11,7 +11,7 @@
 <!-- App css -->
 <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css"   />
-{{-- <link href="{{ asset('public/assets/css/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="dark-style" /> --}}
+<link href="{{ asset('public/assets/css/app.css') }}" rel="stylesheet" type="text/css" id="dark-style" />
 <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}">
 <!-- Icons Css -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,8 +31,9 @@
 
 <!-- ====== Ajax Call Loader Css ========== -->
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
-
 <!-- ========= Alert js Notifications ========== -->
+<link rel="stylesheet" href="{{ asset('public/custom/css/wizz.css') }}"> 
+
 
 <style>
     .conversation-list  li.Admin_odd {

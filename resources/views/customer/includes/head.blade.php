@@ -7,9 +7,7 @@
 
 <!-- App favicon -->
 <link rel="shortcut icon" href="{{ asset('public/assets/images/favicon.ico') }}">
-
-
-
+ 
 <!-- App css -->
 <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css"  />
@@ -25,9 +23,16 @@
 <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}"> 
 <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
 <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}"> 
+<link rel="stylesheet" href="{{ asset('public/custom/css/wizz.css') }}"> 
+<link rel="stylesheet" href="{{ asset('public/assets/css/pages/customer-enquiry.css') }}">
+<link rel="stylesheet" href="{{ asset('public/assets/css/angularjs/ui-notification.css') }}">
 
 <!-- SimpleMDE css -->
 <link href="{{ asset('public/assets/css/vendor/simplemde.min.css') }}" rel="stylesheet" type="text/css" />
+
+<!-- ====== Ajax Call Loader Css ========== -->
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+<!-- ========= Alert js Notifications ========== -->
 
 <style>
    
