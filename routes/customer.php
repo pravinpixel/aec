@@ -51,7 +51,13 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
     Route::get('get-login-customer', [CustomerController::class,'getLoginCustomer'])->name('get-login-customer');
 
     Route::get('get-customer-enquiry',[EnquiryController::class,'getCurrentEnquiry'])->name('get-customer-enquiry');
+
+    Route::get('get-customer-new-enquiries',[EnquiryController::class,'getNewEnquiries'])->name('get-customer-new-enquiries');
+
+    Route::get('get-customer-active-enquiries',[EnquiryController::class,'getActiveEnquiries'])->name('get-customer-active-enquiries');
     
+    Route::get('get-customer-completed-enquiries',[EnquiryController::class,'getCompletedEnquiries'])->name('get-customer-completed-enquiries');
+
     Route::get('view-list',  function() {
         return view('customer.enquiry.view-list');
     });

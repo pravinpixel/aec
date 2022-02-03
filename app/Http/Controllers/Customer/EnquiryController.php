@@ -21,8 +21,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Enquiry;
 use Exception;
+use Illuminate\Support\Facades\Config as FacadesConfig;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
+use Yajra\DataTables\DataTables;
 
 class EnquiryController extends Controller
 {
@@ -459,4 +461,108 @@ class EnquiryController extends Controller
         return $result;
     }
 
+    public function getNewEnquiries(Request $request)
+    {
+        if ($request->ajax() == true) {
+            $dataDb = Enquiry::with('projectType')->where('status','In-Complete');
+            return DataTables::eloquent($dataDb)
+            ->editColumn('enquiry_number', function($dataDb){
+                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+            })
+            ->addColumn('projectType', function($dataDb){
+                return $dataDb->projectType->project_type_name ?? '';
+            })
+            ->editColumn('status', function($dataDb){
+                return '<small class="px-1 bg-danger text-white rounded-pill text-center">'.$dataDb->status.'</small>';
+            })
+            ->editColumn('enquiry_date', function($dataDb) {
+                $format = FacadesConfig::get('global.model_date_format');
+                return Carbon::parse($dataDb->enquiry_date)->format($format);
+            })
+            ->addColumn('pipeline', function($dataDb){
+                return '<div class="btn-group">
+                <button ng-click=getEnquiry("project_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->project_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
+                <button ng-click=getEnquiry("service",'.$dataDb->id.') class="btn progress-btn '.($dataDb->service == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
+                <button ng-click=getEnquiry("ifc_model_upload",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
+                <button ng-click=getEnquiry("building_component",'.$dataDb->id.') class="btn progress-btn '.($dataDb->building_component == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button> 
+                </div>';
+            })
+            ->addColumn('action', function($dataDb){
+                return '<a href="#" data-message="">';
+            })
+            ->rawColumns(['action', 'pipeline','enquiry_number','status'])
+            ->make(true);
+        }
+    }
+
+
+    public function getActiveEnquiries(Request $request)
+    {
+        if ($request->ajax() == true) {
+            $dataDb = Enquiry::with('projectType')->where('status','Active');
+            return DataTables::eloquent($dataDb)
+            ->editColumn('enquiry_number', function($dataDb){
+                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+            })
+            ->addColumn('projectType', function($dataDb){
+                return $dataDb->projectType->project_type_name ?? '';
+            })
+            ->editColumn('status', function($dataDb){
+                return '<small class="px-1 bg-warning text-white rounded-pill text-center">'.$dataDb->status.'</small>';
+            })
+    
+            ->editColumn('enquiry_date', function($dataDb) {
+                $format = FacadesConfig::get('global.model_date_format');
+                return Carbon::parse($dataDb->enquiry_date)->format($format);
+            })
+            ->addColumn('pipeline', function($dataDb){
+                return '<div class="btn-group">
+                <button ng-click=getEnquiry("project_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->project_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
+                <button ng-click=getEnquiry("service",'.$dataDb->id.') class="btn progress-btn '.($dataDb->service == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
+                <button ng-click=getEnquiry("ifc_model_upload",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
+                <button ng-click=getEnquiry("building_component",'.$dataDb->id.') class="btn progress-btn '.($dataDb->building_component == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button> 
+                </div>';
+            })
+            ->addColumn('action', function($dataDb){
+                return '<a href="#" data-message="">';
+            })
+            ->rawColumns(['action', 'pipeline','enquiry_number','status'])
+            ->make(true);
+        }
+    }
+
+    public function getCompletedEnquiries(Request $request)
+    {
+        if ($request->ajax() == true) {
+            $dataDb = Enquiry::with('projectType')->where('status','Completed');
+            return DataTables::eloquent($dataDb)
+            ->editColumn('enquiry_number', function($dataDb){
+                return '<div ng-click=getEnquiry(project_info,'. $dataDb->id .')"> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+            })
+            ->addColumn('projectType', function($dataDb){
+                return $dataDb->projectType->project_type_name ?? '';
+            })
+            ->editColumn('status', function($dataDb){
+                return '<small class="px-1 bg-success text-white rounded-pill text-center">'.$dataDb->status.'</small>';
+            })
+    
+            ->editColumn('enquiry_date', function($dataDb) {
+                $format = FacadesConfig::get('global.model_date_format');
+                return Carbon::parse($dataDb->enquiry_date)->format($format);
+            })
+            ->addColumn('pipeline', function($dataDb){
+                return '<div class="btn-group">
+                <button ng-click=getEnquiry("project_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->project_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
+                <button ng-click=getEnquiry("service",'.$dataDb->id.') class="btn progress-btn '.($dataDb->service == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
+                <button ng-click=getEnquiry("ifc_model_upload",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
+                <button ng-click=getEnquiry("building_component",'.$dataDb->id.') class="btn progress-btn '.($dataDb->building_component == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button> 
+                </div>';
+            })
+            ->addColumn('action', function($dataDb){
+                return '<a href="#" data-message="">';
+            })
+            ->rawColumns(['action', 'pipeline','enquiry_number','status'])
+            ->make(true);
+        }
+    }
 }

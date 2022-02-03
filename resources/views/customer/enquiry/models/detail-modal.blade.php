@@ -44,7 +44,7 @@
                                 </i>
                             </div>
                         </div>
-                        <div id="project_info" class="accordion-collapse collapsed collapse" aria-labelledby="ProjectInfo_header" data-bs-parent="#summaryGroup">
+                        <div id="project_info" class="accordion-collapse collapsed collapse show" aria-labelledby="ProjectInfo_header" data-bs-parent="#summaryGroup">
                             <div class="accordion-body">  
                                 <table class="table m-0 table-hover">
                                     <tbody>

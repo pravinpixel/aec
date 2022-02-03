@@ -9,174 +9,95 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
-                
                 <!-- start page title -->
-                
                 @include('customer.includes.page-navigater')
-                <h6>New Enquiries</h6>
-                <!-- end page title --> 
-                <div class="card">
-                    <div  class="card-header ">
-                        <div class="d-flex justify-content-between ">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter" class="btn btn-light border">
-                                <i class="mdi mdi-filter-menu"></i> Filters
-                            </button>
-                            <a  href="{{ route('customers.create-enquiry') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Enquiry</a>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap table-striped">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Enquiry No</th>
-                                    <th>Type of Project</th>
-                                    <th>No. Of Property</th>
-                                    <th>Enquiry Date</th>
-                                    <th>Pipeline</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        
-                            <tbody>
-                                @foreach ($data['new_enquiries'] as $key => $row)
-                                    <tr>
-                                        <td>{{ $key +1 }}</td>
-                                        <td ng-click="getEnquiry('project_info',{{  $row->id  }})"> <span class="badge badge-primary-lighten btn p-2" >{{ $row->enquiry_number }} </span> </td>
-                                        <td>{{ $row->projectType->project_type_name ?? '' }}</td>
-                                        <td>{{ $row->no_of_building ?? '' }}</td>
-                                        <td>{{ $row->enquiry_date }}</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button ng-click="getEnquiry('project_info',{{  $row->id  }})" class="btn progress-btn {{  $row->project_info == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button>
-                                                <button ng-click="getEnquiry('service',{{  $row->id  }})" class="btn progress-btn {{  $row->service == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button>
-                                                <button ng-click="getEnquiry('ifc_model',{{  $row->id  }})" class="btn progress-btn {{  $row->ifc_model_upload == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button>
-                                                <button ng-click="getEnquiry('building_component',{{  $row->id  }})" class="btn progress-btn {{  $row->building_component == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
-                                            </div>
-                                        </td>
-                                        <td>	
-                                            <span class="badge bg-success shadow-sm rounded-pill"> {{ $row->status }} </span>
-                                        </td>
-                                        <td>                                            
-                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div> 
-                <h6>Active Enquiries</h6>
-                <div class="card">
-                    <div  class="card-header ">
-                        <div class="d-flex justify-content-between ">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter" class="btn btn-light border">
-                                <i class="mdi mdi-filter-menu"></i> Filters
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap table-striped">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Enquiry No</th>
-                                    <th>Type of Project</th>
-                                    <th>No. Of Property</th>
-                                    <th>Enquiry Date</th>
-                                    <th>Pipeline</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        
-                            <tbody>
-                                @foreach ($data['active_enquiries'] as $key => $row)
-                                    <tr>
-                                        <td>{{ $key +1 }}</td>
-                                        <td ng-click="getEnquiry('project_info',{{  $row->id  }})"> <span class="badge badge-primary-lighten btn p-2" >{{ $row->enquiry_number }} </span> </td>
-                                        <td>{{ $row->projectType->project_type_name ?? '' }}</td>
-                                        <td>{{ $row->no_of_building ?? '' }}</td>
-                                        <td>{{ $row->enquiry_date }}</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button ng-click="getEnquiry('project_info',{{  $row->id  }})" class="btn progress-btn {{  $row->project_info == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button>
-                                                <button ng-click="getEnquiry('service',{{  $row->id  }})" class="btn progress-btn {{  $row->service == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button>
-                                                <button ng-click="getEnquiry('ifc_model',{{  $row->id  }})" class="btn progress-btn {{  $row->ifc_model_upload == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button>
-                                                <button ng-click="getEnquiry('building_component',{{  $row->id  }})" class="btn progress-btn {{  $row->building_component == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
-                                            </div>
-                                        </td>
-                                        <td>	
-                                            <span class="badge bg-success shadow-sm rounded-pill"> {{ $row->status }} </span>
-                                        </td>
-                                        <td>                                            
-                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div> 
-                <h6>Completed Enquiries</h6>
-                <div class="card">
-                    <div  class="card-header ">
-                        <div class="d-flex justify-content-between ">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter" class="btn btn-light border">
-                                <i class="mdi mdi-filter-menu"></i> Filters
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap table-striped">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Enquiry No</th>
-                                    <th>Type of Project</th>
-                                    <th>No. Of Property</th>
-                                    <th>Enquiry Date</th>
-                                    <th>Pipeline</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        
-                            <tbody>
-                                @foreach ($data['complete_enquiries'] as $key => $row)
-                                    <tr>
-                                        <td>{{ $key +1 }}</td>
-                                        <td ng-click="getEnquiry('project_info',{{  $row->id  }})"> <span class="badge badge-primary-lighten btn p-2" >{{ $row->enquiry_number }} </span> </td>
-                                        <td>{{ $row->projectType->project_type_name ?? '' }}</td>
-                                        <td>{{ $row->no_of_building ?? '' }}</td>
-                                        <td>{{ $row->enquiry_date }}</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button ng-click="getEnquiry('project_info',{{  $row->id  }})" class="btn progress-btn {{  $row->project_info == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button>
-                                                <button ng-click="getEnquiry('service',{{  $row->id  }})" class="btn progress-btn {{  $row->service == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button>
-                                                <button ng-click="getEnquiry('ifc_model',{{  $row->id  }})" class="btn progress-btn {{  $row->ifc_model_upload == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button>
-                                                <button ng-click="getEnquiry('building_component',{{  $row->id  }})" class="btn progress-btn {{  $row->building_component == 1 ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button>
-                                            </div>
-                                        </td>
-                                        <td>	
-                                            <span class="badge bg-success shadow-sm rounded-pill"> {{ $row->status }} </span>
-                                        </td>
-                                        <td>                                            
-                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div> 
+                
+                <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
+                    {{-- New enquiries --}}
+                        <fieldset class="accordion-item">
+                            <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
+                                <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
+                                    New enquiries
+                                </div>
+                                <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                    <i data-bs-toggle="collapse" 
+                                        href="#ProjectInfo" 
+                                        aria-expanded="false" 
+                                        aria-controls="ProjectInfo" 
+                                        class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                    </i>
+                                </div>
+                            </div>
+                            <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" data-bs-parent="#summaryGroup">
+                                <div class="accordion-body">  
+                                    <div class="cardw"> 
+                                        <div class="card-bodyw">  
+                                            @include('customer.enquiry.table.new-enquiries')
+                                        </div>
+                                    </div> 
+                                </div> 
+                            </div>
+                        </fieldset>
+                    {{-- New enquiries --}}
+                
+                    {{-- Active enquiries --}}
+                        <fieldset class="accordion-item">
+                            <div class="accordion-header custom m-0 position-relative" id="selected_service_header">
+                                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#selected_service" aria-expanded="false" aria-controls="selected_service">
+                                    Active enquiries
+                                </div>
+                                <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
+                                    <i data-bs-toggle="collapse" 
+                                        href="#selected_service" 
+                                        aria-expanded="true" 
+                                        aria-controls="selected_service" 
+                                        class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                        >
+                                    </i>
+                                </div>
+                            </div>
+                            <div id="selected_service" class="accordion-collapse collapse" aria-labelledby="selected_service_header" data-bs-parent="#summaryGroup">
+                                <div class="accordion-body">  
+                                    <div class="cardw"> 
+                                        <div class="card-bodyw"> 
+                                            @include('customer.enquiry.table.active-enquiries')
+                                        </div>
+                                    </div> 
+                                </div> 
+                            </div>
+                        </fieldset> 
+                    {{-- Active enquiries --}}
+                
+                    {{--  Closed enquiries --}}
+                        <fieldset class="accordion-item">
+                            <div class="accordion-header custom m-0 position-relative" id="IFC_Models_Upload_Docs_header">
+                                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#IFC_Models_Upload_Docs" aria-expanded="false" aria-controls="IFC_Models_Upload_Docs">
+                                    Closed enquiries
+                                </div>
+                                <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                    <i data-bs-toggle="collapse" 
+                                    href="#IFC_Models_Upload_Docs" 
+                                    aria-expanded="false" 
+                                    aria-controls="IFC_Models_Upload_Docs" 
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed ">
+                                    </i>
+                                </div>
+                            </div>
+                            <div id="IFC_Models_Upload_Docs" class="accordion-collapse collapse " aria-labelledby="IFC_Models_Upload_Docs_header" data-bs-parent="#summaryGroup">
+                                <div class="accordion-body"> 
+                                    <div class="cardw"> 
+                                        <div class="card-bodyw">  
+                                            @include('customer.enquiry.table.completed-enquiries')
+                                        </div>
+                                    </div> 
+                                </div> 
+                            </div>
+                        </fieldset>  
+                    {{-- Closed enquiries --}} 
+                </div>
+
+
+
             </div> <!-- container -->
             @include('customer.enquiry.models.detail-modal')
             @include('customer.enquiry.models.chat-box')
@@ -297,7 +218,7 @@
 @push('custom-scripts') 
     
     <script>
-        app.controller('enquiryModalCtrl', function($scope,  $http, API_URL) {
+        app.controller('enquiryModalCtrl', function($scope,  $http, API_URL, $compile ) {
            
             $scope.getEnquiry = (type,id) =>  {
                 $(".accordion-collapse").addClass('collapsed');
@@ -311,7 +232,6 @@
                         $scope.enquiry_id = res.data.project_infos.enquiry_id;
                         $("#right-modal-progress").modal('show'); 
                         $(`#${type}`).addClass('show');
-                     
                     }, function (error) {
                         console.log('ifc_model_uploads error');
                     });
@@ -387,6 +307,106 @@
                     Message('danger',response.data.errors);
                 });
             }
-        });
+
+            var newEnquiry = $('#new-enquiries').DataTable({
+                aaSorting     : [[0, 'desc']],
+                responsive: true,
+                processing: true,    
+                pageLength: 50,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                serverSide: true,
+                ajax          : {
+                    url     : '{!! route('get-customer-new-enquiries') !!}',
+                    dataType: 'json'
+                },
+                columns       : [
+                    {data: 'id', name: 'id', visible: false},
+                    {data: 'enquiry_number', name: 'enquiry_number'},
+                    {data: 'projectType', name: 'projectType.project_type_name'},
+                    {data: 'no_of_building', name: 'no_of_building'},
+                    {data: 'enquiry_date', name: 'enquiry_date'},
+                    {data: 'pipeline', name: 'pipeline'},
+                    {data: 'status', name: 'status'},
+                    {
+                        data         : 'action', name: 'action', orderable: false, searchable: false,
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $("a", nTd).tooltip({container: 'body'});
+                        }
+                    }
+                ],
+                createdRow: function ( row, data, index ) {
+                    $compile(row)($scope);  //add this to compile the DOM
+                }
+            });
+
+            var activeEnquiry = $('#active-enquiries').DataTable({
+                aaSorting     : [[0, 'desc']],
+                responsive: true,
+                processing: true,    
+                pageLength: 50,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                serverSide: true,
+                ajax          : {
+                    url     : '{!! route('get-customer-active-enquiries') !!}',
+                    dataType: 'json'
+                },
+                columns       : [
+                    {data: 'id', name: 'id', visible: false},
+                    {data: 'enquiry_number', name: 'enquiry_number'},
+                    {data: 'projectType', name: 'projectType.project_type_name'},
+                    {data: 'no_of_building', name: 'no_of_building'},
+                    {data: 'enquiry_date', name: 'enquiry_date'},
+                    {data: 'pipeline', name: 'pipeline'},
+                    {data: 'status', name: 'status'},
+                    {
+                        data         : 'action', name: 'action', orderable: false, searchable: false,
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $("a", nTd).tooltip({container: 'body'});
+                        }
+                    }
+                ],
+                createdRow: function ( row, data, index ) {
+                    $compile(row)($scope);  //add this to compile the DOM
+                }
+            });
+
+            var completedEnquiry = $('#completed-enquiries').DataTable({
+                aaSorting     : [[0, 'desc']],
+                responsive: true,
+                processing: true,    
+                pageLength: 50,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                serverSide: true,
+                ajax          : {
+                    url     : '{!! route('get-customer-completed-enquiries') !!}',
+                    dataType: 'json'
+                },
+                columns       : [
+                    {data: 'id', name: 'id', visible: false},
+                    {data: 'enquiry_number', name: 'enquiry_number'},
+                    {data: 'projectType', name: 'projectType.project_type_name'},
+                    {data: 'no_of_building', name: 'no_of_building'},
+                    {data: 'enquiry_date', name: 'enquiry_date'},
+                    {data: 'pipeline', name: 'pipeline'},
+                    {data: 'status', name: 'status'},
+                    {
+                        data         : 'action', name: 'action', orderable: false, searchable: false,
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $("a", nTd).tooltip({container: 'body'});
+                        }
+                    }
+                ],
+                createdRow: function ( row, data, index ) {
+                    $compile(row)($scope);  //add this to compile the DOM
+                }
+            });
+    });
     </script>
+
+
+<script>
+    $(function () {
+      
+    });
+   </script>
 @endpush
