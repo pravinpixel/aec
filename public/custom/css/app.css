@@ -369,4 +369,13 @@ small {
     font-size: 10px;
     color: gray; 
 }
- 
+.progress-loader {
+    position: fixed;
+    z-index: 1111111;
+    width: 100%;
+    border-radius: 0 !important;
+    height: 9px !important;
+}
+.progress-loader .progress-bar-animated {
+    animation: .2s linear infinite progress-bar-stripes;
+}

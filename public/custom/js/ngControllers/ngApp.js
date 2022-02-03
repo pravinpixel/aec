@@ -3,9 +3,9 @@ var app = angular.module('App', ['ngRoute','datatables','luegg.directives','text
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  
         restrict: 'A',  
-        template: `
-            <div class="linear-activity">
-                <div class="indeterminate"></div>
+        template: `            
+            <div class="progress progress-loader">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
             </div>
         `,  
         link: function (scope, elm, attrs)  
@@ -39,3 +39,7 @@ app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeo
         }  
     };
 }]); 
+
+/* <div class="linear-activity">
+    <div class="indeterminate"></div>
+</div> */

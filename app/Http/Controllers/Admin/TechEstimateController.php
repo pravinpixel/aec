@@ -38,27 +38,11 @@ class TechEstimateController extends Controller
     public function update(Request $request , $id)
     {
         $data = $request->input("data");
-      
         EnquiryTechnicalEstimate::updateOrCreate(['enquiry_id'=>$id],[
             'build_json'    => json_encode($data),
             'total_wall_area'    =>  1 ,
             'wall'    =>  1 ,
-        ]);
-
-        // $enquiry    =   $this->customerEnquiryRepo->getEnquiryByID($id);
-        // $tech->build_json = json_encode($request->input());
-        // $tech->enquiry_id = 1;
-        // $tech->total_wall_area = 2;
-        // $tech->wall = 2;
-
-        // $tech->save();
-        
-        // $data   = $request->data;
-        // $enquiry =  $this->customerEnquiryRepo->getEnquiry($id);
-        // $dataObj = json_decode (json_encode ($data), FALSE);
-        // if(!empty($dataObj)) {
-        //     $response = $this->customerEnquiryRepo->updateTechnicalEstimateCost($enquiry ,$dataObj);
-        // }
+        ]); 
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 } 

@@ -160,7 +160,8 @@ class EnquiryController extends Controller
         } else if ($type == 'building_component') {
             DB::beginTransaction();
             try {
-                $this->Storecostestimate($data, $enquiry);
+                $this->StoreTechnicalEstimation($data, $enquiry);
+                $this->StoreCostEstimation($data, $enquiry);
                 $this->storeBuildingComponent($data, $enquiry);
               
               DB::commit();
@@ -184,12 +185,17 @@ class EnquiryController extends Controller
             return true;
         }
     }
-    public function Storecostestimate($data, $enquiry) {
-    //    dd($data);
-        //    EnquiryTechnicalEstimate
+
+    public function StoreTechnicalEstimation($data, $enquiry) {
         $dataObj = json_decode (json_encode ($data), FALSE);
         if(!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$dataObj);
+        }
+    }
+    public function StoreCostEstimation($data, $enquiry) {
+        $dataObj = json_decode (json_encode ($data), FALSE);
+        if(!empty($dataObj)) {
+            $response = $this->customerEnquiryRepo->storeCostEstimation($enquiry ,$dataObj);
         }
     }
 
@@ -209,8 +215,7 @@ class EnquiryController extends Controller
         $dataObj = json_decode (json_encode ($data), FALSE);
         if(!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
-            if($response) {
-               
+            if($response) {               
                 $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'building_component');
                 return true;
             }
@@ -262,7 +267,9 @@ class EnquiryController extends Controller
             try {
                 
                 $this->storeBuildingComponent($data, $enquiry);
-                $this->Storecostestimate($data, $enquiry);
+                $this->StoreTechnicalEstimation($data, $enquiry);
+                $this->StoreCostEstimation($data, $enquiry);
+
                 DB::commit();
             } catch (Exception $ex) {
                 DB::rollBack();

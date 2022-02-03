@@ -6,9 +6,7 @@
         @include('admin.includes.head')
         
         @stack('custom-styles')       
-    </head>
-    
-
+    </head> 
     <body>
 
         <!-- Begin page -->
@@ -16,6 +14,7 @@
 
             {{--===========  AJAX LOADER ======== --}}
                 <div data-loading></div>
+                
             {{--===========  AJAX LOADER ======== --}}
 
             {{-- ======= Alert Part ========== --}}

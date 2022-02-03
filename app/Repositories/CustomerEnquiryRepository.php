@@ -11,6 +11,7 @@ use App\Models\EnquiryBuildingComponentDetail;
 use App\Models\EnquiryBuildingComponentLayer;
 use App\Models\EnquiryService;
 use App\Models\EnquiryTechnicalEstimate;
+use App\Models\EnquiryCostEstimate;
 use App\Models\EnquiryComments;
 
 
@@ -188,18 +189,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $building_component_number = [];
         $total_wall_area_all = 0;
         foreach($buildingComponents as $buildingComponent) {
-          
             $total_wall_area = 0;
-           
             if($enquiryBuildingComponent && !empty($buildingComponent->Details)) {
-
                 foreach($buildingComponent->Details as $buildingComponentDetail) {
                     $total_wall_area +=  $buildingComponentDetail->TotalArea; 
-                   
                 }
                 $total_wall_area_all += $total_wall_area; 
                 $enquiryBuildingComponent->total_wall_area = $total_wall_area;
-               
             }
             $building_component_number[] = ["name"=> $buildingComponent->WallName,"sqfeet"=> $total_wall_area];
         }
@@ -211,10 +207,79 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return true;    
     }
 
+    public function storeCostEstimation($enquiry,$buildingComponents) 
+    {   
+        EnquiryCostEstimate::where('enquiry_id', $enquiry->id)->delete();
+
+        $cost_estimate   =      new EnquiryCostEstimate();
+        $result =   [
+                        'Components' => [ 
+                            [
+                                "Component"     => "",
+                                "Type"          => "", 
+                                "sqm"           => "",
+                                "complexity"    => "", 
+                                "Details" => [
+                                    "PriceM2"   => "",
+                                    "Sum"       => ""
+                                ],
+                                "Statistics" => [
+                                    "PriceM2"   => "", 
+                                    "Sum"       => "", 
+                                ],
+                                "CadCam" => [
+                                    "PriceM2"   => "",
+                                    "Sum"       => "", 
+                                ],
+                                "Logistics" => [
+                                    "PriceM2"   => "", 
+                                    "Sum"       => "",
+                                ],
+                                "TotalCost" => [
+                                    "PriceM2"   => "", 
+                                    "Sum"       => "", 
+                                ]
+                            ]
+                        ],
+                    "ComponentsTotals" => [
+                        "sqm"           => 0,
+                        "complexity"    => 0, 
+                        "Details" =>[
+                            "PriceM2"   => 0,
+                            "Sum"       => 0
+                        ],
+                        "Statistics" => [
+                            "PriceM2"   => 0, 
+                            "Sum"       => 0, 
+                        ],
+                        "CadCam" =>[
+                            "PriceM2"   => 0,
+                            "Sum"       => 0, 
+                        ],
+                        "Logistics" =>[
+                            "PriceM2"   => 0, 
+                            "Sum"       => 0,
+                        ],
+                        "TotalCost" =>[
+                            "PriceM2"   => 0, 
+                            "Sum"       => 0, 
+                        ],
+                        "grandTotal"    => 0, 
+                    ],
+                    'enquiry_id' =>  $enquiry->id
+                ];
+        $cost_estimate  ->    enquiry_id = $enquiry->id;
+        $cost_estimate  ->    created_by = Customer()->id;
+        $cost_estimate  ->    build_json = json_encode($result);
+        $cost_estimate  ->    save();
+        
+        return true;    
+    }
+
     public function updateTechnicalEstimateCost($enquiry,$buildingComponents) 
     {   
         EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete(); 
-        // build_json
+        
         foreach($buildingComponents as $buildingComponent) {
             $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
             $enquiryBuildingComponent->enquiry_id = $enquiry->id;
