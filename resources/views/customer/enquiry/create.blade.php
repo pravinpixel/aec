@@ -1157,22 +1157,44 @@
             }
 
             $scope.uploadFile = (filename, file_type) => {
-                var file = $scope[filename];
-                if(typeof(file) == 'undefined'){
-                    Message('danger',`Please upload ${file_type.replaceAll('_',' ') } file or link`);
+                $(".fileupload").css('pointer-events','none');
+                var file = false;
+                var link = false;
+                var callPromise = false;
+                if($scope[`file${filename}`]){
+                    file = $scope[`file${filename}`];
+                    var type = 'ifc_model_upload';  
+                } else if($(`#link${filename}`).val()){
+                    link =  $(`#link${filename}`).val();
+                    var type = 'ifc_link';
+                }
+                if(file == false && link == false){
+                    $(".fileupload").css('pointer-events','');
+                    Message('danger',`${file_type.replaceAll('_',' ') } file required`);
                     return false;
                 }
-                var type = 'ifc_model_upload';
                 var uploadUrl = '{{ route('customers.store-enquiry') }}';
-                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
-                promise.then(function (response) {
-                        $scope[filename] = '';
+                if(file){
+                    promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
+                    callPromise = true;
+                } else if(link) {
+                    promise = fileUpload.uploadLinkToUrl(link, type, file_type, uploadUrl, $scope);
+                    callPromise = true;
+                }
+                if(callPromise){
+                    promise.then(function (response) {
+                        $(".fileupload").css('pointer-events','');
+                        delete $scope[`file${filename}`];
+                        callPromise = false;
+                        $(`#link${filename}`).val('');
                         Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
                     }, function () {
                         $scope.serverResponse = 'An error has occurred';
                     });
                 }
+
+            }
 
             $scope.uploadLink = (filename, file_type) => {
                 var file = $(`#${filename}`).val();
