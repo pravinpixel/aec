@@ -1,4 +1,4 @@
-<form class="" id="reviewSubmit">
+<div class="" id="reviewSubmit">
     <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
         {{-- ProjectInfo --}}
             <fieldset class="accordion-item">
@@ -106,11 +106,9 @@
                                 </tr> 
                             </tbody>
                         </table>
-                        <form id="project_infomation__commentsForm" ng-submit="sendComments('project_infomation','Admin')" class="input-group mt-3">
-                            <div class="input-group mt-3">
-                                <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                                <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                            </div>
+                        <form id="project_infomation__commentsForm" name="project_infomation__commentsForm" ng-submit="sendComments('project_infomation','Customer')" class="input-group mt-3">
+                            <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-2">
                             <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'project_infomation', 'Project Information')">
@@ -147,12 +145,12 @@
                                 </ul>
                             </li>
                         </ul>  
-                        <form id="selected_service__commentsForm" ng-submit="sendComments('selected_service','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                        <form id="service__commentsForm" ng-submit="sendComments('service','Customer')" class="input-group mt-3">
+                            <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                        </form>  
+                        </form>
                         <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'selected_service', 'Selected Services')">
+                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
                                 <i class="fa fa-eye"></i>  Previous chat history
                             </a>
                         </div>
@@ -201,7 +199,7 @@
                                 </tbody>
                             </thead>
                         </table>
-                        <form id="IFC_Models_Upload_Docs__commentsForm" ng-submit="sendComments('IFC_Models_Upload_Docs','Admin')" class="input-group mt-3">
+                        <form id="IFC_Models_Upload_Docs__commentsForm" ng-submit="sendComments('IFC_Models_Upload_Docs','Customer')" class="input-group mt-3">
                             <input required type="text" ng-model="IFC_Models_Upload_Docs__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
@@ -249,9 +247,9 @@
                                             </table>
                                         </th>
                                     </tr> 
-                                    <tr ng-repeat="building_component in building_components" >
-                                        <td>@{{ building_component.wall }} @{{ total }}</td>
-                                        <td style="padding: 0 !important" >
+                                    <tr ng-repeat="building_component in building_components" ng-show="building_component.detail.length">
+                                        <td>@{{ building_component.wall }}</td>
+                                        <td style="padding: 0 !important">
                                             <table class="table m-0 ">
                                                 <tr ng-repeat="detail in building_component.detail"> 
                                                     <td width="50%">
@@ -274,13 +272,11 @@
                                                         <table class="table m-0 table-bordered">
                                                             <tr class="table-bold">
                                                                 <th>Name</th>
-                                                                <th>Type</th>
                                                                 <th>Thickness</th>
                                                                 <th>Breadth</th>
                                                             </tr> 
                                                             <tr ng-repeat="layer in detail.layer">
                                                                 <td>@{{ layer.layer.layer_name }}</td>
-                                                                <td>@{{ layer.layer_type.layer_type_name }}</td>
                                                                 <td>@{{ layer.thickness }}</td>
                                                                 <td>@{{ layer.breath }}</td>
                                                             </tr>
@@ -293,7 +289,7 @@
                                 </tbody>                     
                             </table> 
                         </div> 
-                        <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
+                        <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Customer')" class="input-group mt-3">
                             <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
@@ -324,7 +320,7 @@
                 <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
                     <div class="accordion-body">  
                         <h5> @{{ additional_infos.comments }}</h5>
-                        <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
+                        <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Customer')" class="input-group mt-3">
                             <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
@@ -354,8 +350,8 @@
             </div>
         </div>
     </div>
- 
-</form>
+    @include('customer.enquiry.models.chat-box')
+</div>
 <style> 
     .reviewSubmit .timeline-step .inner-circle{
         background: var(--secondary-bg) !important;

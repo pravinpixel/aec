@@ -233,7 +233,7 @@
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'ifc_model', 'IFC Models & Uploaded Documents')">
+                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'IFC_Models_Upload_Docs', 'IFC Models & Uploaded Documents')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div>

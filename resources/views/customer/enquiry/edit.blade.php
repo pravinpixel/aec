@@ -373,7 +373,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-      
+
 @endsection
       
 
@@ -933,6 +933,71 @@
                         Message('danger', 'Something went wrong');
                     });
             }
+
+            $scope.sendComments  = function(type, created_by) { 
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope[`${type}__comments`],
+                    "enquiry_id"      :   enquiry_id,
+                    "type"            :   type,
+                    "created_by"      :   created_by,
+                } 
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById(`${type}__commentsForm`).reset();
+                    // $scope.GetCommentsData();
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            $scope.showCommentsToggle = function (modalstate, type, header) {
+                $scope.modalstate = modalstate;
+                $scope.module = null;
+                $scope.chatHeader   = header; 
+                switch (modalstate) {
+                    case 'viewConversations':
+                        $http.get(API_URL + 'admin/show-comments/'+enquiry_id+'/type/'+type ).then(function (response) {
+                            $scope.commentsData = response.data.chatHistory; 
+                            $scope.chatType     = response.data.chatType;  
+                            $('#viewConversations-modal').modal('show');
+                        });
+                        break;
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.sendInboxComments  = function(type) {
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   enquiry_id,
+                    "type"            :   $scope.chatType,
+                    "created_by"      :   type,
+                }
+                console.log($scope.sendCommentsData);
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById("Inbox__commentsForm").reset();
+                    $scope.showCommentsToggle('viewConversations', $scope.chatType);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
         });
 
         app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload){
