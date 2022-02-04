@@ -123,7 +123,7 @@
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
-                    element.on('focusout', function () {
+                    element.on('mouseover', function () {
                         var index       = scope.index;
                      
                         let bcd = scope.building_building[index].building_component_number.map((item,i) => {
@@ -263,7 +263,7 @@
                                     "sqfeet": 0
                                 } 
                             ] ,
-                            "total_component_area" : 12
+                            "total_component_area" : 0
                         }
                     )
                 }
@@ -287,8 +287,7 @@
             $scope.updateTechnicalEstimate  = function() {
                 $http({
                     method: "POST",
-                    url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ,
-                    // data : $scope.building_component,
+                    url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} , 
                     data:{ data : $scope.building_building},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
@@ -404,10 +403,11 @@
                     });
                 }
         }); 
-        app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
+        app.controller('Cost_Estimate', function ($scope, $http, API_URL, $apply) {
 
             $http.get("{{ route('CostEstimateView', $data->id) }}").then(function (response) {
                 $scope.enquiry  = response.data;  
+                
                 $scope.CostEstimate  = response.data.cost_estimation;  
             });
             // $scope.CostEstimate  = {
@@ -496,6 +496,7 @@
                  
             }
             $scope.delete   =   function(index) {
+                $scope.$apply();
                 if(index == 0) {
                     return false
                 }

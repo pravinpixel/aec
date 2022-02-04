@@ -45,10 +45,6 @@
             function goBack() {
                 window.history.back();
             } 
-        </script> 
-        <script> 
-            var objDiv = document.getElementById("chat-scroll");
-            objDiv.scrollTop = objDiv.scrollHeight;
-        </script>
+        </script>  
     </body>
 </html>

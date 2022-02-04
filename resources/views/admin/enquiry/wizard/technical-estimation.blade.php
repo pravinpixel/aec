@@ -1,6 +1,6 @@
 <div class="mx-0 mt-3" ng-controller="Tech_Estimate">
-   
-    <div class="row" ng-if="building_building == null || building_building.length">
+    {{-- ng-if="building_building == null || building_building.length" --}}
+    <div class="row" >
         <div class="col-lg-9 p-0">
             <div class="card shadow-none p-0 m-0">
                 <div class="card-header pb-0 border-0">
@@ -60,7 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody> 
-                                <tr ng-repeat="(secindex,est) in buliding.building_component_number">
+                                <tr ng-repeat="(secindex,est) in buliding.building_component_number"  >
                                     <td>@{{ secindex+1 }}</td>
                                     <td style="padding:0 !important">
                                         <input type="text" required placeholder="Type here.." ng-model="est.name" class="form-control form-control-sm rounded-0 border-0">

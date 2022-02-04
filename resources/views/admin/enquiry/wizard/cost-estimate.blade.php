@@ -3,24 +3,24 @@
         <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
     </div>
     <div class="card-body pt-0 p-0">
-        <table class="table shadow-none border m-0 table-bordered">
+        <table class="table shadow-none border m-0 table-bordered ">
             <thead class="bg-light">
-                <tr class="text-white">
-                    <th style="background: var(--secondary-bg) !important">Enquiry Date</th>
-                    <th style="background: var(--secondary-bg) !important">Project Name</th>
-                    <th style="background: var(--secondary-bg) !important">Type of Project</th>
-                    <th style="background: var(--secondary-bg) !important">Enquiry Status</th>
+                <tr>
+                    <th>Enquiry Date</th>
+                    <th>Person Contact</th>
+                    <th>Type of Project</th>
+                    <th>Enquiry Status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>@{{ enquiry.enquiry.enquiry_date }}</td>
                     <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
-                    <td>@{{ enquiry.enquiry.project_type.project_type_name  }}</td>
+                    <td>@{{ enquiry.project_type  }}</td>
                     <td class="text-center"><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
                 </tr>
             </tbody>
-        </table>
+        </table> 
         <div class="row m-0 mt-3">
             <div class="table-responsive p-0">  
                 <table class="cost-estimate-table table table-bordered border">
@@ -137,7 +137,8 @@
             </div>
             
             <div class="col-12 shadow text-dark bg-white border p-2 rounded">
-                <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4>
+                {{-- <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4> --}}
+                <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
             </div>
         </div>
     </div>

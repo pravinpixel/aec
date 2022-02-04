@@ -29,6 +29,7 @@ class  CostEstimateController extends Controller
         $data                       =   EnquiryCostEstimate::where("enquiry_id", $id)->first();
         $enquiry                    =   $this->customerEnquiryRepo->getEnquiryByID($id);
         $result["enquiry"]          =   $enquiry ?? "";
+        $result['project_type']     =   $enquiry->projectType->project_type_name ?? '';
         $result['cost_estimation']  =   isset($data) ? json_decode($data->build_json) : [];
         return  $result;
     }

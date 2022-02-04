@@ -54,7 +54,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <div class="mb-3">
-                                                <label class="form-label" for="validationCustom01">Email \ E-Post<sup class="text-danger">*</sup></label>
+                                                <label class="form-label" for="validationCustom01">Email<sup class="text-danger">*</sup></label>
                                                 <input type="text" class="form-control" id="validationCustom01" name="email" ng-model="module.email" placeholder="Type Here..."  ng-required="true">
                                             </div>
                                         </div> 
@@ -62,7 +62,7 @@
                                     <div class="col-md-6"> 
                                         <div class="mb-3">
                                             <label class="form-label" >Telephone<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control"   ng-pattern="phoneNumbr" name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
+                                            <input type="number" class="form-control"   ng-pattern="phoneNumbr" name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
                                         </div>
                                     </div>
                                     <div class="col-md-12">

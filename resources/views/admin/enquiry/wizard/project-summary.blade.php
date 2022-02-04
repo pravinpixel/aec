@@ -1,5 +1,4 @@
-<div ng-controller="WizzardCtrl">
-  
+<div ng-controller="WizzardCtrl"> 
     <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
         {{-- ProjectInfo --}}
             <fieldset class="accordion-item">
@@ -309,18 +308,12 @@
         {{-- Additional Info --}} 
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="add_info_header">
-                    <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#add_info" aria-expanded="false" aria-controls="add_info">
+                    <div class="accordion-button collapsed">
                         Additional Info
                     </div>
-                    <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
-                        <i data-bs-toggle="collapse" 
-                            href="#add_info" 
-                            aria-expanded="false" 
-                            aria-controls="add_info" 
-                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
-                    </div>
+                   
                 </div>
-                <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
+                <div id="add_info"  >
                     <div class="accordion-body">  
                         <table class="table table-bordered">
                             <tr>
@@ -329,7 +322,7 @@
                                 <th>commented person</th>
                                 <th>comments</th>
                             </tr>
-                            <tr ng-repeat="additional_info in additional_infos">
+                            <tr  >
                                 <td> @{{ index + 1  }}</td>
                                 <td>@{{ additional_info.created_at }}</td>
                                 <td>@{{ additional_info.customer.full_name }}</td>

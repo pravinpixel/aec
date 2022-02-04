@@ -63,6 +63,11 @@ class Enquiry extends Model
         return GlobalService::DBDateFormat($value);
     }
 
+    public function getEnquiryDateAttribute($value)
+    {
+        return GlobalService::DBDateFormat($value);
+    }
+
     public function setProjectDateAttribute($value)
     {
         $this->attributes['project_date'] = GlobalService::DBDateFormat($value);

@@ -244,7 +244,9 @@
                 popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
                 popupWinindow.document.close();
             }
+            
             $scope.glued = true;
+
             $scope.sendComments  = function(type, created_by) { 
                 $scope.sendCommentsData = {
                     "comments"        :   $scope[`${type}__comments`],
@@ -284,6 +286,7 @@
                         break;
                 } 
             }
+
             $scope.sendInboxComments  = function(type) {
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
@@ -402,11 +405,4 @@
             });
     });
     </script>
-
-
-<script>
-    $(function () {
-      
-    });
-   </script>
 @endpush

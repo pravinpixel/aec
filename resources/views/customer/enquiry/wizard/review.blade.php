@@ -106,10 +106,12 @@
                                 </tr> 
                             </tbody>
                         </table>
-                        <form id="project_infomation__commentsForm" name="project_infomation__commentsForm" ng-submit="sendComments('project_infomation','Customer')" class="input-group mt-3">
-                            <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                        </form>  
+                        <form id="project_infomation__commentsForm" class="input-group mt-3">
+                            <div class="input-group mt-3">
+                                <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <button class="btn btn-primary rounded-pill" ng-click="sendComments('project_infomation','Customer')"><i class="fa fa-send"></i></button>
+                            </div>
+                        </form>
                         <div class="text-end pt-2">
                             <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'project_infomation', 'Project Information')">
                                 <i class="mdi mdi-eye"></i>  Previous chat history
@@ -145,10 +147,10 @@
                                 </ul>
                             </li>
                         </ul>  
-                        <form id="service__commentsForm" ng-submit="sendComments('service','Customer')" class="input-group mt-3">
-                            <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                        </form>
+                        <form id="selected_service__commentsForm" class="input-group mt-3">
+                            <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <button class="btn btn-primary rounded-pill" ng-click="sendComments('selected_service','Customer')"><i class="fa fa-send"></i></button>
+                        </form>  
                         <div class="text-end pt-3">
                             <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
                                 <i class="fa fa-eye"></i>  Previous chat history
@@ -289,9 +291,9 @@
                                 </tbody>                     
                             </table> 
                         </div> 
-                        <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Customer')" class="input-group mt-3">
+                        <form id="building_components__commentsForm" class="input-group mt-3">
                             <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                            <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_components','Customer')" ><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
                             <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
@@ -306,7 +308,7 @@
         {{-- Additional Info --}} 
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="add_info_header">
-                    <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#add_info" aria-expanded="false" aria-controls="add_info">
+                    <div class="accordion-button collapsed">
                         Additional Info
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -317,13 +319,13 @@
                             class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
                 </div>
-                <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
+                <div id="add_info">
                     <div class="accordion-body">  
                         <h5> @{{ additional_infos.comments }}</h5>
-                        <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Customer')" class="input-group mt-3">
+                        <form id="add_info__commentsForm" class="input-group mt-3">
                             <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                        </form>  
+                            <button class="btn btn-primary rounded-pill" ng-click="sendComments('add_info','Customer')"><i class="fa fa-send"></i></button>
+                        </form>
                         <div class="text-end pt-3">
                             <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
                                 <i class="fa fa-eye"></i>  Previous chat history
