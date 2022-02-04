@@ -220,10 +220,12 @@
                                                 <td> @{{ ifc_model.created_at }}</td>
                                                 <td> @{{ ifc_model.file_type }}</td>
                                                 <td> @{{ ifc_model.document_type.document_type_name }}</td>
-                                                <td class="text-center">
-                                                    <a ng-show="ifc_model.file_type != 'link' "download="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                                    <a ng-show="ifc_model.file_type == 'link' " download="@{{ ifc_model.file_name }}" href="@{{ ifc_model.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                                <td class="text-center" ng-show="ifc_model.file_type != 'link'">
+                                                    <a download="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
                                                     <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                </td>
+                                                <td class="text-center" ng-show="ifc_model.file_type == 'link'">
+                                                    <a target="_blank" href="@{{ ifc_model.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                                 </td>
                                             </tr>
                                         </tbody>
