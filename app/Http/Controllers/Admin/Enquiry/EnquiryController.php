@@ -110,7 +110,7 @@ class EnquiryController extends Controller
         $result['ifc_model_uploads']    =   $enquiry->documentTypes; 
         $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['additional_infos']     =   $this->commentRepo->getCommentByEnquiryId($enquiry->id);
-        return $result; 
+        return $result;
         
     }
     public function formatServices($outputTypes, $services)

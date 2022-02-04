@@ -360,7 +360,7 @@
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
-                <a href="#!/proposal-sharing" class="btn btn-outline-primary">Prev</a>
+                <a href="#!/proposal-sharing" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
                 <a href="#!/move-to-project" class="btn btn-primary">Next</a>

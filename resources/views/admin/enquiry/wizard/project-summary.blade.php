@@ -351,6 +351,16 @@
         {{-- Additional Info --}}
     </div>   
     @include("admin.enquiry.models.chat-box")
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <div>
+                
+            </div>
+            <div>
+                <a href="#!/technical-estimation" class="btn btn-primary">Next</a>
+            </div>
+        </div>
+    </div>
 </div>
 <style>
     .Project_Info .timeline-step .inner-circle{

@@ -107,8 +107,10 @@
                             </tbody>
                         </table>
                         <form id="project_infomation__commentsForm" ng-submit="sendComments('project_infomation','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                            <div class="input-group mt-3">
+                                <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                            </div>
                         </form>  
                         <div class="text-end pt-2">
                             <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'project_infomation', 'Project Information')">
@@ -338,10 +340,19 @@
     </div>   
     <div class="card-footer border-0 p-0 ">
         <ul class="list-inline wizard mb-0 pt-3">
-            <li class="previous list-inline-item disabled"><a href="#!/additional-info" class="btn btn-outline-primary">Previous</a></li>
-            <li class="next list-inline-item float-end"  ng-click="saveOrSubmit('Active')" ><a class="btn btn-primary">Submit</a></li>
-            <li class="next list-inline-item float-end"  ng-click="saveOrSubmit('In-Complete')" ><a class="btn btn-primary">Save & Submit Later</a></li>
+            <li class="previous list-inline-item disabled"></li>
+            
+            
         </ul>
+        <div class="row m-0">
+            <div class="col-6"><a href="#!/additional-info" class="btn btn-light border shadow-sm">Prev</a></div>
+            <div class="col-6 text-end">
+                <div class="btn-group">
+                    <button class="next me-2 btn btn-light rounded border"  ng-click="saveOrSubmit('In-Complete')"> Save & Submit Later </button>
+                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Active')">Submit </button>
+                </div>
+            </div>
+        </div>
     </div>
  
 </form>

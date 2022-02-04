@@ -327,6 +327,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                 ];
                 $buildingComponentData[] = (object)array_merge($buildingComponent, $componentAdditionalData);
         }
+        
         return $buildingComponentData;
     } 
 
@@ -361,6 +362,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'building_type'        =>  $enquiry->buildingType,
             'project_type'         =>  $enquiry->projectType,
             'delivery_type'        => $enquiry->deliveryType,
+            
+            // Tabs Status
         ];
     }
 

@@ -1,8 +1,8 @@
 <form class="row" id="buildingComponent" name="buildingComponentForm" novalidate>
     <div class="row">
         <div class="col-sm mb-2 mb-sm-0">
-            <div class="nav flex-column nav-pills shadow-sm rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"
                     aria-selected="false">
                     <i class="fa-2x @{{ w.WallIcon }}"></i>
                     <div>@{{ w.WallName }}</div>
@@ -70,13 +70,8 @@
                                                 <div class="btn-group">
                                                     <button class="btn-light shadow-sm border btn more-btn-layer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" aria-expanded="true" aria-controls="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}">
                                                         <i class="fa fa-chevron-down"></i>
-                                                    </button>                             
-                                                    {{-- <span  class="position-absolute wall-delete-btn  badge bg-danger" >
-                                                        <i class="fa fa-trash"></i>
-                                                    </span>  --}}
-                                                    
-                                                    <button  type="button" class="ms-2 btn btn-outline-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
-
+                                                    </button>  
+                                                    <button  type="button" class="ms-2 btn btn-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
                                                 </div>
                                             </th>
                                         </tr>
@@ -228,7 +223,7 @@
     @include('customer.enquiry.add-layer-modal')
     <div class="card-footer border-0 p-0 " >
         <ul class="list-inline wizard mb-0 pt-3">
-            <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-outline-primary">Previous</a></li>
+            <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li>
             <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()" ng-disabled ="buildingComponentForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
         </ul>
     </div>

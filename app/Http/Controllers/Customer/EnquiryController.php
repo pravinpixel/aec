@@ -467,7 +467,7 @@ class EnquiryController extends Controller
             $dataDb = Enquiry::with('projectType')->where('status','In-Complete');
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'. $dataDb->enquiry_number.' </span> </div>';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
@@ -488,9 +488,17 @@ class EnquiryController extends Controller
                 </div>';
             })
             ->addColumn('action', function($dataDb){
-                return '<a class="btn btn-outline-info btn-sm  rounded-pill shadow-sm" href="'.route("customers.edit-enquiry",$dataDb->id) .'">
-                        <i class="fa fa-eye"></i>
-                    </a>';
+                return '
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",$dataDb->id) .'">View</a>
+                                <a class="dropdown-item" href="#">Delete</a>
+                            </div>
+                        </div>
+                    ';
             })
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);
@@ -526,7 +534,18 @@ class EnquiryController extends Controller
                 </div>';
             })
             ->addColumn('action', function($dataDb){
-                return '<a href="#" data-message="">';
+                return '
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",$dataDb->id) .'">View</a>
+                                <a class="dropdown-item" href="#">Approve</a>
+                                <a class="dropdown-item" href="#">Cancel Enquiry</a>
+                            </div>
+                        </div>
+                    ';
             })
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);
@@ -561,7 +580,17 @@ class EnquiryController extends Controller
                 </div>';
             })
             ->addColumn('action', function($dataDb){
-                return '<a href="#" data-message="">';
+                return '
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",$dataDb->id) .'">View</a>
+                                <a class="dropdown-item" href="#">Active</a>
+                            </div>
+                        </div>
+                    ';
             })
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);

@@ -45,7 +45,7 @@
                                 <tr ng-repeat="(index,m) in module_get">
                                     <td> @{{ index+1 }}</td>
                                     <td class="text-center"> 
-                                        <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.enquiry_number }}</span>
+                                        <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm">@{{ m.enquiry_number }}</span>
                                     </td>
                                     <td>@{{ m.customer.contact_person }}</td>
                                     <td>@{{ m.customer.mobile_no }}</td>
@@ -63,8 +63,16 @@
                                     <td class="text-center">	
                                         <span class="badge bg-success shadow-sm rounded-pill">Active</span>
                                     </td>
-                                    <td class="text-center">
-                                        <a class="btn btn-outline-info btn-sm  rounded-pill shadow-sm" href="{{ route('view-enquiry') }}/@{{ m.id }}"><i class="mdi mdi-eye"></i></a>
+                                    <td class="text-center"> 
+                                        <div class="dropdown">
+                                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="{{ route('view-enquiry') }}/@{{ m.id }}">View</a>
+                                                <a class="dropdown-item" href="#">Delete</a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr> 
                             </tbody>
