@@ -22,7 +22,7 @@
                 <a target="_child" href="{{ asset("public/uploads/") }}/@{{ viewList.pivot.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
             </td> 
             
-            <td class="text-center"  ng-show="viewList.pivot.file_type != 'link'">
+            <td class="text-center"  ng-show="viewList.pivot.file_type == 'link'">
                 <a class="" target="_blank" href="@{{ viewList.pivot.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
             </td> 
         </tr> 
