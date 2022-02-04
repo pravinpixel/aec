@@ -309,7 +309,7 @@
         {{-- Additional Info --}} 
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="add_info_header">
-                    <div class="accordion-button collapsed">
+                    <div class="accordion-button collapsed"> 
                         Additional Info
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">

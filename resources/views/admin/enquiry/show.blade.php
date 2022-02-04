@@ -403,7 +403,7 @@
                     });
                 }
         }); 
-        app.controller('Cost_Estimate', function ($scope, $http, API_URL, $apply) {
+        app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
 
             $http.get("{{ route('CostEstimateView', $data->id) }}").then(function (response) {
                 $scope.enquiry  = response.data;  
@@ -496,7 +496,7 @@
                  
             }
             $scope.delete   =   function(index) {
-                $scope.$apply();
+                
                 if(index == 0) {
                     return false
                 }
