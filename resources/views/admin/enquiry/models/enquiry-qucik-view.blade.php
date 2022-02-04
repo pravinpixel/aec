@@ -278,7 +278,7 @@
                                                     </table>
                                                 </th>
                                             </tr> 
-                                            <tr ng-repeat="building_component in building_component" >
+                                            <tr ng-repeat="building_component in building_component" ng-show="building_component.detail.length">
                                                 <td>@{{ building_component.wall }} </td>
                                                 <td style="padding: 0 !important" >
                                                     <table class="table m-0 ">
