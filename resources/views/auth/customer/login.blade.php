@@ -6,10 +6,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xxl-4 col-lg-5 pt-md-5">
-                    <div class="card ">
-  
-                        <div class="card-body pt-0 p-4">
-                            
+                    <div class="card ">  
+                        <div class="card-body pt-0 p-4">                            
                             <div class="text-center pt-4 mb-3 w-75 m-auto">
                                 <span><img src="{{ asset("public/assets/images/logo_customer.png") }}" alt="{{ env('APP_NAME') }}" width="150px"></span>
                             </div>
