@@ -220,8 +220,9 @@
                                                 <td> @{{ ifc_model.created_at }}</td>
                                                 <td> @{{ ifc_model.file_type }}</td>
                                                 <td> @{{ ifc_model.document_type.document_type_name }}</td>
-                                                <td class="text-center"> 
-                                                    <a download="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                                <td class="text-center">
+                                                    <a ng-show="ifc_model.file_type != 'link' "download="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                                    <a ng-show="ifc_model.file_type == 'link' " download="@{{ ifc_model.file_name }}" href="@{{ ifc_model.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
                                                     <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                                 </td>
                                             </tr>
@@ -303,13 +304,11 @@
                                                                 <table class="table m-0 table-bordered">
                                                                     <tr class="table-bold">
                                                                         <th>Name</th>
-                                                                        <th>Type</th>
                                                                         <th>Thickness</th>
                                                                         <th>Breadth</th>
                                                                     </tr> 
                                                                     <tr ng-repeat="layer in detail.layer">
                                                                         <td>@{{ layer.layer.layer_name }}</td>
-                                                                        <td>@{{ layer.layer_type.layer_type_name }}</td>
                                                                         <td>@{{ layer.thickness }}</td>
                                                                         <td>@{{ layer.breath }}</td>
                                                                     </tr>

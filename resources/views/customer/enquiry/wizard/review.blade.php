@@ -194,7 +194,8 @@
                                         <td> @{{ ifc_model_upload.file_type }}</td>
                                         <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
                                         <td class="text-center">
-                                            <a download="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                            <a ng-show="ifc_model_upload.file_typ != 'link' "download="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                            <a ng-show="ifc_model_upload.file_typ == 'link' " download="@{{ ifc_model_upload.file_name }}" href="@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
                                             <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                     </tr>
