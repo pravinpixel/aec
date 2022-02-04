@@ -1133,7 +1133,7 @@
                     Message('danger',`${file_type.replaceAll('_',' ') } file required`);
                     return false;
                 }
-                var uploadUrl = '{{ route('customers.store-enquiry') }}';
+                var uploadUrl = '{{ route('customers.update-enquiry',$id) }}';
                 if(file){
                     promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
                     callPromise = true;

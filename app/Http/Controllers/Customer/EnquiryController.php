@@ -483,12 +483,14 @@ class EnquiryController extends Controller
                 return '<div class="btn-group">
                 <button ng-click=getEnquiry("project_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->project_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
                 <button ng-click=getEnquiry("service",'.$dataDb->id.') class="btn progress-btn '.($dataDb->service == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
-                <button ng-click=getEnquiry("ifc_model_upload",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
+                <button ng-click=getEnquiry("ifc_model",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
                 <button ng-click=getEnquiry("building_component",'.$dataDb->id.') class="btn progress-btn '.($dataDb->building_component == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button> 
                 </div>';
             })
             ->addColumn('action', function($dataDb){
-                return '<a href="#" data-message="">';
+                return '<a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="'.route("customers.edit-enquiry",$dataDb->id) .'">
+                        <i class="fa fa-edit"></i>
+                    </a>';
             })
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);
@@ -519,7 +521,7 @@ class EnquiryController extends Controller
                 return '<div class="btn-group">
                 <button ng-click=getEnquiry("project_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->project_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
                 <button ng-click=getEnquiry("service",'.$dataDb->id.') class="btn progress-btn '.($dataDb->service == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
-                <button ng-click=getEnquiry("ifc_model_upload",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
+                <button ng-click=getEnquiry("ifc_model",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
                 <button ng-click=getEnquiry("building_component",'.$dataDb->id.') class="btn progress-btn '.($dataDb->building_component == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button> 
                 </div>';
             })
@@ -554,7 +556,7 @@ class EnquiryController extends Controller
                 return '<div class="btn-group">
                 <button ng-click=getEnquiry("project_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->project_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
                 <button ng-click=getEnquiry("service",'.$dataDb->id.') class="btn progress-btn '.($dataDb->service == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
-                <button ng-click=getEnquiry("ifc_model_upload",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
+                <button ng-click=getEnquiry("ifc_model",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
                 <button ng-click=getEnquiry("building_component",'.$dataDb->id.') class="btn progress-btn '.($dataDb->building_component == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button> 
                 </div>';
             })

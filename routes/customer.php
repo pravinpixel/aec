@@ -18,7 +18,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::get('my-projects', [EnquiryController::class,'myProjects'])->name("customers-my-projects");    
 
-    Route::get('my-enquiry/{id}', [EnquiryController::class,'myEnquiriesEdit'])->name("customers.edit");
+    Route::get('my-enquiry/{id}', [EnquiryController::class,'myEnquiriesEdit'])->name("customers.edit-enquiry");
 
     Route::get('create-enquiries', [EnquiryController::class, 'create'])->name('customers.create-enquiry');
 

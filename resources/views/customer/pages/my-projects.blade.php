@@ -64,7 +64,7 @@
                                             <span class="badge bg-success shadow-sm rounded-pill">Active</span>
                                         </td>
                                         <td>                                            
-                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit",$row->id) }}">
+                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit-enquiry",$row->id) }}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
