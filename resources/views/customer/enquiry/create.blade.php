@@ -24,7 +24,7 @@
                     <div id="rootwizard" ng-controller="wizard">
                        
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                            <li class="nav-item"  data-target-form="#projectInfoForm">
+                            <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
                                 <a href="#!/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
@@ -34,7 +34,7 @@
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
+                            <li class="nav-item serviceSelection" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
                                 <a href="#!/service" style="min-height: 40px;" class="timeline-step" id="service">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -45,7 +45,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload"  style="pointer-events:none">
+                            <li class="nav-item IFCModelUpload" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload"  style="pointer-events:none">
                                 <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -56,7 +56,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
+                            <li class="nav-item buildingComponent" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
                                 <a href="#!/building-component"  style="min-height: 40px;" class="timeline-step" id="building-component">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -67,7 +67,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
+                            <li class="nav-item additionalInformation" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
                                 <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step" id="additional-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -77,7 +77,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item last"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
+                            <li class="nav-item last reviewSubmit"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
                                 <a href="#!/review" style="min-height: 40px;"  class="timeline-step" id="review">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">

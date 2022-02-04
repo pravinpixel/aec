@@ -139,9 +139,13 @@
                 </div>
                 <div id="selected_service" class="accordion-collapse collapse" aria-labelledby="selected_service_header" data-bs-parent="#summaryGroup">
                     <div class="accordion-body">  
-                        <ul class="row m-0 " >
-                            <li ng-repeat="service in services" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
-                        </ul>  
+                        <ul>
+                            <li ng-repeat="(key,outputType) in services" class=""> @{{ key }}
+                                <ul  class="row m-0 ">
+                                    <li ng-repeat="service in outputType" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
+                                </ul>
+                            </li>
+                        </ul>   
                         <form id="selected_service__commentsForm" ng-submit="sendComments('selected_service','Admin')" class="input-group mt-3">
                             <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
@@ -231,9 +235,8 @@
                             <table class="table table-bordered" ng-init="total = 0 ">
                                 <tbody >
                                     <tr class="table-bold text-center">
-                                        <th width="150px"></th>
-                                        <th style="padding: 0 !important">
-                                            <table class="table m-0 ">
+                                        <th style="padding: 0 !important" colspan="2">
+                                            <table class="table m-0 custom">
                                                 <tr>
                                                     <th width="50%">
                                                         Wall details
@@ -246,9 +249,9 @@
                                         </th>
                                     </tr> 
                                     <tr ng-repeat="building_component in building_components" >
-                                        <td>@{{ building_component.wall }} @{{ total }}</td>
+                                        <td>@{{ building_component.wall }}</td>
                                         <td style="padding: 0 !important" >
-                                            <table class="table m-0 ">
+                                            <table class="table m-0 custom">
                                                 <tr ng-repeat="detail in building_component.detail"> 
                                                     <td width="50%">
                                                         <table class="table m-0 table-bordered">
@@ -351,7 +354,7 @@
 </div>
 <style>
     .Project_Info .timeline-step .inner-circle{
-        background: var(--primary-bg) !important;
+        background: var(--secondary-bg) !important;
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
     }

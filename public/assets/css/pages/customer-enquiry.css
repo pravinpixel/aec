@@ -120,18 +120,18 @@ thead, tbody, tfoot, tr, td, th {
     vertical-align: middle !important
 }
 .table thead,th {
-    background: #757CF2 !important;
+    background: var(--primary-bg) !important;
     color: white
 }
 
  .table tbody thead,th {
-    background: #757CF2 !important
+    background: var(--primary-bg) !important
 }
 .daterangepicker .calendar-table th, .daterangepicker .calendar-table td {
     background:  white !important
 }
 .daterangepicker td.active, .daterangepicker td.active:hover {
-    background: #757CF2 !important
+    background: var(--primary-bg) !important
 }
 .dashboard-icon {
     font-size: 3rem !important;
@@ -163,7 +163,7 @@ thead, tbody, tfoot, tr, td, th {
 
 .file-upload-card {
     border-radius: 20px !important;
-    border: 1px solid #757bf260 !important
+    border: 1px solid #75caf260 !important
 
 }
 .file-upload-card  h1{
@@ -183,7 +183,7 @@ thead, tbody, tfoot, tr, td, th {
 }
 .file-upload-card  .drop-box {
     padding: 20px;
-    border: dashed 2px #757cf2 !important;
+    border: dashed 2px var(--primary-bg) !important;
     min-height: 50px !important;
     border-radius: 20px !important;
     background: #f4f4ff  !important;
@@ -202,7 +202,7 @@ thead, tbody, tfoot, tr, td, th {
     flex-direction: column
 }
 .file-upload-card .file-submit-btn {
-    background: #757cf2;
+    background: var(--secondary-bg);
     /* box-shadow: 0 0 5px gray; */
     padding: 10px;
     border-radius: 10px 10px 20px 10px; 

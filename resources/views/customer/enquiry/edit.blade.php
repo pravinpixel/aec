@@ -23,28 +23,27 @@
                                
                     <div id="rootwizard" ng-controller="wizard">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                            <li class="nav-item"  data-target-form="#projectInfoForm" style="pointer-events:none"> 
-                                <a href="#!/" style="min-height: 40px;" class="timeline-step {{$enquiry->project_info == '1' ? "active" : ""}} " id="project-info">
+                            <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm" style="pointer-events:none"> 
+                                <a href="#!/" style="min-height: 40px;" class="timeline-step  {{$enquiry->project_info == '1' ? "active" : ""}} " id="project-info">
                                     <div class="timeline-content">
-                                        <div class="inner-circle  bg-success">
+                                        <div class="inner-circle projectInfoForm bg-success">
                                             <i class="fa fa-project-diagram fa-2x "></i>
                                         </div>       
                                         <div class="text-end d-none d-sm-inline mt-2">Project Information</div>                                                                 
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
-                                <a href="#!/service" style="min-height: 40px;" class="timeline-step  {{$enquiry->service == 1 ? 'active' : ''}}" id="service">
+                            <li class="nav-item serviceSelection" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
+                                <a href="#!/service" style="min-height: 40px;" class="timeline-step serviceSelection  {{$enquiry->service == 1 ? 'active' : ''}}" id="service">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
                                         </div>        
                                         <span class="d-none d-sm-inline mt-2">Service Selection</span>                                                                
-                                    </div>
-                                    
+                                    </div> 
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" style="pointer-events:none">
+                            <li class="nav-item IFCModelUpload" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" style="pointer-events:none">
                                 <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step {{$enquiry->ifc_model_upload == 1 ? 'active' : ''}}" id="ifc-model-upload">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -55,18 +54,17 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
+                            <li class="nav-item buildingComponent" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
                                 <a href="#!/building-component"  style="min-height: 40px;" class="timeline-step {{$enquiry->building_component == 1 ? 'active' : ''}}" id="building-component">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
                                         </div>                                                                        
                                         <span class="d-none d-sm-inline mt-2">Building  Components</span>
-                                    </div>
-                                    
+                                    </div> 
                                 </a>
                             </li>
-                            <li class="nav-item" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
+                            <li class="nav-item additionalInformation" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
                                 <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step {{$enquiry->additional_info == 1 ? 'active' : ''}}"  id="additional-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -76,15 +74,14 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item last"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
+                            <li class="nav-item last reviewSubmit"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
                                 <a href="#!/review" style="min-height: 40px;"  class="timeline-step" id="review">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-clipboard-check mb-1"></i>
                                         </div>                   
                                         <span class="d-none d-sm-inline mt-2">Review &  Submit </span>                                                     
-                                    </div>
-                                    
+                                    </div> 
                                 </a>
                             </li>
                         </ul>  
@@ -378,86 +375,7 @@
     </div><!-- /.modal -->
       
 @endsection
-          
-@push('custom-styles')
-    <link rel="stylesheet" href="{{ asset('public/assets/css/pages/customer-enquiry.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/assets/css/angularjs/ui-notification.css') }}">
-    <style>
-        fieldset:hover ,   fieldset:hover  .legend {
-            border: 1px solid #757CF2 !important
-        }
-        .legend {
-            top: -15px;
-            position: absolute;
-            font-weight: bold;
-            line-height: 25px;
-            padding: 0px 10px;
-            background: white;
-            left: 25px;
-        } 
-        .table-bold {
-            font-weight: bold !important
-        }
-        .timeline-step {
-            display: inline !important;
-        }
-        .timeline-step.active .inner-circle {
-            background: #757CF2 !important
-        }
-        .inner-circle .fa {
-            transform: translateY(5px)
-        }
-         li.nav-item .timeline-step::after {
-            content: "";
-            position: absolute;
-            top: 38%;
-            right: -38px;
-            border: 1px dashed;
-            width: 50%; 
-        }
-        li.last .timeline-step::after {
-            display: none;
-        }
-        li.nav-item {
-            position: relative;
-        }
-        /* .timeline-steps  {
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            position: relative; 
-        }
-        .timeline-step {
-           
-            z-index: 1;
-            
-            /* margin: 10px */
-        } */
-        .inner-circle {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            box-shadow: 0px 0px 10px #bdbdbd;
-            background: white;
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            color: white;
-            border: 3px solid white;
-            transform: scale(1.1);
-
-        }
-        .timeline-content {
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            /* flex-direction: column; */
-        }
-        .admin-Delivery-wiz .timeline-step::after {
-            visibility: hidden;
-        } 
-    </style>
-@endpush
+      
 
 @push('custom-scripts')
 

@@ -155,7 +155,7 @@
 @if (Route::is('enquiry.technical-estimation'))
     <style>
         .admin-Technical_Estimate-wiz .timeline-step .inner-circle{
-            background: var(--primary-bg) !important;
+            background: var(--secondary-bg) !important;
             transform: scale(1.2);
             box-shadow: 0px 5px 10px #4f4f4fb2 !important
         } 

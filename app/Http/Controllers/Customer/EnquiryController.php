@@ -24,7 +24,7 @@ use Exception;
 use Illuminate\Support\Facades\Config as FacadesConfig;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 
 class EnquiryController extends Controller
 {
@@ -488,8 +488,8 @@ class EnquiryController extends Controller
                 </div>';
             })
             ->addColumn('action', function($dataDb){
-                return '<a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="'.route("customers.edit-enquiry",$dataDb->id) .'">
-                        <i class="fa fa-edit"></i>
+                return '<a class="btn btn-outline-info btn-sm  rounded-pill shadow-sm" href="'.route("customers.edit-enquiry",$dataDb->id) .'">
+                        <i class="fa fa-eye"></i>
                     </a>';
             })
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])

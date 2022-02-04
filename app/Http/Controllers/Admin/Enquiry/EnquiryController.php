@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\Enquiry;
 use App\Services\GlobalService;
 use App\Interfaces\BuildingComponentRepositoryInterface;
+use App\Interfaces\OutputTypeRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
@@ -34,7 +35,7 @@ class EnquiryController extends Controller
     protected $buildingComponent;
     protected $commentRepo;
     protected $documentTypeEnquiryRepo;
-
+    protected $outputTypeRepository;
     
 
     protected $user;
@@ -46,7 +47,8 @@ class EnquiryController extends Controller
         BuildingComponentRepositoryInterface $buildingComponent,
         CommentRepositoryInterface $comment,
         DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo,
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+        OutputTypeRepositoryInterface $outputTypeRepository
     ){
         $this->customerEnquiryRepo     = $customerEnquiryRepository;
         $this->serviceRepo             = $serviceRepo;
@@ -55,6 +57,7 @@ class EnquiryController extends Controller
         $this->commentRepo             = $comment;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
         $this->customer = $customerRepository;
+        $this->outputTypeRepository    = $outputTypeRepository;
     }
 
     /**
@@ -95,20 +98,33 @@ class EnquiryController extends Controller
     public function singleIndex($id) {
         
         $enquiry                        =   $this->customerEnquiryRepo->getEnquiryByID($id);
+        $outputTypes                    =   $this->outputTypeRepository->get();
+        $services                       =   $enquiry->services()->get();
         $result['customer_info']        =   $enquiry->customer; 
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
         $result["enquiry_comments"]     =   $this->customerEnquiryRepo->getEnquiryComments($id);
         $result["enquiry_id"]           =   $enquiry->id;
         $result["enquiry"]              =   $this->customerEnquiryRepo->formatEnqInfo($enquiry);
         $result['project_info']         =   $this->customerEnquiryRepo->formatProjectInfo($enquiry);
-        $result['services']             =   $enquiry->services;
+        $result['services']             =   $this->formatServices($outputTypes, $services);
         $result['ifc_model_uploads']    =   $enquiry->documentTypes; 
         $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['additional_infos']     =   $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         return $result; 
         
     }
-    
+    public function formatServices($outputTypes, $services)
+    {
+        $result = [];
+        foreach($outputTypes as $outputType) {
+            foreach($services as $service) {
+                if($service->output_type_id == $outputType->id){
+                    $result[$outputType->output_type_name][] = $service;
+                }
+            }
+        }
+        return $result;
+    }
     public function singleIndexPage($id=null) {
         if ($id) {
             
