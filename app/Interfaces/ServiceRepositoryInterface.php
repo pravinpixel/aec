@@ -8,6 +8,7 @@ interface ServiceRepositoryInterface
     public function update(array $data, $id);
     public function delete($id);
     public function updateStatus($id);
+    public function serviceExist(array  $data);
     public function find($id);
     public function get($request);
 }

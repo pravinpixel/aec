@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Master\ModuleController;
+use App\Http\Controllers\Admin\CostEstimationController;
 use App\Http\Controllers\Admin\Master\BuildingTypeController;
 use App\Http\Controllers\Admin\Master\DeliveryTypeController;
 use App\Http\Controllers\Admin\Master\DocumentTypeController;
@@ -15,9 +16,48 @@ use App\Http\Controllers\Customer\Master\CustomerLayerController;
 use App\Http\Controllers\Admin\Master\RoleController;
 
 
+
+Route::get('module-file',  function() {
+    return view('admin.setting-tabs.Module.module');
+})->name('module-file');
+Route::get('role-file',  function() {
+    return view('admin.setting-tabs.Role.role');
+})->name('role-file');
+Route::get('masterEstimation-file',[CostEstimationController::class,'getMasterCalculation'])->name('masterEstimation-file');
+Route::get('component-file',  function() {
+    return view('admin.setting-tabs.Building-Component.component');
+})->name('component-file');
+Route::get('type-file',  function() {
+    return view('admin.setting-tabs.Building-Type.type');
+})->name('type-file');
+Route::get('documentType-file',  function() {
+    return view('admin.setting-tabs.Document-Type.document');
+})->name('documentType-file');
+Route::get('projectType-file',  function() {
+    return view('admin.setting-tabs.Project-Type.project_type');
+})->name('projectType-file');
+Route::get('layer-file',  function() {
+    return view('admin.setting-tabs.Layer.layer');
+})->name('layer-file');
+Route::get('deliveryType-file',  function() {
+    return view('admin.setting-tabs.Delivery-Type.deliveryLayer');
+})->name('deliveryType-file');
+Route::get('layerType-file',  function() {
+    return view('admin.setting-tabs.Layer-Type.layerType');
+})->name('layerType-file');
+Route::get('output-file',  function() {
+    return view('admin.setting-tabs.Output.output');
+})->name('output-file');
+
+Route::get('service-file',  function() {
+    return view('admin.setting-tabs.Service.service');
+})->name('service-file');
+
+
+
 Route::put('module/status/{id}', [ModuleController::class,'status'] )->name('module.status');
 Route::resource('module', ModuleController::class);
-
+// Route::get('module-file', [ModuleController::class,'moduleFile'])->name('module-file');
 
 Route::put('role/status/{id}', [RoleController::class,'status'] )->name('role.status');
 Route::resource('role', RoleController::class);

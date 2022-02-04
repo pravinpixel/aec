@@ -12,7 +12,7 @@
                     <th>Name</th>
                     <th>Status</th>
                     <th>Mandatory</th>
-                    <th class="text-center">Actions</th>
+                    <th >Actions</th>
                 </tr>
             </thead>
         
@@ -35,9 +35,9 @@
                         <span ng-if="document.is_mandatory == 1" class="d-none">1</span>              
                         <span ng-if="document.is_mandatory == 0" class="d-none">0</span> 
                     </td>
-                    <td class="text-center" >
+                    <td  >
                         <div class="btn-group">
-                            <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleDocument('edit', document.id)"><i class="fa fa-edit"></i></button>
+                            <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleDocument('edit', document.id)"><i class="fa fa-edit"></i></button>
                             <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmDocumentDelete(document.id)"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
@@ -59,7 +59,7 @@
             <div class="modal-body">
                 <form name="DocumentModule" class="form-horizontal" novalidate="">
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Type Name</label>
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Document Type Name</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control has-error" id="type_name" name="type_name" placeholder="Type Here.." ng-model="module_document.document_type_name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>

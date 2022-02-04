@@ -11,7 +11,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Status</th>
-                    <th class="text-center">Actions</th>
+                    <th >Actions</th>
                 </tr>
             </thead>
         
@@ -26,9 +26,9 @@
                         <span ng-if="layerType.is_active == 1" class="d-none">1</span>              
                         <span ng-if="layerType.is_active == 0" class="d-none">0</span>           
                     </td>
-                    <td class="text-center" >
+                    <td  >
                         <div class="btn-group">
-                            <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleLayerType('edit', layerType.id)"><i class="fa fa-edit"></i></button>
+                            <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleLayerType('edit', layerType.id)"><i class="fa fa-edit"></i></button>
                             <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmLayerTypeDelete(layerType.id)"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>

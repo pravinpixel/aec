@@ -73,7 +73,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/estimation-view', function () {
         return view('admin.pages.estimation-view');
     })->name('admin-estimation-view');
-
+    
     Route::get('/admin-estimation-single-view', function () {
         return view('admin.pages.admin-estimation-single-view');
     })->name('admin-estimation-single-view');
@@ -102,6 +102,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('add-documentary', [DocumentaryController::class, 'create'])->name('add-documentary');
     Route::get('documentary/enquirie',[DocumentaryController::class,'getEnquirie'])->name('documentary.enquirie');
     Route::get('documentary/customer',[DocumentaryController::class,'getCustomer'])->name('documentary.customer');
+    Route::get('documentary/userData',[DocumentaryController::class,'getUserData'])->name('documentary.userData');
     Route::put('documentary/status/{id}', [DocumentaryController::class,'status'] )->name('documentary.status');
     Route::get('documentaryEdit/{id}', [DocumentaryController::class, 'documentaryEdit'])->name('documentaryEdit');
     Route::resource('documentary', DocumentaryController::class);

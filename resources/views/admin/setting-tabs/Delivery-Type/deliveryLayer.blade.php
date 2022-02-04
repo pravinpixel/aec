@@ -11,7 +11,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Status</th>
-                    <th class="text-center">Actions</th>
+                    <th >Actions</th>
                 </tr>
             </thead>
         
@@ -28,9 +28,9 @@
                         <span ng-if="deliveryLayer.is_active == 1" class="d-none">1</span>              
                         <span ng-if="deliveryLayer.is_active == 0" class="d-none">0</span>               
                     </td>
-                    <td class="text-center" >
+                    <td  >
                         <div class="btn-group">
-                            <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="toggleDeliveryLayer('edit', deliveryLayer.id)"><i class="fa fa-edit"></i></button>
+                            <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleDeliveryLayer('edit', deliveryLayer.id)"><i class="fa fa-edit"></i></button>
                             <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmDeliveryLayerDelete(deliveryLayer.id)"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
@@ -52,7 +52,7 @@
             <div class="modal-body">
                 <form name="deliveryLayerModule" class="form-horizontal" novalidate="">
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Layer Name</label>
+                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Delivery Type Name</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control has-error" id="delivery_type_name" name="delivery_type_name" placeholder="Type Here.." ng-model="module_deliveryLayer.delivery_type_name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>

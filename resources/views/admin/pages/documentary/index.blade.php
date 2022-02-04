@@ -23,7 +23,6 @@
                                 <tr>
                                  
                                     <th>Documentary Title</th>
-                                    <th>Documentary Type</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -35,7 +34,7 @@
                                     <td> 
                                         @{{ m.documentary_title }}
                                     </td>
-                                    <td>@{{ m.documentary_type }}</td>                                  
+                                    <!-- <td>@{{ m.documentary_type }}</td>                                   -->
                                     <td>	
                                         {{-- <div>
                                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.is_active == 1" data-switch="primary"/>
@@ -162,7 +161,7 @@
 			    
 			    //fetch users listing from 
                 $scope.documentaryEdit = (id) => {
-                    alert(id)
+                    // alert(id)
                     let route =  $("#baseurl").val();
                     // console.log(route+'admin/employeeEdit/'+id);
                     window.location.href = route+'admin/documentaryEdit/'+id;

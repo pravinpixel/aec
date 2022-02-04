@@ -39,19 +39,29 @@ class ServiceController extends Controller
      */
     public function store(ServiceCreateRequest $request) 
     {
-        $service = $request->only([
-            "service_name","is_active","output_type_id"
-        ]);
-
-        return response()->json(
-            [
-                'data' => $this->serviceRepository->create($service),
-                'status' => true, 'msg' => trans('module.inserted')
-            ],
-            Response::HTTP_CREATED
-        );
-
-       
+            $service = $request->only([
+                "service_name","is_active","output_type_id"
+            ]);
+            $val = $this->serviceRepository->serviceExist($service);
+        
+            if(empty($val))
+            {
+                return response()->json(
+                    [
+                        'data' => $this->serviceRepository->create($service),
+                        'status' => true, 'msg' => trans('module.inserted')
+                    ],
+                    Response::HTTP_CREATED
+                );
+            }
+            return response()->json(
+                [
+                
+                    'status' => true, 'msg' => trans('Data already there')
+                ],
+                Response::HTTP_OK
+            );
+   
     }
 
     /**

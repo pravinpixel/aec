@@ -25,7 +25,7 @@ class ServiceUpdateRequest extends FormRequest
     {
         return [
             // 'service_name' => ['required', Rule::unique('services')->ignore($this->id)->whereNull('deleted_at')],
-            'output_type_id' =>  ['required', Rule::unique('services')->ignore($this->id)->whereNull('deleted_at')],
+            // 'output_type_id' =>  ['required', Rule::unique('services')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

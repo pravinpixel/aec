@@ -4,7 +4,7 @@
 @section('admin-content')
          
     
-    <div class="content-page" ng-app="AppSale">
+    <div class="content-page" >
         <div class="content" ng-controller="DocumentaryController">
 
             @include('admin.includes.top-bar')
@@ -24,7 +24,7 @@
                         <div class="card-body p-3">
                             <form class="needs-validations"  novalidate name="frm">
                                 <div class="row m-0">
-                                 @{{module_enquirie}}
+                                 <!-- @{{module_enquirie}} -->
                                         
                                     <div class="col-md-12 mb-1">
                                         <div class="my-2">
@@ -37,7 +37,7 @@
                                     </div>
                                     
                                 
-                                    <div class="col-md-12 mb-1">
+                                    <!-- <div class="col-md-12 mb-1">
                                         <div class="my-2">
                                             <label class="form-label" >Documentary Type<sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="documentary_type"  ng-minlength="1" ng-model="module_enquirie.documentary_type" placeholder="Type Here..." ng-required="true">
@@ -45,28 +45,115 @@
                                                 <small class="error-text" ng-if="frm.documentary_type.$touched && frm.documentary_type.$error.required">This field is required!</small> 
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>   -->
                                 
                                     <div class="col-md-12 mb-1">
-                                   
-                                      
-                                        <h3>Editor</h3>
-                                        <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button>
-                                        <div text-angular="text-angular" name="htmlcontent"  id="divID"  ng-model="htmlcontent">
-                                            <!-- <textarea id="textareaid" class="form-control" ></textarea> -->
-                                        </div>
-                                       
-                                        <!-- <textarea ng-model="htmlcontent" id="textareaid" style="width: 100%"></textarea> -->
-                                      
-                                        <div ng-bind-html="documentary_content"></div>
-                                        
-                                        <!-- <div ta-bind="text" ng-model="documentary_content" ta-readonly='disabled'></div> -->
-                                        <!-- <button type="button" ng-click="htmlcontent = orightml">Reset</button> -->
-                                        
-                                        <!-- <text-angular name="htmlcontent"><p>Any <b>HTML</b> we put in-between the text-angular tags gets automatically put into the editor if there <strong style="font-size: 12pt;"><u><em>is not</em></u></strong> a ngModel</p></text-angular> -->
+                                        <textarea name="editor1" id="editor1" >
+                                            <table class="table table-borderless">
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Offer: {offer no}  Revision: {revision no},<br>
+                                                <strong> To</strong><br>
+                                                <strong>{customer_name}</strong><br>
+                                                <strong>{(ORG.no)}</strong><br>
+                                              
+                                                <strong>{customer address}</strong><br>
 
-                                        <!-- <textarea id="simplemde1" name="documentary_content"  ng-model="documentary_content"></textarea> -->
-                                            
+                                                </td>
+                                                <td width="20%">Date: {enquiry_date}</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>Our ref: Sigbjørn Daasvatn {admin user}</td>
+                                                <td>Yourref: Tom-Øystein Angelsen</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Re.: Production design for c	oncrete elements for Viganeset {document title}</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>1. Leveransepris</strong>
+                                                    <ol>
+                                                        <li>We thank you for your request and hereby send offers for the provision of engineering services for concrete elements as directed in their attached documents by e-mail of Wednesday 05.01.2022. The project for item delivery is <strong>Viganeset</strong>.</li>
+                                                        <li>Chapter 2 below indicates delivery that applies to the price given. We understand that staircases are not included in the price, and that you get hole decks for roofs from others. Thus, hole cover also expires from the delivery. But global statics are to be included. The total price for the delivery of engineering documentation and the relevant project coordination of engineering work are: <strong>160 000 kr + mva</strong></li>
+                                                        <li>Pris for sideman control is included and responsibility is accepted for RIB engineering of elements with respect to solutions and static strength for all components specified.</li>
+                                                        <li>All prices are exclusive of VAT.</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>2. Leveransebeskrivelse</strong>
+                                                    <p>The delivery includes all digital production drawings for items specified in the delivery price table.</p>
+                                                    <p>Structures for documented calculations</p>
+                                                    <ol>
+                                                        <li>Veggelementer</li>
+                                                        <li>Internal Firewall</li>
+                                                    </ol>
+                                                    <p>Digital produksjonstegninger</p>
+                                                    <ol>
+                                                        <li>Produksjonstegninger</li>
+                                                        <li>All necessary details</li>
+                                                        <li>Structure drawings of all elements</li>
+                                                        <li>Production drawings of all elements</li>
+                                                        <li>Montasjetegninger</li>
+                                                    </ol>
+                                                </td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p><strong>3.  Prerequisites, avtale and delivery plan </strong></p> 
+                                                    <p><strong>3.1  Prerequisites for offers </strong></p> 
+                                                    <p>The offer is based on some assumptions/caveats as follows. If these assumptions are not proved to be true, or otherwise fail or prove incorrect, this may lead to adjustments in progress/fulfilment of the deadlines for consequences from the Purchase Order that are to be perceived as the agreement in this context.</p><br>
+                                                    <p>The following assumptions are specified in connection with the offer:</p>
+                                                    <ol>
+                                                        <li>Agreed project implementation plan - It is therefore assumed that we arrive at an agreed progress plan that is feasible for both parties.  AEC Prefab needs 4-5 weeks from the agreed start-up until we can deliver the product digitally. The pleas agree on a decision plan that has realistic deadlines for feedback and/or confirmation of factors that AEC Prefab needs to clarify in order to maintain the production of drawings and elements  safely in accordance with the agreed progress plan.   It should be added a couple of weeks for slack in relation to this. So 8 weeks of production time looks like a good plan on our part.</li>
+                                                        <li>Information about existing buildings - It is assumed that TB will receive an IFC model and sufficient information about existing buildings, including structural details, for modeling the concrete structure and performing static calculations.  This means that reports from previous works are made available to AEC Prefab so that we can ensure power transmissions in a prudent manner.</li>
+                                                        <li>Payment plan – AEC Prefab assumes that a agreed payment plan is reached that involves 50% in advance, 50% after completing the assignment, 30 days payment plan. Any changes must be clarified especially along the way.</li>
+                                                        <li>The caveats and provisions contained in this offer are repeated in the Purchase Order which, upon signing, applies as an agreement for the assignment.</li>
+                                                     
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>3.2  Duration of offer and confirmation</strong>
+                                                    <p>Offer valid until 14 days from today' date. If they wish to accept the offer we ask that they confirm this in writing by email before the end of this time.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>3.3  Leveranseplan</strong>
+                                                    <p>The start date  of the design assignment is set by the signature of purchase orders that form the basis for our production planning.  An internal progress plan is drawn up for the assignment, in accordance with the aforementioned agreed project execution plan (Egersund Betongteknikk sin project plan) and the assignment then goes into our production plan.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>4. Attachment to offer</strong>
+                                                    <p>Nobody</p>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <!-- <p><strong>5. Signature</strong></p> -->
+                                                    <p>
+                                                        <b>For AEC Prefab AS</b> <br>
+                                                        Sincerely,<br>
+                                                        <!-- Kind regards, <br> -->
+                                                        Sigbjørn Daasvatn {admin user}<br>
+                                                        General Manager {role}<br>
+            
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            </table>
+                                        </textarea>
                                     </div>  
                                 
                                     <div class="text-end mt-3">
@@ -84,190 +171,39 @@
                         <div class="card-body p-4">
                             <strong>Enquiries</strong>
                             <br>
-                               
-                                <tr>
-                                   
-                                    <td> 
-                                        <label for="">Enquiry Date:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Enquiry_Date)">{ @{{ enquire_module.Enquiry_Date }} }</a><br>
-                                    </td>
-                                    <td>
-                                        <label for="">Enquiry Number:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Enquiry_Number)">{ @{{ enquire_module.Enquiry_Number }} }</a><br>
-                                    </td>                                  
-                                    <td>
-                                        <label for="">Company Name:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Company_Name)">{ @{{ enquire_module.Company_Name }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Contact Person:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Contact_Person)">{ @{{ enquire_module.Contact_Person }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Mobile Number:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Mobile_Number)">{ @{{ enquire_module.Mobile_Number }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Secondary Mobile Number:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Secondary_Mobile_Number)">{ @{{ enquire_module.Secondary_Mobile_Number }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Customer Id:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Customer_Id)">{ @{{ enquire_module.Customer_Id }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Service Id:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Service_Id)">{ @{{ enquire_module.Service_Id }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Building Type Id :</label>
-                                        <a href="" ng-click="addValue(enquire_module.Building_Type_Id)">{ @{{ enquire_module.Building_Type_Id }} }</a><br>
-                                    </td>  
 
-                                    <td>
-                                        <label for="">Delivery Type Id:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Delivery_Type_Id)">{ @{{ enquire_module.Delivery_Type_Id }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Project Type Id:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Project_Type_Id)">{ @{{ enquire_module.Project_Type_Id }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Project Name:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Project_Name)">{ @{{ enquire_module.Project_Name }} }</a><br>
-                                    </td>
-                                    <td>
-                                        <label for="">Project Date:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Project_Date)">{ @{{ enquire_module.Project_Date }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Place:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Place)">{ @{{ enquire_module.Place }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Site Address:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Site_Address)">{ @{{ enquire_module.Site_Address }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Country:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Country)">{ @{{ enquire_module.Country }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Zipcode:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Zipcode)">{ @{{ enquire_module.Zipcode }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> State:</label>
-                                        <a href="" ng-click="addValue(enquire_module.State)">{ @{{ enquire_module.State }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> No Of Building:</label>
-                                        <a href="" ng-click="addValue(enquire_module.No_Of_Building)">{ @{{ enquire_module.No_Of_Building }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Project Delivery Date:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Project_Delivery_Date)">{ @{{ enquire_module.Project_Delivery_Date }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Status:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Status)">{ @{{ enquire_module.Status }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Project Info:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Project_Info)">{ @{{ enquire_module.Project_Info }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Service:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Service)">{ @{{ enquire_module.Service }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Ifc Model Upload:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Ifc_Model_Upload)">{ @{{ enquire_module.Ifc_Model_Upload }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Building Component:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Building_Component)">{ @{{ enquire_module.Building_Component }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Active:</label>
-                                        <a href="" ng-click="addValue(enquire_module.Active)">{ @{{ enquire_module.Active }} }</a><br>
-                                    </td>  
-
-                                </tr> 
+                            <!-- <div ng-repeat="(key,value) in enquire_module" ng-click="insertAtCaret(value)">@{{key}} : <a>{ @{{value}} }</a></div> -->
+                            <div id="dataEnquire"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card shadow-lg mb-0">
                         <div class="card-body p-4">
-                            <strong>Customer</strong>
+                            <strong>Customer</strong> 
                             <br>
-                               
-                                <tr>
-                                   
-                                    <td> 
-                                        <label for="">Customer Enquiry Date:</label>
-                                        <a href="" ng-click="addValue(customer_module.Customer_Enquiry_Date)">{ @{{ customer_module.Customer_Enquiry_Date }} }</a><br>
-                                    </td>
-                                    <td>
-                                        <label for="">First Name :</label>
-                                        <a href="" ng-click="addValue(customer_module.First_Name)">{ @{{ customer_module.First_Name }} }</a><br>
-                                    </td>                                  
-                                    <td>
-                                        <label for=""> Last Name:</label>
-                                        <a href=""  ng-click="addValue(customer_module.Last_Name)">{ @{{ customer_module.Last_Name }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Full Name :</label>
-                                        <a href=""  ng-click="addValue(customer_module.Full_Name)">{ @{{ customer_module.Full_Name }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Email :</label>
-                                        <a href=""  ng-click="addValue(customer_module.Email)">{ @{{ customer_module.Email }} }</a><br>
-                                    </td>  
-                                    <!-- <td>
-                                        <label for=""> Password:</label>
-                                        <a href=""  ng-click="addValue(customer_module.Password)">{ @{{ customer_module.Password }} }</a><br>
-                                    </td>   -->
-                                    <!-- <td>
-                                        <label for="">Password View:</label>
-                                        <a href=""  ng-click="addValue(customer_module.Password_View)">{ @{{ customer_module.Password_View }} }</a><br>
-                                    </td>   -->
-                                    <td>
-                                        <label for="">Mobile Number:</label>
-                                        <a href=""  ng-click="addValue(customer_module.Mobile_Number)">{ @{{ customer_module.Mobile_Number }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for=""> Company Name:</label>
-                                        <a href=""  ng-click="addValue(customer_module.Company_Name)">{ @{{ customer_module.Company_Name }} }</a><br>
-                                    </td>  
-
-                                    <td>
-                                        <label for="">Contact Person :</label>
-                                        <a href=""  ng-click="addValue(customer_module.Contact_Person)">{ @{{ customer_module.Contact_Person }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Remarks :</label>
-                                        <a href=""  ng-click="addValue(customer_module.Remarks)">{ @{{ customer_module.Remarks }} }</a><br>
-                                    </td>  
-                                    <td>
-                                        <label for="">Active:</label>
-                                        <a href=""  ng-click="addValue(customer_module.Active)">{ @{{ customer_module.Active }} }</a><br>
-                                    </td>
-                                </tr> 
+                            <div id="dataCustomer"></div>
+                            <!-- <div ng-repeat="(key,value) in customer_module">@{{key}} : <a>{ @{{value}} }</a></div> -->
                         </div>
                     </div>
-                </div>
-                <textarea id="textareaid" class="form-control" ></textarea>
-                <a href="#" onclick="insertAtCaret('textareaid', '<h1>text to insert</h1>');return false;">Click Here to Insert</a>
-                    <!-- <input type="button" ng-click="addValue()" value="clickme"/> -->
+                    <div class="card shadow-lg mb-0 mt-3">
+                        <div class="card-body p-4">
+                            <strong>Customer</strong> 
+                            <br>
+                            <div id="userData"></div>
+                            <!-- <div ng-repeat="(key,value) in customer_module">@{{key}} : <a>{ @{{value}} }</a></div> -->
+                        </div>
+                    </div>
+                </div>  
+                <!-- <textarea id="textareaid" class="form-control" ></textarea> -->
+                <!-- <a href="#" onclick="insertAtCaret('textareaid', '<h1>text to insert</h1>');return false;">Click Here to Insert</a> -->
             </div>
              
         </div> <!-- content -->
 
 
     </div> 
-    <!-- ng-disabled="frm.$invalid"  -->
+   
 @endsection
           
 @push('custom-styles')
@@ -292,66 +228,91 @@
     .red-text{
   color:red;
 }
-  
+  #cke_1_contents{
+      height:400px !important;
+  }
         
     </style>
-    <style>
-    .ta-editor {
-  min-height: 300px;
-  height: auto;
-  overflow: auto;
-  font-family: inherit;
-  font-size: 100%;
-}
-</style>
+    
 @endpush
 
 @push('custom-scripts')
 
-<script>
-function insertAtCaret(areaId, text) {
+    
    
-  var txtarea = document.getElementById(areaId);
- 
-  if (!txtarea) {
-    return;
-  }
+    <script type="text/javascript">
+        
+      var text;
+     $(document).ready(function() {
+        // CKEDITOR.replace('body', {height: 1000});
+        CKEDITOR.replace( 'editor1' );
+        // CKEDITOR.instances.my_editor.insertHtml('<p>This is a new paragraph.</p>');
+            CKEDITOR.on( 'instanceReady', function( evt )
+              {
 
-  var scrollPos = txtarea.scrollTop;
-  var strPos = 0;
-  var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
-    "ff" : (document.selection ? "ie" : false));
-  
-  if (br == "ie") {
-    txtarea.focus();
-    var range = document.selection.createRange();
-    range.moveStart('character', -txtarea.value.length);
-    strPos = range.text.length;
-  } else if (br == "ff") {
-    strPos = txtarea.selectionStart;
-  }
-// alert(txtarea.value)
-  var front = (txtarea.value).substring(0, strPos);
-  var back = (txtarea.value).substring(strPos, txtarea.value.length);
-  txtarea.value = front + text + back;
-  strPos = strPos + text.length;
-  if (br == "ie") {
-    txtarea.focus();
-    var ieRange = document.selection.createRange();
-    ieRange.moveStart('character', -txtarea.value.length);
-    ieRange.moveStart('character', strPos);
-    ieRange.moveEnd('character', 0);
-    ieRange.select();
-  } else if (br == "ff") {
-    txtarea.selectionStart = strPos;
-    txtarea.selectionEnd = strPos;
-    txtarea.focus();
-  }
-
-  txtarea.scrollTop = scrollPos;
-}
-</script>
+                var editor = evt.editor;
+            
+               editor.on('change', function (e) { 
+               text = editor.editable().getData();
+                console.log(text);
+                });
+             });
+            
+        });
+    </script>
     <script>
+        //     function insertAtCaret(areaId,text) {
+        //     // alert(areaId)
+        //     CKEDITOR.instances.editor1.setData(text)
+        //     console.log("arearId "+areaId)
+        //     console.log("text "+text)
+        //     // alert(text)
+        //     var txtarea = document.getElementById(areaId);
+        //     alert(txtarea)
+            
+        //     if (!txtarea) {
+        //         return;
+        //     }
+
+        //     var scrollPos = txtarea.scrollTop;
+        //     var strPos = 0;
+        //     var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
+        //         "ff" : (document.selection ? "ie" : false));
+            
+        //     if (br == "ie") {
+        //         txtarea.focus();
+        //         var range = document.selection.createRange();
+        //         range.moveStart('character', -txtarea.value.length);
+        //         strPos = range.text.length;
+        //     } else if (br == "ff") {
+        //         strPos = txtarea.selectionStart;
+        //     }
+        //     alert(txtarea.value)
+        //     var front = (txtarea.value).substring(0, strPos);
+        //     var back = (txtarea.value).substring(strPos, txtarea.value.length);
+        //     alert((txtarea.value).substring(0, strPos))
+        //     txtarea.value = front + text + back;
+        //     strPos = strPos + text.length;
+        //     if (br == "ie") {
+        //         txtarea.focus();
+        //         var ieRange = document.selection.createRange();
+        //         ieRange.moveStart('character', -txtarea.value.length);
+        //         ieRange.moveStart('character', strPos);
+        //         ieRange.moveEnd('character', 0);
+        //         ieRange.select();
+        //     } else if (br == "ff") {
+        //         txtarea.selectionStart = strPos;
+        //         txtarea.selectionEnd = strPos;
+        //         txtarea.focus();
+        //     }
+
+        //     txtarea.scrollTop = scrollPos;
+        // }
+
+        
+
+
+           
 
        
 
@@ -393,65 +354,103 @@ function insertAtCaret(areaId, text) {
 
         app.controller('DocumentaryController', function ($scope, $http, $rootScope,API_URL) { 
 
-//   **********editor*******
+                //     $scope.addValue = function(e){
+                // // alert(e)
 
-		$scope.orightml = '';
-		$scope.htmlcontent = $scope.orightml;
-		$scope.disabled = false;
-// alert($scope.orightml)
-
-
-//        **********editor*******
-$scope.addValue = function(e){
-    // alert(e)
-
-       $scope.htmlcontent += e;
-     }
-
+                // $scope.htmlcontent += e;
+                // }
+          
             $scope.getEnquirieData = function($http, API_URL) {
+           
+                        // $http({
+                        // method: 'GET',
+                        // url: "{{ route('admin.documentary.enquirie') }}",
+                        
+                        // }).then(function successCallback(response) {
+                        //     $scope.enquire_module = response.data;	 
+                        // }, function errorCallback(response) {
+                            
+                        // });
+                        
+                    $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.documentary.enquirie') }}",
+               
+                    success: function( msg ) {
+                        // alert(JSON.stringify(msg))
+                       var count_data = Object.keys(msg.data).length
+                     
+                        $.each(msg.data,function(key,value){
+                            $('#dataEnquire').append(`
+                           
+                            <tr>
+                                <td>${key} :  <a href="">{${value}}</a></td>
+                            <tr>
+                            `);
 
-            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-            $http({
-                method: 'GET',
-                url: API_URL + "admin/documentary/enquirie",
-            }).then(function (response) {
-                // alert(JSON.stringify(response.data))
-                $scope.enquire_module = response.data;	
-               
-            }, function (error) {
-                console.log(error);
-               
-            });
+                            });
+                    }
+                    });
 
            
             }
-           
+            // <div onclick="insertAtCaret('textareaid','${value}')">${key} : <a href=""> ${value} </a></div>
             $scope.getCustomerData = function($http, API_URL) {
-                angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                    $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.documentary.customer') }}",
+               
+                    success: function( msg ) {
+                        // alert(JSON.stringify(msg))
+                       var count_data = Object.keys(msg.data).length
+                     
+                        $.each(msg.data,function(key,value){
+                            $('#dataCustomer').append(`
+                           
+                            <tr>
+                                <td>${key} :  <a href="">{${value}}</a></td>
+                            <tr>
+                            `);
 
-                $http({
-                    method: 'GET',
-                    url: API_URL + "admin/documentary/customer",
-                }).then(function (response) {
-                    // alert(JSON.stringify(response))
-                    $scope.customer_module = response.data;		
-                }, function (error) {
-                    console.log(error);
-                
-                });
+                            });
+                    }
+                    });
+               
                 }
+                // <div onclick="insertAtCaret('textareaid','${value}')">${key} : <a href=""> ${value} </a></div>
+                $scope.getUserData = function($http, API_URL) {
+                   
+                    $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.documentary.userData') }}",
+               
+                    success: function( msg ) {
+                        // alert(JSON.stringify(msg))
+                       var count_data = Object.keys(msg.data).length
+                     
+                        $.each(msg.data,function(key,value){
+                            $('#userData').append(`
+                            <tr>
+                                <td>${key} :  <a href="">{${value}}</a></td>
+                            <tr>
+                            `);
 
-            $scope.getCustomerData($http, API_URL);
+                            });
+                    }
+                    });
+               
+                }
+                // <div onclick="insertAtCaret('textareaid','${value}')">${key} : <a href=""> ${value} </a></div>
+           
             $scope.getEnquirieData($http, API_URL);
+            $scope.getCustomerData($http, API_URL);
+            $scope.getUserData($http, API_URL);
 
          
             $scope.submit = function () {
-            
-                
-            console.log($('#snow-editor').val());
-            // console.log($('#simplemde1').val());
-                        // alert(url)
-                        console.log($scope.module_enquirie.documentary_content);
+
+                        $scope.module_enquirie.documentary_content = text;
+                        // console.log($scope.module_enquirie);
 						$http({
 							method: 'POST',
                             url: API_URL + "admin/documentary",
@@ -459,17 +458,128 @@ $scope.addValue = function(e){
 							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
 						}).then(function successCallback(response) {
-                            
+
+                            Message('success', response.data.msg);
                             
                             $scope.getCustomerData($http, API_URL);
                             $scope.getEnquirieData($http, API_URL);
-                            Message('success', response.data.msg);
+                            // CKEDITOR.instances['editor1'].setData('');
+                            CKEDITOR.instances.editor1.setData(`
+                            <table class="table table-borderless">
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Offer: {offer no}  Revision: {revision no},<br>
+                                                <strong> To Egersund Betongteknikk AS (ORG.  989 571 583) {customer_name}</strong><br>
+                                                <strong>Hovlandsveien 70 {customer address} </strong><br>
+                                                <strong>4374 EGERSUND </strong>
+                                                </td>
+                                                <td width="20%">Date: {enquiry_date}</td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>Our ref: Sigbjørn Daasvatn {admin user}</td>
+                                                <td>Yourref: Tom-Øystein Angelsen</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Re.: Production design for c	oncrete elements for Viganeset {document title}</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>1. Leveransepris</strong>
+                                                    <ol>
+                                                        <li>We thank you for your request and hereby send offers for the provision of engineering services for concrete elements as directed in their attached documents by e-mail of Wednesday 05.01.2022. The project for item delivery is <strong>Viganeset</strong>.</li>
+                                                        <li>Chapter 2 below indicates delivery that applies to the price given. We understand that staircases are not included in the price, and that you get hole decks for roofs from others. Thus, hole cover also expires from the delivery. But global statics are to be included. The total price for the delivery of engineering documentation and the relevant project coordination of engineering work are: <strong>160 000 kr + mva</strong></li>
+                                                        <li>Pris for sideman control is included and responsibility is accepted for RIB engineering of elements with respect to solutions and static strength for all components specified.</li>
+                                                        <li>All prices are exclusive of VAT.</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>2. Leveransebeskrivelse</strong>
+                                                    <p>The delivery includes all digital production drawings for items specified in the delivery price table.</p>
+                                                    <p>Structures for documented calculations</p>
+                                                    <ol>
+                                                        <li>Veggelementer</li>
+                                                        <li>Internal Firewall</li>
+                                                    </ol>
+                                                    <p>Digital produksjonstegninger</p>
+                                                    <ol>
+                                                        <li>Produksjonstegninger</li>
+                                                        <li>All necessary details</li>
+                                                        <li>Structure drawings of all elements</li>
+                                                        <li>Production drawings of all elements</li>
+                                                        <li>Montasjetegninger</li>
+                                                    </ol>
+                                                </td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p><strong>3.  Prerequisites, avtale and delivery plan </strong></p> 
+                                                    <p><strong>3.1  Prerequisites for offers </strong></p> 
+                                                    <p>The offer is based on some assumptions/caveats as follows. If these assumptions are not proved to be true, or otherwise fail or prove incorrect, this may lead to adjustments in progress/fulfilment of the deadlines for consequences from the Purchase Order that are to be perceived as the agreement in this context.</p><br>
+                                                    <p>The following assumptions are specified in connection with the offer:</p>
+                                                    <ol>
+                                                        <li>Agreed project implementation plan - It is therefore assumed that we arrive at an agreed progress plan that is feasible for both parties.  AEC Prefab needs 4-5 weeks from the agreed start-up until we can deliver the product digitally. The pleas agree on a decision plan that has realistic deadlines for feedback and/or confirmation of factors that AEC Prefab needs to clarify in order to maintain the production of drawings and elements  safely in accordance with the agreed progress plan.   It should be added a couple of weeks for slack in relation to this. So 8 weeks of production time looks like a good plan on our part.</li>
+                                                        <li>Information about existing buildings - It is assumed that TB will receive an IFC model and sufficient information about existing buildings, including structural details, for modeling the concrete structure and performing static calculations.  This means that reports from previous works are made available to AEC Prefab so that we can ensure power transmissions in a prudent manner.</li>
+                                                        <li>Payment plan – AEC Prefab assumes that a agreed payment plan is reached that involves 50% in advance, 50% after completing the assignment, 30 days payment plan. Any changes must be clarified especially along the way.</li>
+                                                        <li>The caveats and provisions contained in this offer are repeated in the Purchase Order which, upon signing, applies as an agreement for the assignment.</li>
+                                                     
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>3.2  Duration of offer and confirmation</strong>
+                                                    <p>Offer valid until 14 days from today' date. If they wish to accept the offer we ask that they confirm this in writing by email before the end of this time.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>3.3  Leveranseplan</strong>
+                                                    <p>The start date  of the design assignment is set by the signature of purchase orders that form the basis for our production planning.  An internal progress plan is drawn up for the assignment, in accordance with the aforementioned agreed project execution plan (Egersund Betongteknikk sin project plan) and the assignment then goes into our production plan.</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>4. Attachment to offer</strong>
+                                                    <p>Nobody</p>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <!-- <p><strong>5. Signature</strong></p> -->
+                                                    <p>
+                                                        <b>For AEC Prefab AS</b> <br>
+                                                        Sincerely,<br>
+                                                        <!-- Kind regards, <br> -->
+                                                        Sigbjørn Daasvatn {admin user}<br>
+                                                        General Manager {role}<br>
+            
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            </table>
+                            
+                            `)
+                            // $('#editor1').append(`
+                            // `);
+                            $scope.module_enquirie = {};
+                            $scope.frm.$setPristine();
+                            $scope.frm.$setUntouched();
+
 
                         }, function errorCallback(response) {
                           
                             Message('danger',response.data.errors.documentary_title);
                         });
-			    }
+			}
               
             
             

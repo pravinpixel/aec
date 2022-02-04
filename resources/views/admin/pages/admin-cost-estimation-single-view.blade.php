@@ -819,7 +819,7 @@
                                     $(`#logistic_price__${row_id}`).val(msg.data.logistic_price);
                                     $(`#logistic_sum__${row_id}`).val(msg.data.logistic_sum);
                                     $(`#total_price__${row_id}`).val(msg.data['total_price']);
-                                    $(`#total_sum__${row_id}`).val(msg.data['total_sum']);
+                                    $(`#total_sum__${row_id}`).val(parseFloat(msg.data['total_sum']).toFixed(2));
                                     $("input.error").removeClass("error");
                                     comp_val = false; type_val = false;row_id=false;
                             
@@ -1033,7 +1033,7 @@
                             // alert(i)
                             statistic_sum +=  Number(values[i]);
                             }
-                            $('#statistic_sum_id').html(statistic_sum);
+                            $('#statistic_sum_id').html(parseFloat(statistic_sum).toFixed(2));
                 }
                 function cad_cam_change_price()
                 {
@@ -1128,7 +1128,7 @@
                             // alert(i)
                             total_sum +=  Number(values[i]);
                             }
-                            $('#total_sum_id').html(total_sum);
+                            $('#total_sum_id').html(parseFloat(total_sum).toFixed(2));
                 }
 
 
@@ -1520,7 +1520,7 @@
                                     <p class="m-0"><span class="text-secondary"></span>    <span class="text-white" id="statistic_price_id">${msg.data.statistic_price}</span> </p>
                                 </td>
                                 <td>
-                                    <p class="m-0"><span class="text-secondary"></span>    <span class="text-white" id="statistic_sum_id">${msg.data.statistic_sum} </span></p>
+                                    <p class="m-0"><span class="text-secondary"></span>    <span class="text-white" id="statistic_sum_id">${parseFloat(msg.data.statistic_sum).toFixed(2)} </span></p>
                                 </td>
                                 <td>
                                     <p class="m-0"><span class="text-secondary"></span>    <span class="text-white" id="cad_cam_price_id">${msg.data.cad_cam_price}</span> </p>
@@ -2029,8 +2029,8 @@
 
                 function total_sum_val()
                     {
-                        var total_cost_sum = parseInt($('#detail_sum_id').html()) + parseInt($('#statistic_sum_id').html()) + parseInt($('#cad_cam_sum_id').html()) + parseInt($('#logistic_sum_id').html());
-                        $('#total_sum_id').html(total_cost_sum);
+                        var total_cost_sum = parseFloat($('#detail_sum_id').html()) + parseFloat($('#statistic_sum_id').html()) + parseFloat($('#cad_cam_sum_id').html()) + parseFloat($('#logistic_sum_id').html());
+                        $('#total_sum_id').html(parseFloat(total_cost_sum).toFixed(2));
                         calculation_total()
                     }
                 function calculation_total()
@@ -2195,30 +2195,30 @@
                 $(document).on('keyup change','.detail_sum',function(){
                     // alert()
                     var row_id = $(this).data('detail-sum_id');
-                   var row_total_sum = parseInt($(`#detail_sum__${row_id}`).val()) + parseInt($(`#statistic_sum__${row_id}`).val()) + parseInt($(`#cad_cam_sum__${row_id}`).val()) + parseInt($(`#logistic_sum__${row_id}`).val());
-                   $(`#total_sum__${row_id}`).val(row_total_sum)
+                   var row_total_sum = parseFloat($(`#detail_sum__${row_id}`).val()) + parseFloat($(`#statistic_sum__${row_id}`).val()) + parseFloat($(`#cad_cam_sum__${row_id}`).val()) + parseFloat($(`#logistic_sum__${row_id}`).val());
+                   $(`#total_sum__${row_id}`).val(parseFloat(row_total_sum).toFixed(2))
                    total_sum_val()
                     // alert(row_total)
                 });
                 $(document).on('keyup change','.statistic_sum',function(){
                     var row_id = $(this).data('statistic-sum_id');
-                   var row_total_sum = parseInt($(`#detail_sum__${row_id}`).val()) + parseInt($(`#statistic_sum__${row_id}`).val()) + parseInt($(`#cad_cam_sum__${row_id}`).val()) + parseInt($(`#logistic_sum__${row_id}`).val());
-                   $(`#total_sum__${row_id}`).val(row_total_sum)
+                   var row_total_sum = parseFloat($(`#detail_sum__${row_id}`).val()) + parseFloat($(`#statistic_sum__${row_id}`).val()) + parseFloat($(`#cad_cam_sum__${row_id}`).val()) + parseFloat($(`#logistic_sum__${row_id}`).val());
+                   $(`#total_sum__${row_id}`).val(parseFloat(row_total_sum).toFixed(2))
                    total_sum_val()
                 });
                 $(document).on('keyup change','.cad_cam_sum',function(){
                     // alert(editCount)
                     var row_id = $(this).data('cad_cam-sum_id');
-                   var row_total_sum = parseInt($(`#detail_sum__${row_id}`).val()) + parseInt($(`#statistic_sum__${row_id}`).val()) + parseInt($(`#cad_cam_sum__${row_id}`).val()) + parseInt($(`#logistic_sum__${row_id}`).val());
-                   $(`#total_sum__${row_id}`).val(row_total_sum)
+                   var row_total_sum = parseFloat($(`#detail_sum__${row_id}`).val()) + parseFloat($(`#statistic_sum__${row_id}`).val()) + parseFloat($(`#cad_cam_sum__${row_id}`).val()) + parseFloat($(`#logistic_sum__${row_id}`).val());
+                   $(`#total_sum__${row_id}`).val(parseFloat(row_total_sum).toFixed(2))
                     // alert(row_total)
                     total_sum_val()
                 });
                 $(document).on('keyup change','.logistic_sum',function(){
                     // alert(editCount)
                     var row_id = $(this).data('logistic-sum_id');
-                   var row_total_sum = parseInt($(`#detail_sum__${row_id}`).val()) + parseInt($(`#statistic_sum__${row_id}`).val()) + parseInt($(`#cad_cam_sum__${row_id}`).val()) + parseInt($(`#logistic_sum__${row_id}`).val());
-                   $(`#total_sum__${row_id}`).val(row_total_sum)
+                   var row_total_sum = parseFloat($(`#detail_sum__${row_id}`).val()) + parseFloat($(`#statistic_sum__${row_id}`).val()) + parseFloat($(`#cad_cam_sum__${row_id}`).val()) + parseFloat($(`#logistic_sum__${row_id}`).val());
+                   $(`#total_sum__${row_id}`).val(parseFloat(row_total_sum).toFixed(2))
                     // alert(row_total)
                     total_sum_val()
                 });
@@ -2239,7 +2239,7 @@
                             // alert(i)
                             statistic_sum +=  Number(values[i]);
                             }
-                            $('#statistic_sum_id').html(statistic_sum);
+                            $('#statistic_sum_id').html(parseFloat(statistic_sum).toFixed(2));
                         console.log(statistic_sum);
                 }); 
 
@@ -2558,7 +2558,7 @@
                             // alert(i)
                             total_sum +=  Number(values[i]);
                             }
-                            $('#total_sum_id').html(total_sum);
+                            $('#total_sum_id').html(parseFloat(total_sum).toFixed(2));
                         console.log(total_sum);
                 }); 
 

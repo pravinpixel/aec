@@ -27,6 +27,11 @@ class ModuleController extends Controller
     {
         $this->moduleRepository = $moduleRepository;
     }
+    // public function moduleFile()
+    // {
+    //     return view('admin.setting-tabs.Module.module');
+    // }
+    
 
     public function index(Request $request)
     {

@@ -29,7 +29,7 @@ class DocumentaryController extends Controller
     }
     public function index()
     {
-        // return 1;
+      
         return response()->json($this->documentaryRepository->all());
     
     }
@@ -46,7 +46,7 @@ class DocumentaryController extends Controller
      */
     public function store(DocumentaryCreateRequest $request)
     {
-        return $request->all();
+        // return $request->all();
         $outputType = $request->only([
            "documentary_title","documentary_type","documentary_content","is_active"
         ]);
@@ -68,6 +68,7 @@ class DocumentaryController extends Controller
      */
     public function edit($id) 
     {
+        // return "333";
         $data = $this->documentaryRepository->find($id);
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
@@ -138,13 +139,18 @@ class DocumentaryController extends Controller
     public function getEnquirie(Request $request)
     {
         $data = Config::get('documentary.enquiries');
-        return response()->json($data);
+        return response()->json(['data'=>$data]);
         // return response()->json($this->documentaryRepository->getEnquirie($request));
     }
     public function getCustomer(Request $request)
     {
         $data = Config::get('documentary.customers');
-        return response()->json($data);
+        return response()->json(['data'=>$data]);
         // return response()->json($this->documentaryRepository->getCustomers($request));
+    }
+    public function getUserData(Request $request)
+    {
+        $data = Config::get('documentary.userData');
+        return response()->json(['data'=>$data]);
     }
 }

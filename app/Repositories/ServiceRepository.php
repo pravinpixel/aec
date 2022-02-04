@@ -35,7 +35,15 @@ class ServiceRepository implements ServiceRepositoryInterface{
 
     public function create(array $data)
     {
-        return $this->model->create($data);
+
+            return $this->model->create($data);
+    
+    }
+    function serviceExist(array $data)
+    {
+        return Service::where('service_name',$data['service_name'])->where('output_type_id',$data['output_type_id'])->first();
+      
+       
     }
 
     public function update(array $data, $id)
