@@ -69,11 +69,11 @@
                                                 
                                             </tr>
                                             <tr>
-                                                <td>Our ref: Sigbjørn Daasvatn {admin user}</td>
-                                                <td>Yourref: Tom-Øystein Angelsen</td>
+                                                <td>Our ref: {admin user}</td>
+                                                <td>Your ref: </td>
                                             </tr>
                                             <tr>
-                                                <td><strong>Re.: Production design for c	oncrete elements for Viganeset {document title}</strong></td>
+                                                <td><strong>Re.: {document title}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -145,9 +145,8 @@
                                                     <p>
                                                         <b>For AEC Prefab AS</b> <br>
                                                         Sincerely,<br>
-                                                        <!-- Kind regards, <br> -->
-                                                        Sigbjørn Daasvatn {admin user}<br>
-                                                        General Manager {role}<br>
+                                                        {admin user}<br>
+                                                        {role}<br>
             
                                                     </p>
                                                 </td>
@@ -474,19 +473,22 @@
                                             </tr>
                                             <tr>
                                                 <td>Offer: {offer no}  Revision: {revision no},<br>
-                                                <strong> To Egersund Betongteknikk AS (ORG.  989 571 583) {customer_name}</strong><br>
-                                                <strong>Hovlandsveien 70 {customer address} </strong><br>
-                                                <strong>4374 EGERSUND </strong>
+                                                <strong> To</strong><br>
+                                                <strong>{customer_name}</strong><br>
+                                                <strong>{(ORG.no)}</strong><br>
+                                              
+                                                <strong>{customer address}</strong><br>
+
                                                 </td>
                                                 <td width="20%">Date: {enquiry_date}</td>
                                                 
                                             </tr>
                                             <tr>
-                                                <td>Our ref: Sigbjørn Daasvatn {admin user}</td>
-                                                <td>Yourref: Tom-Øystein Angelsen</td>
+                                                <td>Our ref: {admin user}</td>
+                                                <td>Your ref: </td>
                                             </tr>
                                             <tr>
-                                                <td><strong>Re.: Production design for c	oncrete elements for Viganeset {document title}</strong></td>
+                                                <td><strong>Re.: {document title}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -558,9 +560,8 @@
                                                     <p>
                                                         <b>For AEC Prefab AS</b> <br>
                                                         Sincerely,<br>
-                                                        <!-- Kind regards, <br> -->
-                                                        Sigbjørn Daasvatn {admin user}<br>
-                                                        General Manager {role}<br>
+                                                        {admin user}<br>
+                                                        {role}<br>
             
                                                     </p>
                                                 </td>

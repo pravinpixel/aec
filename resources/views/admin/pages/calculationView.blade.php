@@ -108,6 +108,12 @@
         </table>
     </div>
 </div>
+<style>
+    .masterTab{
+        color: #727cf5 !important;
+        background-color: rgba(114,124,245,.18) !important;
+    }
+</style>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#ddlCountry,#ddlAge").on("change", function () {

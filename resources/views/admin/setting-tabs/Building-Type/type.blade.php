@@ -84,3 +84,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div> 
+<style>
+    .typeTab{
+        color: #727cf5 !important;
+        background-color: rgba(114,124,245,.18) !important;
+    }
+</style>
