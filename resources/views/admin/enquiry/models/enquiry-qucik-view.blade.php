@@ -352,20 +352,7 @@
                         </div>
                         <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
                             <div class="accordion-body">  
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <th>S.no</th>
-                                        <th>Date</th>
-                                        <th>commented person</th>
-                                        <th>comments</th>
-                                    </tr>
-                                    <tr ng-repeat="additional_info in additional_infos">
-                                        <td> @{{ index + 1  }}</td>
-                                        <td>@{{ additional_info.created_at }}</td>
-                                        <td>@{{ additional_info.customer.full_name }}</td>
-                                        <td>@{{ additional_info.comments }}</td>
-                                    </tr> 
-                                </table>
+                                <p> @{{ additional_infos.comments }}</p>
                                 <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
                                     <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
