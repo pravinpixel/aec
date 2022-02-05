@@ -11,7 +11,14 @@
             <div class="container-fluid">
                 <!-- start page title -->
                 @include('customer.includes.page-navigater')
-                
+                <div  class="card-header ">
+                    <div class="d-flex justify-content-between ">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light">
+                            <i class="mdi mdi-filter-menu"></i> Filters
+                        </button>
+                    </div>
+                </div>
+
                 <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
                     {{-- New enquiries --}}
                         <fieldset class="accordion-item">
@@ -101,6 +108,7 @@
             </div> <!-- container -->
             @include('customer.enquiry.models.detail-modal')
             @include('customer.enquiry.models.chat-box')
+            @include('customer.enquiry.models.enquiry-filter-modal')
         </div> <!-- content --> 
     </div> 
 
@@ -236,6 +244,17 @@
                         console.log('ifc_model_uploads error');
                     });
             }
+            getProjectType = () => {
+                $http({
+                        method: 'GET',
+                        url: '{{ route('project-type.get') }}',
+                    }).then(function (res){
+                        $scope.projectTypes = res.data;
+                    }, function (error) {
+                        console.log('get project type error');
+                    });
+            }
+            getProjectType();
 
             $scope.printToCart = function(printSectionId) {
                 var innerContents = document.getElementById(printSectionId).innerHTML;
@@ -320,7 +339,13 @@
                 serverSide: true,
                 ajax          : {
                     url     : '{!! route('get-customer-new-enquiries') !!}',
-                    dataType: 'json'
+                    dataType: 'json',
+                    data: function (d) {
+                      d.from_date      = $scope.new_enquiry_from_date,
+                      d.to_date        = $scope.new_enquiry_to_date,
+                      d.enquiry_number = $scope.enquiry_number,
+                      d.project_type   = $scope.project_type
+                    }
                 },
                 columns       : [
                     {data: 'id', name: 'id', visible: false},
@@ -351,7 +376,13 @@
                 serverSide: true,
                 ajax          : {
                     url     : '{!! route('get-customer-active-enquiries') !!}',
-                    dataType: 'json'
+                    dataType: 'json',
+                    data: function (d) {
+                      d.from_date      = $scope.new_enquiry_from_date,
+                      d.to_date        = $scope.new_enquiry_to_date,
+                      d.enquiry_number = $scope.enquiry_number,
+                      d.project_type   = $scope.project_type
+                    }
                 },
                 columns       : [
                     {data: 'id', name: 'id', visible: false},
@@ -382,7 +413,13 @@
                 serverSide: true,
                 ajax          : {
                     url     : '{!! route('get-customer-completed-enquiries') !!}',
-                    dataType: 'json'
+                    dataType: 'json',
+                    data: function (d) {
+                        d.from_date      = $scope.new_enquiry_from_date,
+                        d.to_date        = $scope.new_enquiry_to_date,
+                        d.enquiry_number = $scope.enquiry_number,
+                        d.project_type   = $scope.project_type
+                    }
                 },
                 columns       : [
                     {data: 'id', name: 'id', visible: false},
@@ -403,6 +440,14 @@
                     $compile(row)($scope);  //add this to compile the DOM
                 }
             });
+
+            $scope.newEnquieyFilter = () => {
+                newEnquiry.draw();
+                activeEnquiry.draw();
+                completedEnquiry.draw();
+                $("#enquiry-filter-modal").modal('hide');
+            }
+
     });
     </script>
 @endpush

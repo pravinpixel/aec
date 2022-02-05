@@ -464,7 +464,19 @@ class EnquiryController extends Controller
     public function getNewEnquiries(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = Enquiry::with('projectType')->where('status','In-Complete');
+            $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
+            $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
+            $enquiry_number = isset($request->enquiry_number) ? $request->enquiry_number : false;
+            $projetType = isset($request->project_type) ? $request->project_type : false;
+            $dataDb = Enquiry::with('projectType')
+                        ->whereBetween('enquiry_date', [$fromDate, $toDate])
+                        ->when( $enquiry_number, function($q) use($enquiry_number){
+                            $q->where('enquiry_number', $enquiry_number);
+                        })
+                        ->when($projetType, function($q) use($projetType){
+                            $q->where('project_type_id', $projetType);
+                        })
+                        ->where('status','In-Complete');
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'. $dataDb->enquiry_number.' </span> </div>';
@@ -509,7 +521,20 @@ class EnquiryController extends Controller
     public function getActiveEnquiries(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = Enquiry::with('projectType')->where('status','Active');
+            $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
+            $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
+            $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
+            $projetType = isset($request->projet_type) ? $request->projet_type : false;
+            $dataDb = Enquiry::with('projectType')
+                            ->whereBetween('enquiry_date', [$fromDate, $toDate])
+                            ->when( $enquiryNumber, function($q) use($enquiryNumber){
+                                $q->where('enquiry_number', $enquiryNumber);
+                            })
+                            ->when($projetType, function($q) use($projetType){
+                                $q->where('project_type_id', $projetType);
+                            })
+                            ->where('status','Active');
+                            
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
@@ -555,7 +580,20 @@ class EnquiryController extends Controller
     public function getCompletedEnquiries(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = Enquiry::with('projectType')->where('status','Completed');
+            $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
+            $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
+            $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
+            $projetType = isset($request->projet_type) ? $request->projet_type : false;
+
+            $dataDb = Enquiry::with('projectType')
+                            ->whereBetween('enquiry_date', [$fromDate, $toDate])
+                            ->when($enquiryNumber, function($q) use($enquiryNumber){
+                                $q->where('enquiry_number', $enquiryNumber);
+                            })
+                            ->when($projetType, function($q) use($projetType){
+                                $q->where('project_type_id', $projetType);
+                            })
+                            ->where('status','Completed');
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 return '<div ng-click=getEnquiry(project_info,'. $dataDb->id .')"> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
