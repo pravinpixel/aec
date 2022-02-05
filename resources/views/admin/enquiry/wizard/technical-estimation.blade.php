@@ -31,14 +31,14 @@
                 <div class="card-body mb-0 pb-0"  >
                     <div class="row align-items-center mb-2">
                         <div class="col-sm-6">                        
-                            <button class="btn btn-sm btn-primary " ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button>
+                            <button class="btn btn-sm btn-primary" ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button>
                         </div>
                         <div class="col-sm-6 text-end">
                             {{-- <span class="text-secondary">Total Area :</span> <b>  </b>  --}}
                         </div>
                     </div> 
                     <div>  
-                        <table ng-repeat="(index,buliding) in building_building" class="table  border shadow-sm table-bordered">
+                        <table  ng-repeat="(index,buliding) in building_building" class="table  border shadow-sm table-bordered">
                             <thead class="bg-light">
                                 <tr>
                                     <th>S.No</th>
@@ -63,13 +63,13 @@
                                 <tr ng-repeat="(secindex,est) in buliding.building_component_number"  >
                                     <td>@{{ secindex+1 }}</td>
                                     <td style="padding:0 !important">
-                                        <input type="text" required placeholder="Type here.." ng-model="est.name" class="form-control form-control-sm rounded-0 border-0">
+                                        <input type="text"  required placeholder="Type here.." ng-model="est.name" class="form-control form-control-sm rounded-0 border-0">
                                     </td>
                                     <td  style="padding:0 !important" > 
-                                        <input type="number" min="0" required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
+                                        <input type="number"  min="0" required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
                                     </td>
                                     <td class="text-center"  style="padding:0 !important">
-                                        <a href="" class="btn btn-sm text-danger w-100 btn-outline-light"ng-click="Delete_component(index, secindex)" ><i class="fa fa-trash"></i></a>
+                                        <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -81,7 +81,7 @@
                                     </td>
                                 </tr>
                             </tfoot>
-                        </table>
+                        </table> 
                     </div>
                 </div>  
             </div> 
@@ -97,18 +97,17 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ps-2">
                             <div class="d-flex align-items-center">
                                 <div class="h-100 p-0 ">
-                                    <a class="text-primary btn btn-sm btn-light border rounded-pill me-1"  ng-click="showTechCommentsToggle('viewTechicalDocsConversations', 'techical_estimation', doc.id)">
+                                    <a class="btn btn-sm btn-light border rounded-pill me-1"  ng-click="showTechCommentsToggle('viewTechicalDocsConversations', 'techical_estimation', doc.id)">
                                         <i class="uil-comment-alt-lines"></i>
                                     </a>
                                 </div>
                                 <div>
                                     <div class="d-flex flex-column">
-                                     
                                         @{{ doc.document_type.document_type_name }} <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
                                     </div>
                                 </div>
                             </div>
-                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ doc.file_name }}" class="badge bg-primary rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                         </li> 
                     </ul>
                 </div>

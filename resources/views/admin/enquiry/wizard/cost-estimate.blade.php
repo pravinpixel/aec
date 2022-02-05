@@ -23,6 +23,7 @@
         </table> 
         <div class="row m-0 mt-3">
             <div class="table-responsive p-0">  
+               
                 <table class="cost-estimate-table table table-bordered border">
                     <thead>
                         <tr  style="background: var(--primary-bg) !important">

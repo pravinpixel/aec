@@ -117,6 +117,7 @@
                 critical_path: true 
             });
             gantt.config.row_height = 30;
+            
         // ======= PlugIns ============
 
         function updateCriticalPath(toggle) {
@@ -253,12 +254,28 @@
         //=== ==Floder Togglle Function =============
  
         //  ====== Extra Column ==========
-            gantt.config.auto_types = true;
+            
+             // work time and duration
+            // gantt.config.duration_unit = "minute";
+            // gantt.config.work_time = true;
+            // gantt.config.time_step = 15;
+
+            var hourFormatter = gantt.ext.formatters.durationFormatter({
+                enter: "hour", 
+                store: "minute", 
+                format: "hour",
+                short: true	
+            }) 
+            var hourDurationEditor = {type: "duration", map_to: "duration", formatter: hourFormatter, min:0, max:1000};
+            
             gantt.config.columns = [
-                {name: "wbs", label: "S.no", width:50,  template: gantt.getWBSCode},
+                {name: "wbs", label: "S.no", width:35,  template: gantt.getWBSCode},
                 {name: "text", label: "Task name", tree: true, width: 170},
                 {name: "start_date", align: "center", width: 90},
                 {name: "duration", align: "center", width: 60}, 
+                {name: "hourDuration", label:"Duration (hours)", resize: true, align: "center", template: function(task) {
+                    return hourFormatter.format(task.duration);
+                }, editor: hourDurationEditor, width: 100},
                 {name: "add", width: 40}
             ];
         //  ====== Extra Column ==========
@@ -286,8 +303,7 @@
  
         //  Date Formate
         gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
-
-        //  Select Html element For Gantt Chart
+            
         gantt.init("gantt_here");
 
         // Load Data For Gantt Chart

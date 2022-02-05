@@ -119,24 +119,59 @@
 @push('custom-scripts') 
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script> 
-        app.directive('getTotalComponents',   ['$http' ,function ($http, $scope) {  
+        app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) {  
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
-                    element.on('mouseover', function () {
-                        var index       = scope.index;
-                     
+                    element.on('keyup', function () {
+                        var index   = scope.index;
                         let bcd = scope.building_building[index].building_component_number.map((item,i) => {
                             return item.sqfeet;
-                        });
-                        
-                        let result = bcd.reduce((previousValue, currentValue) => previousValue + currentValue);
-
+                        }); 
+                        let result =  bcd.reduce(function(previousValue, currentValue){
+                            if(typeof(previousValue) == 'undefined') {
+                                previousValue = 0;
+                            }
+                            if(typeof(currentValue) == 'undefined') {
+                                currentValue = 0;
+                            }
+                            return previousValue + currentValue
+                        }, 0);
                         scope.building_building[index].total_component_area = result; 
+                        scope.$apply();
                     });
                 },
             };
-        }]);      
+        }]);
+        app.directive('getTotalComponentsDelete',   ['$http' ,function ($http, $scope,$apply) {  
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    element.on('click', function () {
+
+                        var index       = scope.index;
+                        var secindex   = scope.secindex;
+                        scope.building_building[index].building_component_number.splice(secindex,1);
+
+                        let bcd = scope.building_building[index].building_component_number.map((item,i) => {
+                            return item.sqfeet;
+                        }); 
+                        let result =  bcd.reduce(function(previousValue, currentValue){
+                            if(typeof(previousValue) == 'undefined') {
+                                previousValue = 0;
+                            }
+                            if(typeof(currentValue) == 'undefined') {
+                                currentValue = 0;
+                            }
+                            return previousValue + currentValue
+                        }, 0);
+                        scope.building_building[index].total_component_area = result; 
+                        scope.$apply();
+                    });
+                },
+            };
+        }]);
+         
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -246,43 +281,40 @@
                 });
             }
         });
-        app.controller('Tech_Estimate', function ($scope, $http, API_URL) {
+        app.controller('Tech_Estimate', function ($scope, $http, API_URL ) {
             
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
-                $scope.enquiry             = response.data; 
-                $scope.enquiry_id             = response.data.enquiry_id; 
-                $scope.building_building   = response.data.building_component;
+                $scope.enquiry              =   response.data; 
+                $scope.enquiry_id           =   response.data.enquiry_id; 
+                $scope.building_building    =   response.data.building_component; 
+                console.log($scope.building_building);
                 
-                $scope.Add_building = function() {
-                    $scope.building_building.push(
-                        {
-                            "building_number": 1, 
-                            "building_component_number": [
-                                {
-                                    "name": '',
-                                    "sqfeet": 0
-                                } 
-                            ] ,
-                            "total_component_area" : 0
-                        }
-                    )
-                }
-                
+               
+            });
+            $scope.Add_building = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
+                    $scope.building_building.push(response.data.building_component[0]);
+                });
+                    
+                } 
                 $scope.Add_component = function(index) {
                     $scope.building_building[index].building_component_number.push(
                         {
                             "name": '',
                             "sqfeet": 0
                         }
+                        
                     )
                 }
                 $scope.Delete_building   =   function(index) {
-                    $scope.building_building.splice(index,1);
-                }  
+                    $scope.building_building.splice(index,1);  
+                }
+
+                $scope.dirOptions = {};
                 $scope.Delete_component   =   function(index, secindex) {
                     $scope.building_building[index].building_component_number.splice(secindex,1);
-                }  
-            });
+                    $scope.dirOptions.directiveFunction(index);
+                }
            
             $scope.updateTechnicalEstimate  = function() {
                 $http({
@@ -404,12 +436,7 @@
                 }
         }); 
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
-
-            $http.get("{{ route('CostEstimateView', $data->id) }}").then(function (response) {
-                $scope.enquiry  = response.data;  
-                
-                $scope.CostEstimate  = response.data.cost_estimation;  
-            });
+            
             // $scope.CostEstimate  = {
             //     "Components" : [ 
             //         {
@@ -465,7 +492,28 @@
             //         "grandTotal"    : 0, 
             //     },
             //     "enquiry_id" : '{{ $data->id ?? " " }}'
-            // };  
+            // };
+            
+            
+            // =========== Cost Estimate  ============
+            $http.get("{{ route("CostEstimateData") }}").then(function (response) {
+                $scope.cost = response.data; 
+            });
+            $http.get("{{ route('CostEstimateView', $data->id) }}").then(function (response) {
+                $scope.enquiry          =   response.data;  
+                $scope.CostEstimate     =   response.data.cost_estimation;  
+            });
+            $scope.UpdateCostEstimate  = function() {  
+                $http({
+                    method: "POST",
+                    url: "{{ route('enquiry-create.cost-estimate-value') }}",
+                    data:{ data : $scope.CostEstimate},
+                }).then(function successCallback(response) {
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                }); 
+            }
             $scope.create  = function() {
                 $scope.CostEstimate.Components.unshift({
                     "Component"     : "",
@@ -492,48 +540,30 @@
                         "PriceM2"   : "", 
                         "Sum"       : "", 
                     }
-                }); 
-                 
+                });
             }
-            $scope.delete   =   function(index) {
-                
+            $scope.delete   =   function(index) { 
                 if(index == 0) {
                     return false
                 }
                 $scope.CostEstimate.Components.splice(index,1);
             }
-            
-            // =========== Cost Estimate  ============
-            $http.get("{{ route("CostEstimateData") }}").then(function (response) {
-                $scope.cost = response.data; 
-            }); 
-            
-            $scope.UpdateCostEstimate  = function() {  
-                $http({
-                    method: "POST",
-                    url: "{{ route('enquiry-create.cost-estimate-value') }}",
-                    data:{ data : $scope.CostEstimate},
-                }).then(function successCallback(response) {
-                    Message('success',response.data.msg);
-                }, function errorCallback(response) {
-                    Message('danger',response.data.errors);
-                }); 
-            }
-
         });
         app.directive('getCostEstimateData',   ['$http' ,function ($http, $scope) {  
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
-                    element.on('change', function () {  
-
+                    element.on('change', function () {
                         $http({
                             method: 'GET',
                             url: '{{ route("CostEstimateMasterValue") }}',
                             params : {component_id: scope.c.building_component_name, type_id: scope.t.type_name}
                             
                             }).then(function success(response) {
-                                scope.masterData = response.data; 
+                                scope.masterData = response.data;
+
+
+
                                 
                                 scope.CostEstimate.Components[scope.index].sqm                  =   response.data.sqm; 
                                 scope.CostEstimate[scope.index].complexity                      =   response.data.complexity; 
@@ -558,14 +588,10 @@
                                 scope.CostEstimate.Components[scope.index].TotalCost.Sum       =   parseInt(response.data.detail_price)    + 
                                                                                                     parseInt(response.data.statistic_price) + 
                                                                                                     parseInt(response.data.cad_cam_price)   + 
-                                                                                                    parseInt(response.data.logistic_price) 
-  
-                                    
+                                                                                                    parseInt(response.data.logistic_price)  
                             }, function error(response) { 
                                 console.log("Code Eror")
-                        });
-                      
-                       
+                        }); 
                     });
                 },
             };
