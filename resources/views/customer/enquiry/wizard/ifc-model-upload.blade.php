@@ -11,12 +11,12 @@
                             <label for="@{{ documentType.slug }}"><i class="fa fa-folder-plus fa-2x text-primary"></i></label>
                         </div>
                     </label> @{{ documentType.file_name }} --}}
-                    <input type="file" class="form-control file-control rounded-pill" file-model="@{{'file' + documentType.slug}}" onchange="angular.element(this).scope().fileName(this)"id ="@{{ documentType.slug }}"/>
+                    <input type="file" class="form-control file-control rounded-pill" file-model="@{{'file' + documentType.slug}}" id ="@{{ documentType.slug }}"/>
                     <small class="text-center my-1">(OR)</small>
                     <input type="text" id="@{{'link' +documentType.slug}}" class="form-control rounded-pill border" placeholder="URL">
                     <a ng-click="uploadFile(documentType.slug, documentType.slug)"  class="fileupload btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</a>
                     <div class="progress mt-2">
-                        <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"> @{{progress_value}} </div>
+                        <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}"> @{{progress_value}} </div>
                     </div>
                 </div>
             </div>

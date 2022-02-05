@@ -912,12 +912,7 @@
                 });
             }
 
-            $scope.fileName= function(element) {
-                $scope.$apply(function($scope) {
-                        var attribute_name = element.getAttribute('demo-file-model');
-                        $scope[`${attribute_name}`] = element.files[0].name;
-                });
-            };
+           
 
             $scope.submitIFC  = () => {
                 $http({
@@ -967,6 +962,7 @@
                 if(callPromise){
                     promise.then(function (response) {
                         $(".fileupload").css('pointer-events','');
+                        $scope[`file${filename}`] = '';
                         delete $scope[`file${filename}`];
                         callPromise = false;
                         $(`#link${filename}`).val('');
@@ -1046,6 +1042,7 @@
             app.service('fileUpload', function ($http, $q) {
                
                 this.uploadFileToUrl = function(file, type, view_type, uploadUrl, $scope){
+                    $scope.progress_value = 0;
                     $scope[`${view_type}showProgress`] = true;
                     var fd = new FormData();
                     fd.append('file', file);
@@ -1059,7 +1056,7 @@
                         uploadEventHandlers: {
                             progress: function (e) {
                                     if (e.lengthComputable) {
-                                        // $scope[`${view_type}showProgress`] = false;
+                                        $scope.progress_value = Math.round((e.loaded / e.total) * 100) +'%';
                                     }
                             }
                         }
@@ -1073,6 +1070,7 @@
                 }
 
                 this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl, $scope) {
+                    $scope.progress_value = 0;
                     if(link == '' || typeof(link) == 'undefined'){
                         return false;
                     }
@@ -1089,7 +1087,7 @@
                         uploadEventHandlers: {
                             progress: function (e) {
                                     if (e.lengthComputable) {
-                                        // $scope[`${view_type}showProgress`] = false;
+                                        $scope.progress_value = Math.round((e.loaded / e.total) * 100) +'%';
                                     }
                             }
                         }

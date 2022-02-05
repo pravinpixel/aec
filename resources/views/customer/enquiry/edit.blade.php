@@ -795,12 +795,12 @@
                 });
             }
 
-            $scope.fileName= function(element) {
-                $scope.$apply(function($scope) {
-                        var attribute_name = element.getAttribute('demo-file-model');
-                        $scope[`${attribute_name}`] = element.files[0].name;
-                });
-            };
+            // $scope.fileName= function(element) {
+            //     $scope.$apply(function($scope) {
+            //             var attribute_name = element.getAttribute('demo-file-model');
+            //             $scope[`${attribute_name}`] = element.files[0].name;
+            //     });
+            // };
 
             $scope.submitIFC  = () => {
                 $http({
@@ -850,6 +850,7 @@
                 if(callPromise){
                     promise.then(function (response) {
                         $(".fileupload").css('pointer-events','');
+                        $scope[`file${filename}`] = '';
                         delete $scope[`file${filename}`];
                         callPromise = false;
                         $(`#link${filename}`).val('');
@@ -942,7 +943,7 @@
                         uploadEventHandlers: {
                             progress: function (e) {
                                     if (e.lengthComputable) {
-                                        $scope.progress_value = ((e.loaded / e.total) * 100).toFixed(2) +'%';
+                                        $scope.progress_value = Math.round((e.loaded / e.total) * 100) +'%';
                                     }
                             }
                         }
@@ -974,7 +975,7 @@
                         uploadEventHandlers: {
                             progress: function (e) {
                                     if (e.lengthComputable) {
-                                        $scope.progress_value = ((e.loaded / e.total) * 100).toFixed(2) +'%';
+                                        $scope.progress_value = Math.round((e.loaded / e.total) * 100) +'%';
                                     }
                             }
                         }
