@@ -562,8 +562,7 @@
                             }).then(function success(response) {
                                 scope.masterData = response.data;
 
-
-
+ 
                                 
                                 scope.CostEstimate.Components[scope.index].sqm                  =   response.data.sqm; 
                                 scope.CostEstimate[scope.index].complexity                      =   response.data.complexity; 
@@ -590,8 +589,8 @@
                                                                                                     parseInt(response.data.cad_cam_price)   + 
                                                                                                     parseInt(response.data.logistic_price)  
                             }, function error(response) { 
-                                console.log("Code Eror")
-                        }); 
+                                    console.log("Code Eror")
+                            }); 
                     });
                 },
             };

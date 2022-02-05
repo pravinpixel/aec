@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(TypeSeeder::class);
         $this->call(EstimationComponentSeeder::class);
         $this->call(ConfigSeeder::class);
+        $this->call(CustomerSeeder::class);
         $this->call(BuildingComponentSeeder::class);
         $this->call(BuildingTypeSeeder::class);
         $this->call(DeliveryTypeSeeder::class);
