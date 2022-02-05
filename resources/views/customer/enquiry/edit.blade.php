@@ -928,6 +928,7 @@
             app.service('fileUpload', function ($http, $q) {
                
                 this.uploadFileToUrl = function(file, type, view_type, uploadUrl, $scope){
+                    $scope.progress_value = 0;
                     $scope[`${view_type}showProgress`] = true;
                     var fd = new FormData();
                     fd.append('file', file);
@@ -941,12 +942,13 @@
                         uploadEventHandlers: {
                             progress: function (e) {
                                     if (e.lengthComputable) {
-                                        // $scope[`${view_type}showProgress`] = false;
+                                        $scope.progress_value = ((e.loaded / e.total) * 100).toFixed(2) +'%';
                                     }
                             }
                         }
                     }).then(function (response) {
                         $scope[`${view_type}showProgress`] = false;
+                     
                         deffered.resolve(response);
                     },function (response) {
                         deffered.reject(response);
@@ -955,6 +957,7 @@
                 }
 
                 this.uploadLinkToUrl = function (link, type, view_type,  uploadUrl, $scope) {
+                    $scope.progress_value = 0;
                     if(link == '' || typeof(link) == 'undefined'){
                         return false;
                     }
@@ -971,7 +974,7 @@
                         uploadEventHandlers: {
                             progress: function (e) {
                                     if (e.lengthComputable) {
-                                        // $scope[`${view_type}showProgress`] = false;
+                                        $scope.progress_value = ((e.loaded / e.total) * 100).toFixed(2) +'%';
                                     }
                             }
                         }
