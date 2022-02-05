@@ -96,7 +96,7 @@ class EnquiryController extends Controller
         $customer['enquiry_date']       =   now();
         $customer['enquiry_number']     =   GlobalService::enquiryNumber();
         $customer['document_types']     =   $this->documentTypeRepo->all();
-        return view('customer.enquiry.create',compact('customer','enquiry'));
+        return view('customer.enquiry.create',compact('customer','enquiry','enquiry_number'));
     }
 
     public function show() 

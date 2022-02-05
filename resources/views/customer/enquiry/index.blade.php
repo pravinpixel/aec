@@ -350,7 +350,7 @@
                 columns       : [
                     {data: 'id', name: 'id', visible: false},
                     {data: 'enquiry_number', name: 'enquiry_number'},
-                    {data: 'projectType', name: 'projectType.project_type_name'},
+                    {data: 'project_name', name: 'project_name'},
                     {data: 'no_of_building', name: 'no_of_building'},
                     {data: 'enquiry_date', name: 'enquiry_date'},
                     {data: 'pipeline', name: 'pipeline'},
@@ -387,7 +387,7 @@
                 columns       : [
                     {data: 'id', name: 'id', visible: false},
                     {data: 'enquiry_number', name: 'enquiry_number'},
-                    {data: 'projectType', name: 'projectType.project_type_name'},
+                    {data: 'project_name', name: 'project_name'},
                     {data: 'no_of_building', name: 'no_of_building'},
                     {data: 'enquiry_date', name: 'enquiry_date'},
                     {data: 'pipeline', name: 'pipeline'},
@@ -424,7 +424,7 @@
                 columns       : [
                     {data: 'id', name: 'id', visible: false},
                     {data: 'enquiry_number', name: 'enquiry_number'},
-                    {data: 'projectType', name: 'projectType.project_type_name'},
+                    {data: 'project_name', name: 'project_name'},
                     {data: 'no_of_building', name: 'no_of_building'},
                     {data: 'enquiry_date', name: 'enquiry_date'},
                     {data: 'pipeline', name: 'pipeline'},

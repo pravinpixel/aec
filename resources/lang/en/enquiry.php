@@ -11,6 +11,8 @@ return [
     's_no'            => 'S.No',
     'enquiry_no'      => 'Enquiry No',
     'type_of_project' => 'Type of Project',
+    'project_name'    => 'Project Name',
+    'no_of_building'  => 'No of Building',
     'no_of_property'  => 'No of Property',
     'enquiry_date'    => 'Enquiry Date',
     'pipeline'        => 'Pipeline',

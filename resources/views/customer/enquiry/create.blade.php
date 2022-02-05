@@ -16,13 +16,12 @@
                 
                 @include('customer.includes.page-navigater') 
             </div>                
-          
  
             <div class="card border">
+               
                 <div class="card-body pt-0 pb-0">
                                
                     <div id="rootwizard" ng-controller="wizard">
-                       
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                             <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
                                 <a href="#!/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
@@ -136,7 +135,7 @@
         }); 
         
         app.controller('wizard', function($scope, $http,$rootScope, Notification) {
-            
+            $rootScope.projectNameLabel;
         });
  
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
@@ -240,7 +239,7 @@
                     return false;
                 });
             } 
-            
+            $rootScope.projectNameLabel = $scope.project_name;
  
             getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
