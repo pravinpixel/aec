@@ -402,6 +402,52 @@
                 building_component_id = wall_id;
                 $("#add-layer-modal").modal('show');
             }
+
+            
+            $scope.callTemplateModal = (index, wall_id, position_id) => {
+                $scope.templateData = {
+                    building_component_id: wall_id,
+                    index_position: index,
+                    detail_position: position_id
+                };
+                $("#add-template-modal").modal('show');
+            }
+
+            $scope.getTemplate = (index, building_component_id, detail_id ,template_id) => {
+                $http({
+                    method: 'get',
+                    url: `${API_URL}customers/enquiry-template/${template_id}`,
+                }).then(function successCallback(response) {
+                    $scope.wallGroup[index].Details[detail_id] = response.data;
+                    Message('success', 'Template Added');
+                }, function errorCallback(response) {
+                    Message('danger', 'Something went wrong');
+                });
+            }   
+
+            $scope.submitTemplate = () => {
+                let index =  $scope.templateData.index_position;
+                let detail_position =  $scope.templateData.detail_position;
+                let data =  $scope.wallGroup[index].Details[detail_position];
+                $http({
+                    method: 'POST',
+                    url: '{{ route("enquiry-template.store") }}',
+                    data: {... $scope.templateData, data: data, template_name: $scope.TemplateForm.name}
+                }).then(function successCallback(response) {
+                    if(response.data.status == false) {
+                        Message('danger', response.data.msg);
+                        return false;
+                    }
+                    $("#add-template-modal").modal('hide');
+                    $scope.TemplateForm.name = '';
+                    Message('success', response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger', 'Something went wrong');
+                });
+            }
+
+
+
             $scope.submitLayer = () => {
                
                 if($scope.layer_name =='' || typeof($scope.layer_name) == 'undefined') {
@@ -596,6 +642,21 @@
                             });
                         });
                     },
+                };
+            }).directive('getTemplate', function getTemplate($http) {
+                return {
+                    restrict: 'A',
+                    link : function (scope, element, attrs) {
+                        $http({
+                            method: 'GET',
+                            url: '{{ route("get-template-by-building-component-id") }}',
+                            params : {building_component_id: scope.w.WallId}
+                            }).then(function success(response) {
+                                scope.Templates = response.data;
+                            }, function error(response) {
+                        });
+                    },
+
                 };
             });
 

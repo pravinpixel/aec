@@ -12,7 +12,7 @@
       
         <div class="col-sm-10">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade"  get-customer-layer  ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
+                <div class="tab-pane fade"  get-customer-layer get-template  ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
                     <div class="d-flex justify-content-between align-items-center">
                         <div > <h3> <div> </div></h3> </div>
                         <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Wall</button>
@@ -26,12 +26,22 @@
                    
                     <div ng-repeat="(Secindex,d) in w.Details">  
                         <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
-                            
-                            <div class="btn border" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">
-                                @{{ w.WallName }}@{{$index + 1}}
-                                
+                            <div class="d-flex justify-content-between">
+                                <div class="btn border d-flex justify-content-center align-items-center" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">
+                                    @{{ w.WallName }}@{{$index + 1}}
+                                </div> 
+                                <div>
+                                    <div class="btn-group border shadow-sm mb-2">
+                                        <select class="form-select border-0 f" name="template" ng-change="getTemplate(fIndex, w.WallId, Secindex,template)" ng-model="template">
+                                            <option value="">@lang('customer-enquiry.select')</option>
+                                            <option ng-repeat="Template in Templates" value="@{{ Template.id }}">
+                                                @{{ Template.template_name }}
+                                            </option>
+                                        </select>
+                                        <button ng-click="callTemplateModal(fIndex, w.WallId, Secindex)" class="w-100 btn btn-success btn-sm  border-0" ng-show="d">Save as template</button>
+                                    </div>
+                                </div>
                             </div>
-
                             <div class="accordion-item shadow-sm  ">
                                 
                                 <div class="accordion-header m-0  " style="background:#f1f2fe" id="headingOne">                                                                    
@@ -220,7 +230,8 @@
             </div> 
         </div> 
     </div> 
-    @include('customer.enquiry.add-layer-modal')
+    @include('customer.enquiry.models.add-layer-modal')
+    @include('customer.enquiry.models.add-template-modal')
     <div class="card-footer border-0 p-0 " >
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li>

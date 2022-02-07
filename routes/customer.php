@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Customer\EnquiryController;
 use App\Http\Controllers\Customer\DashboardController;
-
+use App\Http\Controllers\Customer\EnquiryTemplateController;
 use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], function(){
  
@@ -58,6 +58,9 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
     
     Route::get('get-customer-completed-enquiries',[EnquiryController::class,'getCompletedEnquiries'])->name('get-customer-completed-enquiries');
 
+    Route::resource('enquiry-template', EnquiryTemplateController::class);
+    Route::get('get-template-by-building-component-id', [EnquiryTemplateController::class, 'getTemplateByBuildingComponentId'])->name('get-template-by-building-component-id');
+  
     Route::get('view-list',  function() {
         return view('customer.enquiry.view-list');
     });

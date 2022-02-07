@@ -20,6 +20,7 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\ModuleRepositoryInterface;
 use App\Interfaces\RoleRepositoryInterface;
 use App\Interfaces\DocumentaryRepositoryInterface;
+use App\Interfaces\EnquiryTemplateRepositoryInterface;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
 use App\Repositories\CommentRepository;
@@ -38,6 +39,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\ModuleRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\DocumentaryRepository;
+use App\Repositories\EnquiryTemplateRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -133,6 +135,10 @@ class RepositoryServiceProvider extends ServiceProvider
             DocumentaryRepository::class
         );
         
+        $this->app->bind(
+            EnquiryTemplateRepositoryInterface::class,
+            EnquiryTemplateRepository::class
+        );
     }
 
     /**

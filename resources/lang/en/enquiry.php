@@ -4,10 +4,7 @@ return [
     'created'         => 'Enquiry created successfully',
     'number_mismatch' => 'Enquiry number already exits Please get new enquiry number',
     'status_updated'  => 'Status updated successfully',
-
-    // Comments for enquirys
     'comments_inserted' => 'Comment success!',
-
     's_no'            => 'S.No',
     'enquiry_no'      => 'Enquiry No',
     'type_of_project' => 'Type of Project',
@@ -17,5 +14,8 @@ return [
     'enquiry_date'    => 'Enquiry Date',
     'pipeline'        => 'Pipeline',
     'status'          => 'Status',
-    'actions'         => 'Actions'
+    'actions'         => 'Actions',
+    'add_template'    => 'Add Template',
+    'template_added' => 'Template added successfully',
+    'template_exists' => 'Template already exists',
 ];
