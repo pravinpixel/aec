@@ -22,5 +22,6 @@ return [
     'e_post'                    => 'E-post',
     'select_service'            => 'Selected Services',
     'ifc_model_upload_document' => 'IFC Models & Uploaded Documents',
-    'building_component'       => 'Building Components',
+    'building_component'        => 'Building Components',
+    'select_template'           => 'Select template'
 ];
