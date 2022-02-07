@@ -1,5 +1,29 @@
 <form class="row" id="buildingComponent" name="buildingComponentForm" novalidate>
-    <div class="row">
+    <div class="form-check mx-auto col-md-6 p-2 text-center px-4 bg-light shadow border"  ng-show="visible">
+        <input type="checkbox" style="visibility: hidden" ng-model="visible" id="flexCheckDefault"/>
+        <label class="form-check-label me-3" for="flexCheckDefault">
+            Do you want to go back
+        </label>
+        <label class="btn btn-sm btn-success" for="flexCheckDefault_">
+            Yes !
+        </label>  
+    </div>
+    <div class="form-check mx-auto col-md-6 p-2 text-center px-4 bg-light shadow border"  ng-show="!visible">
+        <input type="checkbox" style="visibility: hidden" ng-model="visible" id="flexCheckDefault_"/>
+        <label class="form-check-label me-3" for="flexCheckDefault_">
+            <span class="link">Do you want to upload custom files ?</span> 
+        </label>
+        <label class="btn btn-sm btn-success" for="flexCheckDefault_">
+            Yes !
+        </label>  
+    </div>
+    
+    <div ng-show="visible"> 
+        <div  class="card p-3 mt-3 shadow-sm file-upload-card col-md-6 mx-auto" style="overflow: hidden">
+            <input type="file" class="form-control file-control rounded-pill" id ="@{{ documentType.slug }}"/>
+        </div>
+    </div>
+    <div class="row" ng-show="!visible">
         <div class="col-sm mb-2 mb-sm-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"

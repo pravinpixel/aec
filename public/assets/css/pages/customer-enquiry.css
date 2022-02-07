@@ -221,6 +221,8 @@ thead, tbody, tfoot, tr, td, th {
     opacity: 0;
     z-index: -111111111111;
  }
-
+ .hideItem {
+    visibility: hidden;
+  }
 
  
