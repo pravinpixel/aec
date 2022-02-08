@@ -36,7 +36,7 @@
                                         </div>
                                     </div>
                                     
-                                
+                                    <input type="hidden" value="module_enquirie.id" name="" ng-model="module_enquirie.id" >
                                     <!-- <div class="col-md-12 mb-1">
                                         <div class="my-2">
                                             <label class="form-label" >Documentary Type<sup class="text-danger">*</sup></label>
@@ -54,7 +54,7 @@
                                     </div>  
                                 
                                     <div class="text-end mt-3">
-                                        <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+                                        <button type="reset" ng-click="cancelForm();" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
                                         <button ng-click="submit(module_enquirie.id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
                                     </div>
                                 </div>
@@ -271,17 +271,17 @@
                 // $scope.htmlcontent += e;
                 // }
                 $scope.callEmployee = () =>  {
-          
+         
                 var id = {{ $id }} ;
                     // alert(id) 
                     $http({
                     method: 'GET',
                     url: API_URL + "admin/documentary/" + id + "/edit",
                 }).then(function(res){
-              
-                    $scope.module_enquirie =    res.data.data
+                    //  alert(JSON.stringify(res.data.data.id))
+                    $scope.module_enquirie = res.data.data;
+                    CKEDITOR.instances["editor1"].setData(res.data.data.documentary_content);
                     CKEDITOR.instances["editor1"].insertHtml(res.data.data.documentary_content);
-                   
                     console.log(res.data.data.documentary_content);
                     
                 });
@@ -322,7 +322,9 @@
 
            
             }
+
             // <div onclick="insertAtCaret('textareaid','${value}')">${key} : <a href=""> ${value} </a></div>
+
             $scope.getCustomerData = function($http, API_URL) {
                     // $http({
                     //     method: 'GET',
@@ -383,9 +385,19 @@
             $scope.getCustomerData($http, API_URL);
             $scope.getUserData($http, API_URL);
 
-         
+         $scope.cancelForm = function($http, API_URL) {
+          
+            window.location.href = "{{ route('admin-documentary-view') }}";
+                    // $scope.module_enquirie.documentary_title = {};
+                    // $scope.module_enquirie.s = {};
+                    // $scope.module_enquirie = {};
+                    // $scope.frm.$setPristine();
+                    // $scope.frm.$setUntouched();
+                // CKEDITOR.instances.editor1.setData(`  `)
+
+            }
             $scope.submit = function (id) {
-                        // alert(id)
+                        text = CKEDITOR.instances.editor1.getData();
                         $scope.module_enquirie.documentary_content = text;
                         // console.log($scope.module_enquirie);
 						$http({

@@ -1,6 +1,7 @@
 <?php 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Enquiry\EnquiryController;
+use App\Http\Controllers\Admin\Enquiry\MailTemplateController;
 use App\Http\Controllers\Admin\Enquiry\EnquiryCommentsController;
 
 
@@ -19,11 +20,6 @@ Route::prefix('admin')->group(function () {
     Route::get('show-comments/{id}/type/{type}', [EnquiryCommentsController::class,'show'])->name("enquiry.show-comments");
 
     Route::get('show-tech-comments/{id}/type/{type}', [EnquiryCommentsController::class,'showTechChat'])->name("enquiry.show-tech-comments");
-
-
-
-
- 
 
     
     //----- Project Summary ------
@@ -55,5 +51,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/admin-move-to-project', function () {
         return view('admin.enquiry.wizard.move-to-project');
     })->name('enquiry.move-to-project'); 
+
+
+    //  ****** Enquiery Proposal ******
+    Route::get('/get-documentaryData', [MailTemplateController::class,'getDocumentaryData'])->name("get-documentaryData");
+    Route::get('/get-documentaryOneData', [MailTemplateController::class,'getDocumentaryOneData'])->name("get-documentaryOneData");
+    
 
 });

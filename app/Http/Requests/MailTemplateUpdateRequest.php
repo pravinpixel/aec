@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-class DocumentaryUpdateRequest extends FormRequest
+class MailTemplateUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class DocumentaryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            'documentary_title' => ['required', Rule::unique('documentary')->ignore($this->documentary)->whereNull('deleted_at')],
+            // 'mail_title' => ['required', Rule::unique('mail_template')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

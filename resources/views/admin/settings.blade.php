@@ -67,11 +67,11 @@
                                 <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Delivery Type</span>
                             </a>
-                            <a class="nav-link layerTypeTab" id="v-pills-layerType-tab" href="#!/layerType"  role="tab" aria-controls="v-pills-layerType"
+                            <!-- <a class="nav-link layerTypeTab" id="v-pills-layerType-tab" href="#!/layerType"  role="tab" aria-controls="v-pills-layerType"
                                 aria-selected="false">
                                 <i class="mdi mdi-layerType-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block"  ng-click="layerTypeGetData()" >Layer Type</span>
-                            </a>
+                            </a> -->
                             <a class="nav-link outputTab" id="v-pills-output-tab" href="#!/output"  role="tab" aria-controls="v-pills-output"
                                 aria-selected="false">
                                 <i class="mdi mdi-output-outline d-md-none d-block"></i>

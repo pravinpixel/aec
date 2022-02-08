@@ -58,6 +58,16 @@
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
                     </div> 
+                    <div class="form-group error mb-2">
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Building Component</label>
+                        <div class="col-sm-12">
+                            <select  class="form-select"  ng-model="module_layer.building_component_id" name="building_component_id"    ng-required="true">
+                                <option value="" selected>Select</option>  
+                                <option value="@{{ emp.id }}"  ng-selected="emp.id == module_layer.building_component_id" ng-repeat="(index,emp) in component_module_name">@{{ emp.building_component_name }}</option>  
+                            </select>
+                           
+                        </div>
+                    </div> 
                     <div class="row">
                         <div class="col-12 pt-3">
                             <div>

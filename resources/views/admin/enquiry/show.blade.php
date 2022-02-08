@@ -73,10 +73,10 @@
                                     </a>
                                 </li> 
                                 <li class="nav-item admin-Proposal_Sharing-wiz">
-                                    <a href="#!/proposal-sharing" style="min-height: 40px;" class="timeline-step">
+                                    <a href="#!/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
-                                                <img src="{{ asset("public/assets/icons/share.png") }}" class="w-50 invert">
+                                                <img src="{{ asset("public/assets/icons/share.png") }}" ng-click="getDocumentaryFun();" class="w-50 invert">
                                             </div>                                                                        
                                         </div>
                                         <p class="h5 mt-2">Proposal Sharing</p>
@@ -179,7 +179,8 @@
                 controller : "Cost_Estimate"
             }) 
             .when("/proposal-sharing", {
-                templateUrl : "{{ route('enquiry.proposal-sharing') }}"
+                templateUrl : "{{ route('enquiry.proposal-sharing') }}",
+                controller : "Proposal_Sharing"
             })
             .when("/response-status", {
                 templateUrl : "{{ route('enquiry.response-status') }}"
@@ -221,7 +222,12 @@
             }
             $scope.GetCommentsData();
 
-             
+        
+            //     $scope.getDocumentaryFun = function($http, API_URL) {
+            //     alert()
+            // }
+            
+           
             $scope.sendInboxComments  = function(type) { 
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
@@ -538,6 +544,44 @@
                 }
                 $scope.CostEstimate.Components.splice(index,1);
             }
+        });
+        app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
+            $scope.getDocumentaryData = function() {
+            $http({
+                method: 'GET',
+                url:  "{{ route('get-documentaryData') }}" ,
+            }).then(function (response) {
+                // alert(JSON.stringify(response.data))
+                $scope.documentary_module_name = response.data;	
+                
+            }, function (error) {
+                console.log(error);
+                console.log('This is embarassing. An error has occurred. Please check the log for details');
+            });
+            }
+
+            
+            $scope.documentaryOneData = function() {
+                var documentId = $scope.documentary.documentary_title;
+                var enquireId ={{ $data->id ?? " " }};
+                console.log(documentId)
+                console.log(enquireId)
+            $http({
+                method: 'GET',
+                url: "{{ route('get-documentaryOneData') }}",
+                params:{'documentId':documentId,'enquireId':enquireId},
+            }).then(function (response) {
+                // alert(JSON.stringify(response))
+                $scope.documentary_module_name = response.data;	
+                
+            }, function (error) {
+                console.log(error);
+                console.log('This is embarassing. An error has occurred. Please check the log for details');
+            });
+            }
+            $scope.getDocumentaryData();
+
+
         });
         app.directive('getCostEstimateData',   ['$http' ,function ($http, $scope) {  
             return {

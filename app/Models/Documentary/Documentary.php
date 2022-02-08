@@ -12,7 +12,6 @@ class Documentary extends Model
     protected $table = 'documentary';
     protected $primaryKey = 'id';
     public $fillable = [
-        'documentary_type',
         'documentary_title',
         'documentary_content',
         'is_active'

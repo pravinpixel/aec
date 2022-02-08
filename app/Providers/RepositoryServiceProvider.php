@@ -21,6 +21,7 @@ use App\Interfaces\ModuleRepositoryInterface;
 use App\Interfaces\RoleRepositoryInterface;
 use App\Interfaces\DocumentaryRepositoryInterface;
 use App\Interfaces\EnquiryTemplateRepositoryInterface;
+use App\Interfaces\MailTemplateRepositoryInterface;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
 use App\Repositories\CommentRepository;
@@ -40,6 +41,7 @@ use App\Repositories\ModuleRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\DocumentaryRepository;
 use App\Repositories\EnquiryTemplateRepository;
+use App\Repositories\MailTemplateRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -133,6 +135,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             DocumentaryRepositoryInterface::class,
             DocumentaryRepository::class
+        );
+        $this->app->bind(
+            MailTemplateRepositoryInterface::class,
+            MailTemplateRepository::class
         );
         
         $this->app->bind(

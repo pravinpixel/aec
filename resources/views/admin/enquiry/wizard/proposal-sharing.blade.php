@@ -4,15 +4,15 @@
             <h4 class="p-2 m-0 h5 text-center"> Select Proposal type </h4>
         </div>
         <div class="d-flex">
-            <select class="form-select me-2">
-                <option>Offer letter</option>
-                <option>Thankyou letter</option>
-                <option>Invite Mail</option>
-                <option>Contract letter</option>
+            <select  class="form-select me-2"  ng-model="documentary.documentary_title" name="documentary_title"    ng-required="true">
+                <option value="" selected>Select</option> 
+                <option value="@{{ emp.id }}" ng-repeat="(index,emp) in documentary_module_name">@{{ emp.documentary_title }}</option>  
             </select>
-            <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" class="btn btn-success float-right btn-sm" ><small> Create</small></button>
+            <button  data-bs-toggle="modal" data-bs-target="#createMail-modal" ng-click="documentaryOneData();" class="btn btn-success float-right btn-sm" ><small> Create</small></button>
         </div> 
     </div> 
+   
+  
     <div class="card-body">
         <div class="container p-0">
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -24,11 +24,11 @@
             <table class="table table-bordered" id="myTable">
                 <thead>
                     <tr>
-                        <th width="15px">S.no</th>
-                        <th>Date</th>
+                        <th width="15px">No</th>
                         <th>File Name</th>
                         <th>Version</th>
                         <th>Status</th>
+                        <th>Date</th>
                         <th width="15px">Action</th>
                     </tr>
                 </thead>
@@ -40,10 +40,14 @@
                                 <div>1</div>                                                    
                             </div>
                         </td>
-                        <td>05 May 2022</td>
                         <td>Dummy Name</td>
                         <td class="text-primary">R1</td>
-                        <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
+                        
+                        <td><span class="badge badge-outline-success rounded-pill">Send</span>
+                            <!-- <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td> -->
+                        </td>
+                        <td>05 May 2022</td>
+                      
                         <td> 
                             <div class="dropdown">
                                 <button type="button" class="toggle-btn btn-light btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,7 +61,7 @@
                             </div>
                         </td>
                     </tr> 
-                    <tr>
+                    <!-- <tr>
                         <td>
                             <div class="d-flex">
                                 <div class="icon">
@@ -73,7 +77,7 @@
                         <td>Dummy Name</td>
                         <td class="text-primary">R1</td>
                      
-                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
+                       <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
                         <td>
                             
                             <div class="dropdown">
@@ -88,8 +92,8 @@
                                 </div>
                             </div> 
                         </td>
-                    </tr> 
-                    <tr id="collapseOne_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    </tr>  -->
+                    <!-- <tr id="collapseOne_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <td colspan="7" class="hiddenRow">
                             <div class="p-3 card m-0">
                                 <table class="table table-bordered m-0">
@@ -122,207 +126,9 @@
                             </table>
                             </div>
                         </td>
-                    </tr>  
-                    <tr>
-                        <td>
-                            <div class="d-flex">
-                                <div class="icon"><i  class="accordion-button custom-accordion-button collapsed text-white toggle-btn"></i></div>
-                                <div>3</div>                                                    
-                            </div>
-                        </td>
-                        <td>05 May 2022</td>
-                        <td>Dummy Name</td>
-                        <td class="text-primary">R1</td>
-                       
-                        <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
-                        <td>
-                            
-                            <div class="dropdown">
-                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="dripicons-dots-3 "></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Duplicate</a>
-                                    <a class="dropdown-item" href="#">View / Edit</a>
-                                    <a class="dropdown-item" href="#">Send Mail</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr> 
-                    <tr>
-                        <td>
-                            <div class="d-flex">
-                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_4" aria-expanded="true" aria-controls="collapseOne_2" class="accordion-button custom-accordion-button collapsed bg-primary text-white toggle-btn"></i></div>
-                                <div>4</div>                                                    
-                            </div>
-                        </td>
-                        <td>05 May 2022</td>
-                        <td>Dummy Name</td>
-                        <td class="text-primary">R1</td>
-                      
-                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
-                        <td>
-                            
-                            <div class="dropdown">
-                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="dripicons-dots-3 "></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Duplicate</a>
-                                    <a class="dropdown-item" href="#">View / Edit</a>
-                                    <a class="dropdown-item" href="#">Send Mail</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
-                                </div>
-                            </div> 
-                        </td>
-                    </tr> 
-                    <tr id="collapseOne_4" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <td colspan="7" class="hiddenRow">
-                            <div class="p-3 card m-0">
-                                <table class="table table-bordered m-0">
-                                    <tbody>
-                                        <tr>
-                                            <th width="15px">s.no</th>
-                                            <th>Date</th>
-                                            <th>File Name</th>
-                                            <th>Status</th>
-                                        </tr>
-                                        <tr  >
-                                            <td>4.3</td>
-                                            <td>05-06-2021</td>
-                                            <td>XXx</td>
-                                            <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4.2</td>
-                                            <td>04-06-2021</td>
-                                            <td>YYY</td>
-                                            <td><span class="badge badge-outline-info rounded-pill">ReView commentsing</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4.1</td>
-                                            <td>03-06-2021</td>
-                                            <td>ZZZ</td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">ReView commentsing</span></td>
-                                        </tr>
-                                </tbody>
-                            </table>
-                            </div>
-                        </td>
-                    </tr>    
-                    <tr>
-                        <td>
-                            <div class="d-flex">
-                                <div class="icon"><i class="accordion-button custom-accordion-button collapsed text-white toggle-btn"></i></div>
-                                <div>5</div>                                                    
-                            </div>
-                        </td>
-                        <td>05 May 2022</td>
-                        <td>Dummy Name</td>
-                        <td class="text-primary">R1</td> 
-                        <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
-                        <td>
-                            
-                            <div class="dropdown">
-                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="dripicons-dots-3 "></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Duplicate</a>
-                                    <a class="dropdown-item" href="#">View / Edit</a>
-                                    <a class="dropdown-item" href="#">Send Mail</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>  
-                    <tr>
-                        <td>
-                            <div class="d-flex">
-                                <div class="icon"><i  class="accordion-button custom-accordion-button collapsed text-white toggle-btn"></i></div>
-                                <div>6</div>                                                    
-                            </div>
-                        </td>
-                        <td>05 May 2022</td>
-                        <td>Dummy Name</td>
-                        <td class="text-primary">R1</td> 
-                        <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
-                        <td>
-                            
-                            <div class="dropdown">
-                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="dripicons-dots-3 "></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Duplicate</a>
-                                    <a class="dropdown-item" href="#">View / Edit</a>
-                                    <a class="dropdown-item" href="#">Send Mail</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr> 
-                    <tr>
-                        <td>
-                            <div class="d-flex">
-                                <div class="icon"><i data-bs-toggle="collapse" href="#collapseOne_6" aria-expanded="true" aria-controls="collapseOne_6" class="accordion-button custom-accordion-button collapsed bg-primary text-white toggle-btn"></i></div>
-                                <div>7</div>                                                    
-                            </div>
-                        </td>
-                        <td>05 May 2022</td>
-                        <td>Dummy Name</td>
-                        <td class="text-primary">R1</td> 
-                        <td><span class="badge badge-outline-secondary rounded-pill">Obsolete</span></td>
-                        <td>
-                            
-                            <div class="dropdown">
-                                <button type="button" class="toggle-btn btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="dripicons-dots-3 "></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Duplicate</a>
-                                    <a class="dropdown-item" href="#">View / Edit</a>
-                                    <a class="dropdown-item" href="#">Send Mail</a>
-                                    <a class="dropdown-item" href="#">Remove</a>
-                                </div>
-                            </div> 
-                        </td>
-                    </tr> 
-                    <tr id="collapseOne_6" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <td colspan="7" class="hiddenRow">
-                            <div class="p-3 card m-0">
-                                <table class="table table-bordered m-0">
-                                    <tbody>
-                                        <tr>
-                                            <th width="15px">s.no</th>
-                                            <th>Date</th>
-                                            <th>File Name</th>
-                                            <th>Status</th>
-                                        </tr>
-                                        <tr  >
-                                            <td>7.3</td>
-                                            <td>05-06-2021</td>
-                                            <td>XXx</td>
-                                            <td><span class="badge badge-outline-success rounded-pill">Send</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>7.2</td>
-                                            <td>04-06-2021</td>
-                                            <td>YYY</td>
-                                            <td><span class="badge badge-outline-info rounded-pill">ReView commentsing</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>7.1</td>
-                                            <td>03-06-2021</td>
-                                            <td>ZZZ</td>
-                                            <td><span class="badge badge-outline-secondary rounded-pill">ReView commentsing</span></td>
-                                        </tr>
-                                </tbody>
-                            </table>
-                            </div>
-                        </td>
-                    </tr> 
+                    </tr>   -->
+
+                    
                 </tbody>
             </table>
         </div>
@@ -355,13 +161,7 @@
                              
                     <div class="form-floatingx mb-3">
                         <label for="floatingInput" class="mb-2">Mail Title </label>
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Type here...." />
-
-                    </div>
-
-                    <div class="form-floatingx mb-3">
-                        <label for="floatingPassword" class="mb-2">Mail Type </label>
-                        <input type="text" class="form-control" id="floatingPassword" placeholder="Type here...." />
+                        <input type="text" class="form-control" ng-model="documentaryData.documentary_title" id="floatingInput" placeholder="Type here...." />
 
                     </div>
 
@@ -371,7 +171,7 @@
                         
                         <div id="editor" >
                             
-                            <div class="card p-3">
+                            <div class="card p-3" ng-model="documentary.documentary_content">
                                 <table class="table table-borderless">
                                     <tr>
                                         <td>
@@ -727,14 +527,14 @@
 
 
 <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
-<script>
+<!-- <script>
     ClassicEditor.create( document.querySelector( '#editor' ) ).catch( error => {
         console.error( error );
     } );
     ClassicEditor.create( document.querySelector( '#editor2' ) ).catch( error => {
         console.error( error );
     } );
-</script>
+</script> -->
 
 @if (Route::is('enquiry.proposal-sharing')) 
     <style>

@@ -14,7 +14,7 @@
                 <div class="card">
                     <div  class="card-header ">
                         <div class="d-flex justify-content-between ">
-                            <a href="{{ route('admin.add-documentary') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Documentary</a>
+                            <a href="{{ route('admin.add-documentary') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Document</a>
                         </div>
                     </div>
                     <div class="card-body">

@@ -57,15 +57,15 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Offer: {offer no}  Revision: {revision no},<br>
+                                                <td>Offer: {offer_no}  Revision: {revision_no},<br>
                                                 <strong> To</strong><br>
                                                 <strong>{customer_name}</strong><br>
                                                 <strong>{(ORG.no)}</strong><br>
                                               
-                                                <strong>{customer address}</strong><br>
+                                                <strong>{customer_address}</strong><br>
 
                                                 </td>
-                                                <td width="20%">Date: {enquiry_date}</td>
+                                                <td width="20%">Date: {today_date}</td>
                                                 
                                             </tr>
                                             <tr>
@@ -73,7 +73,7 @@
                                                 <td>Your ref: </td>
                                             </tr>
                                             <tr>
-                                                <td><strong>Re.: {document title}</strong></td>
+                                                <td><strong>Re.: {document_title}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -136,7 +136,6 @@
                                                 <td>
                                                     <strong>4. Attachment to offer</strong>
                                                     <p>Nobody</p>
-                                                    
                                                 </td>
                                             </tr>
                                             <tr>
@@ -145,7 +144,7 @@
                                                     <p>
                                                         <b>For AEC Prefab AS</b> <br>
                                                         Sincerely,<br>
-                                                        {admin user}<br>
+                                                        {admin_user}<br>
                                                         {role}<br>
             
                                                     </p>
@@ -156,7 +155,7 @@
                                     </div>  
                                 
                                     <div class="text-end mt-3">
-                                        <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+                                        <button type="reset" ng-click="cancelForm();" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
                                         <button ng-click="submit();" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
                                     </div>
                                 </div>
@@ -245,6 +244,10 @@
      $(document).ready(function() {
         // CKEDITOR.replace('body', {height: 1000});
         CKEDITOR.replace( 'editor1' );
+        // console.log("t1");
+        //without edit ckeditor get content
+        text = CKEDITOR.instances.editor1.getData();
+        console.log(text);
         // CKEDITOR.instances.my_editor.insertHtml('<p>This is a new paragraph.</p>');
             CKEDITOR.on( 'instanceReady', function( evt )
               {
@@ -253,6 +256,7 @@
             
                editor.on('change', function (e) { 
                text = editor.editable().getData();
+               console.log("texttt");
                 console.log(text);
                 });
              });
@@ -359,7 +363,7 @@
                 // $scope.htmlcontent += e;
                 // }
           
-            $scope.getEnquirieData = function($http, API_URL) {
+            $scope.getEnquirieData = function($http, API_URL) { 
            
                         // $http({
                         // method: 'GET',
@@ -445,25 +449,10 @@
             $scope.getCustomerData($http, API_URL);
             $scope.getUserData($http, API_URL);
 
-         
-            $scope.submit = function () {
-
-                        $scope.module_enquirie.documentary_content = text;
-                        // console.log($scope.module_enquirie);
-						$http({
-							method: 'POST',
-                            url: API_URL + "admin/documentary",
-							data: $.param($scope.module_enquirie),
-							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-						}).then(function successCallback(response) {
-
-                            Message('success', response.data.msg);
-                            
-                            $scope.getCustomerData($http, API_URL);
-                            $scope.getEnquirieData($http, API_URL);
-                            // CKEDITOR.instances['editor1'].setData('');
-                            CKEDITOR.instances.editor1.setData(`
+            $scope.cancelForm = function($http, API_URL) {
+                $scope.module_enquirie = {};
+                
+                CKEDITOR.instances.editor1.setData(`
                             <table class="table table-borderless">
                                             <tr>
                                                 <td></td>
@@ -472,15 +461,15 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Offer: {offer no}  Revision: {revision no},<br>
+                                                <td>Offer: {offer_no}  Revision: {revision_no},<br>
                                                 <strong> To</strong><br>
                                                 <strong>{customer_name}</strong><br>
                                                 <strong>{(ORG.no)}</strong><br>
                                               
-                                                <strong>{customer address}</strong><br>
+                                                <strong>{customer_address}</strong><br>
 
                                                 </td>
-                                                <td width="20%">Date: {enquiry_date}</td>
+                                                <td width="20%">Date: {today_date}</td>
                                                 
                                             </tr>
                                             <tr>
@@ -488,7 +477,7 @@
                                                 <td>Your ref: </td>
                                             </tr>
                                             <tr>
-                                                <td><strong>Re.: {document title}</strong></td>
+                                                <td><strong>Re.: {document_title}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -560,7 +549,7 @@
                                                     <p>
                                                         <b>For AEC Prefab AS</b> <br>
                                                         Sincerely,<br>
-                                                        {admin user}<br>
+                                                        {admin_user}<br>
                                                         {role}<br>
             
                                                     </p>
@@ -569,11 +558,25 @@
                                             </table>
                             
                             `)
+
+            }
+         
+            $scope.submit = function () {
+
+                        $scope.module_enquirie.documentary_content = text;
+                        console.log($scope.module_enquirie.documentary_content);
+						$http({
+							method: 'POST',
+                            url: API_URL + "admin/documentary",
+							data: $.param($scope.module_enquirie),
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function successCallback(response) {
+                            Message('success', response.data.msg);
+                            window.location.href = API_URL +"admin/admin-documentary-view";
+                            // CKEDITOR.instances.editor1.setData(` `);
                             // $('#editor1').append(`
                             // `);
-                            $scope.module_enquirie = {};
-                            $scope.frm.$setPristine();
-                            $scope.frm.$setUntouched();
 
 
                         }, function errorCallback(response) {
@@ -587,21 +590,7 @@
         }); 
        
             
-             
-        Message = function (type, head) {
-            $.toast({
-                heading: head,
-                icon: type,
-                showHideTransition: 'plain', 
-                allowToastClose: true,
-                hideAfter: 5000,
-                stack: 10, 
-                position: 'bootom-left',
-                textAlign: 'left', 
-                loader: true, 
-                loaderBg: '#252525',                
-            });
-        }
+       
 
 
     </script>

@@ -16,9 +16,8 @@ class CreateDocumentaryTable extends Migration
         Schema::create('documentary', function (Blueprint $table) {
           
                 $table->id();
-                $table->string('documentary_title')->nullable(1);
-                $table->string('documentary_type')->nullable(1);
-                $table->string('documentary_content')->nullable(1);
+                $table->string('documentary_title')->nullable();
+                $table-> new()('documentary_content')->nullable();
                 $table->boolean('is_active')->default(1);
                 $table->softDeletes();
                 $table->timestamps();

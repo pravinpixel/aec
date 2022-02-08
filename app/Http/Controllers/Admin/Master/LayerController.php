@@ -39,7 +39,7 @@ class LayerController extends Controller
     public function store(LayerCreateRequest $request)
     {
         $projectType = $request->only([
-            "layer_name","is_active"
+            "layer_name","is_active","building_component_id",
         ]);
 
         return response()->json(
@@ -84,7 +84,7 @@ class LayerController extends Controller
     public function update(LayerUpdateRequest $request,$id)
     {
         $layer = $request->only([
-            "layer_name","is_active"
+            "layer_name","is_active","building_component_id",
         ]);
 
         return response()->json([

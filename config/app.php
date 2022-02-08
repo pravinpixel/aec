@@ -182,7 +182,9 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         //custome service
         App\Providers\GlobalServiceProvider::class,
-        App\Providers\RepositoryServiceProvider::class
+        App\Providers\RepositoryServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        
 
     ],
 
@@ -246,6 +248,8 @@ return [
         'Flash'=> Laracasts\Flash\Flash::class,
         //custome service provider
         'GlobalService'   => App\Services\GlobalService::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+       
     ],
 
 ];
