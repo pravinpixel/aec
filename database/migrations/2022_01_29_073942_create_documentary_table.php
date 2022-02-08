@@ -17,7 +17,7 @@ class CreateDocumentaryTable extends Migration
           
                 $table->id();
                 $table->string('documentary_title')->nullable();
-                $table-> new()('documentary_content')->nullable();
+                $table->longText('documentary_content')->nullable();
                 $table->boolean('is_active')->default(1);
                 $table->softDeletes();
                 $table->timestamps();
