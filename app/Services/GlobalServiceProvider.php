@@ -63,4 +63,14 @@ class GlobalServiceProvider extends Controller
         $format = Config::get('global.db_date_format');
         return Carbon::parse($date)->format($format);
     }
+
+    public function getBuildingComponentPath()
+    {
+        return 'customers/'.Config::get('global.file_path.building_component_uploads').'/'.Customer()->id;
+    }
+
+    public function getIfcmodelPath()
+    {
+        return 'customers/'.Config::get('global.file_path.ifc_model_uploads').'/'.Customer()->id;
+    }
 }

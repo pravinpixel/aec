@@ -378,8 +378,9 @@
             getOutputTypes();
         });
         
-        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location) { 
+        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload) { 
             $("#building-component").addClass('active');
+            $scope.fileUploaded = false;
             $scope.wallGroup = [];
             $scope.layerAdd = true;
             let building_component_id;
@@ -466,7 +467,24 @@
                         Message('danger', 'Something went wrong');
                     });
             }
-         
+            $scope.uploadBuildingComponentFile = function() {
+               var file = $scope.buildingComponentFile;
+               var uploadUrl = '{{ route('customers.store-enquiry') }}';
+               var type = 'building_component_upload';
+               var file_type = 'buildingComponent';
+               promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
+              promise.then(function (response) {
+                  if(response.data.status == true) {
+                    Message('success', response.data.msg);
+                    return false;
+                  } 
+                  Message('danger', response.data.msg);
+                    return false;
+              },function(){
+                    $scope.serverResponse = 'An error has occurred';
+                });
+            };
+
             getDeliveryType = () => {
                 $http({
                     method: 'GET',
@@ -557,6 +575,7 @@
             }
             
             $scope.submitBuildingComponent = () => {
+                if($scope.showHideBuildingComponent) { $location.path('/additional-info'); return false;}
                 $http({
                     method: 'POST',
                     url: '{{ route('customers.store-enquiry') }}',
@@ -609,24 +628,24 @@
                 $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
             } 
             }).directive('getLayerType', function layerType($http) {
-            return {
-                restrict: 'A',
-                link : function (scope, element, attrs) {
-                    element.on('click', function () {
-                        if(scope.w.WallId == 'undefined') {
-                            return false;
-                        }
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("layer-type.get-layer-type") }}',
-                            params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
-                            }).then(function success(response) {
-                                scope.layerTypes = response.data;
-                            }, function error(response) {
+                return {
+                    restrict: 'A',
+                    link : function (scope, element, attrs) {
+                        element.on('click', function () {
+                            if(scope.w.WallId == 'undefined') {
+                                return false;
+                            }
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("layer-type.get-layer-type") }}',
+                                params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+                                }).then(function success(response) {
+                                    scope.layerTypes = response.data;
+                                }, function error(response) {
+                            });
                         });
-                    });
-                },
-            };
+                    },
+                };
             }).directive('getCustomerLayer', function customerLayer($http) {
                 return {
                     restrict: 'A',
@@ -658,6 +677,20 @@
                     },
 
                 };
+            }).service('fileUpload', function ($http) {
+                this.uploadFileToUrl = function(file, uploadUrl) {
+                var fd = new FormData();
+                fd.append('file', file);
+                
+                $http.post(uploadUrl, fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                })
+                .success(function() {
+                })
+                .error(function() {
+                });
+                }
             });
 
 
@@ -715,7 +748,7 @@
 
 
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $location){
-            let enquiry_id;
+            var enquiry_id;
             $("#review").addClass('active');
             $http({
                 method: 'GET',
@@ -1122,6 +1155,7 @@
                         }
                     }).then(function (response) {
                         $scope[`${view_type}showProgress`] = false;
+                        $scope.fileUploaded = true;
                         deffered.resolve(response);
                     },function (response) {
                         deffered.reject(response);

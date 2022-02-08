@@ -33,6 +33,7 @@ class Enquiry extends Model
         'state',
         'no_of_building',
         'project_delivery_date',
+        'building_component_process_type',
         'status',
         'is_active',
         'project_info',
@@ -115,6 +116,11 @@ class Enquiry extends Model
     {
         return $this->belongsTo(DeliveryType::class);
     } 
+
+    public function enquiryBuildingComponentDocument()
+    {
+        return $this->hasOne(EnquiryBuildingComponentDocument::class);
+    }
         
 }
 

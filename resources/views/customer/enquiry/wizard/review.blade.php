@@ -232,7 +232,7 @@
                             class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
                 </div>
-                <div id="building_components" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                <div ng-show="project_info.building_component_process_type == 0" id="building_components" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
                     <div class="accordion-body">  
                         <div  style="max-height: 400px; overflow:auto"> 
                             <table class="table table-bordered" ng-init="total = 0 ">
@@ -295,6 +295,42 @@
                             </table> 
                         </div> 
                         <form id="building_components__commentsForm" class="input-group mt-3">
+                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_components','Customer')" ><i class="fa fa-send"></i></button>
+                        </form>  
+                        <div class="text-end pt-3">
+                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
+                                <i class="fa fa-eye"></i>  Previous chat history
+                            </a>
+                        </div> 
+                    </div> 
+                </div>
+                <div ng-show="project_info.building_component_process_type == 1" id="building_components" class="accordion-collapse collapse " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                    <div class="accordion-body"> 
+                        <table class="table custom table-hover">
+                            <thead>
+                                <tr>
+                                    <th><b>S.No</b></th>
+                                    <th><b>Date</b></th>
+                                    <th><b>File Name</b></th>
+                                    <th><b>File Type</b></th>
+                                    <th class="text-center" width="150px"><b>Action</b></th>
+                                </tr>
+                                <tbody>
+                                    <tr ng-repeat="building_component in building_components">
+                                        <td> @{{ $index + 1}} </td>
+                                        <td> @{{ building_component.created_at }}</td>
+                                        <td> @{{ building_component.file_name }}</td>
+                                        <td> @{{ building_component.file_type }}</td>
+                                        <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">
+                                            <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </thead>
+                        </table>
+                       <form id="building_components__commentsForm" class="input-group mt-3">
                             <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_components','Customer')" ><i class="fa fa-send"></i></button>
                         </form>  

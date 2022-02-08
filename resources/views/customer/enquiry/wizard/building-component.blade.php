@@ -1,29 +1,38 @@
 <form class="row" id="buildingComponent" name="buildingComponentForm" novalidate>
-    <div class="form-check mx-auto col-md-6 p-2 text-center px-4 bg-light shadow border"  ng-show="visible">
-        <input type="checkbox" style="visibility: hidden" ng-model="visible" id="flexCheckDefault"/>
-        <label class="form-check-label me-3" for="flexCheckDefault">
-            Do you want to go back
-        </label>
-        <label class="btn btn-sm btn-success" for="flexCheckDefault_">
-            Yes !
-        </label>  
-    </div>
-    <div class="form-check mx-auto col-md-6 p-2 text-center px-4 bg-light shadow border"  ng-show="!visible">
-        <input type="checkbox" style="visibility: hidden" ng-model="visible" id="flexCheckDefault_"/>
-        <label class="form-check-label me-3" for="flexCheckDefault_">
-            <span class="link">Do you want to upload custom files ?</span> 
-        </label>
-        <label class="btn btn-sm btn-success" for="flexCheckDefault_">
-            Yes !
-        </label>  
-    </div>
-    
-    <div ng-show="visible"> 
-        <div  class="card p-3 mt-3 shadow-sm file-upload-card col-md-6 mx-auto" style="overflow: hidden">
-            <input type="file" class="form-control file-control rounded-pill" id ="@{{ documentType.slug }}"/>
+    <div class="d-flex  p-4 mx-auto">
+        Do you want to
+        <div class="">
+            <div class="form-check">
+                <input type="radio" id="flexRadioDefault1" name="buildingComponent_" checked ng-model="showHideBuildingComponent" ng-value="false">
+                <label class="form-check-label" for="flexRadioDefault1">
+                Enter Manually   (or)
+                </label>
+            </div>
+        </div>
+       
+        <div class="" ng-init="showHideBuildingComponent=false">
+            <div class="form-check">
+                <input type="radio" id="flexRadioDefault" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
+                <label class="form-check-label" for="flexRadioDefault">
+                Upload  
+                </label>
+            </div>
         </div>
     </div>
-    <div class="row" ng-show="!visible">
+
+    <div ng-show="showHideBuildingComponent"> 
+        <div  class="card p-3 mt-3 shadow-sm file-upload-card col-md-5 mx-auto" style="overflow: hidden">
+            <div class="progress my-2" ng-show="buildingComponentshowProgress">
+                <div ng-show="buildingComponentshowProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}"> @{{progress_value}} </div>
+            </div>
+            <div class="d-flex my-2 mx-auto bg-primary shadow justify-content-center align-items-center rounded-circle" style="height: 100px;width:100px">
+                <i class="fa fa-file-text text-white fa-3x"></i>
+            </div>
+            <input type="file" class="form-control col-lg-8 mx-auto  file-control rounded-pill mb-2" id ="building-component-file" file-model = "buildingComponentFile" required />
+            <button ng-click = "uploadBuildingComponentFile()" class=" col-lg-8 mx-auto btn btn-info form-control rounded-pill"> Upload file</button>
+        </div> 
+    </div>
+    <div class="row" ng-show="!showHideBuildingComponent">
         <div class="col-sm mb-2 mb-sm-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"
@@ -259,7 +268,8 @@
     <div class="card-footer border-0 p-0 " >
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li>
-            <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()" ng-disabled ="buildingComponentForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
+             <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="!showHideBuildingComponent" ng-disabled ="buildingComponentForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
+            <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="showHideBuildingComponent" ng-disabled="!fileUploaded" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
         </ul>
     </div>
 </form>

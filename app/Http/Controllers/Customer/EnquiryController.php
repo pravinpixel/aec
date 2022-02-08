@@ -171,6 +171,12 @@ class EnquiryController extends Controller
                 DB::rollBack();
                 Log::error($ex->getMessage());
             }
+        } else if($type == 'building_component_upload') {
+            $result = $this->storeBuildingComponentUpload($request, $enquiry);
+            if($result) {
+                return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
+            }
+            return response(['status' => false, 'msg' => __('global.something')]);
         } else if($type == 'additional_info') {
             $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => Customer()->id];
             $this->commentRepo->updateOrCreate($insert);
@@ -194,8 +200,9 @@ class EnquiryController extends Controller
             $response = $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$dataObj);
         }
     }
+
     public function StoreCostEstimation($data, $enquiry) {
-        $dataObj = json_decode (json_encode ($data), FALSE);
+        $dataObj = json_decode(json_encode ($data), FALSE);
         if(!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeCostEstimation($enquiry ,$dataObj);
         }
@@ -218,7 +225,9 @@ class EnquiryController extends Controller
         if(!empty($dataObj)) {
             $response = $this->customerEnquiryRepo->storeBuildingComponent($enquiry ,$dataObj);
             if($response) {               
-                $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'building_component');
+                $enquiry->building_component = true;
+                $enquiry->building_component_process_type = 0;
+                $enquiry->save();
                 return true;
             }
         }
@@ -226,14 +235,29 @@ class EnquiryController extends Controller
 
     public function storeIfcUpload($request, $enquiry) 
     {
+        $uploadPath         = GlobalService::getIfcmodelPath();
         $view_type          =   $request->input('view_type');
-        $path               =   $request->file('file')->storePublicly('ifc_model_uploads', 'enquiry_uploads');
+        $path               =   $request->file('file')->storePublicly($uploadPath, 'enquiry_uploads');
         $original_name      =   $request->file('file')->getClientOriginalName();
         $extension          =   $request->file('file')->getClientOriginalExtension();
         $documents          =   $this->documentTypeRepo->findBySlug($view_type);
         $additionalData     =   ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name,'file_type' => $extension , 'status' => 'In progress'];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
         $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
+        return $enquiry->id;
+    }
+
+    public function storeBuildingComponentUpload($request, $enquiry) 
+    {
+        $uploadPath = GlobalService::getBuildingComponentPath();
+        $path               =   $request->file('file')->storePublicly($uploadPath, 'enquiry_uploads');
+        $original_name      =   $request->file('file')->getClientOriginalName();
+        $extension          =   $request->file('file')->getClientOriginalExtension();
+        $additionalData     =   ['file_path' => $path,  'file_name' => $original_name,'file_type' => $extension];
+        $this->customerEnquiryRepo->createEnquiryBuildingComponentDocument($enquiry, $additionalData);
+        $enquiry->building_component = true;
+        $enquiry->building_component_process_type = 1; // for upload
+        $enquiry->save();
         return $enquiry->id;
     }
 
@@ -277,6 +301,12 @@ class EnquiryController extends Controller
                 DB::rollBack();
                 Log::error($ex->getMessage());
             }
+        } else if($type == 'building_component_upload') {
+            $result = $this->storeBuildingComponentUpload($request, $enquiry);
+            if($result) {
+                return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
+            }
+            return response(['status' => false, 'msg' => __('global.something')]);
         } else if($type == 'additional_info') {
             $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
             $this->commentRepo->updateOrCreate($insert);
@@ -321,6 +351,7 @@ class EnquiryController extends Controller
             $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
         }  else if($type == 'building_component') {
             $result['building_component'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
+            $result['building_component_process_type'] = $enquiry->building_component_process_type;
         } else if($type == 'additional_info') {
             $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         }
@@ -353,6 +384,7 @@ class EnquiryController extends Controller
             'building_type'        =>  $enquiry->buildingType,
             'project_type'         =>  $enquiry->projectType,
             'delivery_type'        => $enquiry->deliveryType,
+            'building_component_process_type' => $enquiry->building_component_process_type,
         ];
     }
 

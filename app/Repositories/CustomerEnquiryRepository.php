@@ -8,6 +8,7 @@ use App\Models\DocumentTypeEnquiry;
 use App\Models\Enquiry;
 use App\Models\EnquiryBuildingComponent;
 use App\Models\EnquiryBuildingComponentDetail;
+use App\Models\EnquiryBuildingComponentDocument;
 use App\Models\EnquiryBuildingComponentLayer;
 use App\Models\EnquiryService;
 use App\Models\EnquiryTechnicalEstimate;
@@ -22,13 +23,15 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $enquiryService;
     protected $enquiry;
     protected $documentTypeEnquiry;
+    protected $enquiryBuildingComponentDocument;
 
-    function __construct(Customer $customer,Enquiry $enquiry, Service $service, DocumentTypeEnquiry $documentTypeEnquiry)
+    function __construct(Customer $customer,Enquiry $enquiry, Service $service, DocumentTypeEnquiry $documentTypeEnquiry, EnquiryBuildingComponentDocument $enquiryBuildingComponentDocument)
     {
         $this->customer = $customer;
         $this->service = $service;
         $this->enquiry = $enquiry;
         $this->documentTypeEnquiry = $documentTypeEnquiry;
+        $this->enquiryBuildingComponentDocument = $enquiryBuildingComponentDocument;
     }
 
     
@@ -292,6 +295,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getBuildingComponent($enquiry) 
     {
+        if($enquiry->building_component_process_type == 1){
+            return $enquiry->enquiryBuildingComponentDocument()->get();
+        }
         $enquiryBuildingComponents = $enquiry->enquiryBuildingComponent()->get();
         $buildingComponentData = [];
 
@@ -378,4 +384,14 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         return false;
     }
+
+    public function createEnquiryBuildingComponentDocument($enquiry, $additionalData)
+    {
+        return $this->enquiryBuildingComponentDocument
+                        ->updateOrcreate([
+                            'enquiry_id' => $enquiry->id, 
+                            'customer_id' => Customer()->id
+                        ],$additionalData);
+    }
+
 }

@@ -23,5 +23,6 @@ return [
     'select_service'            => 'Selected Services',
     'ifc_model_upload_document' => 'IFC Models & Uploaded Documents',
     'building_component'        => 'Building Components',
-    'select_template'           => 'Select template'
+    'select_template'           => 'Select template',
+    'file_uploaded_successfully'=> 'File upload successfully',
 ];

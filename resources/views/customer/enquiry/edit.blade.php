@@ -335,10 +335,11 @@
             getOutputTypes();
         });
         
-        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location) { 
+        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload ) { 
             $("#building-component").addClass('active');
             $scope.wallGroup = [];
             $scope.layerAdd = true;
+            $scope.fileUploaded = false;
             let enquiry_id = {{$id}};
             $http({
                 method: 'GET',
@@ -420,6 +421,24 @@
                 });
             }
 
+            $scope.uploadBuildingComponentFile = function() {
+               var file = $scope.buildingComponentFile;
+               var uploadUrl = '{{ route('customers.update-enquiry',$id) }}';
+               var type = 'building_component_upload';
+               var file_type = 'buildingComponent';
+               promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
+              promise.then(function (response) {
+                  if(response.data.status == true) {
+                    Message('success', response.data.msg);
+                    return false;
+                  } 
+                  Message('danger', response.data.msg);
+                    return false;
+              },function(){
+                    $scope.serverResponse = 'An error has occurred';
+                });
+            };
+
             getDeliveryType = () => {
                 $http({
                     method: 'GET',
@@ -465,7 +484,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
-                    if(res.data.building_component.length == 0) {
+                    if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
                         getBuildingComponent();
                         return false;
                     }
@@ -510,12 +529,13 @@
             }
             
             $scope.submitBuildingComponent = () => {
+                if($scope.showHideBuildingComponent) { $location.path('/additional-info'); return false;}
                 $http({
                     method: 'POST',
                     url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'building_component', 'data': $scope.wallGroup}
                 }).then(function (res) {
-                    $location.path('/additional-info')
+                    $location.path('/additional-info');
                     Message('success', `Building Component updated successfully`);
                 }, function (error) {
                     Message('error', `Somethig went wrong`);
@@ -666,7 +686,7 @@
  
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $location){
             $("#review").addClass('active');
-            let enquiry_id = {{$id}};
+            var enquiry_id = {{$id}};
             $http({
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
@@ -1006,7 +1026,7 @@
                         }
                     }).then(function (response) {
                         $scope[`${view_type}showProgress`] = false;
-                     
+                        $scope.fileUploaded = true;
                         deffered.resolve(response);
                     },function (response) {
                         deffered.reject(response);
