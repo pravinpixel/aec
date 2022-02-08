@@ -303,6 +303,8 @@ class EnquiryController extends Controller
             }
         } else if($type == 'building_component_upload') {
             $result = $this->storeBuildingComponentUpload($request, $enquiry);
+            $this->StoreTechnicalEstimation($data, $enquiry);
+            $this->StoreCostEstimation($data, $enquiry);
             if($result) {
                 return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
             }
@@ -508,7 +510,7 @@ class EnquiryController extends Controller
                         ->when($projetType, function($q) use($projetType){
                             $q->where('project_type_id', $projetType);
                         })
-                        ->where('status','In-Complete');
+                        ->where(['status' => 'In-Complete', 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'. $dataDb->enquiry_number.' </span> </div>';
@@ -565,7 +567,7 @@ class EnquiryController extends Controller
                             ->when($projetType, function($q) use($projetType){
                                 $q->where('project_type_id', $projetType);
                             })
-                            ->where('status','Active');
+                            ->where(['status' => 'Active' , 'customer_id' => Customer()->id]);
                             
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
@@ -625,7 +627,7 @@ class EnquiryController extends Controller
                             ->when($projetType, function($q) use($projetType){
                                 $q->where('project_type_id', $projetType);
                             })
-                            ->where('status','Completed');
+                            ->where(['status'=>'Completed' , 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 return '<div ng-click=getEnquiry(project_info,'. $dataDb->id .')"> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
