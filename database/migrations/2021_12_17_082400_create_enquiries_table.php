@@ -37,6 +37,7 @@ class CreateEnquiriesTable extends Migration
             $table->datetime('project_delivery_date')->nullable();
             $table->string('status')->default('In-Complete');
             $table->boolean('building_component_process_type')->default(0);
+            $table->boolean('project_info')->default(0);
             $table->boolean('service')->default(0);
             $table->boolean('ifc_model_upload')->default(0);
             $table->boolean('building_component')->default(0);
