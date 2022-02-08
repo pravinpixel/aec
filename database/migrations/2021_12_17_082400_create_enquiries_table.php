@@ -35,7 +35,6 @@ class CreateEnquiriesTable extends Migration
             $table->string('state')->nullable();
             $table->integer('no_of_building')->nullable();
             $table->datetime('project_delivery_date')->nullable();
-            $table->boolean('project_delivery_date')->nullable();
             $table->string('status')->default('In-Complete');
             $table->boolean('building_component_process_type')->default(0);
             $table->boolean('service')->default(0);

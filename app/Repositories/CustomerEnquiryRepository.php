@@ -368,6 +368,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'building_type'        =>  $enquiry->buildingType,
             'project_type'         =>  $enquiry->projectType,
             'delivery_type'        => $enquiry->deliveryType,
+            'building_component_process_type'=> $enquiry->building_component_process_type,
             
             // Tabs Status
         ];
