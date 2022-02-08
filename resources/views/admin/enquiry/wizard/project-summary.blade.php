@@ -228,7 +228,7 @@
                             class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
                 </div>
-                <div id="building_components" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                <div id="building_components"  ng-show="project_info.building_component_process_type == 0" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
                     <div class="accordion-body">  
                         <div  style="max-height: 400px; overflow:auto"> 
                             <table class="table table-bordered" ng-init="total = 0 ">
@@ -247,7 +247,7 @@
                                             </table>
                                         </th>
                                     </tr> 
-                                    <tr ng-repeat="building_component in building_components" >
+                                    <tr ng-repeat="building_component in building_components" ng-show="building_component.detail.length">
                                         <td>@{{ building_component.wall }}</td>
                                         <td style="padding: 0 !important" >
                                             <table class="table m-0 custom">
@@ -272,13 +272,11 @@
                                                         <table class="table m-0 table-bordered">
                                                             <tr class="table-bold">
                                                                 <th>Name</th>
-                                                                <th>Type</th>
                                                                 <th>Thickness</th>
                                                                 <th>Breadth</th>
                                                             </tr> 
                                                             <tr ng-repeat="layer in detail.layer">
                                                                 <td>@{{ layer.layer.layer_name }}</td>
-                                                                <td>@{{ layer.layer_type.layer_type_name }}</td>
                                                                 <td>@{{ layer.thickness }}</td>
                                                                 <td>@{{ layer.breath }}</td>
                                                             </tr>
@@ -290,6 +288,45 @@
                                     </tr>  
                                 </tbody>                     
                             </table> 
+                        </div> 
+                        <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
+                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                        </form>  
+                        <div class="text-end pt-3">
+                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
+                                <i class="fa fa-eye"></i>  Previous chat history
+                            </a>
+                        </div> 
+                    </div> 
+                </div>
+
+                <div id="building_components" ng-show="project_info.building_component_process_type == 1" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                    <div class="accordion-body">  
+                        <div  style="max-height: 400px; overflow:auto"> 
+                            <table class="table custom table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><b>S.No</b></th>
+                                        <th><b>Date</b></th>
+                                        <th><b>File Name</b></th>
+                                        <th><b>File Type</b></th>
+                                        <th class="text-center" width="150px"><b>Action</b></th>
+                                    </tr>
+                                    <tbody>
+                                        <tr ng-repeat="building_component in building_components">
+                                            <td> @{{ $index + 1}} </td>
+                                            <td> @{{ building_component.created_at }}</td>
+                                            <td> @{{ building_component.file_name }}</td>
+                                            <td> @{{ building_component.file_type }}</td>
+                                            <td class="text-center">
+                                                <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                                <a target="_child" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </thead>
+                            </table>
                         </div> 
                         <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
                             <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
@@ -315,20 +352,7 @@
                 </div>
                 <div id="add_info"  >
                     <div class="accordion-body">  
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>S.no</th>
-                                <th>Date</th>
-                                <th>commented person</th>
-                                <th>comments</th>
-                            </tr>
-                            <tr  >
-                                <td> @{{ index + 1  }}</td>
-                                <td>@{{ additional_info.created_at }}</td>
-                                <td>@{{ additional_info.customer.full_name }}</td>
-                                <td>@{{ additional_info.comments }}</td>
-                            </tr> 
-                        </table>
+                        <b>@{{ additional_infos.comments }}</b>
                         <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
                             <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
