@@ -9,102 +9,71 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
-                <!-- start page title -->
+
                 @include('customer.includes.page-navigater')
-                <div  class="card-header ">
-                    <div class="d-flex justify-content-between ">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light">
-                            <i class="mdi mdi-filter-menu"></i> Filters
-                        </button>
+
+                {{--  Fillter Button --}}
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
+                        <i class="mdi mdi-filter-menu"></i> Filters
+                    </button> 
+                {{--  Fillter Button --}}
+
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item mb-2 border rounded shadow-sm">
+                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingOne">
+                            <div class="accordion-button"  type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                New enquiries
+                            </div>
+                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
+                                <i
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                </i>
+                            </div>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                @include('customer.enquiry.table.new-enquiries')
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
-                    {{-- New enquiries --}}
-                        <fieldset class="accordion-item">
-                            <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
-                                <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
-                                    New enquiries
-                                </div>
-                                <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
-                                    <i data-bs-toggle="collapse" 
-                                        href="#ProjectInfo" 
-                                        aria-expanded="false" 
-                                        aria-controls="ProjectInfo" 
-                                        class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
-                                    </i>
-                                </div>
+                    <div class="accordion-item mb-2 border rounded shadow-sm">
+                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
+                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                Active enquiries
                             </div>
-                            <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" data-bs-parent="#summaryGroup">
-                                <div class="accordion-body">  
-                                    <div class="cardw"> 
-                                        <div class="card-bodyw">  
-                                            @include('customer.enquiry.table.new-enquiries')
-                                        </div>
-                                    </div> 
-                                </div> 
+                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
+                                <i  
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo"
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                </i>
                             </div>
-                        </fieldset>
-                    {{-- New enquiries --}}
-                
-                    {{-- Active enquiries --}}
-                        <fieldset class="accordion-item">
-                            <div class="accordion-header custom m-0 position-relative" id="selected_service_header">
-                                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#selected_service" aria-expanded="false" aria-controls="selected_service">
-                                    Active enquiries
-                                </div>
-                                <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
-                                    <i data-bs-toggle="collapse" 
-                                        href="#selected_service" 
-                                        aria-expanded="true" 
-                                        aria-controls="selected_service" 
-                                        class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
-                                        >
-                                    </i>
-                                </div>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                                @include('customer.enquiry.table.active-enquiries')
                             </div>
-                            <div id="selected_service" class="accordion-collapse collapse" aria-labelledby="selected_service_header" data-bs-parent="#summaryGroup">
-                                <div class="accordion-body">  
-                                    <div class="cardw"> 
-                                        <div class="card-bodyw"> 
-                                            @include('customer.enquiry.table.active-enquiries')
-                                        </div>
-                                    </div> 
-                                </div> 
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-2 border rounded shadow-sm">
+                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingThree">
+                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                Closed enquiries
                             </div>
-                        </fieldset> 
-                    {{-- Active enquiries --}}
-                
-                    {{--  Closed enquiries --}}
-                        <fieldset class="accordion-item">
-                            <div class="accordion-header custom m-0 position-relative" id="IFC_Models_Upload_Docs_header">
-                                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#IFC_Models_Upload_Docs" aria-expanded="false" aria-controls="IFC_Models_Upload_Docs">
-                                    Closed enquiries
-                                </div>
-                                <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
-                                    <i data-bs-toggle="collapse" 
-                                    href="#IFC_Models_Upload_Docs" 
-                                    aria-expanded="false" 
-                                    aria-controls="IFC_Models_Upload_Docs" 
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed ">
-                                    </i>
-                                </div>
+                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
+                                <i
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree"
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                </i>
                             </div>
-                            <div id="IFC_Models_Upload_Docs" class="accordion-collapse collapse " aria-labelledby="IFC_Models_Upload_Docs_header" data-bs-parent="#summaryGroup">
-                                <div class="accordion-body"> 
-                                    <div class="cardw"> 
-                                        <div class="card-bodyw">  
-                                            @include('customer.enquiry.table.completed-enquiries')
-                                        </div>
-                                    </div> 
-                                </div> 
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                @include('customer.enquiry.table.completed-enquiries')
                             </div>
-                        </fieldset>  
-                    {{-- Closed enquiries --}} 
-                </div>
-
-
-
+                        </div>
+                    </div>
+                </div>  
             </div> <!-- container -->
             @include('customer.enquiry.models.detail-modal')
             @include('customer.enquiry.models.chat-box')
@@ -184,42 +153,11 @@
     <link href="{{ asset('public/assets/css/vendor/select.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
 
     <style>
-        .progress-btn {
-            clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-            background: lightgray
+        .dataTables_wrapper .dataTables_processing {
+           
+            border: 1px solid black;
+            border-radius: 3px;
         }
-        .progress-btn.active {
-            background: #20CF98 !important
-        }
-        .table td,th {
-            padding: 5px 10px !important     ;
-            vertical-align: middle !important
-        }
-        .table thead,th {
-            background: #757CF2 !important;
-            color: white
-        }
-        #scroll-vertical-datatable th{
-            padding:  0px !important     
-        }
-        .table tbody thead,th {
-            background: #757CF2 !important
-        }
-        #scroll-vertical-datatable_wrapper .row:nth-child(1) {
-            display: none !important
-        }
-        table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
-            top : 2px !important
-        }
-        table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
-            top : 2px !important
-        }
-       .accordion-header {
-           margin:  0 !important
-       }
-       .accordion-item {
-           border: 1px solid gray
-       }
     </style>
 @endpush
 

@@ -81,17 +81,7 @@
                                         </div>
                                         <p class="h5 mt-2">Proposal Sharing</p>
                                     </a>
-                                </li>
-                                <li class="nav-item admin-Project_Award-wiz" >
-                                    <a href="#!/response-status"  style="min-height: 40px;"  class="timeline-step">
-                                        <div class="timeline-content ">
-                                            <div class="inner-circle  bg-secondary">
-                                                <img src="{{ asset("public/assets/icons/result.png") }}" class="w-50 invert">
-                                            </div>
-                                        </div>
-                                        <p class="h5  mt-2">Response status</p>
-                                    </a>
-                                </li>
+                                </li> 
                                 <li class="nav-item admin-Delivery-wiz">
                                     <a href="#!/move-to-project" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
@@ -99,7 +89,7 @@
                                                 <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
-                                        <p class="h5  mts-2">Move to project</p>
+                                        <p class="h5  mts-2">Customer Response</p>
                                     </a>
                                 </li>
                             </ul>
@@ -170,8 +160,7 @@
                     });
                 },
             };
-        }]);
-         
+        }]); 
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -326,9 +315,7 @@
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
-            }
-
-            
+            } 
             //  =====================
                 $scope.GetCommentsData = function() {
                     $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
@@ -434,6 +421,9 @@
                         Message('danger',response.data.errors);
                     });
                 }
+
+
+             
         }); 
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
             

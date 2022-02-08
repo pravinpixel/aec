@@ -37,25 +37,25 @@
                             {{-- <span class="text-secondary">Total Area :</span> <b>  </b>  --}}
                         </div>
                     </div> 
-                    <div>  
-                        <table  ng-repeat="(index,buliding) in building_building" class="table  border shadow-sm table-bordered">
+                    <div ng-repeat="(index,buliding) in building_building">  
+                        <div class="row m-0 justify-content-between align-items-center  border shadow-sm table-bordered bg-light">
+                            <div class="col">
+                                <h1 class="h5">Building No : @{{ index+1 }}</h1>
+                            </div>
+                            <div class="col text-end p-0">
+                                <a class="btn btn-danger btn-sm" ng-click="Delete_building(index)">
+                                    <i class="fa fa-trash text-white"></i> 
+                                </a>
+                            </div>
+                        </div>
+                        <table  class="table border shadow-sm table-bordered">
                             <thead class="bg-light">
                                 <tr>
-                                    <th>S.No</th>
-                                    <th>Component Name</th>
-                                    <th>Sq. Mt. Estimate</th>
-                                    <th class="text-center"> 
-                                        <div class="btn-group border">
-                                            <button type="button" class="btn btn-outline-primary btn-sm " ng-click="Add_component(index)"><i class="mdi mdi-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-primary  btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="visually-hidden">Toggle Dropdown</span>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" ng-click="Delete_building(index)">
-                                                    <span class=" btn p-0"><i class="fa fa-trash text-danger"></i> Delete Building</span>
-                                                </a>
-                                            </div>
-                                        </div>
+                                    <th class="text-secondary">S.No</th>
+                                    <th class="text-secondary">Component Name</th>
+                                    <th class="text-secondary">Sq. Mt. Estimate</th>
+                                    <th class="text-center" style="padding: 0 !important"> 
+                                        <button type="button" class="btn btn-outline-primary btn-sm h-100 w-100 rounded-0" ng-click="Add_component(index)"><i class="mdi mdi-plus"></i> Add</button>
                                     </th>
                                 </tr>
                             </thead>
@@ -69,13 +69,14 @@
                                         <input type="number"  min="0" required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
                                     </td>
                                     <td class="text-center"  style="padding:0 !important">
-                                        <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="fa fa-trash"></i></a>
+                                        <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="mdi mdi-delete"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
                             <tfoot class="bg-light">
                                 <tr>
-                                    <td colspan="4">Total :
+                                    <td colspan="4">
+                                        <strong class="text-secondary">Total :</strong>
                                         <b>@{{ buliding.total_component_area }}</b>
                                         <input type="text" ng-model="buliding.total_component_area" class="d-none">
                                     </td>
@@ -113,28 +114,23 @@
                 </div>
             </div>
         </div> 
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row m-0">
-                        <div class="col-md-8 p-0">
-                            <div class="input-group ">
-                                <label class="input-group-text bg-white font-weight-bold" for="inputGroupSelect01">Assign to</label>
-                                <select class="form-select" id="inputGroupSelect01">
-                                  <option selected>Choose...</option>
-                                  <option value="1">User One</option> 
-                                  <option value="1">User Two</option> 
-                                  <option value="1">User Three</option> 
-                                </select>
-                                <label class="input-group-text btn btn-info" for="inputGroupSelect01">send</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4 p-0">
-                            <div class="text-end">
-                                <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban"></i> Cancel</button>
-                                <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
-                            </div>
-                        </div>
+        <div class="col-12 p-3">
+            <div class="row m-0">
+                <div class="col-md-8 p-0">
+                    <div class="input-group border shadow-sm rounded">
+                        <label class=" border-0 input-group-text text-white bg-primary font-weight-bold" for="inputGroupSelect01">Assign to</label>
+                        <select class="form-select border-0 " id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">User One</option> 
+                            <option value="1">User Two</option> 
+                            <option value="1">User Three</option> 
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 p-0">
+                    <div class="text-end">
+                        <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban"></i> Cancel</button>
+                        <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
                     </div>
                 </div>
             </div>
@@ -156,6 +152,13 @@
         </div>
     </div>
     @include("admin.enquiry.models.technical-estimation-chat-box")
+     
+    
+    <ul psi-sortable="" ng-model="list">
+        <li ng-repeat="item in list track by $index"> @{{item}} </li>
+      </ul>
+      <hr>
+      <div ng-repeat="item in list track by $index" > @{{item}} </dov>
 </div>
 {{-- @{{ building_component }} --}}
 @if (Route::is('enquiry.technical-estimation'))
@@ -167,3 +170,4 @@
         } 
     </style>
 @endif
+

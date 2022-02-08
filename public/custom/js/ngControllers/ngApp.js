@@ -1,4 +1,5 @@
 var app = angular.module('App', ['ngRoute','datatables','luegg.directives']).constant('API_URL', $("#baseurl").val());
+ 
 
 
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
@@ -39,8 +40,4 @@ app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeo
             });  
         }  
     };
-}]); 
-
-/* <div class="linear-activity">
-    <div class="indeterminate"></div>
-</div> */
+}]);

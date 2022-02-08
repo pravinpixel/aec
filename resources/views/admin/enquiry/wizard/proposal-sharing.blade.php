@@ -336,7 +336,7 @@
                 <a href="#!/cost-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a href="#!/response-status" class="btn btn-primary">Next</a>
+                <a href="#!/move-to-project" class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 

@@ -391,3 +391,6 @@ small {
     z-index: -1;
     cursor: not-allowed;
 }
+.link:hover {
+    text-decoration: underline !important;
+}
