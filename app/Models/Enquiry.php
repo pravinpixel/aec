@@ -71,17 +71,17 @@ class Enquiry extends Model
 
     public function setProjectDateAttribute($value)
     {
-        $this->attributes['project_date'] = GlobalService::DBDateFormat($value);
+        $this->attributes['project_date'] = GlobalService::DBDateFormatWithTime($value);
     }
 
     public function setProjectDeliveryDateAttribute($value)
     {
-        $this->attributes['project_delivery_date'] = GlobalService::DBDateFormat($value);
+        $this->attributes['project_delivery_date'] = GlobalService::DBDateFormatWithTime($value);
     }
 
     public function setEnquiryDateAttribute($value)
     {
-        $this->attributes['enquiry_date'] = GlobalService::DBDateFormat($value);
+        $this->attributes['enquiry_date'] = GlobalService::DBDateFormatWithTime($value);
     }
 
     public function customer()

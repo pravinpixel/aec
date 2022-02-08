@@ -64,6 +64,12 @@ class GlobalServiceProvider extends Controller
         return Carbon::parse($date)->format($format);
     }
 
+    public function DBDateFormatWithTime($date)
+    {
+        $format = Config::get('global.db_date_format_with_time');
+        return Carbon::parse($date)->format($format);
+    }
+
     public function getBuildingComponentPath()
     {
         return 'customers/'.Config::get('global.file_path.building_component_uploads').'/'.Customer()->id;
