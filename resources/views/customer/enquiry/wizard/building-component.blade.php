@@ -177,80 +177,66 @@
                                             </div>
                                             <div class="card-body pt-4">
                                                 <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallTop"> @{{ w.WallTop }}</p>
-                                                <table class="table table-borderless m-0 " > 
-                                                    <tbody>
-                                                        <tr ng-repeat="(ThreeIndex,l) in d.Layers">
-                                                            <td>
-                                                                <div class="btn-group w-100">
-                                                                    <div class="form-group w-100 ">
-                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
-                                                                        <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
-                                                                                <option value="">@lang('customer-enquiry.select')</option>
-                                                                                <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
-                                                                                    @{{ layer.layer_name }}
-                                                                                </option>
-                                                                        </select>
-                                                                        {{-- <select name="l.LayerName"   ng-model="l.LayerName" 
-                                                                                ng-options="layer.id as (layer.layer_name) for layer in layers">
-                                                                            <option></option>
-                                                                        </select> --}}
-                                                                    </div>
-                                                                    <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center" ng-click="callLayerModal(w.WallId)" title="Add layer name"><i class="fa fa-plus"></i></div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                {{-- <div class="form-group shadow-sm">
-                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Type</label>
-                                                                    <select  class="form-select  form-select-sm" id="floatingSelect" aria-label="Floating label select example"  name="LayerName"   ng-model="l.LayerType" required>
-                                                                        <option value="">@lang('customer-enquiry.select')</option>
-                                                                        <option ng-repeat="layerType in layerTypes" value="@{{ layerType.id }}" ng-selected="layerType.id == l.LayerType">
-                                                                            @{{ layerType.layer_type_name }}
-                                                                        </option>
+
+                                                <div psi-sortable="" ng-model="d.Layers">
+                                                    <div ng-repeat="l in d.Layers track by $index"  class="row m-0 justify-content-between mb-3">
+                                                        <div class="col p-0">
+                                                            <div class="btn-group w-100">
+                                                                <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center"><i class="mdi mdi-drag"></i></div>
+                                                                <div class="form-group w-100 ">
+                                                                  
+                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
+                                                                    <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
+                                                                            <option value="">@lang('customer-enquiry.select')</option>
+                                                                            <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
+                                                                                @{{ layer.layer_name }}
+                                                                            </option>
                                                                     </select>
-                                                                </div>ng-change ="getLayerType(w.WallId,l.LayerName)" --}}
-                                                            </td>
-                                                            <td width="35%"> 
-                                                                <div class="btn-group shadow-sm border rounded">
-                                                                    <div class="form-group">
-                                                                        <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
-                                                                        <input  type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
-                                                                    </div>
-                                                                    <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >.mm</span>
-                                                                    <div class="form-group">
-                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
-                                                                        <input   type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
-                                                                    </div>
-                                                                    <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
+                                                                    {{-- <select name="l.LayerName"   ng-model="l.LayerName" 
+                                                                            ng-options="layer.id as (layer.layer_name) for layer in layers">
+                                                                        <option></option>
+                                                                    </select> --}}
                                                                 </div>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <div class="btn-group">
-                                                                    <!-- Danger Header Modal -->
-                                                                    <button  type="button" class="btn btn-outline-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDelete_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"><div class="fa fa-trash " ></div></button>
-                                                                    <div id="ConfirmDelete_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
-                                                                        <div class="modal-dialog">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header modal-colored-header bg-danger">
-                                                                                    <h4 class="modal-title" id="ConfirmDeleteLabel">Delete Confirmation</h4>
-                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <h2>Are you sure !!</h2>
-                                                                                    <p class="lead">You want to delete ? </br> Please put your password for delete action</p>
-                                                                                    <input type="text" class="w-75 mx-auto form-control" placeholder="Enter your password" class="form-control">
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel & close</button>
-                                                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)">Yes, delete it !</button>
-                                                                                </div>
-                                                                            </div><!-- /.modal-content -->
-                                                                        </div><!-- /.modal-dialog -->
-                                                                    </div><!-- /.modal -->
+                                                                <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center" ng-click="callLayerModal(w.WallId)" title="Add layer name"><i class="fa fa-plus"></i></div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col p-0"> 
+                                                            <div class="btn-group shadow-sm border rounded">
+                                                                <div class="form-group">
+                                                                    <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
+                                                                    <input  type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
                                                                 </div>
-                                                            </td> 
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                                <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >.mm</span>
+                                                                <div class="form-group">
+                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
+                                                                    <input   type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
+                                                                </div>
+                                                                <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
+                                                                <button  type="button" class="btn btn-outline-danger rounded shadow-sm btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#ConfirmDelete_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"><div class="fa fa-trash " ></div></button>
+                                                            </div> 
+                                                            <div id="ConfirmDelete_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header modal-colored-header bg-danger">
+                                                                            <h4 class="modal-title" id="ConfirmDeleteLabel">Delete Confirmation</h4>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <h2>Are you sure !!</h2>
+                                                                            <p class="lead">You want to delete ? </br> Please put your password for delete action</p>
+                                                                            <input type="text" class="w-75 mx-auto form-control" placeholder="Enter your password" class="form-control">
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel & close</button>
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)">Yes, delete it !</button>
+                                                                        </div>
+                                                                    </div><!-- /.modal-content -->
+                                                                </div><!-- /.modal-dialog -->
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                               
                                                 <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallBottom"> @{{ w.WallBottom }}</p>
                                             </div>
                                         </div>
