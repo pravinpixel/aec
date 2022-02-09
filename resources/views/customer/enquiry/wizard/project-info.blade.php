@@ -18,11 +18,11 @@
                 <label for="floating">Contact Person</label>
             </div>
             <div class="form-floating  mb-2">
-                <input  type="text" pattern="{{ config('global.mobile_no_pattern') }}" onkeypress="return isNumber(event)"  ng-model="customer.mobile_no" class="form-control form-control-sm" id="floating" name="mobile_no"  value="" disabled />
+                <input  type="text" pattern="{{ config('global.mobile_no_pattern') }}"  onkeypress="return isNumber(event)"  ng-model="customer.mobile_no" class="form-control form-control-sm" id="floating" name="mobile_no"  value="" disabled />
                 <label for="floating">Mobile Number</label>
             </div>
             <div class="form-floating  mb-2">
-                <input  value="" type="text" pattern="{{ config('global.mobile_no_pattern') }}" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no" required/>
+                <input  value="" type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no" required/>
                 <label for="floating">Secondary Mobile Number</label>
                 <small class="text-danger" ng-show="projectInfoForm.secondary_mobile_no.$touched && projectInfoForm.secondary_mobile_no.$invalid">Enter valid mobile number</small>
             </div>
