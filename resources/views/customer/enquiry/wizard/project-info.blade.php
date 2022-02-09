@@ -39,7 +39,7 @@
                 <small class="text-danger" ng-show="projectInfoForm.zipcode.$touched && projectInfoForm.zipcode.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" naem="state" ng-model="projectInfo.state" required/>
+                <input type="text" class="form-control form-control-sm" id="floating" name="state" ng-model="projectInfo.state" required/>
                 <label for="floating">State  </label>
                 <small class="text-danger" ng-show="projectInfoForm.state.$touched && projectInfoForm.state.$invalid">This field is required</small>
             </div>
