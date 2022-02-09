@@ -7,3 +7,8 @@ if(! function_exists('Customer')) {
         return Auth::guard('customers')->user();
     }
 }
+if(! function_exists('Admin')) {
+    function Admin() {
+        return Auth::user();
+    }
+}

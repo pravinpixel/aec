@@ -177,8 +177,8 @@ class EnquiryController extends Controller
                 'email'                 => strtolower($email),
                 'password'              => Hash::make($password),
                 'password_view'         =>  $password,
-                'created_by'            => 1,
-                'updated_by'            => 1,
+                'created_by'            => Admin()->id,
+                'updated_by'            => Admin()->id,
                 'is_active'             => 0
             ];
             $customer = $this->customer->create($data);
