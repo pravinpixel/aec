@@ -15,7 +15,7 @@ class DocumentTypeSeeder extends Seeder
     public function run()
     {
         DocumentType::create(['document_type_name' => 'Drawings' , 'slug' => 'drawings', 'is_active' => 1]);
-        DocumentType::create(['document_type_name' => '3D Model' ,'slug' => 'd_model', 'is_active' => 1]);
+        DocumentType::create(['document_type_name' => '3D Model' ,'slug' => 'three_dimensional_model', 'is_active' => 1]);
         DocumentType::create(['document_type_name' => 'Foundation Drawings & Other' ,'slug' => 'foundation_drawings_other', 'is_active' => 1]);
     }
 }
