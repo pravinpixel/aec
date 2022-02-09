@@ -39,10 +39,10 @@
                                     <td>:</td>
                                     <td>@{{ customer_info.email }}</td>
                                 </tr> 
-                                <tr ng-if="customer_info.mobile_no != null">
+                                <tr ng-if="project_info.customer.mobile_no != null">
                                     <td><b>Conatct number</b></td>
                                     <td>:</td>
-                                    <td>@{{ customer_info.mobile_no }}</td>
+                                    <td>@{{ project_info.customer.mobile_no }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.secondary_mobile_no != null">
                                     <td><b>Secondary conatct number</b></td>
