@@ -17,7 +17,7 @@
                             <th>Type Of Project</th>
                         </tr>
                         <tr>
-                            <td>@{{ enquiry.project_infos.enquiry_no }}</td>
+                            <td style="text-align: left !important;">@{{ enquiry.project_infos.enquiry_no }}</td>
                             <td>{{ Customer()->full_name }}</td>
                             <td>@{{ enquiry.project_infos.company_name }}</td>
                             <td>{{ Customer()->mobile_no }}</td>
