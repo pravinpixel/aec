@@ -17,47 +17,7 @@
         <div class="card-body" >
             <div class="container p-0" ng-show="proposal.length"> 
                 <h4 class="text-center h5 mb-3">Proposal Versioning</h4>  
-                <table class="table table-bordered" id="myTable" >
-                    <thead>
-                        <tr>
-                            <th width="15px">No</th>
-                            <th>File Name</th>
-                            <th>Version</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th width="15px">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="panel"> 
-                        <tr ng-repeat="(key,P) in proposal">
-                            <td>
-                                <div class="d-flex">
-                                    <div class="icon"><i  class="accordion-button custom-accordion-button collapsed text-white toggle-btn"></i></div>
-                                    <div>@{{ key+1 }}</div>                                                    
-                                </div>
-                            </td>
-                            <td>@{{ P.template_name }}</td>
-                            <td class="text-primary">R1</td>
-                            <td> 
-                                <span ng-show="P.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
-                                <span ng-show="P.status == 'send'" class="badge badge-outline-success rounded-pill">Send</span>
-                            </td>
-                            <td>@{{ P.documentary_date }}</td>
-                            <td> 
-                                <div class="dropdown">
-                                    <button type="button" class="toggle-btn btn-light btn-sm btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="dripicons-dots-3 "></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a ng-show="P.status == 'send'" class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
-                                        <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
-                                        <a class="dropdown-item" >Send Mail</a>
-                                        <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr> 
-                        {{-- <tr>
+         {{-- <tr>
                             <td>
                                 <div class="d-flex">
                                     <div class="icon">
@@ -123,6 +83,93 @@
                                 </td>
                             </tr> 
                         </tr>   --}}
+                <table class="table table-bordered">
+                    
+                    <tbody class="panel"> 
+                        <tr>
+                            <td style="padding: 0 !important">
+                                <table  class="table table-bordered m-0">
+                                    <tr>
+                                        <th style="width: 3% !important">No</th>
+                                        <th style="width: 3% !important">No</th>
+                                        <th style="width: 38% !important">File Name</th>
+                                        <th style="width: 16% !important">Version</th>
+                                        <th style="width: 16% !important">Status</th>
+                                        <th style="width: 16% !important">Date</th>
+                                        <th style="width: 6% !important">Action</th>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="(key,P) in proposal">
+                            <td style="padding: 0 !important">
+                                <table class="table table-bordered m-0">
+                                    <tbody class="panel"> 
+                                        <tr>
+                                            <td>
+                                                <div class="icon"><i class="accordion-button custom-accordion-button bg-primary collapsed text-white toggle-btn" ng-click="ViewPropsalVersions(P.proposal_id)"></i></div> 
+                                            </td>
+                                            <td style="width: 3% !important">
+                                                <div>@{{ key+1 }}</div>                                                    
+                                            </td>
+                                            <td style="width: 38% !important">@{{ P.template_name }}</td>
+                                            <td style="width: 16% !important" class="text-primary">R1</td>
+                                            <td style="width: 16% !important"> 
+                                                <span ng-show="P.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
+                                                <span ng-show="P.status == 'send'" class="badge badge-outline-success rounded-pill">Send</span>
+                                            </td>
+                                            <td style="width: 16% !important">@{{ P.documentary_date }}</td>
+                                            <td style="width: 6% !important"> 
+                                                <div class="dropdown">
+                                                    <button type="button" class="toggle-btn btn-light btn-sm btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="dripicons-dots-3 "></i>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a ng-show="P.status == 'send'" class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
+                                                        <a class="dropdown-item" >Send Mail</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="(key2,V) in proposal_versions"> 
+                                            <td style="width:  3% !important">
+                                            </td>
+                                            <td style="width: 38% !important">@{{ V.template_name }}</td>
+                                            <td style="width: 16% !important" class="text-primary">R1</td>
+                                            <td style="width: 16% !important"> 
+                                                <span ng-show="P.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
+                                                <span ng-show="P.status == 'send'" class="badge badge-outline-success rounded-pill">Send</span>
+                                            </td>
+                                            <td style="width: 16% !important">@{{ V.documentary_date }}</td>
+                                            <td style="width: 6% !important"> 
+                                                <div class="dropdown">
+                                                    <button type="button" class="toggle-btn btn-light btn-sm btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="dripicons-dots-3 "></i>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a ng-show="P.status == 'send'" class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View / Edit</a>
+                                                        <a class="dropdown-item" >Send Mail</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="DeletePropose(V.proposal_id)">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {{-- <tr >
+                                            <td style="width:  6% !important">
+                                                <div class="d-flex">
+                                                    <div class="icon"><i class="accordion-button custom-accordion-button bg-primary collapsed text-white toggle-btn" ng-click="ViewPropsalVersions(P.proposal_id)"></i></div> 
+                                                    <div>@{{ key2+1 }}</div>                                                    
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>   --}}
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>  
                     </tbody>
                 </table>
             </div> 

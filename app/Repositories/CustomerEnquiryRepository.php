@@ -75,13 +75,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getCustomerProPosal($id)
     {
-        $proposal = MailTemplate::where("enquirie_id", '=', $id)->whereNotNull("reference_no")->get();
-        // $proposal = MailTemplate::where("enquirie_id", '=', $id)->get()->groupBy('reference_no');
-
-        if($proposal) {
-            return  MailTemplate::where("enquirie_id", '=', $id)->get()->groupBy('reference_no');
-        }
-
+        return $proposal = MailTemplate::where("enquirie_id", '=', $id)->where('reference_no' , '=', 0)->get();
+         
+    }
+    public function getCustomerProPosalVersions($id, $proposal_id)
+    {
+        return  MailTemplate::where("enquirie_id", '=', $id)->where('reference_no' , '=', $proposal_id)->get();
     }
     public function getCustomerProPosalByID($id, $proposal_id)
     {
@@ -105,8 +104,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     { 
         $result     =   MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $duplicate  =   $result->replicate();
-        $duplicate  ->  created_at = Carbon::now();
-        $duplicate  ->  reference_no = $result->proposal_id;
+        $duplicate  ->  created_at      = Carbon::now();
+        $duplicate  ->  reference_no    = $result->proposal_id;
+        $duplicate  ->  status          = 'awaiting';
+
         $duplicate  ->  save();  
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }

@@ -23,7 +23,7 @@ class MailTemplateTable extends Migration
             $table->timestamp('documentary_date')->useCurrent();
             $table->string('pdf_file_name')->nullable();
             $table->string('version')->default('R1');
-            $table->string('reference_no')->nullable();
+            $table->string('reference_no')->default(0);
             $table->string('is_mail_sent')->default(0);
             $table->boolean('is_active')->default(1);
             $table->string('status')->default('awaiting');

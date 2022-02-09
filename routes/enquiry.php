@@ -65,5 +65,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'update'])->name('update.proposal-sharing');
     Route::put('/proposal/enquiry/{id}/duplicate/{proposal_id}',[ProposalController::class,'duplicate'])->name('duplicate.proposal-sharing');
     Route::delete('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'destroy'])->name('delete.proposal-sharing');
+    Route::get('/proposal/enquiry/{id}/versions/{proposal_id}',[ProposalController::class,'versions']);
+
     
 });

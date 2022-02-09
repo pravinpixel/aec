@@ -16,11 +16,10 @@ class ProposalController extends Controller
     public function __construct(CustomerEnquiryRepositoryInterface $customerEnquiryRepository){
         $this->customerEnquiryRepo  = $customerEnquiryRepository;
     }
-
-    public function index(Request $request, $id) {
+    public function index(Request $request, $id) 
+    {
         return  $enquiry    =   $this->customerEnquiryRepo->getCustomerProPosal($id);
     }
-
     public function edit(Request $request, $id, $proposal_id)
     {
         return  $enquiry    =   $this->customerEnquiryRepo->getCustomerProPosalByID($id, $proposal_id);
@@ -36,5 +35,9 @@ class ProposalController extends Controller
     public function duplicate(Request $request, $id, $proposal_id)
     {
         return  $enquiry    =   $this->customerEnquiryRepo->duplicateCustomerProPosalByID($id, $proposal_id, $request);
+    }
+    public function versions(Request $request, $id, $proposal_id)
+    {
+        return  $enquiry    =   $this->customerEnquiryRepo->getCustomerProPosalVersions($id, $proposal_id, $request);
     }
 }

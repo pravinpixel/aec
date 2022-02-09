@@ -105,7 +105,7 @@
     </div> 
 @endsection 
 
-@push('custom-scripts') 
+@push('custom-scripts')  
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script> 
         app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) {  
@@ -280,6 +280,12 @@
             }
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL ) {
+            
+            $scope.$apply(function(){
+                $scope.list = ['first', 'second', 'third', 'last']; 
+            });
+            $scope.list = ['first', 'second', 'third', 'last']; 
+ 
             
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.enquiry              =   response.data; 
@@ -544,11 +550,14 @@
             }
         });
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
-             // List Proposesal data
-             $http.get('{{ route("index.proposal-sharing",$data->id) }}').then(function (res) {
-                $scope.proposal  = res.data;
-            });
 
+            // List Proposesal data
+            $scope.getProposesalData = function () {
+                $http.get('{{ route("index.proposal-sharing",$data->id) }}').then(function (res) {
+                    $scope.proposal  = res.data;
+                });
+            }
+            $scope.getProposesalData();
             // View Propose Data
             $scope.ViewEditPropose = function (proposal_id) {
                 $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
@@ -559,11 +568,19 @@
                 $('#bs-Preview-modal-lg').modal('show');
             }
 
+            // ViewPropsalVersions
+            $scope.ViewPropsalVersions = function (proposal_id) {
+                $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/versions/'+proposal_id).then(function (response) {
+                    $scope.proposal_versions  = response.data;
+                });
+            }
+
             // Duplicate Record
             $scope.DuplicatePropose = function (proposal_id) {
                 $http.put(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/duplicate/'+proposal_id).then(function (response) {
                     $scope.edit_proposal  = response.data;
                     Message('success',response.data.msg);
+                    $scope.getProposesalData();
                 });
             }
 
@@ -599,7 +616,7 @@
             }).then(function (response) {
                 // alert(JSON.stringify(response.data))
                 $scope.documentary_module_name = response.data;	
-                
+                $scope.getProposesalData();
             }, function (error) {
                 console.log(error);
                 console.log('This is embarassing. An error has occurred. Please check the log for details');
