@@ -178,7 +178,7 @@
 												   <th>Contact Person</th>
 												   <th>Enquiry Date</th>
 												   <th>Email</th>
-												   <th>Telephone</th>
+												   <th>Mobile Number</th>
 												   <th>Actions</th>
 											   </tr>
 										   </thead>

@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="col-md-6"> 
                                         <div class="mb-3">
-                                            <label class="form-label" >Telephone<sup class="text-danger">*</sup></label>
+                                            <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
                                             <input type="number" class="form-control"   ng-pattern="phoneNumbr" name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
                                         </div>
                                     </div>
