@@ -3,6 +3,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Enquiry\EnquiryController;
 use App\Http\Controllers\Admin\Enquiry\MailTemplateController;
 use App\Http\Controllers\Admin\Enquiry\EnquiryCommentsController;
+use App\Http\Controllers\Admin\Enquiry\ProposalController;
+
 
 
 Route::prefix('admin')->group(function () {
@@ -57,5 +59,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/get-documentaryData', [MailTemplateController::class,'getDocumentaryData'])->name("get-documentaryData");
     Route::get('/get-documentaryOneData', [MailTemplateController::class,'getDocumentaryOneData'])->name("get-documentaryOneData");
     
+    Route::get('/proposal/view/{id}',[ProposalController::class,'index'])->name('index.proposal-sharing');
+    Route::get('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'edit'])->name('edit.proposal-sharing');
+    Route::put('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'update'])->name('update.proposal-sharing');
+    Route::delete('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'destroy'])->name('delete.proposal-sharing');
 
 });

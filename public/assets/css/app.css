@@ -3298,6 +3298,10 @@ textarea.form-control-lg {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: white !important;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   -webkit-box-pack: start;

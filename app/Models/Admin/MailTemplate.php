@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MailTemplate extends Model
 {
     use HasFactory,SoftDeletes;
+    
     protected $table = 'enquiry_proposal';
+
     protected $primaryKey = 'proposal_id';
     public $fillable = [
         'enquirie_id',

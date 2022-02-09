@@ -43,7 +43,7 @@
                             <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
                                 <li class="time-bar"></li>
                                 <li class="nav-item Project_Info">
-                                    <a href="#!/project-summary" style="min-height: 40px;" class="timeline-step">
+                                    <a href="#/project-summary" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
@@ -53,7 +53,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item  admin-Technical_Estimate-wiz">
-                                    <a href="#!/technical-estimation" style="min-height: 40px;" class="timeline-step">
+                                    <a href="#/technical-estimation" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
@@ -63,7 +63,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item admin-Cost_Estimate-wiz">
-                                    <a href="#!/cost-estimation" style="min-height: 40px;" class="timeline-step">
+                                    <a href="#/cost-estimation" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/budget.png") }}" class="w-50 invert">
@@ -73,7 +73,7 @@
                                     </a>
                                 </li> 
                                 <li class="nav-item admin-Proposal_Sharing-wiz">
-                                    <a href="#!/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
+                                    <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/share.png") }}" ng-click="getDocumentaryFun();" class="w-50 invert">
@@ -83,7 +83,7 @@
                                     </a>
                                 </li> 
                                 <li class="nav-item admin-Delivery-wiz">
-                                    <a href="#!/move-to-project" style="min-height: 40px;"  class="timeline-step">
+                                    <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
@@ -102,11 +102,11 @@
                 </div>   
             </div> <!-- container --> 
         </div> <!-- content --> 
-    </div> 
-    
+    </div>  
 @endsection 
 
 @push('custom-scripts') 
+     
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script> 
         app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) {  
@@ -161,6 +161,7 @@
                 },
             };
         }]); 
+        
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -188,6 +189,9 @@
             .when("/move-to-project", {
                 templateUrl : "{{ route('enquiry.move-to-project') }}"
             })
+            .otherwise({
+                redirectTo: '{{ route('enquiry.project-summary') }}'
+            });
         });  
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
             // enquiry.show-comments
@@ -283,8 +287,6 @@
                 $scope.enquiry_id           =   response.data.enquiry_id; 
                 $scope.building_building    =   response.data.building_component; 
                 console.log($scope.building_building);
-                
-               
             });
             $scope.Add_building = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
@@ -426,10 +428,7 @@
                     }, function errorCallback(response) {
                         Message('danger',response.data.errors);
                     });
-                }
-
-
-             
+                } 
         }); 
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
             
@@ -546,41 +545,80 @@
             }
         });
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
-            $scope.getDocumentaryData = function() {
-            $http({
-                method: 'GET',
-                url:  "{{ route('get-documentaryData') }}" ,
-            }).then(function (response) {
-                // alert(JSON.stringify(response.data))
-                $scope.documentary_module_name = response.data;	
-                
-            }, function (error) {
-                console.log(error);
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
+
+            // List Proposesal data
+            $http.get('{{ route("index.proposal-sharing",$data->id) }}').then(function (res) {
+                $scope.proposal  = res.data;
             });
+
+            // View Propose Data
+            $scope.ViewEditPropose = function (proposal_id) {
+                $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
+                    $scope.edit_proposal  = response.data;
+                    $scope.mail_content = $scope.edit_proposal[0].documentary_content;
+                    $scope.proposalId = $scope.edit_proposal[0].proposal_id;
+                });
+                $('#bs-Preview-modal-lg').modal('show');
+            } 
+
+            // DeletePropose
+            $scope.DeletePropose = function (proposal_id) {
+                $http.delete(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
+                    Message('success',response.data.msg);
+                });
+            } 
+            
+            $scope.updateProposalMail = function(proposalId) {
+                $scope.sendCommentsData = {
+                    "mail_content"  : $scope.mail_content
+                }
+                $http({
+                    method: "PUT",
+                    url: API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposalId ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
             }
 
+            $scope.getDocumentaryData = function() {
+                $http({
+                    method: 'GET',
+                    url:  "{{ route('get-documentaryData') }}" ,
+                }).then(function (response) {
+                    // alert(JSON.stringify(response.data))
+                    $scope.documentary_module_name = response.data;	
+                    
+                }, function (error) {
+                    console.log(error);
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            } 
             
             $scope.documentaryOneData = function() {
                 var documentId = $scope.documentary.documentary_title;
                 var enquireId ={{ $data->id ?? " " }};
                 console.log(documentId)
                 console.log(enquireId)
-            $http({
-                method: 'GET',
-                url: "{{ route('get-documentaryOneData') }}",
-                params:{'documentId':documentId,'enquireId':enquireId},
-            }).then(function (response) {
-                // alert(JSON.stringify(response))
-                $scope.documentary_module_name = response.data;	
-                
-            }, function (error) {
-                console.log(error);
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });
+                $http({
+                    method: 'GET',
+                    url: "{{ route('get-documentaryOneData') }}",
+                    params:{'documentId':documentId,'enquireId':enquireId},
+                }).then(function (response) {
+                    // alert(JSON.stringify(response))
+                    $scope.documentary_module_name = response.data;	
+                    
+                }, function (error) {
+                    console.log(error);
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
-            $scope.getDocumentaryData();
-
+            $scope.getDocumentaryData(); 
 
         });
         app.directive('getCostEstimateData',   ['$http' ,function ($http, $scope) {  
@@ -705,6 +743,7 @@
                     });
                 },
             };
-        }]);
+        }]); 
     </script>  
+    
 @endpush

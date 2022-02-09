@@ -14,8 +14,8 @@ use App\Models\EnquiryService;
 use App\Models\EnquiryTechnicalEstimate;
 use App\Models\EnquiryCostEstimate;
 use App\Models\EnquiryComments;
-
-
+use App\Models\Admin\MailTemplate;
+use Illuminate\Http\Response;
 use App\Models\Service;
 
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
@@ -70,6 +70,28 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function getEnquiryByID($id) 
     {
         return $this->enquiry->with('customer')->find($id);
+    }
+
+    public function getCustomerProPosal($id)
+    {
+        return MailTemplate::where("enquirie_id", '=', $id)->get();
+    }
+    public function getCustomerProPosalByID($id, $proposal_id)
+    {
+        return MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->get();
+    }
+
+    public function updateCustomerProPosalByID($id, $proposal_id, $request)
+    {
+        $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->update([
+            'documentary_content' =>  $request->mail_content
+        ]);
+        return response(['status' => true, 'msg' => trans('enquiry.proposal_updated')], Response::HTTP_CREATED);
+    }
+    public function deleteCustomerProPosalByID($id, $proposal_id, $request)
+    {
+        $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->delete();
+        return response(['status' => true, 'msg' => trans('enquiry.proposal_deleted')], Response::HTTP_CREATED);
     }
 
     public function getEnquiryComments($id) 

@@ -1,7 +1,5 @@
-var app = angular.module('App', ['ngRoute','datatables','luegg.directives']).constant('API_URL', $("#baseurl").val());
+var app = angular.module('App', ['ngRoute','datatables','luegg.directives','textAngular']).constant('API_URL', $("#baseurl").val());
  
-
-
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  
         restrict: 'A',  
