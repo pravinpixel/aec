@@ -168,7 +168,7 @@
                     </a> --}}
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="javascript:void(0);" class="dropdown-item notify-item"  onclick="event.preventDefault(); document.getElementById('admin-logout-form').submit();">
                         <i class="mdi mdi-logout me-1"></i>
                         <span>Logout</span>
                     </a>
@@ -176,6 +176,9 @@
             </li>
 
         </ul>
+        <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
         <button class="button-menu-mobile open-left">
             <i class="mdi mdi-menu"></i>
         </button>

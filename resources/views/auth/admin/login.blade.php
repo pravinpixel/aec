@@ -14,7 +14,7 @@
                                 <span><img src="{{ asset("public/assets/images/logo_customer.png") }}" alt="{{ env('APP_NAME') }}" width="150px"></span>
                             </div>
 
-                            <form class="form-horizontal needs-validation" novalidate method="GET" action="{{ route('admin-dashboard') }}">
+                            <form class="form-horizontal needs-validation" novalidate method="POST" action="{{ route('admin.login') }}">
                                 @csrf
                                 <h4 class="text-dark-50 bg-light p-2 text-center text-primary  mb-3"> <i class="fa fa-user"></i> Admin Login</h4>
 

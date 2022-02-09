@@ -72,4 +72,36 @@ class AuthController extends Controller
         Flash::success(__('auth.password_change_success'));
         return redirect()->back();
     }
+
+
+
+    public function getAdminLogin(Request $request)
+    {
+        if(Auth::check()) {
+            return redirect(route('admin-dashboard'));
+        }
+        return view('auth.admin.login');
+    }
+
+    public function postAdminLogin(Request $request)
+    {
+        try {
+            if (Auth::attempt($request->only(['email','password']), false)) {
+                Flash::success( __('auth.login_successful'));
+                return redirect()->route('admin-dashboard');
+            } else {
+                Flash::error( __('auth.incorrect_email_id_and_password'));
+                return redirect()->route('admin.login');
+            }
+        } catch  (Exception $e) {
+            Log::info($e->getMessage());
+            return redirect()->route('admin.login');
+        }
+    }
+
+    public function adminLogout() {
+        Auth::logout();
+        Flash::success(__('auth.logout_successful'));
+        return redirect(route('admin.login'));
+    }
 }

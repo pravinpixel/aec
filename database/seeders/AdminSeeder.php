@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -14,21 +16,15 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $admin = Sentinel::registerAndActivate(array(
-			'email'       => 'admin@admin.com',
-			'password'    => "admin@123",
-			'first_name'  => 'admin',
-			'last_name'   => 'admin',
-            'type'        => 'internal',
-			'full_name'   => 'admin user',
-            'created_by'  => 'Migration'
-		));
-
-        $adminRole = Sentinel::getRoleRepository()->createModel()->create([
-			'name' => 'Admin',
-			'slug' => 'admin',
-			'permissions' => array('admin' => 1),
-		]);
-        $admin->roles()->attach($adminRole);
+        $admin = User::create([
+            'first_name' => 'aec',
+            'last_name' => 'admin',
+            'full_name' => 'aecprefab admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('password@123'),
+            'mobile_no' => '87456123',
+            'gender' => 'male', 
+            'is_active' => 1,
+        ]);
     }
 }

@@ -168,8 +168,11 @@ Route::post('customers/logout',[ AuthController::class, 'customerLogout'])->name
 Route::get('customers/change-password',[ AuthController::class, 'changePasswordGet'])->name('customer.changePassword');
 Route::post('customers/change-password',[ AuthController::class, 'changePasswordPost'])->name('customer.changePassword');
 
-
-
-
-
 /** ===== End : Customers Routes ======*/
+/**
+ * admin route
+ */
+
+Route::get('admin/login',[AuthController::class, 'getAdminLogin'])->name('admin.login');
+Route::post('admin/login',[AuthController::class, 'postAdminLogin'])->name('admin.login');
+Route::post('admin/logout',[AuthController::class, 'adminLogout'])->name('admin.logout');
