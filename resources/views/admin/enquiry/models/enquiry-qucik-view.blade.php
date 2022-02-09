@@ -79,7 +79,7 @@
                                             <td>@{{ project_info.secondary_mobile_no }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.zipcode != null">
-                                            <td><b>Post Code</b></td>
+                                            <td><b>Zip Code</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.zipcode }}</td>
                                         </tr> 

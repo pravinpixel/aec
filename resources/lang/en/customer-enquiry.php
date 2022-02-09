@@ -9,7 +9,7 @@ return [
     'select'                    => 'Please select',
     'project_name'              => 'Project Name',
     'construction_site_address' => 'Construction Site Address',
-    'post_code'                 => 'Post Code',
+    'post_code'                 => 'Zip Code',
     'place'                     => 'Place',
     'state'                     => 'State',
     'country'                   => 'Country',

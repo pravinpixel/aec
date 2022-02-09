@@ -35,7 +35,7 @@
             </div>
             <div class="form-floating mb-2">
                 <input type="text" class="form-control form-control-sm" ng-keyup="getZipcodeData()" id="zipcode" name="zipcode" ng-model="projectInfo.zipcode" required/>
-                <label for="floating">Zipcode</label>
+                <label for="floating">Zip Code</label>
                 <small class="text-danger" ng-show="projectInfoForm.zipcode.$touched && projectInfoForm.zipcode.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">

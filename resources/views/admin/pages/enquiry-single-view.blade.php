@@ -36,7 +36,7 @@
                                             </th><td width="50" class="bg-white">XXXXXXXXXXXXXXXXXXX</td>
                                         </tr> 
                                         <tr class="border">
-                                            <th width="50" class=" ">Post Code
+                                            <th width="50" class=" ">Zip Code
                                             </th><td width="50" class="bg-white">XXXXXXXXXXXXXXXXXXX</td>
                                         </tr> 
                                         <tr class="border">
@@ -68,7 +68,7 @@
                                             </th><td width="50" class="bg-white">XXXXXXXXXXXXXXXXXXX</td>
                                         </tr> 
                                         <tr class="border">
-                                            <th width="50" class=" ">Post Code
+                                            <th width="50" class=" ">Zip Code
                                             </th><td width="50" class="bg-white">XXXXXXXXXXXXXXXXXXX</td>
                                         </tr> 
                                         <tr class="border">

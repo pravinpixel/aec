@@ -271,7 +271,7 @@
                                                         </th><td  class="bg-white">Strandgata-12</td>
                                                     </tr> 
                                                     <tr class="border">
-                                                        <th  class=" ">Post Code
+                                                        <th  class=" ">Zip Code
                                                         </th><td  class="bg-white">2134</td>
                                                     </tr> 
                                                     <tr class="border">
