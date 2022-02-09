@@ -8,9 +8,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
+
 use App\Models\Enquiry;
 use Barryvdh\DomPDF\Facade as PDF;
-use Dompdf\Dompdf;
+use App\Models\Documentary\Documentary;
 use App\Models\Admin\MailTemplate;
 use App\Http\Requests\MailTemplateCreateRequest;
 use App\Http\Requests\MailTemplateUpdateRequest;
@@ -142,78 +143,54 @@ class MailTemplateController extends Controller
     }
     public function getDocumentaryOneData(Request $request)
     {
-        # code...
-        // return response()->json($this->mailTemplateRepository->getDocumentaryOneData($request));
-    //     $pdf = PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf');
-      
-    //     $headers=  [      
-    //     "Content-type"        => "pdf",
-    //     "Pragma"              => "no-cache",
-    //     "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-    //     "Expires"             => "0",
-    //     "Content-Disposition" => "attachment",
-    //      "filename"          => "asas.pdf",
-    // ];
-    // return response()->stream($pdf->download('invoice.pdf'), 200, $headers);
-    //     $pdf = PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf');
-        // return $pdf->stream('invoice.pdf');
-        // return response()->download('demo.pdf'); 
-        // return $pdf->download('users.pdf');
-       
-
-        // $pdf = PDF::make('admin.enquiry.enquiryPDF.enquiryPdf');
-        // $pdf->loadHTML($this->convert_customer_data_to_html());
-        // return $pdf->stream();
-
-
-        // $filename = "newpdffile";
-        // $dompdf = new Dompdf();
-        // $dompdf->loadHtml('admin.enquiry.enquiryPDF.enquiryPdf');
-        // $dompdf->render();
-        // $dompdf->stream($filename,array("Attachment"=>0));
-    $data =  $this->mailTemplateRepository->getDocumentaryOneData($request);
-      
-
-
-    $mailData = new MailTemplate();
-    $mailData->enquirie_id = $data['enquiry']['id'];
-    $mailData->documentary_id = $data['document']['id'];
-    $mailData->documentary_content = $data['document']['documentary_content'];
-    $mailData->documentary_date = date('Y-m-d');
-    $mailData->pdf_file_name = "";
-    // $mailData->version = date("d.m.Y");
-    $mailData->reference_no = "";
-    // $mailData->is_mail_sent = date("d.m.Y");
-    // $mailData->is_active = date("d.m.Y");
-    // $mailData->status = date("d.m.Y");
-    $res =  $mailData->save();
-    if($res)
-    {
-        return response()->json(['status' => true, 'msg' => trans('module.inserted'),'data'=>$res], Response::HTTP_OK);
-    }
-    return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$res], Response::HTTP_OK);
+        $data =  $this->mailTemplateRepository->getDocumentaryOneData($request);
+        // return $data;
+        
+        $content =$data['document']['documentary_content'];
+        $title = $data['document']['documentary_title'];
+        $logo = Config::get('documentary.logo.key');
+        $pdf = PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','logo','title'));
+        $path = public_path('uploads/'); 
+        $fileName =   $data['fileName'].'.'. 'pdf' ;
+        $pdf->save($path . '/' . $fileName);
+        $pdf = public_path('uploads/'.$fileName);
+        // return $pdf;
+        $mailData = new MailTemplate();
+        $mailData->enquirie_id = $data['enquiry']['id'];
+        $mailData->documentary_id = $data['document']['id'];
+        $mailData->documentary_content = $data['document']['documentary_content'];
+        $mailData->documentary_date = date('Y-m-d');
+        $mailData->pdf_file_name = $fileName;
+        $mailData->reference_no = "";
+        $res =  $mailData->save();
+        if($res)
+        {
+            return response()->json(['status' => true, 'msg' => trans('module.inserted'),'data'=>$fileName], Response::HTTP_OK);
+        }
+        return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$res], Response::HTTP_OK);
        
     }
-    function convert_customer_data_to_html()
+    public function pdfGenrate(Request $request)
     {
-     $output = '
-     <h3 align="center">Customer Data</h3>
-     <table width="100%" style="border-collapse: collapse; border: 0px;">
-      <tr>
-    <th style="border: 1px solid; padding:12px;" width="20%">Name</th>
-    <th style="border: 1px solid; padding:12px;" width="30%">Address</th>
-    <th style="border: 1px solid; padding:12px;" width="15%">City</th>
-    <th style="border: 1px solid; padding:12px;" width="15%">Postal Code</th>
-    <th style="border: 1px solid; padding:12px;" width="20%">Country</th>
-   </tr>
-     ';  
+        // return 1;
+        $document = Documentary::where('id',44)->first();
+           $data = $document['documentary_content'];
+        //    return $data;
+            $pdf = PDF::loadView('enquiryPdf',compact('data'));
+
+            $path = public_path('uploads/'); 
     
-     $output .= '</table>';
-     return $output;
+            $fileName =  'document'.time().'.'. 'pdf' ; 
+    
+            $pdf->save($path . '/' . $fileName); 
+            $pdf = public_path('uploads/'.$fileName); 
+            return $fileName;
+        //    $rr =  stream($pdf);
+        // return response()->stream($pdf); 
+        // return $pdf->download('invoice.pdf');
+         
+            // return response()->stream($pdf);
     }
-
-
-
     
 
 }

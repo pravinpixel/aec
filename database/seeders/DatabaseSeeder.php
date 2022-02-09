@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LinksTableSeeder::class);
         $this->call(CostTasksTableSeeder::class);
         $this->call(CostLinksTableSeeder::class);
+        $this->call(DocumentarySeeder::class);
         
     }
 }

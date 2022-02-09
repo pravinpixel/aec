@@ -58,6 +58,7 @@ Route::prefix('admin')->group(function () {
     //  ****** Enquiery Proposal ******
     Route::get('/get-documentaryData', [MailTemplateController::class,'getDocumentaryData'])->name("get-documentaryData");
     Route::get('/get-documentaryOneData', [MailTemplateController::class,'getDocumentaryOneData'])->name("get-documentaryOneData");
+    Route::get('/pdfGen', [MailTemplateController::class,'pdfGenrate'])->name("pdfGen");
     
     Route::get('/proposal/view/{id}',[ProposalController::class,'index'])->name('index.proposal-sharing');
     Route::get('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'edit'])->name('edit.proposal-sharing');

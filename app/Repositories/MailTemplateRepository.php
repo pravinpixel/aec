@@ -91,59 +91,35 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
     }
     public function getDocumentaryOneData($request)
     {
-        // $pdf = PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf');
-      // download PDF file with download method
-    //   return $pdf->download('pdf_file.pdf');
-        // return $request->all();
-        $enquiry = Enquiry::where('id',$request->enquireId)->first()->toArray();
-        $document = Documentary::where('id',$request->documentId)->first();
-        $customer =  Customer::where('id',$enquiry['customer_id'])->first()->toArray();
-
+            $enquiry  =  Enquiry::where('id',$request->enquireId)->first()->toArray();
+            $document =  Documentary::where('id',$request->documentId)->first();
+            $customer =  Customer::where('id',$enquiry['customer_id'])->first()->toArray();
+            $countRow =  MailTemplate::where('enquirie_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
+            $enquiryNum =  str_replace('/','_',$enquiry['enquiry_number']); 
+            $fileName   =  $enquiryNum.'_'.$document['documentary_title'].'_'.'R'.$countRow;
+        // return ($fileName);
         $datas = array_merge($enquiry,$customer);      
-           
-        // return gettype($customer);
 
         $documentData =[];
         $changeData =[];
         $changeData = $datas;
         $documentData = $document['documentary_content'];
-// $arr = [];
-// $arr =  (array)$enquiryData;
-//  return ($enquiryData);
-    $documentData;
-    $keyData       = array_keys($changeData);
-    $valueData    = array_values($changeData);
-    $new_string = str_ireplace($keyData, $valueData, $documentData);
+        $documentData;
+        $keyData       = array_keys($changeData);
+        $valueData    = array_values($changeData);
+        $new_string = str_ireplace($keyData, $valueData, $documentData);
 
-    //removing {}
-    $search = array('{','}');
-    $newDocumentData = str_replace($search,"",$new_string);
-  
-    $document['documentary_content'] = $newDocumentData;
-// return $newDocumentData;
-$data = array(
-    'enquiry'=>$enquiry,'document'=>$document,'customer'=>$customer
-);
-
-return ($data);
-   
+        //removing {}
+        $search = array('{','}');
+        $newDocumentData = str_replace($search,"",$new_string);
     
+        $document['documentary_content'] = $newDocumentData;
+       
+        $data = array(
+            'enquiry'=>$enquiry,'document'=>$document,'customer'=>$customer,'fileName'=>$fileName
+        );
 
-//  $string="hi man, how are you? man is here. hi again.";
-// $list = Array
-// (
-//    "hi" => 0,
-//    "man" => 1,
-// );
-// // return array_values($list);
-
-// $find       = array_keys($list);
-// $replace    = array_values($list);
-// $new_string = str_ireplace($find, $replace, $string);
-
-// return $new_string;
-
-   
+        return ($data);
     }
     
     

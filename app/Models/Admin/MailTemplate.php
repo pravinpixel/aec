@@ -16,6 +16,7 @@ class MailTemplate extends Model
     public $fillable = [
         'enquirie_id',
         'documentary_id',
+        'template_name',
         'documentary_content',
         'documentary_date',
         'pdf_file_name',

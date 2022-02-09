@@ -61,9 +61,10 @@ return [
         'Main Domain'=>"main_domain",
         'Company Name'=>"companyname",
         'Email Signature'=>"email_signature",
-        
-
-
+    ],
+    'logo'=>[
+       
+        'key'=>"public/assets/images/logo_customer.png", 
     ],
 
     // 'Logo'=>"assets/images/logo_customer.png",

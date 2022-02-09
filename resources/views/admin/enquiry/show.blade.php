@@ -102,11 +102,10 @@
                 </div>   
             </div> <!-- container --> 
         </div> <!-- content --> 
-    </div>  
+    </div> 
 @endsection 
 
 @push('custom-scripts') 
-     
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script> 
         app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) {  
@@ -161,7 +160,7 @@
                 },
             };
         }]); 
-        
+
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -428,7 +427,7 @@
                     }, function errorCallback(response) {
                         Message('danger',response.data.errors);
                     });
-                } 
+                }             
         }); 
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
             
@@ -545,9 +544,8 @@
             }
         });
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
-
-            // List Proposesal data
-            $http.get('{{ route("index.proposal-sharing",$data->id) }}').then(function (res) {
+             // List Proposesal data
+             $http.get('{{ route("index.proposal-sharing",$data->id) }}').then(function (res) {
                 $scope.proposal  = res.data;
             });
 
@@ -595,38 +593,37 @@
             }
 
             $scope.getDocumentaryData = function() {
-                $http({
-                    method: 'GET',
-                    url:  "{{ route('get-documentaryData') }}" ,
-                }).then(function (response) {
-                    // alert(JSON.stringify(response.data))
-                    $scope.documentary_module_name = response.data;	
-                    
-                }, function (error) {
-                    console.log(error);
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            } 
+            $http({
+                method: 'GET',
+                url:  "{{ route('get-documentaryData') }}" ,
+            }).then(function (response) {
+                // alert(JSON.stringify(response.data))
+                $scope.documentary_module_name = response.data;	
+                
+            }, function (error) {
+                console.log(error);
+                console.log('This is embarassing. An error has occurred. Please check the log for details');
+            });
+            }
             
             $scope.documentaryOneData = function() {
                 var documentId = $scope.documentary.documentary_title;
                 var enquireId ={{ $data->id ?? " " }};
-                console.log(documentId)
-                console.log(enquireId)
-                $http({
-                    method: 'GET',
-                    url: "{{ route('get-documentaryOneData') }}",
-                    params:{'documentId':documentId,'enquireId':enquireId},
-                }).then(function (response) {
-                    // alert(JSON.stringify(response))
-                    $scope.documentary_module_name = response.data;	
-                    
-                }, function (error) {
-                    console.log(error);
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
+
+
+            $http({
+                method: 'GET',
+                url: "{{ route('get-documentaryOneData') }}",
+                params:{'documentId':documentId,'enquireId':enquireId},
+            }).then(function (response) {
+                // alert(JSON.stringify(response))
+                $scope.getDocumentaryData();
+            }, function (error) {
+                console.log(error);
+                console.log('This is embarassing. An error has occurred. Please check the log for details');
+            });
             }
-            $scope.getDocumentaryData(); 
+            $scope.getDocumentaryData();
 
         });
         app.directive('getCostEstimateData',   ['$http' ,function ($http, $scope) {  
@@ -751,7 +748,6 @@
                     });
                 },
             };
-        }]); 
+        }]);
     </script>  
-    
 @endpush

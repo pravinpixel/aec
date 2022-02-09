@@ -18,6 +18,7 @@ class MailTemplateTable extends Migration
             $table->increments('proposal_id');
             $table->string('enquirie_id')->nullable();
             $table->string('documentary_id')->nullable();
+            $table->string('template_name')->nullable();
             $table->longText('documentary_content')->nullable();
             $table->timestamp('documentary_date')->useCurrent();
             $table->string('pdf_file_name')->nullable();
