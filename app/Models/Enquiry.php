@@ -40,6 +40,7 @@ class Enquiry extends Model
         'service',
         'ifc_model_upload',
         'building_component',
+        'additional_info',
         'created_by',
         'updated_by'
     ];

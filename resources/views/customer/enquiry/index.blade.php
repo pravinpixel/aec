@@ -177,7 +177,7 @@
                         $scope.enquiry = res.data;
                         $scope.enquiry_id = res.data.project_infos.enquiry_id;
                         $("#right-modal-progress").modal('show'); 
-                        $(`#${type}`).addClass('show');
+                        $(`.${type}`).addClass('show');
                     }, function (error) {
                         console.log('ifc_model_uploads error');
                     });
