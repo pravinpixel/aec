@@ -559,14 +559,22 @@
                     $scope.proposalId = $scope.edit_proposal[0].proposal_id;
                 });
                 $('#bs-Preview-modal-lg').modal('show');
-            } 
+            }
+
+            // Duplicate Record
+            $scope.DuplicatePropose = function (proposal_id) {
+                $http.put(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/duplicate/'+proposal_id).then(function (response) {
+                    $scope.edit_proposal  = response.data;
+                    Message('success',response.data.msg);
+                });
+            }
 
             // DeletePropose
             $scope.DeletePropose = function (proposal_id) {
                 $http.delete(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
                     Message('success',response.data.msg);
                 });
-            } 
+            }
             
             $scope.updateProposalMail = function(proposalId) {
                 $scope.sendCommentsData = {

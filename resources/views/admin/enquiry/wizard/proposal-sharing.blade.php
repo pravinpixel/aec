@@ -49,7 +49,7 @@
                                         <i class="dripicons-dots-3 "></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a ng-show="P.status == 'send'" class="dropdown-item" >Duplicate</a>
+                                        <a ng-show="P.status == 'send'" class="dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
                                         <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
                                         <a class="dropdown-item" >Send Mail</a>
                                         <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>

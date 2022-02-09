@@ -19,5 +19,6 @@ return [
     'template_added' => 'Template added successfully',
     'template_exists' => 'Template already exists',
     'proposal_updated' => 'Updated Proposal send successfully',
-    'proposal_deleted' => 'Proposal deleted successfully'
+    'proposal_deleted' => 'Proposal deleted successfully',
+    'duplicate_deleted' => 'Proposal duplicate successfully',
 ];

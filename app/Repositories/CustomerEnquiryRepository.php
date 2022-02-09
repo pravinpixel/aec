@@ -17,6 +17,7 @@ use App\Models\EnquiryComments;
 use App\Models\Admin\MailTemplate;
 use Illuminate\Http\Response;
 use App\Models\Service;
+use Carbon\Carbon;
 
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $customer;
@@ -74,7 +75,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getCustomerProPosal($id)
     {
-        return MailTemplate::where("enquirie_id", '=', $id)->get();
+        $proposal = MailTemplate::where("enquirie_id", '=', $id)->whereNotNull("reference_no")->get();
+        // $proposal = MailTemplate::where("enquirie_id", '=', $id)->get()->groupBy('reference_no');
+
+        if($proposal) {
+            return  MailTemplate::where("enquirie_id", '=', $id)->get()->groupBy('reference_no');
+        }
+
     }
     public function getCustomerProPosalByID($id, $proposal_id)
     {
@@ -88,12 +95,21 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         ]);
         return response(['status' => true, 'msg' => trans('enquiry.proposal_updated')], Response::HTTP_CREATED);
     }
+
     public function deleteCustomerProPosalByID($id, $proposal_id, $request)
     {
         $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->delete();
         return response(['status' => true, 'msg' => trans('enquiry.proposal_deleted')], Response::HTTP_CREATED);
     }
-
+    public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
+    { 
+        $result     =   MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
+        $duplicate  =   $result->replicate();
+        $duplicate  ->  created_at = Carbon::now();
+        $duplicate  ->  reference_no = $result->proposal_id;
+        $duplicate  ->  save();  
+        return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
+    }
     public function getEnquiryComments($id) 
     {
         return EnquiryComments::where("enquiry_id", '=', $id)

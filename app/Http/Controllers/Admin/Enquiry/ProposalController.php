@@ -32,5 +32,9 @@ class ProposalController extends Controller
     public function destroy(Request $request, $id, $proposal_id)
     {
         return  $enquiry    =   $this->customerEnquiryRepo->deleteCustomerProPosalByID($id, $proposal_id, $request);
-    }    
+    }
+    public function duplicate(Request $request, $id, $proposal_id)
+    {
+        return  $enquiry    =   $this->customerEnquiryRepo->duplicateCustomerProPosalByID($id, $proposal_id, $request);
+    }
 }
