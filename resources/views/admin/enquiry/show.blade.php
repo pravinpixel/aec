@@ -137,9 +137,8 @@
                 restrict: 'A',
                 link : function (scope, element, attrs) {
                     element.on('click', function () {
-
                         var index       = scope.index;
-                        var secindex   = scope.secindex;
+                        var secindex    = scope.secindex;
                         scope.building_building[index].building_component_number.splice(secindex,1);
 
                         let bcd = scope.building_building[index].building_component_number.map((item,i) => {
@@ -159,8 +158,7 @@
                     });
                 },
             };
-        }]); 
-
+        }]);  
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -281,12 +279,7 @@
             }
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL ) {
-            
-            $scope.$apply(function(){
-                $scope.list = ['first', 'second', 'third', 'last']; 
-            });
-            $scope.list = ['first', 'second', 'third', 'last']; 
- 
+             
             
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.enquiry              =   response.data; 
@@ -440,7 +433,6 @@
                 }             
         }); 
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
-            
             // $scope.CostEstimate  = {
             //     "Components" : [ 
             //         {
@@ -505,7 +497,7 @@
             });
             $http.get("{{ route('CostEstimateView', $data->id) }}").then(function (response) {
                 $scope.enquiry          =   response.data;  
-                $scope.CostEstimate     =   response.data.cost_estimation;  
+                $scope.CostEstimate     =   response.data.cost_estimation;
             });
             $scope.UpdateCostEstimate  = function() {  
                 $http({
@@ -694,7 +686,7 @@
             $scope.getDocumentaryData();
 
         });
-        app.directive('getCostEstimateData',   ['$http' ,function ($http, $scope) {  
+        app.directive('getCostEstimateData',   ['$http' ,function ($http, $scope , $apply) {  
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
@@ -706,11 +698,9 @@
                             
                             }).then(function success(response) {
                                 scope.masterData = response.data;
-
- 
-                                
-                                scope.CostEstimate.Components[scope.index].sqm                  =   response.data.sqm; 
-                                scope.CostEstimate[scope.index].complexity                      =   response.data.complexity; 
+                                console.log(response.data.complexity)
+                                scope.CostEstimate.Components[scope.index].sqm                  =   response.data.sqm;  
+                                scope.CostEstimate.Components[scope.index].Complexity           =   response.data.complexity; 
 
                                 scope.CostEstimate.Components[scope.index].Details.PriceM2      =   response.data.detail_price;  
                                 scope.CostEstimate.Components[scope.index].Details.Sum          =   response.data.sqm * response.data.complexity * response.data.detail_price;
@@ -732,34 +722,104 @@
                                 scope.CostEstimate.Components[scope.index].TotalCost.Sum       =   parseInt(response.data.detail_price)    + 
                                                                                                     parseInt(response.data.statistic_price) + 
                                                                                                     parseInt(response.data.cad_cam_price)   + 
-                                                                                                    parseInt(response.data.logistic_price)  
+                                                                                                    parseInt(response.data.logistic_price)
+                                                                                                    scope.CostEstimate.Components[scope.index].Details.Sum          =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2 
+                                    scope.CostEstimate.Components[scope.index].Statistics.Sum       =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 
+                                    scope.CostEstimate.Components[scope.index].Logistics.Sum        =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 
+                                    scope.CostEstimate.Components[scope.index].CadCam.Sum           =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2 
+
+                                    scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =   Number(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
+                                                                                                        Number(scope.CostEstimate.Components[scope.index].Statistics.PriceM2)  + 
+                                                                                                        Number(scope.CostEstimate.Components[scope.index].CadCam.PriceM2)      + 
+                                                                                                        Number(scope.CostEstimate.Components[scope.index].Logistics.PriceM2) 
+                            
+                                    scope.CostEstimate.Components[scope.index].TotalCost.Sum        =   Number(scope.CostEstimate.Components[scope.index].Details.Sum)     + 
+                                                                                                        Number(scope.CostEstimate.Components[scope.index].Statistics.Sum)  + 
+                                                                                                        Number(scope.CostEstimate.Components[scope.index].CadCam.Sum)      + 
+                                                                                                        Number(scope.CostEstimate.Components[scope.index].Logistics.Sum)
+                                    let $sqmTotal           =   0;
+                                    let $complexity         =   0;
+                                    let $DetailsPriceM2     =   0;
+                                    let $DetailsSum         =   0;
+                                    let $StatisticsPriceM2  =   0;
+                                    let $StatisticsSum      =   0;
+                                    let $CadCamPriceM2      =   0;
+                                    let $CadCamSum          =   0;
+                                    let $LogisticsPriceM2   =   0;
+                                    let $LogisticsSum       =   0;
+                                    let $TotalCostPriceM2   =   0;
+                                    let $TotalCostSum       =   0;
+
+                                    scope.CostEstimate.Components.map( (item, index) => {
+                                        $sqmTotal           +=  Number(item.sqm); 
+                                        $complexity         +=  Number(item.Complexity);
+                                        $DetailsPriceM2     +=  Number(item.Details.PriceM2); 
+                                        $DetailsSum         +=  Number(item.Details.Sum);
+                                        $StatisticsPriceM2  +=  Number(item.Statistics.PriceM2);
+                                        $StatisticsSum      +=  Number(item.Statistics.Sum);
+                                        $CadCamPriceM2      +=  Number(item.CadCam.PriceM2);
+                                        $CadCamSum          +=  Number(item.CadCam.Sum);
+                                        $LogisticsPriceM2   +=  Number(item.Logistics.PriceM2);
+                                        $LogisticsSum       +=  Number(item.Logistics.Sum);
+                                        $TotalCostPriceM2   +=  Number(item.TotalCost.PriceM2);
+                                        $TotalCostSum       +=  Number(item.TotalCost.Sum);
+                                    });
+
+                                    scope.CostEstimate.ComponentsTotals.sqm                 = $sqmTotal;
+                                    scope.CostEstimate.ComponentsTotals.complexity          = $complexity;
+                                    scope.CostEstimate.ComponentsTotals.Details.PriceM2     = $DetailsPriceM2;
+                                    scope.CostEstimate.ComponentsTotals.Details.Sum         = $DetailsSum;
+                                    scope.CostEstimate.ComponentsTotals.Statistics.PriceM2  = $StatisticsPriceM2;
+                                    scope.CostEstimate.ComponentsTotals.Statistics.Sum      = $StatisticsSum;
+                                    scope.CostEstimate.ComponentsTotals.CadCam.PriceM2      = $CadCamPriceM2;
+                                    scope.CostEstimate.ComponentsTotals.CadCam.Sum          = $CadCamSum;
+                                    scope.CostEstimate.ComponentsTotals.Logistics.PriceM2   = $LogisticsPriceM2;
+                                    scope.CostEstimate.ComponentsTotals.Logistics.Sum       = $LogisticsSum;
+                                    scope.CostEstimate.ComponentsTotals.TotalCost.PriceM2   = $TotalCostPriceM2;
+                                    scope.CostEstimate.ComponentsTotals.TotalCost.Sum       = $TotalCostSum;
+
+                                    scope.CostEstimate.ComponentsTotals.grandTotal       =  $sqmTotal +
+                                                                                            $complexity +
+                                                                                            $DetailsPriceM2 +
+                                                                                            $DetailsSum +
+                                                                                            $StatisticsPriceM2 +
+                                                                                            $StatisticsSum +
+                                                                                            $CadCamPriceM2 +
+                                                                                            $CadCamSum +
+                                                                                            $LogisticsPriceM2 +
+                                                                                            $LogisticsSum +
+                                                                                            $TotalCostPriceM2 +
+                                                                                            $TotalCostSum ;
+                                    scope.$apply();
                             }, function error(response) { 
-                                    console.log("Code Eror")
+                                console.log("Code Eror")
                             }); 
                     });
                 },
             };
         }]);
-        app.directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope) {  
+        app.directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
             return {
                 restrict: 'A',
                 link : function (scope, element, attrs) {
-                    element.on('click', function () {
-                        
-                        scope.CostEstimate.Components[scope.index].Details.Sum          =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2 
-                        scope.CostEstimate.Components[scope.index].Statistics.Sum       =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 
-                        scope.CostEstimate.Components[scope.index].Logistics.Sum        =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 
-                        scope.CostEstimate.Components[scope.index].CadCam.Sum           =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2 
+                    element.on('keyup', function () {
+                        // alert("ok");
+                         
+                        // scope.CostEstimate.Components[scope.index].Details.Sum          =    3  scope.CostEstimate.Components[scope.index].complexity
+                        scope.CostEstimate.Components[scope.index].Details.Sum          =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2 
+                        scope.CostEstimate.Components[scope.index].Statistics.Sum       =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 
+                        scope.CostEstimate.Components[scope.index].Logistics.Sum        =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 
+                        scope.CostEstimate.Components[scope.index].CadCam.Sum           =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2 
 
-                        scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =   parseInt(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
-                                                                                            parseInt(scope.CostEstimate.Components[scope.index].Statistics.PriceM2)  + 
-                                                                                            parseInt(scope.CostEstimate.Components[scope.index].CadCam.PriceM2)      + 
-                                                                                            parseInt(scope.CostEstimate.Components[scope.index].Logistics.PriceM2) 
-
-                        scope.CostEstimate.Components[scope.index].TotalCost.Sum        =   parseInt(scope.CostEstimate.Components[scope.index].Details.Sum)     + 
-                                                                                            parseInt(scope.CostEstimate.Components[scope.index].Statistics.Sum)  + 
-                                                                                            parseInt(scope.CostEstimate.Components[scope.index].CadCam.Sum)      + 
-                                                                                            parseInt(scope.CostEstimate.Components[scope.index].Logistics.Sum) 
+                        scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =   Number(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
+                                                                                            Number(scope.CostEstimate.Components[scope.index].Statistics.PriceM2)  + 
+                                                                                            Number(scope.CostEstimate.Components[scope.index].CadCam.PriceM2)      + 
+                                                                                            Number(scope.CostEstimate.Components[scope.index].Logistics.PriceM2) 
+                
+                        scope.CostEstimate.Components[scope.index].TotalCost.Sum        =   Number(scope.CostEstimate.Components[scope.index].Details.Sum)     + 
+                                                                                            Number(scope.CostEstimate.Components[scope.index].Statistics.Sum)  + 
+                                                                                            Number(scope.CostEstimate.Components[scope.index].CadCam.Sum)      + 
+                                                                                            Number(scope.CostEstimate.Components[scope.index].Logistics.Sum)
                         let $sqmTotal           =   0;
                         let $complexity         =   0;
                         let $DetailsPriceM2     =   0;
@@ -774,18 +834,18 @@
                         let $TotalCostSum       =   0;
 
                         scope.CostEstimate.Components.map( (item, index) => {
-                            $sqmTotal           +=  parseFloat(item.sqm); 
-                            $complexity         +=  parseFloat(item.complexity); 
-                            $DetailsPriceM2     +=  parseFloat(item.Details.PriceM2); 
-                            $DetailsSum         +=  parseFloat(item.Details.Sum);
-                            $StatisticsPriceM2  +=  parseFloat(item.Statistics.PriceM2);
-                            $StatisticsSum      +=  parseFloat(item.Statistics.Sum);
-                            $CadCamPriceM2      +=  parseFloat(item.CadCam.PriceM2);
-                            $CadCamSum          +=  parseFloat(item.CadCam.Sum);
-                            $LogisticsPriceM2   +=  parseFloat(item.Logistics.PriceM2);
-                            $LogisticsSum       +=  parseFloat(item.Logistics.Sum);
-                            $TotalCostPriceM2   +=  parseFloat(item.TotalCost.PriceM2);
-                            $TotalCostSum       +=  parseFloat(item.TotalCost.Sum);
+                            $sqmTotal           +=  Number(item.sqm); 
+                            $complexity         +=  Number(item.Complexity);
+                            $DetailsPriceM2     +=  Number(item.Details.PriceM2); 
+                            $DetailsSum         +=  Number(item.Details.Sum);
+                            $StatisticsPriceM2  +=  Number(item.Statistics.PriceM2);
+                            $StatisticsSum      +=  Number(item.Statistics.Sum);
+                            $CadCamPriceM2      +=  Number(item.CadCam.PriceM2);
+                            $CadCamSum          +=  Number(item.CadCam.Sum);
+                            $LogisticsPriceM2   +=  Number(item.Logistics.PriceM2);
+                            $LogisticsSum       +=  Number(item.Logistics.Sum);
+                            $TotalCostPriceM2   +=  Number(item.TotalCost.PriceM2);
+                            $TotalCostSum       +=  Number(item.TotalCost.Sum);
                         });
 
                         scope.CostEstimate.ComponentsTotals.sqm                 = $sqmTotal;
@@ -813,6 +873,7 @@
                                                                                 $LogisticsSum +
                                                                                 $TotalCostPriceM2 +
                                                                                 $TotalCostSum ;
+                        scope.$apply();
                     });
                 },
             };

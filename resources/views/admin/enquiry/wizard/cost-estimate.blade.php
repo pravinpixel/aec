@@ -72,44 +72,46 @@
                                 </select>
                             </td>
 
-                            <td style="padding:0px !important"><input get-cost-details-total ng-keyup="getCostDetailsTotal(index)" type="number" min="0" ng-model="C.sqm" ng-value="masterData.sqm" name="sqm" class="my-control"></td>
-                            <td style="padding:0px !important"><input get-cost-details-total ng-keyup="getCostDetailsTotal(index)" type="number" min="0" ng-model="C.complexity"  ng-value="masterData.complexity" name="complexity" class="my-control"></td>
+                            <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control"> </td>
+
+                            <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.Complexity" name="complexity" class="my-control"></td>
         
                             {{-- Details --}}
-                            <td style="background: var(--primary-bg-light) !important">
-                                <input get-cost-details-total ng-keyup="getCostDetailsTotal(index)" type="number" min="0" class="my-control"  ng-model="C.Details.PriceM2" ng-value="masterData.detail_price" name="detail_price">
+                            <td>
+                                <input  get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.Details.PriceM2" name="detail_price">
                             </td>
+
                             <td style="background: var(--primary-bg-light) !important">
-                                <input disabled type="text" class="my-control" ng-model="C.Details.Sum" name="detail_sum">
+                                <input disabled type="text" onkeypress="return isNumber(event)" class="my-control" ng-model="C.Details.Sum" name="detail_sum">
                             </td>
         
                             {{-- Statistics --}}
-                            <td style="background:  var(--primary-bg-light) !important">
-                                <input type="number" min="0" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" class="my-control"  ng-model="C.Statistics.PriceM2"  ng-value="masterData.statistic_price" name="statistic_price">
+                            <td>
+                                <input type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" class="my-control"  ng-model="C.Statistics.PriceM2" name="statistic_price">
                             </td>
                             <td style="background:  var(--primary-bg-light) !important">
-                                <input disabled type="number" min="0" class="my-control"  ng-model="C.Statistics.Sum" ng-value="masterData.statistic_sum" name="statistic_sum">
+                                <input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.Statistics.Sum" name="statistic_sum">
                             </td>
         
                             {{-- CAD/CAM --}}
-                            <td style="background:  var(--primary-bg-light) !important">
-                                <input  type="number" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.CadCam.PriceM2" ng-value="masterData.cad_cam_price" name="cad_cam_price">
+                            <td>
+                                <input  type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.CadCam.PriceM2" name="cad_cam_price">
                             </td>
-                            <td style="background:  var(--primary-bg-light) !important">
-                                <input disabled type="number" min="0" class="my-control" ng-model="C.CadCam.Sum" ng-value="masterData.cad_cam_sum" name="cad_cam_sum">
+                            <td>
+                                <input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.CadCam.Sum" name="cad_cam_sum">
                             </td>
         
                             {{-- Logistics --}}
-                            <td style="background:  var(--primary-bg-light) !important">
-                                <input  type="number" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.Logistics.PriceM2" ng-value="masterData.logistic_price" name="logistic_price">
+                            <td>
+                                <input  type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.Logistics.PriceM2" name="logistic_price">
                             </td>
                             <td style="background:  var(--primary-bg-light) !important">
-                                <input disabled  type="number" min="0" class="my-control" ng-model="C.Logistics.Sum" ng-value="masterData.logistic_sum" name="logistic_sum">
+                                <input disabled  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Logistics.Sum"  name="logistic_sum">
                             </td>
         
                             {{-- Total Cost --}}
-                            <td><input disabled type="number" min="0" class="my-control" ng-value="C.TotalCost.PriceM2" name="total_price"></td>
-                            <td><input disabled type="number" min="0" class="my-control" ng-value="C.TotalCost.Sum" name="total_sum"></td>
+                            <td><input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_price" ng-model="C.TotalCost.PriceM2"></td>
+                            <td><input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_sum" ng-model="C.TotalCost.Sum"></td>
                             <td class="text-center" style="padding: 0 !important">
                                 <i ng-click="delete(index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
                             </td>
@@ -139,7 +141,7 @@
             <div class="col-12 shadow text-dark bg-white border p-2 rounded">
                 {{-- <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4> --}}
                 <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
-            </div>
+            </div>  
         </div>
     </div>
     <div class="card-footer border-0">
