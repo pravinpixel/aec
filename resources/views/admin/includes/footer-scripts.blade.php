@@ -55,7 +55,14 @@
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
-
+<script>
+    function isNumber(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+            return true;
+        }
+</script>
 
 <!-- ========= For Vendors Js ===========-->
 <!-- ========= For Validation Js ===========-->

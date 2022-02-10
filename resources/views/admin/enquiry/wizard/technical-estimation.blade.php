@@ -76,7 +76,7 @@
                                             <input type="text"  required placeholder="Type here.." ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
                                         </td>
                                         <td  style="padding:0 !important" > 
-                                            <input type="number"  min="0" required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
+                                            <input type="number" onkeypress="return isNumber(event)" min="0" required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
                                         </td>
                                         <td class="text-center"  style="padding:0 !important">
                                             <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="mdi mdi-delete"></i></a>
