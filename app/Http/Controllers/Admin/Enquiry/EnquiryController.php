@@ -104,6 +104,7 @@ class EnquiryController extends Controller
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
         $result["enquiry_comments"]     =   $this->customerEnquiryRepo->getEnquiryComments($id);
         $result["enquiry_id"]           =   $enquiry->id;
+        $result["enquiry_status"]       =   $enquiry->customer_response;
         $result["enquiry"]              =   $this->customerEnquiryRepo->formatEnqInfo($enquiry);
         $result['project_info']         =   $this->customerEnquiryRepo->formatProjectInfo($enquiry);
         $result['services']             =   $this->formatServices($outputTypes, $services);

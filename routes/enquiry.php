@@ -63,9 +63,19 @@ Route::prefix('admin')->group(function () {
     Route::get('/proposal/view/{id}',[ProposalController::class,'index'])->name('index.proposal-sharing');
     Route::get('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'edit'])->name('edit.proposal-sharing');
     Route::put('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'update'])->name('update.proposal-sharing');
+
+    Route::get('/proposal/enquiry/{id}/edit/{proposal_id}/version/{Vid}',[ProposalController::class,'editVersions']);
+    Route::put('/proposal/enquiry/{id}/edit/{proposal_id}/version/{Vid}',[ProposalController::class,'updateVersions']);
+
     Route::put('/proposal/enquiry/{id}/duplicate/{proposal_id}',[ProposalController::class,'duplicate'])->name('duplicate.proposal-sharing');
     Route::delete('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'destroy'])->name('delete.proposal-sharing');
     Route::get('/proposal/enquiry/{id}/versions/{proposal_id}',[ProposalController::class,'versions']);
 
-    
+    Route::post('/proposal/enquiry/{id}/send-mail/{proposal_id}',[ProposalController::class,'sendMail']);
+    Route::post('/proposal/enquiry/{id}/send-mail/{proposal_id}/version/{Vid}',[ProposalController::class,'sendMailVersion']);
+ 
 });
+Route::get('/approve/{id}/enquiry/{proposal_id}/proposal/{Vid}',[ProposalController::class,'approve'])->name('proposal-approve');
+Route::get('customer-approval/{id}/{type?}',[ProposalController::class,'customerApproval'])->name('customer-approval');
+
+ 

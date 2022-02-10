@@ -46,6 +46,7 @@ class CreateEnquiriesTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers'); 
+            $table->string('customer_response')->default(0);
             $table->timestamps();
         });
     }

@@ -15,11 +15,15 @@ use App\Models\EnquiryTechnicalEstimate;
 use App\Models\EnquiryCostEstimate;
 use App\Models\EnquiryComments;
 use App\Models\Admin\MailTemplate;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Admin\PropoalVersions;
 use Illuminate\Http\Response;
 use App\Models\Service;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $customer;
     protected $enquiryService;
@@ -90,10 +94,28 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     {
         return MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->get();
     }
+    public function getCustomerProPosalVersionByID($id, $proposal_id, $Vid)
+    {
+        return PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->get();
+    }
 
+    public function updateCustomerProPosalVersionByID($id, $proposal_id, $request, $Vid)
+    {
+        $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->update([
+            'documentary_content' =>  $request->mail_content
+        ]);
+        return response(['status' => true, 'msg' => trans('enquiry.proposal_updated')], Response::HTTP_CREATED);
+    }
     public function updateCustomerProPosalByID($id, $proposal_id, $request)
     {
         $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->update([
+            'documentary_content' =>  $request->mail_content
+        ]);
+        return response(['status' => true, 'msg' => trans('enquiry.proposal_updated')], Response::HTTP_CREATED);
+    }
+    public function updateCustomerProPosalByVersionByID($id, $proposal_id, $request, $Vid)
+    {
+        $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->update([
             'documentary_content' =>  $request->mail_content
         ]);
         return response(['status' => true, 'msg' => trans('enquiry.proposal_updated')], Response::HTTP_CREATED);
@@ -118,12 +140,65 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $duplicate  ->  save();  
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }
-    public function getEnquiryComments($id) 
+
+    public function sendCustomerProPosalMail($id, $proposal_id, $request)
+    { 
+        $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
+        $user   = $this->enquiry->with('customer')->find($id);
+        $details = [ 
+            'name'          =>  $user->customer->full_name,
+            'email'         =>  $user->customer->email,
+            'EnqId'         =>  Crypt::encryptString($id),
+            'proposal_id'   =>  Crypt::encryptString($proposal_id),
+            'Vid'           =>  Crypt::encryptString(0),
+        ];  
+
+        Mail::to('prabhukannan1210@gmail.com')->send(new \App\Mail\ProposalMail($details));
+        $result->status =  'sent';
+        $result->save();
+        return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
+    }
+    public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
+    { 
+        $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
+
+       
+
+        $user   = $this->enquiry->with('customer')->find($id);
+         
+        $details = [ 
+            'name'          =>  $user->customer->full_name,
+            'email'         =>  $user->customer->email,
+            'EnqId'         =>  Crypt::encryptString($id),
+            'proposal_id'   =>  Crypt::encryptString($proposal_id),
+            'Vid'     =>  Crypt::encryptString($Vid),
+        ];  
+        Mail::to($user->customer->email)->send(new \App\Mail\ProposalVersions($details));
+        $result->status =  'sent';
+        $result->save();
+        return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
+    }
+    public function aprovalProPosalMail($id, $proposal_id, $Vid, $request)
+    { 
+        $enquiry_id     =   Crypt::decryptString($id);
+        $proposal_id    =   Crypt::decryptString($proposal_id);
+        $Vid            =   Crypt::decryptString($Vid);
+
+        if($Vid == 0) {
+               $result = MailTemplate::where("enquirie_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->first();
+            return view('admin.enquiry.approvals.proposal', compact('result' ,$result));
+        }else {
+            $result = PropoalVersions::where("enquiry_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
+            return view('admin.enquiry.approvals.proposal', compact('result' ,$result));
+        } 
+    }
+    
+    public function getEnquiryComments($id)
     {
         return EnquiryComments::where("enquiry_id", '=', $id)
                                 ->where("type", "=" , "project_infomation")
                                 ->get();
-    }
+    } 
     public function getEnquiryByEnquiryNo($no)
     {
         return $this->enquiry->where('enquiry_number', $no)->first();

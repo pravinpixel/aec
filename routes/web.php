@@ -106,8 +106,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::put('documentary/status/{id}', [DocumentaryController::class,'status'] )->name('documentary.status');
     Route::get('documentaryEdit/{id}', [DocumentaryController::class, 'documentaryEdit'])->name('documentaryEdit');
     Route::resource('documentary', DocumentaryController::class);
-   
-
+ 
 });
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
 

@@ -1,4 +1,4 @@
-<div class="card shadow mx-auto shadow col-md-8 my-4">
+<div class="card shadow mx-auto shadow col-md-8 my-4"  ng-show="enquiry_status == 0">
     <div class="row border-bottom m-0">
         <div class="p-0 col-md-4 bg-warning d-flex justify-content-center align-items-center">
             <i class="fa fa-warning fa-3x text-white"></i>
@@ -31,8 +31,8 @@
     </div>
 </div>
  
-<div class="card shadow mx-auto shadow col-md-8 my-4">
-    <div class="row border-bottom m-0">
+<div class="card shadow mx-auto shadow col-md-8 my-4" ng-show="enquiry_status == 1">
+    <div class="row border-bottom m-0" >
         <div class="p-0 col-md-4 bg-success d-flex justify-content-center align-items-center">
             <i class="fa fa-check-circle fa-3x text-white"></i>
         </div>
@@ -59,6 +59,20 @@
             <button class="btn btn-primary p-3 py-2"> <i class="fa fa-check-circle me-1 text-white"></i> Assign </button>
         </div>
     </div>
+</div> 
+
+<div class="card shadow mx-auto col-md-4 my-4" ng-show="enquiry_status == 2">
+    <div class="row border-bottom m-0">
+        <div class="p-0 col-md-12 py-2 bg-danger d-flex justify-content-center align-items-center">
+            <i class="fa fa-times-circle fa-3x text-white"></i>
+        </div>
+        <div class="col-md-12">
+            <div class="card-body text-center p-2">
+                <small class="card-text text-secondary">Response status</small>
+                <h3 class="card-title m-0">Denined</h3>
+            </div>
+        </div>
+    </div> 
 </div> 
 
 @if (Route::is('enquiry.move-to-project')) 

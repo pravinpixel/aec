@@ -186,7 +186,8 @@
                 templateUrl : "{{ route('enquiry.response-status') }}"
             })
             .when("/move-to-project", {
-                templateUrl : "{{ route('enquiry.move-to-project') }}"
+                templateUrl : "{{ route('enquiry.move-to-project') }}",
+                controller : "Customer_response"
             })
             .otherwise({
                 redirectTo: '{{ route('enquiry.project-summary') }}'
@@ -550,14 +551,28 @@
             }
         });
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
-
-            // List Proposesal data
+             
             $scope.getProposesalData = function () {
                 $http.get('{{ route("index.proposal-sharing",$data->id) }}').then(function (res) {
                     $scope.proposal  = res.data;
                 });
             }
             $scope.getProposesalData();
+
+            $scope.sendMailToCustomer = function (proposal_id) { 
+                $http.post(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/send-mail/'+proposal_id).then(function (response) {
+                    Message('success',response.data.msg);
+                    $scope.getProposesalData();
+                });
+            }
+
+            $scope.sendMailToCustomerVersion = function (proposal_id , Vid) { 
+                $http.post(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/send-mail/'+proposal_id+'/version/'+Vid).then(function (response) {
+                    Message('success',response.data.msg);
+                    $scope.getProposesalData();
+                });
+            }
+            
             // View Propose Data
             $scope.ViewEditPropose = function (proposal_id) {
                 $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
@@ -566,6 +581,16 @@
                     $scope.proposalId = $scope.edit_proposal[0].proposal_id;
                 });
                 $('#bs-Preview-modal-lg').modal('show');
+            }
+            $scope.ViewEditProposeVersions = function (proposal_id , Vid) {
+                $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id+'/version/'+Vid).then(function (response) {
+                    $scope.edit_proposal  = response.data;
+                    $scope.mail_content = $scope.edit_proposal[0].documentary_content;
+                    $scope.proposalVersionId = $scope.edit_proposal[0].proposal_id;
+                    $scope.proposalVId = $scope.edit_proposal[0].id;
+                  
+                });
+                $('#bs-PreviewVersions-modal-lg').modal('show');
             }
 
             // ViewPropsalVersions
@@ -588,16 +613,39 @@
             $scope.DeletePropose = function (proposal_id) {
                 $http.delete(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
                     Message('success',response.data.msg);
+                    $scope.getProposesalData();
                 });
             }
             
             $scope.updateProposalMail = function(proposalId) {
+
                 $scope.sendCommentsData = {
                     "mail_content"  : $scope.mail_content
                 }
+
                 $http({
                     method: "PUT",
                     url: API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposalId ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            $scope.updateProposalVersionMail = function() {
+
+                $scope.sendCommentsData = {
+                    "mail_content"  : $scope.mail_content
+                }
+
+                $http({
+                    method: "PUT",
+                    url: API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+$scope.proposalVersionId+'/version/'+$scope.proposalVId,
                     data: $.param($scope.sendCommentsData),
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded' 
@@ -766,5 +814,15 @@
                 },
             };
         }]);
+        app.controller('Customer_response', function ($scope, $http, API_URL) {
+            // enquiry.show-comments
+            $scope.GetCommentsData = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                    $scope.enquiry_status = res.data.enquiry_status;
+                  
+                });
+            }
+            $scope.GetCommentsData();
+        });
     </script>  
 @endpush

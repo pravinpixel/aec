@@ -41,16 +41,7 @@
 
                             </form>
                         </div> <!-- end card-body -->
-                    </div>
-                    <!-- end card -->
-{{-- 
-                    <div class="row mt-3">
-                        <div class="col-12 text-center">
-                            <p class="text-muted">Don't have an account? <a href="#" class="text-muted ms-1"><b>Contact us</b></a></p>
-                        </div> <!-- end col -->
-                    </div> --}}
-                    <!-- end row -->
-
+                    </div> 
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
