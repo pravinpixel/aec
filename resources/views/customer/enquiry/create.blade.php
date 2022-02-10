@@ -1058,6 +1058,7 @@
                         $scope[`file${filename}`] = '';
                         delete $scope[`file${filename}`];
                         callPromise = false;
+                        angular.element("input[type='file']").val(null);
                         $(`#link${filename}`).val('');
                         Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
