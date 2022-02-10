@@ -336,6 +336,9 @@
                         $scope.enquiry_number       = res.data.enquiry_number;
                         $scope.enquiry_comments     = res.data.enquiry_comments;
                         $scope.enquiry_id           = res.data.enquiry_id;
+                        $scope.project_info         = res.data.enquiry_comments;
+                        $scope.project_info         = res.data.project_info;
+                        $scope.building_component   = res.data.building_component;
                     });
                 }
                 $scope.showTechCommentsToggle = function (modalstate, type, docId) {

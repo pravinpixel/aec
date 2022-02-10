@@ -124,6 +124,23 @@
                     </ul>
                 </div>
             </div>
+            <div class="card mt-lg-5" ng-show="project_info.building_component_process_type == 1">
+                <div class="card-header">
+                    <h4 class="m-0">Building Component Doc's </h4>
+                </div>
+                <ul class="list-group mt-0" ng-repeat="building_comp in building_component">
+                    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ps-2">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <div class="d-flex flex-column over" >
+                                    <small class="text-secondary">@{{  building_comp.created_at }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <a target="_child" href="{{ asset("public/uploads/") }}/@{{ building_comp.file_path }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                    </li>
+                </ul>
+            </div>
         </div> 
         <div class="col-12 p-3">
             <div class="row m-0">
