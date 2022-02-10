@@ -33,7 +33,7 @@ use App\Http\Controllers\Auth\AuthController;
 |
 */
 Route::get('/', function () {
-    return redirect(route('admin-login'));
+    return redirect(route('admin.login'));
 });
  
 /** ===== Admin Routes ======*/
@@ -43,7 +43,7 @@ Route::prefix('admin')->group(function () {
     // ======== Auth========== 
 
     Route::get('/', function () {
-        return redirect(route('admin-login'));
+        return redirect(route('admin.login'));
     });
     Route::get('/settings', function () {
         return  view('admin.settings');
