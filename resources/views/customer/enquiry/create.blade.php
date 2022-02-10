@@ -24,7 +24,7 @@
                     <div id="rootwizard" ng-controller="wizard">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                             <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
-                                <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
+                                <a href="#!/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-project-diagram fa-2x "></i>
@@ -34,7 +34,7 @@
                                 </a>
                             </li>
                             <li class="nav-item serviceSelection" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
-                                <a href="#/service" style="min-height: 40px;" class="timeline-step" id="service">
+                                <a href="#!/service" style="min-height: 40px;" class="timeline-step" id="service">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
@@ -45,7 +45,7 @@
                                 </a>
                             </li>
                             <li class="nav-item IFCModelUpload" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload"  style="pointer-events:none">
-                                <a href="#/ifc-model-upload" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload">
+                                <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
@@ -56,7 +56,7 @@
                                 </a>
                             </li>
                             <li class="nav-item buildingComponent" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
-                                <a href="#/building-component"  style="min-height: 40px;" class="timeline-step" id="building-component">
+                                <a href="#!/building-component"  style="min-height: 40px;" class="timeline-step" id="building-component">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
@@ -67,7 +67,7 @@
                                 </a>
                             </li>
                             <li class="nav-item additionalInformation" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
-                                <a href="#/additional-info" style="min-height: 40px;" class="timeline-step" id="additional-info">
+                                <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step" id="additional-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-info mb-1"></i>
@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                             <li class="nav-item last reviewSubmit"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
-                                <a href="#/review" style="min-height: 40px;"  class="timeline-step" id="review">
+                                <a href="#!/review" style="min-height: 40px;"  class="timeline-step" id="review">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-clipboard-check mb-1"></i>

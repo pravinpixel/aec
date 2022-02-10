@@ -377,7 +377,7 @@
             
         </ul>
         <div class="row m-0">
-            <div class="col-6"><a href="#/additional-info" class="btn btn-light border shadow-sm">Prev</a></div>
+            <div class="col-6"><a href="#!/additional-info" class="btn btn-light border shadow-sm">Prev</a></div>
             <div class="col-6 text-end">
                 <div class="btn-group">
                     <button class="next me-2 btn btn-light rounded border"  ng-click="saveOrSubmit('In-Complete')"> Save & Submit Later </button>
