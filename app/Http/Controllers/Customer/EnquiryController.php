@@ -392,6 +392,7 @@ class EnquiryController extends Controller
             'project_type'         =>  $enquiry->projectType,
             'delivery_type'        => $enquiry->deliveryType,
             'building_component_process_type' => $enquiry->building_component_process_type,
+            'status'               => $enquiry->status,
         ];
     }
 

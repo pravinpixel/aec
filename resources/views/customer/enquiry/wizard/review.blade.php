@@ -147,7 +147,7 @@
                             <button class="btn btn-primary rounded-pill" ng-click="sendComments('selected_service','Customer')"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
+                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'selected_service', 'Selected Services')">
                                 <i class="fa fa-eye"></i>  Previous chat history
                             </a>
                         </div>
@@ -378,7 +378,7 @@
         </ul>
         <div class="row m-0">
             <div class="col-6"><a href="#!/additional-info" class="btn btn-light border shadow-sm">Prev</a></div>
-            <div class="col-6 text-end">
+            <div class="col-6 text-end" ng-show="project_info.status == 'In-Complete'">
                 <div class="btn-group">
                     <button class="next me-2 btn btn-light rounded border"  ng-click="saveOrSubmit('In-Complete')"> Save & Submit Later </button>
                     <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Active')">Submit </button>
