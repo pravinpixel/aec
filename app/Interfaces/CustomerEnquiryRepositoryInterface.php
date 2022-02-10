@@ -38,6 +38,8 @@ interface CustomerEnquiryRepositoryInterface
 
     public function storeTechnicalEstimateCost($enquiry,$data);
 
+    public function storeCostEstimation($enquiry,$data);
+
     public function updateTechnicalEstimateCost($enquiry,$data);
 
     public function getBuildingComponent($enquiry);

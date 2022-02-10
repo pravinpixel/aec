@@ -173,6 +173,9 @@ class EnquiryController extends Controller
             }
         } else if($type == 'building_component_upload') {
             $result = $this->storeBuildingComponentUpload($request, $enquiry);
+            $buildingComponents = $this->buildingComponent->all();
+            $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$buildingComponents);
+            $this->customerEnquiryRepo->storeCostEstimation($enquiry ,$buildingComponents);
             if($result) {
                 return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
             }
@@ -303,8 +306,9 @@ class EnquiryController extends Controller
             }
         } else if($type == 'building_component_upload') {
             $result = $this->storeBuildingComponentUpload($request, $enquiry);
-            $this->StoreTechnicalEstimation($data, $enquiry);
-            $this->StoreCostEstimation($data, $enquiry);
+            $buildingComponents = $this->buildingComponent->all();
+            $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$buildingComponents);
+            $this->customerEnquiryRepo->storeCostEstimation($enquiry ,$buildingComponents);
             if($result) {
                 return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
             }
