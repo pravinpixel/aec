@@ -15,10 +15,11 @@ use App\Models\EnquiryTechnicalEstimate;
 use App\Models\EnquiryCostEstimate;
 use App\Models\EnquiryComments;
 use App\Models\Admin\MailTemplate;
+use App\Models\Admin\PropoalVersions;
 use Illuminate\Http\Response;
 use App\Models\Service;
 use Carbon\Carbon;
-
+use DB;
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $customer;
     protected $enquiryService;
@@ -75,12 +76,15 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getCustomerProPosal($id)
     {
-        return $proposal = MailTemplate::where("enquirie_id", '=', $id)->where('reference_no' , '=', 0)->get();
+        return MailTemplate::where("enquirie_id", '=', $id)
+                            ->with('getVersions')
+                            ->get();
          
     }
     public function getCustomerProPosalVersions($id, $proposal_id)
     {
-        return  MailTemplate::where("enquirie_id", '=', $id)->where('reference_no' , '=', $proposal_id)->get();
+        $data =  MailTemplate::where("enquirie_id", '=', $id)->where('reference_no' , '=', $proposal_id)->get();
+        
     }
     public function getCustomerProPosalByID($id, $proposal_id)
     {
@@ -103,11 +107,14 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
     { 
         $result     =   MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
-        $duplicate  =   $result->replicate();
-        $duplicate  ->  created_at      = Carbon::now();
-        $duplicate  ->  reference_no    = $result->proposal_id;
-        $duplicate  ->  status          = 'awaiting';
-
+        $duplicate  =  new PropoalVersions;
+        $duplicate  ->  proposal_id         = $proposal_id;
+        $duplicate  ->  parent_id           = $result->proposal_id; 
+        $duplicate  ->  enquiry_id          = $id; 
+        $duplicate  ->  documentary_id      = $result->documentary_id; 
+        $duplicate  ->  documentary_date    = $result->documentary_date; 
+        $duplicate  ->  documentary_content = $result->documentary_content; 
+        $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
         $duplicate  ->  save();  
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }

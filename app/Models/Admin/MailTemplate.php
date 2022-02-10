@@ -25,5 +25,12 @@ class MailTemplate extends Model
         'is_mail_sent',
         'is_active',
         'status',
-    ];
+    ];  
+
+    public function getVersions()
+    {
+        return  $this->hasMany(PropoalVersions::class, 'parent_id','proposal_id');
+    }
+
+    
 }
