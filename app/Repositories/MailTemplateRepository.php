@@ -8,11 +8,11 @@ use App\Models\Admin\MailTemplate;
 use App\Models\Enquiry;
 use App\Models\Customer;
 use App\Models\Documentary\Documentary;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-
-
+use Nette\Utils\Html;
 
 class MailTemplateRepository implements MailTemplateRepositoryInterface{
     
@@ -91,33 +91,47 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
     }
     public function getDocumentaryOneData($request)
     {
-            $enquiry  =  Enquiry::where('id',$request->enquireId)->first()->toArray();
+            $enquiry  =  Enquiry::where('id',$request->enquireId)->select('id','enquiry_date','enquiry_number',
+            'contact_person','customer_id','service_id','building_type_id','delivery_type_id',
+            'project_name', 'project_date', 'place', 'site_address','country','zipcode','state','no_of_building','project_delivery_date','project_info','service',
+            'ifc_model_upload','building_component','additional_info')->first()->toArray();
+
             $document =  Documentary::where('id',$request->documentId)->first();
-            $customer =  Customer::where('id',$enquiry['customer_id'])->first()->toArray();
+
+            $customer =  Customer::where('id',$enquiry['customer_id'])->select('id','customer_enquiry_date as  customer_enquiryDate','first_name','last_name','full_name','email','mobile_no','company_name',
+            'contact_person')->first()->toArray();
+
             $countRow =  MailTemplate::where('enquirie_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
-            $enquiryNum =  str_replace('/','_',$enquiry['enquiry_number']); 
+
+            $logo = Config::get('documentary.logo.key');
+            // return $logo;
+            $enquiryNum =  str_replace('/','_',$enquiry['enquiry_number']);
             $fileName   =  $enquiryNum.'_'.$document['documentary_title'].'_'.'R'.$countRow;
-        // return ($fileName);
-        $datas = array_merge($enquiry,$customer);      
+            // return ($customer);
+            $datas = array_merge($enquiry,$customer);  
+          
+            $lo ='<img width="150px" src="'.asset($logo).'" alt="">';
+            $logo_url = ['Logo'=>$lo];
+            $datas = array_merge($datas,$logo_url);   
+            $documentData =[];
+            $changeData =[];
+            $changeData = $datas;
+            $documentData = $document['documentary_content'];
+            // $documentData = str_replace('_',"",$documentData);
+            $keyData       = array_keys($changeData);
+            // $keyData = str_replace('_',"",$keyData);
+            $valueData    = array_values($changeData);
+            $new_string = str_replace($keyData, $valueData,strval($documentData));
 
-        $documentData =[];
-        $changeData =[];
-        $changeData = $datas;
-        $documentData = $document['documentary_content'];
-        $documentData;
-        $keyData       = array_keys($changeData);
-        $valueData    = array_values($changeData);
-        $new_string = str_ireplace($keyData, $valueData, $documentData);
+            // return $new_string;
+            $search = array('{','}');
+            $newDocumentData = str_replace($search,"",$new_string);
 
-        //removing {}
-        $search = array('{','}');
-        $newDocumentData = str_replace($search,"",$new_string);
-    
-        $document['documentary_content'] = $newDocumentData;
-       
-        $data = array(
-            'enquiry'=>$enquiry,'document'=>$document,'customer'=>$customer,'fileName'=>$fileName
-        );
+            $document['documentary_content'] = $newDocumentData;
+        
+            $data = array(
+                'enquiry'=>$enquiry,'document'=>$document,'customer'=>$customer,'fileName'=>$fileName
+            );
 
         return ($data);
     }

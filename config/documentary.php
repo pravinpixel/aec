@@ -5,18 +5,18 @@ return [
 
 
     'enquiries' => [
-        'Id' =>"id",
+        // 'Id' =>"id",
         'Enquiry Date' => "enquiry_date",
         'Enquiry Number' => "enquiry_number",
-        'Company Name' => "company_name",
+        // 'Company Name' => "company_name",
         'Contact Person' => "contact_person",
-        'Mobile Number' => "mobile_no",
-        'Secondary Mobile Number' => "secondary_mobile_no",
-        'Customer Id' => "customer_id",
+        // 'Mobile Number' => "mobile_no",
+        // 'Secondary Mobile Number' => "secondary_mobile_no",
+        // 'Customer Id' => "customer_id",
         'Service Id' => "service_id",
-        'Building Type Id' => "building_type_id",
-        'Delivery Type Id' => "delivery_type_id",
-        'Project Type Id' => "project_type_id",
+        // 'Building Type Id' => "building_type_id",
+        // 'Delivery Type Id' => "delivery_type_id",
+        // 'Project Type Id' => "project_type_id",
         'Project Name' => "project_name",
         'Project Date' => "project_date",
         'Place' => "place",
@@ -31,14 +31,14 @@ return [
         'Service' => "service",
         'Ifc Model Upload' => "ifc_model_upload",
         'Building Component' => "building_component",
-        'Active' => "is_active",
+        // 'Active' => "is_active",
 
     ],
 
     
     'customers' => [
-        'Id' =>"id",
-        'Customer Enquiry Date' => "customer_enquiry_date",
+        // 'Id' =>"id",
+        'Customer Enquiry Date' => "customer_enquiryDate",
         'First Name' =>"first_name",
         'Last Name' =>"last_name",
         'Full Name' =>"full_name",
@@ -48,8 +48,8 @@ return [
         'Mobile Number' =>"mobile_no",
         'Company Name' =>"company_name",
         'Contact Person' =>"contact_person",
-        'Remarks' =>"remarks",
-        'Active' =>"is_active",    
+        // 'Remarks' =>"remarks",
+        // 'Active' =>"is_active",    
     ],
     
     'userData'=>[
@@ -59,7 +59,7 @@ return [
         'CRM URL'=>"crm_url",
         'Admin URL'=>"admin_url",
         'Main Domain'=>"main_domain",
-        'Company Name'=>"companyname",
+        // 'Company Name'=>"companyname",
         'Email Signature'=>"email_signature",
     ],
     'logo'=>[

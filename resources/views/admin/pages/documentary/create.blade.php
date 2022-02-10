@@ -62,7 +62,7 @@
                                                 <td style="font-size: 15px;">Offer: {offer_no}  Revision: {revision_no},<br>
                                                 <br>
                                                 <strong style="font-size: 15px;"> To</strong><br>
-                                                <strong style="font-size: 15px;">{customer_name}</strong><br>
+                                                <strong style="font-size: 15px;">{full_name}</strong><br>
                                                 <strong style="font-size: 15px;">{(ORG.no)}</strong><br>
                                               
                                                 <strong style="font-size: 15px;">{customer_address}</strong><br>
@@ -391,7 +391,7 @@
                             $('#dataEnquire').append(`
                            
                             <tr>
-                                <td>${key} :  <a href="">{${value}}</a></td>
+                                <td>${key} :  <span style="color: blue;">{${value}}</span></td>
                             <tr>
                             `);
 
@@ -415,7 +415,7 @@
                             $('#dataCustomer').append(`
                            
                             <tr>
-                                <td>${key} :  <a href="">{${value}}</a></td>
+                                <td>${key} :  <span style="color: blue;">{${value}}</span></td>
                             <tr>
                             `);
 
@@ -438,7 +438,7 @@
                         $.each(msg.data,function(key,value){
                             $('#userData').append(`
                             <tr>
-                                <td>${key} :  <a href="">{${value}}</a></td>
+                                <td>${key} :  <span style="color: blue;">{${value}}</span></td>
                             <tr>
                             `);
 

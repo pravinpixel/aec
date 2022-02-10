@@ -312,7 +312,7 @@
                             $('#dataEnquire').append(`
                            
                             <tr>
-                                <td>${key} :  <a href="">{${value}}</a></td>
+                                <td>${key} :  <span style="color: blue;">{${value}}</span></td>
                             <tr>
                             `);
 
@@ -347,7 +347,7 @@
                             $('#dataCustomer').append(`
                            
                             <tr>
-                                <td>${key} :  <a href="">{${value}}</a></td>
+                                <td>${key} :  <span  style="color: blue;">{${value}}</span></td>
                             <tr>
                             `);
 
@@ -370,7 +370,7 @@
                         $.each(msg.data,function(key,value){
                             $('#userData').append(`
                             <tr>
-                                <td>${key} :  <a href="">{${value}}</a></td>
+                                <td>${key} :  <span  style="color: blue;">{${value}}</span></td>
                             <tr>
                             `);
 

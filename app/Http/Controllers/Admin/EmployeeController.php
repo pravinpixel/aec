@@ -24,7 +24,7 @@ class EmployeeController extends Controller
     }
     public function employee_add()
     {
-        return view('admin.pages.employee.employee-add');
+        return view('admin.pages.employee.index');
     }
 
     public function employeeRole()

@@ -125,6 +125,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::POST('update-employee/{id}', [EmployeeController::class, 'updateEmployee'])->name('update-employee');
     Route::get('employee-enquiry/{id}', [EmployeeController::class, 'employee_enquiry'])->name('employee-enquiry');
     Route::get('employee',[ EmployeeController::class,'employee'])->name('employee');
+
+    // Route::get('profile-info',[EmployeeController::class,'profileInfo'])->name('profile-info');
+    // Route::get('share-ponit-access',[EmployeeController::class,'profileInfo'])->name('share-ponit-access');
+    // Route::get('ibm-access',[EmployeeController::class,'profileInfo'])->name('ibm-access');
+
+    Route::get('profile-info',  function() {
+        return view('admin.pages.employee.employee-add');
+    })->name('profile-info');
+    Route::get('share-ponit-access',  function() {
+        return view('admin.pages.employee.share-point-access');
+    })->name('share-ponit-access');
+    Route::get('ibm-access',  function() {
+        return view('admin.pages.employee.ibm-access');
+    })->name('ibm-access');
     
 });
 

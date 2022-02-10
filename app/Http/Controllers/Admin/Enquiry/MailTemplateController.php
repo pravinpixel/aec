@@ -160,8 +160,8 @@ class MailTemplateController extends Controller
         $mailData->documentary_id = $data['document']['id'];
         $mailData->documentary_content = $data['document']['documentary_content'];
         $mailData->documentary_date = date('Y-m-d');
+        $mailData->template_name =  $title;
         $mailData->pdf_file_name = $fileName;
-        $mailData->reference_no = "";
         $res =  $mailData->save();
         if($res)
         {
