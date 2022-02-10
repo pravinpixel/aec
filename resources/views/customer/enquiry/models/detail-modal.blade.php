@@ -174,12 +174,12 @@
                                         </ul>
                                     </li>
                                 </ul>  
-                                <form id="service__commentsForm" ng-submit="sendComments('service','Customer')" class="input-group mt-3">
-                                    <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <form id="selected_service__commentsForm" ng-submit="sendComments('selected_service','Customer')" class="input-group mt-3">
+                                    <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
+                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'selected_service', 'Selected Services')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div>
@@ -231,8 +231,8 @@
                                         </tbody>
                                     </thead>
                                 </table>
-                                <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Customer')" class="input-group mt-3">
-                                    <input required type="text" ng-model="ifc_model__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <form id="IFC_Models_Upload_Docs__commentsForm" ng-submit="sendComments('IFC_Models_Upload_Docs','Customer')" class="input-group mt-3">
+                                    <input required type="text" ng-model="IFC_Models_Upload_Docs__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
@@ -327,12 +327,12 @@
                                     
                                     </table> 
                                 </div> 
-                                <form id="building_component__commentsForm" ng-submit="sendComments('building_component','Customer')" class="input-group mt-3">
-                                    <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Customer')" class="input-group mt-3">
+                                    <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_component', 'Building Components')">
+                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div> 
@@ -366,12 +366,12 @@
                                         </thead>
                                     </table>
                                 </div>
-                                <form id="building_component__commentsForm" ng-submit="sendComments('building_component','Customer')" class="input-group mt-3">
-                                    <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Customer')" class="input-group mt-3">
+                                    <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_component', 'Building Components')">
+                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div> 
