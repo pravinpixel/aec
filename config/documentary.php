@@ -13,7 +13,7 @@ return [
         // 'Mobile Number' => "mobile_no",
         // 'Secondary Mobile Number' => "secondary_mobile_no",
         // 'Customer Id' => "customer_id",
-        'Service Id' => "service_id",
+        'Service Id' => "serviceId",
         // 'Building Type Id' => "building_type_id",
         // 'Delivery Type Id' => "delivery_type_id",
         // 'Project Type Id' => "project_type_id",
@@ -26,7 +26,7 @@ return [
         'State' => "state",
         'No Of Building' => "no_of_building",
         'Project Delivery Date' => "project_delivery_date",
-        'Status' => "status",
+        // 'Status' => "status",
         'Project Info' => "project_info",
         'Service' => "service",
         'Ifc Model Upload' => "ifc_model_upload",
@@ -39,8 +39,8 @@ return [
     'customers' => [
         // 'Id' =>"id",
         'Customer Enquiry Date' => "customer_enquiryDate",
-        'First Name' =>"first_name",
-        'Last Name' =>"last_name",
+        // 'First Name' =>"first_name",
+        // 'Last Name' =>"last_name",
         'Full Name' =>"full_name",
         'Email' =>"email",
         // 'Password' =>"password",
@@ -60,7 +60,8 @@ return [
         'Admin URL'=>"admin_url",
         'Main Domain'=>"main_domain",
         // 'Company Name'=>"companyname",
-        'Email Signature'=>"email_signature",
+        'Email Signature'=>"Email Signature",
+        'Today Date'=>"today_date",
     ],
     'logo'=>[
        
