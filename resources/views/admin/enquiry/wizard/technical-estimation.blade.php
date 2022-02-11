@@ -119,7 +119,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <a ng-show= "doc.file_type != 'link'" target="_child" href="{{ asset("public/uploads/") }}/@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <a ng-show= "doc.file_type == 'link'" target="_child" href="@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                         </li> 
                     </ul>
                 </div>
