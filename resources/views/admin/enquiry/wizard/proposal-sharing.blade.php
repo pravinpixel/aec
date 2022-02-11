@@ -56,7 +56,7 @@
                                                 <span ng-show="P.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
                                             </td>
                                             <td style="width: 16% !important"class="text-center">
-                                                <small>@{{P.created_at | date:"MM/dd/yyyy 'at' h:mma"}} </small>
+                                                <small>@{{P.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}} </small>
                                             </td>
                                             <td style="width: 6% !important" class="text-center"> 
                                                 <div class="dropdown">
@@ -66,7 +66,7 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <a ng-show="P.status == 'sent'" class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
                                                         <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
-                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">sent Mail</a>
+                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">send Mail</a>
                                                         <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
                                                     </div>
                                                 </div>
@@ -86,7 +86,9 @@
                                                                 <span ng-show="V.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
                                                                 <span ng-show="V.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
                                                             </td>
-                                                            <td style="width: 16% !important" class="text-center"><small style="opacity:0">@{{V.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</small> </td>
+                                                            <td style="width: 16% !important" class="text-center">
+                                                                <small>@{{V.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}}</small>
+                                                            </td>
                                                             <td style="width: 6% !important" class="text-center"> 
                                                                 <div class="dropdown">
                                                                     <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,7 +97,7 @@
                                                                     <div class="dropdown-menu dropdown-menu-end">
                                                                         {{-- <a ng-show="V.status == 'sent'" class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a> --}}
                                                                         <a ng-show="V.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</a>
-                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">sent Mail</a>
+                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">send Mail</a>
                                                                         <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id , V.id)">Remove</a>
                                                                     </div>
                                                                 </div>
@@ -119,7 +121,7 @@
                     <a href="#/cost-estimation" class="btn btn-light border shadow-sm">Prev</a>
                 </div>
                 <div>
-                    <a href="#/move-to-project" class="btn btn-primary">Next</a>
+                    <a href="#/move-to-project" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
                 </div>
             </div>
         </div> 

@@ -20,8 +20,9 @@ class CreatePropoalVersionsTable extends Migration
             $table->integer('enquiry_id');
             $table->integer('documentary_id');
             $table->timestamp('documentary_date');
+            $table->timestamp('mail_send_date')->nullable();
             $table->longText('documentary_content')->nullable();
-            $table->string('pdf_file_name')->nullable();
+            $table->string('pdf_file_name')->nullable(); 
             $table->longText('is_mail_sent')->default(0);
             $table->string('status')->default('awaiting');
             $table->timestamps();

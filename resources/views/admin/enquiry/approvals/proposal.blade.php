@@ -11,8 +11,7 @@
                 </div>
                 <div class="card-body">
                     <div style="max-height: 60vh;overflow:auto">
-                        {!! $result->documentary_content !!}
-                        
+                        {!! $result->documentary_content !!} 
                     </div>
                 </div>
                 <div class="card-footer">
