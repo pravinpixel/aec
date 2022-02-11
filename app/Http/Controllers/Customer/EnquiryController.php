@@ -69,20 +69,25 @@ class EnquiryController extends Controller
         return view('customer.pages.my-projects',compact('data',  $data )); 
     }
     
-    public function myEnquiriesEdit($id) 
+    public function myEnquiriesEdit($id, $type = null) 
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
-        $activeTab     =   $this->getIncompletePanel($enquiry)[0] ??'';
+        if($type == 'new'){
+            $activeTab   = $this->getIncompletePanel($enquiry)[0] ??'';
+            $activeCount = $this->getIncompletePanel($enquiry)[1] ??'';
+        } else {
+            $activeTab   = '';
+            $activeCount = 0;
+        }
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $customer['document_types']     =   $this->documentTypeRepo->all();
-        $activeTab     =   $this->getIncompletePanel($enquiry)[0] ??'';
-        $activeCount     =   $this->getIncompletePanel($enquiry)[1] ??'';
         if (empty($enquiry)) {
             abort(403, 'Unauthorized action.');
         } else {
             return view('customer.enquiry.edit',compact('enquiry','id','customer','activeTab','activeCount'));
         }
     }
+    
 
     public function create()
     {
@@ -559,7 +564,7 @@ class EnquiryController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",$dataDb->id) .'">View</a>
+                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'new']) .'">View</a>
                                 <a class="dropdown-item" href="'.route("customers.delete-enquiry",$dataDb->id) .'">Delete</a>
                             </div>
                         </div>
@@ -619,7 +624,7 @@ class EnquiryController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",$dataDb->id) .'">View</a>
+                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">View</a>
                                 <a class="dropdown-item" href="#">Approve</a>
                                 <a class="dropdown-item" href="#">Cancel Enquiry</a>
                             </div>
@@ -679,7 +684,7 @@ class EnquiryController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",$dataDb->id) .'">View</a>
+                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'completed']) .'">View</a>
                                 <a class="dropdown-item" href="#">Active</a>
                             </div>
                         </div>
