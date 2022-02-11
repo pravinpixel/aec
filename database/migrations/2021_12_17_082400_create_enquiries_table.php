@@ -45,14 +45,13 @@ class CreateEnquiriesTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers'); 
-            $table->string('customer_response')->default(0);
             $table->string('status')->default('In-Complete');
             
             // ======== Admin Wizard Flow Status =======
-                $table->integer('technical_estimation_status')->default(0);
-                $table->integer('cost_estimation_status')->default(0);
-                $table->integer('proposal_sharing_status')->default(0);
-                $table->integer('customer_response_status')->default(0);
+                $table->boolean('technical_estimation_status')->default(0);
+                $table->boolean('cost_estimation_status')->default(0);
+                $table->boolean('proposal_sharing_status')->default(0);
+                $table->boolean('customer_response')->default(0);
             // ======== Admin Wizard Flow Status =======
 
             $table->timestamps();
