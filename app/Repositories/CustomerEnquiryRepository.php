@@ -160,15 +160,17 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
         Mail::to('prabhukannan1210@gmail.com')->send(new \App\Mail\ProposalMail($details));
         $result->status =  'sent';
+        $result->mail_send_date =  now();
         $result->save();
+        $enquiry = Enquiry::find($id);
+        $enquiry->customer_response = 0;
+        $enquiry->save(); 
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }
     public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
     { 
         $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
-
-       
-
+ 
         $user   = $this->enquiry->with('customer')->find($id);
          
         $details = [ 
@@ -180,7 +182,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         ];  
         Mail::to($user->customer->email)->send(new \App\Mail\ProposalVersions($details));
         $result->status =  'sent';
+        $result->mail_send_date =  now();
         $result->save();
+        $enquiry = Enquiry::find($id);
+        $enquiry->customer_response = 0;
+        $enquiry->save(); 
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }
     public function aprovalProPosalMail($id, $proposal_id, $Vid, $request)

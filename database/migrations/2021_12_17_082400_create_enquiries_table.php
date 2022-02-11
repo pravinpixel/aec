@@ -51,7 +51,7 @@ class CreateEnquiriesTable extends Migration
                 $table->boolean('technical_estimation_status')->default(0);
                 $table->boolean('cost_estimation_status')->default(0);
                 $table->boolean('proposal_sharing_status')->default(0);
-                $table->boolean('customer_response')->default(0);
+                $table->integer('customer_response')->nullable();
             // ======== Admin Wizard Flow Status =======
 
             $table->timestamps();

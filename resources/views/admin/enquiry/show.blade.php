@@ -62,7 +62,7 @@
                                         <p class="h5 mt-2">Technical Estimate</p>
                                     </a>
                                 </li>
-                                <li class="nav-item admin-Cost_Estimate-wiz">
+                                <li class="nav-item admin-Cost_Estimate-wiz"  style="pointer-events: @{{ technical_estimation_status ==  0 ? 'none' :'unset' }}">
                                     <a href="#/cost-estimation" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  @{{ cost_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -72,7 +72,7 @@
                                         <p class="h5 mt-2">Cost Estimate</p>
                                     </a>
                                 </li> 
-                                <li class="nav-item admin-Proposal_Sharing-wiz">
+                                <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
                                     <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -82,8 +82,8 @@
                                         <p class="h5 mt-2">Proposal Sharing</p>
                                     </a>
                                 </li> 
-                                <li class="nav-item admin-Delivery-wiz">
-                                    <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step">
+                                <li class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
+                                    <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" >
                                         <div class="timeline-content">
                                             <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">
                                                 <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
