@@ -325,12 +325,12 @@
                                 </tbody>
                             </thead>
                         </table>
-                       <form id="building_components__commentsForm" class="input-group mt-3">
-                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_components','Customer')" ><i class="fa fa-send"></i></button>
+                       <form id="building_component__commentsForm" class="input-group mt-3">
+                            <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_component','Customer')" ><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
+                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_component', 'Building Components')">
                                 <i class="fa fa-eye"></i>  Previous chat history
                             </a>
                         </div> 
@@ -342,7 +342,11 @@
         {{-- Additional Info --}} 
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="add_info_header">
-                    <div class="accordion-button collapsed"> 
+                    <div class="accordion-button collapsed"
+                    data-bs-toggle="collapse" 
+                            href="#add_info" 
+                            aria-expanded="false" 
+                            aria-controls="add_info" > 
                         Additional Info
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -353,7 +357,7 @@
                             class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
                 </div>
-                <div id="add_info">
+                <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
                     <div class="accordion-body">  
                         <h5> @{{ additional_infos.comments }}</h5>
                         <form id="add_info__commentsForm" class="input-group mt-3">
