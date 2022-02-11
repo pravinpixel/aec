@@ -451,7 +451,14 @@ class EnquiryController extends Controller
         return response()->json($data);
     }
 
-    public function delete(Request $request)
+    public function delete($id)
+    {
+        $this->customerEnquiryRepo->delete($id);
+        Flash::success(__('global.deleted'));
+        return redirect()->route('customers-my-enquiries');
+    }
+
+    public function deleteDocument(Request $request)
     {
         $id = $request->input('id');
         $result = $this->customerEnquiryRepo->deleteDocumentEnquiry($id);
@@ -501,6 +508,11 @@ class EnquiryController extends Controller
         return $result;
     }
 
+    public function destroy($id)
+    {
+
+    }
+
     public function getNewEnquiries(Request $request)
     {
         if ($request->ajax() == true) {
@@ -548,7 +560,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",$dataDb->id) .'">View</a>
-                                <a class="dropdown-item" href="#">Delete</a>
+                                <a class="dropdown-item" href="'.route("customers.delete-enquiry",$dataDb->id) .'">Delete</a>
                             </div>
                         </div>
                     ';

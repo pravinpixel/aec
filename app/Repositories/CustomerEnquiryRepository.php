@@ -252,6 +252,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $result ?? [];
     }
 
+    public function delete($id)
+    {
+        $enquiry = $this->enquiry->find($id);
+        return  $this->enquiry->delete();
+    }
+
     public function deleteDocumentEnquiry($id)
     {
         $document_type = $this->documentTypeEnquiry->find($id);
@@ -321,7 +327,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                 $total_wall_area_all += $total_wall_area; 
                 $enquiryBuildingComponent->total_wall_area = $total_wall_area;
             }
-            $building_component_number[] = ["name"=> $buildingComponent->WallName,"sqfeet"=> $total_wall_area];
+            $building_component_number[] = ["name"=> $buildingComponent->WallName ?? $buildingComponent->building_component_name,"sqfeet"=> $total_wall_area];
         }
         $build_json = ['building_number' => 1, 'building_component_number' => $building_component_number, "total_component_area" =>  $total_wall_area_all];
         $enquiryBuildingComponent->enquiry_id = $enquiry->id;

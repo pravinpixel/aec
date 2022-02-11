@@ -33,6 +33,8 @@ interface CustomerEnquiryRepositoryInterface
     public function getViewList($id, $type_id);
 
     public function deleteDocumentEnquiry($id);
+
+    public function delete($id);
     
     public function storeBuildingComponent($enquiry,$data);
 

@@ -27,6 +27,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
     Route::post('store-enquiry',  [EnquiryController::class, 'store'])->name('customers.store-enquiry');     
 
     Route::match(['put', 'post'],'update-enquiry/{id}',  [EnquiryController::class, 'update'])->name('customers.update-enquiry');
+
+    Route::delete('delete-enquiry/{id}',  [EnquiryController::class, 'delete'])->name('customers.delete-enquiry');
     
     Route::post('store-enquiry-files',  [EnquiryController::class, 'storeFiles'])->name('customers.store-enquiry-files');
 
@@ -42,7 +44,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::get('get-view-list',  [EnquiryController::class, 'getViewList'])->name('customers.get-view-list');
 
-    Route::delete('enquiry-document',  [EnquiryController::class, 'delete'])->name('customers.enquiry-document');
+    Route::delete('enquiry-document',  [EnquiryController::class, 'deleteDocument'])->name('customers.enquiry-document');
 
     Route::get('enquiry-review',  [EnquiryController::class, 'getEnquiryReview'])->name('customers.enquiry-review');
 
