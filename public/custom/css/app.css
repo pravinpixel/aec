@@ -158,7 +158,16 @@
 }
 .ng-touched.ng-invalid-required , input.error{      
     border-bottom: red solid 1px ; 
-}              .ng-touched.ng-invalid-pattern ,  .ng-invalid-email.ng-valid-required , .ng-invalid-maxlength{
+}
+.ng-touched.ng-invalid-pattern ,  .ng-invalid-email.ng-valid-required , .ng-invalid-maxlength{
+    border-bottom: red solid 1px  !important;
+    background-image: none !important 
+}
+ 
+.ng-invalid.ng-valid-required , input.error{      
+    border-bottom: red solid 1px ; 
+}
+.ng-invalid.ng-valid-required{
     border-bottom: red solid 1px  !important;
     background-image: none !important 
 }
