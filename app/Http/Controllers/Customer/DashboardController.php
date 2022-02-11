@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function enquiryDashborad() {
         // Total Enq
         $totaCancelledEnquiry = Enquiry::where("customer_id", Customer()->id) 
-                        ->where('status', 'Canceled')
+                        ->where('status', 'Closed')
                         ->count();
 
         $totaActiveEnquiry  =   Enquiry::where("customer_id", Customer()->id)

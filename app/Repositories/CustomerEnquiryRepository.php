@@ -537,4 +537,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                         ],$additionalData);
     }
 
+    public function moveToCancel($id)
+    {
+        $enquiry = $this->enquiry->where('customer_id', Customer()->id)->find($id);
+        if(!empty($enquiry)){
+            return $enquiry->update(['status' => 'Closed']);
+        }
+        return false;
+    }
+
 }
