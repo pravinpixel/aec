@@ -62,7 +62,7 @@
                             <table id="toggle_table_@{{ index }}" class="table border shadow-sm table-bordered collapse show">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th class="text-secondary">S.No</th>
+                                        <th class="text-secondary text-center">S.No</th>
                                         <th class="text-secondary">Component Name</th>
                                         <th class="text-secondary">Sq. Mt. Estimate</th>
                                         <th class="text-center" style="padding: 0 !important"> 
@@ -72,19 +72,19 @@
                                 </thead>
                                 <tbody psi-sortable="" ng-model="buliding.building_component_number"> 
                                     <tr ng-repeat="(secindex,est) in buliding.building_component_number track by $index">
-                                        <td>
+                                        <td class="col">
                                             <a class="btn btn-light btn-sm border shadow-sm me-2 p-1 py-0" >
                                                 <i class="bi bi-arrows-move"></i>
                                             </a>
                                             @{{ secindex+1 }}
                                         </td>
-                                        <td style="padding:0 !important">
+                                        <td class="col" style="padding:0 !important">
                                             <input type="text"  required placeholder="Type here.." ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
                                         </td>
-                                        <td  style="padding:0 !important" > 
+                                        <td class="col"  style="padding:0 !important" > 
                                             <input type="number" onkeypress="return isNumber(event)" min="0" required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
                                         </td>
-                                        <td class="text-center"  style="padding:0 !important">
+                                        <td class="col" class="text-center"  style="padding:0 !important">
                                             <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="mdi mdi-delete"></i></a>
                                         </td>
                                     </tr>
