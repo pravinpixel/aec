@@ -43,7 +43,11 @@ class Enquiry extends Model
         'building_component',
         'additional_info',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'technical_estimation_status',
+        'cost_estimation_status',
+        'proposal_sharing_status',
+        'customer_response_status'
     ];
 
     public function getCreatedAtAttribute($date)

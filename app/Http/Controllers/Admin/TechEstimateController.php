@@ -8,7 +8,7 @@ use App\Models\EnquiryTechnicalEstimate;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use Illuminate\Http\Response;
-
+use App\Models\Enquiry;
 
 class TechEstimateController extends Controller
 {
@@ -42,7 +42,9 @@ class TechEstimateController extends Controller
             'build_json'    => json_encode($data),
             'total_wall_area'    =>  1 ,
             'wall'    =>  1 ,
-        ]); 
+        ]);
+        $enquiry = Enquiry::find($id);
+        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 } 

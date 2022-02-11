@@ -13,6 +13,8 @@ use Illuminate\Http\Response;
 use App\Models\BuildingComponent;
 use App\Models\Type;
 use App\Models\EnquiryCostEstimate;
+use App\Models\Enquiry;
+
 
 
 class  CostEstimateController extends Controller
@@ -53,6 +55,8 @@ class  CostEstimateController extends Controller
             'build_json'    => json_encode($data),
             'created_by' => "Admin"
         ]); 
+        $enquiry = Enquiry::find($id);
+        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 }

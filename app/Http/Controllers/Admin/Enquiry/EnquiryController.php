@@ -90,9 +90,9 @@ class EnquiryController extends Controller
         }  
         
         return Enquiry::with('customer')                        
-                ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
-                ->select("enquiries.*")
-                ->get();
+                        ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
+                        ->select("enquiries.*")
+                        ->get();
         
     }
     public function singleIndex($id) {
@@ -100,6 +100,8 @@ class EnquiryController extends Controller
         $enquiry                        =   $this->customerEnquiryRepo->getEnquiryByID($id);
         $outputTypes                    =   $this->outputTypeRepository->get();
         $services                       =   $enquiry->services()->get();
+
+        $result['progress']             =   $enquiry; 
         $result['customer_info']        =   $enquiry->customer; 
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
         $result["enquiry_comments"]     =   $this->customerEnquiryRepo->getEnquiryComments($id);

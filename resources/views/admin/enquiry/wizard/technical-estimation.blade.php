@@ -131,9 +131,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="card mt-lg-5" ng-show="project_info.building_component_process_type == 1">
+            <div class="card mt-3" ng-show="project_info.building_component_process_type == 1">
                 <div class="card-header">
-                    <h4 class="m-0">Building Component Doc's </h4>
+                    <h5 class="m-0">Building Component Doc's </h5>
                 </div>
                 <ul class="list-group mt-0" ng-repeat="building_comp in building_component">
                     <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ps-2">

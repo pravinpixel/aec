@@ -7,7 +7,7 @@
         <div class="content"> 
             @include('admin.includes.top-bar') 
             <!-- Start Content-->
-            <div class="container-fluid"> 
+            <div class="container-fluid"  ng-controller="WizzardCtrl"> 
                 <!-- start page title --> 
                 <div class="row ">
                     <div class="col-12">
@@ -30,9 +30,9 @@
                                     </li>
                                 </ol>
                             </div>
-                            <h4 class="page-title" ng-controller="WizzardCtrl">
-                                    @{{ enquiry_number }} - @{{ project_info.project_name }}
-                                    {{-- EQ/2022/0001 - Project Name --}}
+                            <h4 class="page-title">
+                                @{{ enquiry_number }} - @{{ project_info.project_name }}
+                                {{-- EQ/2022/0001 - Project Name --}}
                             </h4>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                                 <li class="nav-item Project_Info">
                                     <a href="#/project-summary" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle bg-secondary">
+                                            <div class="inner-circle @{{ project_summary_status == 'Active' ? 'bg-primary' :'bg-secondary' }}">
                                                 <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
@@ -55,7 +55,7 @@
                                 <li class="nav-item  admin-Technical_Estimate-wiz">
                                     <a href="#/technical-estimation" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle bg-secondary">
+                                            <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                                                 <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
@@ -65,7 +65,7 @@
                                 <li class="nav-item admin-Cost_Estimate-wiz">
                                     <a href="#/cost-estimation" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle  bg-secondary">
+                                            <div class="inner-circle  @{{ cost_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                                                 <img src="{{ asset("public/assets/icons/budget.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
                                 <li class="nav-item admin-Proposal_Sharing-wiz">
                                     <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle  bg-secondary">
+                                            <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                                                 <img src="{{ asset("public/assets/icons/share.png") }}" ng-click="getDocumentaryFun();" class="w-50 invert">
                                             </div>                                                                        
                                         </div>
@@ -85,7 +85,7 @@
                                 <li class="nav-item admin-Delivery-wiz">
                                     <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
-                                            <div class="inner-circle  bg-secondary">
+                                            <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">
                                                 <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
                                             </div>
                                         </div>
@@ -192,9 +192,16 @@
             });
         });  
         app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
-            // enquiry.show-comments
+       
             $scope.GetCommentsData = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                    $scope.project_summary_status       = res.data.progress.status;
+                    $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
+                    $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
+                    $scope.proposal_sharing_status       = res.data.progress.proposal_sharing_status;
+                    $scope.customer_response       = res.data.progress.customer_response;
+
+                  
                     $scope.enquiry_number       = res.data.enquiry_number;
                     $scope.enquiry_comments     = res.data.enquiry_comments;
                     $scope.enquiry_id           = res.data.enquiry_id;

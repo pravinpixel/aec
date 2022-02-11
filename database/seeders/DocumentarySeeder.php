@@ -15,7 +15,7 @@ class DocumentarySeeder extends Seeder
     {
         Documentary::create([
             
-        'documentary_title' => 'Test', 
+        'documentary_title' => 'Offer letter (dummy)', 
     
         'documentary_content'=> "<html>
         <table class='table table-borderless'>

@@ -75,8 +75,7 @@ class ProposalController extends Controller
             Flash::success('Proposal successfully Dined!');
             return redirect()->route('customers.login');
         } 
-        if($type == 1){
-            
+        if($type == 1){ 
             $enquiry = Enquiry::find($id);
             $enquiry->customer_response = 1;
             $enquiry->save();

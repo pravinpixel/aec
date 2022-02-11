@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
-
+use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Models\Enquiry;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Documentary\Documentary;
@@ -20,9 +20,10 @@ class MailTemplateController extends Controller
 {
     protected $mailTemplateRepository;
 
-    public function __construct(MailTemplateRepository $MailTemplate)
+    public function __construct(MailTemplateRepository $MailTemplate, CustomerEnquiryRepositoryInterface $customerEnquiryRepository)
     {
         $this->mailTemplateRepository = $MailTemplate;
+        $this->customerEnquiryRepo     = $customerEnquiryRepository;
     }
     /**
      * Display a listing of the resource.
@@ -162,9 +163,12 @@ class MailTemplateController extends Controller
         $mailData->documentary_date = date('Y-m-d');
         $mailData->template_name =  $title;
         $mailData->pdf_file_name = $fileName;
+      
         $res =  $mailData->save();
         if($res)
         {
+            $enquiry = Enquiry::find($data['enquiry']['id']);
+            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_sharing_status');
             return response()->json(['status' => true, 'msg' => trans('module.inserted'),'data'=>$fileName], Response::HTTP_OK);
         }
         return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$res], Response::HTTP_OK);

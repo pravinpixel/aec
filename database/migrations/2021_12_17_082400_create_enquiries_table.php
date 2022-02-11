@@ -35,7 +35,6 @@ class CreateEnquiriesTable extends Migration
             $table->string('state')->nullable();
             $table->integer('no_of_building')->nullable();
             $table->datetime('project_delivery_date')->nullable();
-            $table->string('status')->default('In-Complete');
             $table->boolean('building_component_process_type')->default(0);
             $table->boolean('project_info')->default(0);
             $table->boolean('service')->default(0);
@@ -47,6 +46,15 @@ class CreateEnquiriesTable extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers'); 
             $table->string('customer_response')->default(0);
+            $table->string('status')->default('In-Complete');
+            
+            // ======== Admin Wizard Flow Status =======
+                $table->integer('technical_estimation_status')->default(0);
+                $table->integer('cost_estimation_status')->default(0);
+                $table->integer('proposal_sharing_status')->default(0);
+                $table->integer('customer_response_status')->default(0);
+            // ======== Admin Wizard Flow Status =======
+
             $table->timestamps();
         });
     }
