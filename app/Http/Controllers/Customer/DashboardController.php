@@ -10,37 +10,21 @@ use App\Models\Enquiry;
 class DashboardController extends Controller
 {
     public function enquiryDashborad() {
-
-        // New Enqs
-        $data           =   Enquiry::where("customer_id", Customer()->id)
-                            ->where("is_active", 0)
-                            ->get();
-
-
-        $totaNewEnq     =   Enquiry::where("customer_id", Customer()->id)
-                            ->where("is_active", 0)
-                            ->count();
-
         // Total Enq
-        $totaEnq     =   Enquiry::where("customer_id", Customer()->id) 
+        $totaCancelledEnquiry = Enquiry::where("customer_id", Customer()->id) 
+                        ->where('status', 'Canceled')
                         ->count();
 
-        // Active  Enqs
-        $dataActive     =   Enquiry::where("customer_id", Customer()->id)
-                            ->where("is_active", 1)
-                            ->get();
-        $totaActiveEnq  =   Enquiry::where("customer_id", Customer()->id)
-                                    ->where("is_active", 1)
-                                    ->count();
+        $totaActiveEnquiry  =   Enquiry::where("customer_id", Customer()->id)
+                                ->where('status', 'Active')
+                                ->count();
 
-        return view('customer.dashboard.enquiry',
-                    compact(
-                        'data',  $data , 
-                        'dataActive',  $dataActive ,
-                        'totaNewEnq', $totaNewEnq,
-                        'totaEnq', $totaEnq,
-                        'totaActiveEnq', $totaActiveEnq,
-                    )); 
+        $totalNewEnquiry     =   Enquiry::where("customer_id", Customer()->id)
+                            ->where('status' ,'In-Complete')            
+                            ->count();
+
+        $totalEnquiry = $totalNewEnquiry   + $totaActiveEnquiry + $totaCancelledEnquiry ;
+        return view('customer.dashboard.enquiry', compact('totalEnquiry', 'totalNewEnquiry','totaActiveEnquiry','totaCancelledEnquiry' )); 
     }
     public function projectDashborad() {
         return view('customer.dashboard.project');
