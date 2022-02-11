@@ -57,4 +57,6 @@ interface CustomerEnquiryRepositoryInterface
     public function updateStatusById($enquiry, $status);
 
     public function createEnquiryBuildingComponentDocument($enquiry, $additionalData);
+
+    public function moveToCancel($id);
 }

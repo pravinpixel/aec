@@ -21,5 +21,6 @@ return [
     'proposal_updated' => 'Updated Proposal send successfully',
     'proposal_deleted' => 'Proposal deleted successfully',
     'duplicate_deleted' => 'Proposal duplicate successfully',
+    'enquiry_move_to_cancel' => 'Enquiry move to closed',
     
 ];

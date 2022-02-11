@@ -542,7 +542,7 @@ class EnquiryController extends Controller
                 return $dataDb->projectType->project_type_name ?? '';
             })
             ->editColumn('status', function($dataDb){
-                return '<small class="px-1 bg-danger text-white rounded-pill text-center">'.$dataDb->status.'</small>';
+                return '<small class="px-1 bg-warning text-white rounded-pill text-center">'.$dataDb->status.'</small>';
             })
             ->editColumn('enquiry_date', function($dataDb) {
                 $format = FacadesConfig::get('global.model_date_format');
@@ -601,7 +601,7 @@ class EnquiryController extends Controller
                 return $dataDb->projectType->project_type_name ?? '';
             })
             ->editColumn('status', function($dataDb){
-                return '<small class="px-1 bg-warning text-white rounded-pill text-center">'.$dataDb->status.'</small>';
+                return '<small class="px-1 bg-success text-white rounded-pill text-center">'.$dataDb->status.'</small>';
             })
     
             ->editColumn('enquiry_date', function($dataDb) {
@@ -626,7 +626,7 @@ class EnquiryController extends Controller
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">View</a>
                                 <a class="dropdown-item" href="#">Approve</a>
-                                <a class="dropdown-item" href="#">Cancel Enquiry</a>
+                                <a class="dropdown-item" href="'.route('customers.move-to-cancel',[$dataDb->id]).'">Cancel Enquiry</a>
                             </div>
                         </div>
                     ';
@@ -652,16 +652,16 @@ class EnquiryController extends Controller
                             ->when($projetType, function($q) use($projetType){
                                 $q->where('project_type_id', $projetType);
                             })
-                            ->where(['status'=>'Completed' , 'customer_id' => Customer()->id]);
+                            ->where(['status'=>'Closed' , 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=getEnquiry(project_info,'. $dataDb->id .')"> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+                return '<div ng-click=getEnquiry(project_info,'. $dataDb->id .')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
             })
             ->editColumn('status', function($dataDb){
-                return '<small class="px-1 bg-success text-white rounded-pill text-center">'.$dataDb->status.'</small>';
+                return '<small class="px-1 bg-danger text-white rounded-pill text-center">'.$dataDb->status.'</small>';
             })
     
             ->editColumn('enquiry_date', function($dataDb) {
@@ -684,7 +684,6 @@ class EnquiryController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'completed']) .'">View</a>
                                 <a class="dropdown-item" href="#">Active</a>
                             </div>
                         </div>
@@ -693,5 +692,16 @@ class EnquiryController extends Controller
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);
         }
+    }
+
+    public function moveToCancel($id)
+    {
+        $status = $this->customerEnquiryRepo->moveToCancel($id);
+        if($status) {
+            Flash::success(__('enquiry.enquiry_move_to_cancel'));
+            return redirect(route('customers-my-enquiries'));
+        }
+        Flash::error(__('global.something'));
+        return redirect(route('customers-my-enquiries'));
     }
 }
