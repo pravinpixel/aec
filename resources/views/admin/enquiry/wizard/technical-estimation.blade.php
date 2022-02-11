@@ -176,7 +176,7 @@
                     <a href="#/project-summary" class="btn btn-light border shadow-sm">Prev</a>
                 </div>
                 <div>
-                    <a href="#/cost-estimation" class="btn btn-primary">Next</a>
+                    <a href="#/cost-estimation" style="pointer-events: @{{ technical_estimation_status ==  0 ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
                 </div>
             </div>
         </div>
