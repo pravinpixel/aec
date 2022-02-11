@@ -29,12 +29,18 @@
                     </div>
                 </div> 
                 <div class="card-body mb-0 pb-0"  >
-                    <div class="row align-items-center mb-2">
+                    <div class="row align-items-center mb-2" ng-if="building_building.length">
                         <div class="col-sm-6">                        
                             <button class="btn btn-sm btn-primary" ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button>
                         </div>
                         <div class="col-sm-6 text-end">
                             {{-- <span class="text-secondary">Total Area :</span> <b>  </b>  --}}
+                        </div>
+                    </div>
+
+                    <div ng-if="building_building == null || !building_building.length">
+                        <div class="p-5 text-center">
+                            <strong>Customer not Yet fill techical estimation values</strong>
                         </div>
                     </div>
                    
@@ -100,7 +106,7 @@
         </div>
         <div class="col-lg-3 p-0">
             
-            <div class="card mt-lg-5">
+            <div class="card mt-lg-5" >
                 <div class="card-header">
                     <h4 class="m-0">Reference Doc's </h4>
                 </div>
@@ -175,11 +181,7 @@
             </div>
         </div>
     </div>
-    <div ng-if="building_building == null || !building_building.length">
-        <div class="p-5 text-center">
-            <strong>Record is Empty</strong>
-        </div>
-    </div>
+    
     @include("admin.enquiry.models.technical-estimation-chat-box") 
 </div>
 {{-- @{{ building_component }} --}}

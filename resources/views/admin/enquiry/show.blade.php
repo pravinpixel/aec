@@ -31,7 +31,7 @@
                                 </ol>
                             </div>
                             <h4 class="page-title" ng-controller="WizzardCtrl">
-                                    @{{ enquiry_number }} - @{{   project_info.project_name }}
+                                    @{{ enquiry_number }} - @{{ project_info.project_name }}
                                     {{-- EQ/2022/0001 - Project Name --}}
                             </h4>
                         </div>
