@@ -342,19 +342,41 @@
             </fieldset>
         {{-- Building Components --}}
 
-        {{-- Additional Info --}} 
+        {{-- Additional Info --}}  
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="add_info_header">
-                    <div class="accordion-button collapsed">
+                    <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#add_info" aria-expanded="false" aria-controls="add_info">
                         Additional Info
                     </div>
-                   
+                    <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                        <i data-bs-toggle="collapse" 
+                            href="#add_info" 
+                            aria-expanded="false" 
+                            aria-controls="add_info" 
+                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn "></i>
+                    </div>
                 </div>
-                <div id="add_info"  >
+                <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
                     <div class="accordion-body">  
-                        <b>@{{ additional_infos.comments }}</b>
+                        {{-- <table class="table table-bordered">
+                            <tr>
+                                <th>S.no</th>
+                                <th>Date</th>
+                                <th>commented person</th>
+                                <th>comments</th>
+                            </tr>
+                            <tr ng-repeat="additional_info in additional_infos">
+                                <td> @{{ index + 1  }}</td>
+                                <td>@{{ additional_infos.created_at }}</td>
+                                <td>@{{ additional_infos.customer.full_name }}</td>
+                                <td>@{{ additional_infos.comments }}</td>
+                            </tr> 
+                        </table> --}}
+                        <div>
+                            @{{ additional_infos.comments }}
+                        </div>
                         <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">

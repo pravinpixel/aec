@@ -38,6 +38,10 @@ class ProposalController extends Controller
     {
         return  $enquiry    =   $this->customerEnquiryRepo->updateCustomerProPosalVersionByID($id, $proposal_id, $request,$Vid);
     }
+    public function deleteVersions(Request $request, $id, $proposal_id, $Vid)
+    {
+        return  $enquiry    =   $this->customerEnquiryRepo->deleteCustomerProPosalVersionByID($id, $proposal_id, $request,$Vid);
+    }
     public function destroy(Request $request, $id, $proposal_id)
     {
         return  $enquiry    =   $this->customerEnquiryRepo->deleteCustomerProPosalByID($id, $proposal_id, $request);

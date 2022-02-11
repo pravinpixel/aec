@@ -106,6 +106,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         ]);
         return response(['status' => true, 'msg' => trans('enquiry.proposal_updated')], Response::HTTP_CREATED);
     }
+    public function deleteCustomerProPosalVersionByID($id, $proposal_id, $request, $Vid)
+    {
+        $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->delete();
+        return response(['status' => true, 'msg' => trans('enquiry.proposal_deleted')], Response::HTTP_CREATED);
+    }
     public function updateCustomerProPosalByID($id, $proposal_id, $request)
     {
         $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->update([

@@ -255,6 +255,7 @@
             }
             
             $scope.sendComments  = function(type, created_by) { 
+                console.log("type")
                 $scope.sendCommentsData = {
                     "comments"        :   $scope[`${type}__comments`],
                     "enquiry_id"      :   $scope.enquiry_id,
@@ -612,6 +613,14 @@
                 });
             }
             
+            // DeletePropose
+            $scope.DeleteProposeVersion = function (proposal_id, Vid) {
+                $http.delete(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id+'/version/'+Vid).then(function (response) {
+                    Message('success',response.data.msg);
+                    $scope.getProposesalData();
+                });
+            }
+
             $scope.updateProposalMail = function(proposalId) {
 
                 $scope.sendCommentsData = {

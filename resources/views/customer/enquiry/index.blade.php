@@ -3,8 +3,7 @@
 @section('customer-content')
    
     <div class="content-page" ng-app="App">
-        <div class="content" ng-controller="enquiryModalCtrl">
-
+        <div class="content" ng-controller="enquiryModalCtrl"> 
             @include('customer.includes.top-bar')
 
             <!-- Start Content-->

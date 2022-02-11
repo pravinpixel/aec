@@ -49,7 +49,7 @@
                                                     <div class="text-center">@{{ key+1 }}</div>
                                                 </div>
                                             </td>
-                                            <td style="width: 38% !important" >@{{ P.template_name }}</td>
+                                            <td style="width: 38% !important" class="text-center">@{{ P.template_name }}</td>
                                             <td style="width: 16% !important" class="text-primary text-center">R1</td>
                                             <td style="width: 16% !important" class="text-info text-center"> 
                                                 <span ng-show="P.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
@@ -64,10 +64,10 @@
                                                         <i class="dripicons-dots-3 "></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a ng-show="P.status == 'sent'" class="btn" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
-                                                        <a ng-show="P.status == 'awaiting'" class="btn" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
-                                                        <a class="btn" ng-click="sendMailToCustomer(P.proposal_id)">sent Mail</a>
-                                                        <a ng-show="P.status == 'awaiting'" class="btn" ng-click="DeletePropose(P.proposal_id)">Remove</a>
+                                                        <a ng-show="P.status == 'sent'" class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
+                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">sent Mail</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -80,13 +80,13 @@
                                                             <td  class="text-end" style="width: 6% !important">
                                                                 <div class="text-end">@{{ key+1 }}.@{{ key2+1 }}</div>                                                    
                                                             </td>
-                                                            <td style="width: 38% !important">@{{ V.template_name }}</td>
+                                                            <td style="width: 38% !important" class="text-center">@{{ V.template_name }}</td>
                                                             <td style="width: 16% !important" class="text-info text-center"><b><small>R@{{ key2+2 }}</small></b></td>
                                                             <td style="width: 16% !important" class="text-info text-center"> 
                                                                 <span ng-show="V.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
                                                                 <span ng-show="V.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
                                                             </td>
-                                                            <td style="width: 16% !important" class="text-center"><small>@{{V.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</small> </td>
+                                                            <td style="width: 16% !important" class="text-center"><small style="opacity:0">@{{V.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</small> </td>
                                                             <td style="width: 6% !important" class="text-center"> 
                                                                 <div class="dropdown">
                                                                     <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,8 +95,8 @@
                                                                     <div class="dropdown-menu dropdown-menu-end">
                                                                         {{-- <a ng-show="V.status == 'sent'" class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a> --}}
                                                                         <a ng-show="V.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</a>
-                                                                        <a class="btn" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">sent Mail</a>
-                                                                        {{-- <a ng-show="P.status == 'awaiting'" class="dropdown-item" ng-click="DeletePropose(V.proposal_id , V.id)">Remove</a> --}}
+                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">sent Mail</a>
+                                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id , V.id)">Remove</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
