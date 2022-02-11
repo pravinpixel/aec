@@ -423,6 +423,10 @@
 
             $scope.uploadBuildingComponentFile = function() {
                var file = $scope.buildingComponentFile;
+              if(typeof(file) == 'undefined') {
+                Message('danger', 'Please upload file');
+                return false;
+              }
                var uploadUrl = '{{ route('customers.update-enquiry',$id) }}';
                var type = 'building_component_upload';
                var file_type = 'buildingComponent';
