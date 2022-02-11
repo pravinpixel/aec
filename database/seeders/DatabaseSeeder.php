@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CostTasksTableSeeder::class);
         $this->call(CostLinksTableSeeder::class);
         $this->call(DocumentarySeeder::class);
+        $this->call(SharePointAcessSeeder::class);
+        
         
     }
 }

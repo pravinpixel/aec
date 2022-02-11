@@ -32,8 +32,8 @@
                                    </div> 
                                </a>
                            </li>
-                           <li class="nav-item serviceSelection" data-target-form="#serviceSelection" >
-                               <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service">
+                           <li class="nav-item serviceSelection" data-target-form="#serviceSelection"  style="pointer-events:none">
+                               <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
                                    <div class="timeline-content">
                                        <div class="inner-circle  bg-secondary">
                                            <i class="fa fa-list-alt fa-2x mb-1"></i>
@@ -43,8 +43,8 @@
                                    
                                </a>
                            </li>
-                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"  >
-                               <a href="#/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload">
+                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"   style="pointer-events:none">
+                               <a href="#/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
                                    <div class="timeline-content">
                                        <div class="inner-circle  bg-secondary">
                                            <i class="fa fa-2x fa-file-upload mb-1"></i>

@@ -92,7 +92,7 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
     public function getDocumentaryOneData($request)
     {
             $enquiry  =  Enquiry::where('id',$request->enquireId)->select('id','enquiry_date','enquiry_number',
-            'contact_person','customer_id','service_id','building_type_id','delivery_type_id',
+            'contact_person','customer_id','service_id as serviceId','building_type_id','delivery_type_id',
             'project_name', 'project_date', 'place', 'site_address','country','zipcode','state','no_of_building','project_delivery_date','project_info','service',
             'ifc_model_upload','building_component','additional_info')->first()->toArray();
 
@@ -122,7 +122,9 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             // $keyData = str_replace('_',"",$keyData);
             $valueData    = array_values($changeData);
             $new_string = str_replace($keyData, $valueData,strval($documentData));
-
+            $today_date = date("d-m-Y");
+            // return $today_date;
+            $new_string=  str_replace('today_date',$today_date,strval($new_string));
             // return $new_string;
             $search = array('{','}');
             $newDocumentData = str_replace($search,"",$new_string);
