@@ -53,11 +53,10 @@
                                     <td class="text-center">
                                         <div class="d-flex" id="toolTip_@{{ index+1 }}" ng-click="toggle('edit', m.id)">
                                             <button type="button" class="btn progress-btn @{{ m.status == 'Active' ? 'active' :'' }}" data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Invoice placed"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Proposal sharing"> </button>
-                                            <button type="button" class="btn progress-btn " data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project delivered"> </button>
+                                            <button type="button" class="btn progress-btn @{{ m.technical_estimation_status == '1' ? 'active' :'' }}" data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical assessment"> </button>
+                                            <button type="button" class="btn progress-btn @{{ m.cost_estimation_status == '1' ? 'active' :'' }}" data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="left" title="Cost Estimated"> </button>
+                                            <button type="button" class="btn progress-btn @{{ m.proposal_sharing_status == '1' ? 'active' :'' }}" data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Proposal sharing"> </button>
+                                            <button type="button" class="btn progress-btn @{{ m.customer_response == '1' ? 'active' :'' }}" data-bs-container="#toolTip_@{{ index+1 }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Customer Response"> </button>
                                         </div>
                                     </td>
                                     <td class="text-center">	
