@@ -62,7 +62,7 @@
                                     <div class="col-md-6"> 
                                         <div class="mb-3">
                                             <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
-                                            <input type="number" class="form-control"   ng-pattern="phoneNumbr" name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
+                                            <input type="text" class="form-control" max="12"  onkeypress="return isNumber(event)" maxlength="12" ng-pattern="phoneNumbr" placeholder="Type Here..."  name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
                                 <div class="text-end mt-3"> 
-                                    <button ng-click="resetForm()" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+                                    <input type="reset"  class="btn btn-outline-secondary font-weight-bold px-3" value="Cancel">
                                     <button type="submit" ng-disabled="enqForm.$invalid" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
                                 </div>
                             </form>

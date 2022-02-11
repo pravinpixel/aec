@@ -136,8 +136,7 @@
                         </tr> 
                     </tbody>
                 </table>
-            </div>
-            
+            </div> 
             <div class="col-12 shadow text-dark bg-white border p-2 rounded">
                 {{-- <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4> --}}
                 <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
@@ -161,7 +160,7 @@
             <div class="col-md-4 p-0">
                 <div class="text-end">
                     <button type="reset" class="btn btn-light font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                    <button class="btn btn-success"  ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
+                    <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
                 </div>
             </div>
         </div>
@@ -173,7 +172,7 @@
                 <a href="#/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a href="#/proposal-sharing" class="btn btn-primary">Next</a>
+                <a href="#/proposal-sharing" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 
