@@ -62,13 +62,13 @@
                             <td> 
                                 <select class="my-select" get-cost-estimate-data ng-model="c.building_component_name" name="building_component_name">
                                     <option value="">-- Select -- </option> 
-                                    <option value="@{{ c.id }}" ng-repeat="c in cost.component">@{{ c.building_component_name }}</option>
+                                    <option value="@{{ c.id }}" ng-selected="" ng-repeat="c in cost.component">@{{ c.building_component_name }}</option>
                                 </select>
                             </td> 
                             <td style="padding: 0 !important">
                                 <select get-cost-estimate-data class="my-select" ng-model="t.type_name" ng-change="getCostEstimateData(index)" name="type_name">
                                     <option value="">-- Select ---</option> 
-                                    <option value="@{{ Ctype.id }}" ng-repeat="Ctype in cost.type">@{{ Ctype.building_type_name }}</option>
+                                    <option value="@{{ Ctype.id }}" ng-selected="" ng-repeat="Ctype in cost.type">@{{ Ctype.building_type_name }}</option>
                                 </select>
                             </td>
 

@@ -394,7 +394,7 @@
                                     class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                             </div>
                         </div>
-                        <div id="additional_info" class="additional_info accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
+                        <div id="add_info" class="additional_info accordion-collapse collapse  " aria-labelledby="add_info" data-bs-parent="#summaryGroup">
                             <div class="accordion-body">  
                                 <p> @{{ enquiry.additional_infos.comments }}</p>
                                 <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Customer')" class="input-group mt-3">

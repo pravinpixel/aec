@@ -1,16 +1,15 @@
 <form class="row" id="buildingComponent" name="buildingComponentForm" novalidate>
-    <div class="d-flex  p-4 mx-auto">
-        Do you want to
-        <div class="">
+    
+    <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert">
+        <div class="d-flex align-items-center justify-content-center    ">
+            <i class="dripicons-information me-2"></i>  
+            Do you want to  
             <div class="form-check">
                 <input type="radio" id="flexRadioDefault1" name="buildingComponent_" checked ng-model="showHideBuildingComponent" ng-value="false">
                 <label class="form-check-label" for="flexRadioDefault1">
                 Enter Manually   (or)
                 </label>
-            </div>
-        </div>
-       
-        <div class="" ng-init="showHideBuildingComponent=false">
+            </div> 
             <div class="form-check">
                 <input type="radio" id="flexRadioDefault" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
                 <label class="form-check-label" for="flexRadioDefault">
@@ -158,7 +157,7 @@
                                                                                 <h4 class="modal-title" id="ConfirmDeleteLabel">Delete Confirmation</h4>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                                                                             </div>
-                                                                            <div class="modal-body">
+                                                                            <div class="modal-body text-center">
                                                                                 <h2>Are you sure !!</h2>
                                                                                 <p class="lead">You want to delete ? </br> Please put your password for delete action</p>
                                                                                 <input type="text" class="w-75 mx-auto form-control" placeholder="Enter your password" class="form-control">
