@@ -55,7 +55,7 @@
                                         <div class="mb-3">
                                             <div class="mb-3">
                                                 <label class="form-label" for="validationCustom01">Email<sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" id="validationCustom01" name="email" ng-model="module.email" placeholder="Type Here..."  ng-required="true">
+                                                <input type="text" class="form-control" id="validationCustom01" name="email" ng-model="module.email" placeholder="Type Here..." ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"  ng-required="true">
                                             </div>
                                         </div> 
                                     </div>
