@@ -6,7 +6,7 @@
                 <label for="floating">Enquiry Date</label>
             </div>
             <div class="form-floating  mb-2">
-                <input disabled value="" type="text" class="form-control form-control-sm" id="floating" ng-model="enquiry_number" required/>
+                <input disabled value="" type="text" class="form-control form-control-sm" id="floating" ng-model="customer_enquiry_number" required/>
                 <label for="floating">Enquiry Number</label>
             </div>         
             <div class="form-floating  mb-2">
@@ -122,3 +122,7 @@
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
     }
 </style> 
+
+
+    
+    

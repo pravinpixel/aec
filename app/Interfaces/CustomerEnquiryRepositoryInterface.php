@@ -18,7 +18,9 @@ interface CustomerEnquiryRepositoryInterface
 
     public function getEnquiry($enquiry_id);
 
-    public function getEnquiryByEnquiryNo($enquiry_id);
+    public function getEnquiryByEnquiryNo($enquiryId);
+
+    public function getEnquiryByCustomerEnquiryNo($customerEnquiryNumber);
 
     public function updateEnquiry(Enquiry $enquiry , $data);
 
@@ -59,4 +61,6 @@ interface CustomerEnquiryRepositoryInterface
     public function createEnquiryBuildingComponentDocument($enquiry, $additionalData);
 
     public function moveToCancel($id);
+
+    public function AddEnquiryReferenceNo($enquiry);
 }

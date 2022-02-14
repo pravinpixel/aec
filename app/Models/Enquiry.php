@@ -16,6 +16,7 @@ class Enquiry extends Model
     protected $fillable = [
         'enquiry_date',
         'enquiry_number',
+        'customer_enquiry_number',
         'company_name',
         'contact_person',
         'mobile_no',

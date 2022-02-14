@@ -16,7 +16,8 @@ class CreateEnquiriesTable extends Migration
         Schema::create('enquiries', function (Blueprint $table) {
             $table->id();
             $table->string('enquiry_date')->nullable();
-            $table->string('enquiry_number');
+            $table->string('enquiry_number')->nullable();
+            $table->string('customer_enquiry_number')->nullable();
             $table->string('company_name')->nullable();
             $table->string('contact_person')->nullable();
             $table->string('mobile_no')->nullable();

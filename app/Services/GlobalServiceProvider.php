@@ -26,7 +26,7 @@ class GlobalServiceProvider extends Controller
     public function customerEnquiryNumber()
     {
         $config = $this->getConfig();
-        return "{$config->customer_prefix}-{$config->customer_enquiry_number}";
+        return "{$config->customer_prefix}/{$config->enquiry_year}/00{$config->customer_enquiry_number}";
     }
 
     public function getConfig()
