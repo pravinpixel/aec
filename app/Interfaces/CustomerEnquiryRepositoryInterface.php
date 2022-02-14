@@ -62,5 +62,7 @@ interface CustomerEnquiryRepositoryInterface
 
     public function moveToCancel($id);
 
+    public function getEnquiryComments($id);
+
     public function AddEnquiryReferenceNo($enquiry);
 }
