@@ -29,7 +29,7 @@
                     </div>
                 </div> 
                 <div class="card-body mb-0 pb-0"  >
-                    <div class="row align-items-center mb-2" ng-if="building_building.length">
+                    <div class="row align-items-center mb-2">
                         <div class="col-sm-6">                        
                             <button class="btn btn-sm btn-primary" ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button>
                         </div>
