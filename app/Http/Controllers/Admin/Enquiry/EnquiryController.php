@@ -139,7 +139,7 @@ class EnquiryController extends Controller
     }
 
     public function getEnquiryNumber(Request $request)    { 
-        return  GlobalService::enquiryNumber();  
+        return  GlobalService::customerEnquiryNumber();  
     }
     
     /**
@@ -163,7 +163,7 @@ class EnquiryController extends Controller
          
         DB::beginTransaction();
         try {
-            $latest_enquiry_number = GlobalService::enquiryNumber();
+            $latest_enquiry_number = GlobalService::customerEnquiryNumber();
             if($request->enquiry_number != $latest_enquiry_number) {
                 return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
             }
@@ -185,9 +185,9 @@ class EnquiryController extends Controller
                 'is_active'             => 0
             ];
             $customer = $this->customer->create($data);
-            $customer->enquiry()->create(['enquiry_number' => $latest_enquiry_number, 'enquiry_date' => now()]);
+            $customer->enquiry()->create(['customer_enquiry_number' => $latest_enquiry_number, 'enquiry_date' => now()]);
             DB::commit();
-            GlobalService::updateConfig('ENQ');
+            GlobalService::updateConfig('CENQ');
             $details = [
                 'customer_name'     => $request->contact_person,
                 'customer_email'    => $request->email,
