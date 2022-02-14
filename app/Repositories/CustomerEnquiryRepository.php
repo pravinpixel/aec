@@ -545,13 +545,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return false;
     }
 
-    public function createEnquiryBuildingComponentDocument($enquiry, $additionalData)
+    public function createEnquiryBuildingComponentDocument($data)
     {
-        return $this->enquiryBuildingComponentDocument
-                        ->updateOrcreate([
-                            'enquiry_id' => $enquiry->id, 
-                            'customer_id' => Customer()->id
-                        ],$additionalData);
+        return $this->enquiryBuildingComponentDocument->create($data);
     }
 
     public function moveToCancel($id)
@@ -561,5 +557,15 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             return $enquiry->update(['status' => 'Closed']);
         }
         return false;
+    }
+
+    public function deleteAndGetBuildingComponentDocument($id)
+    {
+        $document = $this->enquiryBuildingComponentDocument->find($id);
+        $enquiry = $this->enquiry->find($document->enquiry_id);
+        if($document->delete()) {
+            return $this->getBuildingComponent($enquiry);
+        }
+        return [];
     }
 }

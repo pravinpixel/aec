@@ -48,6 +48,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::delete('enquiry-document',  [EnquiryController::class, 'deleteDocument'])->name('customers.enquiry-document');
 
+    Route::delete('enquiry-building-component-document',  [EnquiryController::class, 'deleteBuildingComponentDocument'])->name('customers.enquiry-building-component-document');
+
     Route::get('enquiry-review',  [EnquiryController::class, 'getEnquiryReview'])->name('customers.enquiry-review');
 
     Route::get('edit-enquiry-review/{id}',  [EnquiryController::class, 'getEditEnquiryReview'])->name('customers.edit-enquiry-review');
@@ -66,7 +68,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
     Route::get('get-template-by-building-component-id', [EnquiryTemplateController::class, 'getTemplateByBuildingComponentId'])->name('get-template-by-building-component-id');
   
     Route::get('view-list',  function() {
-        return view('customer.enquiry.view-list');
+        return view('customer.enquiry.table.view-list');
     });
 
     Route::get('enquiry/project-info', function(){

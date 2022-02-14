@@ -180,8 +180,9 @@ class EnquiryController extends Controller
             $buildingComponents = $this->buildingComponent->all();
             $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$buildingComponents);
             $this->customerEnquiryRepo->storeCostEstimation($enquiry ,$buildingComponents);
+            $buildingComponentUploads = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
             if($result) {
-                return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
+                return response(['status' => true, 'data' => $buildingComponentUploads, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
             }
             return response(['status' => false, 'msg' => __('global.something')]);
         } else if($type == 'additional_info') {
@@ -261,8 +262,12 @@ class EnquiryController extends Controller
         $path               =   $request->file('file')->storePublicly($uploadPath, 'enquiry_uploads');
         $original_name      =   $request->file('file')->getClientOriginalName();
         $extension          =   $request->file('file')->getClientOriginalExtension();
-        $additionalData     =   ['file_path' => $path,  'file_name' => $original_name,'file_type' => $extension];
-        $this->customerEnquiryRepo->createEnquiryBuildingComponentDocument($enquiry, $additionalData);
+        $storeData     =   ['file_path' => $path,  
+                                'file_name' => $original_name,
+                                'file_type' => $extension,  
+                                'enquiry_id' => $enquiry->id, 
+                                'customer_id' => Customer()->id];
+        $this->customerEnquiryRepo->createEnquiryBuildingComponentDocument($storeData);
         $enquiry->building_component = true;
         $enquiry->building_component_process_type = 1; // for upload
         $enquiry->save();
@@ -314,8 +319,9 @@ class EnquiryController extends Controller
             $buildingComponents = $this->buildingComponent->all();
             $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$buildingComponents);
             $this->customerEnquiryRepo->storeCostEstimation($enquiry ,$buildingComponents);
+            $buildingComponentUploads = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
             if($result) {
-                return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
+                return response(['status' => true, 'data' => $buildingComponentUploads,'msg' => __('customer-enquiry.file_uploaded_successfully')]);
             }
             return response(['status' => false, 'msg' => __('global.something')]);
         } else if($type == 'additional_info') {
@@ -473,6 +479,18 @@ class EnquiryController extends Controller
             $data = ['msg'=> __('global.deleted'), 'status' => true];
         } else {
             $data = ['msg'=> __('global.something'),  'status' => false];
+        }
+        return response()->json($data);
+    }
+
+    public function deleteBuildingComponentDocument(Request $request)
+    {
+        $id = $request->input('id');
+        $result = $this->customerEnquiryRepo->deleteAndGetBuildingComponentDocument($id);
+        if($result) {
+            $data = ['msg'=> __('global.deleted'), 'data' => $result, 'status' => true];
+        } else {
+            $data = ['msg'=> __('global.something'), 'data' => $result, 'status' => false];
         }
         return response()->json($data);
     }

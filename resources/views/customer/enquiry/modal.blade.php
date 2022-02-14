@@ -8,7 +8,7 @@
                 <input type="hidden" id="exampleModalEnquiryId" value="" name="enquiry_id" ng-model="action_enquiry_id">
                 <input type="hidden" id="exampleModalViewType" value="" name="view_type" ng-model="action_view_type">
                 <input type="hidden" id="exampleModalId" value="" name="id" ng-model="action_id">
-                <h5 class="modal-title" id="exampleModalLabel"> </h5>
+                <h5 class="modal-title" id="exampleModalLabel"> Delete </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
                 <div class="modal-body" id="exampleModalBody"></div>

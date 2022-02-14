@@ -30,6 +30,7 @@
             <input type="file" class="form-control col-lg-8 mx-auto  file-control rounded-pill mb-2" id ="building-component-file" file-model = "buildingComponentFile" required />
             <button ng-click = "uploadBuildingComponentFile()" class=" col-lg-8 mx-auto btn btn-info form-control rounded-pill"> Upload file</button>
         </div> 
+        @include('customer.enquiry.table.building-component-upload-list')
     </div>
     <div class="row" ng-show="!showHideBuildingComponent">
         <div class="col-sm mb-2 mb-sm-0">
@@ -250,11 +251,12 @@
     </div> 
     @include('customer.enquiry.models.add-layer-modal')
     @include('customer.enquiry.models.add-template-modal')
+    @include('customer.enquiry.modal')
     <div class="card-footer border-0 p-0 " >
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li>
              <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="!showHideBuildingComponent" ng-disabled ="buildingComponentForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
-            <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="showHideBuildingComponent" ng-disabled="!fileUploaded" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
+            <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="showHideBuildingComponent" ng-disabled="!fileUploaded && buildingComponentUploads.length == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
         </ul>
     </div>
 </form>

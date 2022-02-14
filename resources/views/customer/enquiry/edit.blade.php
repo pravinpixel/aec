@@ -433,7 +433,10 @@
                var file_type = 'buildingComponent';
                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
               promise.then(function (response) {
+                  angular.element("input[type='file']").val(null);
                   if(response.data.status == true) {
+                    $scope.buildingComponentUploads = [];
+                    $scope.buildingComponentUploads =  response.data.data;
                     Message('success', response.data.msg);
                     return false;
                   } 
@@ -443,6 +446,30 @@
                     $scope.serverResponse = 'An error has occurred';
                 });
             };
+
+            $scope.performAction = () => {
+                let route      = $("#exampleModalRoute").val();
+                let method     = $("#exampleModalMethod").val();
+                let id         = $("#exampleModalId").val();
+                let enquiry_id = $("#exampleModalEnquiryId").val();
+                let view_type  = $("#exampleModalViewType").val();
+                $http({
+                    method: method,
+                    url: route,
+                    params: {id: id},
+                }).then(function (res) {
+                    if(res.data.status) {
+                        $scope.buildingComponentUploads = [];
+                        $scope.buildingComponentUploads =  res.data.data;
+                        $("#exampleModal").modal('hide');
+                        Message('success',res.data.msg);
+                        return false;
+                    }
+                    return false;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
 
             getDeliveryType = () => {
                 $http({
@@ -490,6 +517,7 @@
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
                     if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
+                        $scope.buildingComponentUploads = res.data.building_component;
                         getBuildingComponent();
                         return false;
                     }
@@ -964,7 +992,8 @@
                     });
             };
          
-            $scope.performAction = function()  {
+            $scope.performAction = () => {
+                console.log('called');
                 let route      = $("#exampleModalRoute").val();
                 let method     = $("#exampleModalMethod").val();
                 let id         = $("#exampleModalId").val();

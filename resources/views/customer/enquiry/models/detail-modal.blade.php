@@ -17,7 +17,8 @@
                             <th>Type Of Project</th>
                         </tr>
                         <tr>
-                            <td style="text-align: left !important;">@{{ enquiry.project_infos.enquiry_no }}</td>
+                            <td style="text-align: left !important;"  ng-show="enquiry.project_infos.enquiry_no">@{{ enquiry.project_infos.enquiry_no }}</td>
+                            <td style="text-align: left !important;" ng-show="!enquiry.project_infos.enquiry_no">@{{ enquiry.project_infos.customer_enquiry_number }}</td>
                             <td>{{ Customer()->full_name }}</td>
                             <td>@{{ enquiry.project_infos.company_name }}</td>
                             <td>{{ Customer()->mobile_no }}</td>
