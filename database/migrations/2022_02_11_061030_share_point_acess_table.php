@@ -16,6 +16,7 @@ class SharePointAcessTable extends Migration
         Schema::create('share_point_acesses', function (Blueprint $table) {
             $table->id();
             $table->string('folder_name')->nullable();
+            $table->string('data_name')->nullable();
             $table->string('is_active')->nullable();
             $table->softDeletes();
             $table->timestamps();

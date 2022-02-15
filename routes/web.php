@@ -132,12 +132,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('profile-info',  function() {
         return view('admin.pages.employee.employee-add');
     })->name('profile-info');
+    // Route::get('profile-info',[EmployeeController::class,'profileInfo'])->name('profile-info');
+
     Route::get('share-ponit-access',  function() {
         return view('admin.pages.employee.share-point-access');
     })->name('share-ponit-access');
     Route::get('ibm-access',  function() {
         return view('admin.pages.employee.ibm-access');
     })->name('ibm-access');
+    
+    Route::get('get-share-point-acess',[ EmployeeController::class,'sharePointAcess'])->name('get-share-point-acess');
+    Route::post('share-point-acess-status',[ EmployeeController::class,'sharePointStatus'])->name('share-point-acess-status');
+    
     
 });
 

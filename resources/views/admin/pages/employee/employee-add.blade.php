@@ -99,7 +99,7 @@
                         <div class="col-md-6 mb-1">
                         </div>
                         <div class="col-md-6 mb-1">
-                            <img ng-src="@{{PreviewImage}}" ng-show="PreviewImage != null" alt="" style="height:100px;width:100px" />
+                            <img ng-src="@{{PreviewImage}}" id="PreviewImage" class="form-control" ng-model="FormData.imageFile" ng-show="PreviewImage != null" alt="" style="height:100px;width:100px" />
                         </div>
                         
 

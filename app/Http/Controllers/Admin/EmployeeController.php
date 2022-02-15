@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Employee;
+use App\Models\Admin\SharePointAccess;
+use App\Models\Admin\EmployeeSharePointAcess;
+
 use App\Models\BuildingComponent;
 use App\Models\Type;
 use App\Http\Requests\RoleCreateRequest;
@@ -15,7 +18,7 @@ use App\Models\MasterCalculation;
 
 use Illuminate\Http\Response;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
-
+use Illuminate\Support\Facades\Session;
 class EmployeeController extends Controller
 {
     public function employee_control_view()
@@ -41,10 +44,7 @@ class EmployeeController extends Controller
     }
     public function addEmployee(Request $request)
     {
-        # code...
-        // return $request->all();
-       
-         
+        // return 1;         
         // return response(['status' => true, 'data' => $request->all() ,'msg' => trans('Employee Created')], Response::HTTP_OK);
         $module = new Employee;
 
@@ -70,8 +70,11 @@ class EmployeeController extends Controller
             $module->image = $image;
         }
         $res = $module->save();
+        $id = $module->id;
+       $valueId = session(['id'=>$id]);
+        // return $id;
         if($res) {
-            return response(['status' => true, 'data' => $res ,'msg' => trans('Employee Created')], Response::HTTP_OK);
+            return response(['status' => true, 'data' => $res ,'msg' => trans('Employee Created'),'data' => $id], Response::HTTP_OK);
         }
         return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
     }
@@ -95,10 +98,8 @@ class EmployeeController extends Controller
         $module->email = $request->epm_email;
         if($request->hasFile('file'))
         {
-            // return "sss";
             $image = $request->file('file')->getClientOriginalName();
             $request->file('file')->move(public_path('image'),$image);
-            // return $image;
             $module->image = $image;
         }
 
@@ -126,7 +127,6 @@ class EmployeeController extends Controller
         # code..
        
         $data= Employee::get();
-        // return $data;
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
@@ -155,7 +155,6 @@ class EmployeeController extends Controller
     }
     public function getEditEmployee($id)
     {
-        // return $id;
         $data = Employee::find($id);
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
@@ -181,7 +180,6 @@ class EmployeeController extends Controller
     public function employee_enquiry($id)
     {
         # code...
-        // return $id;
         $module = Employee::where('id',$id)->first();
 
         if( empty( $module ) ) {
@@ -195,8 +193,48 @@ class EmployeeController extends Controller
     }
     public function employee()
     {
-        // dd("s");
         return view('admin.pages.employee');
+    }
+    public function sharePointAcess(Type $var = null)
+    {
+        
+        $data = SharePointAccess::where('is_active','=','1')->get();
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    }
+    public function sharePointStatus(Request $request)
+    {
+ 
+        if($request->employeeId)
+        {
+
+                $oldData  = EmployeeSharePointAcess::where('employee_id',$request->employeeId)->first();
+                // return $oldData;
+                if($oldData)
+                {
+                    $oldData->employee_id = $request->employeeId;
+                    $oldData->{$request->fieldName} = $request->dataId;
+                    $oldData->update();
+                }
+                else{
+                    $data = new EmployeeSharePointAcess();
+                    $data->employee_id = $request->employeeId;
+                    $data->{$request->fieldName} = $request->dataId;
+                    $data->save();
+                }
+            
+          
+        }
+      
+
+    }
+    public function profileInfo()
+    {
+   
+       return view('admin.pages.employee.employee-add');
     }
     
    
