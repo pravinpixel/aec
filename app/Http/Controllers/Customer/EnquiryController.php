@@ -97,9 +97,9 @@ class EnquiryController extends Controller
             Session::forget('customer_enquiry_number');
             $this->getEnquiryNumber();
         }
-        $customer['enquiry_date']       =   now();
-        $customer['enquiry_number']     =   GlobalService::enquiryNumber();
-        $customer['document_types']     =   $this->documentTypeRepo->all();
+        $customer['enquiry_date']            = now();
+        $customer['customer_enquiry_number'] = GlobalService::customerEnquiryNumber();
+        $customer['document_types']          = $this->documentTypeRepo->all();
         return view('customer.enquiry.create',compact('customer','enquiry','customerEnquiryNumber'));
     }
 
