@@ -403,3 +403,7 @@ small {
 .link:hover {
     text-decoration: underline !important;
 }
+.hover-bg-primary:hover {
+    background: var(--primary-bg) !important;
+    color: white !important;
+}

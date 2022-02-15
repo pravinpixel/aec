@@ -10,13 +10,15 @@
     <div class="container p-4 border">
         <div class="tab-content">
             <div class="tab-pane @{{ index == 0 ? 'active' :'' }}"  id="tab_@{{ outputType.id }}_content" ng-repeat="(index,outputType) in outputTypes">
-                <div class="row justify-content-center">
-                    <label for="service_@{{ service.id }}" style="cursor: pointer" ng-repeat="service in outputType.services" class="col-md-4 p-1 d-flex justify-content-start  align-items-center " style="min-height: 50px" >
-                        <div class="lable-check p-0 "> 
-                            <input id="service_@{{ service.id }}"  style="transform:scale(1.6)" ng-checked="serviceList.indexOf(service.id) > -1"  ng-model="active" type="checkbox" value="@{{ service.id  }}" name="@{{ service.service_name  }}" class="m-2" ng-change="changeService(service.id, active)" >
-                            <span>@{{ service.service_name }}</span>
-                        </div>
-                    </label> 
+                <div class="row justify-content-start">
+                    <div class="col-4 p-2" ng-repeat="service in outputType.services">
+                        <label for="service_@{{ service.id }}" style="cursor: pointer" class="hover-bg-primary d-flex shadow-sm border rounded justify-content-start align-items-center" style="min-height: 50px" >
+                            <div class="lable-check p-0 "> 
+                                <input id="service_@{{ service.id }}"  style="transform:scale(1.6)" ng-checked="serviceList.indexOf(service.id) > -1"  ng-model="active" type="checkbox" value="@{{ service.id  }}" name="@{{ service.service_name  }}" class="m-2" ng-change="changeService(service.id, active)" >
+                                <span>@{{ service.service_name }}</span>
+                            </div>
+                        </label> 
+                    </div>
                 </div>
             </div> 
         </div>
