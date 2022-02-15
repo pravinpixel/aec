@@ -72,11 +72,11 @@ class GlobalServiceProvider extends Controller
 
     public function getBuildingComponentPath()
     {
-        return 'customers/'.Config::get('global.file_path.building_component_uploads').'/'.Customer()->id;
+        return 'customers/'.Customer()->id.'/'.Config::get('global.file_path.building_component_uploads');
     }
 
     public function getIfcmodelPath()
     {
-        return 'customers/'.Config::get('global.file_path.ifc_model_uploads').'/'.Customer()->id;
+        return 'customers/'.Customer()->id.'/'.Config::get('global.file_path.ifc_model_uploads');
     }
 }

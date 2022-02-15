@@ -278,8 +278,8 @@
                     url     : '{!! route('get-customer-new-enquiries') !!}',
                     dataType: 'json',
                     data: function (d) {
-                      d.from_date      = $scope.new_enquiry_from_date,
-                      d.to_date        = $scope.new_enquiry_to_date,
+                      d.from_date      = $scope.enquiry_from_date,
+                      d.to_date        = $scope.enquiry_to_date,
                       d.enquiry_number = $scope.enquiry_number,
                       d.project_type   = $scope.project_type
                     }
@@ -315,8 +315,8 @@
                     url     : '{!! route('get-customer-active-enquiries') !!}',
                     dataType: 'json',
                     data: function (d) {
-                      d.from_date      = $scope.new_enquiry_from_date,
-                      d.to_date        = $scope.new_enquiry_to_date,
+                      d.from_date      = $scope.enquiry_from_date,
+                      d.to_date        = $scope.enquiry_to_date,
                       d.enquiry_number = $scope.enquiry_number,
                       d.project_type   = $scope.project_type
                     }
@@ -352,8 +352,8 @@
                     url     : '{!! route('get-customer-completed-enquiries') !!}',
                     dataType: 'json',
                     data: function (d) {
-                        d.from_date      = $scope.new_enquiry_from_date,
-                        d.to_date        = $scope.new_enquiry_to_date,
+                        d.from_date      = $scope.enquiry_from_date,
+                        d.to_date        = $scope.enquiry_to_date,
                         d.enquiry_number = $scope.enquiry_number,
                         d.project_type   = $scope.project_type
                     }
@@ -382,6 +382,10 @@
                 newEnquiry.draw();
                 activeEnquiry.draw();
                 completedEnquiry.draw();
+                $scope.enquiry_from_date = '';
+                $scope.enquiry_to_date = '';
+                $scope.enquiry_number = '';
+                $scope.project_type = '';
                 $("#enquiry-filter-modal").modal('hide');
             }
 
