@@ -151,17 +151,17 @@
         
                 {{-- Selected Services --}}
                     <fieldset class="accordion-item">
+                        
                         <div class="accordion-header custom m-0 position-relative" id="service_header">
                             <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#service" aria-expanded="false" aria-controls="service">
                                 Selected Services
                             </div>
-                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
+                            <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                                 <i data-bs-toggle="collapse" 
                                     href="#service" 
                                     aria-expanded="false" 
                                     aria-controls="service" 
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn show collapsed "
-                                    >
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
                                 </i>
                             </div>
                         </div>
