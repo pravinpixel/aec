@@ -78,9 +78,7 @@ class EnquiryController extends Controller
             $type       =   $req->type;
             
             $data       =   Enquiry::whereBetween('created_at', [$from, $to])
-                                        ->when($status,  function($q) use($status) {
-                                            $q->where('status', $status);
-                                        })  
+                                        ->where('status','Active')
                                         ->when($type,  function($q) use($type) {
                                             $q->where('type', $type);
                                         })
@@ -89,7 +87,8 @@ class EnquiryController extends Controller
             return $data;
         }  
         
-        return Enquiry::with('customer')                        
+        return Enquiry::with('customer')   
+                        ->where('status','Active')                     
                         ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
                         ->select("enquiries.*")
                         ->get();
@@ -104,6 +103,7 @@ class EnquiryController extends Controller
         $result['progress']             =   $enquiry; 
         $result['customer_info']        =   $enquiry->customer; 
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
+        $result["customer_enquiry_number"] =   $enquiry->customer_enquiry_number;
         $result["enquiry_comments"]     =   $this->customerEnquiryRepo->getEnquiryComments($id);
         $result["enquiry_id"]           =   $enquiry->id;
         $result["enquiry_status"]       =   $enquiry->customer_response;
