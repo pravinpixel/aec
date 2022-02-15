@@ -178,8 +178,8 @@
                                             <div class="card-body pt-4">
                                                 <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallTop"> @{{ w.WallTop }}</p>
 
-                                                <div psi-sortable="" ng-model="d.Layers">
-                                                    <div ng-repeat="(ThreeIndex,l) in d.Layers track by $index"  class="row m-0 justify-content-between mb-3">
+                                                <div psi-sortable="" ng-model="d.Layers" id="Layers_Lable">
+                                                    <div ng-repeat="(ThreeIndex,l) in d.Layers track by $index"  class="row m-0 justify-content-between mb-2">
                                                         <div class="col p-0">
                                                             <div class="btn-group w-100">
                                                                 <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center"><i class="mdi mdi-drag"></i></div>

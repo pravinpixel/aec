@@ -15,7 +15,7 @@
                         </i>
                     </div>
                 </div>
-                <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" data-bs-parent="#summaryGroup">
+                <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
                     <div class="accordion-body">  
                         <table class="table m-0 table-hover">
                             <tbody>
@@ -133,7 +133,7 @@
                         </i>
                     </div>
                 </div>
-                <div id="selected_service" class="accordion-collapse collapse" aria-labelledby="selected_service_header" data-bs-parent="#summaryGroup">
+                <div id="selected_service" class="accordion-collapse collapse" aria-labelledby="selected_service_header" >
                     <div class="accordion-body">  
                         <ul>
                             <li ng-repeat="(key,outputType) in outputTypes" class=""> @{{ key }}
@@ -171,7 +171,7 @@
                         </i>
                     </div>
                 </div>
-                <div id="IFC_Models_Upload_Docs" class="accordion-collapse collapse " aria-labelledby="IFC_Models_Upload_Docs_header" data-bs-parent="#summaryGroup">
+                <div id="IFC_Models_Upload_Docs" class="accordion-collapse collapse " aria-labelledby="IFC_Models_Upload_Docs_header" >
                     <div class="accordion-body"> 
                         <table class="table custom table-hover">
                             <thead>
@@ -227,7 +227,7 @@
                             class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
                 </div>
-                <div ng-show="project_info.building_component_process_type == 0" id="building_components" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                <div ng-show="project_info.building_component_process_type == 0" id="building_components" class="accordion-collapse collapse  " aria-labelledby="building_components_header" >
                     <div class="accordion-body">  
                         <div  style="max-height: 400px; overflow:auto"> 
                             <table class="table table-bordered" ng-init="total = 0 ">
@@ -300,7 +300,7 @@
                         </div> 
                     </div> 
                 </div>
-                <div ng-show="project_info.building_component_process_type == 1" id="building_components" class="accordion-collapse collapse " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                <div ng-show="project_info.building_component_process_type == 1" id="building_components" class="accordion-collapse collapse " aria-labelledby="building_components_header" >
                     <div class="accordion-body"> 
                         <table class="table custom table-hover">
                             <thead>
@@ -357,7 +357,7 @@
                             class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
                 </div>
-                <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
+                <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" >
                     <div class="accordion-body">  
                         <h5> @{{ additional_infos.comments }}</h5>
                         <form id="add_info__commentsForm" class="input-group mt-3">
@@ -376,9 +376,7 @@
     </div>   
     <div class="card-footer border-0 p-0 ">
         <ul class="list-inline wizard mb-0 pt-3">
-            <li class="previous list-inline-item disabled"></li>
-            
-            
+            <li class="previous list-inline-item disabled"></li> 
         </ul>
         <div class="row m-0">
             <div class="col-6"><a href="#!/additional-info" class="btn btn-light border shadow-sm">Prev</a></div>

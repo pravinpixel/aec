@@ -407,3 +407,9 @@ small {
     background: var(--primary-bg) !important;
     color: white !important;
 }
+#Layers_Lable .row:nth-child(1) label {
+    display: block;
+}
+#Layers_Lable .row label {
+    display: none;
+}
