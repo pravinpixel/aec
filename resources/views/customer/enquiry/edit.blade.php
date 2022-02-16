@@ -708,6 +708,7 @@
             }
 
             $scope.submitAdditionalinfoForm = () => {
+            
                 if($scope.additionalInfo == '' || typeof($scope.additionalInfo) == 'undefined'){
                     $location.path('/review');
                     return false;
@@ -715,7 +716,7 @@
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.update-enquiry", $id) }}',
-                    data: {type: 'additional_info', 'data': $scope.additionalInfo}
+                    data: {type: 'additional_info', 'data': $("#additional_info_text_editor [contenteditable=true]").html()}
                 }).then(function (res) {
                     $location.path('/review');
                     Message('success',`Comments added successfully`);

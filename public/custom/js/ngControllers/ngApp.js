@@ -116,3 +116,7 @@ angular.module('psi.sortable', [])
         }
         };
     }]);
+    app.config(function() {
+        angular.lowercase = angular.$$lowercase;  
+    });
+    

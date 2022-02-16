@@ -774,7 +774,7 @@
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
-                    data: {type: 'additional_info', 'data': $scope.additionalInfo}
+                    data: {type: 'additional_info', 'data': $("#additional_info_text_editor [contenteditable=true]").html()}
                 }).then(function (res) {
                     $location.path('/review');
                     Message('success',`Comments added successfully`);

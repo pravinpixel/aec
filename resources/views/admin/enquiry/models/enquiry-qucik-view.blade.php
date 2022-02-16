@@ -390,7 +390,7 @@
                         </div>
                         <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" >
                             <div class="accordion-body">  
-                                <p> @{{ additional_infos.comments }}</p>
+                                <div ng-bind-html="additional_infos.comments"> </div>
                                 <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
                                     <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>

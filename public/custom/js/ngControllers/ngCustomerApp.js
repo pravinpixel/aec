@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ui-notification','ngRoute','textAngular','luegg.directives','psi.sortable']).constant('API_URL', $("#baseurl").val());   
+var app = angular.module('App', ['ui-notification','ngRoute','textAngular','luegg.directives','psi.sortable','ngSanitize']).constant('API_URL', $("#baseurl").val());   
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  
         restrict: 'A',  
@@ -37,7 +37,11 @@ app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeo
             });  
         }  
     };
-}]); 
+}]);
+
+app.config(function() {
+    angular.lowercase = angular.$$lowercase;  
+});
 
 angular.module('psi.sortable', [])
         .value('psiSortableConfig', {
