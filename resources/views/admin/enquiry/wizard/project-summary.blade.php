@@ -3,7 +3,7 @@
         {{-- ProjectInfo --}}
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
-                    <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
+                    <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
                         Project Information
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
