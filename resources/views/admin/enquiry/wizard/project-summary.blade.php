@@ -1,5 +1,5 @@
 <div ng-controller="WizzardCtrl"> 
-    <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
+    <div class="summary-group py-3 accordion rounded-0" id="summaryGroupx">
         {{-- ProjectInfo --}}
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
