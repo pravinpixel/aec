@@ -1,5 +1,5 @@
 <form id="serviceSelection" name="serviceSelection" ng-submit="submitService()" method="post" class="form-horizontal" novalidate>
-    <ul class="nav nav-tabs justify-content-center" style="transform: translateY(1px);">
+    <ul class="nav nav-tabs" style="transform: translateY(1px);">
         <li class="nav-item " ng-repeat="(index,outputType) in outputTypes">
             <a href="#tab_@{{ outputType.id }}_content" data-bs-toggle="tab" aria-expanded="true" class="nav-link @{{ index == 0 ? 'active' :'' }}">
                 <i class="mdi mdi-account-circle d-md-none d-block"></i>

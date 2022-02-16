@@ -340,6 +340,7 @@
             $("#building-component").addClass('active');
             $scope.wallGroup = [];
             $scope.layerAdd = true;
+            $scope.callTemplate = true;
             $scope.fileUploaded = false;
             let enquiry_id = {{$id}};
             $http({
@@ -396,6 +397,7 @@
                         Message('danger', response.data.msg);
                         return false;
                     }
+                    $scope.callTemplate =  !$scope.callTemplate;
                     $("#add-template-modal").modal('hide');
                     $scope.TemplateForm.name = '';
                     Message('success', response.data.msg);
@@ -658,16 +660,17 @@
                 return {
                     restrict: 'A',
                     link : function (scope, element, attrs) {
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("get-template-by-building-component-id") }}',
-                            params : {building_component_id: scope.w.WallId}
-                            }).then(function success(response) {
-                                scope.Templates = response.data;
-                            }, function error(response) {
+                        scope.$watch('callTemplate', function() {
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("get-template-by-building-component-id") }}',
+                                params : {building_component_id: scope.w.WallId}
+                                }).then(function success(response) {
+                                    scope.Templates = response.data;
+                                }, function error(response) {
+                            });
                         });
                     },
-
                 };
             });
 
