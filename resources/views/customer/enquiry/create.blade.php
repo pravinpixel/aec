@@ -472,8 +472,11 @@
                     });
             }
             $scope.uploadBuildingComponentFile = function() {
-               var file = $scope.buildingComponentFile;
-               if(typeof(file) == 'undefined') {
+                var file = false;
+                if($scope.$parent['building_component_file']){
+                    file = $scope.$parent['building_component_file'];  
+                }
+                if(file == false){
                     Message('danger', 'Please upload file');
                     return false;
                 }
@@ -482,6 +485,7 @@
                var file_type = 'buildingComponent';
                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
               promise.then(function (response) {
+                  delete($scope.$parent['building_component_file']);
                   angular.element("input[type='file']").val(null);
                   if(response.data.status == true) {
                         $scope.buildingComponentUploads = [];
@@ -536,7 +540,6 @@
                     method: 'GET',
                     url: '{{ route("building-component.get") }}'
                     }).then(function success(response) {
-                        
                         response.data.map( (item , index) => {
                             
                             let wall = {
@@ -569,6 +572,7 @@
                         getBuildingComponent();
                         return false;
                     }
+                    $scope.showHideBuildingComponent = res.data.building_component_process_type;
                     res.data.building_component.map( (item , index) => {
                         let Details  = [];
                         if(typeof(item.detail) != 'undefined') {
@@ -851,7 +855,7 @@
                     "type"            :   $scope.chatType,
                     "created_by"      :   type,
                 }
-                console.log($scope.sendCommentsData);
+                // console.log($scope.sendCommentsData);
                 $http({
                     method: "POST",
                     url:  "{{ route('enquiry.comments') }}" ,
@@ -953,7 +957,7 @@
                     "type"            :   $scope.chatType,
                     "created_by"      :   type,
                 }
-                console.log($scope.sendCommentsData);
+                // console.log($scope.sendCommentsData);
                 $http({
                     method: "POST",
                     url:  "{{ route('enquiry.comments') }}" ,
@@ -1021,7 +1025,7 @@
                         $scope.documentLists[`${item.slug}`] = 0;
                         return {...item, ...{'file_name': ''}};
                     });
-                    console.log($scope.documentLists);
+                    // console.log($scope.documentLists);
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });

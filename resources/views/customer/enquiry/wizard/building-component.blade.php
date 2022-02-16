@@ -3,15 +3,15 @@
     <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert">
         <div class="d-flex align-items-center justify-content-center    ">
             <i class="dripicons-information me-2"></i>  
-            Do you want to  
+            Do you want to
             <div class="form-check">
-                <input type="radio" id="flexRadioDefault1" name="buildingComponent_" checked ng-model="showHideBuildingComponent" ng-value="false">
+                <input type="radio" id="flexRadioDefault1" name="buildingComponent_" ng-checked="showHideBuildingComponent == 0" ng-model="showHideBuildingComponent" ng-value="false">
                 <label class="form-check-label" for="flexRadioDefault1">
                 Enter Manually   (or)
                 </label>
             </div> 
             <div class="form-check">
-                <input type="radio" id="flexRadioDefault" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
+                <input type="radio" id="flexRadioDefault" ng-checked="showHideBuildingComponent == 1" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
                 <label class="form-check-label" for="flexRadioDefault">
                 Upload  
                 </label>
@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div ng-show="showHideBuildingComponent"> 
+    <div ng-show="showHideBuildingComponent == 1"> 
         <div  class="card p-3 mt-3 shadow-sm file-upload-card col-md-5 mx-auto" style="overflow: hidden">
             <div class="progress my-2" ng-show="buildingComponentshowProgress">
                 <div ng-show="buildingComponentshowProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}"> @{{progress_value}} </div>
@@ -27,12 +27,12 @@
             <div class="d-flex my-2 mx-auto bg-primary shadow justify-content-center align-items-center rounded-circle" style="height: 100px;width:100px">
                 <i class="fa fa-file-text text-white fa-3x"></i>
             </div>
-            <input type="file" class="form-control col-lg-8 mx-auto  file-control rounded-pill mb-2" id ="building-component-file" file-model = "buildingComponentFile" required />
+            <input type="file" class="form-control col-lg-8 mx-auto  file-control rounded-pill mb-2" id ="building-component-file" file-model ="building_component_file" required />
             <button ng-click = "uploadBuildingComponentFile()" class=" col-lg-8 mx-auto btn btn-info form-control rounded-pill"> Upload file</button>
         </div> 
         @include('customer.enquiry.table.building-component-upload-list')
     </div>
-    <div class="row" ng-show="!showHideBuildingComponent">
+    <div class="row" ng-show="showHideBuildingComponent == 0">
         <div class="col-sm mb-2 mb-sm-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"

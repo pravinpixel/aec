@@ -138,7 +138,7 @@
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $("#project-info").addClass('active');
             let enquiry_id = {{$id}};
-            console.log('enquiry_id',enquiry_id);
+            // console.log('enquiry_id',enquiry_id);
             $http({
                 method: 'GET',
                 url: '{{ route('get-login-customer') }}'
@@ -200,7 +200,7 @@
                 return  $scope.data;
             }
             getLastEnquiry = (enquiry_id) => {
-                console.log(enquiry_id);
+                // console.log(enquiry_id);
                 if(typeof(enquiry_id) == 'undefined' ||enquiry_id == ''){
                     return false;
                 } 
@@ -423,27 +423,31 @@
             }
 
             $scope.uploadBuildingComponentFile = function() {
-               var file = $scope.buildingComponentFile;
-              if(typeof(file) == 'undefined') {
-                Message('danger', 'Please upload file');
-                return false;
-              }
-               var uploadUrl = '{{ route('customers.update-enquiry',$id) }}';
-               var type = 'building_component_upload';
-               var file_type = 'buildingComponent';
-               promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
-              promise.then(function (response) {
-                  angular.element("input[type='file']").val(null);
-                  if(response.data.status == true) {
-                    $scope.buildingComponentUploads = [];
-                    $scope.buildingComponentUploads =  response.data.data;
-                    Message('success', response.data.msg);
+                var file = false;
+                if($scope.$parent['building_component_file']){
+                    file = $scope.$parent['building_component_file'];  
+                }
+                if(file == false){
+                    Message('danger', 'Please upload file');
                     return false;
-                  } 
-                  Message('danger', response.data.msg);
+                }
+                var uploadUrl = '{{ route('customers.update-enquiry',$id) }}';
+                var type = 'building_component_upload';
+                var file_type = 'buildingComponent';
+                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
+                promise.then(function (response) {
+                    delete($scope.$parent['building_component_file']);
+                    angular.element("input[type='file']").val(null);
+                    if(response.data.status == true) {
+                        $scope.buildingComponentUploads = [];
+                        $scope.buildingComponentUploads =  response.data.data;
+                        Message('success', response.data.msg);
+                        return false;
+                    } 
+                    Message('danger', response.data.msg);
                     return false;
-              },function(){
-                    $scope.serverResponse = 'An error has occurred';
+                },function(){
+                $scope.serverResponse = 'An error has occurred';
                 });
             };
 
@@ -516,6 +520,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
+                    $scope.showHideBuildingComponent = res.data.building_component_process_type;
                     if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
                         $scope.buildingComponentUploads = res.data.building_component;
                         getBuildingComponent();
@@ -885,7 +890,7 @@
                         $scope.documentLists[`${item.slug}`] = [];
                         return {...item, ...{'file_name': ''}};
                     });
-                    console.log($scope.documentLists);
+                    // console.log($scope.documentLists);
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -993,7 +998,7 @@
             };
          
             $scope.performAction = () => {
-                console.log('called');
+                // console.log('called');
                 let route      = $("#exampleModalRoute").val();
                 let method     = $("#exampleModalMethod").val();
                 let id         = $("#exampleModalId").val();
