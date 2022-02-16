@@ -37,7 +37,7 @@ app.controller('SalesController', function ($scope, $http, API_URL) {
             $scope.module = {};
             $scope.enqForm.$setPristine();
             $scope.enqForm.$setValidity();
-            $scope.enqForm.$setUntouched();
+            // $scope.enqForm.$setUntouched();
             
         }, function errorCallback(response) {
             Message('danger',response.data.errors.email);

@@ -26,7 +26,7 @@ class GlobalServiceProvider extends Controller
     public function customerEnquiryNumber()
     {
         $config = $this->getConfig();
-        return "{$config->customer_prefix}-{$config->customer_enquiry_number}";
+        return "{$config->customer_prefix}/{$config->enquiry_year}/00{$config->customer_enquiry_number}";
     }
 
     public function getConfig()
@@ -72,11 +72,11 @@ class GlobalServiceProvider extends Controller
 
     public function getBuildingComponentPath()
     {
-        return 'customers/'.Config::get('global.file_path.building_component_uploads').'/'.Customer()->id;
+        return 'customers/'.Customer()->id.'/'.Config::get('global.file_path.building_component_uploads');
     }
 
     public function getIfcmodelPath()
     {
-        return 'customers/'.Config::get('global.file_path.ifc_model_uploads').'/'.Customer()->id;
+        return 'customers/'.Customer()->id.'/'.Config::get('global.file_path.ifc_model_uploads');
     }
 }

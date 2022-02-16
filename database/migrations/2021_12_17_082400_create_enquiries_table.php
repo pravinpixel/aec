@@ -16,7 +16,8 @@ class CreateEnquiriesTable extends Migration
         Schema::create('enquiries', function (Blueprint $table) {
             $table->id();
             $table->string('enquiry_date')->nullable();
-            $table->string('enquiry_number');
+            $table->string('enquiry_number')->nullable();
+            $table->string('customer_enquiry_number')->nullable();
             $table->string('company_name')->nullable();
             $table->string('contact_person')->nullable();
             $table->string('mobile_no')->nullable();
@@ -46,7 +47,7 @@ class CreateEnquiriesTable extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers'); 
             $table->string('status')->default('In-Complete');
-            
+            $table->string('project_status')->default('Unattended');
             // ======== Admin Wizard Flow Status =======
                 $table->boolean('technical_estimation_status')->default(0);
                 $table->boolean('cost_estimation_status')->default(0);

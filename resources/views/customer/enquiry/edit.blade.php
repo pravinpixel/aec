@@ -183,6 +183,7 @@
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
                     'enquiry_number'       : $projectInfo.enquiry_number,
+                    'customer_enquiry_number'       : $projectInfo.customer_enquiry_number,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
                     'state'                : $projectInfo.state,
@@ -207,7 +208,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/project_info`,
                 }).then(function (res) {
-                    $scope.enquiry_number = res.data.project_info.enquiry_no;
+                    $scope.customer_enquiry_number = res.data.project_info.customer_enquiry_number ?? res.data.project_info.enquiry_no;
                     $scope.enquiry_date = new Date(res.data.project_info.enquiry_date);
                     $scope.projectInfo = getProjectInfoInptuData(res.data.project_info);
                 }, function (error) {
@@ -432,7 +433,10 @@
                var file_type = 'buildingComponent';
                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
               promise.then(function (response) {
+                  angular.element("input[type='file']").val(null);
                   if(response.data.status == true) {
+                    $scope.buildingComponentUploads = [];
+                    $scope.buildingComponentUploads =  response.data.data;
                     Message('success', response.data.msg);
                     return false;
                   } 
@@ -442,6 +446,30 @@
                     $scope.serverResponse = 'An error has occurred';
                 });
             };
+
+            $scope.performAction = () => {
+                let route      = $("#exampleModalRoute").val();
+                let method     = $("#exampleModalMethod").val();
+                let id         = $("#exampleModalId").val();
+                let enquiry_id = $("#exampleModalEnquiryId").val();
+                let view_type  = $("#exampleModalViewType").val();
+                $http({
+                    method: method,
+                    url: route,
+                    params: {id: id},
+                }).then(function (res) {
+                    if(res.data.status) {
+                        $scope.buildingComponentUploads = [];
+                        $scope.buildingComponentUploads =  res.data.data;
+                        $("#exampleModal").modal('hide');
+                        Message('success',res.data.msg);
+                        return false;
+                    }
+                    return false;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
 
             getDeliveryType = () => {
                 $http({
@@ -489,6 +517,7 @@
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
                     if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
+                        $scope.buildingComponentUploads = res.data.building_component;
                         getBuildingComponent();
                         return false;
                     }
@@ -963,7 +992,8 @@
                     });
             };
          
-            $scope.performAction = function()  {
+            $scope.performAction = () => {
+                console.log('called');
                 let route      = $("#exampleModalRoute").val();
                 let method     = $("#exampleModalMethod").val();
                 let id         = $("#exampleModalId").val();

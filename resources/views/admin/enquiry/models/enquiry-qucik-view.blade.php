@@ -44,7 +44,7 @@
                                 </i>
                             </div>
                         </div>
-                        <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" data-bs-parent="#summaryGroup">
+                        <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
                             <div class="accordion-body">  
                                 <table class="table m-0 table-hover">
                                     <tbody>
@@ -165,7 +165,7 @@
                                 </i>
                             </div>
                         </div>
-                        <div id="service" class="accordion-collapse collapse" aria-labelledby="service_header" data-bs-parent="#summaryGroup">
+                        <div id="service" class="accordion-collapse collapse" aria-labelledby="service_header" >
                             <div class="accordion-body">  
                                 
                                 <ul >
@@ -204,7 +204,7 @@
                                 </i>
                             </div>
                         </div>
-                        <div id="ifc_model" class="accordion-collapse collapse " aria-labelledby="ifc_model_header" data-bs-parent="#summaryGroup">
+                        <div id="ifc_model" class="accordion-collapse collapse " aria-labelledby="ifc_model_header" >
                             <div class="accordion-body"> 
                                 <table class="table custom table-hover">
                                     <thead>
@@ -258,7 +258,7 @@
                                     class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                             </div>
                         </div>
-                        <div id="building_component" ng-show="project_info.building_component_process_type == 0" class="accordion-collapse collapse  " aria-labelledby="building_component_header" data-bs-parent="#summaryGroup">
+                        <div id="building_component" ng-show="project_info.building_component_process_type == 0" class="accordion-collapse collapse  " aria-labelledby="building_component_header" >
                             <div class="accordion-body">  
                                 <div  style="max-height: 400px; overflow:auto"> 
                                     <table class="table table-bordered" ng-init="total = 0 ">
@@ -332,7 +332,7 @@
                             </div> 
                         </div>
 
-                        <div id="building_component"ng-show="project_info.building_component_process_type == 1" class="accordion-collapse collapse  " aria-labelledby="building_component_header" data-bs-parent="#summaryGroup">
+                        <div id="building_component"ng-show="project_info.building_component_process_type == 1" class="accordion-collapse collapse  " aria-labelledby="building_component_header" >
                             <div class="accordion-body">  
                                 <div  style="max-height: 400px; overflow:auto"> 
                                     <table class="table custom table-hover">
@@ -388,7 +388,7 @@
                                     class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                             </div>
                         </div>
-                        <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
+                        <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" >
                             <div class="accordion-body">  
                                 <p> @{{ additional_infos.comments }}</p>
                                 <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">

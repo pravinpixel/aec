@@ -22,6 +22,7 @@ class CreateEnquiryBuildingComponentDocumentsTable extends Migration
             $table->string('file_type');
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->foreign('customer_id')->references('id')->on('customers');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Services\GlobalService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EnquiryBuildingComponentDocument extends Model
 {
-    use HasFactory;
+    use HasFactory,  SoftDeletes;
     
     public function getCreatedAtAttribute($value)
     {

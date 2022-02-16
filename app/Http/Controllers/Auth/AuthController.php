@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -41,6 +42,7 @@ class AuthController extends Controller
 
     public function customerLogout() {
         Auth::guard('customers')->logout();
+        Session::flush();
         Flash::success(__('auth.logout_successful'));
         return redirect(route('customers.login'));
     }

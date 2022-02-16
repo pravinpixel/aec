@@ -134,8 +134,9 @@
             })
         }); 
         
-        app.controller('wizard', function($scope, $http,$rootScope, Notification) {
+        app.controller('wizard', function($scope, $http,$rootScope, Notification, $location) {
             $rootScope.projectNameLabel;
+            $location.path('/');
         });
  
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
@@ -147,11 +148,11 @@
                 url: '{{ route('get-customer-enquiry') }}'
             }).then( function(res) {
                     if(res.data.status == "false") {
-                        $scope.enquiry_number = res.data.enquiry_number;
+                        $scope.customer_enquiry_number = res.data.customer_enquiry_number;
                         enquiry_id = res.data.enquiry_id
                         getLastEnquiry(enquiry_id);
                     } else {
-                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                        $scope.customer_enquiry_number = res.data.enquiry.customer_enquiry_number;
                     }
                 }, function (err) {
                     console.log('get enquiry error');
@@ -383,6 +384,7 @@
             $scope.fileUploaded = false;
             $scope.wallGroup = [];
             $scope.layerAdd = true;
+            $scope.callTemplate = true;
             let building_component_id;
             let enquiry_id;
             $http({
@@ -427,6 +429,7 @@
             }   
 
             $scope.submitTemplate = () => {
+              
                 let index =  $scope.templateData.index_position;
                 let detail_position =  $scope.templateData.detail_position;
                 let data =  $scope.wallGroup[index].Details[detail_position];
@@ -439,6 +442,7 @@
                         Message('danger', response.data.msg);
                         return false;
                     }
+                    $scope.callTemplate =  !$scope.callTemplate;
                     $("#add-template-modal").modal('hide');
                     $scope.TemplateForm.name = '';
                     Message('success', response.data.msg);
@@ -478,9 +482,12 @@
                var file_type = 'buildingComponent';
                promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
               promise.then(function (response) {
+                  angular.element("input[type='file']").val(null);
                   if(response.data.status == true) {
-                    Message('success', response.data.msg);
-                    return false;
+                        $scope.buildingComponentUploads = [];
+                        $scope.buildingComponentUploads = response.data.data;
+                        Message('success', response.data.msg);
+                        return false;
                   } 
                   Message('danger', response.data.msg);
                     return false;
@@ -488,6 +495,30 @@
                     $scope.serverResponse = 'An error has occurred';
                 });
             };
+
+            $scope.performAction = () => {
+                let route      = $("#exampleModalRoute").val();
+                let method     = $("#exampleModalMethod").val();
+                let id         = $("#exampleModalId").val();
+                let enquiry_id = $("#exampleModalEnquiryId").val();
+                let view_type  = $("#exampleModalViewType").val();
+                $http({
+                    method: method,
+                    url: route,
+                    params: {id: id},
+                }).then(function (res) {
+                    if(res.data.status) {
+                        $scope.buildingComponentUploads = [];
+                        $scope.buildingComponentUploads =  res.data.data;
+                        $("#exampleModal").modal('hide');
+                        Message('success',res.data.msg);
+                        return false;
+                    }
+                    return false;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
 
             getDeliveryType = () => {
                 $http({
@@ -670,16 +701,17 @@
                 return {
                     restrict: 'A',
                     link : function (scope, element, attrs) {
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("get-template-by-building-component-id") }}',
-                            params : {building_component_id: scope.w.WallId}
-                            }).then(function success(response) {
-                                scope.Templates = response.data;
-                            }, function error(response) {
-                        });
-                    },
-
+                        scope.$watch('callTemplate', function() {
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("get-template-by-building-component-id") }}',
+                                params : {building_component_id: scope.w.WallId}
+                                }).then(function success(response) {
+                                    scope.Templates = response.data;
+                                }, function error(response) {
+                            });
+                        }, true)
+                    }
                 };
             }).service('fileUpload', function ($http) {
                 this.uploadFileToUrl = function(file, uploadUrl) {

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Admin\PropoalVersions;
 use Illuminate\Http\Response;
 use App\Models\Service;
+use App\Services\GlobalService;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Hash;
@@ -49,9 +50,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $this->customer->find($id);
     }
 
-    public function createCustomerEnquiryProjectInfo($enquiry_number, Customer $customer, array $data)
+    public function createCustomerEnquiryProjectInfo($customer_enquiry_number, Customer $customer, array $data)
     {
-        return $customer->enquiry()->updateOrCreate(['enquiry_number' => $enquiry_number], $data);
+        return $customer->enquiry()->updateOrCreate(['customer_enquiry_number' => $customer_enquiry_number], $data);
     }
 
     public function createCustomerEnquiryServices($enquiry,  $services)
@@ -202,6 +203,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             $result = PropoalVersions::where("enquiry_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
             return view('admin.enquiry.approvals.proposal', compact('result' ,$result));
         } 
+    }
+
+    public function getEnquiryByCustomerEnquiryNo($customeEnquiryNumber)
+    {
+        return $this->enquiry->where('customer_enquiry_number', $customeEnquiryNumber)->first();
     }
     
     public function getEnquiryComments($id)
@@ -527,14 +533,21 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         return false;
     }
-
-    public function createEnquiryBuildingComponentDocument($enquiry, $additionalData)
+    
+    public function AddEnquiryReferenceNo($enquiry)
     {
-        return $this->enquiryBuildingComponentDocument
-                        ->updateOrcreate([
-                            'enquiry_id' => $enquiry->id, 
-                            'customer_id' => Customer()->id
-                        ],$additionalData);
+        if(is_null($enquiry->enquiry_number)) {
+            $enquiry->enquiry_number = GlobalService::enquiryNumber();
+            if($enquiry->save()){
+                return GlobalService::updateConfig('ENQ');
+            }
+        }
+        return false;
+    }
+
+    public function createEnquiryBuildingComponentDocument($data)
+    {
+        return $this->enquiryBuildingComponentDocument->create($data);
     }
 
     public function moveToCancel($id)
@@ -546,4 +559,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return false;
     }
 
+    public function deleteAndGetBuildingComponentDocument($id)
+    {
+        $document = $this->enquiryBuildingComponentDocument->find($id);
+        $enquiry = $this->enquiry->find($document->enquiry_id);
+        if($document->delete()) {
+            return $this->getBuildingComponent($enquiry);
+        }
+        return [];
+    }
 }

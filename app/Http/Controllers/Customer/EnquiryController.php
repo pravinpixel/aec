@@ -91,17 +91,16 @@ class EnquiryController extends Controller
 
     public function create()
     {
-        $enquiry = $this->customerEnquiryRepo->getEnquiry(Customer()->id);
-        $enquiry_number = $this->getEnquiryNumber();
-        $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+        $customerEnquiryNumber = $this->getEnquiryNumber();
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customerEnquiryNumber);
         if(!empty($enquiry)) {
-            Session::forget('enquiry_number');
+            Session::forget('customer_enquiry_number');
             $this->getEnquiryNumber();
         }
-        $customer['enquiry_date']       =   now();
-        $customer['enquiry_number']     =   GlobalService::enquiryNumber();
-        $customer['document_types']     =   $this->documentTypeRepo->all();
-        return view('customer.enquiry.create',compact('customer','enquiry','enquiry_number'));
+        $customer['enquiry_date']            = now();
+        $customer['customer_enquiry_number'] = GlobalService::customerEnquiryNumber();
+        $customer['document_types']          = $this->documentTypeRepo->all();
+        return view('customer.enquiry.create',compact('customer','enquiry','customerEnquiryNumber'));
     }
 
     public function show() 
@@ -111,26 +110,26 @@ class EnquiryController extends Controller
 
     public function getEnquiryNumber() 
     {
-        if (Session::has('enquiry_number')){
-            $enquiry_number = Session::get('enquiry_number');
-            Log::info("Session already exists {$enquiry_number}");
+        if (Session::has('customer_enquiry_number')){
+            $customer_enquiry_number = Session::get('customer_enquiry_number');
+            Log::info("Session already exists {$customer_enquiry_number}");
         } else {
-            Session::put('enquiry_number', GlobalService::enquiryNumber());
-            GlobalService::updateConfig('ENQ');
-            $enquiry_number = Session::get('enquiry_number');
-            Log::info("New session created {$enquiry_number}");
+            Session::put('customer_enquiry_number', GlobalService::customerEnquiryNumber());
+            GlobalService::updateConfig('CENQ');
+            $customer_enquiry_number = Session::get('customer_enquiry_number');
+            Log::info("New session created {$customer_enquiry_number}");
         }
-        return  $enquiry_number;
+        return  $customer_enquiry_number;
     }
 
     public function getCurrentEnquiry(Request $request)
     {
-        if (Session::has('enquiry_number')){
-            $enquiry_number = Session::get('enquiry_number');
-            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
-            return response(['status' => 'false',  'enquiry_number'=>  $enquiry_number, 'enquiry_id' => $enquiry->id ?? '']);
+        if (Session::has('customer_enquiry_number')){
+            $customer_enquiry_number = Session::get('customer_enquiry_number');
+            $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
+            return response(['status' => 'false',  'customer_enquiry_number'=>  $customer_enquiry_number, 'enquiry_id' => $enquiry->id ?? '']);
         }
-        return response(['status' => 'false',  'enquiry_number'=>  $this->getEnquiryNumber()]);
+        return response(['status' => 'false',  'customer_enquiry_number'=>  $this->getEnquiryNumber()]);
     }
 
     public function store(Request $request)
@@ -138,12 +137,12 @@ class EnquiryController extends Controller
         $type = $request->input('type');
         $data = $request->input('data');
         $customer = $this->customerEnquiryRepo->getCustomer(Customer()->id);
-        $enquiry_number = $this->getEnquiryNumber();
-        $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+        $customer_enquiry_number = $this->getEnquiryNumber();
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
         if($type == 'project_info') {
             $array_merge = array_merge($data, ['enquiry_date' => Carbon::now()]);
-            $res = $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($enquiry_number, $customer, $array_merge);
-            $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+            $res = $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer_enquiry_number, $customer, $array_merge);
+            $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
             return $res;
         } else if($type == 'services') {
@@ -181,8 +180,9 @@ class EnquiryController extends Controller
             $buildingComponents = $this->buildingComponent->all();
             $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$buildingComponents);
             $this->customerEnquiryRepo->storeCostEstimation($enquiry ,$buildingComponents);
+            $buildingComponentUploads = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
             if($result) {
-                return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
+                return response(['status' => true, 'data' => $buildingComponentUploads, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
             }
             return response(['status' => false, 'msg' => __('global.something')]);
         } else if($type == 'additional_info') {
@@ -193,7 +193,8 @@ class EnquiryController extends Controller
             return response($result);
         } else if($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
-            if($status == 'active') {
+            if($status == 'Active') {
+                $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
                 Flash::success(__('global.enquiry_submitted'));
                 return true;
             }
@@ -261,8 +262,12 @@ class EnquiryController extends Controller
         $path               =   $request->file('file')->storePublicly($uploadPath, 'enquiry_uploads');
         $original_name      =   $request->file('file')->getClientOriginalName();
         $extension          =   $request->file('file')->getClientOriginalExtension();
-        $additionalData     =   ['file_path' => $path,  'file_name' => $original_name,'file_type' => $extension];
-        $this->customerEnquiryRepo->createEnquiryBuildingComponentDocument($enquiry, $additionalData);
+        $storeData     =   ['file_path' => $path,  
+                                'file_name' => $original_name,
+                                'file_type' => $extension,  
+                                'enquiry_id' => $enquiry->id, 
+                                'customer_id' => Customer()->id];
+        $this->customerEnquiryRepo->createEnquiryBuildingComponentDocument($storeData);
         $enquiry->building_component = true;
         $enquiry->building_component_process_type = 1; // for upload
         $enquiry->save();
@@ -314,8 +319,9 @@ class EnquiryController extends Controller
             $buildingComponents = $this->buildingComponent->all();
             $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry ,$buildingComponents);
             $this->customerEnquiryRepo->storeCostEstimation($enquiry ,$buildingComponents);
+            $buildingComponentUploads = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
             if($result) {
-                return response(['status' => true, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
+                return response(['status' => true, 'data' => $buildingComponentUploads,'msg' => __('customer-enquiry.file_uploaded_successfully')]);
             }
             return response(['status' => false, 'msg' => __('global.something')]);
         } else if($type == 'additional_info') {
@@ -327,6 +333,7 @@ class EnquiryController extends Controller
         } else if($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
             if($status == 'Active') {
+                $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
                 Flash::success(__('global.enquiry_submitted'));
                 return true;
             }
@@ -376,6 +383,7 @@ class EnquiryController extends Controller
         return [
             'enquiry_id'           => $enquiry->id,
             'enquiry_no'           => $enquiry->enquiry_number,
+            'customer_enquiry_number'=> $enquiry->customer_enquiry_number,
             'enquiry_date'         => $enquiry->enquiry_date,
             'company_name'         => $enquiry->customer->company_name,
             'contact_person'       => $enquiry->customer->contact_person,
@@ -475,10 +483,22 @@ class EnquiryController extends Controller
         return response()->json($data);
     }
 
+    public function deleteBuildingComponentDocument(Request $request)
+    {
+        $id = $request->input('id');
+        $result = $this->customerEnquiryRepo->deleteAndGetBuildingComponentDocument($id);
+        if($result) {
+            $data = ['msg'=> __('global.deleted'), 'data' => $result, 'status' => true];
+        } else {
+            $data = ['msg'=> __('global.something'), 'data' => $result, 'status' => false];
+        }
+        return response()->json($data);
+    }
+
     public function getEnquiryReview()
     {
-        $enquiry_number = $this->getEnquiryNumber();
-        $enquiry = $this->customerEnquiryRepo->getEnquiryByEnquiryNo($enquiry_number);
+        $customer_enquiry_number = $this->getEnquiryNumber();
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
         $result['project_infos'] = $this->formatProjectInfo($enquiry);
         $result['services'] =  $enquiry->services()->get();
         $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);
@@ -536,7 +556,7 @@ class EnquiryController extends Controller
                         ->where(['status' => 'In-Complete', 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'. $dataDb->enquiry_number.' </span> </div>';
+                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'. $dataDb->customer_enquiry_number.' </span> </div>';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
