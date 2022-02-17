@@ -99,14 +99,14 @@
                         <div class="col-md-6 mb-1">
                         </div>
                         <div class="col-md-6 mb-1">
-                            <img ng-src="@{{PreviewImage}}" ng-show="PreviewImage != null" alt="" style="height:100px;width:100px" />
+                            <img ng-src="@{{PreviewImage}}" id="PreviewImage" class="form-control" ng-model="FormData.imageFile" ng-show="PreviewImage != null" alt="" style="height:100px;width:100px" />
                         </div>
                         
 
 
                     <div class="text-end mt-3">
                         <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                        <button ng-click="submit(modalstate, id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
+                        <button ng-click="submit(modalstate, id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Submit </button>
                     </div>
                 </form>
                

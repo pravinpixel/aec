@@ -20,22 +20,22 @@
                
                <div class="card-body pt-0 pb-0">
                               
-                   <div id="rootwizard" >
+                   <div id="rootwizard"  ng-controller="EmployeeWizard">
                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                            <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
                                <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
                                    <div class="timeline-content">
-                                       <div class="inner-circle  bg-success">
+                                       <div class="inner-circle  bg-success profile-info">
                                            <i class="fa fa-project-diagram fa-2x "></i>
                                        </div>       
                                        <div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
                                    </div> 
                                </a>
                            </li>
-                           <li class="nav-item serviceSelection" data-target-form="#serviceSelection"  style="pointer-events:none">
+                           <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"  >
                                <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
                                    <div class="timeline-content">
-                                       <div class="inner-circle  bg-secondary">
+                                       <div class="inner-circle  bg-secondary share-point">
                                            <i class="fa fa-list-alt fa-2x mb-1"></i>
                                        </div>        
                                        <span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
@@ -43,13 +43,14 @@
                                    
                                </a>
                            </li>
-                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"   style="pointer-events:none">
+                           <!-- style="pointer-events:none" -->
+                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"  style="pointer-events:none" >
                                <a href="#/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
                                    <div class="timeline-content">
-                                       <div class="inner-circle  bg-secondary">
+                                       <div class="inner-circle  bg-secondary ibm-access">
                                            <i class="fa fa-2x fa-file-upload mb-1"></i>
                                        </div>                                                                        
-                                       <span class="d-none d-sm-inline mt-2">IBM 360 Access</span>
+                                       <span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
                                    </div>
                                    
                                </a>
@@ -100,15 +101,8 @@
 @endpush
 
 @push('custom-scripts')
-    {{-- <script>
-        imgInp.onchange = evt => {
-            const [file] = imgInp.files
-            if (file) {
-                blah.src = URL.createObjectURL(file)
-            }
-        }
-    </script> --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script> 
+   
+ 
     <script>
          app.config(function($routeProvider) {
             $routeProvider
@@ -124,12 +118,16 @@
                 templateUrl : "{{ route('admin.ibm-access') }}",
                 controller : "IBMaccess"
             })
+            
            
         }); 
     </script>
     <script>
         // var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
-
+        app.controller('EmployeeWizard', function($scope, $http,$rootScope, $location) {
+            $rootScope.projectNameLabel;
+            $location.path('/');
+        });
         app.directive('validFile',function(){
             return {
                 require:'ngModel',
@@ -145,7 +143,14 @@
             }
         })
 
-        app.controller('ProfileInfo', function ($scope, $http, $rootScope, API_URL){
+        .run(function($rootScope) {
+            $rootScope.employeeId = "";
+        })
+        
+     
+
+        app.controller('ProfileInfo', function ($scope, $http, $rootScope,$location, API_URL){
+            // $location.path('/');
             
                 // ******* image show ******
                 $scope.SelectFile = function (e) {
@@ -227,14 +232,15 @@
                           transformRequest: angular.identity
 
                       }).then(function (response) {
-                       
+                            // alert(JSON.stringify(response.data.data))
                            Message('success', response.data.msg);
                            $scope.resetForm();
-                        
                            $('#file').val('');
+                           $location.path('/sharePonitAccess');
+                           $rootScope.employeeId = response.data.data;
                            $scope.getEmployeId($http, API_URL);
-                          getRoleData($http, API_URL);
-                          getEmployeeData($http, API_URL);
+                           $scope.getRoleData($http, API_URL);
+                        //    $scope.getEmployeeData($http, API_URL);
 
                       }), (function (error) {
                           console.log(error);
@@ -248,71 +254,93 @@
                         // $scope.frm.$setUntouched();
                     }
 
-            });
-        
+        });
+            app.controller('SharePonitAccess', function ($scope, $http, $rootScope,$location, API_URL){
 
-        app.controller('SalesController', function ($scope, $http, $rootScope,API_URL) { 
-  
-            
-         
-            
-        
-            //save new record and update existing record
-            $scope.save = function (modalstate, id) {
-
-                $scope.day = new Date();
-
-                $scope.data = {
-                    company_name    :   $scope.module.company_name, 
-                    contact_person  :   $scope.module.contact_person,
-                    mobile_no       :   $scope.module.mobile_number,
-                    email           :   $scope.module.email,
-                    user_name       :   $scope.module.user_name,
-                    enquiry_number  :   $scope.myWelcome,
-                    remarks         :   $scope.module.remarks
+                $scope.getSharePointAcess = function($http, API_URL) {
+                    angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                    // http://localhost/AEC_PREFAB/aec/module?page=1
+                    $http({
+                        method: 'GET',
+                        url: API_URL + "admin/get-share-point-acess"
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response.data.data))
+                        // $rootScope.employeeId =1;
+                        // alert($rootScope.employeeId)
+                        $scope.sharePointAccess_module = response.data.data;
+                        $scope.employeeRowId = $rootScope.employeeId;
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
                 }
-  
-                $http({
-                    method: "POST",
-                    url: API_URL + "admin/enquiry",
-                    // data: $.param($scope.module),
-                    data: $.param($scope.data),
-                    headers: { 
-                        'Content-Type': 'application/x-www-form-urlencoded' 
-                    }
-                }).then(function (response) {
-                    // $scope.getItems();
 
-                    $scope.module = {};
-                    $scope.frm.$setPristine();
-                     
-                    if(response.data.errors) {
-                        Message('success',response.data.errors);
-                    }
-                    Message('success',response.data.msg);
+                $scope.getSharePointAcess($http,API_URL);
 
-                }), (function (error) { 
-                    console.log(error); 
-                }); 
-            }  
-        }); 
-       
-            
-             
-        Message = function (type, head) {
-            $.toast({
-                heading: head,
-                icon: type,
-                showHideTransition: 'plain', 
-                allowToastClose: true,
-                hideAfter: 5000,
-                stack: 10, 
-                position: 'bootom-left',
-                textAlign: 'left', 
-                loader: true, 
-                loaderBg: '#252525',                
+                $scope.employee_status =function(employeeId,dataId,field){
+                    // alert(employeeId)
+                    // alert(dataId)
+                    // alert(field)
+                    $http({
+                        method: 'POST',
+                        url: API_URL + "admin/share-point-acess-status",
+                        data:{employeeId:employeeId,dataId:dataId,fieldName:field},
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response.data.data))
+                        // $scope.getSharePointAcess($http,API_URL);
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
+                $scope.sharePoint_status = function(employeeId,dataId){
+                    
+                    
+                    $http({
+                        method: 'POST',
+                        url: API_URL + "admin/employee-share-point-access-status",
+                        data:{employeeId:employeeId,dataId:dataId},
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        // $scope.getSharePointAcess($http,API_URL);
+
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
+                $scope.bim_status = function(employeeId,dataId){
+                    
+                    $http({
+                        method: 'POST',
+                        url: API_URL + "admin/employee-bim-access-status",
+                        data:{employeeId:employeeId,dataId:dataId},
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        // $scope.getSharePointAcess($http,API_URL);
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
+
             });
-        }
+
+       
+        window.onbeforeunload = function(e) {
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            e.returnValue = dialogText;
+            return dialogText;
+        };
+             
+
 
 
     </script>

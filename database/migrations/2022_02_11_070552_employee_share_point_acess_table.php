@@ -13,7 +13,7 @@ class EmployeeSharePointAcessTable extends Migration
      */
     public function up()
     {
-        Schema::create('employee_share_point_acess', function (Blueprint $table) {
+        Schema::create('employee_share_point_acesses', function (Blueprint $table) {
             $table->id();
             $table->string('employee_id')->nullable();
             $table->string('administration_status')->nullable();
