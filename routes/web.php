@@ -5,6 +5,9 @@ include 'adminAPI.php';
 include 'master.php';
 include 'customer.php';
 include 'enquiry.php';
+include 'bim.php';
+include 'autodesk.php';
+
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Enquiry\EnquiryController;
