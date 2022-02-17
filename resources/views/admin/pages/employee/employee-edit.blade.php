@@ -4,8 +4,8 @@
 @section('admin-content')
          
     
-    <div class="content-page" ng-app="AppSale">
-        <div class="content" ng-controller="SalesController">
+    <div class="content-page">
+        <div class="content">
 
             @include('admin.includes.top-bar')
 
@@ -15,148 +15,61 @@
                 <!-- start page title -->
                 
                 @include('admin.includes.page-navigater') 
-            </div>                
+            </div>    
+            <div class="card border">
+               
+               <div class="card-body pt-0 pb-0">
+                              
+                   <div id="rootwizard"  ng-controller="EmployeeWizard">
+                       <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
+                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
+                               <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
+                                   <div class="timeline-content">
+                                       <div class="inner-circle  bg-success profile-info">
+                                           <i class="fa fa-project-diagram fa-2x "></i>
+                                       </div>       
+                                       <div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
+                                   </div> 
+                               </a>
+                           </li>
+                           <li class="nav-item serviceSelection" data-target-form="#serviceSelection" style="pointer-events:none" >
+                               <a href="#/editSharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
+                                   <div class="timeline-content">
+                                       <div class="inner-circle  bg-secondary share-point">
+                                           <i class="fa fa-list-alt fa-2x mb-1"></i>
+                                       </div>        
+                                       <span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
+                                   </div>
+                                   
+                               </a>
+                           </li>
+                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"   style="pointer-events:none">
+                               <a href="#/editIbmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
+                                   <div class="timeline-content">
+                                       <div class="inner-circle  bg-secondary ibm-access">
+                                           <i class="fa fa-2x fa-file-upload mb-1"></i>
+                                       </div>                                                                        
+                                       <span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
+                                   </div>
+                                   
+                               </a>
+                           </li>                    
+                
+                       </ul>  
+                       <div class="tab-content my-3" >
+                         <ng-view></ng-view> 
+                       </div> <!-- tab-content -->
+                   </div> <!-- end #rootwizard--> 
+               </div> <!-- end card-body -->
+           </div>            
 
-            <div class="row">
-                <div class="col-md-12 mb-4">
-                    <div class="card shadow-lg mb-0">
-                        <div class="card-body p-4">
-                            <form class="needs-validations"  novalidate name="frm" id="frm"  >
-                            <input  ng-model="FormData.key" name="key" ng-value="EmpData.id" value="EmpData.id"  ng-model="FormData.id" id="key" type="hidden" >
-                                <div class="row m-0">
-                                    <div class="col-md-12 p-0">
-                                        <div class="row m-0">
-                                            <div class="col">
-                                                <div class="mb-3">                                             
-                                                    <label class="form-label"  >Enquiry ID <sup class="text-danger">*</sup></label>
-                                                    <input ng-disabled="true" type="text"  name="epm_id" id="epm_id" ng-value="EmpData.employee_id"  ng-model="FormData.epm_id" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                        
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" >First name<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control"  name="epm_fname" id="epm_fname"   ng-value="EmpData.first_Name"   ng-model="FormData.epm_fname" placeholder="Type Here..."ng-required="true">
-                                            <!-- <div class="error-msg">
-                                                <small class="error-text" ng-if="frm.epm_fname.$touched && frm.epm_fname.$error.required">This field is required!</small> 
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                    
-                                
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" >Last name<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="epm_lname" id="epm_lname" ng-minlength="1"  ng-value="EmpData.last_name"  ng-model="FormData.epm_lname" placeholder="Type Here..." ng-required="true">
-                                            <!-- <div class="error-msg">
-                                                <small class="error-text" ng-if="frm.epm_lname.$touched && frm.epm_lname.$error.required">This field is required!</small> 
-                                            </div> -->
-                                        </div>
-                                    </div>  
-                                
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="validationCustom01">Username<sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" id="epm_username" name="epm_username"  ng-value="EmpData.user_name"  ng-model="FormData.epm_username" placeholder="Type Here..."  ng-required="true">
-                                                <!-- <div class="error-msg">
-                                                    <small class="error-text" ng-if="frm.epm_username.$touched && frm.epm_username.$error.required">This field is required!</small> 
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" >Password<sup class="text-danger">*</sup></label>
-                                            <input type="password" class="form-control" name="epm_password" id="epm_password"  ng-value="EmpData.password"  ng-model="FormData.epm_password" placeholder="Type Here..."  ng-required="true">
-                                            <!-- <div class="error-msg">
-                                                <small class="error-text" ng-if="frm.epm_password.$touched && frm.epm_password.$error.required">This field is required!</small> 
-                                            </div> -->
-                                        </div>
-                                    </div>
-
-
-                            <div class="col-md-6">
-                                
-                                <div class="mb-3">
-                                    <label class="form-label" >Job Role<sup class="text-danger">*</sup></label>
-                                    
-                                    <select aria-label="ngSelected demo" ng-model="EmpData.job_role" name="epm_job_role" id="epm_job_role"  class="form-select">
-                                        <!-- <option value="@{{ EmpData.job_role}}"   selected>@{{EmpData.job_role}}</option> -->
-                                        <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.role_name }}</option>
-                                    </select>
-                                    <!-- <div class="error-msg">
-                                                <small class="error-text" ng-if="frm.epm_job_role.$touched && frm.epm_job_role.$error.required">This field is required!</small> 
-                                    </div> -->
-
-                                </div>
-                            </div>
-
-
-
-                            <!-- <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" >Job Role<sup class="text-danger">*</sup></label>
-                                        <select  class="form-control"  ng-model="FormData.epm_job_role" name="epm_job_role" id="validationCustom02"   ng-required="true">
-                                            <option value="" selected>Select</option>
-                                            
-                                            <option value="@{{ emp.role }}"  ng-repeat="(index,emp) in employee_module_role">@{{ emp.role }}</option>
-
-                                        </select>
-                                </div>
-                            </div> -->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
-                                            <input type="number" class="form-control" name="epm_number" min="8" id="epm_number"  ng-value="EmpData.number"  ng-model="FormData.epm_number" placeholder="Type Here..."  ng-required="true">
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" >Email Id<sup class="text-danger">*</sup></label>
-                                            <input type="email" class="form-control" name="epm_email" id="epm_email"  ng-value="EmpData.email"  ng-model="FormData.epm_email" placeholder="Type Here..."  ng-required="true">
-                                            <!-- <div class="error-msg">
-                                                <small class="error-text" ng-if="frm.epm_email.$touched && frm.epm_email.$error.required">This field is required!</small> 
-                                                <small class="error-text" ng-if="frm.epm_email.$touched && frm.epm_email.$error.email">Please enter valid email!</small> 
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="mb-3"> 
-                                            <img src="{{ asset('/public/image/') }}/@{{EmpData.image}}" width="60px">
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="col-md-4">
-                                       
-                                        <div class="mb-3">
-                                            <label class="form-label" >Image<sup class="text-danger">*</sup></label>
-                                            <label for="files">Select Image File</label>
-                                            <input type="file" class="form-control" id="file" ng-model="FormData.file" name="file" />
-                                            <!-- <div class="error-msg">
-                                                <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
-                                            </div>   -->
-                                        </div>
-                                    </div>
-                                 
-                                </div>
-                                <div class="text-end mt-3">
-                                    <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                                    <button  ng-click="update(modalstate, id);"  class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
-                                </div>
-                            </form>
-                        </div> 
-                    </div>
-                </div>
-            </div>
+          
+            
         </div> <!-- content -->
 
 
     </div> 
-      
+    <!-- ng-disabled="frm.$invalid"  -->
 @endsection
           
 @push('custom-styles')
@@ -173,15 +86,42 @@
             position: relative;
         }
         
-        
+    
+    .error {
+      color: red;
+    }
+
+    .red-text{
+  color:red;
+}
+  
         
     </style>
 @endpush
 
 @push('custom-scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-<script>
+   
+ 
+    <script>
+         app.config(function($routeProvider) {
+            $routeProvider
+            .when("/", {
+                templateUrl : "{{ route('admin.edit-profile-information') }}",
+                controller : "EditProfileInfo"
+            })
+            .when("/editSharePonitAccess", {
+                templateUrl : "{{ route('admin.edit-share-ponit-access') }}",
+                controller : "EditSharePonitAccess"
+            })
+            .when("/editIbmAccess", {
+                templateUrl : "{{ route('admin.edit-ibm-access') }}",
+                controller : "EditIBMaccess"
+            })
+            
+           
+        }); 
+    </script>
+    <script>
      $( document ).ready(function() {
         
         $("#frm").validate({
@@ -222,50 +162,88 @@
     }); 
 });
 </script>
-
     <script>
-
-        app.controller('SalesController', function ($scope, $http, API_URL) { 
-           
-           $scope.callEmployee = () =>  {
-          
-                var id = {{ $id }} ;
-                    // alert(id) 
-                    $http({
-                    method: 'GET',
-                    url: API_URL + "admin/get-editEmployee/" + id,
-                }).then(function(res){
-               
-                    $scope.EmpData =    res.data.data
-
-                    console.log($scope.EmpData);
-                    
-                });
-            },
-            $scope.callEmployee ();
-      
-           
-            getRoleData = function($http, API_URL) {
-
-            angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-            // http://localhost/AEC_PREFAB/aec/module?page=1
-            $http({
-                method: 'GET',
-                url: API_URL + "admin/employee-role"
-            }).then(function (response) {
-                // alert(JSON.stringify(response))
-                $scope.employee_module_role = response.data.data;		
-                // $scope.employee_module.epm_id = response.data.data.emp_id.id;
-            }, function (error) {
-                console.log(error);
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });
+        // var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
+        app.controller('EmployeeWizard', function($scope, $http,$rootScope, $location) {
+            $rootScope.projectNameLabel;
+            $location.path('/');
+        });
+        app.directive('validFile',function(){
+            return {
+                require:'ngModel',
+                link:function(scope,el,attrs,ngModel){
+                //change event is fired when file is selected
+                el.bind('change',function(){   
+                    scope.$apply(function(){
+                        ngModel.$setViewValue(el.val());
+                        ngModel.$render(); 
+                    })
+                })
+                }
             }
+        })
 
+        .run(function($rootScope) {
+            $rootScope.employeeId = "";
+        })
+        
+     
 
-            getRoleData($http, API_URL);
+        app.controller('EditProfileInfo', function ($scope, $http, $rootScope,$location, API_URL){
 
-            // $scope.getItems();
+            // $rootScope.projectNameLabel;
+            // $location.path('/');
+            
+                // ******* image show ******
+                $scope.SelectFile = function (e) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $scope.PreviewImage = e.target.result;
+                        $scope.$apply();
+                    };
+    
+                    reader.readAsDataURL(e.target.files[0]);
+                };
+
+                $scope.phoneNumber =/^\+?\d{3}[- ]?\d{3}[- ]?\d{6}$/;
+
+                $scope.callEmployee = () =>  {
+          
+                    var id = {{ $id }} ;
+                        // alert(id) 
+                        $http({
+                        method: 'GET',
+                        url: API_URL + "admin/get-editEmployee/" + id,
+                    }).then(function(res){
+                //    alert(JSON.stringify(res.data.data))
+                        $scope.EmpData = res.data.data;
+
+                        console.log($scope.EmpData);
+                        
+                    });
+                },
+                $scope.callEmployee ();
+
+               
+
+                $scope.getRoleData = function($http, API_URL) {
+
+                    angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                    // http://localhost/AEC_PREFAB/aec/module?page=1
+                    $http({
+                        method: 'GET',
+                        url: API_URL + "admin/employee-role"
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        $scope.employee_module_role = response.data.data;		
+                        // $scope.employee_module.epm_id = response.data.data.emp_id.id;
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+                }
+
+                $scope.getRoleData($http, API_URL);
 
             $scope.update = function (modalstate, id) {
                 if(!$("#frm").valid()){
@@ -325,11 +303,13 @@
 
 						}).then(function (response) {
                             Message('success',response.data.msg);
-							//  alert(JSON.stringify(response))
-                            window.location.href = API_URL +"admin/admin-employee-control-view";
+							//  alert(JSON.stringify(response.data.data))
+                            // window.location.href = API_URL +"admin/admin-employee-control-view";
 							// getData($http, API_URL);
+                            $location.path('/editSharePonitAccess');
+                            $rootScope.employeeId = response.data.data;
                             $scope.resetForm();
-							    $('#primary-header-modal').modal('hide');
+							    // $('#primary-header-modal').modal('hide');
 
                                 // Message('success',response.data.msg);
 
@@ -340,35 +320,102 @@
 
 			        }
 			        
-			    }
-            
-               
-            $scope.resetForm =  function() {
-                    $scope.FormData = {};
-                    $scope.frm.$setPristine();
-                    $scope.frm.$setValidity();
-                    $scope.frm.$setUntouched();
+			}
+           
+                    $scope.resetForm =  function() {
+                        $scope.FormData = {};
+                        $scope.frm.$setPristine();
+                        $scope.frm.$setValidity();
+                        // $scope.frm.$setUntouched();
+                    }
+
+        });
+            app.controller('EditSharePonitAccess', function ($scope, $http, $rootScope,$location, API_URL){
+
+                $scope.getSharePointAcess = function($http, API_URL) {
+                    $id = $rootScope.employeeId;
+                    angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                    // http://localhost/AEC_PREFAB/aec/module?page=1
+                    $http({
+                        method: 'GET',
+                        url: API_URL + "admin/get-edit-share-point-acess/" + $id
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response.data.data.employeeDetail.share_access))
+                        // $rootScope.employeeId =1;
+                        $scope.employeeRowId = $rootScope.employeeId;
+                        $scope.share_access = response.data.data.employeeDetail.share_access;
+                        $scope.sharePointFolder = response.data.data.sharePointAccess;
+                        $scope.sharePointAccess_module = response.data.data;
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
                 }
-        }); 
-       
-            
-             
-        Message = function (type, head) {
-            $.toast({
-                heading: head,
-                icon: type,
-                showHideTransition: 'plain', 
-                allowToastClose: true,
-                hideAfter: 5000,
-                stack: 10, 
-                position: 'bootom-left',
-                textAlign: 'left', 
-                loader: true, 
-                loaderBg: '#252525',                
+
+                $scope.getSharePointAcess($http,API_URL);
+
+                $scope.employee_status =function(employeeId,dataId,field){
+                    $http({
+                        method: 'POST',
+                        url: API_URL + "admin/share-point-acess-status",
+                        data:{employeeId:employeeId,dataId:dataId,fieldName:field},
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response.data.data))
+                        // $scope.getSharePointAcess($http,API_URL);
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
+                $scope.sharePoint_status = function(employeeId,dataId){
+                    
+                    
+                    $http({
+                        method: 'POST',
+                        url: API_URL + "admin/employee-share-point-access-status",
+                        data:{employeeId:employeeId,dataId:dataId},
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        // $scope.getSharePointAcess($http,API_URL);
+
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
+                $scope.bim_status = function(employeeId,dataId){
+                    
+                    $http({
+                        method: 'POST',
+                        url: API_URL + "admin/employee-bim-access-status",
+                        data:{employeeId:employeeId,dataId:dataId},
+                    }).then(function (response) {
+                        alert(JSON.stringify(response))
+                        // $scope.getSharePointAcess($http,API_URL);
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
+
             });
-        }
+
+       
+        window.onbeforeunload = function(e) {
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            e.returnValue = dialogText;
+            return dialogText;
+        };
+             
 
 
-      
+
     </script>
 @endpush

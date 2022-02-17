@@ -13,7 +13,7 @@
                 <!-- start page title -->
                 
                 @include('admin.includes.page-navigater')
-
+                @include('admin.pages.employee.employee-details')
                 <!-- end page title -->
                  
                 <div class="card">
@@ -36,6 +36,9 @@
                                     <th>24*7</th>
                                     <th>Role</th>
                                     <th>Status</th>
+                                    <!-- <th>
+                                        Full Details
+                                    </th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -84,11 +87,13 @@
                                             <label class="form-check-label" for="switch__@{{index}}" ></label>
                                         </div>
                                     </td>
+                                    <!-- <td> <a ng-click="getEmployeeDetail(m.id)"  style="font-size: 30px;"> <i class="mdi mdi-eye"></a></i></td> -->
                                     <td>
                                     <!-- <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ><i class="fa fa-pencil"></i></button>
                                     <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  "><i class="fa fa-trash"></i></button> -->
                                     <a class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click=employeeEdit(m.id) "><i class="fa fa-edit"></i></a>
                                     <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click="employeeDelete(m.id)" ><i class="fa fa-trash"></i></a>
+                                    <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click="employeeMail(m.id)" ><i class="fa fa-envelope"></i></a>
                                     <!-- <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click=""><i class="fa fa-paper-plane"></i></a> -->
                                         <!-- <div class="dropdown">
                                             <button type="button"  class="btn btn-sm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -109,41 +114,43 @@
 
                 </div>
                 <div id="right-modal-progress" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
+                <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
                         <div class="p-3 shadow-sm">
-                            <h3>Project Name : <b class="text-primary"> @{{ enqData.project_name }} </b></h3>
+                            <h3>Employee Name : <b class="text-primary"> @{{ employeeDetail.user_name }} </b></h3>
                             <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
                         </div>
                         <div class="modal-content h-100 p-4" style="overflow: auto">
                             <div class="card mt-3">
                                 <div class="card-body p-2">
-                                    <table class="table table-bordered m-0">
+                                    <table class="custom table table-bordered m-0">
                                         <tr>
-                                            <th>Employee ID</th>
+                                            <th>Employee Id</th>
                                             <th>Name</th>
+                                            <th>Job Role</th>
                                             <th>Phone</th>
                                             <th>Email</th>
-                                            <th>Job Role</th>
+                                            <th>Image</th>
                                         </tr>
                                         <tr>
-                                            <td>@{{ enqData.employee_id }}</td>
-                                            <td>@{{ enqData.user_name }} </td>
-                                            <td>@{{ enqData.number }}</td>
-                                            <td>@{{ enqData.email }}</td>
-                                            <td>@{{ enqData.job_role }} </td>
+                                            <td>@{{ employeeDetail.employee_id }}</td>
+                                            <td>@{{ employeeDetail.user_name }} </td>
+                                            <td>@{{ employeeDetail.job_role }}</td>
+                                            <td>@{{ employeeDetail.number }}</td>
+                                            <td>@{{ employeeDetail.email }} </td>
+                                            <td>   <img src="{{ asset('/public/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div> 
-                            <div class="card">
-                                <div class="accordion" id="accordionExample">
+                            
+                            <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
                                     <div class="accordion-item m-0">
-                                      <h2 class="accordion-header m-0" id="headingOne">
+                                        <h2 class="accordion-header m-0" id="headingOne">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         Platform Access
                                         </button>
-                                      </h2>
-                                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <div class="row mx-0 container ">
                                                 <div class="col-12 text-center">
@@ -174,102 +181,115 @@
                                                                     </td>
                                                                 </tr> 
                                                                 
-                                                               
+                                                                
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <!-- <div class="col-md-6 p-3">
-                                                    <table class="table m-0   table-bordered">
-                                                    <tbody><tr class="border">
-                                                            <th  class=" ">Type of Building
-                                                            </th><td  class="bg-white">2</td>
-                                                        </tr> 
-                                                        <tr class="border">
-                                                            <th  class=" ">Number of Buildings
-                                                            </th><td  class="bg-white">@{{ enqData.no_of_building }}</td>
-                                                        </tr> 
-                                                        <tr class="border">
-                                                            <th  class=" ">Type of Delivery
-                                                            </th><td  class="bg-white">1</td>
-                                                        </tr> 
-                                                        <tr class="border">
-                                                            <th  class=" ">Deliveryd Date 
-                                                            </th><td  class="bg-white">2021-02-25</td>
-                                                        </tr> 
-                                                        <tr class="border">
-                                                            <th  class=" ">State
-                                                            </th><td  class="bg-white">non</td>
-                                                        </tr> 
-                                                        <tr class="border">
-                                                            <th  class=" ">Contact Person name
-                                                            </th><td  class="bg-white">@{{ enqData.customer.contact_person }} </td>
-                                                        </tr> 
-                                                        <tr class="border">
-                                                            <th  class=" ">E-post
-                                                            </th><td  class="bg-white">@{{ enqData.customer.email }} </td>
-                                                        </tr> 
-                                                    </tbody></table>
-                                                </div> -->
+                                                
                                             </div>
                                         </div>
-                                      </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                      <h2 class="accordion-header" id="headingTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Client Listing
-                                        </button>
-                                      </h2>
-                                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="row mx-0 container ">
-                                                <div class="col-12 text-center">
-                                                    <h4 class="f-20 m-0 p-3">Client Listing</h4>
-                                                </div>
-                                                <div class="col-md-6 p-3 mx-auto">
-                                                    <table class="table m-0   table-bordered">
-                                                        <tbody>
-                                                            <tr class="border">
-                                                                <th class="bg-primary text-white">S.no</th>
-                                                                <th class="bg-primary text-white">Services</th>
-                                                            </tr> 
-                                                        <tr class="border">
-                                                            <td class=" ">1
-                                                            </td><td class="bg-white">CAD / CAM Modelling</td>
-                                                        </tr>  
-                                                        <tr class="border">
-                                                            <td class=" ">2
-                                                            </td><td class="bg-white">Approval Drawings</td>
-                                                        </tr>  
-                                                    </tbody></table>
-                                                </div>
-                                            </div>
                                         </div>
-                                      </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThree">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Project Listing
+                                            <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                Client Listing
                                             </button>
-                                        </h2>
-                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
-                                                No data!
+                                                <div class="row mx-0 container ">
+                                                    <div class="col-12 text-center">
+                                                        <h4 class="f-20 m-0 p-3">Client Listing</h4>
+                                                    </div>
+                                                    <div class="col-md-6 p-3 mx-auto">
+                                                        <table class="table m-0   table-bordered">
+                                                            <tbody>
+                                                                <tr class="border">
+                                                                    <th class="bg-primary text-white">S.no</th>
+                                                                    <th class="bg-primary text-white">Services</th>
+                                                                </tr> 
+                                                            <tr class="border">
+                                                                <td class=" ">1
+                                                                </td><td class="bg-white">CAD / CAM Modelling</td>
+                                                            </tr>  
+                                                            <tr class="border">
+                                                                <td class=" ">2
+                                                                </td><td class="bg-white">Approval Drawings</td>
+                                                            </tr>  
+                                                        </tbody></table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             </div>
                                         </div>
-                                    </div> 
-                                </div> 
-                            </div>
+                                {{-- ProjectInfo --}}
+                                    <fieldset class="accordion-item">
+                                        <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
+                                            <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
+                                                Folder Access
+                                            </div>
+                                            <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                                <i data-bs-toggle="collapse" 
+                                                    href="#ProjectInfo" 
+                                                    aria-expanded="false" 
+                                                    aria-controls="ProjectInfo" 
+                                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                                </i>
+                                            </div>
+                                        </div>
+                                        <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
+                                            <div class="accordion-body">  
+                                            
+                                            <table  dt-options="vm.dtOptions" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Folder Name</th>
+                                                        <th>Active</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                        
+                                                <tbody>
+                                                    
+                                                    <tr ng-repeat="(index,employee) in sharePointFolder">
+                                                        
+                                                        <td class="align-items-center">@{{ employee.folder_name }}</td>
+
+                                                        <td>
+                                                            <div>
+                                                            ng-dis
+                                                                <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
+                                                                <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
+                                                            </div>          
+                                                        </td>                    
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                            
+                                                
+                                            </div> 
+                                        </div>
+                                    </fieldset>
+                                {{-- ProjectInfo --}}
+                        
+                            
+                        
+                        
+                        
+                        
+                            </div>   
+                            
                         </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div>
+                </div><!-- /.modal-dialog -->
+            </div>
 
             
-            </div> <!-- container -->
+        </div> <!-- container -->
 
-        </div> <!-- content -->
-    </div> 
+    </div> <!-- content -->
+</div> 
 
     
     
@@ -338,7 +358,6 @@
 
 @push('custom-scripts')
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.4.3/angular-datatables.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
@@ -374,6 +393,26 @@
                     let route =  $("#baseurl").val();
                     // console.log(route+'admin/employeeEdit/'+id);
                     window.location.href = route+'admin/employeeEdit/'+id;
+                }
+
+                $scope.getEmployeeDetail = function(id) {    
+                              
+                    
+                    // alert(id)     
+                    $http({
+                        method: 'GET',
+                        url: API_URL + "admin/get-employee-detail/" + id
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response.data.employeeDetail))
+                       
+                        $scope.employeeDetail = response.data.employeeDetail;
+                        $scope.employeeFolderStatus = response.data.employeeFolderStatus;
+                        $scope.sharePointFolder = response.data.sharePointAccess;
+                        $('#employee-detail-view-model').modal('show');
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
                 }
 				
 				getData = function($http, API_URL) {
@@ -505,6 +544,10 @@
 			       
 			    }
 
+                $scope.employeeMail = function (id) {
+                    alert(id)
+                    
+                }
 
 
 
@@ -529,13 +572,17 @@
 			                $scope.id = id;
                             angular.element(document.querySelector("#loader")).removeClass("d-none"); 
 
-			                $http.get(API_URL + 'admin/employee-enquiry/' + id )
-
-			                    .then(function (response) {
+			                // $http.get(API_URL + 'admin/employee-enquiry/' + id )
+                            $http({
+                        method: 'GET',
+                        url: API_URL + "admin/get-employee-detail/" + id
+                                }).then(function (response) {
                                     // alert(JSON.stringify(response))
-			                        $scope.enqData = response.data.data;
-
-                                    console.log( $scope.enqData);
+			                        // $scope.enqData = response.data.data;
+                                    $scope.employeeDetail = response.data.employeeDetail;
+                                    $scope.employeeFolderStatus = response.data.employeeFolderStatus;
+                                    $scope.sharePointFolder = response.data.sharePointAccess;
+                                    // console.log( $scope.enqData);
   
                                     $('#right-modal-progress').modal('show');
 
@@ -610,20 +657,7 @@
 			    
 			}); 
              
-            Message = function (type, head) {
-                $.toast({
-                    heading: head,
-                    icon: type,
-                    showHideTransition: 'plain', 
-                    allowToastClose: true,
-                    hideAfter: 5000,
-                    stack: 10, 
-                    position: 'bootom-left',
-                    textAlign: 'left', 
-                    loader: true, 
-                    loaderBg: '#252525',                
-                });
-            }
+          
 		</script>
        
 @endpush

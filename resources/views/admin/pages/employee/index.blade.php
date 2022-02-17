@@ -20,22 +20,22 @@
                
                <div class="card-body pt-0 pb-0">
                               
-                   <div id="rootwizard" controller="rootwizard">
+                   <div id="rootwizard"  ng-controller="EmployeeWizard">
                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                            <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
                                <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
                                    <div class="timeline-content">
-                                       <div class="inner-circle  bg-success">
+                                       <div class="inner-circle  bg-success profile-info">
                                            <i class="fa fa-project-diagram fa-2x "></i>
                                        </div>       
                                        <div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
                                    </div> 
                                </a>
                            </li>
-                           <li class="nav-item serviceSelection" data-target-form="#serviceSelection"  style="pointer-events:none">
+                           <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"  >
                                <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
                                    <div class="timeline-content">
-                                       <div class="inner-circle  bg-secondary">
+                                       <div class="inner-circle  bg-secondary share-point">
                                            <i class="fa fa-list-alt fa-2x mb-1"></i>
                                        </div>        
                                        <span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
@@ -43,13 +43,14 @@
                                    
                                </a>
                            </li>
-                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"   style="pointer-events:none">
+                           <!-- style="pointer-events:none" -->
+                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"  style="pointer-events:none" >
                                <a href="#/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
                                    <div class="timeline-content">
-                                       <div class="inner-circle  bg-secondary">
+                                       <div class="inner-circle  bg-secondary ibm-access">
                                            <i class="fa fa-2x fa-file-upload mb-1"></i>
                                        </div>                                                                        
-                                       <span class="d-none d-sm-inline mt-2">IBM 360 Access</span>
+                                       <span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
                                    </div>
                                    
                                </a>
@@ -100,14 +101,7 @@
 @endpush
 
 @push('custom-scripts')
-    {{-- <script>
-        imgInp.onchange = evt => {
-            const [file] = imgInp.files
-            if (file) {
-                blah.src = URL.createObjectURL(file)
-            }
-        }
-    </script> --}}
+   
  
     <script>
          app.config(function($routeProvider) {
@@ -130,7 +124,10 @@
     </script>
     <script>
         // var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
-        
+        app.controller('EmployeeWizard', function($scope, $http,$rootScope, $location) {
+            $rootScope.projectNameLabel;
+            $location.path('/');
+        });
         app.directive('validFile',function(){
             return {
                 require:'ngModel',
@@ -150,17 +147,10 @@
             $rootScope.employeeId = "";
         })
         
-        app.controller('rootwizard', function($scope, $http,$rootScope, Notification) {
-            // alert()
-            $rootScope.projectNameLabel;
-        });
-        // app.controller('ProfileInfo', function ($scope, $http, $rootScope,$location, API_URL){
-        //     if (!current) {
-        //         $location.path('/');
-        //     }
-        // });
+     
 
         app.controller('ProfileInfo', function ($scope, $http, $rootScope,$location, API_URL){
+            // $location.path('/');
             
                 // ******* image show ******
                 $scope.SelectFile = function (e) {
@@ -306,54 +296,43 @@
                     });
 
                 }
+                $scope.sharePoint_status = function(employeeId,dataId){
+                    
+                    
+                    $http({
+                        method: 'POST',
+                        url: API_URL + "admin/employee-share-point-access-status",
+                        data:{employeeId:employeeId,dataId:dataId},
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        // $scope.getSharePointAcess($http,API_URL);
+
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
+                $scope.bim_status = function(employeeId,dataId){
+                    
+                    $http({
+                        method: 'POST',
+                        url: API_URL + "admin/employee-bim-access-status",
+                        data:{employeeId:employeeId,dataId:dataId},
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        // $scope.getSharePointAcess($http,API_URL);
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+
+                }
 
             });
 
-        app.controller('SalesController', function ($scope, $http, $rootScope,API_URL) { 
-  
-            
-         
-            
-        
-            //save new record and update existing record
-            $scope.save = function (modalstate, id) {
-
-                $scope.day = new Date();
-
-                $scope.data = {
-                    company_name    :   $scope.module.company_name, 
-                    contact_person  :   $scope.module.contact_person,
-                    mobile_no       :   $scope.module.mobile_number,
-                    email           :   $scope.module.email,
-                    user_name       :   $scope.module.user_name,
-                    enquiry_number  :   $scope.myWelcome,
-                    remarks         :   $scope.module.remarks
-                }
-  
-                $http({
-                    method: "POST",
-                    url: API_URL + "admin/enquiry",
-                    // data: $.param($scope.module),
-                    data: $.param($scope.data),
-                    headers: { 
-                        'Content-Type': 'application/x-www-form-urlencoded' 
-                    }
-                }).then(function (response) {
-                    // $scope.getItems();
-
-                    $scope.module = {};
-                    $scope.frm.$setPristine();
-                     
-                    if(response.data.errors) {
-                        Message('success',response.data.errors);
-                    }
-                    Message('success',response.data.msg);
-
-                }), (function (error) { 
-                    console.log(error); 
-                }); 
-            }  
-        }); 
        
         window.onbeforeunload = function(e) {
             var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';

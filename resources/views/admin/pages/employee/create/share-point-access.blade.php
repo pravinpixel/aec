@@ -8,7 +8,13 @@
                         <!-- <button class="btn btn-primary " ng-click="toggleLayer('add', 0)">Create New Layer</button> -->
                     </div>
                 </div>
-                @{{employeeRowId}}
+                <!-- @{{employeeRowId}} -->
+                <div>
+                <input type="checkbox" id="switch__@{{ index }}"  ng-change="sharePoint_status(employeeRowId,share_point_status)" ng-model="share_point_status" data-switch="primary"/>
+                <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off">Share Point Access</label>  
+             
+               
+                </div>
                 <div class="card-body">
                     <table datatable="ng" dt-options="vm.dtOptions" class="table table-striped table-bordered">
                                 <thead>
@@ -27,7 +33,7 @@
 
                                         <td>
                                             <div>
-                                                <input type="checkbox" id="switch__@{{ index }}"  ng-change="employee_status(employeeRowId,employee.status,employee.data_name)" ng-model="employee.status" data-switch="primary"/>
+                                                <input type="checkbox" id="switch__@{{ index }}"  ng-disabled="!share_point_status" ng-change="employee_status(employeeRowId,employee.status,employee.data_name)" ng-model="employee.status" data-switch="primary"/>
                                                 <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                             </div> 
                                             <span ng-if="employee.is_active == 1" class="d-none">1</span>              
@@ -38,8 +44,24 @@
                                 </tbody>
                     </table>
                 </div>
-                <div class="card-fooetr"></div>
+                <div class="card-fooetr">
+                    <!-- <button class="btn btn-success" >Next</button> -->
+                </div>
             </div> 
         </div>
     </div>
 </div>
+<style>
+    .profile-info{
+        /* color: #0acf97 !important; */
+        background-color:gray !important;
+    }
+    .share-point{
+        /* color: #0acf97 !important; */
+        background-color:#0acf97 !important;
+    }
+    .ibm-access{
+        /* color: #0acf97 !important; */
+        background-color:gray !important;
+    }
+</style>
