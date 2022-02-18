@@ -13,7 +13,7 @@ class SharePointAcessTable extends Migration
      */
     public function up()
     {
-        Schema::create('share_point_acesses', function (Blueprint $table) {
+        Schema::create('share_point_accesses', function (Blueprint $table) {
             $table->id();
             $table->string('folder_name')->nullable();
             $table->string('data_name')->nullable();

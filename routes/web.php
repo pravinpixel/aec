@@ -130,20 +130,40 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     // Route::get('ibm-access',[EmployeeController::class,'profileInfo'])->name('ibm-access');
 
     Route::get('profile-info',  function() {
-        return view('admin.pages.employee.employee-add');
+        return view('admin.pages.employee.create.employee-add');
     })->name('profile-info');
-    // Route::get('profile-info',[EmployeeController::class,'profileInfo'])->name('profile-info');
-
     Route::get('share-ponit-access',  function() {
-        return view('admin.pages.employee.share-point-access');
+        return view('admin.pages.employee.create.share-point-access');
     })->name('share-ponit-access');
     Route::get('ibm-access',  function() {
-        return view('admin.pages.employee.ibm-access');
+        return view('admin.pages.employee.create.ibm-access');
     })->name('ibm-access');
+
+
+    //edit**********
+
+    Route::get('edit-profile-information',  function() {
+        return view('admin.pages.employee.edit.project-information');
+    })->name('edit-profile-information');
+    // Route::get('profile-info',[EmployeeController::class,'profileInfo'])->name('profile-info');
+
+    Route::get('edit-share-ponit-access',  function() {
+        return view('admin.pages.employee.edit.share-point-access');
+    })->name('edit-share-ponit-access');
+    Route::get('edit-ibm-access',  function() {
+        return view('admin.pages.employee.edit.ibm-access');
+    })->name('edit-ibm-access');
+    
     
     Route::get('get-share-point-acess',[ EmployeeController::class,'sharePointAcess'])->name('get-share-point-acess');
+    Route::get('get-edit-share-point-acess/{id}',[ EmployeeController::class,'editSharePointAcess'])->name('get-edit-share-point-acess');
     Route::post('share-point-acess-status',[ EmployeeController::class,'sharePointStatus'])->name('share-point-acess-status');
+   
+    Route::post('employee-bim-access-status',[ EmployeeController::class,'employeeBIMStatus'])->name('employee-bim-access-status');
+    Route::post('employee-share-point-access-status',[ EmployeeController::class,'employeeSharePointAccessStatus'])->name('employee-share-point-access-status');
+
     
+    Route::get('get-employee-detail/{id}',[ EmployeeController::class,'getEmployeeDetail'])->name('get-employee-detail');
     
 });
 

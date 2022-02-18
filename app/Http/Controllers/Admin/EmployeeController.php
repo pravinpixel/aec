@@ -58,7 +58,7 @@ class EmployeeController extends Controller
         $module->email = $request->epm_email;
         // $module->image = '';
         $module->status = 1;
-        $module->share_access = 1;
+        // $module->share_access = 1;
         $module->bim_access = 0;
         $module->access = 1;
         if($request->hasFile('file'))
@@ -81,6 +81,7 @@ class EmployeeController extends Controller
 
     public function updateEmployee($id,Request $request)
     {
+        // return 1;  
         // return $request->all();
         $module = Employee::find($id);
         if( empty( $module ) ) {
@@ -105,7 +106,7 @@ class EmployeeController extends Controller
 
 
         $module->update();
-        return response(['status' => true, 'msg' => trans('module.updated')], Response::HTTP_OK);
+        return response(['status' => true, 'msg' => trans('module.updated'),'data' => $id], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
@@ -205,6 +206,36 @@ class EmployeeController extends Controller
         
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
+    public function editSharePointAcess($id)
+    {
+        // return $id;
+
+
+
+        $data['employeeDetail']=Employee::where('id',$id)->first();
+        $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
+        $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
+        foreach( $data['employeeFolderStatus'] as $key=>$val)
+        {
+        //     print_r($key."=");
+            foreach($data['sharePointAccess'] as $shareKey=>$sharVal)
+            {
+                // print_r($sharVal['data_name']);
+                if($key == $sharVal['data_name'])
+                {
+                    $sharVal['is_active'] = $val;
+                }
+            }
+        }
+
+
+        // $data = SharePointAccess::where('is_active','=','1')->get();
+        if( !empty( $data ) ) {
+            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+        } 
+        
+        return response(['status' => false, 'msg' => trans('module.item_not_found'),'data'=>$data], Response::HTTP_NOT_FOUND);
+    }
     public function sharePointStatus(Request $request)
     {
  
@@ -231,11 +262,61 @@ class EmployeeController extends Controller
       
 
     }
-    public function profileInfo()
-    {
+    // public function profileInfo()
+    // {
    
-       return view('admin.pages.employee.employee-add');
+    //    return view('admin.pages.employee.employee-add');
+    // }
+    public function getEmployeeDetail($id)
+    {
+        // return $id;
+        $data['employeeDetail']=Employee::where('id',$id)->first();
+        $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
+        $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
+        foreach( $data['employeeFolderStatus'] as $key=>$val)
+        {
+        //     print_r($key."=");
+            foreach($data['sharePointAccess'] as $shareKey=>$sharVal)
+            {
+                // print_r($sharVal['data_name']);
+                if($key == $sharVal['data_name'])
+                {
+                    $sharVal['is_active'] = $val;
+                }
+            }
+        }
+        // die();
+        return $data;
+
+
     }
+    public function employeeSharePointAccessStatus(Request $request )
+    {
+        
+        $data = Employee::where('id',$request->employeeId)->first();
+
+        if($data)
+        {
+        //    return $request->dataId;
+            $data->share_access = $request->dataId;
+            $data->save();
+        }
+        return $data;
+    }
+    public function employeeBIMStatus(Request $request)
+    {
+        
+        $data = Employee::where('id',$request->employeeId)->first();
+
+        if($data)
+        {
+            // return $data->bim_access;
+            $data->bim_access = $request->dataId;
+            $data->save();
+        }
+        return $data;
+    }
+    
     
    
     
