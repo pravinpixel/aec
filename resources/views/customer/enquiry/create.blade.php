@@ -573,6 +573,11 @@
                         return false;
                     }
                     $scope.showHideBuildingComponent = res.data.building_component_process_type;
+                    if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
+                        $scope.buildingComponentUploads = res.data.building_component;
+                        getBuildingComponent();
+                        return false;
+                    }
                     res.data.building_component.map( (item , index) => {
                         let Details  = [];
                         if(typeof(item.detail) != 'undefined') {
@@ -1098,7 +1103,7 @@
                         $scope[`file${filename}`] = '';
                         delete $scope[`file${filename}`];
                         callPromise = false;
-                        angular.element("input[type='file']").val(null);
+                        // angular.element("input[type='file']").val(null);
                         $(`#link${filename}`).val('');
                         Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
                         getIFCViewList(response.data, file_type);
