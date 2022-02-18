@@ -15,6 +15,7 @@ use Autodesk\Forge\Client\Model\JobPayloadInput;
 use Autodesk\Forge\Client\Model\JobPayloadOutput;
 use Autodesk\Forge\Client\Model\JobPayloadItem;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class AutodeskForgeController extends Controller
 {
@@ -103,29 +104,29 @@ class AutodeskForgeController extends Controller
 		
 		$apiInstance = new ObjectsApi($accessToken);
 		
-		 $body = $_POST;
-          $file = $_FILES;
-		  
-		  
-          $fileToUpload    = $file['file'];
-          $filePath = $fileToUpload['tmp_name'];
-          $content_length = filesize($filePath);
-          $file_content = file_get_contents($filePath);
-		  
-		  
-		 $bucket_key = $request->input('bucketname');
-		 $enquirycode = $request->input('enquirycode');
-		 
-		 $newFileName =  $enquirycode . "_" .  $fileToUpload['name'];
-		 
-		  try {
+		$body = $_POST;
+		$file = $_FILES;
 
-			 $result = $apiInstance->uploadObject($bucket_key,$newFileName, $content_length, $file_content);
-			  return $newFileName;
-		  } catch (Exception $e) {
-			  return "Failed. File not uploaded";
-			  //echo 'Exception when calling ObjectsApi->uploadObject: ', $e->getMessage(), PHP_EOL;
-		  }
+
+		$fileToUpload    = $file['file'];
+		$filePath = $fileToUpload['tmp_name'];
+
+		$content_length = filesize($filePath);
+		$file_content = file_get_contents($filePath);
+		
+
+		$bucket_key = $request->input('bucketname');
+		$enquirycode = $request->input('enquirycode');
+		$newFileName =  $fileToUpload['name'];
+	
+		try {
+			$result = $apiInstance->uploadObject($bucket_key,$newFileName, $content_length, $file_content);
+			$this->translateFile($request);
+			return $newFileName;
+		} catch (Exception $e) {
+			return "Failed. File not uploaded";
+			//echo 'Exception when calling ObjectsApi->uploadObject: ', $e->getMessage(), PHP_EOL;
+		}
     }
 	
 	public function getmodelfilelist(Request $request)
@@ -170,7 +171,7 @@ class AutodeskForgeController extends Controller
 	public function viewmodel(Request $request)
 	{
 		$accessToken = $this->getTokenInternal();
-
+		// dd($accessToken);
 		$apiInstance = new ObjectsApi($accessToken);
 		 $bucket_key = $request->input('bucketname');
 		  $fname = $request->input('fname');
@@ -282,8 +283,10 @@ class AutodeskForgeController extends Controller
 		
 		$apiInstance = new ObjectsApi($accessToken);
 		 $bucket_key = $request->input('bucketname');
-		  $fname = $request->input('filename');
 		 
+		$file = $_FILES;
+        $fileToUpload    = $file['file'];
+		$fname =  $fileToUpload['name'];
 		 $result = $apiInstance->getObjects($bucket_key);
 		 $resultArray = json_decode($result, true);
 		 $objects = $resultArray['items'];
