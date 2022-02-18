@@ -2,15 +2,14 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no" />
     <meta charset="utf-8">
 
-    <!-- The Viewer CSS -->
-    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/2.*/style.min.css" type="text/css">
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css" type="text/css">
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
 
-    <!-- Developer CSS -->
     <style>
         body {
             margin: 0;
         }
-        #MyViewerDiv {
+        #forgeViewer {
             width: 100%;
             height: 100%;
             margin: 0;
@@ -20,75 +19,80 @@
 </head>
 <body>
 
-    <!-- The Viewer will be instantiated here -->
-    <div id="MyViewerDiv"></div>
+    <div id="forgeViewer"></div>
 
-    <!-- The Viewer JS -->
-    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/2.*/three.min.js"></script>
-    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/2.*/viewer3D.min.js"></script>
-
-    <!-- Developer JS -->
-    <script>
-        var viewer;
-        var options = {
-            env: 'AutodeskProduction',
-            accessToken: '{{$accessToken1}}'
-        };
-        var documentId = 'urn:{{$urn}}';
-        Autodesk.Viewing.Initializer(options, function onInitialized(){
-            Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
-        });
-
-        /**
-        * Autodesk.Viewing.Document.load() success callback.
-        * Proceeds with model initialization.
-        */
-        function onDocumentLoadSuccess(doc) {
-
-            // A document contains references to 3D and 2D viewables.
-            var viewables = Autodesk.Viewing.Document.getSubItemsWithProperties(doc.getRootItem(), {'type':'geometry'}, true);
-            if (viewables.length === 0) {
-                console.error('Document contains no viewables.');
-                return;
-            }
-
-            // Choose any of the avialble viewables
-            var initialViewable = viewables[0];
-            var svfUrl = doc.getViewablePath(initialViewable);
-            var modelOptions = {
-                sharedPropertyDbPath: doc.getPropertyDbPath()
-            };
-
-            var viewerDiv = document.getElementById('MyViewerDiv');
-            viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
-            viewer.start(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
-        }
-
-        /**
-         * Autodesk.Viewing.Document.load() failuire callback.
-         */
-        function onDocumentLoadFailure(viewerErrorCode) {
-            console.error('onDocumentLoadFailure() - errorCode:' + viewerErrorCode);
-        }
-
-        /**
-         * viewer.loadModel() success callback.
-         * Invoked after the model's SVF has been initially loaded.
-         * It may trigger before any geometry has been downloaded and displayed on-screen.
-         */
-        function onLoadModelSuccess(model) {
-            console.log('onLoadModelSuccess()!');
-            console.log('Validate model loaded: ' + (viewer.model === model));
-            console.log(model);
-        }
-
-        /**
-         * viewer.loadModel() failure callback.
-         * Invoked when there's an error fetching the SVF file.
-         */
-        function onLoadModelError(viewerErrorCode) {
-            console.error('onLoadModelError() - errorCode:' + viewerErrorCode);
-        }
-
-    </script>
 </body>
+
+<!-- Fetch exactly version 7.0.0 -->
+<script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.0.0/viewer3D.min.js"></script>
+
+<!-- Fetch latest patch version for 7.0 -->
+<script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.0.*/viewer3D.min.js"></script>
+
+<!-- Also fetch latest patch version for 7.0 -->
+<script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.0/viewer3D.min.js"></script>
+
+<!-- Fetch latest minor version for 7.0 -->
+<script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+<script>
+function MyAwesomeExtension(viewer, options) {
+  Autodesk.Viewing.Extension.call(this, viewer, options);
+}
+
+MyAwesomeExtension.prototype = Object.create(Autodesk.Viewing.Extension.prototype);
+MyAwesomeExtension.prototype.constructor = MyAwesomeExtension;
+
+MyAwesomeExtension.prototype.load = function() {
+  alert('MyAwesomeExtension is loaded!');
+  return true;
+};
+
+MyAwesomeExtension.prototype.unload = function() {
+  alert('MyAwesomeExtension is now unloaded!');
+  return true;
+};
+
+Autodesk.Viewing.theExtensionManager.registerExtension('MyAwesomeExtension', MyAwesomeExtension);
+</script>
+
+<script>
+    var viewer;
+var options = {
+    env: 'AutodeskProduction2',
+    api: 'streamingV2',  // for models uploaded to EMEA change this option to 'streamingV2_EU'
+    getAccessToken: function(onTokenReady) {
+        var token = '{{$accessToken1}}';
+        var timeInSeconds = 3600; // Use value provided by Forge Authentication (OAuth) API
+        onTokenReady(token, timeInSeconds);
+    }
+};
+
+Autodesk.Viewing.Initializer(options, function() {
+
+    var htmlDiv = document.getElementById('forgeViewer');
+    viewer = new Autodesk.Viewing.GuiViewer3D(htmlDiv);
+    var startedCode = viewer.start();
+    if (startedCode > 0) {
+        console.error('Failed to create a Viewer: WebGL not supported.');
+        return;
+    }
+
+    console.log('Initialization complete, loading a model next...');
+
+});
+
+var htmlDiv = document.getElementById('forgeViewer');
+viewer = new Autodesk.Viewing.GuiViewer3D(htmlDiv, {});
+
+var documentId = 'urn:{{$urn}}';
+Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
+
+function onDocumentLoadSuccess(viewerDocument) {
+    // viewerDocument is an instance of Autodesk.Viewing.Document
+}
+
+function onDocumentLoadFailure() {
+    console.error('Failed fetching Forge manifest');
+}
+
+</script>

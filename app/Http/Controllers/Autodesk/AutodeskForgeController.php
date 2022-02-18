@@ -170,7 +170,7 @@ class AutodeskForgeController extends Controller
 	public function viewmodel(Request $request)
 	{
 		$accessToken = $this->getTokenInternal();
-		
+
 		$apiInstance = new ObjectsApi($accessToken);
 		 $bucket_key = $request->input('bucketname');
 		  $fname = $request->input('fname');
@@ -190,7 +190,7 @@ class AutodeskForgeController extends Controller
 		 
 		 
 		 $urn=$objid;
-		 
+		//  dd($urn);
 		 $accessToken1 = $this->getTokenPublic()["access_token"];
 		 return view('forge',compact('accessToken1','urn'));
 		
