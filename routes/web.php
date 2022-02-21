@@ -125,13 +125,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('employee-enquiry/{id}', [EmployeeController::class, 'employee_enquiry'])->name('employee-enquiry');
     Route::get('employee',[ EmployeeController::class,'employee'])->name('employee');
 
-    // Route::get('profile-info',[EmployeeController::class,'profileInfo'])->name('profile-info');
+    Route::get('profile-info',[EmployeeController::class,'profileInfo'])->name('profile-info');
     // Route::get('share-ponit-access',[EmployeeController::class,'profileInfo'])->name('share-ponit-access');
     // Route::get('ibm-access',[EmployeeController::class,'profileInfo'])->name('ibm-access');
 
-    Route::get('profile-info',  function() {
-        return view('admin.pages.employee.create.employee-add');
-    })->name('profile-info');
+    // Route::get('profile-info',  function() {
+    //     return view('admin.pages.employee.create.employee-add');
+    // })->name('profile-info');
     Route::get('share-ponit-access',  function() {
         return view('admin.pages.employee.create.share-point-access');
     })->name('share-ponit-access');
@@ -156,7 +156,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     
     
     Route::get('get-share-point-acess',[ EmployeeController::class,'sharePointAcess'])->name('get-share-point-acess');
-    Route::get('get-edit-share-point-acess/{id}',[ EmployeeController::class,'editSharePointAcess'])->name('get-edit-share-point-acess');
+    Route::get('get-share-point-acess/{id}',[ EmployeeController::class,'sharePointAcessId'])->name('get-share-point-acess');
+
+    
+    Route::get('get-edit-share-point-acess',[ EmployeeController::class,'sharePointAcess'])->name('get-edit-share-point-acess');
     Route::post('share-point-acess-status',[ EmployeeController::class,'sharePointStatus'])->name('share-point-acess-status');
    
     Route::post('employee-bim-access-status',[ EmployeeController::class,'employeeBIMStatus'])->name('employee-bim-access-status');
@@ -164,7 +167,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 
     
     Route::get('get-employee-detail/{id}',[ EmployeeController::class,'getEmployeeDetail'])->name('get-employee-detail');
-    
+    Route::get('employee-mail/{id}',[ EmployeeController::class,'employeeMail'])->name('employee-mail');
+    Route::get('get-employeeData',[ EmployeeController::class,'getEmployeeData'])->name(' get-employeeData');
+   
 });
 
 

@@ -162,22 +162,22 @@
                                                                 <tr class="border">
                                                                     <th  class=" ">Share Point
                                                                     </th><td  class="bg-white">
-                                                                    <span  ng-if="enqData.share_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                                                    <span  ng-if="enqData.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                                    <span  ng-if="employeeDetail.share_access =='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                                                    <span  ng-if="employeeDetail.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
                                                                     </td>
                                                                 </tr> 
                                                                 <tr class="border">
                                                                     <th  class=" ">BIM
                                                                     </th><td  class="bg-white">
-                                                                    <span  ng-if="enqData.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                                                    <span  ng-if="enqData.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                                    <span  ng-if="employeeDetail.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                                                    <span  ng-if="employeeDetail.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
                                                                     </td>
                                                                 </tr> 
                                                                 <tr class="border">
                                                                     <th  class=" ">24*7
                                                                     </th><td  class="bg-white">
-                                                                    <span  ng-if="enqData.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                                                    <span  ng-if="enqData.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                                    <span  ng-if="employeeDetail.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                                                    <span  ng-if="employeeDetail.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
                                                                     </td>
                                                                 </tr> 
                                                                 
@@ -190,40 +190,7 @@
                                         </div>
                                         </div>
                                     </div>
-                                    <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Client Listing
-                                            </button>
-                                            </h2>
-                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <div class="row mx-0 container ">
-                                                    <div class="col-12 text-center">
-                                                        <h4 class="f-20 m-0 p-3">Client Listing</h4>
-                                                    </div>
-                                                    <div class="col-md-6 p-3 mx-auto">
-                                                        <table class="table m-0   table-bordered">
-                                                            <tbody>
-                                                                <tr class="border">
-                                                                    <th class="bg-primary text-white">S.no</th>
-                                                                    <th class="bg-primary text-white">Services</th>
-                                                                </tr> 
-                                                            <tr class="border">
-                                                                <td class=" ">1
-                                                                </td><td class="bg-white">CAD / CAM Modelling</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td class=" ">2
-                                                                </td><td class="bg-white">Approval Drawings</td>
-                                                            </tr>  
-                                                        </tbody></table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                {{-- ProjectInfo --}}
+                                    {{-- ProjectInfo --}}
                                     <fieldset class="accordion-item">
                                         <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
                                             <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
@@ -273,6 +240,40 @@
                                         </div>
                                     </fieldset>
                                 {{-- ProjectInfo --}}
+                                    <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                Client Listing
+                                            </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="row mx-0 container ">
+                                                    <div class="col-12 text-center">
+                                                        <h4 class="f-20 m-0 p-3">Client Listing</h4>
+                                                    </div>
+                                                    <div class="col-md-6 p-3 mx-auto">
+                                                        <table class="table m-0   table-bordered">
+                                                            <tbody>
+                                                                <tr class="border">
+                                                                    <th class="bg-primary text-white">S.no</th>
+                                                                    <th class="bg-primary text-white">Services</th>
+                                                                </tr> 
+                                                            <tr class="border">
+                                                                <td class=" ">1
+                                                                </td><td class="bg-white">CAD / CAM Modelling</td>
+                                                            </tr>  
+                                                            <tr class="border">
+                                                                <td class=" ">2
+                                                                </td><td class="bg-white">Approval Drawings</td>
+                                                            </tr>  
+                                                        </tbody></table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                    </div>
+                               
                         
                             
                         
@@ -546,6 +547,19 @@
 
                 $scope.employeeMail = function (id) {
                     alert(id)
+
+                    $http({
+                        method: 'GET',
+                        url: API_URL + "admin/employee-mail/" + id
+                    }).then(function (response) {
+                        Message('success',response.data.msg);
+                        // alert(JSON.stringify(response))
+                        // $scope.employee_module_role = response.data.data;		
+                        // $scope.employee_module.epm_id = response.data.data.emp_id.id;
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
                     
                 }
 

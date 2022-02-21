@@ -191,9 +191,6 @@
 
         app.controller('EditProfileInfo', function ($scope, $http, $rootScope,$location, API_URL){
 
-            // $rootScope.projectNameLabel;
-            // $location.path('/');
-            
                 // ******* image show ******
                 $scope.SelectFile = function (e) {
                     var reader = new FileReader();
@@ -229,7 +226,6 @@
                 $scope.getRoleData = function($http, API_URL) {
 
                     angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-                    // http://localhost/AEC_PREFAB/aec/module?page=1
                     $http({
                         method: 'GET',
                         url: API_URL + "admin/employee-role"
@@ -262,7 +258,6 @@
                 var epm_username = $('#epm_username').val();
                 var epm_password = $('#epm_password').val();
                 var epm_email = $('#epm_email').val();
-                // alert(epm_fname)
                 $scope.epm_number  = num;
                 $scope.epm_id  = epm_id;
                 $scope.epm_fname  = epm_fname;
@@ -273,7 +268,6 @@
                 $scope.FileValue  = file_name;
                 $scope.job_role  = job_role;
                 console.log($scope.epm_number)
-                // alert( $scope.FileValue)
                 fd.append('file',  $scope.FileValue);
                 fd.append('epm_id',  $scope.epm_id);
                 fd.append('epm_fname', $scope.epm_fname);
@@ -281,8 +275,8 @@
                 fd.append('epm_username', $scope.epm_username);
                 fd.append('epm_password',   $scope.epm_password);
                 fd.append('epm_job_role',  $scope.job_role);
-                fd.append('epm_number',  $scope.epm_number);
-                fd.append('epm_email',  $scope.epm_email);
+                fd.append('number',  $scope.epm_number);
+                fd.append('email',  $scope.epm_email);
 
                 var url = API_URL + "admin/";
                     // var id = key;
@@ -290,7 +284,6 @@
 			        if (id) {
                     
 			            url += "update-employee/" + id;
-                        // alert(url)
 			            method = "POST";
                         console.log(fd)
                         // alert(JSON.stringify($scope.data))
@@ -301,22 +294,15 @@
                              headers: { 'Content-Type': undefined},
                             transformRequest: angular.identity
 
-						}).then(function (response) {
+						}).then(function successCallback(response) {
                             Message('success',response.data.msg);
 							//  alert(JSON.stringify(response.data.data))
-                            // window.location.href = API_URL +"admin/admin-employee-control-view";
-							// getData($http, API_URL);
                             $location.path('/editSharePonitAccess');
-                            $rootScope.employeeId = response.data.data;
                             $scope.resetForm();
-							    // $('#primary-header-modal').modal('hide');
 
-                                // Message('success',response.data.msg);
-
-						}), (function (error) {
-							console.log(error);
-							console.log('This is embarassing. An error has occurred. Please check the log for details');
-						});
+						},function errorCallback(response) {
+                            Message('danger',response.data.message);
+                        });
 
 			        }
 			        
@@ -326,26 +312,21 @@
                         $scope.FormData = {};
                         $scope.frm.$setPristine();
                         $scope.frm.$setValidity();
-                        // $scope.frm.$setUntouched();
                     }
 
         });
             app.controller('EditSharePonitAccess', function ($scope, $http, $rootScope,$location, API_URL){
 
                 $scope.getSharePointAcess = function($http, API_URL) {
-                    $id = $rootScope.employeeId;
                     angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-                    // http://localhost/AEC_PREFAB/aec/module?page=1
                     $http({
                         method: 'GET',
-                        url: API_URL + "admin/get-edit-share-point-acess/" + $id
+                        url: API_URL + "admin/get-edit-share-point-acess"
                     }).then(function (response) {
                         // alert(JSON.stringify(response.data.data.employeeDetail.share_access))
-                        // $rootScope.employeeId =1;
-                        $scope.employeeRowId = $rootScope.employeeId;
-                        $scope.share_access = response.data.data.employeeDetail.share_access;
-                        $scope.sharePointFolder = response.data.data.sharePointAccess;
-                        $scope.sharePointAccess_module = response.data.data;
+                        $scope.sharePointFolder = response.data.data;
+                        $scope.share_access = response.data.employeeData.share_access;
+                        
                         
                     }, function (error) {
                         console.log(error);
@@ -355,33 +336,28 @@
 
                 $scope.getSharePointAcess($http,API_URL);
 
-                $scope.employee_status =function(employeeId,dataId,field){
+                $scope.employee_status =function(share_access,dataId,field){
                     $http({
                         method: 'POST',
                         url: API_URL + "admin/share-point-acess-status",
-                        data:{employeeId:employeeId,dataId:dataId,fieldName:field},
-                    }).then(function (response) {
-                        // alert(JSON.stringify(response.data.data))
-                        // $scope.getSharePointAcess($http,API_URL);
-                        
+                        data:{share_point_status:share_access,dataId:dataId,fieldName:field},
+                    }).then(function (response) {  
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
                     });
 
                 }
-                $scope.sharePoint_status = function(employeeId,dataId){
+                $scope.sharePoint_status = function(dataId){
                     
                     
                     $http({
                         method: 'POST',
                         url: API_URL + "admin/employee-share-point-access-status",
-                        data:{employeeId:employeeId,dataId:dataId},
+                        data:{dataId:dataId},
                     }).then(function (response) {
-                        // alert(JSON.stringify(response))
-                        // $scope.getSharePointAcess($http,API_URL);
-
-                        
+                        // alert(JSON.stringify(response)) 
+                        $scope.sharePointFolder = response.data.data.sharePointAccess;
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -395,16 +371,26 @@
                         url: API_URL + "admin/employee-bim-access-status",
                         data:{employeeId:employeeId,dataId:dataId},
                     }).then(function (response) {
-                        alert(JSON.stringify(response))
-                        // $scope.getSharePointAcess($http,API_URL);
-                        
+                        // alert(JSON.stringify(response))
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
                     });
 
                 }
+                $scope.edit_share_point_prev = function($http, API_URL){
+                    $location.path('/');
+                }
+                $scope.edit_share_point_next = function($http, API_URL){
+                    $location.path('/editIbmAccess');
+                }
 
+            });
+
+            app.controller('EditIBMaccess', function ($scope, $http, $rootScope,$location, API_URL){
+                $scope.bim_point_prev = function($http, API_URL){
+                    $location.path('/editSharePonitAccess');
+                }
             });
 
        
