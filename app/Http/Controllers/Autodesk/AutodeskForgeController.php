@@ -15,7 +15,6 @@ use Autodesk\Forge\Client\Model\JobPayloadInput;
 use Autodesk\Forge\Client\Model\JobPayloadOutput;
 use Autodesk\Forge\Client\Model\JobPayloadItem;
 use Exception;
-use Illuminate\Support\Facades\Log;
 
 class AutodeskForgeController extends Controller
 {
@@ -24,11 +23,9 @@ class AutodeskForgeController extends Controller
 	
     public function __construct(){
         set_time_limit(0);
-        Configuration::getDefaultConfiguration()
-			->setClientId('JVcKHNFTUTVmpLenJWwU3RMsmtDaqmq2')
-			->setClientSecret("ZJQ2aCG5xRrwZMXx");
-            // ->setClientId("AA9tRkeDQP9TmvPPtUG540plagL9XKCH")
-            // ->setClientSecret("zyUTW5b1ITHYYSfc");
+        Configuration:: getDefaultConfiguration()
+			->setClientId(config('autodesk.client_id'))
+			->setClientSecret(config('autodesk.client_secret'));
     } 
 	
 	 public static function getScopeInternal(){
@@ -51,47 +48,43 @@ class AutodeskForgeController extends Controller
             $_SESSION['ExpiresTime']       = time() + $_SESSION['ExpiresInPublic'];
         }
         return array(
-            'access_token'  => $_SESSION['AccessTokenPublic'],
-            'expires_in'    => $_SESSION['ExpiresInPublic'],
+            'access_token' => $_SESSION['AccessTokenPublic'],
+            'expires_in'   => $_SESSION['ExpiresInPublic'],
         );
     }
 
     public function getTokenInternal(){
         $twoLeggedAuthInternal = new TwoLeggedAuth();
         $twoLeggedAuthInternal->setScopes(AutodeskForgeController::getScopeInternal());
-
         if(!isset($_SESSION['AccessTokenInternal']) || $_SESSION['ExpiresTime']< time() ){
             $twoLeggedAuthInternal->fetchToken();
-            $_SESSION['AccessTokenInternal'] =  $twoLeggedAuthInternal->getAccessToken();
-            $_SESSION['ExpiresInInternal']   =    $twoLeggedAuthInternal->getExpiresIn();
+            $_SESSION['AccessTokenInternal'] = $twoLeggedAuthInternal->getAccessToken();
+            $_SESSION['ExpiresInInternal']   = $twoLeggedAuthInternal->getExpiresIn();
             $_SESSION['ExpiresTime']         = time() + $_SESSION['ExpiresInInternal'];
         }
-
         $twoLeggedAuthInternal->setAccessToken($_SESSION['AccessTokenInternal']);
         return $twoLeggedAuthInternal;  
-		
     }
 	
 	public function getBuckets()
 	{
-		$accessToken = $this->getTokenInternal();
-		
-		$apiInstance = new BucketsApi($accessToken);
-		 $result = $apiInstance->getBuckets();
-		 $resultArray = json_decode($result, true);
-		 $buckets = $resultArray['items'];
-		 $bucketsLength = count($buckets);
-		 $bucketlist = array();
-		 $s1 = "";
+		$accessToken   = $this->getTokenInternal();
+		$apiInstance   = new BucketsApi($accessToken);
+		$result        = $apiInstance->getBuckets();
+		$resultArray   = json_decode($result, true);
+		$buckets       = $resultArray['items'];
+		$bucketsLength = count($buckets);
+		$bucketlist    = array();
+		$s1            = "";
 		 for($i=0; $i< $bucketsLength; $i++){
-			 $cbkey = $buckets[$i]['bucketKey'];
-			 $s1 = $s1 . $buckets[$i]['bucketKey'] . " ! ";
+			 $cbkey    = $buckets[$i]['bucketKey'];
+			 $s1       = $s1 . $buckets[$i]['bucketKey'] . " ! ";
 			 $exploded = explode('_', $cbkey);
 			 //$cbtext = ForgeConfig::$prepend_bucketkey&&strpos($cbkey, strtolower(ForgeConfig::getForgeID())) === 0? end($exploded):$cbkey;
 			 $bucketInfo = array('id'=>$cbkey,
-								 'text'=> $cbkey,
-								 'type'=>'bucket',
-								 'children'=>true
+								 'text'     => $cbkey,
+								 'type'     => 'bucket',
+								 'children' => true
 			 );
 			 array_push($bucketlist, $bucketInfo);
 		 }
@@ -99,26 +92,19 @@ class AutodeskForgeController extends Controller
 	}
 	
 	public function uploadfile(Request $request){
-		  global $twoLeggedAuth;
-		 $accessToken = $this->getTokenInternal();
-		
-		$apiInstance = new ObjectsApi($accessToken);
-		
-		$body = $_POST;
-		$file = $_FILES;
-
-
-		$fileToUpload    = $file['file'];
-		$filePath = $fileToUpload['tmp_name'];
-
+		global $twoLeggedAuth;
+		$accessToken    = $this->getTokenInternal();
+		$apiInstance    = new ObjectsApi($accessToken);
+		$body           = $_POST;
+		$file           = $_FILES;
+		$fileToUpload   = $file['file'];
+		$filePath       = $fileToUpload['tmp_name'];
 		$content_length = filesize($filePath);
-		$file_content = file_get_contents($filePath);
-		
-
-		$bucket_key = $request->input('bucketname');
-		$enquirycode = $request->input('enquirycode');
-		$newFileName =  $fileToUpload['name'];
-	
+		$handle         = fopen($filePath, "rb");
+		$file_content   = fread($handle, $content_length);
+		fclose($handle);
+		$bucket_key  = $request->input('bucketname');
+		$newFileName = $fileToUpload['name'];
 		try {
 			$result = $apiInstance->uploadObject($bucket_key,$newFileName, $content_length, $file_content);
 			$this->translateFile($request);
@@ -135,20 +121,20 @@ class AutodeskForgeController extends Controller
 		
 		$apiInstance = new ObjectsApi($accessToken);
 		
-		 $bucket_key = $request->input('bucketname');
-		 $result = $apiInstance->getObjects($bucket_key);
+		 $bucket_key  = $request->input('bucketname');
+		 $result      = $apiInstance->getObjects($bucket_key);
 		 $resultArray = json_decode($result, true);
-		 $objects = $resultArray['items'];
+		 $objects     = $resultArray['items'];
 
 		 $objectsLength = count($objects);
-		 $objectlist = array();
-		 $objid = "";
+		 $objectlist    = array();
+		 $objid         = "";
 		 for($i=0; $i< $objectsLength; $i++){
 			 if ($i==0) $objid = base64_encode($objects[$i]['objectId']);
-			 $objectInfo = array('id'=>base64_encode($objects[$i]['objectId']),
-								 'text'=>$objects[$i]['objectKey'],
-								 'type'=>'object',
-								 'children'=>false
+			    $objectInfo    = array('id'=>base64_encode($objects[$i]['objectId']),
+								 'text'     => $objects[$i]['objectKey'],
+								 'type'     => 'object',
+								 'children' => false
 			 );
 			 array_push($objectlist, $objectInfo);
 		 }
@@ -161,8 +147,8 @@ class AutodeskForgeController extends Controller
 
 		 //return view('forge',compact('accessToken1','urn'));
 		 return array(
-            'access_token'  => $accessToken1,
-            'urn'    => $urn,
+            'access_token' => $accessToken1,
+            'urn'          => $urn,
         );*/
 				 
 		
@@ -171,17 +157,17 @@ class AutodeskForgeController extends Controller
 	public function viewmodel(Request $request)
 	{
 		$accessToken = $this->getTokenInternal();
-		// dd($accessToken);
+	
 		$apiInstance = new ObjectsApi($accessToken);
-		 $bucket_key = $request->input('bucketname');
-		  $fname = $request->input('fname');
+		$bucket_key  = $request->input('bucketname');
+		$fname       = $request->input('fname');
 		 
-		 $result = $apiInstance->getObjects($bucket_key);
+		 $result      = $apiInstance->getObjects($bucket_key);
 		 $resultArray = json_decode($result, true);
-		 $objects = $resultArray['items'];
-		// dd( $objects);
+		 $objects     = $resultArray['items'];
+
 		 $objectsLength = count($objects);
-		 $objectlist = array();
+		 $objectlist    = array();
 		
 		 for($i=0; $i< $objectsLength; $i++){
 			 if ($fname==$objects[$i]['objectKey'])
@@ -190,8 +176,8 @@ class AutodeskForgeController extends Controller
 		 }
 		 
 		 
-		 $urn=$objid;
-		//  dd($urn);
+		 $urn = $objid;
+
 		 $accessToken1 = $this->getTokenPublic()["access_token"];
 		 return view('forge',compact('accessToken1','urn'));
 		
@@ -205,9 +191,9 @@ class AutodeskForgeController extends Controller
 	
 		try 
 		{
-			 $result = $apiInstance->getBuckets();
-			 $resultArray = json_decode($result, true);
-			 $buckets = $resultArray['items'];
+			 $result        = $apiInstance->getBuckets();
+			 $resultArray   = json_decode($result, true);
+			 $buckets       = $resultArray['items'];
 			 $bucketsLength = count($buckets);
 			 
 			 for($i=0; $i< $bucketsLength; $i++){
@@ -231,8 +217,7 @@ class AutodeskForgeController extends Controller
 	public function createBucket(Request $request)
 	{
 		$accessToken = $this->getTokenInternal();
-		$bucketKey = $request->input('bucketname');
-		
+		$bucketKey   = $request->input('bucketname');
 		if ($this->checkBucketExists($bucketKey))
 		{
 			return "Bucket exists";
@@ -240,13 +225,12 @@ class AutodeskForgeController extends Controller
 		
 		$accessToken = $this->getTokenInternal();
 		$apiInstance = new BucketsApi($accessToken);
-		
-		$policeKey = "transient";
-		
-        $apiInstance = new BucketsApi($accessToken);
-        $post_bucket = new PostBucketsPayload();
+		$policeKey   = config('autodesk.public_key');
+		$apiInstance = new BucketsApi($accessToken);
+		$post_bucket = new PostBucketsPayload();
         $post_bucket->setBucketKey($bucketKey);
         $post_bucket->setPolicyKey($policeKey);
+        $post_bucket->setAllow('full');
 		
         try {
             $result = $apiInstance->createBucket($post_bucket);
@@ -282,17 +266,17 @@ class AutodeskForgeController extends Controller
         $accessToken = $this->getTokenInternal();
 		
 		$apiInstance = new ObjectsApi($accessToken);
-		 $bucket_key = $request->input('bucketname');
+		$bucket_key  = $request->input('bucketname');
 		 
-		$file = $_FILES;
-        $fileToUpload    = $file['file'];
-		$fname =  $fileToUpload['name'];
-		 $result = $apiInstance->getObjects($bucket_key);
-		 $resultArray = json_decode($result, true);
-		 $objects = $resultArray['items'];
+		$file         = $_FILES;
+		$fileToUpload = $file['file'];
+		$fname        = $fileToUpload['name'];
+		$result       = $apiInstance->getObjects($bucket_key);
+		$resultArray  = json_decode($result, true);
+		$objects      = $resultArray['items'];
 
 		 $objectsLength = count($objects);
-		 $objectlist = array();
+		 $objectlist    = array();
 		
 		 for($i=0; $i< $objectsLength; $i++){
 			 if ($fname==$objects[$i]['objectKey'])
@@ -303,22 +287,22 @@ class AutodeskForgeController extends Controller
         $objectId = $objid;
 
         $apiInstance = new DerivativesApi($accessToken);
-        $job         = new JobPayload(); 
+        $job         = new JobPayload();
 
-        $jobInput    = new JobPayloadInput();
+        $jobInput = new JobPayloadInput();
         $jobInput->setUrn($objectId);
 
         $jobOutputItem = new JobPayloadItem();
         $jobOutputItem->setType('svf');
         $jobOutputItem->setViews(array('2d','3d'));
         
-        $jobOutput   = new JobPayloadOutput();
+        $jobOutput = new JobPayloadOutput();
         $jobOutput->setFormats(array($jobOutputItem));
 
         $job->setInput($jobInput);
         $job->setOutput($jobOutput);
 
-        $x_ads_force = false; 
+        $x_ads_force = false;
         try {
             $result = $apiInstance->translate($job, $x_ads_force);
             return $result;
