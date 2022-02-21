@@ -11,5 +11,8 @@ return [
     'file_path' => [
         'building_component_uploads' => 'building_component_uploads',
         'ifc_model_uploads' => 'ifc_model_uploads',
-    ]
+    ],
+    'autodesk_upload_file_type' => [
+        'ifc'
+    ],
 ];

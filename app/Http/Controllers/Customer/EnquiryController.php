@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Autodesk\AutodeskForgeController;
 use App\Http\Controllers\Controller;
 use App\Interfaces\BuildingComponentRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
@@ -20,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Enquiry;
+use App\Repositories\AutoDeskRepository;
 use Exception;
 use Illuminate\Support\Facades\Config as FacadesConfig;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +30,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class EnquiryController extends Controller
 {
- 
     protected $customerEnquiryRepo;
     protected $serviceRepo;
     protected $documentTypeRepo;
@@ -36,7 +37,7 @@ class EnquiryController extends Controller
     protected $commentRepo;
     protected $documentTypeEnquiryRepo;
     protected $outputTypeRepository;
-
+    
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
         ServiceRepositoryInterface $serviceRepo,
@@ -53,7 +54,7 @@ class EnquiryController extends Controller
         $this->commentRepo             = $comment;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
         $this->outputTypeRepository    = $outputTypeRepository;
-     }
+    }
 
     public function myEnquiries() 
     {
@@ -253,6 +254,8 @@ class EnquiryController extends Controller
         $additionalData     =   ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name,'file_type' => $extension , 'status' => 'In progress'];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
         $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
+        $autoDesk = new  AutodeskForgeController(new  AutoDeskRepository);
+        $autoDesk->uploadfile($path, $enquiry, $request);
         return $enquiry->id;
     }
 

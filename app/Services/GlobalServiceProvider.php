@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\Config as ConfigModel;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Str;
 
 // use PhpParser\Node\Stmt\Switch_;
 
@@ -78,5 +79,17 @@ class GlobalServiceProvider extends Controller
     public function getIfcmodelPath()
     {
         return 'customers/'.Customer()->id.'/'.Config::get('global.file_path.ifc_model_uploads');
+    }
+
+    public function bucketStructureFormat($enquiryNumber)
+    {
+        $rstring = Str::replace('/', '-', $enquiryNumber);
+        return Str::lower($rstring);
+    }
+
+    public function getBucketFilename($path)
+    {
+        $removedPath = Str::replace($this->getIfcmodelPath().'/','', $path);
+        return preg_replace('/\\.[^.\\s]{3,4}$/', '', Str::of($removedPath)->trim());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Interfaces\AutoDeskRepositoryInterface;
 use App\Interfaces\BuildingComponentRepositoryInterface;
 use App\Interfaces\BuildingTypeRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
@@ -22,6 +23,7 @@ use App\Interfaces\RoleRepositoryInterface;
 use App\Interfaces\DocumentaryRepositoryInterface;
 use App\Interfaces\EnquiryTemplateRepositoryInterface;
 use App\Interfaces\MailTemplateRepositoryInterface;
+use App\Repositories\AutoDeskRepository;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
 use App\Repositories\CommentRepository;
@@ -144,6 +146,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             EnquiryTemplateRepositoryInterface::class,
             EnquiryTemplateRepository::class
+        );
+
+        $this->app->bind(
+            AutoDeskRepositoryInterface::class,
+            AutoDeskRepository::class
         );
     }
 
