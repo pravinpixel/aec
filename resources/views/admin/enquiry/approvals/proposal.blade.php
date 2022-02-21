@@ -10,7 +10,10 @@
                     <h1 class="h3 text-dark-50 text-center text-primary"> <i class="fa fa-user"></i> Proposal Approval Portal</h1>
                 </div>
                 <div class="card-body">
-                    {{ $result->pdf_file_name }}
+                    
+                    <div class="text-end">
+                        <a download="{{ asset($result->pdf_file_name) }}" href="{{ asset($result->pdf_file_name) }}" type="button" class="btn btn-primary mb-3"><i class="mdi mdi-download me-1"></i> <span>Download PDF</span> </a>
+                    </div>
                     <div style="max-height: 60vh;overflow:auto">
                         {!! $result->documentary_content !!} 
                     </div>
