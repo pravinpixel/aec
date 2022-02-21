@@ -47,7 +47,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" >Contact Person<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="contact_person" id="validationCustom02" ng-minlength="3" ng-model="module.contact_person" placeholder="Type Here..." ng-required="true">
+                                            <input type="text" class="form-control" name="contact_person" id="validationCustom02"   ng-model="module.contact_person" placeholder="Type Here..." ng-required="true">
                                         </div>
                                     </div>  
                                 

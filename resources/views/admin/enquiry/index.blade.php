@@ -81,12 +81,10 @@
                 @include('admin.enquiry.models.enquiry-qucik-view')
                 @include('admin.enquiry.models.chat-box')
                 @include('customer.enquiry.models.enquiry-filter-modal')
-            </div> <!-- container -->
-
-        </div> <!-- content -->
+            </div>
+        </div>
     </div> 
 @endsection
- 
 
 @push('custom-scripts')
     <script src="{{ asset("public/custom/js/ngControllers/admin/all-enquiries.js") }}"></script>  

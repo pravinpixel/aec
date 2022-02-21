@@ -10,6 +10,7 @@
                     <h1 class="h3 text-dark-50 text-center text-primary"> <i class="fa fa-user"></i> Proposal Approval Portal</h1>
                 </div>
                 <div class="card-body">
+                    {{ $result->pdf_file_name }}
                     <div style="max-height: 60vh;overflow:auto">
                         {!! $result->documentary_content !!} 
                     </div>

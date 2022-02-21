@@ -45,7 +45,7 @@
                                     <tr>
                                         <td>{{ $key +1 }}</td>
                                         <td> 
-                                            <span data-bs-toggle="modal" data-bs-target="#right-modal-progress" class="badge badge-primary-lighten btn  p-2">
+                                            <span data-bs-toggle="modal" data-bs-target="#right-modal-progress" class="badge badge-primary-lighten btn p-2">
                                                 {{ $row->enquiry_number }}
                                             </span>
                                         </td>
@@ -64,7 +64,7 @@
                                             <span class="badge bg-success shadow-sm rounded-pill">Active</span>
                                         </td>
                                         <td>                                            
-                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href="{{ route("customers.edit-enquiry",$row->id) }}">
+                                            <a class="btn btn-outline-primary btn-sm  rounded-pill shadow-sm" href=" ">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>

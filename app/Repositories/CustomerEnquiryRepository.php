@@ -197,7 +197,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $Vid            =   Crypt::decryptString($Vid);
 
         if($Vid == 0) {
-               $result = MailTemplate::where("enquirie_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->first();
+            $result = MailTemplate::where("enquirie_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->first();
             return view('admin.enquiry.approvals.proposal', compact('result' ,$result));
         }else {
             $result = PropoalVersions::where("enquiry_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();

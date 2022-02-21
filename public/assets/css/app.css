@@ -15847,3 +15847,19 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
   left: 25%;
   top: 82%;
 }
+
+.chat-active,
+.chat-active:hover {
+  border-bottom: 1px solid  #006dcc !important;
+  position: relative;
+}
+.chat-active::after {
+  content: '';
+  top: -10px;
+  right: -10px;
+  width: 10px;
+  height: 10px;
+  background: var(--bs-red);
+  position: absolute;
+  border-radius: 50%;
+}

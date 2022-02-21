@@ -375,10 +375,10 @@
                 {{-- Building Components --}}
         
                 {{-- Additional Info --}} 
-                    <fieldset class="accordion-item">
+                    <fieldset class="accordion-item ">
                         <div class="accordion-header custom m-0 position-relative" id="add_info_header">
                             <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#add_info" aria-expanded="false" aria-controls="add_info">
-                                Additional Info
+                                <span class="chat-active">Additional Info</span> 
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                                 <i data-bs-toggle="collapse" 
@@ -388,7 +388,7 @@
                                     class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                             </div>
                         </div>
-                        <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" >
+                        <div id="add_info" class="accordion-collapse collapse" aria-labelledby="add_info_header" >
                             <div class="accordion-body">  
                                 <div ng-bind-html="additional_infos.comments"> </div>
                                 <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
@@ -396,7 +396,7 @@
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
+                                    <a class="text-primary p-0 btn" ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div>
