@@ -62,7 +62,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::get('get-customer-active-enquiries',[EnquiryController::class,'getActiveEnquiries'])->name('get-customer-active-enquiries');
     
-    Route::get('get-customer-completed-enquiries',[EnquiryController::class,'getCompletedEnquiries'])->name('get-customer-completed-enquiries');
+    Route::get('get-customer-completed-enquiries',[EnquiryController::class,'getClosedEnquiries'])->name('get-customer-completed-enquiries');
 
     Route::resource('enquiry-template', EnquiryTemplateController::class);
     Route::get('get-template-by-building-component-id', [EnquiryTemplateController::class, 'getTemplateByBuildingComponentId'])->name('get-template-by-building-component-id');

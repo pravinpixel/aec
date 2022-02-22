@@ -141,7 +141,7 @@ class EnquiryController extends Controller
         $customer_enquiry_number = $this->getEnquiryNumber();
         $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
         if($type == 'project_info') {
-            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now()]);
+            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'enquiry_number' => 'Draft']);
             $res = $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer_enquiry_number, $customer, $array_merge);
             $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
@@ -328,7 +328,7 @@ class EnquiryController extends Controller
             }
             return response(['status' => false, 'msg' => __('global.something')]);
         } else if($type == 'additional_info') {
-            $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => 1];
+            $insert = ['comments' => $data, 'type' => 'enquiry', 'type_id' => $enquiry->id, 'created_by' => Customer()->id];
             $this->commentRepo->updateOrCreate($insert);
             $result = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'additional_info');
@@ -559,7 +559,7 @@ class EnquiryController extends Controller
                         ->where(['status' => 'In-Complete', 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" > Draft </span> </div>';
+                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'. $dataDb->enquiry_number .'</span> </div>';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
@@ -659,7 +659,7 @@ class EnquiryController extends Controller
         }
     }
 
-    public function getCompletedEnquiries(Request $request)
+    public function getClosedEnquiries(Request $request)
     {
         if ($request->ajax() == true) {
             $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));

@@ -536,7 +536,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     
     public function AddEnquiryReferenceNo($enquiry)
     {
-        if(is_null($enquiry->enquiry_number)) {
+        if(is_null($enquiry->enquiry_number) || $enquiry->enquiry_number == 'Draft') {
             $enquiry->enquiry_number = GlobalService::enquiryNumber();
             if($enquiry->save()){
                 return GlobalService::updateConfig('ENQ');

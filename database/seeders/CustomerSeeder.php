@@ -32,7 +32,9 @@ class CustomerSeeder extends Seeder
             'updated_by' => 1,
         ]);
         $latest_enquiry_number = GlobalService::customerEnquiryNumber();
-        $customer->enquiry()->create(['customer_enquiry_number' => $latest_enquiry_number, 'enquiry_date' => now()]);
+        $enquiry_number = GlobalService::enquiryNumber();
+        $customer->enquiry()->create(['created_by' =>1,  'customer_enquiry_number' => $latest_enquiry_number, 'enquiry_number' => $enquiry_number, 'enquiry_date' => now()]);
         GlobalService::updateConfig('CENQ');
+        GlobalService::updateConfig('ENQ');
     }
 }
