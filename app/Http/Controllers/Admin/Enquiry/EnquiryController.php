@@ -105,6 +105,7 @@ class EnquiryController extends Controller
             $projetType = isset($request->projet_type) ? $request->projet_type : false;
             $dataDb = Enquiry::with(['projectType', 'customer'])
                             ->where(['status' => 'Active' , 'project_status' => 'Unattended'])
+                            ->orWhere('created_by', Admin()->id)
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
@@ -363,7 +364,7 @@ class EnquiryController extends Controller
                 'is_active'             => 0
             ];
             $customer = $this->customer->create($data);
-            $customer->enquiry()->create(['customer_enquiry_number' => $latest_enquiry_number, 'enquiry_date' => now()]);
+            $customer->enquiry()->create(['customer_enquiry_number' => $latest_enquiry_number, 'created_by'=> Admin()->id, 'enquiry_date' => now()]);
             DB::commit();
             GlobalService::updateConfig('CENQ');
             $details = [

@@ -619,7 +619,7 @@
             }
             
             $scope.submitBuildingComponent = () => {
-                if($scope.showHideBuildingComponent) { $location.path('/additional-info'); return false;}
+                if($scope.showHideBuildingComponent == 1) { $location.path('/additional-info'); return false;}
                 $http({
                     method: 'POST',
                     url: '{{ route('customers.store-enquiry') }}',

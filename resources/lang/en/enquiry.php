@@ -25,5 +25,6 @@ return [
     'proposal_deleted'       => 'Proposal deleted successfully',
     'duplicate_deleted'      => 'Proposal duplicate successfully',
     'enquiry_move_to_cancel' => 'Enquiry move to closed',
+    'enquiry'                => 'Enquiry',
     
 ];
