@@ -8,14 +8,17 @@ use App\Models\Role;
 use App\Models\Employee;
 use App\Models\Admin\SharePointAccess;
 use App\Models\Admin\EmployeeSharePointAcess;
-
+use App\Http\Requests\EmployeeUpdateRequest;
+use App\Http\Requests\EmployeeCreateRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use App\Models\BuildingComponent;
 use App\Models\Type;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
-
 use App\Models\MasterCalculation;
-
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Response;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Illuminate\Support\Facades\Session;
@@ -23,6 +26,7 @@ class EmployeeController extends Controller
 {
     public function employee_control_view()
     {
+        session()->forget('id');
         return view('admin.pages.employee.employee-view');
     }
     public function employee_add()
@@ -35,17 +39,17 @@ class EmployeeController extends Controller
         # code...
         $data = Role::select('id','role_name')->where('status','=','1')->get();
         
-        // return $data;
+        
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
         
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
-    public function addEmployee(Request $request)
+    public function addEmployee(EmployeeCreateRequest $request)
     {
-        // return 1;         
-        // return response(['status' => true, 'data' => $request->all() ,'msg' => trans('Employee Created')], Response::HTTP_OK);
+        $id = session('id');
+ 
         $module = new Employee;
 
         $module->employee_id = $request->epm_id;
@@ -54,35 +58,39 @@ class EmployeeController extends Controller
         $module->user_name = $request->epm_username;
         $module->password = $request->epm_password;
         $module->job_role = $request->epm_job_role;
-        $module->number = $request->epm_number;
-        $module->email = $request->epm_email;
-        // $module->image = '';
+        $module->number = $request->number;
+        $module->email = $request->email;
+     
         $module->status = 1;
-        // $module->share_access = 1;
+        $module->share_access = 0;
         $module->bim_access = 0;
-        $module->access = 1;
+        $module->access = 0;
         if($request->hasFile('file'))
         {
-            // return "sss";
+         
             $image = $request->file('file')->getClientOriginalName();
-            $request->file('file')->move(public_path('image'),$image);
-            // return $image;
-            $module->image = $image;
+            // $request->file('file')->move(public_path('image'),$image);
+
+            $request->file('file')->move(public_path('uploads/employees/image/'.$request->epm_id),$image);
+            $store_image = $request->epm_id.'/'.$image; 
+            $module->image = $store_image;
         }
         $res = $module->save();
         $id = $module->id;
        $valueId = session(['id'=>$id]);
-        // return $id;
+   
         if($res) {
             return response(['status' => true, 'data' => $res ,'msg' => trans('Employee Created'),'data' => $id], Response::HTTP_OK);
         }
         return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
+        
     }
 
-    public function updateEmployee($id,Request $request)
+    public function updateEmployee($id,EmployeeUpdateRequest $request)
     {
-        // return 1;  
-        // return $request->all();
+
+        $id = session('id');
+       
         $module = Employee::find($id);
         if( empty( $module ) ) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
@@ -95,13 +103,17 @@ class EmployeeController extends Controller
         $module->user_name = $request->epm_username;
         $module->password = $request->epm_password;
         $module->job_role = $request->epm_job_role;
-        $module->number = $request->epm_number;
-        $module->email = $request->epm_email;
+        $module->number = $request->number;
+        $module->email = $request->email;
         if($request->hasFile('file'))
         {
             $image = $request->file('file')->getClientOriginalName();
-            $request->file('file')->move(public_path('image'),$image);
-            $module->image = $image;
+            // $request->file('file')->move(public_path('image'),$image);
+            $request->file('file')->move(public_path('uploads/employees/image/'.$request->epm_id),$image);
+            $store_image = $request->epm_id.'/'.$image; 
+            $module->image = $store_image;
+            
+            // $module->image = $image;
         }
 
 
@@ -112,16 +124,37 @@ class EmployeeController extends Controller
     }
     public function getEmployeeId()
     {
-        $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        }
-        if(empty( $data ))
+        if(session()->has('id'))        
         {
-            
-            return response(['status' => true, 'data' => 1], Response::HTTP_OK);
+            $data = session('id');
+            // return 1;
+            // $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
+            if( !empty( $data ) ) {
+                return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+            }
+            if(empty( $data ))
+            {
+                
+                return response(['status' => true, 'data' => 1], Response::HTTP_OK);
+            }
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+
+
+        }else{
+
+            $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
+            if( !empty( $data ) ) {
+                return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+            }
+            if(empty( $data ))
+            {
+                
+                return response(['status' => true, 'data' => 1], Response::HTTP_OK);
+            }
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        
+           
     }
     public function getEmployee()
     {
@@ -156,6 +189,7 @@ class EmployeeController extends Controller
     }
     public function getEditEmployee($id)
     {
+        $valueId = session(['id'=>$id]);
         $data = Employee::find($id);
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
@@ -198,29 +232,98 @@ class EmployeeController extends Controller
     }
     public function sharePointAcess(Type $var = null)
     {
-        
-        $data = SharePointAccess::where('is_active','=','1')->get();
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
-        
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        // return "with out id";
+        $id = session('id');
+        $data1['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first();
+        if(!empty($data1['employeeFolderStatus']))
+        {
+    
+            $employeData =Employee::where('id',$id)->first();
+            $data1['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
+            $data = SharePointAccess::where('is_active','=','1')->get();
+            foreach( $data1['employeeFolderStatus'] as $key=>$val)
+            {
+         
+                foreach($data as $shareKey=>$sharVal)
+                {
+                    
+                    if($key == $sharVal['data_name'])
+                    {
+                        $sharVal['is_active'] = $val;
+                    }
+                }
+            }
+            
+            if( !empty( $data ) ) {
+                return response(['status' => true,'active'=>false, 'data' => $data,'employeeData'=>$employeData], Response::HTTP_OK);
+            } 
+            
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+
+        }
+        else
+        {
+ 
+            $data = SharePointAccess::where('is_active','=','1')->select('folder_name','id','data_name')->get();
+            if( !empty( $data ) ) {
+                return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+            } 
+            
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+      
     }
-    public function editSharePointAcess($id)
+    public function sharePointAcessId($id)
     {
-        // return $id;
-
-
+       
+        $employeData =Employee::where('id',$id)->first();
+        $data1['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first();
+        if(!empty($data1['employeeFolderStatus'])){
+            $data1['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
+            $data = SharePointAccess::where('is_active','=','1')->get();
+            foreach( $data1['employeeFolderStatus'] as $key=>$val)
+            {
+    
+                foreach($data as $shareKey=>$sharVal)
+                {
+ 
+                    if($key == $sharVal['data_name'])
+                    {
+                        $sharVal['is_active'] = $val;
+                    }
+                }
+            }
+            
+            if( !empty( $data ) ) {
+                return response(['status' => true,'active'=>false, 'data' => $data,'employeeData'=>$employeData], Response::HTTP_OK);
+            } 
+            
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+        else{
+            $employeData =Employee::where('id',$id)->first();
+            $data = SharePointAccess::where('is_active','=','1')->get();
+            if( !empty( $data ) ) {
+                return response(['status' => true,'active'=>true, 'data' => $data,'employeeData'=>$employeData], Response::HTTP_OK);
+            } 
+            
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        }
+      
+    }
+    public function editSharePointAcess()
+    {
+        $id = session('id');
 
         $data['employeeDetail']=Employee::where('id',$id)->first();
         $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
         $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
         foreach( $data['employeeFolderStatus'] as $key=>$val)
         {
-        //     print_r($key."=");
+
             foreach($data['sharePointAccess'] as $shareKey=>$sharVal)
             {
-                // print_r($sharVal['data_name']);
+    
                 if($key == $sharVal['data_name'])
                 {
                     $sharVal['is_active'] = $val;
@@ -228,8 +331,6 @@ class EmployeeController extends Controller
             }
         }
 
-
-        // $data = SharePointAccess::where('is_active','=','1')->get();
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
@@ -238,70 +339,144 @@ class EmployeeController extends Controller
     }
     public function sharePointStatus(Request $request)
     {
- 
-        if($request->employeeId)
+        $id = session('id');
+        if($id)
         {
 
-                $oldData  = EmployeeSharePointAcess::where('employee_id',$request->employeeId)->first();
-                // return $oldData;
+                $oldData  = EmployeeSharePointAcess::where('employee_id',$id)->first();
+               
                 if($oldData)
                 {
-                    $oldData->employee_id = $request->employeeId;
-                    $oldData->{$request->fieldName} = $request->dataId;
-                    $oldData->update();
+
+                    if($request->share_point_status)
+                    {
+                        $oldData->employee_id = $id;
+                        $oldData->{$request->fieldName} = $request->dataId;
+                        $id = $oldData->update();
+                        return response(['status' => true, 'data' => $id], Response::HTTP_OK);
+                    }
+                  
                 }
-                else{
-                    $data = new EmployeeSharePointAcess();
-                    $data->employee_id = $request->employeeId;
-                    $data->{$request->fieldName} = $request->dataId;
-                    $data->save();
-                }
+                
             
           
         }
       
 
     }
-    // public function profileInfo()
-    // {
-   
-    //    return view('admin.pages.employee.employee-add');
-    // }
+    public function profileInfo()
+    {
+
+   session()->forget('id');
+       return view('admin.pages.employee.create.employee-add');
+    }
     public function getEmployeeDetail($id)
     {
-        // return $id;
+
         $data['employeeDetail']=Employee::where('id',$id)->first();
         $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
         $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
         foreach( $data['employeeFolderStatus'] as $key=>$val)
         {
-        //     print_r($key."=");
+      
             foreach($data['sharePointAccess'] as $shareKey=>$sharVal)
             {
-                // print_r($sharVal['data_name']);
+          
                 if($key == $sharVal['data_name'])
                 {
                     $sharVal['is_active'] = $val;
                 }
             }
         }
-        // die();
+     
         return $data;
 
 
     }
-    public function employeeSharePointAccessStatus(Request $request )
+    public function employeeSharePointAccessStatus(Request $request)
     {
-        
-        $data = Employee::where('id',$request->employeeId)->first();
+        $id = session('id');
+        $data = Employee::where('id',$id)->first();
 
         if($data)
         {
         //    return $request->dataId;
             $data->share_access = $request->dataId;
             $data->save();
+            $val = EmployeeSharePointAcess::where('employee_id',$id)->first();
+            if(empty($val))
+            {
+                $data = new EmployeeSharePointAcess();
+                $data->employee_id = $id;
+                $id = $data->save();
+                $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
+                $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
+                foreach( $data['employeeFolderStatus'] as $key=>$val)
+                {
+                    foreach($data['sharePointAccess'] as $shareKey=>$sharVal)
+                    {
+                        if($key == $sharVal['data_name'])
+                        {
+                            $sharVal['is_active'] = $val;
+                        }
+                    }
+                }
+                return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+            }
+            if($request->dataId == true){
+                $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
+                $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
+                foreach( $data['employeeFolderStatus'] as $key=>$val)
+                {
+                    foreach($data['sharePointAccess'] as $shareKey=>$sharVal)
+                    {
+                        if($key == $sharVal['data_name'])
+                        {
+                            $sharVal['is_active'] = $val;
+                        }
+                    }
+                }
+                if( !empty( $data ) ) {
+                    return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+                } 
+
+            }
+            if($request->dataId == false)
+            {
+     
+                $val = EmployeeSharePointAcess::where('employee_id',$id)->first();
+                $val->administration_status = 0;
+                $val->business_status = 0;
+                $val->sales_status = 0; 
+                $val->projects_status = 0;
+                $val->engineering_status = 0;
+                $val->subsea_projects_status = 0;
+                $val->save();
+                
+
+                $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
+                $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
+                foreach( $data['employeeFolderStatus'] as $key=>$val)
+                {
+          
+                    foreach($data['sharePointAccess'] as $shareKey=>$sharVal)
+                    {
+                
+                        if($key == $sharVal['data_name'])
+                        {
+                            $sharVal['is_active'] = $val;
+                        }
+                    }
+                }
+                if( !empty( $data ) ) {
+                    return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+                } 
+
+            }
+           
+           
         }
-        return $data;
+        // return $data;
     }
     public function employeeBIMStatus(Request $request)
     {
@@ -310,11 +485,39 @@ class EmployeeController extends Controller
 
         if($data)
         {
-            // return $data->bim_access;
             $data->bim_access = $request->dataId;
             $data->save();
         }
         return $data;
+    }
+    public function employeeMail($id)
+    {
+
+        try {
+       $data = Employee::where('id',$id)->first();
+        
+       $details = [
+        'user_name'     => $data->user_name,
+        'email'    => $data->email,
+        ]; 
+       $res = Mail::to($data->email)->send(new \App\Mail\EmployeeMail($details));
+        //    return $res;
+        return response(['status' => true, 'data' => $res ,'msg' => trans('Employee.created')], Response::HTTP_CREATED);
+        }catch(\Exception $e){
+            Log::info($e->getMessage());
+            DB::rollBack();
+            return response(['status' => false, 'data' => '' ,'msg' => trans('global.something')], Response::HTTP_OK);
+        }
+    }
+    public function getEmployeeData()
+    {
+   
+        $id = session('id');
+        $data = Employee::where('id',$id)->first();
+        if( !empty( $data ) ) {
+            return response(['status' => true,'active'=>"active", 'data' => $data], Response::HTTP_OK);
+        } 
+        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
     
     

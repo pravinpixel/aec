@@ -159,10 +159,13 @@
 .ng-touched.ng-invalid-required , input.error{      
     border-bottom: red solid 1px ; 
 }
-.ng-touched.ng-invalid-pattern ,  .ng-invalid-email.ng-valid-required , .ng-invalid-maxlength{
+.ng-touched.ng-invalid-pattern ,  .ng-invalid-email.ng-valid-required , .ng-invalid.ng-invalid-maxlength{
     border-bottom: red solid 1px  !important;
     background-image: none !important 
 }
+ 
+
+
  
 .ng-invalid.ng-valid-required , input.error{      
     border-bottom: red solid 1px ; 
@@ -192,6 +195,11 @@
         left: 100%;
         width: 10%;
     }
+}
+form.ng-invalid.ng-invalid-maxlength,
+form.ng-invalid.ng-valid-required
+{
+    border-bottom: none  !important;
 }
 
 

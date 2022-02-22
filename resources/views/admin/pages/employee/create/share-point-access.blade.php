@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12 mb-4">
         <div class="card shadow-lg mb-0">
-            <div class="card">                              <!-- @{{component_module_get}} -->
+            <div class="card">                            
                 <div class="card-header ">
                     <div class="d-flex justify-content-between">
                         <h3 class="haeder-title">Share Point Access</h3>
@@ -9,11 +9,14 @@
                     </div>
                 </div>
                 <!-- @{{employeeRowId}} -->
-                <div>
-                <input type="checkbox" id="switch__@{{ index }}"  ng-change="sharePoint_status(employeeRowId,share_point_status)" ng-model="share_point_status" data-switch="primary"/>
-                <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off">Share Point Access</label>  
-             
-               
+                <div class="text-center py-3">
+                    <div class="btn-group p-2 px-3 rounded-pill border shadow mx-auto align-items-center">
+                        <span class="me-1">Share Point Access</span>
+                        <div class="">
+                            <input type="checkbox" id="switch__@{{ index }}"  ng-change="sharePoint_status(share_point_status)" ng-checked="share_point_status == 1" ng-model="share_point_status" data-switch="primary"/>
+                            <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table datatable="ng" dt-options="vm.dtOptions" class="table table-striped table-bordered">
@@ -33,7 +36,10 @@
 
                                         <td>
                                             <div>
-                                                <input type="checkbox" id="switch__@{{ index }}"  ng-disabled="!share_point_status" ng-change="employee_status(employeeRowId,employee.status,employee.data_name)" ng-model="employee.status" data-switch="primary"/>
+                                                <!-- ng-disabled="!share_point_status" -->
+                                                <input type="checkbox" id="switch__@{{ index }}"   ng-show="status" ng-checked="employee.is_active == 1" 
+                                                ng-change="employee_status(share_point_status,employee.status,employee.data_name)" ng-model="employee.status" data-switch="primary"/>
+                                                <!-- <input type="checkbox" id="switch__@{{ index }}"  ng-disabled="!share_point_status"  ng-show="status" ng-checked="employee.is_active == 1" ng-change="employee_status(employeeRowId,employee.status,employee.data_name)" ng-model="employee.status" data-switch="primary"/> -->
                                                 <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                             </div> 
                                             <span ng-if="employee.is_active == 1" class="d-none">1</span>              
@@ -44,10 +50,15 @@
                                 </tbody>
                     </table>
                 </div>
+                
                 <div class="card-fooetr">
-                    <!-- <button class="btn btn-success" >Next</button> -->
+               
+                        <button class="btn btn-success" ng-click="share_point_prev()" style="float: left;" >Prev</button>
+                    
+                    <button class="btn btn-success" ng-click="share_point_next()" style="float: right;" >Next</button>
                 </div>
             </div> 
+            
         </div>
     </div>
 </div>

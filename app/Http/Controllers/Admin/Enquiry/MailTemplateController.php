@@ -151,18 +151,26 @@ class MailTemplateController extends Controller
         $title = $data['document']['documentary_title'];
         $logo = Config::get('documentary.logo.key');
         $pdf = PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','logo','title'));
-        $path = public_path('uploads/'); 
-        $fileName =   $data['fileName'].'.'. 'pdf' ;
+        $filePath = 'uploads/enquiryPDF/'.$data['enquiry']['id'].'/';
+        $path = public_path($filePath); 
+        if(!file_exists($path))
+        {
+            mkdir($path, 0777, true);
+        }
+        $name_replace = str_replace(' ', '_', $data['fileName']);
+        $fileName =   $name_replace.'.'. 'pdf' ;
+        $pdf_path=$filePath.$fileName;
         $pdf->save($path . '/' . $fileName);
-        $pdf = public_path('uploads/'.$fileName);
-        // return $pdf;
+        $pdf = public_path($pdf_path);
+
+        $pdf_store_name = 'public/'.$filePath.$fileName;
         $mailData = new MailTemplate();
         $mailData->enquirie_id = $data['enquiry']['id'];
         $mailData->documentary_id = $data['document']['id'];
         $mailData->documentary_content = $data['document']['documentary_content'];
         $mailData->documentary_date = date('Y-m-d');
         $mailData->template_name =  $title;
-        $mailData->pdf_file_name = $fileName;
+        $mailData->pdf_file_name =$pdf_store_name;
       
         $res =  $mailData->save();
         if($res)

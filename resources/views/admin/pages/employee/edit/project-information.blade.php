@@ -78,8 +78,12 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
-                                            <input type="number" class="form-control" name="epm_number" min="8" id="epm_number"  ng-value="EmpData.number"  placeholder="Type Here..."  ng-required="true">
-                                            
+                                            <input type="number" class="form-control" name="epm_number" min="8" id="epm_number"   ng-value="EmpData.number" ng-maxlength="12"  ng-minlength="8"  placeholder="Type Here..."  ng-required="true">
+                                            <div class="error-msg">
+                                                <!-- <small class="error-text" ng-if="frm.epm_number.$error.required">This field is required!</small> -->
+                                                <small class="error-text" ng-if="frm.number.$error.minlength">Minlength 8 digit only</small>
+                                                <small class="error-text" ng-if="frm.number.$error.maxlength">Maxlength 12 digit only</small>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -94,15 +98,15 @@
                                     </div>
                                     <div class="col-md-1">
                                         <div class="mb-3"> 
-                                            <img src="{{ asset('/public/image/') }}/@{{EmpData.image}}" width="60px">
+                                            <img src="{{ asset('/public/uploads/employees/image/') }}/@{{EmpData.image}}" width="60px">
                                         </div>
                                         
                                     </div>
                                     <div class="col-md-4">
                                        
                                         <div class="mb-3">
-                                            <label class="form-label" >Image<sup class="text-danger">*</sup></label>
-                                            <label for="files">Select Image File</label>
+                                            <label class="form-label" >Select Image<sup class="text-danger">*</sup></label>
+                                            <!-- <label for="files">Select Image File</label> -->
                                             <input type="file" class="form-control" id="file"  name="file" />
                                             <!-- <div class="error-msg">
                                                 <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
@@ -113,7 +117,7 @@
                                 </div>
                                 <div class="text-end mt-3">
                                     <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                                    <button  ng-click="update(modalstate, id);"  class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
+                                    <button  ng-click="update(modalstate, id);"  class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Next </button>
                                 </div>
                             </form>
                
