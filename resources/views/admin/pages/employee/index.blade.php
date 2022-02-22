@@ -195,7 +195,7 @@
                                     $scope.FormData.epm_number = response.data.data.number;
                                     $scope.FormData.epm_email = response.data.data.email;
                                     $scope.FormData.image = response.data.data.image;
-                                    $scope.PreviewImage = "{{ asset('/public/employees/image') }}/"+response.data.data.image;
+                                    $scope.PreviewImage = "{{ asset('/public/uploads/employees/image') }}/"+response.data.data.image;
                                 }
                                 else{
                                     $location.path('/');

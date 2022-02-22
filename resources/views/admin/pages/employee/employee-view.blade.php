@@ -137,7 +137,7 @@
                                             <td>@{{ employeeDetail.job_role }}</td>
                                             <td>@{{ employeeDetail.number }}</td>
                                             <td>@{{ employeeDetail.email }} </td>
-                                            <td>   <img src="{{ asset('/public/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
+                                            <td>   <img src="{{ asset('/public/uploads/employees/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -225,8 +225,8 @@
 
                                                         <td>
                                                             <div>
-                                                            ng-dis
-                                                                <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
+                                                            
+                                                                <input type="checkbox" id="switch__@{{ index }}" abled="true" ng-disabled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
                                                                 <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                                             </div>          
                                                         </td>                    

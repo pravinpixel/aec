@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="col-md-1">
                                         <div class="mb-3"> 
-                                            <img src="{{ asset('/public/employees/image/') }}/@{{EmpData.image}}" width="60px">
+                                            <img src="{{ asset('/public/uploads/employees/image/') }}/@{{EmpData.image}}" width="60px">
                                         </div>
                                         
                                     </div>
