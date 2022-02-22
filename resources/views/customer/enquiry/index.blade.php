@@ -44,7 +44,7 @@
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i  
                                     data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
                                 </i>
                             </div>
                         </h2>
@@ -62,7 +62,7 @@
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i
                                     data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
                                 </i>
                             </div>
                         </h2>
@@ -166,9 +166,9 @@
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL, $compile ) {
            
             $scope.getEnquiry = (type,id) =>  {
-                $(".accordion-collapse").addClass('collapsed');
-                $(".accordion-collapse").removeClass('show');
-                $(".accordion-collapse").addClass('collapse');
+                $(".custom-accordion-collapse").addClass('collapsed');
+                $(".custom-accordion-collapse").removeClass('show');
+                $(".custom-accordion-collapse").addClass('collapse');
                     $http({
                         method: 'GET',
                         url: `${API_URL}customers/edit-enquiry-review/${id}`,

@@ -45,7 +45,7 @@
                                 </i>
                             </div>
                         </div>
-                        <div id="project_info" class="project_info accordion-collapse collapsed collapse show" aria-labelledby="ProjectInfo_header">
+                        <div id="project_info" class="project_info accordion-collapse custom-accordion-collapse collapsed collapse show" aria-labelledby="ProjectInfo_header">
                             <div class="accordion-body">  
                                 <table class="table m-0 table-hover">
                                     <tbody>
@@ -162,11 +162,11 @@
                                     href="#service" 
                                     aria-expanded="false" 
                                     aria-controls="service" 
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
                                 </i>
                             </div>
                         </div>
-                        <div id="service" class="service accordion-collapse collapse" aria-labelledby="service_header">
+                        <div id="service" class="service accordion-collapse custom-accordion-collapse collapse" aria-labelledby="service_header">
                             <div class="accordion-body">  
                                 <ul>
                                     <li ng-repeat="(key,outputType) in enquiry.services" class=""> @{{ key }}
@@ -204,7 +204,7 @@
                                 </i>
                             </div>
                         </div>
-                        <div id="ifc_model" class="ifc_model accordion-collapse collapse " aria-labelledby="ifc_model_header">
+                        <div id="ifc_model" class="ifc_model accordion-collapse custom-accordion-collapse collapse " aria-labelledby="ifc_model_header">
                             <div class="accordion-body"> 
                                 <table class="table custom table-hover">
                                     <thead>
@@ -260,7 +260,7 @@
                                     class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                             </div>
                         </div>
-                        <div id="building_component" ng-show="enquiry.project_infos.building_component_process_type == 0" class=" building_component accordion-collapse collapse  " aria-labelledby="building_component_header">
+                        <div id="building_component" ng-show="enquiry.project_infos.building_component_process_type == 0" class=" building_component accordion-collapse custom-accordion-collapse collapse  " aria-labelledby="building_component_header">
                             <div class="accordion-body">  
                                 <div  style="max-height: 400px; overflow:auto">
                                      
@@ -340,7 +340,7 @@
                             </div> 
                         </div>
 
-                        <div id="building_component"  ng-show="enquiry.project_infos.building_component_process_type == 1" class="building_component accordion-collapse collapse  " aria-labelledby="building_component_header">
+                        <div id="building_component"  ng-show="enquiry.project_infos.building_component_process_type == 1" class="building_component accordion-collapse custom-accordion-collapse collapse  " aria-labelledby="building_component_header">
                             <div class="accordion-body">  
                                 <div  style="max-height: 400px; overflow:auto">
                                     <table class="table custom table-hover">
@@ -395,7 +395,7 @@
                                     class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                             </div>
                         </div>
-                        <div id="add_info" class="additional_info accordion-collapse collapse  " aria-labelledby="add_info">
+                        <div id="add_info" class="additional_info accordion-collapse custom-accordion-collapse collapse  " aria-labelledby="add_info">
                             <div class="accordion-body">
                                 <div ng-bind-html="enquiry.additional_infos.comments"> </div>
                                 <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Customer')" class="input-group mt-3">

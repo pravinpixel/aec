@@ -15,17 +15,16 @@
                 @include('admin.includes.page-navigater')
                 @include('admin.pages.employee.employee-details')
                 <!-- end page title -->
-                 
+                <div class="mb-3 text-end">
+                    <a href="{{ route('admin.employee-add') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Employee</a>
+                </div>
                 <div class="card">
-                    <div  class="card-header ">
-                        <div class="d-flex justify-content-between ">
-                            <a href="{{ route('admin.employee-add') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Employee</a>
-                        </div>
-                    </div>
+                    
                     <div class="card-body">
                         <table datatable="ng" dt-options="vm.dtOptions" class="table custom dt-responsive nowrap table-striped">
                             <thead>
                                 <tr>
+                                    <th class="text-center">S.No</th>
                                     <th class="text-center">Employee ID</th>
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Email</th>
@@ -40,6 +39,9 @@
                         
                             <tbody> 
                                 <tr ng-repeat="(index,m) in module_employee">
+                                    <td class="text-center">
+                                        @{{ index+1 }}
+                                    </td>
                                     <td class="text-center"> 
                                         <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.employee_id }}</span>
                                     </td>
@@ -65,10 +67,6 @@
                                     </td>
                                     <td class="text-center">@{{ m.job_role }}</td>
                                     <td class="text-center">	
-                                        {{-- <div class="form-check form-switch" ng-click="checkIt(index, m.id)">
-                                            <input type="checkbox" class="form-check-input ms-2" id="switch__@{{ index }}" ng-checked="m.status == 1">
-                                            <label class="form-check-label" for="switch__@{{index}}" ></label>
-                                        </div> --}}
                                         <div ng-click="checkIt(index, m.id)" title="Click to Change Status">
                                             <span ng-show="m.status == 1" class="py-0 px-1 btn btn-sm btn-success rounded-pill"><i class="fa fa-check"></i></span>
                                             <span ng-show="m.status == 0" class="py-0 px-1 btn btn-sm btn-danger rounded-pill"><i class="fa fa-times"></i></span>
@@ -81,8 +79,8 @@
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="#" ng-click="employeeEdit(m.id)"><i class="fa fa-edit me-1"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" ng-click="employeeDelete(m.id)" ><i class="fa fa-trash me-1"></i>Delete</a>
                                                 <a class="dropdown-item" href="#" ng-click="employeeMail(m.id)"><i class="fa fa-envelope me-1"></i>Sent Mail</a>
+                                                <a class="dropdown-item text-danger" href="#" ng-click="employeeDelete(m.id)"><i class="fa fa-trash me-1"></i>Delete</a>
                                             </div>
                                         </div>
                                     </td>
@@ -116,28 +114,27 @@
                                             <td>@{{ employeeDetail.job_role }}</td>
                                             <td>@{{ employeeDetail.number }}</td>
                                             <td>@{{ employeeDetail.email }} </td>
-                                            <td>   <img src="{{ asset('/public/uploads/employees/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
+                                            <td> <img src="{{ asset('/public/uploads/employees/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div> 
-                            
-                            <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
-                                    <div class="accordion-item m-0">
-                                        <h2 class="accordion-header m-0" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                             
+                            <fieldset class="accordion-item border mb-3">
+                                <div class="accordion-header custom m-0 position-relative" id="Platform_Access">
+                                    <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#Platform_Access_header" aria-expanded="true" aria-controls="Platform_Access_header">
                                         Platform Access
                                     </div>
                                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                                         <i data-bs-toggle="collapse" 
-                                            href="#Platform" 
+                                            href="#Platform_Access_header" 
                                             aria-expanded="false" 
-                                            aria-controls="Platform" 
+                                            aria-controls="Platform_Access_header" 
                                             class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
                                         </i>
                                     </div>
                                 </div>
-                                <div id="Platform" class="accordion-collapse collapse show" aria-labelledby="PlatfromAccess" >
+                                <div id="Platform_Access_header" class="accordion-collapse collapse show" aria-labelledby="Platform_Access" >
                                     <div class="accordion-body">  
                                         <ul class="list-group">
                                             <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
@@ -164,7 +161,7 @@
                                         </ul>
                                     </div> 
                                 </div>
-                            </fieldset>
+                            </fieldset> 
 
                             <fieldset class="accordion-item border mb-3">
                                 <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
@@ -182,36 +179,28 @@
                                 </div>
                                 <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
                                     <div class="accordion-body">  
-                                        <table  dt-options="vm.dtOptions" class="table table-striped table-bordered">
+                                        <table dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Folder Name</th>
-                                                    <th>Active</th>
-                                                    
+                                                    <th class="text-center">Folder Name</th>
+                                                    <th class="text-center">Active</th>
                                                     <tr ng-repeat="(index,employee) in sharePointFolder">
-                                                        
-                                                        <td class="align-items-center">@{{ employee.folder_name }}</td>
-
-                                                        <td>
+                                                        <td class="text-center">@{{ employee.folder_name }}</td>
+                                                        <td class="text-center">
                                                             <div>
-                                                            
                                                                 <input type="checkbox" id="switch__@{{ index }}" abled="true" ng-disabled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
                                                                 <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                                             </div>          
                                                         </td>                    
                                                     </tr>
-                                                    
-                                                    <td class="align-items-center">@{{ employee.folder_name }}</td>
-
-                                                    <td>
+                                                    <td class="text-center">@{{ employee.folder_name }}</td>
+                                                    <td class="text-center">
                                                         <div>
-                                                        ng-dis
                                                             <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
                                                             <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                                         </div>          
-                                                    </td>                    
+                                                    </td>
                                                 </tr>
-                                                
                                             </tbody>
                                         </table> 
                                     </div> 
@@ -234,24 +223,21 @@
                                 </div>
                                 <div id="Client_Listing_header" class="accordion-collapse collapse show" aria-labelledby="Client_Listing" >
                                     <div class="accordion-body">  
-                                        <table  dt-options="vm.dtOptions" class="table table-striped table-bordered">
+                                        <table  dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Folder Name</th>
-                                                    <th>Active</th>
-                                                    
+                                                    <th class="text-center">S.No</th>
+                                                    <th class="text-center">Folder Name</th>
+                                                    <th class="text-center">Active</th>
                                                 </tr>
                                             </thead>
                                     
                                             <tbody>
-                                                
                                                 <tr ng-repeat="(index,employee) in sharePointFolder">
-                                                    
-                                                    <td class="align-items-center">@{{ employee.folder_name }}</td>
-
-                                                    <td>
+                                                    <td class="text-center">@{{ index+1 }}</td>
+                                                    <td class="text-center">@{{ employee.folder_name }}</td>
+                                                    <td class="text-center">
                                                         <div>
-                                                        ng-dis
                                                             <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
                                                             <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                                         </div>          

@@ -31,7 +31,7 @@
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i
                                     data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn">
                                 </i>
                             </div>
                         </h2>
@@ -49,7 +49,7 @@
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i  
                                     data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
                                 </i>
                             </div>
                         </h2>
@@ -67,7 +67,7 @@
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i
                                     data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
                                 </i>
                             </div>
                         </h2>

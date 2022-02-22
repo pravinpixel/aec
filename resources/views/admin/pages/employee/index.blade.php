@@ -33,8 +33,7 @@
                                         </div>
                                         
                                     </a>
-                                </li>
-                                <!-- style="pointer-events:none" -->
+                                </li> 
                                 <li class="nav-item last IFCModelUpload" data-target-form="#IFCModelUpload"  style="pointer-events:none" >
                                     <a href="#/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
                                         <div class="timeline-content">
@@ -72,9 +71,7 @@
             .when("/ibmAccess", {
                 templateUrl : "{{ route('admin.ibm-access') }}",
                 controller : "IBMaccess"
-            })
-            
-           
+            }) 
         }); 
     </script>
     <script>
@@ -130,36 +127,33 @@
             $scope.FormData = {};
 
             $scope.setActive = function(){
-            //   alert()
-                 
-                            // var id = $rootScope.employeeId;
-                            url= API_URL + "admin/get-employeeData/",
-                            $http({
-                            method: 'GET',
-                            url: url,
-                            }).then(function (response) {
-                                // alert(JSON.stringify(response.data.data))
-                                if(response.data.data)
-                                {
-                                    $scope.employeeRowId =   response.data.data.id;
-                                    $scope.myWelcome = response.data.data.employee_id;	
-                                    $scope.FormData.epm_fname = response.data.data.first_Name;
-                                    $scope.FormData.epm_lname = response.data.data.last_name;
-                                    $scope.FormData.epm_username = response.data.data.user_name;
-                                    $scope.FormData.epm_password = response.data.data.password;
-                                    $scope.FormData.epm_job_role = response.data.data.job_role;
-                                    $scope.FormData.epm_number = response.data.data.number;
-                                    $scope.FormData.epm_email = response.data.data.email;
-                                    $scope.FormData.image = response.data.data.image;
-                                    $scope.PreviewImage = "{{ asset('/public/uploads/employees/image') }}/"+response.data.data.image;
-                                }
-                                else{
-                                    $location.path('/');
-                                }
-                            }, function (error) {
-                                console.log(error);
-                                console.log('This is embarassing. An error has occurred. Please check the log for details');
-                            });
+                url= API_URL + "admin/get-employeeData/",
+                $http({
+                method: 'GET',
+                url: url,
+                }).then(function (response) {
+                    // alert(JSON.stringify(response.data.data))
+                    if(response.data.data)
+                    {
+                        $scope.employeeRowId =   response.data.data.id;
+                        $scope.myWelcome = response.data.data.employee_id;	
+                        $scope.FormData.epm_fname = response.data.data.first_Name;
+                        $scope.FormData.epm_lname = response.data.data.last_name;
+                        $scope.FormData.epm_username = response.data.data.user_name;
+                        $scope.FormData.epm_password = response.data.data.password;
+                        $scope.FormData.epm_job_role = response.data.data.job_role;
+                        $scope.FormData.epm_number = response.data.data.number;
+                        $scope.FormData.epm_email = response.data.data.email;
+                        $scope.FormData.image = response.data.data.image;
+                        $scope.PreviewImage = "{{ asset('/public/uploads/employees/image') }}/"+response.data.data.image;
+                    }
+                    else{
+                        $location.path('/');
+                    }
+                }, function (error) {
+                    console.log(error);
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
             $scope.setActive();
                 // ******* image show ******
@@ -329,7 +323,6 @@
 
             });
 
-
             app.controller('IBMaccess', function ($scope, $http, $rootScope,$location, API_URL){
                 $scope.employeeRowId = $rootScope.employeeId;
                
@@ -338,7 +331,6 @@
                 }
                
             });
-
        
         window.onbeforeunload = function(e) {
             var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
