@@ -15848,12 +15848,12 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
   top: 82%;
 }
 
-.chat-active,
-.chat-active:hover {
+.chat_active,
+.chat_active:hover {
   border-bottom: 1px solid  #006dcc !important;
   position: relative;
 }
-.chat-active::after {
+.chat_active::after {
   content: '';
   top: -10px;
   right: -10px;

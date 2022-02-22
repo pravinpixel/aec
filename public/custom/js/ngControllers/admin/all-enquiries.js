@@ -87,6 +87,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                     .then(function (response) {
                         $scope.enquiry_number       = response.data.enquiry_number;
                         $scope.enquiry_comments     = response.data.enquiry_comments;
+                        $scope.enquiry_active_comments = response.data.enquiry_active_comments;
                         $scope.enquiry_id           = response.data.enquiry_id;
                         $scope.customer_info        = response.data.customer_info;
                         $scope.project_info         = response.data.project_info;
@@ -174,6 +175,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                     $scope.commentsData = response.data.chatHistory; 
                     $scope.chatType     = response.data.chatType;  
                     $('#viewConversations-modal').modal('show');
+                    getEnquiryCommentsCountById($scope.enquiry_id);
+                    getEnquiryActiveCommentsCountById($scope.enquiry_id);
                 });
                 break;
             default:
@@ -181,7 +184,28 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         } 
     }
     // $scope.GetCommentsData();
+    getEnquiryCommentsCountById = (id) => {
+        $http({
+            method: "get",
+            url:  API_URL + 'admin/comments-count/'+id ,
+        }).then(function successCallback(response) {
+            $scope.enquiry_comments     = response.data;
+        }, function errorCallback(response) {
+            Message('danger',response.data.errors);
+        });
+    }
 
+    getEnquiryActiveCommentsCountById = (id) => {
+        $http({
+            method: "get",
+            url:  API_URL + 'admin/active-comments-count/'+id ,
+        }).then(function successCallback(response) {
+            $scope.enquiry_active_comments     = response.data;
+        }, function errorCallback(response) {
+            Message('danger',response.data.errors);
+        });
+    }
+    
      
     $scope.sendInboxComments  = function(type) { 
         $scope.sendCommentsData = {

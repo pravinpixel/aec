@@ -174,6 +174,8 @@
                         url: `${API_URL}customers/edit-enquiry-review/${id}`,
                     }).then(function (res){
                         $scope.enquiry = res.data;
+                        $scope.enquiry_active_comments = res.data.enquiry_active_comments;
+                        $scope.enquiry_comments = res.data.enquiry_comments;
                         $scope.enquiry_id = res.data.project_infos.enquiry_id;
                         $("#right-modal-progress").modal('show'); 
                         $(`.${type}`).addClass('show');
@@ -181,6 +183,29 @@
                         console.log('ifc_model_uploads error');
                     });
             }
+
+            getEnquiryCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    $scope.enquiry_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            getEnquiryActiveCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/active-comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    $scope.enquiry_active_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
             getProjectType = () => {
                 $http({
                         method: 'GET',
@@ -236,6 +261,8 @@
                             $scope.commentsData = response.data.chatHistory; 
                             $scope.chatType     = response.data.chatType;  
                             $('#viewConversations-modal').modal('show');
+                            getEnquiryCommentsCountById($scope.enquiry_id);
+                            getEnquiryActiveCommentsCountById($scope.enquiry_id);
                         });
                         break;
                     default:

@@ -21,6 +21,7 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\ModuleRepositoryInterface;
 use App\Interfaces\RoleRepositoryInterface;
 use App\Interfaces\DocumentaryRepositoryInterface;
+use App\Interfaces\EnquiryCommentRepositoryInterface;
 use App\Interfaces\EnquiryTemplateRepositoryInterface;
 use App\Interfaces\MailTemplateRepositoryInterface;
 use App\Repositories\AutoDeskRepository;
@@ -42,6 +43,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\ModuleRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\DocumentaryRepository;
+use App\Repositories\EnquiryCommentRepository;
 use App\Repositories\EnquiryTemplateRepository;
 use App\Repositories\MailTemplateRepository;
 use Illuminate\Support\ServiceProvider;
@@ -151,6 +153,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             AutoDeskRepositoryInterface::class,
             AutoDeskRepository::class
+        );
+
+        $this->app->bind(
+            EnquiryCommentRepositoryInterface::class,
+            EnquiryCommentRepository::class
         );
     }
 

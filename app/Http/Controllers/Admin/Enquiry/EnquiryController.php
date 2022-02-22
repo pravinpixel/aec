@@ -16,6 +16,7 @@ use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
+use App\Interfaces\EnquiryCommentRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class EnquiryController extends Controller
     protected $documentTypeRepo;
     protected $buildingComponent;
     protected $commentRepo;
+    protected $enquiryCommentRepo;
     protected $documentTypeEnquiryRepo;
     protected $outputTypeRepository;
     
@@ -49,7 +51,8 @@ class EnquiryController extends Controller
         CommentRepositoryInterface $comment,
         DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo,
         CustomerRepositoryInterface $customerRepository,
-        OutputTypeRepositoryInterface $outputTypeRepository
+        OutputTypeRepositoryInterface $outputTypeRepository,
+        EnquiryCommentRepositoryInterface $enquiryCommentRepo
     ){
         $this->customerEnquiryRepo     = $customerEnquiryRepository;
         $this->serviceRepo             = $serviceRepo;
@@ -57,8 +60,9 @@ class EnquiryController extends Controller
         $this->buildingComponent       = $buildingComponent;
         $this->commentRepo             = $comment;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
-        $this->customer = $customerRepository;
+        $this->customer                = $customerRepository;
         $this->outputTypeRepository    = $outputTypeRepository;
+        $this->enquiryCommentRepo      = $enquiryCommentRepo;
     }
 
     /**
@@ -103,7 +107,9 @@ class EnquiryController extends Controller
             $toDate =  now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
             $projetType = isset($request->projet_type) ? $request->projet_type : false;
-            $dataDb = Enquiry::with(['projectType', 'customer'])
+            $dataDb = Enquiry::with(['projectType', 'customer', 'comments'=> function($q){
+                                $q->where(['status' => 0, 'created_by' => 'Customer']);
+                            }])
                             ->where(['status' => 'Active' , 'project_status' => 'Unattended'])
                             ->orWhere('created_by', Admin()->id)
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
@@ -116,10 +122,12 @@ class EnquiryController extends Controller
                             
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
+                $commentCount = $dataDb->comments->count();
+                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
                 return '
                     <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
                         <b>'. $dataDb->enquiry_number.'</b>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"> 5 </span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$enquiryComments.'</span>
                     </button>
                 ';
             })
@@ -166,7 +174,9 @@ class EnquiryController extends Controller
             $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
             $projetType = isset($request->projet_type) ? $request->projet_type : false;
-            $dataDb = Enquiry::with(['projectType', 'customer'])
+            $dataDb = Enquiry::with(['projectType', 'customer', 'comments'=> function($q){
+                                $q->where(['status' => 0, 'created_by' => 'Customer']);
+                            }])
                             ->where(['status' => 'Active' , 'project_status' => 'Active'])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
@@ -178,7 +188,14 @@ class EnquiryController extends Controller
                             
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=toggle("edit",'.$dataDb->id.')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+                $commentCount = $dataDb->comments->count();
+                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
+                return '
+                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
+                        <b>'. $dataDb->enquiry_number.'</b>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$enquiryComments.'</span>
+                    </button>
+                ';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
@@ -223,7 +240,9 @@ class EnquiryController extends Controller
             $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
             $projetType = isset($request->projet_type) ? $request->projet_type : false;
-            $dataDb = Enquiry::with(['projectType', 'customer'])
+            $dataDb = Enquiry::with(['projectType', 'customer', 'comments'=> function($q){
+                                $q->where(['status' => 0, 'created_by' => 'Customer']);
+                            }])
                             ->where(['status' => 'Active' , 'project_status' => 'Cancelled'])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
@@ -235,7 +254,14 @@ class EnquiryController extends Controller
                          
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=toggle("edit",'.$dataDb->id.')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+                $commentCount = $dataDb->comments->count();
+                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
+                return '
+                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
+                        <b>'. $dataDb->enquiry_number.'</b>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$enquiryComments.'</span>
+                    </button>
+                ';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
@@ -283,7 +309,8 @@ class EnquiryController extends Controller
         $result['customer_info']        =   $enquiry->customer; 
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
         $result["customer_enquiry_number"] =   $enquiry->customer_enquiry_number;
-        $result["enquiry_comments"]     =   $this->customerEnquiryRepo->getEnquiryComments($id);
+        $result["enquiry_comments"]        = $this->enquiryCommentRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
+        $result["enquiry_active_comments"] = $this->enquiryCommentRepo->getActiveCommentsCountByType($id)->pluck('comments_count', 'type');
         $result["enquiry_id"]           =   $enquiry->id;
         $result["enquiry_status"]       =   $enquiry->customer_response;
         $result["enquiry"]              =   $this->customerEnquiryRepo->formatEnqInfo($enquiry);
@@ -295,6 +322,7 @@ class EnquiryController extends Controller
         return $result;
         
     }
+
     public function formatServices($outputTypes, $services)
     {
         $result = [];

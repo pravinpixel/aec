@@ -8,7 +8,7 @@
                 </div>
                 <div class="card-body m-0 p-0 py-3 h-100" id="chat-scroll" scroll-glue style="min-height:70vh;overflow:auto">
                     <ul class="conversation-list h-100">
-                        <li class="clearfix @{{ msg.created_by }}_odd" ng-repeat="msg in commentsData">
+                        <li class="clearfix @{{ msg.created_by }}_odd" ng-repeat="msg in commentsData" ng-class="{seen: msg.status == 1 , not_seen: msg.status == 0}">
                             <div class="chat-avatar">
                                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"  alt="@{{ msg.created_by }} Image">                                    
                                 <i>@{{ msg.created_by }}</i>
@@ -18,7 +18,7 @@
                                     <p>
                                        @{{ msg.comments }}
                                     </p> 
-                                    <small style="font-size: 10px !important" class="text-secondary">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
+                                    <small style="font-size: 10px !important" ng-class="{seen: msg.status == 1 , not_seen: msg.status == 0}" class="text-secondary">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
                                 </div>
                             </div> 
                         </li> 

@@ -133,6 +133,11 @@ class Enquiry extends Model
     {
         return $this->hasOne(EnquiryBuildingComponentDocument::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(EnquiryComments::class);
+    }
         
 }
 

@@ -101,14 +101,14 @@
                                 </tr> 
                             </tbody>
                         </table>
-                        <form id="project_infomation__commentsForm" class="input-group mt-3">
+                        <form id="project_information__commentsForm" class="input-group mt-3">
                             <div class="input-group mt-3">
-                                <input required type="text" ng-model="project_infomation__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                                <button class="btn btn-primary rounded-pill" ng-click="sendComments('project_infomation','Customer')"><i class="fa fa-send"></i></button>
+                                <input required type="text" ng-model="project_information__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                <button class="btn btn-primary rounded-pill" ng-click="sendComments('project_information','Customer')"><i class="fa fa-send"></i></button>
                             </div>
                         </form>
                         <div class="text-end pt-2">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'project_infomation', 'Project Information')">
+                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'project_information', 'Project Information')">
                                 <i class="mdi mdi-eye"></i>  Previous chat history
                             </a>
                         </div>

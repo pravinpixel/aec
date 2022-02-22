@@ -9,6 +9,7 @@ use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeRepositoryInterface;
+use App\Interfaces\EnquiryCommentRepositoryInterface;
 use App\Interfaces\OutputTypeRepositoryInterface;
 use App\Interfaces\ServiceRepositoryInterface;
 use App\Models\Comment;
@@ -37,6 +38,7 @@ class EnquiryController extends Controller
     protected $commentRepo;
     protected $documentTypeEnquiryRepo;
     protected $outputTypeRepository;
+    protected $enquiryCommentsRepo;
     
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
@@ -45,7 +47,8 @@ class EnquiryController extends Controller
         BuildingComponentRepositoryInterface $buildingComponent,
         CommentRepositoryInterface $comment,
         DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo,
-        OutputTypeRepositoryInterface $outputTypeRepository
+        OutputTypeRepositoryInterface $outputTypeRepository,
+        EnquiryCommentRepositoryInterface $enquiryCommentsRepo
     ){
         $this->customerEnquiryRepo     = $customerEnquiryRepository;
         $this->serviceRepo             = $serviceRepo;
@@ -54,6 +57,7 @@ class EnquiryController extends Controller
         $this->commentRepo             = $comment;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
         $this->outputTypeRepository    = $outputTypeRepository;
+        $this->enquiryCommentsRepo     = $enquiryCommentsRepo;
     }
 
     public function myEnquiries() 
@@ -520,6 +524,8 @@ class EnquiryController extends Controller
         $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
         $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+        $result["enquiry_comments"] = $this->enquiryCommentsRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
+        $result["enquiry_active_comments"] = $this->enquiryCommentsRepo->getActiveCommentsCountByType($id)->pluck('comments_count', 'type');
         return  $result;
     }
 
@@ -548,7 +554,9 @@ class EnquiryController extends Controller
             $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiry_number = isset($request->enquiry_number) ? $request->enquiry_number : false;
             $projetType = isset($request->project_type) ? $request->project_type : false;
-            $dataDb = Enquiry::with('projectType')
+            $dataDb = Enquiry::with(['projectType', 'comments'=> function($q){
+                            $q->where(['status' => 0, 'created_by' => 'Admin']);
+                        }])
                         ->whereBetween('enquiry_date', [$fromDate, $toDate])
                         ->when( $enquiry_number, function($q) use($enquiry_number){
                             $q->where('enquiry_number', $enquiry_number);
@@ -559,7 +567,12 @@ class EnquiryController extends Controller
                         ->where(['status' => 'In-Complete', 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'. $dataDb->enquiry_number .'</span> </div>';
+                $commentCount = $dataDb->comments->count();
+                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
+                return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                    <b>'. $dataDb->enquiry_number .'</b>
+                    <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'.$enquiryComments.' </span> 
+                </button>';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
@@ -606,7 +619,9 @@ class EnquiryController extends Controller
             $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
             $projetType = isset($request->projet_type) ? $request->projet_type : false;
-            $dataDb = Enquiry::with('projectType')
+            $dataDb = Enquiry::with(['projectType', 'comments'=> function($q){
+                                $q->where(['status' => 0, 'created_by' => 'Admin']);
+                            }])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
@@ -618,7 +633,12 @@ class EnquiryController extends Controller
                             
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=getEnquiry("project_info",'. $dataDb->id .')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+                $commentCount = $dataDb->comments->count();
+                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
+                return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                    <b>'. $dataDb->enquiry_number .'</b>
+                    <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'.$enquiryComments.' </span> 
+                </button>';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
@@ -667,7 +687,9 @@ class EnquiryController extends Controller
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
             $projetType = isset($request->projet_type) ? $request->projet_type : false;
 
-            $dataDb = Enquiry::with('projectType')
+            $dataDb = Enquiry::with(['projectType', 'comments'=> function($q){
+                                $q->where(['status' => 0, 'created_by' => 'Admin']);
+                            }])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when($enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
@@ -678,7 +700,12 @@ class EnquiryController extends Controller
                             ->where(['status'=>'Closed' , 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
-                return '<div ng-click=getEnquiry(project_info,'. $dataDb->id .')> <span class="badge badge-primary-lighten btn p-2" >'. $dataDb->enquiry_number.' </span> </div>';
+                $commentCount = $dataDb->comments->count();
+                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
+                return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                    <b>'. $dataDb->enquiry_number .'</b>
+                    <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'.$enquiryComments.' </span> 
+                </button>';
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';

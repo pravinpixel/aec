@@ -21,9 +21,9 @@ use Illuminate\Http\Response;
 use App\Models\Service;
 use App\Services\GlobalService;
 use Carbon\Carbon;
-use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $customer;
@@ -213,9 +213,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function getEnquiryComments($id)
     {
         return EnquiryComments::where("enquiry_id", '=', $id)
-                                ->where("type", "=" , "project_infomation")
+                                ->where("type", "=" , "project_information")
                                 ->get();
     } 
+
     public function getEnquiryByEnquiryNo($no)
     {
         return $this->enquiry->where('enquiry_number', $no)->first();

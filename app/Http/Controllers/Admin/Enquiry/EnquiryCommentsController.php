@@ -3,35 +3,38 @@
 namespace App\Http\Controllers\Admin\Enquiry;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\EnquiryCommentRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\EnquiryComments;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
-
-class EnquiryCommentsController extends Controller
+class EnquiryCommentsController extends Controller 
 {
-    
-    public function store(Request $r){
-        $comments = EnquiryComments::create([
-            "comments"      => $r->comments,
-            "enquiry_id"    => $r->enquiry_id,
-            "file_id"       => $r->file_id ?? "",
-            "type"          => $r->type,
-            "created_by"    => $r->created_by,
-            "role_by"       => $r->role_by ?? "",
-        ]);
-        return response(['status' => true, 'data' => 'Success' ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
+    protected $enquiryCommentRepo;
+
+    public function __construct(EnquiryCommentRepositoryInterface $enquiryCommentRepo){
+        $this->enquiryCommentRepo = $enquiryCommentRepo;
     }
-    public function show(Request $r, $id, $type)
-    {
-        $result["chatHistory"] = EnquiryComments::where("enquiry_id", '=', $id)->where("type", "=" , $type)->oldest()->get();
-        $result["chatType"] =   $type;
-        return $result;
+    public function store(Request $request){
+        return $this->enquiryCommentRepo->store($request);
     }
-    public function showTechChat(Request $r, $id, $type)
+    public function show(Request $request, $id, $type)
     {
-        $result["chatHistory"] = EnquiryComments::where("enquiry_id", '=', $id)->where("file_id", "=" , $type)->oldest()->get();
-        $result["chatType"] =   $type;
-        return $result;
+        return $this->enquiryCommentRepo->show($request,  $id, $type);
+    }
+    public function showTechChat(Request $request, $id, $type)
+    {
+        return $this->enquiryCommentRepo->showTechChat($request,  $id, $type);
+    }
+
+    public function getCommentsCountByType($id)
+    {
+        return $this->enquiryCommentRepo->getCommentsCountByType($id)->pluck('comments_count','type');
+    }
+
+    public function getActiveCommentsCountByType($id)
+    {
+        return $this->enquiryCommentRepo->getActiveCommentsCountByType($id)->pluck('comments_count','type');
     }
 }
