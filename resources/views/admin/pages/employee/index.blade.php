@@ -22,17 +22,17 @@
                               
                    <div id="rootwizard"  ng-controller="EmployeeWizard">
                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
-                               <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
+                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
+                               <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" >
                                    <div class="timeline-content">
-                                       <div class="inner-circle  bg-success profile-info">
-                                           <i class="fa fa-project-diagram fa-2x "></i>
+                                       <div class="inner-circle  bg-success profile-info" >
+                                           <i class="fa fa-project-diagram fa-2x " ng-click="setActive()"></i>
                                        </div>       
                                        <div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
                                    </div> 
                                </a>
                            </li>
-                           <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"  >
+                           <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"  style="pointer-events:none" >
                                <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
                                    <div class="timeline-content">
                                        <div class="inner-circle  bg-secondary share-point">
@@ -70,7 +70,6 @@
 
 
     </div> 
-    <!-- ng-disabled="frm.$invalid"  -->
 @endsection
           
 @push('custom-styles')
@@ -123,10 +122,11 @@
         }); 
     </script>
     <script>
-        // var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
-        app.controller('EmployeeWizard', function($scope, $http,$rootScope, $location) {
+        app.controller('EmployeeWizard', function($scope, $http,API_URL,$rootScope, $location) {
             $rootScope.projectNameLabel;
+            // $scope.FormData = {};
             $location.path('/');
+            
         });
         app.directive('validFile',function(){
             return {
@@ -151,7 +151,61 @@
 
         app.controller('ProfileInfo', function ($scope, $http, $rootScope,$location, API_URL){
             // $location.path('/');
-            
+            $scope.PreviewImage = false;
+            $scope.getEmployeId = function($http, API_URL) {
+                $http.get(API_URL + "admin/getEmployeeId").then(function(response) { 
+                    // alert(JSON.stringify(response.data.data))
+                    if( response.data.data == 1)
+                    {
+                        $scope.myWelcome = "EMP1";
+                    }
+                    else{
+                    
+                        $scope.myWelcome = "EMP"+(response.data.data.id+1);
+                    } 
+                    
+                });
+            }
+        $scope.image_reset = function()
+        {
+            $scope.PreviewImage = {};
+        }
+        $scope.getEmployeId($http, API_URL);
+            $scope.FormData = {};
+
+            $scope.setActive = function(){
+            //   alert()
+                 
+                            // var id = $rootScope.employeeId;
+                            url= API_URL + "admin/get-employeeData/",
+                            $http({
+                            method: 'GET',
+                            url: url,
+                            }).then(function (response) {
+                                // alert(JSON.stringify(response.data.data))
+                                if(response.data.data)
+                                {
+                                    $scope.employeeRowId =   response.data.data.id;
+                                    $scope.myWelcome = response.data.data.employee_id;	
+                                    $scope.FormData.epm_fname = response.data.data.first_Name;
+                                    $scope.FormData.epm_lname = response.data.data.last_name;
+                                    $scope.FormData.epm_username = response.data.data.user_name;
+                                    $scope.FormData.epm_password = response.data.data.password;
+                                    $scope.FormData.epm_job_role = response.data.data.job_role;
+                                    $scope.FormData.epm_number = response.data.data.number;
+                                    $scope.FormData.epm_email = response.data.data.email;
+                                    $scope.FormData.image = response.data.data.image;
+                                    $scope.PreviewImage = "{{ asset('/public/employees/image') }}/"+response.data.data.image;
+                                }
+                                else{
+                                    $location.path('/');
+                                }
+                            }, function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+            }
+            $scope.setActive();
                 // ******* image show ******
                 $scope.SelectFile = function (e) {
                     var reader = new FileReader();
@@ -165,33 +219,18 @@
 
                 $scope.phoneNumber =/^\+?\d{3}[- ]?\d{3}[- ]?\d{6}$/;
 
-                $scope.getEmployeId = function($http, API_URL) {
-            
-                    $http.get(API_URL + "admin/getEmployeeId").then(function(response) { 
-                        // alert(JSON.stringify(response.data.data))
-                        if( response.data.data == 1)
-                        {
-                            $scope.myWelcome = "EMP1";
-                        }
-                        else{
-                            $scope.myWelcome = "EMP"+(response.data.data.id+1);
-                        } 
-                        
-                    });
-                }
-                $scope.getEmployeId($http, API_URL);
+                
 
+            
                 $scope.getRoleData = function($http, API_URL) {
 
                     angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-                    // http://localhost/AEC_PREFAB/aec/module?page=1
                     $http({
                         method: 'GET',
                         url: API_URL + "admin/employee-role"
                     }).then(function (response) {
                         // alert(JSON.stringify(response))
                         $scope.employee_module_role = response.data.data;		
-                        // $scope.employee_module.epm_id = response.data.data.emp_id.id;
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -215,15 +254,21 @@
                     fd.append('epm_username',  $scope.FormData.epm_username);
                     fd.append('epm_password',  $scope.FormData.epm_password);
                     fd.append('epm_job_role',  $scope.FormData.epm_job_role);
-                    fd.append('epm_number',  $scope.epm_number);
-                    fd.append('epm_email',  $scope.FormData.epm_email);
-                    // console.log($scope.FormData.epm_number)
-                        // alert(JSON.stringify($scope.FileValue))
-                    // console.log(document.getElementById('file').files[0]);
+                    fd.append('number',  $scope.epm_number);
+                    fd.append('email',  $scope.FormData.epm_email);
+                    fd.append('employeeRowId',  $scope.employeeRowId);
                       var url = API_URL + "admin/";
                       var method = "POST";
                  
-                      url+="add-employee";
+                      
+                        if($scope.employeeRowId)
+                        {
+                            var id = $scope.employeeRowId;
+                            url += "update-employee/" + id;
+                        }
+                        else{
+                            url+="add-employee";
+                        }
                       $http({
                           method: method,
                           url: url,
@@ -231,44 +276,53 @@
                           headers: { 'Content-Type': undefined},
                           transformRequest: angular.identity
 
-                      }).then(function (response) {
-                            // alert(JSON.stringify(response.data.data))
+                      }).then(function successCallback(response) {
                            Message('success', response.data.msg);
                            $scope.resetForm();
                            $('#file').val('');
+                     
                            $location.path('/sharePonitAccess');
-                           $rootScope.employeeId = response.data.data;
-                           $scope.getEmployeId($http, API_URL);
                            $scope.getRoleData($http, API_URL);
-                        //    $scope.getEmployeeData($http, API_URL);
 
-                      }), (function (error) {
-                          console.log(error);
-                          console.log('This is embarassing. An error has occurred. Please check the log for details');
-                      });  
+                      },function errorCallback(response) {
+                            // alert(JSON.stringify(response.data.errors.email[0]))
+                        //    if(JSON.stringify(response.data.errors.number[0]) == '"The number has already been taken."')
+                        //    {
+                        //          alert("numb")
+                        //         Message('danger',response.data.errors.number[0]);
+                        //    }
+                            Message('danger',response.data.message);
+                        
+                          
+                        });
+
+
+
+
                 }
+
                     $scope.resetForm =  function() {
                         $scope.FormData = {};
                         $scope.frm.$setPristine();
                         $scope.frm.$setValidity();
-                        // $scope.frm.$setUntouched();
                     }
 
         });
             app.controller('SharePonitAccess', function ($scope, $http, $rootScope,$location, API_URL){
 
                 $scope.getSharePointAcess = function($http, API_URL) {
+                    
                     angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-                    // http://localhost/AEC_PREFAB/aec/module?page=1
+                //    var id = $rootScope.employeeId
+                var url= API_URL + "admin/get-share-point-acess";
                     $http({
                         method: 'GET',
-                        url: API_URL + "admin/get-share-point-acess"
+                        url: url,
                     }).then(function (response) {
                         // alert(JSON.stringify(response.data.data))
-                        // $rootScope.employeeId =1;
-                        // alert($rootScope.employeeId)
                         $scope.sharePointAccess_module = response.data.data;
-                        $scope.employeeRowId = $rootScope.employeeId;
+                        $scope.share_point_status=response.data.employeeData.share_access;
+
                         
                     }, function (error) {
                         console.log(error);
@@ -278,36 +332,41 @@
 
                 $scope.getSharePointAcess($http,API_URL);
 
-                $scope.employee_status =function(employeeId,dataId,field){
-                    // alert(employeeId)
-                    // alert(dataId)
-                    // alert(field)
+                $scope.share_point_next = function($http, API_URL){
+                    $location.path('/ibmAccess');
+                }
+                $scope.share_point_prev = function($http, API_URL){
+            
+                    $location.path('/');
+                }
+              
+                
+
+                $scope.employee_status =function(share_point_status,dataId,field){
+
                     $http({
                         method: 'POST',
                         url: API_URL + "admin/share-point-acess-status",
-                        data:{employeeId:employeeId,dataId:dataId,fieldName:field},
+                        data:{share_point_status:share_point_status,dataId:dataId,fieldName:field},
                     }).then(function (response) {
                         // alert(JSON.stringify(response.data.data))
-                        // $scope.getSharePointAcess($http,API_URL);
-                        
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
                     });
 
                 }
-                $scope.sharePoint_status = function(employeeId,dataId){
+                $scope.sharePoint_status = function(dataId){
                     
-                    
+                    // $scope.sharePointAccess_module = is_active;
                     $http({
                         method: 'POST',
                         url: API_URL + "admin/employee-share-point-access-status",
-                        data:{employeeId:employeeId,dataId:dataId},
+                        data:{dataId:dataId},
                     }).then(function (response) {
-                        // alert(JSON.stringify(response))
-                        // $scope.getSharePointAcess($http,API_URL);
-
-                        
+                        // alert(JSON.stringify(response.data.data.sharePointAccess))
+                        $scope.sharePointAccess_module = response.data.data.sharePointAccess;
+ 
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -322,8 +381,6 @@
                         data:{employeeId:employeeId,dataId:dataId},
                     }).then(function (response) {
                         // alert(JSON.stringify(response))
-                        // $scope.getSharePointAcess($http,API_URL);
-                        
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -331,6 +388,16 @@
 
                 }
 
+            });
+
+
+            app.controller('IBMaccess', function ($scope, $http, $rootScope,$location, API_URL){
+                $scope.employeeRowId = $rootScope.employeeId;
+               
+                $scope.bim_point_prev = function($http, API_URL){
+                    $location.path('/sharePonitAccess');
+                }
+               
             });
 
        

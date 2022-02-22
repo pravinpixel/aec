@@ -11,11 +11,12 @@
                                 <input ng-disabled="true" type="text" ng-model="myWelcome"  class="form-control"  ng-required="true">
                             </div>
                         </div> 
-                            
+                        <!-- @{{employeeRowId}} -->
+                        <input type="hidden" ng-model="employeeRowId" value="@{{ employeeRowId }}" >
                         <div class="col-md-6 mb-1">
                             <div class="my-2">
                                 <label class="form-label" >First name<sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control"  name="epm_fname"   value="" ng-model="FormData.epm_fname" placeholder="Type Here..." ng-required="true">
+                                <input type="text" class="form-control"  name="epm_fname" value="" ng-model="FormData.epm_fname" placeholder="Type Here..." ng-required="true">
                                 <div class="error-msg">
                                     <small class="error-text" ng-if="frm.epm_fname.$touched && frm.epm_fname.$error.required">This field is required!</small> 
                                 </div>
@@ -54,10 +55,23 @@
                         <div class="col-md-6 mb-1">
                             <div class="my-2">
                                 <label class="form-label" >Job Role<sup class="text-danger">*</sup></label>
-                                <select  class="form-select"  ng-model="FormData.epm_job_role" name="epm_job_role"    ng-required="true">
+                                
+                                
+                               
+                                
+
+                                
+                                
+                                <select class="form-select"  ng-model="FormData.epm_job_role" name="epm_job_role"    ng-required="true">
                                     <option value="" selected>Select</option>  
-                                    <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.role_name }}</option>  
+                                    <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role" ng-selected="FormData.epm_job_role">@{{ emp.role_name }}</option>  
                                 </select>
+
+
+
+
+
+
                                 <div class="error-msg">
                                     <small class="error-text" ng-if="frm.epm_job_role.$touched && frm.epm_job_role.$error.required">This field is required!</small> 
                                 </div>
@@ -66,11 +80,11 @@
                         <div class="col-md-6 mb-1">
                             <div class="my-2">
                                 <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
-                                <input type="number" class="form-control epm_number" name="epm_number" id="epm_number" ng-model="FormData.epm_number" ng-maxlength="12"  ng-minlength="8" placeholder="Type Here..."  ng-required="true">
+                                <input type="text" onkeypress="return isNumber(event)" class="form-control epm_number" name="epm_number" id="epm_number" ng-model="FormData.epm_number" ng-maxlength="12"  ng-minlength="8" placeholder="Type Here..."  ng-required="true">
                                 <div class="error-msg">
-                                    <small class="error-text" ng-if="frm.epm_number.$touched && frm.epm_number.$error.required">This field is required!</small>
-                                    <small class="error-text" ng-if="frm.epm_number.$touched && frm.epm_number.$error.minlength">Minlength 8 digit only</small>
-                                    <small class="error-text" ng-if="frm.epm_number.$touched && frm.epm_number.$error.maxlength">Maxlength 12 digit only</small>
+                                    <!-- <small class="error-text" ng-if="frm.epm_number.$error.required">This field is required!</small> -->
+                                    <small class="error-text" ng-if="frm.epm_number.$error.minlength">Minlength 8 digit only</small>
+                                    <small class="error-text" ng-if="frm.epm_number.$error.maxlength">Maxlength 12 digit only</small>
                                 </div>
                             </div>
                         </div>
@@ -79,8 +93,8 @@
                                 <label class="form-label" >Email Id<sup class="text-danger">*</sup></label>
                                 <input type="email" class="form-control" name="epm_email"  ng-model="FormData.epm_email" placeholder="Type Here..."  ng-required="true">
                                 <div class="error-msg">
-                                    <small class="error-text" ng-if="frm.epm_email.$touched && frm.epm_email.$error.required">This field is required!</small> 
-                                    <small class="error-text" ng-if="frm.epm_email.$touched && frm.epm_email.$error.email">Please enter valid email!</small> 
+                                    <!-- <small class="error-text" ng-if="frm.epm_email.$error.required">This field is required!</small> 
+                                    <small class="error-text" ng-if="frm.epm_email.$error.email">Please enter valid email!</small>  -->
                                 </div>
                             </div>
                         </div>
@@ -88,8 +102,8 @@
                         <div class="col-md-6 mb-1">
                             <div class="my-2">
                                 
-                                <label class="form-label" >Image<sup class="text-danger">*</sup></label>
-                                <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" accept="image/png, image/jpeg, image/jpg" id="file" ng-model="FormData.file" name="file" valid-file required  ng-required="true" />
+                                <label class="form-label" >Select Image<sup class="text-danger"></sup></label>
+                                <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" accept="image/png, image/jpeg, image/jpg" id="file" ng-model="FormData.file" name="file"  />
                                 <div class="error-msg">
                                     <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
                                 </div>  
@@ -98,15 +112,24 @@
                         </div>
                         <div class="col-md-6 mb-1">
                         </div>
-                        <div class="col-md-6 mb-1">
-                            <img ng-src="@{{PreviewImage}}" id="PreviewImage" class="form-control" ng-model="FormData.imageFile" ng-show="PreviewImage != null" alt="" style="height:100px;width:100px" />
+                        <div class="col-md-6 mb-1"  ng-show="PreviewImage.length">
+                            <img ng-src="@{{PreviewImage}}" id="PreviewImage" class="form-control" ng-model="FormData.image" style="height:100px;width:100px" />
                         </div>
-                        
+                        <!-- <div class="col-md-6 mb-1" ng-show="!PreviewImage">
+                            <img src="{{ asset('/public/image/') }}/@{{FormData.imageFile}}"  id="PreviewImage" class="form-control" ng-model="FormData.imageFile" alt="" style="height:100px;width:100px" />
+                        </div> -->
+
+                        <!-- <div class="col-md-1">
+                            <div class="mb-3"> 
+                                <img src="{{ asset('/public/image/') }}/@{{FormData.image}}" ng-show="" width="60px">
+                            </div>
+                        </div> -->
+                        <!-- @{{FormData.image}} -->
 
 
                     <div class="text-end mt-3">
-                        <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                        <button ng-click="submit(modalstate, id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Submit </button>
+                        <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3" ng-click="image_reset()"><i class="fa fa-ban "></i> Cancel</button>
+                        <button ng-click="submit(modalstate, id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Next </button>
                     </div>
                 </form>
                

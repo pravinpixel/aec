@@ -1,5 +1,8 @@
 <h1>No Data</h1>
-
+    <div class="card-fooetr">
+        <button class="btn btn-success" ng-click="bim_point_prev()" style="float: left;" >Prev</button>
+        <!-- <button class="btn btn-success" ng-click="bim_point_submit()" style="float: right;" >Submit</button> -->
+    </div>
 <style>
     .profile-info{
         /* color: #0acf97 !important; */
