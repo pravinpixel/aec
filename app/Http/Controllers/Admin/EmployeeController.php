@@ -172,16 +172,37 @@ class EmployeeController extends Controller
     }
     public function getEmployeeId()
     {
-        $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
-        if( !empty( $data ) ) {
-            return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        }
-        if(empty( $data ))
+        if(session()->has('id'))        
         {
-            
-            return response(['status' => true, 'data' => 1], Response::HTTP_OK);
+            $data = session('id');
+            // return 1;
+            // $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
+            if( !empty( $data ) ) {
+                return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+            }
+            if(empty( $data ))
+            {
+                
+                return response(['status' => true, 'data' => 1], Response::HTTP_OK);
+            }
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+
+
+        }else{
+
+            $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
+            if( !empty( $data ) ) {
+                return response(['status' => true, 'data' => $data], Response::HTTP_OK);
+            }
+            if(empty( $data ))
+            {
+                
+                return response(['status' => true, 'data' => 1], Response::HTTP_OK);
+            }
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
-        return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        
+           
     }
     public function getEmployee()
     {

@@ -22,7 +22,7 @@
                               
                    <div id="rootwizard"  ng-controller="EmployeeWizard">
                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
+                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
                                <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
                                    <div class="timeline-content">
                                        <div class="inner-circle  bg-success profile-info">

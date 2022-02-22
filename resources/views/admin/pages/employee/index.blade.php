@@ -22,7 +22,7 @@
                               
                    <div id="rootwizard"  ng-controller="EmployeeWizard">
                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
+                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
                                <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" >
                                    <div class="timeline-content">
                                        <div class="inner-circle  bg-success profile-info" >
@@ -32,7 +32,7 @@
                                    </div> 
                                </a>
                            </li>
-                           <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"   >
+                           <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"  style="pointer-events:none" >
                                <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
                                    <div class="timeline-content">
                                        <div class="inner-circle  bg-secondary share-point">
@@ -176,7 +176,7 @@
             $scope.setActive = function(){
             //   alert()
                  
-                            var id = $rootScope.employeeId;
+                            // var id = $rootScope.employeeId;
                             url= API_URL + "admin/get-employeeData/",
                             $http({
                             method: 'GET',
