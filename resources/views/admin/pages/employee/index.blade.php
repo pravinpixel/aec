@@ -2,106 +2,62 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-         
-    
     <div class="content-page">
         <div class="content">
-
             @include('admin.includes.top-bar')
-
-            <!-- Start Content-->
             <div class="container-fluid">
-                
-                <!-- start page title -->
-                
                 @include('admin.includes.page-navigater') 
             </div>    
             <div class="card border">
-               
-               <div class="card-body pt-0 pb-0">
-                              
+                <div class="card-body p-0">
                    <div id="rootwizard"  ng-controller="EmployeeWizard">
-                       <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
-                               <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" >
-                                   <div class="timeline-content">
-                                       <div class="inner-circle  bg-success profile-info" >
-                                           <i class="fa fa-project-diagram fa-2x " ng-click="setActive()"></i>
-                                       </div>       
-                                       <div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
-                                   </div> 
-                               </a>
-                           </li>
-                           <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"  style="pointer-events:none" >
-                               <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
-                                   <div class="timeline-content">
-                                       <div class="inner-circle  bg-secondary share-point">
-                                           <i class="fa fa-list-alt fa-2x mb-1"></i>
-                                       </div>        
-                                       <span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
-                                   </div>
-                                   
-                               </a>
-                           </li>
-                           <!-- style="pointer-events:none" -->
-                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"  style="pointer-events:none" >
-                               <a href="#/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
-                                   <div class="timeline-content">
-                                       <div class="inner-circle  bg-secondary ibm-access">
-                                           <i class="fa fa-2x fa-file-upload mb-1"></i>
-                                       </div>                                                                        
-                                       <span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
-                                   </div>
-                                   
-                               </a>
-                           </li>                    
-                
-                       </ul>  
-                       <div class="tab-content my-3" >
-                         <ng-view></ng-view> 
-                       </div> <!-- tab-content -->
-                   </div> <!-- end #rootwizard--> 
-               </div> <!-- end card-body -->
-           </div>            
-
-          
-            
-        </div> <!-- content -->
-
-
+                        <div class="w-100 bg-light">
+                            <ul class="nav nav-pills nav-justified col-lg-8 mx-auto form-wizard-header bg-light ">
+                                <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
+                                    <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" >
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-success profile-info" >
+                                                <i class="fa fa-project-diagram fa-2x " ng-click="setActive()"></i>
+                                            </div>       
+                                            <div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
+                                        </div> 
+                                    </a>
+                                </li>
+                                <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"  style="pointer-events:none" >
+                                    <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-secondary share-point">
+                                                <i class="fa fa-list-alt fa-2x mb-1"></i>
+                                            </div>        
+                                            <span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
+                                        </div>
+                                        
+                                    </a>
+                                </li>
+                                <!-- style="pointer-events:none" -->
+                                <li class="nav-item last IFCModelUpload" data-target-form="#IFCModelUpload"  style="pointer-events:none" >
+                                    <a href="#/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-secondary ibm-access">
+                                                <i class="fa fa-2x fa-file-upload mb-1"></i>
+                                            </div>                                                                        
+                                            <span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
+                                        </div>
+                                    </a>
+                                </li>   
+                            </ul> 
+                        </div> 
+                        <div class="tab-content m-0 p-4" >
+                            <ng-view></ng-view> 
+                        </div> <!-- tab-content -->
+                   </div>
+                </div>
+           </div>   
+        </div>  
     </div> 
-@endsection
-          
-@push('custom-styles')
-    <style>
-        .table tbody tr td {
-            padding: 5px !important
-        }
-        .help-inline {
-            position: absolute !important;
-            font-size: 12px;
-            right: 0;
-        }
-        .mb-3 {
-            position: relative;
-        }
-        
-    
-    .error {
-      color: red;
-    }
+@endsection 
 
-    .red-text{
-  color:red;
-}
-  
-        
-    </style>
-@endpush
-
-@push('custom-scripts')
-   
- 
+@push('custom-scripts') 
     <script>
          app.config(function($routeProvider) {
             $routeProvider
@@ -174,36 +130,32 @@
             $scope.FormData = {};
 
             $scope.setActive = function(){
-            //   alert()
-                 
-                            // var id = $rootScope.employeeId;
-                            url= API_URL + "admin/get-employeeData/",
-                            $http({
-                            method: 'GET',
-                            url: url,
-                            }).then(function (response) {
-                                // alert(JSON.stringify(response.data.data))
-                                if(response.data.data)
-                                {
-                                    $scope.employeeRowId =   response.data.data.id;
-                                    $scope.myWelcome = response.data.data.employee_id;	
-                                    $scope.FormData.epm_fname = response.data.data.first_Name;
-                                    $scope.FormData.epm_lname = response.data.data.last_name;
-                                    $scope.FormData.epm_username = response.data.data.user_name;
-                                    $scope.FormData.epm_password = response.data.data.password;
-                                    $scope.FormData.epm_job_role = response.data.data.job_role;
-                                    $scope.FormData.epm_number = response.data.data.number;
-                                    $scope.FormData.epm_email = response.data.data.email;
-                                    $scope.FormData.image = response.data.data.image;
-                                    $scope.PreviewImage = "{{ asset('/public/employees/image') }}/"+response.data.data.image;
-                                }
-                                else{
-                                    $location.path('/');
-                                }
-                            }, function (error) {
-                                console.log(error);
-                                console.log('This is embarassing. An error has occurred. Please check the log for details');
-                            });
+                url= API_URL + "admin/get-employeeData/",
+                $http({
+                method: 'GET',
+                url: url,
+                }).then(function (response) {
+                    if(response.data.data)
+                    {
+                        $scope.employeeRowId =   response.data.data.id;
+                        $scope.myWelcome = response.data.data.employee_id;	
+                        $scope.FormData.epm_fname = response.data.data.first_Name;
+                        $scope.FormData.epm_lname = response.data.data.last_name;
+                        $scope.FormData.epm_username = response.data.data.user_name;
+                        $scope.FormData.epm_password = response.data.data.password;
+                        $scope.FormData.epm_job_role = response.data.data.job_role;
+                        $scope.FormData.epm_number = response.data.data.number;
+                        $scope.FormData.epm_email = response.data.data.email;
+                        $scope.FormData.image = response.data.data.image;
+                        $scope.PreviewImage = "{{ asset('/public/employees/image') }}/"+response.data.data.image;
+                    }
+                    else{
+                        $location.path('/');
+                    }
+                }, function (error) {
+                    console.log(error);
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
             $scope.setActive();
                 // ******* image show ******
@@ -218,9 +170,6 @@
                 };
 
                 $scope.phoneNumber =/^\+?\d{3}[- ]?\d{3}[- ]?\d{6}$/;
-
-                
-
             
                 $scope.getRoleData = function($http, API_URL) {
 
@@ -229,7 +178,6 @@
                         method: 'GET',
                         url: API_URL + "admin/employee-role"
                     }).then(function (response) {
-                        // alert(JSON.stringify(response))
                         $scope.employee_module_role = response.data.data;		
                     }, function (error) {
                         console.log(error);
@@ -240,7 +188,6 @@
                 $scope.getRoleData($http, API_URL);
 
                 $scope.submit = function (modalstate, id) {
-              
                     var fd = new FormData();
                     var file_name  =   document.getElementById('file').files[0];
                     var num = $('#epm_number').val();
@@ -284,30 +231,18 @@
                            $location.path('/sharePonitAccess');
                            $scope.getRoleData($http, API_URL);
 
-                      },function errorCallback(response) {
-                            // alert(JSON.stringify(response.data.errors.email[0]))
-                        //    if(JSON.stringify(response.data.errors.number[0]) == '"The number has already been taken."')
-                        //    {
-                        //          alert("numb")
-                        //         Message('danger',response.data.errors.number[0]);
-                        //    }
+                      },function errorCallback(response) { 
                             Message('danger',response.data.message);
-                        
-                          
                         });
-
-
-
-
                 }
 
-                    $scope.resetForm =  function() {
-                        $scope.FormData = {};
-                        $scope.frm.$setPristine();
-                        $scope.frm.$setValidity();
-                    }
+                $scope.resetForm =  function() {
+                    $scope.FormData = {};
+                    $scope.frm.$setPristine();
+                    $scope.frm.$setValidity();
+                }
 
-        });
+            });
             app.controller('SharePonitAccess', function ($scope, $http, $rootScope,$location, API_URL){
 
                 $scope.getSharePointAcess = function($http, API_URL) {
@@ -405,10 +340,6 @@
             var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
             e.returnValue = dialogText;
             return dialogText;
-        };
-             
-
-
-
+        }; 
     </script>
 @endpush

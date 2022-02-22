@@ -23,89 +23,68 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table datatable="ng" dt-options="vm.dtOptions" class="table dt-responsive nowrap table-striped">
+                        <table datatable="ng" dt-options="vm.dtOptions" class="table custom dt-responsive nowrap table-striped">
                             <thead>
                                 <tr>
-                                    <!-- <th>S.No</th> -->
-                                    <th>Employee ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <!-- <th>Mobile</th> -->
-                                    <th>Share Point</th>
-                                    <th>BIM</th>
-                                    <th>24*7</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <!-- <th>
-                                        Full Details
-                                    </th> -->
-                                    <th>Actions</th>
+                                    <th class="text-center">Employee ID</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Share Point</th>
+                                    <th class="text-center">BIM</th>
+                                    <th class="text-center">24*7</th>
+                                    <th class="text-center">Role</th>
+                                    <th class="text-center">Status</th> 
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                         
                             <tbody> 
                                 <tr ng-repeat="(index,m) in module_employee">
-                                    <!-- <td> @{{ index+1 }}</td> -->
-                                    <td> 
+                                    <td class="text-center"> 
                                         <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.employee_id }}</span>
                                     </td>
-                                    <td>@{{ m.first_Name }}</td>
-                                    <td>@{{ m.email }}</td>
-                                    <!-- <td>@{{ m.number }}</td> -->
-                                    
-                                    <td>
+                                    <td class="text-center">@{{ m.first_Name }}</td>
+                                    <td class="text-center">@{{ m.email }}</td>
+                                    <td class="text-center">
                                         <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
-                                       <span  ng-if="m.share_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                       <span  ng-if="m.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
-                                            <!-- <button type="button" class="btn progress-btn active"  ng-if="m.share_access=='1'"  data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
-                                            <button type="button" class="btn progress-btn deactive"   ng-if="m.share_access=='0'"  data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="top" title="Enquiry initiation"> </button>
-                                            -->
+                                            <span  ng-if="m.share_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                            <span  ng-if="m.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span> 
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
-                                        <span  ng-if="m.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                       <span  ng-if="m.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
-                                            
+                                            <span  ng-if="m.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                            <span  ng-if="m.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
-                                        <span  ng-if="m.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                       <span  ng-if="m.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
-                                           
+                                            <span  ng-if="m.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                            <span  ng-if="m.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
                                         </div>
                                     </td>
-                                    <td>@{{ m.job_role }}</td>
-                                    <td>	
-                                        {{-- <div>
-                                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.status == 1" data-switch="primary"/>
-                                            <label for="switch__@{{index}}"   ng-click="checkIt(index, m.id)" ></label>
-                                        </div>     --}}
-                                        <div class="form-check form-switch" ng-click="checkIt(index, m.id)">
-                                            <input type="checkbox" class="form-check-input" id="switch__@{{ index }}" ng-checked="m.status == 1">
+                                    <td class="text-center">@{{ m.job_role }}</td>
+                                    <td class="text-center">	
+                                        {{-- <div class="form-check form-switch" ng-click="checkIt(index, m.id)">
+                                            <input type="checkbox" class="form-check-input ms-2" id="switch__@{{ index }}" ng-checked="m.status == 1">
                                             <label class="form-check-label" for="switch__@{{index}}" ></label>
+                                        </div> --}}
+                                        <div ng-click="checkIt(index, m.id)" title="Click to Change Status">
+                                            <span ng-show="m.status == 1" class="py-0 px-1 btn btn-sm btn-success rounded-pill"><i class="fa fa-check"></i></span>
+                                            <span ng-show="m.status == 0" class="py-0 px-1 btn btn-sm btn-danger rounded-pill"><i class="fa fa-times"></i></span>
                                         </div>
                                     </td>
-                                    <!-- <td> <a ng-click="getEmployeeDetail(m.id)"  style="font-size: 30px;"> <i class="mdi mdi-eye"></a></i></td> -->
-                                    <td>
-                                    <!-- <button class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ><i class="fa fa-pencil"></i></button>
-                                    <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  "><i class="fa fa-trash"></i></button> -->
-                                    <a class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click=employeeEdit(m.id) "><i class="fa fa-edit"></i></a>
-                                    <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click="employeeDelete(m.id)" ><i class="fa fa-trash"></i></a>
-                                    <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click="employeeMail(m.id)" ><i class="fa fa-envelope"></i></a>
-                                    <!-- <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click=""><i class="fa fa-paper-plane"></i></a> -->
-                                        <!-- <div class="dropdown">
-                                            <button type="button"  class="btn btn-sm" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <td class="text-center">
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-sm rounded-pill shadow-sm btn-light border" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="dripicons-dots-3 "></i>
                                             </button>
-                                            
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" ng-click=employeeEdit(m.id) ">Edit</a>
-                                                <a class="dropdown-item" ng-click="employeeDelete(m.id)" >Delete</a>
-                                                <a class="dropdown-item" ng-click=""s href="#">Sent Mail</a>
+                                                <a class="dropdown-item" href="#" ng-click="employeeEdit(m.id)"><i class="fa fa-edit me-1"></i> Edit</a>
+                                                <a class="dropdown-item" href="#" ng-click="employeeDelete(m.id)" ><i class="fa fa-trash me-1"></i>Delete</a>
+                                                <a class="dropdown-item" href="#" ng-click="employeeMail(m.id)"><i class="fa fa-envelope me-1"></i>Sent Mail</a>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </td>
                                 </tr> 
                             </tbody>
@@ -114,274 +93,190 @@
 
                 </div>
                 <div id="right-modal-progress" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
-                        <div class="p-3 shadow-sm">
-                            <h3>Employee Name : <b class="text-primary"> @{{ employeeDetail.user_name }} </b></h3>
-                            <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
-                        </div>
-                        <div class="modal-content h-100 p-4" style="overflow: auto">
-                            <div class="card mt-3">
-                                <div class="card-body p-2">
-                                    <table class="custom table table-bordered m-0">
-                                        <tr>
-                                            <th>Employee Id</th>
-                                            <th>Name</th>
-                                            <th>Job Role</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Image</th>
-                                        </tr>
-                                        <tr>
-                                            <td>@{{ employeeDetail.employee_id }}</td>
-                                            <td>@{{ employeeDetail.user_name }} </td>
-                                            <td>@{{ employeeDetail.job_role }}</td>
-                                            <td>@{{ employeeDetail.number }}</td>
-                                            <td>@{{ employeeDetail.email }} </td>
-                                            <td>   <img src="{{ asset('/public/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div> 
-                            
-                            <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
-                                    <div class="accordion-item m-0">
-                                        <h2 class="accordion-header m-0" id="headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <div class="modal-dialog modal-md modal-right" style="width:100% !important">
+                    <div class="p-3 shadow-sm">
+                        <h3>Employee Name : <b class="text-primary"> @{{ employeeDetail.user_name }} </b></h3>
+                        <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-content h-100 p-4" style="overflow: auto">
+                        <div class="card mt-3">
+                            <div class="card-body p-2">
+                                <table class="custom table table-bordered m-0">
+                                    <tr>
+                                        <th>Employee Id</th>
+                                        <th>Name</th>
+                                        <th>Job Role</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Image</th>
+                                    </tr>
+                                    <tr>
+                                        <td>@{{ employeeDetail.employee_id }}</td>
+                                        <td>@{{ employeeDetail.user_name }} </td>
+                                        <td>@{{ employeeDetail.job_role }}</td>
+                                        <td>@{{ employeeDetail.number }}</td>
+                                        <td>@{{ employeeDetail.email }} </td>
+                                        <td> 
+                                            <img src="{{ asset('/public/employees/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div> 
+                        
+                        <div class="summary-group py-3 accordion rounded-0"  >
+
+                            <fieldset class="accordion-item border mb-3">
+                                <div class="accordion-header custom m-0 position-relative" id="PlatfromAccess">
+                                    <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#Platform" aria-expanded="true" aria-controls="Platform">
                                         Platform Access
-                                        </button>
-                                        </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="row mx-0 container ">
-                                                <div class="col-12 text-center">
-                                                    <h4 class="f-20 m-0 p-3">Plat Information</h4>
-                                                </div>
-                                                <div class="col-md-6 mx-auto p-3">
-                                                    <table class="table m-0  table-bordered">
-                                                        <tbody>
-                                                                <tr class="border">
-                                                                    <th  class=" ">Share Point
-                                                                    </th><td  class="bg-white">
-                                                                    <span  ng-if="employeeDetail.share_access =='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                                                    <span  ng-if="employeeDetail.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
-                                                                    </td>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                    <th  class=" ">BIM
-                                                                    </th><td  class="bg-white">
-                                                                    <span  ng-if="employeeDetail.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                                                    <span  ng-if="employeeDetail.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
-                                                                    </td>
-                                                                </tr> 
-                                                                <tr class="border">
-                                                                    <th  class=" ">24*7
-                                                                    </th><td  class="bg-white">
-                                                                    <span  ng-if="employeeDetail.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                                                    <span  ng-if="employeeDetail.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
-                                                                    </td>
-                                                                </tr> 
-                                                                
-                                                                
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        </div>
                                     </div>
-                                    {{-- ProjectInfo --}}
-                                    <fieldset class="accordion-item">
-                                        <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
-                                            <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
-                                                Folder Access
-                                            </div>
-                                            <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
-                                                <i data-bs-toggle="collapse" 
-                                                    href="#ProjectInfo" 
-                                                    aria-expanded="false" 
-                                                    aria-controls="ProjectInfo" 
-                                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
-                                                </i>
-                                            </div>
-                                        </div>
-                                        <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
-                                            <div class="accordion-body">  
-                                            
-                                            <table  dt-options="vm.dtOptions" class="table table-striped table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Folder Name</th>
-                                                        <th>Active</th>
-                                                        
-                                                    </tr>
-                                                </thead>
-                                        
-                                                <tbody>
-                                                    
-                                                    <tr ng-repeat="(index,employee) in sharePointFolder">
-                                                        
-                                                        <td class="align-items-center">@{{ employee.folder_name }}</td>
-
-                                                        <td>
-                                                            <div>
-                                                            ng-dis
-                                                                <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
-                                                                <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
-                                                            </div>          
-                                                        </td>                    
-                                                    </tr>
-                                                    
-                                                </tbody>
-                                            </table>
-                                            
-                                                
-                                            </div> 
-                                        </div>
-                                    </fieldset>
-                                {{-- ProjectInfo --}}
-                                    <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Client Listing
-                                            </button>
-                                            </h2>
-                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <div class="row mx-0 container ">
-                                                    <div class="col-12 text-center">
-                                                        <h4 class="f-20 m-0 p-3">Client Listing</h4>
-                                                    </div>
-                                                    <div class="col-md-6 p-3 mx-auto">
-                                                        <table class="table m-0   table-bordered">
-                                                            <tbody>
-                                                                <tr class="border">
-                                                                    <th class="bg-primary text-white">S.no</th>
-                                                                    <th class="bg-primary text-white">Services</th>
-                                                                </tr> 
-                                                            <tr class="border">
-                                                                <td class=" ">1
-                                                                </td><td class="bg-white">CAD / CAM Modelling</td>
-                                                            </tr>  
-                                                            <tr class="border">
-                                                                <td class=" ">2
-                                                                </td><td class="bg-white">Approval Drawings</td>
-                                                            </tr>  
-                                                        </tbody></table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </div>
+                                    <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                        <i data-bs-toggle="collapse" 
+                                            href="#Platform" 
+                                            aria-expanded="false" 
+                                            aria-controls="Platform" 
+                                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                        </i>
                                     </div>
-                               
-                        
-                            
-                        
-                        
-                        
-                        
-                            </div>   
-                            
-                        </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div>
+                                </div>
+                                <div id="Platform" class="accordion-collapse collapse show" aria-labelledby="PlatfromAccess" >
+                                    <div class="accordion-body">  
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                                Share Point
+                                                <span class="badge rounded-pill">
+                                                    <span  ng-if="employeeDetail.share_access =='1'" class="text-success"> <i class="fa fa-2x fa-check-circle"></i></span>
+                                                    <span  ng-if="employeeDetail.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                </span>
+                                            </li>
+                                            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                                BIM 360
+                                                <span class="badge rounded-pill">
+                                                    <span  ng-if="employeeDetail.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                                    <span  ng-if="employeeDetail.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                </span>
+                                            </li>
+                                            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                                24*7
+                                                <span class="badge rounded-pill">
+                                                    <span  ng-if="employeeDetail.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
+                                                    <span  ng-if="employeeDetail.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
+                                                </span>
+                                            </li> 
+                                        </ul>
+                                    </div> 
+                                </div>
+                            </fieldset>
 
-            
-        </div> <!-- container -->
+                            <fieldset class="accordion-item border mb-3">
+                                <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
+                                    <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
+                                        Folder Access
+                                    </div>
+                                    <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                        <i data-bs-toggle="collapse" 
+                                            href="#ProjectInfo" 
+                                            aria-expanded="false" 
+                                            aria-controls="ProjectInfo" 
+                                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                        </i>
+                                    </div>
+                                </div>
+                                <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
+                                    <div class="accordion-body">  
+                                        <table  dt-options="vm.dtOptions" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Folder Name</th>
+                                                    <th>Active</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                    
+                                            <tbody>
+                                                
+                                                <tr ng-repeat="(index,employee) in sharePointFolder">
+                                                    
+                                                    <td class="align-items-center">@{{ employee.folder_name }}</td>
 
-    </div> <!-- content -->
+                                                    <td>
+                                                        <div>
+                                                        ng-dis
+                                                            <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
+                                                            <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
+                                                        </div>          
+                                                    </td>                    
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table> 
+                                    </div> 
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="accordion-item border mb-3">
+                                <div class="accordion-header custom m-0 position-relative" id="Client_Listing">
+                                    <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#Client_Listing_header" aria-expanded="true" aria-controls="Client_Listing_header">
+                                        Client Listing
+                                    </div>
+                                    <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                        <i data-bs-toggle="collapse" 
+                                            href="#Client_Listing_header" 
+                                            aria-expanded="false" 
+                                            aria-controls="Client_Listing_header" 
+                                            class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                        </i>
+                                    </div>
+                                </div>
+                                <div id="Client_Listing_header" class="accordion-collapse collapse show" aria-labelledby="Client_Listing" >
+                                    <div class="accordion-body">  
+                                        <table  dt-options="vm.dtOptions" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Folder Name</th>
+                                                    <th>Active</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                    
+                                            <tbody>
+                                                
+                                                <tr ng-repeat="(index,employee) in sharePointFolder">
+                                                    
+                                                    <td class="align-items-center">@{{ employee.folder_name }}</td>
+
+                                                    <td>
+                                                        <div>
+                                                        ng-dis
+                                                            <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
+                                                            <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
+                                                        </div>          
+                                                    </td>                    
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table> 
+                                    </div> 
+                                </div>
+                            </fieldset> 
+                        </div>                            
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
 </div> 
 
-    
-    
+@endsection 
 
-@endsection
 
-@push('custom-styles')
-    <link href="{{ asset('public/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('public/assets/css/vendor/responsive.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('public/assets/css/vendor/buttons.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('public/assets/css/vendor/select.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
- 
-
-    <style>
-        .progress-btn {
-            clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-            background: lightgray
-        }
-        .progress-btn.active {
-            background: #20CF98 !important
-        }
-        .table td,th {
-            padding: 5px 10px !important     ;
-            vertical-align: middle !important
-        }
-       
-        
-        #scroll-vertical-datatable th{
-            padding:  0px !important     
-        }
-       
-        #scroll-vertical-datatable_wrapper .row:nth-child(1) {
-            display: none !important
-        }
-        table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
-            top : 2px !important
-        }
-        table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
-            top : 2px !important
-        }
-        .accordion-header {
-            margin:  0 !important
-        }
-        .accordion-item {
-            border: 1px solid gray
-        }
-        
-    </style>
-@endpush
-
-{{-- @push('custom-scripts')
-    <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
-    <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
-@endpush --}}
-
-@push('custom-scripts')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.4.3/angular-datatables.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
-    {{-- <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script> --}}
- 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@push('custom-scripts')   
     <script>
         $('#menu-table').DataTable({
             "ordering": false
         });
-    </script>
-    <!-- AngularJS Application Scripts -->
-		
+    </script> 
 
 		<script >
             
@@ -487,6 +382,7 @@
                                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
                             }).then(function(response){
+                                getData($http, API_URL);
                                 Message('success',response.data.msg);
                             }),(function(error){
                                 console.log(error);

@@ -421,3 +421,9 @@ small {
 #Layers_Lable .row label {
     display: none;
 }
+
+@media (min-width: 1200px) {
+    .modal-md {
+        max-width: 800px;
+    }
+}

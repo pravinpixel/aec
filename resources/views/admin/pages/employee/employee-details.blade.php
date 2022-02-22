@@ -1,5 +1,5 @@
 <div id="employee-detail-view-model" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
+    <div class="modal-dialog modal-md modal-right" style="width:100% !important">
         <div class="p-3 shadow-sm">
             <h3>Employee Name : <b class="text-primary"> @{{ employeeDetail.user_name }} </b></h3>
             <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>

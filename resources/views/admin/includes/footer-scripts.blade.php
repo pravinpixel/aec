@@ -35,7 +35,7 @@
 <!-- =========  Alerts JS ======== JS -->
 
 <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- ========= For Vendors Js ===========-->
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>

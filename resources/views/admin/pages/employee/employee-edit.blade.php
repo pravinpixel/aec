@@ -18,45 +18,45 @@
             </div>    
             <div class="card border">
                
-               <div class="card-body pt-0 pb-0">
+               <div class="card-body p-0">
                               
                    <div id="rootwizard"  ng-controller="EmployeeWizard">
-                       <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                           <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
-                               <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
-                                   <div class="timeline-content">
-                                       <div class="inner-circle  bg-success profile-info">
-                                           <i class="fa fa-project-diagram fa-2x "></i>
-                                       </div>       
-                                       <div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
-                                   </div> 
-                               </a>
-                           </li>
-                           <li class="nav-item serviceSelection" data-target-form="#serviceSelection" style="pointer-events:none" >
-                               <a href="#/editSharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
-                                   <div class="timeline-content">
-                                       <div class="inner-circle  bg-secondary share-point">
-                                           <i class="fa fa-list-alt fa-2x mb-1"></i>
-                                       </div>        
-                                       <span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
-                                   </div>
-                                   
-                               </a>
-                           </li>
-                           <li class="nav-item IFCModelUpload" data-target-form="#IFCModelUpload"   style="pointer-events:none">
-                               <a href="#/editIbmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
-                                   <div class="timeline-content">
-                                       <div class="inner-circle  bg-secondary ibm-access">
-                                           <i class="fa fa-2x fa-file-upload mb-1"></i>
-                                       </div>                                                                        
-                                       <span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
-                                   </div>
-                                   
-                               </a>
-                           </li>                    
-                
-                       </ul>  
-                       <div class="tab-content my-3" >
+                       <div class="bg-light w-100">
+                            <ul class="nav nav-pills nav-justified col-lg-8 mx-auto form-wizard-header bg-light ">
+                                <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
+                                    <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-success profile-info">
+                                                <i class="fa fa-project-diagram fa-2x "></i>
+                                            </div>       
+                                            <div class="text-end d-none d-sm-inline mt-2">Profile Information</div>                                                                 
+                                        </div> 
+                                    </a>
+                                </li>
+                                <li class="nav-item serviceSelection" data-target-form="#serviceSelection" style="pointer-events:none" >
+                                    <a href="#/editSharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-secondary share-point">
+                                                <i class="fa fa-list-alt fa-2x mb-1"></i>
+                                            </div>        
+                                            <span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
+                                        </div>
+                                        
+                                    </a>
+                                </li>
+                                <li class="nav-item last IFCModelUpload" data-target-form="#IFCModelUpload"   style="pointer-events:none">
+                                    <a href="#/editIbmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-secondary ibm-access">
+                                                <i class="fa fa-2x fa-file-upload mb-1"></i>
+                                            </div>                                                                        
+                                            <span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>  
+                       </div>
+                       <div class="tab-content m-0 p-4" >
                          <ng-view></ng-view> 
                        </div> <!-- tab-content -->
                    </div> <!-- end #rootwizard--> 
@@ -71,34 +71,7 @@
     </div> 
     <!-- ng-disabled="frm.$invalid"  -->
 @endsection
-          
-@push('custom-styles')
-    <style>
-        .table tbody tr td {
-            padding: 5px !important
-        }
-        .help-inline {
-            position: absolute !important;
-            font-size: 12px;
-            right: 0;
-        }
-        .mb-3 {
-            position: relative;
-        }
-        
-    
-    .error {
-      color: red;
-    }
-
-    .red-text{
-  color:red;
-}
-  
-        
-    </style>
-@endpush
-
+     
 @push('custom-scripts')
    
  
