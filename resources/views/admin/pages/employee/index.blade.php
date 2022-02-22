@@ -130,32 +130,36 @@
             $scope.FormData = {};
 
             $scope.setActive = function(){
-                url= API_URL + "admin/get-employeeData/",
-                $http({
-                method: 'GET',
-                url: url,
-                }).then(function (response) {
-                    if(response.data.data)
-                    {
-                        $scope.employeeRowId =   response.data.data.id;
-                        $scope.myWelcome = response.data.data.employee_id;	
-                        $scope.FormData.epm_fname = response.data.data.first_Name;
-                        $scope.FormData.epm_lname = response.data.data.last_name;
-                        $scope.FormData.epm_username = response.data.data.user_name;
-                        $scope.FormData.epm_password = response.data.data.password;
-                        $scope.FormData.epm_job_role = response.data.data.job_role;
-                        $scope.FormData.epm_number = response.data.data.number;
-                        $scope.FormData.epm_email = response.data.data.email;
-                        $scope.FormData.image = response.data.data.image;
-                        $scope.PreviewImage = "{{ asset('/public/employees/image') }}/"+response.data.data.image;
-                    }
-                    else{
-                        $location.path('/');
-                    }
-                }, function (error) {
-                    console.log(error);
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
+            //   alert()
+                 
+                            // var id = $rootScope.employeeId;
+                            url= API_URL + "admin/get-employeeData/",
+                            $http({
+                            method: 'GET',
+                            url: url,
+                            }).then(function (response) {
+                                // alert(JSON.stringify(response.data.data))
+                                if(response.data.data)
+                                {
+                                    $scope.employeeRowId =   response.data.data.id;
+                                    $scope.myWelcome = response.data.data.employee_id;	
+                                    $scope.FormData.epm_fname = response.data.data.first_Name;
+                                    $scope.FormData.epm_lname = response.data.data.last_name;
+                                    $scope.FormData.epm_username = response.data.data.user_name;
+                                    $scope.FormData.epm_password = response.data.data.password;
+                                    $scope.FormData.epm_job_role = response.data.data.job_role;
+                                    $scope.FormData.epm_number = response.data.data.number;
+                                    $scope.FormData.epm_email = response.data.data.email;
+                                    $scope.FormData.image = response.data.data.image;
+                                    $scope.PreviewImage = "{{ asset('/public/uploads/employees/image') }}/"+response.data.data.image;
+                                }
+                                else{
+                                    $location.path('/');
+                                }
+                            }, function (error) {
+                                console.log(error);
+                                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
             }
             $scope.setActive();
                 // ******* image show ******

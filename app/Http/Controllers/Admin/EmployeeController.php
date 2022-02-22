@@ -49,55 +49,7 @@ class EmployeeController extends Controller
     public function addEmployee(EmployeeCreateRequest $request)
     {
         $id = session('id');
-        if($id)
-        {
-          
-            $module = Employee::where('id',$id)->first();
-            $module->employee_id = $request->epm_id;
-            $module->first_Name = $request->epm_fname;
-            $module->last_Name = $request->epm_lname;
-            $module->user_name = $request->epm_username;
-            $module->password = $request->epm_password;
-            $module->job_role = $request->epm_job_role;
-            $module->number = $request->number;
-            $module->email = $request->email;
-          
-            $module->status = 1;
-         
-            $module->bim_access = 0;
-            $module->access = 1;
-            if($request->hasFile('file'))
-            {
-          
-                $image = $request->file('file')->getClientOriginalName();
-                $request->file('file')->move(public_path('image'),$image);
-             
-
-                //////////////
-
-
-                //    $rrr = $request->file('file')->move(public_path('epnloyees/image/'.$request->epm_id),$image);
-
-                
-                // $filePath = 'epnloyees/image/'.$request->epm_id.'/';
-                // $path = public_path($filePath); 
-                // if(!file_exists($path))
-                // {
-                //     mkdir($path, 0777, true);
-                // }
-                ///////////
-           
-                $module->image = $image;
-            }
-            $res = $module->update();
-            $id = $module->id;
-            if($res) {
-                return response(['status' => true,'data' => $res ,'msg' => trans('Employee Created'),'data' => $id], Response::HTTP_OK);
-            }
-            return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
-        }
-        else{
-
+ 
         $module = new Employee;
 
         $module->employee_id = $request->epm_id;
@@ -119,7 +71,7 @@ class EmployeeController extends Controller
             $image = $request->file('file')->getClientOriginalName();
             // $request->file('file')->move(public_path('image'),$image);
 
-            $request->file('file')->move(public_path('employees/image/'.$request->epm_id),$image);
+            $request->file('file')->move(public_path('uploads/employees/image/'.$request->epm_id),$image);
             $store_image = $request->epm_id.'/'.$image; 
             $module->image = $store_image;
         }
@@ -131,7 +83,7 @@ class EmployeeController extends Controller
             return response(['status' => true, 'data' => $res ,'msg' => trans('Employee Created'),'data' => $id], Response::HTTP_OK);
         }
         return response(['status' => false ,'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR );
-        }
+        
     }
 
     public function updateEmployee($id,EmployeeUpdateRequest $request)
@@ -157,7 +109,7 @@ class EmployeeController extends Controller
         {
             $image = $request->file('file')->getClientOriginalName();
             // $request->file('file')->move(public_path('image'),$image);
-            $request->file('file')->move(public_path('employees/image/'.$request->epm_id),$image);
+            $request->file('file')->move(public_path('uploads/employees/image/'.$request->epm_id),$image);
             $store_image = $request->epm_id.'/'.$image; 
             $module->image = $store_image;
             

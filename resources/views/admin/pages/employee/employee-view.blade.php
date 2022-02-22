@@ -93,42 +93,39 @@
 
                 </div>
                 <div id="right-modal-progress" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-md modal-right" style="width:100% !important">
-                    <div class="p-3 shadow-sm">
-                        <h3>Employee Name : <b class="text-primary"> @{{ employeeDetail.user_name }} </b></h3>
-                        <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
-                    </div>
-                    <div class="modal-content h-100 p-4" style="overflow: auto">
-                        <div class="card mt-3">
-                            <div class="card-body p-2">
-                                <table class="custom table table-bordered m-0">
-                                    <tr>
-                                        <th>Employee Id</th>
-                                        <th>Name</th>
-                                        <th>Job Role</th>
-                                        <th>Phone</th>
-                                        <th>Email</th>
-                                        <th>Image</th>
-                                    </tr>
-                                    <tr>
-                                        <td>@{{ employeeDetail.employee_id }}</td>
-                                        <td>@{{ employeeDetail.user_name }} </td>
-                                        <td>@{{ employeeDetail.job_role }}</td>
-                                        <td>@{{ employeeDetail.number }}</td>
-                                        <td>@{{ employeeDetail.email }} </td>
-                                        <td> 
-                                            <img src="{{ asset('/public/employees/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div> 
-                        
-                        <div class="summary-group py-3 accordion rounded-0"  >
-
-                            <fieldset class="accordion-item border mb-3">
-                                <div class="accordion-header custom m-0 position-relative" id="PlatfromAccess">
-                                    <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#Platform" aria-expanded="true" aria-controls="Platform">
+                <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
+                        <div class="p-3 shadow-sm">
+                            <h3>Employee Name : <b class="text-primary"> @{{ employeeDetail.user_name }} </b></h3>
+                            <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
+                        </div>
+                        <div class="modal-content h-100 p-4" style="overflow: auto">
+                            <div class="card mt-3">
+                                <div class="card-body p-2">
+                                    <table class="custom table table-bordered m-0">
+                                        <tr>
+                                            <th>Employee Id</th>
+                                            <th>Name</th>
+                                            <th>Job Role</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Image</th>
+                                        </tr>
+                                        <tr>
+                                            <td>@{{ employeeDetail.employee_id }}</td>
+                                            <td>@{{ employeeDetail.user_name }} </td>
+                                            <td>@{{ employeeDetail.job_role }}</td>
+                                            <td>@{{ employeeDetail.number }}</td>
+                                            <td>@{{ employeeDetail.email }} </td>
+                                            <td>   <img src="{{ asset('/public/uploads/employees/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div> 
+                            
+                            <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
+                                    <div class="accordion-item m-0">
+                                        <h2 class="accordion-header m-0" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         Platform Access
                                     </div>
                                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -191,12 +188,18 @@
                                                     <th>Folder Name</th>
                                                     <th>Active</th>
                                                     
-                                                </tr>
-                                            </thead>
-                                    
-                                            <tbody>
-                                                
-                                                <tr ng-repeat="(index,employee) in sharePointFolder">
+                                                    <tr ng-repeat="(index,employee) in sharePointFolder">
+                                                        
+                                                        <td class="align-items-center">@{{ employee.folder_name }}</td>
+
+                                                        <td>
+                                                            <div>
+                                                            
+                                                                <input type="checkbox" id="switch__@{{ index }}" abled="true" ng-disabled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
+                                                                <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
+                                                            </div>          
+                                                        </td>                    
+                                                    </tr>
                                                     
                                                     <td class="align-items-center">@{{ employee.folder_name }}</td>
 
