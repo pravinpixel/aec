@@ -174,6 +174,23 @@
     
                     reader.readAsDataURL(e.target.files[0]);
                 };
+                $scope.deleteImage = function()
+                    {
+                        $scope.PreviewImage = {};
+                        $('#file').val('');
+                            url= API_URL + "admin/delete-employeeImage",
+                            $http({
+                                method: 'GET',
+                                url: url,
+                                }).then(function (response) {
+                                    alert(JSON.stringify(response))
+                                    $scope.callEmployee ();
+                                    
+                                }, function (error) {
+                                    console.log(error);
+                                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                            });
+                    }
 
                 $scope.phoneNumber =/^\+?\d{3}[- ]?\d{3}[- ]?\d{6}$/;
 
@@ -274,7 +291,13 @@
                             $scope.resetForm();
 
 						},function errorCallback(response) {
-                            Message('danger',response.data.message);
+                            if(typeof(response.data.errors.number) != 'undefined') {
+                            Message('danger',response.data.errors.number[0]);
+                            return false;
+                          } else if(typeof(response.data.errors.email) != 'undefined') {
+                            Message('danger',response.data.errors.email[0]);
+                            return false;
+                          }
                         });
 
 			        }

@@ -105,23 +105,38 @@
         app.controller('ProfileInfo', function ($scope, $http, $rootScope,$location, API_URL){
             // $location.path('/');
             $scope.PreviewImage = false;
+            
             $scope.getEmployeId = function($http, API_URL) {
                 $http.get(API_URL + "admin/getEmployeeId").then(function(response) { 
                     // alert(JSON.stringify(response.data.data))
                     if( response.data.data == 1)
                     {
+                       
                         $scope.myWelcome = "EMP1";
                     }
                     else{
-                    
+                      
                         $scope.myWelcome = "EMP"+(response.data.data.id+1);
                     } 
                     
                 });
             }
-        $scope.image_reset = function()
+        
+        $scope.deleteImage = function()
         {
             $scope.PreviewImage = {};
+            $('#file').val('');
+                url= API_URL + "admin/delete-employeeImage",
+                $http({
+                    method: 'GET',
+                    url: url,
+                    }).then(function (response) {
+                        // alert(JSON.stringify(response))
+                        
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
         }
         $scope.getEmployeId($http, API_URL);
             $scope.FormData = {};
@@ -229,8 +244,15 @@
                            $location.path('/sharePonitAccess');
                            $scope.getRoleData($http, API_URL);
 
-                      },function errorCallback(response) { 
-                            Message('danger',response.data.message);
+                      },function errorCallback(response) {
+                          if(typeof(response.data.errors.number) != 'undefined') {
+                            Message('danger',response.data.errors.number[0]);
+                            return false;
+                          } else if(typeof(response.data.errors.email) != 'undefined') {
+                            Message('danger',response.data.errors.email[0]);
+                            return false;
+                          }
+                          
                         });
                 }
 

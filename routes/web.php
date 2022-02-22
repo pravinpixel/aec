@@ -171,7 +171,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     
     Route::get('get-employee-detail/{id}',[ EmployeeController::class,'getEmployeeDetail'])->name('get-employee-detail');
     Route::get('employee-mail/{id}',[ EmployeeController::class,'employeeMail'])->name('employee-mail');
-    Route::get('get-employeeData',[ EmployeeController::class,'getEmployeeData'])->name(' get-employeeData');
+    Route::get('get-employeeData',[ EmployeeController::class,'getEmployeeData'])->name('get-employeeData');
+
+    Route::get('delete-employeeImage',[ EmployeeController::class,'deleteEmployeeImage'])->name('delete-employeeImage');
    
 });
 

@@ -502,7 +502,7 @@ class EmployeeController extends Controller
         ]; 
        $res = Mail::to($data->email)->send(new \App\Mail\EmployeeMail($details));
         //    return $res;
-        return response(['status' => true, 'data' => $res ,'msg' => trans('Employee.created')], Response::HTTP_CREATED);
+        return response(['status' => true, 'data' => $res ,'msg' => trans('Mail Sent Successfully')], Response::HTTP_CREATED);
         }catch(\Exception $e){
             Log::info($e->getMessage());
             DB::rollBack();
@@ -518,6 +518,15 @@ class EmployeeController extends Controller
             return response(['status' => true,'active'=>"active", 'data' => $data], Response::HTTP_OK);
         } 
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+    }
+    public function deleteEmployeeImage(Type $var = null)
+    {
+        $id = session('id');
+        $data = Employee::where('id',$id)->first();
+        $data->image="";
+        $data->save();
+        return 1;
+
     }
     
     

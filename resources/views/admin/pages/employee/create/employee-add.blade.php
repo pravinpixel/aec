@@ -14,7 +14,7 @@
                 <div class="error-msg">
                     <small class="error-text" ng-if="frm.epm_fname.$touched && frm.epm_fname.$error.required">This field is required!</small> 
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="col-md-6 mb-1">
             <div class="my-2">
@@ -87,6 +87,7 @@
         <div class="col-md-6 mb-1"  ng-show="PreviewImage.length">
             <img ng-src="@{{PreviewImage}}" id="PreviewImage" class="form-control" ng-model="FormData.image" style="height:100px;width:100px" />
         </div> 
+        <button  class="btn btn-outline-secondary font-weight-bold px-3" style="width: 150px;" ng-click="deleteImage()"><i class="fa fa-ban "></i>Image</button>
     </div> 
     <div class="text-end mt-3">
         <button type="reset" class="btn btn-light font-weight-bold px-3" ng-click="image_reset()"><i class="fa fa-ban "></i> Cancel</button>

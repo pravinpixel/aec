@@ -334,7 +334,7 @@
                         type        :   $scope.filter.type,
                         others      :   $scope.filter.others
                     }
-                    alert( $scope.filter.from_date, 'DD/MM/YY');
+                    // alert( $scope.filter.from_date, 'DD/MM/YY');
 
                     $http({
                         method: "POST",
@@ -431,7 +431,7 @@
 			    }
 
                 $scope.employeeMail = function (id) {
-                    alert(id)
+                    // alert(id)
 
                     $http({
                         method: 'GET',
@@ -456,6 +456,7 @@
                     
 			    //show modal form
 			    $scope.toggle = function (modalstate, id) {
+                    alert()
 			        $scope.modalstate = modalstate;
 			        $scope.module = null;
 			
