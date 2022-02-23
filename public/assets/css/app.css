@@ -15863,3 +15863,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
   position: absolute;
   border-radius: 50%;
 }
+
+.accordion-button:not(.collapsed) span {
+  color: white !important;
+}

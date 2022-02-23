@@ -282,6 +282,19 @@
             } 
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL , $rootScope) {
+            // [
+            //     {
+            //         "building_number":1,"building_component_number":
+            //             [
+            //                 {"name":"External Wall","sqfeet":0},
+            //                 {"name":"Internal Wall","sqfeet":0},
+            //                 {"name":"Partition Wall","sqfeet":0},
+            //                 {"name":"Ceiling","sqfeet":0},
+            //                 {"name":"Roof","sqfeet":0}
+            //             ],
+            //         "total_component_area":0
+            //     }
+            // ]
  
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.enquiry              =   response.data; 
