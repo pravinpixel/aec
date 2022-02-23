@@ -282,17 +282,13 @@
             } 
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL , $rootScope) {
-
-             
-             
+ 
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.enquiry              =   response.data; 
                 $scope.enquiry_id           =   response.data.enquiry_id; 
                 $scope.building_building    =   response.data.building_component; 
-                
             });
-            
-            
+             
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -302,35 +298,48 @@
                     $scope.customer_response    = res.data.progress.customer_response; 
                 });
             }
-            $scope.getWizradStatus();
-        
+            $scope.getWizradStatus(); 
 
             $scope.Add_building = function() {
+
                 $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                     $scope.building_building.push(response.data.building_component[0]);
+                    console.log(response.data.building_component)
                 });
                     
-                } 
-                $scope.Add_component = function(index) {
-                    $scope.building_building[index].building_component_number.push(
-                        {
-                            "name": '',
-                            "sqfeet": 0
-                        }
-                        
-                    )
-                }
-                $scope.Delete_building   =   function(index) {
-                    $scope.building_building.splice(index,1);  
-                }
+            } 
 
-                $scope.dirOptions = {};
-                $scope.Delete_component   =   function(index, secindex) {
-                    $scope.building_building[index].building_component_number.splice(secindex,1);
-                    $scope.dirOptions.directiveFunction(index);
-                }
+            $scope.Add_component = function(index) {
+                $scope.building_building[index].building_component_number.push(
+                    {
+                        "name": '',
+                        "sqfeet": 0
+                    }
+                )
+            }
+
+            $scope.Delete_building   =   function(index) {
+                $scope.building_building.splice(index,1);  
+            }
+
+            $scope.dirOptions = {};
+
+            $scope.Delete_component   =  function(index, secindex) {
+                $scope.building_building[index].building_component_number.splice(secindex,1);
+                $scope.dirOptions.directiveFunction(index);
+            }
            
             $scope.updateTechnicalEstimate  = function() {
+                console.log($scope.building_building)
+                if($scope.building_building.length == 0) {
+                    Message('danger',"You Can't Update Empty Building !");
+                    $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
+                        $scope.enquiry              =   response.data; 
+                        $scope.enquiry_id           =   response.data.enquiry_id; 
+                        $scope.building_building    =   response.data.building_component; 
+                    });
+                    return false;
+                }                 
                 $http({
                     method: "POST",
                     url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} , 
@@ -341,8 +350,9 @@
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
-            } 
-            //  =====================
+            }
+            
+            // =====================
                 $scope.GetCommentsData = function() {
                     $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                         $scope.enquiry_number       = res.data.enquiry_number;

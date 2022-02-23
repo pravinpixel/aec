@@ -116,7 +116,30 @@ angular.module('psi.sortable', [])
         }
         };
     }]);
-    app.config(function() {
-        angular.lowercase = angular.$$lowercase;  
-    });
-    
+app.config(function() {
+    angular.lowercase = angular.$$lowercase;  
+});
+
+app.constant("isActiveConfig", {
+    activeClass: "active"
+});
+app.directive("isActive", function($location, $rootScope, isActiveConfig) {
+    return {
+        restrict: "A",
+        link: function(scope, element, attr) {
+            if (element[0].nodeName.toLowerCase() !== "a") {
+                return;
+            }
+            var locWatch = $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
+                var href = element.prop('href');
+                if (newUrl !== href) {
+                    attr.$removeClass(name);
+                } else {
+                    attr.$addClass(name);
+                }
+            });
+            var name = attr.isActive || isActiveConfig.activeClass || "active";
+            scope.$on("$destroy", locWatch);
+        }
+    }
+});

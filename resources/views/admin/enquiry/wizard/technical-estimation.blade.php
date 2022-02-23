@@ -92,7 +92,7 @@
 
                     <div ng-if="building_building == null || !building_building.length">
                         <div class="p-5 text-center">
-                            <strong>Customer not Yet fill techical estimation values</strong>
+                            <strong>No Records</strong>
                         </div>
                     </div>
                    

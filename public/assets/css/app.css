@@ -11786,7 +11786,7 @@ input[data-switch] {
       border-radius: 2rem;
       height: 18px;
       width: 18px;
-      top: 3px;
+      top: 2px;
       -webkit-transition: all 0.1s ease-in-out;
       transition: all 0.1s ease-in-out; }
   input[data-switch]:checked + label {

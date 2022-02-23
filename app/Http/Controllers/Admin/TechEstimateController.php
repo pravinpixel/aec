@@ -38,10 +38,13 @@ class TechEstimateController extends Controller
     public function update(Request $request , $id)
     {
         $data = $request->input("data");
+        if($data == [])  {
+            return response(['status' => true,  'msg' => trans('You can not delete all building !')], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
         EnquiryTechnicalEstimate::updateOrCreate(['enquiry_id'=>$id],[
-            'build_json'    => json_encode($data),
-            'total_wall_area'    =>  1 ,
-            'wall'    =>  1 ,
+            'build_json'            =>  json_encode($data),
+            'total_wall_area'       =>  1 ,
+            'wall'                  =>  1 ,
         ]);
         $enquiry = Enquiry::find($id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
