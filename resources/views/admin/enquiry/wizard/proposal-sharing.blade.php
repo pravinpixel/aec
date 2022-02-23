@@ -121,7 +121,8 @@
                     <a href="#/cost-estimation" class="btn btn-light border shadow-sm">Prev</a>
                 </div>
                 <div>
-                    <a href="#/move-to-project" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                    
+                    <a href="#/move-to-project" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
                 </div>
             </div>
         </div> 

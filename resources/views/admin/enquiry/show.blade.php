@@ -8,6 +8,7 @@
             @include('admin.includes.top-bar') 
             <!-- Start Content-->
             <div class="container-fluid"  ng-controller="WizzardCtrl"> 
+                
                 <!-- start page title --> 
                 <div class="row ">
                     <div class="col-12">
@@ -191,7 +192,7 @@
                 redirectTo: '{{ route('enquiry.project-summary') }}'
             });
         });  
-        app.controller('WizzardCtrl', function ($scope, $http, API_URL) {
+        app.controller('WizzardCtrl', function ($scope, $http, API_URL,$rootScope) {
        
             $scope.GetCommentsData = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
@@ -230,13 +231,7 @@
                 } 
             }
             $scope.GetCommentsData();
-
-        
-            //     $scope.getDocumentaryFun = function($http, API_URL) {
-            //     alert()
-            // }
-            
-           
+ 
             $scope.sendInboxComments  = function(type) { 
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
@@ -284,17 +279,32 @@
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
-            }
+            } 
         });
-        app.controller('Tech_Estimate', function ($scope, $http, API_URL ) {
+        app.controller('Tech_Estimate', function ($scope, $http, API_URL , $rootScope) {
+
              
-            
+             
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.enquiry              =   response.data; 
                 $scope.enquiry_id           =   response.data.enquiry_id; 
                 $scope.building_building    =   response.data.building_component; 
-                console.log($scope.building_building);
+                
             });
+            
+            
+            $scope.getWizradStatus = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                    $scope.project_summary_status       = res.data.progress.status;
+                    $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
+                    $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
+                    $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
+                    $scope.customer_response    = res.data.progress.customer_response; 
+                });
+            }
+            $scope.getWizradStatus();
+        
+
             $scope.Add_building = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                     $scope.building_building.push(response.data.building_component[0]);
@@ -326,6 +336,7 @@
                     url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} , 
                     data:{ data : $scope.building_building},
                 }).then(function successCallback(response) {
+                    $scope.getWizradStatus();
                     Message('success',response.data.msg);
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
@@ -441,6 +452,16 @@
                 }             
         }); 
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
+            $scope.getWizradStatus = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                    $scope.project_summary_status       = res.data.progress.status;
+                    $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
+                    $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
+                    $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
+                    $scope.customer_response    = res.data.progress.customer_response; 
+                });
+            }
+            $scope.getWizradStatus();
             // $scope.CostEstimate  = {
             //     "Components" : [ 
             //         {
@@ -514,6 +535,7 @@
                     data:{ data : $scope.CostEstimate},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
+                    $scope.getWizradStatus();
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 }); 
@@ -555,6 +577,17 @@
         });
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
              
+            $scope.getWizradStatus = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                    $scope.project_summary_status       = res.data.progress.status;
+                    $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
+                    $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
+                    $scope.proposal_sharing_status      = res.data.progress.proposal_sharing_status;
+                    $scope.customer_response    = res.data.progress.customer_response; 
+                });
+            }
+            $scope.getWizradStatus();
+
             $scope.getProposesalData = function () {
                 $http.get('{{ route("index.proposal-sharing",$data->id) }}').then(function (res) {
                     $scope.proposal  = res.data;
@@ -565,6 +598,7 @@
             $scope.sendMailToCustomer = function (proposal_id) { 
                 $http.post(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/send-mail/'+proposal_id).then(function (response) {
                     Message('success',response.data.msg);
+                    $scope.getWizradStatus();
                     $scope.getProposesalData();
                 });
             }
@@ -572,6 +606,7 @@
             $scope.sendMailToCustomerVersion = function (proposal_id , Vid) { 
                 $http.post(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/send-mail/'+proposal_id+'/version/'+Vid).then(function (response) {
                     Message('success',response.data.msg);
+                    $scope.getWizradStatus();
                     $scope.getProposesalData();
                 });
             }

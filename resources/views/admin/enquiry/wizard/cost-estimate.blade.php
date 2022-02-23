@@ -17,7 +17,7 @@
                     <td>@{{ enquiry.enquiry.enquiry_date }}</td>
                     <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
                     <td>@{{ enquiry.project_type  }}</td>
-                    <td class="text-center"><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
+                    <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
                 </tr>
             </tbody>
         </table> 

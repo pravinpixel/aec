@@ -47,7 +47,8 @@
                     <a href="#/cost-estimation" class="btn btn-light border shadow-sm">Prev</a>
                 </div>
                 <div>
-                    <a href="#/proposal-sharing" class="btn btn-primary">Next</a>
+                    @{{ proposal_sharing_status }}dd
+                    <a href="#/proposal-sharing" class="btn btn-primary" style="pointer-events: @{{ proposal_sharing_status ==  0 ? 'none' :'unset' }}">Next</a>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@
                             <th>Type Of Project</th>
                         </tr>
                         <tr>
-                            <td>@{{ enqData.enquiry_number }}</td>
+                            <td class="text-start" style="text-align:left !important">@{{ enqData.enquiry_number }}</td>
                             <td>@{{ enqData.customer_info.full_name }} </td>
                             <td>@{{ enqData.customer_info.company_name }}</td>
                             <td>@{{ enqData.customer_info.mobile_no }}</td>
@@ -98,36 +98,31 @@
                                             <td>:</td>
                                             <td>@{{ project_info.country }}</td>
                                         </tr> 
-                                        <tr ng-if="project_info.project_typproject_info.project_type_name != null">
+                                        <tr ng-if="project_info.project_type.project_type_name != null">
                                             <td><b>Type of Project</b></td>
                                             <td>:</td>
-                                            <td>@{{ project_info.project_typproject_info.project_type_name }}</td>
+                                            <td>@{{ project_info.project_type.project_type_name }}</td>
                                         </tr> 
-                                        <tr ng-if="project_info.building_typproject_info.building_type_name != null">
+                                        <tr ng-if="project_info.building_type.building_type_name != null">
                                             <td><b>Type of Building</b></td>
                                             <td>:</td>
-                                            <td>@{{ project_info.building_typproject_info.building_type_name }}</td>
+                                            <td>@{{ project_info.building_type.building_type_name }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.no_of_building != null">
                                             <td><b>Number of Buildings</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.no_of_building }}</td>
                                         </tr> 
-                                        <tr ng-if="project_info.delivery_typproject_info.delivery_type_name != null">
+                                        <tr ng-if="project_info.delivery_type.delivery_type_name != null">
                                             <td><b>Type of Delivery</b></td>
                                             <td>:</td>
-                                            <td>@{{ project_info.delivery_typproject_info.delivery_type_name }}</td>
+                                            <td>@{{ project_info.delivery_type.delivery_type_name }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.project_delivery_date != null">
                                             <td><b>Delivered Date</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.project_delivery_date }}</td>
-                                        </tr> 
-                                        <tr ng-if="project_info.state != null">
-                                            <td><b>State</b></td>
-                                            <td>:</td>
-                                            <td>@{{ project_info.state }}</td>
-                                        </tr> 
+                                        </tr>  
                                         <tr ng-if="project_info.customerremarks != null">
                                             <td><b>Remarks</b></td>
                                             <td>:</td>

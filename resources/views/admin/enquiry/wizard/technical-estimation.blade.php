@@ -22,7 +22,7 @@
                                     <td>@{{ enquiry.enquiry.enquiry_date }}</td>
                                     <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
                                     <td>@{{ enquiry.enquiry.project_type.project_type_name  }}</td>
-                                    <td class="text-center"><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
+                                    <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
                                 </tr>
                             </tbody>
                         </table> 
@@ -172,6 +172,7 @@
             </div>
         </div>
         <div class="card-footer">
+            <button ng-click="testingPar()">testingPar</button>
             <div class="d-flex justify-content-between">
                 <div>
                     <a href="#/project-summary" class="btn btn-light border shadow-sm">Prev</a>
