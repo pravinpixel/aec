@@ -371,8 +371,8 @@ class EnquiryController extends Controller
         DB::beginTransaction();
         try {
             $latest_enquiry_number = GlobalService::customerEnquiryNumber();
-            $enquiry_number = GlobalService::EnquiryNumber();
-            if($request->enquiry_number != $latest_enquiry_number) {
+            $enquiry_number = GlobalService::enquiryNumber();
+            if($request->enquiry_number != $enquiry_number) {
                 return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
             }
             $email      =   $request->email;
