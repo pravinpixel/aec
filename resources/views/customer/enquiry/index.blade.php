@@ -244,7 +244,8 @@
                     }
                 }).then(function successCallback(response) {
                     document.getElementById(`${type}__commentsForm`).reset();
-                    // $scope.GetCommentsData();
+                    getEnquiryCommentsCountById($scope.enquiry_id);
+                    getEnquiryActiveCommentsCountById($scope.enquiry_id);
                     Message('success',response.data.msg);
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);

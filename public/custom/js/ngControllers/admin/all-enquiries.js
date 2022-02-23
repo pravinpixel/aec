@@ -250,6 +250,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             document.getElementById(`${type}__commentsForm`).reset();
             // $scope.GetCommentsData();
             Message('success',response.data.msg);
+            getEnquiryCommentsCountById($scope.enquiry_id);
+            getEnquiryActiveCommentsCountById($scope.enquiry_id);
         }, function errorCallback(response) {
             Message('danger',response.data.errors);
         });

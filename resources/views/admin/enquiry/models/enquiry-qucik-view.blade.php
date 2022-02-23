@@ -247,7 +247,7 @@
                         <div class="accordion-header custom m-0 position-relative" id="building_component_header">
                             <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#building_component" aria-expanded="false" aria-controls="building_component">
                                 
-                                <span ng-class="{chat_active: enquiry_active_comments.building_component > 0 }">Building Components</span> 
+                                <span ng-class="{chat_active: enquiry_active_comments.building_components > 0}">Building Components</span> 
 
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -320,12 +320,12 @@
                                         </tbody>                     
                                     </table> 
                                 </div> 
-                                <form id="building_component__commentsForm" ng-submit="sendComments('building_component','Admin')" class="input-group mt-3">
+                                <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
                                     <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_component" ng-click="showCommentsToggle('viewConversations', 'building_component', 'Building Components')">
+                                    <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_components" ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div> 
@@ -360,11 +360,11 @@
                                     </table>
                                 </div> 
                                 <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
-                                    <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                    <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
                                 <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_component" ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
+                                    <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_components" ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
                                 </div> 

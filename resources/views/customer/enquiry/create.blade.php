@@ -811,6 +811,27 @@
                     console.log('get enquiry error');
             });
 
+            getEnquiryCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    $scope.enquiry_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            getEnquiryActiveCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/active-comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    $scope.enquiry_active_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
 
             // Comments start   
             $scope.sendComments  = function(type, created_by) { 
@@ -829,7 +850,8 @@
                     }
                 }).then(function successCallback(response) {
                     document.getElementById(`${type}__commentsForm`).reset();
-                    // $scope.GetCommentsData();
+                    getEnquiryCommentsCountById(enquiry_id);
+                    getEnquiryActiveCommentsCountById(enquiry_id);
                     Message('success',response.data.msg);
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
@@ -846,6 +868,8 @@
                             $scope.commentsData = response.data.chatHistory; 
                             $scope.chatType     = response.data.chatType;  
                             $('#viewConversations-modal').modal('show');
+                            getEnquiryCommentsCountById(enquiry_id);
+                            getEnquiryActiveCommentsCountById(enquiry_id);
                         });
                         break;
                     default:
@@ -891,7 +915,8 @@
                     $scope.ifc_model_uploads = res.data.ifc_model_uploads;
                     $scope.building_components = res.data.building_components;
                     $scope.additional_infos = res.data.additional_infos;
-                     
+                    $scope.enquiry_active_comments = res.data.enquiry_active_comments;
+                    $scope.enquiry_comments = res.data.enquiry_comments;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });

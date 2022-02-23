@@ -4,7 +4,7 @@
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
                     <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
-                        Project Information
+                        <span ng-class="{chat_active: enquiry_active_comments.project_information > 0 }">Project Information</span> 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                         <i data-bs-toggle="collapse" 
@@ -108,7 +108,7 @@
                             </div>
                         </form>
                         <div class="text-end pt-2">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'project_information', 'Project Information')">
+                            <a class="text-primary p-0 btn"  ng-show="enquiry_comments.project_information" ng-click="showCommentsToggle('viewConversations', 'project_information', 'Project Information')">
                                 <i class="mdi mdi-eye"></i>  Previous chat history
                             </a>
                         </div>
@@ -121,7 +121,7 @@
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="selected_service_header">
                     <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#selected_service" aria-expanded="false" aria-controls="selected_service">
-                        Selected Services
+                        <span ng-class="{chat_active: enquiry_active_comments.service > 0 }">Selected Services</span> 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                         <i data-bs-toggle="collapse" 
@@ -142,12 +142,12 @@
                                 </ul>
                             </li>
                         </ul>  
-                        <form id="selected_service__commentsForm" class="input-group mt-3">
-                            <input required type="text" ng-model="selected_service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" ng-click="sendComments('selected_service','Customer')"><i class="fa fa-send"></i></button>
+                        <form id="service__commentsForm" class="input-group mt-3">
+                            <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <button class="btn btn-primary rounded-pill" ng-click="sendComments('service','Customer')"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'selected_service', 'Selected Services')">
+                            <a class="text-primary p-0 btn" ng-show="enquiry_comments.service" ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
                                 <i class="fa fa-eye"></i>  Previous chat history
                             </a>
                         </div>
@@ -158,20 +158,20 @@
 
         {{-- IFC Models & Uploaded Documents --}}
             <fieldset class="accordion-item">
-                <div class="accordion-header custom m-0 position-relative" id="IFC_Models_Upload_Docs_header">
-                    <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#IFC_Models_Upload_Docs" aria-expanded="false" aria-controls="IFC_Models_Upload_Docs">
-                        IFC Models & Uploaded Documents
+                <div class="accordion-header custom m-0 position-relative" id="ifc_model_header">
+                    <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#ifc_model" aria-expanded="false" aria-controls="ifc_model">
+                        <span ng-class="{chat_active: enquiry_active_comments.ifc_model > 0 }">IFC Models & Uploaded Documents</span> 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                         <i data-bs-toggle="collapse" 
-                        href="#IFC_Models_Upload_Docs" 
+                        href="#ifc_model" 
                         aria-expanded="false" 
-                        aria-controls="IFC_Models_Upload_Docs" 
+                        aria-controls="ifc_model" 
                         class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed ">
                         </i>
                     </div>
                 </div>
-                <div id="IFC_Models_Upload_Docs" class="accordion-collapse collapse " aria-labelledby="IFC_Models_Upload_Docs_header" >
+                <div id="ifc_model" class="accordion-collapse collapse " aria-labelledby="ifc_model_header" >
                     <div class="accordion-body"> 
                         <table class="table custom table-hover">
                             <thead>
@@ -200,12 +200,12 @@
                                 </tbody>
                             </thead>
                         </table>
-                        <form id="IFC_Models_Upload_Docs__commentsForm" ng-submit="sendComments('IFC_Models_Upload_Docs','Customer')" class="input-group mt-3">
-                            <input required type="text" ng-model="IFC_Models_Upload_Docs__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                        <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Customer')" class="input-group mt-3">
+                            <input required type="text" ng-model="ifc_model__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'IFC_Models_Upload_Docs', 'IFC Models & Uploaded Documents')">
+                            <a class="text-primary p-0 btn"  ng-show="enquiry_comments.ifc_model" ng-click="showCommentsToggle('viewConversations', 'ifc_model', 'IFC Models & Uploaded Documents')">
                                 <i class="fa fa-eye"></i>  Previous chat history
                             </a>
                         </div>
@@ -218,7 +218,7 @@
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="building_components_header">
                     <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#building_components" aria-expanded="false" aria-controls="building_components">
-                        Building Components
+                        <span ng-class="{chat_active: enquiry_active_comments.building_components > 0 }">Building Components</span>
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                         <i data-bs-toggle="collapse" 
@@ -290,12 +290,12 @@
                                 </tbody>                     
                             </table> 
                         </div> 
-                        <form id="building_components__commentsForm" class="input-group mt-3">
-                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                        <form id="building_component__commentsForm" class="input-group mt-3">
+                            <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_components','Customer')" ><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
+                            <a class="text-primary p-0 btn" ng-show="enquiry_comments.building_components"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                 <i class="fa fa-eye"></i>  Previous chat history
                             </a>
                         </div> 
@@ -326,12 +326,12 @@
                                 </tbody>
                             </thead>
                         </table>
-                       <form id="building_component__commentsForm" class="input-group mt-3">
-                            <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_component','Customer')" ><i class="fa fa-send"></i></button>
+                       <form id="building_components__commentsForm" class="input-group mt-3">
+                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_components','Customer')" ><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'building_component', 'Building Components')">
+                            <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_components" ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                 <i class="fa fa-eye"></i>  Previous chat history
                             </a>
                         </div> 
@@ -348,7 +348,7 @@
                             href="#add_info" 
                             aria-expanded="false" 
                             aria-controls="add_info" > 
-                        Additional Info
+                            <span ng-class="{chat_active: enquiry_active_comments.add_info > 0 }">Additional Info</span> 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                         <i data-bs-toggle="collapse" 
@@ -366,7 +366,7 @@
                             <button class="btn btn-primary rounded-pill" ng-click="sendComments('add_info','Customer')"><i class="fa fa-send"></i></button>
                         </form>
                         <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
+                            <a class="text-primary p-0 btn" ng-show="enquiry_comments.add_info" ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
                                 <i class="fa fa-eye"></i>  Previous chat history
                             </a>
                         </div>

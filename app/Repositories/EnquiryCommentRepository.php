@@ -46,6 +46,7 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
 
     public function getCommentsCountByType($id)
     {
+
         return $this->model->select("type", DB::raw("count(*) as comments_count"))
                                 ->where('enquiry_id', $id)
                                 ->groupBy('type')
@@ -55,24 +56,31 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
 
     public function getActiveCommentsCountByType($id)
     {
+        list($seenBy, $created_by) = $this->getUser();
         return  $this->model->select("type", DB::raw("count(*) as comments_count"))
-                                ->where(['enquiry_id' => $id, 'status' => 0])
+                                ->where(['enquiry_id' => $id, 'status' => 0, 'created_by' => $created_by])
                                 ->groupBy('type')
                                 ->get();
     }
 
     public function updateStatus($ids, $type, $status = 1)
     {
+        list($seenBy, $created_by) = $this->getUser();
+        return $this->model->whereIn('id', $ids)
+                            ->where('created_by', $created_by)
+                            ->update(['status' => $status,  'seen_by' => $seenBy]);
+    }
+
+    public function getUser()
+    {
         if(!empty(Customer()->id)){
             $seenBy = Customer()->id ;
-            $type = 'Admin';
+            $created_by = 'Admin';
         } else {
             $seenBy =  Admin()->id;
-            $type = 'Customer';
+            $created_by = 'Customer';
         }
-        return $this->model->whereIn('id', $ids)
-                            ->where('created_by', $type)
-                            ->update(['status' => $status,  'seen_by' => $seenBy]);
+        return [$seenBy, $created_by];
     }
 
 }
