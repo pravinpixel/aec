@@ -571,7 +571,7 @@ class EnquiryController extends Controller
                 $enquiryComments = $commentCount == 0 ? '' : $commentCount;
                 return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
                     <b>'. $dataDb->enquiry_number .'</b>
-                    <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'.$enquiryComments.' </span> 
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$enquiryComments.' </span> 
                 </button>';
             })
             ->addColumn('projectType', function($dataDb){
@@ -637,7 +637,7 @@ class EnquiryController extends Controller
                 $enquiryComments = $commentCount == 0 ? '' : $commentCount;
                 return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
                     <b>'. $dataDb->enquiry_number .'</b>
-                    <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'.$enquiryComments.' </span> 
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$enquiryComments.' </span> 
                 </button>';
             })
             ->addColumn('projectType', function($dataDb){
@@ -704,7 +704,7 @@ class EnquiryController extends Controller
                 $enquiryComments = $commentCount == 0 ? '' : $commentCount;
                 return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
                     <b>'. $dataDb->enquiry_number .'</b>
-                    <span class="badge badge-primary-lighten btn btn-sm btn-light border shadow-sm" >'.$enquiryComments.' </span> 
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$enquiryComments.' </span> 
                 </button>';
             })
             ->addColumn('projectType', function($dataDb){
