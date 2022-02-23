@@ -82,8 +82,8 @@
             </li> 
  
 
-            <li class="side-nav-item ">
-                <a href="#" class="side-nav-link">
+            <li class="side-nav-item {{ Route::is("projects") ? "menuitem-active" : ""}}">
+                <a href="{{ route('projects') }}" class="side-nav-link">
                     <i class="fa fa-layer-group" aria-hidden="true"></i>
                     <span> Projects </span>
                 </a> 

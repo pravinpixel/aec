@@ -23,6 +23,7 @@
                         @if (Route::is('admin.employeeEdit')) Edit Employee @endif 
                         @if (Route::is('admin-documentary-view')) Document @endif 
                         @if (Route::is('admin.add-documentary')) Document Library @endif
+                        @if (Route::is('projects'))  Project Creation @endif                
                     </li>
                     @if (Route::is('view-enquiry')) 
                         <li class="breadcrumb-item">
@@ -51,7 +52,7 @@
                 @if (Route::is('admin.employeeEdit')) Edit Employee @endif
                 @if (Route::is('admin-documentary-view')) Document @endif
                 @if (Route::is('admin.add-documentary'))  Document Library @endif
-                
+                @if (Route::is('projects'))  Project Creation @endif                
             </h4>
         </div>
     </div>

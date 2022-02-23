@@ -7,6 +7,7 @@ include 'customer.php';
 include 'enquiry.php';
 include 'bim.php';
 include 'autodesk.php';
+include 'project.php';
 
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -112,7 +113,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
  
 });
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
-
 
     Route::get('getEmployeeId', [EmployeeController::class, 'getEmployeeId'])->name('getEmployeeId');
     Route::post('add-employee', [EmployeeController::class, 'addEmployee'])->name('add-employee');
