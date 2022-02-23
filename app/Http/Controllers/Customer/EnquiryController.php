@@ -163,6 +163,7 @@ class EnquiryController extends Controller
                 if(!empty($mandatoryDocs)) {
                     return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
                 }
+                $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
                 return response(['status' => true, 'msg' => '', 'data' => '']);
             } else  if($type == "ifc_link") {
                 return $this->storeIfcLink($request, $enquiry);
@@ -229,7 +230,6 @@ class EnquiryController extends Controller
         $documents =  $this->documentTypeRepo->findBySlug($view_type);
         $additionalData = ['date'=> now(), 'file_name' => $link, 'client_file_name' => $link, 'file_type' => 'link' , 'status' => 'In progress'];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
-          $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
         return $enquiry->id;
     }
 
@@ -257,7 +257,6 @@ class EnquiryController extends Controller
         $documents          =   $this->documentTypeRepo->findBySlug($view_type);
         $additionalData     =   ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name,'file_type' => $extension , 'status' => 'In progress'];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
-        $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
         $autoDesk = new  AutodeskForgeController(new  AutoDeskRepository);
         $autoDesk->uploadfile($path, $enquiry, $request);
         return $enquiry->id;
@@ -302,6 +301,7 @@ class EnquiryController extends Controller
                 if(!empty($mandatoryDocs)) {
                     return response(['status' => false, 'msg' => '', 'data' => $mandatoryDocs]);
                 }
+                $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'ifc_model_upload');
                 return response(['status' => true, 'msg' => '', 'data' => '']);
             } else  if($type == "ifc_link") {
                 return $this->storeIfcLink($request, $enquiry);

@@ -1090,6 +1090,7 @@
                        });
                     } else  {
                         $location.path('/building-component');
+                        Message('success',`IFC Models added successfully`);
                     }
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
