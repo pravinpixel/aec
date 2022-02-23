@@ -171,8 +171,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <button ng-click="testingPar()">testingPar</button>
+        <div class="card-footer"> 
             <div class="d-flex justify-content-between">
                 <div>
                     <a href="#/project-summary" class="btn btn-light border shadow-sm">Prev</a>
