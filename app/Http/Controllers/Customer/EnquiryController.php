@@ -568,11 +568,13 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
-                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
-                return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
-                    <b>'. $dataDb->enquiry_number .'</b>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$enquiryComments.' </span> 
-                </button>';
+                $data = '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                    <b>'. $dataDb->enquiry_number .'</b>';
+                if($commentCount != 0){
+                    $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$commentCount.' </span>'; 
+                }
+                $data .= '</button>';
+                return $data;
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
@@ -634,11 +636,13 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
-                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
-                return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
-                    <b>'. $dataDb->enquiry_number .'</b>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$enquiryComments.' </span> 
-                </button>';
+                $data = '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                    <b>'. $dataDb->enquiry_number .'</b>';
+                if($commentCount != 0){
+                    $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$commentCount.' </span>'; 
+                }
+                $data .= '</button>';
+                return $data;
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
@@ -701,11 +705,13 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
-                $enquiryComments = $commentCount == 0 ? '' : $commentCount;
-                return '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
-                    <b>'. $dataDb->enquiry_number .'</b>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$enquiryComments.' </span> 
-                </button>';
+                $data = '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                    <b>'. $dataDb->enquiry_number .'</b>';
+                if($commentCount != 0){
+                    $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$commentCount.' </span>'; 
+                }
+                $data .= '</button>';
+                return $data;
             })
             ->addColumn('projectType', function($dataDb){
                 return $dataDb->projectType->project_type_name ?? '';
