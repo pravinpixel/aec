@@ -41,7 +41,7 @@
                 <div class="card border">
                     <div class="card-body py-0"> 
                         <div id="rootwizard">
-                            <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
+                            {{-- <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
                                 <li class="time-bar"></li>
                                 <li class="nav-item Project_Info">
                                     <a href="#/project-summary" style="min-height: 40px;" class="timeline-step">
@@ -93,7 +93,7 @@
                                         <p class="h5  mts-2">Customer Response</p>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                             <!-- Wizz Contents -->
                             <div class="tab-content">
                                 <div ng-view></div>
@@ -930,6 +930,16 @@
             };
         }]);
         app.controller('Customer_response', function ($scope, $http, API_URL) {
+            $scope.getWizradStatus = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                    $scope.project_summary_status       = res.data.progress.status;
+                    $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
+                    $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
+                    $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
+                    $scope.customer_response    = res.data.progress.customer_response; 
+                });
+            }
+            $scope.getWizradStatus();
             // enquiry.show-comments
             $scope.GetCommentsData = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
