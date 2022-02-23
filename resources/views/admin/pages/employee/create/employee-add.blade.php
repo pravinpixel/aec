@@ -48,7 +48,7 @@
                 <label class="form-label" >Job Role<sup class="text-danger">*</sup></label>
                 <select class="form-select"  ng-model="FormData.epm_job_role" name="epm_job_role"    ng-required="true">
                     <option value="" selected>Select</option>  
-                    <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role" ng-selected="FormData.epm_job_role">@{{ emp.role_name }}</option>  
+                    <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role" ng-selected="FormData.epm_job_role == emp.role_name">@{{ emp.role_name }}</option>  
                 </select>
                 <div class="error-msg">
                     <small class="error-text" ng-if="frm.epm_job_role.$touched && frm.epm_job_role.$error.required">This field is required!</small> 
@@ -58,10 +58,15 @@
         <div class="col-md-6 mb-1">
             <div class="my-2">
                 <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
-                <input type="text" onkeypress="return isNumber(event)" class="form-control epm_number" name="epm_number" id="epm_number" ng-model="FormData.epm_number" ng-maxlength="12"  ng-minlength="8" placeholder="Type Here..."  ng-required="true">
+                <!-- <input type="text" class="form-control" max="12"  onkeypress="return isNumber(event)" name="epm_number" id="epm_number" ng-model="FormData.epm_number" ng-maxlength="12"  ng-minlength="8" placeholder="Type Here..."  ng-required="true"> -->
+                
+
+                <input  type="text" ng-pattern="/^\d{8}$|^\d{12}$/"  onkeypress="return isNumber(event)" max="12"   maxlength="12" ng-model="FormData.epm_number" class="form-control" id="epm_number" placeholder="Type Here..." name="epm_number"  value="" ng-required="true" />
+                
+                
                 <div class="error-msg">
-                    <small class="error-text" ng-if="frm.epm_number.$error.minlength">Minlength 8 digit only</small>
-                    <small class="error-text" ng-if="frm.epm_number.$error.maxlength">Maxlength 12 digit only</small>
+                    <small class="error-text" ng-if="frm.epm_number.$error.minlength"> 8 or 12 Number digit only</small>
+                    <!-- <small class="error-text" ng-if="frm.epm_number.$error.maxlength">Maxlength 12 digit only</small> -->
                 </div>
             </div>
         </div>
@@ -85,12 +90,12 @@
         <div class="col-md-6 mb-1">
         </div>
         <div class="col-md-6 mb-1"  ng-show="PreviewImage.length">
-            <img ng-src="@{{PreviewImage}}" id="PreviewImage" class="form-control" ng-model="FormData.image" style="height:100px;width:100px" />
+            <img ng-src="@{{PreviewImage}}" id="PreviewImage" ng-show="!@{{PreviewImage}}" class="form-control" ng-model="FormData.image" style="height:100px;width:100px" />
         </div> 
         <button  class="btn btn-outline-secondary font-weight-bold px-3" style="width: 150px;" ng-click="deleteImage()"><i class="fa fa-ban "></i>Image</button>
     </div> 
     <div class="text-end mt-3">
-        <button type="reset" class="btn btn-light font-weight-bold px-3" ng-click="image_reset()"><i class="fa fa-ban "></i> Cancel</button>
+        <button class="btn btn-light font-weight-bold px-3" ng-click="image_reset()"><i class="fa fa-ban "></i> Cancel</button>
         <button ng-click="submit(modalstate, id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Next </button>
     </div>
 </form>

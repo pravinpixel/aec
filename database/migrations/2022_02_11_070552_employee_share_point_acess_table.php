@@ -16,12 +16,12 @@ class EmployeeSharePointAcessTable extends Migration
         Schema::create('employee_share_point_acesses', function (Blueprint $table) {
             $table->id();
             $table->string('employee_id')->nullable();
-            $table->string('administration_status')->nullable();
-            $table->string('business_status')->nullable();
-            $table->string('sales_status')->nullable();
-            $table->string('projects_status')->nullable();
-            $table->string('engineering_status')->nullable();
-            $table->string('subsea_projects_status')->nullable();
+            $table->string('administration_status')->default(0);
+            $table->string('business_status')->default(0);
+            $table->string('sales_status')->default(0);
+            $table->string('projects_status')->default(0);
+            $table->string('engineering_status')->default(0);
+            $table->string('subsea_projects_status')->default(0);
             $table->boolean('is_active')->default(1);
             $table->softDeletes();
             $table->timestamps();

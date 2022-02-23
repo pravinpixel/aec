@@ -183,7 +183,7 @@
                                 method: 'GET',
                                 url: url,
                                 }).then(function (response) {
-                                    alert(JSON.stringify(response))
+                                    // alert(JSON.stringify(response))
                                     $scope.callEmployee ();
                                     
                                 }, function (error) {

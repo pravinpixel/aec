@@ -12,7 +12,7 @@
                 <div class="card-body p-0">
                    <div id="rootwizard"  ng-controller="EmployeeWizard">
                         <div class="w-100 bg-light">
-                            <ul class="nav nav-pills nav-justified col-lg-8 mx-auto form-wizard-header bg-light ">
+                            <ul class="nav nav-pills nav-justified col-lg-8 mx-auto form-wizard-header bg-light " >
                                 <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
                                     <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" >
                                         <div class="timeline-content">
@@ -23,7 +23,7 @@
                                         </div> 
                                     </a>
                                 </li>
-                                <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"  style="pointer-events:none" >
+                                <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"   style="pointer-events:none" >
                                     <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary share-point">
@@ -121,7 +121,20 @@
                     
                 });
             }
-        
+        $scope.image_reset = function()
+        {
+            $scope.PreviewImage = {};
+            // $scope.resetForm();
+            $scope.FormData.epm_fname = "";
+            $scope.FormData.epm_lname = "";
+            $scope.FormData.epm_username = "";
+            $scope.FormData.epm_password = "";
+            $scope.FormData.epm_job_role = ""; 
+            $scope.FormData.epm_number = "";
+            $scope.FormData.epm_email = "";
+            $scope.FormData.file = "";
+           
+        }
         $scope.deleteImage = function()
         {
             $scope.PreviewImage = {};

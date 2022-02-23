@@ -48,19 +48,20 @@
                                     <td class="text-center">@{{ m.first_Name }}</td>
                                     <td class="text-center">@{{ m.email }}</td>
                                     <td class="text-center">
-                                        <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
+                                        <div id="tooltip-container2">
                                             <span  ng-if="m.share_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
                                             <span  ng-if="m.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span> 
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
+                                        <div id="tooltip-container2">
                                             <span  ng-if="m.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
                                             <span  ng-if="m.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <div id="tooltip-container2" ng-click="toggle('edit', m.customer_id)">
+                                    <!-- ng-click="toggle('edit', m.customer_id)" -->
+                                        <div id="tooltip-container2" >
                                             <span  ng-if="m.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
                                             <span  ng-if="m.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
                                         </div>
@@ -193,13 +194,7 @@
                                                             </div>          
                                                         </td>                    
                                                     </tr>
-                                                    <td class="text-center">@{{ employee.folder_name }}</td>
-                                                    <td class="text-center">
-                                                        <div>
-                                                            <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
-                                                            <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
-                                                        </div>          
-                                                    </td>
+                                                   
                                                 </tr>
                                             </tbody>
                                         </table> 
@@ -223,7 +218,7 @@
                                 </div>
                                 <div id="Client_Listing_header" class="accordion-collapse collapse show" aria-labelledby="Client_Listing" >
                                     <div class="accordion-body">  
-                                        <table  dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+                                        <!-- <table  dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">S.No</th>
@@ -245,7 +240,7 @@
                                                 </tr>
                                                 
                                             </tbody>
-                                        </table> 
+                                        </table>  -->
                                     </div> 
                                 </div>
                             </fieldset> 
@@ -280,16 +275,12 @@
                     window.location.href = route+'admin/employeeEdit/'+id;
                 }
 
-                $scope.getEmployeeDetail = function(id) {    
-                              
-                    
-                    // alert(id)     
+                $scope.getEmployeeDetail = function(id) {        
                     $http({
                         method: 'GET',
                         url: API_URL + "admin/get-employee-detail/" + id
                     }).then(function (response) {
                         // alert(JSON.stringify(response.data.employeeDetail))
-                       
                         $scope.employeeDetail = response.data.employeeDetail;
                         $scope.employeeFolderStatus = response.data.employeeFolderStatus;
                         $scope.sharePointFolder = response.data.sharePointAccess;
@@ -431,32 +422,22 @@
 			    }
 
                 $scope.employeeMail = function (id) {
-                    // alert(id)
-
                     $http({
                         method: 'GET',
                         url: API_URL + "admin/employee-mail/" + id
                     }).then(function (response) {
                         Message('success',response.data.msg);
                         // alert(JSON.stringify(response))
-                        // $scope.employee_module_role = response.data.data;		
-                        // $scope.employee_module.epm_id = response.data.data.emp_id.id;
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
                     });
                     
                 }
-
-
-
-
-
-
                     
 			    //show modal form
 			    $scope.toggle = function (modalstate, id) {
-                    alert()
+                  
 			        $scope.modalstate = modalstate;
 			        $scope.module = null;
 			
@@ -467,6 +448,7 @@
                             $('#right-modal-progress').modal('show');
 			                break;
 			            case 'edit':
+                          
 			                $scope.form_title = "Edit an Update";
                             $scope.form_color = "success";
 			                $scope.id = id;

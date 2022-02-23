@@ -75,8 +75,14 @@ class EmployeeController extends Controller
             $store_image = $request->epm_id.'/'.$image; 
             $module->image = $store_image;
         }
+        else{
+            $module->image = "no_image.jpg";
+        }
         $res = $module->save();
         $id = $module->id;
+        $data = new EmployeeSharePointAcess();
+        $data->employee_id = $id;
+        $data->save();
        $valueId = session(['id'=>$id]);
    
         if($res) {
@@ -115,6 +121,7 @@ class EmployeeController extends Controller
             
             // $module->image = $image;
         }
+      
 
 
         $module->update();
@@ -372,16 +379,15 @@ class EmployeeController extends Controller
     }
     public function getEmployeeDetail($id)
     {
+        // return 1;
 
         $data['employeeDetail']=Employee::where('id',$id)->first();
         $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
         $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
         foreach( $data['employeeFolderStatus'] as $key=>$val)
         {
-      
             foreach($data['sharePointAccess'] as $shareKey=>$sharVal)
             {
-          
                 if($key == $sharVal['data_name'])
                 {
                     $sharVal['is_active'] = $val;
@@ -389,7 +395,7 @@ class EmployeeController extends Controller
             }
         }
      
-        return $data;
+        return  $data;
 
 
     }
@@ -523,10 +529,25 @@ class EmployeeController extends Controller
     {
         $id = session('id');
         $data = Employee::where('id',$id)->first();
-        $data->image="";
+        $data->image="no_image.jpg";
         $data->save();
         return 1;
 
+    }
+    public function sharePointAccessStatus($id)
+    {
+        $module = Employee::find($id);
+
+        if( empty( $module ) ) {
+            return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
+        } 
+        $module->status = !$module->status;
+        $res = $module->save();
+
+        if( $res ) {
+            return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $module], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
     
     
