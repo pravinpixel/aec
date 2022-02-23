@@ -346,7 +346,7 @@ class EnquiryController extends Controller
     }
 
     public function getEnquiryNumber(Request $request)    { 
-        return  GlobalService::customerEnquiryNumber();  
+        return  GlobalService::enquiryNumber();
     }
     
     /**
