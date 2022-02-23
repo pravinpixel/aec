@@ -449,7 +449,7 @@
                 
             </div>
             <div>
-                <a href="#/technical-estimation" class="btn btn-primary">Next</a>
+                <a href="#/technical-estimation" class="btn btn-primary" ng-show="project_summary_status == 'Active'">Next</a>
             </div>
         </div>
     </div>
