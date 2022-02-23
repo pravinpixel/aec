@@ -65,7 +65,7 @@
                                 </div> 
                                 <div>
                                     <div class="btn-group border shadow-sm mb-2">
-                                        <select class="form-select border-0 f" name="template" ng-change="getTemplate(fIndex, w.WallId, Secindex,template)" ng-model="template">
+                                        <select style="width: unset !important;" class="form-select border-0 f" name="template" ng-change="getTemplate(fIndex, w.WallId, Secindex,template)" ng-model="template">
                                             <option value="">@lang('customer-enquiry.select_template')</option>
                                             <option ng-repeat="Template in Templates" value="@{{ Template.id }}">
                                                 @{{ Template.template_name }}
