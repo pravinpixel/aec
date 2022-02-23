@@ -137,6 +137,8 @@
         }
         $scope.deleteImage = function()
         {
+            
+            $scope.deleteImageBtn = false;
             $scope.PreviewImage = {};
             $('#file').val('');
                 url= API_URL + "admin/delete-employeeImage",
@@ -144,6 +146,7 @@
                     method: 'GET',
                     url: url,
                     }).then(function (response) {
+                        $scope.deleteImageBtn = false;
                         // alert(JSON.stringify(response))
                         
                     }, function (error) {
@@ -155,12 +158,13 @@
             $scope.FormData = {};
 
             $scope.setActive = function(){
+                
                 url= API_URL + "admin/get-employeeData/",
                 $http({
                 method: 'GET',
                 url: url,
                 }).then(function (response) {
-                    // alert(JSON.stringify(response.data.data))
+                    // alert(JSON.stringify(response.data.data.image))
                     if(response.data.data)
                     {
                         $scope.employeeRowId =   response.data.data.id;
@@ -173,7 +177,11 @@
                         $scope.FormData.epm_number = response.data.data.number;
                         $scope.FormData.epm_email = response.data.data.email;
                         $scope.FormData.image = response.data.data.image;
-                        $scope.PreviewImage = "{{ asset('/public/uploads/employees/image') }}/"+response.data.data.image;
+                        if(response.data.data.image != "no_image.jpg")
+                        {
+                            $scope.deleteImageBtn = true;
+                        }
+                        $scope.PreviewImage = "{{ asset('/public/assets/images') }}/"+response.data.data.image;
                     }
                     else{
                         $location.path('/');
@@ -184,16 +192,22 @@
                 });
             }
             $scope.setActive();
+
+            $scope.deleteImageBtn = false;
                 // ******* image show ******
                 $scope.SelectFile = function (e) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         $scope.PreviewImage = e.target.result;
+                        $scope.deleteImageBtn = true;
+
                         $scope.$apply();
                     };
     
                     reader.readAsDataURL(e.target.files[0]);
                 };
+
+
 
                 $scope.phoneNumber =/^\+?\d{3}[- ]?\d{3}[- ]?\d{6}$/;
             

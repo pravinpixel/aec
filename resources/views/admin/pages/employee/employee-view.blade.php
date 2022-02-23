@@ -115,7 +115,7 @@
                                             <td>@{{ employeeDetail.job_role }}</td>
                                             <td>@{{ employeeDetail.number }}</td>
                                             <td>@{{ employeeDetail.email }} </td>
-                                            <td> <img src="{{ asset('/public/uploads/employees/image/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
+                                            <td> <img src="{{ asset('/public/assets/images/') }}/@{{employeeDetail.image}}" alt="no image" width="60px"></td>
                                         </tr>
                                     </table>
                                 </div>

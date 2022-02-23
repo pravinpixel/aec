@@ -71,7 +71,7 @@ class EmployeeController extends Controller
             $image = $request->file('file')->getClientOriginalName();
             // $request->file('file')->move(public_path('image'),$image);
 
-            $request->file('file')->move(public_path('uploads/employees/image/'.$request->epm_id),$image);
+            $request->file('file')->move(public_path('assets/images/'.$request->epm_id),$image);
             $store_image = $request->epm_id.'/'.$image; 
             $module->image = $store_image;
         }
@@ -92,12 +92,12 @@ class EmployeeController extends Controller
         
     }
 
-    public function updateEmployee($id,EmployeeUpdateRequest $request)
+    public function updateEmployee($ids,EmployeeUpdateRequest $request)
     {
 
         $id = session('id');
        
-        $module = Employee::find($id);
+        $module = Employee::find($ids);
         if( empty( $module ) ) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
@@ -115,7 +115,7 @@ class EmployeeController extends Controller
         {
             $image = $request->file('file')->getClientOriginalName();
             // $request->file('file')->move(public_path('image'),$image);
-            $request->file('file')->move(public_path('uploads/employees/image/'.$request->epm_id),$image);
+            $request->file('file')->move(public_path('assets/images/'.$request->epm_id),$image);
             $store_image = $request->epm_id.'/'.$image; 
             $module->image = $store_image;
             
@@ -521,7 +521,7 @@ class EmployeeController extends Controller
         $id = session('id');
         $data = Employee::where('id',$id)->first();
         if( !empty( $data ) ) {
-            return response(['status' => true,'active'=>"active", 'data' => $data], Response::HTTP_OK);
+            return response(['status' => true,'active'=>"active", 'data' => $data,'deleteImageBtn'=>false], Response::HTTP_OK);
         } 
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }

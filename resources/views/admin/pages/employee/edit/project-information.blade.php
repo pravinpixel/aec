@@ -61,20 +61,28 @@
                 <input type="email" class="form-control" name="epm_email" id="epm_email"  ng-value="EmpData.email"  placeholder="Type Here..."  ng-required="true">
             </div>
         </div>
-        <div class="col-md-1">
-            <div class="mb-3"> 
-                <img src="{{ asset('/public/uploads/employees/image/') }}/@{{EmpData.image}}" ng-show="!@{{EmpData.image}}" width="60px">
-            </div>
-            
-        </div>
-        <div class="col-md-4">
+       
+
+        <div class="col-md-6  mb-1">
             <div class="mb-3">
                 <label class="form-label" >Select Image<sup class="text-danger"></sup></label>
                 <input type="file" class="form-control" id="file"  name="file" /> 
             </div>
         </div>
-        <button  class="btn btn-outline-secondary font-weight-bold px-3" style="width: 150px;" ng-click="deleteImage()"><i class="fa fa-ban "></i>Image</button>
+        
+        <div class="col-md-6  mb-1">
+            
+        </div>
+        <div class="col-md-6  mb-1">
+            <div class="mb-3"> 
+                <img src="{{ asset('/public/assets/images/') }}/@{{EmpData.image}}" ng-show="!@{{EmpData.image}}" width="60px">
+            </div>
+        </div>
+
+        <button  class="btn btn-outline-secondary font-weight-bold px-3" ng-show="deleteImageBtn" style="width: 150px;" ng-click="deleteImage()"><i class="fa fa-ban "></i>Image</button>
     </div>
+
+
     <div class="text-end mt-3">
         <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
         <button  ng-click="update(modalstate, id);"  class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Next </button>

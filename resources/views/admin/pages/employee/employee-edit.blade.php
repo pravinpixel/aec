@@ -73,7 +73,16 @@
 @endsection
      
 @push('custom-scripts')
-   
+   <style>
+       input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+   </style>
  
     <script>
          app.config(function($routeProvider) {
@@ -165,10 +174,12 @@
         app.controller('EditProfileInfo', function ($scope, $http, $rootScope,$location, API_URL){
 
                 // ******* image show ******
+                $scope.deleteImageBtn = false;
                 $scope.SelectFile = function (e) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         $scope.PreviewImage = e.target.result;
+                        $scope.deleteImageBtn = true;  
                         $scope.$apply();
                     };
     
@@ -176,6 +187,7 @@
                 };
                 $scope.deleteImage = function()
                     {
+                        $scope.deleteImageBtn = false;
                         $scope.PreviewImage = {};
                         $('#file').val('');
                             url= API_URL + "admin/delete-employeeImage",
@@ -184,6 +196,7 @@
                                 url: url,
                                 }).then(function (response) {
                                     // alert(JSON.stringify(response))
+                                    $scope.deleteImageBtn = false;
                                     $scope.callEmployee ();
                                     
                                 }, function (error) {
@@ -204,7 +217,10 @@
                     }).then(function(res){
                 //    alert(JSON.stringify(res.data.data))
                         $scope.EmpData = res.data.data;
-
+                        if(res.data.data.image != "no_image.jpg")
+                        {
+                            $scope.deleteImageBtn = true;
+                        }
                         console.log($scope.EmpData);
                         
                     });
@@ -270,6 +286,7 @@
 
                 var url = API_URL + "admin/";
                     // var id = key;
+                    // alert()
                     console.log(id)
 			        if (id) {
                     

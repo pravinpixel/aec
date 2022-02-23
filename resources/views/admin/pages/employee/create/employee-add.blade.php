@@ -92,7 +92,7 @@
         <div class="col-md-6 mb-1"  ng-show="PreviewImage.length">
             <img ng-src="@{{PreviewImage}}" id="PreviewImage" ng-show="!@{{PreviewImage}}" class="form-control" ng-model="FormData.image" style="height:100px;width:100px" />
         </div> 
-        <button  class="btn btn-outline-secondary font-weight-bold px-3" style="width: 150px;" ng-click="deleteImage()"><i class="fa fa-ban "></i>Image</button>
+        <button  class="btn btn-outline-secondary font-weight-bold px-3" ng-show="deleteImageBtn" style="width: 150px;" ng-click="deleteImage()"><i class="fa fa-ban "></i>Image</button>
     </div> 
     <div class="text-end mt-3">
         <button class="btn btn-light font-weight-bold px-3" ng-click="image_reset()"><i class="fa fa-ban "></i> Cancel</button>
