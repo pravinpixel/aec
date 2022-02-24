@@ -223,8 +223,8 @@
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status       = res.data.progress.proposal_sharing_status;
                     $scope.customer_response       = res.data.progress.customer_response;
-                    $scope.enquiry_comments     = response.data.enquiry_comments;
-                    $scope.enquiry_active_comments = response.data.enquiry_active_comments;
+                    $scope.enquiry_comments     = res.data.enquiry_comments;
+                    $scope.enquiry_active_comments = res.data.enquiry_active_comments;
                   
                     $scope.enquiry_number       = res.data.enquiry_number;
                     $scope.enquiry_comments     = res.data.enquiry_comments;
