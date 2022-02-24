@@ -1,12 +1,12 @@
 <form class="needs-validations"  novalidate name="frm"  >
+    <input type="hidden" ng-model="employeeRowId" value="@{{ employeeRowId }}" >
     <div class="row m-0">
-        <div class="col-md-12 ">
-            <div class="m">                                             
+        <div class="col-md-6 mb-1">
+            <div class="my-2">                                             
                 <label class="form-label"  >Employee Id  <sup class="text-danger">*</sup></label>
                 <input ng-disabled="true" type="text" ng-model="myWelcome"  class="form-control"  ng-required="true">
             </div>
         </div> 
-        <input type="hidden" ng-model="employeeRowId" value="@{{ employeeRowId }}" >
         <div class="col-md-6 mb-1">
             <div class="my-2">
                 <label class="form-label" >First name<sup class="text-danger">*</sup></label>
@@ -78,21 +78,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mb-1">
-            <div class="my-2">
-                <label class="form-label" >Select Image<sup class="text-danger"></sup></label>
-                <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" accept="image/png, image/jpeg, image/jpg" id="file" ng-model="FormData.file" name="file"  />
-                <div class="error-msg">
-                    <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
-                </div>  
+        <div class="col-md-6">
+            <div class="cardx">
+                <div class="">
+                    <label for="file" class="form-label" >Select Image<sup class="text-danger"></sup></label>
+                    <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" accept="image/png, image/jpeg, image/jpg" id="file" ng-model="FormData.file" name="file"  />
+                    <div class="error-msg">
+                        <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
+                    </div>
+                </div>
+                <div class="card-body" ng-show="PreviewImage.length">
+                    <div class="position-relative">
+                        <img ng-src="@{{PreviewImage}}" id="PreviewImage" ng-show="!@{{PreviewImage}}" width="100px" ng-model="FormData.image"/>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" ng-show="deleteImageBtn" ng-click="deleteImage()">
+                            <i class="fa fa-times"></i>
+                        </span>
+                    </div> 
+                </div>
             </div>
-        </div>
-        <div class="col-md-6 mb-1">
-        </div>
-        <div class="col-md-6 mb-1"  ng-show="PreviewImage.length">
-            <img ng-src="@{{PreviewImage}}" id="PreviewImage" ng-show="!@{{PreviewImage}}" class="form-control" ng-model="FormData.image" style="height:100px;width:100px" />
         </div> 
-        <button  class="btn btn-outline-secondary font-weight-bold px-3" ng-show="deleteImageBtn" style="width: 150px;" ng-click="deleteImage()"><i class="fa fa-ban "></i>Image</button>
     </div> 
     <div class="text-end mt-3">
         <button class="btn btn-light font-weight-bold px-3" ng-click="image_reset()"><i class="fa fa-ban "></i> Cancel</button>

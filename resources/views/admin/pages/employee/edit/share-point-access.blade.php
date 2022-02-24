@@ -10,28 +10,30 @@
     </div>
    
     <div class="card-body">
-        <table dt-options="vm.dtOptions" class="custom table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th class="text-center">S.No</th>
-                    <th class="text-center">Folder Name</th>
-                    <th class="text-center">Active</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="(index,employee) in sharePointFolder">
-                    <td class="text-center">@{{ index+1 }}</td>
-                    <td class="text-center">@{{ employee.folder_name }}</td>
-                    <td class="text-center">
-                        <div>
-                            <input type="checkbox" id="switch__@{{ index }}" ng-disabled="share_access ==0" ng-checked="employee.is_active == 1"
-                            ng-change="employee_status(share_access,employee.status,employee.data_name)" ng-model="employee.status" data-switch="primary"/>
-                            <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
-                        </div>          
-                    </td>                    
-                </tr>
-            </tbody>
-        </table>
+        <div class="col-lg-8 mx-auto">
+            <table dt-options="vm.dtOptions" class="custom table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">S.No</th>
+                        <th class="text-center">Folder Name</th>
+                        <th class="text-center">Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(index,employee) in sharePointFolder">
+                        <td class="text-center">@{{ index+1 }}</td>
+                        <td class="text-center">@{{ employee.folder_name }}</td>
+                        <td class="text-center">
+                            <div>
+                                <input type="checkbox" id="switch__@{{ index }}" ng-disabled="share_access ==0" ng-checked="employee.is_active == 1"
+                                ng-change="employee_status(share_access,employee.status,employee.data_name)" ng-model="employee.status" data-switch="primary"/>
+                                <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
+                            </div>          
+                        </td>                    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="text-end mt-3">
         <button class="btn btn-light" ng-click="edit_share_point_prev()" style="float: left;" >Prev</button>

@@ -1,15 +1,11 @@
 <form class="needs-validations"  novalidate name="frm" id="frm"  >
     <input ng-model="FormData.key" name="key" ng-value="EmpData.id" value="EmpData.id"  ng-model="FormData.id" id="key" type="hidden" >
     <div class="row m-0">
-        <div class="col-md-12 p-0">
-            <div class="row m-0">
-                <div class="col">
-                    <div class="mb-3">                                             
-                        <label class="form-label"  >Enquiry ID <sup class="text-danger">*</sup></label>
-                        <input ng-disabled="true" type="text" name="epm_id" id="epm_id" ng-value="EmpData.employee_id" class="form-control">
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-6 p-0"> 
+            <div class="mb-3">                                             
+                <label class="form-label"  >Enquiry ID <sup class="text-danger">*</sup></label>
+                <input ng-disabled="true" type="text" name="epm_id" id="epm_id" ng-value="EmpData.employee_id" class="form-control">
+            </div> 
         </div> 
         <div class="col-md-6">
             <div class="mb-3">
@@ -60,29 +56,28 @@
                 <label class="form-label" >Email Id<sup class="text-danger">*</sup></label>
                 <input type="email" class="form-control" name="epm_email" id="epm_email"  ng-value="EmpData.email"  placeholder="Type Here..."  ng-required="true">
             </div>
-        </div>
-       
-
-        <div class="col-md-6  mb-1">
-            <div class="mb-3">
-                <label class="form-label" >Select Image<sup class="text-danger"></sup></label>
-                <input type="file" class="form-control" id="file"  name="file" /> 
+        </div>  
+        <div class="col-md-6">
+            <div class="cardx">
+                <div class="">
+                    <label for="file" class="form-label" >Select Image<sup class="text-danger"></sup></label>
+                    <input type="file" class="form-control" id="file"  name="file" /> 
+                    <div class="error-msg">
+                        <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
+                    </div>
+                </div>
+                <div class="card-body ps-0">
+                    <div class="position-relative" style="width: 100px"> 
+                        <img src="{{ asset('/public/assets/images/') }}/@{{EmpData.image}}" ng-show="!@{{EmpData.image}}" class="w-100">
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" ng-show="deleteImageBtn" ng-click="deleteImage()">
+                            <i class="fa fa-times"></i>
+                        </span>
+                    </div> 
+                </div>
             </div>
         </div>
-        
-        <div class="col-md-6  mb-1">
-            
-        </div>
-        <div class="col-md-6  mb-1">
-            <div class="mb-3"> 
-                <img src="{{ asset('/public/assets/images/') }}/@{{EmpData.image}}" ng-show="!@{{EmpData.image}}" width="60px">
-            </div>
-        </div>
-
-        <button  class="btn btn-outline-secondary font-weight-bold px-3" ng-show="deleteImageBtn" style="width: 150px;" ng-click="deleteImage()"><i class="fa fa-ban "></i>Image</button>
     </div>
-
-
     <div class="text-end mt-3">
         <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
         <button  ng-click="update(modalstate, id);"  class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Next </button>
