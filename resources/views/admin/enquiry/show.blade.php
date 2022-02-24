@@ -344,7 +344,7 @@
 
                 $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                     $scope.building_building.push(response.data.building_component[0]);
-                    console.log(response.data.building_component)
+                   
                 });
                     
             } 
@@ -371,36 +371,46 @@
            
             $scope.updateTechnicalEstimate  = function() {
                 
-
                 const validator     = $scope.building_building;
-          
+                let BuildingValidator   = false;
                 let validatorName       = false;
                 let validatorSqfeet     = false;
                 
                 validator.forEach(element => {
+                    if(element.building_component_number.length == 0) {
+                        BuildingValidator  = true;
+                    }
                     for (let i = 0; i < element.building_component_number.length; i++) {
-                        if(element.building_component_number[i].name == null) {
+                        if(element.building_component_number[i].name == null || element.building_component_number[i].name == '') {
                             validatorName  = true;
                         }
-                        if(element.building_component_number[i].sqfeet == null) {
+                        if(element.building_component_number[i].sqfeet == null || element.building_component_number[i].sqfeet == '') {
                             validatorSqfeet  = true;
                         }
                     }
                 });
                 
                 if(validatorName)  {
-                    Message('warning',"Plese fill the component name !");
+                    Message('warning',"Component name is required!");
                     validatorName  = false;
                     return false;
                 }
                 if(validatorSqfeet)  {
-                    Message('warning',"Plese fill the Sqfeet Estimate !");
+                    Message('warning',"Sqfeet Estimate is required!");
                     validatorSqfeet  = false;
                     return false;
                 }
- 
+                if(BuildingValidator) {
+                    Message('danger',"You Can't Update Empty Building !");
+                    $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
+                        $scope.enquiry              =   response.data; 
+                        $scope.enquiry_id           =   response.data.enquiry_id; 
+                        $scope.building_building    =   response.data.building_component; 
+                    });
+                    return false;
+                }
                 
-                if($scope.building_building.length == 0 || $scope.building_building[0].building_component_number.length == 0) {
+                if($scope.building_building.length == 0 || $scope.building_building[0].building_component_number.length == 0 || $scope.building_building == []) {
                     Message('danger',"You Can't Update Empty Building !");
                     $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                         $scope.enquiry              =   response.data; 
