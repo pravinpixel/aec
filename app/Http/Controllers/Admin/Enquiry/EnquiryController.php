@@ -339,7 +339,7 @@ class EnquiryController extends Controller
         if ($id) {
             
             $data   =   Enquiry::with('customer')->find($id);
-            return view('admin.enquiry.show',compact('data',  $data ));   
+            return view('admin.enquiry.show',compact('data','id'));   
         }else {
             return redirect()->route('admin.enquiry-list');
         }

@@ -193,7 +193,29 @@
             });
         });  
         app.controller('WizzardCtrl', function ($scope, $http, API_URL,$rootScope) {
-       
+            $scope.enquiry_id = '{{ $id }}';
+            getEnquiryCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    $scope.enquiry_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            getEnquiryActiveCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/active-comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    $scope.enquiry_active_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+    
             $scope.GetCommentsData = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -201,7 +223,8 @@
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status       = res.data.progress.proposal_sharing_status;
                     $scope.customer_response       = res.data.progress.customer_response;
-
+                    $scope.enquiry_comments     = response.data.enquiry_comments;
+                    $scope.enquiry_active_comments = response.data.enquiry_active_comments;
                   
                     $scope.enquiry_number       = res.data.enquiry_number;
                     $scope.enquiry_comments     = res.data.enquiry_comments;
@@ -224,6 +247,8 @@
                             $scope.commentsData = response.data.chatHistory; 
                             $scope.chatType     = response.data.chatType;  
                             $('#viewConversations-modal').modal('show');
+                            getEnquiryCommentsCountById($scope.enquiry_id);
+                            getEnquiryActiveCommentsCountById($scope.enquiry_id);
                         });
                         break;
                     default:
@@ -276,6 +301,8 @@
                     document.getElementById(`${type}__commentsForm`).reset();
                     // $scope.GetCommentsData();
                     Message('success',response.data.msg);
+                    getEnquiryCommentsCountById($scope.enquiry_id);
+                    getEnquiryActiveCommentsCountById($scope.enquiry_id);
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
