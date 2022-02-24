@@ -159,14 +159,14 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'Vid'           =>  Crypt::encryptString(0),
         ];  
 
-        Mail::to('prabhukannan1210@gmail.com')->send(new \App\Mail\ProposalMail($details));
+        Mail::to($user->customer->email)->send(new \App\Mail\ProposalMail($details));
         $result->status =  'sent';
         $result->mail_send_date =  now();
         $result->save();
         $enquiry = Enquiry::find($id);
         $enquiry->customer_response = 0;
         $enquiry->save(); 
-        return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
+        return response(['status' => true, 'msg' => trans('Mail send Success!')], Response::HTTP_CREATED);
     }
     public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
     { 
@@ -179,7 +179,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'email'         =>  $user->customer->email,
             'EnqId'         =>  Crypt::encryptString($id),
             'proposal_id'   =>  Crypt::encryptString($proposal_id),
-            'Vid'     =>  Crypt::encryptString($Vid),
+            'Vid'           =>  Crypt::encryptString($Vid),
         ];  
         Mail::to($user->customer->email)->send(new \App\Mail\ProposalVersions($details));
         $result->status =  'sent';
@@ -188,20 +188,21 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry = Enquiry::find($id);
         $enquiry->customer_response = 0;
         $enquiry->save(); 
-        return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
+        return response(['status' => true, 'msg' => trans('Mail send Success!')], Response::HTTP_CREATED);
     }
     public function aprovalProPosalMail($id, $proposal_id, $Vid, $request)
     { 
+        
         $enquiry_id     =   Crypt::decryptString($id);
         $proposal_id    =   Crypt::decryptString($proposal_id);
-        $Vid            =   Crypt::decryptString($Vid);
-
-        if($Vid == 0) {
+        $Version_id     =   Crypt::decryptString($Vid);
+       
+        if($Version_id == 0) {
             $result = MailTemplate::where("enquirie_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->first();
-            return view('admin.enquiry.approvals.proposal', compact('result' ,$result));
+            return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id'));
         }else {
-            $result = PropoalVersions::where("enquiry_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
-            return view('admin.enquiry.approvals.proposal', compact('result' ,$result));
+            $result = PropoalVersions::where("enquiry_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Version_id)->first();
+            return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id'));
         } 
     }
 

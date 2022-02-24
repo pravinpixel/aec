@@ -20,8 +20,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="text-center">
-                        <a class="btn btn-danger px-4 py-2 me-2" href="{{ route('customer-approval',['id'=>$result->enquirie_id, 'type' => 0]) }}"><i class="fa fa-times-circle"></i> Deny</a>
-                        <a class="btn btn-success px-4 py-2" href="{{ route('customer-approval',['id'=>$result->enquirie_id, 'type' => 1]) }}"><i class="fa fa-check-circle"></i>Approve</a>
+                        <a class="btn btn-danger px-4 py-2 me-2" href="{{ route('customer-approval',['id'=>$enquiry_id, 'type' => 0]) }}"><i class="fa fa-times-circle"></i> Deny</a>
+                        <a class="btn btn-success px-4 py-2" href="{{ route('customer-approval',['id'=>$enquiry_id, 'type' => 1]) }}"><i class="fa fa-check-circle"></i>Approve</a>
                     </div>
                 </div>
             </div>

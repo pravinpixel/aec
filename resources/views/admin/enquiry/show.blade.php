@@ -370,8 +370,37 @@
             }
            
             $scope.updateTechnicalEstimate  = function() {
-                console.log($scope.building_building)
-                if($scope.building_building.length == 0) {
+                
+
+                const validator     = $scope.building_building;
+          
+                let validatorName       = false;
+                let validatorSqfeet     = false;
+                
+                validator.forEach(element => {
+                    for (let i = 0; i < element.building_component_number.length; i++) {
+                        if(element.building_component_number[i].name == null) {
+                            validatorName  = true;
+                        }
+                        if(element.building_component_number[i].sqfeet == null) {
+                            validatorSqfeet  = true;
+                        }
+                    }
+                });
+                
+                if(validatorName)  {
+                    Message('warning',"Plese fill the component name !");
+                    validatorName  = false;
+                    return false;
+                }
+                if(validatorSqfeet)  {
+                    Message('warning',"Plese fill the Sqfeet Estimate !");
+                    validatorSqfeet  = false;
+                    return false;
+                }
+ 
+                
+                if($scope.building_building.length == 0 || $scope.building_building[0].building_component_number.length == 0) {
                     Message('danger',"You Can't Update Empty Building !");
                     $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                         $scope.enquiry              =   response.data; 
@@ -379,7 +408,7 @@
                         $scope.building_building    =   response.data.building_component; 
                     });
                     return false;
-                }                 
+                } 
                 $http({
                     method: "POST",
                     url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} , 

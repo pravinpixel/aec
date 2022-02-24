@@ -60,13 +60,14 @@ class ProposalController extends Controller
     }
     public function sendMailVersion(Request $request, $id, $proposal_id, $Vid)
     {
-        return  $enquiry    =   $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $proposal_id, $request , $Vid);
+        return  $enquiry    =   $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid);
     } 
     public function approve(Request $request, $id, $proposal_id, $Vid)
     { 
+       
         return  $enquiry    =   $this->customerEnquiryRepo->aprovalProPosalMail($id, $proposal_id, $Vid, $request); 
     }
-    public function customerApproval(Request $request, $id, $type=null)
+    public function customerApproval(Request $request, $id, $type)
     {
         if($type == 0) {
             $enquiry = Enquiry::find($id);
