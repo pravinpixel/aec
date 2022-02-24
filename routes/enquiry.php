@@ -7,11 +7,10 @@ use App\Http\Controllers\Admin\Enquiry\ProposalController;
 
 
 
-Route::prefix('admin')->group(function () {
 
-    Route::get('/enquiry-list', function () {
-        return view('admin.enquiry.index');
-    })->name('admin.enquiry-list'); 
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){ 
+
+    Route::get('/enquiry-list', [EnquiryController::class, 'index'])->name('admin.enquiry-list'); 
 
     Route::get('/create-enquiries', function () {
         return view("admin.enquiry.create");

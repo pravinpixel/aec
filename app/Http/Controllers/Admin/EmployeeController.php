@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Role;
 use App\Models\Employee;
 use App\Models\Admin\SharePointAccess;
 use App\Models\Admin\EmployeeSharePointAcess;
@@ -20,8 +19,11 @@ use App\Http\Requests\RoleUpdateRequest;
 use App\Models\MasterCalculation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Illuminate\Support\Facades\Session;
+use Spatie\Permission\Models\Role;
+
 class EmployeeController extends Controller
 {
     public function employee_control_view()
@@ -37,9 +39,9 @@ class EmployeeController extends Controller
     public function employeeRole()
     {
         # code...
-        $data = Role::select('id','role_name')->where('status','=','1')->get();
+        $data = Role::select('id','name')->get();
         
-        
+    
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
@@ -56,7 +58,7 @@ class EmployeeController extends Controller
         $module->first_Name = $request->epm_fname;
         $module->last_Name = $request->epm_lname;
         $module->user_name = $request->epm_username;
-        $module->password = $request->epm_password;
+        $module->password = Hash::make($request->epm_password);
         $module->job_role = $request->epm_job_role;
         $module->number = $request->number;
         $module->email = $request->email;
@@ -149,7 +151,7 @@ class EmployeeController extends Controller
 
         }else{
 
-            $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
+            $data = Employee::select('id')->orderBy('created_at', 'desc')->first();
             if( !empty( $data ) ) {
                 return response(['status' => true, 'data' => $data], Response::HTTP_OK);
             }

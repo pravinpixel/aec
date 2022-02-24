@@ -1,13 +1,20 @@
 <?php
 
+
 namespace App\Models;
 
+use Cartalyst\Sentinel\Users\EloquentUser;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-class Employee extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+
+class Employee extends Authenticatable
 {
-    use HasFactory,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable;
+    use HasRoles;
     protected $table = 'employee';
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -26,4 +33,27 @@ class Employee extends Model
         'access',        
     ];
     
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+      
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function setFullNameAttribute()
+    {
+        $this->attributes['full_name'] = "{$this->attributes['first_name']} {$this->attributes['last_name']}";
+    }
 }

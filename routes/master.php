@@ -14,8 +14,7 @@ use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\OutputTypeController;
 use App\Http\Controllers\Customer\Master\CustomerLayerController;
 use App\Http\Controllers\Admin\Master\RoleController;
-
-
+use App\Http\Controllers\Admin\PermissionController;
 
 Route::get('module-file',  function() {
     return view('admin.setting-tabs.Module.module');
@@ -52,6 +51,8 @@ Route::get('output-file',  function() {
 Route::get('service-file',  function() {
     return view('admin.setting-tabs.Service.service');
 })->name('service-file');
+
+Route::get('permission-file',  [PermissionController::class,'permission'])->name('permission-file');
 
 
 

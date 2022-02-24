@@ -37,7 +37,7 @@
             <div class="mb-3">
                 <label class="form-label" >Job Role<sup class="text-danger">*</sup></label>
                 <select aria-label="ngSelected demo" ng-model="EmpData.job_role" name="epm_job_role" id="epm_job_role"  class="form-select">
-                    <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.role_name }}</option>
+                    <option value="@{{ emp.id }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.name }}</option>
                 </select>
             </div>
         </div>

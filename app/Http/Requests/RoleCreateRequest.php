@@ -25,7 +25,7 @@ class RoleCreateRequest extends FormRequest
     {
         return [
            
-            'role_name' =>  ['required', Rule::unique('roles')->ignore($this->id)->whereNull('deleted_at')],
+            'name' =>  ['required', Rule::unique('roles')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

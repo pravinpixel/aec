@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Laracasts\Flash\Flash;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 
 class EnquiryController extends Controller
@@ -72,32 +74,11 @@ class EnquiryController extends Controller
      */
     public function index(Request $req)
     {
-
-        if ($req->all()) {
-
-            $req_from   =   isset($req->from_date) ?  $req->from_date : Carbon::now()->subDays(6);
-            $from       =   Carbon::parse($req_from)->startOfDay();
-            $req_to     =   isset($req->to_date) ?  $req->to_date : Carbon::now();
-            $to         =   Carbon::parse($req_to)->startOfDay();
-            $status     =   $req->status;
-            $type       =   $req->type;
-            
-            $data       =   Enquiry::whereBetween('created_at', [$from, $to])
-                                        ->where('status','Active')
-                                        ->when($type,  function($q) use($type) {
-                                            $q->where('type', $type);
-                                        })
-                                    ->latest()
-                                    ->get();
-            return $data;
-        }  
-        
-        return Enquiry::with('customer')   
-                        ->where('status','Active')                     
-                        ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
-                        ->select("enquiries.*")
-                        ->get();
-        
+        // if(userHasAccess('view-enquiry')) {
+            return view('admin.enquiry.index');
+        // }
+        // Flash::error(__('global.access_denied'));
+        // return redirect(route('admin-dashboard'));
     }
 
     public function getUnattendedEnquiries(Request $request)

@@ -48,7 +48,7 @@
                 <label class="form-label" >Job Role<sup class="text-danger">*</sup></label>
                 <select class="form-select"  ng-model="FormData.epm_job_role" name="epm_job_role"    ng-required="true">
                     <option value="" selected>Select</option>  
-                    <option value="@{{ emp.role_name }}" ng-repeat="(index,emp) in employee_module_role" ng-selected="FormData.epm_job_role == emp.role_name">@{{ emp.role_name }}</option>  
+                    <option value="@{{ emp.id }}" ng-repeat="(index,emp) in employee_module_role" ng-selected="FormData.epm_job_role == emp.id">@{{ emp.name }}</option>  
                 </select>
                 <div class="error-msg">
                     <small class="error-text" ng-if="frm.epm_job_role.$touched && frm.epm_job_role.$error.required">This field is required!</small> 

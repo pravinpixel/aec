@@ -13,14 +13,14 @@ class RoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('role', function (Blueprint $table) {
-            $table->id();
-            $table->string('role')->nullable();
-            $table->string('status')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
-        });
+        // Schema::create('role', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('role')->nullable();
+        //     $table->string('status')->nullable();
+        //     $table->unsignedBigInteger('created_by')->nullable();
+        //     $table->softDeletes();
+        //     $table->timestamps();
+        // });
     }
 
     /**

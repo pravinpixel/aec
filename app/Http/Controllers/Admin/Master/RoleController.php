@@ -37,9 +37,9 @@ class RoleController extends Controller
     public function store(RoleCreateRequest $request): JsonResponse 
     {
         $role = $request->only([
-            "role_name","status",
+            "name","status",
         ]);
-        $slug = Str::slug($request->role_name, "_");
+        $slug = Str::slug($request->name, "_");
         $roleData = array_merge($role,['slug'=>$slug]);
 
         return response()->json(
@@ -76,9 +76,9 @@ class RoleController extends Controller
     {
         
         $role = $request->only([
-            "role_name","status",
+            "name","status",
         ]);
-        $slug = Str::slug($request->role_name, "_");
+        $slug = Str::slug($request->name, "_");
         $roleData = array_merge($role,['slug'=>$slug]);
        
         return response()->json([

@@ -184,6 +184,7 @@ return [
         App\Providers\GlobalServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class
         
 
     ],

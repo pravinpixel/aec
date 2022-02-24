@@ -82,7 +82,12 @@
                                 <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
                             </a>
-
+                            <a class="nav-link serviceTab" id="v-pills-service-tab" href="#/permission" role="tab" aria-controls="v-pills-service"
+                                aria-selected="false">
+                                <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block">Permission</span>
+                            </a>
+                            
                         </div>
                     </div> <!-- end col-->
                 
@@ -219,7 +224,9 @@
                 .when("/service", {
                     templateUrl : "{{ route('service-file')  }}"
                 })
-                
+                .when("/permission", {
+                    templateUrl : "{{ route('permission-file')  }}"
+                })
                
             });
 
@@ -1484,7 +1491,7 @@
 
                         }, function errorCallback(response) {
                             
-                            Message('danger',response.data.errors.role_name);
+                            Message('danger',response.data.errors.name);
                         });
 
                 }else {
@@ -1504,7 +1511,7 @@
 
                     }, function errorCallback(response) {
                         
-                        Message('danger',response.data.errors.role_name);
+                        Message('danger',response.data.errors.name);
                     });
                 }
                 

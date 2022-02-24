@@ -19,7 +19,7 @@
             <tbody>
                 <tr ng-repeat="(index,m) in role_module_get">
                     
-                    <td class="align-items-center">@{{ m.role_name }}</td>
+                    <td class="align-items-center">@{{ m.name }}</td>
 
                     <td>
                         <div>
@@ -56,7 +56,7 @@
                     <div class="form-group error mb-2">
                         <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Role Name</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control has-error" id="role_name" name="role_name" placeholder="Type Here.." ng-model="module_role.role_name" ng-required="true" required>
+                            <input type="text" class="form-control has-error" id="name" name="name" placeholder="Type Here.." ng-model="module_role.name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
                     </div> 

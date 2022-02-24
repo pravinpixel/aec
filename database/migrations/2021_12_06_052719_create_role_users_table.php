@@ -13,15 +13,15 @@ class CreateRoleUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_users', function (Blueprint $table) {
+        // Schema::create('role_users', function (Blueprint $table) {
            
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('role_id');
-            $table->nullableTimestamps();
-            $table->engine = 'InnoDB';
-            $table->primary(['user_id', 'role_id']);
+        //     $table->unsignedBigInteger('user_id');
+        //     $table->unsignedBigInteger('role_id');
+        //     $table->nullableTimestamps();
+        //     $table->engine = 'InnoDB';
+        //     $table->primary(['user_id', 'role_id']);
             
-        });
+        // });
     }
 
     /**
