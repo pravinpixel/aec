@@ -82,22 +82,23 @@
                             <td colspan="16" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
                         </tr>
                         <tr class="font-weight-bold ">
-                            <th rowspan="2" class="text-center " style="background: var(--primary-bg) !important">
+                            <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
                                 <span class="mb-1 font-12">Component</span>
                                 <button class="btn-sm btn font-12 btn-info shadow-0 w-100 py-0" ng-click="create()"><i class="fa fa-plus"></i> Add </button>
                             </th>
-                            <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important">Type</th>
-                            <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Sq.M</th>
+                            <th rowspan="3" class="text-center font-12" style="background: var(--primary-bg) !important">Type</th>
+                            
                             <th class="text-center font-12" style="background: var(--primary-bg) !important" >1 to 2</th>
+                            <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >m2 Gross</th>
                             <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Details</th>
                             <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Statistics</th>
                             <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">CAD/CAM</th>
                             <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Logistics</th>
                             <th colspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">Total Cost</th>
-                            <td rowspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
+                            <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
                         </tr>
                         <tr class="bg-light-primary border">
-                            <th class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
+                            <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
                             <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
                             <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
                             <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
@@ -109,25 +110,40 @@
                             <th class="text-center" style="background: var(--primary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
                             <th class="text-center" style="background: var(--primary-bg) !important"><small>Sum</small></th>  
                         </tr>
+                        <tr class="bg-light-primary border">
+                            <td class="text-center font-12 p-0"><b>@{{CostEstimate.ComponentsTotals.sqm }}</b></td>  
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Details.Sum / CostEstimate.ComponentsTotals.sqm }}</b></td> 
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Details.Sum }}</b></td>   
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Statistics.Sum / CostEstimate.ComponentsTotals.sqm }}</b></td> 
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Statistics.Sum }}</b></td> 
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.CadCam.Sum / CostEstimate.ComponentsTotals.sqm }}</b></td> 
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.CadCam.Sum }}</b></td> 
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Logistics.Sum / CostEstimate.ComponentsTotals.sqm }}</b></td> 
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Logistics.Sum }}</b></td> 
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum / CostEstimate.ComponentsTotals.sqm}}</b></td> 
+                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum }}</b></td> 
+                        </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="(index,C) in CostEstimate.Components" class="touched-td" >  
                             <td> 
                                 <select class="my-select" get-cost-estimate-data ng-model="c.building_component_name" name="building_component_name">
                                     <option value="">-- Select -- </option> 
-                                    <option value="@{{ c.id }}" ng-selected="" ng-repeat="c in cost.component">@{{ c.building_component_name }}</option>
+                                    <option value="@{{ c.id }}" ng-selected="c.id == C.Component" ng-repeat="c in cost.component">@{{ c.building_component_name }}</option>
                                 </select>
                             </td> 
                             <td style="padding: 0 !important">
                                 <select get-cost-estimate-data class="my-select" ng-model="t.type_name" ng-change="getCostEstimateData(index)" name="type_name">
                                     <option value="">-- Select ---</option> 
-                                    <option value="@{{ Ctype.id }}" ng-selected="" ng-repeat="Ctype in cost.type">@{{ Ctype.building_type_name }}</option>
+                                    <option value="@{{ Ctype.id }}" ng-selected="Ctype.id == C.Type" ng-repeat="Ctype in cost.type">@{{ Ctype.building_type_name }}</option>
                                 </select>
                             </td>
 
-                            <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control"> </td>
+                            
 
                             <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.Complexity" name="complexity" class="my-control"></td>
+
+                            <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control"> </td>
         
                             {{-- Details --}}
                             <td>
@@ -169,12 +185,12 @@
                                 <i ng-click="delete(index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
                             </td>
                         </tr>
-                        <tr class="text-white " style="background: var(--primary-bg)"> 
+                        {{-- <tr class="text-white " style="background: var(--primary-bg)"> 
                             <td colspan="2" class="text-center">
                                 <b>Total</b>
                             </td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.sqm }}</td>
                             <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.complexity }}</td>
+                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.sqm }}</td>
                             <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Details.PriceM2 }}</td>
                             <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Details.Sum }}</td>
                             <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Statistics.PriceM2 }}</td>
@@ -186,7 +202,7 @@
                             <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.TotalCost.PriceM2 }}</td>
                             <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.TotalCost.Sum }}</td>
                             <td class="text-center">-</td>
-                        </tr> 
+                        </tr>  --}}
                     </tbody>
                 </table>
             </div> 
