@@ -52,7 +52,10 @@ Route::get('service-file',  function() {
     return view('admin.setting-tabs.Service.service');
 })->name('service-file');
 
-Route::get('permission-file',  [PermissionController::class,'permission'])->name('permission-file');
+
+Route::get('permission/{id}',  [PermissionController::class,'permission'])->name('permission');
+Route::put('set-permission/{id}',  [PermissionController::class,'setPermission'])->name('setPermission');
+Route::get('get-permission/{id}',  [PermissionController::class,'getPermission'])->name('getPermission');
 
 
 

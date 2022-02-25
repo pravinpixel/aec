@@ -21,17 +21,37 @@ class PermissionSeeder extends Seeder
         //    app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
            // create permissions
-           Permission::create(['name' => 'enquiry-index']);
-           Permission::create(['name' => 'enquiry-add']);
-           Permission::create(['name' => 'enquiry-edit']);
-           Permission::create(['name' => 'enquiry-delete']);
+           Permission::create(['name' => 'enquiry_index']);
+           Permission::create(['name' => 'enquiry_add']);
+           Permission::create(['name' => 'enquiry_edit']);
+           Permission::create(['name' => 'enquiry_delete']);
+
+           Permission::create(['name' => 'project_index']);
+           Permission::create(['name' => 'project_add']);
+           Permission::create(['name' => 'project_edit']);
+           Permission::create(['name' => 'project_delete']);
+
+           Permission::create(['name' => 'task_index']);
+           Permission::create(['name' => 'task_add']);
+           Permission::create(['name' => 'task_edit']);
+           Permission::create(['name' => 'task_delete']);
+
+           Permission::create(['name' => 'contract_index']);
+           Permission::create(['name' => 'contract_add']);
+           Permission::create(['name' => 'contract_edit']);
+           Permission::create(['name' => 'contract_delete']);
+
+           Permission::create(['name' => 'employee_index']);
+           Permission::create(['name' => 'employee_add']);
+           Permission::create(['name' => 'employee_edit']);
+           Permission::create(['name' => 'employee_delete']);
    
            // create roles and assign existing permissions
            $role1 = Role::create(['name' => 'admin','status' => 1, 'slug' => 'admin']);
-           $role1->givePermissionTo('enquiry-index');
-           $role1->givePermissionTo('enquiry-add');
-           $role1->givePermissionTo('enquiry-edit');
-           $role1->givePermissionTo('enquiry-delete');
+           $role1->givePermissionTo('enquiry_index');
+           $role1->givePermissionTo('enquiry_add');
+           $role1->givePermissionTo('enquiry_edit');
+           $role1->givePermissionTo('enquiry_delete');
            // create demo users
 
            $user = Employee::find(1);

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-   
+@include('flash::message')
 
     <div class="content-page"  ng-app="Myapp">
         <div class="content" ng-controller="EnqController">

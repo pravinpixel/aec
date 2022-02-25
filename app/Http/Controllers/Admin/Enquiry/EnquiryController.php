@@ -74,11 +74,12 @@ class EnquiryController extends Controller
      */
     public function index(Request $req)
     {
-        // if(userHasAccess('view-enquiry')) {
-            return view('admin.enquiry.index');
-        // }
-        // Flash::error(__('global.access_denied'));
-        // return redirect(route('admin-dashboard'));
+        if(!userHasAccess('enquiry_index')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
+        return view('admin.enquiry.index');
+       
     }
 
     public function getUnattendedEnquiries(Request $request)
@@ -317,6 +318,10 @@ class EnquiryController extends Controller
         return $result;
     }
     public function singleIndexPage($id=null) {
+        if(!userHasAccess('enquiry_index')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         if ($id) {
             
             $data   =   Enquiry::with('customer')->find($id);
@@ -348,7 +353,10 @@ class EnquiryController extends Controller
      */
     public function store(CreateCustomerRequest $request)
     {
-         
+        if(!userHasAccess('enquiry_add')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         DB::beginTransaction();
         try {
             $latest_enquiry_number = GlobalService::customerEnquiryNumber();
@@ -411,6 +419,10 @@ class EnquiryController extends Controller
      */
     public function edit($id)
     {
+        if(!userHasAccess('enquiry_edit')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $customer = Customer::find($id)->where('is_active',1);
 
         if( empty( $customer ) ) {
@@ -452,7 +464,12 @@ class EnquiryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        //
+        
+        if(!userHasAccess('enquiry_delete')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
+    
     }
  
     public function status($id) {

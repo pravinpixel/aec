@@ -26,7 +26,7 @@
                                 <i class="mdi mdi-home-variant d-md-none d-block"></i>
                                 <span class="d-none d-md-block" ng-click="moduleGetData()">Module</span>
                             </a>
-                            <a class="nav-link roleTab" id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#/role" role="tab" aria-controls="v-pills-role"
+                            <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#/role" role="tab" aria-controls="v-pills-role"
                                 aria-selected="true">
                                 <i class="mdi mdi-home-variant d-md-none d-block"></i>
                                 <span class="d-none d-md-block" ng-click="roleGetData()">Role</span>
@@ -81,11 +81,6 @@
                                 aria-selected="false">
                                 <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
-                            </a>
-                            <a class="nav-link serviceTab" id="v-pills-service-tab" href="#/permission" role="tab" aria-controls="v-pills-service"
-                                aria-selected="false">
-                                <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block">Permission</span>
                             </a>
                             
                         </div>
@@ -157,8 +152,7 @@
 @endpush
 
 @push('custom-scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.4.3/angular-datatables.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
@@ -182,7 +176,7 @@
             
             }); 
         // menuController
-        app.config(function($routeProvider) {
+        app.config(function($routeProvider,API_URL) {
                 $routeProvider
                 .when("/", {
                     templateUrl : "{{ route('module-file')  }}"
@@ -224,11 +218,46 @@
                 .when("/service", {
                     templateUrl : "{{ route('service-file')  }}"
                 })
-                .when("/permission", {
-                    templateUrl : "{{ route('permission-file')  }}"
+                .when("/permission/:id", {
+                    templateUrl: function(params) {
+                        return API_URL +'permission/'+params.id;
+                    },
+                    controller: 'PermissionCtrl'
                 })
-               
-            });
+        });
+        
+        app.controller('PermissionCtrl', function($scope, $http, $routeParams,API_URL){
+            $scope.setPermission = (role_id) => {
+                $http({
+                    method: 'PUT',
+                    url: `${API_URL}set-permission/${role_id}`,
+                    data: $scope.permissionForm
+                }).then(function successCallback(res) {
+                    if(res.data.status == true){
+                        Message('success',res.data.msg);
+                        return false;
+                   }
+                }, function errorCallback(error) {
+                    return false;
+                });
+            }
+            getPermission = (role_id) => {
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}get-permission/${role_id}`,
+                }).then(function successCallback(res) {
+                    if(res.data.status == true){
+                        $scope.permissionForm = res.data.permission
+                        return false;
+                    } 
+                }, function errorCallback(error) {
+                    return false;
+                });
+            }
+            var role_id = $routeParams.id
+            getPermission(role_id);
+        });
+
 
         app.controller('moduleController', function ($scope, $http, API_URL) {
            
@@ -2581,31 +2610,9 @@
                 
                 $scope.getOutputDataService($http, API_URL);
                 $scope.getSelectLayerData($http, API_URL);
-                $scope.getComponentLayerData($http, API_URL);
-
+                $scope.getComponentLayerData($http, API_URL); 
             
-            
-            
-            
-            
-            
-            
-        }); 
-            
-        Message = function (type, head) {
-            $.toast({
-                heading: head,
-                icon: type,
-                showHideTransition: 'plain', 
-                allowToastClose: true,
-                hideAfter: 5000,
-                stack: 10, 
-                position: 'bootom-left',
-                textAlign: 'left', 
-                loader: true, 
-                loaderBg: '#252525',                
-            });
-        }
+        });  
     </script>
        
 @endpush

@@ -6,5 +6,10 @@ return [
     'edit'            => 'Edit',
     'delete'          => 'Delete',
     'enquiry'         => 'Enquiry',
-    'submit'          => 'Submit'
+    'submit'          => 'Submit',
+    'update'          => 'Update',
+    'project'         => 'Project',
+    'task'            => 'Task',
+    'contract'        => 'Contract',
+    'employee'        => 'Employee',
 ];
