@@ -89,7 +89,7 @@
                         </ul>
                     </div>
                     {{-- =====NG View  =====--}}
-                            <div ng-view></div>       
+                        <div ng-view></div>
                     {{-- =======NG View ==== --}}
                 </div>
             </div>

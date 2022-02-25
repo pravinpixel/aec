@@ -1,7 +1,7 @@
 <div class="card-body">   
-    <div class="row m-0">
-        <div class="col border p-2 px-3 list-group-item-action m-1 shadow rounded-pill border-primary">
-            <div class="row align-items-center">
+    <div class="row m-0 justify-content-center">
+        <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
+            <div class="row m-0 align-items-center">
                 <div class="col-md d-flex align-items-center">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3pxBW14LCWAvNVLwZOt8WD6fTVf0q2qi_29x4rX1xqeV-VIZbkVDGndQcK59_VW9tH4&usqp=CAU" width="30px" class="me-3">
                     <b>Share Point</b>
@@ -12,8 +12,8 @@
                 </div>
             </div>
         </div> 
-        <div class="col border p-2 px-3 list-group-item-action m-1 shadow rounded-pill border-primary">
-            <div class="row align-items-center">
+        <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
+            <div class="row m-0 align-items-center">
                 <div class="col-md d-flex align-items-center">
                     <img src="https://www.autodesk.com/bim-360/app/themes/bim360/assets/img/favicons/favicon.ico" width="30px" class="me-3">
                     <b>BIM 360</b>
@@ -24,8 +24,8 @@
                 </div>
             </div>
         </div>
-        <div class="col border p-2 px-3 list-group-item-action m-1 shadow rounded-pill border-primary">
-            <div class="row align-items-center">
+        <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
+            <div class="row m-0 align-items-center">
                 <div class="col-md d-flex align-items-center">
                     <img src="https://support.24sevenoffice.com/hc/article_attachments/360023571760/24so.png" width="30px" class="me-3">
                     <b>24 seven office</b>
