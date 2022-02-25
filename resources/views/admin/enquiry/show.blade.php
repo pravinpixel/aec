@@ -705,7 +705,7 @@
             $scope.ViewEditPropose = function (proposal_id) {
                 $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
                     $scope.edit_proposal  = response.data;
-                    $scope.mail_content = $scope.edit_proposal[0].documentary_content;
+                    $scope.mail_content_first = $scope.edit_proposal[0].documentary_content;
                     $scope.proposalId = $scope.edit_proposal[0].proposal_id;
                 });
                 $('#bs-Preview-modal-lg').modal('show');
@@ -756,7 +756,7 @@
             $scope.updateProposalMail = function(proposalId) {
 
                 $scope.sendCommentsData = {
-                    "mail_content"  : $scope.mail_content
+                    "mail_content"  : $("#mail_content_first_text_editor [contenteditable=true]").html()
                 }
 
                 $http({
@@ -775,14 +775,14 @@
 
             $scope.updateProposalVersionMail = function() {
 
-                $scope.sendCommentsData = {
-                    "mail_content"  : $scope.mail_content
+                $scope.sendMailDtata = {
+                    "mail_content"  : $("#mail_content_text_editor [contenteditable=true]").html()
                 }
 
                 $http({
                     method: "PUT",
                     url: API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+$scope.proposalVersionId+'/version/'+$scope.proposalVId,
-                    data: $.param($scope.sendCommentsData),
+                    data: $.param($scope.sendMailDtata),
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
@@ -794,35 +794,33 @@
             }
 
             $scope.getDocumentaryData = function() {
-            $http({
-                method: 'GET',
-                url:  "{{ route('get-documentaryData') }}" ,
-            }).then(function (response) {
-                // alert(JSON.stringify(response.data))
-                $scope.documentary_module_name = response.data;	
-                $scope.getProposesalData();
-            }, function (error) {
-                console.log(error);
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });
+                $http({
+                    method: 'GET',
+                    url:  "{{ route('get-documentaryData') }}" ,
+                }).then(function (response) {
+                    // alert(JSON.stringify(response.data))
+                    $scope.documentary_module_name = response.data;	
+                    $scope.getProposesalData();
+                }, function (error) {
+                    console.log(error);
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
             
             $scope.documentaryOneData = function() {
                 var documentId = $scope.documentary.documentary_title;
-                var enquireId ={{ $data->id ?? " " }};
-
-
-            $http({
-                method: 'GET',
-                url: "{{ route('get-documentaryOneData') }}",
-                params:{'documentId':documentId,'enquireId':enquireId},
-            }).then(function (response) {
-                // alert(JSON.stringify(response))
-                $scope.getDocumentaryData();
-            }, function (error) {
-                console.log(error);
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });
+                var enquireId = {{ $data->id ?? '' }};
+                $http({
+                    method: 'GET',
+                    url: "{{ route('get-documentaryOneData') }}",
+                    params:{'documentId':documentId,'enquireId':enquireId},
+                }).then(function (response) {
+                    // alert(JSON.stringify(response))
+                    $scope.getDocumentaryData();
+                }, function (error) {
+                    console.log(error);
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
             $scope.getDocumentaryData();
 

@@ -110,7 +110,7 @@
                                             <th>Image</th>
                                         </tr>
                                         <tr>
-                                            <td>@{{ employeeDetail.employee_id }}</td>
+                                            <td style="text-align: left !important">@{{ employeeDetail.employee_id }}</td>
                                             <td>@{{ employeeDetail.user_name }} </td>
                                             <td>@{{ employeeDetail.job_role }}</td>
                                             <td>@{{ employeeDetail.number }}</td>

@@ -118,7 +118,7 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <a ng-show="P.status == 'sent'" class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
                                                         <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
-                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">send Mail</a>
+                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Mail</a>
                                                         <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
                                                     </div>
                                                 </div>
@@ -149,7 +149,7 @@
                                                                     <div class="dropdown-menu dropdown-menu-end">
                                                                         {{-- <a ng-show="V.status == 'sent'" class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a> --}}
                                                                         <a ng-show="V.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</a>
-                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">send Mail</a>
+                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Mail</a>
                                                                         <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id , V.id)">Remove</a>
                                                                     </div>
                                                                 </div>
@@ -189,9 +189,11 @@
                 </div>
                 <div class="modal-body pt-0"  style="overflow: auto">
                     <div class="card pt-3">
-                        <div text-angular="text-angular" name="mail_content" ng-model="mail_content" ta-disabled='disabled'></div>                         
+                        <div id="mail_content_first_text_editor">
+                            <div text-angular="text-angular" name="mail_content_first" ng-model="mail_content_first" ta-disabled='disabled'></div>      
+                        </div>                       
                     </div>
-                    <input type="text" class="d-none" ng-model="mail_content">
+                   
                 </div>
                 <div class="modal-footer"> 
                     <button class="btn btn-primary" ng-click="updateProposalMail(proposalId)"><i class="fa fa-save me-2"></i>Update</button>
@@ -210,9 +212,10 @@
                 </div>
                 <div class="modal-body pt-0"  style="overflow: auto">
                     <div class="card pt-3">
-                        <div text-angular="text-angular" name="mail_content" ng-model="mail_content" ta-disabled='disabled'></div>                         
+                        <div id="mail_content_text_editor">
+                            <div text-angular="text-angular" name="mail_content" ng-model="mail_content" ta-disabled='disabled'></div>                         
+                        </div>
                     </div>
-                    <input type="text" class="d-none" ng-model="mail_content">
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" ng-click="updateProposalVersionMail()"><i class="fa fa-save me-2"></i>Update</button>
