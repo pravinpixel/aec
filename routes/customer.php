@@ -5,7 +5,7 @@ use App\Http\Controllers\Customer\EnquiryController;
 use App\Http\Controllers\Customer\DashboardController;
 use App\Http\Controllers\Customer\EnquiryTemplateController;
 use Illuminate\Support\Facades\Route;
-Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], function(){
+Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
  
     Route::get('dashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-enquiry-dashboard");
     Route::get('/enquirydashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-dashboard");
