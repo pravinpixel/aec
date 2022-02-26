@@ -603,7 +603,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'new']) .'">View</a>
-                                <a class="dropdown-item" href="'.route("customers.delete-enquiry",$dataDb->id) .'">Delete</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route("customers.delete-enquiry",$dataDb->id) .'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>
                         </div>
                     ';
@@ -673,7 +673,7 @@ class EnquiryController extends Controller
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">View</a>
                                 <a class="dropdown-item" href="#">Approve</a>
-                                <a class="dropdown-item" href="'.route('customers.move-to-cancel',[$dataDb->id]).'">Cancel Enquiry</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="Are you sure to close this enquiry" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel Enquiry</a>
                             </div>
                         </div>
                     ';
@@ -754,10 +754,8 @@ class EnquiryController extends Controller
     {
         $status = $this->customerEnquiryRepo->moveToCancel($id);
         if($status) {
-            Flash::success(__('enquiry.enquiry_move_to_cancel'));
-            return redirect(route('customers-my-enquiries'));
+            return response(['status' => true, 'msg' => __('enquiry.enquiry_move_to_cancel')]);
         }
-        Flash::error(__('global.something'));
-        return redirect(route('customers-my-enquiries'));
+        return response(['status' => false, 'msg' => __('global.something')]); 
     }
 }

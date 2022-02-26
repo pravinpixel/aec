@@ -140,7 +140,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route('view-enquiry', $dataDb->id).'">View</a>
-                                <a type="button" class="dropdown-item btn btn-primary delete-modal" data-title="Are you sure to delete this item" data-route="test-route" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route('enquiry.delete', $dataDb->id).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>
                         </div>';
             })
@@ -469,7 +469,11 @@ class EnquiryController extends Controller
             Flash::error(__('global.access_denied'));
             return redirect(route('admin-dashboard'));
         }
-    
+        $result = $this->customerEnquiryRepo->delete($id);
+        if($result){
+            return response(['status' => true,'msg' => __('global.deleted')]);
+        }
+        return response(['status' => false,'msg' => __('global.something')]);
     }
  
     public function status($id) {

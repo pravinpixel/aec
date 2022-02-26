@@ -37,7 +37,7 @@
 
         </div>
         <!-- END wrapper --> 
-
+        @include('modal.delete');
         @include('customer.includes.footer-scripts')
         @stack('custom-scripts')
        

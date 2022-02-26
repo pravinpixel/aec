@@ -278,7 +278,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function delete($id)
     {
         $enquiry = $this->enquiry->find($id);
-        return  $this->enquiry->delete();
+        return  $enquiry->delete();
     }
 
     public function deleteDocumentEnquiry($id)

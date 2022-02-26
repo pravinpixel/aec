@@ -126,7 +126,7 @@
             <div class="rightbar-overlay"></div>
         <!-- /End-bar -->
  
-
+        @include('modal.delete');
         <!--  Footer Scripts  -->
         @include('admin.includes.footer-scripts')
 

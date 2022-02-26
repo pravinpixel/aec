@@ -37,4 +37,5 @@
 <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
 <script src="{{ asset('public/custom/js/ngControllers/ngCustomerApp.js') }}"></script>
 <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
+<script src="{{ asset('public/assets/js/custom.js') }}"></script>
 {{-- Angular JS  --}}

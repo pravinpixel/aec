@@ -86,4 +86,5 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('get-unattended-enquiries', [EnquiryController::class, 'getUnattendedEnquiries'])->name('get-unattended-enquiries');
     Route::get('get-active-enquiries', [EnquiryController::class, 'getActiveEnquiries'])->name('get-active-enquiries');
     Route::get('get-cancelled-enquiries', [EnquiryController::class, 'getCancelledEnquiries'])->name('get-cancelled-enquiries');
+    Route::delete('enquiry/{id}/delete', [EnquiryController::class, 'destroy'])->name('enquiry.delete');
 });

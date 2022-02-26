@@ -24,7 +24,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'guest:customers'], functi
 
     Route::get('view-enquiry',  [EnquiryController::class, 'show'])->name('customers-view-enquiry');
 
-    Route::get('move-to-cancel/{id}',  [EnquiryController::class, 'moveToCancel'])->name('customers.move-to-cancel');
+    Route::post('move-to-cancel/{id}',  [EnquiryController::class, 'moveToCancel'])->name('customers.move-to-cancel');
 
     Route::post('store-enquiry',  [EnquiryController::class, 'store'])->name('customers.store-enquiry');     
 

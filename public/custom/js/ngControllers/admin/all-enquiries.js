@@ -379,6 +379,26 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         $scope.enquiry_number = '';
         $scope.project_type = '';
         $("#enquiry-filter-modal").modal('hide');
-      
+    
     }
+    $(document).on('submit', '#remove-form', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            method: $("#method").val(),
+            success: function(res){
+                $("#delete-confirmation-modal").modal('hide');
+                if(res.status == true){
+                    Message('success',res.msg);
+                    unattendedEnquiry.draw();
+                    activeEnquiry.draw();
+                    return false;
+                }
+            }, error: function(er){
+                Message('error',res.msg);
+                return false;
+            }
+        });
+    });
 }); 
+
