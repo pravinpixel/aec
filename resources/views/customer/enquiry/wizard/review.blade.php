@@ -4,7 +4,7 @@
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
                     <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
-                        <span class="position-relative btn py-0">Project Information <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small></span> 
+                        <span class="position-relative btn py-0">Project Information </span> 
 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -102,17 +102,6 @@
                                 </tr> 
                             </tbody>
                         </table>
-                        <form id="project_information__commentsForm" class="input-group mt-3">
-                            <div class="input-group mt-3">
-                                <input required type="text" ng-model="project_information__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                                <button class="btn btn-primary rounded-pill" ng-click="sendComments('project_information','Customer')"><i class="fa fa-send"></i></button>
-                            </div>
-                        </form>
-                        <div class="text-end pt-2">
-                            <a class="text-primary p-0 btn"  ng-show="enquiry_comments.project_information" ng-click="showCommentsToggle('viewConversations', 'project_information', 'Project Information')">
-                                <i class="mdi mdi-eye"></i>  Previous chat history
-                            </a>
-                        </div>
                     </div> 
                 </div>
             </fieldset>
@@ -122,7 +111,7 @@
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="selected_service_header">
                     <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#selected_service" aria-expanded="false" aria-controls="selected_service">
-                        <span class="position-relative btn py-0">Selected Services <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.service > 0"> @{{ enquiry_active_comments.service   }}</small></span> 
+                        <span class="position-relative btn py-0">Selected Services </span> 
                                 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
@@ -144,15 +133,6 @@
                                 </ul>
                             </li>
                         </ul>  
-                        <form id="service__commentsForm" class="input-group mt-3">
-                            <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" ng-click="sendComments('service','Customer')"><i class="fa fa-send"></i></button>
-                        </form>  
-                        <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn" ng-show="enquiry_comments.service" ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
-                                <i class="fa fa-eye"></i>  Previous chat history
-                            </a>
-                        </div>
                     </div> 
                 </div>
             </fieldset> 
@@ -162,7 +142,7 @@
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="ifc_model_header">
                     <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#ifc_model" aria-expanded="false" aria-controls="ifc_model">
-                        <span class="position-relative btn py-0">IFC Models & Uploaded Documents <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.ifc_model > 0"> @{{ enquiry_active_comments.ifc_model   }}</small></span> 
+                        <span class="position-relative btn py-0">IFC Models & Uploaded Documents </span> 
 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -203,15 +183,6 @@
                                 </tbody>
                             </thead>
                         </table>
-                        <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Customer')" class="input-group mt-3">
-                            <input required type="text" ng-model="ifc_model__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                        </form>  
-                        <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-show="enquiry_comments.ifc_model" ng-click="showCommentsToggle('viewConversations', 'ifc_model', 'IFC Models & Uploaded Documents')">
-                                <i class="fa fa-eye"></i>  Previous chat history
-                            </a>
-                        </div>
                     </div> 
                 </div>
             </fieldset>  
@@ -221,7 +192,7 @@
             <fieldset class="accordion-item">
                 <div class="accordion-header custom m-0 position-relative" id="building_components_header">
                     <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#building_components" aria-expanded="false" aria-controls="building_components">
-                        <span class="position-relative btn py-0">Building Components<small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.building_components > 0"> @{{ enquiry_active_comments.building_components   }}</small></span> 
+                        <span class="position-relative btn py-0">Building Components </span> 
 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -294,15 +265,6 @@
                                 </tbody>                     
                             </table> 
                         </div> 
-                        <form id="building_component__commentsForm" class="input-group mt-3">
-                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_components','Customer')" ><i class="fa fa-send"></i></button>
-                        </form>  
-                        <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn" ng-show="enquiry_comments.building_components"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
-                                <i class="fa fa-eye"></i>  Previous chat history
-                            </a>
-                        </div> 
                     </div> 
                 </div>
                 <div ng-show="project_info.building_component_process_type == 1" id="building_components" class="accordion-collapse collapse " aria-labelledby="building_components_header" >
@@ -330,15 +292,6 @@
                                 </tbody>
                             </thead>
                         </table>
-                       <form id="building_components__commentsForm" class="input-group mt-3">
-                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill"  ng-click="sendComments('building_components','Customer')" ><i class="fa fa-send"></i></button>
-                        </form>  
-                        <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_components" ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
-                                <i class="fa fa-eye"></i>  Previous chat history
-                            </a>
-                        </div> 
                     </div> 
                 </div>
             </fieldset>
@@ -352,7 +305,7 @@
                             href="#add_info" 
                             aria-expanded="false" 
                             aria-controls="add_info" > 
-                            <span class="position-relative btn py-0">Additional Info<small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small></span> 
+                            <span class="position-relative btn py-0">Additional Info</span> 
 
                     </div>
                     <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -366,15 +319,6 @@
                 <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" >
                     <div class="accordion-body">  
                         <div ng-bind-html="additional_infos.comments"> </div>
-                        <form id="add_info__commentsForm" class="input-group mt-3">
-                            <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                            <button class="btn btn-primary rounded-pill" ng-click="sendComments('add_info','Customer')"><i class="fa fa-send"></i></button>
-                        </form>
-                        <div class="text-end pt-3">
-                            <a class="text-primary p-0 btn" ng-show="enquiry_comments.add_info" ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
-                                <i class="fa fa-eye"></i>  Previous chat history
-                            </a>
-                        </div>
                     </div> 
                 </div>
             </fieldset> 
