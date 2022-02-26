@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\Enquiry\ProposalController;
 
 
 
-Route::group(['prefix' => 'admin'], function(){ 
+Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){ 
 
     Route::get('/enquiry-list', [EnquiryController::class, 'index'])->name('admin.enquiry-list'); 
 
@@ -17,12 +17,6 @@ Route::group(['prefix' => 'admin'], function(){
     })->name('admin.enquiry-create');
 
     Route::get('show-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
-    Route::post('add-comments', [EnquiryCommentsController::class,'store'])->name("enquiry.comments");
-    Route::get('show-comments/{id}/type/{type}', [EnquiryCommentsController::class,'show'])->name("enquiry.show-comments");
-    Route::get('comments-count/{id}', [EnquiryCommentsController::class,'getCommentsCountByType'])->name("enquiry.comments-count");
-    Route::get('active-comments-count/{id}', [EnquiryCommentsController::class,'getActiveCommentsCountByType'])->name("enquiry.active-comments-count");
-
-    Route::get('show-tech-comments/{id}/type/{type}', [EnquiryCommentsController::class,'showTechChat'])->name("enquiry.show-tech-comments");
 
 
     
@@ -78,6 +72,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('/proposal/enquiry/{id}/send-mail/{proposal_id}/version/{Vid}',[ProposalController::class,'sendMailVersion']);
  
 });
+
 Route::get('/approve/{id}/enquiry/{proposal_id}/proposal/{Vid}',[ProposalController::class,'approve'])->name('proposal-approve');
 
 Route::get('customer-approval/{id}/approval-type/{type}',[ProposalController::class,'customerApproval'])->name('customer-approval');
@@ -87,4 +82,12 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('get-active-enquiries', [EnquiryController::class, 'getActiveEnquiries'])->name('get-active-enquiries');
     Route::get('get-cancelled-enquiries', [EnquiryController::class, 'getCancelledEnquiries'])->name('get-cancelled-enquiries');
     Route::delete('enquiry/{id}/delete', [EnquiryController::class, 'destroy'])->name('enquiry.delete');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => 'common'], function(){
+    Route::post('add-comments', [EnquiryCommentsController::class,'store'])->name("enquiry.comments");
+    Route::get('show-comments/{id}/type/{type}', [EnquiryCommentsController::class,'show'])->name("enquiry.show-comments");
+    Route::get('comments-count/{id}', [EnquiryCommentsController::class,'getCommentsCountByType'])->name("enquiry.comments-count");
+    Route::get('active-comments-count/{id}', [EnquiryCommentsController::class,'getActiveCommentsCountByType'])->name("enquiry.active-comments-count");
+    Route::get('show-tech-comments/{id}/type/{type}', [EnquiryCommentsController::class,'showTechChat'])->name("enquiry.show-tech-comments");
 });
