@@ -221,7 +221,7 @@ Route::post('customers/change-password',[ AuthController::class, 'changePassword
 /**
  * admin route
  */
-
+Route::get('getversion',[EnquiryController::class,'getVersion']);
 Route::get('admin/login',[AuthController::class, 'getAdminLogin'])->name('admin.login');
 Route::post('admin/login',[AuthController::class, 'postAdminLogin'])->name('admin.login');
 Route::post('admin/logout',[AuthController::class, 'adminLogout'])->name('admin.logout');

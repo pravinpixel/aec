@@ -140,7 +140,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route('view-enquiry', $dataDb->id).'">View</a>
-                                <a class="dropdown-item" href="#">Delete</a>
+                                <a type="button" class="dropdown-item btn btn-primary delete-modal" data-title="Are you sure to delete this item" data-route="test-route" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>
                         </div>';
             })
@@ -484,4 +484,10 @@ class EnquiryController extends Controller
         }
         return response(['status' => false, 'msg' => trans('enquiry.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }  
+
+    public function getVersion()
+    {
+        phpinfo();
+        die();
+    }
 }
