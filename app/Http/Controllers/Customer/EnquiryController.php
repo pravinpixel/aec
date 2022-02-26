@@ -201,11 +201,9 @@ class EnquiryController extends Controller
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
             if($status == 'Active') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
-                Flash::success(__('global.enquiry_submitted'));
-                return true;
+                return response(['status' => true, 'msg' => 'submitted']);
             }
-            Flash::success(__('global.enquiry_saved'));
-            return true;
+            return response(['status' => true, 'msg' => 'saved']);
         }
     }
 
@@ -341,11 +339,9 @@ class EnquiryController extends Controller
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
             if($status == 'Active') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
-                Flash::success(__('global.enquiry_submitted'));
-                return true;
+                return response(['status' => true, 'msg' => 'submitted']);
             }
-            Flash::success(__('global.enquiry_saved'));
-            return true;
+            return response(['status' => true, 'msg' => 'saved']);
         }
     }
 

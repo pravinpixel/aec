@@ -792,7 +792,32 @@
                     url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'save_or_submit', data: value}
                     }).then(function successCallback(response) {
-                        return location.href = '{{ route('customers-my-enquiries') }}'
+                        if(response.msg == 'sbmitted') {
+                            Swal.fire({
+                                title: `Enquiry submitted successfully are you want to leave the page?`,
+                                showDenyButton: false,
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                location.href = '{{ route('customers-my-enquiries') }}'
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: `Enquiry saved successfully are you want to leave the page?`,
+                                showDenyButton: false,
+                                showCancelButton: true,
+                                cancelButtonText: 'No',
+                                confirmButtonText: 'Yes',
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                location.href = '{{ route('customers-my-enquiries') }}'
+                                }
+                            });
+                        }
+                        
                     }, function errorCallback(response) {
                         Message('danger', 'Something went wrong');
                     });
