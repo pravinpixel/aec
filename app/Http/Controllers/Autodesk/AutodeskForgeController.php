@@ -61,6 +61,13 @@ class AutodeskForgeController extends Controller
 			$fname               = GlobalService::getBucketFilename($documentTypeEnquiry->file_name);
 			$bucketName          = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
 			$fname               = $fname.'.'.$documentTypeEnquiry->file_type ?? '';
+			if($documentTypeEnquiry->translate_status == false ){
+				$this->autoDesk->translateFile($bucketName, $fname);
+				$documentTypeEnquiry->translate_status = true;
+				$documentTypeEnquiry->save();
+				Flash::info(__('translation process started now try again later'));
+				return redirect()->back();
+			}
 			list($urn, $accessToken1) = $this->autoDesk->viewModel($bucketName, $fname);
 			return view('forge',compact('accessToken1','urn'));
 		} catch(Exception $ex){

@@ -108,7 +108,7 @@ class AutoDeskRepository implements AutoDeskRepositoryInterface{
 		$newFileName = $request->input('fileName');
 		try {
 			$result = $apiInstance->uploadObject($bucket_key,$newFileName, $content_length, $file_content);
-			$this->translateFile($request);
+			
 			return $newFileName;
 		} catch (Exception $e) {
 			Log::error($e->getMessage());
@@ -141,7 +141,7 @@ class AutoDeskRepository implements AutoDeskRepositoryInterface{
 	
 	public function viewModel($bucketname, $fname)
 	{
-		
+	
 		$accessToken = $this->getTokenInternal();
 		$apiInstance = new ObjectsApi($accessToken);
 		$bucket_key  = $bucketname;
@@ -226,13 +226,13 @@ class AutoDeskRepository implements AutoDeskRepositoryInterface{
         }
 	}
 	
-	public function translateFile(Request $request){
+	public function translateFile($bucketName, $file_name){
         
         $accessToken = $this->getTokenInternal();
 		$apiInstance = new ObjectsApi($accessToken);
-		$bucket_key  = $request->input('bucketName');
+		$bucket_key  = $bucketName;
 		// $file         = $_FILES;
-		$fname        = $request->input('fileName');
+		$fname        = $file_name;
 		$result       = $apiInstance->getObjects($bucket_key);
 		$resultArray  = json_decode($result, true);
 		$objects      = $resultArray['items'];

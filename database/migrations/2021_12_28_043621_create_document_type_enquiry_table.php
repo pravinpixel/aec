@@ -22,6 +22,7 @@ class CreateDocumentTypeEnquiryTable extends Migration
             $table->longText('client_file_name');
             $table->string('file_type');
             $table->string('status');
+            $table->boolean('translate_status')->default(0);
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->softDeletes();
             $table->timestamps();

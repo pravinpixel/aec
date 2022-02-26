@@ -12,5 +12,6 @@ interface AutoDeskRepositoryInterface
     public function getModelFilelist(Request $request);
     public function viewModel($bucketname, $fname);
     public function checkBucketExists($bucketName);
+    public function translateFile($bucketName, $file_name);
     public function getBuckets();
 }
