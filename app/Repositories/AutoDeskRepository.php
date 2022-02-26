@@ -231,7 +231,7 @@ class AutoDeskRepository implements AutoDeskRepositoryInterface{
         $accessToken = $this->getTokenInternal();
 		$apiInstance = new ObjectsApi($accessToken);
 		$bucket_key  = $request->input('bucketName');
-		$file         = $_FILES;
+		// $file         = $_FILES;
 		$fname        = $request->input('fileName');
 		$result       = $apiInstance->getObjects($bucket_key);
 		$resultArray  = json_decode($result, true);
