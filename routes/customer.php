@@ -26,6 +26,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
 
     Route::post('move-to-cancel/{id}',  [EnquiryController::class, 'moveToCancel'])->name('customers.move-to-cancel');
 
+    Route::post('move-to-active/{id}',  [EnquiryController::class, 'moveToActive'])->name('customers.move-to-active');
+
     Route::post('store-enquiry',  [EnquiryController::class, 'store'])->name('customers.store-enquiry');     
 
     Route::match(['put', 'post'],'update-enquiry/{id}',  [EnquiryController::class, 'update'])->name('customers.update-enquiry');

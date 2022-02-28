@@ -736,9 +736,7 @@ class EnquiryController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Enquiry" data-title="'.trans('enquiry.popup_move_cancel_to_active',['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-active',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
-
-                                <a class="dropdown-item" href="#">"'.trans('enquiry.active').'"</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Enquiry" data-title="'.trans('enquiry.popup_move_cancel_to_active',['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-active',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.active').'</a>
                             </div>
                         </div>
                     ';
@@ -753,6 +751,15 @@ class EnquiryController extends Controller
         $status = $this->customerEnquiryRepo->moveToCancel($id);
         if($status) {
             return response(['status' => true, 'msg' => __('enquiry.enquiry_move_to_cancel')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]); 
+    }
+
+    public function moveToActive($id)
+    {
+        $status = $this->customerEnquiryRepo->moveToActive($id);
+        if($status) {
+            return response(['status' => true, 'msg' => __('enquiry.enquiry_cancel_to_move')]);
         }
         return response(['status' => false, 'msg' => __('global.something')]); 
     }

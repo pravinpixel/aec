@@ -417,26 +417,28 @@
                 $("#enquiry-filter-modal").modal('hide');
             }
 
+            $(document).on('submit', '#remove-form', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $("#method").val(),
+                    success: function(res){
+                        $("#delete-confirmation-modal").modal('hide');
+                        if(res.status == true){
+                            Message('success',res.msg);
+                            activeEnquiry.draw();
+                            newEnquiry.draw();
+                            completedEnquiry.draw();
+                            return false;
+                        }
+                    }, error: function(er){
+                        Message('error',res.msg);
+                        return false;
+                    }
+                });
+            });
     });
 
-    $(document).on('submit', '#remove-form', function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: $(this).attr('action'),
-            method: $("#method").val(),
-            success: function(res){
-                $("#delete-confirmation-modal").modal('hide');
-                if(res.status == true){
-                    Message('success',res.msg);
-                    activeEnquiry.draw();
-                    newEnquiry.draw();
-                    return false;
-                }
-            }, error: function(er){
-                Message('error',res.msg);
-                return false;
-            }
-        });
-    });
+  
     </script>
 @endpush

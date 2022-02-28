@@ -48,7 +48,8 @@ class Enquiry extends Model
         'technical_estimation_status',
         'cost_estimation_status',
         'proposal_sharing_status',
-        'customer_response_status'
+        'customer_response_status',
+        'from_enquiry_id'
     ];
 
     public function getCreatedAtAttribute($date)
@@ -109,6 +110,11 @@ class Enquiry extends Model
                         ->withTimestamps();
     }
 
+    public function documentTypeEnquiries()
+    {
+        return $this->hasMany(DocumentTypeEnquiry::class, 'enquiry_id', 'id');
+    }
+
     function enquiryBuildingComponent()
     {
         return $this->hasMany(EnquiryBuildingComponent::class, 'enquiry_id', 'id');
@@ -137,6 +143,53 @@ class Enquiry extends Model
     public function comments()
     {
         return $this->hasMany(EnquiryComments::class);
+    }
+
+    public function replicateRow()
+    {
+        $clone = $this->replicate();
+        if($clone->status != 'Closed'){
+            return  false;
+        }
+        $clone->enquiry_number = GlobalService::enquiryNumber();
+        $clone->status = 'Active';
+        $clone->from_enquiry_id = $clone->id;
+        $clone->push();
+        foreach($this->services as $service){
+            $clone->services()->create($service->toArray());
+        }
+        foreach($this->enquiryBuildingComponent  as $buildingComponent) {
+            $cloneBuildingComponent = $buildingComponent->replicate();
+            $cloneBuildingComponent->enquiry_id = $clone->id;
+            $cloneBuildingComponent->push();
+            if($cloneBuildingComponent && !empty($buildingComponent->enquiryBuildingComponentDetails)) {
+                foreach($buildingComponent->enquiryBuildingComponentDetails as $buildingComponentDetail) {
+                    $cloneBuildingComponentDetail =  $buildingComponentDetail->replicate();
+                    $cloneBuildingComponentDetail->enquiry_id = $clone->id;
+                    $cloneBuildingComponentDetail->enquiry_building_component_id = $cloneBuildingComponent->id;
+                    $cloneBuildingComponentDetail->push();
+                    if(!empty($buildingComponentDetail->enquiryBuildingComponentLayers)) {
+                        foreach($buildingComponentDetail->enquiryBuildingComponentLayers as $buildingComponentLayer) {
+                            $cloneBuildingComponentLayer = $buildingComponentLayer->replicate();
+                            $cloneBuildingComponentLayer->enquiry_id     = $clone->id;
+                            $cloneBuildingComponentLayer->enquiry_bcd_id = $cloneBuildingComponentDetail->id;
+                            $cloneBuildingComponentLayer->push();
+                        }
+                    }
+                }
+            }                            
+        }
+        foreach($this->documentTypeEnquiries as $documentTypeEnquiry){
+            $clone->documentTypeEnquiries()->create(collect($documentTypeEnquiry)->except('id')->toArray());
+        }
+        foreach($this->comments as $comment){
+            $clone->comments()->create($comment->toArray());
+        }
+        if($clone->save()) {
+            GlobalService::updateConfig('ENQ');
+            return true;
+        }
+        return false;
     }
         
 }

@@ -54,7 +54,7 @@ class CreateEnquiriesTable extends Migration
                 $table->boolean('proposal_sharing_status')->default(0);
                 $table->integer('customer_response')->nullable();
             // ======== Admin Wizard Flow Status =======
-
+            $table->unsignedBigInteger('from_enquiry_id')->nullable();
             $table->timestamps();
         });
     }

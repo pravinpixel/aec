@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $customer;
@@ -557,6 +558,17 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry = $this->enquiry->where('customer_id', Customer()->id)->find($id);
         if(!empty($enquiry)){
             return $enquiry->update(['status' => 'Closed']);
+        }
+        return false;
+    }
+
+    public function moveToActive($id)
+    {
+        $enquiry = $this->enquiry->where('customer_id', Customer()->id)->find($id);
+        $newEnquiry = $enquiry->replicateRow();
+        if($newEnquiry){
+            $enquiry->delete();
+            return true;
         }
         return false;
     }
