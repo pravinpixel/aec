@@ -155,10 +155,15 @@ class AutoDeskRepository implements AutoDeskRepositoryInterface{
 		for($i=0; $i< $objectsLength; $i++){
 			if ($fname==$objects[$i]['objectKey'])
 			{$objid = base64_encode($objects[$i]['objectId']); }
-			
+
 		}
-	
+		
 		$urn = $objid;
+		$directiveInstance = new DerivativesApi($accessToken);
+		$result = $directiveInstance->getManifest( $urn );
+		if($result['status'] != 'success' || $result['progress'] != 'complete') {
+			return [$result['status'] ,$result['progress'] , $result['type']];
+		}
 		$accessToken1 = $this->getTokenPublic()["access_token"];
 		return [$urn, $accessToken1];
 	}
