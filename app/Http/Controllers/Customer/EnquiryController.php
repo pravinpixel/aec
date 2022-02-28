@@ -598,8 +598,8 @@ class EnquiryController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'new']) .'">View / Edit</a>
-                                <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route("customers.delete-enquiry",$dataDb->id) .'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'new']) .'">'.trans('enquiry.view_edit').'</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="'.trans('enquiry.popup_delete_enquiry',['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route("customers.delete-enquiry",$dataDb->id) .'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('global.delete').'</a>
                             </div>
                         </div>
                     ';
@@ -667,9 +667,9 @@ class EnquiryController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">View / Edit</a>
-                                <a class="dropdown-item" href="#">Approve</a>
-                                <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="Are you sure to close this enquiry" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel Enquiry</a>
+                                <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">'.trans('enquiry.view_edit').'</a>
+                                <a class="dropdown-item" href="#">'.trans('enquiry.approve').'</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>
                     ';
@@ -736,7 +736,9 @@ class EnquiryController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Active</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Enquiry" data-title="'.trans('enquiry.popup_move_cancel_to_active',['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-active',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
+
+                                <a class="dropdown-item" href="#">"'.trans('enquiry.active').'"</a>
                             </div>
                         </div>
                     ';
