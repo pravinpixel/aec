@@ -64,7 +64,7 @@ class AutodeskForgeController extends Controller
 			$result 			 = $this->autoDesk->viewModel($bucketName, $fname);
 			if(count($result)  == 3){
 				list($status,  $progress, $type) =	$result;
-				Flash::error(__("Translation process {$progress} %"));
+				Flash::error(__("Translation process {$status} {$progress}"));
 				return redirect()->back();
 			}
 			list($urn, $accessToken1) = $result;

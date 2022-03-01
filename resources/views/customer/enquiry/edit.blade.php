@@ -893,7 +893,7 @@
             }
         });
 
-        app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload){
+        app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location,  $timeout, fileUpload){
             $("#ifc-model-upload").addClass('active');
             $scope.documentLists = [];
             $scope.mandatory = [];
@@ -959,6 +959,7 @@
                     url: '{{ route('customers.get-view-list') }}',
                     params: {id: id, view_type: view_type},
                 }).then(function (res) {
+                    if($scope.mandatory.indexOf(view_type) > -1)  $scope.mandatory.splice($scope.mandatory.indexOf(view_type), 1);
                     $scope.documentLists[`${view_type}`] = [...$scope.documentLists[`${view_type}`], ...res.data];
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -971,7 +972,7 @@
             //             $scope[`${attribute_name}`] = element.files[0].name;
             //     });
             // };
-
+            var $callOnce = true;
             $scope.submitIFC  = () => {
                 $http({
                     method: 'POST',
@@ -979,13 +980,32 @@
                     data: {type: 'ifc_model_upload_mandatory', 'data': false}
                 }).then(function (res) {
                     if(res.data.status == false) {
-                       res.data.data.map( (item) => {
-                            Message('danger', `${item.replaceAll('_',' ')} field is required`);
-                            return false;
-                       });
+                        $callOnce && res.data.data.map( (item) => {
+                            $scope.mandatory.indexOf(item) == -1 && $scope.mandatory.push(item);
+                        });
+                        if( $scope.mandatory.length != 0){   
+                            Swal.fire({
+                                title: 'Are you sure to submit without '+$scope.mandatory[0].replaceAll('_',' ')+' ?',
+                                confirmButtonText: 'Yes',
+                                showCancelButton: true,
+                                cancelButtonText: 'No',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $callOnce =  false;
+                                    $scope.mandatory.shift();
+                                    if( $scope.mandatory.length == 0){
+                                        $timeout(function(){
+                                            $location.path('/building-component');
+                                            Message('success',`IFC Models updated successfully`);      
+                                        });
+                                    }
+                                } else if (result.isDenied) {
+                                }
+                            })
+                        }
                     } else  {
                         $location.path('/building-component');
-                        Message('success',`IFC Models updated successfully`);
+                        Message('success',`IFC Models added successfully`);
                     }
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
