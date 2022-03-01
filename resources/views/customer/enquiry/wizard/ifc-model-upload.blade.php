@@ -27,7 +27,7 @@
             <div class="table-header">
                 <h1>@{{documentType.document_type_name }}</h1>
                 <br>
-                <viewlist data="documentLists[documentType.slug]"></viewlist><br/>
+                <viewlist data="documentLists[documentType.slug]" file-type="autoDeskFileType"></viewlist><br/>
             </div>
         </div> 
 

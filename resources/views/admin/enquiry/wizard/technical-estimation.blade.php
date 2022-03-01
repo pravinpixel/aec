@@ -174,12 +174,12 @@
                                 <div>
                                     <div class="d-flex flex-column">
                                         @{{ doc.document_type.document_type_name }} <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
-                                    </div>
+                                </div>
                                 </div>
                             </div>
-                            <a ng-show= "doc.file_type != 'link' && doc.file_type != 'ifc'" target="_child" href="{{ asset("public/uploads/") }}/@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
-                            <a  ng-show="doc.file_type == 'ifc'" target="_child" href="{{ url('/') }}/viewmodel/@{{ doc.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
-                            <a ng-show= "doc.file_type == 'link'" target="_child" href="@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <a ng-show="!autoDeskFileType.includes(doc.file_type) && doc.file_type != 'link'" target="_child" href="{{ asset("public/uploads/") }}/@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <a ng-show="autoDeskFileType.includes(doc.file_type)" class="badge bg-success rounded-pill" target="_child" href="{{ url('/') }}/viewmodel/@{{ doc.id }}"><i class="text-white fa fa-eye"></i></a>
+                            <a ng-show="doc.file_type == 'link'" target="_child" href="@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                         </li> 
                     </ul>
                 </div>

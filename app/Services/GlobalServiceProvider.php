@@ -89,7 +89,7 @@ class GlobalServiceProvider extends Controller
 
     public function getBucketFilename($path)
     {
-        $removedPath = Str::replace($this->getIfcmodelPath().'/','', $path);
-        return preg_replace('/\\.[^.\\s]{3,4}$/', '', Str::of($removedPath)->trim());
+        $removedPath = basename($path);
+        return preg_replace('/\\.[^.\\s]{3,4}$/', '', $removedPath);
     }
 }

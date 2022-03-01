@@ -101,4 +101,9 @@ class AutodeskForgeController extends Controller
 	{
 		
 	}
+
+	public function getAutodeskFileType()
+	{
+		return config('global.autodesk_upload_file_type');
+	}
 }

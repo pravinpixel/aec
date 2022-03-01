@@ -765,6 +765,16 @@
                 });
             }
 
+            getAutoDeskFileTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("get-autodesk-file-type") }}'
+                }).then(function (res) {
+                    $scope.autoDeskFileType = res.data;
+                });
+            }
+            getAutoDeskFileTypes();
+
             getLastEnquiry = (enquiry_id)  => {
                 console.log(enquiry_id);
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
@@ -934,6 +944,16 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             }
+
+            getAutoDeskFileTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("get-autodesk-file-type") }}'
+                }).then(function (res) {
+                    $scope.autoDeskFileType = res.data;
+                });
+            }
+            getAutoDeskFileTypes();
 
             getDocumentTypes = () => {
                 $http({

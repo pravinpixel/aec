@@ -173,8 +173,8 @@
                                         <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
                                         <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">
                                             <a download="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                            <a ng-show="ifc_model_upload.file_type != 'ifc'" target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
-                                            <a  ng-show="ifc_model_upload.file_type == 'ifc'" target="_child" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.file_type)" target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            <a ng-show="autoDeskFileType.includes(ifc_model_upload.file_type)" target="_child" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                         <td class="text-center" ng-show="ifc_model_upload.file_type == 'link'">
                                             <a class="" target="_blank" href="@{{ ifc_model_upload.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>

@@ -12,4 +12,5 @@ Route::get('deletebucket', [AutodeskForgeController::class, 'deletebucket'])->na
 Route::post('uploadfile', [AutodeskForgeController::class,'uploadfile'])->name('uploadfile');
 Route::post('translatefile', [AutodeskForgeController::class,'translatefile'])->name('translatefile');
 Route::get('test', [AutodeskForgeController::class,'test'])->name('test');
+Route::get('get-autodesk-file-type', [AutodeskForgeController::class,'getAutodeskFileType'])->name('get-autodesk-file-type');
 

@@ -4,7 +4,8 @@ app.directive('viewlist', function(API_URL) {
     directive.restrict = 'E';
     directive.templateUrl = `${API_URL}customers/view-list`;
     directive.scope = {
-        viewLists : "=data"
+        viewLists : "=data",
+        fileType : "=fileType"
     }
     return directive;
  });

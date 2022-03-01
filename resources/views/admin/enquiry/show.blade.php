@@ -194,6 +194,16 @@
         });  
         app.controller('WizzardCtrl', function ($scope, $http, API_URL ) {
             $scope.enquiry_id = '{{ $id }}';
+            getAutoDeskFileTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("get-autodesk-file-type") }}'
+                }).then(function (res) {
+                    $scope.autoDeskFileType = res.data;
+                });
+            }
+            getAutoDeskFileTypes();
+            
             getEnquiryCommentsCountById = (id) => {
                 $http({
                     method: "get",
@@ -307,6 +317,7 @@
                     Message('danger',response.data.errors);
                 });
             } 
+           
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL) {
             // [
@@ -322,7 +333,16 @@
             //         "total_component_area":0
             //     }
             // ]
- 
+            getAutoDeskFileTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("get-autodesk-file-type") }}'
+                }).then(function (res) {
+                    $scope.autoDeskFileType = res.data;
+                });
+            }
+            getAutoDeskFileTypes();
+            
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.enquiry              =   response.data; 
                 $scope.enquiry_id           =   response.data.enquiry_id; 
