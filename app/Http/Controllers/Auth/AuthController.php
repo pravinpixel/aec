@@ -17,7 +17,10 @@ class AuthController extends Controller
 
     public function getCustomerLogin(Request $request)
     {
-        if(Auth::guard('customers')->check()) {
+        if(Auth::check()) {
+            return redirect(route('admin-dashboard'));
+        }
+        else if(Auth::guard('customers')->check()) {
             return redirect(route('customers-dashboard'));
         }
         return view('auth.customer.login');
@@ -81,6 +84,9 @@ class AuthController extends Controller
     {
         if(Auth::check()) {
             return redirect(route('admin-dashboard'));
+        }
+        else if(Auth::guard('customers')->check()) {
+            return redirect(route('customers-dashboard'));
         }
         return view('auth.admin.login');
     }
