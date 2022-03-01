@@ -661,8 +661,7 @@ class EnquiryController extends Controller
                 </div>';
             })
             ->addColumn('action', function($dataDb){
-                return '
-                        <div class="dropdown">
+                $actions = '<div class="dropdown">
                             <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
@@ -671,8 +670,11 @@ class EnquiryController extends Controller
                                 <a class="dropdown-item" href="#">'.trans('enquiry.approve').'</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
-                        </div>
-                    ';
+                        </div>';
+                if($dataDb->project_status != 'Active'){
+                    return $actions;
+                }
+                return '';
             })
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);
