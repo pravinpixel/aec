@@ -68,7 +68,10 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label" for="validationCustom01">Company Name<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="company_name" id="validationCustom01" ng-model="module.company_name" placeholder="Type Here..."  ng-required="true">
+                                            <input type="text"  name="company_name" id="validationCustom01"    class="form-control"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(module.company_name)" ng-model="module.company_name" />
+                                            <datalist id="companyList">
+                                                <option ng-repeat="company in companyList" value="@{{company}}">@{{company}}</option>
+                                            </datalist>
                                         </div>
                                     </div>
                                     <div class="col-md-12">

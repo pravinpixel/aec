@@ -49,4 +49,13 @@ app.controller('SalesController', function ($scope, $http, API_URL) {
         $scope.enqForm.$setValidity();
         $scope.enqForm.$setUntouched();
     }
+
+    $scope.getCompany = (text) => {
+        $http.get(`https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=${text}`)
+        .then(function successCallback(res){
+            $scope.companyList = res.data.entries.slice(0, 50).map((item) => { return item.navn} );
+        }, function errorCallback(error){
+            console.log(error);
+        });
+    }
 });
