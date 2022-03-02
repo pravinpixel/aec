@@ -940,10 +940,10 @@
                     url: '{{ route('customers.store-enquiry') }}',
                     data: {type: 'save_or_submit', data: value}
                     }).then(function successCallback(response) {
+                        $timeout(function(){
+                            window.onbeforeunload = null;
+                        });
                         if(response.msg == 'sbmitted') {
-                            $timeout(function(){
-                                window.onbeforeunload = null;
-                            });
                             Swal.fire({
                                 title: `Enquiry submitted successfully are you want to leave the page?`,
                                 showDenyButton: false,

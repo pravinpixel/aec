@@ -802,10 +802,10 @@
                     url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'save_or_submit', data: value}
                     }).then(function successCallback(response) {
+                        $timeout(function(){
+                            window.onbeforeunload = null;
+                        });
                         if(response.msg == 'sbmitted') {
-                            $timeout(function(){
-                                window.onbeforeunload = null;
-                            });
                             Swal.fire({
                                 title: `Enquiry submitted successfully are you want to leave the page?`,
                                 showDenyButton: false,
@@ -814,7 +814,7 @@
                                 cancelButtonText: 'No',
                                 }).then((result) => {
                                 if (result.isConfirmed) {
-                                location.href = '{{ route('customers-my-enquiries') }}'
+                                    location.href = '{{ route('customers-my-enquiries') }}'
                                 }
                             });
                         } else {
