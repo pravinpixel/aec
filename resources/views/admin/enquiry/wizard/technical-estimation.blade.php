@@ -177,7 +177,7 @@
                                 </div>
                                 </div>
                             </div>
-                            <a ng-show="!autoDeskFileType.includes(doc.file_type) && doc.file_type != 'link'" target="_child" href="{{ asset("public/uploads/") }}/@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <a ng-show="!autoDeskFileType.includes(doc.file_type) && doc.file_type != 'link'" target="_child" href="{{ url('/') }}/get-enquiry-document/@{{ doc.id }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                             <a ng-show="autoDeskFileType.includes(doc.file_type)" class="badge bg-success rounded-pill" target="_child" href="{{ url('/') }}/viewmodel/@{{ doc.id }}"><i class="text-white fa fa-eye"></i></a>
                             <a ng-show="doc.file_type == 'link'" target="_child" href="@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                         </li> 

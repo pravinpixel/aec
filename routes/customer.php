@@ -66,7 +66,10 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     
     Route::get('get-customer-completed-enquiries',[EnquiryController::class,'getClosedEnquiries'])->name('get-customer-completed-enquiries');
 
+    Route::get('get-document',[EnquiryController::class,'getDocumentById'])->name('get-document');
+
     Route::resource('enquiry-template', EnquiryTemplateController::class);
+
     Route::get('get-template-by-building-component-id', [EnquiryTemplateController::class, 'getTemplateByBuildingComponentId'])->name('get-template-by-building-component-id');
   
     Route::get('view-list',  function() {
@@ -96,4 +99,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     Route::get('enquiry/review', function(){
         return view('customer.enquiry.wizard.review');
     })->name('enquiry.review');
+});
+
+Route::group(['prefix' => '', 'middleware' => 'common'], function(){
+    Route::get('get-enquiry-document/{id}', [EnquiryController::class, 'getDocumentView'])->name('get-enquiry-document');
 });

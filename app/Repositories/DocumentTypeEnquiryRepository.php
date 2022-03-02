@@ -26,4 +26,12 @@ class DocumentTypeEnquiryRepository implements DocumentTypeEnquiryRepositoryInte
     {
         return $this->model->where('is_active',1)->get();
     }
+
+    public function getDocumentById($id)
+    {
+        if (null == $documentTypeEnquiry = $this->model->find($id)) {
+            throw new ModelNotFoundException("Service not found");
+        }
+        return $documentTypeEnquiry;
+    }
 }

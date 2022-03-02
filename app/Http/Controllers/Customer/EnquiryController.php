@@ -765,4 +765,11 @@ class EnquiryController extends Controller
         }
         return response(['status' => false, 'msg' => __('global.something')]); 
     }
+
+    public function getDocumentView($id)
+    {
+        $document = $this->documentTypeEnquiryRepo->getDocumentById($id);
+        $documentPath =  $url = asset('public/uploads/'.$document->file_name);
+        return view('customer.enquiry.document-view', compact('documentPath'));
+    }
 }
