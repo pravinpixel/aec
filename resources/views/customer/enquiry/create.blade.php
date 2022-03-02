@@ -164,7 +164,6 @@
                 url: '{{ route('get-login-customer') }}'
             }).then( function(res) {
                 $scope.customer = res.data.customer;
-                $scope.getCompany($scope.customer.company_name);
             }, function (err) {
                 console.log('get enquiry error');
             });
@@ -176,7 +175,6 @@
                         .map((item) => {
                             return {'company':item.navn, 'mobile': item.tlf_mobil, 'zip_code': item.forradrpostnr, 'site_address': item.forretningsadr} 
                         });
-                        console.log( $scope.companyList);
                         if($scope.companyList.length == 1) {
                             $scope.customer.company_name = $scope.companyList[0].company;
                             $("#zipcode").val($scope.companyList[0].zip_code);
@@ -304,6 +302,7 @@
             getLastEnquiry = (enquiry_id) => {
                 console.log(enquiry_id);
                 if(typeof(enquiry_id) == 'undefined' ||enquiry_id == ''){
+                    $scope.getCompany($scope.customer.company_name);
                     return false;
                 } 
                 $http({
