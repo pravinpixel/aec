@@ -336,6 +336,11 @@
                     <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Active')">Submit </button>
                 </div>
             </div>
+            <div class="col-6 text-end" ng-show="project_info.status == 'Active' ">
+                <div class="btn-group">
+                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Active')">Submit </button>
+                </div>
+            </div>
         </div>
     </div>
     @include('customer.enquiry.models.chat-box')
