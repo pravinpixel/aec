@@ -141,33 +141,36 @@
  
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $scope.enquiry_date = new Date();
+            
             $("#project-info").addClass('active');
             let enquiry_id;
             $http({
-                method: 'GET',
-                url: '{{ route('get-customer-enquiry') }}'
-            }).then( function(res) {
-                    if(res.data.status == "false") {
-                        $scope.customer_enquiry_number = res.data.customer_enquiry_number;
-                        enquiry_id = res.data.enquiry_id
-                        getLastEnquiry(enquiry_id);
-                    } else {
-                        $scope.customer_enquiry_number = res.data.enquiry.customer_enquiry_number;
-                    }
-                }, function (err) {
-                    console.log('get enquiry error');
-            });
- 
-
-            $http({
-                method: 'GET',
+            method: 'GET',
                 url: '{{ route('get-login-customer') }}'
             }).then( function(res) {
                 $scope.customer = res.data.customer;
             }, function (err) {
                 console.log('get enquiry error');
+            }).then(function(){
+                $http({
+                method: 'GET',
+                url: '{{ route('get-customer-enquiry') }}'
+                }).then( function(res) {
+                        if(res.data.status == "false") {
+                            $scope.customer_enquiry_number = res.data.customer_enquiry_number;
+                            enquiry_id = res.data.enquiry_id
+                            getLastEnquiry(enquiry_id);
+                        } else {
+                            $scope.customer_enquiry_number = res.data.enquiry.customer_enquiry_number;
+                        }
+                    }, function (err) {
+                        console.log('get enquiry error');
+                });
             });
+            
 
+         
+        
             $scope.getCompany = (text) => {
                 $http.get(`https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=${text}`)
                 .then(function successCallback(res){
