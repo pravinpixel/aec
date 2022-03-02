@@ -726,7 +726,7 @@
             }  
         });
  
-        app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+        app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location){
             $("#review").addClass('active');
             var enquiry_id = {{$id}};
             $http({
@@ -803,6 +803,9 @@
                     data: {type: 'save_or_submit', data: value}
                     }).then(function successCallback(response) {
                         if(response.msg == 'sbmitted') {
+                            $timeout(function(){
+                                window.onbeforeunload = null;
+                            });
                             Swal.fire({
                                 title: `Enquiry submitted successfully are you want to leave the page?`,
                                 showDenyButton: false,
@@ -1005,20 +1008,21 @@
                         });
                         if( $scope.mandatory.length != 0){   
                             Swal.fire({
-                                title: 'Are you sure to submit without '+$scope.mandatory[0].replaceAll('_',' ')+' ?',
+                                title: 'Are you sure to to go next ?',
                                 confirmButtonText: 'Yes',
                                 showCancelButton: true,
                                 cancelButtonText: 'No',
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     $callOnce =  false;
-                                    $scope.mandatory.shift();
-                                    if( $scope.mandatory.length == 0){
-                                        $timeout(function(){
-                                            $location.path('/building-component');
-                                            Message('success',`IFC Models updated successfully`);      
-                                        });
-                                    }
+                                    $timeout(function(){
+                                        $location.path('/building-component');
+                                        Message('success',`IFC Models updated successfully`);      
+                                    });
+                                    // $scope.mandatory.shift();
+                                    // if( $scope.mandatory.length == 0){
+                                       
+                                    // }
                                 } else if (result.isDenied) {
                                 }
                             })
