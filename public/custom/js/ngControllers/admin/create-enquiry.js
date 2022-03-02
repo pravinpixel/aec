@@ -53,7 +53,14 @@ app.controller('SalesController', function ($scope, $http, API_URL) {
     $scope.getCompany = (text) => {
         $http.get(`https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=${text}`)
         .then(function successCallback(res){
-            $scope.companyList = res.data.entries.slice(0, 50).map((item) => { return item.navn} );
+            $scope.companyList = res.data.entries.slice(0, 50)
+                .map((item) => {
+                    return {'company':item.navn, 'mobile': item.tlf_mobil} 
+                });
+                if($scope.companyList.length == 1) {
+                    $scope.module.company_name = $scope.companyList[0].company;
+                    $scope.module.mobile_number = $scope.companyList[0].mobile.split(" ").join("");
+                }
         }, function errorCallback(error){
             console.log(error);
         });

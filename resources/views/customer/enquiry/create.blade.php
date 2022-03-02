@@ -163,10 +163,30 @@
                 method: 'GET',
                 url: '{{ route('get-login-customer') }}'
             }).then( function(res) {
-                $scope.customer = res.data.customer
+                $scope.customer = res.data.customer;
+                $scope.getCompany($scope.customer.company_name);
             }, function (err) {
                 console.log('get enquiry error');
             });
+
+            $scope.getCompany = (text) => {
+                $http.get(`https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=${text}`)
+                .then(function successCallback(res){
+                    $scope.companyList = res.data.entries.slice(0, 50)
+                        .map((item) => {
+                            return {'company':item.navn, 'mobile': item.tlf_mobil, 'zip_code': item.forradrpostnr, 'site_address': item.forretningsadr} 
+                        });
+                        console.log( $scope.companyList);
+                        if($scope.companyList.length == 1) {
+                            $scope.customer.company_name = $scope.companyList[0].company;
+                            $("#zipcode").val($scope.companyList[0].zip_code);
+                            $scope.getZipcodeData();
+                        }
+                }, function errorCallback(error){
+                    console.log(error);
+                });
+            }
+
             getProjectType = () => {
                 $http({
                     method: 'GET',
@@ -1138,7 +1158,7 @@
                         });
                         if( $scope.mandatory.length != 0){   
                             Swal.fire({
-                                title: 'Are you sure to go next ?',
+                                title: 'Are you sure to skip the file uploads? ?',
                                 confirmButtonText: 'Yes',
                                 showCancelButton: true,
                                 cancelButtonText: 'No',

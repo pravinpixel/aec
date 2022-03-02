@@ -24,7 +24,7 @@ class CustomerSeeder extends Seeder
             'email' => 'customer@aecprefab.net',
             'password' => Hash::make('12345678'),
             'mobile_no' => '87456123',
-            'company_name' => 'aecprefab', 
+            'company_name' => 'AEC PREFAB AS', 
             'contact_person' => 'alan walker',
             'remarks' => 'ok',
             'is_active' => 1,

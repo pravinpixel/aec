@@ -61,17 +61,17 @@
                                     </div>
                                     <div class="col-md-6"> 
                                         <div class="mb-3">
-                                            <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" max="12"  onkeypress="return isNumber(event)" maxlength="12" ng-pattern="phoneNumbr" placeholder="Type Here..."  name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
+                                            <label class="form-label" for="validationCustom01">Company Name<sup class="text-danger">*</sup></label>
+                                            <input type="text"  name="company_name" id="validationCustom01" class="form-control"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(module.company_name)" ng-model="module.company_name" />
+                                            <datalist id="companyList">
+                                                <option ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
+                                            </datalist>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label" for="validationCustom01">Company Name<sup class="text-danger">*</sup></label>
-                                            <input type="text"  name="company_name" id="validationCustom01"    class="form-control"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(module.company_name)" ng-model="module.company_name" />
-                                            <datalist id="companyList">
-                                                <option ng-repeat="company in companyList" value="@{{company}}">@{{company}}</option>
-                                            </datalist>
+                                            <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" max="12" ng-pattern="phoneNumbr"  onkeypress="return isNumber(event)" maxlength="12"  placeholder="Type Here..."  name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
                                         </div>
                                     </div>
                                     <div class="col-md-12">
