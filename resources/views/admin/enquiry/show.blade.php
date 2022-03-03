@@ -308,6 +308,9 @@
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
                 }).then(function successCallback(response) {
+                    if(type == 'building_components'){
+                        document.getElementById(`building_component__commentsForm`).reset();
+                    }
                     document.getElementById(`${type}__commentsForm`).reset();
                     // $scope.GetCommentsData();
                     Message('success',response.data.msg);
@@ -552,6 +555,9 @@
                             'Content-Type': 'application/x-www-form-urlencoded' 
                         }
                     }).then(function successCallback(response) {
+                        if(type == 'building_components'){
+                            document.getElementById(`building_component__commentsForm`).reset();
+                        }
                         document.getElementById(`${type}__commentsForm`).reset();
                         // $scope.GetCommentsData();
                         Message('success',response.data.msg);

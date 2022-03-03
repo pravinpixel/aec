@@ -141,7 +141,7 @@
  
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $scope.enquiry_date = new Date();
-            
+            $scope.enquiry_number = 'Draft';
             $("#project-info").addClass('active');
             let enquiry_id;
             $http({
@@ -267,6 +267,7 @@
                 $scope.data = {
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
+                    'enquiry_number'       : $projectInfo.enquiry_no ?? 'Draft',
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
                     'state'                : $projectInfo.state,
@@ -287,6 +288,7 @@
                 $scope.data = {
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
+                    'enquiry_number'       : $projectInfo.enquiry_no ?? 'Draft',
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
                     'state'                : $projectInfo.state,
@@ -881,6 +883,9 @@
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
                 }).then(function successCallback(response) {
+                    if(type == 'building_components'){
+                        document.getElementById(`building_component__commentsForm`).reset();
+                    }
                     document.getElementById(`${type}__commentsForm`).reset();
                     getEnquiryCommentsCountById(enquiry_id);
                     getEnquiryActiveCommentsCountById(enquiry_id);
@@ -1014,6 +1019,9 @@
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
                 }).then(function successCallback(response) {
+                    if(type == 'building_components'){
+                        document.getElementById(`building_component__commentsForm`).reset();
+                    }
                     document.getElementById(`${type}__commentsForm`).reset();
                     // $scope.GetCommentsData();
                     Message('success',response.data.msg);

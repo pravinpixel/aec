@@ -183,7 +183,6 @@
                 $scope.data = {
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
-                    'enquiry_number'       : $projectInfo.enquiry_number,
                     'customer_enquiry_number'       : $projectInfo.customer_enquiry_number,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
@@ -211,6 +210,7 @@
                 }).then(function (res) {
                     $scope.customer_enquiry_number = res.data.project_info.customer_enquiry_number ?? res.data.project_info.enquiry_no;
                     $scope.enquiry_date = new Date(res.data.project_info.enquiry_date);
+                    $scope.enquiry_number = res.data.project_info.enquiry_no;
                     $scope.projectInfo = getProjectInfoInptuData(res.data.project_info);
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -854,6 +854,9 @@
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
                 }).then(function successCallback(response) {
+                    if(type == 'building_components'){
+                        document.getElementById(`building_component__commentsForm`).reset();
+                    }
                     document.getElementById(`${type}__commentsForm`).reset();
                     getEnquiryCommentsCountById(enquiry_id);
                     getEnquiryActiveCommentsCountById(enquiry_id);

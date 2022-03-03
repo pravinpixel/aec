@@ -243,6 +243,9 @@
                         'Content-Type': 'application/x-www-form-urlencoded' 
                     }
                 }).then(function successCallback(response) {
+                    if(type == 'building_components'){
+                        document.getElementById(`building_component__commentsForm`).reset();
+                    }
                     document.getElementById(`${type}__commentsForm`).reset();
                     getEnquiryCommentsCountById($scope.enquiry_id);
                     getEnquiryActiveCommentsCountById($scope.enquiry_id);
