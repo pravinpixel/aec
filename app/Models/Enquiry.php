@@ -30,6 +30,7 @@ class Enquiry extends Model
         'project_date',
         'place',
         'site_address',
+        'project_status',
         'country',
         'zipcode',
         'state',

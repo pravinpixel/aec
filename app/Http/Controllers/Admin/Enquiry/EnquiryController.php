@@ -93,7 +93,6 @@ class EnquiryController extends Controller
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
                             ->where(['status' => 'Active' , 'project_status' => 'Unattended'])
-                            ->orWhere('created_by', Admin()->id)
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
@@ -382,7 +381,7 @@ class EnquiryController extends Controller
                 'is_active'             => 0
             ];
             $customer = $this->customer->create($data);
-            $customer->enquiry()->create(['customer_enquiry_number' => $latest_enquiry_number,  'enquiry_number' => $enquiry_number, 'created_by'=> Admin()->id, 'enquiry_date' => now()]);
+            $customer->enquiry()->create(['customer_enquiry_number' =>  $latest_enquiry_number, 'project_delivery_date' => now()->addDays(1), 'enquiry_number' => $enquiry_number, 'created_by'=> Admin()->id, 'enquiry_date' => now()]);
             DB::commit();
             GlobalService::updateConfig('CENQ');
             GlobalService::updateConfig('ENQ');

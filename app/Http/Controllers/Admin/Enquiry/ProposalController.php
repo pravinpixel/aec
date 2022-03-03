@@ -56,6 +56,7 @@ class ProposalController extends Controller
     }
     public function sendMail(Request $request, $id, $proposal_id)
     {
+        $this->customerEnquiryRepo->updateProjectById($id, 'Active');
         return  $enquiry    =   $this->customerEnquiryRepo->sendCustomerProPosalMail($id, $proposal_id, $request);
     }
     public function sendMailVersion(Request $request, $id, $proposal_id, $Vid)

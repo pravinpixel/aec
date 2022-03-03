@@ -536,6 +536,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         return false;
     }
+
+    public function updateProjectById($id, $status)
+    {
+        $enquiry = Enquiry::find($id)->update(['project_status' => $status]);
+        return $enquiry;
+    }
     
     public function AddEnquiryReferenceNo($enquiry)
     {

@@ -57,6 +57,8 @@ interface CustomerEnquiryRepositoryInterface
     public function formatProjectInfo($enquiry); 
     
     public function updateStatusById($enquiry, $status);
+    
+    public function updateProjectById($id, $status);
 
     public function createEnquiryBuildingComponentDocument($storeData);
 
