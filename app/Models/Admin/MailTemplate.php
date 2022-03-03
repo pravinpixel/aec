@@ -30,7 +30,5 @@ class MailTemplate extends Model
     public function getVersions()
     {
         return  $this->hasMany(PropoalVersions::class, 'parent_id','proposal_id');
-    }
-
-    
+    } 
 }

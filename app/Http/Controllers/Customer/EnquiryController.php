@@ -16,6 +16,8 @@ use App\Models\Comment;
 use App\Models\Config;
 use App\Models\DocumentType;
 use App\Models\DocumentTypeEnquiry;
+use App\Models\Admin\MailTemplate;
+use App\Models\ADmin\PropoalVersions;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -92,7 +94,37 @@ class EnquiryController extends Controller
             return view('customer.enquiry.edit',compact('enquiry','id','customer','activeTab','activeCount'));
         }
     }
-    
+
+    public function myEnquiriesApprove($type , $id)
+    {
+        if($type == 'preview') {
+            $result             =   Enquiry::find($id)->with(['getProposal'=> function($q){
+                                                $q->where(['status' => 'sent'])->latest()->first();
+                                            }])->first();
+            $proposal_id        =   $result->getProposal[0]->proposal_id;
+            $proposal           =   MailTemplate::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
+            $proposal_version   =   PropoalVersions::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
+
+            if($proposal_version->updated_at > $proposal->updated_at){
+                return $proposal_version;
+            } 
+            if($proposal_version->updated_at < $proposal->updated_at){
+                return $proposal;
+            }
+        }
+        if($type == 'approve') {
+            $result =   Enquiry::find($id);
+            $result ->  project_status = 'Active';
+            $result ->  save();
+            return 'Proposal to be Approved !';
+        }
+        if($type == 'denie') {
+            $result =   Enquiry::find($id);
+            $result ->  project_status = 'Deactive';
+            $result ->  save();
+            return 'Proposal to be Denied !';
+        }
+    }
 
     public function create()
     {
@@ -667,7 +699,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">'.trans('enquiry.view_edit').'</a>
-                                <a class="dropdown-item" href="#">'.trans('enquiry.approve').'</a>
+                                <a class="dropdown-item" href="" ng-click=getPropodsals('.$dataDb->id.')>'.trans('enquiry.approve_or_denie').'</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>';

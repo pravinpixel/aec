@@ -75,6 +75,7 @@
                 </div>  
             </div> <!-- container -->
             @include('customer.enquiry.models.detail-modal')
+            @include('customer.enquiry.models.approve-modal')
             @include('customer.enquiry.models.chat-box')
             @include('customer.enquiry.models.enquiry-filter-modal')
         </div> <!-- content --> 
@@ -182,6 +183,31 @@
                     }, function (error) {
                         console.log('ifc_model_uploads error');
                     });
+            }
+
+            $scope.getPropodsals = (id) =>  {
+                  
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/approve-enquiry/preview/${id}`,
+                }).then(function (res){
+                    $scope.approvals = res.data; 
+                    $("#approve-mail-preview").modal('show');                 
+                }, function (error) {
+                    console.log('ifc_model_uploads error');
+                });
+            }
+
+            $scope.updatePropodsals = (type) =>{ 
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/approve-enquiry/${type}/${$scope.approvals.enquiry_id}`,
+                }).then(function (res){
+                    $("#approve-mail-preview").modal('hide');
+                    Message('success', res.data);
+                }, function (error) {
+                    console.log('ifc_model_uploads error');
+                });
             }
 
             getEnquiryCommentsCountById = (id) => {

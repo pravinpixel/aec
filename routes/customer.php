@@ -20,6 +20,9 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
 
     Route::get('my-enquiry/{id}/{type}', [EnquiryController::class,'myEnquiriesEdit'])->name("customers.edit-enquiry");
 
+    Route::get('approve-enquiry/{type}/{id}', [EnquiryController::class,'myEnquiriesApprove'])->name("customers.approve-enquiry");
+
+
     Route::get('create-enquiries', [EnquiryController::class, 'create'])->name('customers.create-enquiry');
 
     Route::get('view-enquiry',  [EnquiryController::class, 'show'])->name('customers-view-enquiry');
@@ -99,6 +102,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     Route::get('enquiry/review', function(){
         return view('customer.enquiry.wizard.review');
     })->name('enquiry.review');
+
+    
 });
 
 Route::group(['prefix' => '', 'middleware' => 'common'], function(){

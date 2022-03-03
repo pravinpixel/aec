@@ -116,6 +116,11 @@ class Enquiry extends Model
         return $this->hasMany(DocumentTypeEnquiry::class, 'enquiry_id', 'id');
     }
 
+    public function getProposal()
+    {
+        return $this->hasMany(Admin\MailTemplate::class, 'enquirie_id', 'id');
+    } 
+
     function enquiryBuildingComponent()
     {
         return $this->hasMany(EnquiryBuildingComponent::class, 'enquiry_id', 'id');

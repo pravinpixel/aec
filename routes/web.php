@@ -112,6 +112,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('documentary', DocumentaryController::class);
  
 });
+
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
 
     Route::get('getEmployeeId', [EmployeeController::class, 'getEmployeeId'])->name('getEmployeeId');
@@ -176,9 +178,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('delete-employeeImage',[ EmployeeController::class,'deleteEmployeeImage'])->name('delete-employeeImage');
    
 });
-
-
-
+ 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
     
