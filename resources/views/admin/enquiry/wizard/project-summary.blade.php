@@ -245,8 +245,8 @@
                                         <td> @{{ ifc_model_upload.pivot.file_type }}</td>
                                         <td> @{{ ifc_model_upload.document_type_name }}</td>
                                         <td class="text-center">
-                                            <a download="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            <a download="@{{ ifc_model_upload.pivot.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ url('/') }}/get-enquiry-document/@{{ifc_model_upload.pivot.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                             <a ng-show="autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.pivot.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                     </tr>
