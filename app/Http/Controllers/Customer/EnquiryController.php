@@ -177,7 +177,7 @@ class EnquiryController extends Controller
         $customer_enquiry_number = $this->getEnquiryNumber();
         $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
         if($type == 'project_info') {
-            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'enquiry_number' => 'Draft']);
+            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'initiate_from' => 'customer','enquiry_number' => 'Draft']);
             $res = $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer_enquiry_number, $customer, $array_merge);
             $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');

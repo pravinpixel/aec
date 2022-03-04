@@ -10,7 +10,7 @@
                         @if (Route::is('admin-dashboard')) Admin Dashboard @endif
                         @if (Route::is('admin.enquiry-list')) List Of Enquiries @endif
                         @if (Route::is('view-enquiry')) Enquiries detail @endif
-                        @if (Route::is('admin.enquiry-create')) Create Enquiry @endif
+                        @if (Route::is('admin.enquiry-create')) @lang('menu_module.customer_intro')  @endif
                         @if (Route::is('admin-estimation-view')) List of Estimation's @endif
                         @if (Route::is('admin-estimation-single-view')) Estimation View @endif
                         @if (Route::is('admin-cost-estimation-view')) List of Cost Estimation's  @endif
@@ -39,7 +39,7 @@
                 @if (Route::is('admin-dashboard')) Admin Dashboard @endif
                 @if (Route::is('admin.enquiry-list')) List Of Enquiries @endif
                 @if (Route::is('view-enquiry')) Enquiries detail @endif
-                @if (Route::is('admin.enquiry-create')) Create Enquiry  @endif
+                @if (Route::is('admin.enquiry-create')) @lang('menu_module.customer_intro')  @endif
                 @if (Route::is('admin-estimation-view')) List of Estimation's @endif
                 @if (Route::is('admin-estimation-single-view')) Estimation View @endif
                 @if (Route::is('admin-cost-estimation-view')) List of Cost Estimation's  @endif

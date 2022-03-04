@@ -11,6 +11,7 @@
         'enter_order_id'     => 'Enter order id',
         's_no'               => 'S.No',
         'status'             => 'Status',
-        'create_menu_module' => 'Create Menu Module'
+        'create_menu_module' => 'Create Menu Module',
+        'customer_intro'     => 'Customer Intro'
     ];
 ?>

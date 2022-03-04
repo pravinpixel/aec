@@ -2,6 +2,8 @@
 
 return [
     'save'              => 'Save',
+    'optional'          => '(Optional)',
+    'send'              => 'Send',
     'cancel'            => 'Cancel',
     'update'            => 'Update',
     'delete'            => 'Delete',

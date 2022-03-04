@@ -93,6 +93,7 @@ class EnquiryController extends Controller
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
                             ->where(['status' => 'Active' , 'project_status' => 'Unattended'])
+                            ->orWhere('created_by', Admin()->id)
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
@@ -300,6 +301,7 @@ class EnquiryController extends Controller
         $result['ifc_model_uploads']    =   $enquiry->documentTypes; 
         $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['additional_infos']     =   $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+        $result['project_type']         =   $enquiry->projectType;
         return $result;
         
     }
@@ -358,17 +360,11 @@ class EnquiryController extends Controller
         }
         DB::beginTransaction();
         try {
-            $latest_enquiry_number = GlobalService::customerEnquiryNumber();
-            $enquiry_number = GlobalService::enquiryNumber();
-            if($request->enquiry_number != $enquiry_number) {
-                return response(['status' => false, 'data' => '' ,'msg' => trans('enquiry.number_mismatch')], Response::HTTP_OK);
-            }
+            $customerEnquiryNo = GlobalService::customerEnquiryNumber();
             $email      =   $request->email;
-            $password   =   "12345678";
-            // $password   =   Str::random(8);
+            $password   =   "12345678";             // $password   =   Str::random(8);
             $data = [
                 'customer_enquiry_date' => $request->customer_enquiry_date,
-                'full_name'             => $request->user_name,
                 'company_name'          => $request->company_name,
                 'contact_person'        => $request->contact_person,
                 'remarks'               => $request->remarks,
@@ -381,20 +377,21 @@ class EnquiryController extends Controller
                 'is_active'             => 0
             ];
             $customer = $this->customer->create($data);
-            $customer->enquiry()->create(['customer_enquiry_number' =>  $latest_enquiry_number, 'project_delivery_date' => now()->addDays(1), 'enquiry_number' => $enquiry_number, 'created_by'=> Admin()->id, 'enquiry_date' => now()]);
+            $customer->enquiry()->create(['initiate_from' => 'admin', 'customer_enquiry_number' =>  $customerEnquiryNo, 'enquiry_number' => 'Draft',  'project_delivery_date' => now()->addDays(1), 'created_by'=> Admin()->id, 'enquiry_date' => now()]);
             DB::commit();
             GlobalService::updateConfig('CENQ');
-            GlobalService::updateConfig('ENQ');
             $details = [
                 'customer_name'     => $request->contact_person,
                 'customer_email'    => $request->email,
                 'customer_pws'      => $password
             ]; 
+            Flash::success(__('enquiry.created'));
             Mail::to($request->email)->send(new \App\Mail\Enquiry($details));
             return response(['status' => true, 'data' => $customer ,'msg' => trans('enquiry.created')], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             Log::info($e->getMessage());
             DB::rollBack();
+            Flash::error(__('global.something'));
             return response(['status' => false, 'data' => '' ,'msg' => trans('global.something')], Response::HTTP_OK);
         }
     }

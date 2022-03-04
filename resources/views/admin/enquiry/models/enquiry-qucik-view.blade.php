@@ -22,7 +22,7 @@
                             <td>@{{ enqData.customer_info.company_name }}</td>
                             <td>@{{ enqData.customer_info.mobile_no }}</td>
                             <td>@{{ enqData.customer_info.email }} </td>
-                            <td>New</td>
+                            <td>@{{ enqData.project_type.project_type_name }} </td>
                         </tr>
                     </table>
                 </div>
