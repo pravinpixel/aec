@@ -192,7 +192,7 @@
                 redirectTo: '{{ route('enquiry.project-summary') }}'
             });
         });  
-        app.controller('WizzardCtrl', function ($scope, $http, API_URL ) {
+        app.controller('WizzardCtrl', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id = '{{ $id }}';
             getAutoDeskFileTypes = () => {
                 $http({

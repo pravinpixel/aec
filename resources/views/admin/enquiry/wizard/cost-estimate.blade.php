@@ -30,7 +30,7 @@
             <p class="h5 mt-2">Cost Estimate</p>
         </a>
     </li> 
-    <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
+    <li class="nav-item admin-Proposal_Sharing-wiz" ng-class="{last:proposal_sharing_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
         <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
             <div class="timeline-content">
                 <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -40,7 +40,7 @@
             <p class="h5 mt-2">Proposal Sharing</p>
         </a>
     </li> 
-    <li class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
+    <li  ng-show="proposal_sharing_status == 1" class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
         <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" >
             <div class="timeline-content">
                 <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -206,15 +206,18 @@
                     </tbody>
                 </table>
             </div> 
-            <div class="col-12 shadow text-dark bg-white border p-2 rounded">
+            <div class="col-10 shadow text-dark bg-white border p-1 rounded btn-group">
                 {{-- <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4> --}}
-                <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
-            </div>  
+                <h4 class="m-0 w-100"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
+            </div>
+            <div class="col-2 text-end">
+                <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
+            </div>
         </div>
     </div>
-    <div class="card-footer border-0">
+    <div class="border-0 my-2">
         <div class="row m-0">
-            <div class="col-md-8 p-0">
+            <div class="col-md-9 p-0">
                 <div class="input-group ">
                     <label class="input-group-text bg-white font-weight-bold" for="inputGroupSelect01">Assign to</label>
                     <select class="form-select border" id="inputGroupSelect01">
@@ -226,12 +229,6 @@
                     <label class="input-group-text btn btn-info" for="inputGroupSelect01">Send</label>
                 </div>
             </div>
-            <div class="col-md-4 p-0">
-                <div class="text-end">
-                    <button type="reset" class="btn btn-light font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                    <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
-                </div>
-            </div>
         </div>
          
     </div>
@@ -241,7 +238,7 @@
                 <a href="#/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a href="#/proposal-sharing" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                <a ng-show="cost_estimation_status" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 

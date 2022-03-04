@@ -160,6 +160,7 @@ class EnquiryController extends Controller
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
                             ->where(['status' => 'Active' , 'project_status' => 'Active'])
+                            ->Where('created_by', Admin()->id)
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
@@ -326,9 +327,27 @@ class EnquiryController extends Controller
         if ($id) {
             
             $data   =   Enquiry::with('customer')->find($id);
-            return view('admin.enquiry.show',compact('data','id'));   
+            $activeTab = $this->getIncompleteTab($data);
+            return view('admin.enquiry.show',compact('data','activeTab','id', 'type'));   
         }else {
             return redirect()->route('admin.enquiry-list');
+        }
+    }
+
+
+
+    public function getIncompleteTab($enquiry)
+    {
+        if($enquiry->project_status == 1) {
+            return 'technical-estimation';
+        } else if($enquiry->technical_estimation_status == 1) {
+            return 'cost-estimation';
+        } else if($enquiry->cost_estimation_status == 1) {
+            return 'proposal-sharing';
+        } else if($enquiry->proposal_sharing_status == 1) {
+            return 'move-to-project';
+        } else if($enquiry->customer_response == 1) {
+            return 'move-to-project';
         }
     }
 

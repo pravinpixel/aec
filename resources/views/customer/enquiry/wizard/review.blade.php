@@ -253,8 +253,8 @@
                                                             </tr> 
                                                             <tr ng-repeat="layer in detail.layer">
                                                                 <td>@{{ layer.layer.layer_name }}</td>
-                                                                <td>@{{ layer.thickness }}</td>
-                                                                <td>@{{ layer.breath }}</td>
+                                                                <td>@{{ layer.thickness }} mm</td>
+                                                                <td>@{{ layer.breath }} mm</td>
                                                             </tr>
                                                         </table>
                                                     </td>
