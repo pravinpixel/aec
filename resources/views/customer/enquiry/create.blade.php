@@ -148,6 +148,11 @@
             method: 'GET',
                 url: '{{ route('get-login-customer') }}'
             }).then( function(res) {
+                $scope.projectInfo = {
+                    ...$scope.projectInfo, 
+                    'contact_person': res.data.customer.contact_person,
+                    'mobile_no': res.data.customer.mobile_no
+                }
                 $scope.customer = res.data.customer;
             }, function (err) {
                 console.log('get enquiry error');
@@ -265,6 +270,9 @@
  
             getProjectInfoInptuData = function($projectInfo) {
                 $scope.data = {
+                    'contact_person'       : $projectInfo.contact_person,
+                    'mobile_no'            : $projectInfo.mobile_no,
+                    'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
                     'enquiry_number'       : $projectInfo.enquiry_no ?? 'Draft',
@@ -286,6 +294,8 @@
             getProjectInfoInptuDataFormat = function($projectInfo) {
                 console.log('$projectInfo',$projectInfo);
                 $scope.data = {
+                    'contact_person'       : $projectInfo.contact_person,
+                    'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
                     'enquiry_number'       : $projectInfo.enquiry_no ?? 'Draft',

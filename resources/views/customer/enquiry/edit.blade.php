@@ -181,6 +181,8 @@
             getProjectInfoInptuData = function($projectInfo) {
                
                 $scope.data = {
+                    'contact_person'       : $projectInfo.contact_person,
+                    'mobile_no'            : $projectInfo.mobile_no,
                     'secondary_mobile_no'  : $projectInfo.secondary_mobile_no,
                     'enquiry_date'         : new Date($projectInfo.enquiry_date),
                     'customer_enquiry_number'       : $projectInfo.customer_enquiry_number,
