@@ -38,6 +38,17 @@
 
 
 <style>
+    .font-weight-bold {
+        font-weight: bold !important
+    }
+    .font-weight-bold td {
+        font-weight: bold !important
+
+    }
+    .font-weight-bold * {
+        font-weight: bold !important
+
+    }
     .conversation-list  li.Admin_odd {
         flex-direction: row-reverse;
     }

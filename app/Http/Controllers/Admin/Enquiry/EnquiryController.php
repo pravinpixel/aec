@@ -282,7 +282,7 @@ class EnquiryController extends Controller
     }
 
     public function singleIndex($id) {
-        
+        $this->customerEnquiryRepo->updateNewEnquiryStatus($id);
         $enquiry                        =   $this->customerEnquiryRepo->getEnquiryByID($id);
         $outputTypes                    =   $this->outputTypeRepository->get();
         $services                       =   $enquiry->services()->get();

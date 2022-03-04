@@ -588,4 +588,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         }
         return [];
     }
+
+    public function updateNewEnquiryStatus($id)
+    {
+        $enquiry = $this->enquiry->find($id);
+        $enquiry->is_new_enquiry = 0;
+        return $enquiry->save();
+    }
 }

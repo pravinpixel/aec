@@ -51,7 +51,8 @@ class Enquiry extends Model
         'proposal_sharing_status',
         'customer_response_status',
         'from_enquiry_id',
-        'initiate_from'
+        'initiate_from',
+        'is_new_enquiry',
     ];
 
     public function getCreatedAtAttribute($date)

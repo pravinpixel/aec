@@ -289,6 +289,11 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                 }
             }
         ],
+        rowCallback: function( row, data ) {
+           if(data.is_new_enquiry == 1){
+                $(row).addClass('font-weight-bold bg-light');
+           }
+        },
         createdRow: function ( row, data, index ) {
             $compile(row)($scope);  //add this to compile the DOM
         }
