@@ -17,9 +17,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
     })->name('admin.enquiry-create');
 
     Route::get('show-enquiry/{id?}', [EnquiryController::class,'singleIndexPage'])->name("view-enquiry");
-
-
-    
+ 
     //----- Project Summary ------
     Route::get('/admin-project-summary', function () {
         return view('admin.enquiry.wizard.project-summary');
