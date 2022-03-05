@@ -118,6 +118,9 @@
             .when("/team-setup", {
                 templateUrl : "{{ route('team-setup') }}",
             })
+            .when("/project-scheduling", {
+                templateUrl : "{{ route('enquiry.project-schedule') }}",
+            })
             .otherwise({
                 redirectTo: "/"
             });

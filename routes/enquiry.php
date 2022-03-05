@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
     })->name('enquiry.cost-estimation');
 
     Route::get('/admin-project-schedule', function () {
-        return view('admin.enquiry.wizard.project-schedule');
+        return view('admin.projects.wizard.project-schedule');
     })->name('enquiry.project-schedule');
 
     Route::get('/admin-proposal-sharing', function () {
