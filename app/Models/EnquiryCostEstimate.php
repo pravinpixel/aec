@@ -10,6 +10,7 @@ class EnquiryCostEstimate extends Model
     use HasFactory;
     protected $fillable = [
         'build_json',
+        'total_cost',
         'enquiry_id',
         'created_by',
     ]; 

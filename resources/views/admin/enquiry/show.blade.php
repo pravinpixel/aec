@@ -645,10 +645,12 @@
                 
             });
             $scope.UpdateCostEstimate  = function() {  
+                console.log($scope.CostEstimate);
+                
                 $http({
                     method: "POST",
                     url: "{{ route('enquiry-create.cost-estimate-value') }}",
-                    data:{ data : $scope.CostEstimate},
+                    data:{ data : $scope.CostEstimate, total : $scope.CostEstimate.ComponentsTotals.TotalCost.Sum},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
                     $scope.getWizradStatus();

@@ -26,6 +26,7 @@ return [
         'State' => "state",
         'No Of Building' => "no_of_building",
         'Project Delivery Date' => "project_delivery_date",
+        'Organization Number' =>"organization_number",
         // 'Status' => "status",
         'Project Info' => "project_info",
         'Service' => "service",

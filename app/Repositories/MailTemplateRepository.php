@@ -7,6 +7,10 @@ use App\Interfaces\MailTemplateRepositoryInterface;
 use App\Models\Admin\MailTemplate;
 use App\Models\Enquiry;
 use App\Models\Customer;
+use App\Models\User;
+use App\Models\EnquiryCostEstimate;
+use App\Models\Role;
+use Auth;
 use App\Models\Documentary\Documentary;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -91,25 +95,41 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
     }
     public function getDocumentaryOneData($request)
     {
+        //  if(Auth::user()->id) {
+        //     print_r(Auth::user()->id);die();
+        // }
             $enquiry  =  Enquiry::where('id',$request->enquireId)->select('id','enquiry_date','enquiry_number',
-            'contact_person','customer_id','service_id as serviceId','building_type_id','delivery_type_id',
-            'project_name', 'project_date', 'place', 'site_address','country','zipcode','state','no_of_building','project_delivery_date','project_info','service',
+            'contact_person','customer_id','service_id as serviceId','organization_number','building_type_id','delivery_type_id',
+            'project_name', 'project_date', 'place', 'site_address as customer_address','country','zipcode','state','no_of_building','project_delivery_date','project_info','service',
             'ifc_model_upload','building_component','additional_info')->first()->toArray();
-
+            $enquiry['offer_no'] = $enquiry['enquiry_number'];
+            $enquiry['revision_no'] = "R1";
+            
             $document =  Documentary::where('id',$request->documentId)->first();
 
-            $customer =  Customer::where('id',$enquiry['customer_id'])->select('id','customer_enquiry_date as  customer_enquiryDate','first_name','last_name','full_name','email','mobile_no','company_name',
+            $customer =  Customer::where('id',$enquiry['customer_id'])->select('id','customer_enquiry_date as  customer_enquiryDate','first_name as customer_name','last_name','full_name','email','mobile_no','company_name',
             'contact_person')->first()->toArray();
+            $enquiryCost = EnquiryCostEstimate::where('enquiry_id',$request->enquireId)->first();
+            // print_r($enquiryCost['total_cost']);die();
+           
+            $loginUserData = Admin();
+            $role = Role::where('id',$loginUserData['job_role'])->select('name')->first()->toArray();
+            // print_r($role['name']);die();
 
             $countRow =  MailTemplate::where('enquirie_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
 
             $logo = Config::get('documentary.logo.key');
-            // return $logo;
+           
             $enquiryNum =  str_replace('/','_',$enquiry['enquiry_number']);
             $fileName   =  $enquiryNum.'_'.$document['documentary_title'].'_'.'R'.$countRow;
-            // return ($customer);
+            
             $datas = array_merge($enquiry,$customer);  
-          
+            $datas['document_title']=$document['documentary_title'];
+            $datas['role'] = $role['name'];
+            $datas['admin_user'] =  $loginUserData['user_name'];
+            $datas['project_cost'] = $enquiryCost['total_cost'];
+
+
             $lo ='<img width="150px" src="'.asset($logo).'" alt="">';
             $logo_url = ['Logo'=>$lo];
             $datas = array_merge($datas,$logo_url);   
@@ -120,12 +140,12 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             // $documentData = str_replace('_',"",$documentData);
             $keyData       = array_keys($changeData);
             // $keyData = str_replace('_',"",$keyData);
+            // print_r($changeData);die();
             $valueData    = array_values($changeData);
             $new_string = str_replace($keyData, $valueData,strval($documentData));
             $today_date = date("d-m-Y");
-            // return $today_date;
+         
             $new_string=  str_replace('today_date',$today_date,strval($new_string));
-            // return $new_string;
             $search = array('{','}');
             $newDocumentData = str_replace($search,"",$new_string);
 

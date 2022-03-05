@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Documentary;
 use App\Http\Controllers\Controller;
 use App\Repositories\DocumentaryRepository;
 use Illuminate\Http\JsonResponse;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
@@ -37,6 +38,11 @@ class DocumentaryController extends Controller
 
     public function create()
     {
+        // print_r(Auth::user());die();
+        // if(Auth::user()->id) {
+        //     print_r(Auth::user()->id);die();
+        // }
+      
         return view('admin.pages.documentary.create');
     }
     /**

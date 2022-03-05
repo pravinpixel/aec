@@ -209,6 +209,7 @@
             <div class="col-12 shadow text-dark bg-white border p-2 rounded">
                 {{-- <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4> --}}
                 <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
+          
             </div>  
         </div>
     </div>

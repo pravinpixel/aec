@@ -28,6 +28,7 @@ class Enquiry extends Model
         'project_type_id',
         'project_name',
         'project_date',
+        'organization_number',
         'place',
         'site_address',
         'project_status',

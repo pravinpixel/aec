@@ -48,11 +48,15 @@ class  CostEstimateController extends Controller
                                         ->first(); 
     }
     public function store(Request $request) {
+        // dd($request->total);
          
         $data   = $request->input("data");
         $id     = $request->input("data.enquiry_id"); 
+
+        
         EnquiryCostEstimate::updateOrCreate(['enquiry_id'=>$id],[
             'build_json'    => json_encode($data),
+            'total_cost'    => $request->total,
             'created_by' => "Admin"
         ]); 
         $enquiry = Enquiry::find($id);

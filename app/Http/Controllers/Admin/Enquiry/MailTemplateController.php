@@ -144,6 +144,7 @@ class MailTemplateController extends Controller
     }
     public function getDocumentaryOneData(Request $request)
     {
+        
         $data =  $this->mailTemplateRepository->getDocumentaryOneData($request);
         // return $data;
         

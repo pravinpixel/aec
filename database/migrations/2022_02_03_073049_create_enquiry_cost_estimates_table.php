@@ -18,6 +18,7 @@ class CreateEnquiryCostEstimatesTable extends Migration
             $table->string('enquiry_id'); 
             $table->string('created_by')->nullable();
             $table->text('build_json')->nullable();
+            $table->string('total_cost')->nullable();
             $table->timestamps();
         });
     }

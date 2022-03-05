@@ -22,6 +22,7 @@ class CreateEnquiriesTable extends Migration
             $table->string('contact_person')->nullable();
             $table->string('mobile_no')->nullable();
             $table->string('secondary_mobile_no')->nullable();
+            $table->string('organization_number')->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('service_id')->nullable();
             $table->unsignedBigInteger('building_type_id')->nullable();
