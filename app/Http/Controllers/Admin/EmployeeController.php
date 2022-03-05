@@ -552,7 +552,17 @@ class EmployeeController extends Controller
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
     
-    
-   
+
+    public function getTechnicalEstimateEmployee(Request $request)
+    {
+        return Employee::where(['job_role' => 2, 'status'=> 1])->get();
+    }
+
+    public function getCostEstimateEmployee(Request $request)
+    {
+        return Employee::where(['job_role' => 3, 'status'=> 1])->get();
+    }
+
+
     
 }

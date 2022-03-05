@@ -915,8 +915,8 @@
                             $scope.commentsData = response.data.chatHistory; 
                             $scope.chatType     = response.data.chatType;  
                             $('#viewConversations-modal').modal('show');
-                            getEnquiryCommentsCountById(enquiry_id);
-                            getEnquiryActiveCommentsCountById(enquiry_id);
+                            // getEnquiryCommentsCountById(enquiry_id);
+                            // getEnquiryActiveCommentsCountById(enquiry_id);
                         });
                         break;
                     default:

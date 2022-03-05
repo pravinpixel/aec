@@ -7,7 +7,7 @@
         <div class="content"> 
             @include('admin.includes.top-bar') 
             <!-- Start Content-->
-            <div class="container-fluid"  ng-controller="WizzardCtrl"> 
+            <div class="container-fluid"> 
                 
                 <!-- start page title --> 
                 <div class="row ">
@@ -167,7 +167,8 @@
                 controller : "WizzardCtrl"
             })
             .when("/project-summary", {
-                templateUrl : "{{ route('enquiry.project-summary') }}"
+                templateUrl : "{{ route('enquiry.project-summary') }}",
+                controller : "WizzardCtrl"
             })
             .when("/technical-estimation", {
                 templateUrl : "{{ route('enquiry.technical-estimation') }}",
@@ -194,15 +195,6 @@
         });  
         app.controller('WizzardCtrl', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id = '{{ $id }}';
-            getAutoDeskFileTypes = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("get-autodesk-file-type") }}'
-                }).then(function (res) {
-                    $scope.autoDeskFileType = res.data;
-                });
-            }
-            getAutoDeskFileTypes();
             
             getEnquiryCommentsCountById = (id) => {
                 $http({
@@ -323,19 +315,16 @@
            
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL) {
-            // [
-            //     {
-            //         "building_number":1,"building_component_number":
-            //             [
-            //                 {"name":"External Wall","sqfeet":0},
-            //                 {"name":"Internal Wall","sqfeet":0},
-            //                 {"name":"Partition Wall","sqfeet":0},
-            //                 {"name":"Ceiling","sqfeet":0},
-            //                 {"name":"Roof","sqfeet":0}
-            //             ],
-            //         "total_component_area":0
-            //     }
-            // ]
+            let enquiryId =  '{{ $data->id }}'
+            getUsers = () => {
+                $http.get(`${API_URL}admin/get-technicalestimate-employee`)
+                .then(function successCallback(res){
+                    $scope.userList = res.data;
+                }, function errorCallback(error){
+                    console.log(error);
+                });
+            }
+            getUsers();
             getAutoDeskFileTypes = () => {
                 $http({
                     method: 'GET',
@@ -350,6 +339,7 @@
                 $scope.enquiry              =   response.data; 
                 $scope.enquiry_id           =   response.data.enquiry_id; 
                 $scope.building_building    =   response.data.building_component; 
+                $scope.others               =   response.data.others;
             });
              
             $scope.getWizradStatus = function() {
@@ -453,7 +443,66 @@
                     Message('danger',response.data.errors);
                 });
             }
-            
+
+            $scope.assignTechnicalEstimate = (assign_to) => {
+                if(assign_to == '') return false;
+                $http.post(`${API_URL}technical-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
+                    .then(function successCallback(res){
+                       
+                        if(res.data.status) {
+                            Message('success', res.data.msg);
+                            return false;
+                        }
+                        Message('error', res.data.msg);
+                    }, function errorCallback(error){
+                        console.log(error);
+                });
+            }
+
+            $scope.showCommentsToggle = function (modalstate, type, header) {
+                $scope.modalstate = modalstate;
+                $scope.module = null;
+                $scope.chatHeader   = header; 
+                switch (modalstate) {
+                    case 'viewConversations':
+                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                            $scope.commentsData = response.data.chatHistory; 
+                            $scope.chatType     = response.data.chatType;  
+                            $('#assing-viewConversations-modal').modal('show');
+                            // getEnquiryCommentsCountById($scope.enquiry_id);
+                            // getEnquiryActiveCommentsCountById($scope.enquiry_id);
+                        });
+                        break;
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.sendAssignTechInboxComments  = function(type , chatSection) { 
+                    $scope.sendCommentsData = {
+                        "comments"        :   $scope.inlineComments,
+                        "enquiry_id"      :   $scope.enquiry_id,
+                        "type"            :   chatSection,
+                        "created_by"      :   type,
+                        "role_by"         : `Techical Estimater ${type}`
+                    }
+                    console.log($scope.sendCommentsData);
+                    $http({
+                        method: "POST",
+                        url:  "{{ route('enquiry.comments') }}" ,
+                        data: $.param($scope.sendCommentsData),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded' 
+                        }
+                    }).then(function successCallback(response) {
+                        document.getElementById("Inbox__commentsForm").reset();
+                        $scope.showTechCommentsToggle('viewAssingTechicalConversations', 'techical_estimation', chatSection);
+                        Message('success',response.data.msg);
+                    }, function errorCallback(response) {
+                        Message('danger',response.data.errors);
+                    });
+                }  
+
             // =====================
                 $scope.GetCommentsData = function() {
                     $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
@@ -485,6 +534,14 @@
                                 });
 
                             break; 
+                        case 'viewAssingTechicalConversations' : 
+                            $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+$scope.technical_docType_id ).then(function (response) {
+                                $scope.TechcommentsData = response.data.chatHistory; 
+                                $scope.chatType     = response.data.chatType;  
+                                $('#assing-viewConversations-modal').modal('show');
+                            });
+
+                        break; 
                         default:
                             break;
                     } 
@@ -566,7 +623,34 @@
                     });
                 }             
         }); 
+
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
+            let enquiryId =  '{{ $data->id }}'
+            getUsers = () => {
+                $http.get(`${API_URL}admin/get-costestimate-employee`)
+                .then(function successCallback(res){
+                    $scope.userList = res.data;
+                }, function errorCallback(error){
+                    console.log(error);
+                });
+            }
+            getUsers();
+
+            $scope.assingUserToCostestimate = (assign_to) => {
+                if(assign_to == '') return false;
+                $http.post(`${API_URL}cost-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
+                    .then(function successCallback(res){
+                       
+                        if(res.data.status) {
+                            Message('success', res.data.msg);
+                            return false;
+                        }
+                        Message('error', res.data.msg);
+                    }, function errorCallback(error){
+                        console.log(error);
+                });
+            }
+
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -634,7 +718,7 @@
             //     "enquiry_id" : '{{ $data->id ?? " " }}'
             // };
             
-            
+            $scope.enquiry_id = '{{ $id }}';
             // =========== Cost Estimate  ============
             $http.get("{{ route("CostEstimateData") }}").then(function (response) {
                 $scope.cost = response.data; 
@@ -642,7 +726,7 @@
             $http.get("{{ route('CostEstimateView', $data->id) }}").then(function (response) {
                 $scope.enquiry          =   response.data;  
                 $scope.CostEstimate     =   response.data.cost_estimation; 
-                
+                $scope.others           =   response.data.others;
             });
             $scope.UpdateCostEstimate  = function() {  
                 $http({
@@ -690,6 +774,60 @@
                 // }
                 $scope.CostEstimate.Components.splice(index,1);
             }
+       
+
+            $scope.sendAssignCostEstiComments  = function(type , chatSection) { 
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   chatSection,
+                    "created_by"      :   type,
+                    "role_by"         : `Cost Estimater ${type}`
+                }
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById("Inbox__commentsForm").reset();
+                    $scope.showTechCommentsToggle('viewConversations', 'cost_estimation_assign', chatSection);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }  
+
+            $scope.showTechCommentsToggle = function (modalstate, type, docId) {
+                $scope.modalstate = modalstate;
+                $scope.module = null;
+                $scope.technical_docType_id   = docId; 
+                $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                    $scope.commentsData = response.data.chatHistory; 
+                    $scope.chatType     = response.data.chatType;  
+                    $('#assing-viewConversations-modal').modal('show');
+                });
+            }
+
+            $scope.showCommentsToggle = function (modalstate, type, header) {
+                $scope.modalstate = modalstate;
+                $scope.module = null;
+                $scope.chatHeader   = header; 
+                switch (modalstate) {
+                    case 'viewConversations':
+                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                            $scope.TechcommentsData = response.data.chatHistory; 
+                            $scope.chatType     = response.data.chatType;  
+                            $('#assing-viewConversations-modal').modal('show');
+                        });
+                        break;
+                    default:
+                        break;
+                } 
+            }
+
         });
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
              
@@ -714,7 +852,7 @@
             $scope.sendMailToCustomer = function (proposal_id) { 
                 $http.post(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/send-mail/'+proposal_id).then(function (response) {
                     Message('success',response.data.msg);
-                    $scope.getWizradStatus();
+                    // $scope.getWizradStatus();
                     $scope.getProposesalData();
                 });
             }
@@ -722,7 +860,7 @@
             $scope.sendMailToCustomerVersion = function (proposal_id , Vid) { 
                 $http.post(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/send-mail/'+proposal_id+'/version/'+Vid).then(function (response) {
                     Message('success',response.data.msg);
-                    $scope.getWizradStatus();
+                    // $scope.getWizradStatus();
                     $scope.getProposesalData();
                 });
             }

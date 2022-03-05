@@ -25,6 +25,7 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
             "type"          => $r->type,
             "created_by"    => $r->created_by,
             "role_by"       => $r->role_by ?? "",
+            "employee_id"   => $r->employee_id ?? "",
             "status"        => 0,
         ]);
         return response(['status' => true, 'data' => 'Success' ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);

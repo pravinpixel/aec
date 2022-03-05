@@ -1,4 +1,4 @@
-<div ng-controller="WizzardCtrl"> 
+<div> 
     <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
         <li class="time-bar"></li>
         <li class="nav-item Project_Info">

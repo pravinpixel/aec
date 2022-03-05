@@ -7,25 +7,33 @@ use Illuminate\Http\Request;
 use App\Models\EnquiryTechnicalEstimate;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
+use App\Interfaces\TechnicalEstimateRepositoryInterface;
 use Illuminate\Http\Response;
 use App\Models\Enquiry;
+use App\Repositories\TechnicalEstimateRepository;
 
 class TechEstimateController extends Controller
 {
     protected $customerEnquiryRepo;
     protected $documentTypeEnquiryRepo;
 
-    public function __construct(CustomerEnquiryRepositoryInterface $customerEnquiryRepository,DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo){
+    public function __construct(
+        CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
+        DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo,
+        TechnicalEstimateRepositoryInterface $technicalEstimate
+    ){
         $this->customerEnquiryRepo     = $customerEnquiryRepository;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
+        $this->technicalEstimate       = $technicalEstimate;
     }
 
     public function index(Request $request , $id)    {
 
         $data = EnquiryTechnicalEstimate::where("enquiry_id", $id)->first();
-
+        $others                         =   ['assign_to' => $data->assign_to]; 
         $enquiry                        =   $this->customerEnquiryRepo->getEnquiryByID($id);
         $result['customer_info']        =   $enquiry->customer ?? ""; 
+        $result['others']               =   $others;
         $result['project_type']         =   $enquiry->projectType->project_type_name ?? '';
         $result["enquiry"]              =   $enquiry ?? "";
         $result['building_component']   =   isset($data) ? json_decode($data->build_json) : [];
@@ -49,5 +57,14 @@ class TechEstimateController extends Controller
         $enquiry = Enquiry::find($id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
+    }
+
+    public function assignUser($enquiry_id, Request $request)
+    {
+        $result = $this->technicalEstimate->assignUser($enquiry_id,$request->assign_to);
+        if($result){
+            return response(['status' => true, 'msg' => __('enquiry.assign_user_successfully')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
     }
 } 

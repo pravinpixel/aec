@@ -6,6 +6,7 @@ use App\Interfaces\AutoDeskRepositoryInterface;
 use App\Interfaces\BuildingComponentRepositoryInterface;
 use App\Interfaces\BuildingTypeRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
+use App\Interfaces\CostEstimateRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerLayerRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
@@ -24,10 +25,12 @@ use App\Interfaces\DocumentaryRepositoryInterface;
 use App\Interfaces\EnquiryCommentRepositoryInterface;
 use App\Interfaces\EnquiryTemplateRepositoryInterface;
 use App\Interfaces\MailTemplateRepositoryInterface;
+use App\Interfaces\TechnicalEstimateRepositoryInterface;
 use App\Repositories\AutoDeskRepository;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
 use App\Repositories\CommentRepository;
+use App\Repositories\CostEstimateRepository;
 use App\Repositories\CustomerEnquiryRepository;
 use App\Repositories\CustomerLayerRepository;
 use App\Repositories\CustomerRepository;
@@ -46,6 +49,7 @@ use App\Repositories\DocumentaryRepository;
 use App\Repositories\EnquiryCommentRepository;
 use App\Repositories\EnquiryTemplateRepository;
 use App\Repositories\MailTemplateRepository;
+use App\Repositories\TechnicalEstimateRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -158,6 +162,16 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             EnquiryCommentRepositoryInterface::class,
             EnquiryCommentRepository::class
+        );
+
+        $this->app->bind(
+            TechnicalEstimateRepositoryInterface::class,
+            TechnicalEstimateRepository::class
+        );
+
+        $this->app->bind(
+            CostEstimateRepositoryInterface::class,
+            CostEstimateRepository::class
         );
     }
 

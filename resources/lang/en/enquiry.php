@@ -36,4 +36,5 @@ return [
     'cancel_enquiry'              => 'Cancel Enquiry',
     'enquiry_cancel_to_move'      => 'Enquiry move to active successfully',
     'enquiry_approved'            => 'Approved Success',
+    'assign_user_successfully'    => 'User assigned successfully'
 ];

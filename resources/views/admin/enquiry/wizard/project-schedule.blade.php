@@ -1,4 +1,4 @@
-<div class="app" ng-controller="InvoiceCtrl">
+<div class="app" >
     <div class="card mt-3">
         <div class="card" id="myCover"> 
             <div class="card-body">

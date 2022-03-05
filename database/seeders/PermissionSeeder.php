@@ -48,6 +48,10 @@ class PermissionSeeder extends Seeder
    
            // create roles and assign existing permissions
            $role1 = Role::create(['name' => 'admin','status' => 1, 'slug' => 'admin']);
+           $role2 = Role::create(['name' => 'technical estimate','status' => 1, 'slug' => 'technical_estimate']);
+           $role3 = Role::create(['name' => 'cost estimate','status' => 1, 'slug' => 'cost_estimate']);
+        
+
            $role1->givePermissionTo('enquiry_index');
            $role1->givePermissionTo('enquiry_add');
            $role1->givePermissionTo('enquiry_edit');

@@ -215,22 +215,22 @@
             </div>
         </div>
     </div>
-    <div class="border-0 my-2">
+    <div class="col-6 my-1">
         <div class="row m-0">
-            <div class="col-md-9 p-0">
-                <div class="input-group ">
-                    <label class="input-group-text bg-white font-weight-bold" for="inputGroupSelect01">Assign to</label>
-                    <select class="form-select border" id="inputGroupSelect01">
-                      <option selected>Choose...</option>
-                      <option value="1">User One</option> 
-                      <option value="1">User Two</option> 
-                      <option value="1">User Three</option> 
+            <div class="col-md-9 p-0 d-flex">
+                <div class="input-group border shadow-sm rounded">
+                    <label class=" border-0 input-group-text text-white bg-primary font-weight-bold" for="inputGroupSelect01">Assign to</label>
+                    <select class="form-select border-0 " ng-model="others.assign_to" id="inputGroupSelect01" ng-change="assingUserToCostestimate(others.assign_to)">
+                        <option value=""> @lang('global.select')</option>
+                        <option ng-repeat="user in userList" value="@{{user.id}}" ng-selected="user.id == others.assign_to">@{{user.user_name}}</option>
                     </select>
-                    <label class="input-group-text btn btn-info" for="inputGroupSelect01">Send</label>
+                </div>
+                <div class="mx-1">
+                    <button class="btn btn-primary rounded-pill"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">  <i class="fa fa-eye"></i> </button>
                 </div>
             </div>
+           
         </div>
-         
     </div>
     <div class="card-footer">
         <div class="d-flex justify-content-between">
@@ -238,11 +238,13 @@
                 <a href="#/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a ng-show="cost_estimation_status" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
+                <a ng-show="cost_estimation_status  && others.assign_to" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 
 </form> 
+@include("admin.enquiry.models.cost-estimate-chat-box") 
+
 @if (Route::is('enquiry.cost-estimation')) 
     <style>
         .admin-Cost_Estimate-wiz .timeline-step .inner-circle{

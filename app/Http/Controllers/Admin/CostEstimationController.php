@@ -23,6 +23,10 @@ use function PHPSTORM_META\type;
 class CostEstimationController extends Controller
 {
 
+    public function __construct()
+    {
+        
+    }
 
     public function cost_estimation_single_view()
     {
@@ -489,6 +493,15 @@ class CostEstimationController extends Controller
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
    
+
+    public function assignUser($enquiry_id, Request $request)
+    {
+        $result = $this->costEstimate->assignUser($enquiry_id,$request->assign_to);
+        if($result){
+            return response(['status' => true, 'msg' => __('enquiry.assign_user_successfully')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
+    }
     
     
 }

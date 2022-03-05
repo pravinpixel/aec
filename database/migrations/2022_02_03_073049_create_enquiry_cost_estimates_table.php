@@ -15,9 +15,13 @@ class CreateEnquiryCostEstimatesTable extends Migration
     {
         Schema::create('enquiry_cost_estimates', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('assign_to')->nullable();
+            $table->unsignedBigInteger('assign_by')->nullable();
             $table->string('enquiry_id'); 
             $table->string('created_by')->nullable();
             $table->text('build_json')->nullable();
+            $table->foreign('assign_to')->references('id')->on('employee');
+            $table->foreign('assign_by')->references('id')->on('employee');
             $table->timestamps();
         });
     }
