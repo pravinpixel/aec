@@ -539,7 +539,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function updateProjectById($id, $status)
     {
-        $enquiry = Enquiry::find($id)->update(['project_status' => $status]);
+        $enquiry = Enquiry::find($id)
+                    ->update(['project_status' => $status, 'created_by' => Admin()->id]);
         return $enquiry;
     }
     

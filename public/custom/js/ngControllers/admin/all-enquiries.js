@@ -277,8 +277,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
-            {data: 'customer.contact_person', name: 'customer.contact_person'},
-            {data: 'customer.mobile_no', name: 'customer.mobile_no'},
+            {data: 'contact_person', name: 'contact_person'},
+            {data: 'mobile_no', name: 'mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
             {data: 'pipeline', name: 'pipeline'},
             {data: 'project_status', name: 'project_status'},
@@ -319,8 +319,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
-            {data: 'customer.contact_person', name: 'customer.contact_person'},
-            {data: 'customer.mobile_no', name: 'customer.mobile_no'},
+            {data: 'contact_person', name: 'contact_person'},
+            {data: 'mobile_no', name: 'mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
             {data: 'pipeline', name: 'pipeline'},
             {data: 'project_status', name: 'project_status'},
@@ -356,8 +356,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
-            {data: 'customer.contact_person', name: 'customer.contact_person'},
-            {data: 'customer.mobile_no', name: 'customer.mobile_no'},
+            {data: 'contact_person', name: 'contact_person'},
+            {data: 'mobile_no', name: 'customer.mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
             {data: 'pipeline', name: 'pipeline'},
             {data: 'project_status', name: 'project_status'},

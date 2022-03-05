@@ -11,7 +11,7 @@
                 <p class="h5 mt-2">Project summary</p>
             </a>
         </li>
-        <li class="nav-item  admin-Technical_Estimate-wiz">
+        <li class="nav-item  admin-Technical_Estimate-wiz" style="pointer-events: @{{ project_summary_status == 'Active' ? 'unset' :'none'  }}">
             <a href="#/technical-estimation" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
                     <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">

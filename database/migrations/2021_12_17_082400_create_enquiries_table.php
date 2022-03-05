@@ -56,7 +56,7 @@ class CreateEnquiriesTable extends Migration
                 $table->integer('customer_response')->nullable();
             // ======== Admin Wizard Flow Status =======
             $table->unsignedBigInteger('from_enquiry_id')->nullable();
-            $table->boolan('is_new_enquiry')->default(1);
+            $table->boolean('is_new_enquiry')->default(1);
             $table->timestamps();
         });
     }

@@ -726,6 +726,10 @@
                     $scope.getProposesalData();
                 });
             }
+
+            $scope.moveToProject = () => {
+                window.location.href = `${API_URL}admin/enquiry-list`;
+            }
             
             // View Propose Data
             $scope.ViewEditPropose = function (proposal_id) {
@@ -1066,7 +1070,7 @@
                 },
             };
         }]);
-        app.controller('Customer_response', function ($scope, $http, API_URL) {
+        app.controller('Customer_response', function ($scope, $http, API_URL, $location, $timeout) {
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
