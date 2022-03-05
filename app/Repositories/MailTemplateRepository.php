@@ -107,7 +107,7 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             
             $document =  Documentary::where('id',$request->documentId)->first();
 
-            $customer =  Customer::where('id',$enquiry['customer_id'])->select('id','customer_enquiry_date as  customer_enquiryDate','first_name as customer_name','last_name','full_name','email','mobile_no','company_name',
+            $customer =  Customer::where('id',$enquiry['customer_id'])->select('id','customer_enquiry_date as  customer_enquiryDate','first_name','last_name','full_name','email','mobile_no','company_name',
             'contact_person')->first()->toArray();
             $enquiryCost = EnquiryCostEstimate::where('enquiry_id',$request->enquireId)->first();
             // print_r($enquiryCost['total_cost']);die();

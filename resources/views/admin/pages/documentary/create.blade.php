@@ -61,7 +61,7 @@
                                             <tr>
                                                 <td>Offer: {offer_no}  Revision: {revision_no},<br>
                                                 <strong> To</strong><br>
-                                                <strong>{customer_name}</strong><br>
+                                                <strong>{full_name}</strong><br>
                                                 <strong>{organization_number}</strong><br>
                                               
                                                 <strong>{customer_address}</strong><br>
@@ -457,7 +457,7 @@
                 CKEDITOR.instances.editor1.setData(`
                             <table class="table table-borderless">
                                             <tr>
-                                                <td></td>
+                                                <td> <h1>{heading}</h1></td>
                                                 <td>
                                                     <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">
                                                 </td>
@@ -465,7 +465,7 @@
                                             <tr>
                                                 <td>Offer: {offer_no}  Revision: {revision_no},<br>
                                                 <strong> To</strong><br>
-                                                <strong>{customer_name}</strong><br>
+                                                <strong>{full_name}</strong><br>
                                                 <strong>{organization_number}</strong><br>
                                               
                                                 <strong>{customer_address}</strong><br>
