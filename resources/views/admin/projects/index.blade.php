@@ -77,7 +77,7 @@
                                 </a>
                             </li>                                
                             <li class="nav-item admin-Delivery-wiz">
-                                <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" data-is-active >
+                                <a href="#/review-n-submit" style="min-height: 40px;"  class="timeline-step" data-is-active >
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary">
                                             <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
@@ -119,7 +119,16 @@
                 templateUrl : "{{ route('team-setup') }}",
             })
             .when("/project-scheduling", {
-                templateUrl : "{{ route('enquiry.project-schedule') }}",
+                templateUrl : "{{ route('project-schedule') }}",
+            })
+            .when("/invoice-plan", {
+                templateUrl : "{{ route('invoice-plan') }}",
+            })
+            .when("/to-do-listing", {
+                templateUrl : "{{ route('to-do-listing') }}",
+            })
+            .when("/review-n-submit", {
+                templateUrl : "{{ route('review-n-submit') }}",
             })
             .otherwise({
                 redirectTo: "/"

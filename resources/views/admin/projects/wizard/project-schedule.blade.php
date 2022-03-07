@@ -19,8 +19,12 @@
         </div> 
     </div>
 </div>  
+<div class="card-footer text-end">
+    <a href="#/team-setup" class="btn btn-light float-start">Prev</a>
+    <a href="#/invoice-plan" class="btn btn-primary">Next</a>
+</div>
 
-@if (Route::is('enquiry.project-schedule')) 
+@if (Route::is('project-schedule')) 
     <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> 
     <link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/styles/style.css?ver=1">
     <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script> 

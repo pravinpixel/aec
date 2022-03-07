@@ -25,18 +25,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
-                <div class="row m-0 align-items-center">
-                    <div class="col-md d-flex align-items-center">
-                        <img src="https://support.24sevenoffice.com/hc/article_attachments/360023571760/24so.png" width="30px" class="me-3">
-                        <b>24 seven office</b>
-                    </div>
-                    <div class="col-4 text-end">
-                        <input type="checkbox" id="switch2" data-switch="none"/>
-                        <label for="switch2" class="border" data-on-label="" data-off-label=""></label>
-                    </div>
-                </div>
-            </div>
+             
         </div>
         <div class="col-md-8">
             <table class="custom table border m-0">
@@ -96,18 +85,7 @@
                     <input type="submit" value="Submit" class="btn btn-primary">
                 </div>
             </div>
-        </div>
-        <div class="row align-items-center mb-2">
-            <div class="col-2">
-                <strong>24 seven office</strong>
-            </div>
-            <div class="col-10">
-                <div class="input-group">
-                    <input type="url" class="form-control" placeholder="Paste URL..">
-                    <input type="submit" value="Submit" class="btn btn-primary">
-                </div>
-            </div>
-        </div>
+        </div> 
     </div>
 </div>
 <div class="card-footer text-end">

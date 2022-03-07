@@ -1,12 +1,7 @@
-<div class="card-body">   
+<div class="card-body">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a href="#Create-Team" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
-                <span class="d-none d-md-block">Create Team</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#Sharepoint" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+            <a href="#Sharepoint" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
                 <span class="d-none d-md-block">Sharepoint</span>
             </a>
         </li>
@@ -21,45 +16,8 @@
             </a>
         </li>
     </ul>
-    
     <div class="tab-content border border-top-0">
-        <div class="tab-pane p-3 show active" id="Create-Team">
-            <div class="text-end">
-                <button class="btn btn-primary mb-2 btn-sm">Add Employee</button>
-            </div>
-            <table class="table custom table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">S.No</th>
-                        <th class="text-center">Employee ID</th>
-                        <th class="text-center">Employee Name</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for ($key=0; $key<5; $key++)
-                        <tr>
-                            <td>{{ $key+1 }}</td>
-                            <td><input type="number" class="form-control form-control-sm"></td>
-                            <td><input type="text" class="form-control form-control-sm"></td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="dripicons-dots-3"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Edit</a>
-                                        <a class="dropdown-item" href="#">Send Mail</a>
-                                        <a class="dropdown-item" href="#">Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    @endfor
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane p-3" id="Sharepoint">
+        <div class="tab-pane p-3 show active" id="Sharepoint">
             <div class="col-md-10 mx-auto">
                 <table class="custom table-bordered table border m-0">
                     <thead>
@@ -311,7 +269,6 @@
                             <ul>
                                <li> BIM 360</li>
                                <li> Sharepoint Access</li>
-                               <li> 24 * 7 Office</li>
                             </ul>
                         </div>
                     </div>

@@ -136,6 +136,9 @@
             function goBack() {
                 window.history.back();
             }
+            function submit() {
+                swal("Good job!", "Project successfully created!", "success");
+            }
         </script>
     </body>
 </html>
