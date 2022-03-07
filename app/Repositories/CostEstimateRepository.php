@@ -14,9 +14,9 @@ class CostEstimateRepository implements CostEstimateRepositoryInterface{
         $this->model = $costEstimate;
     }
 
-    public function assignUser($enquiry_id, $user_id)
+    public function assignUser($enquiry, $user_id)
     {
-        $costEstimate = $this->model->where('enquiry_id', $enquiry_id)->first();
+        $costEstimate = $this->model->where('enquiry_id', $enquiry->id)->first();
         $costEstimate->assign_to = $user_id;
         $costEstimate->assign_by = Admin()->id;
         return $costEstimate->save();

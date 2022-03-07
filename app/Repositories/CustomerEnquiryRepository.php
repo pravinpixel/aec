@@ -238,9 +238,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     {
         return $enquiry->update([$column => true]);
     }
-    public function updateAdminWizardStatus($enquiry, $column) 
+    public function updateAdminWizardStatus($enquiry, $column, $value= true) 
     {
-        return $enquiry->update([$column => true]);
+       $enquiry->update([$column =>  $value]);
+       return $enquiry;
     }
 
     public function getPlanViewList($id) 

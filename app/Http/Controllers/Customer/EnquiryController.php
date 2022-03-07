@@ -97,11 +97,12 @@ class EnquiryController extends Controller
 
     public function myEnquiriesApprove($type , $id)
     {
+        $result =   Enquiry::find($id)->with(['getProposal'=> function($q){
+            $q->where(['status' => 'sent'])->latest()->first();
+        }])->first();
+        $proposal_id        =   $result->getProposal[0]->proposal_id;
         if($type == 'preview') {
-            $result             =   Enquiry::find($id)->with(['getProposal'=> function($q){
-                                                $q->where(['status' => 'sent'])->latest()->first();
-                                            }])->first();
-            $proposal_id        =   $result->getProposal[0]->proposal_id;
+        
             $proposal           =   MailTemplate::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
             $proposal_version   =   PropoalVersions::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
             if(empty($proposal_version)) {
@@ -118,10 +119,10 @@ class EnquiryController extends Controller
             $result =   Enquiry::find($id);
             $result ->  project_status = 'Active';
             $result ->  save();
-            $proposal           =   MailTemplate::where(['proposal_id !='=> $proposal_id, 'enquiry_id'=> $id])
-                                                ->update(['is_active' => 0]);
-            $proposal_version   =   PropoalVersions::where(['proposal_id !='=> $proposal_id, 'enquiry_id'=> $id])
-                                                ->update(['is_active' => 0]);
+            $proposal           =   MailTemplate::where(['proposal_id !='=> $proposal_id, 'enquiry_id'=> $id]);
+            $proposal->update(['is_active' => 0]);
+            $proposal_version   =   PropoalVersions::where(['proposal_id !='=> $proposal_id, 'enquiry_id'=> $id]);
+            $proposal_version->update(['is_active' => 0]);                                    
             return 'Proposal to be Approved !';
         }
         if($type == 'denie') {

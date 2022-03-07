@@ -339,7 +339,8 @@
                 $scope.enquiry              =   response.data; 
                 $scope.enquiry_id           =   response.data.enquiry_id; 
                 $scope.building_building    =   response.data.building_component; 
-                $scope.assign_to            =   response.data.others.assign_to != null ? response.data.others.assign_to :  "";
+                $scope.assign_to            =   response.data.others.assign_to ?? '';
+                $scope.latest_assigned_to   =   response.data.others.assign_to;
             });
              
             $scope.getWizradStatus = function() {
@@ -444,11 +445,11 @@
                 });
             }
 
-            $scope.assignTechnicalEstimate = (assign_to) => {
-                if(assign_to == '') return false;
+            $scope.assignTechnicalEstimate = (user) => {
+                let assign_to = user == '' ? null: user;
+                $scope.latest_assigned_to  =  assign_to;
                 $http.post(`${API_URL}technical-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
                     .then(function successCallback(res){
-                       
                         if(res.data.status) {
                             Message('success', res.data.msg);
                             return false;
@@ -635,8 +636,9 @@
             }
             getUsers();
 
-            $scope.assingUserToCostestimate = (assign_to) => {
-                if(assign_to == '') return false;
+            $scope.assignUserToCostestimate = (user) => {
+                let assign_to = user == '' ? null: user;
+                $scope.latest_assigned_to  =  assign_to;
                 $http.post(`${API_URL}cost-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
                     .then(function successCallback(res){
                        
@@ -657,6 +659,7 @@
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status      = res.data.progress.proposal_sharing_status;
                     $scope.customer_response            = res.data.progress.customer_response; 
+                    
                 });
             }
             $scope.getWizradStatus();
@@ -726,7 +729,8 @@
                 console.log(response.data.others);
                 $scope.enquiry          =   response.data;  
                 $scope.CostEstimate     =   response.data.cost_estimation; 
-                $scope.assign_to        =   response.data.others.assign_to != null ? response.data.others.assign_to :  "";
+                $scope.assign_to        =   response.data.others.assign_to ?? '';
+                $scope.latest_assigned  =   response.data.others.assign_to;
             });
             $scope.UpdateCostEstimate  = function() {  
                 $http({

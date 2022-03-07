@@ -73,4 +73,6 @@ interface CustomerEnquiryRepositoryInterface
     public function deleteAndGetBuildingComponentDocument($id);
     
     public function updateNewEnquiryStatus($id);
+
+    public function updateAdminWizardStatus($enquiry, $status);
 }

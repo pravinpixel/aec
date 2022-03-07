@@ -25,6 +25,7 @@ class CreatePropoalVersionsTable extends Migration
             $table->string('pdf_file_name')->nullable(); 
             $table->longText('is_mail_sent')->default(0);
             $table->string('status')->default('awaiting');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

@@ -14,9 +14,9 @@ class TechnicalEstimateRepository implements TechnicalEstimateRepositoryInterfac
         $this->model = $technicalEstimate;
     }
 
-    public function assignUser($enquiry_id, $user_id)
+    public function assignUser($enquiry, $user_id)
     {
-        $technicalEstimate = $this->model->where('enquiry_id', $enquiry_id)->first();
+        $technicalEstimate = $this->model->where('enquiry_id', $enquiry->id)->first();
         $technicalEstimate->assign_to = $user_id;
         $technicalEstimate->assign_by = Admin()->id;
         return $technicalEstimate->save();

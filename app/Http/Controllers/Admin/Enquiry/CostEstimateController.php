@@ -72,7 +72,13 @@ class  CostEstimateController extends Controller
 
     public function assignUser($enquiry_id, Request $request)
     {
-        $result =  $this->costEstimate->assignUser($enquiry_id,$request->assign_to);
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByID($enquiry_id);
+        if($request->assign_to == null) {
+            $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status', false);
+            $result =  $this->costEstimate->assignUser($enquiry, Admin()->id);
+        } else {
+            $result =  $this->costEstimate->assignUser($enquiry,$request->assign_to);
+        }
         if($result){
             return response(['status' => true, 'msg' => __('enquiry.assign_user_successfully')]);
         }
