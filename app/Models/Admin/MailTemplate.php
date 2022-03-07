@@ -24,6 +24,7 @@ class MailTemplate extends Model
         'reference_no',
         'is_mail_sent',
         'is_active',
+        'comment',
         'status',
     ];  
 

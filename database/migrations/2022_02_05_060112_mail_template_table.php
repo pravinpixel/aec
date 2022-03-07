@@ -28,6 +28,7 @@ class MailTemplateTable extends Migration
             $table->string('is_mail_sent')->default(0);
             $table->boolean('is_active')->default(1);
             $table->string('status')->default('awaiting');
+            $table->text('comment')->nullable();
             $table->softDeletes();
             $table->timestamps();
        

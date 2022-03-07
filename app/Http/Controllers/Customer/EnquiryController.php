@@ -100,6 +100,9 @@ class EnquiryController extends Controller
         $result =   Enquiry::find($id)->with(['getProposal'=> function($q){
             $q->where(['status' => 'sent'])->latest()->first();
         }])->first();
+        if($result->project_status != 'Unattended') {
+            return 'Proposal already Approved !';
+        }
         $proposal_id        =   $result->getProposal[0]->proposal_id;
         if($type == 'preview') {
         
@@ -119,10 +122,10 @@ class EnquiryController extends Controller
             $result =   Enquiry::find($id);
             $result ->  project_status = 'Active';
             $result ->  save();
-            $proposal           =   MailTemplate::where(['proposal_id !='=> $proposal_id, 'enquiry_id'=> $id]);
-            $proposal->update(['is_active' => 0]);
-            $proposal_version   =   PropoalVersions::where(['proposal_id !='=> $proposal_id, 'enquiry_id'=> $id]);
-            $proposal_version->update(['is_active' => 0]);                                    
+            $proposal           =   MailTemplate::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
+                                                    ->update(['is_active' => 0]);
+            $proposal_version   =   PropoalVersions::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
+                                                    ->update(['is_active' => 0]);                        
             return 'Proposal to be Approved !';
         }
         if($type == 'denie') {

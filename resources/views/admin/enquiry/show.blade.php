@@ -1227,7 +1227,10 @@
             $scope.GetCommentsData = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.enquiry_status = res.data.enquiry_status;
-                  
+                }).then(function(){
+                    $http.get(API_URL + 'admin/api/v2/get-denied-proposal/' + {{ $data->id ?? " " }} ).then(function (res) {
+                        $scope.deniedComments = res.data;
+                    });
                 });
             }
             $scope.GetCommentsData();

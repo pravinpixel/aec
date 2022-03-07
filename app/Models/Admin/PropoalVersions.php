@@ -19,6 +19,7 @@ class PropoalVersions extends Model
         'pdf_file_name',
         'is_mail_sent',
         'status',
+        'comment',
         'is_active',
     ];  
 //     public function getJoinVersions()

@@ -26,6 +26,7 @@ class CreatePropoalVersionsTable extends Migration
             $table->longText('is_mail_sent')->default(0);
             $table->string('status')->default('awaiting');
             $table->boolean('is_active')->default(1);
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

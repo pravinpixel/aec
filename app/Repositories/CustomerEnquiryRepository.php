@@ -191,20 +191,19 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry->save(); 
         return response(['status' => true, 'msg' => trans('Mail send Success!')], Response::HTTP_CREATED);
     }
-    public function aprovalProPosalMail($id, $proposal_id, $Vid, $request)
+    public function aprovalProPosalMail($id, $proposal_id_, $Vid, $request)
     { 
         
         $enquiry_id     =   Crypt::decryptString($id);
-        $proposal_id    =   Crypt::decryptString($proposal_id);
+        $proposal_id    =   Crypt::decryptString($proposal_id_);
         $Version_id     =   Crypt::decryptString($Vid);
-       
+        $additionalInfo =   ['enquiry_id' => $id, 'proposal_id' => $proposal_id_, 'version_id'=> $Vid];
         if($Version_id == 0) {
-            $result = MailTemplate::where("enquiry_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->first();
-            return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id'));
+            $result = MailTemplate::where(["enquiry_id"=>$enquiry_id, "proposal_id" => $proposal_id])->first();
         }else {
-            $result = PropoalVersions::where("enquiry_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Version_id)->first();
-            return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id'));
+            $result = PropoalVersions::where(["enquiry_id"=>$enquiry_id, "proposal_id" => $proposal_id, "id"=> $Version_id])->first();
         } 
+        return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id', 'additionalInfo'));
     }
 
     public function getEnquiryByCustomerEnquiryNo($customeEnquiryNumber)
