@@ -95,7 +95,15 @@
     </div> 
       
 @endsection
-  
+@push('custom-styles')
+    <style>
+        
+    .form-control.ng-valid ,
+    .form-select.ng-valid {
+    border-bottom: 1px solid #008a60 !important
+    }
+    </style>
+@endpush
 @push('custom-scripts')
     <script src="{{ asset("public/custom/js/ngControllers/admin/create-enquiry.js") }}"></script> 
 @endpush
