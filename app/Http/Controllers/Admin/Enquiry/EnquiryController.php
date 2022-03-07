@@ -403,6 +403,7 @@ class EnquiryController extends Controller
                 'project_delivery_date'   => now()->addDays(1),
                 'created_by'              => Admin()->id,
                 'contact_person'          => $request->contact_person,
+                'project_name'            => $request->project_name,
                 'mobile_no'               => $request->mobile_no,
                 'enquiry_date'            => now()
             ]);

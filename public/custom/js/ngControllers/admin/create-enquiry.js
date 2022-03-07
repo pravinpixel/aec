@@ -7,6 +7,7 @@ app.controller('SalesController', function ($scope, $http, API_URL, $window) {
     $scope.save = function (modalstate, id) {
         $scope.data = {
             company_name            :   $scope.module.company_name, 
+            project_name            :   $scope.module.project_name, 
             contact_person          :   $scope.module.contact_person,
             mobile_no               :   $scope.module.mobile_number,
             email                   :   $scope.module.email,

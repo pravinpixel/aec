@@ -70,7 +70,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label col-md-12">@lang('enquiry.project_name')<sup class="text-danger">*</sup></label>
+                                        <input type="text" class="form-control"  placeholder="Type Here..."  name="project_name" ng-model="module.project_name"  ng-required="true" />
+                                    </div>
+
+                                    <div class="col-md-6">
                                         <label class="col-form-label col-md-12">@lang('customer.remarks') <small class="text-scondary">@lang('global.optional')</small></label>
                                         <textarea name="remarks" ng-model="module.remarks" id="" style="height: 100px" class="form-control form-control-sm" cols="150" placeholder="Type Here..." spellcheck="false"></textarea>
                                     </div>

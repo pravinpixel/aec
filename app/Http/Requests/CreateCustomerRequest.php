@@ -26,6 +26,7 @@ class CreateCustomerRequest extends FormRequest
         return [
             'company_name'   => 'required',
             'contact_person' => 'required',
+            'project_name'   => 'required',
             'mobile_no'      => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
             'email'          => 'required|unique:customers|email'
         ];
