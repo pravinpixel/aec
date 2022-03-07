@@ -133,7 +133,7 @@
                                 <th class="text-center">Edit</th>
                                 <th class="text-center">Delete</th>
                                 <th class="text-center">View</th>
-                                <th class="text-center">comments</th>
+                                <th class="text-center">Comments</th>
                                 <th class="text-center">Download</th>
                             </tr>
                         </thead>

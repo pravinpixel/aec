@@ -9,8 +9,25 @@
                 <div><input type="text" class="form-control" placeholder="type here.."></div>
             </div>
         </div>
-        <table class="table custom table-bordered">
+        <table class="table custom ">
             <thead>
+                <tr>
+                    <td class="text-center" colspan="2">
+                        <input type="date" class="form-control form-control-sm mb-2">
+                    </td>
+                    <td class="text-center">
+                        <input type="text" placeholder="Milestone Name" class="form-control form-control-sm mb-2">
+                    </td>
+                    <td class="text-center">
+                        <input type="text" placeholder="Milestone Amount" class="form-control form-control-sm mb-2">
+                    </td>
+                    <td class="text-center">
+                        <input type="text" placeholder="Milestone %" class="form-control form-control-sm mb-2">
+                    </td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-primary mb-2">Create</button>
+                    </td>
+                </tr>
                 <tr>
                     <th class="text-center">S.No</th>
                     <th class="text-center">Date</th>

@@ -20,7 +20,7 @@
                                 <a href="#/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/create-plateform.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Create Project</p>
@@ -30,7 +30,7 @@
                                 <a href="#/platform" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Connect Platform</p>
@@ -40,7 +40,7 @@
                                 <a href="#/team-setup" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/team-setup.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Team Setup</p>
@@ -50,7 +50,7 @@
                                 <a href="#/project-scheduling" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Project Scheduling</p>
@@ -60,7 +60,7 @@
                                 <a href="#/invoice-plan" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/result.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Invoice Plan</p>
@@ -70,7 +70,7 @@
                                 <a href="#/to-do-listing" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/to-do.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">To-do List</p>
