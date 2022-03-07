@@ -16,7 +16,7 @@ class MailTemplateTable extends Migration
         Schema::create('enquiry_proposal', function (Blueprint $table) {
           
             $table->increments('proposal_id');
-            $table->string('enquirie_id')->nullable();
+            $table->string('enquiry_id')->nullable();
             $table->string('documentary_id')->nullable();
             $table->string('template_name')->nullable();
             $table->longText('documentary_content')->nullable();

@@ -101,7 +101,7 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             $customer =  Customer::where('id',$enquiry['customer_id'])->select('id','customer_enquiry_date as  customer_enquiryDate','first_name','last_name','full_name','email','mobile_no','company_name',
             'contact_person')->first()->toArray();
 
-            $countRow =  MailTemplate::where('enquirie_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
+            $countRow =  MailTemplate::where('enquiry_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
 
             $logo = Config::get('documentary.logo.key');
             // return $logo;

@@ -31,7 +31,7 @@ return [
     'popup_delete_enquiry'        => 'Are you sure to delete this enquiry \':enquiry_no\'?',
     'popup_move_cancel_to_active' => 'Are you sure to active this enquiry \':enquiry_no\'?',
     'approve'                     => 'Approve',
-    'approve_or_denie'            => 'Approve / Denie',
+    'approve_or_denied'            => 'Approve / Denied',
     'active'                      => 'Active',
     'cancel_enquiry'              => 'Cancel Enquiry',
     'enquiry_cancel_to_move'      => 'Enquiry move to active successfully',

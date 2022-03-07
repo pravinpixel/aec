@@ -173,7 +173,7 @@
                     <a href="#/cost-estimation" class="btn btn-light border shadow-sm">Prev</a>
                 </div>
                 <div>
-                    <a ng-show="customer_response == 1 && proposal_sharing_status == 1" href="#/move-to-project" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                    <a ng-show="proposal_sharing_status == 1" href="#/move-to-project" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
                     <a ng-show="proposal_sharing_status == 0" ng-click="moveToProject()" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Submit</a>
                 </div>
             </div>

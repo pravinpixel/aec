@@ -104,7 +104,9 @@ class EnquiryController extends Controller
             $proposal_id        =   $result->getProposal[0]->proposal_id;
             $proposal           =   MailTemplate::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
             $proposal_version   =   PropoalVersions::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
-
+            if(empty($proposal_version)) {
+                return $proposal;
+            }
             if($proposal_version->updated_at > $proposal->updated_at){
                 return $proposal_version;
             } 
@@ -116,11 +118,15 @@ class EnquiryController extends Controller
             $result =   Enquiry::find($id);
             $result ->  project_status = 'Active';
             $result ->  save();
+            $proposal           =   MailTemplate::where(['proposal_id !='=> $proposal_id, 'enquiry_id'=> $id])
+                                                ->update(['is_active' => 0]);
+            $proposal_version   =   PropoalVersions::where(['proposal_id !='=> $proposal_id, 'enquiry_id'=> $id])
+                                                ->update(['is_active' => 0]);
             return 'Proposal to be Approved !';
         }
         if($type == 'denie') {
             $result =   Enquiry::find($id);
-            $result ->  project_status = 'Deactive';
+            $result ->  project_status = 'Unattended';
             $result ->  save();
             return 'Proposal to be Denied !';
         }
@@ -699,7 +705,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">'.trans('enquiry.view_edit').'</a>
-                                <a class="dropdown-item" href="" ng-click=getPropodsals('.$dataDb->id.')>'.trans('enquiry.approve_or_denie').'</a>
+                                <a class="dropdown-item" href="" ng-click=getPropodsals('.$dataDb->id.')>'.trans('enquiry.approve_or_denied').'</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>';

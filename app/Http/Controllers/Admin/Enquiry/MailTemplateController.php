@@ -166,7 +166,7 @@ class MailTemplateController extends Controller
 
         $pdf_store_name = 'public/'.$filePath.$fileName;
         $mailData = new MailTemplate();
-        $mailData->enquirie_id = $data['enquiry']['id'];
+        $mailData->enquiry_id = $data['enquiry']['id'];
         $mailData->documentary_id = $data['document']['id'];
         $mailData->documentary_content = $data['document']['documentary_content'];
         $mailData->documentary_date = date('Y-m-d');
