@@ -339,7 +339,7 @@
                 $scope.enquiry              =   response.data; 
                 $scope.enquiry_id           =   response.data.enquiry_id; 
                 $scope.building_building    =   response.data.building_component; 
-                $scope.others               =   response.data.others;
+                $scope.assign_to            =   response.data.others.assign_to != null ? response.data.others.assign_to :  "";
             });
              
             $scope.getWizradStatus = function() {
@@ -723,9 +723,10 @@
                 $scope.cost = response.data; 
             });
             $http.get("{{ route('CostEstimateView', $data->id) }}").then(function (response) {
+                console.log(response.data.others);
                 $scope.enquiry          =   response.data;  
                 $scope.CostEstimate     =   response.data.cost_estimation; 
-                $scope.others           =   response.data.others;
+                $scope.assign_to        =   response.data.others.assign_to != null ? response.data.others.assign_to :  "";
             });
             $scope.UpdateCostEstimate  = function() {  
                 $http({

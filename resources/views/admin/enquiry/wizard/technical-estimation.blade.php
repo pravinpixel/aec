@@ -212,9 +212,9 @@
                 <div class="col-md-9 p-0 d-flex">
                     <div class="input-group border shadow-sm rounded">
                         <label class=" border-0 input-group-text text-white bg-primary font-weight-bold" for="inputGroupSelect01">Assign to</label>
-                        <select class="form-select border-0 " ng-model="others.assign_to" id="inputGroupSelect01"  ng-change="assignTechnicalEstimate(others.assign_to)">
+                        <select class="form-select border-0 " ng-model="assign_to" id="inputGroupSelect01"  ng-change="assignTechnicalEstimate(assign_to)">
                             <option value=""> @lang('global.select')</option>
-                            <option ng-repeat="user in userList" ng-selected="user.id == others.assign_to" value="@{{user.id}}">@{{user.user_name}}</option>
+                            <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}">@{{user.user_name}}</option>
                         </select>
                     </div>
                     <div class="mx-1">
@@ -228,9 +228,9 @@
             <div class="d-flex justify-content-between">
                 <div>
                     <a href="#/project-summary" class="btn btn-light border shadow-sm">Prev</a>
-                </div>
+                </div> 
                 <div>
-                    <a ng-show="technical_estimation_status && others.assign_to" href="#/cost-estimation"  class="btn btn-primary">Next</a>
+                    <a ng-show="technical_estimation_status != 0 && assign_to" href="#/cost-estimation"  class="btn btn-primary">Next</a>
                 </div>
             </div>
         </div>

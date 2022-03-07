@@ -217,12 +217,12 @@
     </div>
     <div class="col-6 my-1">
         <div class="row m-0">
-            <div class="col-md-9 p-0 d-flex">
+            <div class="col-md-9 p-0 d-flex">@{{ others.assign_to }}
                 <div class="input-group border shadow-sm rounded">
                     <label class=" border-0 input-group-text text-white bg-primary font-weight-bold" for="inputGroupSelect01">Assign to</label>
-                    <select class="form-select border-0 " ng-model="others.assign_to" id="inputGroupSelect01" ng-change="assingUserToCostestimate(others.assign_to)">
+                    <select class="form-select border-0" ng-model="assign_to" name="assign_to"  id="inputGroupSelect01" ng-change="assingUserToCostestimate(assign_to)">
                         <option value=""> @lang('global.select')</option>
-                        <option ng-repeat="user in userList" value="@{{user.id}}" ng-selected="user.id == others.assign_to">@{{user.user_name}}</option>
+                        <option ng-repeat="user in userList" value="@{{user.id}}" ng-selected="user.id == assign_to">@{{user.user_name}}</option>
                     </select>
                 </div>
                 <div class="mx-1">
@@ -238,7 +238,7 @@
                 <a href="#/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a ng-show="cost_estimation_status  && others.assign_to" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
+                <a ng-show="cost_estimation_status != 0  && assign_to" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 
