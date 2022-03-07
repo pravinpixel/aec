@@ -25,7 +25,7 @@
                     </ul>
                 </div>
                 <div class="card-footer bg-light">
-                    <form id="Inbox__commentsForm" ng-submit="sendAssignTechInboxComments('{{ userRole()->slug }}', 'techical_estimation_assign')" class="d-flex align-items-center">
+                    <form id="Inbox__commentsForm" ng-submit="sendAssignTechInboxComments('{{ userRole()->slug }} role', 'techical_estimation_assign')" class="d-flex align-items-center">
                         <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
                         <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                     </form> 

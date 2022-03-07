@@ -464,13 +464,11 @@
                 $scope.module = null;
                 $scope.chatHeader   = header; 
                 switch (modalstate) {
-                    case 'viewConversations':
+                    case 'viewAssingTechicalConversations':
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
-                            $scope.commentsData = response.data.chatHistory; 
+                            $scope.TechcommentsData = response.data.chatHistory; 
                             $scope.chatType     = response.data.chatType;  
                             $('#assing-viewConversations-modal').modal('show');
-                            // getEnquiryCommentsCountById($scope.enquiry_id);
-                            // getEnquiryActiveCommentsCountById($scope.enquiry_id);
                         });
                         break;
                     default:
@@ -478,7 +476,7 @@
                 } 
             }
 
-            $scope.sendAssignTechInboxComments  = function(type , chatSection) { 
+                $scope.sendAssignTechInboxComments  = function(type , chatSection) { 
                     $scope.sendCommentsData = {
                         "comments"        :   $scope.inlineComments,
                         "enquiry_id"      :   $scope.enquiry_id,
@@ -495,8 +493,9 @@
                             'Content-Type': 'application/x-www-form-urlencoded' 
                         }
                     }).then(function successCallback(response) {
-                        document.getElementById("Inbox__commentsForm").reset();
                         $scope.showTechCommentsToggle('viewAssingTechicalConversations', 'techical_estimation', chatSection);
+                        $scope.inlineComments = '';
+                        document.getElementById("Inbox__commentsForm").reset();
                         Message('success',response.data.msg);
                     }, function errorCallback(response) {
                         Message('danger',response.data.errors);
@@ -818,7 +817,7 @@
                 switch (modalstate) {
                     case 'viewConversations':
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
-                            $scope.TechcommentsData = response.data.chatHistory; 
+                            $scope.commentsData = response.data.chatHistory; 
                             $scope.chatType     = response.data.chatType;  
                             $('#assing-viewConversations-modal').modal('show');
                         });

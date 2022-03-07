@@ -218,7 +218,7 @@
                         </select>
                     </div>
                     <div class="mx-1">
-                        <button class="btn btn-primary rounded-pill" type="submit" ng-click="showCommentsToggle('viewConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets">   <i class="fa fa-eye"></i> </button>
+                        <button class="btn btn-primary rounded-pill" type="submit" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets">   <i class="fa fa-eye"></i> </button>
                     </div>
                 </div>
                 

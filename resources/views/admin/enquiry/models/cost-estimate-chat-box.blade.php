@@ -8,7 +8,7 @@
                 </div>
                 <div class="card-body m-0 p-0 py-3 h-100" style="min-height:70vh;overflow:auto">
                     <ul class="conversation-list h-100">
-                        <li class="clearfix @{{ msg.created_by }}_odd" ng-repeat="msg in TechcommentsData">
+                        <li class="clearfix @{{ msg.created_by }}_odd" ng-repeat="msg in commentsData">
                             <div class="chat-avatar">
                                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"  alt="@{{ msg.created_by }} Image">                                    
                                 <i>@{{ msg.created_by }}</i>
@@ -25,7 +25,7 @@
                     </ul>
                 </div>
                 <div class="card-footer bg-light">
-                    <form id="Inbox__commentsForm" ng-submit="sendAssignCostEstiComments('{{ userRole()->slug }}', 'cost_estimation_assign')" class="d-flex align-items-center">
+                    <form id="Inbox__commentsForm" ng-submit="sendAssignCostEstiComments('{{ userRole()->slug }} role', 'cost_estimation_assign')" class="d-flex align-items-center">
                         <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
                         <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                     </form> 
