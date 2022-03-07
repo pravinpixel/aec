@@ -51,7 +51,9 @@ class Enquiry extends Model
         'cost_estimation_status',
         'proposal_sharing_status',
         'customer_response_status',
-        'from_enquiry_id'
+        'from_enquiry_id',
+        'initiate_from',
+        'is_new_enquiry',
     ];
 
     public function getCreatedAtAttribute($date)
@@ -119,7 +121,7 @@ class Enquiry extends Model
 
     public function getProposal()
     {
-        return $this->hasMany(Admin\MailTemplate::class, 'enquirie_id', 'id');
+        return $this->hasMany(Admin\MailTemplate::class, 'enquiry_id', 'id');
     } 
 
     function enquiryBuildingComponent()

@@ -116,7 +116,7 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             $role = Role::where('id',$loginUserData['job_role'])->select('name')->first()->toArray();
             // print_r($role['name']);die();
 
-            $countRow =  MailTemplate::where('enquirie_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
+            $countRow =  MailTemplate::where('enquiry_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
 
             $logo = Config::get('documentary.logo.key');
            

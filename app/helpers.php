@@ -20,3 +20,12 @@ if(!function_exists('userHasAccess')) {
        return $role->hasPermissionTo($permission);
     }
 }
+
+if(!function_exists('userRole')){
+    function userRole()
+    {
+        $user =  Admin();
+        $role = Role::find($user->job_role);
+        return $role;
+    }
+}

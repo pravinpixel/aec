@@ -1,11 +1,12 @@
-<?php 
+<?php
+
+use App\Http\Controllers\Admin\Enquiry\CostEstimateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Enquiry\EnquiryController;
 use App\Http\Controllers\Admin\Enquiry\MailTemplateController;
 use App\Http\Controllers\Admin\Enquiry\EnquiryCommentsController;
 use App\Http\Controllers\Admin\Enquiry\ProposalController;
-
-
+use App\Http\Controllers\Admin\TechEstimateController;
 
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){ 
@@ -85,4 +86,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'common'], function(){
     Route::get('comments-count/{id}', [EnquiryCommentsController::class,'getCommentsCountByType'])->name("enquiry.comments-count");
     Route::get('active-comments-count/{id}', [EnquiryCommentsController::class,'getActiveCommentsCountByType'])->name("enquiry.active-comments-count");
     Route::get('show-tech-comments/{id}/type/{type}', [EnquiryCommentsController::class,'showTechChat'])->name("enquiry.show-tech-comments");
+});
+
+Route::group(['prefix' => 'technical-estimate', 'middleware' => 'common', 'route' => 'technical-estimate'], function(){
+    Route::post('assign-user/{enquiry_id}', [TechEstimateController::class,'assignUser'])->name("assign-user");
+});
+
+Route::group(['prefix' => 'cost-estimate', 'middleware' => 'common', 'route' => 'cost-estimate'], function(){
+    Route::post('assign-user/{enquiry_id}', [CostEstimateController::class,'assignUser'])->name("assign-user");
 });

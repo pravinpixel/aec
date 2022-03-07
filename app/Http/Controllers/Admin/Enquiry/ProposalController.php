@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\MailTemplate;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use App\Mail\ProposalVersions;
+use App\Models\Admin\PropoalVersions;
 use App\Models\Enquiry;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Crypt;
 use Laracasts\Flash\Flash;
 
 class ProposalController extends Controller
@@ -70,19 +73,62 @@ class ProposalController extends Controller
     }
     public function customerApproval(Request $request, $id, $type)
     {
+        $enquiry = Enquiry::find($id);
+        if($enquiry->project_status != 'Unattended') {
+            Flash::info('Proposal already approved!');
+            return redirect()->route('customers.login');
+        }
         if($type == 0) {
-            $enquiry = Enquiry::find($id);
+            $enquiry->project_status = "Unattended";
             $enquiry->customer_response = 2;
             $enquiry->save(); 
+            $this->addComment($id, $request);
             Flash::success('Proposal successfully Dined!');
             return redirect()->route('customers.login');
         } 
         if($type == 1){ 
-            $enquiry = Enquiry::find($id);
+            $enquiry->project_status = "Active";
             $enquiry->customer_response = 1;
             $enquiry->save();
+            $proposal_id    =   Crypt::decryptString($request->input('pid'));
+            $proposal           =   MailTemplate::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
+                                                    ->update(['is_active' => 0]);
+            $proposal_version   =   PropoalVersions::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
+                                                    ->update(['is_active' => 0]);                        
             Flash::success('Proposal successfully approved!');
             return redirect()->route('customers.login');
         }
+    }
+
+    public function addComment($enquiry_id, $request)
+    {
+        $proposal_id    =   Crypt::decryptString($request->input('pid'));
+        $version_id     =   Crypt::decryptString($request->input('vid'));
+        $comment        =   $request->input('proposal_comments');
+        if($version_id == 0) {
+            $proposal = MailTemplate::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id])->first();
+            $proposal->comment = $comment;
+            $proposal->save();
+        } else {
+            $proposalVersio = PropoalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'version_id'=>  $version_id])->first();
+            $proposalVersio->comment = $comment;
+            $proposalVersio->save();
+        }
+    }
+
+    public function getDeniedProposal($id)
+    {
+        $first =  MailTemplate::where('enquiry_id', $id)
+                        ->whereNotNull('comment')
+                        ->orderBy('updated_at','desc')
+                        ->select('template_name', 'status', 'comment','parent_id');
+
+        $second = PropoalVersions::where('enquiry_id', $id)
+                                ->whereNotNull('comment')
+                                ->orderBy('updated_at','desc')
+                                ->select('template_name', 'status', 'comment', 'parent_id')
+                                ->union( $first )
+                                ->get();
+        return $second;
     }
 }

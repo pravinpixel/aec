@@ -311,8 +311,8 @@
                                                                 <table class="table m-0 table-bordered">
                                                                     <tr class="table-bold">
                                                                         <th>Name</th>
-                                                                        <th>Thickness</th>
-                                                                        <th>Breadth</th>
+                                                                        <th>Thickness (mm)</th>
+                                                                        <th>Breadth (mm)</th>
                                                                     </tr> 
                                                                     <tr ng-repeat="layer in detail.layer">
                                                                         <td>@{{ layer.layer.layer_name }}</td>

@@ -9,5 +9,6 @@ return [
     'deleted'        => 'Menu deleted successfully',
     'can_not_delete' => 'Can not delete this menu item',
     'item_not_found' => 'Menu item not found',
-    'status_updated' => 'Menu status updated successfully'
+    'status_updated' => 'Menu status updated successfully',
+    'customer_intro' => 'Customer Intro'
 ];

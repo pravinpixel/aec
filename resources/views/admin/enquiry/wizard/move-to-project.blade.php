@@ -129,6 +129,24 @@
     </div> 
 </div> 
 
+<div class="card mx-auto col-md-12" ng-show="deniedComments.length && enquiry_status == 2">
+    <table class="table table-centered mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>File Name</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="deniedComment in deniedComments">
+               <td ng-show="deniedComment.template_name != 'template_name'"> @{{ deniedComment.template_name}}</td>
+               <td ng-show="deniedComment.template_name == 'template_name'"> @{{ deniedComment.parent_id}}</td>
+               <td> @{{ deniedComment.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 @if (Route::is('enquiry.move-to-project')) 
     <style>
         .admin-Delivery-wiz .timeline-step .inner-circle{

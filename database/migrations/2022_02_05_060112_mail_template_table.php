@@ -16,7 +16,7 @@ class MailTemplateTable extends Migration
         Schema::create('enquiry_proposal', function (Blueprint $table) {
           
             $table->increments('proposal_id');
-            $table->string('enquirie_id')->nullable();
+            $table->string('enquiry_id')->nullable();
             $table->string('documentary_id')->nullable();
             $table->string('template_name')->nullable();
             $table->longText('documentary_content')->nullable();
@@ -28,6 +28,7 @@ class MailTemplateTable extends Migration
             $table->string('is_mail_sent')->default(0);
             $table->boolean('is_active')->default(1);
             $table->string('status')->default('awaiting');
+            $table->text('comment')->nullable();
             $table->softDeletes();
             $table->timestamps();
        

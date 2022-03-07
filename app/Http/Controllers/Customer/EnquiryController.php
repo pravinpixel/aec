@@ -97,14 +97,20 @@ class EnquiryController extends Controller
 
     public function myEnquiriesApprove($type , $id)
     {
+        $result =   Enquiry::find($id)->with(['getProposal'=> function($q){
+            $q->where(['status' => 'sent'])->latest()->first();
+        }])->first();
+        if($result->project_status != 'Unattended') {
+            return 'Proposal already Approved !';
+        }
+        $proposal_id        =   $result->getProposal[0]->proposal_id;
         if($type == 'preview') {
-            $result             =   Enquiry::find($id)->with(['getProposal'=> function($q){
-                                                $q->where(['status' => 'sent'])->latest()->first();
-                                            }])->first();
-            $proposal_id        =   $result->getProposal[0]->proposal_id;
+        
             $proposal           =   MailTemplate::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
             $proposal_version   =   PropoalVersions::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
-
+            if(empty($proposal_version)) {
+                return $proposal;
+            }
             if($proposal_version->updated_at > $proposal->updated_at){
                 return $proposal_version;
             } 
@@ -116,11 +122,15 @@ class EnquiryController extends Controller
             $result =   Enquiry::find($id);
             $result ->  project_status = 'Active';
             $result ->  save();
+            $proposal           =   MailTemplate::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
+                                                    ->update(['is_active' => 0]);
+            $proposal_version   =   PropoalVersions::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
+                                                    ->update(['is_active' => 0]);                        
             return 'Proposal to be Approved !';
         }
         if($type == 'denie') {
             $result =   Enquiry::find($id);
-            $result ->  project_status = 'Deactive';
+            $result ->  project_status = 'Unattended';
             $result ->  save();
             return 'Proposal to be Denied !';
         }
@@ -177,7 +187,7 @@ class EnquiryController extends Controller
         $customer_enquiry_number = $this->getEnquiryNumber();
         $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
         if($type == 'project_info') {
-            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'enquiry_number' => 'Draft']);
+            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'initiate_from' => 'customer','enquiry_number' => 'Draft']);
             $res = $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer_enquiry_number, $customer, $array_merge);
             $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
@@ -421,8 +431,8 @@ class EnquiryController extends Controller
             'customer_enquiry_number'=> $enquiry->customer_enquiry_number,
             'enquiry_date'         => $enquiry->enquiry_date,
             'company_name'         => $enquiry->customer->company_name,
-            'contact_person'       => $enquiry->customer->contact_person,
-            'mobile_no'            => $enquiry->customer->mobile_no,
+            'contact_person'       => $enquiry->contact_person ?? $enquiry->customer->contact_person,
+            'mobile_no'            => $enquiry->mobile_no ?? $enquiry->customer->mobile_no,
             'secondary_mobile_no'  => $enquiry->secondary_mobile_no,
             'project_name'         => $enquiry->project_name,
             'zipcode'              => $enquiry->zipcode,
@@ -699,7 +709,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">'.trans('enquiry.view_edit').'</a>
-                                <a class="dropdown-item" href="" ng-click=getPropodsals('.$dataDb->id.')>'.trans('enquiry.approve_or_denie').'</a>
+                                <a class="dropdown-item" href="" ng-click=getPropodsals('.$dataDb->id.')>'.trans('enquiry.approve_or_denied').'</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>';

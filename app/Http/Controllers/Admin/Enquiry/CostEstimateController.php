@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Enquiry;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\CostEstimateRepositoryInterface;
 use App\Models\CostEstimationDetail;
 use App\Models\CostEstimationCalculation;
 use App\Models\MasterCalculation;
@@ -21,20 +22,29 @@ class  CostEstimateController extends Controller
 {
     protected $customerEnquiryRepo;
     protected $documentTypeEnquiryRepo;
+    protected $costEstimate;
 
-    public function __construct(CustomerEnquiryRepositoryInterface $customerEnquiryRepository,DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo){
+    public function __construct(
+        CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
+        DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo,
+        CostEstimateRepositoryInterface $costEstimate
+    ){
         $this->customerEnquiryRepo     = $customerEnquiryRepository;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
+        $this->costEstimate            = $costEstimate;
     }
 
     public function index(Request $request , $id) {
         $data                       =   EnquiryCostEstimate::where("enquiry_id", $id)->first();
+        $others                     =   ['assign_to' => $data->assign_to]; 
         $enquiry                    =   $this->customerEnquiryRepo->getEnquiryByID($id);
         $result["enquiry"]          =   $enquiry ?? "";
+        $result["others"]           =   $others;
         $result['project_type']     =   $enquiry->projectType->project_type_name ?? '';
         $result['cost_estimation']  =   isset($data) ? json_decode($data->build_json) : [];
         return  $result;
     }
+
     public function CostEstimateData()    {
         
         $data = CostEstimationDetail::select('cost_estimation_detail.*')->where('status','=','1')->orderBy('id', 'asc')->get()->toArray();
@@ -62,5 +72,20 @@ class  CostEstimateController extends Controller
         $enquiry = Enquiry::find($id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
+    }
+
+    public function assignUser($enquiry_id, Request $request)
+    {
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByID($enquiry_id);
+        if($request->assign_to == null) {
+            $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status', false);
+            $result =  $this->costEstimate->assignUser($enquiry, Admin()->id);
+        } else {
+            $result =  $this->costEstimate->assignUser($enquiry,$request->assign_to);
+        }
+        if($result){
+            return response(['status' => true, 'msg' => __('enquiry.assign_user_successfully')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
     }
 }

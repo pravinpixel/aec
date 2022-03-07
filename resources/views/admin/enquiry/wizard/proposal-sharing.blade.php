@@ -30,7 +30,7 @@
             <p class="h5 mt-2">Cost Estimate</p>
         </a>
     </li> 
-    <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
+    <li class="nav-item admin-Proposal_Sharing-wiz" ng-class="{last:proposal_sharing_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
         <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
             <div class="timeline-content">
                 <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -40,7 +40,7 @@
             <p class="h5 mt-2">Proposal Sharing</p>
         </a>
     </li> 
-    <li class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
+    <li  ng-show="proposal_sharing_status == 1"  class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
         <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" >
             <div class="timeline-content">
                 <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -173,8 +173,8 @@
                     <a href="#/cost-estimation" class="btn btn-light border shadow-sm">Prev</a>
                 </div>
                 <div>
-                    
-                    <a href="#/move-to-project" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                    <a ng-show="proposal_sharing_status == 1" href="#/move-to-project" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                    <a ng-show="proposal_sharing_status == 0" ng-click="moveToProject()" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Submit</a>
                 </div>
             </div>
         </div> 

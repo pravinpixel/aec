@@ -20,7 +20,7 @@
                     <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
                         <i class="mdi mdi-filter-menu"></i> Filters
                     </button> 
-                   <div class=""> <a  href="{{ route('admin.enquiry-create') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Enquiry</a></div>
+                   <div class=""> <a  href="{{ route('admin.enquiry-create') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> @lang('customer.new_customer_intro') </a></div>
                 </div>
                 <div class="accordion" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item mb-2 border rounded shadow-sm">

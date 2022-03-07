@@ -43,6 +43,7 @@ class CreateEnquiriesTable extends Migration
             $table->boolean('ifc_model_upload')->default(0);
             $table->boolean('building_component')->default(0);
             $table->boolean('additional_info')->default(0);
+            $table->string('initiate_from')->nullable();
             $table->boolean('is_active')->default(0);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
@@ -56,6 +57,7 @@ class CreateEnquiriesTable extends Migration
                 $table->integer('customer_response')->nullable();
             // ======== Admin Wizard Flow Status =======
             $table->unsignedBigInteger('from_enquiry_id')->nullable();
+            $table->boolean('is_new_enquiry')->default(1);
             $table->timestamps();
         });
     }

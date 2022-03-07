@@ -1,4 +1,4 @@
-<table id="unattended-enquiries" class="table custom dt-responsive nowrap table-striped w-100">
+<table id="unattended-enquiries" class="table custom dt-responsive nowrap  w-100">
     <thead>
         <tr>
             <th class="text-center"> @lang('enquiry.s_no')</th>

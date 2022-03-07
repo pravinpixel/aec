@@ -14,7 +14,7 @@ class MailTemplate extends Model
 
     protected $primaryKey = 'proposal_id';
     public $fillable = [
-        'enquirie_id',
+        'enquiry_id',
         'documentary_id',
         'template_name',
         'documentary_content',
@@ -24,6 +24,7 @@ class MailTemplate extends Model
         'reference_no',
         'is_mail_sent',
         'is_active',
+        'comment',
         'status',
     ];  
 

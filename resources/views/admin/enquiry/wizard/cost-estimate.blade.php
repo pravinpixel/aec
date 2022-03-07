@@ -30,7 +30,7 @@
             <p class="h5 mt-2">Cost Estimate</p>
         </a>
     </li> 
-    <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
+    <li class="nav-item admin-Proposal_Sharing-wiz" ng-class="{last:proposal_sharing_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
         <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
             <div class="timeline-content">
                 <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -40,7 +40,7 @@
             <p class="h5 mt-2">Proposal Sharing</p>
         </a>
     </li> 
-    <li class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
+    <li  ng-show="proposal_sharing_status == 1" class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
         <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" >
             <div class="timeline-content">
                 <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -206,35 +206,32 @@
                     </tbody>
                 </table>
             </div> 
-            <div class="col-12 shadow text-dark bg-white border p-2 rounded">
+            <div class="col-10 shadow text-dark bg-white border p-1 rounded btn-group">
                 {{-- <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4> --}}
-                <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
-          
-            </div>  
+                <h4 class="m-0 w-100"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
+            </div>
+            <div class="col-2 text-end">
+                <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
+            </div>
         </div>
     </div>
-    <div class="card-footer border-0">
+    <div class="col-6 my-1">
         <div class="row m-0">
-            <div class="col-md-8 p-0">
-                <div class="input-group ">
-                    <label class="input-group-text bg-white font-weight-bold" for="inputGroupSelect01">Assign to</label>
-                    <select class="form-select border" id="inputGroupSelect01">
-                      <option selected>Choose...</option>
-                      <option value="1">User One</option> 
-                      <option value="1">User Two</option> 
-                      <option value="1">User Three</option> 
+            <div class="col-md-10 p-0 d-flex">@{{ others.assign_to }}
+                <div class="input-group border shadow-sm rounded">
+                    <label class=" border-0 input-group-text text-white bg-primary font-weight-bold" for="inputGroupSelect01">Assign to</label>
+                    <select class="form-select border-0" ng-model="assign_to" name="assign_to"  id="inputGroupSelect01">
+                        <option value=''> @lang('global.select')</option>
+                        <option ng-repeat="user in userList" value="@{{user.id}}" ng-selected="user.id == assign_to">@{{user.user_name}}</option>
                     </select>
-                    <label class="input-group-text btn btn-info" for="inputGroupSelect01">Send</label>
+                    <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to)"> Send </button>
+                </div>
+                <div class="mx-1">
+                    <button class="btn btn-primary rounded-pill"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">  <i class="fa fa-eye"></i> </button>
                 </div>
             </div>
-            <div class="col-md-4 p-0">
-                <div class="text-end">
-                    <button type="reset" class="btn btn-light font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                    <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
-                </div>
-            </div>
+           
         </div>
-         
     </div>
     <div class="card-footer">
         <div class="d-flex justify-content-between">
@@ -242,11 +239,13 @@
                 <a href="#/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a href="#/proposal-sharing" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                <a ng-show="cost_estimation_status  != 0 && latest_assigned_to == null" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 
 </form> 
+@include("admin.enquiry.models.cost-estimate-chat-box") 
+
 @if (Route::is('enquiry.cost-estimation')) 
     <style>
         .admin-Cost_Estimate-wiz .timeline-step .inner-circle{

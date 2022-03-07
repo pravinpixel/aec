@@ -82,19 +82,19 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getCustomerProPosal($id)
     {
-        return MailTemplate::where("enquirie_id", '=', $id)
+        return MailTemplate::where("enquiry_id", '=', $id)
                             ->with('getVersions')
                             ->get();
          
     }
     public function getCustomerProPosalVersions($id, $proposal_id)
     {
-        $data =  MailTemplate::where("enquirie_id", '=', $id)->where('reference_no' , '=', $proposal_id)->get();
+        $data =  MailTemplate::where("enquiry_id", '=', $id)->where('reference_no' , '=', $proposal_id)->get();
         
     }
     public function getCustomerProPosalByID($id, $proposal_id)
     {
-        return MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->get();
+        return MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->get();
     }
     public function getCustomerProPosalVersionByID($id, $proposal_id, $Vid)
     {
@@ -115,7 +115,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function updateCustomerProPosalByID($id, $proposal_id, $request)
     {
-        $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->update([
+        $result = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->update([
             'documentary_content' =>  $request->mail_content
         ]);
         return response(['status' => true, 'msg' => trans('enquiry.proposal_updated')], Response::HTTP_CREATED);
@@ -130,12 +130,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function deleteCustomerProPosalByID($id, $proposal_id, $request)
     {
-        $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->delete();
+        $result = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->delete();
         return response(['status' => true, 'msg' => trans('enquiry.proposal_deleted')], Response::HTTP_CREATED);
     }
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
     { 
-        $result     =   MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
+        $result     =   MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
         $duplicate  ->  parent_id           = $result->proposal_id; 
@@ -150,7 +150,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function sendCustomerProPosalMail($id, $proposal_id, $request)
     { 
-        $result = MailTemplate::where("enquirie_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
+        $result = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $user   = $this->enquiry->with('customer')->find($id);
         $details = [ 
             'name'          =>  $user->customer->full_name,
@@ -191,20 +191,19 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry->save(); 
         return response(['status' => true, 'msg' => trans('Mail send Success!')], Response::HTTP_CREATED);
     }
-    public function aprovalProPosalMail($id, $proposal_id, $Vid, $request)
+    public function aprovalProPosalMail($id, $proposal_id_, $Vid, $request)
     { 
         
         $enquiry_id     =   Crypt::decryptString($id);
-        $proposal_id    =   Crypt::decryptString($proposal_id);
+        $proposal_id    =   Crypt::decryptString($proposal_id_);
         $Version_id     =   Crypt::decryptString($Vid);
-       
+        $additionalInfo =   ['enquiry_id' => $id, 'proposal_id' => $proposal_id_, 'version_id'=> $Vid];
         if($Version_id == 0) {
-            $result = MailTemplate::where("enquirie_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->first();
-            return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id'));
+            $result = MailTemplate::where(["enquiry_id"=>$enquiry_id, "proposal_id" => $proposal_id])->first();
         }else {
-            $result = PropoalVersions::where("enquiry_id", '=', $enquiry_id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Version_id)->first();
-            return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id'));
+            $result = PropoalVersions::where(["enquiry_id"=>$enquiry_id, "proposal_id" => $proposal_id, "id"=> $Version_id])->first();
         } 
+        return view('admin.enquiry.approvals.proposal', compact('result','enquiry_id', 'additionalInfo'));
     }
 
     public function getEnquiryByCustomerEnquiryNo($customeEnquiryNumber)
@@ -238,9 +237,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     {
         return $enquiry->update([$column => true]);
     }
-    public function updateAdminWizardStatus($enquiry, $column) 
+    public function updateAdminWizardStatus($enquiry, $column, $value= true) 
     {
-        return $enquiry->update([$column => true]);
+       $enquiry->update([$column =>  $value]);
+       return $enquiry;
     }
 
     public function getPlanViewList($id) 
@@ -539,7 +539,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function updateProjectById($id, $status)
     {
-        $enquiry = Enquiry::find($id)->update(['project_status' => $status]);
+        $enquiry = Enquiry::find($id)
+                    ->update(['project_status' => $status, 'created_by' => Admin()->id]);
         return $enquiry;
     }
     
@@ -587,5 +588,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             return $this->getBuildingComponent($enquiry);
         }
         return [];
+    }
+
+    public function updateNewEnquiryStatus($id)
+    {
+        $enquiry = $this->enquiry->find($id);
+        $enquiry->is_new_enquiry = 0;
+        return $enquiry->save();
     }
 }

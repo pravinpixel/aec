@@ -1,4 +1,4 @@
-<div ng-controller="WizzardCtrl"> 
+<div> 
     <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
         <li class="time-bar"></li>
         <li class="nav-item Project_Info">
@@ -11,7 +11,7 @@
                 <p class="h5 mt-2">Project summary</p>
             </a>
         </li>
-        <li class="nav-item  admin-Technical_Estimate-wiz">
+        <li class="nav-item  admin-Technical_Estimate-wiz" style="pointer-events: @{{ project_summary_status == 'Active' ? 'unset' :'none'  }}">
             <a href="#/technical-estimation" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
                     <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -30,8 +30,8 @@
                 </div>
                 <p class="h5 mt-2">Cost Estimate</p>
             </a>
-        </li> 
-        <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
+        </li>
+        <li class="nav-item admin-Proposal_Sharing-wiz" ng-class="{last:proposal_sharing_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
             <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                 <div class="timeline-content">
                     <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -41,7 +41,7 @@
                 <p class="h5 mt-2">Proposal Sharing</p>
             </a>
         </li> 
-        <li class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
+        <li  ng-show="proposal_sharing_status == 1" class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
             <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" >
                 <div class="timeline-content">
                     <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">

@@ -2,6 +2,8 @@
 
 return [
     'save'              => 'Save',
+    'optional'          => '(Optional)',
+    'send'              => 'Send',
     'cancel'            => 'Cancel',
     'update'            => 'Update',
     'delete'            => 'Delete',
@@ -14,6 +16,7 @@ return [
     'updated'           => 'Updated successfully',
     'deleted'           => 'Deleted successfully',
     'can_not_delete'    => 'Can not delete this item',
+    'select'            => 'Select',
     'item_not_found'    => 'Item not found',
     'status_updated'    => 'Status updated successfully',
     'enquiry_saved'     => 'Enquiry saved successfully',

@@ -1,4 +1,4 @@
-<div ng-controller="Tech_Estimate">
+<div>
     <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
         <li class="time-bar"></li>
         <li class="nav-item Project_Info">
@@ -30,8 +30,8 @@
                 </div>
                 <p class="h5 mt-2">Cost Estimate</p>
             </a>
-        </li> 
-        <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
+        </li>
+        <li class="nav-item admin-Proposal_Sharing-wiz"  ng-class="{last:proposal_sharing_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
             <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                 <div class="timeline-content">
                     <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -41,7 +41,7 @@
                 <p class="h5 mt-2">Proposal Sharing</p>
             </a>
         </li> 
-        <li class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
+        <li class="nav-item admin-Delivery-wiz" ng-show="proposal_sharing_status == 1" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
             <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" >
                 <div class="timeline-content">
                     <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -153,6 +153,11 @@
                             </table> 
                         </div> 
                     </div>
+                    <div class="p-0">
+                        <div class="text-end">
+                            <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
+                        </div>
+                    </div>
                 </div>  
             </div> 
         </div>
@@ -202,40 +207,36 @@
                 </ul>
             </div>
         </div> 
-        <div class="col-12 p-3">
+        <div class="col-6 my-1">
             <div class="row m-0">
-                <div class="col-md-8 p-0">
+                <div class="col-md-12 p-0 d-flex">
                     <div class="input-group border shadow-sm rounded">
                         <label class=" border-0 input-group-text text-white bg-primary font-weight-bold" for="inputGroupSelect01">Assign to</label>
-                        <select class="form-select border-0 " id="inputGroupSelect01">
-                            <option selected>Choose...</option>
-                            <option value="1">User One</option> 
-                            <option value="1">User Two</option> 
-                            <option value="1">User Three</option> 
-                        </select>
+                        <select class="form-select border-0 " ng-model="assign_to" id="inputGroupSelect01">
+                            <option value=''> @lang('global.select')</option>
+                            <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}">@{{user.user_name}}</option>
+                        </select>   
+                        <button class="input-group-text btn btn-info"  ng-click="assignTechnicalEstimate(assign_to)"> Send </button>
                     </div>
-                </div>
-                <div class="col-md-4 p-0">
-                    <div class="text-end">
-                        <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban"></i> Cancel</button>
-                        <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
+                    <div class="mx-1">
+                        <button class="btn btn-primary rounded-pill" type="submit" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets">   <i class="fa fa-eye"></i> </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card-footer"> 
+        <div class="card-footer">
             <div class="d-flex justify-content-between">
                 <div>
                     <a href="#/project-summary" class="btn btn-light border shadow-sm">Prev</a>
-                </div>
+                </div> 
                 <div>
-                    <a href="#/cost-estimation" style="pointer-events: @{{ technical_estimation_status ==  0 ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                    <a ng-show="technical_estimation_status != 0 && latest_assigned_to == null" href="#/cost-estimation"  class="btn btn-primary">Next</a>
                 </div>
             </div>
         </div>
     </div>
-    
     @include("admin.enquiry.models.technical-estimation-chat-box") 
+    @include("admin.enquiry.models.assign-technical-estimation-chat-box") 
 </div>
 {{-- @{{ building_component }} --}}
 @if (Route::is('enquiry.technical-estimation'))

@@ -17,14 +17,14 @@
                 </datalist>
             </div> 
             <div class="form-floating  mb-2">
-                <input  type="text" class="form-control form-control-sm" id="floating" name="contact_person"  ng-model="customer.contact_person" value=""  required disabled/>
+                <input  type="text" class="form-control form-control-sm" id="floating" name="contact_person"  ng-model="projectInfo.contact_person" required />
                 <label for="floating">Contact Person</label>
-                <small class="text-danger" ng-show="customer.contact_person.$touched && customer.contact_person.$invalid">This field is required</small>
+                <small class="text-danger" ng-show="projectInfo.contact_person.$touched && projectInfo.contact_person.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input  type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}"  onkeypress="return isNumber(event)"   ng-model="customer.mobile_no" class="form-control form-control-sm" id="floating" name="mobile_no"  value="" disabled/>
+                <input  type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}"  onkeypress="return isNumber(event)"   ng-model="projectInfo.mobile_no" class="form-control form-control-sm" id="floating" name="mobile_no" />
                 <label for="floating">Mobile Number</label>
-                <small class="text-danger" ng-show="customer.mobile_no.$touched && customer.mobile_no.$invalid">Enter valid mobile number</small>
+                <small class="text-danger" ng-show="projectInfo.mobile_no.$touched && projectInfo.mobile_no.$invalid">Enter valid mobile number</small>
             </div>
             <div class="form-floating  mb-2">
                 <input  value="" type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no" required/>

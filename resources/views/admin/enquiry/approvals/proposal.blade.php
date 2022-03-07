@@ -2,6 +2,7 @@
 
 @section('content')
 @include('flash::message')
+
     <div class="account-pages ">
         <div class="container py-4">
             <div class="card my-4"> 
@@ -18,15 +19,22 @@
                         {!! $result->documentary_content !!} 
                     </div>
                 </div>
+                @include('admin.enquiry.approvals.denied-modal')
                 <div class="card-footer">
                     <div class="text-center">
-                        <a class="btn btn-danger px-4 py-2 me-2" href="{{ route('customer-approval',['id'=>$enquiry_id, 'type' => 0]) }}"><i class="fa fa-times-circle"></i> Deny</a>
-                        <a class="btn btn-success px-4 py-2" href="{{ route('customer-approval',['id'=>$enquiry_id, 'type' => 1]) }}"><i class="fa fa-check-circle"></i>Approve</a>
+                        <a type="button"class="btn btn-danger px-4 py-2 me-2"  data-bs-toggle="modal" data-bs-target="#proposal-denied"><i class="fa fa-times-circle"></i> Deny</a>
+                        <a class="btn btn-success px-4 py-2"  onclick="event.preventDefault(); document.getElementById('proposalApproveForm').submit();"><i class="fa fa-check-circle"></i>Approve</a>
                     </div>
                 </div>
+                <form id="proposalApproveForm" action="{{ route('customer-approval',['id'=>$enquiry_id, 'type' => 1]) }}" method="GET" class="d-none">
+                    {{-- @csrf --}}
+                    <input type="hidden" name="pid" value="{{ $additionalInfo['proposal_id'] }}">
+                    <input type="hidden" name="vid" value="{{ $additionalInfo['version_id'] }}">
+                </form>
             </div>
         </div>
     </div> 
+
     <!-- end page --> 
     <footer class="footer footer-alt">
           © {{ now()->year }} All rights reserved | AecPrefab

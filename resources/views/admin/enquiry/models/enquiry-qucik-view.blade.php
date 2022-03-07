@@ -22,7 +22,7 @@
                             <td>@{{ enqData.customer_info.company_name }}</td>
                             <td>@{{ enqData.customer_info.mobile_no }}</td>
                             <td>@{{ enqData.customer_info.email }} </td>
-                            <td>New</td>
+                            <td>@{{ enqData.project_type.project_type_name }} </td>
                         </tr>
                     </table>
                 </div>
@@ -304,8 +304,8 @@
                                                                 <table class="table m-0 table-bordered">
                                                                     <tr class="table-bold">
                                                                         <th>Name</th>
-                                                                        <th>Thickness</th>
-                                                                        <th>Breadth</th>
+                                                                        <th>Thickness (mm)</th>
+                                                                        <th>Breadth (mm)</th>
                                                                     </tr> 
                                                                     <tr ng-repeat="layer in detail.layer">
                                                                         <td>@{{ layer.layer.layer_name }}</td>
