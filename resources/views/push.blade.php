@@ -1,37 +1,9 @@
-{{-- @extends('layouts.admin')
+@extends('layouts.admin')
 @section('admin-content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-       <br>
-       <br>
-       <br>
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-  
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-  
-                    <form action="{{ route('send.web-notification') }}" method="POST">
-                        @csrf
-                        <div class="form-group my-3">
-                            <label>Title</label>
-                            <input type="text" class="form-control" name="title">
-                        </div>
-                        <div class="form-group my-3">
-                            <label>Body</label>
-                            <textarea class="form-control" name="body"></textarea>
-                          </div>
-                        <button type="submit" class="btn btn-primary">Send Notification</button>
-                    </form>
-  
-                </div>
-            </div>
-        </div>
+    <a class="btn btn-primary" href="{{ route('send.web-notification') }}"> Send Notification</a>
+        
     </div>
 </div>
  
@@ -44,12 +16,14 @@
       
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
-            authDomain: "aec-chat-app.firebaseapp.com",
-            projectId: "aec-chat-app",
-            storageBucket: "aec-chat-app.appspot.com",
-            messagingSenderId: "917789039014",
-            appId: "1:917789039014:web:b65a02b06faf684aff1767"
+            apiKey: "AIzaSyBaAb6ioNgwKCFSMWarpiBfZr7a3PW_0-c",
+            authDomain: "aecprefab-2022.firebaseapp.com",
+            databaseURL: "https://aecprefab-2022-default-rtdb.firebaseio.com",
+            projectId: "aecprefab-2022",
+            storageBucket: "aecprefab-2022.appspot.com",
+            messagingSenderId: "896543663736",
+            appId: "1:896543663736:web:302c5426c7684b31db2f8d",
+            measurementId: "G-2TZQHPFL04"
         };
       
         // Initialize Firebase
@@ -68,14 +42,15 @@
                 console.log('An error occurred while retrieving token. ', err); 
             });
 
-        // onMessage(messaging, (payload) => {
-        //     console.log('Message received. ', payload);
-        // });
+        onMessage(messaging, (payload) => {
+            console.log('Message received. ', payload);
+        });
+        
 </script> 
  
-@endsection --}}
+@endsection
 
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -177,4 +152,4 @@
             }); 
     </script>
 </body>
-</html>
+</html> --}}
