@@ -109,7 +109,7 @@ class EmployeeController extends Controller
         $module->first_Name = $request->epm_fname;
         $module->last_Name = $request->epm_lname;
         $module->user_name = $request->epm_username;
-        $module->password = $request->epm_password;
+        $module->password =  Hash::make($request->epm_password);
         $module->job_role = $request->epm_job_role;
         $module->number = $request->number;
         $module->email = $request->email;
