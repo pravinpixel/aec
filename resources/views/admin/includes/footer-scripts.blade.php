@@ -14,7 +14,7 @@
 
 {{-- Sortable Js --}}
 
-<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script data-require="jquery@*" data-semver="2.0.3" src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-route.min.js"></script>
@@ -54,7 +54,7 @@
 <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="{{ asset('public/assets/js/custom.js') }}"></script>
 
 <!-- ========= For Vendors Js ===========-->
