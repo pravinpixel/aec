@@ -201,5 +201,13 @@ class Enquiry extends Model
         }
         return false;
     }  
+ 
+    public function technicalEstimate() {
+        return $this->hasOne(EnquiryTechnicalEstimate::class, 'enquiry_id', 'id');
+    }
+
+    public function costEstimate(){
+        return $this->hasOne(EnquiryCostEstimate::class, 'enquiry_id', 'id');
+    }
 }
 

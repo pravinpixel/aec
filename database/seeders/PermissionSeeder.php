@@ -26,6 +26,31 @@ class PermissionSeeder extends Seeder
            Permission::create(['name' => 'enquiry_edit']);
            Permission::create(['name' => 'enquiry_delete']);
 
+           Permission::create(['name' => 'project_summary_index']);
+           Permission::create(['name' => 'project_summary_add']);
+           Permission::create(['name' => 'project_summary_edit']);
+           Permission::create(['name' => 'project_summary_delete']);
+
+           Permission::create(['name' => 'technical_estimate_index']);
+           Permission::create(['name' => 'technical_estimate_add']);
+           Permission::create(['name' => 'technical_estimate_edit']);
+           Permission::create(['name' => 'technical_estimate_delete']);
+
+           Permission::create(['name' => 'cost_estimate_index']);
+           Permission::create(['name' => 'cost_estimate_add']);
+           Permission::create(['name' => 'cost_estimate_edit']);
+           Permission::create(['name' => 'cost_estimate_delete']);
+
+           Permission::create(['name' => 'proposal_sharing_index']);
+           Permission::create(['name' => 'proposal_sharing_add']);
+           Permission::create(['name' => 'proposal_sharing_edit']);
+           Permission::create(['name' => 'proposal_sharing_delete']);
+
+           Permission::create(['name' => 'customer_response_index']);
+           Permission::create(['name' => 'customer_response_add']);
+           Permission::create(['name' => 'customer_response_edit']);
+           Permission::create(['name' => 'customer_response_delete']);
+
            Permission::create(['name' => 'project_index']);
            Permission::create(['name' => 'project_add']);
            Permission::create(['name' => 'project_edit']);

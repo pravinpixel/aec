@@ -454,6 +454,7 @@
                 $http.post(`${API_URL}technical-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
                     .then(function successCallback(res){
                         if(res.data.status) {
+                            $scope.getWizradStatus();
                             Message('success', res.data.msg);
                             return false;
                         }
@@ -646,6 +647,7 @@
                     .then(function successCallback(res){
                        
                         if(res.data.status) {
+                            $scope.getWizradStatus();
                             Message('success', res.data.msg);
                             return false;
                         }

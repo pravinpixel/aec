@@ -17,6 +17,9 @@ if(!function_exists('userHasAccess')) {
     function userHasAccess($permission) {
        $user =  Admin();
        $role = Role::find($user->job_role);
+       if($role->slug == 'admin'){
+           return true;
+       }
        return $role->hasPermissionTo($permission);
     }
 }

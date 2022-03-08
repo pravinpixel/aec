@@ -35,6 +35,7 @@ class PermissionController extends Controller
 
     public function setPermission($id, Request $request)
     {
+
         $role = Role::firstOrCreate(['id' => $id]);
         
         if($request->enquiry_index == true){
@@ -72,6 +73,183 @@ class PermissionController extends Controller
         }
         else
             $role->revokePermissionTo('enquiry_delete');
+        // project summary
+        if($request->project_summary_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_summary_index']);
+            if(!$role->hasPermissionTo('project_summary_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_summary_index');
+    
+        if($request->project_summary_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_summary_add']);
+            if(!$role->hasPermissionTo('project_summary_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_summary_add');
+
+        if($request->project_summary_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_summary_edit']);
+            if(!$role->hasPermissionTo('project_summary_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_summary_edit');
+
+        if($request->project_summary_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_summary_delete']);
+            if(!$role->hasPermissionTo('project_summary_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_summary_delete');
+
+        if($request->technical_estimate_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'technical_estimate_index']);
+            if(!$role->hasPermissionTo('technical_estimate_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('technical_estimate_index');
+        if($request->technical_estimate_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'technical_estimate_add']);
+            if(!$role->hasPermissionTo('technical_estimate_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('technical_estimate_add');
+        if($request->technical_estimate_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'technical_estimate_edit']);
+            if(!$role->hasPermissionTo('technical_estimate_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('technical_estimate_edit');
+        if($request->technical_estimate_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'technical_estimate_delete']);
+            if(!$role->hasPermissionTo('technical_estimate_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('technical_estimate_delete');
+        
+        if($request->cost_estimate_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'cost_estimate_index']);
+            if(!$role->hasPermissionTo('cost_estimate_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('cost_estimate_index');
+        if($request->cost_estimate_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'cost_estimate_add']);
+            if(!$role->hasPermissionTo('cost_estimate_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('cost_estimate_add');
+
+        if($request->cost_estimate_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'cost_estimate_edit']);
+            if(!$role->hasPermissionTo('cost_estimate_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('cost_estimate_edit');
+
+        if($request->cost_estimate_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'cost_estimate_delete']);
+            if(!$role->hasPermissionTo('cost_estimate_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('cost_estimate_delete');
+
+        if($request->proposal_sharing_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'proposal_sharing_index']);
+            if(!$role->hasPermissionTo('proposal_sharing_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('proposal_sharing_index');
+
+        if($request->proposal_sharing_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'proposal_sharing_add']);
+            if(!$role->hasPermissionTo('proposal_sharing_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('proposal_sharing_add');
+
+        if($request->proposal_sharing_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'proposal_sharing_edit']);
+            if(!$role->hasPermissionTo('proposal_sharing_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('proposal_sharing_edit');
+
+        if($request->proposal_sharing_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'proposal_sharing_delete']);
+            if(!$role->hasPermissionTo('proposal_sharing_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('proposal_sharing_delete');
+
+
+        if($request->customer_response_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'customer_response_index']);
+            if(!$role->hasPermissionTo('customer_response_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('customer_response_index');
+
+        if($request->customer_response_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'customer_response_add']);
+            if(!$role->hasPermissionTo('customer_response_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('customer_response_add');
+
+        if($request->customer_response_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'customer_response_edit']);
+            if(!$role->hasPermissionTo('customer_response_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('customer_response_edit');
+
+        if($request->customer_response_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'customer_response_delete']);
+            if(!$role->hasPermissionTo('customer_response_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('customer_response_delete');
 
         return response(['status' => true, 'msg'=> __('global.permission_updated')]);
     }

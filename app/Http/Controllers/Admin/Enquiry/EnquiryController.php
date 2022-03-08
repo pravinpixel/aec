@@ -89,10 +89,20 @@ class EnquiryController extends Controller
             $toDate =  now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
             $projetType = isset($request->projet_type) ? $request->projet_type : false;
-            $dataDb = Enquiry::with(['projectType', 'comments'=> function($q){
+            $dataDb = Enquiry::with(['projectType', 'technicalEstimate', 'costEstimate','comments'=> function($q){
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
                             ->where(['status' => 'Active' , 'project_status' => 'Unattended'])
+                            ->when(userRole()->slug == config('global.technical_estimater'), function ($q) {
+                                return $q->whereHas('technicalEstimate', function($q){
+                                    $q->where('assign_to', Admin()->id);
+                                });
+                            })
+                            ->when(userRole()->slug == config('global.cost_estimater'), function ($q) {
+                                return $q->whereHas('costEstimate', function($q){
+                                    $q->where('assign_to', Admin()->id);
+                                });
+                            })
                             ->orWhere(['created_by'=> Admin()->id])
                             ->WhereNotIn('project_status', ['Active'])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
@@ -160,7 +170,7 @@ class EnquiryController extends Controller
             $dataDb = Enquiry::with(['projectType',  'comments'=> function($q){
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
-                            ->where(['created_by'=> Admin()->id, 'project_status'=> 'Active'])
+                            ->where(['project_status'=> 'Active'])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
@@ -326,14 +336,23 @@ class EnquiryController extends Controller
         }
         if ($id) {
             $data   =   Enquiry::with('customer')->find($id);
-            $activeTab = $this->getIncompleteTab($data);
+            $activeTab = $this->getRoleBaseTab() ?? $this->getIncompleteTab($data);
             return view('admin.enquiry.show',compact('data','activeTab','id','activeTab'));   
         }else {
             return redirect()->route('admin.enquiry-list');
         }
     }
 
-
+    public function getRoleBaseTab()
+    {
+        $role_name = userRole()->slug;
+        if($role_name == config('global.technical_estimater')){
+            return 'technical-estimation';
+        } else if($role_name == config('global.cost_estimater')){
+            return 'cost-estimation';
+        }
+        return false;
+    }
 
     public function getIncompleteTab($enquiry)
     {

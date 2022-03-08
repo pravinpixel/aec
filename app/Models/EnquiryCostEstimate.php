@@ -13,5 +13,6 @@ class EnquiryCostEstimate extends Model
         'total_cost',
         'enquiry_id',
         'created_by',
+        'updated_by'
     ]; 
 }

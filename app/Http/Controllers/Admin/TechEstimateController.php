@@ -53,6 +53,7 @@ class TechEstimateController extends Controller
             'build_json'            =>  json_encode($data),
             'total_wall_area'       =>  1 ,
             'wall'                  =>  1 ,
+            'updated_by'            => Admin()->id
         ]);
         $enquiry = Enquiry::find($id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');

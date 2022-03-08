@@ -10,7 +10,8 @@ class EnquiryTechnicalEstimate extends Model
     use HasFactory;
     protected $fillable = [
         'build_json',
-        'enquiry_id'
+        'enquiry_id',
+        'updated_by'
     ];
     public function buildingComponent()
     {

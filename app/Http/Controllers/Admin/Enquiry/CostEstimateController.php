@@ -67,7 +67,8 @@ class  CostEstimateController extends Controller
         EnquiryCostEstimate::updateOrCreate(['enquiry_id'=>$id],[
             'build_json'    => json_encode($data),
             'total_cost'    => $request->total,
-            'created_by' => "Admin"
+            'created_by'    => "Admin",
+            'updated_by'    => Admin()->id
         ]); 
         $enquiry = Enquiry::find($id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');

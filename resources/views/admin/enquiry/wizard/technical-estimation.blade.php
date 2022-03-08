@@ -1,6 +1,7 @@
 <div>
     <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
         <li class="time-bar"></li>
+        @if(userHasAccess('project_summary_index'))
         <li class="nav-item Project_Info">
             <a href="#/project-summary" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
@@ -11,7 +12,9 @@
                 <p class="h5 mt-2">Project summary</p>
             </a>
         </li>
-        <li class="nav-item  admin-Technical_Estimate-wiz">
+        @endif
+        @if(userHasAccess('technical_estimate_index'))
+        <li class="nav-item  admin-Technical_Estimate-wiz {{  userRole()->slug == config('global.technical_estimate') ? "last" : '' }}" >
             <a href="#/technical-estimation" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
                     <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -21,6 +24,8 @@
                 <p class="h5 mt-2">Technical Estimate</p>
             </a>
         </li>
+        @endif
+        @if(userHasAccess('cost_estimate_index'))
         <li class="nav-item admin-Cost_Estimate-wiz"  style="pointer-events: @{{ technical_estimation_status ==  0 ? 'none' :'unset' }}">
             <a href="#/cost-estimation" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
@@ -31,6 +36,8 @@
                 <p class="h5 mt-2">Cost Estimate</p>
             </a>
         </li>
+        @endif
+        @if(userHasAccess('proposal_sharing_index'))
         <li class="nav-item admin-Proposal_Sharing-wiz"  ng-class="{last:proposal_sharing_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
             <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                 <div class="timeline-content">
@@ -41,6 +48,8 @@
                 <p class="h5 mt-2">Proposal Sharing</p>
             </a>
         </li> 
+        @endif
+        @if(userHasAccess('customer_response_index'))
         <li class="nav-item admin-Delivery-wiz" ng-show="proposal_sharing_status == 1" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
             <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" >
                 <div class="timeline-content">
@@ -51,7 +60,9 @@
                 <p class="h5  mts-2">Customer Response</p>
             </a>
         </li>
+        @endif
     </ul>
+    @if(userHasAccess('technical_estimate_index'))
     <div class="row" >
         <div class="col-lg-9 p-0">
             <div class="card shadow-none p-0 m-0">
@@ -207,6 +218,7 @@
                 </ul>
             </div>
         </div> 
+        @if(userHasAccess('technical_estimate_add'))
         <div class="col-6 my-1">
             <div class="row m-0">
                 <div class="col-md-12 p-0 d-flex">
@@ -224,17 +236,20 @@
                 </div>
             </div>
         </div>
+       
         <div class="card-footer">
             <div class="d-flex justify-content-between">
                 <div>
                     <a href="#/project-summary" class="btn btn-light border shadow-sm">Prev</a>
                 </div> 
                 <div>
-                    <a ng-show="technical_estimation_status != 0 && latest_assigned_to == null" href="#/cost-estimation"  class="btn btn-primary">Next</a>
+                    <a ng-show="technical_estimation_status != 0" href="#/cost-estimation"  class="btn btn-primary">Next</a>
                 </div>
             </div>
         </div>
+        @endif
     </div>
+    @endif
     @include("admin.enquiry.models.technical-estimation-chat-box") 
     @include("admin.enquiry.models.assign-technical-estimation-chat-box") 
 </div>
