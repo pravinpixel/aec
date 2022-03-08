@@ -158,5 +158,14 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
         return ($data);
     }
     
+
+    public function isProposalExists($enquiry_id, $documentary_id)
+    {
+        $data = $this->model->where(['enquiry_id' => $enquiry_id, 'documentary_id' => $documentary_id])->first();
+        if(!empty($data)){
+            return true;
+        }
+        return false;
+    }
     
 }

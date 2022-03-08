@@ -992,6 +992,10 @@
                     url: "{{ route('get-documentaryOneData') }}",
                     params:{'documentId':documentId,'enquireId':enquireId},
                 }).then(function (response) {
+                    if(response.data.status == false){
+                        Message('danger', response.data.msg);
+                        return false;
+                    }
                     // alert(JSON.stringify(response))
                     $scope.getDocumentaryData();
                 }, function (error) {

@@ -144,10 +144,11 @@ class MailTemplateController extends Controller
     }
     public function getDocumentaryOneData(Request $request)
     {
-        
-        $data =  $this->mailTemplateRepository->getDocumentaryOneData($request);
-        // return $data;
-        
+        $iExists = $this->mailTemplateRepository->getDocumentaryOneData($request);
+        $data =  $this->mailTemplateRepository->isProposalExists($request->enquireId, $request->documentId);
+        if( $data ){
+            return response()->json(['status' => false, 'msg' => trans('proposal.proposal_already_generated')]);
+        }
         $content =$data['document']['documentary_content'];
         $title = $data['document']['documentary_title'];
         $logo = Config::get('documentary.logo.key');
