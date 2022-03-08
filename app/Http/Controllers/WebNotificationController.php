@@ -21,7 +21,7 @@ class WebNotificationController extends Controller
     {
         // dd($request->all());
         // $token = 'fibD134QuIS8cIWuII_qXP:APA91bERB-oYUiX0Fhla6altC2iyb4M1MTSIyZcQmgw1RqaKXNKcswsyRnr7v4GMI90QYKszq88Bu1CbtxV_T9wxk-iYXVCgApvh3Ot-VGlbdUUKgHyxGu14M15cI8LVf8JQdZifqJfV';
-        $token = 'ewwPtNSCa2SNdh2GuyY504:APA91bEt4g8NtHKYaNm--J59CnjU67NVj2s39oGIigmDf4aYWZFVnhbmSntoPCWxqbAZHqjXuiFOk7uO49lP9oonRNEFDJ5GXguB-XjlUiAwm-RQknRb2-AzRMjoU94WJGiPNOH_mrRq';
+        $token = 'f3nGV1rnwOQ:APA91bGXF5PHUFDrM7oYAzexv9WPgH97b5KqyTf_GO2w0rmqbTrP0NAYLwc3MuA6PzwFjIbo8cYq6mjKZ43mvmkvsf6jbpp7crgO63mYIv26aitIz2w2hv9HY_kvAZg7FkEoq6whNpp4';
     //     // $firebaseToken = 'dqkUj-YBIIjPvFq3aw5EVO:APA91bHOBPFY17zQWNTOpspq5hyrC164BjF7bS6Ia9N1RmudX0E16-YB8vi_ODS4K2OAYb4FuINFTEyjT0OQgjIOVqhCOxqEW_Q9owesfuiqeEPe6DMX33XN_JyP8fzmA0ZfCTDaredS';
 
           
