@@ -121,6 +121,7 @@ class EnquiryController extends Controller
         if($type == 'approve') {
             $result =   Enquiry::find($id);
             $result ->  project_status = 'Active';
+            $result ->  customer_response = 1;
             $result ->  save();
             $proposal           =   MailTemplate::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
                                                     ->update(['is_active' => 0]);
@@ -131,6 +132,7 @@ class EnquiryController extends Controller
         if($type == 'denie') {
             $result =   Enquiry::find($id);
             $result ->  project_status = 'Unattended';
+            $result ->  customer_response = 2;
             $result ->  save();
             return 'Proposal to be Denied !';
         }

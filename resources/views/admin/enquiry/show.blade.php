@@ -10,7 +10,7 @@
             <div class="container-fluid"> 
                 
                 <!-- start page title --> 
-                <div class="row ">
+                <div class="row " ng-controller="rootEnquiryWizard">
                     <div class="col-12">
                         <div class="page-title-box mt-3">
                             <div class="page-title-right mt-0">
@@ -193,6 +193,9 @@
                 redirectTo: '{{ route('enquiry.project-summary') }}'
             });
         });  
+        app.controller("rootEnquiryWizard",function ($scope, $http, API_URL,  $location) {
+            $location.path('{{ $activeTab }}');
+        })
         app.controller('WizzardCtrl', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id = '{{ $id }}';
             
