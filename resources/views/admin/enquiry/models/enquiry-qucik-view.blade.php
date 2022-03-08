@@ -262,7 +262,7 @@
                         <div id="building_component" ng-show="project_info.building_component_process_type == 0" class="accordion-collapse collapse  " aria-labelledby="building_component_header" >
                             <div class="accordion-body">  
                                 <div  style="max-height: 400px; overflow:auto"> 
-                                    <table class="table table-bordered" ng-init="total = 0 ">
+                                    <table class="custom  table table-bordered" ng-init="total = 0 ">
                                         <tbody >
                                             <tr class="table-bold text-center">
                                                 <th width="150px"></th>

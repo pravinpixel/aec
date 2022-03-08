@@ -151,16 +151,22 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function sendCustomerProPosalMail($id, $proposal_id, $request)
     { 
         $result = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
-        $user   = $this->enquiry->with('customer')->find($id);
+        $enquiry = $this->getEnquiryByID($id);
+        $proposalArray = MailTemplate::where("enquiry_id", $id)->pluck('proposal_id')->toArray();
+        $version = (int)array_search($result->proposal_id, $proposalArray);
+        $version = 'R'.($version + 1);
         $details = [ 
-            'name'          =>  $user->customer->full_name,
-            'email'         =>  $user->customer->email,
-            'EnqId'         =>  Crypt::encryptString($id),
-            'proposal_id'   =>  Crypt::encryptString($proposal_id),
-            'Vid'           =>  Crypt::encryptString(0),
+            'name'        => $enquiry->customer->full_name,
+            'email'       => $enquiry->customer->email,
+            'projectName' => $enquiry->project_name,
+            'enquiryNo'   => $enquiry->enquiry_number,
+            'version'     => $version,
+            'EnqId'       => Crypt::encryptString($id),
+            'proposal_id' => Crypt::encryptString($proposal_id),
+            'Vid'         => Crypt::encryptString(0),
         ];  
 
-        Mail::to($user->customer->email)->send(new \App\Mail\ProposalMail($details));
+        Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalMail($details));
         $result->status =  'sent';
         $result->mail_send_date =  now();
         $result->save();
@@ -172,17 +178,23 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
     { 
         $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
- 
-        $user   = $this->enquiry->with('customer')->find($id);
-         
+        $enquiry = $this->getEnquiryByID($id);
+        $proposalArray1 = MailTemplate::where("enquiry_id", '=', $id)->pluck('proposal_id')->toArray();;
+        $proposalVersion1 = (int)array_search($result->proposal_id, $proposalArray1);
+        $proposalArray2 = PropoalVersions::where(["enquiry_id" => $id, "proposal_id" => $proposal_id])->pluck('id')->toArray();
+        $proposalVersion2 = (int)array_search($result->id, $proposalArray2);
+        $version = 'R'.($proposalVersion1 + 1).'.'.($proposalVersion2 + 1);
         $details = [ 
-            'name'          =>  $user->customer->full_name,
-            'email'         =>  $user->customer->email,
+            'name'          =>  $enquiry->customer->full_name,
+            'email'         =>  $enquiry->customer->email,
+            'projectName'   =>  $enquiry->project_name,
+            'enquiryNo'     =>  $enquiry->enquiry_number,
+            'version'       =>  $version,
             'EnqId'         =>  Crypt::encryptString($id),
             'proposal_id'   =>  Crypt::encryptString($proposal_id),
             'Vid'           =>  Crypt::encryptString($Vid),
         ];  
-        Mail::to($user->customer->email)->send(new \App\Mail\ProposalVersions($details));
+        Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalVersions($details));
         $result->status =  'sent';
         $result->mail_send_date =  now();
         $result->save();

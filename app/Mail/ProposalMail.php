@@ -30,6 +30,8 @@ class ProposalMail extends Mailable
      */
     
     public function build()    { 
-        return $this->from('noreplay@gmail.com')->markdown('emails.admin.proposal');
+        return $this->from('noreplay@gmail.com')
+        ->subject("{$this->details['projectName']}|{$this->details['enquiryNo']}|{$this->details['version']}")
+        ->markdown('emails.admin.proposal');
     }
 }
