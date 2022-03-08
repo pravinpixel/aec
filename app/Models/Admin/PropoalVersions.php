@@ -22,8 +22,8 @@ class PropoalVersions extends Model
         'comment',
         'is_active',
     ];  
-//     public function getJoinVersions()
-//     {
-//         return  $this->hasOne(MailTemplate::class,  'proposal_id', 'proposal_id');
-//     }
+    public function enquiryProposal()
+    {
+        return  $this->belongsTo(MailTemplate::class,  'proposal_id', 'proposal_id');
+    }
 }

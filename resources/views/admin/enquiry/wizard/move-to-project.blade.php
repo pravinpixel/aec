@@ -123,28 +123,71 @@
         <div class="col-md-12">
             <div class="card-body text-center p-2">
                 <small class="card-text text-secondary">Response status</small>
-                <h3 class="card-title m-0">Denined</h3>
+                <h3 class="card-title m-0">Denied</h3>
             </div>
         </div>
     </div> 
 </div> 
 
-<div class="card mx-auto col-md-12" ng-show="deniedComments.length && enquiry_status == 2">
-    <table class="table table-centered mb-0">
-        <thead class="table-dark">
-            <tr>
-                <th>File Name</th>
-                <th>Comments</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="deniedComment in deniedComments">
-               <td ng-show="deniedComment.template_name != 'template_name'"> @{{ deniedComment.template_name}}</td>
-               <td ng-show="deniedComment.template_name == 'template_name'"> @{{ deniedComment.parent_id}}</td>
-               <td> @{{ deniedComment.comment }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="card-body" ng-show="deniedComments.length">
+    <div class="container p-0"> 
+        <table class="table table-bordered">
+            <tbody class="panel"> 
+                <tr>
+                    <td style="padding: 0 !important">
+                        <table  class="table table-bordereds m-0">
+                            <tr>
+                                <th class="text-center" colspan="2" style="width: 6% !important">No</th>
+                                <th class="text-center" >File Name</th>
+                                <th class="text-center">Version</th>
+                                <th class="text-center">Comment</th>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr ng-repeat="(key,deniedComment) in deniedComments">
+                    <td style="padding: 0 !important" >
+                        <table class="table table-bordered m-0">
+                            <tbody class="panel"> 
+                                <tr>
+                                    <td colspan="2" style="width: 6% !important" class="text-center">
+                                        <div class="d-flex text-center">
+                                            <div class="me-2" ng-show="P.get_versions.length">
+                                                <i data-bs-toggle="collapse" href="#togggleTable@{{ key+1 }}" aria-expanded="true" aria-controls="togggleTable@{{ key+1 }}" class="accordion-button custom-accordion-button collapsed bg-primary text-white toggle-btn m-0"></i>
+                                            </div>
+                                            <div class="me-2" ng-show="!P.get_versions.length" style="visibility: hidden">
+                                                <i class="accordion-button custom-accordion-button collapsed bg-white text-white toggle-btn m-0"></i>
+                                            </div>
+                                            <div class="text-center">@{{ key+1 }}</div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 38% !important" class="text-center">@{{ deniedComment.template_name }}</td>
+                                    <td class="text-center">R1 </td>
+                                    <td class="text-center">@{{ deniedComment.comment }}</td>
+                                </tr> 
+                                <tr >
+                                    <td colspan="5"  style="padding: 0 !important">
+                                        <table class="table table-bordered m-0">
+                                            <tbody>  
+                                                <tr ng-repeat="(key2,V) in deniedComment.child">
+                                                    <td   class="text-end" style="width: 6% !important">
+                                                        <div class="text-end">@{{ key+1 }}.@{{ key2+1 }}</div>                                                    
+                                                    </td>
+                                                    <td style="width: 38% !important" class="text-start"></td>
+                                                    <td class="text-center">@{{ V.template_name }}</td>
+                                                    <td class="text-center">@{{ deniedComment.comment }}</td>
+                                                </tr> 
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+    </div> 
 </div>
 
 @if (Route::is('enquiry.move-to-project')) 

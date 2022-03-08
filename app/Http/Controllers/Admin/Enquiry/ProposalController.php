@@ -118,17 +118,22 @@ class ProposalController extends Controller
 
     public function getDeniedProposal($id)
     {
-        $first =  MailTemplate::where('enquiry_id', $id)
+        $proposals =  MailTemplate::with('getVersions')
+                        ->where('enquiry_id', $id)
                         ->whereNotNull('comment')
                         ->orderBy('updated_at','desc')
-                        ->select('template_name', 'status', 'comment','parent_id');
-
-        $second = PropoalVersions::where('enquiry_id', $id)
-                                ->whereNotNull('comment')
-                                ->orderBy('updated_at','desc')
-                                ->select('template_name', 'status', 'comment', 'parent_id')
-                                ->union( $first )
-                                ->get();
-        return $second;
+                        ->get();
+        $result = [];
+        foreach($proposals as $key => $proposal){
+            $verkey =1; $childVersion = [];
+            if($proposal->getVersions()->exists()) {
+                foreach($proposal->getVersions as $childkey => $proposalVersion){
+                    $verkey += 1;
+                    $childVersion[$childkey]=  ['template_name'=> "R{$verkey}", 'comment' => $proposalVersion->comment ];
+                }
+            }
+            $result[$key] = ['template_name'=> $proposal->template_name, 'comment' => $proposal->comment, 'child' =>  $childVersion];
+        }
+        return  $result;
     }
 }
