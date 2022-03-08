@@ -152,9 +152,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     { 
         $result = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $enquiry = $this->getEnquiryByID($id);
-        $proposalArray = MailTemplate::where("enquiry_id", $id)->pluck('proposal_id')->toArray();
-        $version = (int)array_search($result->proposal_id, $proposalArray);
-        $version = 'R'.($version + 1);
+        // $proposalArray = MailTemplate::where("enquiry_id", $id)->pluck('proposal_id')->toArray();
+        // $version = (int)array_search($result->proposal_id, $proposalArray);
+        // $version = 'R'.($version + 1);
+        $version = 'R1';
         $details = [ 
             'name'        => $enquiry->customer->full_name,
             'email'       => $enquiry->customer->email,
@@ -179,11 +180,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     { 
         $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
         $enquiry = $this->getEnquiryByID($id);
-        $proposalArray1 = MailTemplate::where("enquiry_id", '=', $id)->pluck('proposal_id')->toArray();;
-        $proposalVersion1 = (int)array_search($result->proposal_id, $proposalArray1);
+        // $proposalArray1 = MailTemplate::where("enquiry_id", '=', $id)->pluck('proposal_id')->toArray();;
+        // $proposalVersion1 = (int)array_search($result->proposal_id, $proposalArray1);
         $proposalArray2 = PropoalVersions::where(["enquiry_id" => $id, "proposal_id" => $proposal_id])->pluck('id')->toArray();
         $proposalVersion2 = (int)array_search($result->id, $proposalArray2);
-        $version = 'R'.($proposalVersion1 + 1).'.'.($proposalVersion2 + 1);
+        $version = 'R.'.($proposalVersion2 + 2);
         $details = [ 
             'name'          =>  $enquiry->customer->full_name,
             'email'         =>  $enquiry->customer->email,
