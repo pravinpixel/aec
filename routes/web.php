@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin\Master\ServiceController;
 use App\Http\Controllers\Admin\Documentary\DocumentaryController;
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\WebNotificationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -228,3 +230,8 @@ Route::get('getversion',[EnquiryController::class,'getVersion']);
 Route::get('admin/login',[AuthController::class, 'getAdminLogin'])->name('admin.login');
 Route::post('admin/login',[AuthController::class, 'postAdminLogin'])->name('admin.login');
 Route::post('admin/logout',[AuthController::class, 'adminLogout'])->name('admin.logout');
+
+
+Route::post('/store-token', [WebNotificationController::class, 'storeToken'])->name('store.token');
+Route::get('/send-web-notification', [WebNotificationController::class, 'sendWebNotification'])->name('send.web-notification');
+Route::get('/push', [WebNotificationController::class, 'index'])->name('push-notificaiton');

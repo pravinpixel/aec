@@ -54,6 +54,7 @@ class Enquiry extends Model
         'from_enquiry_id',
         'initiate_from',
         'is_new_enquiry',
+        'device_key',   
     ];
 
     public function getCreatedAtAttribute($date)
@@ -199,7 +200,6 @@ class Enquiry extends Model
             return true;
         }
         return false;
-    }
-        
+    }  
 }
 

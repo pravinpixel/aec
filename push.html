@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <p id="token"></p>
+    
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+        import { getMessaging , getToken, onMessage  } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-messaging.js";
+        
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
+            authDomain: "aec-chat-app.firebaseapp.com",
+            projectId: "aec-chat-app",
+            storageBucket: "aec-chat-app.appspot.com",
+            messagingSenderId: "917789039014",
+            appId: "1:917789039014:web:b65a02b06faf684aff1767"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        
+        const messaging = getMessaging();
+
+        getToken(messaging, { vapidKey: 'BFTsn9CD012zl5gz0su0g1eJBQidMy1u4X6EvW2GX_gGt59_cZMd_fFGKqpsFXKjtvqLhuwWaPPBBuS3P6ohirU' }).then((currentToken) => {
+            if (currentToken) {
+                // Send the token to your server and update the UI if necessary
+                console.log(currentToken)
+                
+            } else {
+                console.log('No registration token available. Request permission to generate one.');
+            }
+            }).catch((err) => {
+                console.log('An error occurred while retrieving token. ', err); 
+        });
+
+        // onMessage(messaging, (payload) => {
+        //     console.log('Message received. ', payload);
+        // });
+        
+    </script> 
+
+</body>
+</html>
