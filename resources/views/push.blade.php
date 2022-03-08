@@ -109,14 +109,14 @@
   
         // Your web app's Firebase configuration
             var firebaseConfig = {
-                apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
-                authDomain: "aec-chat-app.firebaseapp.com",
+                apiKey: "AIzaSyBaAb6ioNgwKCFSMWarpiBfZr7a3PW_0-c",
+                authDomain: "aecprefab-2022.firebaseapp.com",
                 databaseURL: "https://aecprefab-2022-default-rtdb.firebaseio.com",
-                projectId: "aec-chat-app",
-                storageBucket: "aec-chat-app.appspot.com",
-                messagingSenderId: "917789039014",
-                appId: "1:917789039014:web:b65a02b06faf684aff1767",
-                // measurementId: "G-6SE4VXSFGZ"
+                projectId: "aecprefab-2022",
+                storageBucket: "aecprefab-2022.appspot.com",
+                messagingSenderId: "896543663736",
+                appId: "1:896543663736:web:302c5426c7684b31db2f8d",
+                measurementId: "G-2TZQHPFL04"
             };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
