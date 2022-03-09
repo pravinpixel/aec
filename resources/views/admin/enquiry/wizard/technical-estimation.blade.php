@@ -14,7 +14,7 @@
         </li>
         @endif
         @if(userHasAccess('technical_estimate_index'))
-        <li class="nav-item  admin-Technical_Estimate-wiz {{  userRole()->slug == config('global.technical_estimate') ? "last" : '' }}" >
+        <li class="nav-item  admin-Technical_Estimate-wiz {{  userRole()->slug == config('global.technical_estimater') ? "last" : '' }}" >
             <a href="#/technical-estimation" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
                     <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -218,6 +218,11 @@
                 </ul>
             </div>
         </div> 
+        @if(userRole()->slug == config('global.technical_estimater'))
+            <div class="mx-1">
+                <button class="btn btn-primary rounded-pill" type="submit" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets">   <i class="fa fa-eye"></i> </button>
+            </div>
+        @endif
         @if(userHasAccess('technical_estimate_add'))
         <div class="col-6 my-1">
             <div class="row m-0">

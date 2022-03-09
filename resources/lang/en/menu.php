@@ -10,5 +10,6 @@ return [
     'can_not_delete' => 'Can not delete this menu item',
     'item_not_found' => 'Menu item not found',
     'status_updated' => 'Menu status updated successfully',
-    'customer_intro' => 'Customer Intro'
+    'customer_intro' => 'Customer Intro',
+    'enquiries'      => 'Enquiries'
 ];

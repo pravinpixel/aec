@@ -90,4 +90,32 @@
         clip-path:polygon(0 9%, 0 0, 100% 0, 103% 100%) ;
         left:-11px !important
     }    
+
+    .conversation-list  li.admin_role_odd  .conversation-text::after{
+        position: absolute;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: #BFDDFE;
+        top: 0;
+        clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
+    } 
+    .conversation-list  li.cost_estimate_role_odd  .conversation-text::after{
+        position: absolute;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: #BFDDFE;
+        top: 0;
+        clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
+    } 
+    .conversation-list  li.technical_estimate_role_odd  .conversation-text::after{
+        position: absolute;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: #BFDDFE;
+        top: 0;
+        clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
+    } 
 </style>

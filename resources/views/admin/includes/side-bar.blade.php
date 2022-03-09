@@ -71,7 +71,7 @@
                 <div class="collapse {{ Route::is("view-enquiry","admin.enquiry-create") ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
                         <li class="{{ Route::is("view-enquiry","admin.enquiry-create") ? "menuitem-active" : ""}}">
-                            <a href="{{ route('admin.enquiry-list') }}">@lang('menu.customer_intro')</a>
+                            <a href="{{ route('admin.enquiry-list') }}">@lang('menu.enquiries')</a>
                         </li>
                         <li class="{{ Route::is(["admin-documentary-view","admin.admin-documentary-view","admin.admin-documentary-view"]) ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin-documentary-view') }}">Contract </a>

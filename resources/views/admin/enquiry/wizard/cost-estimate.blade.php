@@ -226,6 +226,11 @@
             </div>
         </div>
     </div>
+    @if(userRole()->slug == config('cost_estimater'))
+    <div class="mx-1">
+        <button class="btn btn-primary rounded-pill"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">  <i class="fa fa-eye"></i> </button>
+    </div>
+    @endif
     @if(userHasAccess('cost_estimate_add'))
     <div class="col-6 my-1">
         <div class="row m-0">
