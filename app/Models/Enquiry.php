@@ -55,6 +55,7 @@ class Enquiry extends Model
         'initiate_from',
         'is_new_enquiry',
         'device_key',   
+        'device_token'
     ];
 
     public function getCreatedAtAttribute($date)

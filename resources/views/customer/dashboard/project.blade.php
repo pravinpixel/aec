@@ -1,8 +1,7 @@
 @extends('layouts.customer')
 
 @section('customer-content')
-   
-
+    
     <div class="content-page">
         <div class="content">
 
