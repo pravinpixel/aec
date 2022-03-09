@@ -21,6 +21,7 @@ class PropoalVersions extends Model
         'status',
         'comment',
         'is_active',
+        'proposal_status',
     ];  
     public function enquiryProposal()
     {

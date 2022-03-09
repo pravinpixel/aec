@@ -26,6 +26,7 @@ class MailTemplate extends Model
         'is_active',
         'comment',
         'status',
+        'proposal_status',
     ];  
 
     public function getVersions()

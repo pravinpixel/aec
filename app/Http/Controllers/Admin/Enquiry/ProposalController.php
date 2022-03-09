@@ -78,11 +78,17 @@ class ProposalController extends Controller
             Flash::info('Proposal already approved!');
             return redirect()->route('customers.login');
         }
+        $proposal_id    =   Crypt::decryptString($request->input('pid'));
         if($type == 0) {
             $enquiry->project_status = "Unattended";
             $enquiry->customer_response = 2;
             $enquiry->save(); 
             $this->addComment($id, $request);
+            $proposal           =   MailTemplate::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
+                                                    ->update(['proposal_status' => 'denied']);
+                                            
+            $proposal_version   =   PropoalVersions::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
+                                                    ->update(['proposal_status' => 'denied']);    
             Flash::success('Proposal successfully Dined!');
             return redirect()->route('customers.login');
         } 
@@ -90,11 +96,17 @@ class ProposalController extends Controller
             $enquiry->project_status = "Active";
             $enquiry->customer_response = 1;
             $enquiry->save();
-            $proposal_id    =   Crypt::decryptString($request->input('pid'));
+          
+            $proposal           =   MailTemplate::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
+                                                    ->update(['proposal_status' => 'approved']);
+                                            
+            $proposal_version   =   PropoalVersions::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
+                                                    ->update(['proposal_status' => 'approved']);    
+                                                    
             $proposal           =   MailTemplate::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
-                                                    ->update(['is_active' => 0]);
+                                                    ->update(['proposal_status' => 'absolute']);
             $proposal_version   =   PropoalVersions::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
-                                                    ->update(['is_active' => 0]);                        
+                                                    ->update(['proposal_status' => 'absolute']);                        
             Flash::success('Proposal successfully approved!');
             return redirect()->route('customers.login');
         }

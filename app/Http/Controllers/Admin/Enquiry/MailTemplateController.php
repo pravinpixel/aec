@@ -144,9 +144,9 @@ class MailTemplateController extends Controller
     }
     public function getDocumentaryOneData(Request $request)
     {
-        $iExists = $this->mailTemplateRepository->getDocumentaryOneData($request);
-        $data =  $this->mailTemplateRepository->isProposalExists($request->enquireId, $request->documentId);
-        if( $data ){
+        $data = $this->mailTemplateRepository->getDocumentaryOneData($request);
+        $exists =  $this->mailTemplateRepository->isProposalExists($request->enquireId, $request->documentId);
+        if( $exists ){
             return response()->json(['status' => false, 'msg' => trans('proposal.proposal_already_generated')]);
         }
         $content =$data['document']['documentary_content'];
