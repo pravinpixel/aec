@@ -59,7 +59,6 @@ class ProposalController extends Controller
     }
     public function sendMail(Request $request, $id, $proposal_id)
     {
-        $this->customerEnquiryRepo->updateProjectById($id, 'Active');
         return  $enquiry    =   $this->customerEnquiryRepo->sendCustomerProPosalMail($id, $proposal_id, $request);
     }
     public function sendMailVersion(Request $request, $id, $proposal_id, $Vid)
@@ -147,5 +146,14 @@ class ProposalController extends Controller
             $result[$key] = ['template_name'=> $proposal->template_name, 'comment' => $proposal->comment, 'child' =>  $childVersion];
         }
         return  $result;
+    }
+
+    public function moveToProject($id)
+    {
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByID($id);
+        $enquiry->proposal_sharing_status = 1;
+        $enquiry->project_status = 1;
+        $enquiry->created_by = Admin()->id;
+        return $enquiry->save();
     }
 }

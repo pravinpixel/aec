@@ -877,7 +877,9 @@
             }
 
             $scope.moveToProject = () => {
-                window.location.href = `${API_URL}admin/enquiry-list`;
+                $http.post(API_URL + 'proposal-move-to-project/'+{{ $data->id }}).then(function (response) {
+                    window.location.href = `${API_URL}admin/enquiry-list`;
+                });
             }
             
             // View Propose Data
