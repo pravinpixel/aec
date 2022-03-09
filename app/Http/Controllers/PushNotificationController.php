@@ -21,6 +21,6 @@ class PushNotificationController extends Controller
     }
     public function storeToken(Request $request)
     {
-        $result  =  Enquiry::where('id', Customer()->id())->update(['device_token' => $request->token]);
+        $result  =  Enquiry::where('id', '=', Customer()->id)->update(['device_token' => $request->token]);
     }
 }
