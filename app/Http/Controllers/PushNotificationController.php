@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\PushNotificationRepository;
+use App\Models\Enquiry;
 class PushNotificationController extends Controller
 {
     public $pushMessageRepo;
@@ -20,8 +21,6 @@ class PushNotificationController extends Controller
     }
     public function storeToken(Request $request)
     {
-        Customer()->update(['device_token'=>$request->token]); 
-        dd(Customer());
-        // elCrAarDzYVJvVLYplXMGq:APA91bHZyaGiG_mP65R4IT-VTGPG88-ou2a0-iaCKQhrBEgqmUAfOK6if5nKAyIYeyspgx39NXIuQjZx5Lu9BYaYB2SmUaU_xPf2rTKN-OJNONdT_HekJGu_QyymE6kBR2D2FMV09Fx8
+        $result  =  Enquiry::where('id', Customer()->id())->update(['device_token' => $request->token]);
     }
 }
