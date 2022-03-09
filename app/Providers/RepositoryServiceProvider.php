@@ -51,6 +51,8 @@ use App\Repositories\EnquiryTemplateRepository;
 use App\Repositories\MailTemplateRepository;
 use App\Repositories\TechnicalEstimateRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Interfaces\PushNotificationRepositoryInterface;
+use App\Repositories\PushNotificationRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -61,6 +63,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        
         $this->app->bind(
             ServiceRepositoryInterface::class, 
             ServiceRepository::class
@@ -77,8 +80,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CustomerEnquiryRepositoryInterface::class, 
             CustomerEnquiryRepository::class
-        );
-
+        ); 
+        
         $this->app->bind(
             BuildingTypeRepositoryInterface::class,
             BuildingTypeRepository::class
@@ -172,6 +175,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CostEstimateRepositoryInterface::class,
             CostEstimateRepository::class
+        );
+
+        $this->app->bind(
+            PushNotificationRepositoryInterface::class,
+            PushNotificationRepository::class
         );
     }
 

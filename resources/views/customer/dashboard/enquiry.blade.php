@@ -71,8 +71,7 @@
                                 <!--end card-->
                             </div> <!-- end col -->
  
-                        </div>
-                     
+                        </div> 
                     </div>
                     <!-- container --> 
 				</div> 
@@ -108,4 +107,67 @@
     <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
+    @if (Route::is('customers-enquiry-dashboard'))
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+    
+        var firebaseConfig = {
+            apiKey: "AIzaSyBaAb6ioNgwKCFSMWarpiBfZr7a3PW_0-c",
+            authDomain: "aecprefab-2022.firebaseapp.com",
+            databaseURL: "https://aecprefab-2022-default-rtdb.firebaseio.com",
+            projectId: "aecprefab-2022",
+            storageBucket: "aecprefab-2022.appspot.com",
+            messagingSenderId: "896543663736",
+            appId: "1:896543663736:web:302c5426c7684b31db2f8d",
+            measurementId: "G-2TZQHPFL04"
+        };
+    
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+    
+        function initFirebaseMessagingRegistration() {
+             
+            messaging.requestPermission().then(function () {
+                    return messaging.getToken()
+            }).then(function(token) {
+                console.log(token);
+    
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+    
+                $.ajax({
+                    url: '{{ route("save-customer-token") }}',
+                    type: 'POST',
+                    data: {
+                        token: token
+                    },
+                    dataType: 'JSON',
+                    success: function (response) {
+                        alert('Token saved successfully.');
+                    },
+                    error: function (err) {
+                        console.log('User Chat Token Error'+ err);
+                    },
+                });
+    
+            }).catch(function (err) {
+                console.log('User Chat Token Error'+ err);
+            });
+        }
+    
+        messaging.onMessage(function(payload) {
+            const noteTitle = payload.notification.title;
+            const noteOptions = {
+                body: payload.notification.body,
+                icon: payload.notification.icon,
+            };
+            new Notification(noteTitle, noteOptions);
+        });
+    
+    </script>
+    @endif
 @endpush

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\EnquiryCommentRepositoryInterface;
+use App\Repositories\PushNotificationRepository;
 use App\Models\EnquiryComments;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
             "role_by"       => $r->role_by ?? "",
             "status"        => 0,
         ]);
-        return response(['status' => true, 'data' => 'Success' ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
+
+        return $comments; 
     }
     public function show(Request $r, $id, $type)
     {

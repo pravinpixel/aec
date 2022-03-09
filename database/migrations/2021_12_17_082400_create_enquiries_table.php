@@ -58,6 +58,7 @@ class CreateEnquiriesTable extends Migration
             // ======== Admin Wizard Flow Status =======
             $table->unsignedBigInteger('from_enquiry_id')->nullable();
             $table->boolean('is_new_enquiry')->default(1);
+            $table->string('device_token')->nullable();
             $table->timestamps();
         });
     }

@@ -26,6 +26,8 @@ use App\Http\Controllers\Admin\Documentary\DocumentaryController;
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\WebNotificationController;
+use App\Http\Controllers\PushNotificationController;
+
 
 
 /*
@@ -235,3 +237,5 @@ Route::post('admin/logout',[AuthController::class, 'adminLogout'])->name('admin.
 Route::post('/store-token', [WebNotificationController::class, 'storeToken'])->name('store.token');
 Route::get('/send-web-notification', [WebNotificationController::class, 'sendWebNotification'])->name('send.web-notification');
 Route::get('/push', [WebNotificationController::class, 'index'])->name('push-notificaiton');
+
+Route::get('/repo', [PushNotificationController::class, 'index']);
