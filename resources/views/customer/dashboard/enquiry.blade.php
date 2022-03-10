@@ -120,7 +120,7 @@
                 storageBucket: "aecprefab-2022.appspot.com",
                 messagingSenderId: "896543663736",
                 appId: "1:896543663736:web:302c5426c7684b31db2f8d",
-                measurementId: "G-2TZQHPFL04"
+                measurementId: "G-2TZQHPFL04" 
             };
         
             firebase.initializeApp(firebaseConfig);
