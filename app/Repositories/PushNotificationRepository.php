@@ -12,7 +12,7 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
         $firebaseToken_old  = '';
          
         $data = [
-            "registration_ids" => ['f3nGV1rnwOQ:APA91bGXF5PHUFDrM7oYAzexv9WPgH97b5KqyTf_GO2w0rmqbTrP0NAYLwc3MuA6PzwFjIbo8cYq6mjKZ43mvmkvsf6jbpp7crgO63mYIv26aitIz2w2hv9HY_kvAZg7FkEoq6whNpp4'],
+            "registration_ids" => ['ewwPtNSCa2SNdh2GuyY504:APA91bET1Vd94mbQtFaWxB_jLP1ZM4R0kn8U6RtWItOP71yJu1-ytxxOxyyame98EpF6jRHAu9TV1E2YcpPwgNykNDLe8E7-G-XRqrSQ_yrz9vA6KfXLuDGaHUCFUe4xDmXJaiIfdEq-'],
             "notification" => [
                 "title" => "Testing Title",
                 "body" => "Testing Body",
