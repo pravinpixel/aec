@@ -18,7 +18,8 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
                 "body" => "Testing Body",
                 "content_available" => true,
                 "priority" => "high",
-                "icon" => "https://cdn-icons-png.flaticon.com/512/725/725107.png"
+                "icon" => "https://cdn-icons-png.flaticon.com/512/725/725107.png",
+                "link" => "https://crm.aecprefab.net"
             ]
         ];
         
