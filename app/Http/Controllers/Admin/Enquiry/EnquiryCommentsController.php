@@ -30,11 +30,11 @@ class EnquiryCommentsController extends Controller
     }
 
     public function store(Request $request){
-      
+       
         $result         =   $this->enquiryCommentRepo->store($request);
         $customer       =   $this->customerEnquiry->getEnquiryByID($result->enquiry_id);
         $firebaseToken  =   Customer::where('id', $customer->customer->id)->pluck('device_token');
-        $title          =   'New Message From '.auth()->user()->user_name;
+        $title          =   'New Message From AEC - '.$request->created_by;
         $body           =   $request->comments;
 
         if($result) {

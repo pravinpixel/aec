@@ -4,9 +4,7 @@ use App\Interfaces\PushNotificationRepositoryInterface;
 class PushNotificationRepository implements PushNotificationRepositoryInterface
 {
 	public function sendPushNotification($firebaseToken, $title, $body){
-		// return [$message_type, $chat_type];
-        // Customer()
-         
+		         
         $SERVER_API_KEY = 'AAAA1bB9WaY:APA91bHm0LR0QWWw9DJ1sAxr0WLusy3rpLsr-VuS1NAlM2ikJal_RE0ZKUlBOcGvvHP-xjk392HmxM2TmnRZ99mm1SQMcAxJI5mVcmA8sIu0pfs8yWL0vxPrG9SjmVvPVoRxlcr9FPHT';
          
         $data = [
