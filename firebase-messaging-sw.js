@@ -10,14 +10,14 @@ Initialize the Firebase app in the service worker by passing in the messagingSen
 * New configuration for app@pulseservice.com
 */
 firebase.initializeApp({
-    apiKey: "AIzaSyBaAb6ioNgwKCFSMWarpiBfZr7a3PW_0-c",
-    authDomain: "aecprefab-2022.firebaseapp.com",
-    databaseURL: "https://aecprefab-2022-default-rtdb.firebaseio.com",
-    projectId: "aecprefab-2022",
-    storageBucket: "aecprefab-2022.appspot.com",
-    messagingSenderId: "896543663736",
-    appId: "1:896543663736:web:302c5426c7684b31db2f8d",
-    measurementId: "G-2TZQHPFL04"
+  apiKey: "AIzaSyBaAb6ioNgwKCFSMWarpiBfZr7a3PW_0-c",
+  authDomain: "aecprefab-2022.firebaseapp.com",
+  databaseURL: "https://aecprefab-2022-default-rtdb.firebaseio.com",
+  projectId: "aecprefab-2022",
+  storageBucket: "aecprefab-2022.appspot.com",
+  messagingSenderId: "896543663736",
+  appId: "1:896543663736:web:302c5426c7684b31db2f8d",
+  measurementId: "G-2TZQHPFL04" 
 });
 
 /*
