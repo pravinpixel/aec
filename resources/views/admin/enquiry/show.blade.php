@@ -32,7 +32,7 @@
                                 </ol>
                             </div>
                             <h4 class="page-title">
-                                @{{ enquiry_number }} - @{{ project_info.project_name }}
+                                {{ $data->enquiry_number }} - {{ $data->project_name }}
                                 {{-- EQ/2022/0001 - Project Name --}}
                             </h4>
                         </div>
@@ -198,7 +198,7 @@
         })
         app.controller('WizzardCtrl', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id = '{{ $id }}';
-            
+            $scope.enquiry_number ='dd';
             getEnquiryCommentsCountById = (id) => {
                 $http({
                     method: "get",
