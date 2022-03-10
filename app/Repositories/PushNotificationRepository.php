@@ -19,7 +19,8 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
                 "content_available" => true,
                 "priority" => "high",
                 "icon" => "https://cdn-icons-png.flaticon.com/512/725/725107.png",
-                'click_action' => 'https://firebase.google.com?webpush_notification',
+                'click_action' => 'message',
+                'link' => 'https://firebase.google.com',
             ],
             "webpush" => [
                 "notification"=> [
