@@ -26,8 +26,8 @@ class EnquiryCommentsController extends Controller
     public function store(Request $request){
         $result  = $this->enquiryCommentRepo->store($request);
         if($result) {
-            $message = $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type");
-            dd($message);
+            // $message = $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type");
+            // dd($message);
             return  response(['status' => true, 'data' => 'Success' ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
         }
         return  response(['status' => false, 'data' => 'Success' ,'msg' => trans('globe.something')]);
