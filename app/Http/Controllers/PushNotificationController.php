@@ -17,14 +17,9 @@ class PushNotificationController extends Controller
 
     public function index()
     {
-        $firebaseToken  =  Customer::where('id',  Customer()->id)
-                            ->get()
-                            ->map(function($data){
-                                return['token' => $data->device_token];
-                            });
-       
+        $firebaseToken  =  Customer::where('id', Customer()->id)->pluck('device_token');
         return   $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type",$firebaseToken);
-}
+    }
     public function storeToken(Request $request)
     {
         $result  =  Customer::where('id', '=', Customer()->id)->update(['device_token' => $request->token]);
