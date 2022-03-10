@@ -152,7 +152,7 @@ class ProposalController extends Controller
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiryByID($id);
         $enquiry->proposal_sharing_status = 1;
-        $enquiry->project_status = 1;
+        $enquiry->project_status = 'Active';
         $enquiry->created_by = Admin()->id;
         return $enquiry->save();
     }
