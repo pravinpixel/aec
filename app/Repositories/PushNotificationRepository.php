@@ -13,36 +13,20 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
          
         $data = [
             "registration_ids" => [$firebaseToken[0]],
-            'notification' => [
-                'title' => 'Notification title',
-                'body' => 'Notification body',
+            "notification" => [
+                "title" => "Testing Title",
+                "body" => "Testing Body",
+                "content_available" => true,
+                "priority" => "high",
+                "icon" => "https://cdn-icons-png.flaticon.com/512/725/725107.png",
+                'click_action' => 'https://firebase.google.com?webpush_notification',
             ],
-            'data' => [
-                'click_action' => 'https://firebase.google.com?data',
-                'meta' => 'root data',
-            ],
-            'android' => [
-                'notification' => [
-                    'title' => 'Android title',
-                    'body' => 'Android body',
-                    'click_action' => 'https://firebase.google.com?android',
-                ],
-                'data' => [
-                    'meta' => 'android data',
-                    'click_action' => 'https://firebase.google.com?android_data',
-                ],
-            ],
-            'webpush' => [
-                'notification' => [
-                    'title' => 'Webpush title',
-                    'body' => 'Webpush body',
-                    'click_action' => 'https://firebase.google.com?webpush_notification',
-                ],
-                'data' => [
-                    'click_action' => 'https://firebase.google.com?webpush_data',
-                    'meta' => 'webpush data',
-                ],
-            ],
+            "webpush" => [
+                "notification"=> [
+                    'link' => 'https://firebase.google.com',
+                    'click_action' => 'https://firebase.google.com',
+                ]
+            ]
         ];
         
         $dataString = json_encode($data);
