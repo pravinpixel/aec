@@ -23,7 +23,7 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
                 'link' => 'https://firebase.google.com',
             ],
             "webpush" => [
-                "notification"=> [
+                "fcm_options"=> [
                     'link' => 'https://firebase.google.com',
                     'click_action' => 'https://firebase.google.com',
                 ]
