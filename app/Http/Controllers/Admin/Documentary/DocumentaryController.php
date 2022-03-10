@@ -11,6 +11,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\DocumentaryCreateRequest;
 use App\Http\Requests\DocumentaryUpdateRequest;
+use Laracasts\Flash\Flash;
+
 class DocumentaryController extends Controller
 {
     protected $documentaryRepository;
@@ -53,7 +55,10 @@ class DocumentaryController extends Controller
      */
     public function store(DocumentaryCreateRequest $request)
     {
-        // return $request->all();
+        if(!userHasAccess('contract_add')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $outputType = $request->only([
            "documentary_title","documentary_content","is_active"
         ]);
@@ -75,7 +80,10 @@ class DocumentaryController extends Controller
      */
     public function edit($id) 
     {
-        // return "333";
+        if(!userHasAccess('contract_edit')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $data = $this->documentaryRepository->find($id);
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
@@ -128,6 +136,10 @@ class DocumentaryController extends Controller
     
     public function destroy($id) 
     {
+        if(!userHasAccess('contract_delete')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $output = $id;
         $this->documentaryRepository->delete($output);
         return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$output], Response::HTTP_OK);

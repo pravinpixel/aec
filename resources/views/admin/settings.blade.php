@@ -1331,7 +1331,7 @@
             }
 
             // $scope.getData($http, API_URL);
-            // $scope.getRoleData($http, API_URL);
+            $scope.getRoleData($http, API_URL);
             // $scope.getMasterCalculation($http, API_URL);
             // $scope.getComponentData($http, API_URL);
             // $scope.getTypeData($http, API_URL);

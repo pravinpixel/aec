@@ -251,6 +251,116 @@ class PermissionController extends Controller
         else
             $role->revokePermissionTo('customer_response_delete');
 
+    //Project 
+        if($request->project_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_index']);
+            if(!$role->hasPermissionTo('project_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_index');
+
+        if($request->project_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_add']);
+            if(!$role->hasPermissionTo('project_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_add');
+
+        if($request->project_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_edit']);
+            if(!$role->hasPermissionTo('project_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_edit');
+        if($request->project_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_delete']);
+            if(!$role->hasPermissionTo('project_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_delete');
+    //end project
+
+    //Task 
+        if($request->task_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'task_index']);
+            if(!$role->hasPermissionTo('task_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('task_index');
+
+        if($request->task_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'task_add']);
+            if(!$role->hasPermissionTo('task_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('task_add');
+
+        if($request->task_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'task_edit']);
+            if(!$role->hasPermissionTo('task_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('task_edit');
+        if($request->task_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'task_delete']);
+            if(!$role->hasPermissionTo('task_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('task_delete');
+    //end task
+
+    //Task 
+        if($request->contract_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'contract_index']);
+            if(!$role->hasPermissionTo('contract_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('contract_index');
+
+        if($request->contract_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'contract_add']);
+            if(!$role->hasPermissionTo('contract_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('contract_add');
+
+        if($request->contract_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'contract_edit']);
+            if(!$role->hasPermissionTo('contract_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('contract_edit');
+        if($request->contract_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'contract_delete']);
+            if(!$role->hasPermissionTo('contract_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('contract_delete');
+    //end contract
         return response(['status' => true, 'msg'=> __('global.permission_updated')]);
     }
 

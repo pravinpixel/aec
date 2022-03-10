@@ -37,7 +37,7 @@
         <div class="col-md-6 mb-1">
             <div class="my-2">
                 <label class="form-label" >Password<sup class="text-danger">*</sup></label>
-                <input type="password" class="form-control" name="epm_password"  ng-model="FormData.epm_password" placeholder="Type Here..."  ng-required="true">
+                <input type="password" class="form-control" name="epm_password" autocomplete="off"  ng-model="FormData.epm_password" placeholder="Type Here..."  ng-required="true">
                 <div class="error-msg">
                     <small class="error-text" ng-if="frm.epm_password.$touched && frm.epm_password.$error.required">This field is required!</small> 
                 </div>

@@ -46,7 +46,7 @@ Route::get('/', function () {
  
 /** ===== Admin Routes ======*/
     
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('common')->group(function () {
 
     // ======== Auth========== 
 
@@ -89,7 +89,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/admin-cost-estimation-view', function () {
         return view('admin.pages.cost-estimation-view');
     })->name('admin-cost-estimation-view');
-   
+
     Route::get('/admin-cost-estimation-single-view', [CostEstimationController::class,'cost_estimation_single_view'])->name('cost-estimation-single-view');
     Route::get('/admin-gantt-chart-single-view', [GanttChartController::class,'gantt_chart_single_view'])->name('admin-gantt-chart-single-view');
     Route::get('/admin-employee-control-view', [EmployeeController::class,'employee_control_view'])->name('admin-employee-control-view');

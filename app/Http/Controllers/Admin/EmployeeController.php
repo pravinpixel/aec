@@ -22,12 +22,17 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Illuminate\Support\Facades\Session;
+use Laracasts\Flash\Flash;
 use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
     public function employee_control_view()
     {
+        if(!userHasAccess('employee_edit')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         session()->forget('id');
         return view('admin.pages.employee.employee-view');
     }
@@ -50,6 +55,10 @@ class EmployeeController extends Controller
     }
     public function addEmployee(EmployeeCreateRequest $request)
     {
+        if(!userHasAccess('employee_add')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $id = session('id');
  
         $module = new Employee;
@@ -96,7 +105,10 @@ class EmployeeController extends Controller
 
     public function updateEmployee($ids,EmployeeUpdateRequest $request)
     {
-
+        if(!userHasAccess('employee_update')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $id = session('id');
        
         $module = Employee::find($ids);
@@ -104,12 +116,14 @@ class EmployeeController extends Controller
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
         if(!empty($module)){
-        
+            if($request->epm_password) {
+                $module->password =  Hash::make($request->epm_password);
+            }
         $module->employee_id = $request->epm_id;
         $module->first_Name = $request->epm_fname;
         $module->last_Name = $request->epm_lname;
         $module->user_name = $request->epm_username;
-        $module->password =  Hash::make($request->epm_password);
+      
         $module->job_role = $request->epm_job_role;
         $module->number = $request->number;
         $module->email = $request->email;
@@ -179,7 +193,10 @@ class EmployeeController extends Controller
     public function employeeDelete($id)
     {
         # code...
-    
+        if(!userHasAccess('employee_delete')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $module = Employee::find($id);
         if (empty($module)) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);

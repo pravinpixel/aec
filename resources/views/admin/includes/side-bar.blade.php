@@ -56,45 +56,47 @@
                     </ul>
                 </div>
             </li> 
-
-
-
-            
             {{-- <li class="side-nav-title side-nav-item mt-1">Sales</li> --}}
-
+            @if(userHasAccess('enquiry_index') || userHasAccess('contract_index'))
             <li class="side-nav-item {{ Route::is(["view-enquiry","admin.enquiry-create"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Sales" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                     <span> Sales </span>
                     <span class="menu-arrow"></span>
                 </a>
+              
                 <div class="collapse {{ Route::is("view-enquiry","admin.enquiry-create") ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
+                        @if(userHasAccess('enquiry_index'))
                         <li class="{{ Route::is("view-enquiry","admin.enquiry-create") ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin.enquiry-list') }}">@lang('menu.enquiries')</a>
                         </li>
+                        @endif
+                        @if(userHasAccess('contract_index'))
                         <li class="{{ Route::is(["admin-documentary-view","admin.admin-documentary-view","admin.admin-documentary-view"]) ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin-documentary-view') }}">Contract </a>
                         </li> 
+                        @endif
                     </ul>
                 </div>
                 
             </li> 
- 
-
+            @endif
+            @if(userHasAccess('project_index'))
             <li class="side-nav-item {{ Route::is("projects") ? "menuitem-active" : ""}}">
                 <a href="{{ route('projects') }}" class="side-nav-link">
                     <i class="fa fa-layer-group" aria-hidden="true"></i>
                     <span> Projects </span>
                 </a> 
             </li>
+            @endif
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-server" aria-hidden="true"></i>
                     <span> Projects Schedule </span>
                 </a> 
             </li> 
-
+            @if(userRole()->slug == 'admin')
             <li class="side-nav-item {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Administration" aria-expanded="false" aria-controls="Administration" class="side-nav-link">
                     <i class="fa fa-fingerprint" aria-hidden="true"></i>
@@ -103,24 +105,31 @@
                 </a>
                 <div class="collapse {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "show" : ""}}" id="Administration">
                     <ul class="side-nav-second-level">
+                        @if(userHasAccess('cost_estimate_index'))
                         <li>
                             <a href="{{ route('cost-estimation-single-view') }}">Cost Estimation</a>
                         </li>
+                        @endif
                         <li>
                             <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
                         </li>
+                        @if(userHasAccess('employee_index'))
                         <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin-employee-control-view') }}">Employee Control </a>
                         </li> 
+                        @endif
                     </ul>
                 </div>
             </li> 
-            <li class="side-nav-item ">
+            @endif
+            @if(userHasAccess('task_index'))
+            <li class="side-nav-item">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     <span> Tasks </span>
                 </a> 
             </li>
+            @endif
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-globe-americas" aria-hidden="true"></i>
@@ -145,12 +154,14 @@
                     <span> Calendar </span>
                 </a> 
             </li>
+            @if(userRole()->slug == 'admin')
             <li class="side-nav-item ">
                 <a href="{{ route('admin-settings') }}" class="side-nav-link">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <span> Setup </span>
                 </a> 
             </li> 
+            @endif
         </ul>
  
         <!-- End Sidebar -->
