@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\PushNotificationRepository;
-use App\Models\Enquiry;
+use App\Models\Customer;
+
 class PushNotificationController extends Controller
 {
     public $pushMessageRepo;
@@ -16,11 +17,18 @@ class PushNotificationController extends Controller
 
     public function index()
     {
-        return $result  =   $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type");
+        $firebaseToken  =  Customer::where('id',  Customer()->id)
+                            ->get()
+                            ->map(function($data){
+                                return['token' => $data->device_token];
+                            });
+        return $result;
        
-    }
+        return $result  =   $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type",$firebaseToken);
+}
     public function storeToken(Request $request)
     {
-        $result  =  Enquiry::where('id', '=', Customer()->id)->update(['device_token' => $request->token]);
+        $result  =  Customer::where('id', '=', Customer()->id)->update(['device_token' => $request->token]);
+        return $result;
     }
 }
