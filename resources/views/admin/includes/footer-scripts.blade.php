@@ -1,6 +1,6 @@
 <!-- =============== App JS  ===========-->
 <script src="{{ asset('public/assets/js/vendor.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/app.js') }}"></script> 
+{{-- <script src="{{ asset('public/assets/js/app.js') }}"></script>  --}}
 
 <!-- ==== For Angular JS  -->
   
