@@ -8,10 +8,10 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
         // Customer()
         
         $SERVER_API_KEY = 'AAAA0L4qpng:APA91bEbhnagIiPglRpPHwR0Hg1niG9kv6eFBqpPpqXUERAQy5NcmIs47AfwPyOcT5F3azQWh8Zm3DAz6dkkZ2aDiSl3Ln-5P6fny254WpmJfbsZGxrPjvKzju8pkkcRKOty_8ec7SMY';
-        // $firebaseToken  = 'elCrAarDzYVJvVLYplXMGq:APA91bHZyaGiG_mP65R4IT-VTGPG88-ou2a0-iaCKQhrBEgqmUAfOK6if5nKAyIYeyspgx39NXIuQjZx5Lu9BYaYB2SmUaU_xPf2rTKN-OJNONdT_HekJGu_QyymE6kBR2D2FMV09Fx8';
+        $firebaseToken_old  = 'elCrAarDzYVJvVLYplXMGq:APA91bHZyaGiG_mP65R4IT-VTGPG88-ou2a0-iaCKQhrBEgqmUAfOK6if5nKAyIYeyspgx39NXIuQjZx5Lu9BYaYB2SmUaU_xPf2rTKN-OJNONdT_HekJGu_QyymE6kBR2D2FMV09Fx8';
         
         $data = [
-            "registration_ids" => ['f3nGV1rnwOQ:APA91bGXF5PHUFDrM7oYAzexv9WPgH97b5KqyTf_GO2w0rmqbTrP0NAYLwc3MuA6PzwFjIbo8cYq6mjKZ43mvmkvsf6jbpp7crgO63mYIv26aitIz2w2hv9HY_kvAZg7FkEoq6whNpp4'],
+            "registration_ids" => $firebaseToken_old,
             "notification" => [
                 "title" => "Testing Title",
                 "body" => "Testing Body",
