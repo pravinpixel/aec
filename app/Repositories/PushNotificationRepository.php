@@ -19,10 +19,11 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
                 "content_available" => true,
                 "priority" => "high",
                 "icon" => "https://cdn-icons-png.flaticon.com/512/725/725107.png",
+                'click_action' => 'https://firebase.google.com?webpush_notification',
             ],
             "webpush" => [
-                "fcm_options"=> [
-                    "link" => "https://crm.aecprefab.net"
+                "notification"=> [
+                    'click_action' => 'https://firebase.google.com',
                 ]
             ]
         ];
