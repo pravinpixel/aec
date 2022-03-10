@@ -12,7 +12,7 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
         $firebaseToken_old  = '';
          
         $data = [
-            "registration_ids" => $firebaseToken,
+            "registration_ids" => $firebaseToken[0],
             "notification" => [
                 "title" => "Testing Title",
                 "body" => "Testing Body",
