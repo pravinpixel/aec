@@ -44,6 +44,6 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
 
         $response = curl_exec($ch);
 
-        dd($response);
+        return $response;
 	}
 }
