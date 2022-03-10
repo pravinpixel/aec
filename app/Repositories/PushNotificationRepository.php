@@ -6,10 +6,11 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
 	public function sendPushNotification($message_type, $chat_type, $firebaseToken){
 		// return [$message_type, $chat_type];
         // Customer()
-        
+        dd($firebaseToken[0]);
+
         $SERVER_API_KEY = 'AAAA0L4qpng:APA91bEGZ-XkiUV6dSAiVqTtte_27sw6suBbIs0l81qaHqp3KhATS2oyEeK-CcAAhQBKAdiFaEsXEIrypFwHfpFlONjZ1MLeKtSGqhWDVOGGE6vsDARyc_tMDEte5z_DYWoxO1zqFXac';
         $firebaseToken_old  = 'elCrAarDzYVJvVLYplXMGq:APA91bHZyaGiG_mP65R4IT-VTGPG88-ou2a0-iaCKQhrBEgqmUAfOK6if5nKAyIYeyspgx39NXIuQjZx5Lu9BYaYB2SmUaU_xPf2rTKN-OJNONdT_HekJGu_QyymE6kBR2D2FMV09Fx8';
-        
+         
         $data = [
             "registration_ids" => $firebaseToken,
             "notification" => [
