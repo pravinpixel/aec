@@ -21,11 +21,11 @@
                     
                     <div class="col-sm-2 mb-2 mb-sm-0">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link moduleTab" id="moduleTab"  href="#/" role="tab" aria-controls="v-pills-home"
+                            {{-- <a class="nav-link moduleTab" id="moduleTab"  href="#/" role="tab" aria-controls="v-pills-home"
                                 aria-selected="true">
                                 <i class="mdi mdi-home-variant d-md-none d-block"></i>
                                 <span class="d-none d-md-block" ng-click="moduleGetData()">Module</span>
-                            </a>
+                            </a> --}}
                             <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#/role" role="tab" aria-controls="v-pills-role"
                                 aria-selected="true">
                                 <i class="mdi mdi-home-variant d-md-none d-block"></i>
@@ -179,7 +179,7 @@
         app.config(function($routeProvider,API_URL) {
                 $routeProvider
                 .when("/", {
-                    templateUrl : "{{ route('module-file')  }}"
+                    templateUrl : "{{ route('role-file')  }}"
                 })
                 .when("/role", {
                     
@@ -259,8 +259,8 @@
         });
 
 
-        app.controller('moduleController', function ($scope, $http, API_URL) {
-           
+        app.controller('moduleController', function ($scope, $http, API_URL, $location) {
+            $location.path('/role');
             //fetch users listing from 
             $scope.moduleGetData = function () {
                 $scope.active = "active";
@@ -1330,19 +1330,21 @@
                 
             }
 
-            $scope.getData($http, API_URL);
-            $scope.getRoleData($http, API_URL);
-            $scope.getMasterCalculation($http, API_URL);
-            $scope.getComponentData($http, API_URL);
-            $scope.getTypeData($http, API_URL);
-            $scope.getProjectTypeData($http);
-            $scope.getDocumentData($http, API_URL);
-            $scope.getLayerData($http, API_URL);
-            $scope.getDeliveryLayerData($http, API_URL);
-            $scope.getLayerTypeData($http, API_URL);
-            $scope.getServiceData($http, API_URL);
-            $scope.getOutputData($http, API_URL);
-            
+            // $scope.getData($http, API_URL);
+            // $scope.getRoleData($http, API_URL);
+            // $scope.getMasterCalculation($http, API_URL);
+            // $scope.getComponentData($http, API_URL);
+            // $scope.getTypeData($http, API_URL);
+            // $scope.getProjectTypeData($http);
+            // $scope.getDocumentData($http, API_URL);
+            // $scope.getLayerData($http, API_URL);
+            // $scope.getDeliveryLayerData($http, API_URL);
+            // $scope.getLayerTypeData($http, API_URL);
+            // $scope.getServiceData($http, API_URL);
+            // $scope.getOutputData($http, API_URL);
+            // $scope.getOutputDataService($http, API_URL);
+            // $scope.getSelectLayerData($http, API_URL);
+            // $scope.getComponentLayerData($http, API_URL); 
             
             
             
@@ -2608,9 +2610,7 @@
                     });
                 }
                 
-                $scope.getOutputDataService($http, API_URL);
-                $scope.getSelectLayerData($http, API_URL);
-                $scope.getComponentLayerData($http, API_URL); 
+            
             
         });  
     </script>
