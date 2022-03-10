@@ -7,6 +7,8 @@ use App\Interfaces\EnquiryCommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\EnquiryComments;
+use App\Models\Customer;
+
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\PushNotificationRepository;
