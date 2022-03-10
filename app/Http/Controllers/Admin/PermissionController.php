@@ -361,6 +361,154 @@ class PermissionController extends Controller
         else
             $role->revokePermissionTo('contract_delete');
     //end contract
+
+    //Economy 
+        if($request->economy_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'economy_index']);
+            if(!$role->hasPermissionTo('economy_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('economy_index');
+
+        if($request->economy_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'economy_add']);
+            if(!$role->hasPermissionTo('economy_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('economy_add');
+
+        if($request->economy_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'economy_edit']);
+            if(!$role->hasPermissionTo('economy_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('economy_edit');
+        if($request->economy_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'economy_delete']);
+            if(!$role->hasPermissionTo('economy_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('economy_delete');
+    //end Economy
+    //Supplier Detail 
+        if($request->supplier_detail_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'supplier_detail_index']);
+            if(!$role->hasPermissionTo('supplier_detail_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('supplier_detail_index');
+
+        if($request->supplier_detail_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'supplier_detail_add']);
+            if(!$role->hasPermissionTo('supplier_detail_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('supplier_detail_add');
+
+        if($request->supplier_detail_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'supplier_detail_edit']);
+            if(!$role->hasPermissionTo('supplier_detail_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('supplier_detail_edit');
+        if($request->supplier_detail_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'supplier_detail_delete']);
+            if(!$role->hasPermissionTo('supplier_detail_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('supplier_detail_delete');
+    //end Supplier details
+
+    //Customer Detail 
+        if($request->customer_detail_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'customer_detail_index']);
+            if(!$role->hasPermissionTo('customer_detail_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('customer_detail_index');
+
+        if($request->customer_detail_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'customer_detail_add']);
+            if(!$role->hasPermissionTo('customer_detail_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('customer_detail_add');
+
+        if($request->customer_detail_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'customer_detail_edit']);
+            if(!$role->hasPermissionTo('customer_detail_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('customer_detail_edit');
+        if($request->customer_detail_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'customer_detail_delete']);
+            if(!$role->hasPermissionTo('customer_detail_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('customer_detail_delete');
+    //end customer details
+
+    //Customer Detail 
+        if($request->project_schedule_index == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_schedule_index']);
+            if(!$role->hasPermissionTo('project_schedule_index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_schedule_index');
+
+        if($request->project_schedule_add == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_schedule_add']);
+            if(!$role->hasPermissionTo('project_schedule_add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_schedule_add');
+
+        if($request->project_schedule_edit == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_schedule_edit']);
+            if(!$role->hasPermissionTo('project_schedule_edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_schedule_edit');
+        if($request->project_schedule_delete == true){
+            $permission = Permission::firstOrCreate(['name' => 'project_schedule_delete']);
+            if(!$role->hasPermissionTo('project_schedule_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('project_schedule_delete');
+    //end customer details
+
         return response(['status' => true, 'msg'=> __('global.permission_updated')]);
     }
 

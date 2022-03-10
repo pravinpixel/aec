@@ -90,12 +90,14 @@
                 </a> 
             </li>
             @endif
+            @if(userHasAccess('project_schedule_index'))
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-server" aria-hidden="true"></i>
                     <span> Projects Schedule </span>
                 </a> 
             </li> 
+            @endif
             @if(userRole()->slug == 'admin')
             <li class="side-nav-item {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Administration" aria-expanded="false" aria-controls="Administration" class="side-nav-link">
@@ -130,24 +132,30 @@
                 </a> 
             </li>
             @endif
+            @if(userHasAccess('economy_index'))
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-globe-americas" aria-hidden="true"></i>
                     <span> Economy </span>
                 </a> 
             </li>
+            @endif
+            @if(userHasAccess('customer_detail_index'))
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <span> Customer Details </span>
                 </a> 
             </li>
+            @endif
+            @if(userHasAccess('supplier_detail_index'))
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-users-cog" aria-hidden="true"></i>
                     <span> Supplier Details </span>
                 </a> 
             </li>
+            @endif
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-calendar-check" aria-hidden="true"></i>
