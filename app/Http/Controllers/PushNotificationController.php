@@ -22,9 +22,8 @@ class PushNotificationController extends Controller
                             ->map(function($data){
                                 return['token' => $data->device_token];
                             });
-        return $result;
        
-        return $result  =   $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type",$firebaseToken);
+        return   $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type",$firebaseToken);
 }
     public function storeToken(Request $request)
     {
