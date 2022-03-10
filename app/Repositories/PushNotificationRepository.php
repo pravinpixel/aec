@@ -9,7 +9,6 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
         
         
         $SERVER_API_KEY = 'AAAA1bB9WaY:APA91bHm0LR0QWWw9DJ1sAxr0WLusy3rpLsr-VuS1NAlM2ikJal_RE0ZKUlBOcGvvHP-xjk392HmxM2TmnRZ99mm1SQMcAxJI5mVcmA8sIu0pfs8yWL0vxPrG9SjmVvPVoRxlcr9FPHT';
-        $firebaseToken_old  = '';
          
         $data = [
             "registration_ids" => [$firebaseToken[0]],
@@ -19,7 +18,6 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
                 "content_available" => true,
                 "priority" => "high",
                 "icon" => "https://www.aecprefab.net/wp-content/uploads/2022/02/logo.svg",
-                
             ],
             "webpush" => [
                 "fcm_options"=> [
@@ -38,7 +36,7 @@ class PushNotificationRepository implements PushNotificationRepositoryInterface
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com//v1/projects/aec-chat-app/messages:send');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
