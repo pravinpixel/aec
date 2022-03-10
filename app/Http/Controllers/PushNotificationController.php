@@ -18,7 +18,9 @@ class PushNotificationController extends Controller
     public function index()
     {
         $firebaseToken  =  Customer::where('id', Customer()->id)->pluck('device_token');
-        return   $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type",$firebaseToken);
+        $title          =   'Dear Customer .!';
+        $body           =   'This is testing message from aecprefab.net';
+        return   $this->pushMessageRepo->sendPushNotification("Message_type", "Chat_type", $firebaseToken, $title, $body);
     }
     public function storeToken(Request $request)
     {
