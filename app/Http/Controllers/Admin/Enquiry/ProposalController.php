@@ -103,9 +103,9 @@ class ProposalController extends Controller
                                                     ->update(['proposal_status' => 'approved']);    
                                                     
             $proposal           =   MailTemplate::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
-                                                    ->update(['proposal_status' => 'absolute']);
+                                                    ->update(['proposal_status' => 'obsolete']);
             $proposal_version   =   PropoalVersions::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
-                                                    ->update(['proposal_status' => 'absolute']);                        
+                                                    ->update(['proposal_status' => 'obsolete']);                        
             Flash::success('Proposal successfully approved!');
             return redirect()->route('customers.login');
         }

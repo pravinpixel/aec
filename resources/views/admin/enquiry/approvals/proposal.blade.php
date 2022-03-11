@@ -36,7 +36,7 @@
                     </div>
                 @else
                     <div class="text-center">
-                        <h4 class=""> </h4>
+                        <h4 class="text-primary">@lang('proposal.proposal_obsoleted') </h4>
                     </div>
                 @endif
             </div>
