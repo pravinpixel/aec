@@ -39,11 +39,11 @@ class EnquiryCommentsController extends Controller
         
 
         if($request->created_by == 'Admin') {
-            $firebaseToken  =   Employee::where('id', Admin()->id)->pluck('device_token');
-        }
-
-        if($request->created_by == 'Customer') {
             $firebaseToken  =   Customer::where('id', $customer->customer->id)->pluck('device_token');
+        }
+     
+        if($request->created_by == 'Customer') {
+            $firebaseToken  =   Employee::where('id', Admin()->id)->pluck('device_token');
         }
         
         if($result) {
