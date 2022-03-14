@@ -1,7 +1,7 @@
 <div id="right-modal-progress" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
         <div class="p-3 shadow-sm">
-            <h3>Project Name : <b class="text-primary"> @{{ enquiry.project_infos.project_name }} </b></h3>
+            <h3>Project Name : <b class="text-primary"> @{{ enquiry.customer_info }} </b></h3>
             <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
         </div>
         <div class="modal-content h-100 p-4" style="overflow: auto">

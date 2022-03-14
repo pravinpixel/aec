@@ -254,6 +254,7 @@
                             $('#viewConversations-modal').modal('show');
                             getEnquiryCommentsCountById($scope.enquiry_id);
                             getEnquiryActiveCommentsCountById($scope.enquiry_id);
+                             
                         });
                         break;
                     default:
@@ -262,12 +263,14 @@
             }
             $scope.GetCommentsData();
  
-            $scope.sendInboxComments  = function(type) { 
+            $scope.sendInboxComments  = function(type, seen_id) { 
+                console.log(seen_id);
                 $scope.sendCommentsData = {
                     "comments"        :   $scope.inlineComments,
                     "enquiry_id"      :   $scope.enquiry_id,
                     "type"            :   $scope.chatType,
                     "created_by"      :   type,
+                    "send_by"         :   {{ Admin->id }}
                 }
                 console.log($scope.sendCommentsData);
                 $http({
@@ -286,13 +289,15 @@
                 });
             }
             
-            $scope.sendComments  = function(type, created_by) { 
-                console.log("type")
+            $scope.sendComments  = function(type, created_by, seen_id) { 
+                console.log(seen_id);
+                
                 $scope.sendCommentsData = {
                     "comments"        :   $scope[`${type}__comments`],
                     "enquiry_id"      :   $scope.enquiry_id,
                     "type"            :   type,
                     "created_by"      :   created_by,
+                    "send_by"         :   {{ Admin->id }}
                 }
               
                 $http({

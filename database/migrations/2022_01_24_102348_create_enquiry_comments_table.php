@@ -21,6 +21,7 @@ class CreateEnquiryCommentsTable extends Migration
             $table->text('file_id')->nullable();
             $table->boolean('status')->default(0);
             $table->string('created_by')->nullable();
+            $table->unsignedBigInteger('send_by')->nullable();
             $table->unsignedBigInteger('seen_by')->nullable();
             $table->string('role_by')->nullable();
             $table->timestamps();

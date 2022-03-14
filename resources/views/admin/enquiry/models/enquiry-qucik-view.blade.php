@@ -29,6 +29,7 @@
             </div> 
             
             <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
+                <input type="hidden" id="admin_auth_id" value="{{ Admin()->id }}" >
                 {{-- ProjectInfo --}}
                     <fieldset class="accordion-item">
                         <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
@@ -130,7 +131,7 @@
                                         </tr> 
                                     </tbody>
                                 </table>
-                                <form id="project_information__commentsForm" ng-submit="sendComments('project_information','Admin')" class="input-group mt-3">
+                                <form id="project_information__commentsForm" ng-submit="sendComments('project_information','Admin', enqData.customer_info.id)" class="input-group mt-3">
                                     <input required type="text" ng-model="project_information__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
@@ -150,8 +151,7 @@
                             <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#service" aria-expanded="false" aria-controls="service">
                                 
                                 <span class="position-relative btn py-0">Selected Services <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.service > 0"> @{{ enquiry_active_comments.service   }}</small></span> 
-                                
-
+                                 
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                                 <i data-bs-toggle="collapse" 
@@ -173,7 +173,7 @@
                                         </ul>
                                     </li>
                                 </ul>  
-                                <form id="service__commentsForm" ng-submit="sendComments('service','Admin')" class="input-group mt-3">
+                                <form id="service__commentsForm" ng-submit="sendComments('service','Admin', enqData.customer_info.id)" class="input-group mt-3">
                                     <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
@@ -229,7 +229,7 @@
                                         </tbody>
                                     </thead>
                                 </table>
-                                <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Admin')" class="input-group mt-3">
+                                <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Admin', enqData.customer_info.id)" class="input-group mt-3">
                                     <input required type="text" ng-model="ifc_model__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
@@ -321,7 +321,7 @@
                                         </tbody>                     
                                     </table> 
                                 </div> 
-                                <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
+                                <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Admin', enqData.customer_info.id)" class="input-group mt-3">
                                     <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
@@ -360,7 +360,7 @@
                                         </thead>
                                     </table>
                                 </div> 
-                                <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
+                                <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin', enqData.customer_info.id)" class="input-group mt-3">
                                     <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  
@@ -393,7 +393,7 @@
                         <div id="add_info" class="accordion-collapse collapse" aria-labelledby="add_info_header" >
                             <div class="accordion-body">  
                                 <div ng-bind-html="additional_infos.comments"> </div>
-                                <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
+                                <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin', enqData.customer_info.id)" class="input-group mt-3">
                                     <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                 </form>  

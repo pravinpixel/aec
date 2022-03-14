@@ -12,6 +12,7 @@
                 @include('customer.includes.page-navigater')
 
                 {{--  Fillter Button --}}
+                 
                     <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
                         <i class="mdi mdi-filter-menu"></i> Filters
                     </button> 
@@ -175,6 +176,7 @@
                         url: `${API_URL}customers/edit-enquiry-review/${id}`,
                     }).then(function (res){
                         $scope.enquiry = res.data;
+                        console.log(res.data);
                         $scope.enquiry_active_comments = res.data.enquiry_active_comments;
                         $scope.enquiry_comments = res.data.enquiry_comments;
                         $scope.enquiry_id = res.data.project_infos.enquiry_id;
@@ -254,12 +256,14 @@
             
             $scope.glued = true;
 
-            $scope.sendComments  = function(type, created_by) { 
+            $scope.sendComments  = function(type, created_by, seen_id) { 
                 $scope.sendCommentsData = {
                     "comments"        :   $scope[`${type}__comments`],
                     "enquiry_id"      :   $scope.enquiry_id,
                     "type"            :   type,
                     "created_by"      :   created_by,
+                    "seen_by"         :   1,
+                    "send_by"         :   {{ Customer()->id }},
                 } 
                 $http({
                     method: "POST",
@@ -289,6 +293,7 @@
                     case 'viewConversations':
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
                             $scope.commentsData = response.data.chatHistory; 
+                            
                             $scope.chatType     = response.data.chatType;  
                             $('#viewConversations-modal').modal('show');
                             getEnquiryCommentsCountById($scope.enquiry_id);
@@ -306,6 +311,8 @@
                     "enquiry_id"      :   $scope.enquiry_id,
                     "type"            :   $scope.chatType,
                     "created_by"      :   type,
+                    "seen_by"         :   1,
+                    "send_by"         :   {{ Customer()->id }},
                 }
                 console.log($scope.sendCommentsData);
                 $http({

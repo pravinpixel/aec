@@ -95,7 +95,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                         $scope.ifc_model_uploads    = response.data.ifc_model_uploads;
                         $scope.building_components  = response.data.building_component;
                         $scope.additional_infos     = response.data.additional_infos;
-                        $scope.enqData = response.data;
+                        $scope.enqData = response.data;  
                         $('#enquiry-qucik-view-model').modal('show');
                     });
                 
@@ -173,7 +173,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             case 'viewConversations':
                 $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
                     $scope.commentsData = response.data.chatHistory; 
-                    $scope.chatType     = response.data.chatType;  
+                    $scope.chatType     = response.data.chatType;   
                     $('#viewConversations-modal').modal('show');
                     getEnquiryCommentsCountById($scope.enquiry_id);
                     getEnquiryActiveCommentsCountById($scope.enquiry_id);
@@ -208,11 +208,14 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
     
      
     $scope.sendInboxComments  = function(type) { 
+        var  admin_auth_id =  $('#admin_auth_id').val();
         $scope.sendCommentsData = {
             "comments"        :   $scope.inlineComments,
             "enquiry_id"      :   $scope.enquiry_id,
             "type"            :   $scope.chatType,
             "created_by"      :   type,
+            "seen_by"         :   $scope.commentsData[0].seen_by,
+            "send_by"         :   admin_auth_id,
         }
     
         $http({
@@ -231,12 +234,16 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         });
     }
     
-    $scope.sendComments  = function(type, created_by) { 
+    $scope.sendComments  = function(type, created_by, seen_id) { 
+        
+        var  admin_auth_id =  $('#admin_auth_id').val();
         $scope.sendCommentsData = {
             "comments"        :   $scope[`${type}__comments`],
             "enquiry_id"      :   $scope.enquiry_id,
             "type"            :   type,
             "created_by"      :   created_by,
+            "seen_by"         :   seen_id,
+            "send_by"         :   admin_auth_id,
         }
       
         $http({

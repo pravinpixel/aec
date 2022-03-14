@@ -88,5 +88,4 @@
 
 @push('custom-scripts')
     <script src="{{ asset("public/custom/js/ngControllers/admin/all-enquiries.js") }}"></script>  
-     
 @endpush

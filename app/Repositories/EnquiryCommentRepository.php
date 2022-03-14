@@ -18,14 +18,16 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
         $this->model = $enquiryComment;
     }
 
-    public function store(Request $r){
+    public function store(Request $request, $created_by, $role_by,$seen_by){
         $comments = $this->model->create([
-            "comments"      => $r->comments,
-            "enquiry_id"    => $r->enquiry_id,
-            "file_id"       => $r->file_id ?? "",
-            "type"          => $r->type,
-            "created_by"    => $r->created_by,
-            "role_by"       => $r->role_by ?? "",
+            "comments"      => $request->comments,
+            "enquiry_id"    => $request->enquiry_id,
+            "file_id"       => $request->file_id ?? "",
+            "type"          => $request->type,
+            "created_by"    => $created_by,
+            "role_by"       => $role_by,
+            "seen_by"       => $seen_by,
+            "send_by"       => $request->send_by,
             "status"        => 0,
         ]);
 
