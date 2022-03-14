@@ -307,70 +307,71 @@
     </div> 
 
 @endsection 
-@if ($adminData->notification == 1)
-	<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script> 
-	<script>
 
-		var firebaseConfig = {
-			apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
-			authDomain: "aec-chat-app.firebaseapp.com",
-			databaseURL: "https://aec-chat-app-default-rtdb.firebaseio.com",
-			projectId: "aec-chat-app",
-			storageBucket: "aec-chat-app.appspot.com",
-			messagingSenderId: "917789039014",
-			appId: "1:917789039014:web:b65a02b06faf684aff1767",
-			measurementId: "G-Q0HGWESJ9T"
-		};
-
-		firebase.initializeApp(firebaseConfig);
-		const messaging = firebase.messaging();
-
-		// function initFirebaseMessagingRegistration() {
-			
-			messaging.requestPermission().then(function () {
-					return messaging.getToken()
-			}).then(function(token) {
-				console.log(token);
-
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-
-				$.ajax({
-					url: '{{ route("save-admin-token") }}',
-					type: 'POST',
-					data: {
-						token: token
-					},
-					dataType: 'JSON',
-					success: function (response) {
-						alert('Token saved successfully.');
-					},
-					error: function (err) {
-						console.log('User Chat Token Error'+ err);
-					},
-				});
-
-			}).catch(function (err) {
-				console.log('User Chat Token Error'+ err);
-			});
-		// }
-
-		messaging.onMessage(function(payload) {
-			const noteTitle = payload.notification.title;
-			const noteOptions = {
-				body: payload.notification.body,
-				icon: payload.notification.icon,
-			};
-			new Notification(noteTitle, noteOptions);
-		});
-
-	</script>
-@endif
 
 @push('custom-scripts')
+		@if ($adminData->notification == 1)
+			<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script> 
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+			<script>
+				var firebaseConfig = {
+					apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
+					authDomain: "aec-chat-app.firebaseapp.com",
+					databaseURL: "https://aec-chat-app-default-rtdb.firebaseio.com",
+					projectId: "aec-chat-app",
+					storageBucket: "aec-chat-app.appspot.com",
+					messagingSenderId: "917789039014",
+					appId: "1:917789039014:web:b65a02b06faf684aff1767",
+					measurementId: "G-Q0HGWESJ9T"
+				};
+
+				firebase.initializeApp(firebaseConfig);
+				const messaging = firebase.messaging();
+
+				// function initFirebaseMessagingRegistration() {
+					
+					messaging.requestPermission().then(function () {
+							return messaging.getToken()
+					}).then(function(token) {
+						console.log(token);
+
+						$.ajaxSetup({
+							headers: {
+								'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							}
+						});
+
+						$.ajax({
+							url: '{{ route("save-admin-token") }}',
+							type: 'POST',
+							data: {
+								token: token
+							},
+							dataType: 'JSON',
+							success: function (response) {
+								alert('Token saved successfully.');
+							},
+							error: function (err) {
+								console.log('User Chat Token Error'+ err);
+							},
+						});
+
+					}).catch(function (err) {
+						console.log('User Chat Token Error'+ err);
+					});
+				// }
+
+				messaging.onMessage(function(payload) {
+					const noteTitle = payload.notification.title;
+					const noteOptions = {
+						body: payload.notification.body,
+						icon: payload.notification.icon,
+					};
+					new Notification(noteTitle, noteOptions);
+				});
+
+			</script>
+		@endif
 
 	{{-- =========  MOTHLY SALES REPORTS Chart ============== --}}
 	<script>
