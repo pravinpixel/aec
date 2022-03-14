@@ -292,17 +292,13 @@
 									   </div>
 								   </div>
 							   </div> <!-- end card-->
-						   </div> <!-- end col-->
-   
+						   </div> <!-- end col--> 
 					   </div>
-					   <!-- end row -->
-   
+					   <!-- end row --> 
 				   </div>
-				   <!-- container -->
-				   
+				   <!-- container --> 
 			   </div> 
-			@endif
-
+			@endif 
         </div> <!-- content --> 
     </div> 
 

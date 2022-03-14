@@ -8,6 +8,7 @@ use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\EnquiryComments;
 use App\Models\Customer;
+use App\Models\Employee;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -32,11 +33,19 @@ class EnquiryCommentsController extends Controller
     public function store(Request $request){
        
         $result         =   $this->enquiryCommentRepo->store($request);
-        $customer       =   $this->customerEnquiry->getEnquiryByID($result->enquiry_id);
-        $firebaseToken  =   Customer::where('id', $customer->customer->id)->pluck('device_token');
+        $customer       =   $this->customerEnquiry->getEnquiryByID($result->enquiry_id);        
         $title          =   'New Message From AEC - '.$request->created_by;
         $body           =   $request->comments;
+        
 
+        if($request->created_by == 'Admin') {
+            $firebaseToken  =   Employee::where('id', Admin()->id)->pluck('device_token');
+        }
+
+        if($request->created_by == 'Customer') {
+            $firebaseToken  =   Customer::where('id', $customer->customer->id)->pluck('device_token');
+        }
+        
         if($result) {
             
             $message = $this->pushMessageRepo->sendPushNotification($firebaseToken, $title, $body);

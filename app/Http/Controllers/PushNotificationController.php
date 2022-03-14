@@ -32,6 +32,5 @@ class PushNotificationController extends Controller
     {
         $result  =  Employee::where('id', '=', Admin()->id)->update(['device_token' => $request->token]);
         return $result;
-    }
-    
+    } 
 }
