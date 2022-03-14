@@ -312,7 +312,7 @@
 @push('custom-scripts')
 		@if ($adminData->notification == 1)
 			<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script> 
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+			{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
 			<script>
 				var firebaseConfig = {
 					apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
