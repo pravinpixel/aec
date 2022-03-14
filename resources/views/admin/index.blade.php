@@ -4,10 +4,10 @@
    
 
     <div class="content-page">
-        <div class="content">
+        <div class="content"> 
+            @include('admin.includes.top-bar') 
+ 
 
-            @include('admin.includes.top-bar')
-  
 			@if (Route::is('admin-dashboard'))
 				<!-- Start Content-->
 				<div class="container-fluid">
@@ -325,14 +325,11 @@
 				   <!-- container -->
 				   
 			   </div> <!-- container --> 
-			@endif
-
+			@endif 
         </div> <!-- content --> 
     </div> 
 
-@endsection
-
- 
+@endsection 
 
 @push('custom-styles')
 	<link href="{{ asset('public/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
@@ -451,5 +448,6 @@
 	<script src="{{ asset('public/assets/js/pages/demo.apex-pie.js') }}"></script>
 	<script src="{{ asset('public/assets/js/pages/demo.apex-column.js') }}"></script>
 	<script src="{{ asset('public/assets/js/pages/demo.dashboard-analytics.js') }}"></script> 
+
+	
 @endpush
- 

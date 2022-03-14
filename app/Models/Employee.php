@@ -30,7 +30,9 @@ class Employee extends Authenticatable
         'status',
         'share_access',
         'bim_access',
-        'access',        
+        'access',
+        'device_token',
+        'notification',
     ];
     
     /**

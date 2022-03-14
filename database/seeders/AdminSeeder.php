@@ -29,8 +29,7 @@ class AdminSeeder extends Seeder
             'status' => 1,
             'image' => '',
             'job_role' => 1,
-            'employee_id' => 'EMP1'
-            // 'is_active' => 1,
+            'employee_id' => 'EMP1',
         ]);
     }
 }

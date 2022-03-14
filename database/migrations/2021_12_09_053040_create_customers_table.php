@@ -30,6 +30,7 @@ class CreateCustomersTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->string('device_token')->nullable();
+            $table->integer('notification')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

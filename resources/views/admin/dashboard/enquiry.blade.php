@@ -11,6 +11,26 @@
 			@if (Route::is('admin-dashboard'))
 				<!-- Start Content-->
 				<div class="container-fluid"> 
+
+					@if ($adminData->notification == 0)
+						<div id="fill-info-modal" class="modal fade show" tabindex="-1" aria-labelledby="fill-info-modalLabel" style="display: block;background: #0000006b;" aria-modal="true" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content modal-filled bg-info">
+									<div class="modal-header">
+										<h4 class="modal-title" id="fill-info-modalLabel">Allow Notification </h4>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+									</div>
+									<div class="modal-body">
+										Do You Want Allow notifications from this sites ?
+									</div>
+									<form action="{{ route('admin.allow-notification') }}" method="POST" class="modal-footer">
+										@csrf
+										<button type="submit" class="btn btn-light">Allow</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					@endif
 					
 					<!-- Start Content-->
 					<div>
@@ -427,4 +447,67 @@
 	{{-- ======== Angular Controllers ========== --}}
 	<script src="{{ asset("public/custom/js/ngControllers/dashboard/enquiry.js") }}"></script>
 @endpush
- 
+
+@if ($adminData->notification == 1)
+	<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<script>
+
+		var firebaseConfig = {
+			apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
+			authDomain: "aec-chat-app.firebaseapp.com",
+			databaseURL: "https://aec-chat-app-default-rtdb.firebaseio.com",
+			projectId: "aec-chat-app",
+			storageBucket: "aec-chat-app.appspot.com",
+			messagingSenderId: "917789039014",
+			appId: "1:917789039014:web:b65a02b06faf684aff1767",
+			measurementId: "G-Q0HGWESJ9T"
+		};
+
+		firebase.initializeApp(firebaseConfig);
+		const messaging = firebase.messaging();
+
+		// function initFirebaseMessagingRegistration() {
+			
+			messaging.requestPermission().then(function () {
+					return messaging.getToken()
+			}).then(function(token) {
+				console.log(token);
+
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+
+				$.ajax({
+					url: '{{ route("save-admin-token") }}',
+					type: 'POST',
+					data: {
+						token: token
+					},
+					dataType: 'JSON',
+					success: function (response) {
+						alert('Token saved successfully.');
+					},
+					error: function (err) {
+						console.log('User Chat Token Error'+ err);
+					},
+				});
+
+			}).catch(function (err) {
+				console.log('User Chat Token Error'+ err);
+			});
+		// }
+
+		messaging.onMessage(function(payload) {
+			const noteTitle = payload.notification.title;
+			const noteOptions = {
+				body: payload.notification.body,
+				icon: payload.notification.icon,
+			};
+			new Notification(noteTitle, noteOptions);
+		});
+
+	</script>
+@endif

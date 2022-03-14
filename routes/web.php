@@ -67,6 +67,8 @@ Route::prefix('admin')->middleware('common')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class,'enquiryDashboard'])->name("admin-dashboard");
     Route::get('/project-dashboard', [DashboardController::class,'projectDashboard'])->name("admin-project-dashboard");
+    Route::post('/allow-notification', [DashboardController::class,'allowNotification'])->name("admin.allow-notification");
+
   
     // ======== END: Dashborads========== 
   
@@ -239,3 +241,5 @@ Route::get('/send-web-notification', [WebNotificationController::class, 'sendWeb
 Route::get('/push', [WebNotificationController::class, 'index'])->name('push-notificaiton');
 
 Route::get('/repo', [PushNotificationController::class, 'index']);
+
+Route::post('save-admin-token', [PushNotificationController::class,'storeAdminToken'])->name("save-admin-token");

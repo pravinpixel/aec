@@ -28,7 +28,9 @@ class Customer extends Model
         'remarks',
         'is_active',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'device_token',
+        'notification'
     ];
 
     public function getContactPersonAttribute($value)

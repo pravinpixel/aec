@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\PushNotificationRepository;
 use App\Models\Customer;
+use App\Models\Employee;
 
 class PushNotificationController extends Controller
 {
@@ -27,4 +28,10 @@ class PushNotificationController extends Controller
         $result  =  Customer::where('id', '=', Customer()->id)->update(['device_token' => $request->token]);
         return $result;
     }
+    public function storeAdminToken(Request $request)
+    {
+        $result  =  Employee::where('id', '=', Admin()->id)->update(['device_token' => $request->token]);
+        return $result;
+    }
+    
 }
