@@ -111,7 +111,6 @@
         <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script>
-        
             var firebaseConfig = {
                 apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
                 authDomain: "aec-chat-app.firebaseapp.com",
@@ -126,6 +125,39 @@
             firebase.initializeApp(firebaseConfig);
             const messaging = firebase.messaging();
         
+            if(Notification.permission === "granted") {
+                console.log("done granted");
+                messaging.requestPermission().then(function () {
+                        return messaging.getToken()
+                }).then(function(token) {
+                    console.log(token);
+        
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+        
+                    $.ajax({
+                        url: '{{ route("save-customer-token") }}',
+                        type: 'POST',
+                        data: {
+                            token: token
+                        },
+                        dataType: 'JSON',
+                        success: function (response) {
+                            alert('Token saved successfully.');
+                        },
+                        error: function (err) {
+                            console.log('User Chat Token Error'+ err);
+                        },
+                    });
+        
+                }).catch(function (err) {
+                    console.log('User Chat Token Error'+ err);
+                });
+            }
+
             function initFirebaseMessagingRegistration() {
                 
                 messaging.requestPermission().then(function () {
