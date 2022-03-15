@@ -270,7 +270,7 @@
                     "enquiry_id"      :   $scope.enquiry_id,
                     "type"            :   $scope.chatType,
                     "created_by"      :   type,
-                    "send_by"         :   {{ Admin->id }}
+                    "send_by"         :   {{ Admin()->id }}
                 }
                 console.log($scope.sendCommentsData);
                 $http({
