@@ -83,7 +83,7 @@
                                             <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5  mts-2">Review & Submit</p>
+                                    <p class="h5  mts-2">Review & Create</p>
                                 </a>
                             </li>
                         </ul>
@@ -122,6 +122,7 @@
             })
             .when("/team-setup", {
                 templateUrl : "{{ route('team-setup') }}",
+                
             }) 
             .when("/project-scheduling", {
                 templateUrl : "{{ route('project-schedule') }}",

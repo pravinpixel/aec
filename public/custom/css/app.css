@@ -427,3 +427,7 @@ small {
         max-width: 800px;
     }
 }
+.bg-none {
+    background: none  !important;
+    background-color: none  !important;
+}

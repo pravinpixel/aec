@@ -1,4 +1,29 @@
 <div class="card-body">
+    <div class="col-md-6 mx-auto py-3">
+        <table class="table">
+            <tr>
+                <th>Project Number</th>
+                <td>:</td>
+                <td>ENQ-PRO001</td>
+            </tr>
+            <tr>
+                <th>Project Manager</th>
+                <td>:</td>
+                <td> Mr. Vetri Selvan</td>
+            </tr>
+            <tr>
+                <th>Project Start Date</th>
+                <td>:</td>
+                <td>22-04-2022</td>
+            </tr> 
+            <tr>
+                <th>Project End Date</th>
+                <td>:</td>
+                <td>22-04-2022</td>
+            </tr> 
+        </table>
+           
+    </div> 
     <fieldset class="accordion-item">
         <div class="accordion-header custom m-0 position-relative" id="project_infomation_header">
             <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#project_infomation" aria-expanded="true" aria-controls="project_infomation">
@@ -955,5 +980,5 @@
 </div>
 <div class="card-footer text-end">
     <a href="#/to-do-listing" class="btn btn-light float-start">Prev</a>
-    <a href="#" class="btn btn-primary" onclick="submit()">Submit & Save</a>
+    <a href="#" class="btn btn-primary" onclick="submit()">Create Project</a>
 </div>

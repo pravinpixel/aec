@@ -1,26 +1,45 @@
 <div class="border-bottom">
-    <div class="row col-md-8 mx-auto py-3">
-        <div class="col-md-6 d-flex align-items-cente">
-            <div><strong>PROJECT NAME</strong></div>
-            <div class="mx-2">:</div>
-            <div>XXXXX</div>
+    <div class="col-md-8 mx-auto py-3">
+        <div class="row mb-2 mx-0">
+            <div class="col-md-4">
+                <label for=""><b>Type of Project</b></label>
+            </div>
+            <div class="col-md-8">
+                <select name="" id="" class="form-select ">
+                    <option value=""> -- select ---</option>
+                </select>
+            </div>
+        </div> 
+        <div class="row m-0 mb-2">
+            <div class="col-md-4">
+                <label for=""><b>Select Check Lsit  1 </b></label>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group w-100 border rounded">
+                    <select name="" id="" class="border-0 form-select ">
+                        <option value=""> -- select ---</option>
+                    </select>
+                    <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 d-flex align-items-cente">
-            <div><strong>CUSATOMER NAME</strong></div>
-            <div class="mx-2">:</div>
-            <div>XXXXX</div>
+        <div class="row m-0 mb-2">
+            <div class="col-md-4">
+                <label for=""><b>Select Check Lsit  2 </b></label>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group w-100 border rounded">
+                    <select name="" id="" class="border-0 form-select ">
+                        <option value=""> -- select ---</option>
+                    </select>
+                    <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
+                </div>
+            </div>
+        </div>   
+        <div class="text-end px-2  ">
+            <a href="" class="link"><u>+ Add check list</u></a>
         </div>
-        <div class="col-md-6 d-flex align-items-cente">
-            <div><strong>PROJECT LEAD</strong></div>
-            <div class="mx-2">:</div>
-            <div>XXXXX</div>
-        </div>
-        <div class="col-md-6 d-flex align-items-cente">
-            <div><strong>FINAL DELIVERY DATE</strong></div>
-            <div class="mx-2">:</div>
-            <div>XXXXX</div>
-        </div>
-    </div>
+    </div> 
 </div>
 <div class="cardx">
     <div class="card-body">
@@ -64,7 +83,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -78,7 +97,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -92,7 +111,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -106,7 +125,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -120,7 +139,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -142,7 +161,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -156,7 +175,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -170,7 +189,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -184,7 +203,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -206,7 +225,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -220,7 +239,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -234,7 +253,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -248,7 +267,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -262,7 +281,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -276,7 +295,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -290,7 +309,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -304,7 +323,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -318,7 +337,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -375,7 +394,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -389,7 +408,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -412,7 +431,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -435,7 +454,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -449,7 +468,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -471,7 +490,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -485,7 +504,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -499,7 +518,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -513,7 +532,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -535,7 +554,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -549,7 +568,7 @@
                                 <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                 <td>
                                     <select name="" id="" class="form-select border-0  form-select-sm">
-                                        <option value="">-- Display User --</option>
+                                        <option value="">-- Project Manager --</option>
                                         <option value="">User A</option>
                                         <option value="">User B</option>
                                         <option value="">User C</option>
@@ -617,7 +636,7 @@
                                     <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
                                     <td>
                                         <select name="" id="" class="form-select border-0  form-select-sm">
-                                            <option value="">-- Display User --</option>
+                                            <option value="">-- Project Manager --</option>
                                             <option value="">User A</option>
                                             <option value="">User B</option>
                                             <option value="">User C</option>

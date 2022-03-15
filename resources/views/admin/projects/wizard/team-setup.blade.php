@@ -10,9 +10,7 @@
             </select>
         </div>
     </div>
-    <div class="text-end px-2 my-3">
-        <a href="" class="link"><u>+ Add Reference</u></a>
-    </div>
+   
     <div class="row m-0 mb-2">
         <div class="col-md-4">
             <select name="" id="" class="form-select ">
@@ -42,7 +40,10 @@
                 <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
             </div>
         </div>
-    </div>  
+    </div>   
+    <div class="text-end px-2 my-s">
+        <a href="" class="link"><u>+ Add Reference</u></a>
+    </div>
 </div>
 <div class="card-footer text-end">
     <a href="#/platform" class="btn btn-light float-start">Prev</a>
