@@ -419,6 +419,7 @@
             $scope.wallGroup = [];
             $scope.layerAdd = true;
             $scope.callTemplate = true;
+            $scope.buildingComponentUploads = [];
             let building_component_id;
             let enquiry_id;
             $http({

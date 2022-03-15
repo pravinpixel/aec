@@ -256,7 +256,7 @@
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li>
              <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="showHideBuildingComponent == 0" ng-disabled ="buildingComponentForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
-            <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="showHideBuildingComponent == 1" ng-disabled="!fileUploaded && buildingComponentUploads.length == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
+            <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="showHideBuildingComponent == 1" ng-disabled="buildingComponentUploads.length == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
         </ul>
     </div>
 </form>

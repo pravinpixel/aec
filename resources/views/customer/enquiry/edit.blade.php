@@ -345,6 +345,7 @@
             $scope.layerAdd = true;
             $scope.callTemplate = true;
             $scope.fileUploaded = false;
+            $scope.buildingComponentUploads = [];
             let enquiry_id = {{$id}};
             $http({
                 method: 'GET',
