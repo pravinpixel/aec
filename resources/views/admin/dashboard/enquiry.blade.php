@@ -306,7 +306,7 @@
 
 
 @push('custom-scripts')
-		@if ($adminData->notification == 1)
+		@if (Route::is('admin-dashboard'))
 			<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script> 
 			{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
 			<script>
@@ -324,7 +324,7 @@
 				firebase.initializeApp(firebaseConfig);
 				const messaging = firebase.messaging();
 
-				// function initFirebaseMessagingRegistration() {
+				if(Notification.permission === "granted") {
 					
 					messaging.requestPermission().then(function () {
 							return messaging.getToken()
@@ -345,17 +345,17 @@
 							},
 							dataType: 'JSON',
 							success: function (response) {
-								alert('Token saved successfully.');
+								console.log('Token saved successfully.');
 							},
 							error: function (err) {
-								console.log('User Chat Token Error'+ err);
+								console.log('Error =>'+ err);
 							},
 						});
 
 					}).catch(function (err) {
-						console.log('User Chat Token Error'+ err);
+						console.log('Error =>'+ err);
 					});
-				// }
+				}
 
 				messaging.onMessage(function(payload) {
 					const noteTitle = payload.notification.title;
@@ -364,8 +364,7 @@
 						icon: payload.notification.icon,
 					};
 					new Notification(noteTitle, noteOptions);
-				});
-
+				}); 
 			</script>
 		@endif
 
