@@ -297,7 +297,7 @@
                     "enquiry_id"      :   $scope.enquiry_id,
                     "type"            :   type,
                     "created_by"      :   created_by,
-                    "send_by"         :   {{ Admin->id }}
+                    "send_by"         :   {{ Admin()->id }}
                 }
               
                 $http({
