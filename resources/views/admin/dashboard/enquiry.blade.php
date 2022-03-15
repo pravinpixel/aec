@@ -11,27 +11,7 @@
 			@if (Route::is('admin-dashboard'))
 				<!-- Start Content-->
 				<div class="container-fluid"> 
-
-					@if ($adminData->notification == 0)
-						<div id="fill-info-modal" class="modal fade show" tabindex="-1" aria-labelledby="fill-info-modalLabel" style="display: block;background: #0000006b;" aria-modal="true" role="dialog">
-							<div class="modal-dialog">
-								<div class="modal-content modal-filled bg-info">
-									<div class="modal-header">
-										<h4 class="modal-title" id="fill-info-modalLabel">Allow Notification </h4>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-									</div>
-									<div class="modal-body">
-										Do You Want Allow notifications from this sites ?
-									</div>
-									<form action="{{ route('admin.allow-notification') }}" method="POST" class="modal-footer">
-										@csrf
-										<button type="submit" class="btn btn-light">Allow</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					@endif
-					
+ 
 					<!-- Start Content-->
 					<div>
 					   <!-- start page title -->

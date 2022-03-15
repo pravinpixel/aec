@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
                 @include('admin.enquiry.models.enquiry-qucik-view')
                 @include('admin.enquiry.models.chat-box')
                 @include('customer.enquiry.models.enquiry-filter-modal')

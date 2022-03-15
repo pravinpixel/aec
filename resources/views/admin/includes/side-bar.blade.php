@@ -83,12 +83,21 @@
             </li> 
             @endif
             @if(userHasAccess('project_index'))
-            <li class="side-nav-item {{ Route::is("projects") ? "menuitem-active" : ""}}">
-                <a href="{{ route('projects') }}" class="side-nav-link">
-                    <i class="fa fa-layer-group" aria-hidden="true"></i>
+            <li class="side-nav-item {{ Route::is("live-projects") ? "menuitem-active" : ""}}">
+                <a data-bs-toggle="collapse" href="#project_creation" aria-expanded="false" aria-controls="project_creation" class="side-nav-link">
+                    <i class="fa fa-tachometer-alt"></i>
                     <span> Projects </span>
-                </a> 
-            </li>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="project_creation">
+                    <ul class="side-nav-second-level">
+                        <li><a href="{{ route('list-projects') }}">List of Project</a></li>  
+                        <li><a href="{{ route('create-projects') }}">Create New Project</a></li>  
+                        <li><a href="">Live Project</a></li>  
+                        <li><a href="#">Completed Project</a></li>  
+                    </ul>
+                </div>
+            </li> 
             @endif
             @if(userHasAccess('project_schedule_index'))
             <li class="side-nav-item ">

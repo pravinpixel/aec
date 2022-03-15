@@ -1,9 +1,14 @@
 <?php  use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
-    Route::get('/projects', function () {
+
+    Route::get('/list-projects', function () {
         return view('admin.projects.index');
-    })->name('projects');
+    })->name('list-projects');
+
+    Route::get('/create-projects', function () {
+        return view('admin.projects.create');
+    })->name('create-projects');
 
     //=========  Wizard Flow Views =========
         Route::get('create-project', function () {

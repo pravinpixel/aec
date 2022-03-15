@@ -1,5 +1,5 @@
-<div class="bg-white p-4 pb-0">
-    <div class="demo-main-container">
+<div class="bg-white p-4  ">
+    <div class="main-container">
         <div class="header gantt-demo-header">
             <ul class="gantt-controls">
                 <li class="gantt-menu-item"><a data-action="collapseAll"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_collapse_all_24.png">Collapse All</a></li>
@@ -13,9 +13,7 @@
             </ul>
         </div>
         <div class="demo-main-content">
-            <div id="gantt_here">
-
-            </div>
+            <div id="gantt_here"></div>
         </div> 
     </div>
 </div>  
@@ -33,6 +31,7 @@
         if (!window.ganttModules) {
             window.ganttModules = {};
         }
+        gantt.config.autosize = "y";
         ganttModules.layout = {
             init: function(gantt, durationFormatter, linksFormatter) {
                 gantt.config.layout = {
@@ -108,18 +107,13 @@
                     formatter: hourFormatter,
                     min: 0,
                     max: 10000
-                };
-                var predecessorEditor = {
-                    type: "predecessor",
-                    map_to: "auto",
-                    formatter: linksFormatter
-                };
+                }; 
                 gantt.config.columns = [{
                         name: "",
                         width: 15,
                         resize: false,
                         template: function(task) {
-                            return "<span class='gantt_grid_wbs'>" + gantt.getWBSCode(task) + "</span>"
+                            return "<span class='   '>" + gantt.getWBSCode(task) + "</span>"
                         }
                     },
                     {
@@ -134,7 +128,6 @@
                         label: "Start",
                         align: "center",
                         resize: true,
-                        width: 80,
                         editor: dateEditor
                     },
                     {
@@ -142,7 +135,6 @@
                         label: "Duration",
                         resize: true,
                         align: "center",
-                        width: 60,
                         template: function(task) {
                             return durationFormatter.format(task.duration);
                         },
@@ -153,29 +145,11 @@
                         label: "<div style='white-space: normal;line-height: 20px;margin: 10px 0;'>Duration (hours)</div>",
                         resize: true,
                         align: "center",
-                        width: 65,
                         template: function(task) {
                             return hourFormatter.format(task.duration);
                         },
                         editor: hourDurationEditor
-                    },
-                    {
-                        name: "predecessors",
-                        label: "Predecessors",
-                        width: 80,
-                        align: "left",
-                        editor: predecessorEditor,
-                        resize: true,
-                        template: function(task) {
-                            var links = task.$target;
-                            var labels = [];
-                            for (var i = 0; i < links.length; i++) {
-                                var link = gantt.getLink(links[i]);
-                                labels.push(linksFormatter.format(link));
-                            }
-                            return labels.join(", ")
-                        }
-                    },
+                    }, 
                     {
                         name: "add",
                         "width": 44
@@ -869,7 +843,7 @@
         });
 
         gantt.ext.fullscreen.getFullscreenElement = function() {
-            return document.querySelector(".demo-main-container");
+            return document.querySelector(".main-container");
         };
 
         var formatter = gantt.ext.formatters.durationFormatter({
