@@ -15,7 +15,7 @@
                 <th>Project Start Date</th>
                 <td>:</td>
                 <td>22-04-2022</td>
-            </tr> 
+            </tr>
             <tr>
                 <th>Project End Date</th>
                 <td>:</td>
