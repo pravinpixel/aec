@@ -232,32 +232,46 @@
         </div>
         <div id="connection_plateforms" class="accordion-collapse collapse" aria-labelledby="connection_plateforms_header" >
             <div class="card-body">
-                <div class="row m-0">
-                    <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
-                        <div class="row m-0 align-items-center">
-                            <div class="col-md d-flex align-items-center">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3pxBW14LCWAvNVLwZOt8WD6fTVf0q2qi_29x4rX1xqeV-VIZbkVDGndQcK59_VW9tH4&usqp=CAU" width="30px" class="me-3">
-                                <b>Share Point</b>
+                <div class="row m-0 justify-content-center align-items-center">
+                    <div class="col-12 row m-0">
+                        <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
+                            <div class="row m-0 align-items-center">
+                                <div class="col-md d-flex align-items-center">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3pxBW14LCWAvNVLwZOt8WD6fTVf0q2qi_29x4rX1xqeV-VIZbkVDGndQcK59_VW9tH4&usqp=CAU" width="30px" class="me-3">
+                                    <b>Share Point</b>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <input type="checkbox" id="switch0" data-switch="none"/>
+                                    <label for="switch0" class="border" data-on-label="" data-off-label=""></label>
+                                </div>
                             </div>
-                            <div class="col-4 text-end">
-                                <input type="checkbox" id="switch0" disabled checked data-switch="none"/>
-                                <label for="switch0" class="border"  data-on-label="" data-off-label=""></label>
+                        </div> 
+                        <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
+                            <div class="row m-0 align-items-center">
+                                <div class="col-md d-flex align-items-center">
+                                    <img src="https://www.autodesk.com/bim-360/app/themes/bim360/assets/img/favicons/favicon.ico" width="30px" class="me-3">
+                                    <b>BIM 360</b>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <input type="checkbox" id="switch1" data-switch="none"/>
+                                    <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
+                            <div class="row m-0 align-items-center">
+                                <div class="col-md d-flex align-items-center">
+                                    <img src="https://i.ytimg.com/an/zRM0HdaPD4zy71zHDYeB2w/featured_channel.jpg?v=5cad0ca7" width="30px" class="me-3">
+                                    <b>24 /7 Office</b>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <input type="checkbox" id="switch1" data-switch="none"/>
+                                    <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
+                                </div>
                             </div>
                         </div>
                     </div> 
-                    <div class="col border p-1 px-2 m-1 shadow rounded-pill border-primary">
-                        <div class="row m-0 align-items-center">
-                            <div class="col-md d-flex align-items-center">
-                                <img src="https://www.autodesk.com/bim-360/app/themes/bim360/assets/img/favicons/favicon.ico" width="30px" class="me-3">
-                                <b>BIM 360</b>
-                            </div>
-                            <div class="col-4 text-end">
-                                <input type="checkbox" id="switch1" disabled checked data-switch="none"/>
-                                <label for="switch1" class="border"  data-on-label="" data-off-label=""></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div> 
             </div>
         </div>
     </fieldset>
@@ -278,86 +292,47 @@
         </div>
         <div id="Team_setup" class="accordion-collapse collapse" aria-labelledby="Team_setup_header" >
             <div class="card-body">  
-                <table class="table custom table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="text-center" colspan="11">Sharepoint Access</th>
-                        </tr>
-                        <tr>
-                            <th class="text-center" rowspan="2">S.No</th>
-                            <th class="text-center" rowspan="2">Employee ID</th>
-                            <th class="text-center" rowspan="2">Employee</th>
-                            <th class="text-center" rowspan="2">Email</th>
-                            <th class="text-center" rowspan="2">Role</th>
-                            <th class="text-center" colspan="6">Access Level</th>
-                        </tr>
-                        <tr> 
-                            <th class="text-center">Add</th>
-                            <th class="text-center">Edit</th>
-                            <th class="text-center">Delete</th>
-                            <th class="text-center">View</th>
-                            <th class="text-center">Comments</th>
-                            <th class="text-center">Download</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for ($key=0;$key<6;$key++)
-                            <tr>
-                                <td>{{ $key+1 }}</td>
-                                <td>EA01</td>
-                                <td>xxxx</td>
-                                <td>testing@gmail.com</td>
-                                <td>XXX</td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 0 || $key == 2 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 4 || $key == 6 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 2 || $key == 6 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 3 || $key == 6 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 4 || $key == 6 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 5 || $key == 3  ? 'checked' : '' }}></td>
-                            </tr>
-                        @endfor
-                    </tbody>
-                </table>
-                <table class="table custom table-bordered m-0">
-                    <thead>
-                        <tr>
-                            <th class="text-center" colspan="11">BIM 360 Access</th>
-                        </tr>
-                        <tr>
-                            <th class="text-center" rowspan="2">S.No</th>
-                            <th class="text-center" rowspan="2">Employee ID</th>
-                            <th class="text-center" rowspan="2">Employee</th>
-                            <th class="text-center" rowspan="2">Email</th>
-                            <th class="text-center" rowspan="2">Role</th>
-                            <th class="text-center" colspan="6">Access Level</th>
-                        </tr>
-                        <tr> 
-                            <th class="text-center">Add</th>
-                            <th class="text-center">Edit</th>
-                            <th class="text-center">Delete</th>
-                            <th class="text-center">View</th>
-                            <th class="text-center">Comments</th>
-                            <th class="text-center">Download</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for ($key=0;$key<6;$key++)
-                            <tr>
-                                <td>{{ $key+1 }}</td>
-                                <td>EA01</td>
-                                <td>xxxx</td>
-                                <td>testing@gmail.com</td>
-                                <td>XXX</td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 0 || $key == 2 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 4 || $key == 6 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 2 || $key == 6 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 3 || $key == 6 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 4 || $key == 6 ? 'checked' : '' }}></td>
-                                <td class="text-center"><input disabled class="form-check-input" type="checkbox" name="" id="" {{ $key == 5 || $key == 3  ? 'checked' : '' }}></td>
-                            </tr>
-                        @endfor
-                    </tbody>
-                </table> 
+                <div class="row mb-2 mx-0">
+                    <div class="col-md-4">
+                        <label for="">Lead Team</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="" id="" class="form-select ">
+                            <option value=""> -- select ---</option>
+                        </select>
+                    </div>
+                </div>
+               
+                <div class="row m-0 mb-2">
+                    <div class="col-md-4">
+                        <select name="" id="" class="form-select ">
+                            <option value="">Project Manager</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="btn-group w-100 border rounded">
+                            <select name="" id="" class="border-0 form-select ">
+                                <option value=""> -- select ---</option>
+                            </select>
+                            <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 mb-2">
+                    <div class="col-md-4">
+                        <select name="" id="" class="form-select ">
+                            <option value="">Team Manager</option>
+                        </select> 
+                    </div>
+                    <div class="col-md-8">
+                        <div class="btn-group w-100 border rounded">
+                            <select name="" id="" class="border-0 form-select ">
+                                <option value=""> -- select ---</option>
+                            </select>
+                            <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>   
             </div> 
         </div>
     </fieldset> 
@@ -377,39 +352,36 @@
             </div>
         </div>
         <div id="Invoice_maileStone" class="accordion-collapse collapse" aria-labelledby="Invoice_maileStone_header" >
-            <div class="card-body">  
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <h3 class="h4">Invoice Milestones</h3>
-                    </div>
-                    <div class="col-6 d-flex align-items-center justify-content-end">
-                        <div class="me-2"><strong>Project Budget</strong></div>
-                        <div><input type="text" class="form-control" placeholder="type here.." value="250000" disabled></div>
-                    </div>
-                </div>
-                <table class="table custom ">
-                    <thead> 
-                        <tr>
-                            <th class="text-center">S.No</th>
-                            <th class="text-center">Date</th>
-                            <th class="text-center">Milestone</th>
-                            <th class="text-center">Milestone Amt</th>
-                            <th class="text-center">Milestone %</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for ($key=0;$key<10;$key++)
-                            <tr>
-                                <td class="text-center">{{  $key+1 }}</td>
-                                <td class="text-center">{{  $key+1 }} / 09 / 2021 </td>
-                                <td class="text-center"> Milestone {{  $key+1 }}</td>
-                                <td class="text-center">XXYYZZ</td>
-                                <td class="text-center">{{  $key+10 }}%</td> 
-                            </tr>
-                        @endfor
-                    </tbody>
-                </table>
-            </div> 
+            <table class="table m-0 custom table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">S.No</th>
+                        <th class="text-center">Invoice Date</th>
+                        <th class="text-center">Amount</th>
+                        <th class="text-center">Percentage %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                        <td class="text-center">500</td>
+                        <td class="text-center"><input value="50" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                        <td class="text-center">250</td>
+                        <td class="text-center"><input value="25" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    </tr> 
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                        <td class="text-center">250</td>
+                        <td class="text-center"><input value="25" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    </tr> 
+                </tbody>
+            </table>
         </div>
     </fieldset> 
     <fieldset class="accordion-item">
