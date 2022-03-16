@@ -42,7 +42,7 @@
         </div>
     </div>   
     <div class="text-end px-2 my-s">
-        <a href="" class="link"><u>+ Add Reference</u></a>
+        <a href="" class="link btn btn-light"> + Add Reference </a>
     </div>
 </div>
 <div class="card-footer text-end">

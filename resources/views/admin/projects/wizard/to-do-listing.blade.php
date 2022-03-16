@@ -37,7 +37,7 @@
             </div>
         </div>   
         <div class="text-end px-2  ">
-            <a href="" class="link"><u>+ Add check list</u></a>
+            <a href="" class="link btn btn-light"> + Add check list </a>
         </div>
     </div> 
 </div>

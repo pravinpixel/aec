@@ -59,7 +59,9 @@
         </ul>
         <div class="tab-content border border-top-0">
             <div class="tab-pane p-3  show active" id="Sharepoint">
-                <a href="" class="btn btn-sm btn-primary mb-2"><i class="fa fa-plus me-1"></i>Add Folder</a>
+                <div class="text-end">
+                    <a href="" class="btn btn-sm btn-primary mb-2"><i class="fa fa-plus me-1"></i>Add Folder</a>
+                </div>
                 <table class="table table-bordered m-0">
                     <thead>
                         <tr>
@@ -196,7 +198,9 @@
                 <div class="col-md-6 mx-auto">
                     <div class="mb-3">
                         <small>Project No</small>
-                        <input type="text" class="form-control form-control-sm">
+                        <select name="" id="" class="form-select form-select-sm">
+                          
+                        </select>
                     </div>
                     <div class="mb-3">
                         <small>Project Name</small>

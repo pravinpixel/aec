@@ -16,7 +16,7 @@
                     <label class="col-form-label">Contact Person</label>
                 </div>
                 <div class="col pe-0">
-                    <input type="date" class="form-control form-control-sm">
+                    <input type="text" class="form-control form-control-sm">
                 </div> 
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <label class="col-form-label">Company</label>
                 </div>
                 <div class="col pe-0">
-                    <input type="date" class="form-control form-control-sm">
+                    <input type="text" class="form-control form-control-sm">
                 </div> 
             </div>
         </div>
