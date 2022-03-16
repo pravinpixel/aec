@@ -20,6 +20,6 @@ class AdminMiddleware
         if (Auth::check()) {
             return $next($request);
         }
-        return redirect(route('admin.login'));
+        return redirect(route('login'));
     }
 }

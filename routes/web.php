@@ -41,7 +41,7 @@ use App\Http\Controllers\PushNotificationController;
 |
 */
 Route::get('/', function () {
-    return redirect(route('admin.login'));
+    return redirect(route('login'));
 });
  
 /** ===== Admin Routes ======*/
@@ -50,16 +50,16 @@ Route::prefix('admin')->middleware('common')->group(function () {
 
     // ======== Auth========== 
 
-    Route::get('/', function () {
-        return redirect(route('admin.login'));
-    });
+    // Route::get('/', function () {
+    //     return redirect(route('admin.login'));
+    // });
     Route::get('/settings', function () {
         return  view('admin.settings');
     })->name('admin-settings');
 
-    Route::get('/login', function () {
-        return view('auth.admin.login');
-    })->name('admin-login');
+    // Route::get('/login', function () {
+    //     return view('auth.admin.login');
+    // })->name('admin-login');
 
     // ======== Auth========== 
 
@@ -220,9 +220,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 
 Route::get('/customers', function () {return redirect(route('customers.login'));});
 Route::get('/customer', function () {return redirect(route('customers.login'));});
-Route::get('customers/login',[ AuthController::class, 'getCustomerLogin'])->name('customers.login');
-Route::post('customers/login',[ AuthController::class, 'postCustomerLogin'])->name('customers.login');
-Route::post('customers/logout',[ AuthController::class, 'customerLogout'])->name('customers.logout');
 Route::get('customers/change-password',[ AuthController::class, 'changePasswordGet'])->name('customer.changePassword');
 Route::post('customers/change-password',[ AuthController::class, 'changePasswordPost'])->name('customer.changePassword');
 
@@ -231,10 +228,6 @@ Route::post('customers/change-password',[ AuthController::class, 'changePassword
  * admin route
  */
 Route::get('getversion',[EnquiryController::class,'getVersion']);
-Route::get('admin/login',[AuthController::class, 'getAdminLogin'])->name('admin.login');
-Route::post('admin/login',[AuthController::class, 'postAdminLogin'])->name('admin.login');
-Route::post('admin/logout',[AuthController::class, 'adminLogout'])->name('admin.logout');
-
 
 Route::post('/store-token', [WebNotificationController::class, 'storeToken'])->name('store.token');
 Route::get('/send-web-notification', [WebNotificationController::class, 'sendWebNotification'])->name('send.web-notification');
@@ -243,3 +236,8 @@ Route::get('/push', [WebNotificationController::class, 'index'])->name('push-not
 Route::get('/repo', [PushNotificationController::class, 'index']);
 
 Route::post('save-admin-token', [PushNotificationController::class,'storeAdminToken'])->name("save-admin-token");
+
+
+Route::get('login',[AuthController::class, 'getLogin'])->name('login');
+Route::post('login',[AuthController::class, 'postLogin'])->name('login');
+Route::post('logout',[AuthController::class, 'Logout'])->name('logout');

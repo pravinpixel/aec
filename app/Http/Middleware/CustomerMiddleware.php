@@ -20,7 +20,7 @@ class CustomerMiddleware
         if (Auth::guard('customers')->check()) {
             return $next($request);
         }
-        return redirect(route('customers.login'));
+        return redirect(route('login'));
       
     }
 }

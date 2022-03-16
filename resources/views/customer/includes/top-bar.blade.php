@@ -104,7 +104,7 @@
     <button class="button-menu-mobile open-left">
         <i class="mdi mdi-menu"></i>
     </button>
-    <form id="logout-form" action="{{ route('customers.logout') }}" method="POST" class="d-none">
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>
 </div>

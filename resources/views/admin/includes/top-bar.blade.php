@@ -176,7 +176,7 @@
             </li>
 
         </ul>
-        <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+        <form id="admin-logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>
         <button class="button-menu-mobile open-left">
