@@ -75,7 +75,7 @@ class ProposalController extends Controller
         $enquiry = Enquiry::find($id);
         if($enquiry->project_status != 'Unattended') {
             Flash::info('Proposal already approved!');
-            return redirect()->route('customers.login');
+            return redirect()->route('login');
         }
         $proposal_id    =   Crypt::decryptString($request->input('pid'));
         if($type == 0) {
@@ -89,7 +89,7 @@ class ProposalController extends Controller
             $proposal_version   =   PropoalVersions::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
                                                     ->update(['proposal_status' => 'denied']);    
             Flash::success('Proposal successfully Dined!');
-            return redirect()->route('customers.login');
+            return redirect()->route('login');
         } 
         if($type == 1){ 
             $enquiry->project_status = "Active";
@@ -107,7 +107,7 @@ class ProposalController extends Controller
             $proposal_version   =   PropoalVersions::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
                                                     ->update(['proposal_status' => 'obsolete']);                        
             Flash::success('Proposal successfully approved!');
-            return redirect()->route('customers.login');
+            return redirect()->route('login');
         }
     }
 
