@@ -20,7 +20,7 @@
                         <b>BIM 360</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch1" data-switch="none"/>
+                        <input type="checkbox" id="switch1" data-swit+ch="none"/>
                         <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
