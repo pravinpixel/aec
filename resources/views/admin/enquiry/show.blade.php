@@ -1038,7 +1038,7 @@
                         Message('danger', response.data.msg);
                         return false;
                     }
-                    // Swal.close();
+                    Swal.close();
                     $scope.getDocumentaryData();
                 }, function (error) {
                     console.log(error);

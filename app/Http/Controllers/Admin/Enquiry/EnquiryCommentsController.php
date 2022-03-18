@@ -55,9 +55,10 @@ class EnquiryCommentsController extends Controller
         // if($result) {
         //     $message = $this->pushMessageRepo->sendPushNotification($firebaseToken, $title, $body);
 
-        //     return  response(['status' => true, 'data' => 'Success','pushMsg'=> $message ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
+            // return  response(['status' => true, 'data' => 'Success','pushMsg'=> $message ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
+            return  response(['status' => true, 'data' => 'Success', 'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
         // }
-        return  response(['status' => false, 'data' => 'Success' ,'msg' => trans('globe.something')]);
+        // return  response(['status' => false, 'data' => 'Success' ,'msg' => trans('global.something')]);
     }
     public function show(Request $request, $id, $type)
     {
