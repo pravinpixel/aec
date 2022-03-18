@@ -217,12 +217,12 @@
                     </tbody>
                 </table>
             </div> 
-            <div class="col-10 shadow text-dark bg-white border p-1 rounded btn-group">
-                {{-- <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4> --}}
-                <h4 class="m-0 w-100"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
-            </div>
-            <div class="col-2 text-end">
-                <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
+           
+            <div class="col-12 d-flex justify-content-between align-items-center bg-white border p-2">
+                <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
+                <div>
+                    <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
+                </div>
             </div>
         </div>
     </div>
@@ -232,7 +232,7 @@
     </div>
     @endif
     @if(userHasAccess('cost_estimate_add'))
-    <div class="col-6 my-1">
+    {{-- <div class="col-6 my-1">
         <div class="row m-0">
             <div class="col-md-10 p-0 d-flex">@{{ others.assign_to }}
                 <div class="input-group border shadow-sm rounded">
@@ -244,12 +244,28 @@
                     <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to)"> Send </button>
                 </div>
                 <div class="mx-1">
-                    <button class="btn btn-primary rounded-pill"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">  <i class="fa fa-eye"></i> </button>
+                    <button class="btn btn-primary rounded-pill" >  <i class="fa fa-eye"></i> </button>
                 </div>
             </div>
            
         </div>
-    </div>
+    </div> --}}
+    <div class="card m-0 my-3 border col-md-9 me-auto">
+        <div class="card-body">
+            <p class="lead mb-2"> <strong>Assign to</strong></p>
+            <div class="btn-group w-100">
+                <select class="form-select " ng-model="assign_to" name="assign_to"  id="inputGroupSelect01">
+                    <option value=''> @lang('global.select')</option>
+                    <option ng-repeat="user in userList" value="@{{user.id}}" ng-selected="user.id == assign_to">@{{user.user_name}}</option>
+                </select>
+                <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to)"> Assign  </button>
+            </div> 
+            <small class="float-end btn link p-0 mt-2"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
+            </small>
+        </div>
+    </div> 
+
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
