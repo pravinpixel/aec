@@ -14,7 +14,9 @@ use App\Http\Controllers\Admin\Enquiry\ProposalController;
         Route::get('customers-enquiry/{id}', [EnquiryController::class,'singleIndex']);
         Route::get('customers-technical-estimate/{id}', [TechEstimateController::class,'index']);
         Route::post('customers-technical-estimate/{id}', [TechEstimateController::class,'update'])->name("Update_technical_Estimate");
+
         Route::get('get-denied-proposal/{id}', [ProposalController::class,'getDeniedProposal']);
+        Route::get('get-approved-proposal/{id}', [ProposalController::class,'getApprovedProposal']);
         
         // ========== Costestimate ==========
         Route::get('cost-estimate-view/{id}', [CostEstimateController::class,'index'])->name("CostEstimateView");

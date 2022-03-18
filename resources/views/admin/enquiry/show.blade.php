@@ -1249,6 +1249,10 @@
                     $http.get(API_URL + 'admin/api/v2/get-denied-proposal/' + {{ $data->id ?? " " }} ).then(function (res) {
                         $scope.deniedComments = res.data;
                     });
+                    $http.get(API_URL + 'admin/api/v2/get-approved-proposal/' + {{ $data->id ?? " " }} ).then(function (res) {
+                        $scope.approvedComments = res.data;
+                        console.log($scope.approvedComments);
+                    });
                 });
             }
             $scope.GetCommentsData();

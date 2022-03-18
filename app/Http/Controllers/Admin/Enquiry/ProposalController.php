@@ -148,6 +148,27 @@ class ProposalController extends Controller
         return  $result;
     }
 
+    public function getApprovedProposal($id)
+    {
+        $proposals =  MailTemplate::with('getVersions')
+                        ->where('enquiry_id', $id)
+                        ->whereNull('comment')
+                        ->orderBy('updated_at','desc')
+                        ->get();
+        $result = [];
+        foreach($proposals as $key => $proposal){
+            $verkey =1; $childVersion = [];
+            if($proposal->getVersions()->exists()) {
+                foreach($proposal->getVersions as $childkey => $proposalVersion){
+                    $verkey += 1;
+                    $childVersion[$childkey]=  ['template_name'=> "R{$verkey}", 'comment' => $proposalVersion->comment ];
+                }
+            }
+            $result[$key] = ['template_name'=> $proposal->template_name, 'comment' => $proposal->comment, 'child' =>  $childVersion];
+        }
+        return  $result;
+    }
+
     public function moveToProject($id)
     {
         $enquiry = $this->customerEnquiryRepo->getEnquiryByID($id);
