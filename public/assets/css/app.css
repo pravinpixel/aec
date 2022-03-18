@@ -15868,3 +15868,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 .accordion-button:not(.collapsed) span {
   color: white !important;
 }
+
+table th,td {
+  text-align:  center !important;
+}
