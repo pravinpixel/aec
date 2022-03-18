@@ -254,10 +254,13 @@
         <div class="card-body">
             <p class="lead mb-2"> <strong>Assign to</strong></p>
             <div class="btn-group w-100">
-                <select class="form-select " ng-model="assign_to" name="assign_to"  id="inputGroupSelect01">
+                {{-- <select class="form-select " ng-model="assign_to" name="assign_to"  id="inputGroupSelect01">
                     <option value=''> @lang('global.select')</option>
-                    <option ng-repeat="user in userList" value="@{{user.id}}" ng-selected="user.id == assign_to">@{{user.user_name}}</option>
-                </select>
+                    <option ng-repeat="  in userList" value="@{{user.id}}" ng-selected="user.id == assign_to">@{{user.user_name}}</option>
+                </select> --}}
+                <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
+                    <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}"> @{{ user.id == assign_to ? 'You' : user.user_name}}</option>
+                </select> 
                 <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to)"> Assign  </button>
             </div> 
             <small class="float-end btn link p-0 mt-2"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">

@@ -27,14 +27,14 @@
                                             <div class="col">
                                                 <div class="mb-3">                                             
                                                     <label class="form-label" >@lang('customer.enquiry_number')  <sup class="text-danger">*</sup></label>
-                                                    <input ng-disabled="true" type="text" ng-value="Draft" ng-model="enq_number"  class="form-control">
+                                                    <div class="form-control">Draft</div>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >@lang('customer.enquiry_date') <sup class="text-danger">*</sup></label>
                                                     <input type="date" class="form-control" name="enq_date"  ng-model="enq_date_one" >
-                                                </div>  
+                                                </div>
                                             </div>
                                         </div>
                                     </div>  
@@ -58,7 +58,7 @@
                                         <div class="mb-3">
                                             <div class="mb-3">
                                                 <label class="form-label" for="validationCustom01">@lang('customer.email')<sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" id="validationCustom01" name="email" ng-model="module.email" autocomplete="off"  placeholder="Type Here..." ng-pattern="/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/"  ng-required="true">
+                                                <input type="text" class="form-control" id="validationCustom01" name="email" ng-model="module.email" autocomplete="off"  placeholder="Type Here..." ng-pattern="/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.]/" ng-required="true">
                                             </div>
                                         </div> 
                                     </div>
@@ -66,7 +66,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" >@lang('customer.mobile_number')<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" max="12" ng-pattern="phoneNumbr"  onkeypress="return isNumber(event)" maxlength="12"  placeholder="Type Here..."  name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
+                                            <input type="text" class="form-control"  ng-pattern="/^\d{8}$|^\d{12}$/"  onkeypress="return isNumber(event)" max="12"   maxlength="12"placeholder="Type Here..."  name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
                                         </div>
                                     </div>
 

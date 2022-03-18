@@ -220,6 +220,15 @@
         </table>
     </div> 
 </div>
+<div class="card-footer">
+    <div class="d-flex justify-content-between">
+        <div>
+            <a href="#/proposal-sharing" class="btn btn-light border" >Prev</a>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
 @endif
 @if (Route::is('enquiry.move-to-project')) 
     <style>

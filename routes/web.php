@@ -242,3 +242,7 @@ Route::post('save-admin-token', [PushNotificationController::class,'storeAdminTo
 Route::get('login',[AuthController::class, 'getLogin'])->name('login');
 Route::post('login',[AuthController::class, 'postLogin'])->name('login');
 Route::post('logout',[AuthController::class, 'Logout'])->name('logout');
+
+
+
+ 

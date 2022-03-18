@@ -572,12 +572,12 @@ class EmployeeController extends Controller
 
     public function getTechnicalEstimateEmployee(Request $request)
     {
-        return Employee::where(['job_role' => 2, 'status'=> 1])->get();
+        return Employee::where(['job_role' => 2,'status'=> 1])->orWhere('job_role', 1)->get();
     }
 
     public function getCostEstimateEmployee(Request $request)
     {
-        return Employee::where(['job_role' => 3, 'status'=> 1])->get();
+        return Employee::where(['job_role' => 3,'status'=> 1])->orWhere('job_role', 1)->get();
     }
 
     public function getDeliveryManager(Request $request)

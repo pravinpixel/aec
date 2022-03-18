@@ -243,13 +243,13 @@
                 </div>
             </div> --}}
 
+
             <div class="card m-0 my-3 border col-md-9 me-auto">
                 <div class="card-body">
                     <p class="lead mb-2"> <strong>Assign to</strong></p>
                     <div class="btn-group w-100">
-                        <select class="form-select  -select-lg" ng-model="assign_to" id="inputGroupSelect01">
-                            <option value=''> @lang('global.select')</option>
-                            <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}">@{{user.user_name}}</option>
+                        <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
+                            <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}"> @{{ user.id == assign_to ? 'You' : user.user_name}}</option>
                         </select> 
                         <button class="input-group-text btn btn-info"  ng-click="assignTechnicalEstimate(assign_to)"> Assign  </button>
                     </div> 

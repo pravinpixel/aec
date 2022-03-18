@@ -107,6 +107,16 @@
 @endsection 
 
 @push('custom-scripts')  
+    <style>
+        .mdi-loading::before {
+            border-radius: 50%;
+            border: 2px solid;
+            background: #152950
+        }
+    </style>
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"> </script> 
+  
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script> 
         app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) {  
@@ -455,182 +465,189 @@
 
             $scope.assignTechnicalEstimate = (user) => {
                 let assign_to = user == '' ? null: user;
+
                 $scope.latest_assigned_to  =  assign_to;
+  
+                if($scope.assign_to == '') {
+                    Message('danger', "Please choose a user !");
+                    return false;
+                }
+
                 $http.post(`${API_URL}technical-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
-                    .then(function successCallback(res){
-                        if(res.data.status) {
-                            $scope.getWizradStatus();
-                            Message('success', res.data.msg);
-                            return false;
-                        }
-                        Message('error', res.data.msg);
-                    }, function errorCallback(error){
-                        console.log(error);
+                .then(function successCallback(res){
+                    if(res.data.status) {
+                        $scope.getWizradStatus();
+                        Message('success', res.data.msg);
+                        return false;
+                    }
+                    Message('error', res.data.msg);
+                },  function errorCallback(error){
+                    console.log(error);
                 });
             }
 
-            $scope.showCommentsToggle = function (modalstate, type, header) {
-                $scope.modalstate = modalstate;
-                $scope.module = null;
-                $scope.chatHeader   = header; 
+            $scope.showCommentsToggle  =  function (modalstate, type, header) {
+                $scope.modalstate      =  modalstate;
+                $scope.module          =  null;
+                $scope.chatHeader      =  header; 
                 switch (modalstate) {
                     case 'viewAssingTechicalConversations':
                         $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
                             $scope.TechcommentsData = response.data.chatHistory; 
-                            $scope.chatType     = response.data.chatType;  
+                            $scope.chatType         = response.data.chatType;  
                             $('#assing-viewConversations-modal').modal('show');
                         });
                         break;
                     default:
-                        break;
-                } 
+                    break;
+                }
             }
 
-                $scope.sendAssignTechInboxComments  = function(type , chatSection) { 
-                    $scope.sendCommentsData = {
-                        "comments"        :   $scope.inlineComments,
-                        "enquiry_id"      :   $scope.enquiry_id,
-                        "type"            :   chatSection,
-                        "created_by"      :   type,
-                        "role_by"         : `Techical Estimater ${type}`
+            $scope.sendAssignTechInboxComments  = function(type , chatSection) { 
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   chatSection,
+                    "created_by"      :   type,
+                    "role_by"         : `Techical Estimater ${type}`
+                }
+                console.log($scope.sendCommentsData);
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
                     }
-                    console.log($scope.sendCommentsData);
-                    $http({
-                        method: "POST",
-                        url:  "{{ route('enquiry.comments') }}" ,
-                        data: $.param($scope.sendCommentsData),
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded' 
-                        }
-                    }).then(function successCallback(response) {
-                        $scope.showTechCommentsToggle('viewAssingTechicalConversations', 'techical_estimation', chatSection);
-                        $scope.inlineComments = '';
-                        document.getElementById("Inbox__commentsForm").reset();
-                        Message('success',response.data.msg);
-                    }, function errorCallback(response) {
-                        Message('danger',response.data.errors);
-                    });
-                }  
+                }).then(function successCallback(response) {
+                    $scope.showTechCommentsToggle('viewAssingTechicalConversations', 'techical_estimation', chatSection);
+                    $scope.inlineComments = '';
+                    document.getElementById("Inbox__commentsForm").reset();
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
 
             // =====================
-                $scope.GetCommentsData = function() {
-                    $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
-                        $scope.enquiry_number       = res.data.enquiry_number;
-                        $scope.enquiry_comments     = res.data.enquiry_comments;
-                        $scope.enquiry_id           = res.data.enquiry_id;
-                        $scope.project_info         = res.data.enquiry_comments;
-                        $scope.project_info         = res.data.project_info;
-                        $scope.building_component   = res.data.building_component;
-                    });
-                }
-                $scope.showTechCommentsToggle = function (modalstate, type, docId) {
-                    $scope.modalstate = modalstate;
-                    $scope.module = null;
-                    $scope.technical_docType_id   = docId; 
-                    switch (modalstate) {
-                        case 'viewConversations':
-                            $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
-                                $scope.commentsData = response.data.chatHistory; 
-                                $scope.chatType     = response.data.chatType;  
-                                $('#viewConversations-modal').modal('show');
-                            });
-                            break;
-                        case 'viewTechicalDocsConversations' : 
-                                $http.get(API_URL + 'admin/show-tech-comments/'+$scope.enquiry_id+'/type/'+$scope.technical_docType_id ).then(function (response) {
-                                    $scope.TechcommentsData = response.data.chatHistory; 
-                                    $scope.chatType     = response.data.chatType;  
-                                    $('#tech-viewConversations-modal').modal('show');
-                                });
-
-                            break; 
-                        case 'viewAssingTechicalConversations' : 
-                            $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+$scope.technical_docType_id ).then(function (response) {
+            $scope.GetCommentsData = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
+                    $scope.enquiry_number       = res.data.enquiry_number;
+                    $scope.enquiry_comments     = res.data.enquiry_comments;
+                    $scope.enquiry_id           = res.data.enquiry_id;
+                    $scope.project_info         = res.data.enquiry_comments;
+                    $scope.project_info         = res.data.project_info;
+                    $scope.building_component   = res.data.building_component;
+                });
+            }
+            $scope.showTechCommentsToggle = function (modalstate, type, docId) {
+                $scope.modalstate = modalstate;
+                $scope.module = null;
+                $scope.technical_docType_id   = docId; 
+                switch (modalstate) {
+                    case 'viewConversations':
+                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                            $scope.commentsData = response.data.chatHistory; 
+                            $scope.chatType     = response.data.chatType;  
+                            $('#viewConversations-modal').modal('show');
+                        });
+                        break;
+                    case 'viewTechicalDocsConversations' : 
+                            $http.get(API_URL + 'admin/show-tech-comments/'+$scope.enquiry_id+'/type/'+$scope.technical_docType_id ).then(function (response) {
                                 $scope.TechcommentsData = response.data.chatHistory; 
                                 $scope.chatType     = response.data.chatType;  
-                                $('#assing-viewConversations-modal').modal('show');
+                                $('#tech-viewConversations-modal').modal('show');
                             });
 
                         break; 
-                        default:
-                            break;
-                    } 
-                }
-                $scope.GetCommentsData();
-                
-                $scope.sendTechInboxComments  = function(type , chatSection) { 
-                    $scope.sendCommentsData = {
-                        "comments"        :   $scope.inlineComments,
-                        "enquiry_id"      :   $scope.enquiry_id,
-                        "file_id"         :   $scope.technical_docType_id,
-                        "type"            :   chatSection,
-                        "created_by"      :   type,
-                        "role_by"         : "Techical Estimater"
-                    }
-                    console.log($scope.sendCommentsData);
-                    $http({
-                        method: "POST",
-                        url:  "{{ route('enquiry.comments') }}" ,
-                        data: $.param($scope.sendCommentsData),
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded' 
-                        }
-                    }).then(function successCallback(response) {
-                        document.getElementById("Inbox__commentsForm").reset();
-                        $scope.showTechCommentsToggle('viewTechicalDocsConversations', 'techical_estimation', $scope.technical_docType_id);
-                        Message('success',response.data.msg);
-                    }, function errorCallback(response) {
-                        Message('danger',response.data.errors);
-                    });
-                }  
-                $scope.sendInboxComments  = function(type) { 
-                    $scope.sendCommentsData = {
-                        "comments"        :   $scope.inlineComments,
-                        "enquiry_id"      :   $scope.enquiry_id,
-                        "type"            :   $scope.chatType,
-                        "created_by"      :   type,
-                    }
-                    console.log($scope.sendCommentsData);
-                    $http({
-                        method: "POST",
-                        url:  "{{ route('enquiry.comments') }}" ,
-                        data: $.param($scope.sendCommentsData),
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded' 
-                        }
-                    }).then(function successCallback(response) {
-                        document.getElementById("Inbox__commentsForm").reset();
-                        $scope.showCommentsToggle('viewConversations', $scope.chatType);
-                        Message('success',response.data.msg);
-                    }, function errorCallback(response) {
-                        Message('danger',response.data.errors);
-                    });
-                }
+                    case 'viewAssingTechicalConversations' : 
+                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+$scope.technical_docType_id ).then(function (response) {
+                            $scope.TechcommentsData = response.data.chatHistory; 
+                            $scope.chatType     = response.data.chatType;  
+                            $('#assing-viewConversations-modal').modal('show');
+                        });
 
-                $scope.sendComments  = function(type, created_by) { 
-                    $scope.sendCommentsData = {
-                        "comments"        :   $scope[`${type}__comments`],
-                        "enquiry_id"      :   $scope.enquiry_id,
-                        "type"            :   type,
-                        "created_by"      :   created_by,
-                    } 
-                    $http({
-                        method: "POST",
-                        url:  "{{ route('enquiry.comments') }}" ,
-                        data: $.param($scope.sendCommentsData),
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded' 
-                        }
-                    }).then(function successCallback(response) {
-                        if(type == 'building_components'){
-                            document.getElementById(`building_component__commentsForm`).reset();
-                        }
-                        document.getElementById(`${type}__commentsForm`).reset();
-                        // $scope.GetCommentsData();
-                        Message('success',response.data.msg);
-                    }, function errorCallback(response) {
-                        Message('danger',response.data.errors);
-                    });
-                }             
+                    break; 
+                    default:
+                        break;
+                } 
+            }
+            $scope.GetCommentsData();
+            
+            $scope.sendTechInboxComments  = function(type , chatSection) { 
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "file_id"         :   $scope.technical_docType_id,
+                    "type"            :   chatSection,
+                    "created_by"      :   type,
+                    "role_by"         : "Techical Estimater"
+                }
+                console.log($scope.sendCommentsData);
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById("Inbox__commentsForm").reset();
+                    $scope.showTechCommentsToggle('viewTechicalDocsConversations', 'techical_estimation', $scope.technical_docType_id);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }  
+            $scope.sendInboxComments  = function(type) { 
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   $scope.chatType,
+                    "created_by"      :   type,
+                }
+                console.log($scope.sendCommentsData);
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById("Inbox__commentsForm").reset();
+                    $scope.showCommentsToggle('viewConversations', $scope.chatType);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            $scope.sendComments  = function(type, created_by) { 
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope[`${type}__comments`],
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   type,
+                    "created_by"      :   created_by,
+                } 
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    if(type == 'building_components'){
+                        document.getElementById(`building_component__commentsForm`).reset();
+                    }
+                    document.getElementById(`${type}__commentsForm`).reset();
+                    // $scope.GetCommentsData();
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
         }); 
 
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
@@ -997,6 +1014,21 @@
             $scope.documentaryOneData = function() {
                 var documentId = $scope.documentary.documentary_title;
                 var enquireId = {{ $data->id ?? '' }};
+
+                Swal.fire({ 
+                    timerProgressBar: true,
+                    showConfirmButton: false, 
+                    allowOutsideClick: false,
+                    html:`
+                        <div class="text-center">
+                            <h1 class="text-primary">Please Wait</h1>
+                            <i class="mdi text-primary fa-4x mdi-spin mdi-loading"></i>
+                            <h4 class="text-secondary">Proposal Creation On Process may be,</h4>
+                            <h4 class="text-secondary"> it's take some times,</h4>
+                        </div>
+                    `,
+                });
+
                 $http({
                     method: 'GET',
                     url: "{{ route('get-documentaryOneData') }}",
@@ -1006,7 +1038,7 @@
                         Message('danger', response.data.msg);
                         return false;
                     }
-                    // alert(JSON.stringify(response))
+                    // Swal.close();
                     $scope.getDocumentaryData();
                 }, function (error) {
                     console.log(error);
