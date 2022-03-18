@@ -3,7 +3,7 @@
 @section('admin-content')
    
     <div class="content-page" ng-controller="projectController">
-        <div class="content" >
+        <div class="content">
 
             @include('admin.includes.top-bar')
             <div class="container-fluid">

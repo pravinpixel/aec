@@ -1,44 +1,34 @@
-<?php  use Illuminate\Support\Facades\Route;
+<?php
+
+use App\Http\Controllers\Admin\Project\ProjectController;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
 
-    Route::get('/list-projects', function () {
-        return view('admin.projects.index');
-    })->name('list-projects');
+    Route::get('list-projects', [ProjectController::class, 'index'])->name('list-projects');
 
-    Route::get('/create-projects', function () {
-        return view('admin.projects.create');
-    })->name('create-projects');
+    Route::get('create-projects',[ProjectController::class, 'create'])->name('create-projects');
+
+    Route::get('edit-projects/{id}',[ProjectController::class, 'edit'])->name('edit-projects');
 
     //=========  Wizard Flow Views =========
-        Route::get('create-project', function () {
-            return view('admin.projects.wizard.create-project');
-        })->name('create-project');
+        Route::get('create-project',[ProjectController::class, 'createWizard'])->name('create-project');
 
-        Route::get('project-platform', function () {
-            return view('admin.projects.wizard.platform');
-        })->name('platform');
+        Route::get('project-platform', [ProjectController::class, 'platform'])->name('platform');
 
-        Route::get('project-team-setup', function () {
-            return view('admin.projects.wizard.team-setup');
-        })->name('team-setup');
+        Route::get('project-team-setup', [ProjectController::class, 'teamSetup'])->name('team-setup');
 
-        Route::get('project-schedule', function () {
-            return view('admin.projects.wizard.project-schedule');
-        })->name('project-schedule');
+        Route::get('project-schedule', [ProjectController::class, 'schedule'])->name('project-schedule');
     
-        Route::get('project-to-do-listing', function () {
-            return view('admin.projects.wizard.to-do-listing');
-        })->name('to-do-listing');
+        Route::get('project-to-do-listing', [ProjectController::class, 'todoListing'])->name('to-do-listing');
 
-        Route::get('project-invoice-plan', function () {
-            return view('admin.projects.wizard.invoice-plan');
-        })->name('invoice-plan');
+        Route::get('project-invoice-plan', [ProjectController::class, 'invoicePlan'])->name('invoice-plan');
 
         Route::get('project-review-n-submit', function () {
             return view('admin.projects.wizard.review-n-submit');
         })->name('review-n-submit');
 
         
+        Route::get('project-unestablished-list', [ProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');
     //========= END :  Wizard Flow Views =========
 });

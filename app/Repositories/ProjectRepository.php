@@ -26,6 +26,11 @@ class ProjectRepository implements ProjectRepositoryInterface{
        return $this->project_assign_model
                     ->updateOrCreate(['enquiry_id'=> $enquiry_id],$data);
     }
-
+    
+    public function unestablishedProjectList($request)
+    {
+        $dataDb =  $this->model::where('status', 'In-Progress');
+        return $dataDb;
+    }
 
 }
