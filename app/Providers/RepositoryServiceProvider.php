@@ -25,6 +25,7 @@ use App\Interfaces\DocumentaryRepositoryInterface;
 use App\Interfaces\EnquiryCommentRepositoryInterface;
 use App\Interfaces\EnquiryTemplateRepositoryInterface;
 use App\Interfaces\MailTemplateRepositoryInterface;
+use App\Interfaces\ProjectRepositoryInterface;
 use App\Interfaces\TechnicalEstimateRepositoryInterface;
 use App\Repositories\AutoDeskRepository;
 use App\Repositories\BuildingComponentRepository;
@@ -52,6 +53,7 @@ use App\Repositories\MailTemplateRepository;
 use App\Repositories\TechnicalEstimateRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\PushNotificationRepositoryInterface;
+use App\Repositories\ProjectRepository;
 use App\Repositories\PushNotificationRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -180,6 +182,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             PushNotificationRepositoryInterface::class,
             PushNotificationRepository::class
+        );
+
+        $this->app->bind(
+            ProjectRepositoryInterface::class,
+            ProjectRepository::class
         );
     }
 

@@ -1232,6 +1232,8 @@
             };
         }]);
         app.controller('Customer_response', function ($scope, $http, API_URL, $location, $timeout) {
+            $scope.customer_response_obj = {};
+            let enquiry_id = '{{ $id }}';
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -1257,6 +1259,38 @@
                 });
             }
             $scope.GetCommentsData();
+            getDeliveryManager = () => {
+                $http.get(API_URL+'admin/get-delivery-manager').then(function successCallback(res){
+                    $scope.userList = res.data;
+                }, function errorCallback(error){
+                    console.log(error);
+                });
+            }
+            getDeliveryManager();
+
+            $scope.moveToProject = () => {
+               let assigned_to = $scope.customer_response_obj.assign_user ?? false;
+               $http.post(API_URL+'customer-response/move-to-project', {assigned_to: assigned_to, enquiry_id, enquiry_id}).then(function successfunction(res){
+                    if(res.data.status == true){
+                        Swal.fire({
+                            title: `Move to project successfully`,
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            cancelButtonText: 'No',
+                            confirmButtonText: 'Ok',
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = '{{ route('list-projects') }}'
+                            }
+                        });
+                        return false;
+                    }
+                    Message('danger', res.data.msg);
+                    return false;
+               }, function errorCallback(error){
+
+               });
+            } 
         });
     </script>  
 @endpush

@@ -1,6 +1,6 @@
 <?php  use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function () {
+Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
 
     Route::get('/list-projects', function () {
         return view('admin.projects.index');
@@ -15,27 +15,27 @@ Route::prefix('admin')->group(function () {
             return view('admin.projects.wizard.create-project');
         })->name('create-project');
 
-        Route::get('platform', function () {
+        Route::get('project-platform', function () {
             return view('admin.projects.wizard.platform');
         })->name('platform');
 
-        Route::get('team-setup', function () {
+        Route::get('project-team-setup', function () {
             return view('admin.projects.wizard.team-setup');
         })->name('team-setup');
 
-        Route::get('/project-schedule', function () {
+        Route::get('project-schedule', function () {
             return view('admin.projects.wizard.project-schedule');
         })->name('project-schedule');
     
-        Route::get('/to-do-listing', function () {
+        Route::get('project-to-do-listing', function () {
             return view('admin.projects.wizard.to-do-listing');
         })->name('to-do-listing');
 
-        Route::get('invoice-plan', function () {
+        Route::get('project-invoice-plan', function () {
             return view('admin.projects.wizard.invoice-plan');
         })->name('invoice-plan');
 
-        Route::get('review-n-submit', function () {
+        Route::get('project-review-n-submit', function () {
             return view('admin.projects.wizard.review-n-submit');
         })->name('review-n-submit');
 

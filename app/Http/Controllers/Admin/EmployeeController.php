@@ -580,6 +580,11 @@ class EmployeeController extends Controller
         return Employee::where(['job_role' => 3, 'status'=> 1])->get();
     }
 
+    public function getDeliveryManager(Request $request)
+    {
+        return Employee::where(['job_role' => 4, 'status'=> 1])->get();
+    }
+
 
     
 }

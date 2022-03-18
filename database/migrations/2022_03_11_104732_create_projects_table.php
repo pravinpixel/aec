@@ -15,13 +15,28 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('enquiry_id');
-            $table->string('project_name');
-            $table->string('mobile_number');
-            $table->date('start_date');
-            $table->date('delivery_date');
-            $table->string('status');
+            $table->unsignedBigInteger('enquiry_id')->nullable();
+            $table->unsignedBigInteger('building_type_id');
+            $table->unsignedBigInteger('project_type_id');
+            $table->unsignedBigInteger('delivery_type_id');
+            $table->string('reference_number');
+            $table->string('project_name')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('mobile_number')->nullable();
+            $table->string('email')->nullable();
+            $table->string('contact_person')->nullable();
+            $table->string('site_address')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
+            $table->integer('no_of_building')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('delivery_date')->nullable();
+            $table->string('status')->nullable();
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
+            $table->foreign('project_type_id')->references('id')->on('project_types');
+            $table->foreign('building_type_id')->references('id')->on('building_types');
+            $table->foreign('delivery_type_id')->references('id')->on('delivery_types');
             $table->timestamps();
         });
     }

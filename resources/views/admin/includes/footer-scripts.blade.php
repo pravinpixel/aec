@@ -37,7 +37,7 @@
 
 <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- ========= For Vendors Js ===========-->
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 

@@ -156,6 +156,11 @@ class Enquiry extends Model
         return $this->hasMany(EnquiryComments::class);
     }
 
+    public function project()
+    {
+        return $this->hasOne(Project::class);
+    }
+
     public function replicateRow()
     {
         $clone = $this->replicate();

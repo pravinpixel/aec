@@ -22,5 +22,7 @@ return [
     'enquiry_saved'     => 'Enquiry saved successfully',
     'enquiry_submitted' => 'Enquiry submitted successfully',
     'access_denied'     => 'Sorry! You are not allowed to access this module',
-    'permission_updated' => 'Permission updated successfully'
+    'permission_updated' => 'Permission updated successfully',
+    'move_to_project_successfully' => 'Move to project successfully',
+    'already_moved_to_project' => 'Already moved to project'
 ];

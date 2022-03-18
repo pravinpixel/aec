@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Enquiry\CostEstimateController;
+use App\Http\Controllers\Admin\Enquiry\CustomerResponseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Enquiry\EnquiryController;
 use App\Http\Controllers\Admin\Enquiry\MailTemplateController;
@@ -95,4 +96,8 @@ Route::group(['prefix' => 'technical-estimate', 'middleware' => 'common', 'route
 
 Route::group(['prefix' => 'cost-estimate', 'middleware' => 'common', 'route' => 'cost-estimate'], function(){
     Route::post('assign-user/{enquiry_id}', [CostEstimateController::class,'assignUser'])->name("assign-user");
+});
+
+Route::group(['prefix' => 'customer-response', 'middleware' => 'common', 'route' => 'customer-response'], function(){
+    Route::post('move-to-project', [CustomerResponseController::class,'moveToProject'])->name('move-to-project');
 });

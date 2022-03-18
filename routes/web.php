@@ -140,6 +140,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 
     Route::get('get-technicalestimate-employee',[EmployeeController::class,'getTechnicalEstimateEmployee'])->name('get-technicalestimate-employee');
     Route::get('get-costestimate-employee',[EmployeeController::class,'getCostEstimateEmployee'])->name('get-costestimate-employee');
+    Route::get('get-delivery-manager',[EmployeeController::class,'getDeliveryManager'])->name('get-delivery-manager');
     // Route::get('share-ponit-access',[EmployeeController::class,'profileInfo'])->name('share-ponit-access');
     // Route::get('ibm-access',[EmployeeController::class,'profileInfo'])->name('ibm-access');
 

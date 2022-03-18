@@ -30,6 +30,12 @@ class GlobalServiceProvider extends Controller
         return "{$config->customer_prefix}/{$config->enquiry_year}/00{$config->customer_enquiry_number}";
     }
 
+    public function getProjectNumber()
+    {
+        $config = $this->getConfig();
+        return "{$config->project_prefix}/{$config->enquiry_year}/00{$config->project_number}";
+    }
+
     public function getConfig()
     {
         return ConfigModel::first();
@@ -45,6 +51,10 @@ class GlobalServiceProvider extends Controller
                 break;
             case 'CENQ':
                 $config->customer_enquiry_number += 1;
+                $config->save();
+                break;
+            case 'PRO':
+                $config->project_number += 1;
                 $config->save();
                 break;
             default:
