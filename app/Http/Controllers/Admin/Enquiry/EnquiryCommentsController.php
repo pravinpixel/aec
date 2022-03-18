@@ -32,18 +32,19 @@ class EnquiryCommentsController extends Controller
 
     public function store(Request $request){
         
-        if($request->created_by == 'Admin') {
-            $firebaseToken  =   Customer::where('id', $request->seen_by)->pluck('device_token');
-            $role_by        =   Admin()->id; 
-            $seen_by        =   1;
-        }
+        // if($request->created_by == 'Admin') {
+        //     $firebaseToken  =   Customer::where('id', $request->seen_by)->pluck('device_token');
+        //     $role_by        =   Admin()->id; 
+        //     $seen_by        =   1;
+        // }
      
-        if($request->created_by == 'Customer') {
-            $firebaseToken  =   Employee::where('id', $request->seen_by)->pluck('device_token');
-            $role_by        =   Customer()->id;
-            $seen_by        =   $request->seen_by; 
-        }
-        
+        // if($request->created_by == 'Customer') {
+        //     $firebaseToken  =   Employee::where('id', $request->seen_by)->pluck('device_token');
+        //     $role_by        =   Customer()->id;
+        //     $seen_by        =   $request->seen_by; 
+        // }
+        $role_by        =   1;
+        $seen_by        =   1; 
         $result         =   $this->enquiryCommentRepo->store($request, $request->created_by, $role_by,$seen_by);
         $customer       =   $this->customerEnquiry->getEnquiryByID($result->enquiry_id);
 
@@ -51,11 +52,11 @@ class EnquiryCommentsController extends Controller
         $title          =   'New Message From AEC - '.$request->created_by;
         $body           =   $request->comments;
           
-        if($result) {
-            $message = $this->pushMessageRepo->sendPushNotification($firebaseToken, $title, $body);
+        // if($result) {
+        //     $message = $this->pushMessageRepo->sendPushNotification($firebaseToken, $title, $body);
 
-            return  response(['status' => true, 'data' => 'Success','pushMsg'=> $message ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
-        }
+        //     return  response(['status' => true, 'data' => 'Success','pushMsg'=> $message ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
+        // }
         return  response(['status' => false, 'data' => 'Success' ,'msg' => trans('globe.something')]);
     }
     public function show(Request $request, $id, $type)
