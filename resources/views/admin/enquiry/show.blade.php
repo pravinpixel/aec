@@ -974,6 +974,7 @@
                     }
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
+                    $('#bs-PreviewVersions-modal-lg').modal('hide');
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
