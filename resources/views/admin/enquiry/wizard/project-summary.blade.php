@@ -158,11 +158,7 @@
                                     <td>:</td>
                                     <td>@{{ project_info.project_delivery_date }}</td>
                                 </tr> 
-                                <tr ng-if="project_info.state != null">
-                                    <td><b>State</b></td>
-                                    <td>:</td>
-                                    <td>@{{ project_info.state }}</td>
-                                </tr> 
+                           
                                 <tr ng-if="project_info.customerremarks != null">
                                     <td><b>Remarks</b></td>
                                     <td>:</td>
