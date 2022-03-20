@@ -664,6 +664,10 @@
 
             $scope.assignUserToCostestimate = (user) => {
                 let assign_to = user == '' ? null: user;
+                if($scope.assign_to == '') {
+                    Message('danger', "Please choose a user !");
+                    return false;
+                }
                 $http.post(`${API_URL}cost-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
                     .then(function successCallback(res){
                        

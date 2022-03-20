@@ -218,12 +218,16 @@
                     </ul>
                 </div>
             </div> 
-            @if(userRole()->slug == config('global.technical_estimater'))
-                <div class="mx-1">
-                    <button class="btn btn-primary rounded-pill" type="submit" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets">   <i class="fa fa-eye"></i> </button>
-                </div>
-            @endif 
         </div>
+        @if(userRole()->slug == config('global.technical_estimater'))
+            <div class="card m-0 my-3 border col-md-9 me-auto">
+                <div class="card-body">
+                    <small class="btn link" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets" >
+                        <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
+                    </small>
+                </div>
+            </div>
+        @endif
         @if(userHasAccess('technical_estimate_add'))
             {{-- <div class="col-6 my-1">
                 <div class="row m-0">
