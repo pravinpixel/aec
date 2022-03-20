@@ -338,8 +338,8 @@ class EnquiryController extends Controller
         }
         if ($id) {
             $data   =   Enquiry::with('customer')->find($id);
-            $activeTab = $this->getRoleBaseTab() ?? $this->getIncompleteTab($data);
-            return view('admin.enquiry.show',compact('data','activeTab','id','activeTab'));   
+            $activeTab = $this->getRoleBaseTab() == false ? $this->getIncompleteTab($data) : $this->getRoleBaseTab();
+            return view('admin.enquiry.show',compact('data','activeTab','id'));   
         }else {
             return redirect()->route('admin.enquiry-list');
         }

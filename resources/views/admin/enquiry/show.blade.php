@@ -205,7 +205,7 @@
         });  
         app.controller("rootEnquiryWizard",function ($scope, $http, API_URL,  $location) {
             $location.path('{{ $activeTab }}');
-        })
+        });
         app.controller('WizzardCtrl', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id = '{{ $id }}';
             $scope.enquiry_number ='dd';
