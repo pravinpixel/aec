@@ -572,17 +572,25 @@ class EmployeeController extends Controller
 
     public function getTechnicalEstimateEmployee(Request $request)
     {
-        return Employee::where(['job_role' => 2,'status'=> 1])->orWhere('job_role', 1)->get();
+        $role = Role::where('slug', config('global.technical_estimater'))->first();
+        return Employee::where(['job_role' => $role->id,'status'=> 1])->orWhere('job_role', 1)->get();
     }
 
     public function getCostEstimateEmployee(Request $request)
     {
-        return Employee::where(['job_role' => 3,'status'=> 1])->orWhere('job_role', 1)->get();
+        $role = Role::where('slug', config('global.cost_estimater'))->first();
+        return Employee::where(['job_role' => $role->id,'status'=> 1])->orWhere('job_role', 1)->get();
     }
 
     public function getDeliveryManager(Request $request)
     {
-        return Employee::where(['job_role' => 4, 'status'=> 1])->get();
+        return Employee::with('role')->where('status', 1)->get()
+                        ->map(function ($employee){
+                            return [
+                                'user_name' => "{$employee->user_name} - ({$employee->role->name})", 
+                                'id' => $employee->id
+                            ];
+                        });
     }
 
 
