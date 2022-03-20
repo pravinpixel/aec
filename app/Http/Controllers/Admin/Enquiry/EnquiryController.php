@@ -313,6 +313,8 @@ class EnquiryController extends Controller
         $result['building_component']   =   $this->customerEnquiryRepo->getBuildingComponent($enquiry);
         $result['additional_infos']     =   $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         $result['project_type']         =   $enquiry->projectType;
+        $result['technical_estimate']   =   $enquiry->technicalEstimate;
+        $result['cost_estimate']        =   $enquiry->costEstimate;
         return $result;
         
     }

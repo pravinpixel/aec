@@ -254,13 +254,11 @@
         <div class="card-body">
             <p class="lead mb-2"> <strong>Assign to</strong></p>
             <div class="btn-group w-100">
-                {{-- <select class="form-select " ng-model="assign_to" name="assign_to"  id="inputGroupSelect01">
-                    <option value=''> @lang('global.select')</option>
-                    <option ng-repeat="  in userList" value="@{{user.id}}" ng-selected="user.id == assign_to">@{{user.user_name}}</option>
-                </select> --}}
                 <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
-                    <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}"> @{{ user.id == assign_to ? 'You' : user.user_name}}</option>
+                    <option value=""> @lang('global.select') </option>
+                    <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.user_name}}</option>
                 </select> 
+               
                 <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to)"> Assign  </button>
             </div> 
             <small class="float-end btn link p-0 mt-2"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
@@ -275,7 +273,7 @@
                 <a href="#/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a ng-show="cost_estimation_status  != 0" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
+                <a ng-show="cost_estimation_status  != 0 && cost_estimate.assign_to" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 

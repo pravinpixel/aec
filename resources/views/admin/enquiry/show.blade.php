@@ -334,6 +334,7 @@
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL) {
             let enquiryId =  '{{ $data->id }}'
+            $scope.current_user = '{{Admin()->id}}';
             getUsers = () => {
                 $http.get(`${API_URL}admin/get-technicalestimate-employee`)
                 .then(function successCallback(res){
@@ -358,7 +359,6 @@
                 $scope.enquiry_id           =   response.data.enquiry_id; 
                 $scope.building_building    =   response.data.building_component; 
                 $scope.assign_to            =   response.data.others.assign_to ?? '';
-                $scope.latest_assigned_to   =   response.data.others.assign_to;
             });
              
             $scope.getWizradStatus = function() {
@@ -368,6 +368,7 @@
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
                     $scope.customer_response    = res.data.progress.customer_response; 
+                    $scope.technical_estimate   = res.data.technical_estimate;
                 });
             }
             $scope.getWizradStatus(); 
@@ -465,9 +466,6 @@
 
             $scope.assignTechnicalEstimate = (user) => {
                 let assign_to = user == '' ? null: user;
-
-                $scope.latest_assigned_to  =  assign_to;
-  
                 if($scope.assign_to == '') {
                     Message('danger', "Please choose a user !");
                     return false;
@@ -476,6 +474,7 @@
                 $http.post(`${API_URL}technical-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
                 .then(function successCallback(res){
                     if(res.data.status) {
+                        $scope.enable_techestimate = res.data.status;
                         $scope.getWizradStatus();
                         Message('success', res.data.msg);
                         return false;
@@ -651,7 +650,8 @@
         }); 
 
         app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
-            let enquiryId =  '{{ $data->id }}'
+            let enquiryId =  '{{ $data->id }}';
+            $scope.current_user = '{{Admin()->id}}';
             getUsers = () => {
                 $http.get(`${API_URL}admin/get-costestimate-employee`)
                 .then(function successCallback(res){
@@ -664,7 +664,6 @@
 
             $scope.assignUserToCostestimate = (user) => {
                 let assign_to = user == '' ? null: user;
-                $scope.latest_assigned_to  =  assign_to;
                 $http.post(`${API_URL}cost-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
                     .then(function successCallback(res){
                        
@@ -686,7 +685,7 @@
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status      = res.data.progress.proposal_sharing_status;
                     $scope.customer_response            = res.data.progress.customer_response; 
-                    
+                    $scope.cost_estimate                = res.data.cost_estimate;
                 });
             }
             $scope.getWizradStatus();
@@ -757,11 +756,9 @@
                 $scope.enquiry          =   response.data;  
                 $scope.CostEstimate     =   response.data.cost_estimation; 
                 $scope.assign_to        =   response.data.others.assign_to ?? '';
-                $scope.latest_assigned  =   response.data.others.assign_to;
             });
             $scope.UpdateCostEstimate  = function() {  
                 console.log($scope.CostEstimate);
-                
                 $http({
                     method: "POST",
                     url: "{{ route('enquiry-create.cost-estimate-value') }}",
