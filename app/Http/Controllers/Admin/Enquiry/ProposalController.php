@@ -73,10 +73,6 @@ class ProposalController extends Controller
     public function customerApproval(Request $request, $id, $type)
     {
         $enquiry = Enquiry::find($id);
-        if($enquiry->project_status != 'Unattended') {
-            Flash::info('Proposal already approved!');
-            return redirect()->route('login');
-        }
         $proposal_id    =   Crypt::decryptString($request->input('pid'));
         if($type == 0) {
             $enquiry->project_status = "Unattended";

@@ -715,7 +715,7 @@ class EnquiryController extends Controller
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>';
-                if($dataDb->project_status != 'Active'){
+                if($dataDb->customer_response != 1){
                     return $actions;
                 }
                 return '';

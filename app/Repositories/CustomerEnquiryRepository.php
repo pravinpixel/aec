@@ -184,7 +184,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         // $proposalVersion1 = (int)array_search($result->proposal_id, $proposalArray1);
         $proposalArray2 = PropoalVersions::where(["enquiry_id" => $id, "proposal_id" => $proposal_id])->pluck('id')->toArray();
         $proposalVersion2 = (int)array_search($result->id, $proposalArray2);
-        $version = 'R.'.($proposalVersion2 + 2);
+        $version = 'R'.($proposalVersion2 + 2);
         $details = [ 
             'name'          =>  $enquiry->customer->full_name,
             'email'         =>  $enquiry->customer->email,
