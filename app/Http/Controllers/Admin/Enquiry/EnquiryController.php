@@ -366,7 +366,7 @@ class EnquiryController extends Controller
             return 'cost-estimation';
         } else if($enquiry->proposal_sharing_status == 0) {
             return 'proposal-sharing';
-        } else if($enquiry->customer_response == 0) {
+        } else if($enquiry->customer_response == 0 || 1 || 2) {
             return 'move-to-project';
         }
         return 'project-summary';
