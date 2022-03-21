@@ -58,4 +58,9 @@ class Employee extends Authenticatable
     {
         $this->attributes['full_name'] = "{$this->attributes['first_name']} {$this->attributes['last_name']}";
     }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'job_role');
+    }
 }
