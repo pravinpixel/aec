@@ -1161,8 +1161,7 @@
                         promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
                         promise.then(function (response) {
                             $(".fileupload").css('pointer-events','');
-                            $scope[`file${filename}`] = '';
-                            delete $scope[`file${filename}`];
+                            delete $scope.$parent[filename];
                             angular.element("input[type='file']").val(null);
                             console.log( $scope);
                             Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);

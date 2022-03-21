@@ -1312,8 +1312,33 @@
                 };
             });
 
+            app.directive('fileDropZone', function ($parse, fileUpload) {
+                return {
+                    restrict: 'A',
+                    link: function($scope, element, attrs) {
+                        element.bind('change', function(){
+                            var type = 'ifc_model_upload';  
+                            var file =  element[0].files[0];
+                            var file_type = `${attrs.id}`;
+                            var filename = `file${attrs.id}`;
+                            $(".fileupload").css('pointer-events','none')
+                            var uploadUrl = '{{ route('customers.store-enquiry') }}';
+                            promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
+                            promise.then(function (response) {
+                                $(".fileupload").css('pointer-events','');
+                                delete $scope.$parent[filename];
+                                angular.element("input[type='file']").val(null);
+                                console.log($scope);
+                                Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
+                                getIFCViewList(response.data, file_type);
+                            }, function () {
+                                $scope.serverResponse = 'An error has occurred';
+                            });
+                        });
+                    }
+                };
+            });
             
-
             app.service('fileUpload', function ($http, $q) {
                
                 this.uploadFileToUrl = function(file, type, view_type, uploadUrl, $scope){
