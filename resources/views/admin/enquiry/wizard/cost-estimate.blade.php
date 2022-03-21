@@ -226,7 +226,7 @@
             </div>
         </div>
     </div>
-    @if(userRole()->slug == config('cost_estimater'))
+    @if(userRole()->slug == config('role.cost_estimater'))
         <div class="card m-0 my-3 border col-md-9 me-auto">
             <div class="card-body">
                 <small class="btn link"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
