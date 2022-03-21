@@ -72,18 +72,15 @@ class ProposalController extends Controller
     }
     public function customerApproval(Request $request, $id, $type)
     {
+        
         $enquiry = Enquiry::find($id);
         $proposal_id    =   Crypt::decryptString($request->input('pid'));
+        $version_id    =   Crypt::decryptString($request->input('vid'));
         if($type == 0) {
             $enquiry->project_status = "Unattended";
             $enquiry->customer_response = 2;
             $enquiry->save(); 
-            $this->addComment($id, $request);
-            $proposal           =   MailTemplate::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
-                                                    ->update(['proposal_status' => 'denied']);
-                                            
-            $proposal_version   =   PropoalVersions::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
-                                                    ->update(['proposal_status' => 'denied']);    
+            $this->addComment($id, $request); 
             Flash::success('Proposal successfully Dined!');
             return redirect()->route('login');
         } 
@@ -115,11 +112,13 @@ class ProposalController extends Controller
         if($version_id == 0) {
             $proposal = MailTemplate::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id])->first();
             $proposal->comment = $comment;
+            $proposal->proposal_status = 'denied';
             $proposal->save();
         } else {
-            $proposalVersio = PropoalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'version_id'=>  $version_id])->first();
-            $proposalVersio->comment = $comment;
-            $proposalVersio->save();
+            $proposalVersion = PropoalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id'=>  $version_id])->first();
+            $proposalVersion->comment = $comment;
+            $proposalVersion->proposal_status = 'denied';
+            $proposalVersion->save();
         }
     }
 
@@ -151,16 +150,21 @@ class ProposalController extends Controller
                         ->whereNull('comment')
                         ->orderBy('updated_at','desc')
                         ->get();
-        $result = [];
+        $result = []; 
         foreach($proposals as $key => $proposal){
             $verkey =1; $childVersion = [];
+            if($proposal->proposal_status == 'denied'){
+                $result[] = ['template_name'=> $proposal->template_name, 'version' => 'R1' , 'comment' => $proposal->comment];
+            }
+           
             if($proposal->getVersions()->exists()) {
                 foreach($proposal->getVersions as $childkey => $proposalVersion){
-                    $verkey += 1;
-                    $childVersion[$childkey]=  ['template_name'=> "R{$verkey}", 'comment' => $proposalVersion->comment ];
+                    if($proposalVersion->proposal_status == 'denied'){
+                        $verkey += 1;
+                        $result[]=  ['template_name'=> $proposal->template_name, 'version' => "R{$verkey}",  'comment' => $proposalVersion->comment ];
+                    }
                 }
             }
-            $result[$key] = ['template_name'=> $proposal->template_name, 'comment' => $proposal->comment, 'child' =>  $childVersion];
         }
         return  $result;
     }

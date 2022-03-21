@@ -202,19 +202,20 @@
 <div class="card-body" ng-show="approvedComments.length">
     <div class="container p-0"> 
         <table class="table table-bordered">
-            <tbody class="panel"> 
+            <thead>
                 <tr>
                     <th class="text-center"style="width: 6% !important">No</th>
                     <th class="text-center" >File Name</th>
                     <th class="text-center">Version</th>
+                    <th class="text-center">Comments</th>
                 </tr>
+            </thead> 
+            <tbody class="panel"> 
                 <tr ng-repeat="(key,row) in approvedComments">
-                    <td class="text-center">@{{ key+1 }}</td>
+                    <td class="text-center">@{{ row.key + 1}}</td>
                     <td class="text-center">@{{ row.template_name }}</td>
-                    <td class="text-center">
-                        <span ng-show="row.child != []">R1</span>
-                        <span ng-show="row.child == []">@{{ row.template_name}}</span>
-                    </td>
+                    <td class="text-center">@{{ row.version}}</td>
+                    <td class="text-center">@{{ row.comment }}</td>
                 </tr>  
             </tbody>
         </table>
