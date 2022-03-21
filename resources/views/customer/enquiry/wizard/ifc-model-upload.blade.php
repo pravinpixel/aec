@@ -11,7 +11,7 @@
                             <label for="@{{ documentType.slug }}"><i class="fa fa-folder-plus fa-2x text-primary"></i></label>
                         </div>
                     </label> @{{ documentType.file_name }} --}}
-                    <input type="file" class="form-control file-control rounded-pill" file-model="@{{'file' + documentType.slug}}" id ="@{{ documentType.slug }}"/>
+                    <input type="file" file-drop-zone="@{{'file' + documentType.slug}}" class="form-control file-control rounded-pill" file-model="@{{'file' + documentType.slug}}" id ="@{{ documentType.slug }}"/>
                     <small class="text-center my-1">(OR)</small>
                     <input type="text" id="@{{'link' +documentType.slug}}" class="form-control rounded-pill border" placeholder="URL">
                     <a ng-click="uploadFile(documentType.slug, documentType.slug)"  class="fileupload btn btn-primary rounded-pill border-primary mt-2"><i class="fa fa-upload"></i> Upload</a>
