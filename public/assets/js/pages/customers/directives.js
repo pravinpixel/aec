@@ -1,11 +1,27 @@
 
-app.directive('viewlist', function(API_URL) {
+app.directive('viewlist', function(API_URL, $http) {
     var directive = {};
     directive.restrict = 'E';
     directive.templateUrl = `${API_URL}customers/view-list`;
     directive.scope = {
         viewLists : "=data",
         fileType : "=fileType"
+    },
+    directive.link= function (scope) {
+        scope.getAutodeskView = (document_id) =>{
+            $http({
+                method: 'GET',
+                url: `${API_URL}autodesk-check-status/${document_id}`,
+                }).then(function success(res) {
+                    if(res.data.status == false){
+                        Message('danger', res.data.msg);
+                        return false;
+                    }
+                    window.open(`${API_URL}viewmodel/${document_id}`);
+                }, function error(res) {
+
+                });
+        }
     }
     return directive;
  });
