@@ -431,3 +431,6 @@ small {
     background: none  !important;
     background-color: none  !important;
 }
+sup {
+    font-size: 10px !important;
+}

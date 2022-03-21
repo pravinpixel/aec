@@ -603,7 +603,7 @@
             } 
             // console.log($scope.wallGroup);
             $scope.AddLayers  =   function(fIndex, index) {
-                $scope.wallGroup[fIndex].Details[index].Layers.unshift({
+                $scope.wallGroup[fIndex].Details[index].Layers.push({
                     "LayerName": '',
                     "LayerType": '',
                     "Thickness ": '',

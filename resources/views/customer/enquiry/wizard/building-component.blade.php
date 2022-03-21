@@ -82,19 +82,19 @@
                                         <tr>
                                             <th class="bg-light">
                                                 <div class="form-group">
-                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Floor</label>
+                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Floor  <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control form-control-sm my-2 mt-3" name="FloorName" ng-model="d.FloorName"  required placeholder="Type here..." required>
                                                 </div>
                                             </th>
                                             <th  class="bg-light">
                                                 <div class="form-group">
-                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Wall Number</label>
+                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Wall Number  <sup class="text-danger">*</sup></label>
                                                     <input type="text" onkeypress="return isNumber(event)"  class="form-control form-control-sm my-2  mt-3" ng-model="d.FloorNumber" placeholder="Type here..." required>
                                                 </div>
                                             </th>
                                             <th  class="bg-light">
                                                 <div class="form-group">
-                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
+                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type  <sup class="text-danger">*</sup></label>
                                                     <select class="form-select  form-select-sm my-2 mt-3"  name="delivery_type" ng-model="d.DeliveryType" required>
                                                         <option value="">@lang('customer-enquiry.select')</option>
                                                         <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == d.DeliveryType">
@@ -105,7 +105,7 @@
                                             </th>
                                             <th  class="bg-light">
                                                 <div class="form-group">
-                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area</label>
+                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area  <sup class="text-danger">*</sup></label>
                                                     <input  type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm my-2  mt-3" name="@{{Secindex}}TotalArea" ng-model="d.TotalArea" required>
                                                 </div>
                                             </th> 
@@ -185,7 +185,7 @@
                                                                 <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center"><i class="mdi mdi-drag"></i></div>
                                                                 <div class="form-group w-100 ">
                                                                   
-                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name</label>
+                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name  <sup class="text-danger">*</sup></label>
                                                                     <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="l.LayerName"   ng-model="l.LayerName" required>
                                                                             <option value="">@lang('customer-enquiry.select')</option>
                                                                             <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
@@ -203,12 +203,12 @@
                                                         <div class="col p-0"> 
                                                             <div class="btn-group shadow-sm border rounded">
                                                                 <div class="form-group">
-                                                                    <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness </label>
+                                                                    <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness  <sup class="text-danger">*</sup></label>
                                                                     <input  type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control rounded-0 rounded-start  border-0 form-control-sm" ng-model="l.Thickness " required >
                                                                 </div>
                                                                 <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >.mm</span>
                                                                 <div class="form-group">
-                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth</label>
+                                                                    <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth  <sup class="text-danger">*</sup></label>
                                                                     <input   type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " ng-model="l.Breadth" required>
                                                                 </div>
                                                                 <span class="input-group-text rounded-0 border-0 px-2 rounded-end justify-content-center">.mm</span>
