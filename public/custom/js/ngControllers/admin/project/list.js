@@ -40,33 +40,3 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         }
     });
 }); 
-app.controller('CreateProjectController', function ($scope, $http, API_URL){
-    let project_id =  $("#project_id").val();
-     //get building types
-    $http.get(`${API_URL}get-building-type`)
-    .then((res)=> {
-        $scope.buildingTypes = res.data;
-    });
-    //get delivery types
-    $http.get(`${API_URL}get-project-type`)
-    .then((res)=> {
-        $scope.projectTypes = res.data;
-    });
-    //get project types
-    $http.get(`${API_URL}get-delivery-type`)
-    .then((res)=> {
-        $scope.deliveryTypes = res.data;
-    });
-
-    $http.get(`${API_URL}project/${project_id}`)
-    .then((res)=> {
-        $scope.project = res.data;
-    });
-   
-
-
-    
-
-    
-});
-

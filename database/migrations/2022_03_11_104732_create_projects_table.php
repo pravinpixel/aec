@@ -19,6 +19,8 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('building_type_id');
             $table->unsignedBigInteger('project_type_id');
             $table->unsignedBigInteger('delivery_type_id');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->string('reference_number');
             $table->string('project_name')->nullable();
             $table->string('company_name')->nullable();
@@ -32,11 +34,13 @@ class CreateProjectsTable extends Migration
             $table->integer('no_of_building')->nullable();
             $table->date('start_date')->nullable();
             $table->date('delivery_date')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default('In-Progress');
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->foreign('project_type_id')->references('id')->on('project_types');
             $table->foreign('building_type_id')->references('id')->on('building_types');
             $table->foreign('delivery_type_id')->references('id')->on('delivery_types');
+            $table->foreign('created_by')->references('id')->on('employee');
+            $table->foreign('updated_by')->references('id')->on('employee');
             $table->timestamps();
         });
     }

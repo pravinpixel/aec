@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin\Project;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\ProjectRepositoryInterface;
+use App\Services\GlobalService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
@@ -25,6 +27,8 @@ class ProjectController extends Controller
 
     public function create()
     {
+        Session::forget('project_id');
+        $this->projectRepo->checkReferenceNumber();
         return view('admin.projects.create');
     }
 
@@ -122,5 +126,62 @@ class ProjectController extends Controller
     {
         return $this->projectRepo->getProjectById($id);
     }
+
+    public function getReferenceNumber()
+    {
+        return GlobalService::getProjectNumber();
+    }
+
+    public function getProjectId(){
+        return Session::get('project_id');
+    }
+
+    public function setProjectId($id){
+        Session::forget('project_id');
+        return Session::put('project_id', $id);
+    }
+
+    public function getProject($type)
+    {
+        $project_id = $this->getProjectId();
+        if(empty( $project_id)) return false;
+        if($type == 'create_project') {
+            return $this->projectRepo->getProjectById($project_id);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $type = $request->input('type');
+        $data = $request->input('data');
+        $project_id = $this->getProjectId();
+        $project = $this->projectRepo->getProjectById($project_id);
+        if($type == 'create_project') {
+            $data['reference_number'] = GlobalService::getProjectNumber();
+            $project = $this->projectRepo->storeProjectCreation($project_id, $data);
+            $this->setProjectId($project->id);
+            return $project;
+        } else if($type == 'connect_platform') {
+            return $this->projectRepo->storeConnectPlatform($project_id, $data);
+        }
+        return $request->all();
+    }
+
+    public function update($id, Request $request)
+    {
+        $type = $request->input('type');
+        $data = $request->input('data');
+        $project_id = $this->getProjectId();
+        if($type == 'create_project') {
+            $project = $this->projectRepo->storeProjectCreation($project_id, $data);
+            $this->setProjectId($project->id);
+        } else if($type == 'connect_platform') {
+            return $this->projectRepo->storeConnectPlatform($project_id, $data);
+        }
+        return $request->all();
+    }
+
+
+
 
 }

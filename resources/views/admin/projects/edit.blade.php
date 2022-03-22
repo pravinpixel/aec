@@ -104,7 +104,7 @@
 @push('custom-scripts')
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
-    <script src="{{ asset("public/custom/js/ngControllers/admin/project.js") }}"></script> 
+    <script src="{{ asset("public/custom/js/ngControllers/admin/project/edit-project.js") }}"></script> 
     <script>        
         
         app.controller("projectController", function($rootScope, $scope, $location){
@@ -142,6 +142,11 @@
                 redirectTo: "/"
             });
         });
+        window.onbeforeunload = function(e) {
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            e.returnValue = dialogText;
+            return dialogText;
+        };
     </script>
       
 @endpush

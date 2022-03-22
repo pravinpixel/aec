@@ -78,6 +78,6 @@
     </div> 
 @endsection 
 @push('custom-scripts')
-    <script src="{{ asset("public/custom/js/ngControllers/admin/project.js") }}"></script> 
+    <script src="{{ asset("public/custom/js/ngControllers/admin/project/list.js") }}"></script> 
 @endpush
 

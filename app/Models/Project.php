@@ -26,6 +26,18 @@ class Project extends Model
         'mobile_number',
         'start_date',
         'delivery_date',
-        'status'
+        'status',
+        'created_by',
+        'updated_by',
     ];
+
+    public function setCreatedByAttribute()
+    {
+        $this->attributes['created_by'] = Admin()->id ?? null;
+    }
+
+    public function setUpdatedByAttribute()
+    {
+        $this->attributes['updated_by'] = Admin()->id ?? null;
+    }
 }

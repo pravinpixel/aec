@@ -3,7 +3,7 @@
         <div class="row m-0 border-bottom mb-2 pb-2">
             <div class="col-md-6"> 
                 <div class="row m-0 align-items-center">
-                    <div class="col-3 mb-2 p-0"> @{{ test }}
+                    <div class="col-3 mb-2 p-0">
                         <label class="col-form-label">Project ID</label>
                     </div>
                     <div class="col pe-0">
@@ -25,10 +25,14 @@
             <div class="col-md-6"> 
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
-                        <label class="col-form-label">Company <sup class="text-danger">*</sup></label>
+                        <label class="col-form-label">Company Name<sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="text" name="company_name" ng-model="project.company_name" class="form-control form-control-sm" required>
+                        <input type="text"  name="company_name" id="validationCustom01" class="form-control form-control-sm"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(project.company_name)"  ng-model="project.company_name"/>
+                        <datalist id="companyList">
+                            <option ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
+                        </datalist>
+                        
                         <small class="text-danger" ng-show="createProjectForm.company_name.$invalid && createProjectForm.company_name.$toucehd">This field is required</small>
                     </div> 
                 </div>
@@ -39,7 +43,7 @@
                         <label class="col-form-label">Telephone <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="text" name="mobile_number" ng-model="project.mobile_number"  class="form-control form-control-sm" required>
+                        <input type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}"  onkeypress="return isNumber(event)" name="mobile_number" ng-model="project.mobile_number"  class="form-control form-control-sm" required>
                         <small class="text-danger" ng-show="createProjectForm.mobile_number.$invalid && createProjectForm.mobile_number.$toucehd">This field is required</small>
                     </div> 
                 </div>
@@ -61,7 +65,7 @@
                         <label class="col-form-label">Email <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="text" name="email" ng-model="project.email"  class="form-control form-control-sm" required>
+                        <input type="text" pattern="{{ config('global.email') }}"   name="email" ng-model="project.email"  class="form-control form-control-sm" required>
                         <small class="text-danger" ng-show="createProjectForm.email.$invalid && createProjectForm.email.$toucehd">This field is required</small>
                     </div> 
                 </div>    
@@ -93,15 +97,16 @@
             <div class="col-md-6">
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
-                        <label class="col-form-label">State <sup class="text-danger"></sup></label>
+                        <label class="col-form-label">Zipcode <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="text" name="state" ng-model="project.state" class="form-control form-control-sm" required>
-                        <small class="text-danger" ng-show="createProjectForm.state.$invalid && createProjectForm.state.$toucehd">This field is required</small>
+                        <input type="text" id="zipcode" name="zipcode" ng-model="project.zipcode" ng-change="getZipcode()" class="form-control form-control-sm" required>
+                        <small class="text-danger" ng-show="createProjectForm.zipcode.$invalid && createProjectForm.zipcode.$toucehd">This field is required</small>
 
                     </div> 
                 </div>
             </div>
+          
             <div class="col-md-6">
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
@@ -122,12 +127,11 @@
             <div class="col-md-6">
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
-                        <label class="col-form-label">Zipcode <sup class="text-danger">*</sup></label>
+                        <label class="col-form-label">State <sup class="text-danger"></sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="text"  name="zipcode" ng-model="project.zipcode"  class="form-control form-control-sm" required>
-                        <small class="text-danger" ng-show="createProjectForm.zipcode.$invalid && createProjectForm.zipcode.$toucehd">This field is required</small>
-
+                        <input type="text" name="state" ng-model="project.state" class="form-control form-control-sm" required>
+                        <small class="text-danger" ng-show="createProjectForm.state.$invalid && createProjectForm.state.$toucehd">This field is required</small>
                     </div> 
                 </div>
             </div>

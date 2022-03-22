@@ -33,6 +33,10 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     //========= END :  Wizard Flow Views =========
 });
 
-Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project'], function () {
+Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.'], function () {
+    Route::get('reference-number',[ProjectController::class, 'getReferenceNumber'])->name('reference-number');
     Route::get('/{id}',[ProjectController::class, 'show'])->name('get-by-id');
+    Route::post('/',[ProjectController::class, 'store'])->name('store');
+    Route::get('wizard/{type}',[ProjectController::class, 'getProject'])->name('wizard');
+    Route::put('/{id}',[ProjectController::class, 'update'])->name('update');
 });

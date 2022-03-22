@@ -283,7 +283,7 @@
                     'project_type_id'      : $projectInfo.project_type_id,
                     'project_date'         : new Date($projectInfo.project_date),
                     'site_address'         : $projectInfo.site_address,
-                    'place'                : $projectInfo.place,
+                    'place'                : $projectInfo.place,    
                     'country'              : $projectInfo.country,
                     'no_of_building'       : $projectInfo.no_of_building,
                     'delivery_type_id'     : $projectInfo.delivery_type_id,

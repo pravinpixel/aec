@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Models\Project;
 use App\Models\ProjectAssignToUser;
+use App\Services\GlobalService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProjectRepository implements ProjectRepositoryInterface{
@@ -36,6 +37,25 @@ class ProjectRepository implements ProjectRepositoryInterface{
     public function getProjectById($id)
     {
         return $this->model->find($id);
+    }
+
+    public function checkReferenceNumber()
+    {
+        $referenceNumber = GlobalService::getProjectNumber();
+        $project = $this->model->where('reference_number', $referenceNumber)->first();
+        if(!empty($project)) {
+            GlobalService::updateConfig('PRO');
+        }
+    }
+
+    public function storeProjectCreation($id, $data)
+    {
+        return $this->model->updateOrCreate(['id'=>$id], $data);
+    }
+
+    public function storeConnectPlatform($id, $data)
+    {
+
     }
 
 }
