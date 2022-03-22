@@ -230,8 +230,8 @@
     </div>
 </div>
 <div class="card-footer text-end">
-    <a href="#/" class="btn btn-light float-start">Prev</a>
-    <a href="#/team-setup" class="btn btn-primary">Next</a>
+    <a href="#!/" class="btn btn-light float-start">Prev</a>
+    <a href="#!/team-setup" class="btn btn-primary">Next</a>
 </div>
  
 <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">

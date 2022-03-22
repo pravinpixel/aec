@@ -32,7 +32,7 @@
                     </td>
                     <td  >
                         <div class="btn-group">
-                            <a href="#/permission/@{{m.id}}"" class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-gear"></i></a>
+                            <a href="#!/permission/@{{m.id}}"" class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-gear"></i></a>
                             <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleRole('edit', m.id)"><i class="fa fa-edit"></i></button>
                             <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmRoleDelete(m.id)"><i class="fa fa-trash"></i></button>
                         </div>

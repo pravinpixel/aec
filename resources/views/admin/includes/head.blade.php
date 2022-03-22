@@ -118,4 +118,8 @@
         top: 0;
         clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
     } 
+    .form-control.ng-valid ,
+    .form-select.ng-valid {
+    border-bottom: 1px solid #008a60 !important
+    }
 </style>

@@ -16,5 +16,6 @@ return [
     'delivery_date'         =>      "Delivery Date",
     'pipeline'              =>      "Pipeline",
     'action'                =>      "Actions",
+    "select"                =>      "Select",
 
 ];

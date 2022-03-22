@@ -22,7 +22,7 @@ class ConfigSeeder extends Seeder
             'customer_prefix' => 'CENQ', 
             'customer_enquiry_number' => '001',
             'project_prefix' => 'PRO',
-            'project_number' => '001'
+            'project_number' => '1'
         ]);
     }
 }

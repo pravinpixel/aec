@@ -19,8 +19,8 @@
     </div>
 </div>  
 <div class="card-footer text-end">
-    <a href="#/team-setup" class="btn btn-light float-start">Prev</a>
-    <a href="#/invoice-plan" class="btn btn-primary">Next</a>
+    <a href="#!/team-setup" class="btn btn-light float-start">Prev</a>
+    <a href="#!/invoice-plan" class="btn btn-primary">Next</a>
 </div>
 
 @if (Route::is('project-schedule')) 

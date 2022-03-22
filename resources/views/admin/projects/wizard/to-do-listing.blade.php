@@ -656,6 +656,6 @@
     </div>
 </div>
 <div class="card-footer text-end">
-    <a href="#/invoice-plan" class="btn btn-light float-start">Prev</a>
-    <a href="#/review-n-submit" class="btn btn-primary">Next</a>
+    <a href="#!/invoice-plan" class="btn btn-light float-start">Prev</a>
+    <a href="#!/review-n-submit" class="btn btn-primary">Next</a>
 </div>

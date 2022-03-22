@@ -17,7 +17,7 @@
                         <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 p-0 bg-light timeline-steps">
                             <li class="time-bar"></li>
                             <li class="nav-item Create_Project">
-                                <a href="#/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
+                                <a href="#!/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/create-plateform.png") }}" class="w-50 invert">
@@ -27,7 +27,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item Platform">
-                                <a href="#/platform" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/platform" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
@@ -37,7 +37,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item Team_Setup">
-                                <a href="#/team-setup" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/team-setup" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
                                             <img src="{{ asset("public/assets/icons/team-setup.png") }}" class="w-50 invert">
@@ -47,7 +47,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item Project_Scheduling">
-                                <a href="#/project-scheduling" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/project-scheduling" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
                                             <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
@@ -57,7 +57,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item Invoice_Plan">
-                                <a href="#/invoice-plan" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/invoice-plan" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
                                             <img src="{{ asset("public/assets/icons/result.png") }}" class="w-50 invert">
@@ -67,7 +67,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item To_Do_List">
-                                <a href="#/to-do-listing" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/to-do-listing" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
                                             <img src="{{ asset("public/assets/icons/to-do.png") }}" class="w-50 invert">
@@ -77,7 +77,7 @@
                                 </a>
                             </li>                                
                             <li class="nav-item admin-Delivery-wiz">
-                                <a href="#/review-n-submit" style="min-height: 40px;"  class="timeline-step" data-is-active >
+                                <a href="#!/review-n-submit" style="min-height: 40px;"  class="timeline-step" data-is-active >
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary">
                                             <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">

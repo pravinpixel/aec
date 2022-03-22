@@ -57,8 +57,8 @@
     
 </div>
 <div class="card-footer text-end">
-    <a href="#/project-scheduling" class="btn btn-light float-start">Prev</a>
-    <a href="#/to-do-listing" class="btn btn-primary">Next</a>
+    <a href="#!/project-scheduling" class="btn btn-light float-start">Prev</a>
+    <a href="#!/to-do-listing" class="btn btn-primary">Next</a>
 </div>
 <style>
     .datepicker-inline , .datepicker-inline table {

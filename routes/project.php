@@ -32,3 +32,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
         Route::get('project-unestablished-list', [ProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');
     //========= END :  Wizard Flow Views =========
 });
+
+Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project'], function () {
+    Route::get('/{id}',[ProjectController::class, 'show'])->name('get-by-id');
+});

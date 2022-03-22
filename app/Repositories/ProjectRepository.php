@@ -33,4 +33,9 @@ class ProjectRepository implements ProjectRepositoryInterface{
         return $dataDb;
     }
 
+    public function getProjectById($id)
+    {
+        return $this->model->find($id);
+    }
+
 }

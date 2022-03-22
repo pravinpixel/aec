@@ -41,7 +41,7 @@
                             <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
                                 <li class="time-bar"></li>
                                 <li class="nav-item  Project_Info">
-                                    <a href="#/Project_Info"   style="min-height: 40px;" class="timeline-step">
+                                    <a href="#!/Project_Info"   style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
@@ -51,7 +51,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item  admin-Technical_Estimate-wiz">
-                                    <a href="#/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
+                                    <a href="#!/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
@@ -61,7 +61,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item admin-Cost_Estimate-wiz">
-                                    <a href="#/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
+                                    <a href="#!/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/budget.png") }}" class="w-50 invert">
@@ -71,7 +71,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item admin-Project_Schedule-wiz">
-                                    <a href="#/Project_Schedule" style="min-height: 40px;" class="timeline-step">
+                                    <a href="#!/Project_Schedule" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
@@ -81,7 +81,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item admin-Proposal_Sharing-wiz">
-                                    <a href="#/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
+                                    <a href="#!/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/share.png") }}" class="w-50 invert">
@@ -91,7 +91,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item admin-Project_Award-wiz" >
-                                    <a href="#/Response_status"  style="min-height: 40px;"  class="timeline-step">
+                                    <a href="#!/Response_status"  style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content ">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/result.png") }}" class="w-50 invert">
@@ -101,7 +101,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item admin-Delivery-wiz">
-                                    <a href="#/Move_to_project" style="min-height: 40px;"  class="timeline-step">
+                                    <a href="#!/Move_to_project" style="min-height: 40px;"  class="timeline-step">
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary">
                                                 <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">

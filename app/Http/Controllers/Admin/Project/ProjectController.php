@@ -30,7 +30,7 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
-        return view('admin.projects.edit');
+        return view('admin.projects.edit', compact('id'));
     }
 
     public function createWizard()
@@ -116,6 +116,11 @@ class ProjectController extends Controller
     public function completedProjectList()
     {
         
+    }
+
+    public function show($id)
+    {
+        return $this->projectRepo->getProjectById($id);
     }
 
 }
