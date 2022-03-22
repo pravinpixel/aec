@@ -88,17 +88,15 @@ class ProposalController extends Controller
             $enquiry->project_status = "Active";
             $enquiry->customer_response = 1;
             $enquiry->save();
-          
-            $proposal           =   MailTemplate::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
-                                                    ->update(['proposal_status' => 'approved']);
-                                            
-            $proposal_version   =   PropoalVersions::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
-                                                    ->update(['proposal_status' => 'approved']);    
-                                                    
-            $proposal           =   MailTemplate::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
-                                                    ->update(['proposal_status' => 'obsolete']);
-            $proposal_version   =   PropoalVersions::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
-                                                    ->update(['proposal_status' => 'obsolete']);                        
+            MailTemplate::where('enquiry_id', $id)->update(['proposal_status' => 'obsolete']);
+            PropoalVersions::where('enquiry_id', $id)->update(['proposal_status' => 'obsolete']);      
+            if( $version_id  != 0)    {
+                 PropoalVersions::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id, 'id' => $version_id])
+                                ->update(['proposal_status' => 'approved']);  
+            } else {
+                MailTemplate::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
+                                ->update(['proposal_status' => 'approved']);
+            }           
             Flash::success('Proposal successfully approved!');
             return redirect()->route('login');
         }

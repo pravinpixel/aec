@@ -1036,6 +1036,7 @@
                     params:{'documentId':documentId,'enquireId':enquireId},
                 }).then(function (response) {
                     if(response.data.status == false){
+                        Swal.close();
                         Message('danger', response.data.msg);
                         return false;
                     }
