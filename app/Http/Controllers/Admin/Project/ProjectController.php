@@ -3,21 +3,30 @@
 namespace App\Http\Controllers\Admin\Project;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
 {
     protected $projectRepo;
+    protected $customerEnquiryRepo;
+    protected $customerRep;
 
     public function __construct(
-       ProjectRepositoryInterface $projectRepo
+       ProjectRepositoryInterface $projectRepo,
+       CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
+       CustomerRepositoryInterface $customerRepo
     ){
-        $this->projectRepo = $projectRepo;
+        $this->projectRepo        = $projectRepo;
+        $this->customerEnquiryRepo = $customerEnquiryRepo;
+        $this->customerRepo        = $customerRepo;
     }
 
     public function index()
@@ -157,6 +166,10 @@ class ProjectController extends Controller
         $project_id = $this->getProjectId();
         $project = $this->projectRepo->getProjectById($project_id);
         if($type == 'create_project') {
+            if(empty($project->customer_id)){
+                $customer = $this->formatCustomerData($data);
+                $data['customer_id'] = $this->customerRepo->create($customer)->id;
+            }
             $data['reference_number'] = GlobalService::getProjectNumber();
             $project = $this->projectRepo->storeProjectCreation($project_id, $data);
             $this->setProjectId($project->id);
@@ -181,7 +194,25 @@ class ProjectController extends Controller
         return $request->all();
     }
 
+    public function getEnquiry($id)
+    {
+        return $this->customerEnquiryRepo->getEnquiryByID($id);
+    }
 
-
+    public function formatCustomerData($data)
+    {
+        return  [
+            'first_name'     => $data['contact_person'],
+            'last_name'      => $data['contact_person'],
+            'full_name'      => $data['contact_person'],
+            'email'          => $data['email'],
+            'password'       => Hash::make('12345678'),
+            'mobile_no'      => $data['mobile_number'],
+            'contact_person' => $data['contact_person'],
+            'company_name'   => $data['company_name'],
+            'created_by'     => Admin()->id,
+            'updated_by'     => Admin()->id
+        ];
+    }
 
 }

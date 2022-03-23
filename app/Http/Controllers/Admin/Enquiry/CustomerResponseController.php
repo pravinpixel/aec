@@ -51,6 +51,8 @@ class CustomerResponseController extends Controller
     public function getDataFromEnquiey($enquiry)
     {
         return  [
+            'customer_id'      => $enquiry->customer_id,
+            'project_type_id'  => $enquiry->project_type_id,
             'project_type_id'  => $enquiry->project_type_id,
             'building_type_id' => $enquiry->building_type_id,
             'delivery_type_id' => $enquiry->delivery_type_id,

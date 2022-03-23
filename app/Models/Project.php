@@ -9,6 +9,7 @@ class Project extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'customer_id',
         'enquiry_id',
         'building_type_id',
         'project_type_id',
@@ -21,12 +22,19 @@ class Project extends Model
         'zipcode',
         'country',
         'state',
+        'city',
+        'language',
         'no_of_building',
         'project_name',
         'mobile_number',
         'start_date',
         'delivery_date',
         'status',
+        'address_one',
+        'address_two',
+        'time_zone',
+        'status',
+        'linked_to_customer',
         'created_by',
         'updated_by',
     ];

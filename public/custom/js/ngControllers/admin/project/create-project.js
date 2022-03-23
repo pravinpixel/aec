@@ -1,5 +1,8 @@
+formatData = (project) => {
+    return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.start_date)}}
+}
 
-app.controller('CreateProjectController', function ($scope, $http, API_URL){
+app.controller('CreateProjectController', function ($scope, $http, API_URL, $location){
     $scope.project = {};
     $http.get(`${API_URL}project/reference-number`)
     .then((res)=> {
@@ -20,10 +23,6 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL){
     .then((res)=> {
         $scope.deliveryTypes = res.data;
     });
-
-    formatData = (project) => {
-        return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.start_date)}}
-    }
 
     $http.get(`${API_URL}project/wizard/create_project`)
     .then((res)=> {
@@ -73,6 +72,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL){
                 });
                 if($scope.companyList.length == 1) {
                     $scope.project.company_name = $scope.companyList[0].company;
+                    $scope.project.mobile_number = $scope.companyList[0].mobile.split(" ").join("");
                     $("#zipcode").val($scope.companyList[0].zip_code);
                     $scope.getZipcode();
                 }
@@ -84,9 +84,29 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL){
     $scope.submitCreateProjectForm = () => {
         $http.post(`${API_URL}project`, {data: $scope.project, type:'create_project'})
             .then((res) => {
+                $location.path('platform');
                 console.log(res);
             })
     }
+});
 
+app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location){
+    $scope.project = {};
+    $http.get(`${API_URL}get-project-type`)
+    .then((res)=> {
+        $scope.projectTypes = res.data;
+    });
+
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        if(res.data != false) $scope.project = formatData(res.data);
+    });
+
+    $scope.submitConnectPlatformForm = () => {
+        $http.post(`${API_URL}project`, {data: $scope.project, type:'create_project'})
+        .then((res) => {
+            $location.path('team-setup')
+        })
+    }
 });
 

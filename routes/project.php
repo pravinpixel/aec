@@ -39,4 +39,5 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::post('/',[ProjectController::class, 'store'])->name('store');
     Route::get('wizard/{type}',[ProjectController::class, 'getProject'])->name('wizard');
     Route::put('/{id}',[ProjectController::class, 'update'])->name('update');
+    Route::get('enquiry/{id}',[ProjectController::class, 'getEnquiry'])->name('get-enquiry');
 });

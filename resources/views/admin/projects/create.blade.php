@@ -120,6 +120,7 @@
             }) 
             .when("/platform", {
                 templateUrl : "{{ route('platform') }}",
+                controller: 'ConnectPlatformController',
             })
             .when("/team-setup", {
                 templateUrl : "{{ route('team-setup') }}",

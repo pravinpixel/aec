@@ -16,6 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('enquiry_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->unsignedBigInteger('building_type_id');
             $table->unsignedBigInteger('project_type_id');
             $table->unsignedBigInteger('delivery_type_id');
@@ -31,13 +32,21 @@ class CreateProjectsTable extends Migration
             $table->string('zipcode')->nullable();
             $table->string('country')->nullable();
             $table->string('state')->nullable();
+            $table->string('city')->nullable();
             $table->integer('no_of_building')->nullable();
             $table->date('start_date')->nullable();
             $table->date('delivery_date')->nullable();
             $table->string('status')->default('In-Progress');
+            $table->string('address_one')->nullable();
+            $table->string('address_two')->nullable();
+            $table->string('time_zone')->nullable();
+            $table->string('language')->nullable();
+            $table->boolean('linked_to_customer')->default(0);
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
+            $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('project_type_id')->references('id')->on('project_types');
             $table->foreign('building_type_id')->references('id')->on('building_types');
+            $table->foreign('delivery_type_id')->references('id')->on('delivery_types');
             $table->foreign('delivery_type_id')->references('id')->on('delivery_types');
             $table->foreign('created_by')->references('id')->on('employee');
             $table->foreign('updated_by')->references('id')->on('employee');
