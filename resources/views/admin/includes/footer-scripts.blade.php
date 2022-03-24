@@ -56,7 +56,7 @@
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="{{ asset('public/assets/js/custom.js') }}"></script>
-
+<script src="https://cdn3.devexpress.com/jslib/21.2.5/js/dx.all.js"></script>
 <!-- ========= For Vendors Js ===========-->
 <!-- ========= For Validation Js ===========-->
 

@@ -118,5 +118,14 @@ app.service('fileUpload', function ($http, $q) {
         return deffered.promise;
     }
 });
-
+{/* <div class="btn-group w-100 border rounded"> 
+<div dx-tag-box="tagBox.customTemplate" dx-item-alias="product" select-user>
+    <div data-options="dxTemplate: { name: 'customItem' }">
+      <div class="custom-item" dx-click="getItem($key)">
+        <div class="product-name"> @{{product.first_Name}}</div>
+      </div>
+    </div>
+  </div>
+<a class="btn btn-light" ng-click="removeResource($key)"><i class="text-danger fa fa-trash"></i></a>
+</div> */}
  //popup directives

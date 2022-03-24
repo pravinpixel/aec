@@ -434,3 +434,13 @@ small {
 sup {
     font-size: 10px !important;
 }
+
+.dx-texteditor-container {
+    min-width: 300px !important;
+    max-width: 320px !important;
+    overflow: auto !important;
+}
+
+.dx-tag-content {
+    font-size: 12px !important;
+}

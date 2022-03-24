@@ -35,7 +35,8 @@
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
 <!-- ========= Alert js Notifications ========== -->
 <link rel="stylesheet" href="{{ asset('public/custom/css/wizz.css') }}"> 
-
+<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.common.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.light.css" />
 
 <style>
     .font-weight-bold {
