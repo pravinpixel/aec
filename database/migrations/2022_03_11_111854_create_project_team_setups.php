@@ -16,15 +16,10 @@ class CreateProjectTeamSetups extends Migration
         Schema::create('project_team_setups', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('employee_id');
-            $table->boolean('add')->default(0);
-            $table->boolean('edit')->default(0);
-            $table->boolean('delete')->default(0);
-            $table->boolean('view')->default(0);
-            $table->boolean('comments')->default(0);
-            $table->boolean('download')->default(0);
+            $table->unsignedBigInteger('role_id');
+            $table->string('team')->nullable();
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->foreign('employee_id')->references('id')->on('employee');
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamps();
         });
     }

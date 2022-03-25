@@ -124,6 +124,7 @@
             })
             .when("/team-setup", {
                 templateUrl : "{{ route('team-setup') }}",
+                controller : 'TeamSetupController'
             })
             .when("/project-scheduling", {
                 templateUrl : "{{ route('project-schedule') }}",

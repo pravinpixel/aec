@@ -40,4 +40,5 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::get('wizard/{type}',[ProjectController::class, 'getProject'])->name('wizard');
     Route::put('/{id}',[ProjectController::class, 'update'])->name('update');
     Route::get('enquiry/{id}',[ProjectController::class, 'getEnquiry'])->name('get-enquiry');
+    Route::get('edit/{id}/{type}',[ProjectController::class, 'getEditProject'])->name('get-edit-project');
 });

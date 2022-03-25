@@ -11,4 +11,6 @@ interface ProjectRepositoryInterface
     public function storeProjectCreation($id, $data);
     public function storeConnectPlatform($id, $data);
     public function checkReferenceNumber();
+    public function storeTeamSetupPlatform($project_id, $data);
+    public function getProjectTeamSetup($project_id);
 }

@@ -44,8 +44,13 @@ class Project extends Model
         $this->attributes['created_by'] = Admin()->id ?? null;
     }
 
-    public function setUpdatedByAttribute()
+    // public function setUpdatedByAttribute()
+    // {
+    //     $this->attributes['updated_by'] = Admin()->id ?? null;
+    // }
+
+    public function teamSetup()
     {
-        $this->attributes['updated_by'] = Admin()->id ?? null;
+        return $this->hasMany(ProjectTeamSetup::class, 'project_id', 'id');
     }
 }

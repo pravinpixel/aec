@@ -10,12 +10,17 @@ class ProjectTeamSetup extends Model
     use HasFactory;
     protected $fillable = [
         'project_id',
-        'employee_id',
-        'add',
-        'edit',
-        'delete',
-        'view',
-        'comments',
-        'delete'
+        'role_id',
+        'team'
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    public function getTeamAttribute()
+    {
+        return json_decode($this->attributes['team']);
+    }
 }

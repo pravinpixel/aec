@@ -84,8 +84,8 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
     $scope.submitCreateProjectForm = () => {
         $http.post(`${API_URL}project`, {data: $scope.project, type:'create_project'})
             .then((res) => {
+                Message('success', 'Project Created Successfully');
                 $location.path('platform');
-                console.log(res);
             })
     }
 });
@@ -105,8 +105,77 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
     $scope.submitConnectPlatformForm = () => {
         $http.post(`${API_URL}project`, {data: $scope.project, type:'create_project'})
         .then((res) => {
+            Message('success', 'Connect platform Created Successfully');
             $location.path('team-setup')
         })
     }
+});
+
+app.controller('TeamSetupController', function ($scope, $http, API_URL, $location){
+    $scope.teamRole   = {};
+    $scope.tagBox     = {};
+    $scope.teamSetups = [];
+    $http.get(`${API_URL}project/wizard/team_setup`)
+    .then((res)=> {
+        $scope.teamSetups =  res.data.map( (item) => {
+            return { role: item.role, team: item.team }
+        })
+    });
+    $http.get(`${API_URL}role`).then((res) => {
+        $scope.roles = res.data;
+    });
+
+    $scope.addResource = (role) => {
+        let role_data = JSON.parse(role);
+        if($scope.teamRole.role == "" || typeof($scope.teamRole.role) == 'undefined') {
+            Message('danger','Please select role');
+            return false;
+        }
+        const result = $scope.teamSetups.filter(item => item.role.id == role_data.id);
+        if(result.length) {
+            Message('danger','Role already added');
+            return false;
+        }
+        $scope.teamSetups.push( {role: role_data, team:{}});
+        $scope.teamRole.role = "";
+    }
+    $scope.removeResource = (index) => {
+        $scope.teamSetups.splice(index, 1);
+    }
+    
+    $scope.teamSetupFormSubmit = () => {
+        $http.post(`${API_URL}project`, {data: $scope.teamSetups, type:'team_setup'})
+        .then((res) => {
+            Message('success', 'Team Setup created successfully');
+            $location.path('project-scheduling')
+        })
+    }
+});
+
+app.directive('getRoleUser',function getRoleUser($http, API_URL){
+    return {
+        restrict: 'A',
+        link : function (scope, element, attrs) {
+            let selectedValues = Object.values(scope.teamSetups[attrs.value].team);
+            $http.get(`${API_URL}role/${scope.teamSetup.role.id}`).then((res) => {
+                if(selectedValues) {
+                    scope.tagBox = {
+                        customTemplate: {
+                        dataSource:  res.data.data,
+                        displayExpr: 'first_Name',
+                        valueExpr: 'id',
+                        itemTemplate: 'customItem',
+                        value: selectedValues,
+                        searchEnabled: true,
+                        onValueChanged(e) {
+                            scope.teamSetup.team = e.value;
+                        },
+                        },
+                    };
+                }
+                
+            });
+        },
+    };
 });
 

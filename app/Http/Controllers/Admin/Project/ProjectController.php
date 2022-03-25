@@ -156,6 +156,17 @@ class ProjectController extends Controller
         if(empty( $project_id)) return false;
         if($type == 'create_project') {
             return $this->projectRepo->getProjectById($project_id);
+        } else if($type == 'team_setup') {
+            return $this->projectRepo->getProjectTeamSetup($project_id);
+        }
+    }
+
+    public function getEditProject($id, $type)
+    {
+        if($type == 'create_project') {
+            return $this->projectRepo->getProjectById($id);
+        } else if($type == 'team_setup') {
+            return $this->projectRepo->getProjectTeamSetup($id);
         }
     }
 
@@ -176,6 +187,8 @@ class ProjectController extends Controller
             return $project;
         } else if($type == 'connect_platform') {
             return $this->projectRepo->storeConnectPlatform($project_id, $data);
+        } else if($type == 'team_setup'){
+            return $this->projectRepo->storeTeamSetupPlatform($project_id, $data);
         }
         return $request->all();
     }
@@ -184,12 +197,13 @@ class ProjectController extends Controller
     {
         $type = $request->input('type');
         $data = $request->input('data');
-        $project_id = $this->getProjectId();
         if($type == 'create_project') {
-            $project = $this->projectRepo->storeProjectCreation($project_id, $data);
+            $project = $this->projectRepo->storeProjectCreation($id, $data);
             $this->setProjectId($project->id);
         } else if($type == 'connect_platform') {
-            return $this->projectRepo->storeConnectPlatform($project_id, $data);
+            return $this->projectRepo->storeConnectPlatform($id, $data);
+        } else if($type == 'team_setup'){
+            return $this->projectRepo->storeTeamSetupPlatform($id, $data);
         }
         return $request->all();
     }
