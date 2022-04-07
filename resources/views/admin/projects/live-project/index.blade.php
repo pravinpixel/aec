@@ -17,7 +17,7 @@
                         <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 p-0 bg-light timeline-steps">
                             <li class="time-bar"></li>
                             <li class="nav-item">
-                                <a href="#/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
+                                <a href="#!/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/create-plateform.png") }}" class="w-50 invert">
@@ -27,7 +27,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item">
-                                <a href="#/milestone" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/milestone" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
@@ -37,17 +37,7 @@
                                 </a>
                             </li>    
                             <li class="nav-item">
-                                <a href="#/task-list" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2"> task-list</p>
-                                </a>
-                            </li>    
-                            <li class="nav-item">
-                                <a href="#/bim360" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/bim360" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
@@ -57,7 +47,7 @@
                                 </a>
                             </li>                         
                             <li class="nav-item">
-                                <a href="#/tickets" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/tickets" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
@@ -67,7 +57,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#/variation-orders" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/variation-orders" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
@@ -77,7 +67,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#/invoice-status" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/invoice-status" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
@@ -87,7 +77,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
@@ -97,7 +87,7 @@
                                 </a>
                             </li>
                             <li class="nav-item last">
-                                <a href="#/notes" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/notes" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">

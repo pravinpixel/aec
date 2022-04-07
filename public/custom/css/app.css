@@ -13,6 +13,22 @@
     }
 /* ========= Custom Data Tables ========== */
 
+.x-y-center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.x-y-between {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+.count-box {
+    height: 20px !important;
+    width: 20px !important;
+    border-radius: 50% !important;
+    line-height:  0 !important;
+}
 /*  ============  Custom According Button ============= */
 
     .custom-accordion-button.accordion-button::before {
