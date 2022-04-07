@@ -30,70 +30,80 @@
                                 <a href="#!/milestone" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2"> milestone</p>
+                                    <p class="h5 mt-2"> Milestone</p>
+                                </a>
+                            </li>    
+                            <li class="nav-item">
+                                <a href="#!/task-list" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                    <div class="timeline-content">
+                                        <div class="inner-circle bg-secondary " >
+                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                        </div>
+                                    </div>
+                                    <p class="h5 mt-2"> Task list</p>
                                 </a>
                             </li>    
                             <li class="nav-item">
                                 <a href="#!/bim360" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">bim360</p>
+                                    <p class="h5 mt-2">BIM 360</p>
                                 </a>
                             </li>                         
                             <li class="nav-item">
                                 <a href="#!/tickets" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">tickets</p>
+                                    <p class="h5 mt-2">Tickets</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#!/variation-orders" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">variation-orders</p>
+                                    <p class="h5 mt-2">Variation Orders</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#!/invoice-status" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">invoice-status</p>
+                                    <p class="h5 mt-2">Invoice Status</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">doc-management</p>
+                                    <p class="h5 mt-2">Doc Management</p>
                                 </a>
                             </li>
                             <li class="nav-item last">
                                 <a href="#!/notes" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">notes</p>
+                                    <p class="h5 mt-2">Notes</p>
                                 </a>
                             </li> 
                         </ul>

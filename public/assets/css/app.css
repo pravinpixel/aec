@@ -15876,3 +15876,7 @@ table th,td {
     background: #00000080;
     backdrop-filter: blur(1px) !important;
 }
+
+.min-h-300 {
+  min-height: 390px 
+}
