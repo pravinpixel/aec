@@ -89,11 +89,11 @@
                     <span> Projects </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse {{ Route::is(["create-projects", "list-projects"]) ? "show" : ""}}" id="project_creation">
+                <div class="collapse {{ Route::is(["create-projects", "list-projects","live-projects"]) ? "show" : ""}}" id="project_creation">
                     <ul class="side-nav-second-level">
                         <li class="{{ Route::is(["list-projects"]) ? "menuitem-active" : ""}}"><a href="{{ route('list-projects') }}">List of Project</a></li>  
                         <li class="{{ Route::is(["create-projects"]) ? "menuitem-active" : ""}}"><a href="{{ route('create-projects') }}">Create New Project</a></li>  
-                        <li><a href="">Live Project</a></li>  
+                        <li class="{{ Route::is(["live-projects"]) ? "menuitem-active" : ""}}"><a href="{{ route('live-projects') }}">Live Project</a></li>   
                         <li><a href="#">Completed Project</a></li>  
                     </ul>
                 </div>

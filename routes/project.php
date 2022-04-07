@@ -11,6 +11,10 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
 
     Route::get('edit-projects/{id}',[ProjectController::class, 'edit'])->name('edit-projects');
 
+    Route::get('/live-projects', function () {
+        return view('admin.projects.live-project.index');
+    })->name('live-projects');
+
     //=========  Wizard Flow Views =========
         Route::get('create-project',[ProjectController::class, 'createWizard'])->name('create-project');
 
@@ -25,9 +29,8 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
         Route::get('project-invoice-plan', [ProjectController::class, 'invoicePlan'])->name('invoice-plan');
 
         Route::get('project-review-n-submit', function () {
-            return view('admin.projects.wizard.review-n-submit');
+            return view('admin.projects.create-project.wizard.review-n-submit');
         })->name('review-n-submit');
-
         
         Route::get('project-unestablished-list', [ProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');
     //========= END :  Wizard Flow Views =========
@@ -42,3 +45,47 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::get('enquiry/{id}',[ProjectController::class, 'getEnquiry'])->name('get-enquiry');
     Route::get('edit/{id}/{type}',[ProjectController::class, 'getEditProject'])->name('get-edit-project');
 });
+
+
+Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
+    
+     // ==========  Live PROJECT flow  ================
+    Route::get('live-project/overview', function () {
+        return view('admin.projects.live-project.wizard.overview');
+    })->name('live-project.overview');
+
+    Route::get('live-project/milestone', function () {
+        return view('admin.projects.live-project.wizard.milestone');
+    })->name('live-project.milestone');
+
+    Route::get('live-project/task-list', function () {
+        return view('admin.projects.live-project.wizard.task-list');
+    })->name('live-project.task-list');
+    
+    Route::get('live-project/bim360', function () {
+        return view('admin.projects.live-project.wizard.bim360');
+    })->name('live-project.bim360');
+
+    Route::get('live-project/tickets', function () {
+        return view('admin.projects.live-project.wizard.tickets');
+    })->name('live-project.tickets');
+
+    Route::get('live-project/variation-orders', function () {
+        return view('admin.projects.live-project.wizard.variation-orders');
+    })->name('live-project.variation-orders');
+
+    Route::get('live-project/invoice-status', function () {
+        return view('admin.projects.live-project.wizard.invoice-status');
+    })->name('live-project.invoice-status');
+
+    Route::get('live-project/doc-management', function () {
+        return view('admin.projects.live-project.wizard.doc-management');
+    })->name('live-project.doc-management');
+
+    Route::get('live-project/notes', function () {
+        return view('admin.projects.live-project.wizard.notes');
+    })->name('live-project.notes');
+  
+    // ========== END  :  Live PROJECT flow  ================
+ 
+}); 
