@@ -10,8 +10,7 @@
                 
                 <!-- start page title -->
                 @include('admin.includes.page-navigater')
-                <!-- end page title -->
-
+                <!-- end page title --> 
                 <div class="card border">
                     <div class="card-header p-0">
                         <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 p-0 bg-light timeline-steps">
@@ -111,6 +110,11 @@
                     {{-- =====NG View  =====--}}
                         <div ng-view></div>
                     {{-- =======NG View ==== --}}
+                    <div class="card-footer text-end">
+                        <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
+                        <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
+                        <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,11 +131,55 @@
         
         app.controller("LiveProjectController", function($rootScope, $scope, $location){
             $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
-                if($location.url() == '/') $scope.isMain = true;
-                else $scope.isMain = false;
+
+                if($location.url() == '/') $scope.isMain = true; else $scope.isMain = false; 
+                $scope.PrevRoute    =  ""; $scope.NextRoute = ""; 
+                
+                $scope.indexRoute       =   true;
+                $scope.HideNextRoute    =   true;
+                $scope.SubmitRoute      =   false;
+
+                if($location.url()  == '/') {
+                    $scope.NextRoute   =   "/milestone"
+                    $scope.indexRoute   =   false;
+                }
+                if($location.path() == '/milestone') { 
+                    $scope.PrevRoute   =   "/"
+                    $scope.NextRoute   =   "/task-list"
+                }
+                if($location.path() == '/task-list') {
+                    $scope.PrevRoute   =   "/milestone"
+                    $scope.NextRoute   =   "/bim360"
+                }
+                if($location.path() == '/bim360') {
+                    $scope.PrevRoute   =   "/task-list"
+                    $scope.NextRoute   =   "/tickets"
+                }
+                if($location.path() == '/tickets') {
+                    $scope.PrevRoute   =   "/bim360"
+                    $scope.NextRoute   =   "/variation-orders"
+                }
+                if($location.path() == '/variation-orders') {
+                    $scope.PrevRoute   =   "/tickets"
+                    $scope.NextRoute   =   "/invoice-status"
+                }
+                if($location.path() == '/invoice-status') {
+                    $scope.PrevRoute   =   "/variation-orders"
+                    $scope.NextRoute   =   "/doc-management"
+                }
+                if($location.path() == '/doc-management') {
+                    $scope.PrevRoute   =   "/invoice-status"
+                    $scope.NextRoute   =   "/notes"
+                }
+                if($location.path() == '/notes') {
+                    $scope.PrevRoute        =   "/doc-management"
+                    $scope.NextRoute        =   "/notes"
+                    $scope.HideNextRoute    =   false;
+                    $scope.SubmitRoute      =   true;
+                }
             });
         });
-         
+
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
