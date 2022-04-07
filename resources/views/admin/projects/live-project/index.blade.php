@@ -127,8 +127,7 @@
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
 
-    <script>        
-        
+    <script>
         app.controller("LiveProjectController", function($rootScope, $scope, $location){
             $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
 
@@ -213,6 +212,6 @@
                 redirectTo: "/"
             });
         });
-    </script>
+    </script> 
 @endpush
  

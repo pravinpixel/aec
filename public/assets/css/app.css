@@ -15878,13 +15878,9 @@ table th,td {
 }
 
 .min-h-300 {
-  min-height: 390px 
+  min-height: 250px 
 }
-.btn-check:focus + .btn-primary, .btn-primary:focus {
-  box-shadow: none !important;
-  background: #4199fc !important;
-  border: white !important;
-}
+ 
 .btn-primary:active {
   background: #002a80 !important;
 }

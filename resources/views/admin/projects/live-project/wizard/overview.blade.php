@@ -83,7 +83,7 @@
             <div class="card-body p-0 py-2">
                 <div class="row m-0 ps-2">
                     <div class="col-lg-12 ps-0 mb-2">
-                        <div class="card shadow-sm border m-0 p-3 text-center">
+                        <div class="card shadow-sm border m-0 p-2 text-center">
                             <div class="x-y-between">
                                 <strong>Open</strong>
                                 <strong class="lead fw-bold ms-2 badge bg-danger x-y-center count-box">15</strong>
@@ -91,7 +91,7 @@
                         </div>
                     </div> 
                     <div class="col-lg-12 ps-0 mb-2">
-                        <div class="card shadow-sm border m-0 p-3 text-center">
+                        <div class="card shadow-sm border m-0 p-2 text-center">
                             <div class="x-y-between">
                                 <strong>Answered</strong>
                                 <strong class="lead fw-bold ms-2 badge bg-success x-y-center count-box">5</strong>
@@ -99,7 +99,7 @@
                         </div>
                     </div> 
                     <div class="col-lg-12 ps-0 mb-2">
-                        <div class="card shadow-sm border m-0 p-3 text-center">
+                        <div class="card shadow-sm border m-0 p-2 text-center">
                             <div class="x-y-between">
                                 <strong>Closed</strong>
                                 <strong class="lead fw-bold ms-2 badge bg-secondary x-y-center count-box">6</strong>
@@ -107,7 +107,7 @@
                         </div>
                     </div> 
                     <div class="col-lg-12 ps-0">
-                        <div class="card shadow-sm border m-0 p-3 text-center">
+                        <div class="card shadow-sm border m-0 p-2 text-center">
                             <div class="x-y-between">
                                 <strong>Void</strong>
                                 <strong class="lead fw-bold ms-2 badge bg-light text-secondary border x-y-center count-box">6</strong>
@@ -118,6 +118,49 @@
             </div>
         </div>
     </div>  
+    <div class="col-sm-6 px-1 mb-2">
+        <div class="card shadow-sm border mb-0 shadow-sm bg-light min-h-300">
+            <div class="card-header border-0 pb-0 bg-light">
+                <strong class="fw-bold"> Financials</strong>
+            </div>
+            <div class="card-body p-0 py-2">
+                <div class="row m-0 ps-2">
+                    <div class="col-lg-12 ps-0 mb-2">
+                        <div class="card shadow-sm border m-0 p-2 text-center">
+                            <div class="x-y-between">
+                                <strong>Original Budget</strong>
+                                <span>$19,432</span>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-lg-12 ps-0 mb-2">
+                        <div class="card shadow-sm border m-0 p-2 text-center">
+                            <div class="x-y-between">
+                                <strong>Invoiced Amount</strong>
+                                <span>$19,432</span>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-lg-12 ps-0 mb-2">
+                        <div class="card shadow-sm border m-0 p-2 text-center">
+                            <div class="x-y-between">
+                                <strong>Original Hours</strong>
+                                <span>$19,432</span>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-lg-12 ps-0">
+                        <div class="card shadow-sm border m-0 p-2 text-center">
+                            <div class="x-y-between">
+                                <strong>Used Hours</strong>
+                                <span>$19,432</span>
+                            </div> 
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-6 px-1 mb-2">
         <div class="m-0 text-center min-h-300">
             <div>
@@ -182,44 +225,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 px-1 mb-2">
-        <div class="card shadow-sm border mb-0 shadow-sm bg-light min-h-300">
-            <div class="card-header border-0 pb-0 bg-light">
-                <strong class="fw-bold"> Financials</strong>
-            </div>
-            <div class="card-body p-0 py-2">
-                <div class="row m-0 ps-2">
-                    <div class="col-lg-12 ps-0 mb-2">
-                        <div class="card shadow-sm border m-0 p-2 text-center">
-                            <div class="text-success mb-1 x-y-center">
-                                <i class="mdi mdi-arrow-up-bold fa-2x me-2 "></i> 
-                                <span class="lead fw-bold">$ 196,254</span>
-                            </div>
-                            <strong class="text-secondary"> Paid Invoices</strong>
-                        </div>
-                    </div> 
-                    <div class="col-lg-12 ps-0 mb-2">
-                        <div class="card shadow-sm border m-0 p-2 text-center">
-                            <div class="text-warning mb-1 x-y-center">
-                                <i class="mdi mdi-arrow-down-bold fa-2x me-2"></i> 
-                                <span class="lead fw-bold">$ 21,547</span>
-                            </div>
-                            <strong class="text-secondary"> Unpaid Invoices</strong>
-                        </div>
-                    </div> 
-                    <div class="col-lg-12 ps-0">
-                        <div class="card shadow-sm border m-0 p-2 text-center">
-                            <div class="text-danger mb-1 x-y-center">
-                                <i class="mdi mdi-arrow-right-bold fa-2x me-2"></i> 
-                                <span class="lead fw-bold">$ 321,547</span>
-                            </div>
-                            <strong class="text-secondary"> Billed to Date</strong>
-                        </div>
-                    </div>  
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 @if (Route::is("live-project.overview")) 
     
