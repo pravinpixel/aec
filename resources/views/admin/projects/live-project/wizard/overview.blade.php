@@ -1,6 +1,6 @@
-<div class="row m-0 align-items-center px-1 mt-2">
+<div class="row m-0 align-items-end px-1 mt-2">
     <div class="col-md-6 px-1 mb-2">
-        <div class="card shadow-sm bg-light mb-0 shadow-sm">
+        <div class="card shadow-sm bg-light mb-0 shadow-sm border">
             <div class="card-header border-0 pb-0 bg-light">
                 <strong class="fw-bold"> Variation Order Status</strong>
             </div>
@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="col-md-6 px-1 mb-2">
-        <div class="card shadow-sm bg-light mb-0 shadow-sm">
+        <div class="card shadow-sm bg-light mb-0 shadow-sm border">
             <div class="card-header border-0 pb-0 bg-light">
                 <strong class="fw-bold"> Project Tasks</strong>
             </div>
@@ -76,7 +76,7 @@
         </div>
     </div>
     <div class="col-sm-6 px-1 mb-2">
-        <div class="card shadow-sm border mb-0 shadow-sm bg-light">
+        <div class="card shadow-sm border mb-0 shadow-sm bg-light min-h-300">
             <div class="card-header border-0 pb-0 bg-light">
                 <strong class="fw-bold"> BIM 360 Issues</strong>
             </div>
@@ -119,11 +119,11 @@
         </div>
     </div>  
     <div class="col-md-6 px-1 mb-2">
-        <div class="m-0 p-2 text-center">
+        <div class="m-0 text-center min-h-300">
             <div>
                 <canvas id="project-status"></canvas> 
             </div>
-            <div class="card shadow-sm border mt-3 bg-light">
+            <div class="card shadow-sm border mt-3 mb-0 bg-light">
                 <div class="row text-center mx-0 p-2">
                     <div class="col-md-4">
                         <h3 class="fw-bold m-0">
@@ -148,11 +148,11 @@
         </div>
     </div>
     <div class="col-md-6 px-1 mb-2">
-        <div class="m-0 p-2 text-center">
+        <div class="m-0 text-center min-h-300">
             <div>
                 <canvas id="myChart" width="100%"></canvas>
             </div>
-            <div class="card shadow-sm border m-0 mt-3  bg-light">
+            <div class="card shadow-sm border  mt-3 mb-0 bg-light">
                 <div class="row text-center mx-0 ">
                     <div class="col">
                         <small class="text-muted m-0"> Original Budget</small>
@@ -183,7 +183,7 @@
         </div>
     </div>
     <div class="col-sm-6 px-1 mb-2">
-        <div class="card shadow-sm border mb-0 shadow-sm bg-light" style="min-height: 383px">
+        <div class="card shadow-sm border mb-0 shadow-sm bg-light min-h-300">
             <div class="card-header border-0 pb-0 bg-light">
                 <strong class="fw-bold"> Financials</strong>
             </div>
