@@ -49,7 +49,7 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
 
 Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     
-     // ==========  Live PROJECT flow  ================
+    // ==========  Live PROJECT flow  ================
     Route::get('live-project/overview', function () {
         return view('admin.projects.live-project.wizard.overview');
     })->name('live-project.overview');

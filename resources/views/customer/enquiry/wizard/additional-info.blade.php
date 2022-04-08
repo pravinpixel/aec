@@ -26,5 +26,4 @@
         transform: scale(1.2);
         box-shadow: 0px 5px 10px #4f4f4fb2 !important
     }
-</style>  
- 
+</style>
