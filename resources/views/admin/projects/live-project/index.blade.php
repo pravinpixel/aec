@@ -22,14 +22,14 @@
                                             <img src="{{ asset("public/assets/icons/create-plateform.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">Project overview</p>
+                                    <p class="h5 mt-2"> Overview</p>
                                 </a>
                             </li> 
                             <li class="nav-item">
                                 <a href="#!/milestone" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/mailtone.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2"> Milestone</p>
@@ -39,7 +39,7 @@
                                 <a href="#!/task-list" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/task-list.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2"> Task list</p>
@@ -49,7 +49,7 @@
                                 <a href="#!/bim360" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/bim360.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">BIM 360</p>
@@ -59,7 +59,7 @@
                                 <a href="#!/tickets" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/tikets.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Tickets</p>
@@ -69,7 +69,7 @@
                                 <a href="#!/variation-orders" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/orders.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Variation Orders</p>
@@ -79,7 +79,7 @@
                                 <a href="#!/invoice-status" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/invoice.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Invoice Status</p>
@@ -89,17 +89,17 @@
                                 <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/doc-man.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">Doc Management</p>
+                                    <p class="h5 mt-2">Documents</p>
                                 </a>
                             </li>
                             <li class="nav-item last">
                                 <a href="#!/notes" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/right.png") }}" class="w-50 invert">
+                                            <img src="{{ asset("public/assets/icons/notes.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Notes</p>
