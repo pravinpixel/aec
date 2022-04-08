@@ -107,9 +107,11 @@
                             </li> 
                         </ul>
                     </div>
+
                     {{-- =====NG View  =====--}}
                         <div ng-view></div>
                     {{-- =======NG View ==== --}}
+                    
                     <div class="card-footer text-end">
                         <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
                         <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
