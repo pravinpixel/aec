@@ -2,8 +2,9 @@ formatData = (project) => {
     return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.start_date)}}
 }
 
-app.controller('CreateProjectController', function ($scope, $http, API_URL, $location){
+app.controller('CreateProjectController', function ($scope, $http, API_URL, $location, $rootScope){
     $scope.project = {};
+    $rootScope.project = {};
     $http.get(`${API_URL}project/reference-number`)
     .then((res)=> {
         $scope.project.reference_number = res.data;
@@ -26,7 +27,8 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 
     $http.get(`${API_URL}project/wizard/create_project`)
     .then((res)=> {
-        if(res.data != false) $scope.project = formatData(res.data);
+        $rootScope.project_id = res.data.id;
+        if(res.data != false) $scope.project = formatData(res.data); 
     });
 //postalcode api
     $scope.getZipcode = function() {
@@ -151,6 +153,18 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
         })
     }
 });
+
+app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $rootScope){
+    
+    var dp = new gantt.dataProcessor(`${API_URL}api/project`);
+    dp.init(gantt);
+    dp.setTransactionMode("REST");
+    ganttModules.zoom.setZoom("months");
+    gantt.init("gantt_here");
+    ganttModules.menu.setup();
+    gantt.load(`${API_URL}project/wizard/project_scheduler`); 
+});
+
 
 app.directive('getRoleUser',function getRoleUser($http, API_URL){
     return {

@@ -152,6 +152,18 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     }
 });
 
+app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $location){
+    let project_id =  $("#project_id").val();
+    var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
+    dp.init(gantt);
+    dp.setTransactionMode("REST");
+
+    ganttModules.zoom.setZoom("months");
+    gantt.init("gantt_here");
+    ganttModules.menu.setup();
+    gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`); 
+});
+
 app.directive('getRoleUser',function getRoleUser($http, API_URL){
     return {
         restrict: 'A',

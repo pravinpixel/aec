@@ -1,4 +1,6 @@
 <div class="bg-white p-4  ">
+
+   
     <div class="main-container">
         <div class="header gantt-demo-header">
             <ul class="gantt-controls">
@@ -1011,16 +1013,5 @@
 
         gantt.config.auto_scheduling_strict = true;
         gantt.config.auto_scheduling_compatibility = true;
-
-        // ====== REST API setTransactionMode ==========            
-            var dp = new gantt.dataProcessor("{{ url('api/cost') }}");
-            dp.init(gantt);
-            dp.setTransactionMode("REST");
-        // ====== REST API setTransactionMode ==========
-
-        ganttModules.zoom.setZoom("months");
-        gantt.init("gantt_here");
-        ganttModules.menu.setup();
-        gantt.load("{{ route('costData') }}"); 
     </script>   
 @endif

@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Models\Project;
 use App\Models\ProjectAssignToUser;
+use App\Models\ProjectGranttLink;
+use App\Models\ProjectGranttTask;
 use App\Models\ProjectTeamSetup;
 use App\Services\GlobalService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -80,5 +82,15 @@ class ProjectRepository implements ProjectRepositoryInterface{
         return $this->projectTeamSetup->with('role')
                                 ->where('project_id', $project_id)
                                 ->get();
+    }
+
+    public function getGranttChartTaskLink($project_id)
+    {
+        $tasks = new ProjectGranttTask();
+        $links = new ProjectGranttLink();
+        return [
+            "data" => $tasks->where('project_id', $project_id)->get(),
+            "links" => $links->where('project_id', $project_id)->get()
+        ];
     }
 }

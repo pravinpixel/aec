@@ -95,6 +95,7 @@
             </div>
         </div>
     </div> 
+
 @endsection
 @push('custom-styles')
     <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
@@ -128,6 +129,7 @@
             })
             .when("/project-scheduling", {
                 templateUrl : "{{ route('project-schedule') }}",
+                controller :  'ProjectSchedulerController'
             })
             .when("/invoice-plan", {
                 templateUrl : "{{ route('invoice-plan') }}",

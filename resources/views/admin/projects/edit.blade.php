@@ -130,6 +130,7 @@
             })
             .when("/project-scheduling", {
                 templateUrl : "{{ route('project-schedule') }}",
+                controller: 'ProjectSchedulerController',
             })
             .when("/invoice-plan", {
                 templateUrl : "{{ route('invoice-plan') }}",

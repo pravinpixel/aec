@@ -152,21 +152,26 @@ class ProjectController extends Controller
 
     public function getProject($type)
     {
+        
         $project_id = $this->getProjectId();
-        if(empty( $project_id)) return false;
+        if(empty($project_id)) return false;
         if($type == 'create_project') {
             return $this->projectRepo->getProjectById($project_id);
         } else if($type == 'team_setup') {
             return $this->projectRepo->getProjectTeamSetup($project_id);
+        } else if($type == 'project_scheduler') {
+            return $this->projectRepo->getGranttChartTaskLink($project_id);
         }
     }
 
     public function getEditProject($id, $type)
-    {
+    {    
         if($type == 'create_project') {
             return $this->projectRepo->getProjectById($id);
         } else if($type == 'team_setup') {
             return $this->projectRepo->getProjectTeamSetup($id);
+        } else if($type == 'project_scheduler') {
+            return $this->projectRepo->getGranttChartTaskLink($id);
         }
     }
 
@@ -175,6 +180,7 @@ class ProjectController extends Controller
         $type = $request->input('type');
         $data = $request->input('data');
         $project_id = $this->getProjectId();
+     
         $project = $this->projectRepo->getProjectById($project_id);
         if($type == 'create_project') {
             if(empty($project->customer_id)){
@@ -189,6 +195,10 @@ class ProjectController extends Controller
             return $this->projectRepo->storeConnectPlatform($project_id, $data);
         } else if($type == 'team_setup'){
             return $this->projectRepo->storeTeamSetupPlatform($project_id, $data);
+        } else if($type == 'task') {
+            return $this->storeGrandChartTask($project_id, $request);
+        } else if($type == 'link') {
+            return $this->storeGrandChartLink($project_id, $request);
         }
         return $request->all();
     }
@@ -228,5 +238,44 @@ class ProjectController extends Controller
             'updated_by'     => Admin()->id
         ];
     }
+
+    public function getGranttChartTaskLink($project_id)
+    {
+        return $this->projectRepo->getGranttChartTaskLink($project_id);
+    }
+
+    public function storeGrandChartTask(Request $request)
+    {
+        $project_id = $this->getProjectId();
+        if(empty($project_id)) return false;
+        $projectTask = new ProjectGranttChartTaskController();
+        return $projectTask->store($project_id , $request);
+    }
+
+    public function storeGrandChartLink(Request $request)
+    {
+        $project_id = $this->getProjectId();
+        if(empty($project_id)) return false;
+        $projectLink = new ProjectGranttChartLinkController();
+        return $projectLink->store($project_id , $request);
+    }
+
+    public function updateGrandChartTask($id, Request $request)
+    {
+        $project_id = $this->getProjectId();
+        if(empty($project_id)) return false;
+        $projectTask = new ProjectGranttChartTaskController();
+        return $projectTask->update($project_id, $id, $request);
+    }
+
+    public function updateGrandChartLink($id, Request $request)
+    {
+        $project_id = $this->getProjectId();
+        if(empty($project_id)) return false;
+        $projectLink = new ProjectGranttChartLinkController();
+        return $projectLink->update($project_id ,$id,  $request);
+    }
+
+
 
 }
