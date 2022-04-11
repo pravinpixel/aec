@@ -39,8 +39,8 @@ class ProjectGranttChartLinkController extends Controller
         ]);
     }
  
-    public function destroy($id){
-        $link = ProjectGranttLink::find($id);
+    public function destroy($id = null, $link_id){
+        $link = ProjectGranttLink::find($link_id);
         $link->delete();
  
         return response()->json([

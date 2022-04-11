@@ -276,6 +276,20 @@ class ProjectController extends Controller
         return $projectLink->update($project_id ,$id,  $request);
     }
 
+    public function deleteGrandChartTask($id)
+    {
+        $project_id = $this->getProjectId();
+        if(empty($project_id)) return false;
+        $projectLink = new ProjectGranttChartLinkController();
+        return $projectLink->update($project_id ,$id);
+    }
 
+    public function deleteGrandChartLink($id)
+    {
+        $project_id = $this->getProjectId();
+        if(empty($project_id)) return false;
+        $projectLink = new ProjectGranttChartLinkController();
+        return $projectLink->destroy($project_id ,$id);
+    }
 
 }

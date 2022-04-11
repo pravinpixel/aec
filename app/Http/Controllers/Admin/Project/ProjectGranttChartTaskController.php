@@ -44,8 +44,9 @@ class ProjectGranttChartTaskController extends Controller
         ]);
     }
  
-    public function destroy($id){
-        $task   =   ProjectGranttTask::find($id);
+    public function destroy($id = null, $task_id){
+
+        $task   =   ProjectGranttTask::find($task_id);
         $task   ->  delete();
  
         return response()->json([

@@ -54,3 +54,5 @@ Route::post('project/task', [ProjectController::class, 'storeGrandChartTask']);
 Route::post('project/link', [ProjectController::class,'storeGrandChartLink']); 
 Route::put('project/task/{id}', [ProjectController::class, 'updateGrandChartTask']);
 Route::put('project/link/{id}', [ProjectController::class,'updateGrandChartLink']); 
+Route::delete('project/task/{id}', [ProjectController::class, 'deleteGrandChartTask']);
+Route::delete('project/link/{id}', [ProjectController::class,'deleteGrandChartLink']);
