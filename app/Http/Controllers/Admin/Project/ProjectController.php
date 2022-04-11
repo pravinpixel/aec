@@ -172,6 +172,8 @@ class ProjectController extends Controller
             return $this->projectRepo->getProjectTeamSetup($id);
         } else if($type == 'project_scheduler') {
             return $this->projectRepo->getGranttChartTaskLink($id);
+        } else if($type == 'invoice_plan') {
+            return $this->projectRepo->getInvoicePlan($id);
         }
     }
 

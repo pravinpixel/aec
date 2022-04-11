@@ -53,4 +53,9 @@ class Project extends Model
     {
         return $this->hasMany(ProjectTeamSetup::class, 'project_id', 'id');
     }
+
+    public function invoicePlan()
+    {
+        return $this->hasOne(InvoicePlan::class);
+    }
 }

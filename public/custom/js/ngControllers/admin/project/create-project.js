@@ -165,6 +165,10 @@ app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $r
     gantt.load(`${API_URL}project/wizard/project_scheduler`); 
 });
 
+app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
+    
+  
+});
 
 app.directive('getRoleUser',function getRoleUser($http, API_URL){
     return {

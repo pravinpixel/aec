@@ -93,4 +93,9 @@ class ProjectRepository implements ProjectRepositoryInterface{
             "links" => $links->where('project_id', $project_id)->get()
         ];
     }
+
+    public function getInvoicePlan($id)
+    {
+        return $this->model->with('invoicePlan')->find($id);
+    }
 }

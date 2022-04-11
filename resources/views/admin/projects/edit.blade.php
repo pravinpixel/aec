@@ -134,6 +134,7 @@
             })
             .when("/invoice-plan", {
                 templateUrl : "{{ route('invoice-plan') }}",
+                controller : 'InvoicePlanController',
             })
             .when("/to-do-listing", {
                 templateUrl : "{{ route('to-do-listing') }}",

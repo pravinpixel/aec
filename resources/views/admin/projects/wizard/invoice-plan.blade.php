@@ -4,19 +4,19 @@
             <div class="col-8">
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>Project Cost</strong></div>
-                    <div class=" col-9"><input type="text" class="form-control" placeholder="type here.."></div>
+                    <div class=" col-9"><input type="text" class="form-control"  ng-model="project.project_cost" placeholder="type here.."></div>
                 </div>
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>No.of Invoices</strong></div>
-                    <div class=" col-9"><input type="number" class="form-control" placeholder="type here.."></div>
+                    <div class=" col-9"><input type="number" class="form-control"  ng-change="handleInvoiceChange()" ng-model="project.no_of_invoice" placeholder="type here.."></div>
                 </div>
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>Project Start Date</strong></div>
-                    <div class=" col-9"><input type="date" class="form-control" placeholder="type here.."></div>
+                    <div class=" col-9"><input type="date" class="form-control" ng-model="project.start_date" placeholder="type here.."></div>
                 </div>
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>Project End Date</strong></div>
-                    <div class=" col-9"><input type="date" class="form-control" placeholder="type here.."></div>
+                    <div class=" col-9"><input type="date" class="form-control" ng-model="project.delivery_date" placeholder="type here.."></div>
                 </div>
             </div>
             <div class="col-4 text-center">
@@ -33,24 +33,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr ng-repeat="invoicePlan in invoicePlans track by $index">
                     <td class="text-center">1</td>
-                    <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                    <td class="text-center">500</td>
-                    <td class="text-center"><input value="50" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    <td class="text-center"><input type="date" name="" id="" ng-model="invoicePlan.invoice_date" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    <td class="text-center">@{{ invoicePlan.amount }}</td>
+                    <td class="text-center"><input value="50" type="number" name="" ng-model="invoicePlan.percentage"  class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
                 </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                    <td class="text-center">250</td>
-                    <td class="text-center"><input value="25" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                </tr> 
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                    <td class="text-center">250</td>
-                    <td class="text-center"><input value="25" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                </tr> 
             </tbody>
         </table>
     </div>

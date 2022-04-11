@@ -164,6 +164,29 @@ app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $l
     gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`); 
 });
 
+app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
+    $scope.invoicePlans = [];
+    $scope.project = {};
+    let project_id =  $("#project_id").val();
+    
+    $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`)
+    .then((res)=> {
+        $scope.project = formatData(res.data);
+    });
+
+    $scope.handleInvoiceChange = () => {
+        $scope.invoicePlans.length = 0;
+        for(var i =0; i< $scope.project.no_of_invoice;  i++){
+            $scope.invoicePlans.push({
+                'invoice_date': '',
+                'amount' : ($scope.project.project_cost / $scope.project.no_of_invoice).toFixed(2),
+                'percentage':  ((($scope.project.project_cost / $scope.project.no_of_invoice) * 100) / 100)
+            });
+        }
+    }
+
+});
+
 app.directive('getRoleUser',function getRoleUser($http, API_URL){
     return {
         restrict: 'A',
