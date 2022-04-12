@@ -9,6 +9,7 @@ use App\Models\ProjectAssignToUser;
 use App\Models\ProjectGranttLink;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectTeamSetup;
+use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -17,13 +18,20 @@ class ProjectRepository implements ProjectRepositoryInterface{
     protected $projectAssignModel;
     protected $projectTeamSetup;
     protected $invoicePlan;
+    protected $teamSetupTemplate;
 
-    public function __construct(Project $project, ProjectAssignToUser $projectAssignModel, ProjectTeamSetup $projctTeamSetup, InvoicePlan $invoicePlan)
-    {
+    public function __construct(
+        Project $project, 
+        ProjectAssignToUser $projectAssignModel, 
+        ProjectTeamSetup $projctTeamSetup, 
+        InvoicePlan $invoicePlan,
+        TeamSetupTemplate $teamSetupTemplate
+    ){
         $this->model                = $project;
         $this->projectAssignModel   = $projectAssignModel;
         $this->projectTeamSetup     = $projctTeamSetup;
         $this->invoicePlan          = $invoicePlan;
+        $this->teamSetupTemplate    = $teamSetupTemplate;
     }
 
     public function create($enquiry_id, $data)
@@ -113,6 +121,21 @@ class ProjectRepository implements ProjectRepositoryInterface{
             "created_by"   => Admin()->id
         ];
         return $this->invoicePlan->updateOrCreate(['project_id' => $project->id],$insert);
+    }
+
+    public function getTeamsetupTemplate($data)
+    {
+        return $this->teamSetupTemplate->all();
+    }
+
+    public function storeTeamsetupTemplate($data)
+    {
+        $data= [
+            'created_by'    => Admin()->id,
+            'template_name' => $data['tempalte'],
+            'template_data' => json_encode($data['data'])
+        ];
+        return $this->teamSetupTemplate->create($data);
     }
 
 }

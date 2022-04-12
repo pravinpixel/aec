@@ -115,6 +115,7 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     $scope.teamRole   = {};
     $scope.tagBox     = {};
     $scope.teamSetups = [];
+    $scope.Template;
     $http.get(`${API_URL}project/edit/${project_id}/team_setup`)
     .then((res)=> {
         $scope.teamSetups =  res.data.map( (item) => {
@@ -141,6 +142,14 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     }
     $scope.removeResource = (index) => {
         $scope.teamSetups.splice(index, 1);
+    }
+
+    $scope.submitTemplate = () => {
+        console.log( $scope.teamSetups);
+        $http.post(`${API_URL}project/store-template`, {data: $scope.teamSetups, tempalte:$scope.Template})
+        .then((res) => {
+            Message('success', `${res.data.msg}`);
+        })
     }
     
     $scope.teamSetupFormSubmit = () => {

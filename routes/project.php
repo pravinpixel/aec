@@ -44,6 +44,8 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::put('/{id}',[ProjectController::class, 'update'])->name('update');
     Route::get('enquiry/{id}',[ProjectController::class, 'getEnquiry'])->name('get-enquiry');
     Route::get('edit/{id}/{type}',[ProjectController::class, 'getEditProject'])->name('get-edit-project');
+    Route::post('store-template',[ProjectController::class, 'storeTeamsetupTemplate'])->name('store-template');
+    Route::get('get-template',[ProjectController::class, 'getTeamsetupTemplate'])->name('get-template');
 });
 
 

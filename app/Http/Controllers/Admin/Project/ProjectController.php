@@ -152,7 +152,7 @@ class ProjectController extends Controller
 
     public function getProject($type)
     {
-        
+    
         $project_id = $this->getProjectId();
         if(empty($project_id)) return false;
         if($type == 'create_project') {
@@ -298,6 +298,24 @@ class ProjectController extends Controller
         if(empty($project_id)) return false;
         $projectLink = new ProjectGranttChartLinkController();
         return $projectLink->destroy($project_id ,$id);
+    }
+
+    public function getTeamsetupTemplate(Request $request)
+    {
+        $response = $this->projectRepo->getTeamsetupTemplate($request);
+        if($response) {
+            return response(['status' => true, 'msg' => __('global.template_added')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
+    }
+
+    public function storeTeamsetupTemplate(Request $request)
+    {
+        $response = $this->projectRepo->storeTeamsetupTemplate($request);
+        if($response) {
+            return response(['status' => true, 'msg' => __('global.template_added')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
     }
 
 }
