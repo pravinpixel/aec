@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\ProjectRepositoryInterface;
+use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectAssignToUser;
 use App\Models\ProjectGranttLink;
@@ -15,12 +16,14 @@ class ProjectRepository implements ProjectRepositoryInterface{
     protected $model;
     protected $projectAssignModel;
     protected $projectTeamSetup;
+    protected $invoicePlan;
 
-    public function __construct(Project $project, ProjectAssignToUser $projectAssignModel, ProjectTeamSetup $projctTeamSetup)
+    public function __construct(Project $project, ProjectAssignToUser $projectAssignModel, ProjectTeamSetup $projctTeamSetup, InvoicePlan $invoicePlan)
     {
         $this->model                = $project;
         $this->projectAssignModel   = $projectAssignModel;
         $this->projectTeamSetup     = $projctTeamSetup;
+        $this->invoicePlan          = $invoicePlan;
     }
 
     public function create($enquiry_id, $data)
@@ -98,4 +101,18 @@ class ProjectRepository implements ProjectRepositoryInterface{
     {
         return $this->model->with('invoicePlan')->find($id);
     }
+
+    public function storeInvoicePlan($project_id, $data)
+    {
+        $project = $this->model->find($project_id);
+        $insert = [
+            "no_of_invoice" => $data['no_of_invoice'],
+            "project_cost" => $data['project_cost'],
+            "invoice_data" => json_encode($data['invoice_data']),
+            "project_id"   => $project->id,
+            "created_by"   => Admin()->id
+        ];
+        return $this->invoicePlan->updateOrCreate(['project_id' => $project->id],$insert);
+    }
+
 }

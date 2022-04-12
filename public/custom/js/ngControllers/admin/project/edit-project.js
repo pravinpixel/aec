@@ -165,27 +165,81 @@ app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $l
 });
 
 app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
-    $scope.invoicePlans = [];
+    $scope.invoicePlans                     = [];
+    $scope.invoicePlans['totalPercentage']  = 100;
+    $scope.invoicePlans['totalAmount']      = 0;
     $scope.project = {};
     let project_id =  $("#project_id").val();
     
     $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`)
     .then((res)=> {
         $scope.project = formatData(res.data);
+        $scope.project.project_cost = res.data.invoice_plan.project_cost;
+        $scope.project.no_of_invoice = Number(res.data.invoice_plan.no_of_invoice);
+        let result = JSON.parse(res.data.invoice_plan.invoice_data).map((item)=> {
+            $scope.invoicePlans.totalPercentage -= item.percentage;
+            $scope.invoicePlans.totalAmount += ( $scope.project.project_cost / 100 ) * item.percentage;
+            return {
+                'index': item.index,
+                'invoice_date': new Date(item.invoice_date),
+                'amount' : item.amount,
+                'percentage': item.percentage
+            }
+        });
+        result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
+        result['totalAmount'] = $scope.invoicePlans.totalAmount;
+        $scope.invoicePlans = result;
     });
 
     $scope.handleInvoiceChange = () => {
         $scope.invoicePlans.length = 0;
-        for(var i =0; i< $scope.project.no_of_invoice;  i++){
+        $scope.invoicePlans['totalPercentage']  = 100;
+        $scope.invoicePlans['totalAmount']      = 0;
+        for(var i = 1; i <= $scope.project.no_of_invoice;  i++){
             $scope.invoicePlans.push({
+                'index': i,
                 'invoice_date': '',
-                'amount' : ($scope.project.project_cost / $scope.project.no_of_invoice).toFixed(2),
-                'percentage':  ((($scope.project.project_cost / $scope.project.no_of_invoice) * 100) / 100)
+                'amount' : 0,
+                'percentage': 0
             });
         }
     }
 
+    $scope.handleSubmitInvoicePlan = () => {
+        let data ={'invoice_data': $scope.invoicePlans,'no_of_invoice': $scope.project.no_of_invoice, 'project_cost': $scope.project.project_cost}
+        $http.put(`${API_URL}project/${project_id}`, {data: data, type:'invoice_plan'})
+        .then((res) => {
+            Message('success', 'Invoice paln updated successfully');
+            $location.path('to-do-listing');
+        })
+    }
 });
+
+app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {  
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            element.on('change', function () {
+                scope.invoicePlans.totalPercentage = 100;
+                scope.invoicePlans.totalAmount = 0;
+                let result =   scope.invoicePlans.map((invoicePlan, index) => {
+                    scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
+                    scope.invoicePlans.totalAmount += ( scope.project.project_cost / 100 ) * invoicePlan.percentage;
+                    return {    
+                        index: index + 1,
+                        amount: ( scope.project.project_cost / 100 ) * invoicePlan.percentage,
+                        invoice_date: invoicePlan.invoice_date,
+                        percentage: invoicePlan.percentage,
+                    };
+                });
+                result['totalPercentage'] = scope.invoicePlans.totalPercentage;
+                result['totalAmount'] = scope.invoicePlans.totalAmount;
+                scope.invoicePlans = result;
+                scope.$apply();
+            });
+        },
+    };
+}]);
 
 app.directive('getRoleUser',function getRoleUser($http, API_URL){
     return {

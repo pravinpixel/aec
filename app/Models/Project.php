@@ -56,6 +56,7 @@ class Project extends Model
 
     public function invoicePlan()
     {
-        return $this->hasOne(InvoicePlan::class);
+        return $this->hasOne(InvoicePlan::class,'project_id','id');
     }
+
 }

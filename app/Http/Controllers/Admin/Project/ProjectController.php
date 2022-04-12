@@ -161,7 +161,9 @@ class ProjectController extends Controller
             return $this->projectRepo->getProjectTeamSetup($project_id);
         } else if($type == 'project_scheduler') {
             return $this->projectRepo->getGranttChartTaskLink($project_id);
-        }
+        } else if($type == 'invoice_plan') {
+            return $this->projectRepo->getInvoicePlan($project_id);
+        } 
     }
 
     public function getEditProject($id, $type)
@@ -201,6 +203,8 @@ class ProjectController extends Controller
             return $this->storeGrandChartTask($project_id, $request);
         } else if($type == 'link') {
             return $this->storeGrandChartLink($project_id, $request);
+        } else if($type == 'invoice_plan') {
+            return $this->projectRepo->storeInvoicePlan($project_id, $data);
         }
         return $request->all();
     }
@@ -214,8 +218,10 @@ class ProjectController extends Controller
             $this->setProjectId($project->id);
         } else if($type == 'connect_platform') {
             return $this->projectRepo->storeConnectPlatform($id, $data);
-        } else if($type == 'team_setup'){
+        } else if($type == 'team_setup') {
             return $this->projectRepo->storeTeamSetupPlatform($id, $data);
+        } else if($type == 'invoice_plan') {
+            return $this->projectRepo->storeInvoicePlan($id, $data);
         }
         return $request->all();
     }

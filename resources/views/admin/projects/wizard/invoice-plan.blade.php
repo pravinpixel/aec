@@ -1,14 +1,15 @@
+<form id="invoicePlan" name="invoicePlanForm" ng-submit="handleSubmitInvoicePlan()">
 <div class="card m-0">
     <div class="card-body">
         <div class="row mb-3 align-items-center">
             <div class="col-8">
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>Project Cost</strong></div>
-                    <div class=" col-9"><input type="text" class="form-control"  ng-model="project.project_cost" placeholder="type here.."></div>
+                    <div class=" col-9"><input calculate-amount type="text" class="form-control" onkeypress="return isNumber(event)"  ng-model="project.project_cost" placeholder="type here.."></div>
                 </div>
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>No.of Invoices</strong></div>
-                    <div class=" col-9"><input type="number" class="form-control"  ng-change="handleInvoiceChange()" ng-model="project.no_of_invoice" placeholder="type here.."></div>
+                    <div class=" col-9"><input type="number" class="form-control" onkeypress="return isNumber(event)"  ng-change="handleInvoiceChange()" ng-model="project.no_of_invoice" placeholder="type here.."></div>
                 </div>
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>Project Start Date</strong></div>
@@ -23,7 +24,7 @@
                 <div data-provide="datepicker-inline"></div>
             </div>
         </div> 
-        <table class="table m-0 custom table-striped table-bordered">
+        <table class="table m-0 custom table-bordered">
             <thead>
                 <tr>
                     <th class="text-center">S.No</th>
@@ -32,22 +33,32 @@
                     <th class="text-center">Percentage %</th>
                 </tr>
             </thead>
-            <tbody>
+            
+            <tbody calculate-amount>
                 <tr ng-repeat="invoicePlan in invoicePlans track by $index">
-                    <td class="text-center">1</td>
-                    <td class="text-center"><input type="date" name="" id="" ng-model="invoicePlan.invoice_date" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    <td class="text-center">@{{  invoicePlan.index }}</td>
+                    <td class="text-center"><input required type="date" name="invoice_date" id="" ng-model="invoicePlan.invoice_date" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
                     <td class="text-center">@{{ invoicePlan.amount }}</td>
-                    <td class="text-center"><input value="50" type="number" name="" ng-model="invoicePlan.percentage"  class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                </tr>
+                    <td class="text-center"><input required type="number" onkeypress="return isNumber(event)" name="percentage" ng-model="invoicePlan.percentage"  class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                </tr> 
             </tbody>
+            <thead>
+                <tr>
+                    <th class="text-center"></th>
+                    <th class="text-center"></th>
+                    <th class="text-center">@{{ invoicePlans.totalAmount }}</th>
+                    <th class="text-center">@{{ invoicePlans.totalPercentage }} %</th>
+                </tr>
+            <thead>
         </table>
     </div>
     
 </div>
 <div class="card-footer text-end">
     <a href="#!/project-scheduling" class="btn btn-light float-start">Prev</a>
-    <a href="#!/to-do-listing" class="btn btn-primary">Next</a>
+    <input ng-disabled ="invoicePlanForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/>
 </div>
+</form>
 <style>
     .datepicker-inline , .datepicker-inline table {
         width: 100%  !important;
