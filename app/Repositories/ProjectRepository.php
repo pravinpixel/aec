@@ -125,7 +125,12 @@ class ProjectRepository implements ProjectRepositoryInterface{
 
     public function getTeamsetupTemplate($data)
     {
-        return $this->teamSetupTemplate->all();
+        return $this->teamSetupTemplate->get();
+    }
+
+    function getTeamsetupTemplateById($id)
+    {
+        return $this->teamSetupTemplate->find($id);
     }
 
     public function storeTeamsetupTemplate($data)

@@ -96,7 +96,6 @@
             </div>
         </div>
     </div> 
-   
 @endsection
 @push('custom-styles')
     <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">

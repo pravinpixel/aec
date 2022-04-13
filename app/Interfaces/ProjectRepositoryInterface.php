@@ -18,4 +18,5 @@ interface ProjectRepositoryInterface
     public function storeInvoicePlan($project_id, $data);
     public function getTeamsetupTemplate($data);
     public function storeTeamsetupTemplate($data);
+    public function getTeamsetupTemplateById($id);
 }

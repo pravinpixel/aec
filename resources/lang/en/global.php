@@ -26,4 +26,5 @@ return [
     'move_to_project_successfully' => 'Move to project successfully',
     'already_moved_to_project'     => 'Already moved to project',
     'template_added'               => 'Template added successfully',
+    'select_template'              => 'Select Template',
 ];

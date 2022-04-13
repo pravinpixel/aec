@@ -4,10 +4,16 @@
         <div class="card">
             <div class="card-header">
                 <div class="row m-0">
-                    <div class="col-4 p-0">
-                        <a href="#" data-bs-toggle="modal"data-bs-target="#add-template-modal" class="link btn btn-primary"> Save as Template</a>
+                    <div class="col-4">
+                        <div class="d-flex">
+                            <select name="role" id="role"ng-model="selectedTemplate" class="form-select" ng-change="getTemplateChange(selectedTemplate)">
+                                <option value="">@lang('global.select_template')</option>
+                                <option value="@{{ template.id }}" ng-repeat="template in templateList"> @{{ template.template_name }}</option>
+                            </select> 
+                            <a href="#" title="Add template" data-bs-toggle="modal"data-bs-target="#add-template-modal" class="link btn btn-primary"> <span class="fa fa-plus"></span></a>
+                        </div>
                     </div>
-                    <div class="col p-0 ms-auto d-flex">
+                    <div class="col ms-auto d-flex">
                         <select name="role" id="role" ng-model="teamRole.role"  class="form-select">
                             <option value="">@lang('project.select')</option>
                             <option value="@{{ role }}" ng-repeat="role in roles"> @{{ role.name }}</option>

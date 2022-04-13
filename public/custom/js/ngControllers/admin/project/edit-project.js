@@ -116,12 +116,29 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     $scope.tagBox     = {};
     $scope.teamSetups = [];
     $scope.Template;
+    $scope.selectedTemplate;
+    $http.get(`${API_URL}project/get-templates`)
+    .then( (res) => {
+        console.log('template', res.data);
+        $scope.templateList = res.data;
+    });
+
+    $scope.getTemplateChange = (template_id) => {
+        console.log(template_id);
+        $http.get(`${API_URL}project/get-template-by-id/${template_id}`)
+        .then( (res) => {
+            $scope.teamSetups = res.data;
+            console.log('template', res.data);
+        });
+    }
+
     $http.get(`${API_URL}project/edit/${project_id}/team_setup`)
     .then((res)=> {
         $scope.teamSetups =  res.data.map( (item) => {
             return { role: item.role, team: item.team }
         })
     });
+    
     $http.get(`${API_URL}role`).then((res) => {
         $scope.roles = res.data;
     });

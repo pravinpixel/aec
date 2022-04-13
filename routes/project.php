@@ -37,6 +37,8 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
 });
 
 Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.'], function () {
+    Route::get('get-templates',[ProjectController::class, 'getTeamsetupTemplate'])->name('get-templates');
+    Route::get('get-template-by-id/{id}',[ProjectController::class, 'getTeamsetupTemplateById'])->name('get-template-by-id');
     Route::get('reference-number',[ProjectController::class, 'getReferenceNumber'])->name('reference-number');
     Route::get('/{id}',[ProjectController::class, 'show'])->name('get-by-id');
     Route::post('/',[ProjectController::class, 'store'])->name('store');
@@ -45,7 +47,6 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::get('enquiry/{id}',[ProjectController::class, 'getEnquiry'])->name('get-enquiry');
     Route::get('edit/{id}/{type}',[ProjectController::class, 'getEditProject'])->name('get-edit-project');
     Route::post('store-template',[ProjectController::class, 'storeTeamsetupTemplate'])->name('store-template');
-    Route::get('get-template',[ProjectController::class, 'getTeamsetupTemplate'])->name('get-template');
 });
 
 

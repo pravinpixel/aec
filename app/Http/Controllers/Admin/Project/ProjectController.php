@@ -302,11 +302,13 @@ class ProjectController extends Controller
 
     public function getTeamsetupTemplate(Request $request)
     {
-        $response = $this->projectRepo->getTeamsetupTemplate($request);
-        if($response) {
-            return response(['status' => true, 'msg' => __('global.template_added')]);
-        }
-        return response(['status' => false, 'msg' => __('global.something')]);
+        return $this->projectRepo->getTeamsetupTemplate($request);
+    }
+
+    public function getTeamsetupTemplateById($id)
+    {
+        $template = $this->projectRepo->getTeamsetupTemplateById($id);
+        return json_decode($template->template_data);
     }
 
     public function storeTeamsetupTemplate(Request $request)
