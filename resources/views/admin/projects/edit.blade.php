@@ -137,6 +137,7 @@
             })
             .when("/to-do-listing", {
                 templateUrl : "{{ route('to-do-listing') }}",
+                controller : 'ToDoListController',
             })
             .when("/review-n-submit", {
                 templateUrl : "{{ route('review-n-submit') }}",

@@ -5,9 +5,13 @@
                 <label for=""><b>Type of Project</b></label>
             </div>
             <div class="col-md-8">
-                <select name="" id="" class="form-select ">
-                    <option value=""> -- select ---</option>
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
+                    <option value="">@lang('project.select') </option>
+                    <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
+                        @{{ projectType.project_type_name }}
+                    </option>
                 </select>
+                <small class="text-danger" ng-show="createProjectForm.project_type_id.$invalid && createProjectForm.project_type_id.$toucehd">This field is required</small>
             </div>
         </div> 
         <div class="row m-0 mb-2">

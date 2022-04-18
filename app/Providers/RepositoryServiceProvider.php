@@ -53,8 +53,10 @@ use App\Repositories\MailTemplateRepository;
 use App\Repositories\TechnicalEstimateRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\PushNotificationRepositoryInterface;
+use App\Interfaces\TaskListRepositoryInterface;
 use App\Repositories\ProjectRepository;
 use App\Repositories\PushNotificationRepository;
+use App\Repositories\TaskListRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -187,6 +189,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ProjectRepositoryInterface::class,
             ProjectRepository::class
+        );
+
+        $this->app->bind(
+            TaskListRepositoryInterface::class,
+            TaskListRepository::class
         );
     }
 

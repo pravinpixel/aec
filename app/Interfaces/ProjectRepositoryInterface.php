@@ -19,4 +19,6 @@ interface ProjectRepositoryInterface
     public function getTeamsetupTemplate($data);
     public function storeTeamsetupTemplate($data);
     public function getTeamsetupTemplateById($id);
+    // public function getToDoListById($id);
+    // public function storeToDoList($id, $data);
 }

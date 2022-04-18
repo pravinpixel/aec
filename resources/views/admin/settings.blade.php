@@ -82,6 +82,16 @@
                                 <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
                             </a>
+                            <a class="nav-link taskListTab" id="v-pills-service-tab" href="#!/task-list-view" role="tab" aria-controls="v-pills-service"
+                                aria-selected="false">
+                                <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block" >Task list</span>
+                            </a>
+                            <a class="nav-link checkListTab" id="v-pills-service-tab" href="#!/check-list" role="tab" aria-controls="v-pills-service"
+                                aria-selected="false">
+                                <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
+                            </a>
                             
                         </div>
                     </div> <!-- end col-->
@@ -216,6 +226,13 @@
                     templateUrl : "{{ route('output-file')  }}"
                 })
                 .when("/service", {
+                    templateUrl : "{{ route('service-file')  }}"
+                })
+                .when("/task-list-view", {
+                    templateUrl : "{{ route('task-list-view')  }}",
+                    controller : "TaskListController"
+                })
+                .when("/check-list", {
                     templateUrl : "{{ route('service-file')  }}"
                 })
                 .when("/permission/:id", {
@@ -2613,6 +2630,44 @@
             
             
         });  
+
+        app.controller('TaskListController', function ($scope, $http, API_URL, $location) {
+            $http.get(`${API_URL}task-list`)
+            .then((res)=> {
+                $scope.taskLists = res.data;
+                angular.element(document.querySelector("#loader")).addClass("d-none"); 
+            });
+
+            $scope.toggleLayer = function (modalstate, id) {
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Task";
+                        $scope.form_color = "primary";
+                        $scope.module_layer = {};
+                        $('#primary-layer-modal').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Task";
+                        $scope.form_color = "success";
+                        $scope.id = id;
+                        $scope.module_layer = {};
+                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
+                        $http.get(API_URL  +'layer/' + id )
+                            .then(function (response) {
+                                $scope.module_layer = response.data.data;
+                                $('#primary-layer-modal').modal('show');
+                                angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                            });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+        });
+
+
     </script>
        
 @endpush

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\OutputTypeController;
 use App\Http\Controllers\Customer\Master\CustomerLayerController;
 use App\Http\Controllers\Admin\Master\RoleController;
+use App\Http\Controllers\Admin\Master\TaskListController;
 use App\Http\Controllers\Admin\PermissionController;
 
 Route::get('module-file',  function() {
@@ -51,6 +52,14 @@ Route::get('output-file',  function() {
 Route::get('service-file',  function() {
     return view('admin.setting-tabs.Service.service');
 })->name('service-file');
+
+Route::get('task-list-view',  function() {
+    return view('admin.setting-tabs.Task-List.task-list');
+})->name('task-list-view');
+
+Route::get('check-list',  function() {
+    return view('admin.setting-tabs.Service.service');
+})->name('check-list');
 
 
 Route::get('permission/{id}',  [PermissionController::class,'permission'])->name('permission');
@@ -105,7 +114,8 @@ Route::resource('output-type', OutputTypeController::class);
 Route::get('get-service', [ServiceController::class,'get'])->name('service.get');
 Route::resource('service', ServiceController::class);
 
-
+Route::get('get-task-list', [TaskListController::class,'get'])->name('task-list.get');
+Route::resource('task-list', TaskListController::class);
 
 
 

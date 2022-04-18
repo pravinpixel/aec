@@ -176,6 +176,8 @@ class ProjectController extends Controller
             return $this->projectRepo->getGranttChartTaskLink($id);
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->getInvoicePlan($id);
+        } else if($type == 'to-do-list') {
+            return $this->projectRepo->getToDoList($id);
         }
     }
 
