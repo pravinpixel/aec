@@ -9,6 +9,7 @@ use App\Models\ProjectAssignToUser;
 use App\Models\ProjectGranttLink;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectTeamSetup;
+use App\Models\SharepointFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -19,19 +20,22 @@ class ProjectRepository implements ProjectRepositoryInterface{
     protected $projectTeamSetup;
     protected $invoicePlan;
     protected $teamSetupTemplate;
+    protected $sharepointFolder;
 
     public function __construct(
         Project $project, 
         ProjectAssignToUser $projectAssignModel, 
         ProjectTeamSetup $projctTeamSetup, 
         InvoicePlan $invoicePlan,
-        TeamSetupTemplate $teamSetupTemplate
+        TeamSetupTemplate $teamSetupTemplate,
+        SharepointFolder $sharepointFolder
     ){
         $this->model                = $project;
         $this->projectAssignModel   = $projectAssignModel;
         $this->projectTeamSetup     = $projctTeamSetup;
         $this->invoicePlan          = $invoicePlan;
         $this->teamSetupTemplate    = $teamSetupTemplate;
+        $this->sharepointFolder     = $sharepointFolder;
     }
 
     public function create($enquiry_id, $data)
@@ -148,4 +152,23 @@ class ProjectRepository implements ProjectRepositoryInterface{
         
     }
 
+    public function getFolderById($id)
+    {
+
+    }
+
+    public function storeFolder($data)
+    {
+        return $this->SharepointFolder->create($data);
+    }
+
+    public function updateFolder($id, $data)
+    {
+        return $this->sharepointFolder->updateOrCreate([$id], $data);
+    }
+
+    public function getSharePointFolder($id)
+    {
+        return $this->model->with('sharepointFolder')->find($id);
+    }
 }

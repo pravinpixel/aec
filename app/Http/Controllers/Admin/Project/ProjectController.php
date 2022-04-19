@@ -163,7 +163,9 @@ class ProjectController extends Controller
             return $this->projectRepo->getGranttChartTaskLink($project_id);
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->getInvoicePlan($project_id);
-        } 
+        } else if('connection_platform') {
+            return $this->projectRepo->getSharePointFolder($project_id);
+        }
     }
 
     public function getEditProject($id, $type)
@@ -178,6 +180,8 @@ class ProjectController extends Controller
             return $this->projectRepo->getInvoicePlan($id);
         } else if($type == 'to-do-list') {
             return $this->projectRepo->getToDoList($id);
+        } else if('connection_platform') {
+            return $this->projectRepo->getSharePointFolder($id);
         }
     }
 
@@ -317,6 +321,33 @@ class ProjectController extends Controller
     public function storeTeamsetupTemplate(Request $request)
     {
         $response = $this->projectRepo->storeTeamsetupTemplate($request);
+        if($response) {
+            return response(['status' => true, 'msg' => __('global.template_added')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
+    }
+
+    public function getFolderById($id) {
+        $response = $this->projectRepo->getFolderById($id);
+    }
+
+    public function storeFolder(Request $request)
+    {
+        $project_id = $this->getProjectId();
+        $data = [
+            'project_id' => $project_id,
+            'folder'     => '',
+        ];
+    }
+
+    public function updateFolder($id, Request $request)
+    {
+        $data = [
+            'folder' => json_encode($request->data),
+            'project_id' => $id,
+            'enquiry_id' => 1
+        ];
+        $response = $this->projectRepo->updateFolder($id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.template_added')]);
         }

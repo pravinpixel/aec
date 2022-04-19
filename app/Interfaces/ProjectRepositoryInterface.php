@@ -19,6 +19,10 @@ interface ProjectRepositoryInterface
     public function getTeamsetupTemplate($data);
     public function storeTeamsetupTemplate($data);
     public function getTeamsetupTemplateById($id);
+    public function getFolderById($id);
+    public function storeFolder($data);
+    public function updateFolder($id, $data);
+    public function getSharePointFolder($id);
     // public function getToDoListById($id);
     // public function storeToDoList($id, $data);
 }

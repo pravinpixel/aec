@@ -38,6 +38,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.common.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.light.css" />
 
+
 <style>
     .font-weight-bold {
         font-weight: bold !important

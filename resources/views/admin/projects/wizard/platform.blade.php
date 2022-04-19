@@ -60,71 +60,11 @@
         </ul>
         <div class="tab-content border border-top-0">
             <div class="tab-pane p-3  show active" id="Sharepoint">
-                <div class="text-end">
-                    <a href="" class="btn btn-sm btn-primary mb-2"><i class="fa fa-plus me-1"></i>Add Folder</a>
+                <div class="dx-viewport">
+                    <div class="demo-container">
+                      <div id="file-manager"></div>
+                    </div>
                 </div>
-                <table class="table table-bordered m-0">
-                    <thead>
-                        <tr>
-                            <td style="padding: 0 !important">
-                                <table  class="table table-bordereds custom m-0">
-                                    <tr>
-                                        <th colspan="2" style="width: 6% !important" class="text-center">S.No</th>
-                                        <th width="70%">Folder Name</th>
-                                        <th class="text-center">Action</th>
-                                    </tr> 
-                                </table>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody class="panel">  
-                        @for ($key=0;$key<3;$key++)
-                        <tr>
-                            <td style="padding: 0 !important">
-                                <table class="table table-bordered m-0 ">
-                                    <tbody class="panel"> 
-                                        <tr>
-                                            <td colspan="2" style="width: 6% !important" class="text-center">
-                                                <div class="d-flex text-center" >
-                                                    <div class="me-2">
-                                                        <i data-bs-toggle="collapse" href="#togggleTable_{{ $key+1 }}" aria-expanded="true" aria-controls="togggleTable_{{ $key+1 }}" class="accordion-button custom-accordion-button collapsed bg-primary text-white toggle-btn m-0"></i>
-                                                    </div> 
-                                                    <div class="text-center">{{ $key+1 }}</div>
-                                                </div>
-                                            </td>
-                                            <td width="70%">- <i class="mdi mdi-folder-open"></i> Project Management</td>
-                                            <td class="text-center">
-                                                <a href="" class="link"><i class="fa fa-plus"></i> Add</a>
-                                                <a href="" class="link text-danger ms-2"><i class="fa fa-trash"></i> Delete</a>
-                                            </td>
-                                        </tr> 
-                                        <tr  id="togggleTable_{{ $key+1 }}" class="collapse">
-                                            <td colspan="4" class="hiddenRow" style="padding: 0 !important">
-                                                <table class="table table-bordered m-0 table-hover">
-                                                    <tbody> 
-                                                        @for ($i=0;$i<3;$i++)
-                                                        <tr>
-                                                            <td  class="text-end" style="width: 6% !important">
-                                                                <div class="text-end">{{ $key+1 }}.{{ $i+1 }}</div>                                                    
-                                                            </td>
-                                                            <td width="70%" class="text-secondary">-- <i class="mdi mdi-folder"></i> Sub Floder of Parent</td>
-                                                            <td class="text-center">
-                                                                <a href="" class="link"><i class="fa fa-plus"></i> Add</a>
-                                                                <a href="" class="link text-danger ms-2"><i class="fa fa-trash"></i> Delete</a>
-                                                            </td>
-                                                        </tr>
-                                                        @endfor 
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr> 
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>  
-                        @endfor 
-                    </tbody>
-                </table>
             </div>
             <div class="tab-pane p-3" id="BIM-360">
                 <div class="row m-0">

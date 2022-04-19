@@ -8,6 +8,7 @@ include 'enquiry.php';
 include 'bim.php';
 include 'autodesk.php';
 include 'project.php';
+include 'sharepoint.php';
 
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
