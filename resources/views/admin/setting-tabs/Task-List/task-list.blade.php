@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-stripped">
+        <table class="table table-striped table-bordered" datatable="ng" dt-options="vm.dtOptions">
             <thead>
                 <tr>
                     <th>Name</th>
