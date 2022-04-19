@@ -16,7 +16,7 @@ class CheckListController extends Controller
      */
     public function index()
     {
-        return CheckList::latest()->get();
+        return CheckList::with('getTaskList')->latest()->get();
     }
 
     /**

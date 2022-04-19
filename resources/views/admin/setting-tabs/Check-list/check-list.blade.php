@@ -7,17 +7,21 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-stripped">
+        <table class="table table-striped table-bordered" datatable="ng" dt-options="vm.dtOptions">
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Task list group</th>
+                    <th>Task list</th>
                     <th>Status</th>
                     <th >Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="(index,checkListitem) in checkList">
-                    <td class="align-items-center">@{{ checkListitem.name }}</td>
+                    <td class="align-items-center"><small class="text-black">@{{ checkListitem.name }}</small></td>
+                    <td class="align-items-center"><small class="text-black">@{{ checkListitem.task_list }}</small></td>
+                    <td class="align-items-center"><small class="text-black">@{{ checkListitem.get_task_list.task_list_name }}</small></td>
                     <td>
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="checkListitem.is_active == 1" data-switch="primary"/>
@@ -26,7 +30,7 @@
                         <span ng-if="checkListitem.is_active == 1" class="d-none">1</span>              
                         <span ng-if="checkListitem.is_active == 0" class="d-none">0</span>              
                     </td>
-                    <td>
+                    <td> 
                         <div class="btn-group">
                             <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleModalForm('edit', checkListitem.id)"><i class="fa fa-edit"></i></button>
                             <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="deleteThisData(checkListitem.id)"><i class="fa fa-trash"></i></button>

@@ -16,7 +16,7 @@ class CreateCheckListsTable extends Migration
         Schema::create('check_lists', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("task_list_category");
+            $table->string("task_list_category"); // task_list_category ID ONLY
             $table->string("task_list");
             $table->string("is_active");
             $table->timestamps();

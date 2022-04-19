@@ -12,7 +12,9 @@
         top : 2px !important
     }
 /* ========= Custom Data Tables ========== */
-
+.text-black {
+    color: black !important;
+}
 .x-y-center {
     display: flex !important;
     align-items: center !important;
