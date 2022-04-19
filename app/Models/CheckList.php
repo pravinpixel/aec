@@ -11,6 +11,8 @@ class CheckList extends Model
 
     protected $fillable =[ 
         'name',
-        'is_active'
+        'is_active',
+        'task_list',
+        'task_list_category'
     ];
-}
+} 

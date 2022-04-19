@@ -64,12 +64,7 @@
                                 aria-selected="false">
                                 <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Delivery Type</span>
-                            </a>
-                            <!-- <a class="nav-link layerTypeTab" id="v-pills-layerType-tab" href="#!/layerType"  role="tab" aria-controls="v-pills-layerType"
-                                aria-selected="false">
-                                <i class="mdi mdi-layerType-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block"  ng-click="layerTypeGetData()" >Layer Type</span>
-                            </a> -->
+                            </a> 
                             <a class="nav-link outputTab" id="v-pills-output-tab" href="#!/output"  role="tab" aria-controls="v-pills-output"
                                 aria-selected="false">
                                 <i class="mdi mdi-output-outline d-md-none d-block"></i>
@@ -269,12 +264,8 @@
                 $scope.getData($http, API_URL);
                 angular.element(document.querySelector("#loader")).addClass("d-none"); 
             }
-
-            
-            
-
+ 
             $scope.roleGetData = function () {
-
                
                 // $scope.btnClass = $(this).addClass(active);
                 // angular.element(document.querySelector("#roleTab")).addClass("active");
@@ -2616,31 +2607,35 @@
             
         });  
         app.controller('TaskListController', function ($scope, $http, API_URL, $location) {
-            $http.get(`${API_URL}task-list`).then((res)=> {
-                $scope.taskLists = res.data;
-                angular.element(document.querySelector("#loader")).addClass("d-none"); 
-            });
+            
+            $scope.getFreshTaskListData = () => {
+                $http.get(`${API_URL}task-list-master`).then((res)=> {
+                    $scope.taskLists = res.data; 
+                });
+            }
+            $scope.getFreshTaskListData();
 
-            $scope.toggleLayer = function (modalstate, id) {
+
+            $scope.toggleModalForm = function (modalstate, id) {
                 $scope.modalstate = modalstate;
                 switch (modalstate) {
                     case 'add':
                         $scope.form_title = "Create Task";
                         $scope.form_color = "primary";
-                        $scope.module_layer = {};
-                        $('#primary-layer-modal').modal('show');
+                        $scope.modalstate   =   'add'
+                        $scope.task_list_item = {};
+                        $('#tasklist-form-popup').modal('show');
                         break;
                     case 'edit':
                         $scope.form_title = "Edit Task";
                         $scope.form_color = "success";
-                        $scope.id = id;
-                        $scope.module_layer = {};
-                        angular.element(document.querySelector("#loader")).removeClass("d-none"); 
-                        $http.get(API_URL  +'layer/' + id )
+                        $scope.id = id; 
+                        $scope.task_list_item = {};
+                        $http.get(`${API_URL}task-list-master/${id}`)
                             .then(function (response) {
-                                $scope.module_layer = response.data.data;
-                                $('#primary-layer-modal').modal('show');
-                                angular.element(document.querySelector("#loader")).addClass("d-none"); 
+                                $scope.task_list_item = response.data.data;
+                                $('#tasklist-form-popup').modal('show');
+                                
                             });
                         break;
                     
@@ -2648,7 +2643,56 @@
                         break;
                 } 
             }
+
+            $scope.storeModalTaskForm = (modalstate, id) => { 
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}task-list-master${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.task_list_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#tasklist-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    $scope.getFreshTaskListData();
+                }, function errorCallback(response) {
+                    console.log(response)
+                    Message('danger',response.data.errors.task_list_name[0]);
+                });
+            }
+
+            $scope.changeTaskListStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}task-list-master/${id}`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    $scope.getFreshTaskListData();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+
+            $scope.deleteThisData   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}task-list-master/${id}`).then(function (response) {
+                            $scope.getFreshTaskListData();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
         });
+
+
         app.controller('CheckListController', function ($scope, $http, API_URL, $location) {
 
             $scope.getFreshCheckListData    =   ()  => {

@@ -116,7 +116,8 @@ Route::get('get-service', [ServiceController::class,'get'])->name('service.get')
 Route::resource('service', ServiceController::class);
 
 Route::get('get-task-list', [TaskListController::class,'get'])->name('task-list.get');
-Route::resource('task-list', TaskListController::class);
+
+Route::resource('task-list-master', TaskListController::class);
 
 Route::resource('check-list-master', CheckListController::class);
 

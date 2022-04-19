@@ -23,9 +23,7 @@
                 <div class="btn-group w-100 border rounded">
                     <select ng-model="check_list_type" class="border-0 form-select ">
                         <option value=""> -- select ---</option>
-                        <option value="CABIN PROJECTS"> CABIN PROJECTS </option>
-                        <option value="MULTISTOREY FACADE PROJECT"> MULTISTOREY FACADE PROJECT</option>
-                        <option value="STRUCTURAL DESIGN INSTALLATION DRAWING"> STRUCTURAL DESIGN INSTALLATION DRAWING  </option>
+                        <option value="@{{ row }}" ng-repeat="row in check_list_master">@{{ row.name }}</option>
                     </select>
                     <button class="btn btn-primary" ng-click="add_new_check_list_item(index)"><i class="mdi mdi-plus"></i></button>
                 </div>

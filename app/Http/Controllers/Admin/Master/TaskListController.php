@@ -37,6 +37,7 @@ class TaskListController extends Controller
      */
     public function store(TaskListCreateRequest $request)
     {
+        
         $taskList = $request->only([
             "task_list_name","is_active"
         ]);
@@ -80,7 +81,7 @@ class TaskListController extends Controller
         ]);
     }
 
-    public function update(TaskListUpdateRequest $request,$id)
+    public function update(Request $request,$id)
     {
         $layer = $request->only([
             "task_list_name","is_active"

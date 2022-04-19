@@ -25,7 +25,7 @@ class TaskListCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'task_list_name' =>  ['required', Rule::unique('task_lists')->ignore($this->id)->whereNull('deleted_at')],
+            'task_list_name' =>  ['required', Rule::unique('task_lists')],
         ];
     }
 }

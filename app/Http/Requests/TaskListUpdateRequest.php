@@ -25,7 +25,7 @@ class TaskListUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'task_list_name' => ['required', Rule::unique('layer_types')->ignore($this->id)->whereNull('deleted_at')],
+            'task_list_name' => ['required', Rule::unique('task_lists')],
         ];
     }
 }

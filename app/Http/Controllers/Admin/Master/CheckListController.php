@@ -38,8 +38,10 @@ class CheckListController extends Controller
     public function store(Request $request)
     {
         CheckList::create([
-            'name'      =>  $request->name,
-            'is_active' =>  $request->is_active
+            'name'                =>  $request->name,
+            'is_active'           =>  $request->is_active,
+            'task_list'           =>  $request->task_list,
+            'task_list_category'  =>  $request->task_list_category,
         ]);
 
         return response()->json([

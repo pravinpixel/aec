@@ -252,20 +252,24 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     $http.get(`${API_URL}project/${project_id}`).then((res)=> {
         $scope.project = formatData(res.data);
     });
-
-    // $http.get(`${API_URL}project/edit/${project_id}/to-do-list`).then((res)=> {
-    //     $scope.teamSetups =  res.data.map( (item) => {
-    //         return { role: item.role, team: item.team }
-    //     })
-    // });
-
+ 
     // ======= $scope of Flow ==============
-    $scope.check_list_items             =  [{type:'CABIN PROJECTS'}]
+
+    $http.get(`${API_URL}check-list-master`).then((res)=> {
+        $scope.check_list_master = res.data;
+    });
+
+    $scope.check_list_items     =  [{type:'CABIN PROJECTS'}]
     
-    $scope.add_new_check_list_item      =  ()   => {
+    $scope.add_new_check_list_item  =  ()   => { 
+
         if($scope.check_list_type === undefined || $scope.check_list_type == '') return false
-        $scope.check_list_items.push({type: $scope.check_list_type})
+
+        $scope.check_list_items.push({
+            type: JSON.parse($scope.check_list_type).name
+        });
     };
+    
     $scope.delete_this_check_list_item  =  (index)  => $scope.check_list_items.splice(index,1);
 });
 

@@ -50,13 +50,31 @@
                 <form name="LayerModule" class="form-horizontal" novalidate="">
                     <div class="form-group error mb-2">
                         <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Name</label>
-                        <div class="col-sm-12">
+                        <div class="col">
                             <input type="text" class="form-control has-error" id="name" name="name" placeholder="Type Here.." ng-model="check_list_item.name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
-                    </div> 
+                    </div>
+                    <div class="form-group error mb-2">
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Task Group</label>
+                        <div class="col">
+                            <select ng-model="check_list_item.task_list_category" ng-required="true" class="form-select" required>
+                                <option value="">-- select --</option>
+                                <option value="Cabin Project">Cabin Project</option>
+                            </select>
+                            <small class="help-inline text-danger">This  Fields is Required</small>
+                        </div>
+                    </div>
+                    <div class="form-group error mb-2">
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Task List</label>
+                        <div class="col">
+                            <input type="text" class="form-control has-error" id="task_list" name="task_list" placeholder="Type Here.." ng-model="check_list_item.task_list" ng-required="true" required>
+                            <small class="help-inline text-danger">This  Fields is Required</small>
+                        </div>
+                    </div>
+                    
                     <div class="row">
-                        <div class="col-12 pt-3">
+                        <div class="col-12 pb-3">
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
                                     <input type="radio"  ng-checked="check_list_item.is_active == 1" id="active" value="1" ng-model="check_list_item.is_active" name="is_active" class="form-check-input"  ng-required="true">
