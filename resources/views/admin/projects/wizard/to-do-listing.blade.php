@@ -1,49 +1,44 @@
 <div class="border-bottom">
-    <div class="col-md-8 mx-auto py-3">
-        <div class="row mb-2 mx-0">
+    <div class="row mb-0 mx-0 card-header align-items-center">
+        <div class="col-md-6">
+            <h4><b>To-do List</b></h4>
+        </div>
+        <div class="col-md-6 d-flex  align-items-center">
+            <label for="" class="me-2 col-4"><b>Type of Project</b></label>
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
+                <option value="">@lang('project.select') </option>
+                <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
+                    @{{ projectType.project_type_name }}
+                </option>
+            </select>
+            <small class="text-danger" ng-show="createProjectForm.project_type_id.$invalid && createProjectForm.project_type_id.$toucehd">This field is required</small>
+        </div>
+    </div>
+    <div class="col-md-8 mx-auto py-3"> 
+        <div class="row m-0  align-items-center">
             <div class="col-md-4">
-                <label for=""><b>Type of Project</b></label>
-            </div>
-            <div class="col-md-8">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
-                    <option value="">@lang('project.select') </option>
-                    <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
-                        @{{ projectType.project_type_name }}
-                    </option>
-                </select>
-                <small class="text-danger" ng-show="createProjectForm.project_type_id.$invalid && createProjectForm.project_type_id.$toucehd">This field is required</small>
-            </div>
-        </div> 
-        <div class="row m-0 mb-2">
-            <div class="col-md-4">
-                <label for=""><b>Select Check Lsit  1 </b></label>
+                <label for=""><b>Select Check List</b></label>
             </div>
             <div class="col-md-8">
                 <div class="btn-group w-100 border rounded">
-                    <select name="" id="" class="border-0 form-select ">
+                    <select ng-model="check_list_type" class="border-0 form-select ">
                         <option value=""> -- select ---</option>
+                        <option value="CABIN PROJECTS"> CABIN PROJECTS </option>
+                        <option value="MULTISTOREY FACADE PROJECT"> MULTISTOREY FACADE PROJECT</option>
+                        <option value="STRUCTURAL DESIGN INSTALLATION DRAWING"> STRUCTURAL DESIGN INSTALLATION DRAWING  </option>
                     </select>
-                    <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
+                    <button class="btn btn-primary" ng-click="add_new_check_list_item(index)"><i class="mdi mdi-plus"></i></button>
                 </div>
             </div>
         </div>
-        <div class="row m-0 mb-2">
-            <div class="col-md-4">
-                <label for=""><b>Select Check Lsit  2 </b></label>
-            </div>
-            <div class="col-md-8">
-                <div class="btn-group w-100 border rounded">
-                    <select name="" id="" class="border-0 form-select ">
-                        <option value=""> -- select ---</option>
-                    </select>
-                    <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
-                </div>
-            </div>
-        </div>   
-        <div class="text-end px-2  ">
-            <a href="" class="link btn btn-secondary btn-sm"> + Add check list </a>
-        </div>
-    </div> 
+        <table class="table text-center m-0 mt-3 table-hover" ng-show="check_list_items.length != 0">
+            <tr ng-repeat="(index,check_list) in check_list_items">
+                <td>@{{ index+1 }}</td>
+                <td>@{{ check_list.type }}</td>
+                <td><i class="text-danger fa fa-trash btn-sm btn" ng-click="delete_this_check_list_item(index)"></i></td>
+            </tr>
+        </table>
+    </div>
 </div>
 <div class="cardx">
     <div class="card-body">

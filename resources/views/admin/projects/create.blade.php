@@ -104,8 +104,7 @@
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/create-project.js") }}"></script> 
-    <script>        
-        
+    <script>   
         app.controller("projectController", function($rootScope, $scope, $location){
             $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
                 if($location.url() == '/') $scope.isMain = true;
@@ -137,6 +136,7 @@
             })
             .when("/to-do-listing", {
                 templateUrl : "{{ route('to-do-listing') }}",
+                controller :  'toDoListController'
             })
             .when("/review-n-submit", {
                 templateUrl : "{{ route('review-n-submit') }}",
@@ -149,7 +149,7 @@
             var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
             e.returnValue = dialogText;
             return dialogText;
-        };
+        }; 
     </script>
 @endpush
  

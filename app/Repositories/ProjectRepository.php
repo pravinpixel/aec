@@ -35,7 +35,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
     }
 
     public function create($enquiry_id, $data)
-    {
+    { 
         return $this->model->updateOrCreate(['enquiry_id'=> $enquiry_id], $data);
     }
 

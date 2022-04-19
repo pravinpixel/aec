@@ -242,24 +242,31 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 });
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
+
     let project_id =  $("#project_id").val();
-    $http.get(`${API_URL}get-project-type`)
-    .then((res)=> {
+
+    $http.get(`${API_URL}get-project-type`).then((res)=> {
         $scope.projectTypes = res.data;
     });
 
-    $http.get(`${API_URL}project/${project_id}`)
-    .then((res)=> {
+    $http.get(`${API_URL}project/${project_id}`).then((res)=> {
         $scope.project = formatData(res.data);
     });
 
-    $http.get(`${API_URL}project/edit/${project_id}/to-do-list`)
-    .then((res)=> {
-        $scope.teamSetups =  res.data.map( (item) => {
-            return { role: item.role, team: item.team }
-        })
-    });
+    // $http.get(`${API_URL}project/edit/${project_id}/to-do-list`).then((res)=> {
+    //     $scope.teamSetups =  res.data.map( (item) => {
+    //         return { role: item.role, team: item.team }
+    //     })
+    // });
 
+    // ======= $scope of Flow ==============
+    $scope.check_list_items             =  [{type:'CABIN PROJECTS'}]
+    
+    $scope.add_new_check_list_item      =  ()   => {
+        if($scope.check_list_type === undefined || $scope.check_list_type == '') return false
+        $scope.check_list_items.push({type: $scope.check_list_type})
+    };
+    $scope.delete_this_check_list_item  =  (index)  => $scope.check_list_items.splice(index,1);
 });
 
 app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {  

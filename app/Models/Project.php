@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\GlobalService;
 
 class Project extends Model
 {
@@ -59,4 +60,12 @@ class Project extends Model
         return $this->hasOne(InvoicePlan::class,'project_id','id');
     }
 
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = GlobalService::DBDateFormatWithTime($value);
+    }
+    public function setDeliveryDateAttribute($value)
+    {
+        $this->attributes['delivery_date'] = GlobalService::DBDateFormatWithTime($value);
+    }
 }

@@ -6,7 +6,6 @@
     <div class="content-page">
         <div class="content"> 
             @include('admin.includes.top-bar') 
- 
 
 			@if (Route::is('admin-dashboard'))
 				<!-- Start Content-->

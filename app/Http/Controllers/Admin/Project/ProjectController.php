@@ -183,11 +183,12 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        $type = $request->input('type');
-        $data = $request->input('data');
-        $project_id = $this->getProjectId();
+        $type          = $request->input('type');
+        $data          = $request->input('data');
+        $project_id    = $this->getProjectId();
      
         $project = $this->projectRepo->getProjectById($project_id);
+
         if($type == 'create_project') {
             if(empty($project->customer_id)){
                 $customer = $this->formatCustomerData($data);

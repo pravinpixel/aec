@@ -110,6 +110,5 @@ class TaskListController extends Controller
     public function get(Request $request)
     {
         return response()->json($this->taskListRepo->get($request));
-    }
-
-}
+    } 
+} 
