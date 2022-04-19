@@ -2695,6 +2695,13 @@
 
         app.controller('CheckListController', function ($scope, $http, API_URL, $location) {
 
+            $scope.getFreshTaskListData = () => {
+                $http.get(`${API_URL}task-list-master`).then((res)=> {
+                    $scope.task_list_master = res.data; 
+                });
+            }
+            $scope.getFreshTaskListData();
+
             $scope.getFreshCheckListData    =   ()  => {
                 $http.get(`${API_URL}check-list-master`).then((res)=> {
                     $scope.checkList = res.data;
@@ -2708,6 +2715,7 @@
                     case 'add':
                         $scope.form_title = "Create Check List";
                         $scope.form_color = "primary";
+                        $scope.check_list_item = {};
                         $('#checklist-form-popup').modal('show');
                         break;
                     case 'edit':

@@ -60,7 +60,7 @@
                         <div class="col">
                             <select ng-model="check_list_item.task_list_category" ng-required="true" class="form-select" required>
                                 <option value="">-- select --</option>
-                                <option value="Cabin Project">Cabin Project</option>
+                                <option value="@{{ row.id }}" ng-repeat="row in task_list_master">@{{ row.task_list_name }}</option>
                             </select>
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
