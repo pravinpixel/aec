@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Master\OutputTypeController;
 use App\Http\Controllers\Customer\Master\CustomerLayerController;
 use App\Http\Controllers\Admin\Master\RoleController;
 use App\Http\Controllers\Admin\Master\TaskListController;
+use App\Http\Controllers\Admin\Master\CheckListController;
 use App\Http\Controllers\Admin\PermissionController;
 
 Route::get('module-file',  function() {
@@ -58,8 +59,8 @@ Route::get('task-list-view',  function() {
 })->name('task-list-view');
 
 Route::get('check-list',  function() {
-    return view('admin.setting-tabs.Service.service');
-})->name('check-list');
+    return view('admin.setting-tabs.Check-list.check-list');
+})->name('check-list-file');
 
 
 Route::get('permission/{id}',  [PermissionController::class,'permission'])->name('permission');
@@ -117,6 +118,7 @@ Route::resource('service', ServiceController::class);
 Route::get('get-task-list', [TaskListController::class,'get'])->name('task-list.get');
 Route::resource('task-list', TaskListController::class);
 
+Route::resource('check-list-master', CheckListController::class);
 
 
 Route::get('get-document-type', [DocumentTypeController::class,'get'])->name('document-type.get');

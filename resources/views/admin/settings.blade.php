@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-   
-
     <div class="content-page" >
         <div class="content"  ng-controller="moduleController" >
 
@@ -110,11 +108,7 @@
 
         </div> <!-- content --> 
     </div> 
-
-    
 @endsection
-
- 
 
 @push('custom-styles')
     
@@ -162,7 +156,6 @@
 @endpush
 
 @push('custom-scripts')
-
     <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
@@ -181,68 +174,62 @@
         });
     </script>
     <script >
-            $(document).ready(function(){
+        $(document).ready(function(){
             angular.element(document.querySelector("#loader")).addClass("d-none");
-            
-            }); 
-        // menuController
+        }); 
         app.config(function($routeProvider,API_URL) {
-                $routeProvider
-                .when("/", {
-                    templateUrl : "{{ route('role-file')  }}"
-                })
-                .when("/role", {
-                    
-                    templateUrl : "{{ route('role-file')  }}"
-                })
-                .when("/green", {
-                    templateUrl : "red.htm"
-                })
-                .when("/master-estimate", {
-                    templateUrl : "{{ route('masterEstimation-file')  }}"
-                })
-                .when("/component", {
-                    templateUrl : "{{ route('component-file')  }}"
-                })
-                .when("/type", {
-                    templateUrl : "{{ route('type-file')  }}"
-                })
-                .when("/documentType", {
-                    templateUrl : "{{ route('documentType-file')  }}"
-                })
-                .when("/projectType", {
-                    templateUrl : "{{ route('projectType-file')  }}"
-                })
-                .when("/layer", {
-                    templateUrl : "{{ route('layer-file')  }}"
-                })
-                .when("/deliveryType", {
-                    templateUrl : "{{ route('deliveryType-file')  }}"
-                })
-                .when("/layerType", {
-                    templateUrl : "{{ route('layerType-file')  }}"
-                })
-                .when("/output", {
-                    templateUrl : "{{ route('output-file')  }}"
-                })
-                .when("/service", {
-                    templateUrl : "{{ route('service-file')  }}"
-                })
-                .when("/task-list-view", {
-                    templateUrl : "{{ route('task-list-view')  }}",
-                    controller : "TaskListController"
-                })
-                .when("/check-list", {
-                    templateUrl : "{{ route('service-file')  }}"
-                })
-                .when("/permission/:id", {
-                    templateUrl: function(params) {
-                        return API_URL +'permission/'+params.id;
-                    },
-                    controller: 'PermissionCtrl'
-                })
+            $routeProvider
+            .when("/", {
+                templateUrl : "{{ route('role-file')  }}"
+            })
+            .when("/role", {
+                templateUrl : "{{ route('role-file')  }}"
+            }) 
+            .when("/master-estimate", {
+                templateUrl : "{{ route('masterEstimation-file')  }}"
+            })
+            .when("/component", {
+                templateUrl : "{{ route('component-file')  }}"
+            })
+            .when("/type", {
+                templateUrl : "{{ route('type-file')  }}"
+            })
+            .when("/documentType", {
+                templateUrl : "{{ route('documentType-file')  }}"
+            })
+            .when("/projectType", {
+                templateUrl : "{{ route('projectType-file')  }}"
+            })
+            .when("/layer", {
+                templateUrl : "{{ route('layer-file')  }}"
+            })
+            .when("/deliveryType", {
+                templateUrl : "{{ route('deliveryType-file')  }}"
+            })
+            .when("/layerType", {
+                templateUrl : "{{ route('layerType-file')  }}"
+            })
+            .when("/output", {
+                templateUrl : "{{ route('output-file')  }}"
+            })
+            .when("/service", {
+                templateUrl : "{{ route('service-file')  }}"
+            })
+            .when("/task-list-view", {
+                templateUrl : "{{ route('task-list-view')  }}",
+                controller : "TaskListController"
+            })
+            .when("/check-list", {
+                templateUrl : "{{ route('check-list-file')  }}",
+                controller : "CheckListController"
+            })
+            .when("/permission/:id", {
+                templateUrl: function(params) {
+                    return API_URL +'permission/'+params.id;
+                },
+                controller: 'PermissionCtrl'
+            })
         });
-        
         app.controller('PermissionCtrl', function($scope, $http, $routeParams,API_URL){
             $scope.setPermission = (role_id) => {
                 $http({
@@ -274,8 +261,6 @@
             var role_id = $routeParams.id
             getPermission(role_id);
         });
-
-
         app.controller('moduleController', function ($scope, $http, API_URL, $location) {
             $location.path('/role');
             //fetch users listing from 
@@ -674,7 +659,7 @@
                         });
 
                     }
-                    }
+                }
                     $scope.type_status = function (index  , id) {
                     var url = API_URL + "building-type" + "/status";
                 
@@ -2630,10 +2615,8 @@
             
             
         });  
-
         app.controller('TaskListController', function ($scope, $http, API_URL, $location) {
-            $http.get(`${API_URL}task-list`)
-            .then((res)=> {
+            $http.get(`${API_URL}task-list`).then((res)=> {
                 $scope.taskLists = res.data;
                 angular.element(document.querySelector("#loader")).addClass("d-none"); 
             });
@@ -2666,8 +2649,86 @@
                 } 
             }
         });
+        app.controller('CheckListController', function ($scope, $http, API_URL, $location) {
 
+            $scope.getFreshCheckListData    =   ()  => {
+                $http.get(`${API_URL}check-list-master`).then((res)=> {
+                    $scope.checkList = res.data;
+                });
+            }
+            $scope.getFreshCheckListData();
 
+            $scope.toggleModalForm = (modalstate, id) => {
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Check List";
+                        $scope.form_color = "primary";
+                        $('#checklist-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Check List";
+                        $scope.form_color = "success";
+                        $scope.id = id;
+                        $scope.check_list_item = {};
+                        
+                        $http.get(`${API_URL}check-list-master/${id}`).then(function (response) {
+                            $scope.check_list_item = response.data.data;
+                            $('#checklist-form-popup').modal('show');
+                        });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.storeModalForm = (modalstate, id) => {
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}check-list-master${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.check_list_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#checklist-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    $scope.getFreshCheckListData();
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            $scope.changeCheckListStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}check-list-master/${id}`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    $scope.getFreshCheckListData();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+
+            $scope.deleteThisData   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}check-list-master/${id}`).then(function (response) {
+                            $scope.getFreshCheckListData();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
+        });
     </script>
        
 @endpush
