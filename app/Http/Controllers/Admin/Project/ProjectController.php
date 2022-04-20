@@ -341,6 +341,13 @@ class ProjectController extends Controller
             'project_id' => $project_id,
             'created_by' => Admin()->id
         ];
+        // $sharepoint = new SharepointController();
+        $sharepoint = $this->projectRepo->getSharePointFolder($project_id);
+        if(!empty($sharepoint)){
+            $old = json_decode($project->sharepointFolder->folder);
+            $new = $request->data;
+            array_diff( $new , $old  );
+        }
         $response = $this->projectRepo->updateFolder($project_id, $data);
     }
 
@@ -349,8 +356,15 @@ class ProjectController extends Controller
         $data = [
             'folder'      => json_encode($request->data),
             'project_id'  => $project_id,
+            'created_by' => Admin()->id,
             'modified_by' => Admin()->id
         ];
+        // $sharepoint = $this->projectRepo->getSharePointFolder($project_id);
+        // if(!empty($sharepoint)){
+        //     $old = json_decode($project->sharepointFolder->folder);
+        //     $new = $request->data;
+        //     dd(array_diff( $new , $old));
+        // }
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.template_added')]);
