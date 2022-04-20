@@ -15,7 +15,6 @@ class CreateSharepointFoldersTable extends Migration
     {
         Schema::create('sharepoint_folders', function (Blueprint $table) {
             $table->id();
-            $table->integer('enquiry_id');
             $table->integer('project_id');
             $table->string('folder');
             $table->integer('created_by');

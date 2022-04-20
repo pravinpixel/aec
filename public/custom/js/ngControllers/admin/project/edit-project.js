@@ -105,8 +105,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
 
     $http.get(`${API_URL}project/edit/${project_id}/connection_platform`)
     .then((res)=> {
-        // fileSystem.length = 0;
-        fileSystem = JSON.parse(res.data.sharepoint_folder.folder);
+        fileSystem = res.data;
         const fileManager = $('#file-manager').dxFileManager({
             name: 'fileManager',
             fileSystemProvider: fileSystem,
@@ -114,7 +113,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
             permissions: {
               create: true,
               delete: false,
-              rename: true,
+              rename: false,
               download: false,
             },
             itemView: {
@@ -190,16 +189,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
             $location.path('team-setup');
         })
     }
-  
-  
-    $scope.addFolder = (parentIndex, childIndex) => {
-        $scope.folders[parentIndex].childrens.push({'name' : `project management ${childIndex+1}`});
-    }
 
-    $scope.removeFolder = (parentIndex, childIndex) => {
-
-        $scope.folders[parentIndex].childrens.splice(childIndex,1);
-    }
 });
 
 app.controller('TeamSetupController', function ($scope, $http, API_URL, $location){

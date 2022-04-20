@@ -164,7 +164,8 @@ class ProjectController extends Controller
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->getInvoicePlan($project_id);
         } else if('connection_platform') {
-            return $this->projectRepo->getSharePointFolder($project_id);
+            $project = $this->projectRepo->getSharePointFolder($project_id);
+            return isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
         }
     }
 
@@ -181,7 +182,8 @@ class ProjectController extends Controller
         } else if($type == 'to-do-list') {
             return $this->projectRepo->getToDoList($id);
         } else if('connection_platform') {
-            return $this->projectRepo->getSharePointFolder($id);
+            $project = $this->projectRepo->getSharePointFolder($id);
+            return isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
         }
     }
 
@@ -335,19 +337,21 @@ class ProjectController extends Controller
     {
         $project_id = $this->getProjectId();
         $data = [
+            'folder' => json_encode($request->data),
             'project_id' => $project_id,
-            'folder'     => '',
+            'created_by' => Admin()->id
         ];
+        $response = $this->projectRepo->updateFolder($project_id, $data);
     }
 
-    public function updateFolder($id, Request $request)
+    public function updateFolder($project_id, Request $request)
     {
         $data = [
-            'folder' => json_encode($request->data),
-            'project_id' => $id,
-            'enquiry_id' => 1
+            'folder'      => json_encode($request->data),
+            'project_id'  => $project_id,
+            'modified_by' => Admin()->id
         ];
-        $response = $this->projectRepo->updateFolder($id, $data);
+        $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.template_added')]);
         }

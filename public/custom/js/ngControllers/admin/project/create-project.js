@@ -94,6 +94,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 
 app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location){
     $scope.project = {};
+    let fileSystem = [];
     $http.get(`${API_URL}get-project-type`)
     .then((res)=> {
         $scope.projectTypes = res.data;
@@ -102,6 +103,83 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
     $http.get(`${API_URL}project/wizard/create_project`)
     .then((res)=> {
         if(res.data != false) $scope.project = formatData(res.data);
+    });
+
+    $http.get(`${API_URL}project/wizard/connection_platform`)
+    .then((res)=> {
+        fileSystem = res.data;
+        const fileManager = $('#file-manager').dxFileManager({
+            name: 'fileManager',
+            fileSystemProvider: fileSystem,
+            height: 450,
+            permissions: {
+              create: true,
+              delete: false,
+              rename: false,
+              download: false,
+            },
+            itemView: {
+              details: {
+                columns: [
+                  'thumbnail', 'name',
+                  'dateModified', 'size',
+                ],
+              },
+              showParentFolder: false,
+            },
+            toolbar: {
+              items: [
+                {
+                  name: 'showNavPane',
+                  visible: true,
+                },
+                'separator', 'create',
+                {
+                  widget: 'dxMenu',
+                  location: 'before',
+                  options: {
+                    onItemClick,
+                  },
+                },
+                'refresh',
+                {
+                  name: 'separator',
+                  location: 'after',
+                },
+                'switchView',
+              ]
+            },
+            onContextMenuItemClick: onItemClick,
+            onDirectoryCreating: function (e) {
+                console.log('onDirectoryCreating',fileSystem);
+                $http.post(`${API_URL}project/sharepoint-folder`, {data: fileSystem})
+                .then((res) => {
+                    Message('success', 'Created successfully');
+                 
+                })
+            },
+            onItemRenamed: function(e) {
+                console.log('onItemRenamed',fileSystem);
+                $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem})
+                .then((res) => {
+                    Message('success', 'created successfully');
+                })
+            }
+           
+        }).dxFileManager('instance');
+        
+        function onItemClick(args) {
+        let updated = false;
+        if (args.itemData.extension) {
+            updated = createFile(args.itemData.extension, args.fileSystemItem);
+        } else if (args.itemData.category !== undefined) {
+            updated = updateCategory(args.itemData.category, args.fileSystemItem, args.viewArea);
+        }
+        if (updated) {
+            fileManager.refresh();
+        }
+        }
+         
     });
 
     $scope.submitConnectPlatformForm = () => {

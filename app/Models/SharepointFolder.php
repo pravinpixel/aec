@@ -11,7 +11,8 @@ class SharepointFolder extends Model
 
     protected $fillable = [
         'project_id',
-        'enquiry_id',
-        'folder'
+        'folder',
+        'created_by',
+        'modified_by'
     ];
 }
