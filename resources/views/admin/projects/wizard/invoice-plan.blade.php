@@ -41,13 +41,19 @@
                     <td class="text-center">@{{ invoicePlan.amount }}</td>
                     <td class="text-center"><input required type="number" onkeypress="return isNumber(event)" name="percentage" ng-model="invoicePlan.percentage"  class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
                 </tr> 
+                <tr>
+                    <td class="text-center">@{{ invoicePlans.length + 1 }}</td>
+                    <td class="text-center"></td>
+                    <td class="text-center">@{{  project.project_cost - invoicePlans.totalAmount }}</td>
+                    <td class="text-center">@{{ invoicePlans.totalPercentage }}</td>
+                </tr>
             </tbody>
             <thead>
                 <tr>
                     <th class="text-center"></th>
                     <th class="text-center"></th>
-                    <th class="text-center">@{{ invoicePlans.totalAmount }}</th>
-                    <th class="text-center">@{{ invoicePlans.totalPercentage }} %</th>
+                    <th class="text-center">@{{  project.project_cost }}</th>
+                    <th class="text-center">100</th>
                 </tr>
             <thead>
         </table>
