@@ -463,13 +463,20 @@ class ProjectController extends Controller
     public function storeFolder(Request $request)
     {
         $project_id = $this->getProjectId();
+        $sharePoint = new SharepointController();
+        $requestPath = $request->path;
         $data = [
             'folder' => json_encode($request->data),
             'project_id' => $project_id,
             'created_by' => Admin()->id
         ];
-        $sharePoint = new SharepointController();
-        $sharePoint->create($request->path);
+        $project = $this->projectRepo->getProjectById($project_id);
+        if(substr($request->path,0,1) != '/') {
+            $requestPath = '/'. $request->path;
+        }
+        $reference_number = str_replace('/','-',$project->reference_number);
+        $folderPath = "{$this->rootFolder}/{$reference_number}{$requestPath}";
+        $sharePoint->create($folderPath);
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.created')]);
