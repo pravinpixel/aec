@@ -8,6 +8,7 @@ use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Models\CheckList;
+use App\Models\ProjectGranttTask;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,7 +78,6 @@ class ProjectController extends Controller
 
         $result = [];
 
-        // return $loop_one;
        
         foreach ($loop_one as $key => $row_one) {
 
@@ -91,6 +91,7 @@ class ProjectController extends Controller
                 "start_date"    =>  "2022-04-20 12:45:07",
                 "parent"        =>  0,
                 "type"          =>  "project",
+                "project_id"    =>   $request->id
             ];
 
             foreach ($row_one['data'] as $row_two) {
@@ -105,6 +106,7 @@ class ProjectController extends Controller
                     "progress"      =>  0,
                     "start_date"    =>  "2022-04-20 12:45:07",
                     "type"          =>  "project",
+                    "project_id"    =>   $request->id
                 ];
 
                 foreach ($row_two['data'] as  $row_three) {
@@ -117,11 +119,26 @@ class ProjectController extends Controller
                         "progress"    =>   0,
                         "start_date"  =>   "2022-04-20 12:45:07",
                         "type"        =>   "project",
+                        "project_id"    =>   $request->id
                     ];
                 }
             }
         }
-        return $result;
+ 
+    
+        if($request->update === true) {
+            $data   = ProjectGranttTask::find($request->id);
+            $method = 'update';
+        }
+
+        if($request->store === true) {
+            $data   = new ProjectGranttTask;
+            $method = 'create';
+        }
+
+        $data->$method($result);
+ 
+        return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
     }
 
     public function checkListMasterGroupList (Request $request) {

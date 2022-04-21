@@ -375,9 +375,57 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     };
     
     $scope.delete_this_check_list_item  =  (index)  => $scope.check_list_items.splice(index,1);
+
+    $scope.storeToDoLists = () => {
+         
+        $scope.check_list_items.map((CheckLists) => {
+
+            const CheckListsIndex = Object.entries(CheckLists.data);
+
+            $scope.CallToDB = false;
+
+            CheckListsIndex.map((TaskLists) => {
+                const TaskListsIndex = TaskLists[1].data;
+                TaskListsIndex.map((ListItems) => {
+                    if(ListItems.assign_to === undefined  || ListItems.assign_to == '') {
+                        Message('danger', 'Assign To Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    if(ListItems.start_date === undefined  || ListItems.start_date == '') {
+                        Message('danger', 'Start Date Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    if(ListItems.end_date === undefined  || ListItems.end_date == '') {
+                        Message('danger', 'End Date Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    
+                }); 
+            });
+
+            if ($scope.CallToDB === true) {
+                $http.post(`${$("#baseurl").val()}admin/store-to-do-list`, {
+                    id      :   project_id , 
+                    update  :   true , 
+                    store   :   false,
+                    data    :  $scope.check_list_items, 
+                }).then((res) => {
+                    if(res.data.status === true) {
+                        Message('success', 'To do List Added Success !');
+                        $location.path('review-n-submit')
+                    }                
+                })
+            }
+            
+        }); 
+        
+    }
 });
 
-app.directive('getToDoLists',['$http', function($https) {
+app.directive('getToDoLists',['$http', function() {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -394,15 +442,9 @@ app.directive('getToDoLists',['$http', function($https) {
                     text        :   scope.taskListData.task_list,
                     type        :   "project",
                     status      :   scope.taskListData.status,
-                } 
-                scope.to_do_ist =   scope.taskListData
-             
-
-                const API_URL  = $("#baseurl").val()
-
-                $https.post(`${API_URL}admin/store-to-do-list`, {data:  scope.check_list_items}).then((res) => {
-                    console.log(res.data)
-                })
+                }
+                scope.to_do_ist =   scope.taskListData 
+            
             });
         },
     };
