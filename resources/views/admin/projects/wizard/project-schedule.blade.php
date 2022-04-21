@@ -1,14 +1,12 @@
-<div class="bg-white p-4  ">
-
-   
-    <div class="main-container">
+<div class="bg-white p-3">
+    <div class="main-container shadow">
         <div class="header gantt-demo-header">
             <ul class="gantt-controls">
-                <li class="gantt-menu-item"><a ><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_collapse_all_24.png">Collapse All</a></li>
+                <li class="gantt-menu-item"><a data-action="collapseAll"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_collapse_all_24.png">Collapse All</a></li>
                 <li class="gantt-menu-item gantt-menu-item-last"><a data-action="expandAll"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_expand_all_24.png">Expand All</a></li>
                 <li class="gantt-menu-item"><a data-action="undo"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_undo_24.png">Undo</a></li>
                 <li class="gantt-menu-item"><a data-action="redo"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_redo_24.png">Redo</a></li>
-                <li id="fullscreen_button"   class="gantt-menu-item  gantt-menu-item-last"><a ><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_fullscreen_24.png">Fullscreen</a></li>
+                <li id="fullscreen_button" class="gantt-menu-item  gantt-menu-item-last"><a ><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_fullscreen_24.png">Fullscreen</a></li>
                 <li class="gantt-menu-item gantt-menu-item-right gantt-menu-item-last"><a data-action="zoomToFit"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_zoom_to_fit_24.png">Zoom to Fit</a></li>
                 <li class="gantt-menu-item gantt-menu-item-right"><a data-action="zoomOut"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_zoom_out.png">Zoom Out</a></li>
                 <li class="gantt-menu-item gantt-menu-item-right"><a data-action="zoomIn"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_zoom_in.png">Zoom In</a></li>
@@ -21,17 +19,14 @@
     </div>
 </div>  
 <div class="card-footer text-end">
-    <a href="#!/team-setup" class="btn btn-light float-start">Prev</a>
-    <a href="#!/invoice-plan" class="btn btn-primary">Next</a>
+    <a href="#!/to-do-listing" class="btn btn-light float-start">Prev</a>
+    <a href="#!/review-n-submit" class="btn btn-primary">Next</a>
 </div>
 
 @if (Route::is('project-schedule')) 
-    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/styles/style.css?ver=1">
+     
     <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script> 
     <script src="http://export.dhtmlx.com/gantt/api.js"></script> 
-  
- 
     <script>
     var button = document.getElementById("fullscreen_button");
         button.addEventListener("click", function(){
@@ -724,7 +719,7 @@
 
             }
 
-            setInterval(refreshUndoBtns, 1000);
+            // setInterval(refreshUndoBtns, 1000);
 
             function toggleZoomToFitBtn() {
                 if (ganttModules.zoomToFit.isEnabled()) {
