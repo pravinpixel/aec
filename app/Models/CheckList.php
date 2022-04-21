@@ -19,4 +19,8 @@ class CheckList extends Model
     public function getTaskList(){
         return $this->hasOne(TaskList::class, 'id', 'task_list_category');
     }
+
+    public function getTaskListGroupBy(){
+        return $this->hasOne(TaskList::class, 'id', 'task_list_category')->groupBy('task_list_name');
+    }
 } 

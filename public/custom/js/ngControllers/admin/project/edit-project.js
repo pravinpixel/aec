@@ -317,7 +317,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
         let data ={'invoice_data': $scope.invoicePlans,'no_of_invoice': $scope.project.no_of_invoice, 'project_cost': $scope.project.project_cost}
         $http.put(`${API_URL}project/${project_id}`, {data: data, type:'invoice_plan'})
         .then((res) => {
-            Message('success', 'Invoice paln updated successfully');
+            Message('success', 'Invoice Plan updated successfully');
             $location.path('to-do-listing');
         })
     }
@@ -337,23 +337,66 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
  
     // ======= $scope of Flow ==============
 
-    $http.get(`${API_URL}check-list-master`).then((res)=> {
-        $scope.check_list_master = res.data;
+    $http.get(`${API_URL}admin/check-list-master-group`).then((res)=> {
+        $scope.check_list_master = res.data.data;
     });
 
-    $scope.check_list_items     =  [{type:'CABIN PROJECTS'}]
+    $scope.check_list_items     =  []
     
     $scope.add_new_check_list_item  =  ()   => { 
-
         if($scope.check_list_type === undefined || $scope.check_list_type == '') return false
 
-        $scope.check_list_items.push({
-            type: JSON.parse($scope.check_list_type).name
-        });
+        // $scope.return   =    true
+
+        // $scope.check_list_items.map(item => {``
+        //     let atime   = item.data[1][0]
+        //     if (atime.name == JSON.parse($scope.check_list_type).name) {
+        //         $scope.return   = false
+        //     }
+        // });
+
+        // if($scope.return   == false) return false
+
+        $http.post(`${API_URL}admin/check-list-master-group`, {data:  $scope.check_list_type}).then((res) => {
+            $scope.check_list_items.push(res.data.data)
+            console.log($scope.check_list_items)
+        })
+          
     };
     
     $scope.delete_this_check_list_item  =  (index)  => $scope.check_list_items.splice(index,1);
 });
+
+app.directive('getToDoLists',['$http', function($https) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            element.on('change', function () {
+
+                scope.to_do_ist = {
+                    duration    :   100,
+                    parent      :   0,
+                    progress    :   0,
+                    project_id  :   1,
+                    assign_to   :   1,
+                    start_date  :   moment(scope.taskListData.start_date).format('YYYY-MM-DD, h:mm:ss'),
+                    end_date    :   moment(scope.taskListData.end_date).format('YYYY-MM-DD, h:mm:ss'),
+                    text        :   scope.taskListData.task_list,
+                    type        :   "project",
+                    status      :   scope.taskListData.status,
+                } 
+                scope.to_do_ist =   scope.taskListData
+             
+
+                const API_URL  = $("#baseurl").val()
+
+                $https.post(`${API_URL}admin/store-to-do-list`, {data:  scope.check_list_items}).then((res) => {
+                    console.log(res.data)
+                })
+            });
+        },
+    };
+}]);
 
 app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {  
     return {

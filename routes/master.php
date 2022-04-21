@@ -118,9 +118,9 @@ Route::resource('service', ServiceController::class);
 Route::get('get-task-list', [TaskListController::class,'get'])->name('task-list.get');
 
 Route::resource('task-list-master', TaskListController::class);
-
+ 
 Route::resource('check-list-master', CheckListController::class);
-
+ 
 
 Route::get('get-document-type', [DocumentTypeController::class,'get'])->name('document-type.get');
 Route::put('document-type/status/{id}', [DocumentTypeController::class,'status'] )->name('document-type.status');

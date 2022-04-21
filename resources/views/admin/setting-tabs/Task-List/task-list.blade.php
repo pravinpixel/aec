@@ -17,9 +17,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="(index,taskList) in taskLists">
-                    
                     <td class="align-items-center">@{{ taskList.task_list_name }}</td>
-
                     <td>
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="taskList.is_active == 1" data-switch="primary"/>

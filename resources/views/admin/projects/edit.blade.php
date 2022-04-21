@@ -104,6 +104,8 @@
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/edit-project.js") }}"></script> 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
     <script>        
         
         app.controller("projectController", function($rootScope, $scope, $location){

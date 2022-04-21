@@ -26,6 +26,12 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     
         Route::get('project-to-do-listing', [ProjectController::class, 'todoListing'])->name('to-do-listing');
 
+        Route::get('check-list-master-group', [ProjectController::class, 'checkListMasterGroup'])->name('check-list-master-group');
+        Route::post('check-list-master-group', [ProjectController::class, 'checkListMasterGroupList'])->name('check-list-master-group');
+        Route::post('store-to-do-list', [ProjectController::class, 'storeToDoList'])->name('store-to-do-list');
+
+        
+
         Route::get('project-invoice-plan', [ProjectController::class, 'invoicePlan'])->name('invoice-plan');
 
         Route::get('project-review-n-submit', function () {

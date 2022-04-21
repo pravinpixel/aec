@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
+use App\Models\CheckList;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
@@ -18,7 +21,7 @@ class ProjectController extends Controller
     protected $projectRepo;
     protected $customerEnquiryRepo;
     protected $customerRep;
-
+    protected $index = 0;
     public function __construct(
        ProjectRepositoryInterface $projectRepo,
        CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
@@ -32,6 +35,105 @@ class ProjectController extends Controller
     public function index()
     {
         return view('admin.projects.index');
+    }
+
+    public function checkListMasterGroup ()
+    {
+        $list       =   CheckList::with('getTaskList')->latest()->get();
+        $collection =   collect($list);
+        $grouped    =   $collection->groupBy('name');
+        $grouped    ->  all();
+        $result     =    [];
+
+        foreach($grouped as $row) {
+            $check_lists = CheckList::where("name",  '=' , $row[0]->name)->with('getTaskList')->get();
+            $check_lists_data = [];
+            foreach($check_lists as $check_row) {
+                $tasks  =   CheckList::where('task_list_category', $check_row->getTaskList->id)->select('id','task_list')->get();
+                $check_lists_data       =  [
+                    "text"  =>  $check_row->getTaskList->task_list_name,
+                    "data"  =>  $tasks
+                ]; 
+            }
+            $result[]   =   [
+                "name"          =>  $row[0]->name,
+                "check_list"    =>  $check_lists_data
+            ];
+        }
+        
+        return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
+    }
+    public function updateIndex()
+    {
+        return $this->index +=1;
+    }
+    public function storeToDoList(Request $request)
+    {
+        $loop_one =  $request->data;
+
+        $result = [];
+
+        // return $loop_one;
+       
+        foreach ($loop_one as $key => $row_one) {
+
+            $subParent = $this->updateIndex();
+
+            $result[] = [
+                "id"            =>  $subParent,
+                "text"          =>  $row_one['name'],
+                "duration"      =>  72,
+                "progress"      =>  0,
+                "start_date"    =>  "2022-04-20 12:45:07",
+                "parent"        =>  0,
+                "type"          =>  "project",
+            ];
+
+            foreach ($row_one['data'] as $row_two) {
+                 
+                $subParentTwo      =    $this->updateIndex();
+
+                $result[] = [
+                    "id"            =>  $subParentTwo,
+                    "parent"        =>  $subParent,
+                    "text"          =>  $row_two['name'],
+                    "duration"      =>  72,
+                    "progress"      =>  0,
+                    "start_date"    =>  "2022-04-20 12:45:07",
+                    "type"          =>  "project",
+                ];
+
+                foreach ($row_two['data'] as  $row_three) {
+                 
+                    $result[] = [
+                        "id"          =>   $this->updateIndex(),
+                        "parent"      =>   $subParentTwo,
+                        "text"        =>   $row_three['name'],
+                        "duration"    =>   72,
+                        "progress"    =>   0,
+                        "start_date"  =>   "2022-04-20 12:45:07",
+                        "type"        =>   "project",
+                    ];
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function checkListMasterGroupList (Request $request) {
+
+        $list           =   CheckList::where("name",  '=' , $request->data)->with('getTaskList')->latest()->get();
+
+        $grouped        =   $list->groupBy('task_list_category')->map(function($item){
+            return ['name' => $item[0]->getTaskList->task_list_name, 'data' => $item ];
+        });
+         
+        $result = [
+            "name" => $request->data,
+            "data" => $grouped
+        ];
+ 
+        return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
     }
 
     public function create()
