@@ -26,6 +26,7 @@ class ProjectController extends Controller
     protected $customerRep;
     protected $index = 0;
     protected $parentFolder = '';
+    protected $rootFolder = '/Project Management';
 
     public function __construct(
        ProjectRepositoryInterface $projectRepo,
@@ -317,7 +318,7 @@ class ProjectController extends Controller
         $project_id    = $this->getProjectId();
      
         $project = $this->projectRepo->getProjectById($project_id);
-
+        
         if($type == 'create_project') {
             if(empty($project->customer_id)){
                 $customer = $this->formatCustomerData($data);
@@ -326,6 +327,9 @@ class ProjectController extends Controller
             $data['reference_number'] = GlobalService::getProjectNumber();
             $project = $this->projectRepo->storeProjectCreation($project_id, $data);
             $this->setProjectId($project->id);
+            $sharePoint = new SharepointController();
+            $reference_number = str_replace('/','-',$project->reference_number);
+            $sharePoint->create("{$this->rootFolder}/{$reference_number}");
             return $project;
         } else if($type == 'connect_platform') {
             return $this->projectRepo->storeConnectPlatform($project_id, $data);
@@ -487,9 +491,8 @@ class ProjectController extends Controller
         if(substr($request->path,0,1) != '/') {
             $requestPath = '/'. $request->path;
         }
-        $reference_number = explode('/',$project->reference_number)[2];
-        $sharePoint->create("/Project Management/{$reference_number}");
-        $folderPath = "/Project Management/{$reference_number}{$requestPath}";
+        $reference_number = str_replace('/','-',$project->reference_number);
+        $folderPath = "{$this->rootFolder}/{$reference_number}{$requestPath}";
         $sharePoint->create($folderPath);
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
@@ -512,8 +515,8 @@ class ProjectController extends Controller
             'created_by' => Admin()->id,
             'modified_by' => Admin()->id
         ];
-        $reference_number = explode('/',$project->reference_number)[2];
-        $folderPath = "/Project Management/{$reference_number}/{$requestPath}";
+        $reference_number = str_replace('/','-',$project->reference_number);
+        $folderPath = "{$this->rootFolder}/{$reference_number}/{$requestPath}";
         $sharePoint->delete($folderPath);
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {

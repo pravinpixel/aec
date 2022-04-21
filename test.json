@@ -1,0 +1,570 @@
+{
+    "d": {
+        "results": [
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SiteAssets')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SiteAssets')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SiteAssets')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SiteAssets')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SiteAssets')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SiteAssets')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SiteAssets')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SiteAssets')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 2,
+                "Name": "SiteAssets",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/SiteAssets",
+                "TimeCreated": "2022-03-24T06:25:29Z",
+                "TimeLastModified": "2022-03-24T06:25:30Z",
+                "UniqueId": "5010d4cf-4285-4397-bf9b-21609956eded",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Style Library')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Style%20Library')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Style%20Library')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Style%20Library')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Style%20Library')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Style%20Library')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Style%20Library')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Style%20Library')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "Style Library",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/Style Library",
+                "TimeCreated": "2022-02-27T00:19:27Z",
+                "TimeLastModified": "2022-02-27T00:19:27Z",
+                "UniqueId": "f4be2b00-8eca-41ac-a1d2-51f2f078a667",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Lists')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Lists')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Lists')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Lists')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Lists')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Lists')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Lists')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Lists')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "Lists",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/Lists",
+                "TimeCreated": "2022-02-27T00:19:27Z",
+                "TimeLastModified": "2022-02-27T00:19:27Z",
+                "UniqueId": "c6c5ab69-9af8-45ea-9b5a-6ba31ad31489",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SitePages')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SitePages')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SitePages')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SitePages')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SitePages')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SitePages')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SitePages')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/SitePages')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 1,
+                "Name": "SitePages",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/SitePages",
+                "TimeCreated": "2022-02-27T00:19:31Z",
+                "TimeLastModified": "2022-02-27T00:19:32Z",
+                "UniqueId": "0ccf85f5-d274-4e1b-915f-719310d87502",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_catalogs')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_catalogs')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_catalogs')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_catalogs')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_catalogs')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_catalogs')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_catalogs')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_catalogs')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "_catalogs",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/_catalogs",
+                "TimeCreated": "2022-02-27T00:19:27Z",
+                "TimeLastModified": "2022-02-27T00:19:27Z",
+                "UniqueId": "263e952a-e833-43db-a190-7a3a5138f3bc",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Shared Documents')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Shared%20Documents')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Shared%20Documents')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Shared%20Documents')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Shared%20Documents')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Shared%20Documents')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Shared%20Documents')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/Shared%20Documents')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 1,
+                "Name": "Shared Documents",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/Shared Documents",
+                "TimeCreated": "2022-02-27T00:19:30Z",
+                "TimeLastModified": "2022-04-19T11:22:43Z",
+                "UniqueId": "63fb9aa1-94e5-4eeb-bb63-8e9231cae9cf",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/FormServerTemplates')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/FormServerTemplates')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/FormServerTemplates')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/FormServerTemplates')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/FormServerTemplates')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/FormServerTemplates')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/FormServerTemplates')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/FormServerTemplates')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "FormServerTemplates",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/FormServerTemplates",
+                "TimeCreated": "2022-03-24T06:24:40Z",
+                "TimeLastModified": "2022-03-24T06:24:40Z",
+                "UniqueId": "410fbcd7-f097-4918-99eb-a3d695a501b7",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_private')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_private')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_private')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_private')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_private')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_private')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_private')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_private')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "_private",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/_private",
+                "TimeCreated": "2022-02-27T00:19:24Z",
+                "TimeLastModified": "2022-02-27T00:19:24Z",
+                "UniqueId": "9f96bc85-78d9-4c05-821c-aedff6b601aa",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_vti_pvt')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_vti_pvt')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_vti_pvt')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_vti_pvt')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_vti_pvt')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_vti_pvt')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_vti_pvt')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_vti_pvt')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "_vti_pvt",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/_vti_pvt",
+                "TimeCreated": "2022-02-27T00:19:24Z",
+                "TimeLastModified": "2022-02-27T00:19:24Z",
+                "UniqueId": "6d8580f7-7f33-4aa1-a35a-ea91db76a4a0",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/IWConvertedForms')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/IWConvertedForms')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/IWConvertedForms')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/IWConvertedForms')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/IWConvertedForms')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/IWConvertedForms')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/IWConvertedForms')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/IWConvertedForms')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "IWConvertedForms",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/IWConvertedForms",
+                "TimeCreated": "2022-03-24T06:24:41Z",
+                "TimeLastModified": "2022-03-24T06:24:41Z",
+                "UniqueId": "e319d213-5808-4e01-a6a0-ee658db6c648",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/images')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/images')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/images')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/images')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/images')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/images')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/images')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/images')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "images",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/images",
+                "TimeCreated": "2022-02-27T00:19:24Z",
+                "TimeLastModified": "2022-02-27T00:19:24Z",
+                "UniqueId": "42aa667f-8df7-462e-99fa-f434818bc500",
+                "WelcomePage": ""
+            },
+            {
+                "__metadata": {
+                    "id": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_cts')",
+                    "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_cts')",
+                    "type": "SP.Folder"
+                },
+                "Files": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_cts')/Files"
+                    }
+                },
+                "ListItemAllFields": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_cts')/ListItemAllFields"
+                    }
+                },
+                "ParentFolder": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_cts')/ParentFolder"
+                    }
+                },
+                "Properties": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_cts')/Properties"
+                    }
+                },
+                "StorageMetrics": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_cts')/StorageMetrics"
+                    }
+                },
+                "Folders": {
+                    "__deferred": {
+                        "uri": "https://aecprefab.sharepoint.com/sites/AECCRMApplication/_api/Web/GetFolderByServerRelativePath(decodedurl='/sites/AECCRMApplication/_cts')/Folders"
+                    }
+                },
+                "Exists": true,
+                "IsWOPIEnabled": false,
+                "ItemCount": 0,
+                "Name": "_cts",
+                "ProgID": null,
+                "ServerRelativeUrl": "/sites/AECCRMApplication/_cts",
+                "TimeCreated": "2022-02-27T00:19:26Z",
+                "TimeLastModified": "2022-02-27T00:19:26Z",
+                "UniqueId": "067585a4-b8eb-483e-b88d-f4cb87ea6ae8",
+                "WelcomePage": ""
+            }
+        ]
+    }
+}

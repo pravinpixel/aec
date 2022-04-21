@@ -34,7 +34,7 @@ class SharepointController extends Controller
 
     public function create( $folder)
     {
-      
+        Log::info("New folder created start");
         $client = new Client();
         $url = $this->getUrl('folders');
         $res = $client->post($url, [
@@ -47,11 +47,13 @@ class SharepointController extends Controller
      
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
+        Log::info("New folder created end");
         return $responseData;
     }
 
     public function delete( $folder)
     {
+        Log::info("folder deleted start");
         $client = new Client();
         $url = $this->getUrl("GetFolderByServerRelativeUrl('/sites/AECCRMApplication/Shared Documents/".$folder."')");
         $res = $client->post($url, [
@@ -59,6 +61,7 @@ class SharepointController extends Controller
         ]);
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
+        Log::info("New folder deleted end");
         return $responseData;
     }
 
