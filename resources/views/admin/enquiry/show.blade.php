@@ -1282,6 +1282,8 @@
             $scope.GetCommentsData = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.enquiry_status = res.data.enquiry_status;
+                    $scope.customer_response_obj.follow_up_date = new Date(res.data.follow_up_date);
+                    $scope.customer_response_obj.follow_up_status = res.data.follow_up_status;
                 }).then(function(){
                     $http.get(API_URL + 'admin/api/v2/get-denied-proposal/' + {{ $data->id ?? " " }} ).then(function (res) {
                         $scope.deniedComments = res.data;
@@ -1325,6 +1327,22 @@
 
                });
             } 
+            // followup date
+            $scope.updateFollow = () => {
+                if(typeof($scope.customer_response_obj.follow_up_date) == 'undefined'){
+                    Message('danger','Follow up date field is required');
+                    return false;
+                }
+                $http.post(API_URL+'admin/update-followup', {
+                    enquiry_id: enquiry_id, 
+                    follow_up_date: $scope.customer_response_obj.follow_up_date,
+                    follow_up_status: $scope.customer_response_obj.follow_up_status,
+                })
+                .then((res) => {
+                    Message('success', res.data.msg);
+                })
+            } 
+
         });
     </script>  
 @endpush

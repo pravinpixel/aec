@@ -609,4 +609,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry->is_new_enquiry = 0;
         return $enquiry->save();
     }
+
+    public function updateFollowUp($id, $data)
+    {
+        return $this->enquiry->find($id)->update($data);
+    }
 }

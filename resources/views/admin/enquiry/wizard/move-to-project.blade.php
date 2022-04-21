@@ -78,19 +78,19 @@
         <div class="row m-0">
             <div class="col">
                 <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Status</strong>
-                <select name="" class="form-select mt-2" id="">
-                    <option>-- choose -- </option>
-                    <option value="Approved">Approved</option>
+                <select ng-model="customer_response_obj.follow_up_status" class="form-select mt-2">
+                    <option value="">@lang('customer-enquiry.select')</option>
+                    <option value="Approved"  ng-selected="true">Approved</option>
                 </select>
             </div>
             <div class="col">
                 <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Next Follow Up date</strong>
-                <input type="date" class="form-control mt-2" data-date-inline-picker="true">
+                <input  ng-model="customer_response_obj.follow_up_date" type="date" class="form-control mt-2" data-date-inline-picker="true">
             </div>
         </div>
         <div class="d-flex justify-content-center pt-3">
             <button class="btn btn-light me-2 p-3 py-2">Cancel</button>
-            <button class="btn btn-primary p-3 py-2"> <i class="fa fa-check-circle me-1 text-white"></i> Submit </button>
+            <button ng-click="updateFollow()" class="btn btn-primary p-3 py-2"> <i class="fa fa-check-circle me-1 text-white"></i> Submit </button>
         </div>
     </div>
 </div>

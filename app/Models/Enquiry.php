@@ -55,7 +55,10 @@ class Enquiry extends Model
         'initiate_from',
         'is_new_enquiry',
         'device_key',   
-        'device_token'
+        'device_token',
+        'follow_up_date',
+        'follow_up_status',
+        'follow_up_by',
     ];
 
     public function getCreatedAtAttribute($date)
@@ -96,6 +99,16 @@ class Enquiry extends Model
     public function setEnquiryDateAttribute($value)
     {
         $this->attributes['enquiry_date'] = GlobalService::DBDateFormatWithTime($value);
+    }
+
+    public function getFollowUpDateAttribute($value)
+    {
+        return GlobalService::DBDateFormat($value);
+    }
+
+    public function setFollowUpDateAttribute($value)
+    {
+        $this->attributes['follow_up_date'] = GlobalService::DBDateFormatWithTime($value);
     }
 
     public function customer()

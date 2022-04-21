@@ -315,6 +315,9 @@ class EnquiryController extends Controller
         $result['project_type']         =   $enquiry->projectType;
         $result['technical_estimate']   =   $enquiry->technicalEstimate;
         $result['cost_estimate']        =   $enquiry->costEstimate;
+        $result['follow_up_date']       =   $enquiry->follow_up_date;
+        $result['follow_up_status']     =   $enquiry->follow_up_status;
+        $result['follow_up_by']         =   $enquiry->follow_up_by;
         return $result;
         
     }
@@ -534,6 +537,21 @@ class EnquiryController extends Controller
         }
         return response(['status' => false, 'msg' => trans('enquiry.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
     }  
+
+    public function updateFollowUp(Request $request)
+    {
+        $id = $request->enquiry_id;
+        $data = [
+            'follow_up_date'   => $request->follow_up_date,
+            'follow_up_status' => $request->follow_up_status,
+            'follow_up_by'     => Admin()->id,
+        ];
+        $response = $this->customerEnquiryRepo->updateFollowUp($id, $data);
+        if( $response ) {
+            return response(['status' => true, 'msg' => trans('enquiry.follow_up_updated')], Response::HTTP_OK);
+        }
+        return response(['status' => false, 'msg' => trans('enquiry.something')]);
+    }
 
     public function getVersion()
     {

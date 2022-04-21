@@ -75,4 +75,6 @@ interface CustomerEnquiryRepositoryInterface
     public function updateNewEnquiryStatus($id);
 
     public function updateAdminWizardStatus($enquiry, $status);
+
+    public function updateFollowUp($id, $data);
 }

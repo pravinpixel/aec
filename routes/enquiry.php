@@ -80,6 +80,8 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('get-active-enquiries', [EnquiryController::class, 'getActiveEnquiries'])->name('get-active-enquiries');
     Route::get('get-cancelled-enquiries', [EnquiryController::class, 'getCancelledEnquiries'])->name('get-cancelled-enquiries');
     Route::delete('enquiry/{id}/delete', [EnquiryController::class, 'destroy'])->name('enquiry.delete');
+    Route::post('update-followup', [EnquiryController::class, 'updateFollowUp'])->name('enquiry.update-followup');
+    
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function(){
