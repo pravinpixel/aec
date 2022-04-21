@@ -164,7 +164,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
 
     public function updateFolder($id, $data)
     {
-        return $this->sharepointFolder->updateOrCreate([$id], $data);
+        return $this->sharepointFolder->updateOrCreate(['project_id'=> $id], $data);
     }
 
     public function getSharePointFolder($id)

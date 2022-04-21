@@ -34,13 +34,14 @@ class SharepointController extends Controller
 
     public function create( $folder)
     {
+      
         $client = new Client();
         $url = $this->getUrl('folders');
         $res = $client->post($url, [
             'headers' => array('Authorization' =>  'Bearer '.Session::get('access_token'),'Content-Type' => 'application/json;odata=verbose','Accept'=> 'application/json;odata=verbose'),
             "json"=> [
                 "__metadata"=> ["type"=> "SP.Folder"],
-                "ServerRelativeUrl"=> "/sites/AECCRMApplication/Shared Documents/".$folder
+                "ServerRelativeUrl"=> "/sites/AECCRMApplication/Shared Documents".$folder
             ]
         ]);
      

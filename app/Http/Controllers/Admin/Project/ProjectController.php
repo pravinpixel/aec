@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Project;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -22,6 +24,8 @@ class ProjectController extends Controller
     protected $customerEnquiryRepo;
     protected $customerRep;
     protected $index = 0;
+    protected $parentFolder = '';
+
     public function __construct(
        ProjectRepositoryInterface $projectRepo,
        CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
@@ -443,35 +447,61 @@ class ProjectController extends Controller
             'project_id' => $project_id,
             'created_by' => Admin()->id
         ];
-        // $sharepoint = new SharepointController();
-        $sharepoint = $this->projectRepo->getSharePointFolder($project_id);
-        if(!empty($sharepoint)){
-            $old = json_decode($project->sharepointFolder->folder);
-            $new = $request->data;
-            array_diff( $new , $old  );
-        }
+        $sharePoint = new SharepointController();
+        $sharePoint->create($request->path);
         $response = $this->projectRepo->updateFolder($project_id, $data);
+        if($response) {
+            return response(['status' => true, 'msg' => __('global.created')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
     }
 
     public function updateFolder($project_id, Request $request)
     {
+        $project = $this->projectRepo->getProjectById($project_id);
+        $sharePoint = new SharepointController();
+        $requestPath = $request->path;
         $data = [
             'folder'      => json_encode($request->data),
             'project_id'  => $project_id,
             'created_by' => Admin()->id,
             'modified_by' => Admin()->id
         ];
-        // $sharepoint = $this->projectRepo->getSharePointFolder($project_id);
-        // if(!empty($sharepoint)){
-        //     $old = json_decode($project->sharepointFolder->folder);
-        //     $new = $request->data;
-        //     dd(array_diff( $new , $old));
-        // }
+        if(substr($request->path,0,1) != '/') {
+            $requestPath = '/'. $request->path;
+        }
+        $reference_number = explode('/',$project->reference_number)[2];
+        $sharePoint->create("/Project Management/{$reference_number}");
+        $folderPath = "/Project Management/{$reference_number}{$requestPath}";
+        $sharePoint->create($folderPath);
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
-            return response(['status' => true, 'msg' => __('global.template_added')]);
+            return response(['status' => true, 'msg' => __('global.updated')]);
         }
         return response(['status' => false, 'msg' => __('global.something')]);
     }
 
+    public function deleteFolder($project_id = null, Request $request)
+    {
+        $sharePoint = new SharepointController();
+        if(is_null($project_id)){
+            $project_id = $this->getProjectId();
+        }
+        $requestPath = $request->path;
+        $project = $this->projectRepo->getProjectById($project_id);
+        $data = [
+            'folder'      => json_encode($request->data),
+            'project_id'  => $project_id,
+            'created_by' => Admin()->id,
+            'modified_by' => Admin()->id
+        ];
+        $reference_number = explode('/',$project->reference_number)[2];
+        $folderPath = "/Project Management/{$reference_number}/{$requestPath}";
+        $sharePoint->delete($folderPath);
+        $response = $this->projectRepo->updateFolder($project_id, $data);
+        if($response) {
+            return response(['status' => true, 'msg' => __('global.deleted')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
+    }
 }

@@ -112,7 +112,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
             height: 450,
             permissions: {
               create: true,
-              delete: false,
+              delete: true,
               rename: false,
               download: false,
             },
@@ -149,12 +149,22 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
             },
             onContextMenuItemClick: onItemClick,
             onDirectoryCreating: function (e) {
-                console.log('onDirectoryCreating',fileSystem);
-                $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem})
+                let path = e.parentDirectory.relativeName+'/'+e.name;
+                $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem, path: path})
                 .then((res) => {
                     Message('success', 'updated successfully');
                  
                 })
+            },
+            onItemDeleting: function (e) {
+                console.log(e)
+                let path = e.item.relativeName;
+                console.log(path);
+                $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, {data: fileSystem, path: path})
+                .then((res) => {
+                    Message('success', 'deleted successfully');
+                })
+                return true;
             },
             onItemRenamed: function(e) {
                 console.log('onItemRenamed',fileSystem);
