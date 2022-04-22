@@ -8,6 +8,7 @@ use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Models\CheckList;
+use App\Models\Project;
 use App\Models\ProjectGranttTask;
 use App\Services\GlobalService;
 use Carbon\Carbon;
@@ -39,7 +40,7 @@ class ProjectController extends Controller
     }
 
     public function index()
-    {
+    { 
         return view('admin.projects.index');
     }
 
@@ -66,6 +67,7 @@ class ProjectController extends Controller
                 "check_list"    =>  $check_lists_data
             ];
         }
+ 
         
         return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
     }
@@ -73,18 +75,25 @@ class ProjectController extends Controller
     {
         return $this->index +=1;
     }
+    public function checkIndex()
+    { 
+        $statement  =   DB::select("SHOW TABLE STATUS LIKE 'aec_project_grantt_tasks'");
+        return $this->index = $statement[0]->Auto_increment-1;
+    }
     public function storeToDoList(Request $request)
-    {
+    { 
+        $this->checkIndex();
         $loop_one =  $request->data;
-
         $result = [];
 
+        Project::find($request->id)->update(["gantt_chart_data" => json_encode($request->data)]);
        
         foreach ($loop_one as $key => $row_one) {
 
             $subParent = $this->updateIndex();
 
             $result[] = [
+                "project_id"    =>   $request->id,
                 "id"            =>  $subParent,
                 "text"          =>  $row_one['name'],
                 "duration"      =>  72,
@@ -92,7 +101,6 @@ class ProjectController extends Controller
                 "start_date"    =>  "2022-04-20 12:45:07",
                 "parent"        =>  0,
                 "type"          =>  "project",
-                "project_id"    =>   $request->id
             ];
 
             foreach ($row_one['data'] as $row_two) {
@@ -100,6 +108,7 @@ class ProjectController extends Controller
                 $subParentTwo      =    $this->updateIndex();
 
                 $result[] = [
+                    "project_id"    =>  $request->id,
                     "id"            =>  $subParentTwo,
                     "parent"        =>  $subParent,
                     "text"          =>  $row_two['name'],
@@ -107,37 +116,35 @@ class ProjectController extends Controller
                     "progress"      =>  0,
                     "start_date"    =>  "2022-04-20 12:45:07",
                     "type"          =>  "project",
-                    "project_id"    =>   $request->id
                 ];
 
                 foreach ($row_two['data'] as  $row_three) {
                  
                     $result[] = [
+                        "project_id"  =>   $request->id,
                         "id"          =>   $this->updateIndex(),
                         "parent"      =>   $subParentTwo,
-                        "text"        =>   $row_three['name'],
+                        "text"        =>   $row_three['task_list'],
                         "duration"    =>   72,
                         "progress"    =>   0,
                         "start_date"  =>   "2022-04-20 12:45:07",
                         "type"        =>   "project",
-                        "project_id"    =>   $request->id
                     ];
                 }
             }
-        }
- 
-    
+        } 
+
         if($request->update === true) {
-            $data   = ProjectGranttTask::find($request->id);
-            $method = 'update';
+            ProjectGranttTask::where('project_id', $request->id)->delete();
+            
+            foreach ($result as $task) {
+                ProjectGranttTask::create($task);
+            }
+        } else {
+            foreach ($result as $task) {
+                ProjectGranttTask::create($task);
+            }
         }
-
-        if($request->store === true) {
-            $data   = new ProjectGranttTask;
-            $method = 'create';
-        }
-
-        $data->$method($result);
  
         return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
     }
@@ -149,7 +156,8 @@ class ProjectController extends Controller
         $grouped        =   $list->groupBy('task_list_category')->map(function($item){
             return ['name' => $item[0]->getTaskList->task_list_name, 'data' => $item ];
         });
-         
+
+
         $result = [
             "name" => $request->data,
             "data" => $grouped

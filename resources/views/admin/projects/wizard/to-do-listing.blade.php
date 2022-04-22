@@ -77,8 +77,8 @@
                                                 <option value="Kristoffer">Kristoffer</option>
                                             </select>
                                         </td>
-                                        <td><input type="date" get-to-do-lists ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
-                                        <td><input type="date" get-to-do-lists ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                        <td><input type="date" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                        <td><input type="date" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
                                     </tr> 
                                 </tbody>
                             </table>

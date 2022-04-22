@@ -343,6 +343,8 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 
     $http.get(`${API_URL}project/${project_id}`).then((res)=> {
         $scope.project = formatData(res.data);
+        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+        $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
     });
  
     // ======= $scope of Flow ==============
@@ -351,8 +353,9 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
         $scope.check_list_master = res.data.data;
     });
 
-    $scope.check_list_items     =  []
-    
+    // $scope.check_list_items     =  $scope.gantt_project_data
+    // clg
+
     $scope.add_new_check_list_item  =  ()   => { 
         if($scope.check_list_type === undefined || $scope.check_list_type == '') return false
 
@@ -408,14 +411,13 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 
             if ($scope.CallToDB === true) {
                 $http.post(`${$("#baseurl").val()}admin/store-to-do-list`, {
-                    id      :   project_id , 
-                    update  :   true , 
-                    store   :   false,
-                    data    :  $scope.check_list_items, 
+                    id      :  project_id,
+                    update  :  $scope.check_list_items_status,
+                    data    :  $scope.check_list_items,
                 }).then((res) => {
                     if(res.data.status === true) {
                         Message('success', 'To do List Added Success !');
-                        $location.path('review-n-submit')
+                        $location.path('project-scheduling')
                     }                
                 })
             }

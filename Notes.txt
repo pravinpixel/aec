@@ -1,0 +1,18 @@
+$nested = array();
+foreach ( $source as &$s ) {
+    if ( is_null($s['parent_id']) ) {
+        $nested[] = &$s;
+    }
+    else {
+        $pid = $s['parent_id'];
+        if ( isset($source[$pid]) ) {
+
+            if ( !isset($source[$pid]['children']) ) {
+                $source[$pid]['children'] = array();
+            }
+
+            $source[$pid]['children'][] = &$s;
+        }
+    }
+}
+return $nested;

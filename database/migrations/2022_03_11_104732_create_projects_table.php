@@ -49,6 +49,9 @@ class CreateProjectsTable extends Migration
             $table->foreign('delivery_type_id')->references('id')->on('delivery_types');
             $table->foreign('created_by')->references('id')->on('employee');
             $table->foreign('updated_by')->references('id')->on('employee');
+
+            $table->longText('gantt_chart_data')->nullable();
+
             $table->timestamps();
         });
     }
