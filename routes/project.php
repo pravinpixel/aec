@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
         Route::get('project-invoice-plan', [ProjectController::class, 'invoicePlan'])->name('invoice-plan');
 
         Route::get('project-review-n-submit', function () {
-            return view('admin.projects.create-project.wizard.review-n-submit');
+            return view('admin.projects.wizard.review-n-submit');
         })->name('review-n-submit');
         
         Route::get('project-unestablished-list', [ProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');

@@ -145,6 +145,7 @@
             })
             .when("/review-n-submit", {
                 templateUrl : "{{ route('review-n-submit') }}",
+                controller : 'ReviewAndSubmit'
             })
             .otherwise({
                 redirectTo: "/"

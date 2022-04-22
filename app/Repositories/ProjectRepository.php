@@ -3,12 +3,14 @@
 namespace App\Repositories;
 
 use App\Interfaces\ProjectRepositoryInterface;
+use App\Models\DeliveryType;
 use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectAssignToUser;
 use App\Models\ProjectGranttLink;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectTeamSetup;
+use App\Models\ProjectType;
 use App\Models\SharepointFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
@@ -57,7 +59,16 @@ class ProjectRepository implements ProjectRepositoryInterface{
 
     public function getProjectById($id)
     {
+ 
         return $this->model->find($id);
+        // $project_data   =   $this->model->find($id)->toArray();
+
+        // $project_type   = [
+        //     "project_type"   =>  ProjectType::find($project_data['project_type_id'])->project_type_name ,
+        //     "delivery_type"  =>  DeliveryType::find($project_data['delivery_type_id'])->delivery_type_name ,
+        // ];
+
+        // return array_merge($project_data, $project_type);
     }
 
     public function checkReferenceNumber()

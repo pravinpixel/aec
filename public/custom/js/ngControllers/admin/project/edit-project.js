@@ -427,6 +427,29 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     }
 });
 
+app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, ) {
+
+    let id =  $("#project_id").val();
+
+    const SectionType = ['create_project', 'team_setup', 'project_scheduler', 'invoice_plan','connection_platform']
+
+    $scope.review  = [];
+    
+    $http.get(`${API_URL}project/edit/${id}/create_project`).then((res)=> {
+        $scope.review.push({
+            project_info : res.data ,
+        });
+    });
+    $http.get(`${API_URL}project/edit/${id}/invoice_plan`).then((res)=> {
+        $scope.review.push({
+            invoice_plan : res.data ,
+        });
+    });
+    
+    console.log($scope.review)
+ 
+});
+
 app.directive('getToDoLists',['$http', function() {
     return {
         restrict: 'A',
