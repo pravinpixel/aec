@@ -59,16 +59,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
 
     public function getProjectById($id)
     {
- 
         return $this->model->find($id);
-        // $project_data   =   $this->model->find($id)->toArray();
-
-        // $project_type   = [
-        //     "project_type"   =>  ProjectType::find($project_data['project_type_id'])->project_type_name ,
-        //     "delivery_type"  =>  DeliveryType::find($project_data['delivery_type_id'])->delivery_type_name ,
-        // ];
-
-        // return array_merge($project_data, $project_type);
     }
 
     public function checkReferenceNumber()
@@ -118,6 +109,11 @@ class ProjectRepository implements ProjectRepositoryInterface{
             "data" => $tasks->where('project_id', $project_id)->get(),
             "links" => $links->where('project_id', $project_id)->get()
         ];
+    }
+
+    public function getToDoListData($id)
+    {
+        return $id;
     }
 
     public function getInvoicePlan($id)

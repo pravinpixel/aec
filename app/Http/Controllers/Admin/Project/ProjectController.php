@@ -8,8 +8,11 @@ use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Models\CheckList;
+use App\Models\DeliveryType;
+use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectGranttTask;
+use App\Models\ProjectType;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use Exception;
@@ -68,8 +71,7 @@ class ProjectController extends Controller
                 "check_list"    =>  $check_lists_data
             ];
         }
- 
-        
+  
         return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
     }
     public function updateIndex()
@@ -157,8 +159,7 @@ class ProjectController extends Controller
         $grouped        =   $list->groupBy('task_list_category')->map(function($item){
             return ['name' => $item[0]->getTaskList->task_list_name, 'data' => $item ];
         });
-
-
+ 
         $result = [
             "name" => $request->data,
             "data" => $grouped
@@ -275,7 +276,7 @@ class ProjectController extends Controller
     }
 
     public function getProjectId(){
-        return Session::get('project_id');
+        return Session::get('project_id') ?? "Session is Out";
     }
 
     public function setProjectId($id){
@@ -285,21 +286,41 @@ class ProjectController extends Controller
 
     public function getProject($type)
     {
-    
+         
         $project_id = $this->getProjectId();
         if(empty($project_id)) return false;
         if($type == 'create_project') {
             return $this->projectRepo->getProjectById($project_id);
         } else if($type == 'team_setup') {
             return $this->projectRepo->getProjectTeamSetup($project_id);
-        } else if($type == 'project_scheduler') {
+        } else  if($type == 'project_scheduler') {
             return $this->projectRepo->getGranttChartTaskLink($project_id);
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->getInvoicePlan($project_id);
-        } else if($type == 'connection_platform') {
+        } else if($type ==  'connection_platform') {
             $project = $this->projectRepo->getSharePointFolder($project_id);
             return isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
+        }else if ($type ==  'to_do_listing') {
+            return $this->projectRepo->getToDoListData($project_id);
         }
+    }
+
+    public function overViewProject($id)
+    {
+        $project_data   =   Project::find($id)->toArray();
+        $invoice_plan   =   InvoicePlan::where('project_id', $id)->first();
+        // return $this->projectRepo->getProjectTeamSetup($id);
+        $data   =  [
+            "project_type"   =>  ProjectType::find($project_data['project_type_id'])->project_type_name,
+            "delivery_type"  =>  DeliveryType::find($project_data['delivery_type_id'])->delivery_type_name,
+            "invoice_plan"   =>  [
+                'project_cost'  =>  $invoice_plan->project_cost,
+                'no_of_invoice' =>  $invoice_plan->no_of_invoice,
+                'invoice_data'  =>  json_decode($invoice_plan->invoice_data),
+            ],
+        ];
+
+        return array_merge($project_data, $data);
     }
 
     public function getEditProject($id, $type)

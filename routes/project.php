@@ -42,22 +42,25 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     //========= END :  Wizard Flow Views =========
 });
 
+Route::get('/get-project-session-id',[ProjectController::class, 'getProjectId'])->name("vetri");
+
 Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.'], function () {
     Route::get('get-templates',[ProjectController::class, 'getTeamsetupTemplate'])->name('get-templates');
     Route::get('get-template-by-id/{id}',[ProjectController::class, 'getTeamsetupTemplateById'])->name('get-template-by-id');
     Route::get('reference-number',[ProjectController::class, 'getReferenceNumber'])->name('reference-number');
     Route::get('/{id}',[ProjectController::class, 'show'])->name('get-by-id');
+  
     Route::post('/',[ProjectController::class, 'store'])->name('store');
     Route::get('wizard/{type}',[ProjectController::class, 'getProject'])->name('wizard');
     Route::put('/{id}',[ProjectController::class, 'update'])->name('update');
     Route::get('enquiry/{id}',[ProjectController::class, 'getEnquiry'])->name('get-enquiry');
     Route::get('edit/{id}/{type}',[ProjectController::class, 'getEditProject'])->name('get-edit-project');
+    Route::get('overview/{id}',[ProjectController::class, 'overViewProject'])->name('get-overview-project');
     Route::post('store-template',[ProjectController::class, 'storeTeamsetupTemplate'])->name('store-template');
     Route::post('sharepoint-folder',[ProjectController::class, 'storeFolder'])->name('sharepoint-folder');
     Route::put('sharepoint-folder/{id}',[ProjectController::class, 'updateFolder'])->name('sharepoint-folder');
     Route::post('sharepoint-folder-delete',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete');
-    Route::post('sharepoint-folder-delete/{id}',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete');
-    
+    Route::post('sharepoint-folder-delete/{id}',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete'); 
 });
 
 

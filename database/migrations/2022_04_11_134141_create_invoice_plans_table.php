@@ -17,7 +17,7 @@ class CreateInvoicePlansTable extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('created_by');
-            $table->decimal('project_cost', 5,2);
+            $table->integer('project_cost');
             $table->integer('no_of_invoice');
             $table->string('invoice_data');
             $table->foreign('project_id')->references('id')->on('projects');

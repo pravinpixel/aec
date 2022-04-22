@@ -23,6 +23,6 @@ interface ProjectRepositoryInterface
     public function storeFolder($data);
     public function updateFolder($id, $data);
     public function getSharePointFolder($id);
-    // public function getToDoListById($id);
+    public function getToDoListData($id);
     // public function storeToDoList($id, $data);
 }

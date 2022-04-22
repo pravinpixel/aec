@@ -352,23 +352,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr ng-repeat="row in review['invoice_plan'].invoice_data">
                         <td class="text-center">1</td>
-                        <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                        <td class="text-center">500</td>
-                        <td class="text-center"><input value="50" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2</td>
-                        <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                        <td class="text-center">250</td>
-                        <td class="text-center"><input value="25" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                    </tr> 
-                    <tr>
-                        <td class="text-center">3</td>
-                        <td class="text-center"><input type="date" name="" id="" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
-                        <td class="text-center">250</td>
-                        <td class="text-center"><input value="25" type="number" name="" id="" class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                        <td class="text-center">@{{ row.invoice_date | date: 'yyyy-MM-dd' }}</td>
+                        <td class="text-center">@{{ row.amount }}</td>
+                        <td class="text-center">@{{ row.percentage }}</td>
                     </tr> 
                 </tbody>
             </table>

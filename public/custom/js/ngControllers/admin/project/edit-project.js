@@ -264,7 +264,7 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
         $http.put(`${API_URL}project/${project_id}`, {data: $scope.teamSetups, type:'team_setup'})
         .then((res) => {
             Message('success', 'Team Setup updated successfully');
-            $location.path('project-scheduling');
+            $location.path('invoice-plan');
         })
     }
 });
@@ -429,21 +429,12 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, ) {
 
     let id =  $("#project_id").val();
-
-    const SectionType = ['create_project', 'team_setup', 'project_scheduler', 'invoice_plan','connection_platform']
-
-    $scope.review  = [];
     
-    $http.get(`${API_URL}project/edit/${id}/create_project`).then((res)=> {
-        $scope.review.push({
-            project_info : res.data ,
-        });
-    });
-    $http.get(`${API_URL}project/edit/${id}/invoice_plan`).then((res)=> {
-        $scope.review.push({
-            invoice_plan : res.data ,
-        });
-    });
+        
+    $http.get(`${API_URL}project/overview/${id}`).then((res)=> {
+        $scope.review  =  res.data 
+        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+    }); 
     
     console.log($scope.review)
  

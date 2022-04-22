@@ -250,20 +250,23 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
         $http.post(`${API_URL}project`, {data: $scope.teamSetups, type:'team_setup'})
         .then((res) => {
             Message('success', 'Team Setup created successfully');
-            $location.path('project-scheduling')
+            $location.path('to-do-listing')
         })
     }
 });
 
 app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $rootScope){
     
-    var dp = new gantt.dataProcessor(`${API_URL}api/project`);
+    let project_id = $("#session_project_id").val();
+    var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
     dp.init(gantt);
     dp.setTransactionMode("REST");
+
     ganttModules.zoom.setZoom("months");
     gantt.init("gantt_here");
     ganttModules.menu.setup();
-    gantt.load(`${API_URL}project/wizard/project_scheduler`); 
+    gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`); 
+
 });
 
 app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
@@ -313,6 +316,133 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             $location.path('to-do-listing');
         })
     }
+});
+
+app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
+
+
+    $http.get(`${API_URL}get-project-session-id`).then((res)=> {
+        $scope.project_id = res.data;
+        console.log("This is Current Session ID : " , $scope.project_id)
+    });
+
+    var project_id  = $scope.project_id;
+   
+    $http.get(`${API_URL}get-project-type`).then((res)=> {
+        $scope.projectTypes = res.data;
+    });
+
+    $http.get(`${API_URL}project/${project_id}`).then((res)=> {
+        $scope.project = formatData(res.data);
+        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+        $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
+    });
+
+    $http.get(`${API_URL}get-project-type`).then((res)=> {
+        $scope.projectTypes = res.data;
+    });
+
+    $http.get(`${API_URL}project/wizard/to_do_listing`).then((res)=> {
+        $scope.project = formatData(res.data);
+        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+        $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
+    });
+ 
+    // ======= $scope of Flow ==============
+
+    $http.get(`${API_URL}admin/check-list-master-group`).then((res)=> {
+        $scope.check_list_master = res.data.data;
+    });
+
+
+    $scope.add_new_check_list_item  =  ()   => { 
+        if($scope.check_list_type === undefined || $scope.check_list_type == '') return false
+
+        // $scope.return   =    true
+
+        // $scope.check_list_items.map(item => {``
+        //     let atime   = item.data[1][0]
+        //     if (atime.name == JSON.parse($scope.check_list_type).name) {
+        //         $scope.return   = false
+        //     }
+        // });
+
+        // if($scope.return   == false) return false
+
+        $http.post(`${API_URL}admin/check-list-master-group`, {data:  $scope.check_list_type}).then((res) => {
+            $scope.check_list_items.push(res.data.data)
+            console.log($scope.check_list_items)
+        })
+          
+    };
+    
+    $scope.delete_this_check_list_item  =  (index)  => $scope.check_list_items.splice(index,1);
+
+    $scope.storeToDoLists = () => {
+         
+        $scope.check_list_items.map((CheckLists) => {
+
+            const CheckListsIndex = Object.entries(CheckLists.data);
+
+            $scope.CallToDB = false;
+
+            CheckListsIndex.map((TaskLists) => {
+                const TaskListsIndex = TaskLists[1].data;
+                TaskListsIndex.map((ListItems) => {
+                    if(ListItems.assign_to === undefined  || ListItems.assign_to == '') {
+                        Message('danger', 'Assign To Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    if(ListItems.start_date === undefined  || ListItems.start_date == '') {
+                        Message('danger', 'Start Date Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    if(ListItems.end_date === undefined  || ListItems.end_date == '') {
+                        Message('danger', 'End Date Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    
+                }); 
+            });
+
+            if ($scope.CallToDB === true) {
+                $http.post(`${$("#baseurl").val()}admin/store-to-do-list`, {
+                    id      :  project_id,
+                    update  :  $scope.check_list_items_status,
+                    data    :  $scope.check_list_items,
+                }).then((res) => {
+                    if(res.data.status === true) {
+                        Message('success', 'To do List Added Success !');
+                        $location.path('project-scheduling')
+                    }                
+                })
+            }
+            
+        }); 
+        
+    }
+});
+
+app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, ) {
+
+    $http.get(`${API_URL}get-project-session-id`).then((res)=> {
+        $scope.project_id = res.data;
+        console.log("This is Current Session ID : " , $scope.project_id)
+    });
+
+    var project_id  = $scope.project_id;
+    
+        
+    $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
+        $scope.review  =  res.data 
+        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+    }); 
+    
+    console.log($scope.review)
+ 
 });
 
 app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {  

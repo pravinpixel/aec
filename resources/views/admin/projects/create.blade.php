@@ -46,16 +46,7 @@
                                     <p class="h5 mt-2">Team Setup</p>
                                 </a>
                             </li> 
-                            <li class="nav-item Project_Scheduling">
-                                <a href="#!/project-scheduling" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">Project Scheduling</p>
-                                </a>
-                            </li> 
+                            
                             <li class="nav-item Invoice_Plan">
                                 <a href="#!/invoice-plan" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
@@ -75,7 +66,17 @@
                                     </div>
                                     <p class="h5 mt-2">To-do List</p>
                                 </a>
-                            </li>                                
+                            </li>        
+                            <li class="nav-item Project_Scheduling">
+                                <a href="#!/project-scheduling" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                    <div class="timeline-content">
+                                        <div class="inner-circle bg-secondary ">
+                                            <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
+                                        </div>
+                                    </div>
+                                    <p class="h5 mt-2">Project Scheduling</p>
+                                </a>
+                            </li>                         
                             <li class="nav-item admin-Delivery-wiz">
                                 <a href="#!/review-n-submit" style="min-height: 40px;"  class="timeline-step" data-is-active >
                                     <div class="timeline-content">
@@ -95,10 +96,10 @@
             </div>
         </div>
     </div> 
-
 @endsection
 @push('custom-styles')
-    <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
+    <input type="hidden" value="{{ Session::get('project_id') }}" id="session_project_id" name="session_project_id">
+    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> 
 @endpush
 @push('custom-scripts')
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
@@ -136,10 +137,11 @@
             })
             .when("/to-do-listing", {
                 templateUrl : "{{ route('to-do-listing') }}",
-                controller :  'toDoListController'
+                controller :  'ToDoListController'
             })
             .when("/review-n-submit", {
                 templateUrl : "{{ route('review-n-submit') }}",
+                controller: "ReviewAndSubmit"
             })
             .otherwise({
                 redirectTo: "/"
