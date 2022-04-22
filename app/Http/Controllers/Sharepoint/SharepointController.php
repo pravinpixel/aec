@@ -14,10 +14,6 @@ class SharepointController extends Controller
     public function __construct()
     {
         $client  = new Client();
-        if(!empty(Session::get('access_token'))){
-            Log::info('Token is live');
-            return false;
-        }
         $res = $client->request('POST', 'https://accounts.accesscontrol.windows.net/ae3eb95f-ac8f-4337-88b5-dbd0afe01b6f/tokens/OAuth/2', [
             'form_params' => [
                 'grant_type' => 'client_credentials',
@@ -28,7 +24,6 @@ class SharepointController extends Controller
         ]);
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
-        Log::info('New token created');
         Session::put('access_token', $responseData['access_token']);
     }
 
@@ -44,7 +39,6 @@ class SharepointController extends Controller
                 "ServerRelativeUrl"=> "/sites/AECCRMApplication/Shared Documents".$folder
             ]
         ]);
-     
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
         Log::info("New folder created end");
@@ -61,7 +55,7 @@ class SharepointController extends Controller
         ]);
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
-        Log::info("New folder deleted end");
+        Log::info("folder deleted end");
         return $responseData;
     }
 
