@@ -264,17 +264,21 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
 });
 
 app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $rootScope){
-    
-    let project_id = $("#session_project_id").val();
-    var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
-    dp.init(gantt);
-    dp.setTransactionMode("REST");
+     
+    $http.get(`${API_URL}get-project-session-id`).then((res)=> {
+        $scope.project_id = res.data;
+        let project_id = $scope.project_id;
 
-    ganttModules.zoom.setZoom("months");
-    gantt.init("gantt_here");
-    ganttModules.menu.setup();
-    gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`); 
+        var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
+        dp.init(gantt);
+        dp.setTransactionMode("REST");
 
+        ganttModules.zoom.setZoom("months");
+        gantt.init("gantt_here");
+        ganttModules.menu.setup();
+        gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`); 
+    });
+ 
 });
 
 app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
