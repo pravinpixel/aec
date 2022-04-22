@@ -348,17 +348,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
         }
     });
 
-    
-
-    $http.get(`${API_URL}get-project-type`).then((res)=> {
-        $scope.projectTypes = res.data;
-    });
-
-    $http.get(`${API_URL}project/wizard/to_do_listing`).then((res)=> {
-        $scope.project = formatData(res.data);
-        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
-        $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
-    });
+     
  
     // ======= $scope of Flow ==============
 
@@ -422,7 +412,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 
             if ($scope.CallToDB === true) {
                 $http.post(`${$("#baseurl").val()}admin/store-to-do-list`, {
-                    id      :  project_id,
+                    id      :  $scope.project_id,
                     update  :  $scope.check_list_items_status,
                     data    :  $scope.check_list_items,
                 }).then((res) => {
