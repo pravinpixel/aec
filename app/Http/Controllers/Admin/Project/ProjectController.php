@@ -296,7 +296,7 @@ class ProjectController extends Controller
             return $this->projectRepo->getGranttChartTaskLink($project_id);
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->getInvoicePlan($project_id);
-        } else if('connection_platform') {
+        } else if($type == 'connection_platform') {
             $project = $this->projectRepo->getSharePointFolder($project_id);
             return isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
         }
@@ -314,7 +314,7 @@ class ProjectController extends Controller
             return $this->projectRepo->getInvoicePlan($id);
         } else if($type == 'to-do-list') {
             return $this->projectRepo->getToDoList($id);
-        } else if('connection_platform') {
+        } else if($type == 'connection_platform') {
             $project = $this->projectRepo->getSharePointFolder($id);
             return isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
         }
@@ -519,7 +519,6 @@ class ProjectController extends Controller
             Log::error($ex->getMessage());
             return response(['status' => false, 'msg' => __('global.something')]);
         }
-       
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.updated')]);
