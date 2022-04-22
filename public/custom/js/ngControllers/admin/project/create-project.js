@@ -436,18 +436,17 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, ) {
 
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
-        console.log("This is Current Session ID : " , $scope.project_id)
-    });
 
-    var project_id  = $scope.project_id;
-    
+        var project_id  = $scope.project_id;
+                
+        $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
+            $scope.review  =  res.data 
+            $scope.check_list_items     =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+        }); 
         
-    $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
-        $scope.review  =  res.data 
-        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+        console.log($scope.review)
+         
     }); 
-    
-    console.log($scope.review)
  
 });
 
