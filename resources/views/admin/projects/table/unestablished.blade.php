@@ -1,7 +1,6 @@
 <table class="table custom dt-responsive nowrap  w-100" id="unestablished-table">
     <thead>
         <tr>
-            <th class="text-center">@lang('project.s_no')</th> 
             <th class="text-center">@lang('project.project_id')</th> 
             <th class="text-center">@lang('project.project_number')</th> 
             <th class="text-center">@lang('project.contact_person')</th> 

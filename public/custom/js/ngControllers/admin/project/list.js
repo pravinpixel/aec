@@ -19,7 +19,6 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             {data: 'reference_number', name: 'reference_number'},
             {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
-            {data: 'mobile_number', name: 'mobile_number'},
             {data: 'start_date', name: 'start_date'},
             {data: 'delivery_date', name: 'delivery_date'},
             {data: 'pipeline', name: 'pipeline'},
