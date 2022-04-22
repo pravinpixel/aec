@@ -324,19 +324,23 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
         console.log("This is Current Session ID : " , $scope.project_id)
-    });
 
-    var project_id  = $scope.project_id;
+        var project_id  = $scope.project_id;
    
-    $http.get(`${API_URL}get-project-type`).then((res)=> {
-        $scope.projectTypes = res.data;
+        if(project_id != null) {
+            $http.get(`${API_URL}get-project-type`).then((res)=> {
+                $scope.projectTypes = res.data;
+            });
+    
+            $http.get(`${API_URL}project/${project_id}`).then((res)=> {
+                $scope.project = formatData(res.data);
+                $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+                $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
+            });
+        }
     });
 
-    $http.get(`${API_URL}project/${project_id}`).then((res)=> {
-        $scope.project = formatData(res.data);
-        $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
-        $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
-    });
+    
 
     $http.get(`${API_URL}get-project-type`).then((res)=> {
         $scope.projectTypes = res.data;
