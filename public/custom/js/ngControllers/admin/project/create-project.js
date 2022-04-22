@@ -339,7 +339,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
             $http.get(`${API_URL}get-project-type`).then((res)=> {
                 $scope.projectTypes = res.data;
             });
-    
+                
             $http.get(`${API_URL}project/${project_id}`).then((res)=> {
                 $scope.project = formatData(res.data);
                 $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
