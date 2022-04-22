@@ -152,8 +152,11 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
                 let path = e.parentDirectory.relativeName+'/'+e.name;
                 $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem, path: path})
                 .then((res) => {
+                    if(res.data.status == false) {
+                        Message('danger', res.data.msg);
+                        return false;
+                    }
                     Message('success', 'updated successfully');
-                 
                 })
             },
             onItemDeleting: function (e) {
@@ -161,6 +164,10 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
                 console.log(path);
                 $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, {data: fileSystem, path: path})
                 .then((res) => {
+                    if(res.data.status == false) {
+                        Message('danger', res.data.msg);
+                        return false;
+                    }
                     Message('success', 'deleted successfully');
                 })
                 return true;
