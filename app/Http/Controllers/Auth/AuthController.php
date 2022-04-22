@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Sharepoint\SharepointController;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,8 @@ class AuthController extends Controller
                 Flash::success( __('auth.login_successful'));
                 return redirect()->route('customers-dashboard');
             } else  if (Auth::attempt($request->only(['email','password']), false)) {
+                $sharepoint = new SharepointController();
+                $sharepoint->getToken();
                 Flash::success( __('auth.login_successful'));
                 return redirect()->route('admin-dashboard');
             } else {

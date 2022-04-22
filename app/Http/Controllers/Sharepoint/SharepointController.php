@@ -13,6 +13,11 @@ class SharepointController extends Controller
 {
     public function __construct()
     {
+       
+    }
+
+    public function getToken()
+    {
         $client  = new Client();
         $res = $client->request('POST', 'https://accounts.accesscontrol.windows.net/ae3eb95f-ac8f-4337-88b5-dbd0afe01b6f/tokens/OAuth/2', [
             'form_params' => [
@@ -25,10 +30,14 @@ class SharepointController extends Controller
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
         Session::put('access_token', $responseData['access_token']);
+        Log::info("Sharepoint Token set successfully");
     }
 
     public function create( $folder)
     {
+        if(empty(Session::get('access_token'))) {
+            $this->getToken();
+        }
         Log::info("New folder created start");
         $client = new Client();
         $url = $this->getUrl('folders');
@@ -47,6 +56,9 @@ class SharepointController extends Controller
 
     public function delete( $folder)
     {
+        if(empty(Session::get('access_token'))) {
+            $this->getToken();
+        }
         Log::info("folder deleted start");
         $client = new Client();
         $url = $this->getUrl("GetFolderByServerRelativeUrl('/sites/AECCRMApplication/Shared Documents/".$folder."')");
