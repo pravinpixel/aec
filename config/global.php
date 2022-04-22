@@ -46,6 +46,9 @@ return [
         '3ds', 
         'prjv'
     ],
+
     'cost_estimater' => 'cost_estimate',
+
     'technical_estimater' => 'technical_estimate',
+
 ];

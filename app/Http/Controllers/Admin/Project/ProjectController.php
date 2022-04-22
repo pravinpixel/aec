@@ -12,6 +12,7 @@ use App\Models\Project;
 use App\Models\ProjectGranttTask;
 use App\Services\GlobalService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -335,9 +336,13 @@ class ProjectController extends Controller
             $data['reference_number'] = GlobalService::getProjectNumber();
             $project = $this->projectRepo->storeProjectCreation($project_id, $data);
             $this->setProjectId($project->id);
-            $sharePoint = new SharepointController();
-            $reference_number = str_replace('/','-',$project->reference_number);
-            $sharePoint->create("{$this->rootFolder}/{$reference_number}");
+            try {
+                $sharePoint = new SharepointController();
+                $reference_number = str_replace('/','-',$project->reference_number);
+                $sharePoint->create("{$this->rootFolder}/{$reference_number}");
+            } catch(Exception $ex) {
+                Log::info($ex->getMessage());
+            }
             return $project;
         } else if($type == 'connect_platform') {
             return $this->projectRepo->storeConnectPlatform($project_id, $data);

@@ -6,16 +6,12 @@ use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class SharepointController extends Controller
 {
-    public function __construct()
-    {
-       
-    }
-
     public function getToken()
     {
         $client  = new Client();
@@ -38,16 +34,16 @@ class SharepointController extends Controller
         if(empty(Session::get('access_token'))) {
             $this->getToken();
         }
-        Log::info("New folder created start - path :".$folder);
-        $client = new Client();
+        Log::info("Path :".$folder);
         $url = $this->getUrl('folders');
-        $res = $client->post($url, [
-            'headers' => array('Authorization' =>  'Bearer '.Session::get('access_token'),'Content-Type' => 'application/json;odata=verbose','Accept'=> 'application/json;odata=verbose'),
-            "json"=> [
-                "__metadata"=> ["type"=> "SP.Folder"],
-                "ServerRelativeUrl"=> "/sites/AECCRMApplication/Shared Documents".$folder
-            ]
-        ]);
+        $res = Http::retry(3, 100)
+                        ->withHeaders([
+                            'Authorization' =>  'Bearer '.Session::get('access_token'),'Content-Type' => 'application/json;odata=verbose','Accept'=> 'application/json;odata=verbose'
+                        ])
+                        ->post($url, [
+                                "__metadata"=> ["type"=> "SP.Folder"],
+                                "ServerRelativeUrl"=> "/sites/AECCRMApplication/Shared Documents".$folder
+                        ]);
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
         Log::info("New folder created end");
@@ -60,11 +56,12 @@ class SharepointController extends Controller
             $this->getToken();
         }
         Log::info("folder deleted start- path :".$folder);
-        $client = new Client();
         $url = $this->getUrl("GetFolderByServerRelativeUrl('/sites/AECCRMApplication/Shared Documents/".$folder."')");
-        $res = $client->post($url, [
-            'headers' => array('Authorization' =>  'Bearer '.Session::get('access_token'),'X-HTTP-Method'=> 'DELETE','Content-Type' => 'application/json;odata=verbose','Accept'=> 'application/json;odata=verbose'),
-        ]);
+        $res = Http::retry(3, 100)
+                    ->withHeaders([
+                        'Authorization' =>  'Bearer '.Session::get('access_token'),'X-HTTP-Method'=> 'DELETE','Content-Type' => 'application/json;odata=verbose','Accept'=> 'application/json;odata=verbose'
+                    ])  
+                    ->post($url);
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
         Log::info("folder deleted end");
