@@ -506,9 +506,15 @@ class ProjectController extends Controller
         if(substr($request->path,0,1) != '/') {
             $requestPath = '/'. $request->path;
         }
-        $reference_number = str_replace('/','-',$project->reference_number);
-        $folderPath = "{$this->rootFolder}/{$reference_number}{$requestPath}";
-        $sharePoint->create($folderPath);
+        try {
+            $reference_number = str_replace('/','-',$project->reference_number);
+            $folderPath = "{$this->rootFolder}/{$reference_number}{$requestPath}";
+            $sharePoint->create($folderPath);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+            return response(['status' => false, 'msg' => __('global.something')]);
+        }
+       
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.updated')]);
@@ -530,9 +536,14 @@ class ProjectController extends Controller
             'created_by' => Admin()->id,
             'modified_by' => Admin()->id
         ];
-        $reference_number = str_replace('/','-',$project->reference_number);
-        $folderPath = "{$this->rootFolder}/{$reference_number}/{$requestPath}";
-        $sharePoint->delete($folderPath);
+        try {
+            $reference_number = str_replace('/','-',$project->reference_number);
+            $folderPath = "{$this->rootFolder}/{$reference_number}/{$requestPath}";
+            $sharePoint->delete($folderPath);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+            return response(['status' => false, 'msg' => __('global.something')]);
+        }
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.deleted')]);

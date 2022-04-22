@@ -38,7 +38,7 @@ class SharepointController extends Controller
         if(empty(Session::get('access_token'))) {
             $this->getToken();
         }
-        Log::info("New folder created start");
+        Log::info("New folder created start - path :".$folder);
         $client = new Client();
         $url = $this->getUrl('folders');
         $res = $client->post($url, [
@@ -59,7 +59,7 @@ class SharepointController extends Controller
         if(empty(Session::get('access_token'))) {
             $this->getToken();
         }
-        Log::info("folder deleted start");
+        Log::info("folder deleted start- path :".$folder);
         $client = new Client();
         $url = $this->getUrl("GetFolderByServerRelativeUrl('/sites/AECCRMApplication/Shared Documents/".$folder."')");
         $res = $client->post($url, [

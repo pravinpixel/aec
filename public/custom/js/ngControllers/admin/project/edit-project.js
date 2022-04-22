@@ -157,7 +157,6 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
                 })
             },
             onItemDeleting: function (e) {
-                console.log(e)
                 let path = e.item.relativeName;
                 console.log(path);
                 $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, {data: fileSystem, path: path})
@@ -167,7 +166,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
                 return true;
             },
             onItemRenamed: function(e) {
-                console.log('onItemRenamed',fileSystem);
+             
                 $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem})
                 .then((res) => {
                     Message('success', 'updated successfully');
