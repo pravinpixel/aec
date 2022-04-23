@@ -258,7 +258,7 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
         $http.post(`${API_URL}project`, {data: $scope.teamSetups, type:'team_setup'})
         .then((res) => {
             Message('success', 'Team Setup created successfully');
-            $location.path('to-do-listing')
+            $location.path('invoice-plan')
         })
     }
 });
@@ -443,9 +443,7 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, ) {
             $scope.review  =  res.data 
             $scope.check_list_items     =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
         }); 
-        
         console.log($scope.review)
-         
     }); 
  
 });
