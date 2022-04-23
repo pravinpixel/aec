@@ -49,7 +49,7 @@
                                 
                                     <div class="col-md-12 mb-1">
                                         <textarea name="editor1" id="editor1" >
-                                        <table class="table table-borderless">
+                                        <table class="table custom table-borderless">
                                             <tr>
                                                 <td>
                                                     <h1>{project_name}</h1>
@@ -455,7 +455,7 @@
                 $scope.module_enquirie = {};
                 
                 CKEDITOR.instances.editor1.setData(`
-                            <table class="table table-borderless">
+                            <table class="table custom table-borderless">
                                             <tr>
                                                 <td> <h1>{project_name}</h1></td>
                                                 <td>

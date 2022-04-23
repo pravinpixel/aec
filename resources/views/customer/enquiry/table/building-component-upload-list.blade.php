@@ -1,5 +1,5 @@
 
-<table class="table table-bordered" id="myTable">
+<table class="table custom table-bordered" id="myTable">
     <thead>
         <tr>
             <th>#</th>

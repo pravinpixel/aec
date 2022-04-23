@@ -201,7 +201,7 @@
 									   </div>
 								   </div>
 								   <div class="card-body ">
-									   <table id="scroll-vertical-datatable" class="table dt-responsive nowrap ">
+									   <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap ">
 										   <thead class="">
 											   <tr>
 												   <th>S.No</th>
@@ -269,8 +269,8 @@
 									   </div>
 									   <h4 class="header-title mb-3">Recent Activities</h4>
    
-									   <div class="table-responsive">
-										   <table class="table table-centered table-nowrap table-hover mb-0">
+									   <div class="table custom-responsive">
+										   <table class="table custom table-centered table-nowrap table-hover mb-0">
 											   <tbody>
 												   @for ($i = 0; $i < 5;  $i++)
 												   <tr>
@@ -284,7 +284,7 @@
 														   <span class="text-muted font-13">Project</span> <br>
 														   <p class="mb-0">New Building</p>
 													   </td>
-													   <td class="table-action" style="width: 50px;">
+													   <td class="table custom-action" style="width: 50px;">
 														   <div class="dropdown">
 															   <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
 																   <i class="mdi mdi-dots-horizontal"></i>

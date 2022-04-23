@@ -71,7 +71,7 @@
                             <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
                         </div>
                         <div class="card-body ps-0 pt-0 p-0">
-                            <table class="table shadow-none border m-0 table-bordered ">
+                            <table class="table custom shadow-none border m-0 table-bordered ">
                                 <thead class="bg-light">
                                     <tr>
                                         <th>Enquiry Date</th>
@@ -122,7 +122,7 @@
                                         </a> 
                                     </div>
                                 </div>
-                                <table id="toggle_table_@{{ index }}" class="table border shadow-sm table-bordered collapse show">
+                                <table id="toggle_table_@{{ index }}" class="table custom border shadow-sm table-bordered collapse show">
                                     <thead class="bg-light">
                                         <tr>
                                             <th class="text-secondary text-center">S.No</th>

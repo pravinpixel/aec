@@ -140,11 +140,11 @@
 </div> 
 <div class="card-body" ng-show="deniedComments.length">
     <div class="container p-0"> 
-        <table class="table table-bordered">
+        <table class="table custom table-bordered">
             <tbody class="panel"> 
                 <tr>
                     <td style="padding: 0 !important">
-                        <table  class="table table-bordereds m-0">
+                        <table  class="table custom table-bordereds m-0">
                             <tr>
                                 <th class="text-center" colspan="2" style="width: 6% !important">No</th>
                                 <th class="text-center" >File Name</th>
@@ -156,7 +156,7 @@
                 </tr>
                 <tr ng-repeat="(key,deniedComment) in deniedComments">
                     <td style="padding: 0 !important" >
-                        <table class="table table-bordered m-0">
+                        <table class="table custom table-bordered m-0">
                             <tbody class="panel"> 
                                 <tr>
                                     <td colspan="2" style="width: 6% !important" class="text-center">
@@ -176,7 +176,7 @@
                                 </tr> 
                                 <tr >
                                     <td colspan="5"  style="padding: 0 !important">
-                                        <table class="table table-bordered m-0">
+                                        <table class="table custom table-bordered m-0">
                                             <tbody>  
                                                 <tr ng-repeat="(key2,V) in deniedComment.child">
                                                     <td   class="text-end" style="width: 6% !important">
@@ -201,7 +201,7 @@
  
 <div class="card-body" ng-show="approvedComments.length">
     <div class="container p-0"> 
-        <table class="table table-bordered">
+        <table class="table custom table-bordered">
             <thead>
                 <tr>
                     <th class="text-center"style="width: 6% !important">No</th>

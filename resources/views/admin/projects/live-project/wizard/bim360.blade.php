@@ -4,7 +4,7 @@
         <button class="btn btn-sm btn-light border me-2">Export</button>
         <button class="btn btn-sm btn-primary">Create Issue</button>
     </div>
-    <table class="table custom table-bordered table-hover m-0">
+    <table class="table custom custom table-bordered table-hover m-0">
         <thead>
             <tr>
                 <th>Id</th>

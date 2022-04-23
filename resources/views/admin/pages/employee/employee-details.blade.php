@@ -42,7 +42,7 @@
                                     <h4 class="f-20 m-0 p-3">Plat Information</h4>
                                 </div>
                                 <div class="col-md-6 mx-auto p-3">
-                                    <table class="table m-0  table-bordered">
+                                    <table class="table custom m-0  table-bordered">
                                         <tbody>
                                                 <tr class="border">
                                                     <th  class=" ">Share Point
@@ -88,7 +88,7 @@
                                         <h4 class="f-20 m-0 p-3">Client Listing</h4>
                                     </div>
                                     <div class="col-md-6 p-3 mx-auto">
-                                        <table class="table m-0   table-bordered">
+                                        <table class="table custom m-0   table-bordered">
                                             <tbody>
                                                 <tr class="border">
                                                     <th class="bg-primary text-white">S.no</th>
@@ -126,7 +126,7 @@
                         <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
                             <div class="accordion-body">  
                                
-                            <table datatable="ng" dt-options="vm.dtOptions" class="table table-striped table-bordered">
+                            <table datatable="ng" dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Folder Name</th>

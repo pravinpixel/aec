@@ -1,4 +1,4 @@
-<table id="menuModuleTable" class="table dt-responsive nowrap">
+<table id="menuModuleTable" class="table custom dt-responsive nowrap">
     <thead>
         <tr>
             <th>@lang('menu_module.s_no')</th>

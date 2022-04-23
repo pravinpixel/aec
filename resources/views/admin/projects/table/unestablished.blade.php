@@ -1,4 +1,4 @@
-<table class="table custom dt-responsive nowrap  w-100" id="unestablished-table">
+<table class="table custom custom dt-responsive nowrap  w-100" id="unestablished-table">
     <thead>
         <tr>
             <th class="text-center">@lang('project.project_id')</th> 

@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table custom custom-table table-hover table-s" id="table11" >
+        <table class="table custom custom custom-table table-hover table-s" id="table11" >
             <thead>
                 <tr>
                     <th style="padding: 0 5px !important"><small>S.No</small> </th>

@@ -17,7 +17,7 @@
 
 <!-- {!!  Config::get('documentary.logo.key');  !!} -->
     <header class="container-fluid fixed-top">
-        <table class="table table-borderless" >
+        <table class="table custom table-borderless" >
             <tr>
                 <td class="text-start p-0">
                     <div>{{ $title }}</div>
@@ -29,7 +29,7 @@
         </table>      
     </header> 
     <main> 
-        <table class="table table-bordered" style="width: 100% !important">
+        <table class="table custom table-bordered" style="width: 100% !important">
              {!! $content !!}
         </table>
     </main> 

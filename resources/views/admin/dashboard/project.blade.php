@@ -88,7 +88,7 @@
                                     <div class="card-body">
                                         <a href="" class="p-0 float-end">Export <i class="mdi mdi-download ms-1"></i></a>
                                         <h4 class="header-title mt-1 mb-3">Awarded Projects</h4>
-                                        <div class="table-responsive table-m">
+                                        <div class="table custom-responsive table-m">
                                             <table class="custom table table-sm table-centered mb-0 font-14">
                                                 <thead>
                                                     <tr>
@@ -425,7 +425,7 @@
                                                             <div class="card-body">
                                                                 <h3  class="header-title mb-2">Project Milestone <b class="text-success float-end">78% Completed</b></h3>
 
-                                                                <table class="table m-0">
+                                                                <table class="table custom m-0">
                                                                     
                                                                     <tbody>
                                                                         <tr>
@@ -736,7 +736,7 @@
                                                             
                                                             <div class="card-body">
                                                                 <h3  class="header-title mb-2">Project Milestone <b class="text-success float-end">78% Completed</b></h3>
-                                                                <table class="table m-0">
+                                                                <table class="table custom m-0">
                                                                     
                                                                     <tbody>
                                                                         <tr>

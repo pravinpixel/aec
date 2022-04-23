@@ -80,11 +80,11 @@
         <div class="card-body" >
             <div class="container p-0" ng-show="proposal.length"> 
                 <h4 class="text-center h5 mb-3">Proposal Versioning</h4> 
-                <table class="table table-bordered">
+                <table class="table custom table-bordered">
                     <tbody class="panel"> 
                         <tr>
                             <td style="padding: 0 !important">
-                                <table  class="table table-bordereds m-0">
+                                <table  class="table custom table-bordereds m-0">
                                     <tr>
                                         <th class="text-center" colspan="2" style="width: 6% !important">No</th>
                                         <th class="text-center" style="width: 38% !important">File Name</th>
@@ -98,7 +98,7 @@
                         </tr>
                         <tr ng-repeat="(key,P) in proposal">
                             <td style="padding: 0 !important">
-                                <table class="table table-bordered m-0">
+                                <table class="table custom table-bordered m-0">
                                     <tbody class="panel"> 
                                         <tr>
                                             <td colspan="2" style="width: 6% !important" class="text-center">
@@ -137,7 +137,7 @@
                                         </tr> 
                                         <tr  id="togggleTable@{{ key+1 }}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                             <td colspan="7" class="hiddenRow" style="padding: 0 !important">
-                                                <table class="table table-bordered m-0">
+                                                <table class="table custom table-bordered m-0">
                                                     <tbody> 
                                                         <tr ng-repeat="(key2,V) in P.get_versions">
                                                             <td  class="text-end" style="width: 6% !important">

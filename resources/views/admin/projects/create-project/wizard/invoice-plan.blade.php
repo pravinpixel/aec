@@ -23,7 +23,7 @@
                 <div data-provide="datepicker-inline"></div>
             </div>
         </div> 
-        <table class="table m-0 custom table-striped table-bordered">
+        <table class="table custom m-0 custom table-striped table-bordered">
             <thead>
                 <tr>
                     <th class="text-center">S.No</th>

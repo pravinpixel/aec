@@ -29,7 +29,7 @@
                         </div> 
                         <div class="card-body pt-0">
 
-                            <table class="table shadow-sm border m-0 table-bordered "  id="costEstimateDetailTable">
+                            <table class="table custom shadow-sm border m-0 table-bordered "  id="costEstimateDetailTable">
                                 <thead class="bg-light">
                                     <tr>
                                         <th>Estimate Date</th>
@@ -88,7 +88,7 @@
                                 </div>
                             </div> 
 
-                            <div class="table-responsives p-0">
+                            <div class="table custom-responsives p-0">
                                 <table class="cost-estimate-table table table-bordered border"  id="costEstimateTable">
                                     <thead>
                                         <tr  style="background: #0D2E67 !important">
@@ -261,8 +261,8 @@
 
 
                             {{--
-                                <div class="table-responsive">
-                                    <table class="table m-0 table-bordered border shadow-sm" id="costEstimateTable">
+                                <div class="table custom-responsive">
+                                    <table class="table custom m-0 table-bordered border shadow-sm" id="costEstimateTable">
                                         <thead>
                                             <tr class="bg-dark">
                                                 <th colspan="15" class="text-center bg-light text-secondary">
@@ -575,7 +575,7 @@
                     </div>
                     <div class="card-body">
                         <div class="col-md-7 mx-auto border p-3 shadow">
-                            <table id="estimate-datatable" class="table bordered-table estimate-datatable" style="width:100%">
+                            <table id="estimate-datatable" class="table custom bordered-table estimate-datatable" style="width:100%">
                                 <thead>
                                     <tr class="text-left">
                                         <th>Name</th>

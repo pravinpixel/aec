@@ -1,6 +1,6 @@
 <div class="card-body">
     {{-- <div class="col-md-6 mx-auto py-3">
-        <table class="table">
+        <table class="table custom">
             <tr>
                 <th>Project Number</th>
                 <td>:</td>
@@ -342,7 +342,7 @@
             </div>
         </div>
         <div id="Invoice_maileStone" class="accordion-collapse collapse" aria-labelledby="Invoice_maileStone_header" >
-            <table class="table m-0 custom table-striped table-bordered">
+            <table class="table custom m-0 custom table-striped table-bordered">
                 <thead>
                     <tr>
                         <th class="text-center">S.No</th>

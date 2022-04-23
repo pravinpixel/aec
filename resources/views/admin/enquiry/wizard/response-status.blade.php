@@ -51,7 +51,7 @@
                 <h4>List of contract  mail's </h4>
                 
             </div>
-            <table class="table table-bordered" id="myTable">
+            <table class="table custom table-bordered" id="myTable">
                 <thead>
                     <tr>
                         <th width="15px">S.no</th>
@@ -124,7 +124,7 @@
                     <tr id="collapseOne_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <td colspan="7" class="hiddenRow">
                             <div class="p-3 card m-0">
-                                <table class="table table-bordered m-0">
+                                <table class="table custom table-bordered m-0">
                                     <tbody>
                                         <tr>
                                             <th width="15px">s.no</th>
@@ -210,7 +210,7 @@
                     <tr id="collapseOne_4" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <td colspan="7" class="hiddenRow">
                             <div class="p-3 card m-0">
-                                <table class="table table-bordered m-0">
+                                <table class="table custom table-bordered m-0">
                                     <tbody>
                                         <tr>
                                             <th width="15px">s.no</th>
@@ -319,7 +319,7 @@
                     <tr id="collapseOne_6" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <td colspan="7" class="hiddenRow">
                             <div class="p-3 card m-0">
-                                <table class="table table-bordered m-0">
+                                <table class="table custom table-bordered m-0">
                                     <tbody>
                                         <tr>
                                             <th width="15px">s.no</th>
@@ -400,7 +400,7 @@
                         <div id="editor" >
                             
                             <div class="card p-3">
-                                <table class="table table-borderless">
+                                <table class="table custom table-borderless">
                                     <tr>
                                         <td>
                                             <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">
@@ -586,7 +586,7 @@
                 
                 {{-- <textarea name="" id="editor2" > --}}
                     <div class="card p-3">
-                        <table class="table table-borderless">
+                        <table class="table custom table-borderless">
                             <tr>
                                 <td>
                                     <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">
@@ -779,7 +779,7 @@
                                             <h4 class="f-20 m-0 p-3">Project Information</h4>
                                         </div>
                                         <div class="col-md-6 p-3">
-                                            <table class="table m-0  table-bordered">
+                                            <table class="table custom m-0  table-bordered">
                                                 <tbody>
                                                         <tr class="border">
                                                             <th class=" ">Project Name
@@ -813,7 +813,7 @@
                                             </table>
                                         </div>
                                         <div class="col-md-6 p-3">
-                                            <table class="table m-0   table-bordered">
+                                            <table class="table custom m-0   table-bordered">
                                             <tbody><tr class="border">
                                                     <th class=" ">Type of Building
                                                     </th><td class="bg-white">2</td>
@@ -850,7 +850,7 @@
                                             <h4 class="f-20 m-0 p-3">Selected Services</h4>
                                         </div>
                                         <div class="col-md-6 p-3 mx-auto">
-                                            <table class="table m-0   table-bordered">
+                                            <table class="table custom m-0   table-bordered">
                                                 <tbody>
                                                     <tr class="border">
                                                         <th class="bg-primary text-white">S.no</th>
@@ -872,7 +872,7 @@
                                             <h4 class="f-20 m-0 p-3">IFC Models &amp; Uploaded Documents</h4>
                                         </div>
                                         <div class="col-md-8 p-3 mx-auto">
-                                            <table class="table m-0 table-bordered ">
+                                            <table class="table custom m-0 table-bordered ">
                                                 
                                                 <tbody>
                                                     <tr class="border">
@@ -934,7 +934,7 @@
                                             <h4 class="f-20 m-0 p-3">Building components</h4>
                                         </div>
                                         <div class="col-md-8 p-3 mx-auto">
-                                            <table class="table m-0 table-bordered ">
+                                            <table class="table custom m-0 table-bordered ">
                                                 
                                                 <tbody>
                                                     <tr>

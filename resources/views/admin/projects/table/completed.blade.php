@@ -1,5 +1,5 @@
 
-<table class="table custom dt-responsive nowrap  w-100">
+<table class="table custom custom dt-responsive nowrap  w-100">
     <thead>
         <tr>
             <th class="text-center">@lang('project.s_no')</th> 

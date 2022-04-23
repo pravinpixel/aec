@@ -1,4 +1,4 @@
-<table id="cancelled-enquiries" class="table custom dt-responsive nowrap w-100">
+<table id="cancelled-enquiries" class="table custom custom dt-responsive nowrap w-100">
     <thead>
         <tr>
             <th> @lang('enquiry.s_no')</th>

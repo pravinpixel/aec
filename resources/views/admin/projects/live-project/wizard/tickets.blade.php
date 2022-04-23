@@ -70,7 +70,7 @@
                     <h3 class="h4">Ticket Summary</h3>
                     <button class="btn btn-sm btn-primary">Raise Ticket</button>
                 </div>
-                <table class="table custom table-bordered table-hover m-0">
+                <table class="table custom custom table-bordered table-hover m-0">
                     <thead>
                         <tr>
                             <th>S.No</th>
@@ -165,7 +165,7 @@
                     <h3 class="h4">Ticket on the Project</h3>
                     <button class="btn btn-sm btn-primary">Create Variation Order</button>
                 </div>
-                <table class="table custom table-bordered table-hover m-0">
+                <table class="table custom custom table-bordered table-hover m-0">
                     <thead>
                         <tr>
                             <th>S.No</th>

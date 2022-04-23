@@ -170,7 +170,7 @@
 									   </div>
 								   </div>
 								   <div class="card-body ">
-									   <table datatable="ng" dt-options="vm.dtOptions" class="table dt-responsive nowrap custom table-striped">
+									   <table datatable="ng" dt-options="vm.dtOptions" class="table custom dt-responsive nowrap custom table-striped">
 										   <thead>
 											   <tr>
 												   <th>S.No</th>
@@ -225,7 +225,7 @@
 									   </div>
 									   <h4 class="header-title mb-3">Recent Activities</h4>
    
-									   <div class="table-responsive">
+									   <div class="table custom-responsive">
 										   
 										   <table class=" table table-centered table-nowrap table-hover mb-0">
 											   <tbody>
@@ -241,7 +241,7 @@
 														   <span class="text-muted font-13">Project</span> <br>
 														   <p class="mb-0">New Building</p>
 													   </td>
-													   <td class="table-action" style="width: 50px;">
+													   <td class="table custom-action" style="width: 50px;">
 														   <div class="dropdown">
 															   <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
 																   <i class="mdi mdi-dots-horizontal"></i>

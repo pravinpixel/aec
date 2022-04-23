@@ -20,7 +20,7 @@
        
         @include('customer.enquiry.modal')
         <div ng-repeat="documentType in documentTypes">
-            <div class="table-header">
+            <div class="table custom-header">
                 <h1>@{{documentType.document_type_name }}</h1>
                 <br>
                 <viewlist data="documentLists[documentType.slug]" file-type="autoDeskFileType"></viewlist><br/>

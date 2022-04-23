@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table datatable="ng" dt-options="vm.dtOptions" class="table dt-responsive nowrap table-striped">
+                        <table datatable="ng" dt-options="vm.dtOptions" class="table custom dt-responsive nowrap table-striped">
                             <thead>
                                 <tr>
                                  

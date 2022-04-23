@@ -9,8 +9,8 @@
                     <form id="permissionForm"  name="permissionForm" ng-submit="setPermission({{ $lims_role_data->id }})">
 						<div class="card-body">
 					
-							<div class="table-responsive">
-								<table class="table table-bordered permission-table custom">
+							<div class="table custom-responsive">
+								<table class="table custom table-bordered permission-table custom">
 									<thead>
 									<tr>
 										<th colspan="5" class="text-center">{{ ucfirst($lims_role_data->name)}} {{ trans(' Permission') }}</th>

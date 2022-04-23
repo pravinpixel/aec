@@ -51,7 +51,7 @@
     <div class="my-2">
         <h3 class="h4">Variation Order Summary</h3>
     </div>
-    <table class="table custom table-bordered table-hover m-0">
+    <table class="table custom custom table-bordered table-hover m-0">
         <thead>
             <tr>
                 <th>S.No</th>
@@ -110,7 +110,7 @@
                         <div text-angular="text-angular" name="mail_content_first" ng-model="mail_content_first" ta-disabled='disabled'></div>      
                     </div>
                 </div> --}}
-                <table class="table table-bordered">
+                <table class="table custom table-bordered">
                     <thead>
                         <tr>
                             <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
@@ -138,7 +138,7 @@
                         </tr> 
                     </tbody>
                 </table>
-                <table class="table table-bordered">
+                <table class="table custom table-bordered">
                     <tbody>
                         <tr><td colspan="2" class="text-center" style="background: #F4F4F4"><b>Change Request Overview</b></td></tr>
                         <tr>
@@ -151,7 +151,7 @@
                         </tr>  
                     </tbody>
                 </table>
-                <table class="table table-bordered">
+                <table class="table custom table-bordered">
                     <tbody>
                         <tr><td colspan="4"class="text-center" style="background: #F4F4F4"><b>Change in Contract Price</b></td></tr>
                         <tr>

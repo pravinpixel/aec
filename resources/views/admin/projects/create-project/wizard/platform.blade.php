@@ -63,11 +63,11 @@
                 <div class="text-end">
                     <a href="" class="btn btn-sm btn-primary mb-2"><i class="fa fa-plus me-1"></i>Add Folder</a>
                 </div>
-                <table class="table table-bordered m-0">
+                <table class="table custom table-bordered m-0">
                     <thead>
                         <tr>
                             <td style="padding: 0 !important">
-                                <table  class="table table-bordereds custom m-0">
+                                <table  class="table custom table-bordereds custom m-0">
                                     <tr>
                                         <th colspan="2" style="width: 6% !important" class="text-center">S.No</th>
                                         <th width="70%">Folder Name</th>
@@ -81,7 +81,7 @@
                         @for ($key=0;$key<3;$key++)
                         <tr>
                             <td style="padding: 0 !important">
-                                <table class="table table-bordered m-0 ">
+                                <table class="table custom table-bordered m-0 ">
                                     <tbody class="panel"> 
                                         <tr>
                                             <td colspan="2" style="width: 6% !important" class="text-center">
@@ -100,7 +100,7 @@
                                         </tr> 
                                         <tr  id="togggleTable_{{ $key+1 }}" class="collapse">
                                             <td colspan="4" class="hiddenRow" style="padding: 0 !important">
-                                                <table class="table table-bordered m-0 table-hover">
+                                                <table class="table custom table-bordered m-0 table-hover">
                                                     <tbody> 
                                                         @for ($i=0;$i<3;$i++)
                                                         <tr>

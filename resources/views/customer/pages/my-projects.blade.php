@@ -149,7 +149,7 @@
                 <h3>Project Name : <b>XXX</b></h3>
                 <div class="card mt-3">
                     <div class="card-body p-2">
-                        <table class="table table-bordered m-0">
+                        <table class="table custom table-bordered m-0">
                             <tr>
                                 <th>Enquiry Number</th>
                                 <th>Name</th>
@@ -184,7 +184,7 @@
                                         <h4 class="f-20 m-0 p-3">Project Information</h4>
                                     </div>
                                     <div class="col-md-6 p-3">
-                                        <table class="table m-0  table-bordered">
+                                        <table class="table custom m-0  table-bordered">
                                             <tbody>
                                                     <tr class="border">
                                                         <th  class=" ">Project Name
@@ -218,7 +218,7 @@
                                         </table>
                                     </div>
                                     <div class="col-md-6 p-3">
-                                        <table class="table m-0   table-bordered">
+                                        <table class="table custom m-0   table-bordered">
                                         <tbody><tr class="border">
                                                 <th  class=" ">Type of Building
                                                 </th><td  class="bg-white">2</td>
@@ -266,7 +266,7 @@
                                         <h4 class="f-20 m-0 p-3">Selected Services</h4>
                                     </div>
                                     <div class="col-md-6 p-3 mx-auto">
-                                        <table class="table m-0   table-bordered">
+                                        <table class="table custom m-0   table-bordered">
                                             <tbody>
                                                 <tr class="border">
                                                     <th class="bg-primary text-white">S.no</th>
@@ -294,7 +294,7 @@
                             </h2>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <table class="table m-0  ">
+                                    <table class="table custom m-0  ">
                                                                     
                                         <tbody>
                                             <tr>
@@ -365,7 +365,7 @@
                                             <h4 class="f-20 m-0 p-3">Building components</h4>
                                         </div>
                                         <div class="col-md-8 p-3 mx-auto">
-                                            <table class="table m-0 table-bordered ">
+                                            <table class="table custom m-0 table-bordered ">
                                                 
                                                 <tbody>
                                                     <tr>

@@ -47,7 +47,7 @@
                         </div>
                         <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
                             <div class="accordion-body">  
-                                <table class="table m-0 table-hover">
+                                <table class="table custom m-0 table-hover">
                                     <tbody>
                                         <tr ng-if="project_info.project_name != null">
                                             <td width="30%"><b>Project Name</b></td>
@@ -205,7 +205,7 @@
                         </div>
                         <div id="ifc_model" class="accordion-collapse collapse " aria-labelledby="ifc_model_header" >
                             <div class="accordion-body"> 
-                                <table class="table custom table-hover">
+                                <table class="table custom custom table-hover">
                                     <thead>
                                         <tr>
                                             <th><b>S.No</b></th>
@@ -264,10 +264,10 @@
                                 <div  style="max-height: 400px; overflow:auto"> 
                                     <table class="custom  table table-bordered" ng-init="total = 0 ">
                                         <tbody >
-                                            <tr class="table-bold text-center">
+                                            <tr class="table custom-bold text-center">
                                                 <th width="150px"></th>
                                                 <th style="padding: 0 !important">
-                                                    <table class="table m-0 ">
+                                                    <table class="table custom m-0 ">
                                                         <tr>
                                                             <th width="50%">
                                                                 Wall details
@@ -282,10 +282,10 @@
                                             <tr ng-repeat="building_component in building_components" ng-show="building_component.detail.length">
                                                 <td>@{{ building_component.wall }} </td>
                                                 <td style="padding: 0 !important" >
-                                                    <table class="table m-0 ">
+                                                    <table class="table custom m-0 ">
                                                         <tr ng-repeat="detail in building_component.detail"> 
                                                             <td width="50%">
-                                                                <table class="table m-0 table-bordered">
+                                                                <table class="table custom m-0 table-bordered">
                                                                     <tr>
                                                                         <th>Floor</th>
                                                                         <th>wall Number</th>
@@ -301,8 +301,8 @@
                                                                 </table>
                                                             </td>
                                                             <td style="padding: 0 !important" width="50%">
-                                                                <table class="table m-0 table-bordered">
-                                                                    <tr class="table-bold">
+                                                                <table class="table custom m-0 table-bordered">
+                                                                    <tr class="table custom-bold">
                                                                         <th>Name</th>
                                                                         <th>Thickness (mm)</th>
                                                                         <th>Breadth (mm)</th>
@@ -336,7 +336,7 @@
                         <div id="building_component"ng-show="project_info.building_component_process_type == 1" class="accordion-collapse collapse  " aria-labelledby="building_component_header" >
                             <div class="accordion-body">  
                                 <div  style="max-height: 400px; overflow:auto"> 
-                                    <table class="table custom table-hover">
+                                    <table class="table custom custom table-hover">
                                         <thead>
                                             <tr>
                                                 <th><b>S.No</b></th>

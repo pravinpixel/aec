@@ -21,7 +21,7 @@
                 <div class="card">
                     
                     <div class="card-body">
-                        <table datatable="ng" dt-options="vm.dtOptions" class="table custom dt-responsive nowrap table-striped">
+                        <table datatable="ng" dt-options="vm.dtOptions" class="table custom custom dt-responsive nowrap table-striped">
                             <thead>
                                 <tr>
                                     <th class="text-center">S.No</th>
@@ -180,7 +180,7 @@
                                 </div>
                                 <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" >
                                     <div class="accordion-body">  
-                                        <table dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+                                        <table dt-options="vm.dtOptions" class="table custom custom table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">Folder Name</th>
@@ -218,7 +218,7 @@
                                 </div>
                                 <div id="Client_Listing_header" class="accordion-collapse collapse show" aria-labelledby="Client_Listing" >
                                     <div class="accordion-body">  
-                                        <!-- <table  dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+                                        <!-- <table  dt-options="vm.dtOptions" class="table custom custom table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">S.No</th>
