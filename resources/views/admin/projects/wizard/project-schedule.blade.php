@@ -125,10 +125,10 @@
                 }; 
                 gantt.config.columns = [{
                         name: "",
-                        width: 15,
+                        width: 40,
                         resize: false,
                         template: function(task) {
-                            return "<span class='   '>" + gantt.getWBSCode(task) + "</span>"
+                            return "<small class=''>" + gantt.getWBSCode(task) + "</small>"
                         }
                     },
                     {
