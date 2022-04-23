@@ -28,9 +28,10 @@ class ProjectGranttChartTaskController extends Controller
     }
  
     public function update($project_id = null, $task_id, Request $request){
+ 
         $task = ProjectGranttTask::find($task_id);
  
-        $task->text         = $request->text;
+        $task->text         = $request->text ?? $task->text;
         $task->start_date   = $request->start_date;
         $task->duration     = $request->duration;
         $task->progress     = $request->has("progress") ? $request->progress : 0;
