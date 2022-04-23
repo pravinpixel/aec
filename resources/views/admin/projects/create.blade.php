@@ -99,7 +99,7 @@
 @endsection
 @push('custom-styles')
     <input type="hidden" value="{{ Session::get('project_id') }}" id="session_project_id" name="session_project_id">
-    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> 
+    
 @endpush
 @push('custom-scripts')
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>

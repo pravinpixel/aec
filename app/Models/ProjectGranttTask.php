@@ -14,6 +14,7 @@ class ProjectGranttTask extends Model
         "duration"  ,
         "progress"  ,
         "start_date",
+        "end_date",
         "parent"    ,
         "type"      ,
         "project_id",

@@ -17,7 +17,7 @@ class CreateTeamSetupTemplatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('created_by');
             $table->string('template_name');
-            $table->string('template_data');
+            $table->text('template_data');
             $table->foreign('created_by')->references('id')->on('employee');
             $table->timestamps();
         });

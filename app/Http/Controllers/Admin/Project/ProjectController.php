@@ -15,6 +15,7 @@ use App\Models\ProjectGranttTask;
 use App\Models\ProjectType;
 use App\Services\GlobalService;
 use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -84,14 +85,17 @@ class ProjectController extends Controller
         return $this->index = $statement[0]->Auto_increment-1;
     }
     public function storeToDoList(Request $request)
-    { 
+    {  
+        
+        
+    
         $this->checkIndex();
         $loop_one =  $request->data;
         $result = [];
 
         Project::find($request->id)->update(["gantt_chart_data" => json_encode($request->data)]);
        
-        foreach ($loop_one as $key => $row_one) {
+        foreach ($loop_one as $row_one) {
 
             $subParent = $this->updateIndex();
 
@@ -122,15 +126,16 @@ class ProjectController extends Controller
                 ];
 
                 foreach ($row_two['data'] as  $row_three) {
-                 
+                  
                     $result[] = [
                         "project_id"  =>   $request->id,
                         "id"          =>   $this->updateIndex(),
                         "parent"      =>   $subParentTwo,
                         "text"        =>   $row_three['task_list'],
-                        "duration"    =>   72,
+                        "duration"    =>   0,
                         "progress"    =>   0,
-                        "start_date"  =>   "2022-04-20 12:45:07",
+                        "start_date"  =>   new DateTime($row_three['start_date']),
+                        "end_date"    =>   new DateTime($row_three['end_date']),
                         "type"        =>   "project",
                     ];
                 }

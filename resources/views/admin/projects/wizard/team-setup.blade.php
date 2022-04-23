@@ -19,7 +19,7 @@
                             <option value="@{{ role }}" ng-repeat="role in roles"> @{{ role.name }}</option>
                         </select> 
                         <div class="col-3">
-                            <a href="" class="link btn btn-secondary w-100" ng-click="addResource(teamRole.role)"> + Add Resoure </a>
+                            <a href="" class="link btn btn-secondary w-100" ng-click="addResource(teamRole.role)"> + Add Resource </a>
                         </div>
                     </div>
                 </div>

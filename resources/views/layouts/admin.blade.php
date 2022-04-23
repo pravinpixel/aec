@@ -39,7 +39,7 @@
         </div>
         <!-- END wrapper -->
 
-        <!-- Right Sidebar -->
+        {{-- <!-- Right Sidebar -->
             <div class="end-bar">
 
                 <div class="rightbar-title">
@@ -124,7 +124,7 @@
                 </div>
             </div> 
             <div class="rightbar-overlay"></div>
-        <!-- /End-bar -->
+        <!-- /End-bar --> --}}
  
         @include('modal.delete');
         <!--  Footer Scripts  -->

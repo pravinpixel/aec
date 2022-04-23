@@ -24,7 +24,9 @@
 </div>
 
 @if (Route::is('project-schedule')) 
-     
+   
+    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">  
+ 
     <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script> 
     <script src="http://export.dhtmlx.com/gantt/api.js"></script> 
     <script>
@@ -141,8 +143,16 @@
                         label: "Start",
                         align: "center",
                         resize: true,
-                        editor: dateEditor
+                        // editor: dateEditor
                     },
+                    // {
+                    //     name: "end_date",
+                    //     label: "End",
+                    //     align: "center",
+                    //     resize: true,
+                    //     // editor: dateEditor
+                    // },
+
                     {
                         name: "duration",
                         label: "Duration",
@@ -163,6 +173,12 @@
                         },
                         editor: hourDurationEditor
                     }, 
+                    //     {
+                    //     name: "project_id",
+                    //     label: "project_id",
+                    //     align: "center",
+                    //     resize: true, 
+                    // },
                     {
                         name: "add",
                         "width": 44

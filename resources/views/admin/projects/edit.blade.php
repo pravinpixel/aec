@@ -97,9 +97,7 @@
         </div>
     </div> 
 @endsection
-@push('custom-styles') 
-    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">  
-@endpush
+
 @push('custom-scripts')
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
