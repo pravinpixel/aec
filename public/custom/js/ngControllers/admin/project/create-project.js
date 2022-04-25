@@ -480,6 +480,19 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
                 scope.invoicePlans = result;
                 scope.$apply();
             });
+            scope.$watchGroup(['project.no_of_invoice','project.project_cost'], function() {
+                scope.invoicePlans = scope.invoicePlans.map((invoicePlan, index) => {
+                    if(scope.project.no_of_invoice == index + 1) {
+                        return {    
+                            index: index + 1,
+                            amount: ( scope.project.project_cost / 100 ) * invoicePlan.percentage,
+                            invoice_date: invoicePlan.invoice_date,
+                            percentage: 100,
+                        };
+                    }
+                    return invoicePlan;
+                });
+            });
         },
     };
 }]);
