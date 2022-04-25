@@ -479,7 +479,17 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
             element.on('change', function () {
                 scope.invoicePlans.totalPercentage = 100;
                 scope.invoicePlans.totalAmount = 0;
+                let projectCost = scope.project.project_cost;
                 let result =   scope.invoicePlans.map((invoicePlan, index) => {
+                    if(scope.project.no_of_invoice == index + 1) {
+                        projectCost -= scope.invoicePlans.totalAmount;
+                        return {
+                            index: index + 1,
+                            amount: projectCost,
+                            invoice_date: invoicePlan.invoice_date,
+                            percentage: scope.invoicePlans.totalPercentage,
+                        }
+                    }
                     scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
                     scope.invoicePlans.totalAmount += ( scope.project.project_cost / 100 ) * invoicePlan.percentage;
                     return {    

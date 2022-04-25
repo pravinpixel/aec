@@ -39,14 +39,8 @@
                     <td class="text-center">@{{  invoicePlan.index }}</td>
                     <td class="text-center"><input required type="date" name="invoice_date" id="" ng-model="invoicePlan.invoice_date" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
                     <td class="text-center">@{{ invoicePlan.amount }}</td>
-                    <td class="text-center"><input required type="number" onkeypress="return isNumber(event)" name="percentage" ng-model="invoicePlan.percentage"  class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    <td class="text-center"><input  ng-disabled="invoicePlans.length == $index + 1" required type="number" onkeypress="return isNumber(event)" name="percentage" ng-model="invoicePlan.percentage"  class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
                 </tr> 
-                <tr>
-                    <td class="text-center">@{{ invoicePlans.length + 1 }}</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">@{{  project.project_cost - invoicePlans.totalAmount }}</td>
-                    <td class="text-center">@{{ invoicePlans.totalPercentage }}</td>
-                </tr>
             </tbody>
             <thead>
                 <tr>
