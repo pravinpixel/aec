@@ -260,10 +260,14 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     }
 
     $scope.submitTemplate = () => {
-        console.log( $scope.teamSetups);
+        if($scope.teamSetups.length == 0){
+            Message('danger', `Please add template`); return false;
+        }
         $http.post(`${API_URL}project/store-template`, {data: $scope.teamSetups, tempalte:$scope.Template})
         .then((res) => {
             Message('success', `${res.data.msg}`);
+            $("#add-template-modal").modal('hide');
+            return false;
         })
     }
     

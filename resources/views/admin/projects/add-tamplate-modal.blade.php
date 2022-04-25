@@ -15,7 +15,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 {{-- <input type="submit"  ng-click="submitTemplate()" value="save" class="btn btn-primary"/> --}}
-                <input type="submit"  ng-click="submitTemplate()"  class="btn btn-primary" value="Save"/>
+                <input type="submit" ng-disabled="addTemplateForm.$invalid"  ng-click="submitTemplate()"  class="btn btn-primary" value="Save"/>
             </div>
             </div>
         </div>

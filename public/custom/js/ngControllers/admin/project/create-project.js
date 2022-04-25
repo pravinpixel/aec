@@ -210,6 +210,7 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     $scope.teamRole   = {};
     $scope.tagBox     = {};
     $scope.teamSetups = [];
+    $scope.Template;
 
     $scope.selectedTemplate;
     $http.get(`${API_URL}project/get-templates`)
@@ -259,6 +260,18 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
         .then((res) => {
             Message('success', 'Team Setup created successfully');
             $location.path('invoice-plan')
+        })
+    }
+
+    $scope.submitTemplate = () => {
+        if($scope.teamSetups.length == 0){
+            Message('danger', `Please add template`); return false;
+        }
+        $http.post(`${API_URL}project/store-template`, {data: $scope.teamSetups, tempalte:$scope.Template})
+        .then((res) => {
+            Message('success', `${res.data.msg}`);
+            $("#add-template-modal").modal('hide');
+            return false;
         })
     }
 });

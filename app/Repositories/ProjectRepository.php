@@ -53,7 +53,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
     
     public function unestablishedProjectList($request)
     {
-        $dataDb =  $this->model::where('status', 'In-Progress');
+        $dataDb =  $this->model::where('status', 'In-Progress')->orderBy('id','desc');
         return $dataDb;
     }
 
@@ -146,12 +146,11 @@ class ProjectRepository implements ProjectRepositoryInterface{
 
     public function storeTeamsetupTemplate($data)
     {
-        $data= [
+        $insert = [
             'created_by'    => Admin()->id,
-            'template_name' => $data['tempalte'],
             'template_data' => json_encode($data['data'])
         ];
-        return $this->teamSetupTemplate->create($data);
+        return $this->teamSetupTemplate->updateOrcreate(['template_name' => $data['tempalte']],$insert);
     }
 
     public function getToDoList()
