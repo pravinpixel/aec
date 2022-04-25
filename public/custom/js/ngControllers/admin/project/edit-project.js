@@ -97,6 +97,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
     $http.get(`${API_URL}project/${project_id}`)
     .then((res)=> {
         $scope.project = formatData(res.data);
+        $scope.project['address_one'] =  res.data.site_address;
     });
     $http.get(`${API_URL}project/enquiry/${project_id}`)
     .then((res)=> {
