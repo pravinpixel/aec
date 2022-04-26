@@ -2,6 +2,11 @@
     <!-- Topbar Start -->
     <div class="navbar-custom">
         <ul class="list-unstyled topbar-menu float-end mb-0">
+            <li class="notification-list">
+                <a class="nav-link end-bar-toggle"  title="background process" href="{{ url('/jobs') }}">
+                    <i class="dripicons-calendar noti-icon"></i>
+                </a>
+            </li>
             {{-- <li class="dropdown notification-list d-lg-none">
                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="dripicons-search noti-icon"></i>
@@ -43,6 +48,7 @@
             </li> --}}
 
             <li class="dropdown notification-list">
+                
                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="dripicons-bell noti-icon"></i>
                     <span class="noti-icon-badge"></span>

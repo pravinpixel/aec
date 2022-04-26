@@ -21,6 +21,7 @@ return [
     'status_updated'               => 'Status updated successfully',
     'enquiry_saved'                => 'Enquiry saved successfully',
     'enquiry_submitted'            => 'Enquiry submitted successfully',
+    'project_submitted'            => 'Project submitted successfully',
     'access_denied'                => 'Sorry! You are not allowed to access this module',
     'permission_updated'           => 'Permission updated successfully',
     'move_to_project_successfully' => 'Move to project successfully',

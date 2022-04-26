@@ -76,9 +76,9 @@ class ProjectRepository implements ProjectRepositoryInterface{
         return $this->model->updateOrCreate(['id'=>$id], $data);
     }
 
-    public function storeConnectPlatform($id, $data)
+    public function storeConnectPlatform($id, $data = [])
     {
-
+        
     }
 
     public function storeTeamSetupPlatform($project_id, $data)
@@ -176,5 +176,10 @@ class ProjectRepository implements ProjectRepositoryInterface{
     public function getSharePointFolder($id)
     {
         return $this->model->with('sharepointFolder')->find($id);
+    }
+
+    public function draftOrSubmit($id, $data)
+    {
+        return $this->model->find($id)->update($data);
     }
 }

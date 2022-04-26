@@ -7,12 +7,14 @@ use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
+use App\Jobs\SharePointFolderCreation;
 use App\Models\CheckList;
 use App\Models\DeliveryType;
 use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectType;
+use App\Models\SharepointFolder;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use DateTime;
@@ -32,7 +34,8 @@ class ProjectController extends Controller
     protected $customerRep;
     protected $index = 0;
     protected $parentFolder = '';
-    protected $rootFolder = '/Project Management';
+    protected $rootFolder = '/DataBase Test';
+    protected $fileDir = [];
 
     public function __construct(
        ProjectRepositoryInterface $projectRepo,
@@ -86,9 +89,7 @@ class ProjectController extends Controller
     }
     public function storeToDoList(Request $request)
     {  
-        
-        
-    
+
         $this->checkIndex();
         $loop_one =  $request->data;
         $result = [];
@@ -314,14 +315,14 @@ class ProjectController extends Controller
     {
         $project_data   =   Project::find($id)->toArray();
         $invoice_plan   =   InvoicePlan::where('project_id', $id)->first();
-        // return $this->projectRepo->getProjectTeamSetup($id);
+        $invoice_data   =   json_decode($invoice_plan->invoice_data ?? '');
         $data   =  [
             "project_type"   =>  ProjectType::find($project_data['project_type_id'])->project_type_name,
             "delivery_type"  =>  DeliveryType::find($project_data['delivery_type_id'])->delivery_type_name,
             "invoice_plan"   =>  [
-                'project_cost'  =>  $invoice_plan->project_cost,
-                'no_of_invoice' =>  $invoice_plan->no_of_invoice,
-                'invoice_data'  =>  json_decode($invoice_plan->invoice_data),
+                'project_cost'  =>  $invoice_plan->project_cost ?? '',
+                'no_of_invoice' =>  $invoice_plan->no_of_invoice ?? '',
+                'invoice_data'  =>  $invoice_data == '' ? [] : $invoice_data,
             ],
         ];
 
@@ -351,7 +352,7 @@ class ProjectController extends Controller
         $type          = $request->input('type');
         $data          = $request->input('data');
         $project_id    = $this->getProjectId();
-     
+
         $project = $this->projectRepo->getProjectById($project_id);
         
         if($type == 'create_project') {
@@ -363,12 +364,20 @@ class ProjectController extends Controller
             $project = $this->projectRepo->storeProjectCreation($project_id, $data);
             $this->setProjectId($project->id);
             try {
-                $sharePoint = new SharepointController();
                 $reference_number = str_replace('/','-',$project->reference_number);
-                $sharePoint->create("{$this->rootFolder}/{$reference_number}");
+                $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}"];
+                $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
+                $this->dispatch($job);
             } catch(Exception $ex) {
                 Log::info($ex->getMessage());
             }
+            $data = [
+                'folder'      => json_encode(config('project.default_folder')),
+                'project_id'  => $project->id,
+                'created_by' => Admin()->id,
+                'modified_by' => Admin()->id
+            ];
+            $this->projectRepo->updateFolder($project_id, $data);
             return $project;
         } else if($type == 'connect_platform') {
             return $this->projectRepo->storeConnectPlatform($project_id, $data);
@@ -380,6 +389,13 @@ class ProjectController extends Controller
             return $this->storeGrandChartLink($project_id, $request);
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
+        } else if($type == 'review_and_submit') {
+            $result = $this->createSharepointFolder($project_id);
+            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' =>$result['status']]);
+            return  response($result);
+        } else if($type == 'review_and_save') {
+            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => false]);
+            return  response(['status'=> true, 'msg'=> 'Project saved successfully']);
         }
         return $request->all();
     }
@@ -397,6 +413,13 @@ class ProjectController extends Controller
             return $this->projectRepo->storeTeamSetupPlatform($id, $data);
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->storeInvoicePlan($id, $data);
+        } else if($type == 'review_and_submit') {
+            $result = $this->createSharepointFolder($id);
+            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => $result['status']]);
+            return response($result);
+        } else if($type == 'review_and_save') {
+            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => false]);
+            return response(['status'=> true, 'msg'=> 'Project saved successfully']);
         }
         return $request->all();
     }
@@ -502,20 +525,25 @@ class ProjectController extends Controller
     public function storeFolder(Request $request)
     {
         $project_id = $this->getProjectId();
-        $sharePoint = new SharepointController();
-        $requestPath = $request->path;
+        // $requestPath = $request->path;
         $data = [
             'folder' => json_encode($request->data),
             'project_id' => $project_id,
             'created_by' => Admin()->id
         ];
-        $project = $this->projectRepo->getProjectById($project_id);
-        if(substr($request->path,0,1) != '/') {
-            $requestPath = '/'. $request->path;
-        }
-        $reference_number = str_replace('/','-',$project->reference_number);
-        $folderPath = "{$this->rootFolder}/{$reference_number}{$requestPath}";
-        $sharePoint->create($folderPath);
+        // $project = $this->projectRepo->getProjectById($project_id);
+        // if(substr($request->path,0,1) != '/') {
+        //     $requestPath = '/'. $request->path;
+        // }
+        // try {
+        //     $reference_number = str_replace('/','-',$project->reference_number);
+        //     $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}{$requestPath}"];
+        //     $job = (new SharePointFolderCreation($folderPath))->delay(60);
+        //     $this->dispatch($job);
+        // } catch (Exception $ex) {
+        //     Log::error($ex->getMessage());
+        //     return response(['status' => false, 'msg' => __('global.something')]);
+        // }
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.created')]);
@@ -525,26 +553,26 @@ class ProjectController extends Controller
 
     public function updateFolder($project_id, Request $request)
     {
-        $project = $this->projectRepo->getProjectById($project_id);
-        $sharePoint = new SharepointController();
-        $requestPath = $request->path;
+        // $project = $this->projectRepo->getProjectById($project_id);
+        // $requestPath = $request->path;
         $data = [
             'folder'      => json_encode($request->data),
             'project_id'  => $project_id,
             'created_by' => Admin()->id,
             'modified_by' => Admin()->id
         ];
-        if(substr($request->path,0,1) != '/') {
-            $requestPath = '/'. $request->path;
-        }
-        try {
-            $reference_number = str_replace('/','-',$project->reference_number);
-            $folderPath = "{$this->rootFolder}/{$reference_number}{$requestPath}";
-            $sharePoint->create($folderPath);
-        } catch (Exception $ex) {
-            Log::error($ex->getMessage());
-            return response(['status' => false, 'msg' => __('global.something')]);
-        }
+        // if(substr($request->path,0,1) != '/') {
+        //     $requestPath = '/'. $request->path;
+        // }
+        // try {
+        //     $reference_number = str_replace('/','-',$project->reference_number);
+        //     $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}{$requestPath}"];
+        //     $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
+        //     $this->dispatch($job);
+        // } catch (Exception $ex) {
+        //     Log::error($ex->getMessage());
+        //     return response(['status' => false, 'msg' => __('global.something')]);
+        // }
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.updated')]);
@@ -579,5 +607,48 @@ class ProjectController extends Controller
             return response(['status' => true, 'msg' => __('global.deleted')]);
         }
         return response(['status' => false, 'msg' => __('global.something')]);
+    }
+
+    public function createSharepointFolder($project_id)
+    {
+        $project = $this->projectRepo->getProjectById($project_id);
+        $sharepoint = SharepointFolder::where('project_id', $project_id)->first();
+        if(!empty($sharepoint)) {
+            $dirs = json_decode($sharepoint->folder);
+            try {
+                $reference_number = str_replace('/','-',$project->reference_number);
+                foreach( $dirs as $dir ){
+                    $this->myRecursive($dir);
+                }
+                foreach($this->fileDir as $path) {
+                    $data = ['path' => "{$this->rootFolder}/{$reference_number}".$path];
+                    $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
+                    $this->dispatch($job);
+                }
+                return ['status' => true, 'msg' => __('global.project_submitted')];
+            } catch (Exception $ex) {
+                Log::error($ex->getMessage());
+                return ['status' => false, 'msg' => __('global.something')];
+            }
+        }
+    }
+
+    public function myRecursive($dir, $rootPath = '')
+    {
+        if(!is_array($dir)) {
+            $dir = [$dir];
+        }
+        foreach ($dir as  $item) {
+            if(!isset($item->items)){
+                $this->fileDir[] =  $rootPath.'/'.$item->name;
+                $rootPath = '';
+                break;
+            } else {
+                $rootPath =  $rootPath.'/'.$item->name;
+                $this->fileDir[] =  $rootPath;
+                $this->myRecursive($item->items, $rootPath);
+            }
+        }
+        return $this->fileDir;
     }
 }

@@ -1,28 +1,4 @@
 <div class="card-body">
-    {{-- <div class="col-md-6 mx-auto py-3">
-        <table class="table custom">
-            <tr>
-                <th>Project Number</th>
-                <td>:</td>
-                <td>ENQ-PRO001</td>
-            </tr>
-            <tr>
-                <th>Project Manager</th>
-                <td>:</td>
-                <td> Mr. Vetri Selvan</td>
-            </tr>
-            <tr>
-                <th>Project Start Date</th>
-                <td>:</td>
-                <td>22-04-2022</td>
-            </tr>
-            <tr>
-                <th>Project End Date</th>
-                <td>:</td>
-                <td>22-04-2022</td>
-            </tr> 
-        </table>
-    </div>  --}}
     <fieldset class="accordion-item">
         <div class="accordion-header custom m-0 position-relative" id="project_infomation_header">
             <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#project_infomation" aria-expanded="true" aria-controls="project_infomation">
@@ -358,6 +334,9 @@
                         <td class="text-center">@{{ row.amount }}</td>
                         <td class="text-center">@{{ row.percentage }}</td>
                     </tr> 
+                    <tr ng-show="review['invoice_plan'].invoice_data.length == 0">
+                        <td class="text-center" colspan="4"> No data found </td>
+                    </tr> 
                 </tbody>
             </table>
         </div>
@@ -447,5 +426,6 @@
 </div>
 <div class="card-footer text-end">
     <a href="#!/to-do-listing" class="btn btn-light float-start">Prev</a>
-    <a href="#" class="btn btn-primary" onclick="submit()">Create Project</a>
+    <a class="next me-2 btn btn-light rounded border" ng-click="saveProject($event)"> Save & Submit Later </a>
+    <a class="next btn-primary btn rounded" ng-click="submitProject($event)">Submit</a>
 </div>

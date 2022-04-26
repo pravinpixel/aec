@@ -24,5 +24,6 @@ interface ProjectRepositoryInterface
     public function updateFolder($id, $data);
     public function getSharePointFolder($id);
     public function getToDoListData($id);
+    public function draftOrSubmit($id, $data);
     // public function storeToDoList($id, $data);
 }

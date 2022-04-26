@@ -38,7 +38,8 @@ class Project extends Model
         'linked_to_customer',
         'created_by',
         'updated_by',
-        'gantt_chart_data'
+        'gantt_chart_data',
+        'is_submitted'
     ];
 
     public function setCreatedByAttribute()

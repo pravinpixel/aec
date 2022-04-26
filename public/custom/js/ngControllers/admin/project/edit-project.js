@@ -438,18 +438,60 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     }
 });
 
-app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, ) {
+app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
 
-    let id =  $("#project_id").val();
+    let project_id =  $("#project_id").val();
     
-        
-    $http.get(`${API_URL}project/overview/${id}`).then((res)=> {
+    $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
         $scope.review  =  res.data 
         $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
     }); 
     
-    console.log($scope.review)
- 
+    $scope.submitProject = (e) => {
+        e.preventDefault();
+        $http.put(`${API_URL}project/${project_id}`, {data: '', type:'review_and_submit'})
+        .then((res) => {
+            $timeout(function(){
+                window.onbeforeunload = null;
+            });
+            if(res.data.status == true) {
+                Swal.fire({
+                    title: `Project submitted successfully are you want to leave the page?`,
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'No',
+                    confirmButtonText: 'Yes',
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href =  `${API_URL}admin/list-projects`;
+                    }
+                });
+            }
+        })
+    }
+
+    $scope.saveProject = () => {
+        $http.put(`${API_URL}project/${project_id}`, {data: '', type:'review_and_save'})
+        .then((res) => {
+            $timeout(function(){
+                window.onbeforeunload = null;
+            });
+            if(res.data.status == true) {
+                Swal.fire({
+                    title: `Project saved successfully are you want to leave the page?`,
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'No',
+                    confirmButtonText: 'Yes',
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href =  `${API_URL}admin/list-projects`;
+                    }
+                });
+            }
+        })
+    }
+
 });
 
 app.directive('getToDoLists',['$http', function() {

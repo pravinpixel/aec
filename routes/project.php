@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
 Route::get('/get-project-session-id',[ProjectController::class, 'getProjectId'])->name("vetri");
 
 Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.'], function () {
+    Route::get('test-demo',[ProjectController::class, 'testDemo'])->name('sharepoint-test-demo'); 
     Route::get('get-templates',[ProjectController::class, 'getTeamsetupTemplate'])->name('get-templates');
     Route::get('get-template-by-id/{id}',[ProjectController::class, 'getTeamsetupTemplateById'])->name('get-template-by-id');
     Route::get('reference-number',[ProjectController::class, 'getReferenceNumber'])->name('reference-number');
@@ -61,6 +62,7 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::put('sharepoint-folder/{id}',[ProjectController::class, 'updateFolder'])->name('sharepoint-folder');
     Route::post('sharepoint-folder-delete',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete');
     Route::post('sharepoint-folder-delete/{id}',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete'); 
+    
 });
 
 

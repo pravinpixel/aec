@@ -12,14 +12,16 @@ use Illuminate\Support\Facades\Session;
 
 class SharepointController extends Controller
 {
+    protected $basePath = "/sites/4Projects/Shared Documents";
+
     public function getToken()
     {
         $client  = new Client();
         $res = $client->request('POST', 'https://accounts.accesscontrol.windows.net/ae3eb95f-ac8f-4337-88b5-dbd0afe01b6f/tokens/OAuth/2', [
             'form_params' => [
                 'grant_type' => 'client_credentials',
-                        'client_id' => '47e46fb2-ec3b-4927-9596-290f5976be4d@ae3eb95f-ac8f-4337-88b5-dbd0afe01b6f',
-                        'client_secret' => 'qkASV5P8TZ6Zru9+oJsfs3Gep9KF2rP5JyoCfd2ZxzI=',
+                        'client_id' => 'bbfb2ede-2c61-4909-8c5c-b4cf6a7ce1b3@ae3eb95f-ac8f-4337-88b5-dbd0afe01b6f',
+                        'client_secret' => 'bDYshqKJ5BARo3SztwfKrBHPcfGRPMlibfoA+n7DbQw=',
                         'resource' => '00000003-0000-0ff1-ce00-000000000000/aecprefab.sharepoint.com@ae3eb95f-ac8f-4337-88b5-dbd0afe01b6f'
             ]
         ]);
@@ -42,7 +44,7 @@ class SharepointController extends Controller
                         ])
                         ->post($url, [
                                 "__metadata"=> ["type"=> "SP.Folder"],
-                                "ServerRelativeUrl"=> "/sites/AECCRMApplication/Shared Documents".$folder
+                                "ServerRelativeUrl"=> $this->basePath.$folder
                         ]);
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
@@ -56,7 +58,7 @@ class SharepointController extends Controller
             $this->getToken();
         }
         Log::info("folder deleted start- path :".$folder);
-        $url = $this->getUrl("GetFolderByServerRelativeUrl('/sites/AECCRMApplication/Shared Documents/".$folder."')");
+        $url = $this->getUrl("GetFolderByServerRelativeUrl('".$this->basePath.$folder."')");
         $res = Http::retry(3, 100)
                     ->withHeaders([
                         'Authorization' =>  'Bearer '.Session::get('access_token'),'X-HTTP-Method'=> 'DELETE','Content-Type' => 'application/json;odata=verbose','Accept'=> 'application/json;odata=verbose'

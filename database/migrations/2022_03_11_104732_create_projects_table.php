@@ -42,6 +42,7 @@ class CreateProjectsTable extends Migration
             $table->string('time_zone')->nullable();
             $table->string('language')->nullable();
             $table->boolean('linked_to_customer')->default(0);
+            $table->boolean('is_submitted')->default(0); //draft
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('project_type_id')->references('id')->on('project_types');
@@ -49,9 +50,7 @@ class CreateProjectsTable extends Migration
             $table->foreign('delivery_type_id')->references('id')->on('delivery_types');
             $table->foreign('created_by')->references('id')->on('employee');
             $table->foreign('updated_by')->references('id')->on('employee');
-
             $table->longText('gantt_chart_data')->nullable();
-
             $table->timestamps();
         });
     }

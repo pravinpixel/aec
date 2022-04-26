@@ -51,4 +51,6 @@ return [
 
     'technical_estimater' => 'technical_estimate',
 
+    'job_delay' => 60,
+
 ];

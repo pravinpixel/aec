@@ -9,5 +9,37 @@ return [
     'languages' => [
        'english'  => 'English',
        'norwegian' => 'Norwegian' 
-    ]
+    ],
+
+    'default_folder' => [
+        [
+            "isDirectory"=> true,
+            "name"=> "Project Management"
+        ],
+        [
+            "isDirectory"=> true,
+            "name"=> "Engineering"
+        ],
+        [
+            "isDirectory"=> true,
+            "name"=> "Custom Input"
+        ],
+        [
+            "isDirectory"=> true,
+            "name"=> "AGA CAD Settings"
+        ],
+        [
+            "isDirectory"=> true,
+            "name"=> "Procurement"
+        ],
+        [
+            "isDirectory"=> true,
+            "name"=> "Pictures"
+        ],
+        [
+            "isDirectory"=> true,
+            "name"=> "Checklist"
+        ]
+    ],
+    
 ];

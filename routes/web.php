@@ -229,6 +229,11 @@ Route::post('customers/change-password',[ AuthController::class, 'changePassword
 /**
  * admin route
  */
+/** Job event */
+ Route::prefix('jobs')->group(function () {
+    Route::queueMonitor();
+});
+
 Route::get('getversion',[EnquiryController::class,'getVersion']);
 
 Route::post('/store-token', [WebNotificationController::class, 'storeToken'])->name('store.token');
