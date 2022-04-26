@@ -62,6 +62,8 @@ interface CustomerEnquiryRepositoryInterface
 
     public function createEnquiryBuildingComponentDocument($storeData);
 
+    public function getCostEstimateByEnquiryId($id);
+
     public function moveToCancel($id);
 
     public function moveToActive($id);

@@ -132,9 +132,9 @@ class ProjectRepository implements ProjectRepositoryInterface{
     {
         $project = $this->model->find($project_id);
         $insert = [
-            "no_of_invoice" => $data['no_of_invoice'],
-            "project_cost" => $data['project_cost'],
-            "invoice_data" => json_encode($data['invoice_data']),
+            "no_of_invoice" => $data['no_of_invoice'] ?? 0,
+            "project_cost" => $data['project_cost'] ?? 0,
+            "invoice_data" => json_encode($data['invoice_data'] ?? ''),
             "project_id"   => $project->id,
             "created_by"   => Admin()->id
         ];

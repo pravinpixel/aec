@@ -32,14 +32,22 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $enquiry;
     protected $documentTypeEnquiry;
     protected $enquiryBuildingComponentDocument;
+    protected $costEstimate;
 
-    function __construct(Customer $customer,Enquiry $enquiry, Service $service, DocumentTypeEnquiry $documentTypeEnquiry, EnquiryBuildingComponentDocument $enquiryBuildingComponentDocument)
-    {
+    function __construct(
+        Customer $customer,
+        Enquiry $enquiry, 
+        Service $service, 
+        DocumentTypeEnquiry $documentTypeEnquiry, 
+        EnquiryBuildingComponentDocument $enquiryBuildingComponentDocument,
+        EnquiryCostEstimate $costEstimate
+        ) {
         $this->customer = $customer;
         $this->service = $service;
         $this->enquiry = $enquiry;
         $this->documentTypeEnquiry = $documentTypeEnquiry;
         $this->enquiryBuildingComponentDocument = $enquiryBuildingComponentDocument;
+        $this->costEstimate = $costEstimate;
     }
 
     
@@ -571,6 +579,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function createEnquiryBuildingComponentDocument($data)
     {
         return $this->enquiryBuildingComponentDocument->create($data);
+    }
+
+    public function getCostEstimateByEnquiryId($id)
+    {
+        return $this->costEstimate->where('enquiry_id', $id)->first();
     }
 
     public function moveToCancel($id)

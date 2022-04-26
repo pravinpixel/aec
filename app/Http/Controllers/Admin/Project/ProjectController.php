@@ -417,7 +417,7 @@ class ProjectController extends Controller
                 'created_by' => Admin()->id,
                 'modified_by' => Admin()->id
             ];
-            $this->projectRepo->updateFolder($project_id, $data);
+            $this->projectRepo->updateFolder($project->id, $data);
             return $project;
         } else if($type == 'connect_platform') {
             return $this->projectRepo->storeConnectPlatform($project_id, $data);

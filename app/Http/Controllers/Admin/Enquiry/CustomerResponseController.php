@@ -41,6 +41,15 @@ class CustomerResponseController extends Controller
             ];
             $result = $this->projectRepo->create($enquiry_id, array_merge($enquiry_data, $additional_data));
             $this->enquiryRepo->updateEnquiry($enquiry_id, ['project_id' => $result->id]);
+            $costEstimate = $this->enquiryRepo->getCostEstimateByEnquiryId($enquiry_id);
+            $this->projectRepo->storeInvoicePlan($result->id, ['project_cost' => $costEstimate->total_cost]);
+            $data = [
+                'folder'      => json_encode(config('project.default_folder')),
+                'project_id'  => $result->id,
+                'created_by'  => Admin()->id,
+                'modified_by' => Admin()->id
+            ];
+            $this->projectRepo->updateFolder($result->id, $data);
             if($result) {
                 GlobalService::updateConfig('PRO');
                 return response(['status' => true, 'msg' => __('global.move_to_project_successfully'), 'data' => []]);
