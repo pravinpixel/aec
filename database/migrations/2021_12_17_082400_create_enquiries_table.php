@@ -15,6 +15,7 @@ class CreateEnquiriesTable extends Migration
     {
         Schema::create('enquiries', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('project_id')->nullable();
             $table->string('enquiry_date')->nullable();
             $table->string('enquiry_number')->nullable();
             $table->string('customer_enquiry_number')->nullable();
@@ -48,6 +49,7 @@ class CreateEnquiriesTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers'); 
+            $table->foreign('project_id')->references('id')->on('projects'); 
             $table->string('status')->default('In-Complete');
             $table->string('project_status')->default('Unattended');
             // ======== Admin Wizard Flow Status =======

@@ -40,6 +40,7 @@ class CustomerResponseController extends Controller
                 'reference_number' => GlobalService::getProjectNumber()
             ];
             $result = $this->projectRepo->create($enquiry_id, array_merge($enquiry_data, $additional_data));
+            $this->enquiryRepo->updateEnquiry($enquiry_id, ['project_id' => $result->id]);
             if($result) {
                 GlobalService::updateConfig('PRO');
                 return response(['status' => true, 'msg' => __('global.move_to_project_successfully'), 'data' => []]);

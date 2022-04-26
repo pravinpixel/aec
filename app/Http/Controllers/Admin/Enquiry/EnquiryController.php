@@ -171,6 +171,7 @@ class EnquiryController extends Controller
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
                             ->where(['project_status'=> 'Active'])
+                            ->whereNull('project_id')
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
