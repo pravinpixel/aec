@@ -30,7 +30,6 @@ class Project extends Model
         'mobile_number',
         'start_date',
         'delivery_date',
-        'status',
         'address_one',
         'address_two',
         'time_zone',

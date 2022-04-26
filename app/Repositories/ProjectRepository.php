@@ -58,6 +58,12 @@ class ProjectRepository implements ProjectRepositoryInterface{
         return $dataDb;
     }
 
+    public function liveProjectList($request)
+    {
+        $dataDb =  $this->model::where('status', 'Live')->orderBy('id','desc');
+        return $dataDb;
+    }
+
     public function getProjectById($id)
     {
         return $this->model->find($id);

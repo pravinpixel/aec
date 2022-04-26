@@ -261,9 +261,49 @@ class ProjectController extends Controller
         }
     }
 
-    public function liveProjectList()
+    public function liveProjectList(Request $request)
     {
-        
+        if ($request->ajax() == true) {
+            $dataDb = $this->projectRepo->liveProjectList($request);
+            return DataTables::eloquent($dataDb)
+            ->editColumn('reference_number', function($dataDb){
+                return '
+                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
+                        <b>'. $dataDb->reference_number.'</b>
+                    </button>
+                ';
+            })
+            ->editColumn('start_date', function($dataDb) {
+                $format = config('global.model_date_format');
+                return Carbon::parse($dataDb->start_date)->format($format);
+            })
+            ->editColumn('delivery_date', function($dataDb) {
+                $format = config('global.model_date_format');
+                return Carbon::parse($dataDb->delivery_date)->format($format);
+            })
+            ->addColumn('pipeline', function($dataDb){
+                return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
+                    <button  class="btn progress-btn '.($dataDb->status == 'Active' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
+                    <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
+                    <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estiringmation"></button> 
+                    <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
+                    <button  class="btn progress-btn '.($dataDb->customer_response == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Customer Response"></button>
+                </div>';
+            })
+            ->addColumn('action', function($dataDb){
+                return '<div class="dropdown">
+                            <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="'.route('edit-projects', $dataDb->id).'">View / Edit</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route('enquiry.delete', $dataDb->id).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                            </div>
+                        </div>';
+            })
+            ->rawColumns(['action', 'pipeline','reference_number'])
+            ->make(true);
+        }
     }
 
     public function completedProjectList()
@@ -391,10 +431,10 @@ class ProjectController extends Controller
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
         } else if($type == 'review_and_submit') {
             $result = $this->createSharepointFolder($project_id);
-            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' =>$result['status']]);
+            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' =>$result['status'], 'status'=> 'Live']);
             return  response($result);
         } else if($type == 'review_and_save') {
-            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => false]);
+            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted'=> false]);
             return  response(['status'=> true, 'msg'=> 'Project saved successfully']);
         }
         return $request->all();
@@ -415,10 +455,10 @@ class ProjectController extends Controller
             return $this->projectRepo->storeInvoicePlan($id, $data);
         } else if($type == 'review_and_submit') {
             $result = $this->createSharepointFolder($id);
-            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => $result['status']]);
+            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => $result['status'], 'status'=> 'Live']);
             return response($result);
         } else if($type == 'review_and_save') {
-            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => false]);
+            $this->projectRepo->draftOrSubmit($id, ['is_submitted'=> false]);
             return response(['status'=> true, 'msg'=> 'Project saved successfully']);
         }
         return $request->all();

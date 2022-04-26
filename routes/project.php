@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
         })->name('review-n-submit');
         
         Route::get('project-unestablished-list', [ProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');
+        Route::get('project-live-list', [ProjectController::class, 'liveProjectList'])->name('project-live-list');
     //========= END :  Wizard Flow Views =========
 });
 
