@@ -14,6 +14,7 @@ use App\Models\ProjectType;
 use App\Models\SharepointFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProjectRepository implements ProjectRepositoryInterface{
@@ -54,13 +55,29 @@ class ProjectRepository implements ProjectRepositoryInterface{
     
     public function unestablishedProjectList($request)
     {
-        $dataDb =  $this->model::where('status', 'In-Progress')->orderBy('id','desc');
+        $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
+        $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
+        $projetType = isset($request->projet_type) ? $request->projet_type : false;
+        $dataDb =  $this->model::where('status', 'In-Progress') 
+                                ->whereBetween('created_at', [$fromDate, $toDate])
+                                ->when($projetType, function($q) use($projetType){
+                                    $q->where('project_type_id', $projetType);
+                                })
+                                ->orderBy('id','desc');
         return $dataDb;
     }
 
     public function liveProjectList($request)
     {
-        $dataDb =  $this->model::where('status', 'Live')->orderBy('id','desc');
+        $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
+        $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
+        $projetType = isset($request->projet_type) ? $request->projet_type : false;
+        $dataDb =  $this->model::where('status', 'Live')
+                                ->whereBetween('created_at', [$fromDate, $toDate])
+                                ->when($projetType, function($q) use($projetType){
+                                    $q->where('project_type_id', $projetType);
+                                })
+                                ->orderBy('id','desc');
         return $dataDb;
     }
 

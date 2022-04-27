@@ -85,8 +85,8 @@ class EnquiryController extends Controller
     public function getUnattendedEnquiries(Request $request)
     {
         if ($request->ajax() == true) {
-            $fromDate =  now()->subDays(config('global.date_period'));
-            $toDate =  now();
+            $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
+            $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
             $projetType = isset($request->projet_type) ? $request->projet_type : false;
             $dataDb = Enquiry::with(['projectType', 'technicalEstimate', 'costEstimate','comments'=> function($q){

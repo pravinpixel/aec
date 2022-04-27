@@ -4,7 +4,7 @@
    
     <div class="content-page" ng-controller="projectController">
         <div class="content" >
-
+            @include('admin.projects.filter-modal')
             @include('admin.includes.top-bar')
             <div class="container-fluid">
                 
@@ -12,7 +12,7 @@
                 @include('admin.includes.page-navigater')
                 <!-- end page title -->
                 <div class="d-flex justify-content-between ">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#project-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
                         <i class="mdi mdi-filter-menu"></i> Filters
                     </button> 
                    <div class=""> <a  href="{{ route('create-projects') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> @lang('project.create_project') </a></div>
@@ -76,6 +76,7 @@
             </div>
         </div>
     </div> 
+    
 @endsection 
 @push('custom-scripts')
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/list.js") }}"></script> 

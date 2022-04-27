@@ -1,5 +1,8 @@
 app.controller('projectController', function ($scope, $http, API_URL, $compile) {
 
+    $scope.projectTypes = [];
+    $http.get(`${API_URL}get-project-type`).then((res) => {  $scope.projectTypes = res.data; });
+
     var unestablish = $('#unestablished-table').DataTable({
         aaSorting     : [[0, 'desc']],
         responsive: true,
@@ -11,8 +14,9 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             url     :  API_URL +'admin/project-unestablished-list',
             dataType: 'json',
             data: function (d) {
-              d.from_date      = $scope.enquiry_from_date,
-              d.to_date        = $scope.enquiry_to_date
+                d.from_date      = $scope.from_date;
+                d.to_date        = $scope.to_date;
+                d.project_type   = $scope.project_type;
             }
         },
         columns       : [
@@ -39,7 +43,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         }
     });
 
-    var unestablish = $('#live-project-table').DataTable({
+    var live = $('#live-project-table').DataTable({
         aaSorting     : [[0, 'desc']],
         responsive: true,
         processing: true,    
@@ -50,8 +54,9 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             url     :  API_URL +'admin/project-live-list',
             dataType: 'json',
             data: function (d) {
-              d.from_date      = $scope.enquiry_from_date,
-              d.to_date        = $scope.enquiry_to_date
+              d.from_date      = $scope.from_date;
+              d.to_date        = $scope.to_date;
+              d.project_type   = $scope.project_type;
             }
         },
         columns       : [
@@ -77,4 +82,15 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             $compile(row)($scope);  //add this to compile the DOM
         }
     });
+
+    $scope.projectFilter = () => {
+        $scope.from_date = $("#from_date").val();
+        $scope.to_date = $("#to_date").val();
+        unestablish.draw();
+        live.draw();
+        $scope.from_date = '';
+        $scope.to_date = '';
+        $scope.project_type = '';
+        $("#project-filter-modal").modal('hide');
+    }
 }); 
