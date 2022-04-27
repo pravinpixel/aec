@@ -15,7 +15,9 @@ use App\Models\SharepointFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class ProjectRepository implements ProjectRepositoryInterface{
     protected $model;
@@ -24,6 +26,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
     protected $invoicePlan;
     protected $teamSetupTemplate;
     protected $sharepointFolder;
+    protected $fileDir;
 
     public function __construct(
         Project $project, 
@@ -205,5 +208,37 @@ class ProjectRepository implements ProjectRepositoryInterface{
     public function draftOrSubmit($id, $data)
     {
         return $this->model->find($id)->update($data);
+    }
+
+    public function createSharepointFolder($project_id)
+    {
+        $sharepoint = SharepointFolder::where('project_id', $project_id)->first();
+        if(!empty($sharepoint)) {
+            $dirs = json_decode($sharepoint->folder);
+                foreach( $dirs as $dir ){
+                    $this->myRecursive($dir);
+                }
+                return $this->fileDir;
+        }
+        return false;
+    }
+
+    public function myRecursive($dir, $rootPath = '')
+    {
+        if(!is_array($dir)) {
+            $dir = [$dir];
+        }
+        foreach ($dir as  $item) {
+            if(!isset($item->items)){
+                $this->fileDir[] =  $rootPath.'/'.$item->name;
+                $rootPath = '';
+                break;
+            } else {
+                $rootPath =  $rootPath.'/'.$item->name;
+                $this->fileDir[] =  $rootPath;
+                $this->myRecursive($item->items, $rootPath);
+            }
+        }
+        return $this->fileDir;
     }
 }

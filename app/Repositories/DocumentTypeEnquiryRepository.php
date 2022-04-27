@@ -3,15 +3,21 @@
 namespace App\Repositories;
 
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
+use App\Interfaces\EnquiryBuildingComponentDocumentInterface;
 use App\Models\DocumentTypeEnquiry;
+use App\Models\EnquiryBuildingComponentDocument;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class DocumentTypeEnquiryRepository implements DocumentTypeEnquiryRepositoryInterface{
+class DocumentTypeEnquiryRepository implements DocumentTypeEnquiryRepositoryInterface, EnquiryBuildingComponentDocumentInterface{
     protected $model;
+    protected $enquiryBuildingComponent;
 
-    public function __construct(DocumentTypeEnquiry $documentTypeEnquiry)
-    {
-        $this->model = $documentTypeEnquiry;
+    public function __construct(
+        DocumentTypeEnquiry $documentTypeEnquiry,
+        EnquiryBuildingComponentDocument $enquiryBuildingComponent
+    ){
+        $this->model                    = $documentTypeEnquiry;
+        $this->enquiryBuildingComponent = $enquiryBuildingComponent;
     }
 
     public function getDocumentByEnquiryId($enquiryId) 
@@ -33,5 +39,10 @@ class DocumentTypeEnquiryRepository implements DocumentTypeEnquiryRepositoryInte
             throw new ModelNotFoundException("Service not found");
         }
         return $documentTypeEnquiry;
+    }
+
+    public function geBuildingDocumentByEnquiryId($enquiry_id)
+    {
+        return $this->model->where('enquiry_id',$enquiry_id)->get();
     }
 }

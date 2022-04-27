@@ -102,4 +102,9 @@ class GlobalServiceProvider extends Controller
         $removedPath = basename($path);
         return preg_replace('/\\.[^.\\s]{3,4}$/', '', $removedPath);
     }
+
+    public function getSharepointPath($ref='',$folder='')
+    {
+        return "/DataBase Test/{$ref}/{$folder}";
+    }
 }

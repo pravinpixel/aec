@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
+use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
+use App\Jobs\SharepointFileCreation;
 use App\Jobs\SharePointFolderCreation;
 use App\Models\CheckList;
 use App\Models\DeliveryType;
@@ -15,6 +17,8 @@ use App\Models\Project;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectType;
 use App\Models\SharepointFolder;
+use App\Repositories\DocumentTypeEnquiryRepository;
+use App\Repositories\DocumentTypeRepository;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use DateTime;
@@ -31,6 +35,7 @@ class ProjectController extends Controller
 {
     protected $projectRepo;
     protected $customerEnquiryRepo;
+    protected $documentTypeEnquiryRepo;
     protected $customerRep;
     protected $index = 0;
     protected $parentFolder = '';
@@ -40,11 +45,13 @@ class ProjectController extends Controller
     public function __construct(
        ProjectRepositoryInterface $projectRepo,
        CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
-       CustomerRepositoryInterface $customerRepo
+       CustomerRepositoryInterface $customerRepo,
+       DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo
     ){
         $this->projectRepo        = $projectRepo;
         $this->customerEnquiryRepo = $customerEnquiryRepo;
         $this->customerRepo        = $customerRepo;
+        $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
     }
 
     public function index()
@@ -430,7 +437,7 @@ class ProjectController extends Controller
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
         } else if($type == 'review_and_submit') {
-            $result = $this->createSharepointFolder($project_id);
+            $result = $this->projectRepo->createSharepointFolder($project_id);
             $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' =>$result['status'], 'status'=> 'Live']);
             return  response($result);
         } else if($type == 'review_and_save') {
@@ -454,9 +461,8 @@ class ProjectController extends Controller
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->storeInvoicePlan($id, $data);
         } else if($type == 'review_and_submit') {
-            $result = $this->createSharepointFolder($id);
-            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => $result['status'], 'status'=> 'Live']);
-            return response($result);
+            $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status'=> 'Live']);
+            return response(['status'=> true, 'msg'=> 'Project saved successfully']);
         } else if($type == 'review_and_save') {
             $this->projectRepo->draftOrSubmit($id, ['is_submitted'=> false]);
             return response(['status'=> true, 'msg'=> 'Project saved successfully']);
@@ -652,15 +658,11 @@ class ProjectController extends Controller
     public function createSharepointFolder($project_id)
     {
         $project = $this->projectRepo->getProjectById($project_id);
-        $sharepoint = SharepointFolder::where('project_id', $project_id)->first();
-        if(!empty($sharepoint)) {
-            $dirs = json_decode($sharepoint->folder);
+        $result = $this->projectRepo->createSharepointFolder($project_id);
+        if($result != false) {
             try {
                 $reference_number = str_replace('/','-',$project->reference_number);
-                foreach( $dirs as $dir ){
-                    $this->myRecursive($dir);
-                }
-                foreach($this->fileDir as $path) {
+                foreach($result  as $path) {
                     $data = ['path' => "{$this->rootFolder}/{$reference_number}".$path];
                     $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
                     $this->dispatch($job);
@@ -673,22 +675,17 @@ class ProjectController extends Controller
         }
     }
 
-    public function myRecursive($dir, $rootPath = '')
+    public function testDemo($project_id)
     {
-        if(!is_array($dir)) {
-            $dir = [$dir];
-        }
-        foreach ($dir as  $item) {
-            if(!isset($item->items)){
-                $this->fileDir[] =  $rootPath.'/'.$item->name;
-                $rootPath = '';
-                break;
-            } else {
-                $rootPath =  $rootPath.'/'.$item->name;
-                $this->fileDir[] =  $rootPath;
-                $this->myRecursive($item->items, $rootPath);
+            $folderPath = '/DataBase Test/PRO-2022-002/Custom Input';
+            $project = $this->projectRepo->getProjectById($project_id);
+            $reference_number = str_replace('/','-',$project->reference_number);
+            $documents = $this->documentTypeEnquiryRepo
+                                ->getDocumentByEnquiryId(6);
+            foreach($documents as $document) {
+                $filePath = asset('public/uploads/'.$document->file_name);
+                $job = (new SharepointFileCreation($folderPath,$filePath, $document->client_file_name))->delay(config('global.job_delay'));
+                $this->dispatch($job);
             }
-        }
-        return $this->fileDir;
     }
 }

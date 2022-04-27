@@ -62,8 +62,26 @@ class SharepointController extends Controller
         $res = Http::retry(3, 100)
                     ->withHeaders([
                         'Authorization' =>  'Bearer '.Session::get('access_token'),'X-HTTP-Method'=> 'DELETE','Content-Type' => 'application/json;odata=verbose','Accept'=> 'application/json;odata=verbose'
-                    ])  
+                    ])      
                     ->post($url);
+        $responseJson = $res->getBody()->getContents();
+        $responseData = json_decode($responseJson, true);
+        Log::info("folder deleted end");
+        return $responseData;
+    }
+
+    public function createFile($folder, $file, $clientFileName)
+    {
+        if(empty(Session::get('access_token'))) {
+            $this->getToken();
+        }
+        Log::info("folder  path :".$folder);
+        $url = $this->getUrl("GetFolderByServerRelativeUrl('".$this->basePath.$folder."')/Files/Add(url='".$clientFileName."', overwrite=true)");
+        $res =  Http::attach('file', file_get_contents($file), $clientFileName)->withHeaders([
+            'Authorization' =>  'Bearer '.Session::get('access_token'),
+            'Content-Type' => 'octet-stream',
+            'Accept'=> 'application/json;odata=verbose'
+        ])->post( $url );
         $responseJson = $res->getBody()->getContents();
         $responseData = json_decode($responseJson, true);
         Log::info("folder deleted end");
