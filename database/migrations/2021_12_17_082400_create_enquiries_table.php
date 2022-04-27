@@ -49,7 +49,6 @@ class CreateEnquiriesTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers'); 
-            $table->foreign('project_id')->references('id')->on('projects'); 
             $table->string('status')->default('In-Complete');
             $table->string('project_status')->default('Unattended');
             // ======== Admin Wizard Flow Status =======
