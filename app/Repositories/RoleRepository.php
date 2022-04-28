@@ -57,4 +57,13 @@ class RoleRepository implements RoleRepositoryInterface{
         $roles = Employee::where('job_role', $id)->get();
         return  $roles;
     }
+
+    public function getRoleBySlug($name)
+    {
+        $role = $this->model->where('slug', $name)->first();
+        if(!empty($role)) {
+            return Employee::where('job_role', $role->id)->get();
+        }
+        return [];
+    }
 }

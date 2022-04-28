@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\Master\DeliveryTypeController;
 use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\ServiceController;
 use App\Http\Controllers\Admin\Documentary\DocumentaryController;
-
+use App\Http\Controllers\Admin\Master\RoleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\PushNotificationController;
@@ -129,6 +129,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('get-employee', [EmployeeController::class, 'getEmployee'])->name('get-employee');
     Route::get('get-editEmployee/{id}', [EmployeeController::class, 'getEditEmployee'])->name('get-editEmployee');
     Route::delete('employee-delete/{id}', [EmployeeController::class, 'employeeDelete'])->name('employee-delete');
+    Route::get('get-employee-by-slug/{name}', [RoleController::class,'getRoleBySlug'])->name('get-employee-by-slug');
     Route::get('employee-role', [EmployeeController::class, 'employeeRole'])->name('employee-role');
     
     Route::get('add-employee', [EmployeeController::class, 'employee_add'])->name('employee-add');

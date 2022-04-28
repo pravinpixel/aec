@@ -345,13 +345,17 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
 
-
+    $scope.projectManagers = [];
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
         console.log("This is Current Session ID : " , $scope.project_id)
 
         var project_id  = $scope.project_id;
-   
+        
+        $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
+            $scope.projectManagers = res.data.data;
+        });
+      
         if(project_id != null) {
             $http.get(`${API_URL}get-project-type`).then((res)=> {
                 $scope.projectTypes = res.data;
@@ -371,7 +375,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 
     $http.get(`${API_URL}admin/check-list-master-group`).then((res)=> {
         $scope.check_list_master = res.data.data;
-    });
+    })
 
 
     $scope.add_new_check_list_item  =  ()   => { 
@@ -452,6 +456,11 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
         var project_id  = $scope.project_id; 
         let fileSystem = [];
         $scope.teamSetups = [];
+        $scope.projectManagers = [];
+        
+        $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
+            $scope.projectManagers = res.data.data;
+        });
         $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
             $scope.review  =  res.data;
             $scope.teamSetups = res.data.team_setup;

@@ -576,10 +576,9 @@
                                                 <td>
                                                     <select disabled  get-to-do-lists ng-model="taskListData.assign_to" class="form-select border-0  form-select-sm">
                                                         <option value="">-- Project Manager --</option>
-                                                        <option value="Alexander">Alexander</option>
-                                                        <option value="Bjørn">Bjørn</option>
-                                                        <option value="Gunnar">Gunnar</option>
-                                                        <option value="Kristoffer">Kristoffer</option>
+                                                        <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                                            @{{ projectManager.first_Name }}
+                                                        </option>
                                                     </select>
                                                 </td>
                                                 <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>

@@ -347,9 +347,13 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
 
     let project_id =  $("#project_id").val();
-
+    $scope.projectManagers = [];
     $http.get(`${API_URL}get-project-type`).then((res)=> {
         $scope.projectTypes = res.data;
+    });
+
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
+        $scope.projectManagers = res.data.data;
     });
 
     $http.get(`${API_URL}project/${project_id}`).then((res)=> {
@@ -443,6 +447,12 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
     let project_id =  $("#project_id").val();
     $scope.teamSetups = [];
     let fileSystem = [];
+
+    $scope.projectManagers = [];
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
+        $scope.projectManagers = res.data.data;
+    });
+    
     $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
         $scope.review  =  res.data 
         $scope.teamSetups = res.data.team_setup;
