@@ -441,9 +441,11 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
 
     let project_id =  $("#project_id").val();
-    
+    $scope.teamSetups = [];
     $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
         $scope.review  =  res.data 
+        $scope.teamSetups = res.data.team_setup;
+        console.log(res.data.team_setup)
         $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
     }); 
     

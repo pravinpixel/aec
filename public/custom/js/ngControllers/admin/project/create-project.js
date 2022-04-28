@@ -450,8 +450,10 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
         var project_id  = $scope.project_id; 
+        $scope.teamSetups = [];
         $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
-            $scope.review  =  res.data 
+            $scope.review  =  res.data;
+            $scope.teamSetups = res.data.team_setup;
             $scope.check_list_items     =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
         }); 
     }); 

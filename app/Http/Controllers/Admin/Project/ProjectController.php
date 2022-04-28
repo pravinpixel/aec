@@ -12,6 +12,7 @@ use App\Jobs\SharepointFileCreation;
 use App\Jobs\SharePointFolderCreation;
 use App\Models\CheckList;
 use App\Models\DeliveryType;
+use App\Models\Employee;
 use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectGranttTask;
@@ -363,9 +364,22 @@ class ProjectController extends Controller
         $project_data   =   Project::find($id)->toArray();
         $invoice_plan   =   InvoicePlan::where('project_id', $id)->first();
         $invoice_data   =   json_decode($invoice_plan->invoice_data ?? '');
+        $project_team_setups =   $this->projectRepo->getProjectTeamSetup($id);
+        $team_setup = [];
+        if(!empty($project_team_setups)){
+            foreach($project_team_setups as $project_team) {
+                $employee = Employee::find($project_team->team);
+                $team = $employee->map( function($user) {
+                    return $user->first_Name;
+                });
+                $project_team->team = $team;
+                $team_setup[] =  $project_team;
+            }
+        }
         $data   =  [
             "project_type"   =>  ProjectType::find($project_data['project_type_id'])->project_type_name,
             "delivery_type"  =>  DeliveryType::find($project_data['delivery_type_id'])->delivery_type_name,
+            "team_setup"     =>  $team_setup,
             "invoice_plan"   =>  [
                 'project_cost'  =>  $invoice_plan->project_cost ?? '',
                 'no_of_invoice' =>  $invoice_plan->no_of_invoice ?? '',

@@ -257,48 +257,20 @@
             </div>
         </div>
         <div id="Team_setup" class="accordion-collapse collapse" aria-labelledby="Team_setup_header" >
-            <div class="card-body">  
+            <div class="card-body"> 
                 <div class="row mb-2 mx-0">
-                    <div class="col-md-4">
-                        <label for="">Lead Team</label>
-                    </div>
-                    <div class="col-md-8">
-                        <select name="" id="" class="form-select ">
-                            <option value=""> -- select ---</option>
-                        </select>
-                    </div>
+                    <ul>
+                        <li ng-repeat="(key,teamSetup) in teamSetups" class="">
+                            <strong>@{{ teamSetup.role.name }}</strong>
+                            <div class="row m-0">
+                                <div ng-repeat="(key,team) in teamSetup.team" class="col-md-4 list-group-item border-0 "> 
+                                    <i class="fa fa-check-circle text-primary me-1"></i>
+                                    @{{ team }}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>  
                 </div>
-               
-                <div class="row m-0 mb-2">
-                    <div class="col-md-4">
-                        <select name="" id="" class="form-select ">
-                            <option value="">Project Manager</option>
-                        </select>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="btn-group w-100 border rounded">
-                            <select name="" id="" class="border-0 form-select ">
-                                <option value=""> -- select ---</option>
-                            </select>
-                            <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0 mb-2">
-                    <div class="col-md-4">
-                        <select name="" id="" class="form-select ">
-                            <option value="">Team Manager</option>
-                        </select> 
-                    </div>
-                    <div class="col-md-8">
-                        <div class="btn-group w-100 border rounded">
-                            <select name="" id="" class="border-0 form-select ">
-                                <option value=""> -- select ---</option>
-                            </select>
-                            <button class="btn btn-light"><i class="text-danger fa fa-trash"></i></button>
-                        </div>
-                    </div>
-                </div>   
             </div> 
         </div>
     </fieldset> 
@@ -329,7 +301,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="row in review['invoice_plan'].invoice_data">
-                        <td class="text-center">1</td>
+                        <td class="text-center"> @{{ $index + 1 }} </td>
                         <td class="text-center">@{{ row.invoice_date | date: 'yyyy-MM-dd' }}</td>
                         <td class="text-center">@{{ row.amount }}</td>
                         <td class="text-center">@{{ row.percentage }}</td>
