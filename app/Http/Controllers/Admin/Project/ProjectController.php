@@ -185,8 +185,8 @@ class ProjectController extends Controller
 
     public function create()
     {
-        // Session::forget('project_id');
-        // $this->projectRepo->checkReferenceNumber();
+        Session::forget('project_id');
+        $this->projectRepo->checkReferenceNumber();
         return view('admin.projects.create');
     }
 
