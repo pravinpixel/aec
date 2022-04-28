@@ -458,7 +458,7 @@ class ProjectController extends Controller
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
         } else if($type == 'review_and_submit') {
             $result = $this->projectRepo->createSharepointFolder($project_id);
-            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' =>$result['status'], 'status'=> 'Live']);
+            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 1, 'status'=> 'Live']);
             return  response($result);
         } else if($type == 'review_and_save') {
             $this->projectRepo->draftOrSubmit($project_id, ['is_submitted'=> false]);
