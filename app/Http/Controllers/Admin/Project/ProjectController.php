@@ -365,6 +365,8 @@ class ProjectController extends Controller
         $invoice_plan   =   InvoicePlan::where('project_id', $id)->first();
         $invoice_data   =   json_decode($invoice_plan->invoice_data ?? '');
         $project_team_setups =   $this->projectRepo->getProjectTeamSetup($id);
+        $project = $this->projectRepo->getSharePointFolder($id);
+        $sharepoint =  isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
         $team_setup = [];
         if(!empty($project_team_setups)){
             foreach($project_team_setups as $project_team) {
@@ -377,9 +379,12 @@ class ProjectController extends Controller
             }
         }
         $data   =  [
-            "project_type"   =>  ProjectType::find($project_data['project_type_id'])->project_type_name,
-            "delivery_type"  =>  DeliveryType::find($project_data['delivery_type_id'])->delivery_type_name,
-            "team_setup"     =>  $team_setup,
+            "project_type"     => ProjectType::find($project_data['project_type_id'])->project_type_name,
+            "delivery_type"    => DeliveryType::find($project_data['delivery_type_id'])->delivery_type_name,
+            "project"          => $this->projectRepo->getProjectById($id),
+            "team_setup"       => $team_setup,
+            "connect_platform" => $team_setup,
+            "sharepoint"       => $sharepoint,
             "invoice_plan"   =>  [
                 'project_cost'  =>  $invoice_plan->project_cost ?? '',
                 'no_of_invoice' =>  $invoice_plan->no_of_invoice ?? '',

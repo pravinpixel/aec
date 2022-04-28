@@ -442,11 +442,54 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
 
     let project_id =  $("#project_id").val();
     $scope.teamSetups = [];
+    let fileSystem = [];
     $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
         $scope.review  =  res.data 
         $scope.teamSetups = res.data.team_setup;
-        console.log(res.data.team_setup)
+        $scope.project = formatData(res.data.project);
+        $scope.project['address_one'] =  res.data.project.site_address;
         $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+        fileSystem = res.data.sharepoint;
+        const fileManager = $('#file-manager').dxFileManager({
+            name: 'fileManager',
+            fileSystemProvider: fileSystem,
+            height: 450,
+            permissions: {
+              create: false,
+              delete: false,
+              rename: false,
+              download: false,
+            },
+            itemView: {
+              details: {
+                columns: [
+                  'thumbnail', 'name',
+                  'dateModified', 'size',
+                ],
+              },
+              showParentFolder: false,
+            },
+            toolbar: {
+              items: [
+                {
+                  name: 'showNavPane',
+                  visible: true,
+                },
+                'separator', 'create',
+                {
+                  widget: 'dxMenu',
+                  location: 'before',
+                  
+                },
+                'refresh',
+                {
+                  name: 'separator',
+                  location: 'after',
+                },
+                'switchView',
+              ]
+            }
+        }).dxFileManager('instance');
     }); 
     
     $scope.submitProject = (e) => {

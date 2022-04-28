@@ -22,7 +22,7 @@
                                 <label class="col-form-label">Project ID</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">@{{ review['reference_number'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['reference_number'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                 <label class="col-form-label">Project Name</label>
                             </div>
                             <div class="col pe-0">
-                                <div class="form-control form-control-sm">@{{ review['project_name'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['project_name'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                                 <label class="col-form-label">Telephone</label>
                             </div>
                             <div class="col pe-0">
-                                <div class="form-control form-control-sm">@{{ review['mobile_number'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['mobile_number'] }}</div>
                             </div> 
                         </div>  
                     </div>
@@ -52,7 +52,7 @@
                                 <label class="col-form-label">Contact Person</label>
                             </div>
                             <div class="col pe-0">
-                                <div class="form-control form-control-sm">@{{ review['contact_person'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['contact_person'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                 <label class="col-form-label">Company</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">@{{ review['company_name'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['company_name'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                 <label class="col-form-label">Email</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">@{{ review['email'] }} </div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['email'] }} </div>
                             </div> 
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                                 <label class="col-form-label">Site Address</label>
                             </div>
                             <div class="col pe-0">
-                                <div class="form-control form-control-sm">@{{ review['site_address'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['site_address'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                                 <label class="col-form-label">Place</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">Alexima Building</div>
+                                <div class="form-control form-control-sm  border-0 ">Alexima Building</div>
                             </div> 
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                                 <label class="col-form-label">Country</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">@{{ review['country'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['country'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                                 <label class="col-form-label">Zipcode</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">@{{ review['zipcode'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['zipcode'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                                 <label class="col-form-label">Start  Date</label>
                             </div>
                             <div class="col pe-0">  
-                                <div class="form-control form-control-sm">@{{ review['start_date'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['start_date'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                                 <label class="col-form-label">State</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">@{{ review['state'] }}</div>
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['state'] }}</div>
                             </div> 
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                                 <label class="col-form-label">Type of Building</label>
                             </div>
                             <div class="col pe-0">
-                                <div class="form-control form-control-sm">@{{ review['no_of_building'] }}</div> 
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['no_of_building'] }}</div> 
                             </div> 
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                                 <label class="col-form-label">Type of Project</label>
                             </div>
                             <div class="col pe-0">
-                                <div class="form-control form-control-sm">@{{ review['project_type'] }}</div>  
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['project_type'] }}</div>  
                             </div> 
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                                 <label class="col-form-label">Type of Delivery</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">@{{ review['delivery_type'] }}</div>  
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['delivery_type'] }}</div>  
                             </div> 
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                                 <label class="col-form-label">Delivery Date</label>
                             </div>
                             <div class="col pe-0"> 
-                                <div class="form-control form-control-sm">@{{ review['delivery_date'] }}</div>  
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['delivery_date'] }}</div>  
                             </div> 
                         </div>
                     </div>
@@ -239,7 +239,216 @@
                     </div> 
                 </div> 
             </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#Sharepoint" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
+                            <span class="d-none d-md-block">Sharepoint</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#BIM-360" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
+                            <span class="d-none d-md-block">BIM 360</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Project-Leader" data-bs-toggle="tab" aria-expanded="false" class="nav-link">
+                            <span class="d-none d-md-block">24/7 Office</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content border border-top-0">
+                    <div class="tab-pane p-3  show active" id="Sharepoint">
+                        <div class="dx-viewport">
+                            <div class="demo-container">
+                            <div id="file-manager"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane p-3" id="BIM-360">
+                        <div class="card-body">
+                            <div class="row m-0 "> 
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project Name</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.project_name }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project Type</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review.project_type }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project Start Date</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'yyyy-MM-dd' }}</div>
+                                        </div> 
+                                    </div>  
+                                </div>
+                                <div class="col-md-6"> 
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label"> Project End Date </label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'yyyy-MM-dd' }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">BIM 360 Language</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.language }} </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project Time Zone</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.time_zone }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Address Line 1</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.address_one }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Address Line 2</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.address_two }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                        
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Zipcode</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.zipcode }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                            
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">State</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{project.state }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Country</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.country }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="tab-pane p-3" id="Project-Leader">
+                        <div class="card-body">
+                            <div class="row m-0 "> 
+
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project ID</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.reference_number }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project Name</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.project_name }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project Start Date</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'yyyy-MM-dd' }}</div>
+                                        </div> 
+                                    </div>  
+                                </div>
+                                <div class="col-md-6"> 
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label"> Project End Date </label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'yyyy-MM-dd' }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-12"> 
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-4 p-0">
+                                            <label class="col-form-label">Should the project be linked to a customer ? </label>
+                                        </div> 
+                                        <div class="col pe-0">
+                                            <i class="fa fa-check-circle text-primary me-1"></i>  @{{ project.linked_to_customer == 0 ? 'No' : 'Yes' }}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
     </fieldset>
     <fieldset class="accordion-item">
         <div class="accordion-header custom m-0 position-relative" id="Team_setup_header">
@@ -382,8 +591,8 @@
                                                         <option value="Kristoffer">Kristoffer</option>
                                                     </select>
                                                 </td>
-                                                <td><input disabled  type="date" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
-                                                <td><input disabled  type="date" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                                <td><input disabled  type="date" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                <td><input disabled  type="date" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
                                             </tr> 
                                         </tbody>
                                     </table>
