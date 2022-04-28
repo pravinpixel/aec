@@ -100,7 +100,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
 
     public function storeProjectCreation($id, $data)
     {
-        return $this->model->updateOrCreate(['id'=>$id], $data);
+        return $this->model->updateOrCreate(['id'=>$id], array_merge($data,['wizard_create_project' => 1]));
     }
 
     public function storeConnectPlatform($id, $data = [])
@@ -117,6 +117,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
             $teamSetup['team'] = json_encode($row['team']);
             $teamSetups[] = $teamSetup;
         }
+        $this->updateWizardStatus($project,'wizard_teamsetup',1);
         $this->projectTeamSetup->where('project_id', $project_id)->delete();
         return $project->teamSetup()->createMany($teamSetups);
     }
@@ -158,6 +159,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
             "project_id"   => $project->id,
             "created_by"   => Admin()->id
         ];
+        $this->updateWizardStatus($project,'wizard_invoice_plan',1);
         return $this->invoicePlan->updateOrCreate(['project_id' => $project->id],$insert);
     }
 
@@ -240,5 +242,10 @@ class ProjectRepository implements ProjectRepositoryInterface{
             }
         }
         return $this->fileDir;
+    }
+
+    public function updateWizardStatus($project, $column, $value = 0)
+    {
+        return $project->update([$column => $value]);
     }
 }

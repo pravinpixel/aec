@@ -87,16 +87,7 @@
                             </div> 
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="row m-0 align-items-center">
-                            <div class="col-3  p-0">
-                                <label class="col-form-label">Place</label>
-                            </div>
-                            <div class="col pe-0"> 
-                                <div class="form-control form-control-sm  border-0 ">Alexima Building</div>
-                            </div> 
-                        </div>
-                    </div>
+            
                     <div class="col-md-6">
                         <div class="row m-0 align-items-center">
                             <div class="col-3  p-0">

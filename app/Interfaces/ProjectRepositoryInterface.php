@@ -27,5 +27,6 @@ interface ProjectRepositoryInterface
     public function draftOrSubmit($id, $data);
     public function liveProjectList($request);
     public function createSharepointFolder($project_id);
+    public function updateWizardStatus($project, $column, $value);
     // public function storeToDoList($id, $data);
 }

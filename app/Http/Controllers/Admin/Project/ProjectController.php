@@ -102,7 +102,8 @@ class ProjectController extends Controller
         $loop_one =  $request->data;
         $result = [];
 
-        Project::find($request->id)->update(["gantt_chart_data" => json_encode($request->data)]);
+        $project = Project::find($request->id);
+        $project->update(["gantt_chart_data" => json_encode($request->data)]);
        
         foreach ($loop_one as $row_one) {
 
@@ -162,7 +163,7 @@ class ProjectController extends Controller
                 ProjectGranttTask::create($task);
             }
         }
- 
+        $this->projectRepo->updateWizardStatus($project,'wizard_todo_list',1);
         return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
     }
 
@@ -184,8 +185,8 @@ class ProjectController extends Controller
 
     public function create()
     {
-        Session::forget('project_id');
-        $this->projectRepo->checkReferenceNumber();
+        // Session::forget('project_id');
+        // $this->projectRepo->checkReferenceNumber();
         return view('admin.projects.create');
     }
 
@@ -231,7 +232,7 @@ class ProjectController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('reference_number', function($dataDb){
                 return '
-                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
+                    <button type="button" ng-click=getQuickProject("create_project",'.$dataDb->id.') class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
                         <b>'. $dataDb->reference_number.'</b>
                     </button>
                 ';
@@ -245,12 +246,12 @@ class ProjectController extends Controller
                 return Carbon::parse($dataDb->delivery_date)->format($format);
             })
             ->addColumn('pipeline', function($dataDb){
-                return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
-                    <button  class="btn progress-btn '.($dataDb->status == 'Active' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estiringmation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
-                    <button  class="btn progress-btn '.($dataDb->customer_response == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Customer Response"></button>
+                return '<div class="btn-group">
+                    <button ng-click=getQuickProject("create_project",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_create_project == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Create"></button> 
+                    <button ng-click=getQuickProject("connect_platform",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_teamsetup == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Connect Platform"></button> 
+                    <button ng-click=getQuickProject("teamsetup",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_teamsetup == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Team Setup"></button> 
+                    <button ng-click=getQuickProject("invoice_plan",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_invoice_plan == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Invoice Plan"></button> 
+                    <button ng-click=getQuickProject("to_do_list",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_todo_list == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="To-do List"></button> 
                 </div>';
             })
             ->addColumn('action', function($dataDb){
@@ -276,7 +277,7 @@ class ProjectController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('reference_number', function($dataDb){
                 return '
-                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
+                    <button type="button" ng-click=getQuickProject("create_project",'.$dataDb->id.') class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
                         <b>'. $dataDb->reference_number.'</b>
                     </button>
                 ';
@@ -290,12 +291,12 @@ class ProjectController extends Controller
                 return Carbon::parse($dataDb->delivery_date)->format($format);
             })
             ->addColumn('pipeline', function($dataDb){
-                return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
-                    <button  class="btn progress-btn '.($dataDb->status == 'Active' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estiringmation"></button> 
-                    <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
-                    <button  class="btn progress-btn '.($dataDb->customer_response == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Customer Response"></button>
+                return '<div class="btn-group">
+                    <button ng-click=getQuickProject("create_project",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_create_project == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Create"></button> 
+                    <button ng-click=getQuickProject("connect_platform",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_teamsetup == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Connect Platform"></button> 
+                    <button ng-click=getQuickProject("teamsetup",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_teamsetup == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Team Setup"></button> 
+                    <button ng-click=getQuickProject("invoice_plan",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_invoice_plan == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Invoice Plan"></button> 
+                    <button ng-click=getQuickProject("to_do_list",'.$dataDb->id.') class="btn progress-btn '.($dataDb->wizard_todo_list == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="To-do List"></button> 
                 </div>';
             })
             ->addColumn('action', function($dataDb){

@@ -38,7 +38,12 @@ class Project extends Model
         'created_by',
         'updated_by',
         'gantt_chart_data',
-        'is_submitted'
+        'is_submitted',
+        'wizard_create_project', 
+        'wizard_connect_platform', 
+        'wizard_teamsetup',  
+        'wizard_invoice_plan', 
+        'wizard_todo_list'
     ];
 
     public function setCreatedByAttribute()

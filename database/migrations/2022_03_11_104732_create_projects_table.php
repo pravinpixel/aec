@@ -44,6 +44,12 @@ class CreateProjectsTable extends Migration
             $table->string('language')->nullable();
             $table->boolean('linked_to_customer')->default(0);
             $table->boolean('is_submitted')->default(0); //draft
+            $table->boolean('wizard_create_project')->default(0); 
+            $table->boolean('wizard_connect_platform')->default(0); 
+            $table->boolean('wizard_teamsetup')->default(0);  
+            $table->boolean('wizard_invoice_plan')->default(0); 
+            $table->boolean('wizard_todo_list')->default(0); 
+            $table->boolean('wizard_project_scheduling')->default(0); 
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('project_type_id')->references('id')->on('project_types');

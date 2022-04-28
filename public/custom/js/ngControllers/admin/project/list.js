@@ -3,6 +3,10 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
     $scope.projectTypes = [];
     $http.get(`${API_URL}get-project-type`).then((res) => {  $scope.projectTypes = res.data; });
 
+    formatData = (project) => {
+        return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.start_date)}}
+    }
+
     var unestablish = $('#unestablished-table').DataTable({
         aaSorting     : [[0, 'desc']],
         responsive: true,
@@ -93,4 +97,57 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         $scope.project_type = '';
         $("#project-filter-modal").modal('hide');
     }
+
+    $scope.getQuickProject = (title, id) => {
+        $http.get(`${API_URL}project/overview/${id}`).then((res)=> {
+            $scope.review  =  res.data;
+            $scope.teamSetups = res.data.team_setup;
+            $scope.project = formatData(res.data.project);
+            $scope.project['address_one'] =  res.data.project.site_address;
+            $scope.check_list_items     =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
+            fileSystem = res.data.sharepoint;
+            const fileManager = $('#file-manager').dxFileManager({
+                name: 'fileManager',
+                fileSystemProvider: fileSystem,
+                height: 450,
+                permissions: {
+                create: false,
+                delete: false,
+                rename: false,
+                download: false,
+                },
+                itemView: {
+                details: {
+                    columns: [
+                    'thumbnail', 'name',
+                    'dateModified', 'size',
+                    ],
+                },
+                showParentFolder: false,
+                },
+                toolbar: {
+                items: [
+                    {
+                    name: 'showNavPane',
+                    visible: true,
+                    },
+                    'separator', 'create',
+                    {
+                    widget: 'dxMenu',
+                    location: 'before',
+                    
+                    },
+                    'refresh',
+                    {
+                    name: 'separator',
+                    location: 'after',
+                    },
+                    'switchView',
+                ]
+                }
+            }).dxFileManager('instance');
+        }); 
+        $("#project-quick-modal-view").modal('show');
+    }
+
 }); 
