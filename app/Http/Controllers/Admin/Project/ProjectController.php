@@ -459,6 +459,12 @@ class ProjectController extends Controller
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
         } else if($type == 'review_and_submit') {
             $result = $this->projectRepo->createSharepointFolder($project_id);
+            $reference_number = str_replace('/','-',$project->reference_number);
+            foreach($result  as $path) {
+                $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
+                $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
+                $this->dispatch($job);
+            }
             $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 1, 'status'=> 'Live']);
             return  response(['status'=> true, 'msg'=> 'Project submitted successfully']);
         } else if($type == 'review_and_save') {
@@ -472,6 +478,7 @@ class ProjectController extends Controller
     {
         $type = $request->input('type');
         $data = $request->input('data');
+        $project = $this->projectRepo->getProjectById($id);
         if($type == 'create_project') {
             $project = $this->projectRepo->storeProjectCreation($id, $data);
             $this->setProjectId($project->id);
@@ -483,6 +490,12 @@ class ProjectController extends Controller
             return $this->projectRepo->storeInvoicePlan($id, $data);
         } else if($type == 'review_and_submit') {
             $result = $this->projectRepo->createSharepointFolder($id);
+            $reference_number = str_replace('/','-',$project->reference_number);
+            foreach($result  as $path) {
+                $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
+                $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
+                $this->dispatch($job);
+            }
             $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status'=> 'Live']);
             return response(['status'=> true, 'msg'=> 'Project saved successfully']);
         } else if($type == 'review_and_save') {
