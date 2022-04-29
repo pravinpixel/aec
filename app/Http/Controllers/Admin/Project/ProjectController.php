@@ -10,6 +10,7 @@ use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Jobs\SharepointFileCreation;
 use App\Jobs\SharePointFolderCreation;
+use App\Jobs\SharepointFolderDelete;
 use App\Models\CheckList;
 use App\Models\DeliveryType;
 use App\Models\Employee;
@@ -663,7 +664,7 @@ class ProjectController extends Controller
         try {
             $reference_number = str_replace('/','-',$project->reference_number);
             $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}/{$requestPath}"];
-            $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
+            $job = (new SharepointFolderDelete($folderPath))->delay(config('global.job_delay'));
             $this->dispatch($job);
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
