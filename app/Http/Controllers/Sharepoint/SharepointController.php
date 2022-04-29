@@ -33,9 +33,9 @@ class SharepointController extends Controller
 
     public function create( $folder)
     {
-        if(empty(Session::get('access_token'))) {
+        // if(empty(Session::get('access_token'))) {
             $this->getToken();
-        }
+        // }
         Log::info("Path :".$folder);
         $url = $this->getUrl('folders');
         $res = Http::retry(3, 100)
@@ -54,9 +54,9 @@ class SharepointController extends Controller
 
     public function delete( $folder)
     {
-        if(empty(Session::get('access_token'))) {
+        // if(empty(Session::get('access_token'))) {
             $this->getToken();
-        }
+        // }
         Log::info("folder deleted start- path :".$folder);
         $url = $this->getUrl("GetFolderByServerRelativeUrl('".$this->basePath.$folder."')");
         $res = Http::retry(3, 100)
@@ -72,9 +72,9 @@ class SharepointController extends Controller
 
     public function createFile($folder, $file, $clientFileName)
     {
-        if(empty(Session::get('access_token'))) {
+        // if(empty(Session::get('access_token'))) {
             $this->getToken();
-        }
+        // }
         Log::info("folder  path :".$folder);
         $url = $this->getUrl("GetFolderByServerRelativeUrl('".$this->basePath.$folder."')/Files/Add(url='".$clientFileName."', overwrite=true)");
         $res =  Http::attach('file', file_get_contents($file), $clientFileName)->withHeaders([
