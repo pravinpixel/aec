@@ -591,25 +591,25 @@ class ProjectController extends Controller
     public function storeFolder(Request $request)
     {
         $project_id = $this->getProjectId();
-        // $requestPath = $request->path;
+        $requestPath = $request->path;
         $data = [
             'folder' => json_encode($request->data),
             'project_id' => $project_id,
             'created_by' => Admin()->id
         ];
-        // $project = $this->projectRepo->getProjectById($project_id);
-        // if(substr($request->path,0,1) != '/') {
-        //     $requestPath = '/'. $request->path;
-        // }
-        // try {
-        //     $reference_number = str_replace('/','-',$project->reference_number);
-        //     $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}{$requestPath}"];
-        //     $job = (new SharePointFolderCreation($folderPath))->delay(60);
-        //     $this->dispatch($job);
-        // } catch (Exception $ex) {
-        //     Log::error($ex->getMessage());
-        //     return response(['status' => false, 'msg' => __('global.something')]);
-        // }
+        $project = $this->projectRepo->getProjectById($project_id);
+        if(substr($request->path,0,1) != '/') {
+            $requestPath = '/'. $request->path;
+        }
+        try {
+            $reference_number = str_replace('/','-',$project->reference_number);
+            $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}{$requestPath}"];
+            $job = (new SharePointFolderCreation($folderPath))->delay(60);
+            $this->dispatch($job);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+            return response(['status' => false, 'msg' => __('global.something')]);
+        }
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.created')]);
@@ -619,26 +619,26 @@ class ProjectController extends Controller
 
     public function updateFolder($project_id, Request $request)
     {
-        // $project = $this->projectRepo->getProjectById($project_id);
-        // $requestPath = $request->path;
+        $project = $this->projectRepo->getProjectById($project_id);
+        $requestPath = $request->path;
         $data = [
             'folder'      => json_encode($request->data),
             'project_id'  => $project_id,
             'created_by' => Admin()->id,
             'modified_by' => Admin()->id
         ];
-        // if(substr($request->path,0,1) != '/') {
-        //     $requestPath = '/'. $request->path;
-        // }
-        // try {
-        //     $reference_number = str_replace('/','-',$project->reference_number);
-        //     $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}{$requestPath}"];
-        //     $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
-        //     $this->dispatch($job);
-        // } catch (Exception $ex) {
-        //     Log::error($ex->getMessage());
-        //     return response(['status' => false, 'msg' => __('global.something')]);
-        // }
+        if(substr($request->path,0,1) != '/') {
+            $requestPath = '/'. $request->path;
+        }
+        try {
+            $reference_number = str_replace('/','-',$project->reference_number);
+            $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}{$requestPath}"];
+            $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
+            $this->dispatch($job);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+            return response(['status' => false, 'msg' => __('global.something')]);
+        }
         $response = $this->projectRepo->updateFolder($project_id, $data);
         if($response) {
             return response(['status' => true, 'msg' => __('global.updated')]);
