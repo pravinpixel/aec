@@ -662,8 +662,9 @@ class ProjectController extends Controller
         ];
         try {
             $reference_number = str_replace('/','-',$project->reference_number);
-            $folderPath = "{$this->rootFolder}/{$reference_number}/{$requestPath}";
-            $sharePoint->delete($folderPath);
+            $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}/{$requestPath}"];
+            $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
+            $this->dispatch($job);
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
             return response(['status' => false, 'msg' => __('global.something')]);
@@ -697,15 +698,16 @@ class ProjectController extends Controller
 
     public function testDemo($project_id)
     {
-            $folderPath = '/DataBase Test/PRO-2022-002/Custom Input';
-            $project = $this->projectRepo->getProjectById($project_id);
-            $reference_number = str_replace('/','-',$project->reference_number);
-            $documents = $this->documentTypeEnquiryRepo
-                                ->getDocumentByEnquiryId(6);
-            foreach($documents as $document) {
-                $filePath = asset('public/uploads/'.$document->file_name);
-                $job = (new SharepointFileCreation($folderPath,$filePath, $document->client_file_name))->delay(config('global.job_delay'));
-                $this->dispatch($job);
-            }
+        Session('tets', 100);
+            // $folderPath = '/DataBase Test/PRO-2022-002/Custom Input';
+            // $project = $this->projectRepo->getProjectById($project_id);
+            // $reference_number = str_replace('/','-',$project->reference_number);
+            // $documents = $this->documentTypeEnquiryRepo
+            //                     ->getDocumentByEnquiryId(6);
+            // foreach($documents as $document) {
+            //     $filePath = asset('public/uploads/'.$document->file_name);
+            //     $job = (new SharepointFileCreation($folderPath,$filePath, $document->client_file_name))->delay(config('global.job_delay'));
+            //     $this->dispatch($job);
+            // }
     }
 }
