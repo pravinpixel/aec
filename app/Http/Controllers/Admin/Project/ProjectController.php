@@ -514,7 +514,7 @@ class ProjectController extends Controller
             }
             $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
             $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status'=> 'Live']);
-            return response(['status'=> true, 'msg'=> 'Project saved successfully']);
+            return response(['status'=> true, 'msg'=> 'Project submitted successfully']);
         } else if($type == 'review_and_save') {
             $this->projectRepo->draftOrSubmit($id, ['is_submitted'=> false]);
             return response(['status'=> true, 'msg'=> 'Project saved successfully']);

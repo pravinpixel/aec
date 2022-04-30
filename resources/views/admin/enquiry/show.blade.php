@@ -1306,6 +1306,9 @@
 
             $scope.moveToProject = () => {
                let assigned_to = $scope.customer_response_obj.assign_user ?? false;
+               if(assigned_to == false) {
+                    Message('danger', 'Assign field required'); return false;
+               }
                $http.post(API_URL+'customer-response/move-to-project', {assigned_to: assigned_to, enquiry_id, enquiry_id}).then(function successfunction(res){
                     if(res.data.status == true){
                         Swal.fire({
