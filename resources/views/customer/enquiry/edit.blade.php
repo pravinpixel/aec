@@ -188,6 +188,7 @@
                     'customer_enquiry_number'       : $projectInfo.customer_enquiry_number,
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
+                    'city'                 : $projectInfo.city,
                     'state'                : $projectInfo.state,
                     'building_type_id'     : $projectInfo.building_type_id,
                     'project_type_id'      : $projectInfo.project_type_id,

@@ -35,6 +35,7 @@ class CreateEnquiriesTable extends Migration
             $table->string('site_address')->nullable();
             $table->string('country')->nullable();
             $table->string('zipcode')->nullable();
+            $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->integer('no_of_building')->nullable();
             $table->datetime('project_delivery_date')->nullable();

@@ -60,6 +60,11 @@
                                     <td>:</td>
                                     <td>@{{ project_info.place }}</td>
                                 </tr> 
+                                <tr ng-if="project_info.city != null">
+                                    <td><b>City</b></td>
+                                    <td>:</td>
+                                    <td>@{{ project_info.city }}</td>
+                                </tr> 
                                 <tr ng-if="project_info.state != null">
                                     <td><b>State</b></td>
                                     <td>:</td>

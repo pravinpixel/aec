@@ -44,6 +44,11 @@
                 <small class="text-danger" ng-show="projectInfoForm.zipcode.$touched && projectInfoForm.zipcode.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
+                <input type="text" class="form-control form-control-sm" id="floating" name="city" ng-model="projectInfo.city" required/>
+                <label for="floating">City  <sup class="text-danger">*</sup></label>
+                <small class="text-danger" ng-show="projectInfoForm.city.$touched && projectInfoForm.city.$invalid">This field is required</small>
+            </div>
+            <div class="form-floating  mb-2">
                 <input type="text" class="form-control form-control-sm" id="floating" name="state" ng-model="projectInfo.state" required/>
                 <label for="floating">State  <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.state.$touched && projectInfoForm.state.$invalid">This field is required</small>
@@ -68,11 +73,7 @@
                 <label for="floatingSelect">Type of Project <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.project_type.$touched && projectInfoForm.project_type.$invalid">This field is required</small>
             </div>
-            <div class="form-floating  mb-2">
-                <input type="date" class="form-control form-control-sm" id="project_date"  name="project_date" ng-model="projectInfo.project_date" required/>
-                <label for="floating">Project Start Date <sup class="text-danger">*</sup></label>
-                <small class="text-danger" ng-show="projectInfoForm.project_date.$touched && projectInfoForm.project_date.$invalid">This field is required</small>
-            </div>
+             
         </div> 
         <div class="col-md-4">
             <div class="form-floating  mb-2">
@@ -105,6 +106,13 @@
                 <label for="floatingSelect">Type of Delivery <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.delivery_type.$touched && projectInfoForm.delivery_type.$invalid">This field is required</small>
             </div>
+            <div class="form-floating  mb-2">
+                <input type="date" class="form-control form-control-sm" id="project_date"  name="project_date" ng-model="projectInfo.project_date" required/>
+                <label for="floating">Project Start Date <sup class="text-danger">*</sup></label>
+                <small class="text-danger" ng-show="projectInfoForm.project_date.$touched && projectInfoForm.project_date.$invalid">This field is required</small>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-floating  mb-2">
                 <input type="date" class="form-control" name="project_delivery_date" ng-model="projectInfo.project_delivery_date" required/>
                 <label for="floating">Project Delivery Date <sup class="text-danger">*</sup></label>

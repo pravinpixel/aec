@@ -438,6 +438,7 @@ class EnquiryController extends Controller
             'secondary_mobile_no'  => $enquiry->secondary_mobile_no,
             'project_name'         => $enquiry->project_name,
             'zipcode'              => $enquiry->zipcode,
+            'city'                 => $enquiry->city,
             'state'                => $enquiry->state,
             'building_type_id'     => $enquiry->building_type_id,
             'project_type_id'      => $enquiry->project_type_id,
