@@ -132,10 +132,10 @@
                     <div class="col-md-6">
                         <div class="row m-0 align-items-center">
                             <div class="col-3  p-0">
-                                <label class="col-form-label">Type of Building</label>
+                                <label class="col-form-label">No of Building</label>
                             </div>
                             <div class="col pe-0">
-                                <div class="form-control form-control-sm  border-0 ">@{{ review['no_of_building'] }}</div> 
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['building_type'] }}</div> 
                             </div> 
                         </div>
                     </div>
