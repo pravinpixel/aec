@@ -15,7 +15,7 @@ interface ProjectRepositoryInterface
     public function getProjectTeamSetup($project_id);
     public function getGranttChartTaskLink($project_id);
     public function getInvoicePlan($project_id);
-    public function storeInvoicePlan($project_id, $data);
+    public function storeInvoicePlan($project_id, $data, $flag = true);
     public function getTeamsetupTemplate($data);
     public function storeTeamsetupTemplate($data);
     public function getTeamsetupTemplateById($id);

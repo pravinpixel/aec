@@ -149,7 +149,7 @@ class ProjectRepository implements ProjectRepositoryInterface{
         return $this->model->with('invoicePlan')->find($id);
     }
 
-    public function storeInvoicePlan($project_id, $data)
+    public function storeInvoicePlan($project_id, $data, $flag= true)
     {
         $project = $this->model->find($project_id);
         $insert = [
@@ -159,7 +159,9 @@ class ProjectRepository implements ProjectRepositoryInterface{
             "project_id"   => $project->id,
             "created_by"   => Admin()->id
         ];
-        $this->updateWizardStatus($project,'wizard_invoice_plan',1);
+        if($flag) {
+            $this->updateWizardStatus($project,'wizard_invoice_plan',1);
+        }
         return $this->invoicePlan->updateOrCreate(['project_id' => $project->id],$insert);
     }
 

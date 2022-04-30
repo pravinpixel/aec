@@ -34,9 +34,9 @@ class CustomerResponseController extends Controller
         $enquiry_id = $request->input('enquiry_id');
         $assigned_to = $request->input('assigned_to');
         $enquiry = $this->enquiryRepo->getEnquiryByID($enquiry_id);
-        // if($enquiry->project()->exists()){
-        //     return response(['status' => false, 'msg' => __('global.already_moved_to_project')]);
-        // }
+        if($enquiry->project()->exists()){
+            return response(['status' => false, 'msg' => __('global.already_moved_to_project')]);
+        }
         $project_assign = [
             'assign_by'  => Admin()->id,
             'assign_to'  => $assigned_to ?? Admin()->id
@@ -48,23 +48,9 @@ class CustomerResponseController extends Controller
                 'reference_number' => GlobalService::getProjectNumber()
             ];
             $result = $this->projectRepo->create($enquiry_id, array_merge($enquiry_data, $additional_data));
-            $reference_number = str_replace('/','-',$result->reference_number);
-            $folderPath = ["path"=> GlobalService::getSharepointPath($reference_number)];
-            $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
-            $this->dispatch($job);
             $this->enquiryRepo->updateEnquiry($enquiry_id, ['project_id' => $result->id]);
             $costEstimate = $this->enquiryRepo->getCostEstimateByEnquiryId($enquiry_id);
-            $this->projectRepo->storeInvoicePlan($result->id, ['project_cost' => $costEstimate->total_cost]);
-            $data = [
-                'folder'      => json_encode(config('project.default_folder')),
-                'project_id'  => $result->id,
-                'created_by'  => Admin()->id,
-                'modified_by' => Admin()->id
-            ];
-        
-            $this->projectRepo->updateFolder($result->id, $data);
-            $this->createSharepointFolder($result);
-            $res = $this->createFile($enquiry_id, $result);
+            $this->projectRepo->storeInvoicePlan($result->id, ['project_cost' => $costEstimate->total_cost], false);
             if($res) {
                 GlobalService::updateConfig('PRO');
                 return response(['status' => true, 'msg' => __('global.move_to_project_successfully'), 'data' => []]);

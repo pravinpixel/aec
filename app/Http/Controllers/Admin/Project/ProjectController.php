@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
-use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Jobs\SharepointFileCreation;
 use App\Jobs\SharePointFolderCreation;
@@ -31,6 +30,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
@@ -48,7 +48,7 @@ class ProjectController extends Controller
        ProjectRepositoryInterface $projectRepo,
        CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
        CustomerRepositoryInterface $customerRepo,
-       DocumentTypeEnquiryRepositoryInterface $documentTypeEnquiryRepo
+       DocumentTypeEnquiryRepository $documentTypeEnquiryRepo
     ){
         $this->projectRepo        = $projectRepo;
         $this->customerEnquiryRepo = $customerEnquiryRepo;
@@ -193,6 +193,10 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
+        if($this->projectRepo->getProjectById($id)->is_submitted == 1) {
+            Flash::info(__('global.can_not_edit_project_move_to_live'));
+            return redirect()->route('list-projects');
+        }
         return view('admin.projects.edit', compact('id'));
     }
 
@@ -408,7 +412,7 @@ class ProjectController extends Controller
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->getInvoicePlan($id);
         } else if($type == 'to-do-list') {
-            return $this->projectRepo->getToDoList($id);
+            return true;
         } else if($type == 'connection_platform') {
             $project = $this->projectRepo->getSharePointFolder($id);
             return isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
@@ -481,6 +485,15 @@ class ProjectController extends Controller
         $project = $this->projectRepo->getProjectById($id);
         if($type == 'create_project') {
             $project = $this->projectRepo->storeProjectCreation($id, $data);
+            if(!$project->sharepointFolder()->exists()) {
+                $data = [
+                    'folder'      => json_encode(config('project.default_folder')),
+                    'project_id'  => $project->id,
+                    'created_by' => Admin()->id,
+                    'modified_by' => Admin()->id
+                ];
+            }
+            $this->projectRepo->updateFolder($project->id, $data);
             $this->setProjectId($project->id);
         } else if($type == 'connect_platform') {
             return $this->projectRepo->storeConnectPlatform($id, $data);
@@ -489,13 +502,17 @@ class ProjectController extends Controller
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->storeInvoicePlan($id, $data);
         } else if($type == 'review_and_submit') {
-            $result = $this->projectRepo->createSharepointFolder($id);
             $reference_number = str_replace('/','-',$project->reference_number);
+            $folderPath = ["path"=> GlobalService::getSharepointPath($reference_number)];
+            $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
+            $this->dispatch($job);
+            $result = $this->projectRepo->createSharepointFolder($id); // get all root and children folder
             foreach($result  as $path) {
                 $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
                 $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
                 $this->dispatch($job);
             }
+            $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
             $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status'=> 'Live']);
             return response(['status'=> true, 'msg'=> 'Project saved successfully']);
         } else if($type == 'review_and_save') {
@@ -710,6 +727,38 @@ class ProjectController extends Controller
             }
         }
     }
+    
+
+    public function moveFileToSharepoint($enquiry_id, $project)
+    {
+        try {
+            Log::info('create file job start');
+            $reference_number = str_replace('/','-',$project->reference_number);
+            $folderPath = GlobalService::getSharepointPath($reference_number,'Custom Input');
+            $ifcDocuments = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry_id);
+            $buildingDocuments = $this->documentTypeEnquiryRepo->geBuildingDocumentByEnquiryId($enquiry_id);
+            if(!empty($ifcDocuments)) {
+                foreach($ifcDocuments as $ifcdocument) {
+                    $filePath = asset('public/uploads/'.$ifcdocument->file_name);
+                    $job = (new SharepointFileCreation($folderPath ,$filePath, $ifcdocument->client_file_name))->delay(config('global.job_delay'));
+                    $this->dispatch($job);
+                }
+            }
+            if(!empty($buildingDocuments )) {
+                foreach($buildingDocuments as $buildingDocument) {
+                    $filePath = asset('public/uploads/'.$buildingDocument->file_path);
+                    $job = (new SharepointFileCreation($folderPath ,$filePath, $buildingDocument->file_name))->delay(config('global.job_delay'));
+                    $this->dispatch($job);
+                }
+            }
+            
+            Log::info('create file job end');
+            return true;
+        }  catch (Exception $ex) {
+            Log::error($ex->getMessage());
+            return false;
+        }
+    }
 
     public function testDemo($project_id)
     {
@@ -725,4 +774,5 @@ class ProjectController extends Controller
             //     $this->dispatch($job);
             // }
     }
+    
 }
