@@ -26,11 +26,17 @@ class Customer extends Model
         'company_name',
         'contact_person',
         'remarks',
+        'postal_code',
+        'city',
+        'state',
+        'country',
         'is_active',
         'created_by',
         'updated_by',
         'device_token',
-        'notification'
+        'notification',
+        'bim_id',
+        'bim_account_id'
     ];
 
     public function getContactPersonAttribute($value)

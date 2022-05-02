@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\ConnectionPlatformInterface;
 use App\Interfaces\ProjectRepositoryInterface;
+use App\Models\ConnectionPlatform;
 use App\Models\DeliveryType;
 use App\Models\InvoicePlan;
 use App\Models\Project;
@@ -19,7 +21,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-class ProjectRepository implements ProjectRepositoryInterface{
+class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatformInterface {
     protected $model;
     protected $projectAssignModel;
     protected $projectTeamSetup;
@@ -249,5 +251,21 @@ class ProjectRepository implements ProjectRepositoryInterface{
     public function updateWizardStatus($project, $column, $value = 0)
     {
         return $project->update([$column => $value]);
+    }
+
+    public function updateConnectionPlatform($id, $type)
+    {
+        $connectPlatform = ConnectionPlatform::where('project_id', $id)->first();
+        if(empty( $connectPlatform))  {
+            $connectPlatform = new ConnectionPlatform();
+        }
+        $connectPlatform->{$type} = !$connectPlatform->{$type};
+        $connectPlatform->project_id = $id;
+        return $connectPlatform->save();
+    }
+
+    public function getConnectionPlatform($id)
+    {
+        return ConnectionPlatform::where('project_id', $id)->first();
     }
 }

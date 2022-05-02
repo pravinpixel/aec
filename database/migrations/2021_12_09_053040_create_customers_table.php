@@ -25,8 +25,14 @@ class CreateCustomersTable extends Migration
             $table->string('mobile_no')->nullable();
             $table->string('company_name')->nullable();
             $table->string('contact_person')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
             $table->string('remarks')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->string('bim_id')->nullable();
+            $table->string('bim_account_id')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->string('device_token')->nullable();

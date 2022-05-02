@@ -26,10 +26,15 @@ class Bim360ApiHelper
    private $base_url = "https://developer.api.autodesk.com/";
    //https://developer.api.autodesk.com/bim360/admin/v1/projects/:projectId/users
    // elaa1979@gmail.com
-   private $clientId = "tAY4ATBA78LG9PZG3geOW7cbDyxs4JGR";
-   private $clientSecret = "8fWzMPGVZH5bGfC6";
-   private $accountid = "d6c5bc07-b549-4faf-aee4-7bfc521e8cce";
-   private $hubid = "b.d6c5bc07-b549-4faf-aee4-7bfc521e8cce";
+   private $clientId = "IfdrLycmddlSDu3eqp6w7slWEWA9QJU2";
+   private $clientSecret = "MgUWGuSzFRDJBccQ";
+   private $accountid = "1103d29f-48cf-4823-becb-a57fd30a237e";
+   private $hubid = "b.1103d29f-48cf-4823-becb-a57fd30a237e";
+
+   // private $clientId = "tAY4ATBA78LG9PZG3geOW7cbDyxs4JGR";
+   // private $clientSecret = "8fWzMPGVZH5bGfC6";
+   // private $accountid = "d6c5bc07-b549-4faf-aee4-7bfc521e8cce";
+   // private $hubid = "b.d6c5bc07-b549-4faf-aee4-7bfc521e8cce";
 
    // Arun account
    // private $clientId = "AA9tRkeDQP9TmvPPtUG540plagL9XKCH";
@@ -129,6 +134,7 @@ class Bim360ApiHelper
       curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
       $resp = curl_exec($curl);
+      dd($resp);
       curl_close($curl);
       var_dump($resp);
       return $resp;

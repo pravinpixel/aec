@@ -75,9 +75,15 @@ class Project extends Model
     {
         $this->attributes['delivery_date'] = GlobalService::DBDateFormatWithTime($value);
     }
+
     public function sharepointFolder()
     {
         return $this->hasOne(SharepointFolder::class,'project_id','id');
+    }
+
+    public function connectPlatform()
+    {
+        return $this->hasOne(connectPlatform::class,'project_id','id');
     }
 
 }

@@ -63,6 +63,7 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::put('sharepoint-folder/{id}',[ProjectController::class, 'updateFolder'])->name('sharepoint-folder');
     Route::post('sharepoint-folder-delete',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete');
     Route::post('sharepoint-folder-delete/{id}',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete'); 
+    Route::post('connection-platform/{id}/{type}',[ProjectController::class, 'updateConnectionPlatform'])->name('connection-platform'); 
     
 });
 

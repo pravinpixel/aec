@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers\Admin\Project;
 
+use App\Helper\Bim360\Bim360CompaniesApi;
+use App\Helper\Bim360\Bim360Company;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
-use App\Interfaces\ProjectRepositoryInterface;
 use App\Jobs\SharepointFileCreation;
 use App\Jobs\SharePointFolderCreation;
 use App\Jobs\SharepointFolderDelete;
 use App\Models\CheckList;
+use App\Models\Customer;
 use App\Models\DeliveryType;
 use App\Models\Employee;
 use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectType;
-use App\Models\SharepointFolder;
+use App\Repositories\CustomerRepository;
 use App\Repositories\DocumentTypeEnquiryRepository;
-use App\Repositories\DocumentTypeRepository;
+use App\Repositories\ProjectRepository;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -45,7 +46,7 @@ class ProjectController extends Controller
     protected $fileDir = [];
 
     public function __construct(
-       ProjectRepositoryInterface $projectRepo,
+       ProjectRepository $projectRepo,
        CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
        CustomerRepositoryInterface $customerRepo,
        DocumentTypeEnquiryRepository $documentTypeEnquiryRepo
@@ -85,7 +86,7 @@ class ProjectController extends Controller
             ];
         }
   
-        return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
+        return response()->json(['status' => true,'data' => $result], 201);
     }
     public function updateIndex()
     {
@@ -165,7 +166,7 @@ class ProjectController extends Controller
             }
         }
         $this->projectRepo->updateWizardStatus($project,'wizard_todo_list',1);
-        return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
+        return response()->json(['status' => true,'data' => $result], 201);
     }
 
     public function checkListMasterGroupList (Request $request) {
@@ -181,7 +182,7 @@ class ProjectController extends Controller
             "data" => $grouped
         ];
  
-        return response()->json(['status' => true,'data' => $result], Response::HTTP_OK);
+        return response()->json(['status' => true,'data' => $result], 201);
     }
 
     public function create()
@@ -414,8 +415,10 @@ class ProjectController extends Controller
         } else if($type == 'to-do-list') {
             return true;
         } else if($type == 'connection_platform') {
-            $project = $this->projectRepo->getSharePointFolder($id);
-            return isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
+            $projectSharepoint = $this->projectRepo->getSharePointFolder($id);
+            $response['folders'] =  isset($projectSharepoint->sharepointFolder->folder) ? json_decode($projectSharepoint->sharepointFolder->folder) : [];
+            $response['platform_access'] =  $this->projectRepo->getConnectionPlatform($id)  ?? json_encode(['sharepoint_status','bim_status','tf_office_status']);
+            return $response;
         }
     }
 
@@ -434,6 +437,7 @@ class ProjectController extends Controller
             }
             $data['reference_number'] = GlobalService::getProjectNumber();
             $project = $this->projectRepo->storeProjectCreation($project_id, $data);
+
             $this->setProjectId($project->id);
             try {
                 $reference_number = str_replace('/','-',$project->reference_number);
@@ -463,6 +467,7 @@ class ProjectController extends Controller
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
         } else if($type == 'review_and_submit') {
             $result = $this->projectRepo->createSharepointFolder($project_id);
+            $this->createBimCompany($project);
             $reference_number = str_replace('/','-',$project->reference_number);
             foreach($result  as $path) {
                 $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
@@ -492,8 +497,8 @@ class ProjectController extends Controller
                     'created_by' => Admin()->id,
                     'modified_by' => Admin()->id
                 ];
+                $this->projectRepo->updateFolder($project->id, $data);
             }
-            $this->projectRepo->updateFolder($project->id, $data);
             $this->setProjectId($project->id);
         } else if($type == 'connect_platform') {
             return $this->projectRepo->storeConnectPlatform($id, $data);
@@ -513,6 +518,7 @@ class ProjectController extends Controller
                 $this->dispatch($job);
             }
             $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
+            $this->createBimCompany($project);
             $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status'=> 'Live']);
             return response(['status'=> true, 'msg'=> 'Project submitted successfully']);
         } else if($type == 'review_and_save') {
@@ -520,6 +526,41 @@ class ProjectController extends Controller
             return response(['status'=> true, 'msg'=> 'Project saved successfully']);
         }
         return $request->all();
+    }
+
+    public function createBimCompany($project)
+    {
+        try {
+            $customer = Customer::find($project->customer_id);
+            $enquiry = $this->customerEnquiryRepo->getEnquiryByID($project->enquiry_id);
+            if(is_null($customer->bim_id)) {
+                $api = new  Bim360CompaniesApi();
+                $input = [];
+                $input["name"]              = $customer->first_name;
+                $input["trade"]             = $customer->company_name;
+                $input["website_url"]       = '';
+                $input["description"]       = '';
+                $input["erp_id"]            = '';
+                $input["tax_id"]            = '';
+                $input["phone"]             = $customer->mobile_no;
+                $input["address_line_1"]    = '';
+                $input["address_line_2"]    = '';
+                $input["postal_code"]       = $customer->postal_code ?? $enquiry->zipcode;
+                $input["city"]              = $customer->city ?? $enquiry->city;
+                $input["state_or_province"] = $customer->state ?? $enquiry->state;
+                $input["country"]           = $customer->country ?? $enquiry->country;
+                $createJson = json_encode($input);
+                Log::info(' input data '. $createJson );
+                $result = $api->createCompany($createJson);
+                Log::info(' $result '. $result );
+                $response = json_decode($result);
+                $customer->bim_account_id = $response->account_id;
+                $customer->bim_id = $response->id;
+                $customer->save();
+            }
+        } catch (Exception $ex) {
+            Log::info($ex->getMessage());
+        }
     }
 
     public function getEnquiry($id)
@@ -538,6 +579,10 @@ class ProjectController extends Controller
             'mobile_no'      => $data['mobile_number'],
             'contact_person' => $data['contact_person'],
             'company_name'   => $data['company_name'],
+            'city'           => $data['city'],
+            'state'          => $data['state'],
+            'country'        => $data['country'],
+            'postal_code'    => $data['zipcode'],
             'created_by'     => Admin()->id,
             'updated_by'     => Admin()->id
         ];
@@ -758,6 +803,14 @@ class ProjectController extends Controller
             Log::error($ex->getMessage());
             return false;
         }
+    }
+
+    public function updateConnectionPlatform($id, $type) {
+        $response = $this->projectRepo->updateConnectionPlatform($id, $type);
+        if($response) {
+            return response(['status' => true, 'msg' => __('global.connection_platform_enabled')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
     }
 
     public function testDemo($project_id)

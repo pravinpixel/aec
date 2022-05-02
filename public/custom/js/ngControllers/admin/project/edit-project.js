@@ -104,9 +104,42 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
        $scope.enquiry = res.data;
     });
 
+
+
+    $scope.updateConnectionPlatform = (type) => {
+        console.log('called');
+        if(type == 'sharepoint') {
+           $type = 'sharepoint_status';
+        } else if(type == 'bim') {
+            $type = 'bim_status';
+        } else if(type == 'tsoffice') {
+            $type = 'tf_office_status';
+        } else {
+          return false;  
+        }
+        $http.post(`${API_URL}project/connection-platform/${project_id}/${$type}`)
+        .then((res) => {
+            Message('success', res.data.msg);
+        }, (er) => {
+            Message('danger', res.data.msg);
+        })
+    }
+    
+
     $http.get(`${API_URL}project/edit/${project_id}/connection_platform`)
     .then((res)=> {
-        fileSystem = res.data;
+        fileSystem = res.data.folders;
+        if(res.data.platform_access.sharepoint_status == 1) {
+            $("#switch0").prop('checked', true);
+        }
+        if(res.data.platform_access.bim_status == 1) {
+            $("#switch1").prop('checked', true);
+        }
+        if(res.data.platform_access.tf_office_status == 1) {
+            $("#switch2").prop('checked', true);
+        }
+    
+
         const fileManager = $('#file-manager').dxFileManager({
             name: 'fileManager',
             fileSystemProvider: fileSystem,
@@ -198,7 +231,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
          
     });
 
-    
+  
     $scope.submitConnectPlatformForm = () => {
         $http.put(`${API_URL}project/${project_id}`, {data: $scope.project, type:'create_project'})
         .then((res) => {

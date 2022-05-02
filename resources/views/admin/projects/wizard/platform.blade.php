@@ -9,7 +9,7 @@
                         <b>Share Point</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch0" data-switch="none"/>
+                        <input type="checkbox" id="switch0" ng-model="sharepoint"  ng-value="2" ng-change="updateConnectionPlatform('sharepoint')" data-switch="none"/>
                         <label for="switch0" class="border" data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
@@ -21,8 +21,8 @@
                         <b>BIM 360</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch1" data-swit+ch="none"/>
-                        <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
+                        <input type="checkbox" id="switch1"  ng-model="bim" ng-value="2" ng-change="updateConnectionPlatform('bim')" data-switch="none"/>
+                        <label for="switch1" class="border"  data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
             </div>
@@ -33,8 +33,8 @@
                         <b>24 /7 Office</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch1" data-switch="none"/>
-                        <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
+                        <input type="checkbox" id="switch2" ng-model="tsoffice"  ng-value="2" ng-change="updateConnectionPlatform('tsoffice')"  data-switch="none"/>
+                        <label for="switch2" class="border" data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@
     <input type="submit" class="btn btn-primary" value="Next" ng-disabled="connectPlatformForm.$invalid">
 </div>
 </form>
-<link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
+{{-- <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
 <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
+<script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script> --}}
  

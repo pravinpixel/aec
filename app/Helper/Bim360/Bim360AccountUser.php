@@ -105,7 +105,7 @@ class Bim360AccountUser
         return $errors;
     }
 
-    function getCreateData()
+    public function getCreateData()
     {
         $result = array(
             "name" => $this->name,
