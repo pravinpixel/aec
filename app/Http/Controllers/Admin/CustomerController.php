@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCustomerRequest;
+use App\Http\Requests\CustomerProfileRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -99,7 +100,7 @@ class CustomerController extends Controller
         return view('customer.pages.profile', compact('customer'));
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(CustomerProfileRequest $request)
     {
         $id = Customer()->id;
         $data = $request->except(['_token','_method']);
