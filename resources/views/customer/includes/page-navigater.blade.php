@@ -10,6 +10,7 @@
                         @if (Route::is('customers.create-enquiry')) Create Enquiries @endif
                         @if (Route::is('customers.edit-enquiry')) Edit Enquiry @endif 
                         @if (Route::is('customer.changePassword')) Change Password @endif 
+                        @if (Route::is('customers-profile')) Profile @endif 
 
                     </li>
                     <li class="breadcrumbs ps-2">
@@ -23,6 +24,7 @@
                 @if (Route::is('customers.create-enquiry')) {{ $enquiry_number ?? 'Draft'}} @endif  
                 @if (Route::is('customers.edit-enquiry')) {{ $enquiry->enquiry_number ?? 'Draft'  }}:  {{ $enquiry->project_name ?? '' }} @endif 
                 @if (Route::is('customer.changePassword')) Change Password @endif 
+                @if (Route::is('customers-profile')) Profile @endif 
             </h4>
         </div>
     </div>

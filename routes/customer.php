@@ -7,8 +7,13 @@ use App\Http\Controllers\Customer\EnquiryTemplateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PushNotificationController;
 Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
- 
+
+    Route::get('profile', [CustomerController::class,'profile'])->name("customers-profile");
+
+    Route::put('update-profile', [CustomerController::class,'updateProfile'])->name('customers-update-profile');
+
     Route::get('dashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-enquiry-dashboard");
+    
     Route::post('save-customer-token', [PushNotificationController::class,'storeToken'])->name("save-customer-token");
 
     Route::get('/enquirydashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-dashboard");

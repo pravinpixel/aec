@@ -88,6 +88,11 @@
                 </div>
 
                 <!-- item-->
+                <a href="{{ route('customers-profile') }}" class="dropdown-item notify-item">
+                    <i class="mdi mdi-account-circle me-1"></i>
+                    <span>Profile</span>
+                </a> 
+
                 <a href="{{ route('customer.changePassword') }}" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-circle me-1"></i>
                     <span>Change password</span>
