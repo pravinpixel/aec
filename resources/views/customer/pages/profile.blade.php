@@ -27,7 +27,7 @@
                                                     <label class="form-label" >@lang('customer.first_name')  <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control" name="first_name" id="first_name" value="{{ $customer->first_name }}" required>
                                                     @if($errors->has('first_name'))
-                                                        <div class="alert alert-danger">{{$errors->first_name}}</div>
+                                                        <div class="alert alert-danger">{{$errors->first('first_name')}}</div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -36,7 +36,7 @@
                                                     <label class="form-label" >@lang('customer.last_name')  <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control" name="last_name" id="last_name" value="{{ $customer->last_name }}" required>
                                                     @if($errors->has('first_name'))
-                                                        <div class="alert alert-danger">{{$errors->first_name}}</div>
+                                                        <div class="alert alert-danger">{{$errors->first('last_name')}}</div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -47,7 +47,7 @@
                                             <label class="form-label" >@lang('customer.full_name')  <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="full_name" id="full_name" value="{{ $customer->full_name }}" required>
                                             @if($errors->has('full_name'))
-                                                <div class="alert alert-danger">{{$errors->full_name}}</div>
+                                                <div class="alert alert-danger">{{$errors->first('full_name')}}</div>
                                             @endif
                                         </div>
                                     </div>
@@ -56,7 +56,7 @@
                                             <label class="form-label" >@lang('customer.mobile_no')  <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" onkeypress="return isNumber(event)" name="mobile_no" id="mobile_no" value="{{ $customer->mobile_no }}" required>
                                             @if($errors->has('mobile_no'))
-                                                <div class="alert alert-danger">{{$errors->mobile_no}}</div>
+                                                <div class="alert alert-danger">{{$errors->first('mobile_no')}}</div>
                                             @endif
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
                                             <label class="form-label" >@lang('customer.company_name')  <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="company_name" id="company_name" value="{{ $customer->company_name }}" required>
                                             @if($errors->has('company_name'))
-                                                <div class="alert alert-danger">{{$errors->company_name}}</div>
+                                                <div class="alert alert-danger">{{$errors->first('company_name')}}</div>
                                             @endif
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                             <label class="form-label" >@lang('customer.postal_code')  <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" onkeypress="return isNumber(event)" name="postal_code" id="postal_code" value="{{ $customer->postal_code }}" required>
                                             @if($errors->has('postal_code'))
-                                                <div class="alert alert-danger">{{$errors->postal_code}}</div>
+                                                <div class="alert alert-danger">{{$errors->first('postal_code')}}</div>
                                             @endif
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@
                                             <label class="form-label" >@lang('customer.city')  <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="city" id="city" value="{{ $customer->city }}" required>
                                             @if($errors->has('city'))
-                                                <div class="alert alert-danger">{{$errors->city}}</div>
+                                                <div class="alert alert-danger">{{$errors->first('city')}}</div>
                                             @endif
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                             <label class="form-label" >@lang('customer.state')  <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="state" id="state" value="{{ $customer->state }}" required>
                                             @if($errors->has('state'))
-                                                <div class="alert alert-danger">{{$errors->state}}</div>
+                                                <div class="alert alert-danger">{{$errors->first('state')}}</div>
                                             @endif
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
                                             <label class="form-label" >@lang('customer.country')  <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="country" id="country" value="{{ $customer->country }}" required>
                                             @if($errors->has('country'))
-                                                <div class="alert alert-danger">{{$errors->country}}</div>
+                                                <div class="alert alert-danger">{{$errors->first('country')}}</div>
                                             @endif
                                         </div>
                                     </div>
