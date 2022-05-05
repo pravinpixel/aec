@@ -95,7 +95,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location){
     $scope.project = {};
     let fileSystem = [];
-    $http.get(`${API_URL}get-project-type`)
+    $http.get(`${API_URL}bim360/projects-type`)
     .then((res)=> {
         $scope.projectTypes = res.data;
     });
@@ -105,9 +105,36 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
         if(res.data != false) $scope.project = formatData(res.data);
     });
 
+    $scope.updateConnectionPlatform = (type) => {
+        if(type == 'sharepoint') {
+           $type = 'sharepoint_status';
+        } else if(type == 'bim') {
+            $type = 'bim_status';
+        } else if(type == 'tsoffice') {
+            $type = 'tf_office_status';
+        } else {
+          return false;  
+        }
+        $http.post(`${API_URL}project/connection-platform/${$type}`)
+        .then((res) => {
+            Message('success', res.data.msg);
+        }, (er) => {
+            Message('danger', res.data.msg);
+        })
+    }
+
     $http.get(`${API_URL}project/wizard/connection_platform`)
     .then((res)=> {
-        fileSystem = res.data;
+        fileSystem = res.data.folders;
+        if(res.data.platform_access.sharepoint_status == 1) {
+            $("#switch0").prop('checked', true);
+        }
+        if(res.data.platform_access.bim_status == 1) {
+            $("#switch1").prop('checked', true);
+        }
+        if(res.data.platform_access.tf_office_status == 1) {
+            $("#switch2").prop('checked', true);
+        }
         const fileManager = $('#file-manager').dxFileManager({
             name: 'fileManager',
             fileSystemProvider: fileSystem,
@@ -457,6 +484,16 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
             $scope.projectManagers = res.data;
         });
         $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
+            let connect_platform_access = res.data.connect_platform_access;
+            if(connect_platform_access.sharepoint_status == 1) {
+                $("#switch0").prop('checked', true);
+            }
+            if(connect_platform_access.bim_status == 1) {
+                $("#switch1").prop('checked',true);
+            }
+            if(connect_platform_access.tf_office_status == 1) {
+                $("#switch2").prop('checked',true);
+            }
             $scope.review  =  res.data;
             $scope.teamSetups = res.data.team_setup;
             $scope.project = formatData(res.data.project);

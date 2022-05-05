@@ -101,3 +101,30 @@ $input["city"] = 'chennai';
 $input["state_or_province"] = 'tamil nadu';
 $input["postal_code"] = '600021';
 $input["country"] = 'india';
+
+
+//project Id
+0d26b229-d4ea-48f9-a8f0-26951d961088
+
+
+//
+$api = new  Bim360UsersApi();
+$input["email"] = 'vetriselvama.pixelavatars@gmail.com';
+$input["company_id"] = '86c6e96b-cf4e-41e0-ac52-58c2925c38ad';
+$input["nickname"] =  'test';
+$input["first_name"] =  'test';
+$input["last_name"] =  'test';
+$result = $api->getUser('1b5fda6a-fad2-421b-bc9f-494163fb3034');
+dd( $result );
+
+
+if (isset($input["id"]) && !empty($input["id"])) {
+    $editJson = json_encode($input);
+    $result = $api->editUser($input['id'], $editJson);
+} else {
+    $createJson = json_encode($input);
+    $result = $api->createUser($createJson);
+}
+$data = json_decode($result);
+dd(  $data );
+//

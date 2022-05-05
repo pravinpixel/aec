@@ -9,7 +9,7 @@
                         <b>Share Point</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch0" ng-model="sharepoint"  ng-value="2" ng-change="updateConnectionPlatform('sharepoint')" data-switch="none"/>
+                        <input type="checkbox" id="switch0" ng-model="sharepoint"  ng-value="2" ng-click="updateConnectionPlatform('sharepoint')" data-switch="none"/>
                         <label for="switch0" class="border" data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                         <b>BIM 360</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch1"  ng-model="bim" ng-value="2" ng-change="updateConnectionPlatform('bim')" data-switch="none"/>
+                        <input type="checkbox" id="switch1"  ng-model="bim" ng-value="2" ng-click="updateConnectionPlatform('bim')" data-switch="none"/>
                         <label for="switch1" class="border"  data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <b>24 /7 Office</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch2" ng-model="tsoffice"  ng-value="2" ng-change="updateConnectionPlatform('tsoffice')"  data-switch="none"/>
+                        <input type="checkbox" id="switch2" ng-model="tsoffice"  ng-value="2" ng-click="updateConnectionPlatform('tsoffice')"  data-switch="none"/>
                         <label for="switch2" class="border" data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
@@ -75,10 +75,10 @@
                         </div>
                         <div class="mb-3">
                             <small>* Project Type</small>
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="bim_project_type" ng-model="project.bim_project_type" required>
                                 <option value="">@lang('project.select') </option>
-                                <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
-                                    @{{ projectType.project_type_name }}
+                                <option ng-repeat="projectType in projectTypes" value="@{{ projectType }}" >
+                                    @{{ projectType }}
                                 </option>
                             </select>
                         </div>

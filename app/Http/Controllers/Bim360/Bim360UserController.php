@@ -71,6 +71,7 @@ class Bim360UserController extends Controller
             $result = "";
             $input = $request->input();
             $api = new  Bim360UsersApi();
+            
             if (isset($input["id"]) && !empty($input["id"])) {
                 $editJson = json_encode($input);
                 $result = $api->editUser($input['id'], $editJson);

@@ -184,8 +184,8 @@ return [
         App\Providers\GlobalServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class
-        
+        Spatie\Permission\PermissionServiceProvider::class,
+        Artisaninweb\SoapWrapper\ServiceProvider::class
 
     ],
 
@@ -250,6 +250,7 @@ return [
         //custome service provider
         'GlobalService'   => App\Services\GlobalService::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'SoapWrapper' => Artisaninweb\SoapWrapper\Facade\SoapWrapper::class,  
        
     ],
 

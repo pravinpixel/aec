@@ -19,6 +19,7 @@ use Autodesk\Forge\Client\Api\ProjectsApi;
 use Autodesk\Forge\Client\Api\AccountProjectsApi;
 use Autodesk\Forge\Client\Model\Project;
 use CURLFile;
+use Illuminate\Support\Facades\Log;
 
 class Bim360ApiHelper
 {
@@ -140,9 +141,11 @@ class Bim360ApiHelper
       return $resp;
    }
 
-   function callAPI($authtoken, $method, $url, $data)
+   function callAPI($authtoken, $method, $url, $data, $x_user_id = null)
    {
+      Log::info("end point: {$this->base_url}{$url}");
       $token = 'Authorization: Bearer ' . $authtoken;
+      $xuserid = 'x-user-id: '.$x_user_id;
       $curl = curl_init();
       switch ($method) {
          case "POST":
@@ -166,10 +169,19 @@ class Bim360ApiHelper
       }
       // OPTIONS:
       curl_setopt($curl, CURLOPT_URL, $this->base_url . $url);
-      curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-         $token,
-         'Content-Type: application/json',
-      ));
+      if(is_null($x_user_id)) {
+         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            $token,
+            'Content-Type: application/json'
+         ));
+      } else {
+         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            $token,
+            $xuserid,
+            'Content-Type: application/json'
+         ));
+      }
+     
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
       // curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BEARER);
       // curl_setopt($curl,CURLOPT_XOAUTH2_BEARER,$authtoken);

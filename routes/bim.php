@@ -20,7 +20,7 @@ Route::post('/bim360/projects/getliveprojects', [Bim360ProjectController::class,
 Route::post('/bim360/projects/getpendingprojects', [Bim360ProjectController::class, 'getPendingProjects'])->name('/bim360/projects/getpendingprojects');
 Route::post('/bim360/projects/getinactiveprojects', [Bim360ProjectController::class, 'getInactiveProjects'])->name('/bim360/projects/getinactiveprojects');
 Route::post('/bim360/projects/getarchivedprojects', [Bim360ProjectController::class, 'getArchivedProjects'])->name('/bim360/projects/getarchivedprojects');
-Route::post('/bim360/projects/saveproject', [Bim360ProjectController::class, 'saveProject'])->name('/bim360/saveproject');
+Route::get('/bim360/projects/saveproject', [Bim360ProjectController::class, 'saveProject'])->name('/bim360/saveproject');
 
 Route::post('/bim360/projects/getaccountusers', [Bim360ProjectController::class, 'getAccountUsers'])->name('/bim360/projects/getaccountusers');
 Route::post('/bim360/projects/getprojectusers', [Bim360ProjectController::class, 'getProjectUsers'])->name('/bim360/projects/getprojectusers');
@@ -52,3 +52,8 @@ Route::get('/bim360/Users/edit', [Bim360UserController::class, 'edit'])->name('/
 Route::get('/bim360/Users/list', [Bim360UserController::class, 'list'])->name('/bim360/Users/list');
 Route::post('/bim360/Users/save', [Bim360UserController::class, 'save'])->name('/bim360/Users/save');
 Route::post('/bim360/Users/getuserlist', [Bim360UserController::class, 'getUserList'])->name('/bim360/Users/getuserlist');
+
+
+Route::get('bim360/projects-type', function(){
+    return config('project.project_types');
+})->name('bim360/projects-type');

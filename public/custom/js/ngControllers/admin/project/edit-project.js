@@ -90,7 +90,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location){
     let project_id =  $("#project_id").val();
     let fileSystem = [];
-    $http.get(`${API_URL}get-project-type`)
+    $http.get(`${API_URL}bim360/projects-type`)
     .then((res)=> {
         $scope.projectTypes = res.data;
     });
@@ -485,6 +485,16 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
     });
     
     $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
+        let connect_platform_access = res.data.connect_platform_access;
+        if(connect_platform_access.sharepoint_status == 1) {
+            $("#switch0").prop('checked', true);
+        }
+        if(connect_platform_access.bim_status == 1) {
+            $("#switch1").prop('checked',true);
+        }
+        if(connect_platform_access.tf_office_status == 1) {
+            $("#switch2").prop('checked',true);
+        }
         $scope.review  =  res.data 
         $scope.teamSetups = res.data.team_setup;
         $scope.project = formatData(res.data.project);

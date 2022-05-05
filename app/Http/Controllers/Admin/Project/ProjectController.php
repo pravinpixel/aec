@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Project;
 
 use App\Helper\Bim360\Bim360CompaniesApi;
 use App\Helper\Bim360\Bim360Company;
+use App\Helper\Bim360\Bim360ProjectsApi;
+use App\Helper\Bim360\Bim360UsersApi;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
@@ -27,12 +29,14 @@ use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
+use RicorocksDigitalAgency\Soap\Facades\Soap;
 
 class ProjectController extends Controller
 {
@@ -359,8 +363,10 @@ class ProjectController extends Controller
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->getInvoicePlan($project_id);
         } else if($type ==  'connection_platform') {
-            $project = $this->projectRepo->getSharePointFolder($project_id);
-            return isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
+            $projectSharepoint = $this->projectRepo->getSharePointFolder($project_id);
+            $response['folders'] =  isset($projectSharepoint->sharepointFolder->folder) ? json_decode($projectSharepoint->sharepointFolder->folder) : [];
+            $response['platform_access'] =  $this->projectRepo->getConnectionPlatform($project_id)  ?? json_encode(['sharepoint_status','bim_status','tf_office_status']);
+            return $response;
         }else if ($type ==  'to_do_listing') {
             return $this->projectRepo->getToDoListData($project_id);
         }
@@ -391,6 +397,7 @@ class ProjectController extends Controller
             "project"          => $this->projectRepo->getProjectById($id),
             "team_setup"       => $team_setup,
             "connect_platform" => $team_setup,
+            "connect_platform_access" => $this->projectRepo->getConnectionPlatform($project->id),
             "sharepoint"       => $sharepoint,
             "invoice_plan"   =>  [
                 'project_cost'  =>  $invoice_plan->project_cost ?? '',
@@ -437,7 +444,6 @@ class ProjectController extends Controller
             }
             $data['reference_number'] = GlobalService::getProjectNumber();
             $project = $this->projectRepo->storeProjectCreation($project_id, $data);
-
             $this->setProjectId($project->id);
             try {
                 $reference_number = str_replace('/','-',$project->reference_number);
@@ -466,13 +472,20 @@ class ProjectController extends Controller
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
         } else if($type == 'review_and_submit') {
-            $result = $this->projectRepo->createSharepointFolder($project_id);
-            $this->createBimCompany($project);
-            $reference_number = str_replace('/','-',$project->reference_number);
-            foreach($result  as $path) {
-                $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
-                $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
-                $this->dispatch($job);
+            $connectionPlatform = $this->projectRepo->getConnectionPlatform($project->id);
+            if(isset($connectionPlatform->bim_status) && $connectionPlatform->bim_status == 1) {
+                $this->createBimCompany($project);
+                $this->createBimProject($project);
+                $this->addMemberToProject($project);
+            }
+            if(isset($connectionPlatform->sharepoint_status) && $connectionPlatform->sharepoint_status == 1) {
+                $result = $this->projectRepo->createSharepointFolder($project_id);
+                $reference_number = str_replace('/','-',$project->reference_number);
+                foreach($result  as $path) {
+                    $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
+                    $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
+                    $this->dispatch($job);
+                }
             }
             $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 1, 'status'=> 'Live']);
             return  response(['status'=> true, 'msg'=> 'Project submitted successfully']);
@@ -507,18 +520,25 @@ class ProjectController extends Controller
         } else if($type == 'invoice_plan') {
             return $this->projectRepo->storeInvoicePlan($id, $data);
         } else if($type == 'review_and_submit') {
+            $connectionPlatform = $this->projectRepo->getConnectionPlatform($project->id);
             $reference_number = str_replace('/','-',$project->reference_number);
             $folderPath = ["path"=> GlobalService::getSharepointPath($reference_number)];
-            $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
-            $this->dispatch($job);
-            $result = $this->projectRepo->createSharepointFolder($id); // get all root and children folder
-            foreach($result  as $path) {
-                $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
-                $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
+            if(isset($connectionPlatform->sharepoint_status) && $connectionPlatform->sharepoint_status == 1) {
+                $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
                 $this->dispatch($job);
+                $result = $this->projectRepo->createSharepointFolder($id); // get all root and children folder
+                foreach($result  as $path) {
+                    $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
+                    $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
+                    $this->dispatch($job);
+                }
+                $res = $this->moveFileToSharepoint($project->enquiry_id, $project);    
             }
-            $res = $this->moveFileToSharepoint($project->enquiry_id, $project);
-            $this->createBimCompany($project);
+            if(isset($connectionPlatform->bim_status) && $connectionPlatform->bim_status == 1) {
+                $this->createBimCompany($project);
+                $this->createBimProject($project);
+                $this->addMemberToProject($project);
+            } 
             $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status'=> 'Live']);
             return response(['status'=> true, 'msg'=> 'Project submitted successfully']);
         } else if($type == 'review_and_save') {
@@ -533,31 +553,71 @@ class ProjectController extends Controller
         try {
             $customer = Customer::find($project->customer_id);
             $enquiry = $this->customerEnquiryRepo->getEnquiryByID($project->enquiry_id);
+            $input = [];
+            $input["name"]              = $customer->first_name;
+            $input["trade"]             = $customer->company_name;
+            $input["website_url"]       = '';
+            $input["description"]       = '';
+            $input["erp_id"]            = '';
+            $input["tax_id"]            = '';
+            $input["phone"]             = $customer->mobile_no;
+            $input["address_line_1"]    = '';
+            $input["address_line_2"]    = '';
+            $input["postal_code"]       = $customer->postal_code ?? $enquiry->zipcode;
+            $input["city"]              = $customer->city ?? $enquiry->city;
+            $input["state_or_province"] = $customer->state ?? $enquiry->state;
+            $input["country"]           = $customer->country ?? $enquiry->country;
+            $api = new  Bim360CompaniesApi();
             if(is_null($customer->bim_id)) {
-                $api = new  Bim360CompaniesApi();
-                $input = [];
-                $input["name"]              = $customer->first_name;
-                $input["trade"]             = $customer->company_name;
-                $input["website_url"]       = '';
-                $input["description"]       = '';
-                $input["erp_id"]            = '';
-                $input["tax_id"]            = '';
-                $input["phone"]             = $customer->mobile_no;
-                $input["address_line_1"]    = '';
-                $input["address_line_2"]    = '';
-                $input["postal_code"]       = $customer->postal_code ?? $enquiry->zipcode;
-                $input["city"]              = $customer->city ?? $enquiry->city;
-                $input["state_or_province"] = $customer->state ?? $enquiry->state;
-                $input["country"]           = $customer->country ?? $enquiry->country;
                 $createJson = json_encode($input);
                 Log::info(' input data '. $createJson );
                 $result = $api->createCompany($createJson);
                 Log::info(' $result '. $result );
                 $response = json_decode($result);
-                $customer->bim_account_id = $response->account_id;
-                $customer->bim_id = $response->id;
-                $customer->save();
+            } else  {
+                $createJson = json_encode($input);
+                Log::info(' input data '. $createJson );
+                $result = $api->editCompany($customer->bim_id, $createJson);
+                Log::info(' $result '. $result );
+                $response = json_decode($result);
             }
+            $customer->bim_account_id = $response->account_id;
+            $customer->bim_id = $response->id;
+            $customer->save();
+        } catch (Exception $ex) {
+            Log::info($ex->getMessage());
+        }
+    }
+
+    public function createBimProject($project)
+    {
+        try {
+            $input = [];
+            $input["name"]         = $project->project_name;
+            $input["start_date"]   = Carbon::parse($project->start_date)->format('Y-m-d');
+            $input["end_date"]     = Carbon::parse($project->delivery_date)->format('Y-m-d');
+            $input["project_type"] = $project->bim_project_type;
+            $input["currency"]     = 'USD';
+            $input["value"]        = floatval(0);
+            $input["language"]     = $project->language;
+            $api = new  Bim360ProjectsApi();
+            if(isset($project->bim_id) && !empty($project->bim_id)) {
+                $input["id"] = $project->bim_id;
+                $editJson = json_encode($input);
+                Log::info(' edit input data '. $editJson );
+                $result = $api->editProject($project->bim_id, $editJson);
+                Log::info('edit project result '. $result );
+                $response = json_decode($result);
+            } else  {
+                $createJson = json_encode($input);
+                Log::info(' create input data  '. $createJson );
+                $result = $api->createProject($createJson);
+                Log::info(' create project result '. $result );
+                $response = json_decode($result);
+            }
+            $project->bim_account_id = $response->account_id;
+            $project->bim_id = $response->id;
+            $project->save();
         } catch (Exception $ex) {
             Log::info($ex->getMessage());
         }
@@ -813,9 +873,91 @@ class ProjectController extends Controller
         return response(['status' => false, 'msg' => __('global.something')]);
     }
 
-    public function testDemo($project_id)
+    public function insertConnectionPlatform($type) {
+        $id = $this->getProjectId();
+        $response = $this->projectRepo->updateConnectionPlatform($id, $type);
+        if($response) {
+            return response(['status' => true, 'msg' => __('global.connection_platform_enabled')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
+    }
+
+    public function addMemberToProject($project)
     {
-        Session('tets', 100);
+        Log::info("add member to project start");
+        $employees = [];
+        $teamSetups = $this->projectRepo->getProjectTeamSetup($project->id);
+        foreach($teamSetups as $teamSetup) {
+            if(!empty($teamSetup->team)) {
+                $employees[] = $teamSetup->team;
+            }
+        }
+        $employees_id = Arr::flatten($employees);
+        $employees = Employee::find($employees_id);
+        $project_id = $project->bim_id;
+        foreach($employees as $employee) {
+            $data = [
+                'email'=> $employee->email,
+                "services"=> [
+                    "document_management"=> [
+                      "access_level"=> "user"
+                    ]
+                ],
+                "industry_roles" => []
+            ];
+            $userApi = new  Bim360UsersApi();
+            if(isset($employee->bim_id) && !empty($employee->bim_id)) {
+                $userJson = $userApi->getUser($employee->bim_id);
+                $userObj =  json_decode($userJson);
+                $input = json_encode([$data]);
+                Log::info("x-user-id {$input}");
+                Log::info("x-user-id {$userObj->uid}");
+                $projectApi = new  Bim360ProjectsApi();
+                $result = $projectApi->importUser($project_id, $input, $userObj->uid);
+                Log::info("add member result  {$result}");
+            }
+        }
+        Log::info("add member to project end");
+    }
+
+    public function testDemo($project)
+    {
+     
+        // $teamSetups = $this->projectRepo->getProjectTeamSetup($project->id);
+        // $employees = [];
+        // foreach($teamSetups as $teamSetup) {
+        //     if(!empty($teamSetup->team)) {
+        //         $employees[] = $teamSetup->team;
+        //     }
+        // }
+        // $employees_id = Arr::flatten($employees);
+        // $employees = Employee::find($employees_id);
+        // $project_id = $project->bim_id;
+        // foreach($employees as $employee) {
+        //     $data = [
+        //         'email'=> $employee->email,
+        //         "services"=> [
+        //             "document_management"=> [
+        //               "access_level"=> "user"
+        //             ]
+        //         ],
+        //         "industry_roles" => []
+        //     ];
+           
+        //     $userApi = new  Bim360UsersApi();
+        //     if(isset($employee->bim_id) && !empty($employee->bim_id)) {
+        //         $userJson = $userApi->getUser($employee->bim_id);
+        //         $userObj =  json_decode($userJson);
+        //         $input = json_encode([$data]);
+        //         Log::info("x-user-id {$input}");
+        //         Log::info("x-user-id {$userObj->uid}");
+        //         $projectApi = new  Bim360ProjectsApi();
+        //         $result = $projectApi->importUser($project_id, $input, $userObj->uid);
+        //         dd( $result);
+        //         Log::info("result  {$result}");
+        //     }
+        // }
+        // Session('tets', 100);
             // $folderPath = '/DataBase Test/PRO-2022-002/Custom Input';
             // $project = $this->projectRepo->getProjectById($project_id);
             // $reference_number = str_replace('/','-',$project->reference_number);

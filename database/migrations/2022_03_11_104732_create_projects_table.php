@@ -58,6 +58,9 @@ class CreateProjectsTable extends Migration
             $table->foreign('created_by')->references('id')->on('employee');
             $table->foreign('updated_by')->references('id')->on('employee');
             $table->longText('gantt_chart_data')->nullable();
+            $table->string('bim_project_type')->nullable();
+            $table->string('bim_account_id')->nullable();
+            $table->string('bim_id')->nullable();
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Bim360\Bim360UsersApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
@@ -90,6 +91,10 @@ class EmployeeController extends Controller
             $module->image = "no_image.jpg";
         }
         $res = $module->save();
+     
+        if($res){
+            $this->createBimUser($module);
+        }
         $id = $module->id;
         $data = new EmployeeSharePointAcess();
         $data->employee_id = $id;
@@ -594,5 +599,28 @@ class EmployeeController extends Controller
     }
     
 
-    
+    public function createBimUser($employee)
+    {
+        Log::info('Bim user creation start');
+        $input        = [];
+        $api          = new  Bim360UsersApi();
+        $input["email"]      = $employee->email;
+        $input["company_id"] = config('project.bim.default_company');
+        $input["nickname"]   = $employee->first_Name;
+        $input["first_name"] = $employee->first_Name;
+        $input["last_name"]  = $employee->last_name;
+        if (isset($input["bim_id"]) && !empty($input["bim_id"])) {
+            $editJson = json_encode($input);
+            $result = $api->editUser($input['bim_id'], $editJson);
+        } else {
+            $createJson = json_encode($input);
+            $result = $api->createUser($createJson);
+        }
+        Log::info("result {$result}");
+        $response = json_decode($result);
+        $employee->bim_id =  $response->id;
+        $employee->bim_account_id =  $response->account_id;
+        Log::info('Bim user creation end');
+        return $employee->save();
+    }
 }

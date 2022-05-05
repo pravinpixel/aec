@@ -10,6 +10,7 @@ interface IBim360ProjectsApi
     public function editProject($id, $project);
     public function getProjectList();
     public function getProject($id);
+    public function importUser($id, $data, $x_user_id);
 }
 
 class Bim360ProjectsApi implements IBim360ProjectsApi
@@ -81,6 +82,13 @@ class Bim360ProjectsApi implements IBim360ProjectsApi
     {
         $url = $this->apiHelper->urls['users'];
         $result = $this->apiHelper->callAPI($this->token, 'GET', $url, null);
+        return $result;
+    }
+
+    public function importUser($id, $data, $x_user_id) {
+        $url = $this->apiHelper->urls['projects_projectId_users_import'];
+        $url = str_replace("{ProjectId}", $id, $url);
+        $result = $this->apiHelper->callAPI($this->token, 'POST', $url, $data, $x_user_id);
         return $result;
     }
 }

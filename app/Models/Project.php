@@ -43,7 +43,10 @@ class Project extends Model
         'wizard_connect_platform', 
         'wizard_teamsetup',  
         'wizard_invoice_plan', 
-        'wizard_todo_list'
+        'wizard_todo_list',
+        'bim_project_type',
+        'bim_id',
+        'bim_account_id'
     ];
 
     public function setCreatedByAttribute()

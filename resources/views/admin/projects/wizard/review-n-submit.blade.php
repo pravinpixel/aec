@@ -199,7 +199,7 @@
                                     <b>Share Point</b>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <input type="checkbox" id="switch0" data-switch="none"/>
+                                    <input type="checkbox" id="switch0" disabled data-switch="none"/>
                                     <label for="switch0" class="border" data-on-label="" data-off-label=""></label>
                                 </div>
                             </div>
@@ -211,7 +211,7 @@
                                     <b>BIM 360</b>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <input type="checkbox" id="switch1" data-switch="none"/>
+                                    <input type="checkbox" id="switch1" disabled data-switch="none"/>
                                     <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
                                 </div>
                             </div>
@@ -223,8 +223,8 @@
                                     <b>24 /7 Office</b>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <input type="checkbox" id="switch1" data-switch="none"/>
-                                    <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
+                                    <input type="checkbox" id="switch2" disabled data-switch="none"/>
+                                    <label for="switch2" class="border" data-on-label="" data-off-label=""></label>
                                 </div>
                             </div>
                         </div>
