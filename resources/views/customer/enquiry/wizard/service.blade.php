@@ -14,7 +14,7 @@
                     <div class="col-4 p-2" ng-repeat="service in outputType.services">
                         <label for="service_@{{ service.id }}" style="cursor: pointer" class="hover-bg-primary d-flex shadow-sm border rounded justify-content-start align-items-center" style="min-height: 50px" >
                             <div class="lable-check p-0 "> 
-                                <input id="service_@{{ service.id }}"  style="transform:scale(1.6)" ng-checked="serviceList.indexOf(service.id) > -1"  ng-model="active" type="checkbox" value="@{{ service.id  }}" name="@{{ service.service_name  }}" class="m-2" ng-click="changeService(service.id, active)" >
+                                <input id="service_@{{ service.id }}"  style="transform:scale(1.6)" ng-checked="serviceList.indexOf(service.id) > -1"  ng-model="active" type="checkbox" value="@{{ service.id  }}" name="@{{ service.service_name  }}" class="m-2" ng-change="changeService(service.id, active)" >
                                 <span>@{{ service.service_name }}</span>
                             </div>
                         </label> 
