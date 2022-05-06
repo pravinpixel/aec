@@ -445,14 +445,6 @@ class ProjectController extends Controller
             $data['reference_number'] = GlobalService::getProjectNumber();
             $project = $this->projectRepo->storeProjectCreation($project_id, $data);
             $this->setProjectId($project->id);
-            try {
-                $reference_number = str_replace('/','-',$project->reference_number);
-                $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}"];
-                $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
-                $this->dispatch($job);
-            } catch(Exception $ex) {
-                Log::info($ex->getMessage());
-            }
             $data = [
                 'folder'      => json_encode(config('project.default_folder')),
                 'project_id'  => $project->id,
@@ -478,14 +470,19 @@ class ProjectController extends Controller
                 $this->createBimProject($project);
                 $this->addMemberToProject($project);
             }
+         
             if(isset($connectionPlatform->sharepoint_status) && $connectionPlatform->sharepoint_status == 1) {
-                $result = $this->projectRepo->createSharepointFolder($project_id);
                 $reference_number = str_replace('/','-',$project->reference_number);
+                $folderPath = ["path"=> "{$this->rootFolder}/{$reference_number}"];
+                $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
+                $this->dispatch($job);
+                $result = $this->projectRepo->createSharepointFolder($project_id); // get all root and children folder
                 foreach($result  as $path) {
                     $data = ['path' =>  GlobalService::getSharepointPath($reference_number, trim($path,'/'))];
                     $job = (new SharePointFolderCreation($data))->delay(config('global.job_delay'));
                     $this->dispatch($job);
                 }
+                $res = $this->moveFileToSharepoint($project->enquiry_id, $project);    
             }
             $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 1, 'status'=> 'Live']);
             return  response(['status'=> true, 'msg'=> 'Project submitted successfully']);
