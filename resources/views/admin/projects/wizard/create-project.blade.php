@@ -90,7 +90,7 @@
                         <label class="col-form-label">Zipcode <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="text" id="zipcode" name="zipcode" ng-model="project.zipcode" ng-change="getZipcode()" class="form-control form-control-sm" required>
+                        <input type="text" onkeypress="return isNumber(event)" id="zipcode" name="zipcode" ng-model="project.zipcode" ng-change="getZipcode()" class="form-control form-control-sm" required>
                         <small class="text-danger" ng-show="createProjectForm.zipcode.$invalid && createProjectForm.zipcode.$toucehd">This field is required</small>
 
                     </div> 
@@ -138,7 +138,7 @@
                         <label class="col-form-label">No.of Buildings  <sup class="text-danger"></sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="text" name="no_of_building_id" ng-model="project.no_of_building" class="form-control form-control-sm" required>
+                        <input type="text" onkeypress="return isNumber(event)" name="no_of_building_id" ng-model="project.no_of_building" class="form-control form-control-sm" required>
                         <small class="text-danger" ng-show="createProjectForm.no_of_building_id.$invalid && createProjectForm.no_of_building_id.$toucehd">This field is required</small>
                     </div> 
                 </div>
