@@ -421,6 +421,7 @@ class EnquiryController extends Controller
         } else if($type == 'additional_info') {
             $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         }
+        $result['active_tabs'] = $this->getActiveTabs($enquiry);
         return $result;
     }
 
@@ -816,5 +817,16 @@ class EnquiryController extends Controller
         $document = $this->documentTypeEnquiryRepo->getDocumentById($id);
         $documentPath =  $url = asset('public/uploads/'.$document->file_name);
         return view('customer.enquiry.document-view', compact('documentPath'));
+    }
+
+    public function getActiveTabs(Enquiry $enquiry)
+    {
+          return  [
+            'project_info'       => $enquiry->project_info ?? false,
+            'service'            => $enquiry->service ?? false,
+            'ifc_model_upload'   => $enquiry->ifc_model_upload ?? false,
+            'building_component' => $enquiry->building_component ?? false,
+            'additional_info'    => $enquiry->additional_info ?? false
+        ];
     }
 }

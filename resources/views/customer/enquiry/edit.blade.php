@@ -23,7 +23,7 @@
                                
                     <div id="rootwizard" ng-controller="wizard">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                            <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm" style="pointer-events:none"> 
+                            <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"> 
                                 <a href="#!/" style="min-height: 40px;" class="timeline-step  {{$enquiry->project_info == '1' ? "active" : ""}} " id="project-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle projectInfoForm bg-success">
@@ -33,7 +33,7 @@
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item serviceSelection" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
+                            <li class="nav-item serviceSelection" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection">
                                 <a href="#!/service" style="min-height: 40px;" class="timeline-step serviceSelection  {{$enquiry->service == 1 ? 'active' : ''}}" id="service">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -43,7 +43,7 @@
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item IFCModelUpload" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload" style="pointer-events:none">
+                            <li class="nav-item IFCModelUpload" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
                                 <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step {{$enquiry->ifc_model_upload == 1 ? 'active' : ''}}" id="ifc-model-upload">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -54,7 +54,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item buildingComponent" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
+                            <li class="nav-item buildingComponent" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
                                 <a href="#!/building-component"  style="min-height: 40px;" class="timeline-step {{$enquiry->building_component == 1 ? 'active' : ''}}" id="building-component">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -64,7 +64,7 @@
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item additionalInformation" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
+                            <li class="nav-item additionalInformation" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation">
                                 <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step {{$enquiry->additional_info == 1 ? 'active' : ''}}"  id="additional-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -74,7 +74,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item last reviewSubmit"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
+                            <li class="nav-item last reviewSubmit"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit" >
                                 <a href="#!/review" style="min-height: 40px;"  class="timeline-step" id="review">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -136,7 +136,7 @@
         });
       
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
-            $("#project-info").addClass('active');
+            
             let enquiry_id = {{$id}};
             // console.log('enquiry_id',enquiry_id);
             $http({
@@ -211,6 +211,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/project_info`,
                 }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
                     $scope.customer_enquiry_number = res.data.project_info.customer_enquiry_number ?? res.data.project_info.enquiry_no;
                     $scope.enquiry_date = new Date(res.data.project_info.enquiry_date);
                     $scope.enquiry_number = res.data.project_info.enquiry_no;
@@ -274,7 +275,7 @@
         }); 
 
         app.controller('Service', function ($scope, $http, $rootScope, Notification, API_URL, $location){
-            $("#service").addClass('active');
+         
             $scope.serviceList = [];
             let enquiry_id = {{$id}};
             $http({
@@ -300,6 +301,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/services`,
                 }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
                     $scope.serviceList = res.data.services;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -341,7 +343,7 @@
         });
         
         app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload ) { 
-            $("#building-component").addClass('active');
+           
             $scope.wallGroup = [];
             $scope.layerAdd = true;
             $scope.callTemplate = true;
@@ -527,6 +529,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
+                    enableActiveTabs(res.data.active_tabs);
                     $scope.showHideBuildingComponent = res.data.building_component_process_type;
                     if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
                         $scope.buildingComponentUploads = res.data.building_component;
@@ -680,7 +683,7 @@
             });
 
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
-            $("#additional-info").addClass('active');
+         
             let enquiry_id = {{$id}};
             $http({
                 method: 'GET',
@@ -705,8 +708,8 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/additional_info`,
                 }).then(function (res) {
-
-                    $scope.additionalInfo = res.data.additional_infos.comments ?? '';
+                    enableActiveTabs(res.data.active_tabs);
+                    $scope.additionalInfo = res.data.additional_infos == null ? '': res.data.additional_infos.comments;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -732,7 +735,7 @@
         });
  
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location){
-            $("#review").addClass('active');
+        
             var enquiry_id = {{$id}};
             $http({
                 method: 'GET',
@@ -943,6 +946,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/ifc_model_uploads`,
                 }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
                     res.data.ifc_model_uploads.map( (item, index) => {
                         let [id, type] = [item.enquiry_id , item.document_type.slug];
                         if(slug.indexOf(type) == -1) {

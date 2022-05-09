@@ -21,3 +21,21 @@
             return false;
         return true;
     }
+
+
+    function enableActiveTabs(tabs) {
+        (tabs.project_info == 0) ? $("#project-info").addClass('activeTab')  : $("#project-info").removeClass('activeTab');
+        (tabs.service == 0) ? $("#service").addClass('activeTab') : $("#service").removeClass('activeTab');
+        (tabs.ifc_model_upload == 0) ? $("#ifc-model-upload").addClass('activeTab') : $("#ifc-model-upload").removeClass('activeTab');
+        (tabs.building_component == 0) ? $("#building-component").addClass('activeTab') : $("#building-component").removeClass('activeTab');
+        (tabs.additional_info == 0) ? $("#additional-info").addClass('activeTab'): $("#additional-info").removeClass('activeTab');
+        (tabs.project_info == 1 && tabs.service ==1 && tabs.ifc_model_upload == 1 && tabs.building_component == 1) ?
+        $("#review").addClass('activeTab') : $("#ifc-model-upload").removeClass('activeTab');
+        (tabs.project_info == 1) ? $("#project-info").addClass('active')  : $("#project-info").removeClass('active');
+        (tabs.service == 1) ? $("#service").addClass('active') : $("#service").removeClass('active');
+        (tabs.ifc_model_upload == 1) ? $("#ifc-model-upload").addClass('active') : $("#ifc-model-upload").removeClass('active');
+        (tabs.building_component == 1) ? $("#building-component").addClass('active') : $("#building-component").removeClass('active');
+        (tabs.additional_info ==1) ? $("#additional-info").addClass('active'): $("#additional-info").removeClass('active');
+        (tabs.project_info == 0&& tabs.service ==0 && tabs.ifc_model_upload == 0 && tabs.building_component == 0) ?
+        $("#review").addClass('active') : $("#review").removeClass('active');
+    }
