@@ -577,6 +577,51 @@
             }
             
             $scope.submitBuildingComponent = () => {
+                let isValidField = true;
+                 $scope.wallGroup.forEach((wall) => {
+                    if( wall.Details.length > 0) {
+                        wallName = wall.WallName;
+                        wall.Details.forEach((detail, index) => {
+                            wallIndex = index + 1;
+                            if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
+                                Message('danger', `${wallName} ${wallIndex} field required `);
+                                isValidField = false;
+                                return false;
+                            } if(detail.DeliveryType == '' || typeof(detail.DeliveryType) == 'undefined') {
+                                Message('danger', `${wallName} ${wallIndex} field required `);
+                                isValidField = false;
+                                return false;
+                            } if(detail.FloorNumber == ''  || typeof(detail.FloorNumber) == 'undefined') {
+                                Message('danger', `${wallName} ${wallIndex} field required `);
+                                isValidField = false;
+                                return false;
+                            } if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
+                                Message('danger', `${wallName} ${wallIndex} field required `);
+                                isValidField = false;
+                                return false;
+                            }
+                            if( detail.Layers.length > 0) {
+                                detail.Layers.forEach((layer) => {
+                                    if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
+                                        Message('danger', `${wallName} ${wallIndex} field required `);
+                                        isValidField = false;
+                                        return false;
+                                    } if(layer.Breadth == '' || typeof(layer.Breadth) == 'undefined') {
+                                        Message('danger', `${wallName} ${wallIndex} field required `);
+                                        isValidField = false;
+                                        return false;
+                                    } if(layer.Thickness == ''|| typeof(layer.Thickness) == 'undefined') {
+                                        Message('danger', `${wallName} ${wallIndex} field required `);
+                                        isValidField = false;
+                                        return false;
+                                    }
+                                });
+                            }
+                        return false;
+                        });
+                    }
+                });
+                if(isValidField == false) { return false;}
                 if($scope.showHideBuildingComponent == 1) { $location.path('/additional-info'); return false;}
                 $http({
                     method: 'POST',
