@@ -161,6 +161,7 @@
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
                 }).then( function(res) {
+                        enableActiveTabs({'project_info': 1,'service': 0, 'ifc_model_upload' :0, 'building_component': 0, 'additional_info':0});
                         if(res.data.status == "false") {
                             $scope.customer_enquiry_number = res.data.customer_enquiry_number;
                             enquiry_id = res.data.enquiry_id
@@ -417,8 +418,7 @@
             getOutputTypes();
         });
         
-        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload) { 
-            $("#building-component").addClass('active');
+        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload, $timeout) { 
             $scope.fileUploaded = false;
             $scope.wallGroup = [];
             $scope.layerAdd = true;
@@ -607,12 +607,12 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
+                    $scope.showHideBuildingComponent = res.data.building_component_process_type;
                     enableActiveTabs(res.data.active_tabs);
                     if(res.data.building_component.length == 0) {
                         getBuildingComponent();
                         return false;
                     }
-                    $scope.showHideBuildingComponent = res.data.building_component_process_type;
                     if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
                         $scope.buildingComponentUploads = res.data.building_component;
                         getBuildingComponent();
@@ -660,49 +660,51 @@
             
             $scope.submitBuildingComponent = () => {
                 let isValidField = true;
-                 $scope.wallGroup.forEach((wall) => {
-                    if( wall.Details.length > 0) {
-                        wallName = wall.WallName;
-                        wall.Details.forEach((detail, index) => {
-                            wallIndex = index + 1;
-                            if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
-                                Message('danger', `${wallName} ${wallIndex} field required `);
-                                isValidField = false;
-                                return false;
-                            } if(detail.DeliveryType == '' || typeof(detail.DeliveryType) == 'undefined') {
-                                Message('danger', `${wallName} ${wallIndex} field required `);
-                                isValidField = false;
-                                return false;
-                            } if(detail.FloorNumber == ''  || typeof(detail.FloorNumber) == 'undefined') {
-                                Message('danger', `${wallName} ${wallIndex} field required `);
-                                isValidField = false;
-                                return false;
-                            } if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
-                                Message('danger', `${wallName} ${wallIndex} field required `);
-                                isValidField = false;
-                                return false;
-                            }
-                            if( detail.Layers.length > 0) {
-                                detail.Layers.forEach((layer) => {
-                                    if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
-                                        Message('danger', `${wallName} ${wallIndex} field required `);
-                                        isValidField = false;
-                                        return false;
-                                    } if(layer.Breadth == '' || typeof(layer.Breadth) == 'undefined') {
-                                        Message('danger', `${wallName} ${wallIndex} field required `);
-                                        isValidField = false;
-                                        return false;
-                                    } if(layer.Thickness == ''|| typeof(layer.Thickness) == 'undefined') {
-                                        Message('danger', `${wallName} ${wallIndex} field required `);
-                                        isValidField = false;
-                                        return false;
-                                    }
-                                });
-                            }
-                        return false;
-                        });
-                    }
-                });
+                if($scope.showHideBuildingComponent == 0) {
+                    $scope.wallGroup.forEach((wall) => {
+                        if( wall.Details.length > 0) {
+                            wallName = wall.WallName;
+                            wall.Details.forEach((detail, index) => {
+                                wallIndex = index + 1;
+                                if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    return false;
+                                } if(detail.DeliveryType == '' || typeof(detail.DeliveryType) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    return false;
+                                } if(detail.FloorNumber == ''  || typeof(detail.FloorNumber) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    return false;
+                                } if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    return false;
+                                }
+                                if( detail.Layers.length > 0) {
+                                    detail.Layers.forEach((layer) => {
+                                        if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            return false;
+                                        } if(layer.Breadth == '' || typeof(layer.Breadth) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            return false;
+                                        } if(layer.Thickness == ''|| typeof(layer.Thickness) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            return false;
+                                        }
+                                    });
+                                }
+                            return false;
+                            });
+                        }
+                    });
+                }
                 if(isValidField == false) { return false;}
                 if($scope.showHideBuildingComponent == 1) { $location.path('/additional-info'); return false;}
                 $http({

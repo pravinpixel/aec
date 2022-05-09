@@ -30,7 +30,7 @@
         (tabs.building_component == 0) ? $("#building-component").addClass('activeTab') : $("#building-component").removeClass('activeTab');
         (tabs.additional_info == 0) ? $("#additional-info").addClass('activeTab'): $("#additional-info").removeClass('activeTab');
         (tabs.project_info == 1 && tabs.service ==1 && tabs.ifc_model_upload == 1 && tabs.building_component == 1) ?
-        $("#review").addClass('activeTab') : $("#ifc-model-upload").removeClass('activeTab');
+        $("#review").addClass('activeTab') : $("#review").removeClass('activeTab');
         (tabs.project_info == 1) ? $("#project-info").addClass('active')  : $("#project-info").removeClass('active');
         (tabs.service == 1) ? $("#service").addClass('active') : $("#service").removeClass('active');
         (tabs.ifc_model_upload == 1) ? $("#ifc-model-upload").addClass('active') : $("#ifc-model-upload").removeClass('active');

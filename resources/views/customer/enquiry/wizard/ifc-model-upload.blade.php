@@ -3,7 +3,7 @@
         <div class="row">
             <div ng-repeat="documentType in documentTypes" class="col-md-4">
                 <div  class="card p-3 shadow-sm file-upload-card" style="overflow: hidden">
-                    <h1>@{{  documentType.document_type_name }}</h1>
+                    <h4>@{{  documentType.document_type_name }}</h4>
                     <div class="drag-area">
                     <p class="text-disable text-center"> </p>  
                     <input  type="file" file-drop-zone="@{{'file' + documentType.slug}}" class="form-control file-control rounded-pill" file-model="@{{'file' + documentType.slug}}" id ="@{{ documentType.slug }}"/>
@@ -21,7 +21,7 @@
         @include('customer.enquiry.modal')
         <div ng-repeat="documentType in documentTypes">
             <div class="table custom-header">
-                <h1>@{{documentType.document_type_name }}</h1>
+                <h4>@{{documentType.document_type_name }}</h4>
                 <br>
                 <viewlist data="documentLists[documentType.slug]" file-type="autoDeskFileType"></viewlist><br/>
             </div>

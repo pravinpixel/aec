@@ -56,7 +56,7 @@
                 <div class="collapse {{ Route::is("customers.edit-enquiry") ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{ route('customers.create-enquiry') }}">Create enquiry</a>
+                            <a href="#" onclick="return window.location.assign('{{ route('customers.create-enquiry') }}')">Create enquiry</a>
                         </li>
                         <li class="{{ Route::is("customers.edit-enquiry") ? "menuitem-active" : ""}}">
                             <a href="{{ route('customers-my-enquiries') }}" >Enquiries</a>

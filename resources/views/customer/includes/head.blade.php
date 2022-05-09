@@ -81,4 +81,7 @@
     .form-select.ng-valid {
     border-bottom: 1px solid #008a60 !important
     }
+    .activeTab {
+        pointer-events: none;
+    }
 </style>
