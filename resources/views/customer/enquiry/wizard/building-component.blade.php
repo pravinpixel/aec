@@ -78,7 +78,7 @@
                             <div class="accordion-item shadow-sm  ">
                                 
                                 <div class="accordion-header m-0  " style="background:#f1f2fe" id="headingOne">                                                                    
-                                    <table class="table custom table-bordered m-0  ">
+                                    <table class="table  table-bordered m-0  ">
                                         <tr>
                                             <th class="bg-light">
                                                 <div class="form-group">

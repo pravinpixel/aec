@@ -553,6 +553,7 @@ class EnquiryController extends Controller
         $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);
         $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
         $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+        $result['active_tabs'] = $this->getActiveTabs($enquiry);
         return  $result;
     }
 
@@ -568,6 +569,7 @@ class EnquiryController extends Controller
         $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         $result["enquiry_comments"] = $this->enquiryCommentsRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
         $result["enquiry_active_comments"] = $this->enquiryCommentsRepo->getActiveCommentsCountByType($id)->pluck('comments_count', 'type');
+        $result['active_tabs'] = $this->getActiveTabs($enquiry);
         return  $result;
     }
 

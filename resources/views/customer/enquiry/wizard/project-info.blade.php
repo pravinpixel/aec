@@ -23,13 +23,13 @@
             </div>
             <div class="form-floating  mb-2">
                 <input  type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}"  onkeypress="return isNumber(event)"   ng-model="projectInfo.mobile_no" class="form-control form-control-sm" id="floating" name="mobile_no" />
-                <label for="floating">Mobile Number <sup class="text-danger">*</sup></label>
-                <small class="text-danger" ng-show="projectInfo.mobile_no.$touched && projectInfo.mobile_no.$invalid">Enter valid mobile number</small>
+                <label for="floating">Contact Number <sup class="text-danger">*</sup></label>
+                <small class="text-danger" ng-show="projectInfo.mobile_no.$touched && projectInfo.mobile_no.$invalid">Enter valid contact number</small>
             </div>
             <div class="form-floating  mb-2">
-                <input  value="" type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no" required/>
-                <label for="floating">Secondary Mobile Number <sup class="text-danger">*</sup></label>
-                <small class="text-danger" ng-show="projectInfoForm.secondary_mobile_no.$touched && projectInfoForm.secondary_mobile_no.$invalid">Enter valid mobile number</small>
+                <input  value="" type="text" pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating"  name="secondary_mobile_no"   ng-model="projectInfo.secondary_mobile_no"/>
+                <label for="floating">Secondary Contact Number</label>
+                <small class="text-danger" ng-show="projectInfoForm.secondary_mobile_no.$touched && projectInfoForm.secondary_mobile_no.$invalid">Enter valid contact number</small>
             </div>
         </div>
         <div class="col-md-4">
@@ -42,11 +42,6 @@
                 <input type="text" class="form-control form-control-sm" ng-keyup="getZipcodeData()" id="zipcode" name="zipcode" ng-model="projectInfo.zipcode" required/>
                 <label for="floating">Zip Code <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.zipcode.$touched && projectInfoForm.zipcode.$invalid">This field is required</small>
-            </div>
-            <div class="form-floating  mb-2">
-                <input type="text" class="form-control form-control-sm" id="floating" name="city" ng-model="projectInfo.city" required/>
-                <label for="floating">City  <sup class="text-danger">*</sup></label>
-                <small class="text-danger" ng-show="projectInfoForm.city.$touched && projectInfoForm.city.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
                 <input type="text" class="form-control form-control-sm" id="floating" name="state" ng-model="projectInfo.state" required/>
@@ -83,7 +78,7 @@
             </div>
             <div class="form-floating  mb-2">
                 <input type="text" class="form-control form-control-sm" id="floating" name="place" ng-model="projectInfo.place" required/>
-                <label for="floating">Place <sup class="text-danger">*</sup></label>
+                <label for="floating">City <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.place.$touched && projectInfoForm.place.$invalid">This field is required</small>
             </div>
             <div class="form-floating  mb-2">

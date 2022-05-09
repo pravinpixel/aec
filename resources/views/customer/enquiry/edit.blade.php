@@ -859,7 +859,7 @@
                         $timeout(function(){
                             window.onbeforeunload = null;
                         });
-                        if(response.msg == 'sbmitted') {
+                        if(response.msg == 'submitted') {
                             Swal.fire({
                                 title: `Enquiry submitted successfully are you want to leave the page?`,
                                 showDenyButton: false,
@@ -880,7 +880,7 @@
                                 confirmButtonText: 'Yes',
                                 }).then((result) => {
                                 if (result.isConfirmed) {
-                                location.href = '{{ route('customers-my-enquiries') }}'
+                                location.href = "{{ route('customers-my-enquiries') }}";
                                 }
                             });
                         }

@@ -1043,12 +1043,12 @@
                                 confirmButtonText: 'Yes',
                                 }).then((result) => {
                                 if (result.isConfirmed) {
-                                location.href = '{{ route('customers-my-enquiries') }}'
+                                    location.href = '{{ route('customers-my-enquiries') }}'
                                 }
                             });
                         } else {
                             Swal.fire({
-                                title: `Enquiry saved successfully are you want to leave the page?`,
+                                title: `Enquiry saved successfully are you want to leave the page ?`,
                                 showDenyButton: false,
                                 showCancelButton: true,
                                 cancelButtonText: 'No',

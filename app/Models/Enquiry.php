@@ -103,6 +103,11 @@ class Enquiry extends Model
         $this->attributes['enquiry_date'] = GlobalService::DBDateFormatWithTime($value);
     }
 
+    public function setCityAttribute()
+    {
+        $this->attributes['city'] = $this->attributes['place'];
+    }
+
     public function getFollowUpDateAttribute($value)
     {
         return GlobalService::DBDateFormat($value);
