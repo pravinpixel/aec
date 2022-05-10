@@ -760,7 +760,7 @@
                         bindingOptions: {
                             'toolbar.multiline': 'multilineToolbar',
                         },
-                        height: 725,
+                        height: 300,
                         value:  $scope.additionalInfo,
                         toolbar: {
                             items: [
