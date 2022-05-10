@@ -34,6 +34,10 @@
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
 <!-- ========= Alert js Notifications ========== -->
 
+<!-- ========= Text Editor ========== -->
+<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.common.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.light.css" />
+<!-- ========= Text Editor ========== -->
 <style>
    
     .conversation-list  li.Customer_odd {

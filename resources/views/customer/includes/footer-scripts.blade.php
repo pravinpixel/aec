@@ -32,6 +32,7 @@
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
 <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-ckeditor/0.2.1/ng-ckeditor.min.js"></script>
 
 <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
 <script src="{{ asset('public/assets/js/angularjs/ui-notification.js') }}"></script>
@@ -39,3 +40,9 @@
 <script src="{{ asset('public/assets/js/pages/customers/directives.js') }}"></script>
 <script src="{{ asset('public/assets/js/custom.js') }}"></script>
 {{-- Angular JS  --}}
+
+
+<!-- ========= Text Editor ========== -->
+<script src="https://unpkg.com/devextreme-quill@1.5.14/dist/dx-quill.min.js"></script>
+<script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
+<!-- ========= Text Editor ========== -->
