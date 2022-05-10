@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table datatable="ng" dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+        <table dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -17,7 +17,7 @@
             </thead>
         
             <tbody>
-                <tr ng-repeat="(index,m) in role_module_get">
+                <tr ng-repeat="(index,m) in role_module_get track by m.id">
                     
                     <td class="align-items-center">@{{ m.name }}</td>
 
@@ -63,6 +63,7 @@
                     </div> 
                     <div class="row">
                         <div class="col-12 pt-3">
+                            <label for="status" class="col-sm-12  text-dark control-label mb-2">Status</label>
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
                                     <input type="radio"  ng-checked="module.status == 1" id="active" value="1" ng-model="module_role.status" name="status" class="form-check-input"  ng-required="true">

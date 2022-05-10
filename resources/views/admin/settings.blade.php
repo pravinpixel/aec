@@ -122,7 +122,7 @@
             padding: 10px !important
         }
         
-        .form-control.ng-touched   {
+        .form-control.ng-invalid   {
             border: 1px solid red !important
         }
         .form-control.ng-touched + .help-inline {

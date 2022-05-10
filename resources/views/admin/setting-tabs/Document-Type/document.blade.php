@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table datatable="ng" dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+        <table dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -17,14 +17,14 @@
             </thead>
         
             <tbody>
-                <tr ng-repeat="(index,document) in document_module_get">
+                <tr ng-repeat="(index,document) in document_module_get track by document.id">
                     
                     <td class="align-items-center">@{{ document.document_type_name }}</td>
 
                     <td>
                         <div>
-                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="document.is_active == 1" data-switch="primary"/>
-                            <label for="switch__@{{index}}" data-on-label="On" ng-click="document_status(index,document.id)" data-off-label="Off"></label>
+                            <input type="checkbox" id="switch1__@{{ index }}" ng-checked="document.is_active == 1" data-switch="primary"/>
+                            <label for="switch1__@{{index}}" data-on-label="On" ng-click="document_status(index,document.id)" data-off-label="Off"></label>
                         </div>    
                         <span ng-if="document.is_active == 1" class="d-none">1</span>              
                         <span ng-if="document.is_active == 0" class="d-none">0</span>           
@@ -78,21 +78,22 @@
                     <div class="row">
                    
                         <div class="col-12 pt-3">
-                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Mandatory Name</label>
+                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Is Mandatory</label>
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
                                     <input type="radio"  ng-checked="module_document.is_mandatory == 1" id="active" value="1" ng-model="module_document.is_mandatory" name="is_mandatory" class="form-check-input"  ng-required="true">
-                                    <label class="form-check-label" for="active">On</label>
+                                    <label class="form-check-label" for="active">Yes</label>
                                 </div>
                                 <div class="form-check form-check-inline form-radio-dark">
                                     <input type="radio" ng-checked="module_document.is_mandatory == 0" id="Deactive" value="0" ng-model="module_document.is_mandatory" name="is_mandatory" class="form-check-input" ng-required="true">
-                                    <label class="form-check-label" for="Deactive">Off</label>
+                                    <label class="form-check-label" for="Deactive">No</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 pt-3">
+                            <label for="status" class="col-sm-12  text-dark control-label mb-2">Status</label>
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
                                     <input type="radio"  ng-checked="module_document.is_active == 1" id="active" value="1" ng-model="module_document.is_active" name="is_active" class="form-check-input"  ng-required="true">

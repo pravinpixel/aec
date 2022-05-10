@@ -14,6 +14,8 @@ class BuildingComponent extends Model
         'building_component_name',
         'building_component_icon',
         'order_id',
+        'top_posotion',
+        'bottom_position',
         'is_active'
     ];
 
