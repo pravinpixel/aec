@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <div id="project_info" class="project_info accordion-collapse custom-accordion-collapse collapsed collapse show" aria-labelledby="ProjectInfo_header">
-                            <div class="accordion-body">  
+                            <div id="ProjectInfo" class="accordion-body">  
                                 <table class="table custom m-0 table-hover">
                                     <tbody>
                                         <tr ng-if="enquiry.project_infos.project_name != null">

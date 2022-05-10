@@ -636,7 +636,6 @@
                                 }
                                 return {
                                     FloorName   : detail.floor,
-                                    FloorNumber : Number(detail.exd_wall_number),
                                     TotalArea   : Number(detail.approx_total_area),
                                     DeliveryType:  detail.building_component_delivery_type_id,
                                     Layers : Layer
@@ -674,10 +673,6 @@
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
                                     return false;
-                                } if(detail.FloorNumber == ''  || typeof(detail.FloorNumber) == 'undefined') {
-                                    Message('danger', `${wallName} ${wallIndex} field required `);
-                                    isValidField = false;
-                                    return false;
                                 } if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
@@ -706,22 +701,44 @@
                     });
                 }
                 if(isValidField == false) { return false;}
+                let skipUploads = [];
+                if($scope.showHideBuildingComponent == 0) {
+                    $scope.wallGroup.forEach((wall) => {
+                       if(wall.Details.length == 0) {
+                            if(skipUploads.indexOf(wall.WallName) > -1 == false) {
+                                skipUploads.push(wall.WallName);
+                            }
+                       }
+                    });
+                    Swal.fire({
+                        title: `Do you want to skip the ${skipUploads.join(',')}?`,
+                        showDenyButton: false,
+                        showCancelButton: true,
+                        cancelButtonText: 'No',
+                        confirmButtonText: 'Yes',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $http({
+                                method: 'POST',
+                                url: '{{ route('customers.store-enquiry') }}',
+                                data: {type: 'building_component', 'data': $scope.wallGroup}
+                            }).then(function (res) {
+                                $location.path('/additional-info')
+                                Message('success', `Building Component updated successfully`);
+                            }, function (error) {
+                                Message('error', `Somethig went wrong`);
+                            }); 
+                        }
+                    });
+                    return false;
+                }
+                
                 if($scope.showHideBuildingComponent == 1) { $location.path('/additional-info'); return false;}
-                $http({
-                    method: 'POST',
-                    url: '{{ route('customers.store-enquiry') }}',
-                    data: {type: 'building_component', 'data': $scope.wallGroup}
-                }).then(function (res) {
-                    $location.path('/additional-info')
-                    Message('success', `Building Component updated successfully`);
-                }, function (error) {
-                    Message('error', `Somethig went wrong`);
-                }); 
+                
             }
             $scope.AddWallDetails  =   function(index) {
                 $scope.wallGroup[index].Details.push({
                     "FloorName" : "",
-                    "FloorNumber" : "",
                     "TotalArea" : "",
                     "DeliveryType" : "",
                     "Layers": [
@@ -1043,6 +1060,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/edit-enquiry-review/${enquiry_id}`,
                 }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
                     $scope.project_info = res.data.project_infos;
                     $scope.outputTypes = res.data.services;
                     $scope.ifc_model_uploads = res.data.ifc_model_uploads;

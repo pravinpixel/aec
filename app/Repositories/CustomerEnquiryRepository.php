@@ -330,7 +330,6 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     $enquiryBuildingComponentDetail->enquiry_id                          = $enquiry->id;
                     $enquiryBuildingComponentDetail->building_component_delivery_type_id = $buildingComponentDetail->DeliveryType;
                     $enquiryBuildingComponentDetail->floor                               = $buildingComponentDetail->FloorName;
-                    $enquiryBuildingComponentDetail->exd_wall_number                     = $buildingComponentDetail->FloorNumber;
                     $enquiryBuildingComponentDetail->approx_total_area                   = $buildingComponentDetail->TotalArea;
                     $enquiryBuildingComponentDetail->enquiry_building_component_id       = $enquiryBuildingComponent->id;
                     $total_wall_area +=  $buildingComponentDetail->TotalArea; 

@@ -86,12 +86,7 @@
                                                     <input type="text" class="form-control form-control-sm my-2 mt-3" name="FloorName" ng-model="d.FloorName"  required placeholder="Type here..." required>
                                                 </div>
                                             </th>
-                                            <th  class="bg-light">
-                                                <div class="form-group">
-                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Wall Number  <sup class="text-danger">*</sup></label>
-                                                    <input type="text" onkeypress="return isNumber(event)"  class="form-control form-control-sm my-2  mt-3" ng-model="d.FloorNumber" placeholder="Type here..." required>
-                                                </div>
-                                            </th>
+                                    
                                             <th  class="bg-light">
                                                 <div class="form-group">
                                                     <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type  <sup class="text-danger">*</sup></label>

@@ -5,6 +5,10 @@
 .custom.table tr td:nth-child(1) {
     text-align: center !important;
 }
+
+#ProjectInfo .custom.table tr td:nth-child(1) {
+    text-align: left !important;
+}
 .custom.table tr th{
     background: var(--secondary-bg) !important;
     color: var(--text-light);

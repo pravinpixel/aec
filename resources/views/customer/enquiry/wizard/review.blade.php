@@ -237,13 +237,11 @@
                                                         <table class="table custom m-0 table-bordered">
                                                             <tr>
                                                                 <th>Floor</th>
-                                                                <th>wall Number</th>
                                                                 <th>Delivery type</th>
                                                                 <th >Total Area </th>
                                                             </tr> 
                                                             <tr>
                                                                 <td>@{{ detail.floor }}</td>
-                                                                <td>@{{ detail.exd_wall_number }}</td>
                                                                 <td>@{{ detail.delivery_type.delivery_type_name }}</td>
                                                                 <td ng-init="$parent.total = $parent.total ++ detail.approx_total_area">@{{ detail.approx_total_area }}</td>
                                                             </tr> 
