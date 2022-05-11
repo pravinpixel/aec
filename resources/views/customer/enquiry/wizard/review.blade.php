@@ -171,7 +171,8 @@
                                     <th class="text-center" width="150px"><b>Action</b></th>
                                 </tr>
                                 <tbody>
-                                    <tr ng-repeat="ifc_model_upload in ifc_model_uploads">
+                                    
+                                    <tr ng-show="ifc_model_uploads.length != 0" ng-repeat="ifc_model_upload in ifc_model_uploads">
                                         <td> @{{ $index + 1}} </td>
                                         <td> @{{ ifc_model_upload.created_at }}</td>
                                         <td> @{{ ifc_model_upload.file_type }}</td>
@@ -185,6 +186,10 @@
                                             <a class="" target="_blank" href="@{{ ifc_model_upload.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                     </tr>
+                                    <tr ng-show="ifc_model_uploads.length == 0">
+                                        <td colspan="5">No data found</td>
+                                    </tr>
+                                    
                                 </tbody>
                             </thead>
                         </table>
@@ -265,6 +270,9 @@
                                             </table> 
                                         </td>
                                     </tr>  
+                                    <tr ng-show="!building_components.length && !building_component.detail.length">
+                                        <td colspan="4"> No data found </td>
+                                    </tr>
                                 </tbody>                     
                             </table> 
                         </div> 
@@ -282,7 +290,7 @@
                                     <th class="text-center" width="150px"><b>Action</b></th>
                                 </tr>
                                 <tbody>
-                                    <tr ng-repeat="building_component in building_components">
+                                    <tr ng-show="building_components.length" ng-repeat="building_component in building_components">
                                         <td> @{{ $index + 1}} </td>
                                         <td> @{{ building_component.created_at }}</td>
                                         <td> @{{ building_component.file_name }}</td>
@@ -291,6 +299,9 @@
                                             <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
                                             <a target="_child" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
+                                    </tr>
+                                    <tr ng-show="!building_components.length && !building_component.detail.length">
+                                        <td colspan="4"> No data found </td>
                                     </tr>
                                 </tbody>
                             </thead>

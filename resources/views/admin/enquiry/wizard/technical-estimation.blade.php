@@ -247,7 +247,7 @@
                 </div>
             </div> --}}
 
-
+            
             <div class="card m-0 my-3 border col-md-9 me-auto">
                 <div class="card-body">
                     <p class="lead mb-2"> <strong>Assign to</strong></p>
@@ -270,7 +270,7 @@
                         <a href="#!/project-summary" class="btn btn-light border shadow-sm">Prev</a>
                     </div>
                     <div>
-                        <a ng-show="technical_estimation_status != 0 && technical_estimate.assign_to" href="#!/cost-estimation"  class="btn btn-primary">Next</a>
+                        <a ng-show="technical_estimation_status != 0 " href="#!/cost-estimation"  class="btn btn-primary">Next</a>
                     </div>
                 </div>
             </div>

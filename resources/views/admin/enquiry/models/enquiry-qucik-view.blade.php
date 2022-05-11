@@ -85,7 +85,7 @@
                                             <td>@{{ project_info.zipcode }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.place != null">
-                                            <td><b>Place</b></td>
+                                            <td><b>City</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.place }}</td>
                                         </tr> 

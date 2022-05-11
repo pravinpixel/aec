@@ -58,8 +58,8 @@ class  CostEstimateController extends Controller
                                         ->first(); 
     }
     public function store(Request $request) {
-        // dd($request->total);
-         
+          // dd($request->total);
+ 
         $data   = $request->input("data");
         $id     = $request->input("data.enquiry_id"); 
 
@@ -71,6 +71,7 @@ class  CostEstimateController extends Controller
             'updated_by'    => Admin()->id
         ]); 
         $enquiry = Enquiry::find($id);
+        $this->costEstimate->assignUser($enquiry, Admin()->id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }

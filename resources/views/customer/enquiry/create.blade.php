@@ -1084,7 +1084,7 @@
                         $timeout(function(){
                             window.onbeforeunload = null;
                         });
-                        if(response.msg == 'submitted') {
+                        if(response.data.msg == 'submitted') {
                             Swal.fire({
                                 title: `Enquiry submitted successfully are you want to leave the page?`,
                                 showDenyButton: false,
@@ -1098,7 +1098,7 @@
                             });
                         } else {
                             Swal.fire({
-                                title: `Enquiry saved successfully are you want to leave the page ?`,
+                                title: `Enquiry saved locally are you want to leave the page ?`,
                                 showDenyButton: false,
                                 showCancelButton: true,
                                 cancelButtonText: 'No',

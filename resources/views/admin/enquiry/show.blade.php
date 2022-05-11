@@ -1056,13 +1056,13 @@
                 link : function (scope, element, attrs) {
                     element.on('change', function () {
 
-                        // console.log(scope.c.building_component_name)
+// console.log(scope.c.building_component_name)
 
-                        // console.log(typeof(scope.t.type_name) == 'undefined')
+// console.log(typeof(scope.t.type_name) == 'undefined')
 
 
-                        // console.log(typeof(scope.c.building_component_name) == 'undefined')
-                        
+// console.log(typeof(scope.c.building_component_name) == 'undefined')
+
                         // if(typeof(scope.t) == 'undefined') {
                         //     console.log("done done !")   
                         //     return false;                        
@@ -1347,5 +1347,10 @@
             } 
 
         });
+        window.onbeforeunload = function(e) {
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            e.returnValue = dialogText;
+            return dialogText;
+        };
     </script>  
 @endpush
