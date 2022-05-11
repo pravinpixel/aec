@@ -107,8 +107,20 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             
             $document =  Documentary::where('id',$request->documentId)->first();
 
-            $customer =  Customer::where('id',$enquiry['customer_id'])->select('id','customer_enquiry_date as  customer_enquiryDate','first_name','last_name','full_name','email','mobile_no','company_name',
-            'contact_person')->first()->toArray();
+            $customer =  Customer::where('id',$enquiry['customer_id'])
+                    ->select('id','customer_enquiry_date as  customer_enquiry_date',
+                    'first_name as customer_first_name',
+                    'last_name as customer_last_name',
+                    'full_name as customer_full_name',
+                    'organization_no as customer_organization_no',
+                    'city as customer_city',
+                    'state as customer_state',
+                    'country as customer_country',
+                    'email',
+                    'mobile_no',
+                    'company_name',
+                    'contact_person'
+                )->first()->toArray();
             $enquiryCost = EnquiryCostEstimate::where('enquiry_id',$request->enquireId)->first();
             // print_r($enquiryCost['total_cost']);die();
            
@@ -128,8 +140,7 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             $datas['role'] = $role['name'];
             $datas['admin_user'] =  $loginUserData['user_name'];
             $datas['project_cost'] = $enquiryCost['total_cost'];
-
-
+            $datas['revision_no'] = "R".($countRow+1);
             $lo ='<img width="150px" src="'.asset($logo).'" alt="">';
             $logo_url = ['Logo'=>$lo];
             $datas = array_merge($datas,$logo_url);   
@@ -137,20 +148,14 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             $changeData =[];
             $changeData = $datas;
             $documentData = $document['documentary_content'];
-            // $documentData = str_replace('_',"",$documentData);
             $keyData       = array_keys($changeData);
-            // $keyData = str_replace('_',"",$keyData);
-            // print_r($changeData);die();
             $valueData    = array_values($changeData);
             $new_string = str_replace($keyData, $valueData,strval($documentData));
             $today_date = date("d-m-Y");
-         
             $new_string=  str_replace('today_date',$today_date,strval($new_string));
             $search = array('{','}');
             $newDocumentData = str_replace($search,"",$new_string);
-
             $document['documentary_content'] = $newDocumentData;
-        
             $data = array(
                 'enquiry'=>$enquiry,'document'=>$document,'customer'=>$customer,'fileName'=>$fileName
             );

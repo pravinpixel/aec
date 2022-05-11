@@ -673,7 +673,7 @@
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
                                     return false;
-                                } if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
+                                } if(detail.TotalArea == '' || typeof(detail.TotalArea) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
                                     return false;
@@ -710,26 +710,38 @@
                             }
                        }
                     });
-                    Swal.fire({
-                        title: `Do you want to skip the ${skipUploads.join(',')}?`,
-                        showDenyButton: false,
-                        showCancelButton: true,
-                        cancelButtonText: 'No',
-                        confirmButtonText: 'Yes',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $http({
-                                method: 'POST',
-                                url: '{{ route('customers.store-enquiry') }}',
-                                data: {type: 'building_component', 'data': $scope.wallGroup}
-                            }).then(function (res) {
-                                $location.path('/additional-info')
-                                Message('success', `Building Component updated successfully`);
-                            }, function (error) {
-                                Message('error', `Somethig went wrong`);
-                            }); 
-                        }
-                    });
+                    if(skipUploads.length > 0) {
+                        Swal.fire({
+                            title: `Do you want to skip the ${skipUploads.join(',')}?`,
+                            showDenyButton: false,
+                            showCancelButton: true,
+                            cancelButtonText: 'No',
+                            confirmButtonText: 'Yes',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $http({
+                                    method: 'POST',
+                                    url: '{{ route('customers.store-enquiry') }}',
+                                    data: {type: 'building_component', 'data': $scope.wallGroup}
+                                }).then(function (res) {
+                                    $location.path('/additional-info')
+                                    Message('success', `Building Component updated successfully`);
+                                }, function (error) {
+                                    Message('error', `Somethig went wrong`);
+                                }); 
+                            }
+                        });
+                    }
+                    $http({
+                        method: 'POST',
+                        url: '{{ route('customers.store-enquiry') }}',
+                        data: {type: 'building_component', 'data': $scope.wallGroup}
+                    }).then(function (res) {
+                        $location.path('/additional-info')
+                        Message('success', `Building Component updated successfully`);
+                    }, function (error) {
+                        Message('error', `Somethig went wrong`);
+                    }); 
                     return false;
                 }
                 

@@ -31,10 +31,8 @@ class DocumentarySeeder extends Seeder
             <td style='font-size: 15px;'>Offer: {offer_no}  Revision: {revision_no},<br>
             <br>
             <strong style='font-size: 15px;'> To</strong><br>
-            <strong style='font-size: 15px;'>{customer_name}</strong><br>
-            <strong style='font-size: 15px;'>{(ORG.no)}</strong><br>
-          
-            <strong style='font-size: 15px;'>{customer_address}</strong><br>
+            <strong style='font-size: 15px;'>{customer_full_name}</strong><br>
+            <strong style='font-size: 15px;'>{customer_organization_no}</strong><br>
 
             </td>
             <td width='20%' style='font-size: 15px;'>Date: {today_date}</td>

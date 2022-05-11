@@ -17,5 +17,6 @@ return [
     'country'            => 'Country',
     'postal_code'        => 'Postal Code',
     'mobile_no'          => 'Mobile No',
+    'organization_no'    => 'Organization No',
 ];
 

@@ -22,7 +22,8 @@
                         @if (Route::is('admin.employee-add')) Create Employee @endif
                         @if (Route::is('admin.employeeEdit')) Edit Employee @endif 
                         @if (Route::is('admin-documentary-view')) Document @endif 
-                        @if (Route::is('admin.add-documentary')) Document Library @endif
+                        @if (Route::is('admin.add-documentary')) Create Document  @endif
+                        @if (Route::is('admin.documentaryEdit')) Edit Document @endif 
                         @if (Route::is('list-projects')) List Projects @endif                
                         @if (Route::is('create-projects')) Create Projects @endif                
                     </li>
@@ -52,7 +53,8 @@
                 @if (Route::is('admin.employee-add')) Create Employee @endif
                 @if (Route::is('admin.employeeEdit')) Edit Employee @endif
                 @if (Route::is('admin-documentary-view')) Document @endif
-                @if (Route::is('admin.add-documentary'))  Document Library @endif
+                @if (Route::is('admin.documentaryEdit')) Edit Document @endif 
+                @if (Route::is('admin.add-documentary')) Create Document @endif
                 @if (Route::is('list-projects')) List Projects @endif                
                 @if (Route::is('create-projects')) Create Projects @endif                   
             </h4>

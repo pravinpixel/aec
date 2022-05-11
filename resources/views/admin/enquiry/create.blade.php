@@ -47,6 +47,13 @@
                                             </datalist>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" > @lang('customer.organization_no') <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="organization_no" id="organization_no"   ng-model="module.organization_no" placeholder="Type Here..." ng-required="true">
+                                        </div>
+                                    </div>   
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" > @lang('customer.contact_person') <sup class="text-danger">*</sup></label>

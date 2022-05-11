@@ -55,7 +55,7 @@
                                 
                                     <div class="text-end mt-3">
                                         <button type="reset" ng-click="cancelForm();" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                                        <button ng-click="submit(module_enquirie.id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
+                                        <button ng-click="submit(module_enquirie.id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Save </button>
                                     </div>
                                 </div>
                             </form>
@@ -85,10 +85,10 @@
                     </div>
                     <div class="card shadow-lg mb-0 mt-3">
                         <div class="card-body p-4">
-                            <strong>Customer</strong> 
+                            <strong>Others</strong> 
                             <br>
                             <div id="userData"></div>
-                            <!-- <div ng-repeat="(key,value) in customer_module">@{{key}} : <a>{ @{{value}} }</a></div> -->
+                
                         </div>
                     </div>
                     </div>

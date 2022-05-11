@@ -410,6 +410,7 @@ class EnquiryController extends Controller
             $data = [
                 'customer_enquiry_date' => $request->customer_enquiry_date,
                 'company_name'          => $request->company_name,
+                'organization_no'       => $request->organization_no,
                 'contact_person'        => $request->contact_person,
                 'remarks'               => $request->remarks,
                 'mobile_no'             => $request->mobile_no,
@@ -494,7 +495,8 @@ class EnquiryController extends Controller
         if( empty($customer) ) {
             return response(['status' => false, 'msg' => trans('enquiry.item_not_found')],  Response::HTTP_OK);
         }
-        $customer->company_name   = $request->company_name;
+        $customer->company_name    = $request->company_name;
+        $customer->organization_no = $request->organization_no;
         $customer->contact_person = $request->contact_person;
         $customer->mobile_number  = $request->mobile_number;
         $customer->email          = $request->email;

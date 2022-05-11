@@ -58,22 +58,21 @@
             </li> 
             {{-- <li class="side-nav-title side-nav-item mt-1">Sales</li> --}}
             @if(userHasAccess('enquiry_index') || userHasAccess('contract_index'))
-            <li class="side-nav-item {{ Route::is(["view-enquiry","admin.enquiry-create"]) ? "menuitem-active" : ""}}">
+            <li class="side-nav-item {{ Route::is(["view-enquiry","admin.enquiry-create","admin-documentary-view","admin.documentaryEdit","admin.add-documentary"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Sales" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                     <span> Sales </span>
                     <span class="menu-arrow"></span>
                 </a>
-              
-                <div class="collapse {{ Route::is("view-enquiry","admin.enquiry-create") ? "show" : ""}}" id="Sales">
+                <div class="collapse {{ Route::is(["view-enquiry","admin.enquiry-create","admin-documentary-view","admin.documentaryEdit","admin.add-documentary"]) ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
                         @if(userHasAccess('enquiry_index'))
-                        <li class="{{ Route::is("view-enquiry","admin.enquiry-create") ? "menuitem-active" : ""}}">
+                        <li class="{{ Route::is(["view-enquiry","admin.enquiry-create"]) ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin.enquiry-list') }}">@lang('menu.enquiries')</a>
                         </li>
                         @endif
                         @if(userHasAccess('contract_index'))
-                        <li class="{{ Route::is(["admin-documentary-view","admin.admin-documentary-view","admin.admin-documentary-view"]) ? "menuitem-active" : ""}}">
+                        <li class="{{ Route::is(["admin-documentary-view","admin.documentaryEdit","admin.add-documentary"]) ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin-documentary-view') }}">Contract </a>
                         </li> 
                         @endif

@@ -24,6 +24,7 @@ class Customer extends Model
         'password',
         'mobile_no',
         'company_name',
+        'organization_no',
         'contact_person',
         'remarks',
         'postal_code',

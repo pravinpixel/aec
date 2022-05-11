@@ -28,6 +28,7 @@ class CreateCustomersTable extends Migration
             $table->string('state')->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable();
+            $table->string('organization_no')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('remarks')->nullable();
             $table->boolean('is_active')->default(true);

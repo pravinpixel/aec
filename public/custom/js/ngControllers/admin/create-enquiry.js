@@ -7,6 +7,7 @@ app.controller('SalesController', function ($scope, $http, API_URL, $window) {
     $scope.save = function (modalstate, id) {
         $scope.data = {
             company_name            :   $scope.module.company_name, 
+            organization_no         :   $scope.module.organization_no, 
             project_name            :   $scope.module.project_name, 
             contact_person          :   $scope.module.contact_person,
             mobile_no               :   $scope.module.mobile_number,
@@ -35,11 +36,13 @@ app.controller('SalesController', function ($scope, $http, API_URL, $window) {
         .then(function successCallback(res){
             $scope.companyList = res.data.entries.slice(0, 50)
                 .map((item) => {
-                    return {'company':item.navn, 'mobile': item.tlf_mobil} 
+                    return {'company':item.navn, 'mobile': item.tlf_mobil, 'organization_no': item.orgnr} 
                 });
                 if($scope.companyList.length == 1) {
+                    console.log($scope.companyList[0]);
                     $scope.module.company_name = $scope.companyList[0].company;
                     $scope.module.mobile_number = $scope.companyList[0].mobile.split(" ").join("");
+                    $scope.module.organization_no = $scope.companyList[0].organization_no;
                 }
         }, function errorCallback(error){
             console.log(error);
