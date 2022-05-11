@@ -85,7 +85,7 @@
                                             <td>@{{ enquiry.project_infos.zipcode }}</td>
                                         </tr> 
                                         <tr ng-if="enquiry.project_infos.place != null">
-                                            <td><b>Place</b></td>
+                                            <td><b>City</b></td>
                                             <td>:</td>
                                             <td>@{{ enquiry.project_infos.place }}</td>
                                         </tr> 
@@ -232,6 +232,9 @@
                                                     <a target="_blank" href="@{{ ifc_model.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                                 </td>
                                             </tr>
+                                            <tr  ng-show="!enquiry.ifc_model_uploads.length">
+                                                <td colspan="5"> No data found </td>
+                                            </tr>
                                         </tbody>
                                     </thead>
                                 </table>
@@ -328,6 +331,9 @@
                                                     </table>
                                                 </td>
                                             </tr>  
+                                            <tr ng-show="!enquiry.building_components.length">
+                                                <td colspan="5">No data found</td>
+                                            </tr>
                                         </tbody>
                                     
                                     </table> 
@@ -366,6 +372,9 @@
                                                         <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
                                                         <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                                     </td>
+                                                </tr>
+                                                <tr ng-show="!enquiry.building_components.length">
+                                                    <td colspan="5">No data found</td>
                                                 </tr>
                                             </tbody>
                                         </thead>
