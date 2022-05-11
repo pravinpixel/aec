@@ -1512,6 +1512,8 @@
                         $scope[`${view_type}showProgress`] = false;
                         deffered.resolve(response);
                     },function (response) {
+                        $scope[`${view_type}showProgress`] = false;
+                        Message("danger", "Something went wrong try again");
                         deffered.reject(response);
                     });
                     return deffered.promise;

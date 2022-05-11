@@ -1,5 +1,5 @@
 
-app.directive('viewlist', function(API_URL, $http) {
+app.directive('viewlist', function(API_URL, $http, $route, $templateCache) {
     var directive = {};
     directive.restrict = 'E';
     directive.templateUrl = `${API_URL}customers/view-list`;
@@ -17,6 +17,9 @@ app.directive('viewlist', function(API_URL, $http) {
                         Message('danger', res.data.msg);
                         return false;
                     }
+                    var currentPageTemplate = $route.current.templateUrl;
+                    $templateCache.remove(currentPageTemplate);
+                    $route.reload();
                     window.open(`${API_URL}viewmodel/${document_id}`);
                 }, function error(res) {
 

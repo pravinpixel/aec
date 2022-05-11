@@ -270,7 +270,7 @@ class EnquiryController extends Controller
         $view_type =  $request->input('view_type');
         $link =  $request->input('link');
         $documents =  $this->documentTypeRepo->findBySlug($view_type);
-        $additionalData = ['date'=> now(), 'file_name' => $link, 'client_file_name' => $link, 'file_type' => 'link' , 'status' => 'In progress'];
+        $additionalData = ['date'=> now(), 'file_name' => $link, 'client_file_name' => $link, 'file_type' => 'link' , 'status' => 'Completed'];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
         return $enquiry->id;
     }
@@ -297,7 +297,8 @@ class EnquiryController extends Controller
         $original_name      =   $request->file('file')->getClientOriginalName();
         $extension          =   $request->file('file')->getClientOriginalExtension();
         $documents          =   $this->documentTypeRepo->findBySlug($view_type);
-        $additionalData     =   ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name,'file_type' => $extension , 'status' => 'In progress'];
+        $status = !in_array($extension,config('global.autodesk_upload_file_type')) ? 'Completed' :   'In progress';
+        $additionalData     =   ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name,'file_type' => $extension , 'status' => $status];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
         $autoDesk = new  AutodeskForgeController(new  AutoDeskRepository);
         $autoDesk->uploadfile($path, $enquiry, $request);
