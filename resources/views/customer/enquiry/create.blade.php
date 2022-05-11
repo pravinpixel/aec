@@ -731,17 +731,18 @@
                                 }); 
                             }
                         });
+                    } else {
+                        $http({
+                            method: 'POST',
+                            url: '{{ route('customers.store-enquiry') }}',
+                            data: {type: 'building_component', 'data': $scope.wallGroup}
+                        }).then(function (res) {
+                            $location.path('/additional-info')
+                            Message('success', `Building Component updated successfully`);
+                        }, function (error) {
+                            Message('error', `Somethig went wrong`);
+                        }); 
                     }
-                    $http({
-                        method: 'POST',
-                        url: '{{ route('customers.store-enquiry') }}',
-                        data: {type: 'building_component', 'data': $scope.wallGroup}
-                    }).then(function (res) {
-                        $location.path('/additional-info')
-                        Message('success', `Building Component updated successfully`);
-                    }, function (error) {
-                        Message('error', `Somethig went wrong`);
-                    }); 
                     return false;
                 }
                 

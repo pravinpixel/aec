@@ -648,8 +648,8 @@
                                 }); 
                             }
                         });
-                    }
-                    $http({
+                    } else {
+                        $http({
                             method: 'POST',
                             url: '{{ route('customers.update-enquiry', $id) }}',
                             data: {type: 'building_component', 'data': $scope.wallGroup}
@@ -659,6 +659,8 @@
                         }, function (error) {
                             Message('error', `Somethig went wrong`);
                         }); 
+                  
+                    }
                   
                     return false;
                 }
