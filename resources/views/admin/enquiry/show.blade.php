@@ -763,6 +763,21 @@
             });
             $scope.UpdateCostEstimate  = function() {  
                 console.log($scope.CostEstimate);
+                if($scope.CostEstimate.Components.length == 0){
+                    Message('danger', "You Can't Update Empty Data");
+                    return false;
+                }
+                $status = $scope.CostEstimate.Components.forEach((item) => {
+                    if(item.Component == '' || typeof(item.Component) == 'undefined') {
+                        Message('danger', "You Can't Update Empty Data");
+                        return false;
+                    }
+                    if(item.Type == '' || typeof(item.Type) == 'undefined') {
+                        Message('danger', "You Can't Update Empty Data");
+                        return false;
+                    }
+                });
+                if($status == false) {return false};
                 $http({
                     method: "POST",
                     url: "{{ route('enquiry-create.cost-estimate-value') }}",
