@@ -52,6 +52,12 @@ class RoleRepository implements RoleRepositoryInterface{
         return  $role;
         
     }
+
+    public function show($id)
+    {
+        return $this->model->find($id);
+    }
+
     public function find($id)
     {
         $roles = Employee::where('job_role', $id)->get();

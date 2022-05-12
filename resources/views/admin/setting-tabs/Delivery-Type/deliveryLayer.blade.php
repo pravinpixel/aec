@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table datatable="ng" dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+        <table  dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -16,7 +16,7 @@
             </thead>
         
             <tbody>
-                <tr ng-repeat="(index,deliveryLayer) in deliveryLayer_module_get">
+                <tr ng-repeat="(index,deliveryLayer) in deliveryLayer_module_get track by deliveryLayer.id">
                     
                     <td class="align-items-center">@{{ deliveryLayer.delivery_type_name }}</td>
 
