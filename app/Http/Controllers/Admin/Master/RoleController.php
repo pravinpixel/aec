@@ -61,7 +61,7 @@ class RoleController extends Controller
     {
 
         return response()->json([
-            'data' => $this->roleRepository->find($id)
+            'data' => $this->roleRepository->show($id)
         ]);
     }
 
