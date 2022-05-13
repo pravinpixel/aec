@@ -411,7 +411,11 @@
                         </div>
                         <div id="add_info" class="additional_info accordion-collapse custom-accordion-collapse collapse  " aria-labelledby="add_info">
                             <div class="accordion-body">
-                                <div ng-bind-html="enquiry.additional_infos.comments"> </div>
+                                {{-- <div ng-bind-html="enquiry.additional_infos.comments"> </div> --}}
+                                <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
+                                    <div dx-html-editor="htmlEditorOptions" contenteditable="false"> </div>
+                                    </div>
+                                </div>
                                 <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Customer')" class="input-group mt-3">
                                     <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
