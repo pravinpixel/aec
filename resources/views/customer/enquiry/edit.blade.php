@@ -336,13 +336,12 @@
                 return Object.assign({}, $scope.serviceList);
             }
             $scope.changeService = function(list, active){
-                console.log($scope.serviceList,'active');
-                console.log(active,'active');
                 if (active) {
-                    $scope.serviceList.push(list);
+                    if($scope.serviceList.indexOf(list) == -1)  $scope.serviceList.push(list);
                 }else {
                     if($scope.serviceList.indexOf(list) > -1)  $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
                 }
+           
             };
             $scope.submitService = () => {
                 $http({

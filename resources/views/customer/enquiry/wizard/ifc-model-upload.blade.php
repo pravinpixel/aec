@@ -31,7 +31,7 @@
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/service" class="btn btn-light border shadow-sm">Prev</a></li>
             <li class="next list-inline-item float-end"><input  class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
-            <li class="next list-inline-item float-end mx-2"><input class="btn btn-light border shadow-sm"   ng-click="saveAndSubmitIFC()" type="button" name="submit" value="Save and Submit"/></li>
+            <li class="next list-inline-item float-end mx-2"><input class="btn btn-light border shadow-sm"   ng-click="saveAndSubmitIFC()" type="button" name="submit" value="Save & Submit Later"/></li>
         </ul>
     </div>
 </form>
