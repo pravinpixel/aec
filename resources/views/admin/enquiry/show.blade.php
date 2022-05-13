@@ -250,6 +250,13 @@
                     $scope.ifc_model_uploads    = res.data.ifc_model_uploads;
                     $scope.building_components  = res.data.building_component;
                     $scope.additional_infos     = res.data.additional_infos;
+                    $scope.htmlEditorOptions = {
+                        height: 300,
+                        value:  res.data.additional_infos.comments,
+                        mediaResizing: {
+                        enabled: false,
+                        },
+                    };
                 });
             }
             $scope.showCommentsToggle = function (modalstate, type, header) {

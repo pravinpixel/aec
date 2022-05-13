@@ -96,6 +96,13 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                         $scope.building_components  = response.data.building_component;
                         $scope.additional_infos     = response.data.additional_infos;
                         $scope.enqData = response.data;  
+                        $scope.htmlEditorOptions = {
+                            height: 300,
+                            value:  response.data.additional_infos.comments,
+                            mediaResizing: {
+                            enabled: false,
+                            },
+                        };
                         $('#enquiry-qucik-view-model').modal('show');
                     });
                 
