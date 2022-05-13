@@ -252,6 +252,7 @@
             <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li>
              <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="showHideBuildingComponent == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
             <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent()"  ng-show="showHideBuildingComponent == 1" ng-disabled="buildingComponentUploads.length == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
+            <li class="next list-inline-item float-end mx-2"><input class="btn btn-light border shadow-sm" g-show="showHideBuildingComponent == 0" ng-click="saveAndSubmitBuildingComponent()" type="button" name="submit"  value="Save and Submit"/></li>
         </ul>
     </div>
 </form>

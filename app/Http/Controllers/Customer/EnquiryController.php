@@ -97,15 +97,13 @@ class EnquiryController extends Controller
 
     public function myEnquiriesApprove($type , $id)
     {
-        $result =   Enquiry::find($id)->with(['getProposal'=> function($q){
-            $q->where(['status' => 'sent'])->latest()->first();
-        }])->first();
+        $result =   Enquiry::find($id)->first();
+        $getProposal = MailTemplate::where('enquiry_id', $id)->latest()->first();
         if($result->project_status != 'Unattended') {
             return 'Proposal already Approved !';
         }
-        $proposal_id        =   $result->getProposal[0]->proposal_id;
+        $proposal_id        =   $getProposal->proposal_id;
         if($type == 'preview') {
-        
             $proposal           =   MailTemplate::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
             $proposal_version   =   PropoalVersions::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
             if(empty($proposal_version)) {

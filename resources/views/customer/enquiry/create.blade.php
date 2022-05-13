@@ -348,6 +348,21 @@
                     console.log(`storeprojectinfo ${error}`);
                 }); 
             }
+
+            $scope.ProjectInfoSaveAndSubmit = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'project_info', 'data': getProjectInfoInptuData($scope.projectInfo)}
+                }).then(function (res) {
+                    Message('success','Project Information inserted successfully');
+                    return false;
+                }, function (error) {
+                    console.log(`storeprojectinfo ${error}`);
+                }); 
+                return false;
+
+            }
         }); 
 
         app.controller('Service', function ($scope, $http, $rootScope, Notification, API_URL, $location){
@@ -411,6 +426,20 @@
                 }).then(function (res) {
                     $location.path('/ifc-model-upload')
                     Message('success','Service selection inserted successfully');
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });         
+            }
+
+            $scope.saveAndSubmitService = () => {
+                console.log('called');
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'services', 'data': getServiceSelectionInptuData()}
+                }).then(function (res) {
+                    Message('success','Service selection saved successfully');
+                    return false;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });         
@@ -749,6 +778,66 @@
                 if($scope.showHideBuildingComponent == 1) { $location.path('/additional-info'); return false;}
                 
             }
+
+            $scope.saveAndSubmitBuildingComponent = () => {
+                let isValidField = true;
+                if($scope.showHideBuildingComponent == 0) {
+                    $scope.wallGroup.forEach((wall) => {
+                        if( wall.Details.length > 0) {
+                            wallName = wall.WallName;
+                            wall.Details.forEach((detail, index) => {
+                                wallIndex = index + 1;
+                                if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    return false;
+                                } if(detail.DeliveryType == '' || typeof(detail.DeliveryType) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    return false;
+                                } if(detail.TotalArea == '' || typeof(detail.TotalArea) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    return false;
+                                }
+                                if( detail.Layers.length > 0) {
+                                    detail.Layers.forEach((layer) => {
+                                        if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            return false;
+                                        } if(layer.Breadth == '' || typeof(layer.Breadth) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            return false;
+                                        } if(layer.Thickness == ''|| typeof(layer.Thickness) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            return false;
+                                        }
+                                    });
+                                }
+                            return false;
+                            });
+                        }
+                    });
+                }
+                if(isValidField == false) { return false;}
+                if($scope.showHideBuildingComponent == 0) {
+                    $http({
+                            method: 'POST',
+                            url: '{{ route('customers.store-enquiry') }}',
+                            data: {type: 'building_component', 'data': $scope.wallGroup}
+                        }).then(function (res) {
+                            Message('success', `Building Component saved successfully`);
+                            return false;
+                        }, function (error) {
+                            Message('error', `Somethig went wrong`);
+                        }); 
+                    return false;
+                }
+                return false;
+            }
             $scope.AddWallDetails  =   function(index) {
                 $scope.wallGroup[index].Details.push({
                     "FloorName" : "",
@@ -939,6 +1028,21 @@
 
                 });
             }  
+
+            $scope.saveAndSubmitAdditionalinfoForm = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'additional_info', 'data':  $(".dx-htmleditor-content").html()}
+                }).then(function (res) {
+                    Message('success',`Comments saved successfully`);
+                    return false;
+                }, function (error) {
+        
+                    Message('danger',`additional info ${error}`);
+
+                });
+            }  
         });
 
 
@@ -1078,9 +1182,16 @@
                     $scope.outputTypes = res.data.services;
                     $scope.ifc_model_uploads = res.data.ifc_model_uploads;
                     $scope.building_components = res.data.building_components;
-                    $scope.additional_infos = res.data.additional_infos;
                     $scope.enquiry_active_comments = res.data.enquiry_active_comments;
                     $scope.enquiry_comments = res.data.enquiry_comments;
+                    $scope.htmlEditorOptions = {
+                        height: 300,
+                        value:  res.data.additional_infos.comments,
+                        contentEditable: false,
+                        mediaResizing: {
+                        enabled: true,
+                        },
+                    };
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -1319,6 +1430,20 @@
                         $location.path('/building-component');
                         Message('success',`IFC Models added successfully`);
                     }
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                }); 
+                
+            }
+
+            $scope.saveAndSubmitIFC  = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route('customers.store-enquiry') }}',
+                    data: {type: 'ifc_model_upload_mandatory', 'data': false}
+                }).then(function (res) {
+                    Message('success',`IFC Models saved successfully`);
+                    return false;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 }); 

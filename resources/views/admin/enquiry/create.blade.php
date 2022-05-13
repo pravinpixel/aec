@@ -43,7 +43,7 @@
                                             <label class="form-label" for="validationCustom01"> @lang('customer.company_name') <sup class="text-danger">*</sup></label>
                                             <input type="text"  name="company_name" id="validationCustom01" class="form-control"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(module.company_name)" ng-model="module.company_name" />
                                             <datalist id="companyList">
-                                                <option ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
+                                                <option ng-click="getCompanyByName(module.company_name)" ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
                                             </datalist>
                                         </div>
                                     </div>
