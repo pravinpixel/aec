@@ -355,7 +355,7 @@
                     url: '{{ route("customers.store-enquiry") }}',
                     data: {type: 'project_info', 'data': getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
-                    Message('success','Project Information inserted successfully');
+                    Message('success','Project Information saved successfully');
                     return false;
                 }, function (error) {
                     console.log(`storeprojectinfo ${error}`);
