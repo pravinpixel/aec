@@ -1218,7 +1218,7 @@
                             Swal.fire({
                                 title: `Enquiry submitted successfully`,
                                 showDenyButton: false,
-                                showCancelButton: false;
+                                showCancelButton: false,
                                 confirmButtonText: 'Ok',
                                 }).then((result) => {
                                 if (result.isConfirmed) {
