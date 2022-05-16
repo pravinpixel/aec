@@ -65,7 +65,7 @@ class EnquiryController extends Controller
     public function myEnquiries() 
     {
         $data['new_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'In-Complete'])->get();
-        $data['active_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'Active'])->get();
+        $data['active_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'Submitted'])->get();
         $data['complete_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'Completed'])->get();
         return view('customer.enquiry.index',compact('data',  $data )); 
     }
@@ -241,7 +241,7 @@ class EnquiryController extends Controller
             return response($result);
         } else if($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
-            if($status == 'Active') {
+            if($status == 'Submitted') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
                 return response(['status' => true, 'msg' => 'submitted']);
             }
@@ -380,7 +380,7 @@ class EnquiryController extends Controller
             return response($result);
         } else if($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
-            if($status == 'Active') {
+            if($status == 'Submitted') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
                 return response(['status' => true, 'msg' => 'submitted']);
             }
@@ -421,6 +421,7 @@ class EnquiryController extends Controller
             $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         }
         $result['active_tabs'] = $this->getActiveTabs($enquiry);
+        $result["enquiry_active_comments"] = $this->enquiryCommentsRepo->getActiveCommentsCountByType($enquiry->id)->pluck('comments_count', 'type');
         return $result;
     }
 
@@ -674,7 +675,7 @@ class EnquiryController extends Controller
                             ->when($projetType, function($q) use($projetType){
                                 $q->where('project_type_id', $projetType);
                             })
-                            ->where(['status' => 'Active' , 'customer_id' => Customer()->id]);
+                            ->where(['status' => 'Submitted' , 'customer_id' => Customer()->id]);
                             
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){

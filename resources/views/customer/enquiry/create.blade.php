@@ -99,7 +99,6 @@
         </div> <!-- content --> 
 
     </div>  
-    @include('customer.enquiry.models.chat-box')
 @endsection
  
 
@@ -140,6 +139,7 @@
         });
  
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
+            $scope.commentShow = false;
             $scope.enquiry_date = new Date();
             $scope.enquiry_number = 'Draft';
             $("#project-info").addClass('active');
@@ -164,7 +164,8 @@
                         enableActiveTabs({'project_info': 1,'service': 0, 'ifc_model_upload' :0, 'building_component': 0, 'additional_info':0});
                         if(res.data.status == "false") {
                             $scope.customer_enquiry_number = res.data.customer_enquiry_number;
-                            enquiry_id = res.data.enquiry_id
+                            enquiry_id = res.data.enquiry_id;
+                            $scope.enquiry_id = enquiry_id;
                             getLastEnquiry(enquiry_id);
                         } else {
                             $scope.customer_enquiry_number = res.data.enquiry.customer_enquiry_number;
@@ -366,6 +367,7 @@
         }); 
 
         app.controller('Service', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+            $scope.commentShow = false;
             $scope.serviceList = [];
             $("#service").addClass('active');
             let enquiry_id;
@@ -375,7 +377,8 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
+                        $scope.enquiry_id = enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
@@ -448,6 +451,7 @@
         });
         
         app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload, $timeout) { 
+            $scope.commentShow = false;
             $scope.fileUploaded = false;
             $scope.wallGroup = [];
             $scope.layerAdd = true;
@@ -461,7 +465,7 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
@@ -741,7 +745,7 @@
                     });
                     if(skipUploads.length > 0) {
                         Swal.fire({
-                            title: `Do you want to skip the ${skipUploads.join(',')}?`,
+                            title: `${skipUploads.join(',')} are missing, Do you still want to skip ?`,
                             showDenyButton: false,
                             showCancelButton: true,
                             cancelButtonText: 'No',
@@ -946,6 +950,7 @@
 
 
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+            
             $("#additional-info").addClass('active');
             let enquiry_id;
             $http({
@@ -954,7 +959,8 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
+                        $scope.enquiry_id = enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
@@ -1055,7 +1061,7 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
                         
                         getLastEnquiry(enquiry_id);
                     } else {
@@ -1210,11 +1216,10 @@
                         });
                         if(response.data.msg == 'submitted') {
                             Swal.fire({
-                                title: `Enquiry submitted successfully are you want to leave the page?`,
+                                title: `Enquiry submitted successfully`,
                                 showDenyButton: false,
-                                showCancelButton: true,
-                                cancelButtonText: 'No',
-                                confirmButtonText: 'Yes',
+                                showCancelButton: false;
+                                confirmButtonText: 'Ok',
                                 }).then((result) => {
                                 if (result.isConfirmed) {
                                     location.href = '{{ route('customers-my-enquiries') }}'
@@ -1310,6 +1315,7 @@
             }
         });
         app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location, fileUpload ){
+            $scope.commentShow = false;
             $("#ifc-model-upload").addClass('active');
             $scope.documentLists = [];
             $scope.mandatory = [];
@@ -1320,7 +1326,8 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
+                        $scope.enquiry_id = enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;

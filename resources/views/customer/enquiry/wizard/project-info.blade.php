@@ -113,6 +113,19 @@
             </div>
         </div>
     </div>
+            {{-- <form id="project_information__commentsForm" ng-submit="sendComments('project_information','Customer')" class="input-group mt-3">
+                                            <input required type="text" ng-model="project_information__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                        </form>   --}}
+                                         
+    <comment ng-show="commentShow" data="
+    {'modalState':'viewConversations',
+    'type': 'project_information', 
+    'header':'Project Information',
+    'enquiry_id':enquiry_id,
+    send_by: {{ Customer()->id }}
+    }">
+    </comment>
     <div class="card-footer border-0 p-0">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#" class="btn btn-light border shadow-sm">Prev</a></li>
@@ -121,7 +134,6 @@
         </ul>
     </div>
 </form>
-
 <style> 
     .projectInfoForm .timeline-step .inner-circle{
         background: var(--secondary-bg) !important;

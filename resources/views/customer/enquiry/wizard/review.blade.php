@@ -350,17 +350,16 @@
             <div class="col-6 text-end" ng-show="project_info.status == 'In-Complete'">
                 <div class="btn-group">
                     <button class="next me-2 btn btn-light rounded border"  ng-click="saveOrSubmit('In-Complete')"> Save & Submit Later </button>
-                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Active')">Submit </button>
+                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Submitted')">Submit </button>
                 </div>
             </div>
             <div class="col-6 text-end" ng-show="project_info.status == 'Active' ">
                 <div class="btn-group">
-                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Active')">Submit </button>
+                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Submitted')">Submit </button>
                 </div>
             </div>
         </div>
     </div>
-    @include('customer.enquiry.models.chat-box')
 </div>
 <style> 
     .reviewSubmit .timeline-step .inner-circle{

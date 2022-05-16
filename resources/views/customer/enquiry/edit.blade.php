@@ -21,7 +21,7 @@
             <div class="card border">
                 <div class="card-body pt-0 pb-0">
                                
-                    <div id="rootwizard" ng-controller="wizard">
+                    <div id="rootwizard" ng-controller="wizard" style="display: none">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                             <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"> 
                                 <a href="#!/" style="min-height: 40px;" class="timeline-step  {{$enquiry->project_info == '1' ? "active" : ""}} " id="project-info">
@@ -29,7 +29,13 @@
                                         <div class="inner-circle projectInfoForm bg-success">
                                             <i class="fa fa-project-diagram fa-2x "></i>
                                         </div>       
-                                        <div class="text-end d-none d-sm-inline mt-2">Project Information</div>                                                                 
+                                     
+                                        <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.project_information > 0}">
+                                            Project Information
+                                            <span ng-show="enquiry_active_comments.project_information > 0" class="enquiry__comments__alert">
+                                                @{{ enquiry_active_comments.project_information   }}
+                                            </span>
+                                        </div>                                                             
                                     </div> 
                                 </a>
                             </li>
@@ -38,8 +44,13 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
-                                        </div>        
-                                        <span class="d-none d-sm-inline mt-2">Service Selection</span>                                                                
+                                        </div>      
+                                        <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.service > 0}">
+                                            Service Selection
+                                            <span ng-show="enquiry_active_comments.service > 0"  class="enquiry__comments__alert">
+                                                @{{ enquiry_active_comments.service   }}
+                                            </span>
+                                        </div>                              
                                     </div> 
                                 </a>
                             </li>
@@ -48,10 +59,14 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
-                                        </div>                                                                        
-                                        <span class="d-none d-sm-inline mt-2">IFC Model & Uploads</span>
+                                        </div>        
+                                        <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.ifc_model > 0}">
+                                            IFC Model & Uploads
+                                            <span ng-show="enquiry_active_comments.ifc_model > 0" class="enquiry__comments__alert">
+                                                @{{ enquiry_active_comments.ifc_model   }}
+                                            </span>
+                                        </div>                                                                  
                                     </div>
-                                    
                                 </a>
                             </li>
                             <li class="nav-item buildingComponent" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent">
@@ -59,8 +74,14 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
-                                        </div>                                                                        
-                                        <span class="d-none d-sm-inline mt-2">Building  Components</span>
+                                        </div>              
+                                        <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.building_components > 0}">
+                                            Building  Components
+                                            <span ng-show="enquiry_active_comments.building_components > 0" class="enquiry__comments__alert">
+                                                @{{ enquiry_active_comments.building_components   }}
+                                            </span>
+                                        </div>                                                            
+                                    
                                     </div> 
                                 </a>
                             </li>
@@ -69,8 +90,14 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-info mb-1"></i>
-                                        </div>       
-                                        <span class="d-none d-sm-inline mt-2">Additional Info</span>                                                                 
+                                        </div>   
+                                        <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.add_info > 0}">
+                                            Additional Info
+                                            <span ng-show="enquiry_active_comments.add_info > 0" class="enquiry__comments__alert">
+                                                @{{ enquiry_active_comments.add_info   }}
+                                            </span>
+                                        </div>             
+                                                                                              
                                     </div>
                                 </a>
                             </li>
@@ -79,8 +106,10 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-clipboard-check mb-1"></i>
-                                        </div>                   
-                                        <span class="d-none d-sm-inline mt-2">Review &  Submit </span>                                                     
+                                        </div>          
+                                        <div class="pt-1 mt-2 position-relative">
+                                            Review &  Submit
+                                        </div>                                                   
                                     </div> 
                                 </a>
                             </li>
@@ -133,11 +162,21 @@
         }); 
         app.controller('wizard', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $location.path('/{{$activeTab}}');
+            $scope.enquiry_id = {{$id}};
+            $http({
+                method: 'GET',
+                url: `${API_URL}customers/get-customer-enquiry/${$scope.enquiry_id}/project_info`,
+            }).then(function (res) {
+                $("#rootwizard").show();
+                enableActiveTabs(res.data.active_tabs);
+                $scope.enquiry_active_comments = res.data.enquiry_active_comments;
+            });
         });
       
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
-            
+            $scope.commentShow = true;
             let enquiry_id = {{$id}};
+            $scope.enquiry_id = {{$id}};
             // console.log('enquiry_id',enquiry_id);
             $http({
                 method: 'GET',
@@ -290,9 +329,10 @@
         
 
         app.controller('Service', function ($scope, $http, $rootScope, Notification, API_URL, $location){
-         
+            $scope.commentShow = true;
             $scope.serviceList = [];
             let enquiry_id = {{$id}};
+            $scope.enquiry_id = {{$id}};
             $http({
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
@@ -372,12 +412,14 @@
         });
         
         app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload ) { 
+            $scope.commentShow = true;
             $scope.wallGroup = [];
             $scope.layerAdd = true;
             $scope.callTemplate = true;
             $scope.fileUploaded = false;
             $scope.buildingComponentUploads = [];
             let enquiry_id = {{$id}};
+            $scope.enquiry_id = {{$id}};
             $http({
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
@@ -658,7 +700,7 @@
                     });
                     if(skipUploads.length > 0) {
                         Swal.fire({
-                            title: `Do you want to skip the ${skipUploads.join(',')}?`,
+                            title: `${skipUploads.join(',')} are missing, Do you still want to skip ?`,
                             showDenyButton: false,
                             showCancelButton: true,
                             cancelButtonText: 'No',
@@ -854,6 +896,7 @@
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
 
             let enquiry_id = {{$id}};
+            $scope.enquiry_id = {{$id}};
             $http({
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
@@ -1012,7 +1055,6 @@
                     $scope.outputTypes = res.data.services;
                     $scope.ifc_model_uploads = res.data.ifc_model_uploads;
                     $scope.building_components = res.data.building_components;
-                    $scope.enquiry_active_comments = res.data.enquiry_active_comments;
                     $scope.enquiry_comments = res.data.enquiry_comments;
                     $scope.htmlEditorOptions = {
                         height: 300,
@@ -1038,10 +1080,9 @@
                         });
                         if(response.data.msg == 'submitted') {
                             Swal.fire({
-                                title: `Enquiry submitted successfully are you want to leave the page ?`,
+                                title: `Enquiry submitted successfully`,
                                 showDenyButton: false,
-                                showCancelButton: true,
-                                confirmButtonText: 'Yes',
+                                showCancelButton: false,
                                 cancelButtonText: 'No',
                                 }).then((result) => {
                                 if (result.isConfirmed) {
@@ -1141,10 +1182,12 @@
         });
 
         app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location,  $timeout, fileUpload){
+            $scope.commentShow = true;
             $("#ifc-model-upload").addClass('active');
             $scope.documentLists = [];
             $scope.mandatory = [];
             let enquiry_id = {{$id}};
+            $scope.enquiry_id = {{$id}};
             $http({
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'

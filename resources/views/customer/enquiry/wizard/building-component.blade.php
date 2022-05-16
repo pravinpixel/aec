@@ -244,6 +244,14 @@
             </div> 
         </div> 
     </div> 
+    <comment  ng-show="commentShow" data="
+    {'modalState':'viewConversations',
+    'type': 'building_components', 
+    'header':'Building Components',
+    'enquiry_id':enquiry_id,
+    send_by: {{ Customer()->id }}
+    }">
+    </comment>
     @include('customer.enquiry.models.add-layer-modal')
     @include('customer.enquiry.models.add-template-modal')
     @include('customer.enquiry.modal')

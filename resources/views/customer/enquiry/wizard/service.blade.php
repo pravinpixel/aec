@@ -23,6 +23,14 @@
             </div> 
         </div>
     </div>
+    <comment  ng-show="commentShow" data="
+    {'modalState':'viewConversations',
+    'type': 'service', 
+    'header':'Selected Services',
+    'enquiry_id':enquiry_id,
+    send_by: {{ Customer()->id }}
+    }">
+    </comment>
     <div class="card-footer border-0 p-0">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/" class="btn btn-light border shadow-sm">Prev</a></li>
