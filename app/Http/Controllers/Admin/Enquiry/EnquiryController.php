@@ -92,7 +92,7 @@ class EnquiryController extends Controller
             $dataDb = Enquiry::with(['projectType', 'technicalEstimate', 'costEstimate','comments'=> function($q){
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
-                            ->where(['status' => 'Active' , 'project_status' => 'Unattended'])
+                            ->where(['status' => 'Submitted' , 'project_status' => 'Unattended'])
                             ->when(userRole()->slug == config('global.technical_estimater'), function ($q) {
                                 return $q->whereHas('technicalEstimate', function($q){
                                     $q->where('assign_to', Admin()->id);
@@ -237,7 +237,7 @@ class EnquiryController extends Controller
             $dataDb = Enquiry::with(['projectType','comments'=> function($q){
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
-                            ->where(['status' => 'Active' , 'project_status' => 'Cancelled'])
+                            ->where(['status' => 'Submitted' , 'project_status' => 'Cancelled'])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
