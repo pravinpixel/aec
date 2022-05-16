@@ -894,7 +894,7 @@
             });
 
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
-
+            $scope.commentShow = true;
             let enquiry_id = {{$id}};
             $scope.enquiry_id = {{$id}};
             $http({

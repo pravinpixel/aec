@@ -950,7 +950,7 @@
 
 
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
-            
+            $scope.commentShow = false;
             $("#additional-info").addClass('active');
             let enquiry_id;
             $http({

@@ -351,7 +351,7 @@
                             </table> 
                         </div> 
                         <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="building_component__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                            <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">
