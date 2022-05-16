@@ -98,7 +98,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                         $scope.enqData = response.data;  
                         $scope.htmlEditorOptions = {
                             height: 300,
-                            value:  response.data.additional_infos.comments,
+                            value:  ( response.data.additional_infos == null) ? '':response.data.additional_infos.comments,
                             mediaResizing: {
                             enabled: false,
                             },

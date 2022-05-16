@@ -175,13 +175,14 @@
                         method: 'GET',
                         url: `${API_URL}customers/edit-enquiry-review/${id}`,
                     }).then(function (res){
+                       
                         $scope.enquiry = res.data;
                         $scope.enquiry_active_comments = res.data.enquiry_active_comments;
                         $scope.enquiry_comments = res.data.enquiry_comments;
                         $scope.enquiry_id = res.data.project_infos.enquiry_id;
                         $scope.htmlEditorOptions = {
                             height: 300,
-                            value:  $scope.enquiry.additional_infos.comments,
+                            value: ($scope.enquiry.additional_infos == null) ? '' : $scope.enquiry.additional_infos.comments,
                             contentEditable: false,
                             mediaResizing: {
                             enabled: true,

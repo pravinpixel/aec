@@ -252,7 +252,7 @@
                     $scope.additional_infos     = res.data.additional_infos;
                     $scope.htmlEditorOptions = {
                         height: 300,
-                        value:  res.data.additional_infos.comments,
+                        value: ( res.data.additional_infos == null ) ? '': res.data.additional_infos.comments,
                         mediaResizing: {
                         enabled: false,
                         },
