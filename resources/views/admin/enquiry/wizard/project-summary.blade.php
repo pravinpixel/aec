@@ -446,7 +446,7 @@
                 
             </div>
             <div>
-                <a href="#!/technical-estimation" class="btn btn-primary" ng-show="project_summary_status == 'Active'">Next</a>
+                <a href="#!/technical-estimation" class="btn btn-primary" ng-show="project_summary_status == 'Submitted'">Next</a>
             </div>
         </div>
     </div>

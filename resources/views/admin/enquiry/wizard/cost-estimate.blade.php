@@ -277,7 +277,7 @@
                 <a href="#!/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a ng-show="cost_estimation_status  != 0" href="#!/proposal-sharing"  class="btn btn-primary">Next</a>
+                <a ng-show="cost_estimation_status  != 0  && cost_estimate.assign_to == {{ Admin()->id }}" href="#!/proposal-sharing"  class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 
