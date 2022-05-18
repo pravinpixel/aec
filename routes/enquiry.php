@@ -47,6 +47,10 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
         return view('admin.enquiry.wizard.move-to-project');
     })->name('enquiry.move-to-project'); 
 
+    Route::get('/calculate-cost-estimation', function () {
+        return view('admin.enquiry.wizard.calculate-cost-estimate');
+    })->name('enquiry.calculate-cost-estimation');
+
 
     //  ****** Enquiery Proposal ******
     Route::get('/get-documentaryData', [MailTemplateController::class,'getDocumentaryData'])->name("get-documentaryData");

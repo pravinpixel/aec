@@ -22,6 +22,12 @@
         return true;
     }
 
+    function getNum (val) {
+        if (isNaN(val) || val == '') {
+            return 0;
+        }
+        return Number.parseFloat(val).toFixed(2);
+    }
 
     function enableActiveTabs(tabs) {
         (tabs.project_info == 0) ? $("#project-info").addClass('activeTab')  : $("#project-info").removeClass('activeTab');

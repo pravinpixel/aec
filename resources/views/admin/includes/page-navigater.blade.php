@@ -15,6 +15,7 @@
                         @if (Route::is('admin-estimation-single-view')) Estimation View @endif
                         @if (Route::is('admin-cost-estimation-view')) List of Cost Estimation's  @endif
                         @if (Route::is('cost-estimation-single-view'))Estimation Calculation View @endif
+                        @if (Route::is('calculate-cost-estimate'))Estimation Calculation View @endif
                         @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                         @if (Route::is('gantt-chart')) Gantt Chart @endif
                         @if (Route::is('admin-settings')) Setup @endif

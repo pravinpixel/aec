@@ -40,6 +40,43 @@ app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeo
     };
 }]);
 
+
+
+
+app.directive('pris', function () {
+    return {
+        restrict: 'E',
+        template: `{{ sumVal }}`,
+        scope: {
+            data: '=data',
+            type: '=pristype'
+        },
+        link: function(scope, element, attrs) {
+            scope.$watch('data', function(newVal, oldVal){
+                console.log(scope);
+                if(scope.type == 'detail'){
+                    let prisVal =  scope.data.ComponentsTotals.Statistics.Sum;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                } 
+                else if(scope.type == 'statistics') {
+                    let prisVal = scope.data.ComponentsTotals.Statistics.Sum ;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                } else if(scope.type == 'cad') {
+                    let prisVal = scope.data.ComponentsTotals.CadCam.PriceM2 ;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                } else if(scope.type == 'logistics') {
+                    let prisVal = scope.data.ComponentsTotals.Logistics.Sum ;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                } else if(scope.type == 'totalcost') {
+                    let prisVal = scope.data.ComponentsTotals.TotalCost.Sum ;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                }
+            }, true);
+            
+        }
+    };
+});
+
 angular.module('psi.sortable', [])
     .value('psiSortableConfig', {
         placeholder: "placeholder",

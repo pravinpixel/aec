@@ -124,4 +124,7 @@
     .form-select.ng-valid {
     border-bottom: 1px solid #008a60 !important
     }
+    .customer-danger {
+        color: red;
+    }
 </style>
