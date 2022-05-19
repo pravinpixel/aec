@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="table custom-responsive p-0">  
                                     {{-- <button class="btn btn-info btn-sm mb-2 pull-right" ng-click="addPrecasEstimate()">Add Precast Estimation </button> --}}
-                                    <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addEngineeringEstimate()">Add Wood Estimation </button>
+                                    <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addEngineeringEstimate()">Add New Type </button>
                                   
                                     <table class="cost-estimate-table table table-bordered border shadow-sm" ng-repeat="(rootKey,CostEstimate) in EngineeringEstimate track by $index">
                                         <thead>
