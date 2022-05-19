@@ -176,7 +176,7 @@
                                                     <input  type="text" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Rip.Sum"  name="Rip">
                                                 </td>
                                                 {{-- Total Cost --}}
-                                                <td><input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_price" ng-model="C.TotalCost.PriceM2"></td>
+                                                <td><input get-cost-details-total ng-keyup="getCostDetailsTotal(index)"  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_price" ng-model="C.TotalCost.PriceM2"></td>
                                                 <td><input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_sum" ng-model="C.TotalCost.Sum"></td>
                                                 <td class="text-center" style="padding: 0 !important">
                                                     <i ng-click="delete(rootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
@@ -671,15 +671,20 @@
                         scope.CostEstimate.Components[scope.index].Statistics.Sum       =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 );
                         scope.CostEstimate.Components[scope.index].Logistics.Sum        =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 );
                         scope.CostEstimate.Components[scope.index].CadCam.Sum           =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2 );
-                        scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =   getNum(Number(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
+                        if( scope.CostEstimate.Components[scope.index].building_component_id != 6){
+                            scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =   getNum(Number(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
                                                                                             Number(scope.CostEstimate.Components[scope.index].Statistics.PriceM2)  + 
                                                                                             Number(scope.CostEstimate.Components[scope.index].CadCam.PriceM2)      + 
                                                                                             Number(scope.CostEstimate.Components[scope.index].Logistics.PriceM2));
                 
-                        scope.CostEstimate.Components[scope.index].TotalCost.Sum        =   getNum(Number(scope.CostEstimate.Components[scope.index].Details.Sum)     + 
+                            scope.CostEstimate.Components[scope.index].TotalCost.Sum        =   getNum(Number(scope.CostEstimate.Components[scope.index].Details.Sum)     + 
                                                                                             Number(scope.CostEstimate.Components[scope.index].Statistics.Sum)  + 
                                                                                             Number(scope.CostEstimate.Components[scope.index].CadCam.Sum)      + 
                                                                                             Number(scope.CostEstimate.Components[scope.index].Logistics.Sum));
+                        } else {
+                            scope.CostEstimate.Components[scope.index].TotalCost.Sum     =  scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 * scope.CostEstimate.Components[scope.index].Rip.Sum;
+                        }
+                       
                         let  $sqmTotal          = 0;
                         let  $complexity        = 0;
                         let  $DetailsPriceM2    = 0;
@@ -695,7 +700,7 @@
                         let  $RipSum            = 0;
 
                         scope.CostEstimate.Components.map( (item, index) => {
-                            console.log(item);
+                            
                             $sqmTotal           +=  Number(item.sqm); 
                             $complexity         +=  Number(item.Complexity);
                             $DetailsPriceM2     +=  Number(item.Details.PriceM2); 
