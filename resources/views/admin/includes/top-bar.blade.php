@@ -109,7 +109,7 @@
                                 </a>
                             </div>
                             <div class="col p-2">
-                                <a class="dropdown-icon-item" href="{{ route('cost-estimation-single-view') }}">
+                                <a class="dropdown-icon-item" href="{{ route('enquiry.calculate-cost-estimation') }}">
                                     <img src="{{ asset('public/assets/images/calculator.png') }}" alt="slack">
                                     <span>Calculator</span>
                                 </a>
