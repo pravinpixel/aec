@@ -51,139 +51,140 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="table custom-responsive p-0">  
-                                    {{-- <button class="btn btn-info btn-sm mb-2 pull-right" ng-click="addPrecasEstimate()">Add Precast Estimation </button> --}}
-                                    <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addEngineeringEstimate()">Add New Type </button>
-                                  
-                                    <table class="cost-estimate-table table table-bordered border shadow-sm" ng-repeat="(rootKey,CostEstimate) in EngineeringEstimate track by $index">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="18" style="padding: 0 !important">
-                                                    <div  class="text-center">
-                                                        <select  class="my-select"  ng-model="CostEstimate.type" name="type" id="type">
-                                                            <option ng-value="">-- Select -- </option> 
-                                                            <option ng-value="costEstimateType" ng-selected="costEstimateType.type == CostEstimate.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+                                {{-- <button class="btn btn-info btn-sm mb-2 pull-right" ng-click="addPrecasEstimate()">Add Precast Estimation </button> --}}
+                                <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addEngineeringEstimate()">Add New Type </button>
+                                <div class="table custom-responsive p-0">
+                                    <div class="table-responsive w-100" ng-repeat="(rootKey,CostEstimate) in EngineeringEstimate track by $index">
+                                        <table class="cost-estimate-table table table-bordered border shadow-sm">
+                                            <thead>
+                                                <tr>
+                                                    <td colspan="18" style="padding: 0 !important">
+                                                        <div  class="text-center">
+                                                            <select  class="my-select"  ng-model="CostEstimate.type" name="type" id="type">
+                                                                <option ng-value="">-- Select -- </option> 
+                                                                <option ng-value="costEstimateType" ng-selected="costEstimateType.type == CostEstimate.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr  style="background: var(--primary-bg) !important">
+                                                    <td colspan="14" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
+                                                    <td colspan="2" class="text-center"><i title="remove" ng-click="deleteEngineeringEstimate(rootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
+                                                    <td colspan="2" class="text-center"><i  title="clone" ng-click="cloneCostEstimate(rootKey,CostEstimate)" class="fa fa-copy btn btn-light btn-sm border text-primary h-100 w-100"></i></td>
+                                                </tr>
+                                                <tr class="font-weight-bold ">
+                                                    <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
+                                                        <span class="mb-1 font-12">Component</span>
+                                                        <button class="btn-sm btn font-12 btn-info shadow-0 w-100 py-0" ng-click="addComponent(rootKey)"><i class="fa fa-plus"></i> Add </button>
+                                                    </th>
+                                                    <th rowspan="3" class="text-center font-12" style="background: var(--primary-bg) !important">Type</th>
+                                                    <th rowspan="3" class="text-center font-12" style="background: var(--primary-bg) !important">Design Scope (%)</th>
+                                                    
+                                                    <th class="text-center font-12" style="background: var(--primary-bg) !important" >1 to 2</th>
+                                                    <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >m2 Gross</th>
+                                                    <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Details</th>
+                                                    <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Statistics</th>
+                                                    <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">CAD/CAM</th>
+                                                    <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Logistics</th>
+                                                    <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">RIP</th>
+                                                    <th colspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">Total Cost</th>
+                                                    <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
+                                                </tr>
+                                                <tr class="bg-light-primary border">
+                                                    <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
+                                                    <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
+                                                    <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
+                                                    <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
+                                                    <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
+                                                    <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
+                                                    <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
+                                                    <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
+                                                    <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
+                                                    <th colspan="2" class="text-center" style="background: var(--secondary-bg) !important"><small>Hrs</small></th> 
+                                                    <th class="text-center" style="background: var(--primary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
+                                                    <th class="text-center" style="background: var(--primary-bg) !important"><small>Sum</small></th>  
+                                                </tr>
+                                                <tr class="bg-light-primary border">
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.sqm) }}</b></td>  
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Details.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Details.Sum) }}</b></td>   
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Statistics.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Statistics.Sum) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.CadCam.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.CadCam.Sum) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Logistics.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Logistics.Sum) }}</b></td> 
+                                                    <td colspan="2" class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Rip.Sum) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.TotalCost.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.TotalCost.Sum) }}</b></td> 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="(index,C) in CostEstimate.Components" class="touched-td" >  
+                                                    <td> 
+                                                        <select class="my-select" get-cost-estimate-data ng-model="C.building_component_id" name="building_component_name">
+                                                            <option value="">-- Select -- </option> 
+                                                            <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.Component" ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option>
                                                         </select>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr  style="background: var(--primary-bg) !important">
-                                                <td colspan="14" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
-                                                <td colspan="2" class="text-center"><i title="remove" ng-click="deleteEngineeringEstimate(rootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
-                                                <td colspan="2" class="text-center"><i  title="clone" ng-click="cloneCostEstimate(rootKey,CostEstimate)" class="fa fa-copy btn btn-light btn-sm border text-primary h-100 w-100"></i></td>
-                                            </tr>
-                                            <tr class="font-weight-bold ">
-                                                <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
-                                                    <span class="mb-1 font-12">Component</span>
-                                                    <button class="btn-sm btn font-12 btn-info shadow-0 w-100 py-0" ng-click="addComponent(rootKey)"><i class="fa fa-plus"></i> Add </button>
-                                                </th>
-                                                <th rowspan="3" class="text-center font-12" style="background: var(--primary-bg) !important">Type</th>
-                                                <th rowspan="3" class="text-center font-12" style="background: var(--primary-bg) !important">Design Scope (%)</th>
-                                                
-                                                <th class="text-center font-12" style="background: var(--primary-bg) !important" >1 to 2</th>
-                                                <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >m2 Gross</th>
-                                                <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Details</th>
-                                                <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Statistics</th>
-                                                <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">CAD/CAM</th>
-                                                <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Logistics</th>
-                                                <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">RIP</th>
-                                                <th colspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">Total Cost</th>
-                                                <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
-                                            </tr>
-                                            <tr class="bg-light-primary border">
-                                                <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
-                                                <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                                                <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
-                                                <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                                                <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
-                                                <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                                                <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
-                                                <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                                                <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
-                                                <th colspan="2" class="text-center" style="background: var(--secondary-bg) !important"><small>Hrs</small></th> 
-                                                <th class="text-center" style="background: var(--primary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                                                <th class="text-center" style="background: var(--primary-bg) !important"><small>Sum</small></th>  
-                                            </tr>
-                                            <tr class="bg-light-primary border">
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.sqm) }}</b></td>  
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Details.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Details.Sum) }}</b></td>   
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Statistics.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Statistics.Sum) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.CadCam.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.CadCam.Sum) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Logistics.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Logistics.Sum) }}</b></td> 
-                                                <td colspan="2" class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Rip.Sum) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.TotalCost.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.TotalCost.Sum) }}</b></td> 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="(index,C) in CostEstimate.Components" class="touched-td" >  
-                                                <td> 
-                                                    <select class="my-select" get-cost-estimate-data ng-model="C.building_component_id" name="building_component_name">
-                                                        <option value="">-- Select -- </option> 
-                                                        <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.Component" ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option>
-                                                    </select>
-                                                </td> 
-                                                <td style="padding: 0 !important">
-                                                    <select class="my-select" get-cost-estimate-data ng-model="C.type_id" ng-change="getCostEstimateData(index)" name="type_name">
-                                                        <option value="">-- Select ---</option> 
-                                                        <option ng-value="@{{ buildingType.id }}" ng-selected="buildingType.id == C.Type" ng-repeat="buildingType in buildingTypes">@{{ buildingType.building_type_name }}</option>
-                                                    </select>
-                                                </td>
-                        
-                                                <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  min="100"  ng-model="C.DesignScope" name="complexity" class="my-control"></td>
-                        
-                                                <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.Complexity" name="complexity" class="my-control"></td>
-                        
-                                                <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control sqm_"> </td>
+                                                    </td> 
+                                                    <td style="padding: 0 !important">
+                                                        <select class="my-select" get-cost-estimate-data ng-model="C.type_id" ng-change="getCostEstimateData(index)" name="type_name">
+                                                            <option value="">-- Select ---</option> 
+                                                            <option ng-value="@{{ buildingType.id }}" ng-selected="buildingType.id == C.Type" ng-repeat="buildingType in buildingTypes">@{{ buildingType.building_type_name }}</option>
+                                                        </select>
+                                                    </td>
                             
-                                                {{-- Details --}}
-                                                <td>
-                                                    <input  get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.Details.PriceM2" name="detail_price">
-                                                </td>
-                        
-                                                <td style="background: var(--primary-bg-light) !important">
-                                                    <input disabled type="text" onkeypress="return isNumber(event)" class="my-control" ng-model="C.Details.Sum" name="detail_sum">
-                                                </td>
+                                                    <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  min="100"  ng-model="C.DesignScope" name="complexity" class="my-control"></td>
                             
-                                                {{-- Statistics --}}
-                                                <td>
-                                                    <input type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" class="my-control"  ng-model="C.Statistics.PriceM2" name="statistic_price">
-                                                </td>
-                                                <td style="background:  var(--primary-bg-light) !important">
-                                                    <input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.Statistics.Sum" name="statistic_sum">
-                                                </td>
+                                                    <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.Complexity" name="complexity" class="my-control"></td>
                             
-                                                {{-- CAD/CAM --}}
-                                                <td>
-                                                    <input  type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.CadCam.PriceM2" name="cad_cam_price">
-                                                </td>
-                                                <td  style="background:  var(--primary-bg-light) !important">
-                                                    <input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.CadCam.Sum" name="cad_cam_sum">
-                                                </td>
+                                                    <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control sqm_"> </td>
+                                
+                                                    {{-- Details --}}
+                                                    <td>
+                                                        <input  get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.Details.PriceM2" name="detail_price">
+                                                    </td>
                             
-                                                {{-- Logistics --}}
-                                                <td>
-                                                    <input  type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.Logistics.PriceM2" name="logistic_price">
-                                                </td>
-                                                <td style="background:  var(--primary-bg-light) !important">
-                                                    <input disabled  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Logistics.Sum"  name="logistic_sum">
-                                                </td>
-                                                <td colspan="2">
-                                                    <input  type="text" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Rip.Sum"  name="Rip">
-                                                </td>
-                                                {{-- Total Cost --}}
-                                                <td><input get-cost-details-total ng-keyup="getCostDetailsTotal(index)"  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_price" ng-model="C.TotalCost.PriceM2"></td>
-                                                <td><input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_sum" ng-model="C.TotalCost.Sum"></td>
-                                                <td class="text-center" style="padding: 0 !important">
-                                                    <i ng-click="delete(rootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                    <td style="background: var(--primary-bg-light) !important">
+                                                        <input disabled type="text" onkeypress="return isNumber(event)" class="my-control" ng-model="C.Details.Sum" name="detail_sum">
+                                                    </td>
+                                
+                                                    {{-- Statistics --}}
+                                                    <td>
+                                                        <input type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" class="my-control"  ng-model="C.Statistics.PriceM2" name="statistic_price">
+                                                    </td>
+                                                    <td style="background:  var(--primary-bg-light) !important">
+                                                        <input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.Statistics.Sum" name="statistic_sum">
+                                                    </td>
+                                
+                                                    {{-- CAD/CAM --}}
+                                                    <td>
+                                                        <input  type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.CadCam.PriceM2" name="cad_cam_price">
+                                                    </td>
+                                                    <td  style="background:  var(--primary-bg-light) !important">
+                                                        <input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.CadCam.Sum" name="cad_cam_sum">
+                                                    </td>
+                                
+                                                    {{-- Logistics --}}
+                                                    <td>
+                                                        <input  type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.Logistics.PriceM2" name="logistic_price">
+                                                    </td>
+                                                    <td style="background:  var(--primary-bg-light) !important">
+                                                        <input disabled  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Logistics.Sum"  name="logistic_sum">
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <input  type="text" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Rip.Sum"  name="Rip">
+                                                    </td>
+                                                    {{-- Total Cost --}}
+                                                    <td><input get-cost-details-total ng-keyup="getCostDetailsTotal(index)"  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_price" ng-model="C.TotalCost.PriceM2"></td>
+                                                    <td><input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_sum" ng-model="C.TotalCost.Sum"></td>
+                                                    <td class="text-center" style="padding: 0 !important">
+                                                        <i ng-click="delete(rootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div> 
                             </div>
 {{--  precast estimation --}}
@@ -212,107 +213,109 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            
-                                <div class="table custom-responsive p-0"> 
-                                   <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addPrecasEstimate()">Add New Type </button>
-                                    <table class="cost-estimate-table table table-bordered border" ng-repeat="(pRootKey,PrecastEstimate) in PrecastComponent track by $index">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="18" style="padding: 0 !important">
-                                                    <div  class="text-center">
-                                                        <select  class="my-select"  ng-model="PrecastEstimate.type" name="type" id="type">
-                                                            <option ng-value="">-- Select -- </option> 
-                                                            <option ng-value="costEstimateType" ng-selected="PrecastEstimate.type == costEstimateType.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+
+                                <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addPrecasEstimate()">Add New Type </button>
+                                <div class="table custom-responsive p-0 table-responsive w-100">   
+                                   <div class="table-responsive w-100"  ng-repeat="(pRootKey,PrecastEstimate) in PrecastComponent track by $index">
+                                        <table class="cost-estimate-table table table-bordered border">
+                                            <thead>
+                                                <tr>
+                                                    <td colspan="18" style="padding: 0 !important">
+                                                        <div  class="text-center">
+                                                            <select  class="my-select"  ng-model="PrecastEstimate.type" name="type" id="type">
+                                                                <option ng-value="">-- Select -- </option> 
+                                                                <option ng-value="costEstimateType" ng-selected="PrecastEstimate.type == costEstimateType.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr  style="background: var(--primary-bg) !important">
+                                                    <td colspan="11" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
+                                                    <td colspan="1" class="text-center"><i title="remove" ng-click="deletePrecastEstimate(pRootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
+                                                    <td colspan="1" class="text-center"><i  title="clone" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)" class="fa fa-copy btn btn-light btn-sm border text-primary h-100 w-100"></i></td>
+                                                </tr>
+                                                <tr class="font-weight-bold">
+                                                    <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
+                                                        <span class="mb-1 font-12">Precast Component</span>
+                                                        <button class="btn-sm btn font-12 btn-info shadow-0 w-100 py-0" ng-click="addPrecastComponent(pRootKey)"><i class="fa fa-plus"></i> Add </button>
+                                                    </th>
+                                                    <th class="text-center font-12" style="background: var(--primary-bg) !important" >1 to 2</th>
+                                                    <th rowspan="3" class="text-center font-12" style="background: var(--primary-bg) !important" >No of Staircase Housing </th>
+                                                    <th rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important">No of New component</th>
+                                                    <th rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important">No of Different Floor Height</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">m<sup>2</sup> Gross</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Std work Hours</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Additional Work Hours</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Hourly Rate (550/Hr)</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Work Hours</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Engineering Cost</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Central Approval</th>
+                                                    <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
+                                                </tr>
+                                                <tr class="bg-light-primary border">
+                                                    <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
+                                                
+                                                </tr>
+                                                <tr class="bg-light-primary border">
+                                                <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_sqm) }}</b></td>  
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_std_work_hours) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_additional_work_hours) }}</b></td>   
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_hourly_rate) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_work_hours) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_engineering_cost) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_central_approval) }}</b></td> 
+                                                
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="(index,C) in PrecastEstimate.Components" class="touched-td" >  
+                                                    <td> 
+                                                        <select class="my-select" get-precast-details-total="[index]" ng-model="C.precast_component" name="precast_component">
+                                                            <option value="">-- Select -- </option> 
+                                                            <option value="32">Staircase House Wall</option>
+                                                            <option value="8">Balcony </option>
+                                                            {{-- <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.precast_component" ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option> --}}
                                                         </select>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr  style="background: var(--primary-bg) !important">
-                                                <td colspan="11" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
-                                                <td colspan="1" class="text-center"><i title="remove" ng-click="deletePrecastEstimate(pRootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
-                                                <td colspan="1" class="text-center"><i  title="clone" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)" class="fa fa-copy btn btn-light btn-sm border text-primary h-100 w-100"></i></td>
-                                            </tr>
-                                            <tr class="font-weight-bold">
-                                                <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
-                                                    <span class="mb-1 font-12">Precast Component</span>
-                                                    <button class="btn-sm btn font-12 btn-info shadow-0 w-100 py-0" ng-click="addPrecastComponent(pRootKey)"><i class="fa fa-plus"></i> Add </button>
-                                                </th>
-                                                <th class="text-center font-12" style="background: var(--primary-bg) !important" >1 to 2</th>
-                                                <th rowspan="3" class="text-center font-12" style="background: var(--primary-bg) !important" >No of Staircase Housing </th>
-                                                <th rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important">No of New component</th>
-                                                <th rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important">No of Different Floor Height</th>
-                                                <th rowspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">m<sup>2</sup> Gross</th>
-                                                <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Std work Hours</th>
-                                                <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Additional Work Hours</th>
-                                                <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Hourly Rate (550/Hr)</th>
-                                                <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Work Hours</th>
-                                                <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Engineering Cost</th>
-                                                <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Central Approval</th>
-                                                <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
-                                            </tr>
-                                            <tr class="bg-light-primary border">
-                                                <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
-                                            
-                                            </tr>
-                                            <tr class="bg-light-primary border">
-                                            <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_sqm) }}</b></td>  
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_std_work_hours) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_additional_work_hours) }}</b></td>   
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_hourly_rate) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_work_hours) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_engineering_cost) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_central_approval) }}</b></td> 
-                                               
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="(index,C) in PrecastEstimate.Components" class="touched-td" >  
-                                                <td> 
-                                                    <select class="my-select" get-precast-details-total="[index]" ng-model="C.precast_component" name="precast_component">
-                                                        <option value="">-- Select -- </option> 
-                                                        <option value="32">Staircase House Wall</option>
-                                                        <option value="8">Balcony </option>
-                                                        {{-- <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.precast_component" ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option> --}}
-                                                    </select>
-                                                </td> 
-                                                <td style="padding: 0 !important">
-                                                    <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.complexity" name="complexity">
-                                                </td>
-                                                <td style="padding: 0 !important">
-                                                    <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.no_of_staircase" name="no_of_staircase">
-                                                </td>
-                        
-                                                <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  min="100"  ng-model="C.no_of_new_component" name="no_of_new_component" class="my-control"></td>
-                        
-                                                <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.no_of_different_floor_height" name="no_of_different_floor_height" class="my-control"></td>
-                        
-                                                <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control psqm_"> </td>
-                                            
-                                                <td>
-                                                    <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.std_work_hours" name="std_work_hours">
-                                                </td>
-                                            
-                                                <td>
-                                                    <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.additional_work_hours" name="additional_work_hours">
-                                                </td>
-                                                <td>
-                                                    <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.hourly_rate" name="hourly_rate">
-                                                </td>
-                                                <td>
-                                                    <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_work_hours" name="total_work_hours">
-                                                </td>
-                                                <td>
-                                                    <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_engineering_cost" name="total_engineering_cost">
-                                                </td>
-                                                <td>
-                                                    <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_central_approval" name="total_central_approval">
-                                                </td>
-                                                <td class="text-center" style="padding: 0 !important">
-                                                    <i ng-click="deletePrecastComponent(pRootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                    </td> 
+                                                    <td style="padding: 0 !important">
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.complexity" name="complexity">
+                                                    </td>
+                                                    <td style="padding: 0 !important">
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.no_of_staircase" name="no_of_staircase">
+                                                    </td>
+                            
+                                                    <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  min="100"  ng-model="C.no_of_new_component" name="no_of_new_component" class="my-control"></td>
+                            
+                                                    <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.no_of_different_floor_height" name="no_of_different_floor_height" class="my-control"></td>
+                            
+                                                    <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control psqm_"> </td>
+                                                
+                                                    <td>
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.std_work_hours" name="std_work_hours">
+                                                    </td>
+                                                
+                                                    <td>
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.additional_work_hours" name="additional_work_hours">
+                                                    </td>
+                                                    <td>
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.hourly_rate" name="hourly_rate">
+                                                    </td>
+                                                    <td>
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_work_hours" name="total_work_hours">
+                                                    </td>
+                                                    <td>
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_engineering_cost" name="total_engineering_cost">
+                                                    </td>
+                                                    <td>
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_central_approval" name="total_central_approval">
+                                                    </td>
+                                                    <td class="text-center" style="padding: 0 !important">
+                                                        <i ng-click="deletePrecastComponent(pRootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                   </div>
                                 </div> 
                             </div>
                         </div>
