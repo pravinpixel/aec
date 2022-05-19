@@ -60,13 +60,17 @@
                                             <tr>
                                                 <td colspan="18" style="padding: 0 !important">
                                                     <div  class="text-center">
-                                                        <input type="text" class="form-control form-control-sm text-center text-capitalize rounded-0 border-0 h3 m-0" ng-model="CostEstimate.type"  ng-blur="editing = CostEstimate.type == ''" > 
+                                                        <select  class="my-select"  ng-model="CostEstimate.type" name="type" id="type">
+                                                            <option ng-value="">-- Select -- </option> 
+                                                            <option ng-value="costEstimateType" ng-selected="costEstimateType.type == CostEstimate.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+                                                        </select>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr  style="background: var(--primary-bg) !important">
-                                                <td colspan="16" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
-                                                <td colspan="2" class="text-center"><i  ng-click="deleteEngineeringEstimate(rootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
+                                                <td colspan="14" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
+                                                <td colspan="2" class="text-center"><i title="remove" ng-click="deleteEngineeringEstimate(rootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
+                                                <td colspan="2" class="text-center"><i  title="clone" ng-click="cloneCostEstimate(rootKey,CostEstimate)" class="fa fa-copy btn btn-light btn-sm border text-primary h-100 w-100"></i></td>
                                             </tr>
                                             <tr class="font-weight-bold ">
                                                 <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
@@ -182,28 +186,52 @@
                                     </table>
                                 </div> 
                             </div>
-{{-- ************************************************************************************************************************************************************************************************** --}}
+{{--  precast estimation --}}
                             <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                                <div class="table custom-responsive p-0"> 
+                                <div class="table custom-responsive p-0">
                                     <h5> Precast Engineering Estimation </h5>
+                                    <table class="cost-estimate-total-table table table-bordered border">
+                                        <thead>
+                                            <tr  style="background: var(--primary-bg) !important">
+                                                <th colspan="3" class="text-center"><h5 class="m-0 py-1 text-white">Total Engineering Cost</h5></th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-end">Area m<sup>2</sup></th>
+                                                <th class="text-end">Pris/m<sup>2</sup></th>
+                                                <th class="text-end">Sum</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                              
+                                                <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalArea) }}</b></td>  
+                                                <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalPris) }}</b></td>  
+                                                <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalSum) }}</b></td>  
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            
+                                <div class="table custom-responsive p-0"> 
+                                   <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addPrecasEstimate()">Add New Type </button>
                                     <table class="cost-estimate-table table table-bordered border" ng-repeat="(pRootKey,PrecastEstimate) in PrecastComponent track by $index">
                                         <thead>
-                                            {{-- <tr>
-                                                <td colspan="12">
+                                            <tr>
+                                                <td colspan="18" style="padding: 0 !important">
                                                     <div  class="text-center">
-                                                        <span ng-hide="editing" ng-click="editing = true">
-                                                            @{{CostEstimate.type}} 
-                                                        </span>
-                                                        <span ng-show="editing" class="d-flex">
-                                                            <input type="text" class="form-control" ng-model="CostEstimate.type"  ng-blur="editing = false" > 
-                                                        </span>
+                                                        <select  class="my-select"  ng-model="PrecastEstimate.type" name="type" id="type">
+                                                            <option ng-value="">-- Select -- </option> 
+                                                            <option ng-value="costEstimateType" ng-selected="PrecastEstimate.type == costEstimateType.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+                                                        </select>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr style="background: var(--primary-bg) !important">
-                                                <td colspan="12" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
-                                                <td class="text-center"><i ng-click="deleteEngineeringEstimate(index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
-                                            </tr> --}}
+                                            <tr  style="background: var(--primary-bg) !important">
+                                                <td colspan="11" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
+                                                <td colspan="1" class="text-center"><i title="remove" ng-click="deletePrecastEstimate(pRootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
+                                                <td colspan="1" class="text-center"><i  title="clone" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)" class="fa fa-copy btn btn-light btn-sm border text-primary h-100 w-100"></i></td>
+                                            </tr>
                                             <tr class="font-weight-bold">
                                                 <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
                                                     <span class="mb-1 font-12">Precast Component</span>
@@ -234,11 +262,7 @@
                                                 <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_work_hours) }}</b></td> 
                                                 <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_engineering_cost) }}</b></td> 
                                                 <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_central_approval) }}</b></td> 
-                                                {{-- <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Logistics.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Logistics.Sum) }}</b></td> 
-                                                <td colspan="2" class="text-center font-12 p-0"></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.TotalCost.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
-                                                <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.TotalCost.Sum) }}</b></td>   --}}
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -262,7 +286,7 @@
                         
                                                 <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.no_of_different_floor_height" name="no_of_different_floor_height" class="my-control"></td>
                         
-                                                <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control"> </td>
+                                                <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control psqm_"> </td>
                                             
                                                 <td>
                                                     <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.std_work_hours" name="std_work_hours">
@@ -284,7 +308,7 @@
                                                     <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_central_approval" name="total_central_approval">
                                                 </td>
                                                 <td class="text-center" style="padding: 0 !important">
-                                                    <i ng-click="deletePrecast(pRootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
+                                                    <i ng-click="deletePrecastComponent(pRootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -372,6 +396,9 @@
                 "grandTotal"    : '', 
             },
         }
+        $http.get(`${API_URL}get-cost-estimate-types`).then((res) => {
+            $scope.costEstimateTypes = res.data;
+        });
         $scope.EngineeringEstimate.push(CostEstimate);
 
         $scope.addEngineeringEstimate = () => {
@@ -455,6 +482,14 @@
                 $scope.EngineeringEstimate.totalPris = 0;
             }
         }
+
+        $scope.cloneCostEstimate = (index, CostEstimate) => {
+            let cloneObject = JSON.parse(JSON.stringify(CostEstimate));
+            $scope.EngineeringEstimate.splice(index, 0, cloneObject);
+            $timeout(function() {
+                angular.element('.sqm_').triggerHandler('keyup');
+            });
+        }
        
         $scope.addComponent  = function(index) {
             $scope.EngineeringEstimate[index].Components.unshift({
@@ -463,7 +498,7 @@
                 'design_scope'  : 0,
                 'rip'           : 0,
                 "Component"     : "",
-                "Type"          : "", 
+                "Type"          : "Type", 
                 "sqm"           : "", 
                 "Complexity"    : "", 
                 "Details": {
@@ -494,7 +529,12 @@
 
         $scope.delete   =   function(rootKey, index) { 
             $scope.EngineeringEstimate[rootKey].Components.splice(index,1);
-            if($scope.EngineeringEstimate[rootKey].Components.length == 0)  $scope.EngineeringEstimate.splice(rootKey,1);
+            if($scope.EngineeringEstimate[rootKey].Components.length == 0) {
+                $scope.EngineeringEstimate.splice(rootKey,1);
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
+            } 
             Message('success', 'Component deleted successfully');
         }
         
@@ -515,8 +555,11 @@
             }
             return Number.parseFloat(val).toFixed(2);
         }
+
         // Precast
-        $scope.PrecastComponent = [{
+        $scope.PrecastComponent = [];
+        let precastComponent = {
+                "type"                       : "Type 1",
                 "total_sqm"                  : 0,
                 "total_std_work_hours"       : 0,
                 "total_additional_work_hours": 0,
@@ -540,10 +583,19 @@
                         'total_central_approval': ''
                     }
                 ]
-            }];
+            
+        };
+        $scope.PrecastComponent.push(precastComponent);
         $scope.addPrecasEstimate = () => {
-            $scope.PrecastComponent = [{
-              
+            $scope.PrecastComponent.push({
+                "type"                       : "Type 1",
+                "total_sqm"                  : 0,
+                "total_std_work_hours"       : 0,
+                "total_additional_work_hours": 0,
+                "total_hourly_rate"          : 0,
+                "total_work_hours"           : 0,
+                "total_engineering_cost"     : 0,
+                "total_central_approval"     : 0,
                 "Components" : [ 
                     {
                         'precast_component': '',
@@ -560,8 +612,10 @@
                         'total_central_approval': ''
                     }
                 ]
-            }];
+            });
+            console.log($scope.PrecastComponent);
         }
+
         $scope.addPrecastComponent =  (rootKey) => {
             $scope.PrecastComponent[rootKey].Components.unshift(
                 {
@@ -580,9 +634,32 @@
                     }
             );
         }
-        $scope.deletePrecast = (rootKey, index) => {
+
+        $scope.deletePrecastComponent = (rootKey, index) => {
             $scope.PrecastComponent[rootKey].Components.splice(index,1);
+            if($scope.PrecastComponent[rootKey].Components.length == 0){
+                $scope.PrecastComponent.splice(rootKey,1);
+                $timeout(function() {
+                    angular.element('.psqm_').triggerHandler('keyup');
+                });
+            }
             Message('success','Precast component deleted Successfully');
+        }
+
+        $scope.deletePrecastEstimate = (rootKey) => {
+            $scope.PrecastComponent.splice(rootKey,1);
+            Message('success','Precast estimation deleted Successfully');
+            $timeout(function() {
+                angular.element('.psqm_').triggerHandler('keyup');
+            });
+        }
+
+        $scope.clonePrecastEstimate = (index, precastEstimate) => {
+            let cloneObject = JSON.parse(JSON.stringify(precastEstimate));
+            $scope.PrecastComponent.splice(index, 0, cloneObject);
+            $timeout(function() {
+                angular.element('.psqm_').triggerHandler('keyup');
+            });
         }
 
     }).directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
@@ -834,7 +911,7 @@
                     scope.PrecastEstimate.Components.forEach((row) => {
                         console.log(row);
                         $total_sqm                   += Number(row.sqm);
-                        $total_std_work_hours        += Number(row.total_work_hours);
+                        $total_std_work_hours        += Number(row.std_work_hours);
                         $total_additional_work_hours += Number(row.additional_work_hours);
                         $total_hourly_rate           += Number(row.hourly_rate);
                         $total_work_hours            += Number(row.total_work_hours);
@@ -849,6 +926,19 @@
                     scope.PrecastEstimate.total_work_hours            = $total_work_hours;
                     scope.PrecastEstimate.total_engineering_cost      = $total_engineering_cost;
                     scope.PrecastEstimate.total_central_approval      = $total_central_approval;
+
+                    let $totalArea = 0;
+                    let $totalPris = 0;
+                    let $totalSum  = 0;
+
+                    scope.PrecastComponent.forEach( (row) => {
+                        $totalArea += row.total_sqm;
+                        $totalSum  += row.total_engineering_cost;
+                    });
+                    scope.PrecastComponent.totalArea = $totalArea;
+                    scope.PrecastComponent.totalSum  = $totalSum;
+                    scope.PrecastComponent.totalPris = $totalSum / $totalArea;
+                
                     scope.$apply();
                 });
             },
