@@ -353,7 +353,7 @@
                     <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Submitted')">Submit </button>
                 </div>
             </div>
-            <div class="col-6 text-end" ng-show="project_info.status == 'Active' ">
+            <div class="col-6 text-end" ng-show="project_info.status == 'Submitted' ">
                 <div class="btn-group">
                     <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Submitted')">Submit </button>
                 </div>
