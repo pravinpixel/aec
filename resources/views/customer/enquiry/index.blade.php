@@ -77,7 +77,7 @@
             </div> <!-- container -->
             @include('customer.enquiry.models.detail-modal')
             @include('customer.enquiry.models.approve-modal')
-            @include('customer.enquiry.models.chat-box')
+            {{-- @include('customer.enquiry.models.chat-box') --}}
             @include('customer.enquiry.models.enquiry-filter-modal')
         </div> <!-- content --> 
     </div> 
