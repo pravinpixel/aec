@@ -116,4 +116,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
 
 Route::group(['prefix' => '', 'middleware' => 'common'], function(){
     Route::get('get-enquiry-document/{id}', [EnquiryController::class, 'getDocumentView'])->name('get-enquiry-document');
+    Route::post('get-document-modal',[EnquiryController::class, 'getDocumentModal'])->name('get-enquiry-modal');
+    Route::get('get-cost-estimate-types', function(){
+        return config('global.cost_estimate_types');
+    })->name('get-cost-estimate-types');
 });

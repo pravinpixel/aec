@@ -700,7 +700,7 @@
                     });
                     if(skipUploads.length > 0) {
                         Swal.fire({
-                            title: `${skipUploads.join(',')} are missing, Do you still want to skip ?`,
+                            title: `${skipUploads.join(',')} are missing, Do you still want to skip it ?`,
                             showDenyButton: false,
                             showCancelButton: true,
                             cancelButtonText: 'No',
@@ -1286,7 +1286,7 @@
                         });
                         if( $scope.mandatory.length != 0){   
                             Swal.fire({
-                                title: 'Are you sure to skip the file uploads?',
+                                title: 'Are you sure you want to skip the file uploads?',
                                 confirmButtonText: 'Yes',
                                 showCancelButton: true,
                                 cancelButtonText: 'No',
@@ -1441,7 +1441,7 @@
                         var file =  element[0].files[0];
                         var file_type = `${attrs.id}`;
                         var filename = `file${attrs.id}`;
-                        $(".fileupload").css('pointer-events','none')
+                        $(".fileupload").css('pointer-events','none');
                         var uploadUrl = '{{ route('customers.update-enquiry',$id) }}';
                         promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
                         promise.then(function (response) {
@@ -1527,7 +1527,7 @@
             });
         
         window.onbeforeunload = function(e) {
-            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave ?';
             e.returnValue = dialogText;
             return dialogText;
         };

@@ -831,4 +831,11 @@ class EnquiryController extends Controller
             'additional_info'    => $enquiry->additional_info ?? false
         ];
     }
+
+    public function getDocumentModal(Request $request)
+    {
+        $url = asset('public/uploads/'.$request->input('url'));
+        $file = file_get_contents(asset($url));
+        return base64_encode($file);
+    }
 }
