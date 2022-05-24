@@ -137,7 +137,7 @@ class EnquiryController extends Controller
             })
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
-                    <button  class="btn progress-btn '.($dataDb->status == 'Active' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
+                    <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
                     <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
                     <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estiringmation"></button> 
                     <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
@@ -204,7 +204,7 @@ class EnquiryController extends Controller
             })
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
-                <button  class="btn progress-btn '.($dataDb->status == 'Active' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
+                <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
                 <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
                 <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estimation"></button> 
                 <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
@@ -270,7 +270,7 @@ class EnquiryController extends Controller
             })
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
-                <button  class="btn progress-btn '.($dataDb->status == 'Active' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
+                <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
                 <button  class="btn progress-btn '.($dataDb->technical_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Technical Estimation"></button> 
                 <button  class="btn progress-btn '.($dataDb->cost_estimation_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cost Estimation"></button> 
                 <button  class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Sharing"></button> 
