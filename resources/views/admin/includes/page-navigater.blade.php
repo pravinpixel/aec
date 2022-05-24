@@ -26,7 +26,8 @@
                         @if (Route::is('admin.add-documentary')) Create Document  @endif
                         @if (Route::is('admin.documentaryEdit')) Edit Document @endif 
                         @if (Route::is('list-projects')) List Projects @endif                
-                        @if (Route::is('create-projects')) Create Projects @endif                
+                        @if (Route::is('create-projects')) Create Projects @endif         
+                        @if (Route::is('enquiry.calculate-cost-estimation')) Price Calculation @endif         
                     </li>
                     @if (Route::is('view-enquiry')) 
                         <li class="breadcrumb-item">

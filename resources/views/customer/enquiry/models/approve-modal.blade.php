@@ -5,12 +5,14 @@
             <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
         </div>
         <div class="modal-content h-100 p-4" style="overflow: auto">
-            <div ng-bind-html="approvals.documentary_content"></div>
-            <div class="card-footer justify-content-end">
-                <a href="" class="btn btn-danger" ng-click="updatePropodsals('denie')">Denie</a>
-                <a href="" class="btn btn-success" ng-click="updatePropodsals('approve')">Approve</a>
+            <div id="documentary_content" ng-bind-html="approvals.documentary_content"></div>
+            <div class="card-footer justify-content-end" ng-show="proposal.proposal_status == 'not_send'">
+                <a href="#" class="btn btn-danger" ng-click="updatePropodsals('deny')">Deny</a>
+                <a href="#"  class="btn btn-success" ng-click="updatePropodsals('approve')">Approve</a>
+            </div>
+            <div class="text-center" ng-show="proposal.proposal_status != 'not_send'">
+                <h4 ng-bind-html="status"> </h4>
             </div>
         </div><!-- /.modal-content -->
-         
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

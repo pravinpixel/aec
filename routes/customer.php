@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Customer\EnquiryController;
 use App\Http\Controllers\Customer\DashboardController;
 use App\Http\Controllers\Customer\EnquiryTemplateController;
+use App\Http\Controllers\Customer\ProposalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PushNotificationController;
 Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
@@ -112,6 +113,12 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     })->name('enquiry.review');
 
     
+});
+
+Route::group(['prefix'=> 'proposal', 'middleware' => 'common', 'as'=> 'proposal.'], function(){
+    Route::get('get-by-id',[ProposalController::class, 'getProposal'])->name('get-by-id');
+    Route::get('{enquiry_id}', [ProposalController::class, 'index'])->name('index');
+    Route::post('approve-or-deny/{type}',[ProposalController::class, 'approveOrDeny'])->name('approve-or-deny');
 });
 
 Route::group(['prefix' => '', 'middleware' => 'common'], function(){

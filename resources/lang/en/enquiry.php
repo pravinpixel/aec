@@ -38,4 +38,7 @@ return [
     'enquiry_approved'            => 'Approved Success',
     'assign_user_successfully'    => 'User assigned successfully',
     'follow_up_updated'           => 'Follow up updated',
+    'view_proposal'               => 'View Proposal',
+    'denied'                      => 'Denied successfully',
+    'approved'                    => 'Approved successfully',
 ];

@@ -91,7 +91,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function getCustomerProPosal($id)
     {
         return MailTemplate::where("enquiry_id", '=', $id)
-                            ->with('getVersions')
+                            ->with(['getVersions','enquiry'])
                             ->get();
          
     }

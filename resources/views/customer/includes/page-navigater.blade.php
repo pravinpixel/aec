@@ -11,7 +11,7 @@
                         @if (Route::is('customers.edit-enquiry')) Edit Enquiry @endif 
                         @if (Route::is('customer.changePassword')) Change Password @endif 
                         @if (Route::is('customers-profile')) Profile @endif 
-
+                        @if (Route::is('proposal.index')) Proposal @endif 
                     </li>
                     <li class="breadcrumbs ps-2">
                         <i type="button" onclick="goBack()" class="mdi mdi-backspace text-danger fa-2x"></i> 
@@ -25,6 +25,7 @@
                 @if (Route::is('customers.edit-enquiry')) {{ $enquiry->enquiry_number ?? 'Draft'  }}:  {{ $enquiry->project_name ?? '' }} @endif 
                 @if (Route::is('customer.changePassword')) Change Password @endif 
                 @if (Route::is('customers-profile')) Profile @endif 
+                @if (Route::is('proposal.index')) Proposal @endif 
             </h4>
         </div>
     </div>
