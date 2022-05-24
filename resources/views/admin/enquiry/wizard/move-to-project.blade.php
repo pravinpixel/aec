@@ -4,7 +4,7 @@
         <li class="nav-item Project_Info">
             <a href="#!/project-summary" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
-                    <div class="inner-circle @{{ project_summary_status == 'Active' ? 'bg-primary' :'bg-secondary' }}">
+                    <div class="inner-circle @{{ project_summary_status == 'Submitted' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                     </div>
                 </div>

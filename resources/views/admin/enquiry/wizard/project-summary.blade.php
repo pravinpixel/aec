@@ -5,7 +5,7 @@
         <li class="nav-item Project_Info">
             <a href="#!/project-summary" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
-                    <div class="inner-circle @{{ project_summary_status == 'Active' ? 'bg-primary' :'bg-secondary' }}">
+                    <div class="inner-circle @{{ project_summary_status == 'Submitted' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                     </div>
                 </div>
@@ -14,7 +14,7 @@
         </li>
         @endif
         @if(userHasAccess('technical_estimate_index'))
-        <li class="nav-item  admin-Technical_Estimate-wiz" style="pointer-events: @{{ project_summary_status == 'Active' ? 'unset' :'none'  }}">
+        <li class="nav-item  admin-Technical_Estimate-wiz" style="pointer-events: @{{ project_summary_status == 'Submitted' ? 'unset' :'none'  }}">
             <a href="#!/technical-estimation" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
                     <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
