@@ -179,7 +179,7 @@
                                         <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
                                         <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">
                                             <a download="@{{ ifc_model_upload.client_file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.file_type)" target="_blank" href="{{ url('/') }}/get-enquiry-document/@{{ ifc_model_upload.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.file_type)" ng-click="getDocumentView(ifc_model_upload) "><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                             <a ng-show="autoDeskFileType.includes(ifc_model_upload.file_type)" target="_blank" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                         <td class="text-center" ng-show="ifc_model_upload.file_type == 'link'">
@@ -360,6 +360,7 @@
             </div>
         </div>
     </div>
+    @include('customer.enquiry.models.document-modal')
 </div>
 <style> 
     .reviewSubmit .timeline-step .inner-circle{
