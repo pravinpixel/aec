@@ -77,6 +77,19 @@ app.directive('pris', function () {
     };
 });
 
+app.directive('proposalStatus', function () {
+    return {
+        restrict: 'E',
+        template: `<div ng-bind-html="status"></div>`,
+        scope: {
+            data: '=data',
+        },
+        link: function(scope, element, attrs) {
+            scope.status = statusBadge(scope.data);
+        }
+    };
+});
+
 angular.module('psi.sortable', [])
     .value('psiSortableConfig', {
         placeholder: "placeholder",

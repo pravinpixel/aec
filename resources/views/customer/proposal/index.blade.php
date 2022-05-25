@@ -59,7 +59,12 @@
       
 @push('custom-scripts')
 <script>
-
+    $(document).ready(function () {
+        $('#proposalTable').DataTable({
+            "ordering": false,
+        });
+    });
+    
     app.controller('ProposalController', function($scope,  $http, API_URL, $compile ) {
             $scope.enquiry_id  = 0;
             $scope.proposal_id = 0;
@@ -76,23 +81,8 @@
                 }).then(function (res){
                     $scope.proposal = res.data;
                     $("#documentary_content").html(res.data.documentary_content); 
-                    $("#approve-mail-preview").modal('show');    
-                    switch($scope.proposal.proposal_status){
-                        case "not_send": 
-                            $scope.status = "<span class='badge badge-outline-info rounded-pill'>Awaiting</span>";
-                            break;
-                        case "approved":
-                            $scope.status =  "<span class='badge badge-outline-success rounded-pill'>Approved</span>";
-                            break;
-                        case "obsolete":
-                            $scope.status =  "<span class='badge badge-outline-danger rounded-pill'>Obsolete</span>";
-                            break;
-                        case "denied":
-                            $scope.status =  "<span class='badge badge-outline-danger rounded-pill'>Denied</span>";
-                            break;
-                        default:
-                            $scope.status =  `<span class='badge badge-outline-danger rounded-pill'>${$scope.data}</span>`; 
-                    }            
+                    $("#approve-mail-preview").modal('show');   
+                    $scope.status = statusBadge($scope.proposal.proposal_status);           
                 }, function (error) {
                     console.log('proposal error');
                 });

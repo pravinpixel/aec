@@ -45,3 +45,26 @@
         (tabs.project_info == 1 && tabs.service == 1 && tabs.ifc_model_upload == 1 && tabs.building_component == 1) ?
         $("#review").addClass('active') : $("#review").removeClass('active');
     }
+    function statusBadge($status) {
+        switch($status){
+            case "not_send": 
+                return "<span class='badge badge-outline-info rounded-pill'>Awaiting</span>";
+            
+            case "approved":
+                return   "<span class='badge badge-outline-success rounded-pill'>Approved</span>";
+              
+            case "obsolete":
+                return   "<span class='badge badge-outline-primary rounded-pill'>Obsolete</span>";
+        
+            case "denied":
+                return   "<span class='badge badge-outline-danger rounded-pill'>Denied</span>";
+            
+            case "not_send":
+                return   "-";
+          
+            default:
+                return   "-";
+            
+        }    
+    }
+    

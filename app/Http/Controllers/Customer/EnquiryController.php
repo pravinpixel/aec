@@ -716,7 +716,6 @@ class EnquiryController extends Controller
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">'.trans('enquiry.view_edit').'</a>
                                 <a class="dropdown-item" href="'.route("proposal.index",$dataDb->id) .'">'.trans('enquiry.view_proposal').'</a>
-                                <a class="dropdown-item" href="" ng-click=getPropodsals('.$dataDb->id.')>'.trans('enquiry.approve_or_denied').'</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>';
