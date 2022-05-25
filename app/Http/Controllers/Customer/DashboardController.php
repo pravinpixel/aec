@@ -16,7 +16,7 @@ class DashboardController extends Controller
                         ->count();
 
         $totaActiveEnquiry  =   Enquiry::where("customer_id", Customer()->id)
-                                ->where('status', 'Active')
+                                ->where('status', 'Submitted')
                                 ->count();
 
         $totalNewEnquiry     =   Enquiry::where("customer_id", Customer()->id)
