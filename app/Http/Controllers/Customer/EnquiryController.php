@@ -692,7 +692,16 @@ class EnquiryController extends Controller
                 return $dataDb->projectType->project_type_name ?? '';
             })
             ->editColumn('status', function($dataDb){
-                return '<small class="px-1 bg-success text-white rounded-pill text-center">'.$dataDb->status.'</small>';
+                if($dataDb->response_status == 0){
+                    $status = '<small class="px-1 bg-info text-white rounded-pill text-center">Submitted</small>';
+                }
+                if($dataDb->response_status == 1){
+                    $status = '<small class="px-1 bg-warning text-white rounded-pill text-center">Awaiting Response</small>';
+                }
+                if($dataDb->response_status == 2){
+                    $status = '<small class="px-1 bg-success text-white rounded-pill text-center">Responded</small>';
+                }
+                return $status;
             })
     
             ->editColumn('enquiry_date', function($dataDb) {
@@ -719,10 +728,8 @@ class EnquiryController extends Controller
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>';
-                if($dataDb->customer_response != 1){
-                    return $actions;
-                }
-                return '';
+                        
+                return $actions;
             })
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);

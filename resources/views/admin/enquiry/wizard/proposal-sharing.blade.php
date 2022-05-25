@@ -87,10 +87,11 @@
                                 <table  class="table custom table-bordereds m-0">
                                     <tr>
                                         <th class="text-center" colspan="2" style="width: 6% !important">No</th>
-                                        <th class="text-center" style="width: 38% !important">File Name</th>
+                                        <th class="text-center" style="width: 10% !important">File Name</th>
                                         <th class="text-center" style="width: 10% !important">Version</th>
                                         <th class="text-center" style="width: 10% !important">Status</th>
                                         <th class="text-center" style="width: 10% !important">Proposal Status</th>
+                                        <th class="text-center" style="width: 28% !important">Comments</th>
                                         <th class="text-center" style="width: 16% !important">Date & Time</th>
                                         <th class="text-center" style="width: 6% !important">Action</th>
                                     </tr>
@@ -113,14 +114,17 @@
                                                     <div class="text-center">@{{ key+1 }}</div>
                                                 </div>
                                             </td>
-                                            <td style="width: 38% !important" class="text-center">@{{ P.template_name }}</td>
+                                            <td style="width: 10% !important" class="text-center">@{{ P.template_name }}</td>
                                             <td style="width: 10% !important" class="text-primary text-center">R1</td>
                                             <td style="width: 10% !important" class="text-info text-center"> 
                                                 <span ng-show="P.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
                                                 <span ng-show="P.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
                                             </td>
                                             <td style="width: 10% !important" class="text-info text-center"> 
-                                                <proposal-status data="V.proposal_status" />
+                                                <proposal-status data="P.proposal_status" />
+                                            </td>
+                                            <td style="width: 28% !important" class="text-info text-center">
+                                                <span>@{{ P.comment }} </span>
                                             </td>
                                             <td style="width: 16% !important"class="text-center">
                                                 <small>@{{P.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}} </small>
@@ -140,14 +144,14 @@
                                             </td>
                                         </tr> 
                                         <tr  id="togggleTable@{{ key+1 }}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                            <td colspan="8" class="hiddenRow" style="padding: 0 !important">
+                                            <td colspan="9" class="hiddenRow" style="padding: 0 !important">
                                                 <table class="table custom table-bordered m-0">
                                                     <tbody> 
                                                         <tr ng-repeat="(key2,V) in P.get_versions">
                                                             <td  class="text-end" style="width: 6% !important">
                                                                 <div class="text-end">@{{ key+1 }}.@{{ key2+1 }}</div>                                                    
                                                             </td>
-                                                            <td style="width: 38% !important" class="text-center">@{{ V.template_name }}</td>
+                                                            <td style="width: 10% !important" class="text-center">@{{ V.template_name }}</td>
                                                             <td style="width: 10% !important" class="text-info text-center"><b><small>R@{{ key2+2 }}</small></b></td>
                                                             <td style="width: 10% !important" class="text-info text-center"> 
                                                                 <span ng-show="V.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
@@ -155,6 +159,9 @@
                                                             </td>
                                                             <td style="width: 10% !important" class="text-info text-center"> 
                                                                 <proposal-status data="V.proposal_status" />
+                                                            </td>
+                                                            <td style="width: 28% !important" class="text-info text-center">
+                                                                <span>@{{ V.comment }} </span>
                                                             </td>
                                                             <td style="width: 16% !important" class="text-center">
                                                                 <small>@{{V.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}}</small>

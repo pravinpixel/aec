@@ -59,10 +59,14 @@ class ProposalController extends Controller
     }
     public function sendMail(Request $request, $id, $proposal_id)
     {
+        $enquiry = Enquiry::find($id);
+        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_sharing_status');
         return  $enquiry    =   $this->customerEnquiryRepo->sendCustomerProPosalMail($id, $proposal_id, $request);
     }
     public function sendMailVersion(Request $request, $id, $proposal_id, $Vid)
     {
+        $enquiry = Enquiry::find($id);
+        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_sharing_status');
         return  $enquiry    =   $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid);
     } 
     public function approve(Request $request, $id, $proposal_id, $Vid)

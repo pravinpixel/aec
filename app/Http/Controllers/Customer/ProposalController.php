@@ -19,7 +19,6 @@ class ProposalController extends Controller
     public function index($id)
     {
         $data['proposals'] = $this->customerEnquiryRepo->getCustomerProPosal($id);
-        // dd($data);
         return view('customer.proposal.index', with($data));
     }
 
@@ -32,6 +31,7 @@ class ProposalController extends Controller
         if($type == 0) {
             $enquiry->project_status = "Unattended";
             $enquiry->customer_response = 2;
+            $enquiry->proposal_sharing_status = 0;
             $enquiry->save(); 
             $this->addComment($enquiry_id, $request); 
             return response(['status' => true, 'msg' => __('enquiry.denied')]);

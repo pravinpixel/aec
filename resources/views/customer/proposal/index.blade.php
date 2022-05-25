@@ -22,7 +22,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach ($proposals as $proposal)
+                            @forelse ($proposals as $proposal)
                                 @if($proposal->status == 'sent')
                                     <tr>
                                         <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | {{ $proposal->version }}</td>
@@ -45,7 +45,11 @@
                                         @endif
                                     @endforeach
                                 @endif
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3">No data found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                       </table>
                 </div> <!-- end card-body -->

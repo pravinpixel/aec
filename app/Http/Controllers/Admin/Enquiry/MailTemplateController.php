@@ -182,7 +182,6 @@ class MailTemplateController extends Controller
         if($res)
         {
             $enquiry = Enquiry::find($data['enquiry']['id']);
-            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_sharing_status');
             return response()->json(['status' => true, 'msg' => trans('module.inserted'),'data'=>$fileName], Response::HTTP_OK);
         }
         return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$res], Response::HTTP_OK);
