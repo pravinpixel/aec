@@ -1,4 +1,4 @@
-<form id="serviceSelection" name="serviceSelection" ng-submit="submitService()" method="post" class="form-horizontal" novalidate>
+<form id="serviceSelection" name="serviceSelection" ng-submit="submitService(!serviceList.length)" method="post" class="form-horizontal" novalidate>
     <ul class="nav nav-tabs" style="transform: translateY(1px);">
         <li class="nav-item " ng-repeat="(index,outputType) in outputTypes">
             <a href="#tab_@{{ outputType.id }}_content" data-bs-toggle="tab" aria-expanded="true" class="nav-link @{{ index == 0 ? 'active' :'' }}">
@@ -7,7 +7,11 @@
             </a>
         </li> 
     </ul>
+  
     <div class="container p-4 border">
+        <div ng-show="formSubmit">
+            <h5 class="text-danger" >Please choose any services</h5>
+        </div>
         <div class="tab-content">
             <div class="tab-pane @{{ index == 0 ? 'active' :'' }}"  id="tab_@{{ outputType.id }}_content" ng-repeat="(index,outputType) in outputTypes">
                 <div class="row justify-content-start">
@@ -34,8 +38,8 @@
     <div class="card-footer border-0 p-0">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/" class="btn btn-light border shadow-sm">Prev</a></li>
-            <li class="next list-inline-item float-end"><input ng-disabled="!serviceList.length" type="submit" name="submit" value="Next" class="btn btn-primary"></li>
-            <li class="next list-inline-item float-end mx-2"><input ng-disabled="!serviceList.length"  class="btn btn-light border shadow-sm" ng-click="saveAndSubmitService()" type="buton" name="submit" value="Save and Submit Later"/></li>
+            <li class="next list-inline-item float-end"><input type="submit" name="submit" value="Next" class="btn btn-primary"></li>
+            <li class="next list-inline-item float-end mx-2"><input class="btn btn-light border shadow-sm" ng-click="saveAndSubmitService(!serviceList.length)" type="buton" name="submit" value="Save and Submit Later"/></li>
         </ul>
     </div>
 </form>

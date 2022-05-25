@@ -337,7 +337,12 @@
             getProjectType();
             getBuildingType();
             getDeliveryType();
-            $scope.submitProjectInfoForm = () => {
+            $scope.formSubmit = false;
+            $scope.submitProjectInfoForm = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -349,8 +354,12 @@
                     console.log(`storeprojectinfo ${error}`);
                 }); 
             }
-
-            $scope.ProjectInfoSaveAndSubmit = () => {
+     
+            $scope.ProjectInfoSaveAndSubmit = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -420,8 +429,13 @@
                     if($scope.serviceList.indexOf(list) > -1)  $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
                 }
             };
-            $scope.submitService = () => {
-                console.log('called');
+            $scope.formSubmit = false;
+            $scope.submitService = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $scope.formSubmit = false;
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -435,7 +449,11 @@
             }
 
             $scope.saveAndSubmitService = () => {
-                console.log('called');
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $scope.formSubmit = false;
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -689,8 +707,8 @@
                     console.log('building component error');
                 });
             }
-            
-            $scope.submitBuildingComponent = () => {
+            $scope.formSubmit = false;
+            $scope.submitBuildingComponent = (formValid) => {
                 let isValidField = true;
                 if($scope.showHideBuildingComponent == 0) {
                     $scope.wallGroup.forEach((wall) => {
@@ -730,6 +748,10 @@
                                 }
                             return false;
                             });
+                        }
+                        if(formValid == true) {
+                            $scope.formSubmit = true;
+                            return false;
                         }
                     });
                 }
@@ -783,7 +805,7 @@
                 
             }
 
-            $scope.saveAndSubmitBuildingComponent = () => {
+            $scope.saveAndSubmitBuildingComponent = (formValid) => {
                 let isValidField = true;
                 if($scope.showHideBuildingComponent == 0) {
                     $scope.wallGroup.forEach((wall) => {
@@ -823,6 +845,10 @@
                                 }
                             return false;
                             });
+                        }
+                        if(formValid == true) {
+                            $scope.formSubmit = true;
+                            return false;
                         }
                     });
                 }

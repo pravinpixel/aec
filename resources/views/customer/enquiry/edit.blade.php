@@ -298,8 +298,12 @@
                     return false;
                 });
             } 
-
-            $scope.submitProjectInfoForm = () => {
+            $scope.formSubmit = false;
+            $scope.submitProjectInfoForm = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.update-enquiry", $id) }}',
@@ -312,7 +316,11 @@
                 }); 
             }
 
-            $scope.ProjectInfoSaveAndSubmit = () => {
+            $scope.ProjectInfoSaveAndSubmit = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.update-enquiry", $id) }}',
@@ -383,7 +391,13 @@
                 }
            
             };
-            $scope.submitService = () => {
+            $scope.formSubmit = false;
+            $scope.submitService = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $scope.formSubmit = false;
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.update-enquiry", $id) }}',
@@ -396,7 +410,12 @@
                 });         
             }
 
-            $scope.saveAndSubmitService = () => {
+            $scope.saveAndSubmitService = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $scope.formSubmit = false;
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.update-enquiry", $id) }}',
@@ -644,8 +663,9 @@
                     console.log('building component error');
                 });
             }
-            
-            $scope.submitBuildingComponent = () => {
+            $scope.formSubmit = false;
+            $scope.submitBuildingComponent = (formValid) => {
+                console.log(formValid,'formValid');
                 let isValidField = true;
                 if($scope.showHideBuildingComponent == 0) {
                     $scope.wallGroup.forEach((wall) => {
@@ -685,6 +705,10 @@
                                 }
                             return false;
                             });
+                        }
+                        if(formValid == true) {
+                            $scope.formSubmit = true;
+                            return false;
                         }
                     });
                 }
@@ -740,7 +764,7 @@
                 
             }
 
-            $scope.saveAndSubmitBuildingComponent = () => {
+            $scope.saveAndSubmitBuildingComponent = (formValid) => {
                 let isValidField = true;
                 if($scope.showHideBuildingComponent == 0) {
                     $scope.wallGroup.forEach((wall) => {
@@ -780,6 +804,10 @@
                                 }
                             return false;
                             });
+                        }
+                        if(formValid == true) {
+                            $scope.formSubmit = true;
+                            return false;
                         }
                     });
                 }
