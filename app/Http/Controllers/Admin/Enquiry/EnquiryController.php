@@ -195,7 +195,16 @@ class EnquiryController extends Controller
                 return $dataDb->projectType->project_type_name ?? '';
             })
             ->editColumn('project_status', function($dataDb){
-                return '<small class="px-1 bg-success text-white rounded-pill text-center">'.$dataDb->project_status.'</small>';
+                if($dataDb->response_status == 0){
+                    $status = '<small class="px-1 bg-info text-white rounded-pill text-center">Active</small>';
+                }
+                if($dataDb->response_status == 1){
+                    $status = '<small class="px-1 bg-success text-white rounded-pill text-center">Responded</small>';
+                }
+                if($dataDb->response_status == 2){
+                    $status = '<small class="px-1 bg-warning text-white rounded-pill text-center">Awaiting Response</small>';
+                }
+                return $status;
             })
     
             ->editColumn('enquiry_date', function($dataDb) {
