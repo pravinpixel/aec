@@ -137,7 +137,7 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <a ng-show="P.status == 'sent'" class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
                                                         <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
-                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Mail</a>
+                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a>
                                                         <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
                                                     </div>
                                                 </div>
@@ -174,7 +174,7 @@
                                                                     <div class="dropdown-menu dropdown-menu-end">
                                                                         {{-- <a ng-show="V.status == 'sent'" class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a> --}}
                                                                         <a ng-show="V.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</a>
-                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Mail</a>
+                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a>
                                                                         <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id , V.id)">Remove</a>
                                                                     </div>
                                                                 </div>
