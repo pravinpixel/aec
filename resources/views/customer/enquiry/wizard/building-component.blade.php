@@ -153,11 +153,7 @@
                                                                                 <h4 class="modal-title" id="ConfirmDeleteLabel">Delete Confirmation</h4>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                                                                             </div>
-                                                                            <div class="modal-body text-center">
-                                                                                <h2>Are you sure !!</h2>
-                                                                                <p class="lead">You want to delete ? </br> Please put your password for delete action</p>
-                                                                                <input type="text" class="w-75 mx-auto form-control" placeholder="Enter your password" class="form-control">
-                                                                            </div>
+                                                                            
                                                                             <div class="modal-footer">
                                                                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel & close</button>
                                                                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="removeWall(fIndex, Secindex)">Yes, delete it !</button>
@@ -216,11 +212,7 @@
                                                                             <h4 class="modal-title" id="ConfirmDeleteLabel">Delete Confirmation</h4>
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                                                                         </div>
-                                                                        <div class="modal-body">
-                                                                            <h2>Are you sure !!</h2>
-                                                                            <p class="lead">You want to delete ? </br> Please put your password for delete action</p>
-                                                                            <input type="text" class="w-75 mx-auto form-control" placeholder="Enter your password" class="form-control">
-                                                                        </div>
+                                                                        
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel & close</button>
                                                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="removeLayer(fIndex, Secindex , ThreeIndex)">Yes, delete it !</button>

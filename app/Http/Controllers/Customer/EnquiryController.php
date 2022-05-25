@@ -265,8 +265,14 @@ class EnquiryController extends Controller
 
     public function storeIfcLink($request, $enquiry)
     {
-        $view_type =  $request->input('view_type');
-        $link =  $request->input('link');
+        $prefix    = 'https://';
+        $url      = $request->input('link');
+        $view_type = $request->input('view_type');
+        if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
+            $link = $url;
+        } else {
+            $link =  $prefix.$url;
+        }
         $documents =  $this->documentTypeRepo->findBySlug($view_type);
         $additionalData = ['date'=> now(), 'file_name' => $link, 'client_file_name' => $link, 'file_type' => 'link' , 'status' => 'Completed'];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
