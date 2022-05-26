@@ -26,7 +26,7 @@
         if (isNaN(val) || val == '') {
             return 0;
         }
-        return Number.parseFloat(val).toFixed(2);
+        return Math.round((val + Number.EPSILON) * 100) / 100;
     }
 
     function enableActiveTabs(tabs) {
