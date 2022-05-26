@@ -86,7 +86,7 @@
                                                     <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Statistics</th>
                                                     <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">CAD/CAM</th>
                                                     <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Logistics</th>
-                                                    <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">RIP</th>
+                                                    <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">RIB</th>
                                                     <th colspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">Total Cost</th>
                                                     <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
                                                 </tr>
@@ -114,7 +114,7 @@
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.CadCam.Sum) }}</b></td> 
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Logistics.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Logistics.Sum) }}</b></td> 
-                                                    <td colspan="2" class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Rip.Sum) }}</b></td> 
+                                                    <td colspan="2" class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.Rib.Sum) }}</b></td> 
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.TotalCost.Sum / CostEstimate.ComponentsTotals.sqm) }}</b></td> 
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(CostEstimate.ComponentsTotals.TotalCost.Sum) }}</b></td> 
                                                 </tr>
@@ -173,7 +173,7 @@
                                                         <input disabled  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Logistics.Sum"  name="logistic_sum">
                                                     </td>
                                                     <td colspan="2">
-                                                        <input  type="text" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Rip.Sum"  name="Rip">
+                                                        <input  type="text" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Rib.Sum"  name="Rib">
                                                     </td>
                                                     {{-- Total Cost --}}
                                                     <td><input get-cost-details-total ng-keyup="getCostDetailsTotal(index)"  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_price" ng-model="C.TotalCost.PriceM2"></td>
@@ -365,7 +365,7 @@
                         "PriceM2"   : 0, 
                         "Sum"       : 0, 
                     },
-                    "Rip": {
+                    "Rib": {
                         "Sum" : ""
                     }
                 }
@@ -393,7 +393,7 @@
                     "PriceM2"   : '', 
                     "Sum"       : '', 
                 },
-                "Rip": {
+                "Rib": {
                     "Sum" : ""
                 },
                 "grandTotal"    : '', 
@@ -436,7 +436,7 @@
                         "PriceM2"   : '', 
                         "Sum"       : '', 
                     },
-                    "Rip": {
+                    "Rib": {
                         "Sum" : ""
                     }
                 }
@@ -464,7 +464,7 @@
                     "PriceM2"   : '', 
                     "Sum"       : '', 
                 },
-                "Rip": {
+                "Rib": {
                     "Sum" : ""
                 },
                 "grandTotal"    : '', 
@@ -524,7 +524,7 @@
                     "PriceM2"   : "", 
                     "Sum"       : "", 
                 },
-                "Rip": {
+                "Rib": {
                     "Sum" : ""
                 }
             });
@@ -690,7 +690,7 @@
                                                                                             Number(scope.CostEstimate.Components[scope.index].CadCam.Sum)      + 
                                                                                             Number(scope.CostEstimate.Components[scope.index].Logistics.Sum));
                         } else {
-                            scope.CostEstimate.Components[scope.index].TotalCost.Sum     =  scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 * scope.CostEstimate.Components[scope.index].Rip.Sum;
+                            scope.CostEstimate.Components[scope.index].TotalCost.Sum     =  scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 * scope.CostEstimate.Components[scope.index].Rib.Sum;
                         }
                        
                         let  $sqmTotal          = 0;
@@ -705,7 +705,7 @@
                         let  $LogisticsSum      = 0;
                         let  $TotalCostPriceM2  = 0;
                         let  $TotalCostSum      = 0;
-                        let  $RipSum            = 0;
+                        let  $RibSum            = 0;
 
                         scope.CostEstimate.Components.map( (item, index) => {
                             
@@ -721,7 +721,7 @@
                             $LogisticsSum       +=  Number(item.Logistics.Sum);
                             $TotalCostPriceM2   +=  Number(item.TotalCost.PriceM2);
                             $TotalCostSum       +=  Number(item.TotalCost.Sum);
-                            $RipSum             +=  Number(item.Rip.Sum);
+                            $RibSum             +=  Number(item.Rib.Sum);
                         });
 
                         scope.CostEstimate.ComponentsTotals.sqm                 = $sqmTotal;
@@ -736,7 +736,7 @@
                         scope.CostEstimate.ComponentsTotals.Logistics.Sum       = $LogisticsSum;
                         scope.CostEstimate.ComponentsTotals.TotalCost.PriceM2   = $TotalCostPriceM2;
                         scope.CostEstimate.ComponentsTotals.TotalCost.Sum       = $TotalCostSum;          
-                        scope.CostEstimate.ComponentsTotals.Rip.Sum             = $RipSum;
+                        scope.CostEstimate.ComponentsTotals.Rib.Sum             = $RibSum;
 
                         scope.CostEstimate.ComponentsTotals.grandTotal       =  $sqmTotal +
                                                                                 $complexity +
@@ -838,7 +838,7 @@
                                 let $LogisticsSum       =   0;
                                 let $TotalCostPriceM2   =   0;
                                 let $TotalCostSum       =   0;
-                                let $RipSum             =   0;
+                                let $RibSum             =   0;
 
                                 scope.CostEstimate.Components.map( (item, index) => {
                                     $sqmTotal           +=  Number(item.sqm); 
@@ -853,7 +853,7 @@
                                     $LogisticsSum       +=  Number(item.Logistics.Sum);
                                     $TotalCostPriceM2   +=  Number(item.TotalCost.PriceM2);
                                     $TotalCostSum       +=  Number(item.TotalCost.Sum);
-                                    $RipSum             +=  Number(item.Rip.Sum);
+                                    $RibSum             +=  Number(item.Rib.Sum);
                                 });
 
                                 scope.CostEstimate.ComponentsTotals.sqm                 = $sqmTotal;
@@ -868,7 +868,7 @@
                                 scope.CostEstimate.ComponentsTotals.Logistics.Sum       = $LogisticsSum;
                                 scope.CostEstimate.ComponentsTotals.TotalCost.PriceM2   = $TotalCostPriceM2;
                                 scope.CostEstimate.ComponentsTotals.TotalCost.Sum       = $TotalCostSum;
-                                scope.CostEstimate.ComponentsTotals.Rip.Sum             = $RipSum;
+                                scope.CostEstimate.ComponentsTotals.Rib.Sum             = $RibSum;
 
                                 scope.CostEstimate.ComponentsTotals.grandTotal       =  $sqmTotal +
                                                                                         $complexity +
