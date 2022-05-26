@@ -814,8 +814,13 @@ class EnquiryController extends Controller
 
     public function getActiveCommentsCount(Request $request)
     {
-        $count = EnquiryComments::where(['status' => 0, 'created_by' => 'Admin'])->get()->count();
-        return response(['count'=> $count]);
+        $customerId = Customer()->id;
+        $comments = DB::select("
+            select count(id) as count from aec_enquiry_comments 
+                where  (status = 0 AND created_by = 'Admin') AND enquiry_id in (select id from aec_enquiries where customer_id = {$customerId})
+           "
+        )[0];
+        return $comments;
     }
 
     public function moveToCancel($id)
