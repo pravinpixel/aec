@@ -534,10 +534,10 @@
             $scope.EngineeringEstimate[rootKey].Components.splice(index,1);
             if($scope.EngineeringEstimate[rootKey].Components.length == 0) {
                 $scope.EngineeringEstimate.splice(rootKey,1);
-                $timeout(function() {
-                    angular.element('.sqm_').triggerHandler('keyup');
-                });
             } 
+            $timeout(function() {
+                angular.element('.sqm_').triggerHandler('keyup');
+            });
             Message('success', 'Component deleted successfully');
         }
         
