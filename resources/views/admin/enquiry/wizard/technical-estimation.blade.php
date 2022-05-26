@@ -213,7 +213,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ building_comp.file_path }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <a ng-click="getDocumentViews(building_comp)"  class="badge bg-success rounded-pill" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                         </li>
                     </ul>
                 </div>

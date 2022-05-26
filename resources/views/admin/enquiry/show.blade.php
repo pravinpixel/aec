@@ -337,6 +337,39 @@
                     Message('danger',response.data.errors);
                 });
             } 
+
+            $scope.getDocumentView = (file) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_name},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
+            $scope.getDocumentViews = (file) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_path},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
            
         });
         app.controller('Tech_Estimate', function ($scope, $http, API_URL) {
@@ -660,6 +693,22 @@
                     method: 'POST',
                     url: `${API_URL}get-document-modal`,
                     data: {url: file.file_name},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
+            $scope.getDocumentViews = (file) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_path},
                     }).then(function success(res) {
                         if(file.file_type == 'pdf')
                             var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';

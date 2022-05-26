@@ -253,7 +253,8 @@
                                         <td> @{{ ifc_model_upload.document_type_name }}</td>
                                         <td class="text-center">
                                             <a download="@{{ ifc_model_upload.pivot.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ url('/') }}/get-enquiry-document/@{{ifc_model_upload.pivot.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            {{-- <a ng-show="!autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ url('/') }}/get-enquiry-document/@{{ifc_model_upload.pivot.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a> --}}
+                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.pivot.file_type)"  ng-click="getDocumentView(ifc_model_upload.pivot)" ><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                             <a ng-show="autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.pivot.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                     </tr>
@@ -382,7 +383,7 @@
                                             <td> @{{ building_component.file_type }}</td>
                                             <td class="text-center">
                                                 <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                                <a target="_child" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                <a ng-click="getDocumentViews(building_component)"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -440,6 +441,7 @@
     </div>   
     @endif
     @include("admin.enquiry.models.chat-box")
+    @include('customer.enquiry.models.document-modal')
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
