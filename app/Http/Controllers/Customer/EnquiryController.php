@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Enquiry;
+use App\Models\EnquiryComments;
 use App\Repositories\AutoDeskRepository;
 use Exception;
 use Illuminate\Support\Facades\Config as FacadesConfig;
@@ -809,6 +810,12 @@ class EnquiryController extends Controller
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);
         }
+    }
+
+    public function getActiveCommentsCount(Request $request)
+    {
+        $count = EnquiryComments::where(['status' => 0, 'created_by' => 'Admin'])->get()->count();
+        return response(['count'=> $count]);
     }
 
     public function moveToCancel($id)

@@ -448,7 +448,7 @@
                 });         
             }
 
-            $scope.saveAndSubmitService = () => {
+            $scope.saveAndSubmitService = (formValid) => {
                 if(formValid == true) {
                     $scope.formSubmit = true;
                     return false;

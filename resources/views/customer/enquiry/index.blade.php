@@ -40,7 +40,10 @@
                     <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
                             <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                Active enquiries
+                                <div class="position-relative">
+                                    Active enquiries 
+                                    <span style="transform: translateY(-10px) !important; display:none" class="commentsCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"> @{{ commentsCount }} </span>
+                                </div>
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i  
@@ -165,7 +168,7 @@
     
     <script>
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL, $compile ) {
-           
+            $scope.commentsCount = 0;
             $scope.getEnquiry = (type,id) =>  {
                 $(".custom-accordion-collapse").addClass('collapsed');
                 $(".custom-accordion-collapse").removeClass('show');
@@ -480,6 +483,16 @@
                     }
                 });
             });
+
+            $http({
+                url     : '{!! route('get-active-comments-count') !!}',
+                method: "GET",
+            }).then(function (res) {
+                $scope.commentsCount = res.data.count;
+                $(".commentsCount").show();
+            }, function (error) {
+                console.log('This is embarassing. An error has occurred. Please check the log for details');
+            })
     });
 
   
