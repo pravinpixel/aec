@@ -806,7 +806,7 @@
             }
 
             $scope.saveAndSubmitBuildingComponent = (formValid) => {
-                let isValidField = true;
+                let isValidField = true;        
                 if($scope.showHideBuildingComponent == 0) {
                     $scope.wallGroup.forEach((wall) => {
                         if( wall.Details.length > 0) {
@@ -864,6 +864,10 @@
                         }, function (error) {
                             Message('error', `Somethig went wrong`);
                         }); 
+                    return false;
+                }
+                if($scope.showHideBuildingComponent == 1) { 
+                    Message('success', `Building Component updated successfully`);
                     return false;
                 }
                 return false;

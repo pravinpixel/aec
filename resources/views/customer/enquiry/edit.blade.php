@@ -825,6 +825,10 @@
                         }); 
                     return false;
                 }
+                if($scope.showHideBuildingComponent == 1) { 
+                    Message('success', `Building Component updated successfully`);
+                    return false;
+                }
                 return false;
             }
 

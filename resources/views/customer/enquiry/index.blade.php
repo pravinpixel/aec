@@ -489,7 +489,7 @@
                 method: "GET",
             }).then(function (res) {
                 $scope.commentsCount = res.data.count;
-                $(".commentsCount").show();
+                // $(".commentsCount").show();
             }, function (error) {
                 console.log('This is embarassing. An error has occurred. Please check the log for details');
             })
