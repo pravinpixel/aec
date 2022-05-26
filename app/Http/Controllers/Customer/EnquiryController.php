@@ -686,7 +686,9 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
-                $data = '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                $proposal_active_border = $dataDb->proposal_sharing_status == 1 ? 'border-success': 'border-primary';
+                $proposal_active_bg = $dataDb->proposal_sharing_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten text-primary';
+                $data = '<button type="button" class="badge '.$proposal_active_bg.' btn p-2 position-relative '.$proposal_active_border.'"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
                     <b>'. $dataDb->enquiry_number .'</b>';
                 if($commentCount != 0){
                     $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$commentCount.' </span>'; 
