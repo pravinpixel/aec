@@ -670,10 +670,15 @@
                 restrict: 'A',
                 link : function (scope, element, attrs) {
                     element.on('keyup', function () {
-                        scope.CostEstimate.Components[scope.index].Details.Sum          =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2 );
-                        scope.CostEstimate.Components[scope.index].Statistics.Sum       =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 );
-                        scope.CostEstimate.Components[scope.index].Logistics.Sum        =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 );
-                        scope.CostEstimate.Components[scope.index].CadCam.Sum           =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2 );
+                        console.log(scope.CostEstimate);
+                        scope.CostEstimate.Components[scope.index].Details.Sum          =    getNum(((scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2  ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+
+                                scope.CostEstimate.Components[scope.index].Statistics.Sum       =    getNum(((scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+
+                                scope.CostEstimate.Components[scope.index].Logistics.Sum        =    getNum(((scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+
+                                scope.CostEstimate.Components[scope.index].CadCam.Sum           =    getNum(((scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+                                
                         if( scope.CostEstimate.Components[scope.index].building_component_id != 6){
                             scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =   getNum(Number(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
                                                                                             Number(scope.CostEstimate.Components[scope.index].Statistics.PriceM2)  + 
@@ -773,7 +778,9 @@
                         url: '{{ route("CostEstimateMasterValue") }}',
                         params : {component_id: scope.C.building_component_id, type_id: scope.C.type_id}
                         }).then(function success(response) {
+                           
                             scope.masterData = response.data;
+                            console.log( scope.CostEstimate);
                             scope.CostEstimate.Components[scope.index].Component            =   response.data.component_id;  
                             scope.CostEstimate.Components[scope.index].Type                 =   response.data.type_id;  
 
@@ -801,10 +808,14 @@
                                                                                                 parseInt(response.data.statistic_price) + 
                                                                                                 parseInt(response.data.cad_cam_price)   + 
                                                                                                 parseInt(response.data.logistic_price))
-                                scope.CostEstimate.Components[scope.index].Details.Sum          =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2) ;
-                                scope.CostEstimate.Components[scope.index].Statistics.Sum       =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2) ;
-                                scope.CostEstimate.Components[scope.index].Logistics.Sum        =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2);
-                                scope.CostEstimate.Components[scope.index].CadCam.Sum           =    getNum(scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2) ;
+                                scope.CostEstimate.Components[scope.index].Details.Sum          =    getNum(((scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2  ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+
+                                scope.CostEstimate.Components[scope.index].Statistics.Sum       =    getNum(((scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+
+                                scope.CostEstimate.Components[scope.index].Logistics.Sum        =    getNum(((scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+
+                                scope.CostEstimate.Components[scope.index].CadCam.Sum           =    getNum(((scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+
 
                                 scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =   getNum(Number(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
                                                                                                     Number(scope.CostEstimate.Components[scope.index].Statistics.PriceM2)  + 
