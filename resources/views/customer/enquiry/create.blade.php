@@ -678,8 +678,8 @@
                                     Layer = detail.layer.map( (layerObj, index) => {
                                        
                                         return {
-                                            LayerName:  String(layerObj.layer.id),
-                                            LayerNameText:  layerObj.layer.layer_name,
+                                            LayerName:  String(layerObj.layer_name),
+                                            // LayerNameText:  layerObj.layer.layer_name,
                                             Thickness : Number(layerObj.thickness),
                                             Breadth:  Number(layerObj.breath),
                                         }
