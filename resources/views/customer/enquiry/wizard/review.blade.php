@@ -260,7 +260,7 @@
                                                                 <th>Breadth (mm)</th>
                                                             </tr> 
                                                             <tr ng-repeat="layer in detail.layer">
-                                                                <td>@{{ layer.layer.layer_name }}</td>
+                                                                <td>@{{ layer.layer_name }}</td>
                                                                 <td>@{{ layer.thickness }}</td>
                                                                 <td>@{{ layer.breath }} </td>
                                                             </tr>

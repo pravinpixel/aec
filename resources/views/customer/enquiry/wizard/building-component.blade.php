@@ -180,17 +180,16 @@
                                                             <div class="btn-group w-100">
                                                                 <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center"><i class="mdi mdi-drag"></i></div>
                                                                 <div class="form-group w-100 ">
-                                                                  
                                                                     <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name  <sup class="text-danger">*</sup></label>
-                                                                    <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="LayerName_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"   ng-model="l.LayerName" required>
+                                                                    <input  type="text" class="form-control form-control-sm" name="LayerName_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"  ng-model="l.LayerName" required>
+                                                                </div>
+                                                                {{-- <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="LayerName_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"   ng-model="l.LayerName" required>
                                                                             <option value="">@lang('customer-enquiry.select')</option>
                                                                             <option ng-repeat="layer in layers" value="@{{ layer.id}}" ng-selected="layer.id == l.LayerName">
                                                                                 @{{ layer.layer_name }}
                                                                             </option>
-                                                                    </select>
-                                                                
-                                                                </div>
-                                                                <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center" ng-click="callLayerModal(w.WallId)" title="Add layer name"><i class="fa fa-plus"></i></div>
+                                                                    </select> --}}
+                                                                {{-- <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center" ng-click="callLayerModal(w.WallId)" title="Add layer name"><i class="fa fa-plus"></i></div> --}}
                                                             </div>
                                                         </div> 
                                                         <div class="col p-0"> 

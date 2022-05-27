@@ -340,7 +340,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                             $buildingComponentDetailLayer                 = new EnquiryBuildingComponentLayer();
                             $buildingComponentDetailLayer->enquiry_id     = $enquiry->id;
                             $buildingComponentDetailLayer->enquiry_bcd_id = $enquiryBuildingComponentDetail->id;
-                            $buildingComponentDetailLayer->layer_id       = $buildingComponentLayer->LayerName;
+                            $buildingComponentDetailLayer->layer_name       = $buildingComponentLayer->LayerName;
                             $buildingComponentDetailLayer->thickness      = $buildingComponentLayer->Thickness;
                             $buildingComponentDetailLayer->breath         = $buildingComponentLayer->Breadth;
                             $buildingComponentDetailLayer->save();

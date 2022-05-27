@@ -889,24 +889,24 @@
                 });
             }
             }).directive('getLayerType', function layerType($http) {
-            return {
-                restrict: 'A',
-                link : function (scope, element, attrs) {
-                    element.on('click', function () {
-                        if(scope.w.WallId == 'undefined') {
-                            return false;
-                        }
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("layer-type.get-layer-type") }}',
-                            params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
-                            }).then(function success(response) {
-                                scope.layerTypes = response.data;
-                            }, function error(response) {
-                        });
-                    });
-                },
-            };
+            // return {
+            //     restrict: 'A',
+            //     link : function (scope, element, attrs) {
+            //         element.on('click', function () {
+            //             if(scope.w.WallId == 'undefined') {
+            //                 return false;
+            //             }
+            //             $http({
+            //                 method: 'GET',
+            //                 url: '{{ route("layer-type.get-layer-type") }}',
+            //                 params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+            //                 }).then(function success(response) {
+            //                     scope.layerTypes = response.data;
+            //                 }, function error(response) {
+            //             });
+            //         });
+            //     },
+            // };
             }).directive('getCustomerLayer', function customerLayer($http) {
                 return {
                     restrict: 'A',
