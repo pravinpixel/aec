@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>DevExtreme Demo</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <style>
+        .widget-container {
+  margin-right: 320px;
+}
+
+.content h4 {
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.content {
+  margin-top: 50px;
+  margin-left: 10px;
+}
+
+.selected-item {
+  margin-bottom: 20px;
+}
+
+#selected-files {
+  display: none;
+}
+
+.options {
+  padding: 20px;
+  background-color: rgba(191, 191, 191, 0.15);
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+}
+
+.caption {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.option {
+  margin-top: 10px;
+}
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write(decodeURIComponent('%3Cscript src="js/jquery.min.js"%3E%3C/script%3E'))</script>
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.common.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.light.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>window.angular || document.write(decodeURIComponent('%3Cscript src="js/angular.min.js"%3E%3C/script%3E'))</script>
+    <script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
+    <script>
+        const DemoApp = angular.module('DemoApp', ['dx']);
+
+        DemoApp.controller('DemoController', ($scope) => {
+            $scope.multiple = false;
+            $scope.accept = '*';
+            $scope.value = [];
+            $scope.uploadMode = 'useButtons';
+
+            $scope.options = {
+                uploadUrl: 'https://js.devexpress.com/Demos/NetCore/FileUploader/Upload',
+                bindingOptions: {
+                multiple: 'multiple',
+                accept: 'accept',
+                value: 'value',
+                uploadMode: 'uploadMode'
+                },
+            };
+
+            $scope.acceptOptions = {
+                dataSource: [
+                { name: 'All types', value: '*' },
+                { name: 'Images', value: 'image/*' },
+                { name: 'Videos', value: 'video/*' },
+                ],
+                valueExpr: 'value',
+                displayExpr: 'name',
+                bindingOptions: {
+                value: 'accept',
+                },
+            };
+
+            $scope.uploadOptions = {
+                items: ['instantly', 'useButtons'],
+                bindingOptions: {
+                value: 'uploadMode',
+                },
+            };
+
+            $('#button').dxButton({
+                text: 'Update profile',
+                type: 'success',
+                onClick() {
+                    console.log('called');
+                },
+            });
+        });
+
+    </script>
+  </head>
+  <body class="dx-viewport">
+    <div class="demo-container" ng-app="DemoApp" ng-controller="DemoController">
+      <div id="fileuploader">
+        <div class="widget-container">
+          <div dx-file-uploader="options"> </div>
+          <div class="content">
+            <div ng-if="value.length > 0">
+              <h4>Selected Files</h4>
+            </div>
+            <div ng-repeat="val in value">
+              <div class="selected-item">
+                Name:
+                <span>{{val.name}}</span><br />
+                Size:
+                <span>{{val.size}}</span>bytes<br />
+                Type:
+                <span>{{val.type}}</span><br />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="options">
+          <div class="caption">Options</div>
+          <div class="option">
+            <span>File types</span>
+            <div dx-select-box="acceptOptions"></div>
+          </div>
+          <div class="option">
+            <span>Upload mode</span>
+            <div dx-select-box="uploadOptions"></div>
+          </div>
+          <div class="option">
+            <div
+              dx-check-box="{
+                            text: 'Allow multiple files selection',
+                            bindingOptions: {
+                                value: 'multiple'
+                            }
+                    }"
+            ></div>
+            <div id="button"></div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </body>
+</html>
