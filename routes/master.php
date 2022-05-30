@@ -126,6 +126,10 @@ Route::resource('task-list-master', TaskListController::class);
  
 Route::resource('check-list-master', CheckListController::class);
 
+Route::get('wood-estimate-json',[WoodEstimateController::class,'getWoodEstimateJSON']);
+
+Route::resource('wood-estimate', WoodEstimateController::class);
+ 
 
 Route::get('get-document-type', [DocumentTypeController::class,'get'])->name('document-type.get');
 Route::put('document-type/status/{id}', [DocumentTypeController::class,'status'] )->name('document-type.status');

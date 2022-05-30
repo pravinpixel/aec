@@ -110,14 +110,13 @@ class WoodEstimateController extends Controller
             'totalSum'  => 0,
             "Components" => [ 
                 [
-                    'building_component_id'=> '',
-                    'type_id'=> '',
-                    'designScope'  => 0,
-                    "Component"     => "",
-                    "Type"          => "", 
-                    "sqm"           => "",
-                    "complexity"    => "", 
-                  
+                    'building_component_id' => '',
+                    'type_id'               => '',
+                    'designScope'           => 0,
+                    "Component"             => "",
+                    "Type"                  => "",
+                    "sqm"                   => "",
+                    "complexity"            => ""
                 ]
             ],
             "ComponentsTotals" => [
@@ -127,8 +126,8 @@ class WoodEstimateController extends Controller
             ],
         ];
         foreach($estimations as $estimation) {
-            $CostEstimate['Components'][0][$estimation->name] =  ['PriceM2' => '', 'Sum' => ''];
-            $CostEstimate['ComponentsTotals'][0][$estimation->name] =  ['PriceM2' => '', 'Sum' => ''];
+            $CostEstimate['Components'][0][$estimation->name]       = ['PriceM2' => '', 'Sum' => ''];
+            $CostEstimate['ComponentsTotals'][0][$estimation->name] = ['PriceM2' => '', 'Sum' => ''];
         }
         $CostEstimate['Components'][0]["TotalCost"]  = ['PriceM2' => '', 'Sum' => ''];
         $CostEstimate['Components'][0]["Rib"]        = ["Sum" => ""];
