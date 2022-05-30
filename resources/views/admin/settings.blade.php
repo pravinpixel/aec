@@ -85,6 +85,12 @@
                                 <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
                             </a>
+
+                            <a class="nav-link checkListTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
+                                aria-selected="false">
+                                <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block"  ng-click="getWoodEstimation()" >Wood Estimation</span>
+                            </a>
                             
                         </div>
                     </div> <!-- end col-->
@@ -224,6 +230,10 @@
                 },
                 controller: 'PermissionCtrl'
             })
+            .when("/wood-estimation", {
+                templateUrl : "{{ route('wood-estimation')  }}",
+                controller : "WoodEstimateController"
+            })
         });
         app.controller('PermissionCtrl', function($scope, $http, $routeParams,API_URL){
             $scope.setPermission = (role_id) => {
@@ -256,6 +266,89 @@
             var role_id = $routeParams.id
             getPermission(role_id);
         });
+
+        app.controller('WoodEstimateController', function($scope, $http, $routeParams,API_URL){
+            function getWoodEstimates() {
+                $http.get(`${API_URL}wood-estimate`).then((res)=> {
+                    $scope.woodEstimations = res.data; 
+                });
+            }
+            getWoodEstimates();
+
+            $scope.toggleModalForm = function (modalstate, id) {
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Task";
+                        $scope.form_color = "primary";
+                        $scope.modalstate   =   'add'
+                        $scope.task_list_item = {};
+                        $('#woodestimate-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Task";
+                        $scope.form_color = "success";
+                        $scope.id = id; 
+                        $scope.task_list_item = {};
+                        $http.get(`${API_URL}wood-estimate/${id}`)
+                            .then(function (response) {
+                                $scope.wood_estimate_item = response.data.data;
+                                $('#woodestimate-form-popup').modal('show');
+                            });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.storeModalWoodForm = (modalstate, id) => { 
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}wood-estimate${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.wood_estimate_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#woodestimate-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    getWoodEstimates();
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors.name[0]);
+                });
+            }
+
+            $scope.changeWoodEstimateStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}wood-estimate/${id}`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    getWoodEstimates();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+
+            $scope.delete   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}wood-estimate/${id}`).then(function (response) {
+                            getWoodEstimates();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
+        });
+
         app.controller('moduleController', function ($scope, $http, API_URL, $location) {
             $location.path('/role');
             //fetch users listing from 
@@ -2691,8 +2784,6 @@
                 });
             }
         });
-
-
         app.controller('CheckListController', function ($scope, $http, API_URL, $location) {
 
             $scope.getFreshTaskListData = () => {

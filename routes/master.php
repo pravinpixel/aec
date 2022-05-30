@@ -16,6 +16,7 @@ use App\Http\Controllers\Customer\Master\CustomerLayerController;
 use App\Http\Controllers\Admin\Master\RoleController;
 use App\Http\Controllers\Admin\Master\TaskListController;
 use App\Http\Controllers\Admin\Master\CheckListController;
+use App\Http\Controllers\Admin\Master\WoodEstimateController;
 use App\Http\Controllers\Admin\PermissionController;
 
 Route::get('module-file',  function() {
@@ -61,6 +62,10 @@ Route::get('task-list-view',  function() {
 Route::get('check-list',  function() {
     return view('admin.setting-tabs.Check-list.check-list');
 })->name('check-list-file');
+
+Route::get('wood-estimation',  function() {
+    return view('admin.setting-tabs.wood-estimation.wood-estimation-list');
+})->name('wood-estimation');
 
 
 Route::get('permission/{id}',  [PermissionController::class,'permission'])->name('permission');
@@ -120,7 +125,7 @@ Route::get('get-task-list', [TaskListController::class,'get'])->name('task-list.
 Route::resource('task-list-master', TaskListController::class);
  
 Route::resource('check-list-master', CheckListController::class);
- 
+
 
 Route::get('get-document-type', [DocumentTypeController::class,'get'])->name('document-type.get');
 Route::put('document-type/status/{id}', [DocumentTypeController::class,'status'] )->name('document-type.status');

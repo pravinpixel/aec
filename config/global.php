@@ -54,15 +54,16 @@ return [
     'job_delay' => 60,
 
     'cost_estimate_types' => [
-        '1' => 'Type 1',
-        '2' => 'Type 2',
-        '3' => 'Type 3',
-        '4' => 'Type 4',
-        '5' => 'Type 5',
-        '6' => 'Type 6',
-        '7' => 'Type 7',
-        '8' => 'Type 8',
-        '9' => 'Type 9'
+        '1' => 'Building Type 1',
+        '2' => 'Building Type 2',
+        '3' => 'Building Type 3',
+        '4' => 'Building Type 4',
+        '5' => 'Building Type 5',
+        '6' => 'Building Type 6',
+        '7' => 'Building Type 7',
+        '8' => 'Building Type 8',
+        '9' => 'Building Type 9',
+        '10' => 'Building Type 10'
     ],
 
 ];
