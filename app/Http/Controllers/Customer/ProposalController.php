@@ -4,22 +4,40 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\MailTemplate;
-use App\Models\Admin\PropoalVersions as ProposalVersions ;
+use App\Models\Admin\PropoalVersions as ProposalVersions;
 use App\Models\Enquiry;
 use App\Repositories\CustomerEnquiryRepository;
 use Illuminate\Http\Request;
+use Laracasts\Flash\Flash;
 
 class ProposalController extends Controller
 {
     protected $customerEnquiryRepo;
-    public function __construct(CustomerEnquiryRepository $customerEnquiryRepository){
+
+    public function __construct(
+        CustomerEnquiryRepository $customerEnquiryRepository
+    ){
         $this->customerEnquiryRepo  = $customerEnquiryRepository;
     }
 
     public function index($id)
     {
+        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        if(empty($enquiry)) {
+            Flash::error('Not found');
+            return redirect(route('customers-enquiry-dashboard'));
+        }
         $data['proposals'] = $this->customerEnquiryRepo->getCustomerProPosal($id);
-        return view('customer.proposal.index', with($data));
+        $latestVersion = $this->getLatestProposal($id);
+        if(empty($latestVersion )) {
+            Flash::error('There is no proposal found');
+            return redirect(route('customers-enquiry-dashboard'));
+        }
+        $data['enquiry_id']      = $latestVersion->enquiry_id;
+        $data['proposal_id']     = $latestVersion->proposal_id;
+        $data['version_id']      = isset($latestVersion->parent_id) ? $latestVersion->id : 0;
+        $data['latest_proposal'] = $latestVersion;
+        return view('customer.proposal.index', with($data),compact('enquiry','id'));
     }
 
     public function approveOrDeny(Request $request, $type)
@@ -28,21 +46,21 @@ class ProposalController extends Controller
         $proposal_id = $request->input('pid');
         $version_id  = $request->input('vid');
         $enquiry     = Enquiry::find($enquiry_id);
-        if($type == 0) {
+        if($type == 'change_request' || $type == 'deny') {
             $enquiry->project_status = "Unattended";
             $enquiry->customer_response = 2;
             $enquiry->proposal_sharing_status = 0;
-            $enquiry->save(); 
-            $this->addComment($enquiry_id, $request); 
-            return response(['status' => true, 'msg' => __('enquiry.denied')]);
+            $enquiry->save();
+            $this->addComment($enquiry_id, $request, $type);
+            return response(['status' => true, 'msg' => ($type == 'deny' ? __('enquiry.denied') : __('enquiry.change_request') )]);
         } 
-        if($type == 1){ 
+        if($type == 'approve'){ 
             $enquiry->project_status = "Active";
             $enquiry->customer_response = 1;
             $enquiry->save();
             MailTemplate::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);
             ProposalVersions::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);      
-            if( $version_id  != 0)    {
+            if( $version_id  != 0)  {
                 ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id' => $version_id])
                                 ->update(['proposal_status' => 'approved']);  
             } else {
@@ -53,21 +71,21 @@ class ProposalController extends Controller
         }
     }
 
-    public function addComment($enquiry_id, $request)
+    public function addComment($enquiry_id, $request, $type = null)
     {
-       
         $proposal_id    =   $request->input('pid');
         $version_id     =   $request->input('vid');
         $comment        =   $request->input('comment');
+        $type           =   $type == 'deny' ? 'denied' : 'change_request';
         if($version_id == 0) {
             $proposal = MailTemplate::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id])->first();
             $proposal->comment = $comment;
-            $proposal->proposal_status = 'denied';
+            $proposal->proposal_status = $type;
             $proposal->save();
         } else {
             $proposalVersion = ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id'=>  $version_id])->first();
             $proposalVersion->comment = $comment;
-            $proposalVersion->proposal_status = 'denied';
+            $proposalVersion->proposal_status = $type;
             $proposalVersion->save();
         }
     }
@@ -80,6 +98,15 @@ class ProposalController extends Controller
             $proposal           =   MailTemplate::where('proposal_id','=',$proposal_id)->latest()->first();
         } else {
             $proposal   =   ProposalVersions::where(['proposal_id'=> $proposal_id, 'id'=> $version_id ])->latest()->first();
+        }
+        return $proposal;
+    }
+
+    public function getLatestProposal($enquiry_id)
+    {
+        $proposal  = ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'status' => 'sent'])->latest()->first();
+        if(empty($proposal)) {
+            $proposal  = MailTemplate::where(['enquiry_id'=> $enquiry_id, 'status' => 'sent'])->latest()->first();
         }
         return $proposal;
     }

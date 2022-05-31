@@ -46,7 +46,10 @@ if(!function_exists('proposalStatusBadge')) {
                 return "<span class='badge badge-outline-danger rounded-pill'>Obsolete</span>";
                 break;
             case "denied":
-                return "<span class='badge badge-outline-danger rounded-pill'>Denied</span>";
+                return "<span class='badge  badge-outline-danger rounded-pill'>Denied</span>";
+                break;
+            case "change_request":
+                return "<span class='badge badge-outline-danger rounded-pill'>Change Request</span>";
                 break;
             default:
                 $uValue = (string)ucfirst($value);

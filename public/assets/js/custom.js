@@ -58,10 +58,26 @@
         
             case "denied":
                 return   "<span class='badge badge-outline-danger rounded-pill'>Denied</span>";
+
+            case "change_request":
+                return   "<span class='badge badge-outline-danger rounded-pill'>Change Request</span>";
         
             default:
                 return   "-";
             
         }    
+    }
+
+    function swlAlertInfo(text, redirectRoute) {
+        Swal.fire({
+            title: `${text}`,
+            showDenyButton: false,
+            showCancelButton: false,
+            confirmButtonText: 'Ok',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = redirectRoute;
+            }
+        });
     }
     
