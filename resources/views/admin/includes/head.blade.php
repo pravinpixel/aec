@@ -120,8 +120,8 @@
         top: 0;
         clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
     } 
-    .form-control.ng-valid ,
-    .form-select.ng-valid {
+    .form-control.ng-valid.ng-touched ,
+    .form-select.ng-valid.ng-touched {
     border-bottom: 1px solid #008a60 !important
     }
     .customer-danger {

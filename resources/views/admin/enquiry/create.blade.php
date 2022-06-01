@@ -105,10 +105,11 @@
 @push('custom-styles')
     <style>
         
-    .form-control.ng-valid ,
-    .form-select.ng-valid {
+    .form-control.ng-valid.ng-touched ,
+    .form-select.ng-valid.ng-touched {
     border-bottom: 1px solid #008a60 !important
     }
+    
     </style>
 @endpush
 @push('custom-scripts')
