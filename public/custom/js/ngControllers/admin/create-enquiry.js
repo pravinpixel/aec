@@ -39,11 +39,12 @@ app.controller('SalesController', function ($scope, $http, API_URL, $window) {
                     return {'company':item.navn, 'mobile': item.tlf_mobil, 'organization_no': item.orgnr} 
                 });
                 if($scope.companyList.length == 1) {
-                    console.log($scope.companyList[0]);
                     $scope.module.company_name = $scope.companyList[0].company;
                     $scope.module.mobile_number = $scope.companyList[0].mobile.split(" ").join("");
                     $scope.module.organization_no = ($scope.companyList[0].organization_no == '') ? '  ' : $scope.companyList[0].organization_no;
-                    console.log($scope.module.organization_no)
+                }  else {
+                    $scope.module.mobile_number = '';
+                    $scope.module.organization_no = '';
                 }
         }, function errorCallback(error){
             console.log(error);
