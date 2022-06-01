@@ -395,6 +395,23 @@
                 }, function (err) {
                     console.log('get enquiry error');
             });
+            
+            getOutputTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("output-type.get") }}'
+                }).then(function (res) {
+                        $scope.outputTypes =  res.data.map((serviceSelection) => { 
+                                                return {...serviceSelection, 
+                                                        services: serviceSelection.services.map((service) => { return  {...service, 'selected': false} })}
+                                            });
+
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+            getOutputTypes();
+            
             getLastEnquiry = (enquiry_id) => {
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
                     return false;
@@ -405,20 +422,19 @@
                 }).then(function (res) {
                     enableActiveTabs(res.data.active_tabs);
                     $scope.serviceList = res.data.services;
+                    $scope.outputTypes = $scope.outputTypes.map((serviceSelection) => { 
+                        return {...serviceSelection, 
+                                services: serviceSelection.services.map((service) => { 
+                                    if($scope.serviceList.indexOf(service.id) > -1)
+                                        return  {...service, 'selected': true} 
+                                    return service;
+                                })}
+                    });
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             }
-            getOutputTypes = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("output-type.get") }}'
-                }).then(function (res) {
-                        $scope.outputTypes = res.data;	
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            }
+
             getServiceSelectionInptuData = function() {
                 return Object.assign({}, $scope.serviceList);
             }
@@ -465,7 +481,7 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });         
             }
-            getOutputTypes();
+           
         });
         
         app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload, $timeout) { 
