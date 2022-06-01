@@ -444,6 +444,7 @@
                 }else {
                     if($scope.serviceList.indexOf(list) > -1)  $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
                 }
+                Object.assign({}, $scope.serviceList);
             };
             $scope.formSubmit = false;
             $scope.submitService = (formValid) => {

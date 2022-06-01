@@ -508,98 +508,110 @@
     
 
     app.controller('Service', function ($scope, $http, $rootScope, Notification, API_URL, $location){
-        $scope.commentShow = true;
-        $scope.serviceList = [];
-        let enquiry_id = {{$id}};
-        $scope.enquiry_id = {{$id}};
-        $http({
-            method: 'GET',
-            url: '{{ route('get-customer-enquiry') }}'
-        }).then( function(res) {
-                getLastEnquiry(enquiry_id);
-                if(res.data.status == "false") {
-                    $scope.enquiry_number = res.data.enquiry_number;
-                    // enquiry_id = res.data.enquiry_id
-                    
-                } else {
-                    $scope.enquiry_no = res.data.enquiry.enquiry_number;
-                }
-            }, function (err) {
-                console.log('get enquiry error');
-        });
-        getLastEnquiry = (enquiry_id) => {
-            if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
-                return false;
-            } 
+            $scope.commentShow = true;
+            $scope.serviceList = [];
+            let enquiry_id = {{$id}};
+            $scope.enquiry_id = {{$id}};
             $http({
                 method: 'GET',
-                url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/services`,
-            }).then(function (res) {
-                enableActiveTabs(res.data.active_tabs);
-                $scope.serviceList = res.data.services;
-            }, function (error) {
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
+                url: '{{ route('get-customer-enquiry') }}'
+            }).then( function(res) {
+                    getLastEnquiry(enquiry_id);
+                    if(res.data.status == "false") {
+                        $scope.enquiry_number = res.data.enquiry_number;
+                        // enquiry_id = res.data.enquiry_id
+                      
+                    } else {
+                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                    }
+                }, function (err) {
+                    console.log('get enquiry error');
             });
-        }
-        getOutputTypes = () => {
-            $http({
-                method: 'GET',
-                url: '{{ route("output-type.get") }}'
-            }).then(function (res) {
-                    $scope.outputTypes = res.data;	
-            }, function (error) {
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });
-        }
-        getServiceSelectionInptuData = function() {
-            return Object.assign({}, $scope.serviceList);
-        }
-        $scope.changeService = function(list, active){
-            if (active) {
-                if($scope.serviceList.indexOf(list) == -1)  $scope.serviceList.push(list);
-            }else {
-                if($scope.serviceList.indexOf(list) > -1)  $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
+            getOutputTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("output-type.get") }}'
+                }).then(function (res) {
+                    $scope.outputTypes =   res.data.map((serviceSelection) => { 
+                                                return {...serviceSelection, 
+                                                        services: serviceSelection.services.map((service) => { return  {...service, 'selected': false} })}
+                                            });
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
-        
-        };
-        $scope.formSubmit = false;
-        $scope.submitService = (formValid) => {
-            if(formValid == true) {
-                $scope.formSubmit = true;
-                return false;
-            }
-            $scope.formSubmit = false;
-            $http({
-                method: 'POST',
-                url: '{{ route("customers.update-enquiry", $id) }}',
-                data: {type: 'services', 'data': getServiceSelectionInptuData()}
-            }).then(function (res) {
-                $location.path('/ifc-model-upload');
-                Message('success','Service selection inserted successfully');
-            }, function (error) {
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });         
-        }
+            getOutputTypes();
 
-        $scope.saveAndSubmitService = (formValid) => {
-            if(formValid == true) {
-                $scope.formSubmit = true;
-                return false;
+            getLastEnquiry = (enquiry_id) => {
+                if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
+                    return false;
+                } 
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/services`,
+                }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
+                    $scope.serviceList = res.data.services;
+                    $scope.outputTypes = $scope.outputTypes.map((serviceSelection) => { 
+                        return {...serviceSelection, 
+                                services: serviceSelection.services.map((service) => { 
+                                    if($scope.serviceList.indexOf(service.id) > -1)
+                                        return  {...service, 'selected': true} 
+                                    return service;
+                                })}
+                    });
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
+            getServiceSelectionInptuData = function() {
+                return Object.assign({}, $scope.serviceList);
+            }
+            $scope.changeService = function(list, active){
+                if (active) {
+                    if($scope.serviceList.indexOf(list) == -1)  $scope.serviceList.push(list);
+                }else {
+                    if($scope.serviceList.indexOf(list) > -1)  $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
+                }
+                Object.assign({}, $scope.serviceList);
+            };
             $scope.formSubmit = false;
-            $http({
-                method: 'POST',
-                url: '{{ route("customers.update-enquiry", $id) }}',
-                data: {type: 'services', 'data': getServiceSelectionInptuData()}
-            }).then(function (res) {
-                Message('success','Service selection saved successfully');
-                return false;
-            }, function (error) {
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            });         
-        }
-        getOutputTypes();
-    });
+            $scope.submitService = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $scope.formSubmit = false;
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.update-enquiry", $id) }}',
+                    data: {type: 'services', 'data': getServiceSelectionInptuData()}
+                }).then(function (res) {
+                    $location.path('/ifc-model-upload');
+                    Message('success','Service selection inserted successfully');
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });         
+            }
+
+            $scope.saveAndSubmitService = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $scope.formSubmit = false;
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.update-enquiry", $id) }}',
+                    data: {type: 'services', 'data': getServiceSelectionInptuData()}
+                }).then(function (res) {
+                    Message('success','Service selection saved successfully');
+                    return false;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });         
+            }
+        });
     
     app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload ) { 
         $scope.commentShow = true;
