@@ -51,7 +51,7 @@
             <div class="form-floating mb-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="building_type" ng-model="projectInfo.building_type_id" required>
                     <option value="">@lang('customer-enquiry.select') </option>
-                    <option ng-repeat="buildingType in buildingTypes" value="@{{ buildingType.id }}" >
+                    <option ng-repeat="buildingType in buildingTypes" value="@{{ buildingType.id }}"  ng-selected="buildingType.id == projectInfo.building_type_id">
                         @{{ buildingType.building_type_name }}
                     </option>
                 </select>
@@ -61,7 +61,7 @@
             <div class="form-floating mb-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type"  ng-model="projectInfo.project_type_id" required>
                     <option value="">@lang('customer-enquiry.select')</option>
-                    <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
+                    <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" ng-selected="projectType.id == projectInfo.project_type_id">
                         @{{ projectType.project_type_name }}
                     </option>
                 </select>
@@ -98,7 +98,7 @@
             <div class="form-floating mb-2">
                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="delivery_type"  ng-model="projectInfo.delivery_type_id" required>
                     <option value="">@lang('customer-enquiry.select')</option>
-                    <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" >
+                    <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == projectInfo.delivery_type_id">
                         @{{ deliveryType.delivery_type_name }}
                     </option>
                 </select>
