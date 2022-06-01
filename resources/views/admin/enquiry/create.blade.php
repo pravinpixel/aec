@@ -33,7 +33,7 @@
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >@lang('customer.enquiry_date') <sup class="text-danger">*</sup></label>
-                                                    <input type="date" class="form-control" name="enq_date"  ng-model="enq_date_one" >
+                                                    <input type="date" class="form-control" name="enq_date"  ng-model="enq_date_one" required="required">
                                                 </div>
                                             </div>
                                         </div>

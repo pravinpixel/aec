@@ -1,7 +1,9 @@
 app.controller('SalesController', function ($scope, $http, API_URL, $window) { 
     $scope.day = new Date();
     $scope.enq_number = 'Draft';
-    $scope.enq_date_one = moment(new Date()).format('YYYY-MM-DD');
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    $scope.enq_date_one = new Date(date);
     $scope.phoneNumbr = /^(0047|\+47|47)?[2-9]\d{7}$/;
 
     $scope.save = function (modalstate, id) {
