@@ -52,6 +52,7 @@
     }
     .nav-link.active {
         font-weight: bold !important;
-        color: var(--primary-bg) !important;
+        color: white !important;
+        background-color:  var(--primary-bg) !important;
     }
 </style> 

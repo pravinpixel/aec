@@ -15,15 +15,13 @@
 
                 <li class="nav-item">
                     <a href="#enquiry" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
-                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                        <span class="d-none d-md-block">Summary</span>
+                        <span >Summary</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="#proposal" data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
-                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                        <span class="d-none d-md-block">Proposal</span>
+                        <span >Proposal</span>
                     </a>
                 </li>
 
@@ -1794,4 +1792,4 @@
 
 </script>
 
-@endpush
+@endpush 
