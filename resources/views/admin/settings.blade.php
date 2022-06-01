@@ -380,6 +380,7 @@
                 $scope.getDocumentData($http, API_URL);
             }
             $scope.layerGetData = function () {
+                $scope.getComponentLayerData($http, API_URL);
                 $scope.getLayerData($http, API_URL);
             }
             $scope.deliveryTypeGetData = function () {
