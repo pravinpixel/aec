@@ -386,6 +386,10 @@
                 console.log('This is embarassing. An error has occurred. Please check the log for details');
             });
         }
+        getProjectType();
+        getBuildingType();
+        getDeliveryType();
+
         getProjectInfoInptuData = function($projectInfo) {
             
             $scope.data = {
@@ -429,10 +433,7 @@
             });
         }
         getLastEnquiry(enquiry_id);
-        getProjectType();
-        getBuildingType();
-        getDeliveryType();
-
+  
         $scope.getZipcodeData = function() {
             let zipcode = $("#zipcode").val();
             if(typeof(zipcode) == 'undefined' || zipcode.length != 4){
