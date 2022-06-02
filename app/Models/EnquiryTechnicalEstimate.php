@@ -9,6 +9,8 @@ class EnquiryTechnicalEstimate extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'assign_for_status',
+        'assign_for',
         'build_json',
         'enquiry_id',
         'updated_by'

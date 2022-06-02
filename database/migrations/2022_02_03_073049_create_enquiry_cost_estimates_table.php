@@ -17,6 +17,8 @@ class CreateEnquiryCostEstimatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('assign_to')->nullable();
             $table->unsignedBigInteger('assign_by')->nullable();
+            $table->string('assign_for')->nullable();
+            $table->boolean('assign_for_status')->default(0);
             $table->string('enquiry_id'); 
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

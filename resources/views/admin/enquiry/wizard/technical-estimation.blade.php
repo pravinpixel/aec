@@ -19,7 +19,7 @@
                 <div class="timeline-content">
                     <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
-                    </div>
+                    </div> 
                 </div>
                 <p class="h5 mt-2">Technical Estimate</p>
             </a>
@@ -165,9 +165,23 @@
                             </div> 
                         </div>
                         <div class="p-0">
-                            <div class="text-end">
-                                <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
-                            </div>
+                            @if(userHasAccess('technical_estimate_add'))
+                                <div class="text-end">
+                                    <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
+                                </div>
+                                <p class="lead mb-2 text-danger" ng-show="technical_estimate.assign_for == 'estimation' && technical_estimate.assign_for_status == 0"> <strong>Waiting for estimation</strong></p>
+                                <p class="lead mb-2 text-danger" ng-show="technical_estimate.assign_for == 'approval' && technical_estimate.assign_for_status == 0"> <strong>Waiting for approval</strong></p>
+                                <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'estimation'"> <strong>Estimated successfully</strong></p>
+                                <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'approval'"> <strong>Approved successfully </strong></p>
+                            @else
+                                <div class="text-end" ng-if="technical_estimate.assign_for_status == 0 && technical_estimate.assign_to == {{ Admin()->id }}">
+                                    <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
+                                </div>
+                                <div ng-if="technical_estimate.assign_for_status == 1">
+                                    <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'approval'"> <strong> Approved successfully </strong></p>
+                                    <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'estimation'"> <strong> Estimated successfully</strong></p>
+                                </div>
+                            @endif
                         </div>
                     </div>  
                 </div> 
@@ -249,28 +263,51 @@
 
             
             <div class="card m-0 my-3 border col-md-9 me-auto">
-                <div class="card-body">
-                    <p class="lead mb-2"> <strong>Assign to</strong></p>
+                <div class="card-body"> 
+                    <p class="lead mb-2"> <strong>Assign for</strong></p>
+                    <div class="row my-2">
+                        <div class="col">
+                            <div class="form-check">
+                                <input ng-checked="technical_estimate.assign_for == 'estimation'" class="form-check-input" ng-model="technical_estimate_assign_for" name="technical_estimate" type="radio" value="estimation" id="for_estimation">
+                                <label class="form-check-label" for="for_estimation">
+                                    Estimation
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="form-check">
+                                <input ng-checked="technical_estimate.assign_for == 'approval'" class="form-check-input"  ng-model="technical_estimate_assign_for"  name="technical_estimate" type="radio" value="approval" id="for_approval">
+                                <label class="form-check-label" for="for_approval">
+                                    Approval
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="btn-group w-100">
                         <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
                             <option value=""> @lang('global.select') </option>
                             <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.user_name}}</option>
                         </select> 
-                        <button class="input-group-text btn btn-info"   ng-click="assignTechnicalEstimate(assign_to)"> Assign  </button>
+                        <button class="input-group-text btn btn-info"   ng-click="assignTechnicalEstimate(assign_to, technical_estimate_assign_for)"> Assign  </button>
                     </div> 
                     <small class="float-end btn link p-0 mt-2" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets" >
                         <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
                     </small>
                 </div>
             </div> 
-        
+
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
                     <div>
                         <a href="#!/project-summary" class="btn btn-light border shadow-sm">Prev</a>
                     </div>
                     <div>
-                        <a ng-show="technical_estimation_status != 0 && technical_estimate.assign_to == {{ Admin()->id }}" href="#!/cost-estimation"  class="btn btn-primary">Next</a>
+                        <a ng-show="(technical_estimation_status != 0 && technical_estimate.assign_to == {{ Admin()->id }}) || (technical_estimate.assign_for_status == 1)" 
+                            ng-click="gotoNext()"
+                            class="btn btn-primary">
+                        Next</a>
                     </div>
                 </div>
             </div>

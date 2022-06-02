@@ -49,15 +49,29 @@ class TechEstimateController extends Controller
         if($data == [])  {
             return response(['status' => true,  'msg' => trans('You can not delete all building !')], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-        EnquiryTechnicalEstimate::updateOrCreate(['enquiry_id'=>$id],[
-            'build_json'            =>  json_encode($data),
-            'total_wall_area'       =>  1 ,
-            'wall'                  =>  1 ,
-            'updated_by'            => Admin()->id
-        ]);
-        $enquiry = Enquiry::find($id);
-        $this->technicalEstimate->assignUser($enquiry, Admin()->id);
-        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
+        $technicalEstimate = EnquiryTechnicalEstimate::where('enquiry_id',$id)->first();
+        if(!empty($technicalEstimate)) {
+            $technicalEstimate->enquiry_id           = $id;
+            $technicalEstimate->build_json           =  json_encode($data);
+            $technicalEstimate->total_wall_area      =  1;
+            $technicalEstimate->wall                 =  1;
+            $technicalEstimate->updated_by           = Admin()->id;
+            $technicalEstimate->assign_for_status    = (Admin()->id == $technicalEstimate->assign_to ? 1 : 0);
+        }  else {
+            $technicalEstimate  =  new EnquiryTechnicalEstimate();
+            $technicalEstimate->enquiry_id           = $id;
+            $technicalEstimate->build_json           =  json_encode($data);
+            $technicalEstimate->total_wall_area      =  1;
+            $technicalEstimate->wall                 =  1;
+            $technicalEstimate->updated_by           = Admin()->id;
+            $technicalEstimate->assign_for_status    = 0;
+        }
+        $technicalEstimate->save();
+        $enquiry = Enquiry::find($id);  
+        if(Admin()->id == $technicalEstimate->assign_by){
+            $this->technicalEstimate->assignUser($enquiry, Admin()->id);
+            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
+        } 
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 
@@ -68,11 +82,23 @@ class TechEstimateController extends Controller
             $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status', false);
             $result =  $this->technicalEstimate->assignUser($enquiry, Admin()->id);
         } else {
-            $result = $this->technicalEstimate->assignUser($enquiry,$request->assign_to);
+            $type = $request->type ?? '';
+            $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status', false);
+            $result = $this->technicalEstimate->assignUser($enquiry,$request->assign_to, $type);
         }
         if($result){
             return response(['status' => true, 'msg' => __('enquiry.assign_user_successfully')]);
         }
         return response(['status' => false, 'msg' => __('global.something')]);
+    }
+
+    public function updateStatus($enquiry_id)
+    {
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByID($enquiry_id);
+        $result = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status', true);
+        if($result){
+            return response(['status' => true]);
+        }
+        return response(['status' => false]);
     }
 } 

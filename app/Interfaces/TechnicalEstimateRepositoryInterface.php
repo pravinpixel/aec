@@ -3,5 +3,5 @@
 namespace App\Interfaces;
 interface TechnicalEstimateRepositoryInterface
 {
-   public function assignUser($enquiry_id, $user_id);
+   public function assignUser($enquiry_id, $user_id,  $assign_for);
 }

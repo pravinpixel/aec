@@ -10,7 +10,7 @@
             </div>
             <p class="h5 mt-2">Project summary</p>
         </a>
-    </li>
+    </li> 
     @endif
     @if(userHasAccess('technical_estimate_index'))
     <li class="nav-item  admin-Technical_Estimate-wiz">
@@ -221,7 +221,24 @@
             <div class="col-12 d-flex justify-content-between align-items-center bg-white border p-2">
                 <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
                 <div>
-                    <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
+                    @if(userHasAccess('cost_estimate_add'))
+                        <p class="lead mb-2 text-center text-danger" ng-show="cost_estimate.assign_for == 'estimation' && cost_estimate.assign_for_status == 0"> <strong>Waiting for estimation</strong></p>
+                        <p class="lead mb-2 text-center text-danger" ng-show="cost_estimate.assign_for == 'approval' && cost_estimate.assign_for_status == 0"> <strong>Waiting for approval</strong></p>
+                        <p class="lead mb-2 text-center text-success" ng-show="cost_estimate.assign_for_status == 1 && cost_estimate.assign_for == 'estimation'"> <strong>Estimated successfully</strong></p>
+                        <p class="lead mb-2 text-center text-success" ng-show="cost_estimate.assign_for_status == 1 && cost_estimate.assign_for == 'approval'"> <strong>Approved successfully </strong></p>
+                        <div class="text-end">
+                            <a class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</a>
+                        </div>
+                    @else
+                        <div class="text-end" ng-if="cost_estimate.assign_for_status == 0 && cost_estimate.assign_to == {{ Admin()->id }}">
+                            <a class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</a>
+                        </div>
+                        <div ng-if="cost_estimate.assign_for_status == 1">
+                            <p class="lead mb-2 text-success" ng-show="cost_estimate.assign_for_status == 1 && cost_estimate.assign_for == 'approval'"> <strong> Approved successfully </strong></p>
+                            <p class="lead mb-2 text-success" ng-show="cost_estimate.assign_for_status == 1 && cost_estimate.assign_for == 'estimation'"> <strong> Estimated successfully</strong></p>
+                        </div>
+                    @endif
+                    
                 </div>
             </div>
         </div>
@@ -256,14 +273,34 @@
     </div> --}}
     <div class="card m-0 my-3 border col-md-9 me-auto">
         <div class="card-body">
-            <p class="lead mb-2"> <strong>Assign to</strong></p>
+            <p class="lead mb-2"> <strong>Assign for</strong></p>
+            <div class="row my-2">
+                <div class="col">
+                    <div class="form-check">
+                        <input ng-checked="cost_estimate.assign_for == 'estimation'" class="form-check-input" ng-model="cost_estimate_assign_for" name="cost_estimate" type="radio" value="estimation" id="for_estimation">
+                        <label class="form-check-label" for="for_estimation">
+                            Estimation
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="form-check">
+                        <input ng-checked="cost_estimate.assign_for == 'approval'" class="form-check-input"  ng-model="cost_estimate_assign_for"  name="cost_estimate" type="radio" value="approval" id="for_approval">
+                        <label class="form-check-label" for="for_approval">
+                            Approval
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div class="btn-group w-100">
                 <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
                     <option value=""> @lang('global.select') </option>
                     <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.user_name}}</option>
                 </select> 
                
-                <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to)"> Assign  </button>
+                <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to, cost_estimate_assign_for)"> Assign  </button>
             </div> 
             <small class="float-end btn link p-0 mt-2"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
                 <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
@@ -277,7 +314,10 @@
                 <a href="#!/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
             </div>
             <div>
-                <a ng-show="cost_estimation_status  != 0  && cost_estimate.assign_to == {{ Admin()->id }}" href="#!/proposal-sharing"  class="btn btn-primary">Next</a>
+                <a ng-show="cost_estimation_status  != 0  && cost_estimate.assign_to == {{ Admin()->id }} || (cost_estimate.assign_for_status == 1)" 
+                  href="#!/proposal-sharing"  
+                  ng-click="gotoNext()"
+                  class="btn btn-primary">Next</a>
             </div>
         </div>
     </div> 

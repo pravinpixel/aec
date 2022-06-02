@@ -372,7 +372,7 @@
             }
            
         });
-        app.controller('Tech_Estimate', function ($scope, $http, API_URL) {
+        app.controller('Tech_Estimate', function ($scope, $http, API_URL, $location) {
             let enquiryId =  '{{ $data->id }}'
             $scope.current_user = '{{Admin()->id}}';
             getUsers = () => {
@@ -504,14 +504,14 @@
                 });
             }
 
-            $scope.assignTechnicalEstimate = (user) => {
+            $scope.assignTechnicalEstimate = (user, technical_estimate_assign_for) => {
                 let assign_to = user == '' ? null: user;
                 if($scope.assign_to == '') {
                     Message('danger', "Please choose a user !");
                     return false;
                 }
 
-                $http.post(`${API_URL}technical-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
+                $http.post(`${API_URL}technical-estimate/assign-user/${enquiryId}`, {assign_to: assign_to, type: technical_estimate_assign_for})
                 .then(function successCallback(res){
                     if(res.data.status) {
                         $scope.enable_techestimate = res.data.status;
@@ -522,6 +522,13 @@
                     Message('error', res.data.msg);
                 },  function errorCallback(error){
                     console.log(error);
+                });
+            }
+
+            $scope.gotoNext = function() {
+                $http.post(`${API_URL}technical-estimate/update-status/${enquiryId}`)
+                .then(function successCallback(res){
+                    $location.path('/cost-estimation');
                 });
             }
 
@@ -735,13 +742,13 @@
             }
             getUsers();
 
-            $scope.assignUserToCostestimate = (user) => {
+            $scope.assignUserToCostestimate = (user, cost_estimate_assign_for) => {
                 let assign_to = user == '' ? null: user;
                 if($scope.assign_to == '') {
                     Message('danger', "Please choose a user !");
                     return false;
                 }
-                $http.post(`${API_URL}cost-estimate/assign-user/${enquiryId}`, {assign_to: assign_to})
+                $http.post(`${API_URL}cost-estimate/assign-user/${enquiryId}`, {assign_to: assign_to, type: cost_estimate_assign_for})
                     .then(function successCallback(res){
                        
                         if(res.data.status) {
@@ -752,6 +759,13 @@
                         Message('error', res.data.msg);
                     }, function errorCallback(error){
                         console.log(error);
+                });
+            }
+
+            $scope.gotoNext = function() {
+                $http.post(`${API_URL}cost-estimate/update-status/${enquiryId}`)
+                .then(function successCallback(res){
+                    $location.path('/proposal-sharing');
                 });
             }
 
@@ -835,7 +849,6 @@
                 $scope.assign_to        =   response.data.others.assign_to ?? '';
             });
             $scope.UpdateCostEstimate  = function() {  
-                console.log($scope.CostEstimate);
                 if($scope.CostEstimate.Components.length == 0){
                     Message('danger', "You Can't Update Empty Data");
                     return false;

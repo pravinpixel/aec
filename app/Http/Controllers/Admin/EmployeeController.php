@@ -93,7 +93,7 @@ class EmployeeController extends Controller
         $res = $module->save();
      
         if($res){
-            $this->createBimUser($module);
+            //$this->createBimUser($module);
         }
         $id = $module->id;
         $data = new EmployeeSharePointAcess();

@@ -58,21 +58,29 @@ class  CostEstimateController extends Controller
                                         ->first(); 
     }
     public function store(Request $request) {
-          // dd($request->total);
- 
         $data   = $request->input("data");
         $id     = $request->input("data.enquiry_id"); 
-
-        
-        EnquiryCostEstimate::updateOrCreate(['enquiry_id'=>$id],[
-            'build_json'    => json_encode($data),
-            'total_cost'    => $request->total,
-            'created_by'    => "Admin",
-            'updated_by'    => Admin()->id
-        ]); 
+        $costEstimate = EnquiryCostEstimate::where('enquiry_id',$id)->first();
+        if(!empty($costEstimate)) {
+            $costEstimate->enquiry_id           = $id;
+            $costEstimate->build_json           =  json_encode($data);
+            $costEstimate->total_cost           =  $request->total;
+            $costEstimate->updated_by           = Admin()->id;
+            $costEstimate->assign_for_status    = (Admin()->id == $costEstimate->assign_to ? 1 : 0);
+        }  else {
+            $costEstimate  =  new EnquiryCostEstimate();
+            $costEstimate->enquiry_id           = $id;
+            $costEstimate->build_json           =  json_encode($data);
+            $costEstimate->total_cost           =  $request->total;
+            $costEstimate->updated_by           = Admin()->id;
+            $costEstimate->assign_for_status    = 0;
+        }
+        $costEstimate->save();
         $enquiry = Enquiry::find($id);
-        $this->costEstimate->assignUser($enquiry, Admin()->id);
-        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
+        if(Admin()->id == $costEstimate->assign_by){
+            $this->costEstimate->assignUser($enquiry, Admin()->id);
+            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
+        } 
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 
@@ -83,11 +91,23 @@ class  CostEstimateController extends Controller
             $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status', false);
             $result =  $this->costEstimate->assignUser($enquiry, Admin()->id);
         } else {
-            $result =  $this->costEstimate->assignUser($enquiry,$request->assign_to);
+            $type = $request->type ?? '';
+            $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status', false);
+            $result =  $this->costEstimate->assignUser($enquiry,$request->assign_to,  $type);
         }
         if($result){
             return response(['status' => true, 'msg' => __('enquiry.assign_user_successfully')]);
         }
         return response(['status' => false, 'msg' => __('global.something')]);
+    }
+
+    public function updateStatus($enquiry_id)
+    {
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByID($enquiry_id);
+        $result = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status', true);
+        if($result){
+            return response(['status' => true]);
+        }
+        return response(['status' => false]);
     }
 }
