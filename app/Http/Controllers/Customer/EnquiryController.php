@@ -720,10 +720,8 @@ class EnquiryController extends Controller
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group">
                 <button ng-click=getEnquiry("project_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->project_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
-                <button ng-click=getEnquiry("service",'.$dataDb->id.') class="btn progress-btn '.($dataDb->service == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
-                <button ng-click=getEnquiry("ifc_model",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
-                <button ng-click=getEnquiry("building_component",'.$dataDb->id.') class="btn progress-btn '.($dataDb->building_component == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button> 
-                <button ng-click=getEnquiry("additional_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->additional_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Additional Information"></button>
+                <a target="_blank" href="'.route("proposal.index",$dataDb->id) .'" class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Received"></a>
+                <button  class="btn progress-btn '.($dataDb->project_status == "Active" ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Approved"></button> 
                 </div>';
             })
             ->addColumn('action', function($dataDb){
@@ -733,7 +731,7 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">'.trans('enquiry.view_edit').'</a>
-                                <a class="dropdown-item" href="'.route("proposal.index",$dataDb->id) .'">'.trans('enquiry.view_proposal').'</a>
+                                <a class="dropdown-item" target="_blank" href="'.route("proposal.index",$dataDb->id) .'">'.trans('enquiry.view_proposal').'</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>';
