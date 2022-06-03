@@ -1,6 +1,6 @@
 <!-- bundle -->
 <script src="{{ asset('public/assets/js/vendor.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/app.min.js') }}"></script>
+<script src="{{ asset('public/assets/js/app.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>

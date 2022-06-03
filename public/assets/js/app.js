@@ -650,7 +650,7 @@ function ($) {
      */
     LayoutThemeApp.prototype.activateDarkMode = function() {
         var self = this;
-        this.body.css('visibility', 'hidden');
+        this.body.css('visibility', 'visible');
         $("#light-style").attr("disabled", true);
         $("#dark-style").removeAttr("disabled");
 
@@ -672,7 +672,7 @@ function ($) {
      */
     LayoutThemeApp.prototype.deactivateDarkMode = function() {
         var self = this;
-        this.body.css('visibility', 'hidden');
+        this.body.css('visibility', 'visible');
         $("#dark-style").attr("disabled", true);
         $("#light-style").removeAttr("disabled");
 
