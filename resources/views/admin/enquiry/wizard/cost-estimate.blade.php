@@ -24,7 +24,7 @@
         </a>
     </li>
     @endif 
-    @if(userHasAccess('cost_estimate_index')) {{config('role.cost_estimater')}}
+    @if(userHasAccess('cost_estimate_index')) {{config('global.cost_estimater')}}
     <li class="nav-item admin-Cost_Estimate-wiz {{  userRole()->slug == config('global.cost_estimater') ? "last" : '' }}"  style="pointer-events: @{{ technical_estimation_status ==  0 ? 'none' :'unset' }}">
         <a href="#!/cost-estimation" style="min-height: 40px;" class="timeline-step">
             <div class="timeline-content">
@@ -243,7 +243,7 @@
             </div>
         </div>
     </div>
-    @if(userRole()->slug == config('role.cost_estimater'))
+    @if(userRole()->slug == config('global.cost_estimater'))
         <div class="card m-0 my-3 border col-md-9 me-auto">
             <div class="card-body">
                 <small class="btn link"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
