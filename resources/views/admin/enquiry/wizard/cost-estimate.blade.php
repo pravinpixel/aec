@@ -24,7 +24,7 @@
         </a>
     </li>
     @endif 
-    @if(userHasAccess('cost_estimate_index')) {{config('global.cost_estimater')}}
+    @if(userHasAccess('cost_estimate_index'))
     <li class="nav-item admin-Cost_Estimate-wiz {{  userRole()->slug == config('global.cost_estimater') ? "last" : '' }}"  style="pointer-events: @{{ technical_estimation_status ==  0 ? 'none' :'unset' }}">
         <a href="#!/cost-estimation" style="min-height: 40px;" class="timeline-step">
             <div class="timeline-content">
