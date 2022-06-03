@@ -175,7 +175,7 @@
                                 <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'approval'"> <strong>Approved successfully </strong></p>
                             @else
                                 <div class="text-end" ng-if="technical_estimate.assign_for_status == 0 && technical_estimate.assign_to == {{ Admin()->id }}">
-                                    <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
+                                    <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update & Approve</a>
                                 </div>
                                 <div ng-if="technical_estimate.assign_for_status == 1">
                                     <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'approval'"> <strong> Approved successfully </strong></p>
