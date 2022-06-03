@@ -11,16 +11,16 @@
                 @include('customer.includes.page-navigater') 
             </div>              
             
-            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3 non-printable">
 
                 <li class="nav-item">
-                    <a href="#enquiry" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                    <a href="#enquiry" data-bs-toggle="tab" aria-expanded="false" class="non-printable nav-link rounded-0 active">
                         <span >Summary</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="#proposal" data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                    <a href="#proposal" data-bs-toggle="tab" aria-expanded="true" class="non-printable nav-link rounded-0">
                         <span >Proposal</span>
                     </a>
                 </li>
@@ -34,45 +34,46 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="text-end">
-                                <a download="proposal-{{ date('Y-m-d-H:s:i') }}" href="{{ asset($latest_proposal->pdf_file_name) }}" type="button" class="btn btn-primary mb-3"><i class="mdi mdi-download me-1"></i> <span>Download PDF</span> </a>
+                                <a class="non-printable btn btn-primary mb-3" download="proposal-{{ date('Y-m-d-H:s:i') }}" href="{{ asset($latest_proposal->pdf_file_name) }}" type="button"><i class="mdi mdi-download me-1"></i> <span>Download PDF</span> </a>
+                                <a  class="non-printable btn btn-primary mb-3" onclick="return window.print()"><i class="fa fa-print"></i> <span>Print</span> </a>
                             </div>
-                            <div class="p-3">
-                                {!! $latest_proposal->documentary_content !!}
-                            </div>
-                            @if($latest_proposal->proposal_status == 'not_send')
-                                <select ng-model="proposal_status" name="proposal_status" id="proposal_status" class="form-select my-3">
-                                    <option value=""> ---  Select ---</option>
-                                    <option value="approve">Approve</option>
-                                    <option value="deny">Deny</option>
-                                    <option value="change_request">Change Request</option>
-                                </select>
-                                <form  ng-show="proposal_status == 'deny' || proposal_status == 'change_request' ">
-                                    <div class="mb-3">
-                                        <label for="emailaddress1" class="form-label">Comments</label>
-                                        <textarea required name="comments" ng-model="comments" class="form-control" id="" cols="30" rows="10"></textarea>
-                                    </div>
-                
-                                    <div class="mb-3">
-                                        <button class="btn rounded-pill btn-primary" ng-click="denyOrChangaeRequest(proposal_status)" type="submit">Submit</button>
-                                    </div>
-                                </form>
-                                <div class="mb-3" ng-show="proposal_status == 'approve'">
-                                    <button class="btn rounded-pill btn-primary" ng-click="updatePropodsals(proposal_status)" type="submit">Submit</button>
+                            <div id="printable">
+                                <div class="p-3">
+                                    {!! $latest_proposal->documentary_content !!}
                                 </div>
-                            @else
-                                <div style="font-size: 200%;" class="text-center">
-                                    {!!  proposalStatusBadge($latest_proposal->proposal_status) !!}
-                                </div>
-                            @endif
-
-                            <div class="">
-
                             </div>
-
+                           
+                            <div class="non-printable">
+                                @if($latest_proposal->proposal_status == 'not_send')
+                                    <select ng-model="proposal_status" name="proposal_status" id="proposal_status" class="form-select my-3">
+                                        <option value=""> ---  Select ---</option>
+                                        <option value="approve">Approve</option>
+                                        <option value="deny">Deny</option>
+                                        <option value="change_request">Change Request</option>
+                                    </select>
+                                    <form  ng-show="proposal_status == 'deny' || proposal_status == 'change_request' ">
+                                        <div class="mb-3">
+                                            <label for="emailaddress1" class="form-label">Comments</label>
+                                            <textarea required name="comments" ng-model="comments" class="form-control" id="" cols="30" rows="10"></textarea>
+                                        </div>
+                    
+                                        <div class="mb-3">
+                                            <button class="btn rounded-pill btn-primary" ng-click="denyOrChangaeRequest(proposal_status)" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                    <div class="mb-3" ng-show="proposal_status == 'approve'">
+                                        <button class="btn rounded-pill btn-primary" ng-click="updatePropodsals(proposal_status)" type="submit">Submit</button>
+                                    </div>
+                                @else
+                                    <div style="font-size: 200%;" class="text-center">
+                                        {!!  proposalStatusBadge($latest_proposal->proposal_status) !!}
+                                    </div>
+                                @endif
+                            </div>
                         </div> 
                     </div>
             
-                    <div class="card border">
+                    <div class="card border non-printable">
                         <div class="card-body">      
                             <h4>Proposal List</h4>
                             <table class="table custom table-bordered m-0" id="proposalTable">
@@ -231,7 +232,17 @@
     </div> <!-- content -->
     
 @endsection
-      
+
+@push('custom-styles')
+<style>
+@media print
+    {
+        .non-printable { display: none; }
+        #printable { display: block; }
+    }
+</style>    
+@endpush
+
 @push('custom-scripts')
 <script>
     $(document).ready(function () {
