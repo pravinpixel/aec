@@ -1376,6 +1376,7 @@
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
                     $scope.customer_response    = res.data.progress.customer_response; 
+                    $scope.response_data        = res.data; 
                 });
             }
             $scope.getWizradStatus();
@@ -1427,10 +1428,24 @@
                     }
                     Message('danger', res.data.msg);
                     return false;
-               }, function errorCallback(error){
-
-               });
+               }, function errorCallback(error){});
             } 
+            
+            $scope.assignToProject = () => {
+               let assigned_to = $scope.customer_response_obj.assign_user ?? false;
+               if(assigned_to == false) {
+                    Message('danger', 'Assign field required'); return false;
+               }
+
+               $http.post(API_URL+'customer-response/assign-to-project', {assigned_to: assigned_to, enquiry_id, enquiry_id}).then(function successfunction(res){
+                    if(res.data.status) {
+                        Message('success',res.data.msg);
+                        return false;
+                    }
+               });
+
+            }
+
             // followup date
             $scope.updateFollow = () => {
                 if(typeof($scope.customer_response_obj.follow_up_date) == 'undefined'){

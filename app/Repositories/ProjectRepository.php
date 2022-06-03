@@ -52,7 +52,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         return $result;
     }
 
-    public function assingProjectToUser($enquiry_id, $data)
+    public function assignProjectToUser($enquiry_id, $data)
     {
        return $this->projectAssignModel
                     ->updateOrCreate(['enquiry_id'=> $enquiry_id],$data);

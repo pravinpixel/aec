@@ -61,7 +61,8 @@ class Enquiry extends Model
         'follow_up_date',
         'follow_up_status',
         'follow_up_by',
-        'response_status'
+        'response_status',
+        'project_assign_to'
     ];
 
     public function getCreatedAtAttribute($date)

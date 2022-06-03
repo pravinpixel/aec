@@ -112,14 +112,14 @@
             <strong class="card-text text-secondary"><i class="text-primary mdi-file-replace mdi" aria-hidden="true"></i> Assign to</strong>
             <select name="assign_user" ng-model="customer_response_obj.assign_user" id="" class="form-select shadow mt-2" style="padding: 10px 20px  !important; border: 1px solid lightgray !important" >
                 <option value="">@lang('global.select')</option>
-                <option ng-repeat="(index,user) in userList" value="@{{ user.id }}">
+                <option ng-repeat="(index,user) in userList" value="@{{ user.id }}" ng-selected="user.id == response_data.progress.project_assign_to">
                     @{{ user.user_name }}
                 </option>
             </select>
         </div>
         <div class="d-flex justify-content-center">
             <button class="btn btn-light me-2 p-3 py-2">Cancel</button>
-            <button class="btn btn-primary p-3 py-2 me-2 "> <i class="fa fa-check-circle me-1 text-white"></i> Assign </button>
+            <button class="btn btn-primary p-3 py-2 me-2 " ng-click="assignToProject()"> <i class="fa fa-check-circle me-1 text-white"></i> Assign </button>
             <button class="btn btn-success p-3 py-2" ng-click="moveToProject()"> <i class="fa fa-check-circle me-1 text-white"></i> Move to Project </button>
         </div>
     </div>

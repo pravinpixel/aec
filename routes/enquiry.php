@@ -108,4 +108,5 @@ Route::group(['prefix' => 'cost-estimate', 'middleware' => 'common', 'route' => 
 
 Route::group(['prefix' => 'customer-response', 'middleware' => 'common', 'route' => 'customer-response'], function(){
     Route::post('move-to-project', [CustomerResponseController::class,'moveToProject'])->name('move-to-project');
+    Route::post('assign-to-project', [CustomerResponseController::class,'assignToProject'])->name('assign-to-project');
 });
