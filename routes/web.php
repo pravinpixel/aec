@@ -198,10 +198,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('getEnquiryNumber', [EnquiryController::class,'getEnquiryNumber'])->name('getEnquiryNumber');
     Route::resource('customer', CustomerController::class);
     Route::get('enquiry/get-number', [EnquiryController::class,'getEnquiryNumber'])->name('enquiry.get-number');
-    Route::post('costEstimationSingleForm', [CostEstimationController::class,'costEstimationSingleForm'])->name('costEstimationSingleForm');
-    Route::get('costEstimationEdit', [CostEstimationController::class,'costEstimationEdit'])->name('costEstimationEdit');
-    Route::get('estimate/list', [CostEstimationController::class, 'getEstimate'])->name('estimate.list');
-    Route::get('costEstimationDelete', [CostEstimationController::class,'costEstimationDelete'])->name('costEstimationDelete');
     Route::resource('enquiry', EnquiryController::class);
     Route::get('deleteRowData', [CostEstimationController::class,'deleteRowData'])->name('deleteRowData');
     Route::get('masterCalculation', [CostEstimationController::class, 'masterCalculation'])->name('masterCalculation');
@@ -219,6 +215,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
      
 });
 
+
+Route::get('admin/calculate-cost-estimation', function () {
+    return view('admin.calculate-cost-estimate.calculation');
+})->name('enquiry.calculate-cost-estimation');
+
+//Calculator
+Route::group(['prefix' => 'admin/calculate-cost-estimate', 'as' => 'admin.calculate-cost-estimate.'], function(){
+    Route::post('costEstimationSingleForm', [CostEstimationController::class,'costEstimationSingleForm'])->name('costEstimationSingleForm');
+    Route::get('costEstimationEdit', [CostEstimationController::class,'costEstimationEdit'])->name('costEstimationEdit');
+    Route::get('estimate/list', [CostEstimationController::class, 'getEstimate'])->name('estimate.list');
+    Route::get('costEstimationDelete', [CostEstimationController::class,'costEstimationDelete'])->name('costEstimationDelete');
+
+    Route::get('/{type}/list', [CostEstimationController::class, 'index'])->name('list');
+    Route::post('store', [CostEstimationController::class,'store'])->name('store');
+    Route::post('update/{id}', [CostEstimationController::class,'update'])->name('update');
+    // Route::get('edit', [CostEstimationController::class,'edit'])->name('edit');
+    Route::post('delete/{id}/{type}', [CostEstimationController::class,'delete'])->name('delete');
+});
 
 /** ===== Start : Customers Routes ======*/
 

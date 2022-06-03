@@ -8,6 +8,7 @@
             @include('admin.includes.top-bar') 
             <!-- Start Content-->
             <div class="container-fluid"> 
+           
                 <form class="card shadow-none p-0" ng-controller="Cost_Estimate">
                     <h3 class="my-2">Price Calculation</h3>
                     <div class="row m-0">
@@ -28,6 +29,7 @@
                        
                     <div class="card-body pt-0 p-0">
                         <div class="row m-0 mt-3">
+                           
                             <div ng-show="price_calculation == 'wood_engineering_estimation'">
                                 <div class="table custom-responsive p-0">
                                     <h5> Wood Engineering Estimation </h5>
@@ -52,7 +54,7 @@
                                     </table>
                                 </div>
                                 {{-- <button class="btn btn-info btn-sm mb-2 pull-right" ng-click="addPrecasEstimate()">Add Precast Estimation </button> --}}
-                                <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addEngineeringEstimate()">Add New Type </button>
+                                <button class="btn btn-info mb-2 pull-right mx-2" ng-click="addEngineeringEstimate()">Add New Building </button>
                                 <div class="table custom-responsive p-0">
                                     <div class="table-responsive w-100" ng-repeat="(rootKey,CostEstimate) in EngineeringEstimate track by $index">
                                         <table class="cost-estimate-table table table-bordered border shadow-sm">
@@ -187,7 +189,36 @@
                                     </div>
                                 </div> 
                             </div>
-{{--  precast estimation --}}
+                            <div  ng-show="wood_estimate_edit_id == false && price_calculation == 'wood_engineering_estimation'" class="d-flex">
+                                <div class="col-2">
+                                    Name 
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" ng-model="wood_estimate_name" name="wood_estimate_name">
+                                </div>
+                                <div class="col text-end">
+                                    <button class="btn btn-info" ng-click="EstimateStore('wood')">Generate</button>
+                                </div>
+                        
+                            </div>
+                            <div ng-show="wood_estimate_edit_id && price_calculation == 'wood_engineering_estimation'" class="d-flex">
+                                <div class="col-2">
+                                    Name 
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" ng-model="wood_estimate_name" name="wood_estimate_name">
+                                </div>
+                                <div class="col text-end">
+                                    <button class="btn btn-info" ng-click="EstimateUpdate(wood_estimate_edit_id, 'wood')">Update Estimation</button>
+                                </div>
+                            </div>
+                            
+                            <div class="container my-2"  ng-show="price_calculation == 'wood_engineering_estimation'">
+                                <hr>
+                                <h3 class="my-2">Wood Estimation List</h3>
+                                @include('admin.calculate-cost-estimate.wood-list')
+                            </div>
+                            {{--  precast estimation --}}
                             <div ng-show="price_calculation == 'precast_engineering_estimation'">
                                 <div class="table custom-responsive p-0">
                                     <h5> Precast Engineering Estimation </h5>
@@ -204,7 +235,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                              
+                            
                                                 <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalArea) }}</b></td>  
                                                 <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalPris) }}</b></td>  
                                                 <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalSum) }}</b></td>  
@@ -216,7 +247,7 @@
 
                                 <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addPrecasEstimate()">Add New Type </button>
                                 <div class="table custom-responsive p-0 table-responsive w-100">   
-                                   <div class="table-responsive w-100"  ng-repeat="(pRootKey,PrecastEstimate) in PrecastComponent track by $index">
+                                <div class="table-responsive w-100"  ng-repeat="(pRootKey,PrecastEstimate) in PrecastComponent track by $index">
                                         <table class="cost-estimate-table table table-bordered border">
                                             <thead>
                                                 <tr>
@@ -315,8 +346,39 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                   </div>
+                                </div>
                                 </div> 
+                            </div>
+
+                            <div  ng-show="precast_estimate_edit_id == false && price_calculation == 'precast_engineering_estimation'" class="d-flex">
+                                <div class="col-2">
+                                    Name 
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" ng-model="precast_estimate_name" name="precast_estimate_name">
+                                </div>
+                                <div class="col text-end">
+                                    <button class="btn btn-info" ng-click="EstimateStore('precast')">Generate</button>
+                                </div>
+                        
+                            </div>
+
+                            <div ng-show="precast_estimate_edit_id && price_calculation == 'precast_engineering_estimation'" class="d-flex">
+                                <div class="col-2">
+                                    Name 
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" ng-model="precast_estimate_name" name="precast_estimate_name">
+                                </div>
+                                <div class="col text-end">
+                                    <button class="btn btn-info" ng-click="EstimateUpdate(precast_estimate_edit_id, 'precast')">Update Estimation</button>
+                                </div>
+                            </div>
+
+                            <div class="container my-2"  ng-show="price_calculation == 'precast_engineering_estimation'">
+                                <hr>
+                                <h3 class="my-2">Precast Estimation List</h3>
+                                @include('admin.calculate-cost-estimate.wood-list')
                             </div>
                         </div>
                     </div>
@@ -329,10 +391,14 @@
 @push('custom-scripts')  
 <script>
     app.controller('Cost_Estimate', function ($scope, $http, $timeout, API_URL) {
+        $scope.wood_estimate_edit_id = false;
+        $scope.precast_estimate_edit_id = false;
+        $scope.wood_estimate_name = '';
+        $scope.precast_estimate_name = '';
         $scope.price_calculation = 'wood_engineering_estimation';
         $scope.EngineeringEstimate = [];
         const CostEstimate = {
-            'type'     : 'Type 1',
+            'type'     : 'Building Type 1',
             'totalArea': 0,
             'totalPris': 0,
             'totalSum' : 0,
@@ -406,7 +472,7 @@
 
         $scope.addEngineeringEstimate = () => {
             $scope.EngineeringEstimate.push({
-            'type': 'Type 1',
+            'type': 'Building Type 1',
             "Components" : [ 
                 {
                     'building_component_id': '',
@@ -562,7 +628,7 @@
         // Precast
         $scope.PrecastComponent = [];
         let precastComponent = {
-                "type"                       : "Type 1",
+                "type"                       : "Building Type 1",
                 "total_sqm"                  : 0,
                 "total_std_work_hours"       : 0,
                 "total_additional_work_hours": 0,
@@ -591,7 +657,7 @@
         $scope.PrecastComponent.push(precastComponent);
         $scope.addPrecasEstimate = () => {
             $scope.PrecastComponent.push({
-                "type"                       : "Type 1",
+                "type"                       : "Building Type 1",
                 "total_sqm"                  : 0,
                 "total_std_work_hours"       : 0,
                 "total_additional_work_hours": 0,
@@ -664,6 +730,103 @@
                 angular.element('.psqm_').triggerHandler('keyup');
             });
         }
+
+        
+        getlist = (type) => {
+            $http.get(`${API_URL}admin/calculate-cost-estimate/${type}/list`)
+            .then(function successCallback(res){
+                if(type == 'wood') {
+                    $scope.WoodEstimateList = res.data;
+                } else {
+                    $scope.PrecastEstimateList = res.data;
+                }
+             
+            });
+        }
+        getlist('wood');
+        getlist('precast');
+        
+        $scope.EstimateStore = (type) => {
+            if($scope.EngineeringEstimate.length == 0) {
+                Message('danger','Please add building');
+                return false;
+            }
+            if($scope.wood_estimate_name == '') {
+                Message('danger','Please add name');
+                return false;
+            }
+   
+            $http.post(`
+                ${API_URL}admin/calculate-cost-estimate/store`,
+                {data: $scope.EngineeringEstimate, type: type, name: $scope.wood_estimate_name}
+            ).then(function successCallback(res){
+                if(res.data.status) {
+                    Message('success', res.data.msg);
+                    getlist(type);
+                    return false;
+                }
+                Message('danger', res.data.msg);
+                return false;
+            });
+        }
+
+        $scope.EstimateUpdate = (id, type) => {
+            if($scope.EngineeringEstimate.length == 0) {
+                Message('danger','Please add building');
+                return false;
+            }
+            if($scope.wood_estimate_name == '') {
+                Message('danger','Please add name');
+                return false;
+            }
+            $http.post(`
+                ${API_URL}admin/calculate-cost-estimate/update/${id}`,
+                {data: $scope.EngineeringEstimate, type:type ,name: $scope.wood_estimate_name}
+            ).then(function successCallback(res){
+                if(res.data.status) {
+                    Message('success', res.data.msg);
+                    getlist(type);
+                    return false;
+                }
+                Message('danger', res.data.msg);
+                return false;
+            });
+        }
+
+        $scope.EstimateEdit = (woodEstimate, type) => {
+            if(type == 'wood'){
+                $scope.EngineeringEstimate.length = 0;
+                $scope.wood_estimate_edit_id = woodEstimate.id;
+                $scope.wood_estimate_name = woodEstimate.name;
+                $scope.EngineeringEstimate  = JSON.parse(woodEstimate.calculation_json);
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
+            } else {
+                // precast ..
+            }
+           
+        }
+
+        $scope.EstimateDelete = (id, type) => {
+            if(type == 'wood'){
+                $http.post(`
+                    ${API_URL}admin/calculate-cost-estimate/delete/${id}/${type}`,
+                ).then(function successCallback(res){
+                    if(res.data.status) {
+                        Message('success', res.data.msg);
+                        getlist('wood');
+                        return false;
+                    }
+                    Message('danger', res.data.msg);
+                    return false;
+                });
+            } else {
+                // precast .....
+            }
+            
+        }
+
 
     }).directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
             return {
