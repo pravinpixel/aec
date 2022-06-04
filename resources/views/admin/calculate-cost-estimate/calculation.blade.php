@@ -246,7 +246,7 @@
                                 </div>
 
                                 <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addPrecasEstimate()">Add New Type </button>
-                                <div class="table custom-responsive p-0 table-responsive w-100">   
+                                <div class="table custom-responsive p-0 table-responsive w-100">
                                 <div class="table-responsive w-100"  ng-repeat="(pRootKey,PrecastEstimate) in PrecastComponent track by $index">
                                         <table class="cost-estimate-table table table-bordered border">
                                             <thead>
@@ -261,7 +261,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr  style="background: var(--primary-bg) !important">
-                                                    <td colspan="11" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
+                                                    <td colspan="12" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
                                                     <td colspan="1" class="text-center"><i title="remove" ng-click="deletePrecastEstimate(pRootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
                                                     <td colspan="1" class="text-center"><i  title="clone" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)" class="fa fa-copy btn btn-light btn-sm border text-primary h-100 w-100"></i></td>
                                                 </tr>
@@ -279,8 +279,9 @@
                                                     <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Additional Work Hours</th>
                                                     <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Hourly Rate (550/Hr)</th>
                                                     <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Work Hours</th>
-                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Engineering Cost</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Engineering Cost</th>
                                                     <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Central Approval</th>
+                                                    <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Engineering Cost</th>
                                                     <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
                                                 </tr>
                                                 <tr class="bg-light-primary border">
@@ -293,8 +294,9 @@
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_additional_work_hours) }}</b></td>   
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_hourly_rate) }}</b></td> 
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_work_hours) }}</b></td> 
-                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_engineering_cost) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.engineering_cost) }}</b></td> 
                                                     <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_central_approval) }}</b></td> 
+                                                    <td class="text-center font-12 p-0"><b>@{{ getNum(PrecastEstimate.total_engineering_cost) }}</b></td> 
                                                 
                                                 </tr>
                                             </thead>
@@ -335,10 +337,13 @@
                                                         <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_work_hours" name="total_work_hours">
                                                     </td>
                                                     <td>
-                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_engineering_cost" name="total_engineering_cost">
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.engineering_cost" name="engineering_cost">
                                                     </td>
                                                     <td>
                                                         <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_central_approval" name="total_central_approval">
+                                                    </td>
+                                                    <td>
+                                                        <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_engineering_cost" name="total_engineering_cost">
                                                     </td>
                                                     <td class="text-center" style="padding: 0 !important">
                                                         <i ng-click="deletePrecastComponent(pRootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
@@ -378,7 +383,7 @@
                             <div class="container my-2"  ng-show="price_calculation == 'precast_engineering_estimation'">
                                 <hr>
                                 <h3 class="my-2">Precast Estimation List</h3>
-                                @include('admin.calculate-cost-estimate.wood-list')
+                                @include('admin.calculate-cost-estimate.precast-list')
                             </div>
                         </div>
                     </div>
@@ -634,8 +639,9 @@
                 "total_additional_work_hours": 0,
                 "total_hourly_rate"          : 0,
                 "total_work_hours"           : 0,
-                "total_engineering_cost"     : 0,
+                "engineering_cost"     : 0,
                 "total_central_approval"     : 0,
+                'total_engineering_cost' : 0,
                 "Components" : [    
                     {
                         'precast_component': '',
@@ -648,8 +654,9 @@
                         'additional_work_hours': '',
                         'hourly_rate': '',
                         'total_work_hours': '',
-                        'total_engineering_cost': '',
-                        'total_central_approval': ''
+                        'engineering_cost': '',
+                        'total_central_approval': '',
+                        'total_engineering_cost': ''
                     }
                 ]
             
@@ -663,7 +670,7 @@
                 "total_additional_work_hours": 0,
                 "total_hourly_rate"          : 0,
                 "total_work_hours"           : 0,
-                "total_engineering_cost"     : 0,
+                "engineering_cost"     : 0,
                 "total_central_approval"     : 0,
                 "Components" : [ 
                     {
@@ -677,8 +684,9 @@
                         'additional_work_hours': '',
                         'hourly_rate': '',
                         'total_work_hours': '',
-                        'total_engineering_cost': '',
-                        'total_central_approval': ''
+                        'engineering_cost': '',
+                        'total_central_approval': '',
+                        'total_engineering_cost': ''
                     }
                 ]
             });
@@ -698,8 +706,9 @@
                         'additional_work_hours': '',
                         'hourly_rate': '',
                         'total_work_hours': '',
-                        'total_engineering_cost': '',
-                        'total_central_approval': ''
+                        'engineering_cost': '',
+                        'total_central_approval': '',
+                        'total_engineering_cost':''
                     }
             );
         }
@@ -747,18 +756,34 @@
         getlist('precast');
         
         $scope.EstimateStore = (type) => {
-            if($scope.EngineeringEstimate.length == 0) {
-                Message('danger','Please add building');
-                return false;
+            if(type == 'wood') {
+                var data = $scope.EngineeringEstimate;
+                var name =  $scope.wood_estimate_name;
+                if($scope.EngineeringEstimate.length == 0) {
+                    Message('danger','Please add building');
+                    return false;
+                }
+                if($scope.wood_estimate_name == '') {
+                    Message('danger','Please add name');
+                    return false;
+                }
+            } else {
+                var data = $scope.PrecastComponent;
+                var name =  $scope.precast_estimate_name;
+                if($scope.PrecastComponent.length == 0) {
+                    Message('danger','Please add building');
+                    return false;
+                }
+                if($scope.precast_estimate_name == '') {
+                    Message('danger','Please add name');
+                    return false;
+                }
             }
-            if($scope.wood_estimate_name == '') {
-                Message('danger','Please add name');
-                return false;
-            }
+            
    
             $http.post(`
                 ${API_URL}admin/calculate-cost-estimate/store`,
-                {data: $scope.EngineeringEstimate, type: type, name: $scope.wood_estimate_name}
+                {data: data, type: type, name: name}
             ).then(function successCallback(res){
                 if(res.data.status) {
                     Message('success', res.data.msg);
@@ -771,17 +796,32 @@
         }
 
         $scope.EstimateUpdate = (id, type) => {
-            if($scope.EngineeringEstimate.length == 0) {
-                Message('danger','Please add building');
-                return false;
-            }
-            if($scope.wood_estimate_name == '') {
-                Message('danger','Please add name');
-                return false;
+            if(type == 'wood') {
+                var data = $scope.EngineeringEstimate;
+                var name =  $scope.wood_estimate_name;
+                if($scope.EngineeringEstimate.length == 0) {
+                    Message('danger','Please add building');
+                    return false;
+                }
+                if($scope.wood_estimate_name == '') {
+                    Message('danger','Please add name');
+                    return false;
+                }
+            } else {
+                var data = $scope.PrecastComponent;
+                var name =  $scope.precast_estimate_name;
+                if($scope.PrecastComponent.length == 0) {
+                    Message('danger','Please add building');
+                    return false;
+                }
+                if($scope.precast_estimate_name == '') {
+                    Message('danger','Please add name');
+                    return false;
+                }
             }
             $http.post(`
                 ${API_URL}admin/calculate-cost-estimate/update/${id}`,
-                {data: $scope.EngineeringEstimate, type:type ,name: $scope.wood_estimate_name}
+                {data: data, type:type ,name: name}
             ).then(function successCallback(res){
                 if(res.data.status) {
                     Message('success', res.data.msg);
@@ -793,38 +833,40 @@
             });
         }
 
-        $scope.EstimateEdit = (woodEstimate, type) => {
+        $scope.EstimateEdit = (Estimate, type) => {
             if(type == 'wood'){
                 $scope.EngineeringEstimate.length = 0;
-                $scope.wood_estimate_edit_id = woodEstimate.id;
-                $scope.wood_estimate_name = woodEstimate.name;
-                $scope.EngineeringEstimate  = JSON.parse(woodEstimate.calculation_json);
+                $scope.wood_estimate_edit_id = Estimate.id;
+                $scope.wood_estimate_name = Estimate.name;
+                $scope.EngineeringEstimate  = JSON.parse(Estimate.calculation_json);
                 $timeout(function() {
                     angular.element('.sqm_').triggerHandler('keyup');
                 });
             } else {
-                // precast ..
+                console.log(JSON.parse(Estimate.calculation_json));
+                $scope.PrecastComponent.length = 0;
+                $scope.precast_estimate_edit_id = Estimate.id;
+                $scope.precast_estimate_name = Estimate.name;
+                $scope.PrecastComponent  = JSON.parse(Estimate.calculation_json);
+                $timeout(function() {
+                    angular.element('.psqm_').triggerHandler('keyup');
+                });
             }
            
         }
 
         $scope.EstimateDelete = (id, type) => {
-            if(type == 'wood'){
-                $http.post(`
-                    ${API_URL}admin/calculate-cost-estimate/delete/${id}/${type}`,
-                ).then(function successCallback(res){
-                    if(res.data.status) {
-                        Message('success', res.data.msg);
-                        getlist('wood');
-                        return false;
-                    }
-                    Message('danger', res.data.msg);
+            $http.post(`
+                ${API_URL}admin/calculate-cost-estimate/delete/${id}/${type}`,
+            ).then(function successCallback(res){
+                if(res.data.status) {
+                    Message('success', res.data.msg);
+                    getlist(type);
                     return false;
-                });
-            } else {
-                // precast .....
-            }
-            
+                }
+                Message('danger', res.data.msg);
+                return false;
+            });
         }
 
 
@@ -1075,20 +1117,22 @@
                     console.log( scope.PrecastEstimate.Components[scope.index].std_work_hours);
                     scope.PrecastEstimate.Components[scope.index].total_work_hours = getNum(Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +  
                                                                                             Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours));                                                              
-                    scope.PrecastEstimate.Components[scope.index].total_engineering_cost = getNum(
+                    scope.PrecastEstimate.Components[scope.index].engineering_cost = getNum(
                                                                                             (Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +  
                                                                                             Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours)) * 
                                                                                             Number(scope.PrecastEstimate.Components[scope.index].hourly_rate) * 
                                                                                             Number(scope.PrecastEstimate.Components[scope.index].complexity)
                               
                                                                                             );
+                    scope.PrecastEstimate.Components[scope.index].total_engineering_cost   = Number(scope.PrecastEstimate.Components[scope.index].engineering_cost)+ Number(scope.PrecastEstimate.Components[scope.index].total_central_approval)
                     let $total_sqm                   = 0;
                     let $total_std_work_hours        = 0;
                     let $total_additional_work_hours = 0;
                     let $total_hourly_rate           = 0;
                     let $total_work_hours            = 0;
-                    let $total_engineering_cost      = 0;
+                    let $engineering_cost      = 0;
                     let $total_central_approval      = 0;
+                    let $total_engineering_cost = 0;
 
                     scope.PrecastEstimate.Components.forEach((row) => {
                         console.log(row);
@@ -1097,8 +1141,9 @@
                         $total_additional_work_hours += Number(row.additional_work_hours);
                         $total_hourly_rate           += Number(row.hourly_rate);
                         $total_work_hours            += Number(row.total_work_hours);
-                        $total_engineering_cost      += Number(row.total_engineering_cost);
+                        $engineering_cost      += Number(row.engineering_cost);
                         $total_central_approval      += Number(row.total_central_approval);
+                        $total_engineering_cost     += Number(row.total_engineering_cost);
                     });
 
                     scope.PrecastEstimate.total_sqm                   = $total_sqm;
@@ -1106,9 +1151,9 @@
                     scope.PrecastEstimate.total_additional_work_hours = $total_additional_work_hours;
                     scope.PrecastEstimate.total_hourly_rate           = $total_hourly_rate;
                     scope.PrecastEstimate.total_work_hours            = $total_work_hours;
-                    scope.PrecastEstimate.total_engineering_cost      = $total_engineering_cost;
+                    scope.PrecastEstimate.engineering_cost      = $engineering_cost;
                     scope.PrecastEstimate.total_central_approval      = $total_central_approval;
-
+                    scope.PrecastEstimate.total_engineering_cost     = $total_engineering_cost;
                     let $totalArea = 0;
                     let $totalPris = 0;
                     let $totalSum  = 0;

@@ -9,7 +9,7 @@
         </thead>
     
         <tbody>
-            <tr ng-repeat="PrecastEstimate in PrecastList">
+            <tr ng-repeat="PrecastEstimate in PrecastEstimateList">
                 <td> @{{ PrecastEstimate.created_at }} </td>
                 <td> @{{ PrecastEstimate.name }} </td>
                 <td>
