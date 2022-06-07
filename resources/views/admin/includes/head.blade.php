@@ -127,4 +127,7 @@
     .customer-danger {
         color: red;
     }
+    .bg-primary2  {
+        background-color: #08357c;
+    }
 </style>
