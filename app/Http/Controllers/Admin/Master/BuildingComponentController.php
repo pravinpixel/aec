@@ -103,4 +103,10 @@ class BuildingComponentController extends Controller
     {
         return response()->json($this->buildingComponent->get($request));
     }
+
+    public function getForCostEstimate(Request $request)
+    {
+        return response()->json($this->buildingComponent->getForCostEstimate($request));
+    }
+    
 }

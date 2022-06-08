@@ -145,6 +145,9 @@ Route::resource('document-type', DocumentTypeController::class);
 
 
 Route::get('get-building-component', [BuildingComponentController::class,'get'])->name('building-component.get');
+
+Route::get('get-for-cost-estimate', [BuildingComponentController::class,'getForCostEstimate'])->name('building-component.for-cost-estimate');
+
 Route::put('building-component/status/{id}', [BuildingComponentController::class,'status'] )->name('building-component.status');
 Route::resource('building-component', BuildingComponentController::class);
 

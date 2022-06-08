@@ -110,7 +110,7 @@
             $scope.buildingTypes = res.data;
         });
 
-        $http.get(`${API_URL}building-component`)
+        $http.get(`${API_URL}get-for-cost-estimate`)
         .then((res)=> {
             $scope.buildingComponents = res.data;
         });
