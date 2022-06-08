@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateWoodEstimationRequest;
 use App\Repositories\WoodEstimationRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -87,6 +88,13 @@ class WoodEstimateController extends Controller
              
         ]);
     }
+
+    public function status(Request $request)
+    {
+        $woodEstimation = $request->route('id');
+        $this->woodEstimateRepo->updateStatus($woodEstimation);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $woodEstimation], Response::HTTP_OK);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -96,7 +104,8 @@ class WoodEstimateController extends Controller
     
     public function destroy($id) 
     {
-        $this->woodEstimation->delete($id);
+        $woodEstimation = $this->woodEstimateRepo->find($id);
+        $woodEstimation->delete();
         return response()->json(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
 
@@ -110,27 +119,43 @@ class WoodEstimateController extends Controller
             'totalSum'  => 0,
             "Components" => [ 
                 [
-                    'building_component_id' => '',
-                    'type_id'               => '',
-                    'designScope'           => 0,
-                    "Component"             => "",
-                    "Type"                  => "",
-                    "sqm"                   => "",
-                    "complexity"            => ""
+                    'building_component_id'=> '',
+                    'type_id'=> '',
+                    'DesignScope'=> 0,
+                    "Component"     => "",
+                    "Type"          => "", 
+                    "Sqm"           => "",
+                    "Complexity"    => "", 
+                    'Dynamics'=> [],
+                    "TotalCost" => [
+                        "PriceM2"   => 0, 
+                        "Sum"       => 0, 
+                    ],
+                    "Rib"=> [
+                        "Sum" => ""
+                    ]
                 ]
             ],
             "ComponentsTotals" => [
-                "sqm"           => '',
+                "Sqm"           => '',
                 "complexity"    => '', 
+                'Dynamics'=> [],
+                "TotalCost" =>[
+                    "PriceM2"   => 0, 
+                    "Sum"       => 0, 
+                ],
+                "Rib"=> [
+                    "Sum" => ""
+                ],
                 "grandTotal"    => '', 
             ],
         ];
         foreach($estimations as $estimation) {
-            $CostEstimate['Components'][0][$estimation->name]       = ['PriceM2' => '', 'Sum' => ''];
-            $CostEstimate['ComponentsTotals'][0][$estimation->name] = ['PriceM2' => '', 'Sum' => ''];
+            $CostEstimate['Components'][0]['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+            $CostEstimate['ComponentsTotals']['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
         }
         $CostEstimate['Components'][0]["TotalCost"]  = ['PriceM2' => '', 'Sum' => ''];
         $CostEstimate['Components'][0]["Rib"]        = ["Sum" => ""];
-        return response(['json'=> $CostEstimate, 'WoodEstimateMasters' => $estimations]);
+        return response(['json'=> $CostEstimate]);
     }
 }

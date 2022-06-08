@@ -128,6 +128,8 @@ Route::resource('check-list-master', CheckListController::class);
 
 Route::get('wood-estimate-json',[WoodEstimateController::class,'getWoodEstimateJSON']);
 
+Route::put('wood-estimate/{id}/status',[WoodEstimateController::class,'status']);
+
 Route::resource('wood-estimate', WoodEstimateController::class);
  
 

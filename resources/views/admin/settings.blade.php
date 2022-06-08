@@ -320,7 +320,7 @@
             $scope.changeWoodEstimateStatus = (id , params) =>{
                 $http({
                     method: "put",
-                    url: `${API_URL}wood-estimate/${id}`,
+                    url: `${API_URL}wood-estimate/${id}/status`,
                     data: $.param({'is_active':params == 1 ? 0 : 1}),
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).then(function (response) {

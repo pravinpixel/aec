@@ -16,12 +16,12 @@ class WoodEstimationRepository implements WoodEstimationInterface{
 
     public function all() 
     {
-        return $this->model->get();
+        return $this->model->where('is_active',1)->get();
     }
 
     public function create(array $data)
     {
-        return $this->model->create($data);
+        return $this->model->updateOrCreate($data);
     }
 
     public function update(array $data, $id)
@@ -44,6 +44,16 @@ class WoodEstimationRepository implements WoodEstimationInterface{
             throw new ModelNotFoundException("Service not found");
         }
         return $woodEstimate;
+    }
+
+    public function updateStatus($id)
+    {
+        if (null ==  $woodEstimate = $this->model->find($id)) {
+            throw new ModelNotFoundException("Status Not Updated");
+        }
+        $woodEstimate->is_active =  !$woodEstimate->is_active;
+        $woodEstimate->save();
+        return  $woodEstimate;
     }
 
 }
