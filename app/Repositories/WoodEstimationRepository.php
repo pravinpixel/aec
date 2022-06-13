@@ -16,7 +16,7 @@ class WoodEstimationRepository implements WoodEstimationInterface{
 
     public function all() 
     {
-        return $this->model->where('is_active',1)->get();
+        return $this->model->get();
     }
 
     public function create(array $data)

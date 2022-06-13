@@ -10,7 +10,7 @@
     
         <tbody>
             <tr ng-repeat="WoodEstimate in WoodEstimateList">
-                <td> @{{ WoodEstimate.created_at }} </td>
+                <td style="text-align: left !important"> @{{ WoodEstimate.created_at | date:'yyyy-mm-dd' }} </td>
                 <td> @{{ WoodEstimate.name }} </td>
                 <td>
                     <a class="edit edit_data btn btn-primary btn-sm" ng-click="EstimateEdit(WoodEstimate,'wood')"><i class="fa fa-edit"></i></a> 
