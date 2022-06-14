@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateWoodEstimationRequest extends FormRequest
+class CreatePrecastEstimationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class UpdateWoodEstimationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>  ['required', Rule::unique('wood_estimations')->ignore($this->id)->whereNull('deleted_at')],
+            'name' =>  ['required', Rule::unique('precast_estimations')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }

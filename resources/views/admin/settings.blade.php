@@ -91,6 +91,12 @@
                                 <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block"  ng-click="getWoodEstimation()" >Wood Estimation</span>
                             </a>
+
+                            <a class="nav-link checkListTab" id="v-pills-precast-estimation-tab" href="#!/precast-estimation" role="tab" aria-controls="v-pills-precast-estimation"
+                                aria-selected="false">
+                                <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                <span class="d-none d-md-block"  ng-click="getPrecastEstimation()" >Precast Estimation</span>
+                            </a>
                             
                         </div>
                     </div> <!-- end col-->
@@ -234,6 +240,10 @@
                 templateUrl : "{{ route('wood-estimation')  }}",
                 controller : "WoodEstimateController"
             })
+            .when("/precast-estimation", {
+                templateUrl : "{{ route('precast-estimation')  }}",
+                controller : "PrecastEstimateController"
+            })
         });
         app.controller('PermissionCtrl', function($scope, $http, $routeParams,API_URL){
             $scope.setPermission = (role_id) => {
@@ -342,6 +352,88 @@
                     if(willDelete) {
                         $http.delete(`${API_URL}wood-estimate/${id}`).then(function (response) {
                             getWoodEstimates();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
+        });
+
+        app.controller('PrecastEstimateController', function($scope, $http, $routeParams, API_URL){
+            function getPrecastEstimates() {
+                $http.get(`${API_URL}precast-estimate`).then((res)=> {
+                    $scope.precastEstimations = res.data; 
+                });
+            }
+            getPrecastEstimates();
+
+            $scope.toggleModalForm = function (modalstate, id) {
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Task";
+                        $scope.form_color = "primary";
+                        $scope.modalstate   =   'add'
+                        $scope.task_list_item = {};
+                        $('#precastestimate-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Task";
+                        $scope.form_color = "success";
+                        $scope.id = id; 
+                        $scope.task_list_item = {};
+                        $http.get(`${API_URL}precast-estimate/${id}`)
+                            .then(function (response) {
+                                $scope.precast_estimate_item = response.data.data;
+                                $('#precastestimate-form-popup').modal('show');
+                            });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.storeModalprecastForm = (modalstate, id) => { 
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}precast-estimate${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.precast_estimate_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#precastestimate-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    getPrecastEstimates();
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors.name[0]);
+                });
+            }
+
+            $scope.changeprecastEstimateStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}precast-estimate/${id}/status`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    getPrecastEstimates();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+
+            $scope.delete   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}precast-estimate/${id}`).then(function (response) {
+                            getprecastEstimates();
                             Message('success',response.data.msg);
                         }); 
                     }

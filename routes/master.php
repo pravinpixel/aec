@@ -16,6 +16,7 @@ use App\Http\Controllers\Customer\Master\CustomerLayerController;
 use App\Http\Controllers\Admin\Master\RoleController;
 use App\Http\Controllers\Admin\Master\TaskListController;
 use App\Http\Controllers\Admin\Master\CheckListController;
+use App\Http\Controllers\Admin\Master\PrecastEstimateController;
 use App\Http\Controllers\Admin\Master\WoodEstimateController;
 use App\Http\Controllers\Admin\PermissionController;
 
@@ -66,6 +67,10 @@ Route::get('check-list',  function() {
 Route::get('wood-estimation',  function() {
     return view('admin.setting-tabs.wood-estimation.wood-estimation-list');
 })->name('wood-estimation');
+
+Route::get('precast-estimation', function (){
+    return view('admin.setting-tabs.precast-estimation.precast-estimation-list');
+})->name('precast-estimation');
 
 
 Route::get('permission/{id}',  [PermissionController::class,'permission'])->name('permission');
@@ -132,6 +137,9 @@ Route::put('wood-estimate/{id}/status',[WoodEstimateController::class,'status'])
 
 Route::resource('wood-estimate', WoodEstimateController::class);
  
+Route::put('precast-estimate/{id}/status',[PrecastEstimateController::class,'status']);
+
+Route::resource('precast-estimate', PrecastEstimateController::class);
 
 Route::get('get-document-type', [DocumentTypeController::class,'get'])->name('document-type.get');
 Route::put('document-type/status/{id}', [DocumentTypeController::class,'status'] )->name('document-type.status');
