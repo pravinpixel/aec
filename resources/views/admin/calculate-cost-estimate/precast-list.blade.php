@@ -10,7 +10,7 @@
     
         <tbody>
             <tr ng-repeat="PrecastEstimate in PrecastEstimateList">
-                <td> @{{ PrecastEstimate.created_at }} </td>
+                <td style="text-align: left !important"> @{{ PrecastEstimate.created_at | date:'yyyy-mm-dd' }} </td>
                 <td> @{{ PrecastEstimate.name }} </td>
                 <td>
                     <a class="edit edit_data btn btn-primary btn-sm" ng-click="EstimateEdit(PrecastEstimate,'precast')"><i class="fa fa-edit"></i></a> 

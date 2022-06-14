@@ -19,15 +19,27 @@
             $scope.costEstimateTypes = res.data;
         });
 
-        $scope.createNewCalculation = () => {
-            $scope.wood_estimate_edit_id = false;
-            $scope.wood_estimate_name = '';
-            $scope.EngineeringEstimate.length = 0;
-            let newCostEstimate = JSON.parse(JSON.stringify($scope.CostEstimate));
-            $scope.EngineeringEstimate.push(newCostEstimate);
-            $scope.EngineeringEstimate.totalArea = 0;
-            $scope.EngineeringEstimate.totalSum  = 0;
-            $scope.EngineeringEstimate.totalPris = 0;
+        $scope.createNewCalculation = (type) => {
+            if(type == 'wood') {
+                $scope.wood_estimate_edit_id = false;
+                $scope.wood_estimate_name = '';
+                $scope.EngineeringEstimate.length = 0;
+                let newCostEstimate = JSON.parse(JSON.stringify($scope.CostEstimate));
+                $scope.EngineeringEstimate.push(newCostEstimate);
+                $scope.EngineeringEstimate.totalArea = 0;
+                $scope.EngineeringEstimate.totalSum  = 0;
+                $scope.EngineeringEstimate.totalPris = 0;
+            } else {
+                $scope.precast_edit_id = false;
+                $scope.precast_estimate_name = '';
+                $scope.PrecastComponent.length = 0;
+                let newPrecastComponent = JSON.parse(JSON.stringify(precastComponent));
+                $scope.PrecastComponent.push(newPrecastComponent);
+                $scope.PrecastComponent.totalArea = 0;
+                $scope.PrecastComponent.totalSum  = 0;
+                $scope.PrecastComponent.totalPris = 0;
+            }
+           
         }
     
         $scope.addDynamicColumn = (index, columnName) => {
@@ -235,6 +247,7 @@
 
         
         getlist = (type) => {
+            $("#cost_estimate").removeClass('d-none');
             $http.get(`${API_URL}admin/calculate-cost-estimate/${type}/list`)
             .then(function successCallback(res){
                 if(type == 'wood') {
@@ -364,7 +377,6 @@
 
 
     })
- 
     .directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
             return {
                 restrict: 'A',
