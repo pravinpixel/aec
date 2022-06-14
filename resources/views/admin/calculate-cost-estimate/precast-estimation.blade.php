@@ -38,8 +38,8 @@
         <input type="text" onkeypress="return isNumber(event)" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_hours" placeholder="Enter hours">
         <button ng-show="editorEnabled" class="btn btn-info mx-1" ng-disabled="!precast_component_hours || !precast_component_name"  ng-click="savePrecastComponent()">Save</a>
         <button ng-show="editorEnabled" class="btn btn-danger mx-1" ng-click="editorEnabled = false">cancel</a>
-        <button ng-hide="editorEnabled" class="btn btn-info mx-1" ng-click="editorEnabled = true"> Add component </button>
-        <button class="btn btn-info mx-1" ng-click="addPrecasEstimate()">Add New Building </button>
+        <button ng-hide="editorEnabled" class="btn btn-info mx-1" ng-click="editorEnabled = true"> Add Component </button>
+        <button class="btn btn-info mx-1" ng-click="addPrecasEstimate()">Add Building </button>
     </div>
  
     <div class="table custom-responsive p-0 table-responsive w-100">

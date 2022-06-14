@@ -29,7 +29,7 @@
 </div>
 <div class="card">
     <div class="text-end mt-2">
-        <button class="btn btn-info btn-sm" ng-click="addEngineeringEstimate()">Add building</button>
+        <button class="btn btn-info btn-sm" ng-click="addEngineeringEstimate()">Add Building</button>
     </div>
     <div class="custom-div-table my-2" ng-repeat="(firstIndex,CostEstimate) in EngineeringEstimate track by $index">
         <div class="bg-primary text-white">
