@@ -6,6 +6,7 @@
         $scope.precast_estimate_name = '';
         $scope.price_calculation = 'wood_engineering_estimation';
         $scope.EngineeringEstimate = [];
+        $scope.editorEnabled = false; // precast
         $http.get(`${API_URL}wood-estimate-json`).then((res) => {
             $scope.CostEstimate = res.data.json;
             let newCostEstimate = JSON.parse(JSON.stringify($scope.CostEstimate));
@@ -378,6 +379,18 @@
             });
         }
 
+        $scope.savePrecastComponent = () => {
+            $http.post(`${API_URL}precast-estimate`,{name:$scope.precast_component_name, hours:  $scope.precast_component_hours})
+            .then(function successCallback(response) {
+                Message('success',response.data.msg);
+                $scope.editorEnabled = false;
+                $http.get(`${API_URL}precast-estimate`).then((res) => {
+                    $scope.precastEstimateTypes = res.data;
+                });
+            }, function errorCallback(response) {
+                Message('danger',response.data.errors.name[0]);
+            });
+        }
 
     })
     .directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  

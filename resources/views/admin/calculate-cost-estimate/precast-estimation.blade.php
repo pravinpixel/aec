@@ -32,8 +32,16 @@
             </tbody>
         </table>
     </div>
-
-    <button class="btn btn-info btn-sm mb-2 pull-right mx-2" ng-click="addPrecasEstimate()">Add New Building </button>
+      
+    <div class="input-group my-3 justify-content-end"> 
+        <input type="text" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_name" placeholder="Enter precast component">
+        <input type="text" onkeypress="return isNumber(event)" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_hours" placeholder="Enter hours">
+        <button ng-show="editorEnabled" class="btn btn-info mx-1" ng-disabled="!precast_component_hours || !precast_component_name"  ng-click="savePrecastComponent()">Save</a>
+        <button ng-show="editorEnabled" class="btn btn-danger mx-1" ng-click="editorEnabled = false">cancel</a>
+        <button ng-hide="editorEnabled" class="btn btn-info mx-1" ng-click="editorEnabled = true"> Add component </button>
+        <button class="btn btn-info mx-1" ng-click="addPrecasEstimate()">Add New Building </button>
+    </div>
+ 
     <div class="table custom-responsive p-0 table-responsive w-100">
         <div class="table-responsive w-100"  ng-repeat="(pRootKey,PrecastEstimate) in PrecastComponent track by $index">
                 <table class="cost-estimate-table table table-bordered border">
@@ -89,7 +97,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="(index,C) in PrecastEstimate.Components" class="touched-td" >    <pre> @{{ C.precast_component.id  }}</pre>
+                        <tr ng-repeat="(index,C) in PrecastEstimate.Components" class="touched-td" >
                             <td> 
                                 <select class="my-select" get-precast-details-total="[index]" ng-model="C.precast_component" name="precast_component">
                                     <option value="">-- Select -- </option> 
@@ -166,7 +174,7 @@
     </div>
 </div>
 
-<div class="row"  ng-show="price_calculation == 'precast_engineering_estimation'">
+<div class="m-0"  ng-show="price_calculation == 'precast_engineering_estimation'">
     <h3 class="my-2">Precast Estimation List</h3>
     @include('admin.calculate-cost-estimate.precast-list')
 </div>
