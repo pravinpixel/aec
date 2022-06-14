@@ -81,8 +81,9 @@
     </div><!-- /.modal-dialog -->
 </div> 
 
+
 <style>
-    .woodestimateTab{
+    .woodEstimateTab{
         color: #727cf5 !important;
         background-color: rgba(114,124,245,.18) !important;
     }

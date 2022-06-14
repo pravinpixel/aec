@@ -15,6 +15,10 @@
             });
         });
        
+        $http.get(`${API_URL}precast-estimate`).then((res) => {
+            $scope.precastEstimateTypes = res.data;
+        });
+
         $http.get(`${API_URL}get-cost-estimate-types`).then((res) => {
             $scope.costEstimateTypes = res.data;
         });
@@ -149,7 +153,7 @@
                 'total_engineering_cost' : 0,
                 "Components" : [    
                     {
-                        'precast_component': '',
+                        'precast_component': null,
                         'no_of_staircase': '',
                         'no_of_new_component':'',
                         'no_of_different_floor_height': '',
@@ -195,7 +199,7 @@
                     }
                 ]
             });
-            console.log($scope.PrecastComponent);
+
         }
 
         $scope.addPrecastComponent =  (rootKey) => {
@@ -349,7 +353,6 @@
                     angular.element('.sqm_').triggerHandler('keyup');
                 });
             } else {
-                console.log(JSON.parse(Estimate.calculation_json));
                 $scope.PrecastComponent.length = 0;
                 $scope.precast_estimate_edit_id = Estimate.id;
                 $scope.precast_estimate_name = Estimate.name;
@@ -436,14 +439,13 @@
         return {
             restrict: 'A',
             link : function (scope, element, attrs) {
-                element.on('keyup', function () {
+                let eventHandle = () => {
+                    const precast_component = scope.precastEstimateTypes.find(precastEstimateType => scope.PrecastEstimate.Components[scope.index].precast_component == precastEstimateType.id);
                     if(scope.PrecastEstimate.Components[scope.index].no_of_staircase != 0) {
-                        scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_staircase * scope.PrecastEstimate.Components[scope.index].precast_component );
+                        scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_staircase * precast_component.hours);
                     } else {
-                        console.log(scope.PrecastEstimate.Components[scope.index].no_of_staircase);
-                        scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_new_component * scope.PrecastEstimate.Components[scope.index].precast_component );
+                        scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_new_component *  precast_component.hours );
                     }
-                    console.log( scope.PrecastEstimate.Components[scope.index].std_work_hours);
                     scope.PrecastEstimate.Components[scope.index].total_work_hours = getNum(Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +  
                                                                                             Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours));                                                              
                     scope.PrecastEstimate.Components[scope.index].engineering_cost = getNum(
@@ -464,7 +466,6 @@
                     let $total_engineering_cost = 0;
 
                     scope.PrecastEstimate.Components.forEach((row) => {
-                        console.log(row);
                         $total_sqm                   += Number(row.sqm);
                         $total_std_work_hours        += Number(row.std_work_hours);
                         $total_additional_work_hours += Number(row.additional_work_hours);
@@ -496,6 +497,12 @@
                     scope.PrecastComponent.totalPris = $totalSum / $totalArea;
                 
                     scope.$apply();
+                }
+                element.on('keyup', function () {
+                    eventHandle();
+                });
+                element.on('change', function () {
+                    eventHandle();
                 });
             },
         };

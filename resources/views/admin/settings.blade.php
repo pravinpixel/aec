@@ -86,13 +86,13 @@
                                 <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
                             </a>
 
-                            <a class="nav-link checkListTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
+                            <a class="nav-link woodEstimateTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
                                 aria-selected="false">
                                 <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block"  ng-click="getWoodEstimation()" >Wood Estimation</span>
                             </a>
 
-                            <a class="nav-link checkListTab" id="v-pills-precast-estimation-tab" href="#!/precast-estimation" role="tab" aria-controls="v-pills-precast-estimation"
+                            <a class="nav-link precastEstimateTab" id="v-pills-precast-estimation-tab" href="#!/precast-estimation" role="tab" aria-controls="v-pills-precast-estimation"
                                 aria-selected="false">
                                 <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                 <span class="d-none d-md-block"  ng-click="getPrecastEstimation()" >Precast Estimation</span>
@@ -433,7 +433,7 @@
                 }).then((willDelete) => {
                     if(willDelete) {
                         $http.delete(`${API_URL}precast-estimate/${id}`).then(function (response) {
-                            getprecastEstimates();
+                            getPrecastEstimates();
                             Message('success',response.data.msg);
                         }); 
                     }

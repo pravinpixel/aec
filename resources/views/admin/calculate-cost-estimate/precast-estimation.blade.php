@@ -89,13 +89,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="(index,C) in PrecastEstimate.Components" class="touched-td" >  
+                        <tr ng-repeat="(index,C) in PrecastEstimate.Components" class="touched-td" >    <pre> @{{ C.precast_component.id  }}</pre>
                             <td> 
                                 <select class="my-select" get-precast-details-total="[index]" ng-model="C.precast_component" name="precast_component">
                                     <option value="">-- Select -- </option> 
-                                    <option value="32">Staircase House Wall</option>
-                                    <option value="8">Balcony </option>
-                                    {{-- <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.precast_component" ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option> --}}
+                                    <option ng-value="@{{ precastEstimateType.id }}" ng-selected="precastEstimateType.id == C.precast_component.id" ng-repeat="precastEstimateType in precastEstimateTypes">@{{ precastEstimateType.name }}</option>
                                 </select>
                             </td> 
                             <td style="padding: 0 !important">
