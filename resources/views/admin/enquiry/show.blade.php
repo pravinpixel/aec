@@ -816,7 +816,7 @@
                     $scope.ResultEngineeringEstimate    = JSON.parse(res.data.cost_estimate.build_json);
                     $scope.ResultPrecastComponent       = JSON.parse(res.data.cost_estimate.precast_build_json);
                     $scope.EngineeringEstimate          = $scope.ResultEngineeringEstimate.costEstimate;
-                    $scope.PrecastComponent          = $scope.ResultPrecastComponent.precastEstimate;
+                    $scope.PrecastComponent             = $scope.ResultPrecastComponent.precastEstimate;
                 });
             }
             $scope.getWizradStatus();
@@ -921,14 +921,13 @@
             $http.get(`${API_URL}wood-estimate-json`).then((res) => {
                 $scope.NewCostEstimate = res.data.json;
                 let newCostEstimate = JSON.parse(JSON.stringify($scope.NewCostEstimate));
-                $scope.EngineeringEstimate.push(newCostEstimate);
                 $timeout(function() {
                     angular.element('.sqm_').triggerHandler('keyup');
                 });
             });
-
-            $scope.ResultEngineeringEstimate = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'costEstimate': $scope.EngineeringEstimate};
-            $scope.ResultPrecastComponent = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'precastEstimate': $scope.PrecastComponent};
+            
+            // $scope.ResultEngineeringEstimate = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'costEstimate': $scope.EngineeringEstimate};
+            // $scope.ResultPrecastComponent = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'precastEstimate': $scope.PrecastComponent};
 
             $http.get(`${API_URL}precast-estimate`).then((res) => {
                 $scope.precastEstimateTypes = res.data;

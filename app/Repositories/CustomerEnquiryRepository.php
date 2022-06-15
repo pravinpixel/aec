@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Admin\PropoalVersions;
 use Illuminate\Http\Response;
 use App\Models\Service;
+use App\Models\WoodEstimation;
 use App\Services\GlobalService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -386,67 +387,86 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         EnquiryCostEstimate::where('enquiry_id', $enquiry->id)->delete();
 
         $cost_estimate   =      new EnquiryCostEstimate();
-        $result =   [
-                        'Components' => [ 
-                            [
-                                "Component"     => "",
-                                "Type"          => "", 
-                                "sqm"           => "",
-                                "complexity"    => "", 
-                                "Details" => [
-                                    "PriceM2"   => "",
-                                    "Sum"       => ""
-                                ],
-                                "Statistics" => [
-                                    "PriceM2"   => "", 
-                                    "Sum"       => "", 
-                                ],
-                                "CadCam" => [
-                                    "PriceM2"   => "",
-                                    "Sum"       => "", 
-                                ],
-                                "Logistics" => [
-                                    "PriceM2"   => "", 
-                                    "Sum"       => "",
-                                ],
-                                "TotalCost" => [
-                                    "PriceM2"   => "", 
-                                    "Sum"       => "", 
-                                ]
-                            ]
-                        ],
-                    "ComponentsTotals" => [
-                        "sqm"           => 0,
-                        "complexity"    => 0, 
-                        "Details" =>[
-                            "PriceM2"   => 0,
-                            "Sum"       => 0
-                        ],
-                        "Statistics" => [
-                            "PriceM2"   => 0, 
-                            "Sum"       => 0, 
-                        ],
-                        "CadCam" =>[
-                            "PriceM2"   => 0,
-                            "Sum"       => 0, 
-                        ],
-                        "Logistics" =>[
-                            "PriceM2"   => 0, 
-                            "Sum"       => 0,
-                        ],
-                        "TotalCost" =>[
-                            "PriceM2"   => 0, 
-                            "Sum"       => 0, 
-                        ],
-                        "grandTotal"    => 0, 
+        $estimations     =      WoodEstimation::get();
+        $CostEstimate = [ 
+            'type'      => 'Building Type 1',
+            'totalArea' => 0,
+            'totalPris' => 0,
+            'totalSum'  => 0,
+            "Components" => [ 
+                [
+                    'building_component_id'=> '',
+                    'type_id'=> '',
+                    'DesignScope'=> 0,
+                    "Component"     => "",
+                    "Type"          => "", 
+                    "Sqm"           => "",
+                    "Complexity"    => "", 
+                    'Dynamics'=> [],
+                    "TotalCost" => [
+                        "PriceM2"   => 0, 
+                        "Sum"       => 0, 
                     ],
-                    'enquiry_id' =>  $enquiry->id
-                ];
+                    "Rib"=> [
+                        "Sum" => ""
+                    ]
+                ]
+            ],
+            "ComponentsTotals" => [
+                "Sqm"           => '',
+                "complexity"    => '', 
+                'Dynamics'=> [],
+                "TotalCost" =>[
+                    "PriceM2"   => 0, 
+                    "Sum"       => 0, 
+                ],
+                "Rib"=> [
+                    "Sum" => ""
+                ],
+                "grandTotal"    => '', 
+            ],
+        ];
+        foreach($estimations as $estimation) {
+            $CostEstimate['Components'][0]['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+            $CostEstimate['ComponentsTotals']['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+        }
+        $CostEstimate['Components'][0]["TotalCost"]  = ['PriceM2' => '', 'Sum' => ''];
+        $CostEstimate['Components'][0]["Rib"]        = ["Sum" => ""];
+        $resultWood = ['total'=> ['totalArea'=> 0, 'totalSum'=> 0, 'totalPris'=> 0], 'costEstimate'=> [$CostEstimate]];
         $cost_estimate  ->    enquiry_id = $enquiry->id;
         $cost_estimate  ->    created_by = Customer()->id;
-        $cost_estimate  ->    build_json = json_encode($result);
+        $cost_estimate  ->    build_json = json_encode($resultWood);
+        $precastComponent = [
+            "type"                        => "Building Type 1",
+            "total_sqm"                   => 0,
+            "total_std_work_hours"        => 0,
+            "total_additional_work_hours" => 0,
+            "total_hourly_rate"           => 0,
+            "total_work_hours"            => 0,
+            "engineering_cost"            => 0,
+            "total_central_approval"      => 0,
+            'total_engineering_cost'      => 0,
+            "Components" => [    
+                [
+                    'precast_component'=> null,
+                    'no_of_staircase'=> '',
+                    'no_of_new_component'=>'',
+                    'no_of_different_floor_height'=> '',
+                    'sqm'           => '',
+                    'complexity'    => '', 
+                    'std_work_hours'=> '',
+                    'additional_work_hours'=> '',
+                    'hourly_rate'=> '',
+                    'total_work_hours'=> '',
+                    'engineering_cost'=> '',
+                    'total_central_approval'=> '',
+                    'total_engineering_cost'=> ''
+                ]
+            ]
+        ];
+        $resultPrecast = ['total'=> ['totalArea'=> 0, 'totalSum'=> 0, 'totalPris'=> 0], 'precastEstimate'=> [$precastComponent] ];
+        $cost_estimate  ->    precast_build_json = json_encode($resultPrecast);
         $cost_estimate  ->    save();
-        
         return true;    
     }
 
