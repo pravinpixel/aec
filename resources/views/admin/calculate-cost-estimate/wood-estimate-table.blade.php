@@ -46,7 +46,7 @@
                 </div>
     
                 <div class="custom-td text-center p-0 bg-primary2" ng-repeat="(dynamicIndex, Dynamic) in CostEstimate.ComponentsTotals.Dynamics">
-                    <span class="border-bottom w-100 text-center ">
+                    <span class="border-bottom w-100 text-center custom-max-h">
                         @{{ Dynamic.name }} 
                         <i class="fa fa-trash text-danger dynamic_name" ng-click="deleteDynamic(firstIndex,dynamicIndex)"> </i>
                     </span>
@@ -229,6 +229,10 @@
             padding: 0 !important;
             height: 100%;
             width: 100%;
+        }
+        .custom-max-h {
+            height: 40px !important;
+            overflow: hidden;
         }
     </style>
 @endpush
