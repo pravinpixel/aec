@@ -60,17 +60,26 @@ class  CostEstimateController extends Controller
     public function store(Request $request) {
         $data   = $request->input("data");
         $id     = $request->input("enquiry_id"); 
+        $type   = $request->input("type"); 
         $costEstimate = EnquiryCostEstimate::where('enquiry_id',$id)->first();
         if(!empty($costEstimate)) {
             $costEstimate->enquiry_id           = $id;
-            $costEstimate->build_json           =  json_encode($data);
+            if($type == 'wood') {
+                $costEstimate->build_json           =  json_encode($data);
+            } else {
+                $costEstimate->precast_build_json   =  json_encode($data);
+            }
             $costEstimate->total_cost           =  $request->total;
             $costEstimate->updated_by           = Admin()->id;
             $costEstimate->assign_for_status    = (Admin()->id == $costEstimate->assign_to ? 1 : 0);
         }  else {
             $costEstimate  =  new EnquiryCostEstimate();
             $costEstimate->enquiry_id           = $id;
-            $costEstimate->build_json           =  json_encode($data);
+            if($type == 'wood') {
+                $costEstimate->build_json           =  json_encode($data);
+            } else {
+                $costEstimate->precast_build_json   =  json_encode($data);
+            }
             $costEstimate->total_cost           =  $request->total;
             $costEstimate->updated_by           = Admin()->id;
             $costEstimate->assign_for_status    = 0;

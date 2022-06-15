@@ -814,7 +814,9 @@
                     $scope.customer_response            = res.data.progress.customer_response; 
                     $scope.cost_estimate                = res.data.cost_estimate;
                     $scope.ResultEngineeringEstimate    = JSON.parse(res.data.cost_estimate.build_json);
+                    $scope.ResultPrecastComponent       = JSON.parse(res.data.cost_estimate.precast_build_json);
                     $scope.EngineeringEstimate          = $scope.ResultEngineeringEstimate.costEstimate;
+                    $scope.PrecastComponent          = $scope.ResultPrecastComponent.precastEstimate;
                 });
             }
             $scope.getWizradStatus();
@@ -831,15 +833,23 @@
                 $scope.assign_to        =   response.data.others.assign_to ?? '';
             });
 
-            $scope.UpdateCostEstimate  = function() {  
+            $scope.UpdateCostEstimate  = function(type) {  
                 if($scope.EngineeringEstimate.length == 0){
                     Message('danger', "You Can't Update Empty Data");
                     return false;
                 }
+                if(type == 'wood') {
+                    var data = $scope.ResultEngineeringEstimate;
+                } else {
+                    var data = $scope.ResultPrecastComponent;
+                }
+                console.log($scope.ResultPrecastComponent);
+                console.log($scope.ResultEngineeringEstimate);
+                let total =  $scope.ResultEngineeringEstimate.total.totalSum +  $scope.ResultPrecastComponent.total.totalSum;
                 $http({
                     method: "POST",
                     url: "{{ route('enquiry-create.cost-estimate-value') }}",
-                    data:{ enquiry_id: $scope.enquiry_id, data : $scope.ResultEngineeringEstimate, total :  $scope.ResultEngineeringEstimate.total.totalSum},
+                    data:{ enquiry_id: $scope.enquiry_id, data : data, type: type, total : total},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
                     $scope.getWizradStatus();
@@ -918,6 +928,7 @@
             });
 
             $scope.ResultEngineeringEstimate = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'costEstimate': $scope.EngineeringEstimate};
+            $scope.ResultPrecastComponent = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'precastEstimate': $scope.PrecastComponent};
 
             $http.get(`${API_URL}precast-estimate`).then((res) => {
                 $scope.precastEstimateTypes = res.data;
@@ -940,9 +951,6 @@
                     $scope.PrecastComponent.length = 0;
                     let newPrecastComponent = JSON.parse(JSON.stringify(precastComponent));
                     $scope.PrecastComponent.push(newPrecastComponent);
-                    $scope.PrecastComponent.totalArea = 0;
-                    $scope.PrecastComponent.totalSum  = 0;
-                    $scope.PrecastComponent.totalPris = 0;
                 }
             
             }
@@ -1333,7 +1341,78 @@
                     });
                 },
             };
-        }]);
+        }]).directive('getPrecastDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
+        return {
+            restrict: 'A',
+            link : function (scope, element, attrs) {
+                let eventHandle = () => {
+                    const precast_component = scope.precastEstimateTypes.find(precastEstimateType => scope.PrecastEstimate.Components[scope.index].precast_component == precastEstimateType.id);
+                    if(scope.PrecastEstimate.Components[scope.index].no_of_staircase != 0) {
+                        scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_staircase * precast_component.hours);
+                    } else {
+                        scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_new_component *  precast_component.hours );
+                    }
+                    scope.PrecastEstimate.Components[scope.index].total_work_hours = getNum(Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +  
+                                                                                            Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours));                                                              
+                    scope.PrecastEstimate.Components[scope.index].engineering_cost = getNum(
+                                                                                            (Number( scope.PrecastEstimate.Components[scope.index].std_work_hours) +  
+                                                                                            Number(scope.PrecastEstimate.Components[scope.index].additional_work_hours)) * 
+                                                                                            Number(scope.PrecastEstimate.Components[scope.index].hourly_rate) * 
+                                                                                            Number(scope.PrecastEstimate.Components[scope.index].complexity)
+                              
+                                                                                            );
+                    scope.PrecastEstimate.Components[scope.index].total_engineering_cost   = Number(scope.PrecastEstimate.Components[scope.index].engineering_cost)+ Number(scope.PrecastEstimate.Components[scope.index].total_central_approval)
+                    let $total_sqm                   = 0;
+                    let $total_std_work_hours        = 0;
+                    let $total_additional_work_hours = 0;
+                    let $total_hourly_rate           = 0;
+                    let $total_work_hours            = 0;
+                    let $engineering_cost      = 0;
+                    let $total_central_approval      = 0;
+                    let $total_engineering_cost = 0;
+
+                    scope.PrecastEstimate.Components.forEach((row) => {
+                        $total_sqm                   += Number(row.sqm);
+                        $total_std_work_hours        += Number(row.std_work_hours);
+                        $total_additional_work_hours += Number(row.additional_work_hours);
+                        $total_hourly_rate           += Number(row.hourly_rate);
+                        $total_work_hours            += Number(row.total_work_hours);
+                        $engineering_cost      += Number(row.engineering_cost);
+                        $total_central_approval      += Number(row.total_central_approval);
+                        $total_engineering_cost     += Number(row.total_engineering_cost);
+                    });
+
+                    scope.PrecastEstimate.total_sqm                   = $total_sqm;
+                    scope.PrecastEstimate.total_std_work_hours        = $total_std_work_hours;
+                    scope.PrecastEstimate.total_additional_work_hours = $total_additional_work_hours;
+                    scope.PrecastEstimate.total_hourly_rate           = $total_hourly_rate;
+                    scope.PrecastEstimate.total_work_hours            = $total_work_hours;
+                    scope.PrecastEstimate.engineering_cost      = $engineering_cost;
+                    scope.PrecastEstimate.total_central_approval      = $total_central_approval;
+                    scope.PrecastEstimate.total_engineering_cost     = $total_engineering_cost;
+                    let $totalArea = 0;
+                    let $totalPris = 0;
+                    let $totalSum  = 0;
+
+                    scope.PrecastComponent.forEach( (row) => {
+                        $totalArea += row.total_sqm;
+                        $totalSum  += row.total_engineering_cost;
+                    });
+                    scope.ResultPrecastComponent.total.totalArea = $totalArea;
+                    scope.ResultPrecastComponent.total.totalSum  = $totalSum;
+                    scope.ResultPrecastComponent.total.totalPris = $totalSum / $totalArea;
+                    scope.ResultPrecastComponent.precastEstimate =  scope.PrecastComponent;
+                    scope.$apply();
+                }
+                element.on('keyup', function () {
+                    eventHandle();
+                });
+                element.on('change', function () {
+                    eventHandle();
+                });
+            },
+        };
+    }]);
 
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
              

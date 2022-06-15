@@ -12,6 +12,7 @@ class EnquiryCostEstimate extends Model
         'assign_for_status',
         'assign_for',
         'build_json',
+        'precast_build_json',
         'total_cost',
         'enquiry_id',
         'created_by',

@@ -23,6 +23,7 @@ class CreateEnquiryCostEstimatesTable extends Migration
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->text('build_json')->nullable();
+            $table->text('precast_build_json')->nullable();
             $table->string('total_cost')->nullable();
             $table->foreign('assign_to')->references('id')->on('employee');
             $table->foreign('assign_by')->references('id')->on('employee');

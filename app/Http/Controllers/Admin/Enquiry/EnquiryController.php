@@ -307,8 +307,7 @@ class EnquiryController extends Controller
         $enquiry                        =   $this->customerEnquiryRepo->getEnquiryByID($id);
         $outputTypes                    =   $this->outputTypeRepository->get();
         $services                       =   $enquiry->services()->get();
-
-        $result['progress']             =   $enquiry; 
+        $result['progress']             =   $enquiry;  
         $result['customer_info']        =   $enquiry->customer; 
         $result["enquiry_number"]       =   $enquiry->enquiry_number;
         $result["customer_enquiry_number"] =   $enquiry->customer_enquiry_number;

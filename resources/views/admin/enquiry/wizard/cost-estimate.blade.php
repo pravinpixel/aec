@@ -85,13 +85,31 @@
     </table> 
 </div>
 @if(userHasAccess('cost_estimate_index'))
-    @include('admin.calculate-cost-estimate.wood-estimation')
-    <p class="lead mb-2 text-center text-danger" ng-show="cost_estimate.assign_for == 'estimation' && cost_estimate.assign_for_status == 0"> <strong>Waiting for estimation</strong></p>
-    <p class="lead mb-2 text-center text-danger" ng-show="cost_estimate.assign_for == 'approval' && cost_estimate.assign_for_status == 0"> <strong>Waiting for approval</strong></p>
-    <p class="lead mb-2 text-center text-success" ng-show="cost_estimate.assign_for_status == 1 && cost_estimate.assign_for == 'estimation'"> <strong>Estimated successfully</strong></p>
-    <p class="lead mb-2 text-center text-success" ng-show="cost_estimate.assign_for_status == 1 && cost_estimate.assign_for == 'approval'"> <strong>Approved successfully </strong></p>
-    <div class="text-end">
-        <a class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</a>
+    <div class="container-fluid">
+        <br>
+        <div class="row m-0">
+            <div class="col">
+                <label>
+                    <input type="radio" ng-model="price_calculation" name="price_calculation"
+                        ng-value="'wood_engineering_estimation'">
+                    Wood Engineering Estimation
+                </label>
+            </div>
+            <div class="col">
+                <label>
+                    <input type="radio" ng-model="price_calculation" name="price_calculation"
+                        ng-value="'precast_engineering_estimation'">
+                    Precast Engineering Estimation
+                </label>
+            </div>
+
+        </div>
+        <div ng-show="price_calculation == 'wood_engineering_estimation'">
+            @include('admin.enquiry.wizard.wood-estimation')
+        </div>
+        <div ng-show="price_calculation == 'precast_engineering_estimation'">
+            @include('admin.enquiry.wizard.precast-estimation')
+        </div>
     </div>
 @endif
 <div class="card m-0 my-3 border col-md-9 me-auto">
