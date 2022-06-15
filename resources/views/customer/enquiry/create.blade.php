@@ -187,8 +187,8 @@
                         });
                         if($scope.companyList.length == 1) {
                             $scope.customer.company_name = $scope.companyList[0].company;
-                            $("#zipcode").val($scope.companyList[0].zip_code);
-                            $scope.getZipcodeData();
+                            // $("#zipcode").val($scope.companyList[0].zip_code);
+                            // $scope.getZipcodeData();
                         }
                 }, function errorCallback(error){
                     console.log(error);
