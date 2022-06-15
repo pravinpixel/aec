@@ -114,14 +114,7 @@
             background: #152950
         }
     </style>
-    <style>
-        .custom-div-table div {
-            box-shadow: 0 0 2px black !important;
-        }
-
-        .box {
-           width: 100px;
-        }
+    <style>  
         .m_two_cross_column {
             display: flex;
             flex-direction: column;
@@ -135,20 +128,7 @@
         }
         .dynamic_name {
           
-        }
-        .custom_td {
-            width: 200px !important;
-            max-width: 200px !important;
-            min-width: 200px !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        .custom-row {
-            margin: 0 !important;
-            display: flex !important;
-        }
-
+        } 
     </style>
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"> </script> 
