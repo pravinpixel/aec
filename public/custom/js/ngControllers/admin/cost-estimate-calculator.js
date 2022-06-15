@@ -1,4 +1,4 @@
-   app.controller('Cost_Estimate', function ($scope, $http, $timeout, API_URL) {
+    app.controller('Cost_Estimate', function ($scope, $http, $timeout, API_URL) {
         $scope.editable = false;
         $scope.wood_estimate_edit_id = false;
         $scope.precast_estimate_edit_id = false;
@@ -15,7 +15,9 @@
                 angular.element('.sqm_').triggerHandler('keyup');
             });
         });
-       
+
+        $scope.ResultEngineeringEstimate = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'costEstimate': $scope.EngineeringEstimate};
+
         $http.get(`${API_URL}precast-estimate`).then((res) => {
             $scope.precastEstimateTypes = res.data;
         });
@@ -31,9 +33,6 @@
                 $scope.EngineeringEstimate.length = 0;
                 let newCostEstimate = JSON.parse(JSON.stringify($scope.CostEstimate));
                 $scope.EngineeringEstimate.push(newCostEstimate);
-                $scope.EngineeringEstimate.totalArea = 0;
-                $scope.EngineeringEstimate.totalSum  = 0;
-                $scope.EngineeringEstimate.totalPris = 0;
             } else {
                 $scope.precast_edit_id = false;
                 $scope.precast_estimate_name = '';
@@ -172,6 +171,7 @@
             
         };
         $scope.PrecastComponent.push(precastComponent);
+        $scope.ResultPrecastComponent = { total:{totalArea: 0, totalSum: 0, totalPris: 0}, precastEstimate:  $scope.PrecastComponent};
         $scope.addPrecasEstimate = () => {
             $scope.PrecastComponent.push({
                 "type"                       : "Building Type 1",
@@ -268,7 +268,7 @@
         
         $scope.EstimateStore = (type) => {
             if(type == 'wood') {
-                var data = $scope.EngineeringEstimate;
+                var data = $scope.ResultEngineeringEstimate;
                 var name =  $scope.wood_estimate_name;
                 if($scope.EngineeringEstimate.length == 0) {
                     Message('danger','Please add building');
@@ -279,7 +279,7 @@
                     return false;
                 }
             } else {
-                var data = $scope.PrecastComponent;
+                var data = $scope.ResultPrecastComponent;
                 var name =  $scope.precast_estimate_name;
                 if($scope.PrecastComponent.length == 0) {
                     Message('danger','Please add building');
@@ -308,7 +308,7 @@
 
         $scope.EstimateUpdate = (id, type) => {
             if(type == 'wood') {
-                var data = $scope.EngineeringEstimate;
+                var data = $scope.ResultEngineeringEstimate;
                 var name =  $scope.wood_estimate_name;
                 if($scope.EngineeringEstimate.length == 0) {
                     Message('danger','Please add building');
@@ -349,7 +349,7 @@
                 $scope.EngineeringEstimate.length = 0;
                 $scope.wood_estimate_edit_id = Estimate.id;
                 $scope.wood_estimate_name = Estimate.name;
-                $scope.EngineeringEstimate  = JSON.parse(Estimate.calculation_json);
+                $scope.EngineeringEstimate  = JSON.parse(Estimate.calculation_json).costEstimate;
                 $timeout(function() {
                     angular.element('.sqm_').triggerHandler('keyup');
                 });
@@ -357,7 +357,7 @@
                 $scope.PrecastComponent.length = 0;
                 $scope.precast_estimate_edit_id = Estimate.id;
                 $scope.precast_estimate_name = Estimate.name;
-                $scope.PrecastComponent  = JSON.parse(Estimate.calculation_json);
+                $scope.PrecastComponent  = JSON.parse(Estimate.calculation_json).precastEstimate;
                 $timeout(function() {
                     angular.element('.psqm_').triggerHandler('keyup');
                 });
@@ -441,9 +441,10 @@
                             Estimates.ComponentsTotals.Rib.Sum           = getNum($ribTotal);
                            
                         });
-                        scope.EngineeringEstimate.totalArea = getNum($totalEstimateArea);
-                        scope.EngineeringEstimate.totalSum = getNum($totalEstimateSum);
-                        scope.EngineeringEstimate.totalPris = getNum($totalEstimateSum /  $totalEstimateArea);
+                        scope.ResultEngineeringEstimate.total.totalArea = getNum($totalEstimateArea);
+                        scope.ResultEngineeringEstimate.total.totalSum = getNum($totalEstimateSum);
+                        scope.ResultEngineeringEstimate.total.totalPris = getNum($totalEstimateSum /  $totalEstimateArea);
+                        scope.ResultEngineeringEstimate.costEstimate =  scope.EngineeringEstimate;
                         scope.$apply();
                     });
                 },
@@ -505,10 +506,10 @@
                         $totalArea += row.total_sqm;
                         $totalSum  += row.total_engineering_cost;
                     });
-                    scope.PrecastComponent.totalArea = $totalArea;
-                    scope.PrecastComponent.totalSum  = $totalSum;
-                    scope.PrecastComponent.totalPris = $totalSum / $totalArea;
-                
+                    scope.ResultPrecastComponent.total.totalArea = $totalArea;
+                    scope.ResultPrecastComponent.total.totalSum  = $totalSum;
+                    scope.ResultPrecastComponent.total.totalPris = $totalSum / $totalArea;
+                    scope.ResultPrecastComponent.precastEstimate =  scope.PrecastComponent;
                     scope.$apply();
                 }
                 element.on('keyup', function () {

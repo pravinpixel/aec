@@ -2,7 +2,7 @@
     <div ng-show="price_calculation == 'wood_engineering_estimation'">
         <div class="table custom-responsive p-0">
             <hr>
-            <button class="btn btn-success btn-sm" ng-click="createNewCalculation('wood')">Create new calculation</button>
+            <button class="btn btn-success btn-sm" ng-click="createNewCalculation('wood')">Create New Calculation</button>
         </div>
     </div>
 </div>
@@ -20,9 +20,9 @@
         </thead>
         <tbody>
             <tr>
-                <td class="text-end font-12 p-0"> <b>@{{ EngineeringEstimate.totalArea  }} </b></td>  
-                <td class="text-end font-12 p-0"><b> @{{ EngineeringEstimate.totalPris }}</b></td>  
-                <td class="text-end font-12 p-0"><b> @{{ EngineeringEstimate.totalSum }}</b></td>  
+                <td class="text-end font-12 p-0"> <b>@{{ ResultEngineeringEstimate.total.totalArea  }} </b></td>  
+                <td class="text-end font-12 p-0"><b> @{{ ResultEngineeringEstimate.total.totalPris }}</b></td>  
+                <td class="text-end font-12 p-0"><b> @{{ ResultEngineeringEstimate.total.totalSum }}</b></td>  
             </tr>
         </tbody>
     </table>
@@ -193,6 +193,7 @@
         </div>
     </div>
 </div>
+@if (Route::is('enquiry.calculate-cost-estimation')) 
 <div  ng-show="wood_estimate_edit_id == false && price_calculation == 'wood_engineering_estimation'" class="d-flex">
     <div class="col-2">
         Name 
@@ -220,3 +221,4 @@
     <h3 class="my-2">Wood Estimation List</h3>
     @include('admin.calculate-cost-estimate.wood-list')
 </div>
+@endif

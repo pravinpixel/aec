@@ -59,7 +59,7 @@ class  CostEstimateController extends Controller
     }
     public function store(Request $request) {
         $data   = $request->input("data");
-        $id     = $request->input("data.enquiry_id"); 
+        $id     = $request->input("enquiry_id"); 
         $costEstimate = EnquiryCostEstimate::where('enquiry_id',$id)->first();
         if(!empty($costEstimate)) {
             $costEstimate->enquiry_id           = $id;

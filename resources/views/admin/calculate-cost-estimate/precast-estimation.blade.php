@@ -2,7 +2,7 @@
     <div ng-show="price_calculation == 'precast_engineering_estimation'">
         <div class="table custom-responsive p-0">
             <hr>
-            <button class="btn btn-success btn-sm" ng-click="createNewCalculation('precast')">Create new calculation</button>
+            <button class="btn btn-success btn-sm" ng-click="createNewCalculation('precast')">Create New Calculation</button>
         </div>
     </div>
 </div>
@@ -24,9 +24,9 @@
             <tbody>
                 <tr>
 
-                    <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalArea) }}</b></td>  
-                    <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalPris) }}</b></td>  
-                    <td class="text-end font-12 p-0"><b>@{{ getNum(PrecastComponent.totalSum) }}</b></td>  
+                    <td class="text-end font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalArea) }}</b></td>  
+                    <td class="text-end font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalPris) }}</b></td>  
+                    <td class="text-end font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalSum) }}</b></td>  
                     
                 </tr>
             </tbody>

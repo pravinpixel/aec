@@ -114,6 +114,42 @@
             background: #152950
         }
     </style>
+    <style>
+        .custom-div-table div {
+            box-shadow: 0 0 2px black !important;
+        }
+
+        .box {
+           width: 100px;
+        }
+        .m_two_cross_column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0;
+            text-align: center;
+        }
+
+        .m_two_cross_column span {
+            margin-top: 10px;
+        }
+        .dynamic_name {
+          
+        }
+        .custom_td {
+            width: 200px !important;
+            max-width: 200px !important;
+            min-width: 200px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .custom-row {
+            margin: 0 !important;
+            display: flex !important;
+        }
+
+    </style>
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"> </script> 
   
@@ -727,9 +763,9 @@
 
                 });
             }
-        }); 
+        });
 
-        app.controller('Cost_Estimate', function ($scope, $http, API_URL) {
+        app.controller('Cost_Estimate', function ($scope, $http, $timeout, API_URL) {
             let enquiryId =  '{{ $data->id }}';
             $scope.current_user = '{{Admin()->id}}';
             getUsers = () => {
@@ -777,66 +813,12 @@
                     $scope.proposal_sharing_status      = res.data.progress.proposal_sharing_status;
                     $scope.customer_response            = res.data.progress.customer_response; 
                     $scope.cost_estimate                = res.data.cost_estimate;
+                    $scope.ResultEngineeringEstimate    = JSON.parse(res.data.cost_estimate.build_json);
+                    $scope.EngineeringEstimate          = $scope.ResultEngineeringEstimate.costEstimate;
                 });
             }
             $scope.getWizradStatus();
-            // $scope.CostEstimate  = {
-            //     "Components" : [ 
-            //         {
-            //             "Component"     : "",
-            //             "Type"          : "", 
-            //             "sqm"           : "",
-            //             "complexity"    : "", 
-            //             "Details": {
-            //                 "PriceM2"   : "",
-            //                 "Sum"       :  ""
-            //             },
-            //             "Statistics": {
-            //                 "PriceM2"   : "", 
-            //                 "Sum"       : "", 
-            //             },
-            //             "CadCam": {
-            //                 "PriceM2"   : "",
-            //                 "Sum"       : "", 
-            //             } ,
-            //             "Logistics": {
-            //                 "PriceM2"   : "", 
-            //                 "Sum"       : "",
-            //             } ,
-            //             "TotalCost": {
-            //                 "PriceM2"   : "", 
-            //                 "Sum"       : "", 
-            //             }
-            //         },
-            //     ],
-            //     "ComponentsTotals" :{
-            //         "sqm"           : 0,
-            //         "complexity"    : 0, 
-            //         "Details": {
-            //             "PriceM2"   : 0,
-            //             "Sum"       :  0
-            //         },
-            //         "Statistics": {
-            //             "PriceM2"   : 0, 
-            //             "Sum"       : 0, 
-            //         },
-            //         "CadCam": {
-            //             "PriceM2"   : 0,
-            //             "Sum"       : 0, 
-            //         } ,
-            //         "Logistics": {
-            //             "PriceM2"   : 0, 
-            //             "Sum"       : 0,
-            //         } ,
-            //         "TotalCost": {
-            //             "PriceM2"   : 0, 
-            //             "Sum"       : 0, 
-            //         },
-            //         "grandTotal"    : 0, 
-            //     },
-            //     "enquiry_id" : '{{ $data->id ?? " " }}'
-            // };
-            
+          
             $scope.enquiry_id = '{{ $id }}';
             // =========== Cost Estimate  ============
             $http.get("{{ route("CostEstimateData") }}").then(function (response) {
@@ -848,26 +830,16 @@
                 $scope.CostEstimate     =   response.data.cost_estimation; 
                 $scope.assign_to        =   response.data.others.assign_to ?? '';
             });
+
             $scope.UpdateCostEstimate  = function() {  
-                if($scope.CostEstimate.Components.length == 0){
+                if($scope.EngineeringEstimate.length == 0){
                     Message('danger', "You Can't Update Empty Data");
                     return false;
                 }
-                $status = $scope.CostEstimate.Components.forEach((item) => {
-                    if(item.Component == '' || typeof(item.Component) == 'undefined') {
-                        Message('danger', "You Can't Update Empty Data");
-                        return false;
-                    }
-                    if(item.Type == '' || typeof(item.Type) == 'undefined') {
-                        Message('danger', "You Can't Update Empty Data");
-                        return false;
-                    }
-                });
-                if($status == false) {return false};
                 $http({
                     method: "POST",
                     url: "{{ route('enquiry-create.cost-estimate-value') }}",
-                    data:{ data : $scope.CostEstimate, total : $scope.CostEstimate.ComponentsTotals.TotalCost.Sum},
+                    data:{ enquiry_id: $scope.enquiry_id, data : $scope.ResultEngineeringEstimate, total :  $scope.ResultEngineeringEstimate.total.totalSum},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
                     $scope.getWizradStatus();
@@ -875,41 +847,6 @@
                     Message('danger',response.data.errors);
                 }); 
             }
-            $scope.create  = function() {
-                $scope.CostEstimate.Components.unshift({
-                    "Component"     : "",
-                    "Type"          : "", 
-                    "sqm"           : "", 
-                    "Complexity"    : "", 
-                    "Details": {
-                        "PriceM2"   : "", 
-                        "Sum"       : ""
-                    },
-                    "Statistics": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    },
-                    "CadCam": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    } ,
-                    "Logistics": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    } ,
-                    "TotalCost": {
-                        "PriceM2"   : "", 
-                        "Sum"       : "", 
-                    }
-                });
-            }
-            $scope.delete   =   function(index) { 
-                // if(index == 0) {
-                //     return false
-                // }
-                $scope.CostEstimate.Components.splice(index,1);
-            }
-       
 
             $scope.sendAssignCostEstiComments  = function(type , chatSection) { 
                 $scope.sendCommentsData = {
@@ -962,8 +899,442 @@
                         break;
                 } 
             }
+        // cost estimate calculation start..
+            $scope.editable = false;
+            $scope.wood_estimate_edit_id = false;
+            $scope.precast_estimate_edit_id = false;
+            $scope.wood_estimate_name = '';
+            $scope.precast_estimate_name = '';
+            $scope.price_calculation = 'wood_engineering_estimation';
+            $scope.EngineeringEstimate = [];
+            $scope.editorEnabled = false; // precast
+            $http.get(`${API_URL}wood-estimate-json`).then((res) => {
+                $scope.NewCostEstimate = res.data.json;
+                let newCostEstimate = JSON.parse(JSON.stringify($scope.NewCostEstimate));
+                $scope.EngineeringEstimate.push(newCostEstimate);
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
+            });
 
-        });
+            $scope.ResultEngineeringEstimate = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'costEstimate': $scope.EngineeringEstimate};
+
+            $http.get(`${API_URL}precast-estimate`).then((res) => {
+                $scope.precastEstimateTypes = res.data;
+            });
+
+            $http.get(`${API_URL}get-cost-estimate-types`).then((res) => {
+                $scope.costEstimateTypes = res.data;
+            });
+
+            $scope.createNewCalculation = (type) => {
+                if(type == 'wood') {
+                    $scope.wood_estimate_edit_id = false;
+                    $scope.wood_estimate_name = '';
+                    $scope.EngineeringEstimate.length = 0;
+                    let newCostEstimate = JSON.parse(JSON.stringify($scope.NewCostEstimate));
+                    $scope.EngineeringEstimate.push(newCostEstimate);
+                } else {
+                    $scope.precast_edit_id = false;
+                    $scope.precast_estimate_name = '';
+                    $scope.PrecastComponent.length = 0;
+                    let newPrecastComponent = JSON.parse(JSON.stringify(precastComponent));
+                    $scope.PrecastComponent.push(newPrecastComponent);
+                    $scope.PrecastComponent.totalArea = 0;
+                    $scope.PrecastComponent.totalSum  = 0;
+                    $scope.PrecastComponent.totalPris = 0;
+                }
+            
+            }
+        
+            $scope.addDynamicColumn = (index, columnName) => {
+                $scope.editable = false;
+                if(columnName == '') return false;
+                $scope.EngineeringEstimate[index].ComponentsTotals.Dynamics.push({
+                        "name"   : columnName,
+                        "PriceM2": 0,
+                        "Sum"    : 0
+                });
+
+                $scope.EngineeringEstimate[index].Components.forEach( (Component) => {
+                    Component.Dynamics.push({
+                        "name"   : columnName,
+                        "PriceM2": 0,
+                        "Sum"    : 0
+                    });
+                });
+                $http.post(`${API_URL}wood-estimate`,{name:columnName}).then((res) => {
+                    console.log(res.data);
+                })
+                $scope.columnName = '';
+            }
+
+            $scope.deleteDynamic = (rootIndex, dynamicIndex) => {
+                $scope.EngineeringEstimate[rootIndex].ComponentsTotals.Dynamics.splice(dynamicIndex, 1);
+
+                $scope.EngineeringEstimate[rootIndex].Components.forEach( (Component) => {
+                    Component.Dynamics.splice(dynamicIndex, 1);
+                });
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
+            }
+
+            $scope.addEngineeringEstimate = () => {
+                let newCostEstimate = JSON.parse(JSON.stringify($scope.NewCostEstimate));
+                console.log(newCostEstimate);
+                $scope.EngineeringEstimate.push(newCostEstimate);
+            }
+
+            $scope.deleteEngineeringEstimate = (index) => {
+                $scope.EngineeringEstimate.splice(index,1);
+                Message('success', 'Engineering estimation deleted successfully');
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
+                if($scope.EngineeringEstimate.length == 0){
+                    $scope.EngineeringEstimate.totalArea = 0;
+                    $scope.EngineeringEstimate.totalSum =  0;
+                    $scope.EngineeringEstimate.totalPris = 0;
+                }
+            }
+
+            $scope.cloneCostEstimate = (index, CostEstimate) => {
+                let cloneObject = JSON.parse(JSON.stringify(CostEstimate));
+                $scope.EngineeringEstimate.splice(index, 0, cloneObject);
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
+            }
+        
+            $scope.addComponent  = function(index) {
+                let newObj = JSON.parse(JSON.stringify($scope.EngineeringEstimate[index].Components[0]));
+                $scope.EngineeringEstimate[index].Components.splice(0, 0, newObj);
+            }
+
+            $scope.delete   =   function(rootKey, index) { 
+                $scope.EngineeringEstimate[rootKey].Components.splice(index,1);
+                if($scope.EngineeringEstimate[rootKey].Components.length == 0) {
+                    $scope.EngineeringEstimate.splice(rootKey,1);
+                } 
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
+                Message('success', 'Component deleted successfully');
+            }
+            
+            $http.get(`${API_URL}building-type`)
+            .then((res)=> {
+                $scope.buildingTypes = res.data;
+            });
+
+            $http.get(`${API_URL}get-for-cost-estimate`)
+            .then((res)=> {
+                $scope.buildingComponents = res.data;
+            });
+
+            $scope.getNum = (val) => {
+
+                if (isNaN(val) || val == '') {
+                    return 0;
+                }
+                return Number.parseFloat(val).toFixed(2);
+            }
+
+            // Precast
+            $scope.PrecastComponent = [];
+            let precastComponent = {
+                    "type"                       : "Building Type 1",
+                    "total_sqm"                  : 0,
+                    "total_std_work_hours"       : 0,
+                    "total_additional_work_hours": 0,
+                    "total_hourly_rate"          : 0,
+                    "total_work_hours"           : 0,
+                    "engineering_cost"     : 0,
+                    "total_central_approval"     : 0,
+                    'total_engineering_cost' : 0,
+                    "Components" : [    
+                        {
+                            'precast_component': null,
+                            'no_of_staircase': '',
+                            'no_of_new_component':'',
+                            'no_of_different_floor_height': '',
+                            'sqm'           : '',
+                            'complexity'    : '', 
+                            'std_work_hours': '',
+                            'additional_work_hours': '',
+                            'hourly_rate': '',
+                            'total_work_hours': '',
+                            'engineering_cost': '',
+                            'total_central_approval': '',
+                            'total_engineering_cost': ''
+                        }
+                    ]
+                
+            };
+            $scope.PrecastComponent.push(precastComponent);
+            $scope.addPrecasEstimate = () => {
+                $scope.PrecastComponent.push({
+                    "type"                       : "Building Type 1",
+                    "total_sqm"                  : 0,
+                    "total_std_work_hours"       : 0,
+                    "total_additional_work_hours": 0,
+                    "total_hourly_rate"          : 0,
+                    "total_work_hours"           : 0,
+                    "engineering_cost"     : 0,
+                    "total_central_approval"     : 0,
+                    "Components" : [ 
+                        {
+                            'precast_component': '',
+                            'no_of_staircase': '',
+                            'no_of_new_component':'',
+                            'no_of_different_floor_height': '',
+                            'sqm'           : '',
+                            'complexity'    : '', 
+                            'std_work_hours': '',
+                            'additional_work_hours': '',
+                            'hourly_rate': '',
+                            'total_work_hours': '',
+                            'engineering_cost': '',
+                            'total_central_approval': '',
+                            'total_engineering_cost': ''
+                        }
+                    ]
+                });
+
+            }
+
+            $scope.addPrecastComponent =  (rootKey) => {
+                $scope.PrecastComponent[rootKey].Components.unshift(
+                    {
+                            'precast_component': '',
+                            'no_of_staircase': '',
+                            'no_of_new_component':'',
+                            'no_of_different_floor_height': '',
+                            'sqm'           : '',
+                            'complexity'    : '', 
+                            'std_work_hours': '',
+                            'additional_work_hours': '',
+                            'hourly_rate': '',
+                            'total_work_hours': '',
+                            'engineering_cost': '',
+                            'total_central_approval': '',
+                            'total_engineering_cost':''
+                        }
+                );
+            }
+
+            $scope.deletePrecastComponent = (rootKey, index) => {
+                $scope.PrecastComponent[rootKey].Components.splice(index,1);
+                if($scope.PrecastComponent[rootKey].Components.length == 0){
+                    $scope.PrecastComponent.splice(rootKey,1);
+                    $timeout(function() {
+                        angular.element('.psqm_').triggerHandler('keyup');
+                    });
+                }
+                Message('success','Precast component deleted Successfully');
+            }
+
+            $scope.deletePrecastEstimate = (rootKey) => {
+                $scope.PrecastComponent.splice(rootKey,1);
+                Message('success','Precast estimation deleted Successfully');
+                $timeout(function() {
+                    angular.element('.psqm_').triggerHandler('keyup');
+                });
+            }
+
+            $scope.clonePrecastEstimate = (index, precastEstimate) => {
+                let cloneObject = JSON.parse(JSON.stringify(precastEstimate));
+                $scope.PrecastComponent.splice(index, 0, cloneObject);
+                $timeout(function() {
+                    angular.element('.psqm_').triggerHandler('keyup');
+                });
+            }
+
+            // $scope.EstimateStore = (type) => {
+            //     if(type == 'wood') {
+            //         var data = $scope.EngineeringEstimate;
+            //         var name =  $scope.wood_estimate_name;
+            //         if($scope.EngineeringEstimate.length == 0) {
+            //             Message('danger','Please add building');
+            //             return false;
+            //         }
+            //         if($scope.wood_estimate_name == '') {
+            //             Message('danger','Please add name');
+            //             return false;
+            //         }
+            //     } else {
+            //         var data = $scope.PrecastComponent;
+            //         var name =  $scope.precast_estimate_name;
+            //         if($scope.PrecastComponent.length == 0) {
+            //             Message('danger','Please add building');
+            //             return false;
+            //         }
+            //         if($scope.precast_estimate_name == '') {
+            //             Message('danger','Please add name');
+            //             return false;
+            //         }
+            //     }
+                
+    
+            //     $http.post(`
+            //         ${API_URL}admin/calculate-cost-estimate/store`,
+            //         {data: data, type: type, name: name}
+            //     ).then(function successCallback(res){
+            //         if(res.data.status) {
+            //             Message('success', res.data.msg);
+            //             getlist(type);
+            //             return false;
+            //         }
+            //         Message('danger', res.data.msg);
+            //         return false;
+            //     });
+            // }
+
+            // $scope.EstimateUpdate = (id, type) => {
+            //     if(type == 'wood') {
+            //         var data = $scope.EngineeringEstimate;
+            //         var name =  $scope.wood_estimate_name;
+            //         if($scope.EngineeringEstimate.length == 0) {
+            //             Message('danger','Please add building');
+            //             return false;
+            //         }
+            //         if($scope.wood_estimate_name == '') {
+            //             Message('danger','Please add name');
+            //             return false;
+            //         }
+            //     } else {
+            //         var data = $scope.PrecastComponent;
+            //         var name =  $scope.precast_estimate_name;
+            //         if($scope.PrecastComponent.length == 0) {
+            //             Message('danger','Please add building');
+            //             return false;
+            //         }
+            //         if($scope.precast_estimate_name == '') {
+            //             Message('danger','Please add name');
+            //             return false;
+            //         }
+            //     }
+            //     $http.post(`
+            //         ${API_URL}admin/calculate-cost-estimate/update/${id}`,
+            //         {data: data, type:type ,name: name}
+            //     ).then(function successCallback(res){
+            //         if(res.data.status) {
+            //             Message('success', res.data.msg);
+            //             getlist(type);
+            //             return false;
+            //         }
+            //         Message('danger', res.data.msg);
+            //         return false;
+            //     });
+            // }
+
+            // $scope.EstimateEdit = (Estimate, type) => {
+            //     if(type == 'wood'){
+            //         $scope.EngineeringEstimate.length = 0;
+            //         $scope.wood_estimate_edit_id = Estimate.id;
+            //         $scope.wood_estimate_name = Estimate.name;
+            //         $scope.EngineeringEstimate  = JSON.parse(Estimate.calculation_json);
+            //         $timeout(function() {
+            //             angular.element('.sqm_').triggerHandler('keyup');
+            //         });
+            //     } else {
+            //         $scope.PrecastComponent.length = 0;
+            //         $scope.precast_estimate_edit_id = Estimate.id;
+            //         $scope.precast_estimate_name = Estimate.name;
+            //         $scope.PrecastComponent  = JSON.parse(Estimate.calculation_json);
+            //         $timeout(function() {
+            //             angular.element('.psqm_').triggerHandler('keyup');
+            //         });
+            //     }
+            
+            // }
+
+            // $scope.EstimateDelete = (id, type) => {
+            //     $http.post(`
+            //         ${API_URL}admin/calculate-cost-estimate/delete/${id}/${type}`,
+            //     ).then(function successCallback(res){
+            //         if(res.data.status) {
+            //             Message('success', res.data.msg);
+            //             getlist(type);
+            //             return false;
+            //         }
+            //         Message('danger', res.data.msg);
+            //         return false;
+            //     });
+            // }
+
+            $scope.savePrecastComponent = () => {
+                $http.post(`${API_URL}precast-estimate`,{name:$scope.precast_component_name, hours:  $scope.precast_component_hours})
+                .then(function successCallback(response) {
+                    Message('success',response.data.msg);
+                    $scope.editorEnabled = false;
+                    $http.get(`${API_URL}precast-estimate`).then((res) => {
+                        $scope.precastEstimateTypes = res.data;
+                    });
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors.name[0]);
+                });
+            }
+
+        }).directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs) {
+                    element.on('keyup', function () {
+                        let $TotalPriceM2   = 0
+                        let $TotalSum       = 0
+                        scope.CostEstimate.ComponentsTotals.Dynamics.forEach( (item, index) => {
+                            scope.CostEstimate.Components[scope.index].Dynamics[index].Sum  = getNum(((scope.CostEstimate.Components[scope.index].Sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2  ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
+                            $TotalPriceM2   += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2);
+                            $TotalSum       += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].Sum);
+                        });
+
+                        scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 = $TotalPriceM2;
+                        scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalSum;
+                        scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalSum;
+                    // for column total
+                        let $totalEstimateArea = 0;
+                        let $totalEstimateSum = 0;
+                        scope.EngineeringEstimate.forEach( (Estimates, estimateIndex) => {
+                            let $totalPrice = 0;
+                            let $totalSum = 0;
+                            let $sqmTotal = 0;
+                            let $ribTotal = 0;
+                           
+                            Estimates.ComponentsTotals.Dynamics.forEach((dynamic) => {
+                                dynamic.PriceM2 = 0;
+                                dynamic.Sum = 0;
+                               
+                            })
+                            Estimates.Components.forEach( (Component, componentIndex) => {
+                                $sqmTotal += Number(Component.Sqm);
+                                $totalEstimateArea += Number(Component.Sqm);
+                                $ribTotal += Number(Component.Rib.Sum);
+                                Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
+                                    Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 += Number(Dynamic.PriceM2);
+                                    Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += Number(Dynamic.Sum);
+                                    $totalPrice += Number(Dynamic.PriceM2);
+                                    $totalSum += Number(Dynamic.Sum);
+                                    $totalEstimateSum += Number(Dynamic.Sum);
+                                });
+                            });
+                            Estimates.ComponentsTotals.TotalCost.Sum     = getNum($totalSum);
+                            Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalPrice);
+                            Estimates.ComponentsTotals.Sqm               = getNum($sqmTotal);
+                            Estimates.ComponentsTotals.Rib.Sum           = getNum($ribTotal);
+                           
+                        });
+                        scope.ResultEngineeringEstimate.total.totalArea = getNum($totalEstimateArea);
+                        scope.ResultEngineeringEstimate.total.totalSum = getNum($totalEstimateSum);
+                        scope.ResultEngineeringEstimate.total.totalPris = getNum($totalEstimateSum /  $totalEstimateArea);
+                        scope.ResultEngineeringEstimate.costEstimate =  scope.EngineeringEstimate;
+                        scope.$apply();
+                    });
+                },
+            };
+        }]);
+
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
              
             $scope.getWizradStatus = function() {
@@ -1151,221 +1522,7 @@
             $scope.getDocumentaryData();
 
         });
-        app.directive('getCostEstimateData',   ['$http' ,function ($http, $scope , $apply) {  
-            return {
-                restrict: 'A',
-                link : function (scope, element, attrs) {
-                    element.on('change', function () {
 
-// console.log(scope.c.building_component_name)
-
-// console.log(typeof(scope.t.type_name) == 'undefined')
-
-
-// console.log(typeof(scope.c.building_component_name) == 'undefined')
-
-                        // if(typeof(scope.t) == 'undefined') {
-                        //     console.log("done done !")   
-                        //     return false;                        
-                        // } 
-                         
-                        $http({
-                            method: 'GET',
-                            url: '{{ route("CostEstimateMasterValue") }}',
-                            params : {component_id: scope.c.building_component_name, type_id: scope.t.type_name}
-                            
-                            }).then(function success(response) {
-                                scope.masterData = response.data;
-                                console.log(scope.masterData)
-
-                                // Component => component_id
-                                // Type => type_id
-                                scope.CostEstimate.Components[scope.index].Component            =   response.data.component_id;  
-                                scope.CostEstimate.Components[scope.index].Type                 =   response.data.type_id;  
-
-
-                                scope.CostEstimate.Components[scope.index].sqm                  =   response.data.sqm;  
-                                scope.CostEstimate.Components[scope.index].Complexity           =   response.data.complexity; 
-
-                                scope.CostEstimate.Components[scope.index].Details.PriceM2      =   response.data.detail_price;  
-                                scope.CostEstimate.Components[scope.index].Details.Sum          =   response.data.sqm * response.data.complexity * response.data.detail_price;
-
-                                scope.CostEstimate.Components[scope.index].Statistics.PriceM2  =   response.data.statistic_price;  
-                                scope.CostEstimate.Components[scope.index].Statistics.Sum      =   response.data.sqm * response.data.complexity * response.data.statistic_price;
-
-                                scope.CostEstimate.Components[scope.index].CadCam.PriceM2      =   response.data.cad_cam_price;  
-                                scope.CostEstimate.Components[scope.index].CadCam.Sum          =   response.data.sqm * response.data.complexity * response.data.cad_cam_price;
-
-                                scope.CostEstimate.Components[scope.index].Logistics.PriceM2   =   response.data.logistic_price;  
-                                scope.CostEstimate.Components[scope.index].Logistics.Sum       =   response.data.sqm * response.data.complexity * response.data.logistic_price;
-
-                                scope.CostEstimate.Components[scope.index].TotalCost.PriceM2   =    parseInt(response.data.detail_price)    + 
-                                                                                                    parseInt(response.data.statistic_price) + 
-                                                                                                    parseInt(response.data.cad_cam_price)   + 
-                                                                                                    parseInt(response.data.logistic_price)
-                                
-                                scope.CostEstimate.Components[scope.index].TotalCost.Sum       =   parseInt(response.data.detail_price)    + 
-                                                                                                    parseInt(response.data.statistic_price) + 
-                                                                                                    parseInt(response.data.cad_cam_price)   + 
-                                                                                                    parseInt(response.data.logistic_price)
-                                                                                                    scope.CostEstimate.Components[scope.index].Details.Sum          =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2 
-                                    scope.CostEstimate.Components[scope.index].Statistics.Sum       =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 
-                                    scope.CostEstimate.Components[scope.index].Logistics.Sum        =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 
-                                    scope.CostEstimate.Components[scope.index].CadCam.Sum           =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2 
-
-                                    scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =   Number(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
-                                                                                                        Number(scope.CostEstimate.Components[scope.index].Statistics.PriceM2)  + 
-                                                                                                        Number(scope.CostEstimate.Components[scope.index].CadCam.PriceM2)      + 
-                                                                                                        Number(scope.CostEstimate.Components[scope.index].Logistics.PriceM2) 
-                            
-                                    scope.CostEstimate.Components[scope.index].TotalCost.Sum        =   Number(scope.CostEstimate.Components[scope.index].Details.Sum)     + 
-                                                                                                        Number(scope.CostEstimate.Components[scope.index].Statistics.Sum)  + 
-                                                                                                        Number(scope.CostEstimate.Components[scope.index].CadCam.Sum)      + 
-                                                                                                        Number(scope.CostEstimate.Components[scope.index].Logistics.Sum)
-                                    let $sqmTotal           =   0;
-                                    let $complexity         =   0;
-                                    let $DetailsPriceM2     =   0;
-                                    let $DetailsSum         =   0;
-                                    let $StatisticsPriceM2  =   0;
-                                    let $StatisticsSum      =   0;
-                                    let $CadCamPriceM2      =   0;
-                                    let $CadCamSum          =   0;
-                                    let $LogisticsPriceM2   =   0;
-                                    let $LogisticsSum       =   0;
-                                    let $TotalCostPriceM2   =   0;
-                                    let $TotalCostSum       =   0;
-
-                                    scope.CostEstimate.Components.map( (item, index) => {
-                                        $sqmTotal           +=  Number(item.sqm); 
-                                        $complexity         +=  Number(item.Complexity);
-                                        $DetailsPriceM2     +=  Number(item.Details.PriceM2); 
-                                        $DetailsSum         +=  Number(item.Details.Sum);
-                                        $StatisticsPriceM2  +=  Number(item.Statistics.PriceM2);
-                                        $StatisticsSum      +=  Number(item.Statistics.Sum);
-                                        $CadCamPriceM2      +=  Number(item.CadCam.PriceM2);
-                                        $CadCamSum          +=  Number(item.CadCam.Sum);
-                                        $LogisticsPriceM2   +=  Number(item.Logistics.PriceM2);
-                                        $LogisticsSum       +=  Number(item.Logistics.Sum);
-                                        $TotalCostPriceM2   +=  Number(item.TotalCost.PriceM2);
-                                        $TotalCostSum       +=  Number(item.TotalCost.Sum);
-                                    });
-
-                                    scope.CostEstimate.ComponentsTotals.sqm                 = $sqmTotal;
-                                    scope.CostEstimate.ComponentsTotals.complexity          = $complexity;
-                                    scope.CostEstimate.ComponentsTotals.Details.PriceM2     = $DetailsPriceM2;
-                                    scope.CostEstimate.ComponentsTotals.Details.Sum         = $DetailsSum;
-                                    scope.CostEstimate.ComponentsTotals.Statistics.PriceM2  = $StatisticsPriceM2;
-                                    scope.CostEstimate.ComponentsTotals.Statistics.Sum      = $StatisticsSum;
-                                    scope.CostEstimate.ComponentsTotals.CadCam.PriceM2      = $CadCamPriceM2;
-                                    scope.CostEstimate.ComponentsTotals.CadCam.Sum          = $CadCamSum;
-                                    scope.CostEstimate.ComponentsTotals.Logistics.PriceM2   = $LogisticsPriceM2;
-                                    scope.CostEstimate.ComponentsTotals.Logistics.Sum       = $LogisticsSum;
-                                    scope.CostEstimate.ComponentsTotals.TotalCost.PriceM2   = $TotalCostPriceM2;
-                                    scope.CostEstimate.ComponentsTotals.TotalCost.Sum       = $TotalCostSum;
-
-                                    scope.CostEstimate.ComponentsTotals.grandTotal       =  $sqmTotal +
-                                                                                            $complexity +
-                                                                                            $DetailsPriceM2 +
-                                                                                            $DetailsSum +
-                                                                                            $StatisticsPriceM2 +
-                                                                                            $StatisticsSum +
-                                                                                            $CadCamPriceM2 +
-                                                                                            $CadCamSum +
-                                                                                            $LogisticsPriceM2 +
-                                                                                            $LogisticsSum +
-                                                                                            $TotalCostPriceM2 +
-                                                                                            $TotalCostSum ;
-                                    scope.$apply();
-                            }, function error(response) { 
-                                console.log("Code Eror")
-                            }); 
-                    });
-                },
-            };
-        }]);
-        app.directive('getCostDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
-            return {
-                restrict: 'A',
-                link : function (scope, element, attrs) {
-                    element.on('keyup', function () {
-                        // alert("ok");
-                         
-                        // scope.CostEstimate.Components[scope.index].Details.Sum          =    3  scope.CostEstimate.Components[scope.index].complexity
-                        scope.CostEstimate.Components[scope.index].Details.Sum          =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Details.PriceM2 
-                        scope.CostEstimate.Components[scope.index].Statistics.Sum       =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Statistics.PriceM2 
-                        scope.CostEstimate.Components[scope.index].Logistics.Sum        =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Logistics.PriceM2 
-                        scope.CostEstimate.Components[scope.index].CadCam.Sum           =    scope.CostEstimate.Components[scope.index].sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].CadCam.PriceM2 
-
-                        scope.CostEstimate.Components[scope.index].TotalCost.PriceM2    =       Number(scope.CostEstimate.Components[scope.index].Details.PriceM2)     + 
-                                                                                                Number(scope.CostEstimate.Components[scope.index].Statistics.PriceM2)  + 
-                                                                                                Number(scope.CostEstimate.Components[scope.index].CadCam.PriceM2)      + 
-                                                                                                Number(scope.CostEstimate.Components[scope.index].Logistics.PriceM2) 
-                
-                        scope.CostEstimate.Components[scope.index].TotalCost.Sum        =       Number(scope.CostEstimate.Components[scope.index].Details.Sum)     + 
-                                                                                                Number(scope.CostEstimate.Components[scope.index].Statistics.Sum)  + 
-                                                                                                Number(scope.CostEstimate.Components[scope.index].CadCam.Sum)      + 
-                                                                                                Number(scope.CostEstimate.Components[scope.index].Logistics.Sum)
-                        let  $sqmTotal          = 0;
-                        let  $complexity        = 0;
-                        let  $DetailsPriceM2    = 0;
-                        let  $DetailsSum        = 0;
-                        let  $StatisticsPriceM2 = 0;
-                        let  $StatisticsSum     = 0;
-                        let  $CadCamPriceM2     = 0;
-                        let  $CadCamSum         = 0;
-                        let  $LogisticsPriceM2  = 0;
-                        let  $LogisticsSum      = 0;
-                        let  $TotalCostPriceM2  = 0;
-                        let  $TotalCostSum      = 0;
-
-                        scope.CostEstimate.Components.map( (item, index) => {
-                            $sqmTotal           +=  Number(item.sqm); 
-                            $complexity         +=  Number(item.Complexity);
-                            $DetailsPriceM2     +=  Number(item.Details.PriceM2); 
-                            $DetailsSum         +=  Number(item.Details.Sum);
-                            $StatisticsPriceM2  +=  Number(item.Statistics.PriceM2);
-                            $StatisticsSum      +=  Number(item.Statistics.Sum);
-                            $CadCamPriceM2      +=  Number(item.CadCam.PriceM2);
-                            $CadCamSum          +=  Number(item.CadCam.Sum);
-                            $LogisticsPriceM2   +=  Number(item.Logistics.PriceM2);
-                            $LogisticsSum       +=  Number(item.Logistics.Sum);
-                            $TotalCostPriceM2   +=  Number(item.TotalCost.PriceM2);
-                            $TotalCostSum       +=  Number(item.TotalCost.Sum);
-                        });
-
-                        scope.CostEstimate.ComponentsTotals.sqm                 = $sqmTotal;
-                        scope.CostEstimate.ComponentsTotals.complexity          = $complexity;
-                        scope.CostEstimate.ComponentsTotals.Details.PriceM2     = $DetailsPriceM2;
-                        scope.CostEstimate.ComponentsTotals.Details.Sum         = $DetailsSum;
-                        scope.CostEstimate.ComponentsTotals.Statistics.PriceM2  = $StatisticsPriceM2;
-                        scope.CostEstimate.ComponentsTotals.Statistics.Sum      = $StatisticsSum;
-                        scope.CostEstimate.ComponentsTotals.CadCam.PriceM2      = $CadCamPriceM2;
-                        scope.CostEstimate.ComponentsTotals.CadCam.Sum          = $CadCamSum;
-                        scope.CostEstimate.ComponentsTotals.Logistics.PriceM2   = $LogisticsPriceM2;
-                        scope.CostEstimate.ComponentsTotals.Logistics.Sum       = $LogisticsSum;
-                        scope.CostEstimate.ComponentsTotals.TotalCost.PriceM2   = $TotalCostPriceM2;
-                        scope.CostEstimate.ComponentsTotals.TotalCost.Sum       = $TotalCostSum;
-
-                        scope.CostEstimate.ComponentsTotals.grandTotal       =  $sqmTotal +
-                                                                                $complexity +
-                                                                                $DetailsPriceM2 +
-                                                                                $DetailsSum +
-                                                                                $StatisticsPriceM2 +
-                                                                                $StatisticsSum +
-                                                                                $CadCamPriceM2 +
-                                                                                $CadCamSum +
-                                                                                $LogisticsPriceM2 +
-                                                                                $LogisticsSum +
-                                                                                $TotalCostPriceM2 +
-                                                                                $TotalCostSum ;
-                         
-                        console.log($DetailsSum / $sqmTotal); 
-                       
-                        scope.$apply();
-                    });
-                },
-            };
-        }]);
         app.controller('Customer_response', function ($scope, $http, API_URL, $location, $timeout) {
             $scope.customer_response_obj = {};
             let enquiry_id = '{{ $id }}';
