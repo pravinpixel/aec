@@ -22,9 +22,9 @@
     </table>
 </div>
 
-{{-- ========= WOOD ESTIMATE TABLE ======== --}}
-    @include('admin.calculate-cost-estimate.wood-estimate-table')
-{{-- ========= WOOD ESTIMATE TABLE ======== --}}
+    {{-- ========= WOOD ESTIMATE TABLE ======== --}}
+        @include('admin.calculate-cost-estimate.wood-estimate-table')
+    {{-- ========= WOOD ESTIMATE TABLE ======== --}}
 
 @if (Route::is('enquiry.calculate-cost-estimation'))
     <div ng-show="wood_estimate_edit_id == false && price_calculation == 'wood_engineering_estimation'"
