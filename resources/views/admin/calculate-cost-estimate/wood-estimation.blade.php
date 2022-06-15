@@ -1,11 +1,4 @@
-<div class="row">
-    <div ng-show="price_calculation == 'wood_engineering_estimation'">
-        <div class="table custom-responsive p-0">
-            <hr>
-            <button class="btn btn-success btn-sm" ng-click="createNewCalculation('wood')">Create New Calculation</button>
-        </div>
-    </div>
-</div>
+
 <div class="table custom-responsive p-0">
     <table class="cost-estimate-total-table table table-bordered border">
         <thead>

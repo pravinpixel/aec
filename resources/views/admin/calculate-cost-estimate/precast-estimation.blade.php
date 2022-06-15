@@ -1,12 +1,3 @@
-<div class="row">
-    <div ng-show="price_calculation == 'precast_engineering_estimation'">
-        <div class="table custom-responsive p-0">
-            <hr>
-            <button class="btn btn-success btn-sm" ng-click="createNewCalculation('precast')">Create New Calculation</button>
-        </div>
-    </div>
-</div>
-
 <div ng-show="price_calculation == 'precast_engineering_estimation'">
     <div class="table custom-responsive p-0">
         <h5> Precast Engineering Estimation </h5>
