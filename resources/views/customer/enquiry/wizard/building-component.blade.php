@@ -24,7 +24,7 @@
         <div ng-show="showHideBuildingComponent == 1"> 
             <div  class="card p-3 mt-3 shadow-sm file-upload-card col-md-5 mx-auto" style="overflow: hidden">
                 <div class="progress my-2" ng-show="buildingComponentshowProgress">
-                    <div ng-show="buildingComponentshowProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}"> @{{progress_value}} </div>
+                    <div ng-show="buildingComponentshowProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-value min="0" aria-valuemax="100" style="width:@{{progress_value}}"> @{{progress_value}} </div>
                 </div>
                 <div class="d-flex my-2 mx-auto bg-primary shadow justify-content-center align-items-center rounded-circle" style="height: 100px;width:100px">
                     <i class="fa fa-file-text text-white fa-3x"></i>
@@ -94,7 +94,7 @@
                                                         <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type  <sup class="text-danger">*</sup></label>
                                                         <select class="form-select  form-select-sm my-2 mt-3"  name="DeliveryType_@{{ fIndex }}_@{{ Secindex }}" ng-model="d.DeliveryType" required>
                                                             <option value="">@lang('customer-enquiry.select')</option>
-                                                            <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == d.DeliveryType">
+                                                            <option ng-repeat="deliveryType in deliveryTypes" ng-value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == d.DeliveryType">
                                                                 @{{ deliveryType.delivery_type_name }}
                                                             </option>
                                                         </select>
@@ -208,7 +208,7 @@
                                                                     <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >.mm</span>
                                                                     <div class="form-group">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth  <sup class="text-danger">*</sup></label>
-                                                                        <input   type="number" min="0.00" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " name="Breadth_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" ng-model="l.Breadth" required>
+                                                                        <input   type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " name="Breadth_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" ng-model="l.Breadth" required>
                                                                     
                                                                     </div>
                                                                     

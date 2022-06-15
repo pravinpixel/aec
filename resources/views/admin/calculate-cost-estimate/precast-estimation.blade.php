@@ -1,6 +1,5 @@
 <div ng-show="price_calculation == 'precast_engineering_estimation'">
     <div class="table custom-responsive p-0">
-        <h5> Precast Engineering Estimation </h5>
         <table class="cost-estimate-total-table table table-bordered border">
             <thead>
                 <tr  style="background: var(--primary-bg) !important">
@@ -148,9 +147,10 @@
         <input type="text" class="form-control" ng-model="precast_estimate_name" name="precast_estimate_name">
     </div>
     <div class="col text-end">
+        <a class="btn btn-danger" ng-click="createNewCalculation('precast')"><i class="uil-sync"> </i>Clear</a>
         <button class="btn btn-info" ng-click="EstimateStore('precast')">Generate</button>
     </div>
-
+    .
 </div>
 
 <div ng-show="precast_estimate_edit_id && price_calculation == 'precast_engineering_estimation'" class="d-flex">
@@ -161,6 +161,7 @@
         <input type="text" class="form-control" ng-model="precast_estimate_name" name="precast_estimate_name">
     </div>
     <div class="col text-end">
+        <a class="btn btn-danger" ng-click="createNewCalculation('precast')"><i class="uil-sync"> </i>Clear</a>
         <button class="btn btn-info" ng-click="EstimateUpdate(precast_estimate_edit_id, 'precast')">Update Estimation</button>
     </div>
 </div>

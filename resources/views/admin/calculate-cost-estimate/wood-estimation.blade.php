@@ -36,6 +36,7 @@
             <input type="text" class="form-control" ng-model="wood_estimate_name" name="wood_estimate_name">
         </div>
         <div class="col text-end">
+            <a class="btn btn-danger" ng-click="createNewCalculation('wood')"><i class="uil-sync"> </i>Clear</a>
             <button class="btn btn-info" ng-click="EstimateStore('wood')">Generate</button>
         </div>
 
@@ -48,6 +49,7 @@
             <input type="text" class="form-control" ng-model="wood_estimate_name" name="wood_estimate_name">
         </div>
         <div class="col text-end">
+            <a class="btn btn-danger" ng-click="createNewCalculation('wood')"><i class="uil-sync"> </i>Clear</a>
             <button class="btn btn-info" ng-click="EstimateUpdate(wood_estimate_edit_id, 'wood')">Update
                 Estimation</button>
         </div>

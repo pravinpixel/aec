@@ -693,7 +693,7 @@
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
                                     return false;
-                                } if(detail.TotalArea == '' || typeof(detail.TotalArea) == 'undefined') {
+                                } if(typeof(detail.TotalArea) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
                                     return false;
@@ -704,11 +704,11 @@
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
                                             return false;
-                                        } if(layer.Breadth == '' || typeof(layer.Breadth) == 'undefined') {
+                                        } if(typeof(layer.Breadth) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
                                             return false;
-                                        } if(layer.Thickness == ''|| typeof(layer.Thickness) == 'undefined') {
+                                        } if(typeof(layer.Thickness) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
                                             return false;
@@ -792,22 +792,23 @@
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
                                     return false;
-                                } if(detail.TotalArea == '' || typeof(detail.TotalArea) == 'undefined') {
+                                } if(typeof(detail.TotalArea) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
                                     return false;
                                 }
                                 if( detail.Layers.length > 0) {
                                     detail.Layers.forEach((layer) => {
-                                        if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
+                                        if( typeof(layer.LayerName) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
                                             return false;
-                                        } if(layer.Breadth == '' || typeof(layer.Breadth) == 'undefined') {
+                                    
+                                        } if(typeof(layer.Breadth) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
                                             return false;
-                                        } if(layer.Thickness == ''|| typeof(layer.Thickness) == 'undefined') {
+                                        } if(typeof(layer.Thickness) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
                                             return false;
