@@ -75,7 +75,7 @@
             
                     <div class="card border non-printable">
                         <div class="card-body">      
-                            <h4>Proposal List</h4>
+                            <h4>Revision List</h4>
                             <table class="table custom table-bordered m-0" id="proposalTable">
                                 <thead>
                                   <tr>
