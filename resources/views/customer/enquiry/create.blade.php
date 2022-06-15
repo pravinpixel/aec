@@ -488,10 +488,14 @@
         app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload, $timeout) { 
             $scope.commentShow = false;
             $scope.fileUploaded = false;
+            $scope.wallName = 'External Wall';
             $scope.wallGroup = [];
             $scope.layerAdd = true;
             $scope.callTemplate = true;
             $scope.buildingComponentUploads = [];
+            $scope.callWall = (wall_name) => {
+                $scope.wallName = wall_name; 
+            }
             let building_component_id;
             let enquiry_id;
             $http({
@@ -736,14 +740,17 @@
                                 if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
+                                    $scope.callWall(wallName);
                                     return false;
                                 } if(detail.DeliveryType == '' || typeof(detail.DeliveryType) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
+                                    $scope.callWall(wallName);
                                     return false;
                                 } if(typeof(detail.TotalArea) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
+                                    $scope.callWall(wallName);
                                     return false;
                                 }
                                 if( detail.Layers.length > 0) {
@@ -751,14 +758,17 @@
                                         if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
+                                            $scope.callWall(wallName);
                                             return false;
                                         } if(typeof(layer.Breadth) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
+                                            $scope.callWall(wallName);
                                             return false;
                                         } if(typeof(layer.Thickness) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
+                                            $scope.callWall(wallName);
                                             return false;
                                         }
                                     });
@@ -833,14 +843,17 @@
                                 if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
+                                    $scope.callWall(wallName);
                                     return false;
                                 } if(detail.DeliveryType == '' || typeof(detail.DeliveryType) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
+                                    $scope.callWall(wallName);
                                     return false;
                                 } if( typeof(detail.TotalArea) == 'undefined') {
                                     Message('danger', `${wallName} ${wallIndex} field required `);
                                     isValidField = false;
+                                    $scope.callWall(wallName);
                                     return false;
                                 }
                                 if( detail.Layers.length > 0) {
@@ -848,14 +861,17 @@
                                         if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
+                                            $scope.callWall(wallName);
                                             return false;
                                         } if(typeof(layer.Breadth) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
+                                            $scope.callWall(wallName);
                                             return false;
                                         } if(typeof(layer.Thickness) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
+                                            $scope.callWall(wallName);
                                             return false;
                                         }
                                     });
