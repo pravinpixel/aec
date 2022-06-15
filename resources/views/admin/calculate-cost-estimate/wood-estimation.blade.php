@@ -74,7 +74,7 @@
                 </div>
                 <div class="col custom-td m_two_cross_column">
                     <span>m2 Gross</span>
-                    <input type="text" onkeypress="return isNumber(event)" disabled   ng-model="CostEstimate.ComponentsTotals.Sum"
+                    <input type="text" onkeypress="return isNumber(event)" disabled   ng-model="CostEstimate.ComponentsTotals.Sqm"
                         class="form-control rounded-0 text-center form-control-sm">
                 </div>
             
