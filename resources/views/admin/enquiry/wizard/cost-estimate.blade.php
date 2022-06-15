@@ -112,6 +112,16 @@
         </div>
     </div>
 @endif
+@if(userRole()->slug == config('global.cost_estimater'))
+    <div class="card m-0 my-3 border col-md-9 me-auto">
+        <div class="card-body">
+            <small class="btn link"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
+            </small>
+        </div>
+    </div>
+@endif
+@if(userHasAccess('cost_estimate_add'))
 <div class="card m-0 my-3 border col-md-9 me-auto">
     <div class="card-body">
         <p class="lead mb-2"> <strong>Assign for</strong></p>
@@ -162,6 +172,7 @@
         </div>
     </div>
 </div> 
+@endif
 @include("admin.enquiry.models.cost-estimate-chat-box") 
 
 @if (Route::is('enquiry.cost-estimation')) 

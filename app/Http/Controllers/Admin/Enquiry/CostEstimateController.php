@@ -86,7 +86,7 @@ class  CostEstimateController extends Controller
         }
         $costEstimate->save();
         $enquiry = Enquiry::find($id);
-        if(Admin()->id == $costEstimate->assign_by){
+        if(Admin()->id == $costEstimate->assign_by || Admin()->id == 1){
             $this->costEstimate->assignUser($enquiry, Admin()->id);
             $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         } 

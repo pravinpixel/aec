@@ -103,8 +103,8 @@
                                                 </th>
                                                 <th  class="bg-light">
                                                     <div class="form-group">
-                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area  <sup class="text-danger">*</sup></label>
-                                                        <input  type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm my-2  mt-3" name="TotalArea_@{{ fIndex }}_@{{ Secindex }}" ng-model="d.TotalArea" required>
+                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Approx Total Area  <sup class="text-danger"></sup></label>
+                                                        <input  type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm my-2  mt-3" name="TotalArea_@{{ fIndex }}_@{{ Secindex }}" ng-model="d.TotalArea">
                                                         <small class="text-danger" ng-show="buildingComponentForm.TotalArea_@{{ fIndex }}_@{{ Secindex }}.$invalid && formSubmit">This field is required</small>
                                                     </div>
                                                 </th> 
@@ -208,7 +208,7 @@
                                                                     <span class="input-group-text border-0 rounded-0 px-2 justify-content-center" >.mm</span>
                                                                     <div class="form-group">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Breadth  <sup class="text-danger">*</sup></label>
-                                                                        <input   type="number" min="0" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " name="Breadth_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" ng-model="l.Breadth" required>
+                                                                        <input   type="number" min="0.00" step="0.01" onkeypress="return isNumber(event)" class="form-control form-control-sm rounded-0 border-0 " name="Breadth_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" ng-model="l.Breadth" required>
                                                                     
                                                                     </div>
                                                                     
