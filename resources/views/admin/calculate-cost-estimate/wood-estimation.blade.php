@@ -27,7 +27,7 @@
     {{-- ========= WOOD ESTIMATE TABLE ======== --}}
 
 @if (Route::is('enquiry.calculate-cost-estimation'))
-    <div ng-show="wood_estimate_edit_id == false && price_calculation == 'wood_engineering_estimation'"
+    <div ng-show=" EngineeringEstimate.length &&  wood_estimate_edit_id == false && price_calculation == 'wood_engineering_estimation'"
         class="d-flex">
         <div class="col-2">
             Name
@@ -41,7 +41,7 @@
         </div>
 
     </div>
-    <div ng-show="wood_estimate_edit_id && price_calculation == 'wood_engineering_estimation'" class="d-flex">
+    <div ng-show="EngineeringEstimate.length &&  wood_estimate_edit_id && price_calculation == 'wood_engineering_estimation'" class="d-flex">
         <div class="col-2">
             Name
         </div>

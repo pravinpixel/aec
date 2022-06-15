@@ -139,7 +139,7 @@
     </div> 
 </div>
 @if (Route::is('enquiry.calculate-cost-estimation')) 
-<div  ng-show="precast_estimate_edit_id == false && price_calculation == 'precast_engineering_estimation'" class="d-flex">
+<div  ng-show=" PrecastComponent.length &&  precast_estimate_edit_id == false && price_calculation == 'precast_engineering_estimation'" class="d-flex">
     <div class="col-2">
         Name 
     </div>
@@ -153,7 +153,7 @@
     .
 </div>
 
-<div ng-show="precast_estimate_edit_id && price_calculation == 'precast_engineering_estimation'" class="d-flex">
+<div ng-show="PrecastComponent.length &&  precast_estimate_edit_id && price_calculation == 'precast_engineering_estimation'" class="d-flex">
     <div class="col-2">
         Name 
     </div>
