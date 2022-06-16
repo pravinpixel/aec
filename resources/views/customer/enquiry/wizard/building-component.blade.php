@@ -37,7 +37,7 @@
         <div class="row" ng-show="showHideBuildingComponent == 0">
             <div class="col-sm mb-2 mb-sm-0">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a ng-click="callWall(w.WallName)" ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center"  id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"aria-selected="false">
+                    <a ng-click="callWall(w.WallName)" ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: wallName ==  w.WallName}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center">
                         <i class="fa-2x @{{ w.WallIcon }}"></i>
                         <div>@{{ w.WallName }}</div>
                     </a>
