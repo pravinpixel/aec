@@ -436,7 +436,7 @@
                                 });
                             });
                             Estimates.ComponentsTotals.TotalCost.Sum     = getNum($totalSum);
-                            Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalPrice);
+                            Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalSum / $TotalPriceM2);
                             Estimates.ComponentsTotals.Sqm               = getNum($sqmTotal);
                             Estimates.ComponentsTotals.Rib.Sum           = getNum($ribTotal);
                            

@@ -39,7 +39,7 @@
                 </div>
                 <div class="custom-td m_two_cross_column">
                     <span class="mb-1">m2 Gross</span> 
-                    @{{ CostEstimate.ComponentsTotals.Sum }}
+                    @{{ CostEstimate.ComponentsTotals.Sqm }}
                     {{-- <input type="text" onkeypress="return isNumber(event)" disabled
                         ng-model="CostEstimate.ComponentsTotals.Sum"
                         class="form-control rounded-0 text-center form-control-sm"> --}}
