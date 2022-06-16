@@ -1307,10 +1307,10 @@
                                 });
                             });
                             Estimates.ComponentsTotals.TotalCost.Sum     = getNum($totalSum);
-                            Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalSum / $TotalPriceM2);
+                            Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalSum / $sqmTotal);
                             Estimates.ComponentsTotals.Sqm               = getNum($sqmTotal);
                             Estimates.ComponentsTotals.Rib.Sum           = getNum($ribTotal);
-                            
+
                         });
                         scope.ResultEngineeringEstimate.total.totalArea = getNum($totalEstimateArea);
                         scope.ResultEngineeringEstimate.total.totalSum = getNum($totalEstimateSum);
