@@ -166,7 +166,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         // $version = 'R'.($version + 1);
         $version = 'R1';
         $details = [ 
-            'name'        => $enquiry->customer->full_name,
+            'name'        => $enquiry->customer->contact_person ?? '',
             'email'       => $enquiry->customer->email,
             'projectName' => $enquiry->project_name,
             'enquiryNo'   => $enquiry->enquiry_number,
@@ -195,7 +195,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $proposalVersion2 = (int)array_search($result->id, $proposalArray2);
         $version = 'R'.($proposalVersion2 + 2);
         $details = [ 
-            'name'          =>  $enquiry->customer->full_name,
+            'name'          =>  $enquiry->customer->contact_person,
             'email'         =>  $enquiry->customer->email,
             'projectName'   =>  $enquiry->project_name,
             'enquiryNo'     =>  $enquiry->enquiry_number,
