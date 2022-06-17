@@ -235,7 +235,7 @@
                                                     <tr>
                                                         <td style="text-align: left !important">@{{ detail.floor }} </td>
                                                         <td>@{{ detail.delivery_type.delivery_type_name }}</td>
-                                                        <td >@{{ detail.approx_total_area }}</td> 
+                                                        <td >@{{ building_component.totalWallArea }}</td> 
                                                     </tr>
                                                 </tbody> 
                                             </table>
