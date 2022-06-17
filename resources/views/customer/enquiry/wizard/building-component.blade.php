@@ -85,8 +85,7 @@
                                                         <input type="text" class="form-control form-control-sm my-2 mt-3" name="FloorName_@{{ fIndex  }}_@{{  Secindex  }}" ng-model="d.FloorName"  required placeholder="Type here..." required>
                                                         <small class="text-danger" ng-show="buildingComponentForm.FloorName_@{{ fIndex }}_@{{ Secindex }}.$invalid && formSubmit">This field is required</small>
                                                     </div>
-                                                </th>
-                                        
+                                                </th> 
                                                 <th  class="bg-light">
                                                     <div class="form-group">
                                                         <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type  <sup class="text-danger">*</sup></label>
@@ -269,60 +268,48 @@
     </div>
     <div class="collapse multi-collapse" id="reviewTab">
         <div class="card card-body mb-0">
-            <h5>Building Component Summary</h5>
-            <table class="table custom table-bordered" ng-init="total = 0 ">
-                <tbody >
-                    <tr class="table custom-bold text-center">
-                        <th width="150px"></th>
-                        <th style="padding: 0 !important">
-                            <table class="table custom m-0 ">
-                                <tr>
-                                    <th width="50%">
-                                        Wall details
-                                    </th>
-                                    <th style="padding: 0 !important" width="50%">
-                                        Layer details
-                                    </th>
-                                </tr>
-                            </table>
-                        </th>
-                    </tr> 
-                    
+            <h5>Building Component Summary</h5> 
+            <table class="table table-bordered m-0 table-striped" ng-init="total = 0 ">
+                <tbody > 
                     <tr ng-repeat="building_component in wallGroup" ng-show="wallGroup.length">
-                        <td>@{{ building_component.WallName }}</td>
-                        <td style="padding: 0 !important">
-                            <table class="table custom m-0 ">
-                                <tr ng-repeat="detail in building_component.Details"> 
-                                    <td width="50%">
-                                        <table class="table custom m-0 table-bordered">
-                                            <tr>
-                                                <th>Floor</th>
-                                                <th>Delivery type</th>
-                                                <th >Total Area </th>
-                                            </tr> 
-                                            <tr>
-                                                <td>@{{ detail.FloorName }}</td>
-                                                <td ng-repeat="delivery_type in deliveryTypes |  filter : { id : detail.DeliveryType  }">@{{ delivery_type.delivery_type_name }}</td>
-                                                <td >@{{ detail.TotalArea }}</td>
-                                            </tr> 
-                                        </table>
-                                    </td>
-                                    <td style="padding: 0 !important" width="50%">
-                                        <table class="table custom m-0 table-bordered">
-                                            <tr class="table custom-bold">
-                                                <th>Name</th>
-                                                <th>Thickness (mm)</th>
-                                                <th>Breadth (mm)</th>
-                                            </tr> 
-                                            <tr ng-repeat="layer in detail.Layers">
-                                                <td>@{{ layer.LayerName }}</td>
-                                                <td>@{{ layer.Thickness }}</td>
-                                                <td>@{{ layer.Breadth }} </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr> 
-                            </table> 
+                        <td class="text-center" width="150px">
+                            <b>@{{ building_component.WallName }}</b>
+                        </td>
+                        <td>
+                            <div class="py-2" ng-repeat="detail in building_component.Details">
+                                <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
+                                    <thead class="table-secondary text-dark">
+                                        <tr>
+                                            <th>Floor</th>
+                                            <th>Delivery type</th>
+                                            <th>Total Area </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: left !important">@{{ detail.FloorName }}</td>
+                                            <td ng-repeat="delivery_type in deliveryTypes |  filter : { id : detail.DeliveryType  }">@{{ delivery_type.delivery_type_name }}</td>
+                                            <td >@{{ detail.TotalArea }}</td>
+                                        </tr>
+                                    </tbody> 
+                                </table>
+                                <table class="shadow-sm border table-bordered border-dark table m-0 bg-white">
+                                    <thead>
+                                        <tr> 
+                                            <td><b>Name</b></td>
+                                            <td><b>Thickness (mm)</b></td>
+                                            <td><b>Breadth (mm)</b></td>
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="layer in detail.Layers">
+                                            <td>@{{ layer.LayerName }}</td>
+                                            <td>@{{ layer.Thickness }}</td>
+                                            <td>@{{ layer.Breadth }} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
                         </td>
                     </tr>  
                     <tr ng-show="!wallGroup.length">
