@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
+use App\Models\Role;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -22,11 +23,19 @@ class AuthController extends Controller
             if (Auth::guard('customers')->attempt($request->only(['email','password']), false)) {
                 Flash::success( __('auth.login_successful'));
                 return redirect()->route('customers-dashboard');
-            } else  if (Auth::attempt($request->only(['email','password']), false)) {
-                $sharepoint = new SharepointController();
-                $sharepoint->getToken();
-                Flash::success( __('auth.login_successful'));
-                return redirect()->route('admin-dashboard');
+            } else if (Auth::attempt($request->only(['email','password']), false)) {
+                if(Role::find(Admin()->job_role)->name == config('global.cost_estimater')) {
+                    $sharepoint = new SharepointController();
+                    $sharepoint->getToken();
+                    Flash::success( __('auth.login_successful'));
+                    return redirect()->route('cost-estimate.dashboard');
+                } else {
+                    $sharepoint = new SharepointController();
+                    $sharepoint->getToken();
+                    Flash::success( __('auth.login_successful'));
+                    return redirect()->route('admin-dashboard');
+                }
+              
             } else {
                 Flash::error( __('auth.incorrect_email_id_and_password'));
                 return redirect()->route('login');

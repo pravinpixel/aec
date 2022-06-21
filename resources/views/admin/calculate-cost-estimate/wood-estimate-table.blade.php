@@ -40,32 +40,29 @@
                 <div class="custom-td m_two_cross_column">
                     <span class="mb-1">m2 Gross</span> 
                     @{{ CostEstimate.ComponentsTotals.Sqm }}
-                    {{-- <input type="text" onkeypress="return isNumber(event)" disabled
-                        ng-model="CostEstimate.ComponentsTotals.Sum"
-                        class="form-control rounded-0 text-center form-control-sm"> --}}
                 </div>
-    
-                <div class="custom-td text-center p-0 bg-primary2" ng-repeat="(dynamicIndex, Dynamic) in CostEstimate.ComponentsTotals.Dynamics">
-                    <span class="border-bottom w-100 text-center custom-max-h">
-                        <i class="fa fa-trash text-danger dynamic_name" ng-click="deleteDynamic(firstIndex,dynamicIndex)"> </i>@{{ Dynamic.name }} 
-                        
-                    </span>
-                    <div class="row text-center m-0 w-100">
-                        <div class="col p-0 font-12 text-center">
-                            Nok/M2
+                <div  psi-sortablex ng-model="CostEstimate.ComponentsTotals.Dynamics" class="d-flex">
+                    <div class="custom-td text-center p-0 bg-primary2" ng-repeat="(dynamicIndex, Dynamic) in CostEstimate.ComponentsTotals.Dynamics track by $index">
+                        <span class="border-bottom w-100 text-center custom-max-h">
+                            <i class="fa fa-trash text-danger dynamic_name" ng-click="deleteDynamic(firstIndex,dynamicIndex)"> </i>@{{ Dynamic.name }} 
+                        </span>
+                        <div class="row text-center m-0 w-100">
+                            <div class="col p-0 font-12 text-center">
+                                Nok/M2
+                            </div>
+                            <div class="col p-0 font-12 text-center">
+                                Sum 
+                            </div>
                         </div>
-                        <div class="col p-0 font-12 text-center">
-                            Sum 
-                        </div>
-                    </div>
-                    <div class="custom-row text-center m-0 h-100">
-                        <div class="p-0">
-                            <input type="text" disabled onkeypress="return isNumber(event)" name="Dynamic.PriceM2"
-                                ng-model="Dynamic.PriceM2" class="form-control  rounded-0 text-center form-control-sm">
-                        </div>
-                        <div class="p-0">
-                            <input type="text" disabled onkeypress="return isNumber(event)" name="Dynamic.Sum"
-                                ng-model="Dynamic.Sum" class="form-control  rounded-0 text-center form-control-sm">
+                        <div class="custom-row text-center m-0 h-100">
+                            <div class="p-0">
+                                <input type="text" disabled onkeypress="return isNumber(event)" name="Dynamic.PriceM2"
+                                    ng-model="Dynamic.PriceM2" class="form-control  rounded-0 text-center form-control-sm">
+                            </div>
+                            <div class="p-0">
+                                <input type="text" disabled onkeypress="return isNumber(event)" name="Dynamic.Sum"
+                                    ng-model="Dynamic.Sum" class="form-control  rounded-0 text-center form-control-sm">
+                            </div>
                         </div>
                     </div>
                 </div>

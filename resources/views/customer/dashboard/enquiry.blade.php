@@ -76,7 +76,8 @@
                     <!-- container --> 
 				</div> 
                 
-            </div> <!-- container -->
+            </div> 
+            <!-- container -->
 
         </div> <!-- content --> 
 

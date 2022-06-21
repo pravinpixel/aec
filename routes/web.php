@@ -10,6 +10,7 @@ include 'autodesk.php';
 include 'project.php';
 include 'sharepoint.php';
 include 'template.php';
+include 'cost-estimate.php';
 
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
