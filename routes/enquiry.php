@@ -103,6 +103,7 @@ Route::group(['prefix' => 'technical-estimate', 'middleware' => 'common', 'route
 
 Route::group(['prefix' => 'cost-estimate', 'middleware' => 'common', 'route' => 'cost-estimate'], function(){
     Route::post('assign-user/{enquiry_id}', [CostEstimateController::class,'assignUser'])->name("assign-user");
+    Route::post('remove-user/{enquiry_id}', [CostEstimateController::class,'removeUser'])->name("remove-user");
     Route::post('update-status/{enquiry_id}', [CostEstimateController::class,'updateStatus'])->name("update-user");
 });
 

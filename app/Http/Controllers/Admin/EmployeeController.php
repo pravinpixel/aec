@@ -584,7 +584,9 @@ class EmployeeController extends Controller
     public function getCostEstimateEmployee(Request $request)
     {
         $role = Role::where('slug', config('global.cost_estimater'))->first();
-        return Employee::where(['job_role' => $role->id,'status'=> 1])->orWhere('job_role', 1)->get();
+        return Employee::where(['job_role' => $role->id,'status'=> 1])
+                        ->where('id','!=', Admin()->id)
+                        ->get();
     }
 
     public function getDeliveryManager(Request $request)

@@ -23,4 +23,10 @@ class CostEstimateRepository implements CostEstimateRepositoryInterface{
         $costEstimate->assign_for_status = 0;
         return $costEstimate->save();
     }
+
+    public function removeUser($enquiry_id)
+    {
+        return $this->model->where('enquiry_id', $enquiry_id)
+                    ->update(['assign_for'=> null, 'assign_to' => null]);
+    }
 }

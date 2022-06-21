@@ -778,6 +778,20 @@
                 });
             }
 
+            $scope.removeUser = () => {
+                $scope.assign_to != '' && $http.post(`${API_URL}cost-estimate/remove-user/${enquiryId}`)
+                    .then(function successCallback(res){
+                        if(res.data.status) {
+                            $scope.getWizradStatus();
+                            $scope.assign_to = '';
+                            Message('success', res.data.msg);
+                            return false;
+                        }
+                    }, function errorCallback(error){
+                        Message('danger', 'Something went wrong please contact administrator');
+                    });
+            }
+
             $scope.gotoNext = function() {
                 $http.post(`${API_URL}cost-estimate/update-status/${enquiryId}`)
                 .then(function successCallback(res){

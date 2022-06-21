@@ -124,34 +124,14 @@
 @if(userHasAccess('cost_estimate_add'))
 <div class="card m-0 my-3 border col-md-9 me-auto">
     <div class="card-body">
-        <p class="lead mb-2"> <strong>Assign for</strong></p>
-        <div class="row my-2">
-            <div class="col">
-                <div class="form-check">
-                    <input ng-checked="cost_estimate.assign_for == 'estimation'" class="form-check-input" ng-model="cost_estimate_assign_for" name="cost_estimate" type="radio" value="estimation" id="for_estimation">
-                    <label class="form-check-label" for="for_estimation">
-                        Estimation
-                    </label>
-                </div>
-            </div>
-            
-            <div class="col">
-                <div class="form-check">
-                    <input ng-checked="cost_estimate.assign_for == 'approval'" class="form-check-input"  ng-model="cost_estimate_assign_for"  name="cost_estimate" type="radio" value="approval" id="for_approval">
-                    <label class="form-check-label" for="for_approval">
-                        Approval
-                    </label>
-                </div>
-            </div>
-        </div>
-
+        <p class="lead mb-2"> <strong>Assign for verification</strong></p>
         <div class="btn-group w-100">
             <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
                 <option value=""> @lang('global.select') </option>
                 <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.user_name}}</option>
             </select> 
-           
-            <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to, cost_estimate_assign_for)"> Assign  </button>
+            <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to, 'verification')"> Assign  </button>
+            <button class="input-group-text btn btn-danger"  ng-click="removeUser()"> Remove  </button>
         </div> 
         <small class="float-end btn link p-0 mt-2"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
             <i class="fa fa-send me-1"></i> <u>Send a Comments</u>

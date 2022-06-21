@@ -42,4 +42,5 @@ return [
     'denied'                      => 'Denied successfully',
     'approved'                    => 'Approved successfully',
     'change_request'              => 'Change request send successfully',
+    'assign_removed_successfully' => 'User removed successfully',
 ];
