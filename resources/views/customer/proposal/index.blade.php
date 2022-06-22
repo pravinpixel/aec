@@ -86,16 +86,22 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($proposals as $proposal)
-                                        @if($proposal->status == 'sent')
+                                        @if($proposal->status != 'awaiting')
                                             <tr>
                                                 <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | {{ $proposal->version }}</td>
                                                 <td style="text-align: left !important;">{!! proposalStatusBadge($proposal->proposal_status) !!} </td>
-                                                <td style="text-align: left !important;">
-                                                    <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},0)">View</button>
-                                                </td>
+                                                @if(is_null($proposal->id))
+                                                    <td style="text-align: left !important;">
+                                                        <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},0)">View</button>
+                                                    </td>
+                                                @else
+                                                    <td style="text-align: left !important;">
+                                                        <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},{{ $proposal->id }})">View</button>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endif
-                                        @if(count($proposal->getVersions) > 0 )
+                                        {{-- @if(count($proposal->getVersions) > 0 )
                                             @foreach($proposal->getVersions as $proposalSub)
                                                 @if($proposalSub->status == 'sent')
                                                     <tr>
@@ -107,7 +113,7 @@
                                                     </tr>
                                                 @endif
                                             @endforeach
-                                        @endif
+                                        @endif --}}
                                     @empty
                                         <tr>
                                             <td colspan="3">No data found</td>

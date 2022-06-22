@@ -291,3 +291,76 @@ app.directive("isActive", function($location, $rootScope, isActiveConfig) {
         }
     }
 });
+
+app.directive('proposalComment', function (API_URL, $http) {
+    return {
+        restrict: 'E',
+        scope: {
+            data: '=data'
+        },
+        templateUrl: `${API_URL}template/comment`,
+        link: function(scope, element, attrs) {
+            console.log(scope.data)
+            let {modalState, type, header, enquiry_id, send_by} = scope.data;
+            scope.showCommentsToggle = () => {
+                $http.get(API_URL + 'admin/show-comments/'+enquiry_id+'/type/'+type ).then(function (response) {
+                    scope.commentsData = response.data.chatHistory; 
+                    scope.chatType     = response.data.chatType;  
+                    $('#viewConversations-modal').modal('show');
+                    getEnquiryCommentsCountById(enquiry_id);
+                    getEnquiryActiveCommentsCountById(enquiry_id);
+                });
+            };
+            scope.sendInboxComments  = (type) => {
+                if(scope.inlineComments == '') {
+                    Message('danger','Comment field required');
+                    return false;
+                }
+                scope.sendCommentsData = {
+                    "comments"        :   scope.inlineComments,
+                    "enquiry_id"      :   enquiry_id,
+                    "type"            :   scope.chatType,
+                    "created_by"      :   type,
+                    "seen_by"         :   1,
+                    "send_by"         :   send_by,
+                }
+                $http({
+                    method: "POST",  
+                    url:  API_URL + 'admin/add-comments',
+                    data: $.param(scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    scope.inlineComments = '';
+                    scope.showCommentsToggle();
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            getEnquiryCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    scope.enquiry_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            getEnquiryActiveCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/active-comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    scope.enquiry_active_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+        }
+    };
+});

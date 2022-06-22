@@ -1485,6 +1485,14 @@
                 });
             }
 
+            $scope.DuplicateProposalVersion = (proposal_id) => {
+                $http.put(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/duplicate-version/'+proposal_id).then(function (response) {
+                    $scope.edit_proposal  = response.data;
+                    Message('success',response.data.msg);
+                    $scope.getProposesalData();
+                });
+            }
+            
             // DeletePropose
             $scope.DeletePropose = function (proposal_id) {
                 $http.delete(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {

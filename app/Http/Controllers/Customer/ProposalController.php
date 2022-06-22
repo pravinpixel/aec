@@ -62,10 +62,10 @@ class ProposalController extends Controller
             ProposalVersions::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);      
             if( $version_id  != 0)  {
                 ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id' => $version_id])
-                                ->update(['proposal_status' => 'approved']);  
+                                ->update(['proposal_status' => 'approved','status' => 'approved']);  
             } else {
                 MailTemplate::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id])
-                                ->update(['proposal_status' => 'approved']);
+                                ->update(['proposal_status' => 'approved','status' => 'approved']);
             }           
             return response(['status' => true, 'msg' => __('enquiry.approved')]);
         }
@@ -81,11 +81,13 @@ class ProposalController extends Controller
             $proposal = MailTemplate::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id])->first();
             $proposal->comment = $comment;
             $proposal->proposal_status = $type;
+            $proposal->status = $type;
             $proposal->save();
         } else {
             $proposalVersion = ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id'=>  $version_id])->first();
             $proposalVersion->comment = $comment;
             $proposalVersion->proposal_status = $type;
+            $proposalVersion->status = $type;
             $proposalVersion->save();
         }
     }

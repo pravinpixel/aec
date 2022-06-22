@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin\Enquiry;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\MailTemplate;
-use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Mail\ProposalVersions;
 use App\Models\Admin\PropoalVersions;
 use App\Models\Enquiry;
+use App\Repositories\CustomerEnquiryRepository;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Crypt;
 use Laracasts\Flash\Flash;
@@ -18,12 +18,21 @@ class ProposalController extends Controller
     protected $customerEnquiryRepo;
     protected $documentTypeEnquiryRepo;
 
-    public function __construct(CustomerEnquiryRepositoryInterface $customerEnquiryRepository){
+    public function __construct(CustomerEnquiryRepository $customerEnquiryRepository){
         $this->customerEnquiryRepo  = $customerEnquiryRepository;
     }
     public function index(Request $request, $id) 
     {
-        return  $enquiry    =   $this->customerEnquiryRepo->getCustomerProPosal($id);
+        $proposals    =   $this->customerEnquiryRepo->getCustomerProPosal($id)->toArray();
+        $root = $proposals[0] ?? null;
+        if(count( $proposals ) > 1) {
+            array_shift($proposals);
+            $root['get_versions'] = $proposals;
+        }
+        if(is_null($root)) {
+            return false;
+        }
+        return response([$root]);
     }
     public function edit(Request $request, $id, $proposal_id)
     {
@@ -53,6 +62,11 @@ class ProposalController extends Controller
     {
         return  $enquiry    =   $this->customerEnquiryRepo->duplicateCustomerProPosalByID($id, $proposal_id, $request);
     }
+
+    public function duplicateVersion(Request $request, $enquiry_id, $proposal_id) {
+        return  $this->customerEnquiryRepo->duplicateProposalVersion($enquiry_id, $proposal_id, $request);
+    }
+
     public function versions(Request $request, $id, $proposal_id)
     {
         return  $enquiry    =   $this->customerEnquiryRepo->getCustomerProPosalVersions($id, $proposal_id, $request);

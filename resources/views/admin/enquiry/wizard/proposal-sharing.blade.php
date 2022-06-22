@@ -76,7 +76,6 @@
                 <button ng-click="documentaryOneData()" class="btn btn-success float-right btn-sm" ><small> Create</small></button>
             </div> 
         </div> 
-        
         <div class="card-body" >
             <div class="container p-0" ng-show="proposal.length"> 
                 <h4 class="text-center h5 mb-3">Proposal Versioning</h4> 
@@ -90,7 +89,6 @@
                                         <th class="text-center" style="width: 10% !important">File Name</th>
                                         <th class="text-center" style="width: 10% !important">Version</th>
                                         <th class="text-center" style="width: 10% !important">Status</th>
-                                        <th class="text-center" style="width: 10% !important">Proposal Status</th>
                                         <th class="text-center" style="width: 28% !important">Comments</th>
                                         <th class="text-center" style="width: 16% !important">Date & Time</th>
                                         <th class="text-center" style="width: 6% !important">Action</th>
@@ -115,14 +113,13 @@
                                                 </div>
                                             </td>
                                             <td style="width: 10% !important" class="text-center">@{{ P.template_name }}</td>
-                                            <td style="width: 10% !important" class="text-primary text-center">R1</td>
+                                            <td style="width: 10% !important" class="text-primary text-center">@{{ P.version }}</td>
                                             <td style="width: 10% !important" class="text-info text-center"> 
-                                                <span ng-show="P.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
-                                                <span ng-show="P.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
+                                                {{-- <span ng-show="P.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
+                                                <span ng-show="P.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span> --}}
+                                                <span> @{{ P.status  }} </span>
                                             </td>
-                                            <td style="width: 10% !important" class="text-info text-center"> 
-                                                <proposal-status data="P.proposal_status" />
-                                            </td>
+                                          
                                             <td style="width: 28% !important" class="text-info text-center">
                                                 <span>@{{ P.comment }} </span>
                                             </td>
@@ -134,17 +131,23 @@
                                                     <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="dripicons-dots-3 "></i>
                                                     </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a ng-show="P.status == 'sent'" class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
-                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
+                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
+                                                        <a  class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
+                                                        <a  class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a>
                                                         <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
+                                                    </div>
+                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
+                                                        <a  class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
+                                                        <a class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</a>
+                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(P.proposal_id , P.id)">Send Proposal</a>
+                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Remove</a>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr> 
                                         <tr  id="togggleTable@{{ key+1 }}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                            <td colspan="9" class="hiddenRow" style="padding: 0 !important">
+                                            <td colspan="8" class="hiddenRow" style="padding: 0 !important">
                                                 <table class="table custom table-bordered m-0">
                                                     <tbody> 
                                                         <tr ng-repeat="(key2,V) in P.get_versions">
@@ -152,14 +155,13 @@
                                                                 <div class="text-end">@{{ key+1 }}.@{{ key2+1 }}</div>                                                    
                                                             </td>
                                                             <td style="width: 10% !important" class="text-center">@{{ V.template_name }}</td>
-                                                            <td style="width: 10% !important" class="text-info text-center"><b><small>R@{{ key2+2 }}</small></b></td>
+                                                            <td style="width: 10% !important" class="text-info text-center"><b><small>@{{ V.version }}</small></b></td>
                                                             <td style="width: 10% !important" class="text-info text-center"> 
-                                                                <span ng-show="V.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
-                                                                <span ng-show="V.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
+                                                                {{-- <span ng-show="V.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
+                                                                <span ng-show="V.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span> --}}
+                                                                <span> @{{ V.status  }} </span>
                                                             </td>
-                                                            <td style="width: 10% !important" class="text-info text-center"> 
-                                                                <proposal-status data="V.proposal_status" />
-                                                            </td>
+                                                        
                                                             <td style="width: 28% !important" class="text-info text-center">
                                                                 <span>@{{ V.comment }} </span>
                                                             </td>
@@ -171,11 +173,17 @@
                                                                     <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                         <i class="dripicons-dots-3 "></i>
                                                                     </button>
-                                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                                        {{-- <a ng-show="V.status == 'sent'" class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a> --}}
-                                                                        <a ng-show="V.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</a>
+                                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
+                                                                        <a  class="btn dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
+                                                                        <a  class="btn dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View / Edit</a>
+                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(V.proposal_id)">Send Proposal</a>
+                                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(V.proposal_id)">Remove</a>
+                                                                    </div>
+                                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
+                                                                        <a  class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
+                                                                        <a class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</a>
                                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a>
-                                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id , V.id)">Remove</a>
+                                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Remove</a>
                                                                     </div>
                                                                 </div>
                                                             </td>

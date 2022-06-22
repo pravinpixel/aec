@@ -91,16 +91,69 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getCustomerProPosal($id)
     {
-        return MailTemplate::where("enquiry_id", '=', $id)
-                            ->with(['getVersions','enquiry'])
-                            ->get();
-         
+        $proposal = MailTemplate::where("enquiry_id", '=', $id)->select([
+            DB::raw("null as id"),
+            DB::raw("'root' as type"),
+            'documentary_id',
+            'enquiry_id',
+            'proposal_id',
+            'version',
+            'template_name',
+            'comment',
+            'status',
+            'proposal_status',
+            'created_at',
+            'updated_at',
+            'mail_send_date'
+        ]);
+
+        $mailTemplate = PropoalVersions::where("enquiry_id", '=', $id)
+                ->select([
+                    'id',
+                    DB::raw("'child' as type"),
+                    'documentary_id',
+                    'enquiry_id',
+                    'proposal_id',
+                    'version',
+                    'template_name',
+                    'comment',
+                    'status',
+                    'proposal_status',
+                    'created_at',
+                    'updated_at',
+                    'mail_send_date'
+                ])
+                ->union($proposal)
+                ->orderBy('id', 'desc')
+                ->orderBy('documentary_id', 'asc')
+                ->get();
+        return $mailTemplate;
     }
+
+    public function duplicateProposalVersion($enquiry_id, $proposal_id, $request)
+    {
+        $totalProposalVersion = PropoalVersions::where("enquiry_id",$enquiry_id)->get()->count();
+        $version = 'R'.($totalProposalVersion + 1);  
+        $result     =   PropoalVersions::where("enquiry_id",$enquiry_id)->where("proposal_id", $proposal_id)->first();
+        $duplicate  =  new PropoalVersions;
+        $duplicate  ->  proposal_id         = $proposal_id;
+        $duplicate  ->  parent_id           = $result->proposal_id; 
+        $duplicate  ->  enquiry_id          = $enquiry_id; 
+        $duplicate  ->  documentary_id      = $result->documentary_id; 
+        $duplicate  ->  documentary_date    = $result->documentary_date; 
+        $duplicate  ->  documentary_content = $result->documentary_content; 
+        $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
+        $duplicate  ->  template_name       = $result->template_name;
+        $duplicate  ->  version             = $version;
+        $duplicate  ->  save();  
+        return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
+    }
+
     public function getCustomerProPosalVersions($id, $proposal_id)
     {
         $data =  MailTemplate::where("enquiry_id", '=', $id)->where('reference_no' , '=', $proposal_id)->get();
-        
     }
+
     public function getCustomerProPosalByID($id, $proposal_id)
     {
         return MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->get();
@@ -144,6 +197,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
     { 
+        $totalProposalVersion = PropoalVersions::where("enquiry_id",$id)->get()->count();
+        $version = 'R'.($totalProposalVersion + 1);  
         $result     =   MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
@@ -153,6 +208,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $duplicate  ->  documentary_date    = $result->documentary_date; 
         $duplicate  ->  documentary_content = $result->documentary_content; 
         $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
+        $duplicate  ->  template_name       = $result->template_name;
+        $duplicate  ->  version             = $version;
         $duplicate  ->  save();  
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }
@@ -161,10 +218,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     { 
         $result = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
         $enquiry = $this->getEnquiryByID($id);
-        // $proposalArray = MailTemplate::where("enquiry_id", $id)->pluck('proposal_id')->toArray();
-        // $version = (int)array_search($result->proposal_id, $proposalArray);
-        // $version = 'R'.($version + 1);
-        $version = 'R1';
+        $version = 'R0';
         $details = [ 
             'name'        => $enquiry->customer->contact_person ?? '',
             'email'       => $enquiry->customer->email,
@@ -187,19 +241,17 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
     { 
+        Log::info('$proposal_id'.$proposal_id);
+        MailTemplate::where('enquiry_id', $id)->update(['proposal_status' => 'obsolete','status' => 'obsolete']);
+        PropoalVersions::where('enquiry_id', $id)->where('id','!=', $Vid)->update(['proposal_status' => 'obsolete','status' => 'obsolete']); 
         $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
         $enquiry = $this->getEnquiryByID($id);
-        // $proposalArray1 = MailTemplate::where("enquiry_id", '=', $id)->pluck('proposal_id')->toArray();;
-        // $proposalVersion1 = (int)array_search($result->proposal_id, $proposalArray1);
-        $proposalArray2 = PropoalVersions::where(["enquiry_id" => $id, "proposal_id" => $proposal_id])->pluck('id')->toArray();
-        $proposalVersion2 = (int)array_search($result->id, $proposalArray2);
-        $version = 'R'.($proposalVersion2 + 2);
         $details = [ 
             'name'          =>  $enquiry->customer->contact_person,
             'email'         =>  $enquiry->customer->email,
             'projectName'   =>  $enquiry->project_name,
             'enquiryNo'     =>  $enquiry->enquiry_number,
-            'version'       =>  $version,
+            'version'       =>  $result->version,
             'EnqId'         =>  Crypt::encryptString($id),
             'proposal_id'   =>  Crypt::encryptString($proposal_id),
             'Vid'           =>  Crypt::encryptString($Vid),

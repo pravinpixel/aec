@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
     Route::delete('/proposal/enquiry/{id}/edit/{proposal_id}/version/{Vid}',[ProposalController::class,'deleteVersions']);
 
     Route::put('/proposal/enquiry/{id}/duplicate/{proposal_id}',[ProposalController::class,'duplicate'])->name('duplicate.proposal-sharing');
+    Route::put('/proposal/enquiry/{id}/duplicate-version/{proposal_id}', [ProposalController::class,'duplicateVersion'])->name('duplicate.version');
     Route::delete('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'destroy'])->name('delete.proposal-sharing');
     Route::get('/proposal/enquiry/{id}/versions/{proposal_id}',[ProposalController::class,'versions']);
 
