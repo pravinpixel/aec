@@ -45,6 +45,7 @@
                            
                             <div class="non-printable">
                                 @if($latest_proposal->proposal_status == 'not_send')
+                                    <label for="proposal_status" class="form-label">Action</label>
                                     <select ng-model="proposal_status" name="proposal_status" id="proposal_status" class="form-select my-3">
                                         <option value=""> ---  Select ---</option>
                                         <option value="approve">Approve</option>
