@@ -69,6 +69,12 @@ class EnquiryCommentsController extends Controller
     {
         return $this->enquiryCommentRepo->show($request,  $id, $type);
     }
+
+    public function showProposalComment(Request $request, $version, $id, $proposal_id)
+    {
+        return $this->enquiryCommentRepo->showProposalComment($request, $version, $id, $proposal_id);
+    }
+
     public function showTechChat(Request $request, $id, $type)
     {
         return $this->enquiryCommentRepo->showTechChat($request,  $id, $type);

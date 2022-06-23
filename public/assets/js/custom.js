@@ -60,7 +60,13 @@
                 return   "<span class='badge badge-outline-danger rounded-pill'>Denied</span>";
 
             case "change_request":
-                return   "<span class='badge badge-outline-danger rounded-pill'>Change Request</span>";
+                return   "<span class='badge badge-outline-info rounded-pill'>Change Request</span>";
+
+            case "awaiting":
+                return   "<span class='badge badge-outline-info rounded-pill'>Awaiting</span>";
+
+            case "sent":
+                return   "<span class='badge badge-outline-success rounded-pill'>Sent</span>";
         
             default:
                 return   "-";

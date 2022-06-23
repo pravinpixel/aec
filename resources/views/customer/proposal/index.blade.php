@@ -30,7 +30,7 @@
             <div class="tab-content">
                 <div class="tab-pane" id="proposal" ng-controller="ProposalController">
                     @include('customer.proposal.denied-modal')
-                    
+                    @include('customer.proposal.comment-box')
                     <div class="card">
                         <div class="card-body">
                             <div class="text-end">
@@ -93,10 +93,12 @@
                                                 @if(is_null($proposal->id))
                                                     <td style="text-align: left !important;">
                                                         <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},0)">View</button>
+                                                        <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->proposal_id }},'{{ $proposal->type }}')">Comment</button>
                                                     </td>
                                                 @else
                                                     <td style="text-align: left !important;">
                                                         <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},{{ $proposal->id }})">View</button>
+                                                        <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->id }},'{{ $proposal->type }}')">Comment</button>
                                                     </td>
                                                 @endif
                                             </tr>
@@ -235,6 +237,7 @@
         </div> <!-- container -->
         @include('customer.enquiry.models.approve-modal')
         
+        
     </div> <!-- content -->
     
 @endsection
@@ -315,6 +318,46 @@
                     return swlAlertInfo(res.data.msg, redirectPath);
                 }, function (error) {
                     console.log('ifc_model_uploads error');
+                });
+            }
+
+            $scope.showCommentsToggle = (reference_id, version) => {
+                $scope.reference_id = reference_id;
+                $scope.version = version;
+                var type = 'proposal_sharing';
+                $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/'+$scope.version +'/'+$scope.reference_id).then(function (response) {
+                    $scope.commentsData = response.data.chatHistory; 
+                    $scope.chatType     = response.data.chatType;  
+                    $('#proposalViewConversations-modal').modal('show');
+                });
+            };
+
+            $scope.sendInboxComments  = (type) => {
+                if($scope.inlineComments == '') {
+                    Message('danger','Comment field required');
+                    return false;
+                }
+                $scope.sendCommentsDataNew = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "reference_id"    :   $scope.reference_id,
+                    "type"            :   $scope.chatType,
+                    "version"         :   $scope.version,
+                    "created_by"      :   type,
+                }
+                $http({
+                    method: "POST",  
+                    url:  API_URL + 'admin/add-comments',
+                    data: $.param($scope.sendCommentsDataNew),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    $scope.inlineComments = '';
+                    $scope.showCommentsToggle($scope.reference_id, $scope.version);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
                 });
             }
            

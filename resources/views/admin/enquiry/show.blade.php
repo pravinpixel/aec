@@ -1408,7 +1408,8 @@
     }]);
 
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
-             
+            $scope.enquiry_id = '{{ $data->id }}';
+           
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -1601,8 +1602,47 @@
             }
             $scope.getDocumentaryData();
 
-        });
+            $scope.showCommentsToggle = (reference_id, version) => {
+                $scope.reference_id = reference_id;
+                $scope.version = version;
+                var type = 'proposal_sharing';
+                $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/'+$scope.version +'/'+$scope.reference_id).then(function (response) {
+                    $scope.commentsData = response.data.chatHistory; 
+                    $scope.chatType     = response.data.chatType;  
+                    $('#proposalViewConversations-modal').modal('show');
+                });
+            };
 
+            $scope.sendInboxComments  = (type) => {
+                if($scope.inlineComments == '') {
+                    Message('danger','Comment field required');
+                    return false;
+                }
+                $scope.sendCommentsDataNew = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "reference_id"    :   $scope.reference_id,
+                    "type"            :   $scope.chatType,
+                    "version"         :   $scope.version,
+                    "created_by"      :   type,
+                }
+                $http({
+                    method: "POST",  
+                    url:  API_URL + 'admin/add-comments',
+                    data: $.param($scope.sendCommentsDataNew),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    $scope.inlineComments = '';
+                    $scope.showCommentsToggle($scope.reference_id, $scope.version);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+        });
         app.controller('Customer_response', function ($scope, $http, API_URL, $location, $timeout) {
             $scope.customer_response_obj = {};
             let enquiry_id = '{{ $id }}';

@@ -92,6 +92,7 @@ Route::group(['prefix' => 'admin'], function(){
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function(){
     Route::post('add-comments', [EnquiryCommentsController::class,'store'])->name("enquiry.comments");
     Route::get('show-comments/{id}/type/{type}', [EnquiryCommentsController::class,'show'])->name("enquiry.show-comments");
+    Route::get('show-comments/{id}/{version}/{proposal_id}', [EnquiryCommentsController::class,'showProposalComment'])->name("enquiry.show-proposal-comments");
     Route::get('comments-count/{id}', [EnquiryCommentsController::class,'getCommentsCountByType'])->name("enquiry.comments-count");
     Route::get('active-comments-count/{id}', [EnquiryCommentsController::class,'getActiveCommentsCountByType'])->name("enquiry.active-comments-count");
     Route::get('show-tech-comments/{id}/type/{type}', [EnquiryCommentsController::class,'showTechChat'])->name("enquiry.show-tech-comments");
