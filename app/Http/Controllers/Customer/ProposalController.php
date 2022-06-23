@@ -110,7 +110,12 @@ class ProposalController extends Controller
         if(empty($proposal)) {
             $proposal  = MailTemplate::where(['enquiry_id'=> $enquiry_id, 'status' => 'sent'])->latest()->first();
             if(empty($proposal)) {
-                $proposal = ProposalVersions::where('enquiry_id', $enquiry_id)->orderBy('id','desc')->first() ?? MailTemplate::where('enquiry_id', $enquiry_id)->orderBy('proposal_id','desc')->first();
+                $proposal = ProposalVersions::where('enquiry_id', $enquiry_id)
+                                            ->where('status','!=','awaiting')
+                                            ->orderBy('id','desc')->first() 
+                            ?? MailTemplate::where('enquiry_id', $enquiry_id)
+                                            ->where('status','!=','awaiting')
+                                            ->orderBy('proposal_id','desc')->first();
             }
         }
         return $proposal;

@@ -82,6 +82,7 @@
                                   <tr>
                                     <th scope="col" >Version</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Comments</th>
                                     <th scope="col">Action</th>
                                   </tr>
                                 </thead>
@@ -91,6 +92,7 @@
                                             <tr>
                                                 <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | {{ $proposal->version }}</td>
                                                 <td style="text-align: left !important;">{!! proposalStatusBadge($proposal->proposal_status) !!} </td>
+                                                <td style="text-align: left !important;"> {{ $proposal->comment }} </td>
                                                 @if(is_null($proposal->id))
                                                     <td style="text-align: left !important;">
                                                         <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},0)">View</button>

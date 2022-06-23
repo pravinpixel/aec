@@ -814,10 +814,18 @@ class EnquiryController extends Controller
     {
         $customerId = Customer()->id;
         $comments = DB::select("
-            select count(id) as count from aec_enquiry_comments 
-                where  (status = 0 AND created_by = 'Admin') AND enquiry_id in (select id from aec_enquiries where customer_id = {$customerId})
-           "
-        )[0];
+            select sum(c.total) as count  from (
+                select count(*) as total from aec_enquiry_comments 
+                                where  (status = 0 AND created_by = 'Admin') AND enquiry_id in (select id from aec_enquiries where customer_id = {$customerId})
+                union 
+                select count(*) as total from aec_enquiry_proposal 
+                                where status = 'sent' AND enquiry_id in (select id from aec_enquiries where customer_id = {$customerId})
+                union 
+                
+                select count(*) as total from aec_propoal_versions 
+                                where status = 'sent' AND enquiry_id in (select id from aec_enquiries where customer_id = {$customerId})
+            ) as c
+        ")[0];
         return $comments;
     }
 
