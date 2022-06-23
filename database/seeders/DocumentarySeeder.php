@@ -21,7 +21,7 @@ class DocumentarySeeder extends Seeder
         <table class='table table-borderless'>
         <tr>
             <td>
-                <h1>{heading}</h1>
+                <h1>{project_name}</h1>
             </td>
             <td>
                 <img width='150px' src='http://192.168.0.68/aec-santhosh/aec/public/assets/images/logo_customer.png' alt=''>

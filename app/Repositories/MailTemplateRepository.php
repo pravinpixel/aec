@@ -140,7 +140,7 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             $datas['role'] = $role['name'];
             $datas['admin_user'] =  $loginUserData['user_name'];
             $datas['project_cost'] = $enquiryCost['total_cost'];
-            $datas['revision_no'] = "R".($countRow+1);
+            $datas['revision_no'] = "R0";
             $lo ='<img width="150px" src="'.asset($logo).'" alt="">';
             $logo_url = ['Logo'=>$lo];
             $datas = array_merge($datas,$logo_url);   
@@ -148,7 +148,9 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             $changeData =[];
             $changeData = $datas;
             $documentData = $document['documentary_content'];
-            $keyData       = array_keys($changeData);
+            $keyData       = array_map(function($item){
+                return '{'.$item.'}';
+            },array_keys($changeData));
             $valueData    = array_values($changeData);
             $new_string = str_replace($keyData, $valueData,strval($documentData));
             $today_date = date("d-m-Y");
