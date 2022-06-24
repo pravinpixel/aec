@@ -646,7 +646,7 @@ app.directive('getRoleUser',function getRoleUser($http, API_URL){
         restrict: 'A',
         link : function (scope, element, attrs) {
             let selectedValues = Object.values(scope.teamSetups[attrs.value].team);
-            $http.get(`${API_URL}role/${scope.teamSetup.role.id}`).then((res) => {
+            $http.get(`${API_URL}admin/get-role-user/${scope.teamSetup.role.id}`).then((res) => {
                 if(selectedValues) {
                     scope.tagBox = {
                         customTemplate: {

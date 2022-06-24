@@ -55,7 +55,7 @@
     
 </div>
 <div class="card-footer text-end">
-    <a href="#!/project-scheduling" class="btn btn-light float-start">Prev</a>
+    <a href="#!/team-setup" class="btn btn-light float-start">Prev</a>
     <input ng-disabled ="invoicePlanForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/>
 </div>
 </form>

@@ -132,6 +132,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('get-editEmployee/{id}', [EmployeeController::class, 'getEditEmployee'])->name('get-editEmployee');
     Route::delete('employee-delete/{id}', [EmployeeController::class, 'employeeDelete'])->name('employee-delete');
     Route::get('get-employee-by-slug/{name}', [RoleController::class,'getRoleBySlug'])->name('get-employee-by-slug');
+    Route::get('get-role-user/{id}',[RoleController::class,'getUserByRoleId'])->name('get-role-user');
     Route::get('employee-role', [EmployeeController::class, 'employeeRole'])->name('employee-role');
     
     Route::get('add-employee', [EmployeeController::class, 'employee_add'])->name('employee-add');

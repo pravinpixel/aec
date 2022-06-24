@@ -109,6 +109,13 @@ class RoleController extends Controller
         return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$role], Response::HTTP_OK);
     }
 
+    public function getUserByRoleId($id)
+    {
+        return response()->json([
+            'data' => $this->roleRepository->find($id)
+        ]);
+    }
+
     public function getRoleBySlug($name)
     {
         return $this->roleRepository->getRoleBySlug($name);
