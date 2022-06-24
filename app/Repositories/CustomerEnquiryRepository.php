@@ -22,6 +22,7 @@ use App\Models\Service;
 use App\Models\WoodEstimation;
 use App\Services\GlobalService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -229,8 +230,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
             'proposal_id' => Crypt::encryptString($proposal_id),
             'Vid'         => Crypt::encryptString(0),
         ];  
-
-        Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalMail($details));
+        try {
+            Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalMail($details));
+        } catch(Exception $ex) {
+            Log::info($ex->getMessage());
+        }
         $result->status =  'sent';
         $result->mail_send_date =  now();
         $result->save();
