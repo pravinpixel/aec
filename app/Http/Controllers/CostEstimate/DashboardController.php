@@ -22,9 +22,10 @@ class DashboardController extends Controller
             $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
 
-            $dataDb = Enquiry::with(['costEstimate' =>  function($q){
+            $dataDb = Enquiry::with('costEstimate')
+                                ->whereHas('costEstimate', function($q){
                                     $q->where('assign_to', Admin()->id);
-                                }])
+                                })
                                 ->where(['status' => 'Submitted' , 'project_status' => 'Unattended', 'cost_estimation_status' => 0])
                                 ->whereBetween('enquiry_date', [$fromDate, $toDate])
                                 ->when( $enquiryNumber, function($q) use($enquiryNumber){
@@ -68,8 +69,10 @@ class DashboardController extends Controller
     {
         $dataDb = Enquiry::with(['costEstimate' =>  function($q){
             $q->where('assign_to', Admin()->id);
-        }])
-        ->findOrFail($enquiry_id);
+        }])->findOrFail($enquiry_id);
+        if(is_null($dataDb->costEstimate)){
+            abort(404);
+        }
         return view('cost-estimate.show', compact('enquiry_id'));
     }
 }

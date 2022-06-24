@@ -24,7 +24,7 @@ class AuthController extends Controller
                 Flash::success( __('auth.login_successful'));
                 return redirect()->route('customers-dashboard');
             } else if (Auth::attempt($request->only(['email','password']), false)) {
-                if(Role::find(Admin()->job_role)->name == config('global.cost_estimater')) {
+                if(Role::find(Admin()->job_role)->slug == config('global.cost_estimater')) {
                     $sharepoint = new SharepointController();
                     $sharepoint->getToken();
                     Flash::success( __('auth.login_successful'));
