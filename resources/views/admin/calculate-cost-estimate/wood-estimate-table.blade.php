@@ -26,32 +26,33 @@
         <div class="auto-scroll"> 
             <div class="custom-row custom-border-left bg-primary text-white m-0">
                 <div class="custom-td text-center"> 
-                    Component
+                    <small class="fw-bold">Component</small>
                     <button class="btn-sm btn font-12 btn-info py-0 mt-1" ng-click="addComponent(firstIndex)">
                         <i class="fa fa-plus"></i> Add 
                     </button>
                 </div>
-                <div class="custom-td text-center"> Type </div>
-                <div class="custom-td text-center"> Design Scope (%) </div>
+                <div class="custom-td text-center"><small class="fw-bold"> Type</small> </div>
+                <div class="custom-td text-center"><small class="fw-bold"> Design Scope (%)</small> </div>
                 <div class="custom-td text-center">
-                    <span class="text-center">1 to 2</span>
-                    <span class="text-center">Complexity</span>
+                    <span class="text-center"><small class="fw-bold">1 to 2</small></span>
+                    <span class="text-center"><small class="fw-bold">Complexity</small></span>
                 </div>
-                <div class="custom-td m_two_cross_column">
-                    <span class="mb-1">m2 Gross</span> 
-                    @{{ CostEstimate.ComponentsTotals.Sqm }}
+                <div class="custom-td m_two_cross_column text-center">
+                    <span class="text-center"><small class="fw-bold">m2 Gross</small></span> 
+                    <span class="text-center"><small class="fw-bold"> @{{ CostEstimate.ComponentsTotals.Sqm }} </small></span>
                 </div>
                 <div  ng-model="CostEstimate.ComponentsTotals.Dynamics" class="d-flex">
                     <div class="custom-td text-center p-0 bg-primary2" ng-repeat="(dynamicIndex, Dynamic) in CostEstimate.ComponentsTotals.Dynamics track by $index">
                         <span class="border-bottom w-100 text-center custom-max-h">
-                            <i class="fa fa-trash text-danger dynamic_name" ng-click="deleteDynamic(firstIndex,dynamicIndex)"> </i>@{{ Dynamic.name }} 
+                            <i class="fa fa-trash text-danger dynamic_name" ng-click="deleteDynamic(firstIndex,dynamicIndex)"> </i>
+                            <small class="fw-bold">@{{ Dynamic.name }}</small> 
                         </span>
                         <div class="row text-center m-0 w-100">
                             <div class="col p-0 font-12 text-center">
-                                Nok/M2
+                                <small class="fw-bold">Nok/M2</small>
                             </div>
                             <div class="col p-0 font-12 text-center">
-                                Sum 
+                                <small class="fw-bold">Sum </small>
                             </div>
                         </div>
                         <div class="custom-row text-center m-0 h-100">
@@ -66,11 +67,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="custom-td text-center p-0">
-                    <span>RIB</span>
-                    <div class="text-center m-0">
-                        Hrs
-                    </div>
+                <div class="custom-td text-center p-0 justify-content-between">
+                    <small class="fw-bold">
+                        <span>RIB</span>
+                        <div class="text-center m-0">
+                            Hrs
+                        </div>
+                    </small>
                     <div class="text-center m-0">
                         <input type="text" disabled onkeypress="return isNumber(event)"
                             name="CostEstimate.ComponentsTotals.Rib.Sum"
@@ -78,14 +81,14 @@
                             class="form-control  rounded-0 text-center form-control-sm">
                     </div>
                 </div>
-                <div class="custom-td text-center p-0">
-                    <span>Total Cost</span>
+                <div class="custom-td text-center p-0 justify-content-between">
+                    <span><small class="fw-bold">Total Cost</small></span>
                     <div class="custom-row text-center m-0">
                         <div class="col">
-                            Nok/M2
+                            <small class="fw-bold">Nok/M2</small>
                         </div>
                         <div class="col">
-                            Sum
+                            <small class="fw-bold">Sum</small>
                         </div>
                     </div>
                     <div class="custom-row text-center m-0">
@@ -103,7 +106,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-1 custom-td text-center"> Action </div>
+                <div class="col-1 custom-td text-center"> <small class="fw-bold">Action</small> </div>
             </div>
             {{-- input data --}}
             <div class="custom-row custom-border-left custom-border-bottom" ng-repeat="(index, C) in CostEstimate.Components track by $index">
