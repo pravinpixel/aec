@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngRoute','datatables','luegg.directives','textAngular','psi.sortable','psi.sortablex','dx']).constant('API_URL', $("#baseurl").val());
+var app = angular.module('App', ['ngRoute','datatables','luegg.directives','textAngular','psi.sortable','dx']).constant('API_URL', $("#baseurl").val());
  
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  
@@ -167,103 +167,103 @@ angular.module('psi.sortable', [])
         };
     }]);
 
-angular.module('psi.sortablex', [])
-    .value('psiSortableConfig', {
-        placeholder: "placeholder",
-        opacity: 1,
-        axis: "x",
-        helper: 'clone',
-        forcePlaceholderSize: true
-    })
-    .directive("psiSortablex", ['psiSortableConfig', '$log', function(psiSortableConfig, $log) {
-        return {
-        require: '?ngModel',
-        link: function(scope, element, attrs, ngModel) {
+// angular.module('psi.sortablex', [])
+//     .value('psiSortableConfig', {
+//         placeholder: "placeholder",
+//         opacity: 1,
+//         axis: "x",
+//         helper: 'clone',
+//         forcePlaceholderSize: true
+//     })
+//     .directive("psiSortablex", ['psiSortableConfig', '$log', function(psiSortableConfig, $log) {
+//         return {
+//         require: '?ngModel',
+//         link: function(scope, element, attrs, ngModel) {
 
-            if(!ngModel) {
-            $log.error('psiSortable needs a ng-model attribute!', element);
-            return;
-            }
+//             if(!ngModel) {
+//             $log.error('psiSortable needs a ng-model attribute!', element);
+//             return;
+//             }
 
-            var opts = {};
-            angular.extend(opts, psiSortableConfig);
-            opts.update = update;
+//             var opts = {};
+//             angular.extend(opts, psiSortableConfig);
+//             opts.update = update;
 
-            // listen for changes on psiSortable attribute
-            scope.$watch(attrs.psiSortable, function(newVal) {
-            angular.forEach(newVal, function(value, key) {
-                element.sortable('option', key, value);
-            });
-            }, true);
+//             // listen for changes on psiSortable attribute
+//             scope.$watch(attrs.psiSortable, function(newVal) {
+//             angular.forEach(newVal, function(value, key) {
+//                 element.sortable('option', key, value);
+//             });
+//             }, true);
 
-            // store the sortable index
-            scope.$watch(attrs.ngModel+'.length', function() {
-            element.children().each(function(i, elem) {
-                console.log(i);
-                jQuery(elem).attr('sortable-index', i);
-            });
-            });
+//             // store the sortable index
+//             scope.$watch(attrs.ngModel+'.length', function() {
+//             element.children().each(function(i, elem) {
+//                 console.log(i);
+//                 jQuery(elem).attr('sortable-index', i);
+//             });
+//             });
 
-            // jQuery sortable update callback
-            function update(event, ui) {
-            // get model
-            var model = ngModel.$modelValue;
-            // remember its length
-            var modelLength = model.length;
-            // rember html nodes
-            var items = [];
+//             // jQuery sortable update callback
+//             function update(event, ui) {
+//             // get model
+//             var model = ngModel.$modelValue;
+//             // remember its length
+//             var modelLength = model.length;
+//             // rember html nodes
+//             var items = [];
 
-            // var Component = [];
-            // var ComponentLength = scope.CostEstimate.Components.length;
+//             // var Component = [];
+//             // var ComponentLength = scope.CostEstimate.Components.length;
 
-            // loop through items in new order
-            element.children().each(function(index) {
-                var item = jQuery(this);
+//             // loop through items in new order
+//             element.children().each(function(index) {
+//                 var item = jQuery(this);
              
-                // get old item index
-                var oldIndex = parseInt(item.attr("sortable-index"), 10);
-                // console.log(oldIndex)
-                // // add item to the end of model
+//                 // get old item index
+//                 var oldIndex = parseInt(item.attr("sortable-index"), 10);
+//                 // console.log(oldIndex)
+//                 // // add item to the end of model
               
-                //     // console.log(item.Dynamics[oldIndex]);
-                // Component.push(oldIndex);
+//                 //     // console.log(item.Dynamics[oldIndex]);
+//                 // Component.push(oldIndex);
             
                 
-                // console.log(scope.CostEstimate.Components) ;
+//                 // console.log(scope.CostEstimate.Components) ;
     
-                model.push(model[oldIndex]);
+//                 model.push(model[oldIndex]);
 
-                if(item.attr("sortable-index")) {
-                // items in original order to restore dom
-                items[oldIndex] = item;
-                // and remove item from dom
-                item.detach();
-                }
-            });
-            // var final = [];
-            // Component.forEach((index) => {
-            //     var comps = [];
-            //     scope.CostEstimate.Components.forEach((item) => {
-            //         comps.push(item.Dynamics[index]);
-            //     })
-            //     final.push(comps);
-            // })
-            // console.log('final',final);
-            // console.log(Component);
+//                 if(item.attr("sortable-index")) {
+//                 // items in original order to restore dom
+//                 items[oldIndex] = item;
+//                 // and remove item from dom
+//                 item.detach();
+//                 }
+//             });
+//             // var final = [];
+//             // Component.forEach((index) => {
+//             //     var comps = [];
+//             //     scope.CostEstimate.Components.forEach((item) => {
+//             //         comps.push(item.Dynamics[index]);
+//             //     })
+//             //     final.push(comps);
+//             // })
+//             // console.log('final',final);
+//             // console.log(Component);
             
-            model.splice(0, modelLength);
+//             model.splice(0, modelLength);
 
-            // restore original dom order, so angular does not get confused
-            element.append.apply(element, items);
+//             // restore original dom order, so angular does not get confused
+//             element.append.apply(element, items);
 
-            // notify angular of the change
-            scope.$digest();
-            }
+//             // notify angular of the change
+//             scope.$digest();
+//             }
 
-            element.sortable(opts);
-        }
-        };
-    }]);
+//             element.sortable(opts);
+//         }
+//         };
+//     }]);
 app.config(function() {
     angular.lowercase = angular.$$lowercase;  
 });

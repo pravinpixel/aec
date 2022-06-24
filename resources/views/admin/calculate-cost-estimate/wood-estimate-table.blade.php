@@ -41,7 +41,7 @@
                     <span class="mb-1">m2 Gross</span> 
                     @{{ CostEstimate.ComponentsTotals.Sqm }}
                 </div>
-                <div  psi-sortablex ng-model="CostEstimate.ComponentsTotals.Dynamics" class="d-flex">
+                <div  ng-model="CostEstimate.ComponentsTotals.Dynamics" class="d-flex">
                     <div class="custom-td text-center p-0 bg-primary2" ng-repeat="(dynamicIndex, Dynamic) in CostEstimate.ComponentsTotals.Dynamics track by $index">
                         <span class="border-bottom w-100 text-center custom-max-h">
                             <i class="fa fa-trash text-danger dynamic_name" ng-click="deleteDynamic(firstIndex,dynamicIndex)"> </i>@{{ Dynamic.name }} 
