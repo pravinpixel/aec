@@ -21,11 +21,11 @@
         </tbody>
     </table>
 </div>
-
+<section id="wood-cost-estimate">
     {{-- ========= WOOD ESTIMATE TABLE ======== --}}
         @include('admin.calculate-cost-estimate.wood-estimate-table')
     {{-- ========= WOOD ESTIMATE TABLE ======== --}}
-
+</section>
 @if (Route::is('enquiry.calculate-cost-estimation'))
     <div ng-show=" EngineeringEstimate.length &&  wood_estimate_edit_id == false && price_calculation == 'wood_engineering_estimation'"
         class="d-flex">

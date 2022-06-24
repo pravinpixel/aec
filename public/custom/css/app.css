@@ -462,3 +462,9 @@ sup {
 .dx-tag-content {
     font-size: 12px !important;
 }
+#history_id .card-header ,
+#history_id  button, 
+#history_id  .remove_history, 
+#history_id .fa {
+    display: none !important;
+}

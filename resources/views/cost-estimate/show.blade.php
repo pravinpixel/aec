@@ -106,6 +106,10 @@
 
 @push('custom-scripts')
 <script>
+    $(document).on('keyup','input', function(e){
+        $(this).addClass('bg-warning');
+    });
+    
     app.controller('CostEstimateConroller', function ($scope, $http, $timeout, API_URL) {
             let enquiryId =  '{{ $enquiry_id }}';
             $scope.current_user = '{{Admin()->id}}';
@@ -189,6 +193,7 @@
             });
 
             $scope.UpdateCostEstimate  = function(type) {  
+                
                 if($scope.EngineeringEstimate.length == 0){
                     Message('danger', "You Can't Update Empty Data");
                     return false;
@@ -204,7 +209,7 @@
                 $http({
                     method: "POST",
                     url: "{{ route('enquiry-create.cost-estimate-value') }}",
-                    data:{ enquiry_id: $scope.enquiry_id, data : data, type: type, total : total},
+                    data:{ enquiry_id: $scope.enquiry_id, data : data, type: type, total : total, history: true, html: $("#wood-cost-estimate").html()},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
                     $scope.getWizradStatus();

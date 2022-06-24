@@ -122,6 +122,11 @@
     </div>
 @endif
 @if(userHasAccess('cost_estimate_add'))
+
+<a class="btn btn-info" ng-click="getHistory()"> <i class="fa fa-eye"> </i> View history </a>
+<a class="btn btn-danger" onclick="$('#history_id').html('')"> <i class="uil-sync"> </i> Close </a>
+<div id="history_id"></div>
+
 <div class="card m-0 my-3 border col-md-9 me-auto">
     <div class="card-body">
         <p class="lead mb-2"> <strong>Assign for verification</strong></p>

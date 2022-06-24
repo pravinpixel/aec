@@ -748,6 +748,24 @@
         app.controller('Cost_Estimate', function ($scope, $http, $timeout, API_URL) {
             let enquiryId =  '{{ $data->id }}';
             $scope.current_user = '{{Admin()->id}}';
+             
+            $scope.getHistory = ()  => {
+                $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}`)
+                    .then(function successCallback(res){
+                        $("#history_id").html('');
+                        res.data.length && res.data.map((item, key) => {
+                            console.log(item.history);
+                            $("#history_id").append(`<h4> Version : ${key+1} </h4>`);
+                            $("#history_id").append(item.history);
+                            $("#history_id").append('<hr/>');
+                        });
+                    }, function errorCallback(error){
+                        console.log(error);
+                    });
+            }
+
+
+
             getUsers = () => {
                 $http.get(`${API_URL}admin/get-costestimate-employee`)
                 .then(function successCallback(res){
@@ -1409,7 +1427,7 @@
 
         app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
             $scope.enquiry_id = '{{ $data->id }}';
-           
+          
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;

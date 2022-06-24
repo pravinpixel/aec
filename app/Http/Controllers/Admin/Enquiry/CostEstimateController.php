@@ -12,6 +12,7 @@ use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use Illuminate\Http\Response;
 use App\Models\BuildingComponent;
+use App\Models\CostEstimateHistory;
 use App\Models\Type;
 use App\Models\EnquiryCostEstimate;
 use App\Models\Enquiry;
@@ -58,9 +59,11 @@ class  CostEstimateController extends Controller
                                         ->first(); 
     }
     public function store(Request $request) {
-        $data   = $request->input("data");
-        $id     = $request->input("enquiry_id"); 
-        $type   = $request->input("type"); 
+        $data    = $request->input("data");
+        $id      = $request->input("enquiry_id");
+        $type    = $request->input("type");
+        $history = $request->input("history", false);
+        $html    = $request->input("html");
         $costEstimate = EnquiryCostEstimate::where('enquiry_id',$id)->first();
         if(!empty($costEstimate)) {
             $costEstimate->enquiry_id           = $id;
@@ -86,12 +89,27 @@ class  CostEstimateController extends Controller
         }
         $costEstimate->save();
         $enquiry = Enquiry::find($id);
+        if($history) {
+            $data = [
+                'enquiry_id'       => $enquiry->id,
+                'type'             => $type,
+                'cost_estimate_id' => $costEstimate->id,
+                'history'          => $html,
+                'created_by'       => Admin()->id
+            ];
+            $this->storeCostEstimateHistory($data);
+        }
         if(Admin()->id == $costEstimate->assign_by || Admin()->id == 1){
             $this->costEstimate->assignUser($enquiry, Admin()->id);
             $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         } 
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
+
+    public function storeCostEstimateHistory($data)
+    {   
+        return CostEstimateHistory::create($data);
+    }   
 
     public function assignUser($enquiry_id, Request $request)
     {
@@ -130,4 +148,10 @@ class  CostEstimateController extends Controller
         }
         return response(['status' => false]);
     }
+
+    public function getHistory($id)
+    {
+        return CostEstimateHistory::where('enquiry_id', $id)->get();
+    }
+
 }
