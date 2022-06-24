@@ -14,13 +14,13 @@
             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3 non-printable">
 
                 <li class="nav-item">
-                    <a href="#enquiry" data-bs-toggle="tab" aria-expanded="false" class="non-printable nav-link rounded-0 active">
+                    <a href="#enquiry" data-bs-toggle="tab" aria-expanded="false" class="non-printable nav-link rounded-0">
                         <span >Summary</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="#proposal" data-bs-toggle="tab" aria-expanded="true" class="non-printable nav-link rounded-0">
+                    <a href="#proposal" data-bs-toggle="tab" aria-expanded="true" class="non-printable nav-link rounded-0 active">
                         <span >Proposal</span>
                     </a>
                 </li>
@@ -28,10 +28,9 @@
             </ul>
             
             <div class="tab-content"> 
-                <div class="tab-pane show active" id="enquiry">
+                <div class="tab-pane" id="enquiry">
                     <div class="card border">
                         <div class="card-body pt-0 pb-0">
-                                       
                             <div id="rootwizard" ng-controller="wizard" style="display: none">
                                 <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                                     <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"> 
@@ -132,12 +131,12 @@
                         </div> <!-- end card-body -->
                     </div>
                 </div>
-                <div class="tab-pane" id="proposal" ng-controller="ProposalController">
+                <div class="tab-pane active show" id="proposal" ng-controller="ProposalController">
                     @include('customer.proposal.denied-modal')
                     @include('customer.proposal.comment-box')
-                    <div class="card">
-                        <div class="card-header text-end">
-                            <a class="non-printable btn btn-primary" download="proposal-{{ date('Y-m-d-H:s:i') }}" href="{{ asset($latest_proposal->pdf_file_name) }}" type="button"><i class="mdi mdi-download me-1"></i> <span>Download PDF</span> </a>
+                    <div class="card border shadow-sm">
+                        <div class="card-header text-end bg-light">
+                            <a class="non-printable btn btn-success" download="proposal-{{ date('Y-m-d-H:s:i') }}" href="{{ asset($latest_proposal->pdf_file_name) }}" type="button"><i class="mdi mdi-download me-1"></i> <span>Download PDF</span> </a>
                             <a  class="non-printable btn btn-primary" onclick="return window.print()"><i class="fa fa-print"></i> <span>Print</span> </a>
                         </div>
                         <div class="card-body"> 
@@ -147,7 +146,7 @@
                                 </div>
                             </div>  
                         </div> 
-                        <div class="card-footer">
+                        <div class="card-footer bg-light">
                             <div class="non-printable">
                                 @if($latest_proposal->proposal_status == 'not_send')
                                     <div class="row">
@@ -185,10 +184,12 @@
                         </div>
                     </div>
             
-                    <div class="card border non-printable">
-                        <div class="card-body">      
+                    <div class="card border shadow-sm non-printable">
+                        <div class="card-header bg-light">
                             <h4>Revision List</h4>
-                            <table class="table custom table-bordered m-0" id="proposalTable">
+                        </div>
+                        <div class="card-body">      
+                            <table class="table custom table-bordered m-0">
                                 <thead>
                                   <tr>
                                     <th scope="col" >Version</th>
@@ -203,18 +204,18 @@
                                             <tr>
                                                 <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | {{ $proposal->version }}</td>
                                                 <td style="text-align: left !important;">{!! proposalStatusBadge($proposal->proposal_status) !!} </td>
-                                                <td style="text-align: left !important;"> {{ $proposal->comment }} </td>
-                                                @if(is_null($proposal->id))
-                                                    <td style="text-align: left !important;">
-                                                        <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},0)">View</button>
-                                                        <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->proposal_id }},'{{ $proposal->type }}')">Comment</button>
-                                                    </td>
-                                                @else
-                                                    <td style="text-align: left !important;">
-                                                        <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},{{ $proposal->id }})">View</button>
-                                                        <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->id }},'{{ $proposal->type }}')">Comment</button>
-                                                    </td>
-                                                @endif
+                                                <td style="text-align: left !important;"> {{ $proposal->comment ?? "-" }} </td>
+                                                <td style="text-align: left !important;" width="100px">
+                                                    <div class="btn-group">
+                                                        @if(is_null($proposal->id))
+                                                            <button class="btn btn-light border btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},0)"><i class="fa fa-eye"></i></button>
+                                                            <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->proposal_id }},'{{ $proposal->type }}')"><i class="fa fa-comment"></i></button>
+                                                        @else
+                                                            <button class="btn btn-light border btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},{{ $proposal->id }})"><i class="fa fa-eye"></i></button>
+                                                            <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->id }},'{{ $proposal->type }}')"><i class="fa fa-comment"></i></button>
+                                                        @endif
+                                                    </div>
+                                                </td> 
                                             </tr>
                                         @endif
                                         {{-- @if(count($proposal->getVersions) > 0 )
