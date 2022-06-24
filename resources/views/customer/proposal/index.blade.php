@@ -27,108 +27,7 @@
 
             </ul>
             
-            <div class="tab-content">
-                <div class="tab-pane" id="proposal" ng-controller="ProposalController">
-                    @include('customer.proposal.denied-modal')
-                    @include('customer.proposal.comment-box')
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="text-end">
-                                <a class="non-printable btn btn-primary mb-3" download="proposal-{{ date('Y-m-d-H:s:i') }}" href="{{ asset($latest_proposal->pdf_file_name) }}" type="button"><i class="mdi mdi-download me-1"></i> <span>Download PDF</span> </a>
-                                <a  class="non-printable btn btn-primary mb-3" onclick="return window.print()"><i class="fa fa-print"></i> <span>Print</span> </a>
-                            </div>
-                            <div id="printable">
-                                <div class="p-3">
-                                    {!! $latest_proposal->documentary_content !!}
-                                </div>
-                            </div>
-                           
-                            <div class="non-printable">
-                                @if($latest_proposal->proposal_status == 'not_send')
-                                    <label for="proposal_status" class="form-label">Action</label>
-                                    <select ng-model="proposal_status" name="proposal_status" id="proposal_status" class="form-select my-3">
-                                        <option value=""> ---  Select ---</option>
-                                        <option value="approve">Approve</option>
-                                        <option value="deny">Deny</option>
-                                        <option value="change_request">Change Request</option>
-                                    </select>
-                                    <form  ng-show="proposal_status == 'deny' || proposal_status == 'change_request' ">
-                                        <div class="mb-3">
-                                            <label for="emailaddress1" class="form-label">Comments</label>
-                                            <textarea required name="comments" ng-model="comments" class="form-control" id="" cols="30" rows="10"></textarea>
-                                        </div>
-                    
-                                        <div class="mb-3">
-                                            <button class="btn rounded-pill btn-primary" ng-click="denyOrChangaeRequest(proposal_status)" type="submit">Submit</button>
-                                        </div>
-                                    </form>
-                                    <div class="mb-3" ng-show="proposal_status == 'approve'">
-                                        <button class="btn rounded-pill btn-primary" ng-click="updatePropodsals(proposal_status)" type="submit">Submit</button>
-                                    </div>
-                                @else
-                                    <div style="font-size: 200%;" class="text-center">
-                                        {!!  proposalStatusBadge($latest_proposal->proposal_status) !!}
-                                    </div>
-                                @endif
-                            </div>
-                        </div> 
-                    </div>
-            
-                    <div class="card border non-printable">
-                        <div class="card-body">      
-                            <h4>Revision List</h4>
-                            <table class="table custom table-bordered m-0" id="proposalTable">
-                                <thead>
-                                  <tr>
-                                    <th scope="col" >Version</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Comments</th>
-                                    <th scope="col">Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($proposals as $proposal)
-                                        @if($proposal->status != 'awaiting')
-                                            <tr>
-                                                <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | {{ $proposal->version }}</td>
-                                                <td style="text-align: left !important;">{!! proposalStatusBadge($proposal->proposal_status) !!} </td>
-                                                <td style="text-align: left !important;"> {{ $proposal->comment }} </td>
-                                                @if(is_null($proposal->id))
-                                                    <td style="text-align: left !important;">
-                                                        <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},0)">View</button>
-                                                        <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->proposal_id }},'{{ $proposal->type }}')">Comment</button>
-                                                    </td>
-                                                @else
-                                                    <td style="text-align: left !important;">
-                                                        <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},{{ $proposal->id }})">View</button>
-                                                        <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->id }},'{{ $proposal->type }}')">Comment</button>
-                                                    </td>
-                                                @endif
-                                            </tr>
-                                        @endif
-                                        {{-- @if(count($proposal->getVersions) > 0 )
-                                            @foreach($proposal->getVersions as $proposalSub)
-                                                @if($proposalSub->status == 'sent')
-                                                    <tr>
-                                                        <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | R{{ $loop->iteration + 1 }}</td>
-                                                        <td style="text-align: left !important;">{!! proposalStatusBadge($proposalSub->proposal_status) !!} </td>
-                                                        <td style="text-align: left !important;">
-                                                           <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposalSub->enquiry_id }},{{ $proposalSub->proposal_id }},{{ $proposalSub->id }})">View</button>
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                            @endforeach
-                                        @endif --}}
-                                    @empty
-                                        <tr>
-                                            <td colspan="3">No data found</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div> <!-- end card-body -->
-                    </div> 
-                </div>
+            <div class="tab-content"> 
                 <div class="tab-pane show active" id="enquiry">
                     <div class="card border">
                         <div class="card-body pt-0 pb-0">
@@ -232,6 +131,114 @@
                             </div> <!-- end #rootwizard--> 
                         </div> <!-- end card-body -->
                     </div>
+                </div>
+                <div class="tab-pane" id="proposal" ng-controller="ProposalController">
+                    @include('customer.proposal.denied-modal')
+                    @include('customer.proposal.comment-box')
+                    <div class="card">
+                        <div class="card-header text-end">
+                            <a class="non-printable btn btn-primary" download="proposal-{{ date('Y-m-d-H:s:i') }}" href="{{ asset($latest_proposal->pdf_file_name) }}" type="button"><i class="mdi mdi-download me-1"></i> <span>Download PDF</span> </a>
+                            <a  class="non-printable btn btn-primary" onclick="return window.print()"><i class="fa fa-print"></i> <span>Print</span> </a>
+                        </div>
+                        <div class="card-body"> 
+                            <div id="printable">
+                                <div class="p-3">
+                                    {!! $latest_proposal->documentary_content !!}
+                                </div>
+                            </div>  
+                        </div> 
+                        <div class="card-footer">
+                            <div class="non-printable">
+                                @if($latest_proposal->proposal_status == 'not_send')
+                                    <div class="row">
+                                        <div class="col-md-3 text-end pt-3 pe-5">
+                                            <h4>Proposal Action</h4>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select ng-model="proposal_status" name="proposal_status" id="proposal_status" class="fw-bold form-select my-3">
+                                                <option value=""> ---  Select ---</option>
+                                                <option value="approve" class="fw-bold">Approve</option>
+                                                <option value="deny" class="fw-bold">Deny</option>
+                                                <option value="change_request" class="fw-bold">Change Request</option>
+                                            </select>
+                                            <form  ng-show="proposal_status == 'deny' || proposal_status == 'change_request' ">
+                                                <div class="mb-3">
+                                                    <label for="emailaddress1" class="form-label">Comments</label>
+                                                    <textarea required name="comments" ng-model="comments" class="form-control" id="" cols="30" rows="10"></textarea>
+                                                </div>
+                            
+                                                <div class="mb-3">
+                                                    <button class="btn rounded-pill btn-primary" ng-click="denyOrChangaeRequest(proposal_status)" type="submit">Submit</button>
+                                                </div>
+                                            </form>
+                                            <div class="mb-3" ng-show="proposal_status == 'approve'">
+                                                <button class="btn rounded-pill btn-primary" ng-click="updatePropodsals(proposal_status)" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                @else
+                                    <div style="font-size: 200%;" class="text-center">
+                                        {!!  proposalStatusBadge($latest_proposal->proposal_status) !!}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="card border non-printable">
+                        <div class="card-body">      
+                            <h4>Revision List</h4>
+                            <table class="table custom table-bordered m-0" id="proposalTable">
+                                <thead>
+                                  <tr>
+                                    <th scope="col" >Version</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Comments</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($proposals as $proposal)
+                                        @if($proposal->status != 'awaiting')
+                                            <tr>
+                                                <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | {{ $proposal->version }}</td>
+                                                <td style="text-align: left !important;">{!! proposalStatusBadge($proposal->proposal_status) !!} </td>
+                                                <td style="text-align: left !important;"> {{ $proposal->comment }} </td>
+                                                @if(is_null($proposal->id))
+                                                    <td style="text-align: left !important;">
+                                                        <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},0)">View</button>
+                                                        <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->proposal_id }},'{{ $proposal->type }}')">Comment</button>
+                                                    </td>
+                                                @else
+                                                    <td style="text-align: left !important;">
+                                                        <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposal->enquiry_id }},{{ $proposal->proposal_id }},{{ $proposal->id }})">View</button>
+                                                        <button class="btn btn-primary btn-sm" ng-click="showCommentsToggle({{ $proposal->id }},'{{ $proposal->type }}')">Comment</button>
+                                                    </td>
+                                                @endif
+                                            </tr>
+                                        @endif
+                                        {{-- @if(count($proposal->getVersions) > 0 )
+                                            @foreach($proposal->getVersions as $proposalSub)
+                                                @if($proposalSub->status == 'sent')
+                                                    <tr>
+                                                        <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | R{{ $loop->iteration + 1 }}</td>
+                                                        <td style="text-align: left !important;">{!! proposalStatusBadge($proposalSub->proposal_status) !!} </td>
+                                                        <td style="text-align: left !important;">
+                                                           <button class="btn btn-primary btn-sm" ng-click="getProposals({{ $proposalSub->enquiry_id }},{{ $proposalSub->proposal_id }},{{ $proposalSub->id }})">View</button>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        @endif --}}
+                                    @empty
+                                        <tr>
+                                            <td colspan="3">No data found</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div> <!-- end card-body -->
+                    </div> 
                 </div>
             </div>
             <!-- end row-->
