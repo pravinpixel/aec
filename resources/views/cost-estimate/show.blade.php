@@ -20,89 +20,116 @@
     
                     <div class="content container-fluid">
                         <div class="main"> 
-                            <div class="row">
-                                <div class="col-xl-12  ">
-                                    <div class="row m-0">
-                                     
-                                        <div class="card-header pb-2 p-3 text-center border-0">
-                                            <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
+                            <div class="row m-0"> 
+                                <div class="card-header pb-2 p-3 text-center border-0">
+                                    <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
+                                </div>
+                                <div class="card-body pt-0 p-0">
+                                    <table class="table custom shadow-none border m-0 table-bordered ">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th>Enquiry Date</th>
+                                                <th>Person Contact</th>
+                                                <th>Type of Project</th>
+                                                <th>Enquiry Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>@{{ enquiry.enquiry.enquiry_date }}</td>
+                                                <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
+                                                <td>@{{ enquiry.project_type  }}</td>
+                                                <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </div>
+                                @if(userHasAccess('cost_estimate_index'))
+                                    <div class="container-fluid">
+                                        <br>
+                                        <div class="row m-0">
+                                            <div class="col">
+                                                <label>
+                                                    <input type="radio" ng-model="price_calculation" name="price_calculation"
+                                                        ng-value="'wood_engineering_estimation'">
+                                                    Wood Engineering Estimation
+                                                </label>
+                                            </div>
+                                            <div class="col">
+                                                <label>
+                                                    <input type="radio" ng-model="price_calculation" name="price_calculation"
+                                                        ng-value="'precast_engineering_estimation'">
+                                                    Precast Engineering Estimation
+                                                </label>
+                                            </div>
+                                
                                         </div>
-                                        <div class="card-body pt-0 p-0">
-                                            <table class="table custom shadow-none border m-0 table-bordered ">
-                                                <thead class="bg-light">
-                                                    <tr>
-                                                        <th>Enquiry Date</th>
-                                                        <th>Person Contact</th>
-                                                        <th>Type of Project</th>
-                                                        <th>Enquiry Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>@{{ enquiry.enquiry.enquiry_date }}</td>
-                                                        <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
-                                                        <td>@{{ enquiry.project_type  }}</td>
-                                                        <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table> 
+                                        <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                                            @include('admin.enquiry.wizard.wood-estimation')
                                         </div>
-                                        @if(userHasAccess('cost_estimate_index'))
-                                            <div class="container-fluid">
-                                                <br>
-                                                <div class="row m-0">
-                                                    <div class="col">
-                                                        <label>
-                                                            <input type="radio" ng-model="price_calculation" name="price_calculation"
-                                                                ng-value="'wood_engineering_estimation'">
-                                                            Wood Engineering Estimation
-                                                        </label>
-                                                    </div>
-                                                    <div class="col">
-                                                        <label>
-                                                            <input type="radio" ng-model="price_calculation" name="price_calculation"
-                                                                ng-value="'precast_engineering_estimation'">
-                                                            Precast Engineering Estimation
-                                                        </label>
-                                                    </div>
-                                        
-                                                </div>
-                                                <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                                                    @include('admin.enquiry.wizard.wood-estimation')
-                                                </div>
-                                                <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                                                    @include('admin.enquiry.wizard.precast-estimation')
-                                                </div>
-                                            </div>
-                                        @endif
-                                        {{-- view history start--}}
-                                            <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                                                <a class="btn btn-link" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
-                                                {{-- <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a> --}}
-                                                <div id="wood_id"></div>
-                                            </div>
-                                            <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                                                <a class="btn btn-info" ng-click="getHistory('precast')"> <i class="fa fa-eye"> </i> View history </a>
-                                                <a class="btn btn-danger" onclick="$('#precast_id').html('')"> <i class="uil-sync"> </i> Close </a>
-                                                <div id="precast_id"></div>
-                                            </div>
-                                        {{-- view history end--}}
-                                        @if(userRole()->slug == config('global.cost_estimater'))
-                                            <div class="card m-0 my-3 border col-md-9 me-auto">
-                                                <div class="card-body">
-                                                    <small class="btn link"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-                                                        <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        @endif
-                                      
-                                        @include("admin.enquiry.models.cost-estimate-chat-box") 
+                                        <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                                            @include('admin.enquiry.wizard.precast-estimation')
+                                        </div>
                                     </div>
-                                    <!--end card-->
-                                </div> <!-- end col -->
-    
-                            </div> 
+                                @endif
+                                {{-- view history start--}}
+                                    <div class="accordion custom-accordion p-0 my-4" id="custom-accordion-one">
+                                        <div class="card mb-0 border shadow-sm ">
+                                            <div class="card-header " id="costEstimatHistotyBox">
+                                                <h5 class="m-0">
+                                                    <a class="custom-accordion-title align-items-center d-flex collapsed d-block py-1"
+                                                            data-bs-toggle="collapse" href="#costEstimatHistotyBoxAcc"
+                                                            aria-expanded="false" aria-controls="costEstimatHistotyBoxAcc"
+                                                            ng-click="getHistory('wood')"
+                                                            ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                         <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
+                                                        <i class="mdi mdi-chevron-down accordion-arrow"></i>
+                                                    </a>
+                                                    <a class="custom-accordion-title align-items-center d-flex collapsed d-block py-1"
+                                                            data-bs-toggle="collapse" href="#costEstimatHistotyBoxAcc"
+                                                            aria-expanded="false" aria-controls="costEstimatHistotyBoxAcc"
+                                                            ng-click="getHistory('precast')"
+                                                            ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                         <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
+                                                        <i class="mdi mdi-chevron-down accordion-arrow"></i>
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div id="costEstimatHistotyBoxAcc" class="collapse"
+                                                aria-labelledby="costEstimatHistotyBox"
+                                                data-bs-parent="#custom-accordion-one">
+                                                <div class="card-body" style="max-height: 350px;overflow:auto">
+                                                    <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                        <div id="wood_id"></div>
+                                                    </div>
+                                                    <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                        <div id="precast_id"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    {{-- <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                                        <a class="btn btn-link" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
+                                        <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
+                                        <div id="wood_id"></div>
+                                    </div>
+                                    <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                                        <a class="btn btn-info" ng-click="getHistory('precast')"> <i class="fa fa-eye"> </i> View history </a>
+                                        <a class="btn btn-danger" onclick="$('#precast_id').html('')"> <i class="uil-sync"> </i> Close </a>
+                                        <div id="precast_id"></div>
+                                    </div> --}}
+                                {{-- view history end--}}
+                                @if(userRole()->slug == config('global.cost_estimater'))
+                                    <div class="text-end">
+                                        <button class="btn btn-success"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                                            <i class="fa fa-send me-1"></i>  Send a Comments
+                                        </button>
+                                    </div>
+                                @endif
+                              
+                                @include("admin.enquiry.models.cost-estimate-chat-box") 
+                            </div>
                         </div>
                         <!-- container --> 
                     </div> 
@@ -116,21 +143,33 @@
 @endsection
 
 @push('custom-scripts')
-<script>
-
+<script> 
     app.controller('CostEstimateController', function ($scope, $http, $timeout, API_URL) {
-            let enquiryId =  '{{ $enquiry_id }}';
-            $scope.current_user = '{{Admin()->id}}';
-
-            $scope.getHistory = (type)  => {
-                $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
+            let enquiryId           =  '{{ $enquiry_id }}';
+            $scope.current_user     =  '{{Admin()->id}}';
+            $scope.historyStatus    =  true
+            $scope.getHistory       = (type)  => {
+                $scope.historyStatus && $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                     .then(function successCallback(res){
-                        var costId = $(`#${type}_id`);
+                        $scope.historyStatus    =   false
+                        var costId              =   $(`#${type}_id`);
                         $(costId).html('');
+
                         res.data.length && res.data.map((item, key) => {
-                            $(costId).append(`<h4> Version : ${key+1} Date : ${moment(item.created_at).format('YYYY-MM-DD')} </h4>`);
-                            $(costId).append(item.history);
-                            $(costId).append('<hr/>');
+                            $(costId).append(` 
+                                <div class="card">
+                                    <div class="toast-header">
+                                        <strong class="me-auto text-dark">Version : ${key+1}</strong>
+                                        <span>
+                                            <span class="fa fa-calendar text-dark"></span>
+                                            <small>${moment(item.created_at).format('YYYY-MM-DD h:s a')}</small>
+                                        </span>
+                                    </div>
+                                    <div class="toast-body">
+                                        ${item.history}
+                                    </div>
+                                </div>
+                            `); 
                         });
                     }, function errorCallback(error){
                         console.log(error);
