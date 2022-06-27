@@ -85,7 +85,7 @@
         outline: 0 !important;
         text-align: right !important;
         font-size: 12px !important;
-        background: transparent !important;
+        background: transparent ;
     }
     .custom-form-select.form-select {
         padding: 2px 2px 2px 10px !important;
