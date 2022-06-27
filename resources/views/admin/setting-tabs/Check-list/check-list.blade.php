@@ -103,8 +103,8 @@
 </div> 
 
 <style>
-    .checkListTab{
-        color: #727cf5 !important;
-        background-color: rgba(114,124,245,.18) !important;
+    .checkListTab {
+        color: #163269 !important;
+        background-color: #d4e2ff !important;
     }
 </style>

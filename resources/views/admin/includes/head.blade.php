@@ -175,6 +175,10 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
+    }
+    .custom-td * {
+        font-size: 12px !important;
     }
     .custom-row {
         display: inline-flex !important;
@@ -183,6 +187,13 @@
         padding: 0 !important;
         height: 100%;
         width: 100%;
+    }
+    .custom-td select ,
+    .custom-td input {
+        color: black !important
+    }
+    .fa  {
+        cursor: pointer;
     }
     .custom-max-h {
         height: 40px !important;

@@ -125,9 +125,9 @@
                                 <table id="toggle_table_@{{ index }}" class="table custom border shadow-sm table-bordered collapse show">
                                     <thead class="bg-light">
                                         <tr>
-                                            <th class="text-secondary text-center">S.No</th>
-                                            <th class="text-secondary">Component Name</th>
-                                            <th class="text-secondary">Sq. Mt. Estimate</th>
+                                            <th class="text-white text-center">S.No</th>
+                                            <th class="text-white">Component Name</th>
+                                            <th class="text-white">Sq. Mt. Estimate</th>
                                             <th class="text-center" style="padding: 0 !important"> 
                                                 <button type="button" class="btn btn-sm py-0 px-1 rounded bg-primary " ng-click="Add_component(index)"><b><i class="text-white mdi mdi-plus"></i></b></button>
                                             </th>

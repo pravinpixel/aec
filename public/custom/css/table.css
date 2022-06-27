@@ -2,9 +2,9 @@
     vertical-align: middle !important;
     padding: 5px 10px !important;
 }
-.custom.table tr td:nth-child(1) {
+/* .custom.table tr td:nth-child(1) {
     text-align: center !important;
-}
+} */
 
 #ProjectInfo .custom.table tr td:nth-child(1) {
     text-align: left !important;

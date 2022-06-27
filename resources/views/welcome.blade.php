@@ -1105,7 +1105,7 @@
                                         <h4 class="header-title mb-4">Project Status</h4>
 
                                         <div class="my-4 chartjs-chart" style="height: 202px;">
-                                            <canvas id="project-status-chart" data-colors="#0acf97,#727cf5,#fa5c7c"></canvas>
+                                            <canvas id="project-status-chart" data-colors="#0acf97,#163269,#fa5c7c"></canvas>
                                         </div>
 
                                         <div class="row text-center mt-2 py-2">
@@ -1285,7 +1285,7 @@
 
                                         <div dir="ltr">
                                             <div class="mt-3 chartjs-chart" style="height: 320px;">
-                                                <canvas id="task-area-chart" data-bgColor="#727cf5" data-borderColor="#727cf5"></canvas>
+                                                <canvas id="task-area-chart" data-bgColor="#163269" data-borderColor="#163269"></canvas>
                                             </div>
                                         </div>
 
