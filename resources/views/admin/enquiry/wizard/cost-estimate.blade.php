@@ -92,6 +92,7 @@
             <div class="col">
                 <label class="lead">
                     <input type="radio" ng-model="price_calculation" name="price_calculation"
+                    
                         ng-value="'wood_engineering_estimation'" class="form-check-input me-2">
                         Wood Engineering Estimation
                 </label>
@@ -99,6 +100,7 @@
             <div class="col">
                 <label class="lead">
                     <input type="radio" ng-model="price_calculation" name="price_calculation"
+                    
                         ng-value="'precast_engineering_estimation'" class="form-check-input me-2">
                         Precast Engineering Estimation
                 </label>

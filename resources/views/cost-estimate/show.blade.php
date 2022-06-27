@@ -47,17 +47,19 @@
                                 @if(userHasAccess('cost_estimate_index'))
                                     <div class="container-fluid">
                                         <br>
-                                        <div class="row m-0">
+                                        <div class="row m-0  my-3">
                                             <div class="col">
-                                                <label>
+                                                <label class="lead">
                                                     <input type="radio" ng-model="price_calculation" name="price_calculation"
+                                                    class="form-check-input me-2"
                                                         ng-value="'wood_engineering_estimation'">
                                                     Wood Engineering Estimation
                                                 </label>
                                             </div>
                                             <div class="col">
-                                                <label>
+                                                <label class="lead">
                                                     <input type="radio" ng-model="price_calculation" name="price_calculation"
+                                                    class="form-check-input me-2"
                                                         ng-value="'precast_engineering_estimation'">
                                                     Precast Engineering Estimation
                                                 </label>
