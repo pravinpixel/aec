@@ -78,7 +78,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     
     Route::get('get-customer-completed-enquiries',[EnquiryController::class,'getClosedEnquiries'])->name('get-customer-completed-enquiries');
 
-    Route::get('get-active-comments-count',[EnquiryController::class,'getActiveCommentsCount'])->name('get-active-comments-count');
+    Route::get('get-customer-active-comments-count',[EnquiryController::class,'getActiveCommentsCount'])->name('get-customer-active-comments-count');
 
     Route::get('get-document',[EnquiryController::class,'getDocumentById'])->name('get-document');
 

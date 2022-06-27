@@ -86,6 +86,8 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('get-cancelled-enquiries', [EnquiryController::class, 'getCancelledEnquiries'])->name('get-cancelled-enquiries');
     Route::delete('enquiry/{id}/delete', [EnquiryController::class, 'destroy'])->name('enquiry.delete');
     Route::post('update-followup', [EnquiryController::class, 'updateFollowUp'])->name('enquiry.update-followup');
+    Route::get('get-active-comments-count',[EnquiryController::class,'getActiveCommentsCount'])->name('get-active-comments-count');
+
     
 });
 

@@ -89,7 +89,6 @@
 
     function dateFormat(date, format= null)
     {
-        console.log('called');
         dateFormat = (format == null ?  'YYYY-MM-DD' : format);
         return moment(date).format(dateFormat);
     }

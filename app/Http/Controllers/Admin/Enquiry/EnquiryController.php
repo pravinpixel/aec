@@ -564,6 +564,23 @@ class EnquiryController extends Controller
         return response(['status' => false, 'msg' => trans('enquiry.something')]);
     }
 
+    public function getActiveCommentsCount()
+    {
+        $comments = DB::select("
+            select sum(c.total) as count  from (
+                select count(*) as total from aec_propoal_versions 
+                                where status in ('denied','approved','obsolete') 
+                                and enquiry_id in (select id from aec_enquiries ae where project_id is null)
+                union  
+                
+                select count(*) as total from aec_enquiry_proposal 
+                        where status in ('denied','approved','obsolete') 
+                        and enquiry_id in  (select id from aec_enquiries ae where project_id is null)
+            ) as c
+        ")[0];
+        return $comments;
+    }
+
     public function getVersion()
     {
         phpinfo();

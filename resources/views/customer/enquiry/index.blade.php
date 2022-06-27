@@ -485,7 +485,7 @@
             });
 
             $http({
-                url     : '{!! route('get-active-comments-count') !!}',
+                url     : '{!! route('get-customer-active-comments-count') !!}',
                 method: "GET",
             }).then(function (res) {
                 $scope.commentsCount = res.data.count;
