@@ -143,7 +143,11 @@
 <div ng-show="price_calculation == 'wood_engineering_estimation'">
     <a class="btn btn-info" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
     <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
-    <div id="wood_id"></div>
+    <div class="card">
+        <div class="card-body">
+            <div id="wood_id"></div>
+        </div>
+    </div>
 </div>
 <div ng-show="price_calculation == 'precast_engineering_estimation'">
     <a class="btn btn-info" ng-click="getHistory('precast')"> <i class="fa fa-eye"> </i> View history </a>
