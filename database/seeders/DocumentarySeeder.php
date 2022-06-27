@@ -95,7 +95,7 @@ class DocumentarySeeder extends Seeder
         <tr>
             <td>
                 <strong style='font-size: 17px;'>3.2  Duration of offer and confirmation</strong>
-                <p>Offer valid until 14 days from today' date. If they wish to accept the offer we ask that they confirm this in writing by email before the end of this time.</p>
+                <p>Offer valid until 14 days from today date. If they wish to accept the offer we ask that they confirm this in writing by email before the end of this time.</p>
             </td>
         </tr>
         <tr>
