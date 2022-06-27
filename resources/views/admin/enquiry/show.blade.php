@@ -749,15 +749,29 @@
             let enquiryId =  '{{ $data->id }}';
             $scope.current_user = '{{Admin()->id}}';
              
-            $scope.getHistory = (type)  => {
-                $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
+             $scope.historyStatus    =  true
+            $scope.getHistory       = (type)  => {
+                $scope.historyStatus && $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                     .then(function successCallback(res){
-                        var costId = $(`#${type}_id`);
+                        $scope.historyStatus    =   false
+                        var costId              =   $(`#${type}_id`);
                         $(costId).html('');
+
                         res.data.length && res.data.map((item, key) => {
-                            $(costId).append(`<h4> Version : ${key+1} Date : ${moment(item.created_at).format('YYYY-MM-DD')} </h4>`);
-                            $(costId).append(item.history);
-                            $(costId).append('<hr/>');
+                            $(costId).append(` 
+                                <div class="card">
+                                    <div class="toast-header">
+                                        <strong class="me-auto text-dark">Version : ${key+1}</strong>
+                                        <span>
+                                            <span class="fa fa-calendar text-dark"></span>
+                                            <small>${moment(item.created_at).format('YYYY-MM-DD h:s a')}</small>
+                                        </span>
+                                    </div>
+                                    <div class="toast-body">
+                                        ${item.history}
+                                    </div>
+                                </div>
+                            `); 
                         });
                     }, function errorCallback(error){
                         console.log(error);
