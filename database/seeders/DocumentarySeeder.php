@@ -112,7 +112,6 @@ class DocumentarySeeder extends Seeder
         </tr>
         <tr>
             <td>
-              
                 <p>
                     For AEC Prefab AS <br><br>
                     Sincerely,<br>
