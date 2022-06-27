@@ -749,15 +749,15 @@
             let enquiryId =  '{{ $data->id }}';
             $scope.current_user = '{{Admin()->id}}';
              
-            $scope.getHistory = ()  => {
-                $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}`)
+            $scope.getHistory = (type)  => {
+                $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                     .then(function successCallback(res){
-                        $("#history_id").html('');
+                        var costId = $(`#${type}_id`);
+                        $(costId).html('');
                         res.data.length && res.data.map((item, key) => {
-                            console.log(item.history);
-                            $("#history_id").append(`<h4> Version : ${key+1} </h4>`);
-                            $("#history_id").append(item.history);
-                            $("#history_id").append('<hr/>');
+                            $(costId).append(`<h4> Version : ${key+1} Date : ${moment(item.created_at).format('YYYY-MM-DD')} </h4>`);
+                            $(costId).append(item.history);
+                            $(costId).append('<hr/>');
                         });
                     }, function errorCallback(error){
                         console.log(error);
@@ -861,7 +861,7 @@
                 $http({
                     method: "POST",
                     url: "{{ route('enquiry-create.cost-estimate-value') }}",
-                    data:{ enquiry_id: $scope.enquiry_id, data : data, type: type, total : total},
+                    data:{ enquiry_id: $scope.enquiry_id, data : data, type: type, total : total,  history: true, html: $("#wood-cost-estimate").html()},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
                     $scope.getWizradStatus();
@@ -1301,8 +1301,9 @@
                 restrict: 'A',
                 link : function (scope, element, attrs) {
                     element.on('keyup', function () {
-                        let $TotalPriceM2   = 0
-                        let $TotalSum       = 0
+                        $(this).addClass('bg-warning');
+                        let $TotalPriceM2   = 0;
+                        let $TotalSum       = 0;
                         scope.CostEstimate.ComponentsTotals.Dynamics.forEach( (item, index) => {
                             scope.CostEstimate.Components[scope.index].Dynamics[index].Sum  = getNum(((scope.CostEstimate.Components[scope.index].Sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2  ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
                             $TotalPriceM2   += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2);
@@ -1416,6 +1417,7 @@
                     scope.$apply();
                 }
                 element.on('keyup', function () {
+                    $(this).addClass('bg-warning');
                     eventHandle();
                 });
                 element.on('change', function () {

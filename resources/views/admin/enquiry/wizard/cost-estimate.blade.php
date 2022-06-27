@@ -123,10 +123,6 @@
 @endif
 @if(userHasAccess('cost_estimate_add'))
 
-<a class="btn btn-info" ng-click="getHistory()"> <i class="fa fa-eye"> </i> View history </a>
-<a class="btn btn-danger" onclick="$('#history_id').html('')"> <i class="uil-sync"> </i> Close </a>
-<div id="history_id"></div>
-
 <div class="card m-0 my-3 border col-md-9 me-auto">
     <div class="card-body">
         <p class="lead mb-2"> <strong>Assign for verification</strong></p>
@@ -143,7 +139,18 @@
         </small>
     </div>
 </div> 
-
+{{-- view history start--}}
+<div ng-show="price_calculation == 'wood_engineering_estimation'">
+    <a class="btn btn-info" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
+    <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
+    <div id="wood_id"></div>
+</div>
+<div ng-show="price_calculation == 'precast_engineering_estimation'">
+    <a class="btn btn-info" ng-click="getHistory('precast')"> <i class="fa fa-eye"> </i> View history </a>
+    <a class="btn btn-danger" onclick="$('#precast_id').html('')"> <i class="uil-sync"> </i> Close </a>
+    <div id="precast_id"></div>
+</div>
+{{-- view history end --}}
 <div class="card-footer">
     <div class="d-flex justify-content-between">
         <div>

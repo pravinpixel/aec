@@ -149,9 +149,11 @@ class  CostEstimateController extends Controller
         return response(['status' => false]);
     }
 
-    public function getHistory($id)
+    public function getHistory($id, $type)
     {
-        return CostEstimateHistory::where('enquiry_id', $id)->get();
+        return CostEstimateHistory::where('created_by', '!=', Admin()->id)
+                                    ->where(['enquiry_id'=> $id, 'type'=> $type])
+                                    ->get();
     }
 
 }

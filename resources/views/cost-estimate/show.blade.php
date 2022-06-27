@@ -16,7 +16,7 @@
 
                 <!-- end page title -->
                   <!-- Start Content-->
-                  <div id="CostEstimateConroller" class="container-fluid d-none" ng-controller="CostEstimateConroller" >
+                  <div id="CostEstimateController" class="container-fluid d-none" ng-controller="CostEstimateController" >
     
                     <div class="content container-fluid">
                         <div class="main"> 
@@ -75,7 +75,20 @@
                                                 </div>
                                             </div>
                                         @endif
-                        
+                                        {{-- view history start--}}
+                                        <div class="card">
+                                            <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                <a class="btn btn-info" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
+                                                <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
+                                                <div id="wood_id"></div>
+                                            </div>
+                                            <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                <a class="btn btn-info" ng-click="getHistory('precast')"> <i class="fa fa-eye"> </i> View history </a>
+                                                <a class="btn btn-danger" onclick="$('#precast_id').html('')"> <i class="uil-sync"> </i> Close </a>
+                                                <div id="precast_id"></div>
+                                            </div>
+                                        </div>
+                                        {{-- view history end--}}
                                         @if(userRole()->slug == config('global.cost_estimater'))
                                             <div class="card m-0 my-3 border col-md-9 me-auto">
                                                 <div class="card-body">
@@ -106,13 +119,26 @@
 
 @push('custom-scripts')
 <script>
-    $(document).on('keyup','input', function(e){
-        $(this).addClass('bg-warning');
-    });
-    
-    app.controller('CostEstimateConroller', function ($scope, $http, $timeout, API_URL) {
+
+    app.controller('CostEstimateController', function ($scope, $http, $timeout, API_URL) {
             let enquiryId =  '{{ $enquiry_id }}';
             $scope.current_user = '{{Admin()->id}}';
+
+            $scope.getHistory = (type)  => {
+                $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
+                    .then(function successCallback(res){
+                        var costId = $(`#${type}_id`);
+                        $(costId).html('');
+                        res.data.length && res.data.map((item, key) => {
+                            $(costId).append(`<h4> Version : ${key+1} Date : ${moment(item.created_at).format('YYYY-MM-DD')} </h4>`);
+                            $(costId).append(item.history);
+                            $(costId).append('<hr/>');
+                        });
+                    }, function errorCallback(error){
+                        console.log(error);
+                    });
+            }
+
             getUsers = () => {
                 $http.get(`${API_URL}admin/get-costestimate-employee`)
                 .then(function successCallback(res){
@@ -395,7 +421,7 @@
             $http.get(`${API_URL}get-for-cost-estimate`)
             .then((res)=> {
                 $scope.buildingComponents = res.data;
-                $("#CostEstimateConroller").removeClass('d-none');
+                $("#CostEstimateController").removeClass('d-none');
             });
 
             $scope.getNum = (val) => {
@@ -535,6 +561,7 @@
                 restrict: 'A',
                 link : function (scope, element, attrs) {
                     element.on('keyup', function () {
+                        $(this).addClass('bg-warning');
                         let $TotalPriceM2   = 0
                         let $TotalSum       = 0
                         scope.CostEstimate.ComponentsTotals.Dynamics.forEach( (item, index) => {
@@ -650,6 +677,7 @@
                     scope.$apply();
                 }
                 element.on('keyup', function () {
+                    $(this).addClass('bg-warning');
                     eventHandle();
                 });
                 element.on('change', function () {
