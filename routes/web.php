@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\Master\ServiceController;
 use App\Http\Controllers\Admin\Documentary\DocumentaryController;
 use App\Http\Controllers\Admin\Master\RoleController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\PushNotificationController;
 
@@ -266,6 +267,7 @@ Route::post('save-admin-token', [PushNotificationController::class,'storeAdminTo
 Route::get('login',[AuthController::class, 'getLogin'])->name('login');
 Route::post('login',[AuthController::class, 'postLogin'])->name('login');
 Route::post('logout',[AuthController::class, 'Logout'])->name('logout');
+Route::get('signup',[UserController::class, 'getSignUp'])->name('signup');
 
 
 

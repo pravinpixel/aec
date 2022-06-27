@@ -7,5 +7,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    //
+    public function getSignUp()
+    {
+        return view('auth.customer.signup');
+    }
+
+    public function postSignUp(Request $request)
+    {
+        
+    }
+    
 }
