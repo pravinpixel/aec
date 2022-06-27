@@ -80,7 +80,7 @@ Route::get('/approve/{id}/enquiry/{proposal_id}/proposal/{Vid}',[ProposalControl
 Route::post('customer-approval/{id}/approval-type/{type}',[ProposalController::class,'customerApproval'])->name('customer-approval');
 Route::post('proposal-move-to-project/{id}',[ProposalController::class,'moveToProject'])->name('proposal-move-to-project');
 
-Route::group(['prefix' => 'admin'], function(){ 
+Route::group(['prefix' => 'admin', 'middleware'=> 'common'], function(){ 
     Route::get('get-unattended-enquiries', [EnquiryController::class, 'getUnattendedEnquiries'])->name('get-unattended-enquiries');
     Route::get('get-active-enquiries', [EnquiryController::class, 'getActiveEnquiries'])->name('get-active-enquiries');
     Route::get('get-cancelled-enquiries', [EnquiryController::class, 'getCancelledEnquiries'])->name('get-cancelled-enquiries');
