@@ -15895,7 +15895,10 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 }
 
 #wood_id select ,
-#precast_id select {
+#precast_id select,
+#wood_id input ,
+#precast_id input
+{
   pointer-events: none !important;
 }
 
