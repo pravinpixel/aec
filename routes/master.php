@@ -72,6 +72,7 @@ Route::get('precast-estimation', function (){
     return view('admin.setting-tabs.precast-estimation.precast-estimation-list');
 })->name('precast-estimation');
 
+Route::group(['middleware' => 'common'], function(){
 
 Route::get('permission/{id}',  [PermissionController::class,'permission'])->name('permission');
 Route::put('set-permission/{id}',  [PermissionController::class,'setPermission'])->name('setPermission');
@@ -168,5 +169,7 @@ Route::resource('layer', LayerController::class);
 
 
 Route::get('get-customer-layer', [CustomerLayerController::class,'get'])->name('customer-layer.get');
+
+});
 
 
