@@ -15883,8 +15883,10 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 }
 #wood_id .card-header ,
 #precast_id .card-header ,
-#wood_id button,.fa ,
-#precast_id button,.fa ,
+#wood_id button,
+#wood_id .fa ,
+#precast_id button,
+#precast_id .fa ,
 #precast_id .text-end.mt-2 ,
 #wood_id .text-end.mt-2,
 .remove_history 
