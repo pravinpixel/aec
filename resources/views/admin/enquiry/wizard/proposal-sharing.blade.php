@@ -127,7 +127,11 @@
                                                 <proposal-status data="P.status" />
                                             </td>
                                             <td style="width: 28% !important" class="text-info text-center">
-                                                <span>@{{ P.comment }} </span>
+                                                <div class="proposal-comment">
+                                                    <div>
+                                                        @{{ P.comment }}
+                                                    </div> 
+                                                </div>
                                             </td>
                                             <td style="width: 16% !important"class="text-center">
                                                 <small>@{{P.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}} </small>
@@ -176,11 +180,15 @@
                                                             </td>
                                                         
                                                             <td style="width: 28% !important" class="text-info text-center">
-                                                                <span>@{{ V.comment }} </span>
+                                                                <div class="proposal-comment">
+                                                                    <div>@{{ V.comment }} </div>
+                                                                </div>
                                                             </td>
+
                                                             <td style="width: 16% !important" class="text-center">
                                                                 <small>@{{V.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}}</small>
                                                             </td>
+                                                            
                                                             <td style="width: 6% !important" class="text-center"> 
                                                                 <div class="dropdown">
                                                                     <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -276,6 +284,9 @@
 @endif
 @if (Route::is('enquiry.proposal-sharing')) 
     <style>
+        .proposal-comment {
+            max-height:300px; overflow: auto;
+        }
        .admin-Proposal_Sharing-wiz .timeline-step .inner-circle{
             background: var(--secondary-bg) !important;
             transform: scale(1.2);
