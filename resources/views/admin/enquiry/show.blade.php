@@ -751,7 +751,7 @@
              
              $scope.historyStatus    =  true
             $scope.getHistory       = (type)  => {
-                $scope.historyStatus && $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
+                $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                     .then(function successCallback(res){
                         $scope.historyStatus    =   false
                         var costId              =   $(`#${type}_id`);
