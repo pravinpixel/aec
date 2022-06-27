@@ -77,7 +77,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
 
 Route::get('/approve/{id}/enquiry/{proposal_id}/proposal/{Vid}',[ProposalController::class,'approve'])->name('proposal-approve');
 
-Route::get('customer-approval/{id}/approval-type/{type}',[ProposalController::class,'customerApproval'])->name('customer-approval');
+Route::post('customer-approval/{id}/approval-type/{type}',[ProposalController::class,'customerApproval'])->name('customer-approval');
 Route::post('proposal-move-to-project/{id}',[ProposalController::class,'moveToProject'])->name('proposal-move-to-project');
 
 Route::group(['prefix' => 'admin'], function(){ 

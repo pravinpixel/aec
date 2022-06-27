@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin\Enquiry;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\MailTemplate;
-use App\Mail\ProposalVersions;
-use App\Models\Admin\PropoalVersions;
+use App\Models\Admin\PropoalVersions as ProposalVersions;
 use App\Models\Enquiry;
 use App\Repositories\CustomerEnquiryRepository;
 use Illuminate\Http\Response;
@@ -90,50 +89,58 @@ class ProposalController extends Controller
     }
     public function customerApproval(Request $request, $id, $type)
     {
-        
-        $enquiry = Enquiry::find($id);
-        $proposal_id    =   Crypt::decryptString($request->input('pid'));
-        $version_id    =   Crypt::decryptString($request->input('vid'));
-        if($type == 0) {
+        $enquiry_id  = $id;
+        $proposal_id = Crypt::decryptString($request->input('pid'));
+        $version_id  = Crypt::decryptString($request->input('vid'));
+        $comment    = $request->input('comment');
+        $enquiry     = Enquiry::find($enquiry_id);
+        if($type == 'change_request' || $type == 'deny') {
             $enquiry->project_status = "Unattended";
             $enquiry->customer_response = 2;
-            $enquiry->save(); 
-            $this->addComment($id, $request); 
-            Flash::success('Proposal successfully Dined!');
-            return redirect()->route('login');
+            $enquiry->proposal_sharing_status = 0;
+            $enquiry->save();
+            $other = [
+                'proposal_id' => $proposal_id,
+                'version_id'  => $version_id,
+                'comment'     => $comment
+            ];
+            $this->addComment($enquiry_id, $other, $type);
+            return response(['status' => true, 'msg' => ($type == 'deny' ? __('enquiry.denied') : __('enquiry.change_request') )]);
         } 
-        if($type == 1){ 
+        if($type == 'approve'){ 
             $enquiry->project_status = "Active";
             $enquiry->customer_response = 1;
             $enquiry->save();
-            MailTemplate::where('enquiry_id', $id)->update(['proposal_status' => 'obsolete']);
-            PropoalVersions::where('enquiry_id', $id)->update(['proposal_status' => 'obsolete']);      
-            if( $version_id  != 0)    {
-                 PropoalVersions::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id, 'id' => $version_id])
-                                ->update(['proposal_status' => 'approved']);  
+            MailTemplate::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);
+            ProposalVersions::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);      
+            if( $version_id  != 0)  {
+                ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id' => $version_id])
+                                ->update(['proposal_status' => 'approved','status' => 'approved']);  
             } else {
-                MailTemplate::where(['enquiry_id'=> $id, 'proposal_id'=> $proposal_id])
-                                ->update(['proposal_status' => 'approved']);
+                MailTemplate::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id])
+                                ->update(['proposal_status' => 'approved','status' => 'approved']);
             }           
-            Flash::success('Proposal successfully approved!');
-            return redirect()->route('login');
+            return response(['status' => true, 'msg' => __('enquiry.approved')]);
         }
     }
 
-    public function addComment($enquiry_id, $request)
+    public function addComment($enquiry_id, $other, $type)
     {
-        $proposal_id    =   Crypt::decryptString($request->input('pid'));
-        $version_id     =   Crypt::decryptString($request->input('vid'));
-        $comment        =   $request->input('proposal_comments');
+        $proposal_id = $other['proposal_id'];
+        $version_id  = $other['version_id'];
+        $comment     = $other['comment'];
+        $type           =   $type == 'deny' ? 'denied' : 'change_request';
         if($version_id == 0) {
             $proposal = MailTemplate::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id])->first();
             $proposal->comment = $comment;
-            $proposal->proposal_status = 'denied';
+            $proposal->proposal_status = $type;
+            $proposal->status = $type;
             $proposal->save();
         } else {
-            $proposalVersion = PropoalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id'=>  $version_id])->first();
+            $proposalVersion = ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'proposal_id'=> $proposal_id, 'id'=>  $version_id])->first();
             $proposalVersion->comment = $comment;
-            $proposalVersion->proposal_status = 'denied';
+            $proposalVersion->proposal_status = $type;
+            $proposalVersion->status = $type;
             $proposalVersion->save();
         }
     }

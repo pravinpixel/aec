@@ -35,4 +35,5 @@
         <!--  Footer Scripts  -->
         @include('admin.includes.footer-scripts') 
     </body>
+    @stack('custom-scripts')
 </html>
