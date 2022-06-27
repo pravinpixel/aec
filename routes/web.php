@@ -195,7 +195,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 });
  
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'admin'], function(){ 
     
     Route::get('getEnquiryNumber', [EnquiryController::class,'getEnquiryNumber'])->name('getEnquiryNumber');
     Route::resource('customer', CustomerController::class);
@@ -220,10 +220,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 
 Route::get('admin/calculate-cost-estimation', function () {
     return view('admin.calculate-cost-estimate.calculation');
-})->name('enquiry.calculate-cost-estimation');
+})->middleware('common')->name('enquiry.calculate-cost-estimation');
 
 //Calculator
-Route::group(['prefix' => 'admin/calculate-cost-estimate', 'as' => 'admin.calculate-cost-estimate.'], function(){
+Route::group(['prefix' => 'admin/calculate-cost-estimate', 'as' => 'admin.calculate-cost-estimate.', 'middleware'=> 'common'], function(){
     Route::post('costEstimationSingleForm', [CostEstimationController::class,'costEstimationSingleForm'])->name('costEstimationSingleForm');
     Route::get('costEstimationEdit', [CostEstimationController::class,'costEstimationEdit'])->name('costEstimationEdit');
     Route::get('estimate/list', [CostEstimationController::class, 'getEstimate'])->name('estimate.list');
