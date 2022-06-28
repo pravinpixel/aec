@@ -123,6 +123,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
  
 });
 
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
+    
+    Route::get('customer/datatable', [CustomerController::class, 'datatable'])->name('customer.datable');
+    Route::put('customer/{id}/status', [CustomerController::class, 'status'])->name('customer.status');
+    Route::resource('customer', CustomerController::class);
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
 
