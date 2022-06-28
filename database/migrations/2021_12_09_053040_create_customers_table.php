@@ -23,6 +23,10 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->string('password_view')->nullable();
             $table->string('mobile_no')->nullable();
+            $table->string('phone_no')->nullable();
+            $table->string('invoice_email')->nullable();
+            $table->string('fax')->nullable();
+            $table->string('website')->nullable();
             $table->string('company_name')->nullable();
             $table->string('contact_person')->nullable();
             $table->string('state')->nullable();
@@ -34,8 +38,8 @@ class CreateCustomersTable extends Migration
             $table->boolean('is_active')->default(true);
             $table->string('bim_id')->nullable();
             $table->string('bim_account_id')->nullable();
-            $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->string('device_token')->nullable();
             $table->integer('notification')->default(0);
             $table->rememberToken();

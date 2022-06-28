@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Customer extends Model
+use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Customer extends Authenticatable
 {
     use HasFactory;
     protected $dates  = [
@@ -13,6 +14,11 @@ class Customer extends Model
             'updated_at', 
             'enquiry_date'
     ];
+
+    protected $hidden = [
+        'password'
+    ];
+
     protected $fillable = [
         'customer_enquiry_date',
         'customer_enquiry_no',
@@ -23,6 +29,10 @@ class Customer extends Model
         'email',
         'password',
         'mobile_no',
+        'phone_no',
+        'invoice_email',
+        'fax',
+        'website',
         'company_name',
         'organization_no',
         'contact_person',
@@ -39,6 +49,13 @@ class Customer extends Model
         'bim_id',
         'bim_account_id'
     ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+        $this->attributes['full_name'] = "{$this->attributes['first_name']} {$this->attributes['last_name']}";
+    }
+
 
     public function getContactPersonAttribute($value)
     {

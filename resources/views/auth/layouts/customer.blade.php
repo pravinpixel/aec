@@ -5,7 +5,7 @@
 </head>
         
     <!-- Begin page -->
-    <div class="wrapper">
+    <div class="wrapper" ng-app="App">
 
         <!-- ========== Left Sidebar Start ========== -->
         <!--========== Left Sidebar End ========== -->
@@ -21,5 +21,5 @@
     </div>
 
 </html>
-<script src="{{ asset('public/assets/js/vendor.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/app.min.js') }}"></script>
+@include('customer.includes.footer-scripts')
+@stack('custom-scripts')

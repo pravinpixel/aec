@@ -13,7 +13,7 @@
                             </div>
                         </div>
                         <div class="card-body p-4"> 
-                            <form class="form-horizontal" method="post" action="{{ route('login') }}">
+                            <form class="form-horizontal" method="post" action="{{ route('signup') }}">
                                 @csrf
                                 <h4> Create Account</h4>
                                 <div class="my-3">
@@ -43,7 +43,7 @@
                                     <button class="btn btn-info fw-bold w-100" type="submit"> Sign Up </button>
                                 </div>
                                 <div class="text-center mt-3">
-                                    Already have a account ? <a href="" class="text-info">Sign In </a>
+                                    Already have a account ? <a href="{{ route('login') }}" class="text-info">Sign In </a>
                                 </div> 
                             </form>
                         </div> <!-- end card-body -->

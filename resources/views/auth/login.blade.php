@@ -135,7 +135,7 @@
                                             Forget password ?  
                                         </div> 
                                         <div class=" mb-0 text-center">
-                                            <button class="btn btn-info  w-100" type="submit"> Create Account </button>
+                                            <a class="btn btn-info  w-100" href="{{ route('signup') }}"> Create Account </a>
                                         </div>
                                     </form>
                                 </div> <!-- end card-body -->
