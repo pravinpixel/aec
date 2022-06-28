@@ -4,7 +4,7 @@
 <head>
      
 <meta charset="utf-8" />
-<title> AEC Prefab | Login</title>
+<title> AEC Prefab | Sign in</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
 <meta content="Coderthemes" name="author" />
@@ -108,7 +108,7 @@
         
                                     <form class="form-horizontal" method="post" action="{{ route('login') }}">
                                         @csrf
-                                        <h4 class="text-dark-50 bg-light p-2 text-center text-primary  mb-3"> <i class="fa fa-user"></i> Login</h4>
+                                        <h4 class="text-dark-50 bg-light p-2 text-center text-primary  mb-3"> <i class="fa fa-user"></i> Sign in</h4>
         
         
                                         <div class="mb-3">
@@ -129,9 +129,14 @@
                                         </div>
         
                                         <div class="  mb-0 text-center">
-                                            <button class="btn btn-primary  w-100" type="submit"> Log In </button>
+                                            <button class="btn btn-outline-primary  w-100" type="submit"> Sign  In </button>
                                         </div>
-        
+                                        <div class="text-center my-3">
+                                            Forget password ?  
+                                        </div> 
+                                        <div class=" mb-0 text-center">
+                                            <button class="btn btn-info  w-100" type="submit"> Create Account </button>
+                                        </div>
                                     </form>
                                 </div> <!-- end card-body -->
                             </div>

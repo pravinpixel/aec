@@ -39,11 +39,11 @@
                                     {{-- <a href="#" class="text-muted float-end"><small>Forgot your password?</small></a> --}}
                                 </div> 
 
-                                <div class="  mb-0 text-center">
+                                <div class="mb-0 text-center">
                                     <button class="btn btn-info fw-bold w-100" type="submit"> Sign Up </button>
                                 </div>
                                 <div class="text-center mt-3">
-                                    Already have a account ? <a href="" class="text-info">Forget Password ?</a>
+                                    Already have a account ? <a href="" class="text-info">Sign In </a>
                                 </div> 
                             </form>
                         </div> <!-- end card-body -->
