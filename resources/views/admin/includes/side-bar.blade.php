@@ -149,8 +149,8 @@
             </li>
             @endif
             @if(userHasAccess('customer_detail_index'))
-            <li class="side-nav-item ">
-                <a href="#" class="side-nav-link">
+            <li class="side-nav-item {{ Route::is(["admin.customer.index","admin.customer.edit"]) ? "menuitem-active" : ""}}">
+                <a href="{{ route('admin.customer.index') }}" class="side-nav-link">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <span> Customer Details </span>
                 </a> 

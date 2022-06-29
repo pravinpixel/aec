@@ -28,6 +28,7 @@ return [
     'enquiry'                     => 'Enquiry',
     'view_edit'                   => 'View / Edit',
     'popup_move_to_cancel'        => 'Are you sure to cancel this enquiry \':enquiry_no\'?',
+    'inactive_customer'           => 'Are you sure to in-active this customer \':customer\'?',
     'popup_delete_enquiry'        => 'Are you sure to delete this enquiry \':enquiry_no\'?',
     'popup_move_cancel_to_active' => 'Are you sure to active this enquiry \':enquiry_no\'?',
     'approve'                     => 'Approve',

@@ -67,7 +67,7 @@ class AuthCustomerController extends Controller
             'organization_no' => 'required',
             'fax'             => 'max:8',
             'phone_no'        => 'max:15',
-            'mobile_no'       => 'required|regex:/^([0-9\s\-\+\(\)]*)$/'
+            'mobile_no'       => ['required','regex:/^\d{8}$|^\d{12}$/']
         ]);
         $id = decrypt($id);
         $customer                  = Customer::findOrFail( $id );

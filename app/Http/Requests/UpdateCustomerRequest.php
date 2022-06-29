@@ -28,10 +28,17 @@ class UpdateCustomerRequest extends FormRequest
             'company_name'    => 'required',
             'organization_no' => 'required',
             'contact_person'  => 'required',
-            'mobile_number'   => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'mobile_number'   => ['required','regex:/^\d{8}$|^\d{12}$/'],
             'email'           => ['required', 'unique', Rule::unique('customers')->ignore($this->enquiry, 'id')],
             'enquiry_date'    => 'required',
             'user_name'       => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'mobile_number.regex' => 'Enter digits between 8 to 12'
         ];
     }
 }

@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCustomerRequest;
 use App\Http\Requests\CustomerProfileRequest;
+use App\Http\Requests\UpdateCustomerDetailRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -62,7 +65,8 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customer =   Customer::findOrFail($id);
+        return view('admin.customer.edit', compact('customer'));
     }
 
     /**
@@ -72,9 +76,39 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCustomerDetailRequest $request, $id)
     {
-        //
+        $customer                  = Customer::findOrFail($id);
+        $customer->first_name      = $request->input('first_name');
+        $customer->last_name       = $request->input('last_name');
+        $customer->company_name    = $request->input('company_name');
+        $customer->organization_no = $request->input('organization_no');
+        $customer->fax             = $request->input('fax');
+        $customer->phone_no        = $request->input('phone_no');
+        $customer->mobile_no       = $request->input('mobile_no');
+        $customer->website         = $request->input('website');
+        $customer->email           = $request->input('email');
+        $customer->invoice_email   = $request->input('invoice_email');
+        $customer->is_active       = true;
+        if ($request->password) {
+            $validator = Validator::make($request->all(), [
+                'password' => 'min:8',
+            ]);
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            $customer->password   = $request->input('password');
+        }
+        $result                    = $customer->save();
+        if($result) {
+            Flash::success(__('global.updated'));
+            return redirect(route('admin.customer.index'));
+        }
+        Flash::error(__('global.something'));
+        return redirect(route('admin.customer.index'));
     }
 
     /**
@@ -114,17 +148,43 @@ class CustomerController extends Controller
         return redirect(route('customers-dashboard'));
     }
 
-    public function datatable(Request $request)
+    public function inActiveDatatable(Request $request)
     {
-
         if ($request->ajax() == true) {
-         
-            $dataDb = Customer::query();
+            $dataDb = Customer::where('is_active',0);
             return DataTables::eloquent($dataDb)
                     ->editColumn('is_active', function($dataDb){
+                        $status = '';
                         if($dataDb->is_active == 0){
                             $status = '<small class="px-1 bg-danger text-white rounded-pill text-center">In active</small>';
                         }
+                        return $status;
+                    })
+                    ->addColumn('action', function($dataDb){
+                        return '
+                                <div class="dropdown">
+                                    <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
+                                    </div>
+                                    
+                                </div>
+                            ';
+                    })
+                    ->rawColumns(['action', 'is_active'])
+                    ->make(true);
+        }
+    }
+
+    public function activeDatatable(Request $request)
+    {
+        if ($request->ajax() == true) {
+            $dataDb = Customer::where('is_active',1);
+            return DataTables::eloquent($dataDb)
+                    ->editColumn('is_active', function($dataDb){
+                        $status = '';
                         if($dataDb->is_active == 1){
                             $status = '<small class="px-1 bg-success text-white rounded-pill text-center">Active</small>';
                         }
@@ -137,7 +197,8 @@ class CustomerController extends Controller
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Enquiry" data-title="'.trans('Change status',['enquiry_no' => $dataDb->id]).'" data-action="'.route('admin.customer.status',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.active').'</a>
+                                        <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Inactive Customer" data-title="'.trans('enquiry.inactive_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.status',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Inactive</a>
                                     </div>
                                 </div>
                             ';
@@ -151,6 +212,11 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $customer->is_active = !$customer->is_active;
-        return $customer->save();
+        if($customer->save()) {
+            Flash::success(__('global.updated'));
+            return redirect(route('admin.customer.index'));
+        }
+        Flash::error(__('global.something'));
+        return redirect(route('admin.customer.index'));
     }
 }

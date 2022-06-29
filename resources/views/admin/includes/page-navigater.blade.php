@@ -28,7 +28,9 @@
                         @if (Route::is('list-projects')) List Projects @endif                
                         @if (Route::is('create-projects')) Create Projects @endif         
                         @if (Route::is('enquiry.calculate-cost-estimation')) Price Calculation @endif         
-                        @if (Route::is('cost-estimate.show') || Route::is('cost-estimate.dashboard')) Cost Estimate @endif         
+                        @if (Route::is('admin.customer.index')) Customers @endif         
+                        @if (Route::is('admin.customer.edit')) Edit Customer @endif  
+                           
                     </li>
                     @if (Route::is('view-enquiry')) 
                         <li class="breadcrumb-item">
@@ -61,6 +63,8 @@
                 @if (Route::is('list-projects')) List Projects @endif                
                 @if (Route::is('create-projects')) Create Projects @endif               
                 @if (Route::is('cost-estimate.show') || Route::is('cost-estimate.dashboard')) Cost Estimate @endif         
+                @if (Route::is('admin.customer.index')) Customers @endif           
+                @if (Route::is('admin.customer.edit')) Edit Customer @endif           
             </h4>
         </div>
     </div>

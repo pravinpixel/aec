@@ -124,8 +124,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
-    
-    Route::get('customer/datatable', [CustomerController::class, 'datatable'])->name('customer.datable');
+    Route::get('customer/inactive-datatable', [CustomerController::class, 'inActiveDatatable'])->name('customer.inactive-datatable');
+    Route::get('customer/active-datatable', [CustomerController::class, 'activeDatatable'])->name('customer.active-datatable');
     Route::put('customer/{id}/status', [CustomerController::class, 'status'])->name('customer.status');
     Route::resource('customer', CustomerController::class);
 });
