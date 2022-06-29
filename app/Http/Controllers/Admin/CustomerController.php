@@ -7,9 +7,12 @@ use App\Http\Requests\CreateCustomerRequest;
 use App\Http\Requests\CustomerProfileRequest;
 use App\Http\Requests\UpdateCustomerDetailRequest;
 use App\Models\Customer;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
@@ -101,6 +104,17 @@ class CustomerController extends Controller
                     ->withInput();
             }
             $customer->password   = $request->input('password');
+            try {
+                $details = [
+                    'title'      => 'Reset Password',
+                    'password'   => $request->input('password'),
+                    'url'        => route('login'),
+                    'first_name' => $customer->first_name ?? ''
+                ];
+                Mail::to($customer->email)->send(new \App\Mail\UpdateCustomerMail($details));
+            }catch (Exception $ex){
+                Log::info($ex->getMessage());
+            }
         }
         $result                    = $customer->save();
         if($result) {
@@ -120,8 +134,12 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         $customer = Customer::findOrFail($id);
-        $customer->destroy();
-        return false;
+        if($customer->delete()) {
+            Flash::success(__('global.deleted'));
+            return redirect(route('admin.customer.index'));
+        }
+        Flash::error(__('global.something'));
+        return redirect(route('admin.customer.index'));
     }
 
     public function getLoginCustomer()
@@ -142,7 +160,7 @@ class CustomerController extends Controller
         $id = Customer()->id;
         $data = $request->except(['_token','_method']);
         $customer = Customer::find($id)->update($data);
-        if($customer ) {
+        if($customer) {
             Flash::info(__('global.updated'));
         }
         return redirect(route('customers-dashboard'));
@@ -168,6 +186,7 @@ class CustomerController extends Controller
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.delete_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                                     </div>
                                     
                                 </div>
@@ -199,6 +218,7 @@ class CustomerController extends Controller
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
                                         <a type="button" class="dropdown-item delete-modal" data-header-title="Inactive Customer" data-title="'.trans('enquiry.inactive_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.status',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Inactive</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.delete_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                                     </div>
                                 </div>
                             ';
