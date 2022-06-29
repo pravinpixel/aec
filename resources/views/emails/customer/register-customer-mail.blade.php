@@ -9,13 +9,13 @@
     <p>You will be able to update your preferences at anytime</p>
     <br>
     <br>
-    <center> 
-        <p> See you soon </p> 
-   
-        <p> <b> AEC Prefab AS </b> </p>
-    </center>
-    <center> 
-        <a  class="button button-primary" href="{{ $details['route'] }}"> Sign me up</a>
-    </center>
+  
+    <p>See you soon </p>
+    <br>
+    <p>AEC Prefab AS</p>
+  
+    @component('mail::button', ['url' => $details['route']])
+        Sign me up
+    @endcomponent
 </div>
 @endcomponent

@@ -54,7 +54,7 @@ class AuthCustomerController extends Controller
     {
         $id = decrypt($id);
         $customer                  = Customer::findOrFail( $id );
-        $data['id'] = $id;
+        $data['id'] = encrypt($id);
         $data['email'] = $customer->email;
         $data['mobile_no'] = $customer->mobile_no;
         return view('auth.customer.company-info', compact('data'));

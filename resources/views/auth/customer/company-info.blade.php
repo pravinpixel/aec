@@ -15,7 +15,7 @@
                         <h4> Company Information</h4>
                         <div class="my-3 col-md-6">
                             <label for="company_name" class="form-label text-secondary">Company Name <span class="text-danger">*</span></label>
-                            <input type="text"  name="company_name" id="validationCustom01" class="form-control"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(company_name)" ng-model="company_name" />
+                            <input type="text"  name="company_name" id="validationCustom01" class="form-control" value={{ old('company_name') }} placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(company_name)" ng-model="company_name" />
                             <datalist id="companyList">
                                 <option ng-click="getCompanyByName(company_name)" ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
                             </datalist>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="my-3 col-md-6">
                             <label for="organization_no" class="form-label text-secondary">Organization Number <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="organization_no" id="organization_no" required placeholder="Enter organization number">
+                            <input class="form-control" type="text" name="organization_no" value={{ old('organization_no') }} id="organization_no" required placeholder="Enter organization number">
                             @if($errors->has('organization_no'))
                                 <span class="text-danger my-2">{{ $errors->first('organization_no') }}</span>
                             @endif
@@ -33,21 +33,21 @@
                         <h4> Contact Information</h4>
                         <div class="my-3 col-md-6">
                             <label for="phone_no" class="form-label text-secondary">Phone</label>
-                            <input class="form-control" type="text" name="phone_no" id="phone_no"  placeholder="Enter phone no">
+                            <input class="form-control" type="text" name="phone_no" id="phone_no" value={{ old('phone_no') }}  placeholder="Enter phone no">
                             @if($errors->has('phone_no'))
                                 <span class="text-danger my-2">{{ $errors->first('phone_no') }}</span>
                             @endif
                         </div> 
                         <div class="my-3 col-md-6">
                             <label for="mobile_no" class="form-label text-secondary">Mobile no <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="mobile_no" id="mobile_no"  required placeholder="Enter mobile no">
+                            <input class="form-control" type="text" name="mobile_no" id="mobile_no" value={{ old('mobile_no') }}  required placeholder="Enter mobile no">
                             @if($errors->has('mobile_no'))
                                 <span class="text-danger my-2">{{ $errors->first('mobile_no') }}</span>
                             @endif
                         </div> 
                         <div class="my-3 col-md-6">
                             <label for="fax" class="form-label text-secondary">Fax</label>
-                            <input class="form-control" type="text" name="fax" id="fax"  placeholder="Enter fax">
+                            <input class="form-control" type="text" name="fax" id="fax" value={{ old('fax') }}   placeholder="Enter fax">
                             @if($errors->has('fax'))
                                 <span class="text-danger my-2">{{ $errors->first('fax') }}</span>
                             @endif
@@ -61,7 +61,7 @@
                         </div> 
                         <div class="my-3 col-md-6">
                             <label for="invoice_email" class="form-label text-secondary">Invoice Email</label>
-                            <input class="form-control" type="email" name="invoice_email" id="invoice_email"  placeholder="Enter invoice email address">
+                            <input class="form-control" type="email" name="invoice_email" value={{ old('invoice_email') }}  id="invoice_email"  placeholder="Enter invoice email address">
                         </div> 
                         <div class="my-3 col-md-6">
                             <label for="website" class="form-label text-secondary">Website</label>

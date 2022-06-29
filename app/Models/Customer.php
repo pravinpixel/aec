@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
+
 class Customer extends Authenticatable
 {
     use HasFactory;
@@ -52,7 +54,7 @@ class Customer extends Authenticatable
 
     public function setPasswordAttribute($password)
     {
-        $this->attributes['password'] = bcrypt($password);
+        $this->attributes['password'] = Hash::make($password);
         $this->attributes['full_name'] = "{$this->attributes['first_name']} {$this->attributes['last_name']}";
     }
 
