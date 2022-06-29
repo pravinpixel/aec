@@ -34,7 +34,6 @@ class UpdateCustomerDetailRequest extends FormRequest
             'website'         => 'max:50',
             'mobile_no'       => ['required','regex:/^\d{8}$|^\d{12}$/'],
             'email'           => ['required',  Rule::unique('customers')->ignore($this->customer)],
-            'invoice_email'   => 'email'
         ];
     }
 

@@ -58,7 +58,7 @@ class Customer extends Authenticatable
         $this->attributes['password'] = Hash::make($password);
         $this->attributes['full_name'] = "{$this->attributes['first_name']} {$this->attributes['last_name']}";
     }
-
+    
 
     public function getContactPersonAttribute($value)
     {
