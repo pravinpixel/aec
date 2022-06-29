@@ -28,7 +28,8 @@ class AuthCustomerController extends Controller
             'password'   => ['required','min:8']
         ]);
         try {
-            $insert = Customer::create(request(['first_name', 'last_name', 'email', 'password']));
+            $customerData = array_merge(request(['first_name', 'last_name', 'email', 'password']),['is_active'=> false]);
+            $insert = Customer::create($customerData);
             if($insert) {
                 $customer = Customer::find($insert->id);
                 $details = [
@@ -77,6 +78,7 @@ class AuthCustomerController extends Controller
         $customer->fax             = $request->fax;
         $customer->website         = $request->website;
         $customer->invoice_email   = $request->invoice_email;
+        $customer->is_active       = true;
         if($customer->save()) {
             Flash::success(__('setup completed successfully'));
             return redirect(route('login'));

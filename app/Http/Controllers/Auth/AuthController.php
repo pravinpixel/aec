@@ -20,7 +20,8 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         try {
-            if (Auth::guard('customers')->attempt($request->only(['email','password']), false)) {
+            $requestInput = array_merge($request->only(['email','password']),['is_active'=> true]);
+            if (Auth::guard('customers')->attempt(($requestInput), false)) {
                 Flash::success( __('auth.login_successful'));
                 return redirect()->route('customers-dashboard');
             } else if (Auth::attempt($request->only(['email','password']), false)) {
