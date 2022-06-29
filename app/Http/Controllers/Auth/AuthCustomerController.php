@@ -21,13 +21,13 @@ class AuthCustomerController extends Controller
 
     public function postSignUp()
     {
+        $this->validate(request(), [
+            'first_name' => 'required',
+            'last_name'  => 'required',
+            'email'      => 'required|unique:customers|email',
+            'password'   => ['required','min:8']
+        ]);
         try {
-            $this->validate(request(), [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required'
-            ]);
             $insert = Customer::create(request(['first_name', 'last_name', 'email', 'password']));
             if($insert) {
                 $customer = Customer::find($insert->id);
@@ -66,8 +66,7 @@ class AuthCustomerController extends Controller
             'organization_no' => 'required',
             'fax'             => 'max:8',
             'phone_no'        => 'max:15',
-            'mobile_no'       => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'invoice_email'   => 'unique:customers|email'
+            'mobile_no'       => 'required|regex:/^([0-9\s\-\+\(\)]*)$/'
         ]);
         $id = decrypt($id);
         $customer                  = Customer::findOrFail( $id );
