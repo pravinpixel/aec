@@ -217,7 +217,6 @@ class CustomerController extends Controller
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Inactive Customer" data-title="'.trans('enquiry.inactive_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.status',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Inactive</a>
                                         <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.cancel_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel</a>
                                     </div>
                                 </div>
