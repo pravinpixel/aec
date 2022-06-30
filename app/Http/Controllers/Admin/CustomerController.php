@@ -186,7 +186,7 @@ class CustomerController extends Controller
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.delete_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.cancel_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel</a>
                                     </div>
                                     
                                 </div>
@@ -218,7 +218,33 @@ class CustomerController extends Controller
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
                                         <a type="button" class="dropdown-item delete-modal" data-header-title="Inactive Customer" data-title="'.trans('enquiry.inactive_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.status',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Inactive</a>
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.delete_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.cancel_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel</a>
+                                    </div>
+                                </div>
+                            ';
+                    })
+                    ->rawColumns(['action', 'is_active'])
+                    ->make(true);
+        }
+    }
+
+    public function cancelDatatable(Request $request)
+    {
+        if ($request->ajax() == true) {
+            $dataDb = Customer::onlyTrashed();
+            return DataTables::eloquent($dataDb)
+                    ->editColumn('is_active', function($dataDb){
+                        $status = '<small class="px-1 bg-danger text-white rounded-pill text-center">Cancel</small>';
+                        return $status;
+                    })
+                    ->addColumn('action', function($dataDb){
+                        return '
+                                <div class="dropdown">
+                                    <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Customer" data-title="'.trans('enquiry.active_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.activate',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Activate</a>
                                     </div>
                                 </div>
                             ';
@@ -232,6 +258,19 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $customer->is_active = !$customer->is_active;
+        if($customer->save()) {
+            Flash::success(__('global.updated'));
+            return redirect(route('admin.customer.index'));
+        }
+        Flash::error(__('global.something'));
+        return redirect(route('admin.customer.index'));
+    }
+
+    public function activate($id)
+    {
+        $customer = Customer::onlyTrashed($id)->first();
+        $customer->is_active = 0;
+        $customer->deleted_at = null;
         if($customer->save()) {
             Flash::success(__('global.updated'));
             return redirect(route('admin.customer.index'));
