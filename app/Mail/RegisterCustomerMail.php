@@ -29,7 +29,7 @@ class RegisterCustomerMail extends Mailable
     public function build()
     {
         return $this->from(config('global.mail_from_address'))
-                    ->subject(env('APP_NAME')."- Confirm Your Subscription")
+                    ->subject(env('APP_NAME')." - Confirm Your Subscription")
                     ->markdown('emails.customer.register-customer-mail')
                     ->with('details', $this->details);
     }
