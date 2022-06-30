@@ -27,10 +27,10 @@ class Bim360ApiHelper
    private $base_url = "https://developer.api.autodesk.com/";
    //https://developer.api.autodesk.com/bim360/admin/v1/projects/:projectId/users
    // elaa1979@gmail.com
-   private $clientId = "IfdrLycmddlSDu3eqp6w7slWEWA9QJU2";
-   private $clientSecret = "MgUWGuSzFRDJBccQ";
-   private $accountid = "1103d29f-48cf-4823-becb-a57fd30a237e";
-   private $hubid = "b.1103d29f-48cf-4823-becb-a57fd30a237e";
+   private $clientId = "4GbgakwkXGUfnnvVuCGkOb406wGf7wxZ";
+   private $clientSecret = "BS9FPlctpIFyL3PA";
+   private $accountid = "12474028-b4c3-4b61-b518-4d5034341db0";
+   private $hubid = "b.12474028-b4c3-4b61-b518-4d5034341db0";
 
    // private $clientId = "tAY4ATBA78LG9PZG3geOW7cbDyxs4JGR";
    // private $clientSecret = "8fWzMPGVZH5bGfC6";

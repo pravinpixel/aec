@@ -77,7 +77,7 @@
                             <small>* Project Type</small>
                             <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="bim_project_type" ng-model="project.bim_project_type" required>
                                 <option value="">@lang('project.select') </option>
-                                <option ng-repeat="projectType in projectTypes" value="@{{ projectType }}" >
+                                <option ng-repeat="projectType in projectTypes" value="@{{ projectType }}">
                                     @{{ projectType }}
                                 </option>
                             </select>

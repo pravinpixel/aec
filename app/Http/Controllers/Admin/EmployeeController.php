@@ -93,7 +93,7 @@ class EmployeeController extends Controller
         $res = $module->save();
      
         if($res){
-            //$this->createBimUser($module);
+            $this->createBimUser($module);
         }
         $id = $module->id;
         $data = new EmployeeSharePointAcess();
@@ -607,7 +607,7 @@ class EmployeeController extends Controller
         $input        = [];
         $api          = new  Bim360UsersApi();
         $input["email"]      = $employee->email;
-        $input["company_id"] = config('project.bim.default_company');
+        // $input["company_id"] = config('project.bim.default_company');
         $input["nickname"]   = $employee->first_Name;
         $input["first_name"] = $employee->first_Name;
         $input["last_name"]  = $employee->last_name;
@@ -618,6 +618,7 @@ class EmployeeController extends Controller
             $createJson = json_encode($input);
             $result = $api->createUser($createJson);
         }
+
         Log::info("result {$result}");
         $response = json_decode($result);
         $employee->bim_id =  $response->id;

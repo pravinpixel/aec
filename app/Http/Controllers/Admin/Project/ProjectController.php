@@ -466,9 +466,9 @@ class ProjectController extends Controller
         } else if($type == 'review_and_submit') {
             $connectionPlatform = $this->projectRepo->getConnectionPlatform($project->id);
             if(isset($connectionPlatform->bim_status) && $connectionPlatform->bim_status == 1) {
-                $this->createBimCompany($project);
+                // $this->createBimCompany($project);
                 $this->createBimProject($project);
-                $this->addMemberToProject($project);
+                //$this->addMemberToProject($project);
             }
          
             if(isset($connectionPlatform->sharepoint_status) && $connectionPlatform->sharepoint_status == 1) {
@@ -532,9 +532,9 @@ class ProjectController extends Controller
                 $res = $this->moveFileToSharepoint($project->enquiry_id, $project);    
             }
             if(isset($connectionPlatform->bim_status) && $connectionPlatform->bim_status == 1) {
-                $this->createBimCompany($project);
+                // $this->createBimCompany($project);
                 $this->createBimProject($project);
-                $this->addMemberToProject($project);
+                // $this->addMemberToProject($project);
             } 
             $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status'=> 'Live']);
             return response(['status'=> true, 'msg'=> 'Project submitted successfully']);
@@ -596,7 +596,7 @@ class ProjectController extends Controller
             $input["project_type"] = $project->bim_project_type;
             $input["currency"]     = 'USD';
             $input["value"]        = floatval(0);
-            $input["language"]     = $project->language;
+            $input["language"]     = "en";//$project->language;
             $api = new  Bim360ProjectsApi();
             if(isset($project->bim_id) && !empty($project->bim_id)) {
                 $input["id"] = $project->bim_id;

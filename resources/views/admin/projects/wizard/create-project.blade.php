@@ -152,7 +152,7 @@
                     <div class="col pe-0">
                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="building_type_id" ng-model="project.building_type_id" required>
                             <option value="">@lang('project.select') </option>
-                            <option ng-repeat="buildingType in buildingTypes" value="@{{ buildingType.id }}" >
+                            <option ng-repeat="buildingType in buildingTypes" value="@{{ buildingType.id }}" ng-selected="buildingType.id == project.building_type_id">
                                 @{{ buildingType.building_type_name }}
                             </option>
                         </select>
@@ -170,7 +170,7 @@
                     <div class="col pe-0">
                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
                             <option value="">@lang('project.select') </option>
-                            <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
+                            <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" ng-selected="projectType.id == project.project_type_id">
                                 @{{ projectType.project_type_name }}
                             </option>
                         </select>
@@ -188,7 +188,7 @@
                     <div class="col pe-0">
                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="delivery_type_id" ng-model="project.delivery_type_id" required>
                             <option value="">@lang('project.select') </option>
-                            <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" >
+                            <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == project.delivery_type_id" >
                                 @{{ deliveryType.delivery_type_name }}
                             </option>
                         </select>
