@@ -14,8 +14,8 @@
         </div>
         <div class="col-md-8 p-0">
             <div class="text-end">
-                <a class="btn btn-danger" ng-click="createNewCalculation('wood')"><i class="uil-sync"> </i>Clear</a>
-                <a class="btn btn-success" ng-click="UpdateCostEstimate('wood')"><i class="uil-sync"></i> Update </a>
+                <a class="btn btn-danger" ng-click="createNewCalculation('precast')"><i class="uil-sync"> </i>Clear</a>
+                <a class="btn btn-success" ng-click="UpdateCostEstimate('precast')"><i class="uil-sync"></i> Update </a>
             </div>
         </div> 
     </div>

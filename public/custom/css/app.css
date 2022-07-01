@@ -468,3 +468,38 @@ sup {
 #history_id .fa {
     display: none !important;
 }
+
+.history_building_type_value {
+    display: none;
+}
+
+.history_building_component_value {
+    display: none;
+} 
+
+.history_precast_value {
+    display: none;
+}
+
+#history_id .history_building_type_value {
+    display: block !important;
+}
+#history_id .history_building_type_select {
+    display: none !important;
+}
+
+#history_id .history_building_component_value {
+    display: block !important;
+}
+#history_id .history_building_component_select {
+    display: none !important;
+}
+
+#history_id .history_precast_value {
+    display: block !important;
+}
+#history_id .history_precast_select {
+    display: none !important;
+}
+
+

@@ -252,16 +252,17 @@
                 }
                 if(type == 'wood') {
                     var data = $scope.ResultEngineeringEstimate;
+                    var html =  $("#wood-cost-estimate").html();
                 } else {
                     var data = $scope.ResultPrecastComponent;
+                    var html =  $("#precast-cost-estimate").html();
                 }
-                console.log($scope.ResultPrecastComponent);
-                console.log($scope.ResultEngineeringEstimate);
+              
                 let total =  $scope.ResultEngineeringEstimate.total.totalSum +  $scope.ResultPrecastComponent.total.totalSum;
                 $http({
                     method: "POST",
                     url: "{{ route('enquiry-create.cost-estimate-value') }}",
-                    data:{ enquiry_id: $scope.enquiry_id, data : data, type: type, total : total, history: true, html: $("#wood-cost-estimate").html()},
+                    data:{ enquiry_id: $scope.enquiry_id, data : data, type: type, total : total, history: true, html:html},
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
                     $scope.getWizradStatus();
@@ -337,9 +338,12 @@
                     angular.element('.sqm_').triggerHandler('keyup');
                 });
             });
-   
+            $scope.precastEstimateTypeObj = {};
             $http.get(`${API_URL}precast-estimate`).then((res) => {
                 $scope.precastEstimateTypes = res.data;
+                res.data.forEach((item) => {
+                    $scope.precastEstimateTypeObj[item.id] = item.name;
+                });
             });
 
             $http.get(`${API_URL}get-cost-estimate-types`).then((res) => {
@@ -438,18 +442,27 @@
                 });
                 Message('success', 'Component deleted successfully');
             }
-            
+        
+            $scope.BuildingComponentObj = {};
+            $scope.BuildingTypeObj = {};
             $http.get(`${API_URL}building-type`)
             .then((res)=> {
                 $scope.buildingTypes = res.data;
+                res.data.forEach((item) => {
+                    $scope.BuildingTypeObj[item.id] = item.building_type_name;
+                });
             });
-
+            
             $http.get(`${API_URL}get-for-cost-estimate`)
             .then((res)=> {
                 $scope.buildingComponents = res.data;
-                $("#CostEstimateController").removeClass('d-none');
+                res.data.forEach((item) => {
+                    $scope.BuildingComponentObj[item.id] = item.building_component_name;
+                    $("#CostEstimateController").removeClass('d-none');
+                });
             });
 
+            
             $scope.getNum = (val) => {
 
                 if (isNaN(val) || val == '') {
@@ -576,6 +589,9 @@
                     $scope.editorEnabled = false;
                     $http.get(`${API_URL}precast-estimate`).then((res) => {
                         $scope.precastEstimateTypes = res.data;
+                        res.data.forEach((item) => {
+                            $scope.precastEstimateTypeObj[item.id] = item.name;
+                        });
                     });
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors.name[0]);
@@ -707,6 +723,7 @@
                     eventHandle();
                 });
                 element.on('change', function () {
+                    $(this).addClass('bg-warning');
                     eventHandle();
                 });
             },
