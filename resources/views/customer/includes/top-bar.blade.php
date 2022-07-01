@@ -1,5 +1,11 @@
 <!-- Topbar Start -->
-<div class="navbar-custom">
+<div class="navbar-custom d-flex justify-content-between align-items-center">
+   
+    <button class="button-menu-mobile open-left">
+        <i class="mdi mdi-menu"></i>
+    </button>
+    <h1 class="text-center h3"> {{ Customer()->company_name ?? '' }}</h1>
+  
     <ul class="list-unstyled topbar-menu float-end mb-0">
         <li class="dropdown notification-list d-lg-none">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -106,9 +112,6 @@
         </li>
 
     </ul>
-    <button class="button-menu-mobile open-left">
-        <i class="mdi mdi-menu"></i>
-    </button>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>

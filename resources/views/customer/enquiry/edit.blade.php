@@ -1394,7 +1394,7 @@
                         });
                         if( $scope.mandatory.length != 0){   
                             Swal.fire({
-                                title: 'Are you sure you want to skip the file uploads?',
+                                title: 'Are you sure you want to skip the file uploads ?',
                                 confirmButtonText: 'Yes',
                                 showCancelButton: true,
                                 cancelButtonText: 'No',
