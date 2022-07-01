@@ -1156,7 +1156,7 @@
                         });
                         if(response.data.msg == 'submitted') {
                             Swal.fire({
-                                title: `Enquiry submitted successfully`,
+                                html: `<h3>Enquiry send successfully..!! </br> Our representatives will contact you shortly</h3>`,
                                 showDenyButton: false,
                                 showCancelButton: false,
                                 cancelButtonText: 'No',
@@ -1167,7 +1167,7 @@
                             });
                         } else {
                             Swal.fire({
-                                title: `Enquiry saved locally are you want to leave the page ?`,
+                                html: `<h3>Enquiry data are saved locally </br> Do you want to leave the page ?</h3>`,
                                 showDenyButton: false,
                                 showCancelButton: true,
                                 cancelButtonText: 'No',

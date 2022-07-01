@@ -14,7 +14,7 @@
                             <th>Company Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Type Of Project</th>
+                            <th>Type Of Delivery</th>
                         </tr>
                         <tr>
                             <td style="text-align: left !important;"  ng-show="enquiry.project_infos.enquiry_no">@{{ enquiry.project_infos.enquiry_no }}</td>
@@ -23,7 +23,7 @@
                             <td>@{{ enquiry.project_infos.company_name }}</td>
                             <td>{{ Customer()->mobile_no }}</td>
                             <td>{{ Customer()->email }}</td>
-                            <td>@{{ enquiry.project_infos.project_type.project_type_name}}</td>
+                            <td>@{{ enquiry.project_infos.delivery_type.delivery_type_name}}</td>
                         </tr>
                     </table>
                 </div>
