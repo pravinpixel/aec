@@ -17,15 +17,15 @@
                                 <h4> Create Account</h4>
                                 <div class="my-3">
                                     <label for="first_name" class="form-label text-secondary">First Name</label>
-                                    <input class="form-control" type="text" name="first_name" id="first_name" required value="{{ old('first_name') }}" placeholder="Enter your email">
+                                    <input class="form-control" type="text" name="first_name" id="first_name" required value="{{ old('first_name') }}" placeholder="Enter your firstname">
                                 </div>
                                 <div class="my-3">
                                     <label for="last_name" class="form-label text-secondary">Last Name</label>
-                                    <input class="form-control" type="text" name="last_name" id="last_name" required value="{{ old('last_name') }}" placeholder="Enter your email">
+                                    <input class="form-control" type="text" name="last_name" id="last_name" required value="{{ old('last_name') }}" placeholder="Enter your lastname">
                                 </div>
                                 <div class="my-3">
                                     <label for="emailaddress" class="form-label text-secondary">Email address</label>
-                                    <input class="form-control" type="email" name="email" id="emailaddress" required value="{{ old('email') }}" placeholder="Enter your email">
+                                    <input class="form-control" type="email" name="email"  pattern="{{ config('global.email') }}" id="emailaddress" required value="{{ old('email') }}" placeholder="Enter your email">
                                     @if($errors->has('email'))
                                         <span class="text-danger"> {{ $errors->first('email') }}</span>
                                     @endif
