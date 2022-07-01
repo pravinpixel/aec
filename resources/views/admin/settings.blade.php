@@ -19,14 +19,38 @@
                     
                     <div class="col-sm-2 mb-2 mb-sm-0">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <strong class="my-1">Role & Permissions</strong>
+
+                            <strong class="my-1">Admin</strong>
                                 <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#!/role" role="tab" aria-controls="v-pills-role"
                                     aria-selected="true">
                                     <i class="mdi mdi-home-variant d-md-none d-block"></i>
                                     <span class="d-none d-md-block" ng-click="roleGetData()">Role</span>
                                 </a>
+                                <a class="nav-link woodEstimateTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
+                                    aria-selected="false">
+                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                    <span class="d-none d-md-block"  ng-click="getWoodEstimation()" >Wood Estimation</span>
+                                </a>
+
+                                <a class="nav-link precastEstimateTab" id="v-pills-precast-estimation-tab" href="#!/precast-estimation" role="tab" aria-controls="v-pills-precast-estimation"
+                                    aria-selected="false">
+                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                    <span class="d-none d-md-block"  ng-click="getPrecastEstimation()" >Precast Estimation</span>
+                                </a>
+                                <a class="nav-link taskListTab" id="v-pills-service-tab" href="#!/task-list-view" role="tab" aria-controls="v-pills-service"
+                                    aria-selected="false">
+                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                    <span class="d-none d-md-block" >Task list</span>
+                                </a>
+
+                                <a class="nav-link checkListTab" id="v-pills-service-tab" href="#!/check-list" role="tab" aria-controls="v-pills-service"
+                                    aria-selected="false">
+                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                    <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
+                                </a>
                             <hr>
-                            <strong class="my-1">Service</strong>
+
+                            <strong class="my-1">Customer</strong>
                                 <a class="nav-link outputTab" id="v-pills-output-tab" href="#!/output"  role="tab" aria-controls="v-pills-output"
                                     aria-selected="false">
                                     <i class="mdi mdi-output-outline d-md-none d-block"></i>
@@ -38,13 +62,11 @@
                                     <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                     <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
                                 </a>
-                            <hr>
-                            <strong class="my-1">Building Component</strong>
-                            
+
                                 <a class="nav-link componentTab" id="v-pills-component-tab" href="#!/component" role="tab" aria-controls="v-pills-component"
                                     aria-selected="false">
                                     <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                    <span class="d-none d-md-block" ng-click="componentGetData()">Component</span>
+                                    <span class="d-none d-md-block" ng-click="componentGetData()">Building Component</span>
                                 </a>
                                 <a class="nav-link typeTab" id="v-pills-type-tab" href="#!/type" role="tab" aria-controls="v-pills-type"
                                     aria-selected="false">
@@ -70,50 +92,21 @@
                                     <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Delivery Type</span>
                                 </a>
 
-                            <hr>
-                            <strong class="my-1">IFC Model</strong>
                                 <a class="nav-link documentTab" id="v-pills-document-tab"  href="#!/documentType" role="tab" aria-controls="v-pills-document"
                                     aria-selected="false">
                                     <i class="mdi mdi-document-outline d-md-none d-block"></i>
                                     <span class="d-none d-md-block" ng-click="documentTypeGetData()">Document Type</span>
                                 </a>
-                            
+
                             <hr>
-                            <strong class="my-1">Cost Estimate</strong>
-                                <a class="nav-link woodEstimateTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="getWoodEstimation()" >Wood Estimation</span>
-                                </a>
+                            <strong class="my-1">Vendor</strong>
 
-                                <a class="nav-link precastEstimateTab" id="v-pills-precast-estimation-tab" href="#!/precast-estimation" role="tab" aria-controls="v-pills-precast-estimation"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="getPrecastEstimation()" >Precast Estimation</span>
-                                </a>
-                            
-                            <hr> 
-                            
-                            <strong class="my-1"> Others </strong>
-                                {{-- <a class="nav-link masterTab" href="#!/master-estimate" role="tab" aria-controls="v-pills-master"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-master-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block">Master Estimation</span>
-                                </a> --}}
+                            <hr>
 
-                                <a class="nav-link taskListTab" id="v-pills-service-tab" href="#!/task-list-view" role="tab" aria-controls="v-pills-service"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block" >Task list</span>
-                                </a>
+                            <strong class="my-1">General</strong>
 
-                                <a class="nav-link checkListTab" id="v-pills-service-tab" href="#!/check-list" role="tab" aria-controls="v-pills-service"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
-                                </a>
+                            <hr>
 
-                    
                         </div>
                     </div> <!-- end col-->
                     <div class="col-sm-10">
