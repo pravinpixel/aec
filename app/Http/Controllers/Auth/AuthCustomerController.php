@@ -25,7 +25,7 @@ class AuthCustomerController extends Controller
             'first_name' => 'required',
             'last_name'  => 'required',
             'email'      => 'required|unique:customers|email',
-            'password'   => ['required','min:8']
+            'password'   => ['required','confirmed','min:8']
         ]);
         try {
             $customerData = array_merge(request(['first_name', 'last_name', 'email', 'password']),['is_active'=> false]);

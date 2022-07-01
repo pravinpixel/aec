@@ -43,6 +43,19 @@
                                     @endif
                                   
                                 </div> 
+                                <div class="mb-3"> 
+                                    <label for="password" class="form-label text-secondary">Confirm Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Enter your password">
+                                        <div class="input-group-text" data-password="false">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                    </div>
+                                    @if($errors->has('password_confirmation'))
+                                        <span class="text-danger"> {{ $errors->first('password_confirmation') }}</span>
+                                    @endif
+                                  
+                                </div> 
 
                                 <div class="mb-0 text-center">
                                     <button class="btn btn-info fw-bold w-100" type="submit"> Sign Up </button>
