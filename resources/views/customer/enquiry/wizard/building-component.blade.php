@@ -319,8 +319,11 @@
             </table> 
         </div>
     </div>
-    <div class="d-flex justify-content-end">
-        <a ng-show="showHideBuildingComponent == 0" class="my-2 mx-3" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab"><u>View Summary</u></a>
+
+    <div class="d-flex justify-content-end" ng-init="isOpen = false">
+        <a ng-show="showHideBuildingComponent == 0" ng-click="isOpen = !isOpen" class="my-2 mx-3" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
+            <u> @{{ isOpen  != true ?  "View Summary" : "Close Summary"  }}</u>
+        </a>
         <comment  ng-show="commentShow" data="
             {'modalState':'viewConversations',
             'type': 'building_components', 

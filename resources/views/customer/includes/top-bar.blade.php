@@ -77,7 +77,7 @@
                 </span>
                 <span>
                     {{-- <span class="account-user-name">{{ Customer()->full_name ?? '' }}</span> --}}
-                    <span class="account-user-name">{{ Customer()->contact_person ?? '' }}</span>
+                    <span class="account-user-name">{{ Customer()->first_name ?? Customer()->contact_person  }}</span>
                     <span class="account-position"><span class="badge bg-success">Customer</span></span>
                 </span>
             </a>
