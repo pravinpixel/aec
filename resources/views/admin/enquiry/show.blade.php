@@ -756,21 +756,28 @@
                         $scope.historyStatus    =   false
                         var costId              =   $(`#${type}_id`);
                         $(costId).html('');
-
                         res.data.length && res.data.map((item, key) => {
-                            $(costId).append(` 
-                                <div class="card">
-                                    <div class="toast-header">
-                                        <strong class="me-auto text-dark">Version : ${key+1}</strong>
-                                        <span>
-                                            <span class="fa fa-calendar text-dark"></span>
-                                            <small>${moment(item.created_at).format('YYYY-MM-DD h:s a')}</small>
-                                        </span>
+                            $(costId).append(`
+                                <div class="card  p-2 border shadow-sm m-2">
+                                    <div id="headingTableHistory${key+1}">
+                                        <h5 class="m-0 d-flex align-items-center">
+                                            <a class="custom-accordion-title collapsed d-block py-1"
+                                                data-bs-toggle="collapse" href="#collapseTableHistory${key+1}"
+                                                aria-expanded="true" aria-controls="collapseTableHistory${key+1}">
+                                                <strong class="me-auto text-dark">Version : ${key+1}</strong>
+                                                <span> - </span>
+                                                <span>
+                                                    <span class="fa fa-calendar text-dark"></span>
+                                                    <small>${moment(item.created_at).format('YYYY-MM-DD h:s a')}</small>
+                                                </span>
+                                            </a>
+                                        </h5>
                                     </div>
-                                    <div class="toast-body">
-                                        ${item.history}
+                                    <div id="collapseTableHistory${key+1}" class="collapse ${key == 0 && 'show'}"
+                                        aria-labelledby="headingTableHistory${key+1}" >
+                                            ${item.history}
                                     </div>
-                                </div>
+                                </div> 
                             `); 
                         });
                     }, function errorCallback(error){

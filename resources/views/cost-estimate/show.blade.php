@@ -74,53 +74,32 @@
                                         </div>
                                     </div>
                                 @endif
+                                
                                 {{-- view history start--}}
-                                    <div class="accordion custom-accordion p-0 my-4" id="custom-accordion-one">
-                                        <div class="card mb-0 border shadow-sm ">
-                                            <div class="card-header " id="costEstimatHistotyBox">
-                                                <h5 class="m-0">
-                                                    <a class="custom-accordion-title align-items-center d-flex collapsed d-block py-1"
-                                                            data-bs-toggle="collapse" href="#costEstimatHistotyBoxAcc"
-                                                            aria-expanded="false" aria-controls="costEstimatHistotyBoxAcc"
-                                                            ng-click="getHistory('wood')"
-                                                            ng-show="price_calculation == 'wood_engineering_estimation'">
-                                                         <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
-                                                        <i class="mdi mdi-chevron-down accordion-arrow"></i>
-                                                    </a>
-                                                    <a class="custom-accordion-title align-items-center d-flex collapsed d-block py-1"
-                                                            data-bs-toggle="collapse" href="#costEstimatHistotyBoxAcc"
-                                                            aria-expanded="false" aria-controls="costEstimatHistotyBoxAcc"
-                                                            ng-click="getHistory('precast')"
-                                                            ng-show="price_calculation == 'precast_engineering_estimation'">
-                                                         <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
-                                                        <i class="mdi mdi-chevron-down accordion-arrow"></i>
-                                                    </a>
-                                                </h5>
+                                    <div class="card border p-0 shadow-sm my-3">
+                                        <div class="card-header">
+                                            <h5 class="m-0">
+                                                <a class="align-items-center d-flex  py-1"   ng-click="getHistory('wood')"
+                                                    ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                    <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
+                                                    Cost Estimation History
+                                                </a>
+                                                <a class="align-items-center d-flex py-1" ng-click="getHistory('precast')"
+                                                    ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                    <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body bg-light p-0">
+                                            <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                <div id="wood_id"></div>
                                             </div>
-                                            <div id="costEstimatHistotyBoxAcc" class="collapse"
-                                                aria-labelledby="costEstimatHistotyBox"
-                                                data-bs-parent="#custom-accordion-one">
-                                                <div class="card-body" style="max-height: 350px;overflow:auto">
-                                                    <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                                                        <div id="wood_id"></div>
-                                                    </div>
-                                                    <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                                                        <div id="precast_id"></div>
-                                                    </div>
-                                                </div>
+                                            <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                <div id="precast_id"></div>
                                             </div>
-                                        </div>  
+                                        </div>
                                     </div>
-                                    {{-- <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                                        <a class="btn btn-link" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
-                                        <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
-                                        <div id="wood_id"></div>
-                                    </div>
-                                    <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                                        <a class="btn btn-info" ng-click="getHistory('precast')"> <i class="fa fa-eye"> </i> View history </a>
-                                        <a class="btn btn-danger" onclick="$('#precast_id').html('')"> <i class="uil-sync"> </i> Close </a>
-                                        <div id="precast_id"></div>
-                                    </div> --}}
+                                   
                                 {{-- view history end--}}
                                 @if(userRole()->slug == config('global.cost_estimater'))
                                     <div class="text-end">
@@ -159,18 +138,26 @@
 
                         res.data.length && res.data.map((item, key) => {
                             $(costId).append(` 
-                                <div class="card">
-                                    <div class="toast-header">
-                                        <strong class="me-auto text-dark">Version : ${key+1}</strong>
-                                        <span>
-                                            <span class="fa fa-calendar text-dark"></span>
-                                            <small>${moment(item.created_at).format('YYYY-MM-DD h:s a')}</small>
-                                        </span>
+                            <div class="card  p-2 border shadow-sm m-2">
+                                    <div id="headingTableHistory${key+1}">
+                                        <h5 class="m-0 d-flex align-items-center">
+                                            <a class="custom-accordion-title collapsed d-block py-1"
+                                                data-bs-toggle="collapse" href="#collapseTableHistory${key+1}"
+                                                aria-expanded="true" aria-controls="collapseTableHistory${key+1}">
+                                                <strong class="me-auto text-dark">Version : ${key+1}</strong>
+                                                <span> - </span>
+                                                <span>
+                                                    <span class="fa fa-calendar text-dark"></span>
+                                                    <small>${moment(item.created_at).format('YYYY-MM-DD h:s a')}</small>
+                                                </span>
+                                            </a>
+                                        </h5>
                                     </div>
-                                    <div class="toast-body">
-                                        ${item.history}
+                                    <div id="collapseTableHistory${key+1}" class="collapse ${key == 0 && 'show'}"
+                                        aria-labelledby="headingTableHistory${key+1}" >
+                                            ${item.history}
                                     </div>
-                                </div>
+                                </div> 
                             `); 
                         });
                     }, function errorCallback(error){
