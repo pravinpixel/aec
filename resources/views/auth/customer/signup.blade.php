@@ -48,7 +48,7 @@
                                     <button class="btn btn-info fw-bold w-100" type="submit"> Sign Up </button>
                                 </div>
                                 <div class="text-center mt-3">
-                                    Already have a account ? <a href="{{ route('login') }}" class="text-info">Sign In </a>
+                                    Already have an account ? <a href="{{ route('login') }}" class="text-info">Sign In </a>
                                 </div> 
                             </form>
                         </div> <!-- end card-body -->

@@ -59,7 +59,7 @@
                             <a href="#" onclick="return window.location.assign('{{ route('customers.create-enquiry') }}')">Create Enquiry</a>
                         </li>
                         <li class="{{ Route::is("customers.edit-enquiry") ? "menuitem-active" : ""}}">
-                            <a href="{{ route('customers-my-enquiries') }}" >List of Enquiry</a>
+                            <a href="{{ route('customers-my-enquiries') }}" >List of Enquiries </a>
                         </li> 
                     </ul>
                 </div>
