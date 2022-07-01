@@ -120,3 +120,17 @@ angular.module('psi.sortable', [])
             };
         }]);
  
+        app.run(function ($rootScope, $window) {
+
+            $rootScope.addToLocal = function (key,data) {
+                if(typeof data == 'object' && data !== null) {
+                    localStorage.removeItem(key);
+                    localStorage.setItem(key, JSON.stringify(data));
+                }
+            };
+
+            $rootScope.getFromLocal = function (key) {
+                return JSON.parse(localStorage.getItem(key));
+            };
+            
+        });
