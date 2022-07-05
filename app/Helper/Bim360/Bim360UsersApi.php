@@ -56,9 +56,10 @@ class Bim360UsersApi implements IBim360UsersApi
 
     public function patchImage($id, $file)
     {
-        $url = str_replace("{UserId}", $id, $this->urls['users_userId_image_patch']);
+        $url = $this->apiHelper->urls['users_userId_image_patch'];
+        $url = str_replace("{UserId}", $id,  $url);
         $result = $this->apiHelper->patchImage($this->token, $file, $url);
         return $result;
     }
-   
+
 }

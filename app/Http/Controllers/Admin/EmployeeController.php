@@ -142,10 +142,11 @@ class EmployeeController extends Controller
             
             // $module->image = $image;
         }
-      
-
-
-        $module->update();
+        $res = $module->update();
+        $role = Role::find($module->job_role);
+        if($res &&  ($role->slug == config('global.project_manager')) ){
+            $this->createBimUser($module);
+        }
         return response(['status' => true, 'msg' => trans('module.updated'),'data' => $id], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -606,8 +607,9 @@ class EmployeeController extends Controller
         Log::info('Bim user creation start');
         $input        = [];
         $api          = new  Bim360UsersApi();
+        $input["company_id"] = env('BIMDEFAULTCOMPANY');
         $input["email"]      = $employee->email;
-        // $input["company_id"] = config('project.bim.default_company');
+        $input['bim_id']     = $employee->bim_id ?? Null;
         $input["nickname"]   = $employee->first_Name;
         $input["first_name"] = $employee->first_Name;
         $input["last_name"]  = $employee->last_name;
@@ -618,7 +620,6 @@ class EmployeeController extends Controller
             $createJson = json_encode($input);
             $result = $api->createUser($createJson);
         }
-
         Log::info("result {$result}");
         $response = json_decode($result);
         $employee->bim_id =  $response->id;
@@ -626,4 +627,5 @@ class EmployeeController extends Controller
         Log::info('Bim user creation end');
         return $employee->save();
     }
+
 }
