@@ -91,8 +91,8 @@ class EmployeeController extends Controller
             $module->image = "no_image.jpg";
         }
         $res = $module->save();
-     
-        if($res){
+        $role = Role::find($module->job_role);
+        if($res &&  ($role->slug == config('global.project_manager')) ){
             $this->createBimUser($module);
         }
         $id = $module->id;

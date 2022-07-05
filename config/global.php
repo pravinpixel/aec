@@ -52,6 +52,8 @@ return [
 
     'technical_estimater' => 'technical_estimate',
 
+    'project_manager' => 'project_manager',
+
     'job_delay' => 60,
 
     'cost_estimate_types' => [

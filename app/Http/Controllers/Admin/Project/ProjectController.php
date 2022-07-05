@@ -468,7 +468,7 @@ class ProjectController extends Controller
             if(isset($connectionPlatform->bim_status) && $connectionPlatform->bim_status == 1) {
                 // $this->createBimCompany($project);
                 $this->createBimProject($project);
-                //$this->addMemberToProject($project);
+                $this->addMemberToProject($project);
             }
          
             if(isset($connectionPlatform->sharepoint_status) && $connectionPlatform->sharepoint_status == 1) {
@@ -534,7 +534,7 @@ class ProjectController extends Controller
             if(isset($connectionPlatform->bim_status) && $connectionPlatform->bim_status == 1) {
                 // $this->createBimCompany($project);
                 $this->createBimProject($project);
-                // $this->addMemberToProject($project);
+                $this->addMemberToProject($project);
             } 
             $this->projectRepo->draftOrSubmit($id, ['is_submitted' => true, 'status'=> 'Live']);
             return response(['status'=> true, 'msg'=> 'Project submitted successfully']);
@@ -590,7 +590,7 @@ class ProjectController extends Controller
     {
         try {
             $input = [];
-            $input["name"]         = $project->project_name;
+            $input["name"]         = "{$project->reference_number}-{$project->project_name}";
             $input["start_date"]   = Carbon::parse($project->start_date)->format('Y-m-d');
             $input["end_date"]     = Carbon::parse($project->delivery_date)->format('Y-m-d');
             $input["project_type"] = $project->bim_project_type;
@@ -892,27 +892,31 @@ class ProjectController extends Controller
         $employees_id = Arr::flatten($employees);
         $employees = Employee::find($employees_id);
         $project_id = $project->bim_id;
+        $data = [];
         foreach($employees as $employee) {
-            $data = [
+            $data[] = [
                 'email'=> $employee->email,
                 "services"=> [
                     "document_management"=> [
                       "access_level"=> "user"
                     ]
                 ],
-                "industry_roles" => []
+                "company_id" => env('BIMDEFAULTCOMPANY'),
+                "industry_roles" => [
+                    env('BIMDEFAULTROLE')
+                ]
             ];
-            $userApi = new  Bim360UsersApi();
-            if(isset($employee->bim_id) && !empty($employee->bim_id)) {
-                $userJson = $userApi->getUser($employee->bim_id);
-                $userObj =  json_decode($userJson);
-                $input = json_encode([$data]);
-                Log::info("x-user-id {$input}");
-                Log::info("x-user-id {$userObj->uid}");
-                $projectApi = new  Bim360ProjectsApi();
-                $result = $projectApi->importUser($project_id, $input, $userObj->uid);
-                Log::info("add member result  {$result}");
-            }
+        }
+        $userApi = new  Bim360UsersApi();
+        if(isset($employee->bim_id) && !empty($employee->bim_id)) {
+            $userJson = $userApi->getUser($employee->bim_id);
+            $userObj =  json_decode($userJson);
+            $input = json_encode($data);
+            Log::info("x-user-id {$input}");
+            Log::info("x-user-id {$userObj->uid}");
+            $projectApi = new  Bim360ProjectsApi();
+            $result = $projectApi->importUser($project_id, $input, $userObj->uid);
+            Log::info("add member result  {$result}");
         }
         Log::info("add member to project end");
     }
