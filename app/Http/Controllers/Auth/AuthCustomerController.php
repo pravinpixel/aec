@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\RegisterCustomerMail;
 use App\Models\Customer;
+use App\Services\GlobalService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,11 +81,34 @@ class AuthCustomerController extends Controller
         $customer->invoice_email   = $request->invoice_email;
         $customer->is_active       = true;
         if($customer->save()) {
+            $this->createEnquiry($customer);
             Flash::success(__('setup completed successfully'));
             return redirect(route('login'));
         }
         Flash::error(__('global.something'));
         return redirect(route('login'));
+    }
+
+    private function createEnquiry($customer)
+    {
+        try {
+            $customerEnquiryNo = GlobalService::customerEnquiryNumber();
+            $customer->enquiry()->create([
+                'initiate_from'           => 'customer',
+                'customer_enquiry_number' => $customerEnquiryNo,
+                'enquiry_number'          => 'Draft',
+                'project_delivery_date'   => now()->addDays(1),
+                'contact_person'          => $customer->contact_person ?? $customer->first_name,
+                'project_name'            => $customer->project_name ?? '',
+                'mobile_no'               => $customer->mobile_no,
+                'enquiry_date'            => now()
+            ]);
+            GlobalService::updateConfig('CENQ');
+            return $customer->enquiry;
+        } catch (\Exception $ex) {
+            Log::info($ex->getMessage());
+        }
+
     }
     
 } 
