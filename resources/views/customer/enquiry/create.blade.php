@@ -793,7 +793,6 @@
                        }
                     });
                     if(skipUploads.length > 0) {
-                        $scope.addToLocal('wallItem', $scope.wallGroup);
                         Swal.fire({
                             title: `${skipUploads.join(',')} are missing, Do you still want to skip it ?`,
                             showDenyButton: false,
@@ -805,7 +804,7 @@
                                 $http({
                                     method: 'POST',
                                     url: '{{ route('customers.store-enquiry') }}',
-                                    data: {type: 'building_component', 'data': $scope.getFromLocal('wallItem')}
+                                    data: {type: 'building_component', 'data': $scope.wallGroup}
                                 }).then(function (res) {
                                     $location.path('/additional-info')
                                     Message('success', `Building Component updated successfully`);
@@ -833,8 +832,21 @@
                 
             }
 
+            $scope.addToLocal = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route('customers.store-enquiry') }}',
+                    data: {type: 'building_component', 'data': $scope.wallGroup}
+                }).then(function (res) {
+                    Message('success', `Building Component saved successfully`);
+                    return false;
+                }, function (error) {
+                    Message('error', `Somethig went wrong`);
+                }); 
+            }
+
+
             $scope.saveAndSubmitBuildingComponent = (formValid) => {
-                $scope.addToLocal('wallItem', $scope.wallGroup);
                 let isValidField = true;        
                 if($scope.showHideBuildingComponent == 0) {
                     $scope.wallGroup.forEach((wall) => {
@@ -892,7 +904,7 @@
                     $http({
                             method: 'POST',
                             url: '{{ route('customers.store-enquiry') }}',
-                            data: {type: 'building_component', 'data': $scope.getFromLocal('wallItem')}
+                            data: {type: 'building_component', 'data': $scope.wallGroup}
                         }).then(function (res) {
                             Message('success', `Building Component saved successfully`);
                             return false;
