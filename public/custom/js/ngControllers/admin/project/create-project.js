@@ -371,7 +371,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 });
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
-    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
         $scope.projectManagers = res.data;
     });
 
@@ -480,7 +480,7 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
         let fileSystem = [];
         $scope.teamSetups = [];
     
-        $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
+        $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
             $scope.projectManagers = res.data;
         });
         $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
