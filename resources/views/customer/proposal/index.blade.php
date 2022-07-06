@@ -1090,7 +1090,7 @@
             $scope.wallGroup[index].Details.push({
                 "FloorName" : "",
                 "TotalArea" : "",
-                "DeliveryType" : "",
+                "DeliveryType" : "test",
                 "Layers": [
                     {
                         "LayerName": '',
