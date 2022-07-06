@@ -660,7 +660,8 @@
                                 return {
                                     FloorName   : detail.floor,
                                     TotalArea   : Number(detail.approx_total_area),
-                                    "DeliveryType" : detail.building_component_delivery_type_id,
+                                    TestingKey : "test",
+                                    DeliveryType : detail.building_component_delivery_type_id,
                                     Layers : Layer
                                 }
                             });
