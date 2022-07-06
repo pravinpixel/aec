@@ -599,7 +599,7 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             } 
-           
+          
             getBuildingComponent = () => {
                 $http({
                     method: 'GET',
@@ -677,9 +677,10 @@
                     });
                 }, function (error) {
                     console.log('building component error');
+                }).then(function(){
+                    getDeliveryType();
                 });
             }
-            getDeliveryType();
             $scope.formSubmit = false;
             $scope.submitBuildingComponent = (formValid) => {
                 console.log(formValid,'formValid');
