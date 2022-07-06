@@ -678,7 +678,7 @@
                 }, function (error) {
                     console.log('building component error');
                 }).then(function(){
-                    getDeliveryType();
+                    // getDeliveryType();
                 });
             }
             $scope.formSubmit = false;
