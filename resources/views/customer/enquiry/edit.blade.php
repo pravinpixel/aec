@@ -644,10 +644,10 @@
                     res.data.building_component.map( (item , index) => {
                         let Details  = [];
                         if(typeof(item.detail) != 'undefined') {
-                            Details =  item.detail.map( (detail, index) => {
+                            Details =  item.detail.map( (detail_data, index) => {
                                 let Layer  = [];
-                                if(typeof(detail.layer) != 'undefined') {
-                                    Layer = detail.layer.map( (layerObj, index) => {
+                                if(typeof(detail_data.layer) != 'undefined') {
+                                    Layer = detail_data.layer.map( (layerObj, index) => {
                                        
                                         return {
                                             LayerName:  layerObj.layer_name,
@@ -658,9 +658,9 @@
                                     });
                                 }
                                 return {
-                                    FloorName   : detail.floor,
-                                    TotalArea   : Number(detail.approx_total_area),
-                                    DeliveryType: detail.building_component_delivery_type_id,
+                                    FloorName   : detail_data.floor,
+                                    TotalArea   : Number(detail_data.approx_total_area),
+                                    DeliveryType: detail_data.building_component_delivery_type_id,
                                     Layers : Layer
                                 }
                             });
