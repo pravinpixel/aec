@@ -951,37 +951,37 @@
             //     },
             // };
             }).directive('getCustomerLayer', function customerLayer($http) {
-                return {
-                    restrict: 'A',
-                    link : function (scope, element, attrs) {
-                        scope.$watch('layerAdd', function() {
-                            $http({
-                                method: 'GET',
-                                url: '{{ route("layer.get-layer-by-building-component") }}',
-                                params : {building_component_id: scope.w.WallId}
-                                }).then(function success(response) {
-                                    scope.layers = response.data;
-                                }, function error(response) {
-                            });
-                        });
-                    },
-                };
+                // return {
+                //     restrict: 'A',
+                //     link : function (scope, element, attrs) {
+                //         scope.$watch('layerAdd', function() {
+                //             $http({
+                //                 method: 'GET',
+                //                 url: '{{ route("layer.get-layer-by-building-component") }}',
+                //                 params : {building_component_id: scope.w.WallId}
+                //                 }).then(function success(response) {
+                //                     scope.layers = response.data;
+                //                 }, function error(response) {
+                //             });
+                //         });
+                //     },
+                // };
             }).directive('getTemplate', function getTemplate($http) {
-                return {
-                    restrict: 'A',
-                    link : function (scope, element, attrs) {
-                        scope.$watch('callTemplate', function() {
-                            $http({
-                                method: 'GET',
-                                url: '{{ route("get-template-by-building-component-id") }}',
-                                params : {building_component_id: scope.w.WallId}
-                                }).then(function success(response) {
-                                    scope.Templates = response.data;
-                                }, function error(response) {
-                            });
-                        });
-                    },
-                };
+                // return {
+                //     restrict: 'A',
+                //     link : function (scope, element, attrs) {
+                //         scope.$watch('callTemplate', function() {
+                //             $http({
+                //                 method: 'GET',
+                //                 url: '{{ route("get-template-by-building-component-id") }}',
+                //                 params : {building_component_id: scope.w.WallId}
+                //                 }).then(function success(response) {
+                //                     scope.Templates = response.data;
+                //                 }, function error(response) {
+                //             });
+                //         });
+                //     },
+                // };
             });
 
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
