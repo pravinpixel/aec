@@ -1,6 +1,6 @@
 <form class="row" id="buildingComponent" name="buildingComponentForm" novalidate>
     
-    <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert" ng-init="addToLocal(); getFromLocal()">
+    <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert">
         <div class="d-flex align-items-center justify-content-center    ">
             <i class="dripicons-information me-2"></i>  
             Do you want to
