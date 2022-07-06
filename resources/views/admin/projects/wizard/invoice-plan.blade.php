@@ -67,3 +67,10 @@
         border-radius: 0 !important
     }
 </style>
+<style> 
+    .Invoice_Plan .timeline-step .inner-circle{
+        background: var(--secondary-bg) !important;
+        transform: scale(1.2);
+        box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+</style> 

@@ -28,6 +28,22 @@
         }
         return Math.round((val + Number.EPSILON) * 100) / 100;
     }
+    function projectActiveTabs(tabs) {
+        (tabs.create_project == 0 || typeof(tabs.create_project) == 'undefined') ? $("#create-project").addClass('activeTab')  : $("#create-project").removeClass('activeTab');
+        (tabs.create_project == 1) ? $("#create-project").addClass('active')  : $("#create-project").removeClass('active');
+        (tabs.connect_platform == 0 || typeof(tabs.connect_platform) == 'undefined') ? $("#connect-platform").addClass('activeTab')  : $("#connect-platform").removeClass('activeTab');
+        (tabs.connect_platform == 1) ? $("#connect-platform").addClass('active')  : $("#connect-platform").removeClass('active');
+        (tabs.team_setup == 0 || typeof(tabs.team_setup) == 'undefined' ) ? $("#team-setup").addClass('activeTab')  : $("#team-setup").removeClass('activeTab');
+        (tabs.team_setup == 1) ? $("#team-setup").addClass('active')  : $("#team-setup").removeClass('active');
+        (tabs.invoice_plan == 0 || typeof(tabs.invoice_plan) == 'undefined' ) ? $("#invoice-plan").addClass('activeTab')  : $("#invoice-plan").removeClass('activeTab');
+        (tabs.invoice_plan == 1) ? $("#invoice-plan").addClass('active')  : $("#invoice-plan").removeClass('active');
+        (tabs.todo_list == 0 || typeof(tabs.todo_list) == 'undefined') ? $("#todo-list").addClass('activeTab')  : $("#todo-list").removeClass('activeTab');
+        (tabs.todo_list == 1) ? $("#todo-list").addClass('active')  : $("#todo-list").removeClass('active');
+        (tabs.project_scheduling == 0 || typeof(tabs.project_scheduling) == 'undefined') ? $("#project-scheduling").addClass('activeTab')  : $("#project-scheduling").removeClass('activeTab');
+        (tabs.project_scheduling == 1) ? $("#project-scheduling").addClass('active')  : $("#project-scheduling").removeClass('active');
+        (tabs.project_scheduling == 1 && tabs.todo_list == 1 && tabs.invoice_plan == 1 && tabs.team_setup == 1 && tabs.connect_platform == 1 && tabs.create_project == 1) ?
+        $("#review").removeClass('active') : $("#review").addClass('active');
+    }
 
     function enableActiveTabs(tabs) {
         (tabs.project_info == 0) ? $("#project-info").addClass('activeTab')  : $("#project-info").removeClass('activeTab');

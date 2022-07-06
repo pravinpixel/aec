@@ -3,6 +3,7 @@ formatData = (project) => {
 }
 
 app.controller('CreateProjectController', function ($scope, $http, API_URL, $location){
+    $("#create-project").addClass('active');
     let project_id =  $("#project_id").val();
      //get building types
     $http.get(`${API_URL}get-building-type`)
@@ -23,6 +24,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
     $http.get(`${API_URL}project/${project_id}`)
     .then((res)=> {
         $scope.project = formatData(res.data);
+        projectActiveTabs($scope.project.wizard_status);
     });
 //postalcode api
     $scope.getZipcode = function() {
@@ -88,6 +90,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 });
 
 app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location){
+    $("#connect-platform").addClass('active');
     let project_id =  $("#project_id").val();
     let fileSystem = [];
     $http.get(`${API_URL}bim360/projects-type`)
@@ -97,6 +100,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
     $http.get(`${API_URL}project/${project_id}`)
     .then((res)=> {
         $scope.project = formatData(res.data);
+        projectActiveTabs($scope.project.wizard_status);
         $scope.project['address_one'] =  res.data.site_address;
     });
     $http.get(`${API_URL}project/enquiry/${project_id}`)
@@ -233,7 +237,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
 
   
     $scope.submitConnectPlatformForm = () => {
-        $http.put(`${API_URL}project/${project_id}`, {data: $scope.project, type:'create_project'})
+        $http.put(`${API_URL}project/${project_id}`, {data: $scope.project, type:'connect_platform'})
         .then((res) => {
             Message('success', 'Connect Platform updated successfully');
             $location.path('team-setup');
@@ -243,12 +247,18 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
 });
 
 app.controller('TeamSetupController', function ($scope, $http, API_URL, $location){
+    $("#team-setup").addClass('active');
     let project_id        = $("#project_id").val();
     $scope.teamRole   = {};
     $scope.tagBox     = {};
     $scope.teamSetups = [];
     $scope.Template;
     $scope.selectedTemplate;
+    $http.get(`${API_URL}project/${project_id}`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+    
     $http.get(`${API_URL}project/get-templates`)
     .then( (res) => {
         console.log('template', res.data);
@@ -315,7 +325,14 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
 });
 
 app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $location){
+    $("#project-scheduler").addClass('active');
     let project_id =  $("#project_id").val();
+
+    $http.get(`${API_URL}project/${project_id}`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+
     var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
     dp.init(gantt);
     dp.setTransactionMode("REST");
@@ -327,12 +344,18 @@ app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $l
 });
 
 app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
+    $("#invoice-plan").addClass('active');
     $scope.invoicePlans                     = [];
     $scope.invoicePlans['totalPercentage']  = 100;
     $scope.invoicePlans['totalAmount']      = 0;
     $scope.project = {};
     let project_id =  $("#project_id").val();
     
+    $http.get(`${API_URL}project/${project_id}`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+
     $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`)
     .then((res)=> {
         $scope.project = formatData(res.data);
@@ -378,7 +401,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 });
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
-
+    $("#todo-list").addClass('active');
     let project_id =  $("#project_id").val();
     $http.get(`${API_URL}get-project-type`).then((res)=> {
         $scope.projectTypes = res.data;
@@ -392,6 +415,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
         $scope.project = formatData(res.data);
         $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
         $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
+        projectActiveTabs($scope.project.wizard_status);
     });
  
     // ======= $scope of Flow ==============
@@ -475,10 +499,15 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 });
 
 app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
-
+    $("#review").addClass('active');
     let project_id =  $("#project_id").val();
     $scope.teamSetups = [];
     let fileSystem = [];
+
+    $http.get(`${API_URL}project/${project_id}`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
 
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
         $scope.projectManagers = res.data;

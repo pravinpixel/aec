@@ -230,3 +230,10 @@
     <input ng-disabled ="createProjectForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/>
 </div>
 </form>
+<style> 
+    .Create_Project .timeline-step .inner-circle{
+        background: var(--secondary-bg) !important;
+        transform: scale(1.2);
+        box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+</style> 

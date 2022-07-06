@@ -170,6 +170,8 @@ class ProjectController extends Controller
             }
         }
         $this->projectRepo->updateWizardStatus($project, 'wizard_todo_list', 1);
+        $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, ['todo_list','project_scheduling']);
+        $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
         return response()->json(['status' => true, 'data' => $result], 201);
     }
 
@@ -431,6 +433,15 @@ class ProjectController extends Controller
         }
     }
 
+    private  function FormatWizardValue($wizards, $currentWizard, $value= 1)
+    {
+        $wizardArray = is_array($currentWizard) ? $currentWizard : [$currentWizard];
+        foreach($wizardArray as $wizard) {
+            $wizards[$wizard] = $value;
+        }
+        return $wizards;
+    }
+
     public function store(Request $request)
     {
         $type          = $request->input('type');
@@ -454,16 +465,24 @@ class ProjectController extends Controller
                 'modified_by' => Admin()->id
             ];
             $this->projectRepo->updateFolder($project->id, $data);
+            $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'create_project');
+            $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $project;
         } else if ($type == 'connect_platform') {
+            $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'connect_platform');
+            $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $this->projectRepo->storeConnectPlatform($project_id, $data);
         } else if ($type == 'team_setup') {
+            $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'team_setup');
+            $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $this->projectRepo->storeTeamSetupPlatform($project_id, $data);
         } else if ($type == 'task') {
             return $this->storeGrandChartTask($project_id, $request);
         } else if ($type == 'link') {
             return $this->storeGrandChartLink($project_id, $request);
         } else if ($type == 'invoice_plan') {
+            $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'invoice_plan');
+            $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $this->projectRepo->storeInvoicePlan($project_id, $data);
         } else if ($type == 'review_and_submit') {
             $connectionPlatform = $this->projectRepo->getConnectionPlatform($project->id);
@@ -489,7 +508,7 @@ class ProjectController extends Controller
             $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 1, 'status' => 'Live']);
             return  response(['status' => true, 'msg' => 'Project submitted successfully']);
         } else if ($type == 'review_and_save') {
-            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => false]);
+            $this->projectRepo->draftOrSubmit($project_id, ['is_submitted' => 0]);
             return  response(['status' => true, 'msg' => 'Project saved successfully']);
         }
         return $request->all();
@@ -512,11 +531,20 @@ class ProjectController extends Controller
                 $this->projectRepo->updateFolder($project->id, $data);
             }
             $this->setProjectId($project->id);
+            $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'create_project');
+            $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
+            return $project;
         } else if ($type == 'connect_platform') {
+            $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'connect_platform');
+            $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $this->projectRepo->storeConnectPlatform($id, $data);
         } else if ($type == 'team_setup') {
+            $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'team_setup');
+            $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $this->projectRepo->storeTeamSetupPlatform($id, $data);
         } else if ($type == 'invoice_plan') {
+            $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'invoice_plan');
+            $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
             return $this->projectRepo->storeInvoicePlan($id, $data);
         } else if ($type == 'review_and_submit') {
             $connectionPlatform = $this->projectRepo->getConnectionPlatform($project->id);
@@ -598,7 +626,7 @@ class ProjectController extends Controller
             $input["project_type"] = $project->bim_project_type;
             $input["currency"]     = 'USD';
             $input["value"]        = floatval(0);
-            $input["language"]     = "en"; //$project->language;
+            $input["language"]     = $project->language ?? "en";
             $api = new  Bim360ProjectsApi();
             if (isset($project->bim_id) && !empty($project->bim_id)) {
                 $input["id"] = $project->bim_id;

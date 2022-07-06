@@ -90,7 +90,13 @@
     <a href="#!/invoice-plan" class="btn btn-light float-start">Prev</a>
     <a ng-click="storeToDoLists()" class="btn btn-primary">Next</a>
 </div>
-
+<style> 
+    .To_Do_List .timeline-step .inner-circle{
+        background: var(--secondary-bg) !important;
+        transform: scale(1.2);
+        box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+</style> 
 {{-- <fieldset class="accordion-item">
     <div class="accordion-header custom m-0 position-relative" id="mulistory_header">
         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#mulistory" aria-expanded="false" aria-controls="mulistory">

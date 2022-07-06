@@ -45,6 +45,7 @@ class Project extends Model
         'wizard_invoice_plan', 
         'wizard_todo_list',
         'bim_project_type',
+        'wizard_status',
         'bim_id',
         'bim_account_id'
     ];
@@ -53,6 +54,17 @@ class Project extends Model
     {
         $this->attributes['created_by'] = Admin()->id ?? null;
     }
+
+    public function setWizardStatusAttribute($value)
+    {
+        $this->attributes['wizard_status'] = json_encode($value);
+    }
+
+    public function getWizardStatusAttribute($value)
+    {
+       return json_decode($value);
+    }
+
 
     // public function setUpdatedByAttribute()
     // {

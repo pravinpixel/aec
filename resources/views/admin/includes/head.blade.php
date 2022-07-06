@@ -199,4 +199,8 @@
         height: 40px !important;
         overflow: hidden;
     }
+
+    .activeTab {
+        pointer-events: none;
+    }
 </style>

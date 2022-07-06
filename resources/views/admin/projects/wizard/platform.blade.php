@@ -162,6 +162,13 @@
     <input type="submit" class="btn btn-primary" value="Next" ng-disabled="connectPlatformForm.$invalid">
 </div>
 </form>
+<style> 
+    .Platform .timeline-step .inner-circle{
+        background: var(--secondary-bg) !important;
+        transform: scale(1.2);
+        box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+</style> 
 {{-- <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
 <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script> --}}

@@ -29,6 +29,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
     .then((res)=> {
         $rootScope.project_id = res.data.id;
         if(res.data != false) $scope.project = formatData(res.data); 
+        projectActiveTabs($scope.project.wizard_status);
     });
 //postalcode api
     $scope.getZipcode = function() {
@@ -102,7 +103,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
 
     $http.get(`${API_URL}project/wizard/create_project`)
     .then((res)=> {
-        if(res.data != false) $scope.project = formatData(res.data);
+        projectActiveTabs(res.data.wizard_status);
     });
 
     $scope.updateConnectionPlatform = (type) => {
@@ -225,7 +226,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
     });
 
     $scope.submitConnectPlatformForm = () => {
-        $http.post(`${API_URL}project`, {data: $scope.project, type:'create_project'})
+        $http.post(`${API_URL}project`, {data: $scope.project, type:'connect_platform'})
         .then((res) => {
             Message('success', 'Connect platform Created Successfully');
             $location.path('team-setup')
@@ -238,6 +239,11 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     $scope.tagBox     = {};
     $scope.teamSetups = [];
     $scope.Template;
+
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
 
     $scope.selectedTemplate;
     $http.get(`${API_URL}project/get-templates`)
@@ -305,6 +311,11 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
 
 app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $rootScope){
      
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
         let project_id = $scope.project_id;
@@ -346,6 +357,11 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
         $scope.invoicePlans = result;
     });
 
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+
     $scope.handleInvoiceChange = () => {
         $scope.invoicePlans.length = 0;
         $scope.invoicePlans['totalPercentage']  = 100;
@@ -371,6 +387,12 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 });
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
+
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
         $scope.projectManagers = res.data;
     });
@@ -473,6 +495,12 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 });
 
 app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
+
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        $scope.project = formatData(res.data); 
+        projectActiveTabs($scope.project.wizard_status);
+    });
 
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
