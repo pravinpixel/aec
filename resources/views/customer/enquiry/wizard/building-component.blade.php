@@ -44,7 +44,7 @@
                 </div>
             </div> 
             <div class="col-sm-10">
-                <div class="tab-content" > @{{ wallGroup | json }}
+                <div class="tab-content" > 
                     <div ng-show="wallName ==  w.WallName" get-customer-layer get-template  ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}"  >
                         <div class="d-flex justify-content-between align-items-center">
                             <div > <h3> <div> </div></h3> </div>
