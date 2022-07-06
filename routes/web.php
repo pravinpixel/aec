@@ -31,7 +31,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthCustomerController;
 use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\PushNotificationController;
-
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 
 /*
@@ -279,6 +279,14 @@ Route::get('signup',[AuthCustomerController::class, 'getSignUp'])->name('signup'
 Route::post('signup',[AuthCustomerController::class, 'postSignUp'])->name('signup');
 Route::get('company-info/{id}',[AuthCustomerController::class, 'companyInfo'])->name('company-info');
 Route::post('company-info/{id}',[AuthCustomerController::class, 'StoreCompanyInfo'])->name('company-info');
+
+// forgot password 
+
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
 
 
 

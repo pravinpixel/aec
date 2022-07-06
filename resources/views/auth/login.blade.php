@@ -132,7 +132,7 @@
                                             <button class="btn btn-outline-primary  w-100" type="submit"> Sign  In </button>
                                         </div>
                                         <div class="text-center my-3">
-                                            Forgot password ?  
+                                            <a href="{{route('forget.password.get')}}"> Forgot password ? </a>  
                                         </div> 
                                         <div class=" mb-0 text-center">
                                             <a class="btn btn-info  w-100" href="{{ route('signup') }}"> Create Account </a>
