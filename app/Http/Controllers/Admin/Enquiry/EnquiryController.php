@@ -103,7 +103,7 @@ class EnquiryController extends Controller
                                     $q->where('assign_to', Admin()->id);
                                 });
                             })
-                            ->orWhere(['created_by'=> Admin()->id])
+                            ->where('enquiry_number', '!=','Draft')
                             ->WhereNotIn('project_status', ['Active'])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
