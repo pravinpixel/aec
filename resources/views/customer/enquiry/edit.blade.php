@@ -201,7 +201,7 @@
                     method: 'GET',
                     url: '{{ route("delivery-type.get") }}'
                 }).then(function (res) {
-                    $scope.deliveryTypes    = res.data;		
+                    $scope.deliveries    = res.data;		
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -678,7 +678,7 @@
                 }, function (error) {
                     console.log('building component error');
                 }).then(function(){
-                    // getDeliveryType();
+                    getDeliveryType();
                 });
             }
             $scope.formSubmit = false;
@@ -951,37 +951,37 @@
             //     },
             // };
             }).directive('getCustomerLayer', function customerLayer($http) {
-                // return {
-                //     restrict: 'A',
-                //     link : function (scope, element, attrs) {
-                //         scope.$watch('layerAdd', function() {
-                //             $http({
-                //                 method: 'GET',
-                //                 url: '{{ route("layer.get-layer-by-building-component") }}',
-                //                 params : {building_component_id: scope.w.WallId}
-                //                 }).then(function success(response) {
-                //                     scope.layers = response.data;
-                //                 }, function error(response) {
-                //             });
-                //         });
-                //     },
-                // };
+                return {
+                    restrict: 'A',
+                    link : function (scope, element, attrs) {
+                        scope.$watch('layerAdd', function() {
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("layer.get-layer-by-building-component") }}',
+                                params : {building_component_id: scope.w.WallId}
+                                }).then(function success(response) {
+                                    scope.layers = response.data;
+                                }, function error(response) {
+                            });
+                        });
+                    },
+                };
             }).directive('getTemplate', function getTemplate($http) {
-                // return {
-                //     restrict: 'A',
-                //     link : function (scope, element, attrs) {
-                //         scope.$watch('callTemplate', function() {
-                //             $http({
-                //                 method: 'GET',
-                //                 url: '{{ route("get-template-by-building-component-id") }}',
-                //                 params : {building_component_id: scope.w.WallId}
-                //                 }).then(function success(response) {
-                //                     scope.Templates = response.data;
-                //                 }, function error(response) {
-                //             });
-                //         });
-                //     },
-                // };
+                return {
+                    restrict: 'A',
+                    link : function (scope, element, attrs) {
+                        scope.$watch('callTemplate', function() {
+                            $http({
+                                method: 'GET',
+                                url: '{{ route("get-template-by-building-component-id") }}',
+                                params : {building_component_id: scope.w.WallId}
+                                }).then(function success(response) {
+                                    scope.Templates = response.data;
+                                }, function error(response) {
+                            });
+                        });
+                    },
+                };
             });
 
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
