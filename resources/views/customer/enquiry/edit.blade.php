@@ -599,7 +599,7 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             } 
-            getDeliveryType();
+           
             getBuildingComponent = () => {
                 $http({
                     method: 'GET',
@@ -660,7 +660,7 @@
                                 return {
                                     FloorName   : detail.floor,
                                     TotalArea   : Number(detail.approx_total_area),
-                                    DeliveryType:  detail.building_component_delivery_type_id,
+                                    DeliveryType: detail.building_component_delivery_type_id,
                                     Layers : Layer
                                 }
                             });
@@ -679,6 +679,7 @@
                     console.log('building component error');
                 });
             }
+            getDeliveryType();
             $scope.formSubmit = false;
             $scope.submitBuildingComponent = (formValid) => {
                 console.log(formValid,'formValid');
