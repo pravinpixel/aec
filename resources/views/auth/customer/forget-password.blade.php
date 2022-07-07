@@ -2,18 +2,13 @@
 
 @section('customer-content')
     <div class="card shadow-lg border">  
-        <div class="card-header text-center py-3 border-0">
+        <div class="card-header text-center pt-3 border-0">
             <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2"> <br>
             <img src="{{ asset("public/assets/images/key.png") }}" width="100px" class="mb-2">
             <p class="lead text-secondary" style="font-weight: 400;">Forgot Password ?</p>
-            <b>We will sernd you instructions to reset your password.</b>
+            @if (Session::has('message')) <b class="text-success">We will send you instructions to reset your password ! @endif                    
         </div>
         <div class="card-body pt-0 p-4">        
-            @if (Session::has('message'))
-                <div class="alert alert-success" role="alert">
-                    {{ Session::get('message') }}
-                </div>
-            @endif                    
             <form action="{{ route('forget.password.post') }}" method="POST">
                 @csrf
                 <div class="mb-3">
