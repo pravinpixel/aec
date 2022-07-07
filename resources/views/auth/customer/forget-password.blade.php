@@ -1,7 +1,7 @@
 @extends('auth.layouts.customer')
 
 @section('customer-content')
-    <div class="card shadow-lg border">  
+    <div class="card col-lg-3 col-md-4 col-sm-8 shadow-lg border">  
         <div class="card-header text-center pt-3 border-0">
             <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2"> <br>
             <img src="{{ asset("public/assets/images/key.png") }}" width="100px" class="mb-2">
