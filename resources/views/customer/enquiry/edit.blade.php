@@ -594,7 +594,7 @@
                     method: 'GET',
                     url: '{{ route("delivery-type.get") }}'
                 }).then(function (res) {
-                    $scope.deliveries    = res.data;			    
+                    $scope.deliveryTypes    = res.data;			    
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });

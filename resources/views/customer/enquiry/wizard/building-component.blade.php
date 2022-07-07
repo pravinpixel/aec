@@ -91,8 +91,8 @@
                                                         <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type  <sup class="text-danger">*</sup></label>
                                                         <select class="form-select  form-select-sm my-2 mt-3"  name="DeliveryType_@{{ fIndex }}_@{{ Secindex }}" ng-model="d.DeliveryType" required>
                                                             <option value="">@lang('customer-enquiry.select')</option>
-                                                            <option ng-repeat="delivery in deliveries" ng-value="@{{ delivery.id }}" ng-selected="delivery.id == d.DeliveryType">
-                                                                @{{ deliveryType.delivery_type_name }}
+                                                            <option ng-repeat="delivery in deliveryTypes" ng-value="@{{ delivery.id }}" ng-selected="delivery.id == d.DeliveryType">
+                                                                @{{ delivery.delivery_type_name }}
                                                             </option>
                                                         </select>
                                                         <small class="text-danger" ng-show="buildingComponentForm.DeliveryType_@{{ fIndex }}_@{{ Secindex }}.$invalid && formSubmit">This field is required</small>
