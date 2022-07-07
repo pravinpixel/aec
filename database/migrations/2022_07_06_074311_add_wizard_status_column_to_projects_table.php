@@ -14,7 +14,7 @@ class AddWizardStatusColumnToProjectsTable extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->json('wizard_status')->default(json_encode(["create_project" => 0,"team_setup"=> 0,"invoice_plan"=> 0,"connect_platform"=> 0,"todo_list"=> 0,"project_scheduler"=>0]));
+            $table->string('wizard_status')->default(json_encode(["create_project" => 0,"team_setup"=> 0,"invoice_plan"=> 0,"connect_platform"=> 0,"todo_list"=> 0,"project_scheduler"=>0]));
         });
     }
 
