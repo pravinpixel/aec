@@ -190,7 +190,7 @@ class Enquiry extends Model
             return  false;
         }
         $clone->enquiry_number = GlobalService::enquiryNumber();
-        $clone->status = 'Active';
+        $clone->status = 'Submitted';
         $clone->from_enquiry_id = $clone->id;
         $clone->push();
         foreach($this->services as $service){
