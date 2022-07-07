@@ -12,4 +12,5 @@ interface EnquiryCommentRepositoryInterface
     public function getCommentsCountByType($id);
     public function getActiveCommentsCountByType($id);
     public function showProposalComment(Request $request, $id, $version, $proposal_id);
+    public function getCostEstimateCount($id);
 }

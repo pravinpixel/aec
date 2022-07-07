@@ -3,13 +3,22 @@
 namespace App\Http\Controllers\CostEstimate;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\EnquiryCommentRepositoryInterface;
 use App\Models\Enquiry;
+use App\Models\EnquiryComments;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class DashboardController extends Controller
 {
+    protected $enquiryCommentRepo;
+    
+    public function __construct(EnquiryCommentRepositoryInterface $enquiryCommentRepo)
+    {
+        $this->enquiryCommentRepo = $enquiryCommentRepo;
+    }
+
     public function index()
     {   
         return view('cost-estimate.dashboard');
@@ -70,9 +79,11 @@ class DashboardController extends Controller
         $dataDb = Enquiry::with(['costEstimate' =>  function($q){
             $q->where('assign_to', Admin()->id);
         }])->findOrFail($enquiry_id);
+
+        $comments = $this->enquiryCommentRepo->getCostEstimateCount($enquiry_id)->pluck('comments_count', 'created_by');
         if(is_null($dataDb->costEstimate)){
             abort(404);
         }
-        return view('cost-estimate.show', compact('enquiry_id'));
+        return view('cost-estimate.show', compact('enquiry_id','comments'));
     }
 }

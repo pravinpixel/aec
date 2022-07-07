@@ -224,21 +224,7 @@ thead, tbody, tfoot, tr, td, th {
  .hideItem {
     visibility: hidden;
   }
-.enquiry__comments__alert {
-    position: absolute;
-    top: -15px;
-    right: -11px;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background-color:#f95d7d;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 12px;
-}
+
 .tab__comment__active {
     text-decoration: underline;
     color: black !important;

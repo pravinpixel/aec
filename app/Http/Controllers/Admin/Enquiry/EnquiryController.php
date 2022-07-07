@@ -313,6 +313,7 @@ class EnquiryController extends Controller
         $result["customer_enquiry_number"] =   $enquiry->customer_enquiry_number;
         $result["enquiry_comments"]        = $this->enquiryCommentRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
         $result["enquiry_active_comments"] = $this->enquiryCommentRepo->getActiveCommentsCountByType($id)->pluck('comments_count', 'type');
+        $result['cost_estimate_comments'] = $this->enquiryCommentRepo->getCostEstimateCount($id)->pluck('comments_count', 'created_by');
         $result["enquiry_id"]           =   $enquiry->id;
         $result["enquiry_status"]       =   $enquiry->customer_response;
         $result["enquiry"]              =   $this->customerEnquiryRepo->formatEnqInfo($enquiry);

@@ -124,7 +124,13 @@
             <div class="card-body">
                 <small class="btn link"
                     ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-                    <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
+                    <i class="fa fa-send me-1"></i> 
+                    <u>  
+                        Send a Comments
+                        <span ng-show="cost_estimate_comments.admin_role > 0" class="enquiry__comments__alert">
+                            @{{ cost_estimate_comments.admin_role   }}
+                        </span>
+                    </u>
                 </small>
             </div>
         </div>
@@ -145,7 +151,13 @@
                 </div>
                 <small class="float-end btn link p-0 mt-2"
                     ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-                    <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
+                    <i class="fa fa-send me-1"></i> 
+                    <u class="cost_estimate_comments_ul">
+                        Send a Comments
+                        <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
+                            @{{ cost_estimate_comments.cost_estimate_role   }}
+                        </span>
+                    </u>
                 </small>
             </div>
         </div>

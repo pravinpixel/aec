@@ -103,8 +103,13 @@
                                 {{-- view history end--}}
                                 @if(userRole()->slug == config('global.cost_estimater'))
                                     <div class="text-end">
-                                        <button class="btn btn-success"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                                        <button class="btn btn-success cost_estimate_comments_ul"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
                                             <i class="fa fa-send me-1"></i>  Send a Comments
+                                            @if($comments['admin_role'])
+                                                <span class="cost_estimate_comments">
+                                                    {{ $comments['admin_role']   }}
+                                                </span>
+                                            @endif
                                         </button>
                                     </div>
                                 @endif

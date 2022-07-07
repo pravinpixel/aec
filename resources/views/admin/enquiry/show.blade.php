@@ -850,6 +850,7 @@
                     $scope.ResultPrecastComponent       = JSON.parse(res.data.cost_estimate.precast_build_json);
                     $scope.EngineeringEstimate          = $scope.ResultEngineeringEstimate.costEstimate;
                     $scope.PrecastComponent             = $scope.ResultPrecastComponent.precastEstimate;
+                    $scope.cost_estimate_comments       = res.data.cost_estimate_comments;
                 });
             }
             $scope.getWizradStatus();

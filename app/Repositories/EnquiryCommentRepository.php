@@ -80,6 +80,14 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
                                 ->get();
     }
 
+    public function getCostEstimateCount($id)
+    {
+        return  $this->model->select("created_by", DB::raw("count(*) as comments_count"))
+                            ->where(['enquiry_id' => $id, 'status' => 0, 'type' => "cost_estimation_assign"])
+                            ->groupBy('created_by')
+                            ->get();
+    }
+
     public function updateStatus($ids, $type, $status = 1)
     {
         list($seenBy, $created_by) = $this->getUser();
