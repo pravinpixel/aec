@@ -81,7 +81,7 @@
                                             <tr>
                                                 <th class="bg-light">
                                                     <div class="form-group"> 
-                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Floor  <sup class="text-danger">*</sup></label>
+                                                        <label class="form-lable text-dark shadow-sm position-absolute border">@{{ w.WallLabel }}  <sup class="text-danger">*</sup></label>
                                                         <input type="text" class="form-control form-control-sm my-2 mt-3" name="FloorName_@{{ fIndex  }}_@{{  Secindex  }}" ng-model="d.FloorName"  required placeholder="Type here..." required>
                                                         <small class="text-danger" ng-show="buildingComponentForm.FloorName_@{{ fIndex }}_@{{ Secindex }}.$invalid && formSubmit">This field is required</small>
                                                     </div>

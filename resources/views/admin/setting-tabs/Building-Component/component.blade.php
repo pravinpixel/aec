@@ -12,6 +12,7 @@
                 <tr>
                     <th>Name</th>
                     <th >Order Id</th>
+                    <th >Label</th>
                     <th>Icon</th>
                     <th>Top Name</th>
                     <th>Bottom Name</th>
@@ -25,6 +26,7 @@
                     
                     <td class="align-items-center">@{{ comp.building_component_name }}</td>
                     <td ><span>@{{ comp.order_id }} </span></td>
+                    <td ><span>@{{ comp.label }} </span></td>
                     <td ><span style="font-size: 18px">@{{ comp.building_component_icon }} </span></td>
                     <td ><span>@{{ comp.top_position }} </span></td>
                     <td ><span>@{{ comp.bottom_position }} </span></td>
@@ -110,6 +112,17 @@
                                 <div class="form-check form-check-inline form-radio-dark">
                                     <input type="radio" ng-checked="module_comp.is_active == 0" id="Deactive" value="0" ng-model="module_comp.is_active" name="is_active" class="form-check-input" ng-required="true">
                                     <label class="form-check-label" for="Deactive">Inactive</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pt-3">
+                            <label for="status" class="col-sm-12  text-dark control-label mb-2">Label</label>
+                            <div>
+                                <div class="form-check form-check-inline form-radio-@{{form_color}}">
+                                    <input type="text"  class="form-control has-error" id="label" name="label" placeholder="Type Here.." ng-model="module_comp.label">
+                                    <small class="help-inline text-danger" >This  Fields is Required</small>
                                 </div>
                             </div>
                         </div>

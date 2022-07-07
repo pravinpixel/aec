@@ -26,7 +26,7 @@ class AddWizardStatusColumnToProjectsTable extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->json('wizard_status');
+            $table->dropColumn('wizard_status');
         });
     }
 }

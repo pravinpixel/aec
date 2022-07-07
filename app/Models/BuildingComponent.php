@@ -11,6 +11,7 @@ class BuildingComponent extends Model
     use HasFactory, SoftDeletes;
 
     public $fillable = [
+        'label',
         'building_component_name',
         'building_component_icon',
         'order_id',

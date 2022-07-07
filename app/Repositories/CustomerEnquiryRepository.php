@@ -574,6 +574,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     'wall' => $buildingComponentMaster->building_component_name,
                     'top_position' => $buildingComponentMaster->top_position,
                     'bottom_position' => $buildingComponentMaster->bottom_position,
+                    'label' =>  $buildingComponentMaster->label,
                     'icon' => $buildingComponentMaster->building_component_icon,
                     'wallId' => $buildingComponentMaster->id,
                     'totalWallArea' => $enquiryBuildingComponent->total_wall_area
