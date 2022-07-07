@@ -788,18 +788,18 @@
                 
             }
 
-            $scope.addToLocal = () => {
-                $http({
-                    method: 'POST',
-                    url: '{{ route('customers.update-enquiry', $id) }}',
-                    data: {type: 'building_component', 'data': $scope.wallGroup}
-                }).then(function (res) {
-                    Message('success', `Building Component saved successfully`);
-                    return false;
-                }, function (error) {
-                    Message('error', `Somethig went wrong`);
-                }); 
-            }
+            // $scope.addToLocal = () => {
+            //     $http({
+            //         method: 'POST',
+            //         url: '{{ route('customers.update-enquiry', $id) }}',
+            //         data: {type: 'building_component', 'data': $scope.wallGroup}
+            //     }).then(function (res) {
+            //         Message('success', `Building Component saved successfully`);
+            //         return false;
+            //     }, function (error) {
+            //         Message('error', `Somethig went wrong`);
+            //     }); 
+            // }
 
             $scope.saveAndSubmitBuildingComponent = (formValid) => {
                 let isValidField = true;
