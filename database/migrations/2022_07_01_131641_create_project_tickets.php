@@ -17,14 +17,14 @@ class CreateProjectTickets extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id')->nullable();
             $table->string('title')->nullable(); 
-            $table->longText('description')->default(0);
-            $table->longText('response')->default(0);
+            $table->longText('description')->nullable();
+            $table->longText('response')->nullable();
             $table->date('change_date');
             $table->string('project_hrs')->nullable();
             $table->string('project_price')->nullable();
             $table->string('total_price')->nullable();
             $table->boolean('status')->default(0);
-            $table->longText('is_mail_sent')->default(0);
+            $table->longText('is_mail_sent')->nullable();
             $table->boolean('is_active')->default(1);
             $table->foreign('project_id')->references('id')->on('projects');
             $table->timestamps();
