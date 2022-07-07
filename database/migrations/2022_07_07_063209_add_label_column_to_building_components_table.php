@@ -14,7 +14,7 @@ class AddLabelColumnToBuildingComponentsTable extends Migration
     public function up()
     {
         Schema::table('building_components', function (Blueprint $table) {
-            $table->string('label')->default('floor');
+            $table->string('label')->default('Floor');
         });
     }
 
