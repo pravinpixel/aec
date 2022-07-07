@@ -71,6 +71,12 @@ class Project extends Model
     //     $this->attributes['updated_by'] = Admin()->id ?? null;
     // }
 
+
+    public function customerdatails()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
+
     public function teamSetup()
     {
         return $this->hasMany(ProjectTeamSetup::class, 'project_id', 'id');

@@ -11,6 +11,7 @@
                 <!-- start page title -->
                 @include('admin.includes.page-navigater')
                 <!-- end page title --> 
+                <input type="hidden" name="project_id" id="project_id" value="{{ $id }}"> 
                 <div class="card border">
                     <div class="card-header p-0">
                         <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 p-0 bg-light timeline-steps">
@@ -128,13 +129,14 @@
 @push('custom-scripts')
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
-
-    <script>
+    <script src="{{ asset("public/custom/js/ngControllers/admin/project/create-project.js") }}"></script> 
+    <script> 
         app.controller("LiveProjectController", function($rootScope, $scope, $location){
             $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
 
                 if($location.url() == '/') $scope.isMain = true; else $scope.isMain = false; 
                 $scope.PrevRoute    =  ""; $scope.NextRoute = ""; 
+                $scope.id = $rootScope.categoryId;
                 
                 $scope.indexRoute       =   true;
                 $scope.HideNextRoute    =   true;
@@ -188,18 +190,23 @@
             }) 
             .when("/milestone", {
                 templateUrl : "{{ route('live-project.milestone') }}",
+                controller: 'milestoneController',
             })
             .when("/task-list", {
                 templateUrl : "{{ route('live-project.task-list') }}",
+                controller: 'TasklistController',
+
             })
             .when("/bim360", {
                 templateUrl : "{{ route('live-project.bim360') }}",
             })
             .when("/tickets", {
                 templateUrl : "{{ route('live-project.tickets') }}",
+                controller: 'TicketController',
             })
             .when("/variation-orders", {
                 templateUrl : "{{ route('live-project.variation-orders') }}",
+                controller: 'TicketController',
             })
             .when("/invoice-status", {
                 templateUrl : "{{ route('live-project.invoice-status') }}",
@@ -214,5 +221,8 @@
                 redirectTo: "/"
             });
         });
+
+       
+    
     </script> 
 @endpush

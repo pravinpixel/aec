@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
+use App\Interfaces\ProjectTicketRepositoryInterface;
 use App\Jobs\SharepointFileCreation;
 use App\Jobs\SharePointFolderCreation;
 use App\Jobs\SharepointFolderDelete;
@@ -21,6 +22,8 @@ use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectType;
+use App\Models\ProjectTicket;
+use Illuminate\Http\Response;
 use App\Repositories\CustomerRepository;
 use App\Repositories\DocumentTypeEnquiryRepository;
 use App\Repositories\ProjectRepository;
@@ -37,6 +40,7 @@ use Illuminate\Support\Facades\Session;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 use RicorocksDigitalAgency\Soap\Facades\Soap;
+use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
@@ -44,6 +48,7 @@ class ProjectController extends Controller
     protected $customerEnquiryRepo;
     protected $documentTypeEnquiryRepo;
     protected $customerRep;
+    protected $ProjectTicket;
     protected $index = 0;
     protected $parentFolder = '';
     protected $rootFolder = '/DataBase Test';
@@ -51,6 +56,7 @@ class ProjectController extends Controller
 
     public function __construct(
         ProjectRepository $projectRepo,
+        ProjectTicketRepositoryInterface $ProjectTicket,
         CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
         CustomerRepositoryInterface $customerRepo,
         DocumentTypeEnquiryRepository $documentTypeEnquiryRepo
@@ -58,6 +64,7 @@ class ProjectController extends Controller
         $this->projectRepo        = $projectRepo;
         $this->customerEnquiryRepo = $customerEnquiryRepo;
         $this->customerRepo        = $customerRepo;
+        $this->ProjectTicket       = $ProjectTicket;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
     }
 
@@ -174,6 +181,104 @@ class ProjectController extends Controller
         $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
         return response()->json(['status' => true, 'data' => $result], 201);
     }
+    //live project task update
+
+    public function storetasklit(Request $request)
+    {  
+
+        $this->checkIndex();
+        $loop_one =  $request->data;
+
+      
+      
+        $result = [];
+
+        $project = Project::find($request->id);
+
+        
+        $project->update(["gantt_chart_data" => json_encode($request->data)]);
+
+        
+       
+        foreach ($loop_one as $row_one) {
+
+            $subParent = $this->updateIndex();
+
+            $result[] = [
+                "project_id"    =>   $request->id,
+                "id"            =>  $subParent,
+                "text"          =>  $row_one['name'],
+                "duration"      =>  72,
+                "progress"      =>  0,
+                "start_date"    =>  "2022-04-20 12:45:07",
+                "end_date"      =>  "2022-04-20 12:45:07",
+                "parent"        =>  0,
+                "type"          =>  "project",
+                "status"        =>  0
+            ];
+
+            foreach ($row_one['data'] as $row_two) {
+                 
+                $subParentTwo      =    $this->updateIndex();
+
+                $result[] = [
+                    "project_id"    =>  $request->id,
+                    "id"            =>  $subParentTwo,
+                    "parent"        =>  $subParent,
+                    "text"          =>  $row_two['name'],
+                    "duration"      =>  72,
+                    "progress"      =>  0,
+                    "start_date"    =>  "2022-04-20 12:45:07",
+                    "end_date"      =>  "2022-04-20 12:45:07",
+                    "type"          =>  "project",
+                    "status"        => 0
+                ];
+
+                foreach ($row_two['data'] as  $row_three) {
+                   
+                    $statuscon =  isset($row_three['status'])  ? 1 : 0;
+                    $deliverydate =  isset($row_three['delivery_date'])  ? new DateTime($row_three['delivery_date']) : NULL;
+                    
+                    $result[] = [
+                        "project_id"  =>   $request->id,
+                        "id"          =>   $this->updateIndex(),
+                        "parent"      =>   $subParentTwo,
+                        "text"        =>   $row_three['task_list'],
+                        "duration"    =>   0,
+                        "progress"    =>   0,
+                        "start_date"  =>   new DateTime($row_three['start_date']),
+                        "end_date"    =>   new DateTime($row_three['end_date']),
+                        "delivery_date"    =>   $deliverydate,
+                        "type"        =>   "project",
+                        "status"      =>   $statuscon, 
+                    ];
+                }
+            }
+        } 
+
+       
+
+        if($request->update === true) {
+
+            ProjectGranttTask::where('project_id', $request->id)->delete();
+              
+            foreach ($result as $task) {
+                
+              
+                ProjectGranttTask::create($task);
+               
+            }
+        } else {
+          
+
+            foreach ($result as $task) {
+                ProjectGranttTask::create($task);
+            }
+        }
+        $this->projectRepo->updateWizardStatus($project,'wizard_todo_list',1);
+        return response()->json(['status' => true,'data' => $result], 201);
+    }
+
 
     public function checkListMasterGroupList(Request $request)
     {
@@ -206,6 +311,11 @@ class ProjectController extends Controller
             return redirect()->route('list-projects');
         }
         return view('admin.projects.edit', compact('id'));
+    }
+
+    public function live($id){
+       
+        return view('admin.projects.live-project.index', compact('id')); 
     }
 
     public function createWizard()
@@ -318,8 +428,9 @@ class ProjectController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="' . route('edit-projects', $dataDb->id) . '">View / Edit</a>
-                                <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="' . route('enquiry.delete', $dataDb->id) . '" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
+                                <a class="dropdown-item" href="'.route('edit-projects', $dataDb->id).'">Edit</a>
+                                <a class="dropdown-item" href="'.route('live-projects-data', $dataDb->id).'">View</a>
+                                <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route('enquiry.delete', $dataDb->id).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>
                         </div>';
                 })
@@ -953,6 +1064,110 @@ class ProjectController extends Controller
         }
         Log::info("add member to project end");
     }
+    //live project model
+    public function liveprojecttasklist(){
+        return view('admin.projects.live-project.wizard.task-list');
+
+    }
+
+    public function liveprojectdata($id)
+    {
+        return response()->json($this->projectRepo->liveprojectdata($id));
+    }
+    public function createticket($id){
+        return view("admin.projects.live-project.create-project-ticket", compact('id'));
+    }
+    
+    public function ticketcreate(Request $request){
+       
+        DB::beginTransaction();
+        try{
+
+            $maildata = "<html> <body><table class='table custom table-bordered'> <thead> <tr> <td colspan='2' class='text-center' style='background: #F4F4F4'><b class='h4'>Variation Request - 01</b></td> </tr> <tr> <td colspan='2' class='text-center'><b class='h4'>Architectural Support for Hytte Norefiell</b></td> </tr> </thead> <tbody> <tr> <td width='200px'><b>Project Name</b></td> <td>Hytte Norefiell</td> </tr> <tr> <td><b>Client Name</b></td> <td>Modul Pluss</td> </tr> <tr> <td><b>Project Incharge</b></td> <td>Mariusz Pierzgalski</td> </tr> <tr> <td><b>Date of Change Request</b></td> <td>22/05/2021</td> </tr> </tbody> </table> <table class='table custom table-bordered'> <tbody> <tr><td colspan='2' class='text-center' style='background: #F4F4F4'><b>Change Request Overview</b></td></tr> <tr> <td width='250px'><b>Description of Variation / Change</b></td> <td>Architectural support for over all building design & detailing</td> </tr> <tr> <td><b>Reason for Variation / Change</b></td> <td>There was no Architectural design for the building</td> </tr> </tbody> </table> <table class='table custom table-bordered'> <tbody> <tr><td colspan='4'class='text-center' style='background: #F4F4F4'><b>Change in Contract Price</b></td></tr> <tr> <td><b>Estimated Hours</b></td> <td><b>Price/Hr</b></td> <td rowspan='2'></td> <td rowspan='2' class='text-center'>kr 30, 000</td> </tr> <tr> <td>60</td> <td>kr 500</td> </tr> </tbody> <tfoot> <tr> <td colspan='2'></td> <td rowspan='2' class='text-end'><b>Total Price</b></td> <td rowspan='2' class='text-center'><b>kr 30, 000</b></td> </tr> </tfoot> </table></body></html>";
+
+
+
+           
+            $data = [
+                'project_id'     => $request->data['projectid'],
+                'title'          => $request->data['title'],
+                'description'    => $request->data['description'],
+                'response'       => $request->data['reason_for_variation'],
+                'change_date'    =>  date('Y-m-d', strtotime($request->data['change_date'])),
+                'project_hrs'    => $request->data['hours'],
+                'project_price'  => $request->data['price'],
+                'total_price'    =>$request->data['hours'] * $request->data['price'] ,
+                'status'         =>  1,
+                'is_mail_sent'   => $maildata,
+                
+            ];
+          
+            $this->ProjectTicket->create($data);
+           
+            DB::commit();
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            Log::info($e->getMessage());
+            DB::rollBack();
+            Flash::error(__('global.something'));
+            return response(['status' => false, 'data' => '' ,'msg' => trans('global.something')], Response::HTTP_OK);
+        }
+
+        return response(['status' => true, 'msg' => trans('project.ticketsaved')],  Response::HTTP_OK);
+
+    }
+
+
+    public function ticketlist($id){
+        return $this->ProjectTicket->getprojectticket($id);
+       
+    }
+    public function projectticketfind($id){
+        return $this->ProjectTicket->findprojectticket($id);
+
+    }
+
+    public function sendcustomerMail($projectid,$cid){
+        $project_ticket = $this->ProjectTicket->findprojectticket($projectid);
+
+        $project        = $this->projectRepo->liveprojectdata($project_ticket['ticket']['project_id']);
+       
+
+       
+       
+
+      
+
+
+
+        $details = [
+            'ticket_id'     =>'TIC-00'.$projectid,
+            'user_name'     => $project->customerdatails->full_name,
+            'email'    =>$project->customerdatails->email,
+            'project_name'      => $project->project_name,
+            'company_name'      => $project->company_name,
+            'incharge'          => 'test',
+            'title'             => $project_ticket['ticket']['title'],
+            'changedate'        => date("Y-m-d", strtotime($project_ticket['ticket']['change_date'])),
+            'description'       => $project_ticket['ticket']['description'],
+            'respone'            =>$project_ticket['ticket']['response'],
+            'project_hrs'        => $project_ticket['ticket']['project_hrs'] ,
+            'project_price'     => $project_ticket['ticket']['project_price'],
+            'total_price'       => $project_ticket['ticket']['total_price']  
+
+            ]; 
+
+          
+           $res = Mail::to('rajkumarm.pixel@gmail.com')->send(new \App\Mail\projectticketmail($details));
+           return response(['status' => true, 'msg' => trans('project.ticketmail')],  Response::HTTP_OK);
+        
+
+    }
+
+
+
+
 
     public function testDemo($project)
     {

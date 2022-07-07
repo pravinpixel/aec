@@ -494,6 +494,351 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     }
 });
 
+// live project milestone
+app.controller('milestoneController', function ($scope, $http, API_URL, $rootScope) {
+
+    $http.get(`${API_URL}get-project-session-id`).then((res) => {
+        $scope.project_id = res.data;
+        let project_id = $('#project_id').val();
+        console.log(project_id);
+        //var project_id  = $('#project_id').val();
+
+        var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
+        dp.init(gantt);
+        dp.setTransactionMode("REST");
+
+        ganttModules.zoom.setZoom("months");
+        gantt.init("gantt_here");
+        ganttModules.menu.setup();
+        gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`);
+    });
+
+});
+
+
+
+//Live project task list
+app.controller('TasklistController', function ($scope, $http, API_URL, $location) {
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res) => {
+        $scope.projectManagers = res.data;
+    });
+
+    $http.get(`${API_URL}get-project-session-id`).then((res) => {
+        $scope.project_id = res.data;
+        //console.log("This is Current Session ID : " , $scope.project_id)
+        var project_id = $('#project_id').val();
+
+        if (project_id != null) {
+            $http.get(`${API_URL}admin/api/v2/get-live-project-type/` + project_id).then((res) => {
+                //console.log(res.data);
+                $scope.projectTypes = res.data;
+
+            });
+
+            $http.get(`${API_URL}project/${project_id}`).then((res) => {
+
+                $scope.project = formatData(res.data);
+                $scope.check_list_items = JSON.parse(res.data.gantt_chart_data) == null ? [] : JSON.parse(res.data.gantt_chart_data)
+                $scope.check_list_items_status = JSON.parse(res.data.gantt_chart_data) == null ? false : true
+
+            });
+        }
+
+
+        $scope.storeTaskLists = () => {
+
+            $scope.check_list_items.map((CheckLists) => {
+
+                const CheckListsIndex = Object.entries(CheckLists.data);
+
+                $scope.CallToDB = false;
+
+                CheckListsIndex.map((TaskLists) => {
+
+
+
+                    const TaskListsIndex = TaskLists[1].data;
+                    TaskListsIndex.map((ListItems) => {
+
+
+
+                        if (ListItems.assign_to === undefined || ListItems.assign_to == '') {
+                            Message('danger', 'Assign To Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        } else $scope.CallToDB = true;
+                        if (ListItems.start_date === undefined || ListItems.start_date == '') {
+                            Message('danger', 'Start Date Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        } else $scope.CallToDB = true;
+                        if (ListItems.end_date === undefined || ListItems.end_date == '') {
+                            Message('danger', 'End Date Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        }
+                        else $scope.CallToDB = true;
+                        if (ListItems.delivery_date != undefined && ListItems.delivery_date != '') {
+
+                            if (ListItems.status == '') {
+                                //console.log(ListItems.delivery_date);
+                                Message('danger', 'Please select Status!');
+                                $scope.CallToDB = false;
+                                return false
+                            }
+
+                        } else $scope.CallToDB = true;
+
+                    });
+                });
+
+
+                if ($scope.CallToDB === true) {
+
+
+                    $http.post(`${$("#baseurl").val()}admin/api/v2/store-task-list`, {
+                        id: $('#project_id').val(),
+                        update: $scope.check_list_items_status,
+                        data: $scope.check_list_items,
+                    }).then((res) => {
+                        if (res.data.status === true) {
+                            Message('success', 'To do List Added Success !');
+                            $location.path('project-scheduling')
+                        }
+                    })
+                }
+
+            });
+
+        }
+    });
+
+
+
+
+
+
+    // ======= $scope of Flow ==============
+
+    $http.get(`${API_URL}admin/check-list-master-group`).then((res) => {
+        $scope.check_list_master = res.data.data;
+    })
+
+
+    $scope.add_new_check_list_item = () => {
+        if ($scope.check_list_type === undefined || $scope.check_list_type == '') return false
+
+        // $scope.return   =    true
+
+        // $scope.check_list_items.map(item => {``
+        //     let atime   = item.data[1][0]
+        //     if (atime.name == JSON.parse($scope.check_list_type).name) {
+        //         $scope.return   = false
+        //     }
+        // });
+
+        // if($scope.return   == false) return false
+
+        $http.post(`${API_URL}admin/check-list-master-group`, { data: $scope.check_list_type }).then((res) => {
+            $scope.check_list_items.push(res.data.data)
+            console.log($scope.check_list_items)
+        })
+
+    };
+
+    $scope.delete_this_check_list_item = (index) => $scope.check_list_items.splice(index, 1);
+
+    $scope.storeToDoLists = () => {
+
+        $scope.check_list_items.map((CheckLists) => {
+
+            const CheckListsIndex = Object.entries(CheckLists.data);
+
+            $scope.CallToDB = false;
+
+            CheckListsIndex.map((TaskLists) => {
+                const TaskListsIndex = TaskLists[1].data;
+                TaskListsIndex.map((ListItems) => {
+                    if (ListItems.assign_to === undefined || ListItems.assign_to == '') {
+                        Message('danger', 'Assign To Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    if (ListItems.start_date === undefined || ListItems.start_date == '') {
+                        Message('danger', 'Start Date Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    if (ListItems.end_date === undefined || ListItems.end_date == '') {
+                        Message('danger', 'End Date Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+
+                });
+            });
+
+            if ($scope.CallToDB === true) {
+                $http.post(`${$("#baseurl").val()}admin/store-to-do-list`, {
+                    id: $scope.project_id,
+                    update: $scope.check_list_items_status,
+                    data: $scope.check_list_items,
+                }).then((res) => {
+                    if (res.data.status === true) {
+                        Message('success', 'To do List Added Success !');
+                        $location.path('project-scheduling')
+                    }
+                })
+            }
+
+        });
+
+    }
+});
+
+
+///ticket wizard
+
+app.controller('TicketController', function ($scope, $http, API_URL, $rootScope) {
+
+
+    let project_id = $('#project_id').val();
+    $scope.ticket = {};
+
+
+    $scope.getRxcui = function (value) {
+        console.log($scope.ticket.hours);
+        $scope.result = Number($scope.ticket.hours || 0) + Number($scope.ticket.price || 0);
+    }
+    //editor load
+    $scope.orightml = '<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li>Super Easy <b>Theming</b> Options</li><li style="color: green;">Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li class="text-danger">Doesn&apos;t Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href="https://github.com/fraywing/textAngular">Here</a> </p>';
+    $scope.htmlcontent = $scope.orightml;
+    $scope.disabled = false;
+
+    if (project_id != null) {
+
+
+        $http.get(`${API_URL}project/${project_id}`).then((res) => {
+
+            
+            $scope.project = formatData(res.data);
+          
+            $scope.check_list_items = JSON.parse(res.data.gantt_chart_data) == null ? [] : JSON.parse(res.data.gantt_chart_data)
+            $scope.check_list_items_status = JSON.parse(res.data.gantt_chart_data) == null ? false : true
+
+        });
+
+        $http.get(`${API_URL}admin/api/v2/projectticket/${project_id}`).then((res) => {
+          
+            $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
+            $scope.customer = res.data.project == null ? false : res.data.project
+
+            
+           
+        });
+    }
+   
+
+     $scope.ticket = { projectid            : project_id,}
+   // console.log($scope.data);
+
+    $scope.submitcreatevariationForm = () => {
+        $http.post(`${API_URL}admin/api/v2/live-project-ticket`, { data: $scope.ticket, type: 'create_project_ticket' })
+            .then((res) => {
+                Message('success', 'Ticket Created Successfully');
+                if(res.data.status == true){
+                    location.href = `${API_URL}admin/list-projects`;
+                }
+                console.log(res.data.status);
+                //$location.path('platform');
+            })
+    }
+    $scope.projectticketshow = (id) => {
+
+        $http.get(`${API_URL}admin/api/v2/projectticketfind/${id}`).then((res) => {
+          
+            $scope.modelptickets = res.data.ticket == null ? [] : res.data.ticket
+            $scope.modelcustomer = res.data.project == null ? false : res.data.project
+
+            if(res.data.ticket != ''){
+                $('#Variation_mdal-box').modal('show');
+
+            }
+           
+
+            
+           
+        });
+
+       
+        
+    }
+
+    $scope.sendMailToCustomerticket = function (proposal_id , Vid) { 
+       
+        $http.post(API_URL + 'admin/live-project/sendticket/send-mail-ticket/'+proposal_id+'/customerid/'+Vid).then(function (response) {
+            Message('success',response.data.msg);
+            // $scope.getWizradStatus();
+            //$scope.getProposesalData();
+        });
+    }
+
+    $scope.showCommentsToggle  =  function (modalstate, type, header,id) {
+      
+        $scope.modalstate      =  modalstate;
+        $scope.module          =  null;
+        $scope.chatHeader      =  header; 
+        $scope.id              =  id; 
+
+      
+      
+        switch (modalstate) {
+         
+            case 'viewConversations':
+                
+                $http.get(API_URL + 'admin/api/v2/live-project/show-ticket-comment/'+$scope.id+'/type/'+type ).then(function (response) {
+                    $scope.commentsData = response.data.chatHistory; 
+                    $scope.chatType         = response.data.chatType;  
+                    $('#assing-viewConversations-modal').modal('show');
+                });
+                break;
+            default:
+            break;
+        }
+    }
+
+    $scope.sendprojectticketComments  = function(type , chatSection) { 
+        $scope.sendCommentsData = {
+            "comments"               :   $scope.inlineComments,
+            "project_ticket_id"      :   $scope.id,
+            "type"                   :   chatSection,
+            "created_by"             :   type,
+            "role_by"                : `Cost Estimater ${type}`
+        }
+        $http({
+            method: "POST",
+            url:`${API_URL}admin/live-project/add-comments`,
+            data: $.param($scope.sendCommentsData),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded' 
+            }
+        }).then(function successCallback(response) {
+            document.getElementById("Inbox__commentsForm").reset();
+            $scope.showCommentsToggle('viewConversations', 'project_ticket_comment', chatSection,$scope.id);
+            Message('success',response.data.msg);
+        }, function errorCallback(response) {
+            Message('danger',response.data.errors);
+        });
+    } 
+
+    
+
+
+
+
+});
+
+
 app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
 
     $http.get(`${API_URL}project/wizard/create_project`)

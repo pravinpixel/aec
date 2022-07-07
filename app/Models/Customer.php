@@ -92,4 +92,9 @@ class Customer extends Authenticatable
                         ->withTimestamps();
     }
 
+    public function customerdatails()
+    {
+        return $this->hasOne(Project::class,'customer_id','id');
+    }
+
 }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\Project\ProjectController;
+use App\Http\Controllers\Admin\Project\TicketCommentsController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
@@ -10,10 +12,16 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::get('create-projects',[ProjectController::class, 'create'])->name('create-projects');
 
     Route::get('edit-projects/{id}',[ProjectController::class, 'edit'])->name('edit-projects');
+    //raj
+    Route::get('live-projects/{id}',[ProjectController::class, 'live'])->name('live-projects-data');
+    Route::post('live-project/sendticket/send-mail-ticket/{ticket_id}/customerid/{cid}',[ProjectController::class,'sendcustomerMail']);
+    Route::post('live-project/add-comments', [TicketCommentsController::class,'store'])->name("projectticket.comments");
 
     Route::get('/live-projects', function () {
         return view('admin.projects.live-project.index');
     })->name('live-projects');
+ 
+    Route::get('/create-project-ticket/{id}',[ProjectController::class, 'createticket'] )->name('admin.live-project.ticket-create');
 
     //=========  Wizard Flow Views =========
         Route::get('create-project',[ProjectController::class, 'createWizard'])->name('create-project');
@@ -78,10 +86,13 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::get('live-project/milestone', function () {
         return view('admin.projects.live-project.wizard.milestone');
     })->name('live-project.milestone');
+    //raj
+    Route::get('live-project/task-list', [ProjectController::class, 'liveprojecttasklist'])->name('live-project.task-list');
 
-    Route::get('live-project/task-list', function () {
+   /* Route::get('live-project/task-list', function () {
+        
         return view('admin.projects.live-project.wizard.task-list');
-    })->name('live-project.task-list');
+    })->name('live-project.task-list');*/
     
     Route::get('live-project/bim360', function () {
         return view('admin.projects.live-project.wizard.bim360');

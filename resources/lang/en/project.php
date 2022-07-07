@@ -18,4 +18,10 @@ return [
     'action'                =>      "Actions",
     "select"                =>      "Select",
 
+
+    //live ticket
+    "ticketsaved"           =>       "Ticket saved successfully",
+    "ticketmail"            =>        "Mail sent successfuly !",
+    "comments_inserted"     =>        "Comment Sent",
+
 ];

@@ -87,7 +87,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     }
 
     public function getProjectById($id)
-    {
+    { 
         return $this->model->find($id);
     }
 
@@ -268,4 +268,12 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     {
         return ConnectionPlatform::where('project_id', $id)->first();
     }
+    //===========Project To Do List =======
+    public function liveprojectdata($id){
+
+
+        return $this->model->with('customerdatails')->find($id);
+
+    }
+    
 }
