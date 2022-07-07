@@ -1,10 +1,9 @@
 @extends('auth.layouts.customer')
 
 @section('customer-content')
-@include('flash::message')
 <main class="login-form">
   <div class="cotainer">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center my-4">
           <div class="col-md-8">
               <div class="card">
                   <div class="card-header">Reset Password</div>
@@ -28,7 +27,7 @@
                               </div>
                           </div>
                           <div class="col-md-6 offset-md-4">
-                              <button type="submit" class="btn btn-primary">
+                              <button type="submit" class="mx-1 btn btn-primary">
                                   Send Password Reset Link
                               </button>
                           </div>

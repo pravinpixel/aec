@@ -6,9 +6,12 @@ use App\Models\PasswordReset;
 use Illuminate\Http\Request; 
 use Carbon\Carbon; 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-  
+use Laracasts\Flash\Flash;
+
 class ForgotPasswordController extends Controller
 {
       /**
@@ -75,16 +78,17 @@ class ForgotPasswordController extends Controller
                                 'token' => $request->token
                               ])
                               ->first();
-  
+                          
           if(!$updatePassword){
-              return back()->withInput()->with('error', 'Invalid token!');
+            Flash::error('Invalid token!');
+            return redirect()->back();
           }
   
-          $user = Customer::where('email', $request->email)
-                      ->update(['password' => $request->password]);
-                      
+          $customer = Customer::where('email', $request->email)->first();
+          $customer->password = $request->password;
+          $customer->save();
           PasswordReset::where(['email'=> $request->email])->delete();
-  
-          return redirect('/login')->with('message', 'Your password has been changed!');
+          Flash::success('Your password has been changed!');
+          return redirect(route('login'));
       }
 }
