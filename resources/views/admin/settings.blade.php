@@ -2,6 +2,8 @@
 
 @section('admin-content')
     <div class="content-page" >
+ 
+
         <div class="content"  ng-controller="moduleController" >
 
             @include('admin.includes.top-bar')
@@ -15,103 +17,132 @@
 
                 <!-- end page title --> 
 
+
+                <ul class="nav nav-tabs nav-bordered mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav AdminTab active" onclick="changeTab(this)" href="#!/role">
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Admin</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav CustomerTab" onclick="changeTab(this)" href="#!/output">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Customer</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav VendorTab" onclick="changeTab(this)">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Vendor</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav GeneralTab" onclick="changeTab(this)">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">General</span>
+                        </a>
+                    </li> 
+                </ul>
+               
                 <div class="row">
-                    
                     <div class="col-sm-2 mb-2 mb-sm-0">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <div class="custom-tab" id="AdminTab">
+                                    <strong class="my-1" id="AdminTab">Admin</strong>
+                                    <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#!/role" role="tab" aria-controls="v-pills-role"
+                                        aria-selected="true">
+                                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" ng-click="roleGetData()">Role</span>
+                                    </a>
+                                    <a class="nav-link woodEstimateTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="getWoodEstimation()" >Wood Estimation</span>
+                                    </a>
 
-                            <strong class="my-1">Admin</strong>
-                                <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#!/role" role="tab" aria-controls="v-pills-role"
-                                    aria-selected="true">
-                                    <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                                    <span class="d-none d-md-block" ng-click="roleGetData()">Role</span>
-                                </a>
-                                <a class="nav-link woodEstimateTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="getWoodEstimation()" >Wood Estimation</span>
-                                </a>
+                                    <a class="nav-link precastEstimateTab" id="v-pills-precast-estimation-tab" href="#!/precast-estimation" role="tab" aria-controls="v-pills-precast-estimation"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="getPrecastEstimation()" >Precast Estimation</span>
+                                    </a>
+                                    <a class="nav-link taskListTab" id="v-pills-service-tab" href="#!/task-list-view" role="tab" aria-controls="v-pills-service"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" >Task list</span>
+                                    </a>
 
-                                <a class="nav-link precastEstimateTab" id="v-pills-precast-estimation-tab" href="#!/precast-estimation" role="tab" aria-controls="v-pills-precast-estimation"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="getPrecastEstimation()" >Precast Estimation</span>
-                                </a>
-                                <a class="nav-link taskListTab" id="v-pills-service-tab" href="#!/task-list-view" role="tab" aria-controls="v-pills-service"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block" >Task list</span>
-                                </a>
+                                    <a class="nav-link checkListTab" id="v-pills-service-tab" href="#!/check-list" role="tab" aria-controls="v-pills-service"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
+                                    </a>
+                                <hr>
+                            </div>
+                            <div class="d-none custom-tab" id="CustomerTab">
+                                <strong class="my-1" >Customer</strong>
+                                    <a class="nav-link outputTab" id="v-pills-output-tab" href="#!/output"  role="tab" aria-controls="v-pills-output"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-output-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="outputGetData()" >Output Type</span>
+                                    </a>
 
-                                <a class="nav-link checkListTab" id="v-pills-service-tab" href="#!/check-list" role="tab" aria-controls="v-pills-service"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
-                                </a>
-                            <hr>
+                                    <a class="nav-link serviceTab" id="v-pills-service-tab" href="#!/service" role="tab" aria-controls="v-pills-service"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
+                                    </a>
 
-                            <strong class="my-1">Customer</strong>
-                                <a class="nav-link outputTab" id="v-pills-output-tab" href="#!/output"  role="tab" aria-controls="v-pills-output"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-output-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="outputGetData()" >Output Type</span>
-                                </a>
+                                    <a class="nav-link componentTab" id="v-pills-component-tab" href="#!/component" role="tab" aria-controls="v-pills-component"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" ng-click="componentGetData()">Building Component</span>
+                                    </a>
+                                    <a class="nav-link typeTab" id="v-pills-type-tab" href="#!/type" role="tab" aria-controls="v-pills-type"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-type-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="typeGetData()">Building Type</span>
+                                    </a>
 
-                                <a class="nav-link serviceTab" id="v-pills-service-tab" href="#!/service" role="tab" aria-controls="v-pills-service"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
-                                </a>
+                                    <a class="nav-link projectTypeTab" id="v-pills-project_type-tab"  href="#!/projectType" role="tab" aria-controls="v-pills-project_type"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="projectTypeGetData()">Project Type</span>
+                                    </a>
 
-                                <a class="nav-link componentTab" id="v-pills-component-tab" href="#!/component" role="tab" aria-controls="v-pills-component"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                    <span class="d-none d-md-block" ng-click="componentGetData()">Building Component</span>
-                                </a>
-                                <a class="nav-link typeTab" id="v-pills-type-tab" href="#!/type" role="tab" aria-controls="v-pills-type"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-type-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="typeGetData()">Building Type</span>
-                                </a>
+                                    <a class="nav-link layerTab" id="v-pills-layer-tab" href="#!/layer" role="tab" aria-controls="v-pills-layer"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-layer-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="layerGetData()" >Layer</span>
+                                    </a>
 
-                                <a class="nav-link projectTypeTab" id="v-pills-project_type-tab"  href="#!/projectType" role="tab" aria-controls="v-pills-project_type"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="projectTypeGetData()">Project Type</span>
-                                </a>
+                                    <a class="nav-link deliveryTab" id="v-pills-DeliveryLayer-tab" href="#!/deliveryType"  role="tab" aria-controls="v-pills-DeliveryLayer"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Delivery Type</span>
+                                    </a>
 
-                                <a class="nav-link layerTab" id="v-pills-layer-tab" href="#!/layer" role="tab" aria-controls="v-pills-layer"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-layer-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block"  ng-click="layerGetData()" >Layer</span>
-                                </a>
+                                    <a class="nav-link documentTab" id="v-pills-document-tab"  href="#!/documentType" role="tab" aria-controls="v-pills-document"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-document-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" ng-click="documentTypeGetData()">Document Type</span>
+                                    </a>
 
-                                <a class="nav-link deliveryTab" id="v-pills-DeliveryLayer-tab" href="#!/deliveryType"  role="tab" aria-controls="v-pills-DeliveryLayer"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Delivery Type</span>
-                                </a>
-
-                                <a class="nav-link documentTab" id="v-pills-document-tab"  href="#!/documentType" role="tab" aria-controls="v-pills-document"
-                                    aria-selected="false">
-                                    <i class="mdi mdi-document-outline d-md-none d-block"></i>
-                                    <span class="d-none d-md-block" ng-click="documentTypeGetData()">Document Type</span>
-                                </a>
-
-                            <hr>
-                            <strong class="my-1">Vendor</strong>
-
-                            <hr>
-
-                            <strong class="my-1">General</strong>
-
-                            <hr>
-
+                                <hr>
+                            </div>
+                            <div class="d-none custom-tab" id="VendorTab">
+                                <strong class="my-1">Vendor</strong>
+                                <hr>
+                            </div>
+                            <div class="d-none custom-tab" id="GeneralTab">
+                                <strong class="my-1">General</strong>
+                                <hr>
+                            </div>
                         </div>
                     </div> <!-- end col-->
                     <div class="col-sm-10">
                         <div class="tab-content" id="v-pills-tabContent">
-                              <ng-view/>
+                            <ng-view/>
                         </div> <!-- end tab-content-->
                     </div> <!-- end col-->
                 </div>
@@ -2972,5 +3003,13 @@
             }
         });
     </script>
-       
+    <script>
+        changeTab = (element) => {
+            const TabName = element.className.split(' ').at(-1);
+            $('.custom-tab-nav').removeClass('active')
+            $('.custom-tab').addClass('d-none')
+            $(`.${TabName}`).addClass('active')
+            $(`#${TabName}`).removeClass('d-none')
+        }
+    </script>
 @endpush

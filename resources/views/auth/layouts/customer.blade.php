@@ -3,23 +3,16 @@
 <head>
     @include('customer.includes.head')
 </head>
-        
-    <!-- Begin page -->
-    <div class="wrapper" ng-app="App">
-
-        <!-- ========== Left Sidebar Start ========== -->
-        <!--========== Left Sidebar End ========== -->
-
+    <body ng-app="App" class="wrapper d-flex justify-content-center align-items-center"  style="min-height: 100vh">
         <!--========== Start Page Content here ==========-->
-            @yield('customer-content')
+            <main class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                @yield('customer-content')
+            </main>
         <!--========== End Page content ==========-->
-
-        <!--========== Start Page Footer ==========-->
-        
-        <!--========== End Page Footer ==========-->
-
-    </div>
-
+        <footer class="footer footer-alt">
+            © {{ now()->year }} All rights reserved | AecPrefab
+        </footer>
+    </body>
+    @include('customer.includes.footer-scripts')
 </html>
-@include('customer.includes.footer-scripts')
 @stack('custom-scripts')

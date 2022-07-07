@@ -1,42 +1,32 @@
 @extends('auth.layouts.customer')
 
 @section('customer-content')
-<main class="login-form">
-  <div class="cotainer">
-      <div class="row justify-content-center my-4">
-          <div class="col-md-8">
-              <div class="card">
-                  <div class="card-header">Reset Password</div>
-                  <div class="card-body">
-  
-                    @if (Session::has('message'))
-                         <div class="alert alert-success" role="alert">
-                            {{ Session::get('message') }}
-                        </div>
-                    @endif
-  
-                      <form action="{{ route('forget.password.post') }}" method="POST">
-                          @csrf
-                          <div class="form-group row">
-                              <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                              <div class="col-md-6">
-                                  <input type="text" id="email_address" class="form-control" name="email" required autofocus>
-                                  @if ($errors->has('email'))
-                                      <span class="text-danger">{{ $errors->first('email') }}</span>
-                                  @endif
-                              </div>
-                          </div>
-                          <div class="col-md-6 offset-md-4">
-                              <button type="submit" class="mx-1 btn btn-primary">
-                                  Send Password Reset Link
-                              </button>
-                          </div>
-                      </form>
-                        
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</main>
+    <div class="card shadow-lg border">  
+        <div class="card-header text-center py-3 border-0">
+            <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2"> <br>
+            <img src="{{ asset("public/assets/images/key.png") }}" width="100px" class="mb-2">
+            <p class="lead text-secondary" style="font-weight: 400;">Forgot Password ?</p>
+            <b>We will sernd you instructions to reset your password.</b>
+        </div>
+        <div class="card-body pt-0 p-4">        
+            @if (Session::has('message'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('message') }}
+                </div>
+            @endif                    
+            <form action="{{ route('forget.password.post') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <div class="input-group flex-nowrap border rounded border-primary">
+                        <span class="input-group-text border-0 bg-none"><i class="fa fa-envelope"></i></span>
+                        <input type="text" name="email" autofocus class="form-control border-0 ps-0" placeholder="Email" pattern="{{ config('global.email') }}" required>
+                    </div>
+                </div>
+                <div class="mb-0 text-end">
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm col-3"> Back </a>
+                    <button class="btn btn-primary btn-sm col-3" type="submit"> Next </button>
+                </div>
+            </form>
+        </div>
+    </div> 
 @endsection
