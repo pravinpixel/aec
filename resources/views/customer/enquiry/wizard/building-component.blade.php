@@ -95,7 +95,7 @@
                                             <th  class="bg-light">
                                                 <div class="form-group">
                                                     <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
-                                                    <select class="form-select  form-select-sm my-2 mt-3"  name="delivery_type" ng-model="d.DeliveryType" required>
+                                                    <select class="form-select  form-select-sm my-2 mt-3"  name="delivery_type_" ng-model="d.DeliveryType" required>
                                                         <option value="">@lang('customer-enquiry.select')</option>
                                                         <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == d.DeliveryType">
                                                             @{{ deliveryType.delivery_type_name }}
