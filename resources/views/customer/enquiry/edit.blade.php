@@ -1409,9 +1409,24 @@
                             $scope.mandatory.indexOf(item) == -1 && $scope.mandatory.push(item);
                         });
                         if( $scope.mandatory.length != 0){   
+
                             Swal.fire({
-                                title: `Are you sure to skip the step without uploading ${$scope.mandatory.join(',').replaceAll('_', ' ')} ?`,
-                                confirmButtonText: 'Yes',
+                                html: `
+                                    <h4 class="header-title">Are you sure to skip the step without uploading </h4>
+                                    <p class="lead">
+                                        ${
+                                            $scope.mandatory.map((item) => {
+                                                if(item != 'Three_dimensional_model') {
+                                                    return  item.replaceAll('_', ' ') 
+                                                } else {
+                                                    return "3D Model";
+                                                }
+                                            })
+                                        } ?
+                                    </p>
+                                `,
+                                icon: 'question',
+                                confirmButtonText: 'Yes , Skip it !',
                                 showCancelButton: true,
                                 cancelButtonText: 'No',
                             }).then((result) => {
