@@ -164,7 +164,7 @@
                 <div class="my-2 x-y-between"  >
                     <h3 class="h4">Ticket on the Project</h3>
                    
-                    <a  href="{{ route('admin.live-project.ticket-create', ['id'=>  @{{project.id}}]) }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i>   Create Variation Order </a>
+                    <a  href="  {{ URL('admin/create-project-ticket') }}/@{{project.id}}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i>   Create Variation Order </a>
 
                  <!-- <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#Variation_mdal-box">
                         Create Variation Order
@@ -303,10 +303,17 @@
 
             </form>
             </div>
+
+            
             {{-- <div class="modal-footer"> 
                 <button class="btn btn-primary"  ><i class="fa fa-save me-2"></i>Update</button>
             </div> --}}
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<div class="card-footer text-end">
+    <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
+    <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
+    <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
+</div>
 @include("admin.enquiry.models.ticket-chat-box") 
