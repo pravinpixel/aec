@@ -139,8 +139,8 @@
                         <img src="{{ asset('public/assets/images/users/avatar-1.jpg') }}" alt="user-image" class="rounded-circle">
                     </span>
                     <span>
-                        <span class="account-user-name">Dominic Keller</span>
-                        <span class="account-position">Founder</span>
+                        <span class="account-user-name text-capitalize">{{ Admin()->full_name ?? 'Avatar' }}</span>
+                        <span class="account-position  text-capitalize">{{ userRole()->name ?? '' }}</span>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
