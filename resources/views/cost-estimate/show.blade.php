@@ -435,6 +435,9 @@
             $scope.addComponent  = function(index) {
                 let newObj = JSON.parse(JSON.stringify($scope.EngineeringEstimate[index].Components[0]));
                 $scope.EngineeringEstimate[index].Components.splice(0, 0, newObj);
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
             }
 
             $scope.delete   =   function(rootKey, index) { 
@@ -449,12 +452,12 @@
             }
         
             $scope.BuildingComponentObj = {};
-            $scope.BuildingTypeObj = {};
-            $http.get(`${API_URL}building-type`)
+            $scope.DeliveryTypeObj = {};
+            $http.get(`${API_URL}delivery-type`)
             .then((res)=> {
-                $scope.buildingTypes = res.data;
+                $scope.deliveryTypes = res.data;
                 res.data.forEach((item) => {
-                    $scope.BuildingTypeObj[item.id] = item.building_type_name;
+                    $scope.DeliveryTypeObj[item.id] = item.building_type_name;
                 });
             });
             
@@ -620,7 +623,7 @@
                         scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 = $TotalPriceM2;
                         scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalSum;
                         scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalSum;
-                    // for column total
+                        // for column total
                         let $totalEstimateArea = 0;
                         let $totalEstimateSum = 0;
                         scope.EngineeringEstimate.forEach( (Estimates, estimateIndex) => {

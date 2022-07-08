@@ -77,6 +77,12 @@
                                         <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                         <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
                                     </a>
+
+                                    <a class="nav-link masterTab" href="#!/master-estimate" role="tab" aria-controls="v-pills-master"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-master-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block">Master Estimation</span>
+                                    </a>
                                 <hr>
                             </div>
                             <div class="d-none custom-tab" id="CustomerTab">
@@ -110,11 +116,11 @@
                                         <span class="d-none d-md-block"  ng-click="projectTypeGetData()">Project Type</span>
                                     </a>
 
-                                    <a class="nav-link layerTab" id="v-pills-layer-tab" href="#!/layer" role="tab" aria-controls="v-pills-layer"
+                                    {{-- <a class="nav-link layerTab" id="v-pills-layer-tab" href="#!/layer" role="tab" aria-controls="v-pills-layer"
                                         aria-selected="false">
                                         <i class="mdi mdi-layer-outline d-md-none d-block"></i>
                                         <span class="d-none d-md-block"  ng-click="layerGetData()" >Layer</span>
-                                    </a>
+                                    </a> --}}
 
                                     <a class="nav-link deliveryTab" id="v-pills-DeliveryLayer-tab" href="#!/deliveryType"  role="tab" aria-controls="v-pills-DeliveryLayer"
                                         aria-selected="false">

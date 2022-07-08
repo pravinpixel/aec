@@ -108,6 +108,9 @@
         $scope.addComponent  = function(index) {
             let newObj = JSON.parse(JSON.stringify($scope.EngineeringEstimate[index].Components[0]));
             $scope.EngineeringEstimate[index].Components.splice(0, 0, newObj);
+            $timeout(function() {
+                angular.element('.sqm_').triggerHandler('keyup');
+            });
         }
 
         $scope.delete   =   function(rootKey, index) { 
@@ -121,9 +124,9 @@
             Message('success', 'Component deleted successfully');
         }
         
-        $http.get(`${API_URL}building-type`)
+        $http.get(`${API_URL}delivery-type`)
         .then((res)=> {
-            $scope.buildingTypes = res.data;
+            $scope.deliveryTypes = res.data;
         });
 
         $http.get(`${API_URL}get-for-cost-estimate`)

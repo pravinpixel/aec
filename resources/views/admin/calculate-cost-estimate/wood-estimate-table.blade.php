@@ -77,6 +77,7 @@
                     <div class="text-center m-0">
                         <input type="text" disabled onkeypress="return isNumber(event)"
                             name="CostEstimate.ComponentsTotals.Rib.Sum"
+                            ng-value="CostEstimate.ComponentsTotals.Rib.Sum"
                             ng-model="CostEstimate.ComponentsTotals.Rib.Sum"
                             class="form-control  rounded-0 text-center form-control-sm">
                     </div>
@@ -119,12 +120,12 @@
                     </select>
                 </div>
                 <div class="custom-td">
-                    <input type="text" class="history_building_type_value" value="@{{ BuildingTypeObj[C.type_id] }}">
+                    <input type="text" class="history_building_type_value" value="@{{ DeliveryTypeObj[C.type_id] }}">
                     <select class="my-select w-100 history_building_type_select" ng-model="C.type_id" ng-change="getCostEstimateData(index)"
                         name="type_name">
                         <option value="">-- Select ---</option>
-                        <option ng-value="@{{ buildingType.id }}" ng-selected="buildingType.id == C.Type"
-                            ng-repeat="buildingType in buildingTypes">@{{ buildingType.building_type_name }}</option>
+                        <option ng-value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == C.Type"
+                            ng-repeat="deliveryType in deliveryTypes">@{{ deliveryType.delivery_type_name }}</option>
                     </select>
                 </div>
                 <div class="custom-td"> <input type="text" onkeypress="return isNumber(event)"
