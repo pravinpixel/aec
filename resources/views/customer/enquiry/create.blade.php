@@ -659,7 +659,7 @@
                                 WallIcon  : item.building_component_icon,
                                 WallTop   : item.top_position,
                                 WallBottom: item.bottom_position,
-                                wallLabel : item.label,
+                                WallLabel : item.label,
                                 Details: [
                                     
                                 ]
@@ -721,7 +721,7 @@
                                 WallIcon  : item.icon,
                                 WallTop   : item.top_position,
                                 WallBottom: item.bottom_position,
-                                wallLabel : item.label,
+                                WallLabel : item.label,
                                 Details: Details
                             }
                         $scope.wallGroup.push(wall);
