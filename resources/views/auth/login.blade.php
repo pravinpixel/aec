@@ -34,7 +34,6 @@
             <div class="  mb-0 text-center">
                 <button class="btn btn-primary w-100" type="submit"> Sign  In </button>
             </div>
-            <p class="fw-bold text-center mt-3">Sign in with <a href="#"> Facebook  </a> or <a href="#"> Google </a></p>
         </form>
     </div>
 </div>

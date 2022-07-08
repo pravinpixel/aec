@@ -12,23 +12,23 @@
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
             <div class="form-group row mb-2">
-                <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail</label>
-                <div class="col-md-8 p-0">
-                    <input type="text" id="email_address" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-                    @if ($errors->has('email'))
-                        <span class="text-danger">{{ $errors->first('email') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group row mb-2">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                <label for="password" class="col-md-4 col-form-label text-md-right">Temporary Password</label>
                 <div class="col-md-8 p-0">
                     <div class="input-group flex-nowrap border rounded">
-                        <input type="password" name="password" id="password" class="form-control border-0 "  required>
+                        <input type="password" name="temporary_password" id="temporary_password" class="form-control border-0 "  required>
                         <div class="input-group-text border-0" data-password="false">
                             <span class="password-eye"></span>
                         </div>
                     </div>
+                    @if ($errors->has('temporary_password'))
+                        <span class="text-danger">{{ $errors->first('temporary_password') }}</span>
+                    @endif 
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label for="password" class="col-md-4 col-form-label text-md-right">New Password</label>
+                <div class="col-md-8 p-0">
+                        <input type="password" name="password" id="password" class="form-control"  required>
                     @if ($errors->has('password'))
                         <span class="text-danger">{{ $errors->first('password') }}</span>
                     @endif 
@@ -44,8 +44,8 @@
                 </div>
             </div>
             <div class="col-md-8 offset-md-4 p-0">
-                <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm "> Back </a>
-                <button type="submit" class="btn btn-primary  btn-sm">Change</button>
+                <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm "> Cancel </a>
+                <button type="submit" class="btn btn-primary  btn-sm">Save</button>
             </div>
         </form>
           

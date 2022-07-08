@@ -6797,16 +6797,16 @@
         },
         {
             "name": "vgrem/php-spo",
-            "version": "v2.5.3",
+            "version": "v2.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vgrem/phpSPO.git",
-                "reference": "62fb425bf2b90943e89ba621d684e187b07f8200"
+                "reference": "a1ababbd728428f35218807c4b646541931bec47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vgrem/phpSPO/zipball/62fb425bf2b90943e89ba621d684e187b07f8200",
-                "reference": "62fb425bf2b90943e89ba621d684e187b07f8200",
+                "url": "https://api.github.com/repos/vgrem/phpSPO/zipball/a1ababbd728428f35218807c4b646541931bec47",
+                "reference": "a1ababbd728428f35218807c4b646541931bec47",
                 "shasum": ""
             },
             "require": {
@@ -6846,9 +6846,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vgrem/phpSPO/issues",
-                "source": "https://github.com/vgrem/phpSPO/tree/v2.5.3"
+                "source": "https://github.com/vgrem/phpSPO/tree/v2.5.4"
             },
-            "time": "2022-02-05T17:55:58+00:00"
+            "time": "2022-07-07T10:21:24+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
