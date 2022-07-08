@@ -45,3 +45,9 @@
         </tbody>
     </table>
 </div>
+
+<div class="card-footer text-end">
+    <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
+    <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
+    <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
+</div>

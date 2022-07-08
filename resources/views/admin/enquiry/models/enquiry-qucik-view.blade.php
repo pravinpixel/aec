@@ -29,7 +29,7 @@
             </div> 
             
             <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
-                <input type="hidden" id="admin_auth_id" value="{{ Admin()->id }}" >
+                <input type="hidden" id="admin_auth_id" value="{{ Admin()->id }}">
                 {{-- ProjectInfo --}}
                     <fieldset class="accordion-item">
                         <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
@@ -241,7 +241,7 @@
                         </div>
                     </fieldset>  
                 {{-- IFC Models & Uploaded Documents --}}
-        
+
                 {{-- Building Components --}}
                     <fieldset class="accordion-item">
                         <div class="accordion-header custom m-0 position-relative" id="building_component_header">
@@ -355,51 +355,54 @@
                                     <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_components" ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
-                                </div> 
+                                </div>
                             </div> 
                         </div>
-
                     </fieldset>
                 {{-- Building Components --}}
-        
-                {{-- Additional Info --}} 
-                    <fieldset class="accordion-item ">
+
+                {{-- Additional Info --}}
+                    <fieldset class="accordion-item">
                         <div class="accordion-header custom m-0 position-relative" id="add_info_header">
                             <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#add_info" aria-expanded="false" aria-controls="add_info">
-                                <span class="position-relative btn py-0">Additional Info<small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small></span> 
-
+                                <span class="position-relative btn py-0">
+                                    Additional Info
+                                    <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small>
+                                </span>
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
-                                <i data-bs-toggle="collapse" 
+                                <i
                                     href="#add_info" 
                                     aria-expanded="false" 
                                     aria-controls="add_info" 
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
+                                    data-bs-toggle="collapse"
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
+                                </i>
                             </div>
                         </div>
                         <div id="add_info" class="accordion-collapse collapse" aria-labelledby="add_info_header" >
                             <div class="accordion-body">  
                                 {{-- <div ng-bind-html="additional_infos.comments"> </div> --}}
-                                <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
-                                    <div dx-html-editor="htmlEditorOptions" contenteditable="false"> </div>
+                                <div>
+                                    <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
+                                        <div dx-html-editor="htmlEditorOptions" contenteditable="false"> </div>
+                                    </div>
+                                    <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin', enqData.customer_info.id)" class="input-group mt-3">
+                                        <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                        <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                    </form>  
+                                    <div class="text-end pt-3">
+                                        <a class="text-primary p-0 btn" ng-show="enquiry_comments.add_info"  ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
+                                            <i class="fa fa-eye"></i>  Previous chat history
+                                        </a>
                                     </div>
                                 </div>
-                                <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin', enqData.customer_info.id)" class="input-group mt-3">
-                                    <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                                    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                </form>  
-                                <div class="text-end pt-3">
-                                    <a class="text-primary p-0 btn" ng-show="enquiry_comments.add_info"  ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
-                                        <i class="fa fa-eye"></i>  Previous chat history
-                                    </a>
-                                </div>
-                            </div> 
+                            </div>
                         </div>
-                    </fieldset> 
+                    </fieldset>
                 {{-- Additional Info --}}
-            </div>   
-             
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+            </div>
+        </div>
+    </div>
 </div><!-- /.modal -->
 @include('customer.enquiry.models.document-modal')

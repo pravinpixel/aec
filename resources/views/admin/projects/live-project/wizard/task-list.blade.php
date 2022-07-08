@@ -15,7 +15,7 @@
                 <td>XXXX</td>
                 <td><b>Final Delivery Date</b></td>
                 <td>:</td>
-                <td>XXXX</td>
+                <td>@{{projectTypes.delivery_date}}</td>
             </tr>
         </tbody>
     </table>

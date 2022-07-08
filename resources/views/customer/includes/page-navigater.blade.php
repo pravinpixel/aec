@@ -20,7 +20,7 @@
             </div>
             <h4 class="page-title">
                 @if (Route::is('customers-dashboard')) Dashboard @endif
-                @if (Route::is('customers-my-enquiries')) List of Enquiry @endif
+                @if (Route::is('customers-my-enquiries'))  Enquiries Status @endif
                 @if (Route::is('customers.create-enquiry')) {{ $enquiry_number ?? 'Draft'}} @endif  
                 @if (Route::is('customers.edit-enquiry')) {{ $enquiry->enquiry_number ?? 'Draft'  }}:  {{ $enquiry->project_name ?? '' }} @endif 
                 @if (Route::is('customer.changePassword')) Change Password @endif 

@@ -11,12 +11,18 @@
 
                 @include('customer.includes.page-navigater')
 
-                {{--  Fillter Button --}}
-                 
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
-                        <i class="mdi mdi-filter-menu"></i> Filters
-                    </button> 
-                {{--  Fillter Button --}}
+                <div class="row m-0">
+                    <div class="col p-0">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
+                            <i class="mdi mdi-filter-menu"></i> Filters
+                        </button> 
+                    </div>
+                    <div class="col text-end p-0">
+                        <a href="{{ route('customers.create-enquiry') }}" class="btn btn-info shadow-sm border mb-3">
+                            <i class="mdi mdi-plus"></i> Create New Enquiry
+                        </a> 
+                    </div>
+                </div>
 
                 <div class="accordion" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item mb-2 border rounded shadow-sm">
