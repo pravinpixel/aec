@@ -26,12 +26,12 @@
         <div class="auto-scroll"> 
             <div class="custom-row custom-border-left bg-primary text-white m-0">
                 <div class="custom-td text-center"> 
-                    <small class="fw-bold">Component</small>
+                    <small class="fw-bold">Total</small>
                     <button class="btn-sm btn font-12 btn-info py-0 mt-1" ng-click="addComponent(firstIndex)">
                         <i class="fa fa-plus"></i> Add 
                     </button>
                 </div>
-                <div class="custom-td text-center"><small class="fw-bold"> Type</small> </div>
+                <div class="custom-td text-center"><small class="fw-bold"> Type of delivery </small> </div>
                 <div class="custom-td text-center"><small class="fw-bold"> Design Scope (%)</small> </div>
                 <div class="custom-td text-center">
                     <span class="text-center"><small class="fw-bold">1 to 2</small></span>
@@ -49,7 +49,7 @@
                         </span>
                         <div class="row text-center m-0 w-100">
                             <div class="col p-0 font-12 text-center">
-                                <small class="fw-bold">Nok/M2</small>
+                                <small class="fw-bold">Pris/m2</small>
                             </div>
                             <div class="col p-0 font-12 text-center">
                                 <small class="fw-bold">Sum </small>
@@ -85,7 +85,7 @@
                     <span><small class="fw-bold">Total Cost</small></span>
                     <div class="custom-row text-center m-0">
                         <div class="col">
-                            <small class="fw-bold">Nok/M2</small>
+                            <small class="fw-bold">Pris/m2</small>
                         </div>
                         <div class="col">
                             <small class="fw-bold">Sum</small>
