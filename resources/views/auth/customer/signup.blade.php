@@ -1,7 +1,7 @@
 @extends('auth.layouts.customer')
 
 @section('customer-content')
-    <div class="card col-lg-3 col-md-4 col-sm-8 shadow-lg border">  
+    <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-8 col-6 shadow-lg border">  
         <div class="card-header text-center py-3 border-0">
             <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2">
             <p class="lead" style="font-weight: 400;">Welcome to AEC Prefab Create Account</p>
