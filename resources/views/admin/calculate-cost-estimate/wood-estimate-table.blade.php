@@ -113,7 +113,7 @@
             <div class="custom-row custom-border-left custom-border-bottom" ng-repeat="(index, C) in CostEstimate.Components track by $index">
                 <div class="custom-td">
                     <input type="text" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
-                    <select class="my-select w-100 history_building_component_input" ng-model="C.building_component_id" name="building_component_name">
+                    <select class="my-select w-100 history_building_component_input" get-master-data="[index]" ng-model="C.building_component_id" name="building_component_name">
                         <option value="">-- Select -- </option>
                         <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.Component"
                             ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option>
@@ -121,7 +121,7 @@
                 </div>
                 <div class="custom-td">
                     <input type="text" class="history_building_type_value" value="@{{ DeliveryTypeObj[C.type_id] }}">
-                    <select class="my-select w-100 history_building_type_select" ng-model="C.type_id" ng-change="getCostEstimateData(index)"
+                    <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.type_id" ng-change="getMasterData(index)"
                         name="type_name">
                         <option value="">-- Select ---</option>
                         <option ng-value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == C.Type"

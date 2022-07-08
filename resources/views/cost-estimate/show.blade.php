@@ -663,6 +663,53 @@
                     });
                 },
             };
+        }]).directive('getMasterData',   ['$http' ,function ($http, $scope, $apply, API_URL) {  
+            return {
+                restrict: 'A',
+                link : function (scope, element, attrs, API_URL) {
+                    element.on('change', function () {
+                        var response;
+                        if(scope.C.building_component_id == "" || scope.C.type_id == "") {
+                            return false;
+                        } 
+                        $http({
+                        method: 'GET',
+                        url: '{{ route('CostEstimateMasterValue') }}',
+                        params : {component_id: scope.C.building_component_id, type_id: scope.C.type_id}
+                        }).then(function success(res) {
+                            response = res.data;
+                            scope.EngineeringEstimate.forEach( (Estimates, estimateIndex) => {
+                                Estimates.Components.forEach( (Component, componentIndex) => {
+                                    if(scope.index == componentIndex) {
+                                        Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
+                                            if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Details') {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.detail_price || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.detail_sum || 0;
+                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Statics') {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.statistic_price || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.statistic_sum || 0;
+                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'CAD/CAM') {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.cad_cam_price || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.cad_cam_sum || 0;
+                                            } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Logistics') {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.logistic_price || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.logistic_sum || 0 ;
+                                            } else {
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 =  0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;
+                                            }
+                                        });
+                                        Estimates.Components[componentIndex].Complexity = response.complexity || 0;
+                                        Estimates.Components[componentIndex].Sqm = 0;
+                                    }
+                                });
+                            });
+                            let finalJson = {...scope.ResultEngineeringEstimate.costEstimate, ...scope.EngineeringEstimate};
+                            scope.ResultEngineeringEstimate.costEstimate =   JSON.parse(JSON.stringify(finalJson));
+                        });
+                    });
+                },
+            };
         }]).directive('getPrecastDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
         return {
             restrict: 'A',
