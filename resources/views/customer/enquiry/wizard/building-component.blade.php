@@ -32,7 +32,7 @@
         </div> 
         @include('customer.enquiry.table.building-component-upload-list')
     </div>
-    <div class="row" ng-show="showHideBuildingComponent == 0"> @{{ w }}
+    <div class="row" ng-show="showHideBuildingComponent == 0"> 
         <div class="col-sm mb-2 mb-sm-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: $index == 0}" ng-class="{show: $index == 0}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center" id="v-pills-tab_wall_@{{ fIndex }}" data-bs-toggle="pill" href="#v-pills-profile_wall_@{{ fIndex }}" role="tab" aria-controls="v-pills-profile_wall_@{{ fIndex }}"
@@ -42,7 +42,7 @@
                 </a>
             </div>
         </div> 
-      
+        @{{ w | json}}
         <div class="col-sm-10">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade"  get-customer-layer get-template  ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}" id="v-pills-profile_wall_@{{ fIndex }}" role="tabpanel" aria-labelledby="v-pills-profile-tab_wall_@{{ fIndex }}">
