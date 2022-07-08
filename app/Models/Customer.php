@@ -62,6 +62,13 @@ class Customer extends Authenticatable
             $this->attributes['full_name'] = "{$first_name} {$last_name}";
         }
     }
+
+    public function setContactPersonAttribute($contactPerson)
+    {
+        $this->attributes['contact_person'] = $contactPerson;
+        $this->attributes['full_name']      = $contactPerson;
+        $this->attributes['first_name']     = $contactPerson;
+    }
     
 
     public function getContactPersonAttribute($value)
