@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                   © {{ now()->year }} AECPrefab. All Rights Reserved.
+                   © {{ now()->year }} AEC Prefab. All Rights Reserved.
             </div>
             {{-- <div class="col-md-6">
                 <div class="text-md-end footer-links d-none d-md-block">

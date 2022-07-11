@@ -29,7 +29,7 @@
                 <label for="keep_me" class="text-secondary">
                    <input type="checkbox" class="me-1 form-check-input" id="keep_me"> Keep me signed in
                 </label>  
-                <a href="{{route('forget.password.get')}}"> Forgot password ? </a>  
+                <a href="{{route('forgot.password.get')}}"> Forgot password ? </a>  
             </div>
             <div class="  mb-0 text-center">
                 <button class="btn btn-primary w-100" type="submit"> Sign  In </button>

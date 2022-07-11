@@ -1102,10 +1102,7 @@
                                 }, 'separator',
                                 'color', 'background', 'separator',
                                 'link', 'image', 'separator',
-                                'clear', 'codeBlock', 'blockquote', 'separator',
-                                'insertTable', 'deleteTable',
-                                'insertRowAbove', 'insertRowBelow', 'deleteRow',
-                                'insertColumnLeft', 'insertColumnRight', 'deleteColumn',
+                                'clear', 'codeBlock', 'separator'
                             ],
                         },
                         mediaResizing: {

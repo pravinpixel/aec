@@ -23,9 +23,9 @@ class ForgotPasswordController extends Controller
    *
    * @return response()
    */
-  public function showForgetPasswordForm()
+  public function showForgotPasswordForm()
   {
-    return view('auth.customer.forget-password');
+    return view('auth.customer.forgot-password');
   }
 
   /**
@@ -33,7 +33,7 @@ class ForgotPasswordController extends Controller
    *
    * @return response()
    */
-  public function submitForgetPasswordForm(Request $request)
+  public function submitForgotPasswordForm(Request $request)
   {
 
     $validatorCustomer = Validator::make($request->all(), [
@@ -70,7 +70,7 @@ class ForgotPasswordController extends Controller
    */
   public function showResetPasswordForm($token)
   {
-    return view('auth.customer.forget-password-link', ['token' => $token]);
+    return view('auth.customer.forgot-password-link', ['token' => $token]);
   }
 
   /**

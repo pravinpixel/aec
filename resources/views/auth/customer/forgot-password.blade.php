@@ -10,7 +10,7 @@
             @if ($errors->has('email')) <b class="text-danger">Invalid Email Address ! @endif                    
         </div>
         <div class="card-body pt-0 p-4">        
-            <form action="{{ route('forget.password.post') }}" method="POST">
+            <form action="{{ route('forgot.password.post') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <div class="input-group flex-nowrap border rounded border-primary">

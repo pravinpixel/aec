@@ -10,7 +10,7 @@
                 @yield('customer-content')
         <!--========== End Page content ==========-->
         <footer class="footer footer-alt">
-             © {{ now()->year }} AECPrefab. All Rights Reserved.
+             © {{ now()->year }} AEC Prefab. All Rights Reserved.
         </footer>
     </body>
     @include('customer.includes.footer-scripts')
