@@ -227,7 +227,7 @@
                                                 <thead class="table-secondary text-dark">
                                                     <tr>
                                                         <th>Floor</th>
-                                                        <th>Delivery Type</th>
+                                                        <th>Type of Delivery</th>
                                                         <th>Total Area </th>
                                                     </tr>
                                                 </thead>
@@ -290,7 +290,7 @@
                                                         <table class="table custom m-0 table-bordered">
                                                             <tr>
                                                                 <th>Floor</th>
-                                                                <th>Delivery Type</th>
+                                                                <th>Type of Delivery</th>
                                                                 <th >Total Area </th>
                                                             </tr> 
                                                             <tr>

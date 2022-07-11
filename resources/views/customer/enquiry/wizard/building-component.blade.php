@@ -88,7 +88,7 @@
                                                 </th> 
                                                 <th  class="bg-light">
                                                     <div class="form-group">
-                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Delivery Type  <sup class="text-danger">*</sup></label>
+                                                        <label class="form-lable text-dark shadow-sm position-absolute border">Type of Delivery  <sup class="text-danger">*</sup></label>
                                                         <select class="form-select  form-select-sm my-2 mt-3"  name="DeliveryType_@{{ fIndex }}_@{{ Secindex }}" ng-model="d.DeliveryType" required>
                                                             <option value="">@lang('customer-enquiry.select')</option>
                                                             <option ng-repeat="delivery in deliveryTypes" ng-value="@{{ delivery.id }}" ng-selected="delivery.id == d.DeliveryType">
@@ -282,7 +282,7 @@
                                     <thead class="table-secondary text-dark">
                                         <tr>
                                             <th>Floor</th>
-                                            <th>Delivery Type</th>
+                                            <th>Type of Delivery</th>
                                             <th>Total Area </th>
                                         </tr>
                                     </thead>

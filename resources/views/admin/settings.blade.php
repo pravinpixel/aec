@@ -131,7 +131,7 @@
                                     <a class="nav-link deliveryTab" id="v-pills-DeliveryLayer-tab" href="#!/deliveryType"  role="tab" aria-controls="v-pills-DeliveryLayer"
                                         aria-selected="false">
                                         <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
-                                        <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Delivery Type</span>
+                                        <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Type of Delivery</span>
                                     </a>
 
                                     <a class="nav-link documentTab" id="v-pills-document-tab"  href="#!/documentType" role="tab" aria-controls="v-pills-document"
@@ -1464,14 +1464,14 @@
         
                 switch (modalstate) {
                     case 'add':
-                        $scope.form_title = "Create Delivery Type";
+                        $scope.form_title = "Create Type of Delivery";
                         $scope.form_color = "primary";
                         $scope.module_deliveryLayer = {};
                         $('#primary-deliveryLayer-modal').modal('show');
 
                         break;
                     case 'edit':
-                        $scope.form_title = "Edit Delivery Type";
+                        $scope.form_title = "Edit Type of Delivery";
                         $scope.form_color = "success";
                         $scope.id = id;
                         $scope.module_deliveryLayer = {};

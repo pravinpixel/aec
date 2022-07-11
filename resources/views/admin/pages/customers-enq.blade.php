@@ -883,7 +883,7 @@
                                                                             </th>
                                                                             <th  class="bg-white">
                                                                                 <div class="form-group">
-                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery Type</label>
+                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Type of Delivery</label>
                                                                                     <select class="form-select  form-select-sm my-2 mt-3">
                                                                                         <option selected >-- Choose --</option>
                                                                                         <option value="Element">Element</option>
@@ -1032,7 +1032,7 @@
                                                                     <th>FloorName</th>
                                                                     <th>Floor Number	</th>
                                                                     <th>Total Area	</th>
-                                                                    <th>Delivery Type</th> 
+                                                                    <th>Type of Delivery</th> 
                                                                     <th>Layers</th> 
                                                                     <th>Action</th>
                                                                 </tr>
@@ -1110,7 +1110,7 @@
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row mb-3">
-                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Delivery Type</label>
+                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Type of Delivery</label>
                                                                                                         <div class="col-9">
                                                                                                             <input type="text" disabled class="form-control" id="inputPassword3" value="@{{ d.DeliveryType }}" >
                                                                                                         </div>
@@ -1406,7 +1406,7 @@
                                                                         <th  class="bg-primary text-white">EW_DEWS
                                                                         </th>
                                                                         <th  class="bg-primary text-white">
-                                                                            Delivery Type : Element Type
+                                                                            Type of Delivery : Element Type
                                                                         </th>
                                                                         <th  class="bg-primary text-white">
                                                                             Total : 10

@@ -184,7 +184,7 @@
                                             <tr>
                                                 <th class="">EW_DEWS
                                                 </th><th class="">
-                                                    Delivery Type : Element Type
+                                                    Type of Delivery : Element Type
                                                 </th>
                                                 <th class="">
                                                     Total : 10

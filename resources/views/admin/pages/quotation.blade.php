@@ -448,7 +448,7 @@
                                                         <th  class="bg-primary text-white">EW_DEWS
                                                         </th>
                                                         <th  class="bg-primary text-white">
-                                                            Delivery Type : Element Type
+                                                            Type of Delivery : Element Type
                                                         </th>
                                                         <th  class="bg-primary text-white">
                                                             Total : 10

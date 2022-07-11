@@ -15,7 +15,7 @@
                 </select>
             </div>
             <div class="col me-2">
-                <small for="" class="mb-2">Delivery Type</small>
+                <small for="" class="mb-2">Type of Delivery</small>
                 <select name="" id="ddlAge" class="form-select cl_age">
                     <option value="all">Select</option>                    
                     @foreach($data['type'] as $type)            
@@ -39,7 +39,7 @@
                 <tr>
                     <th style="padding: 0 5px !important"><small>S.No</small> </th>
                     <th style="padding: 0 5px !important"><small>Component</small> </th>
-                    <th style="padding: 0 5px !important"><small>Delivery Type</small> </th>
+                    <th style="padding: 0 5px !important"><small>Type of Delivery</small> </th>
                     <th style="padding: 0 5px !important"><small>Details Price</small> </th>
                     <!-- <th style="padding: 0 5px !important"><small>Details Sum</small> </th> -->
                     <th style="padding: 0 5px !important"><small>Statistics Price</small> </th>
