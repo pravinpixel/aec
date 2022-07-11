@@ -17,7 +17,7 @@
     <div class="text-center">
     Please use the following temporary password to verify yourself
     </div>
-    <b> {{ $data['code'] }} </b>
+    <h4><b> {{ $data['code'] }} </b></h4>
     <div class="text-center">
         <p class="text-center">If you did not initiate this request, please contact us immediately at</p>
         <p class="text-center"><a href="mailto:support@aecprefab.net">support@aecprefab.net</a></p>

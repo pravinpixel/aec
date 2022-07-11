@@ -978,19 +978,29 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
                         projectCost -= scope.invoicePlans.totalAmount;
                         return {
                             index: index + 1,
-                            amount: projectCost,
+                            amount: Number.parseFloat(projectCost).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: scope.invoicePlans.totalPercentage,
                         }
                     }
-                    scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
-                    scope.invoicePlans.totalAmount += ( scope.project.project_cost / 100 ) * invoicePlan.percentage;
-                    return {    
-                        index: index + 1,
-                        amount: ( scope.project.project_cost / 100 ) * invoicePlan.percentage,
-                        invoice_date: invoicePlan.invoice_date,
-                        percentage: invoicePlan.percentage,
-                    };
+                    let totalPercentage = scope.invoicePlans.totalPercentage - invoicePlan.percentage;
+                    if(totalPercentage < 0) {
+                        return {    
+                            index: index + 1,
+                            amount: 0,
+                            invoice_date: invoicePlan.invoice_date,
+                            percentage: 0,
+                        };
+                    } else {
+                        scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
+                        scope.invoicePlans.totalAmount += ( scope.project.project_cost / 100 ) * invoicePlan.percentage;
+                        return {    
+                            index: index + 1,
+                            amount: Number.parseFloat(( scope.project.project_cost / 100 ) * invoicePlan.percentage).toFixed(2),
+                            invoice_date: invoicePlan.invoice_date,
+                            percentage: invoicePlan.percentage,
+                        };
+                    }
                 });
                 result['totalPercentage'] = scope.invoicePlans.totalPercentage;
                 result['totalAmount'] = scope.invoicePlans.totalAmount;
