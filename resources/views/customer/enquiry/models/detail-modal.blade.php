@@ -14,7 +14,7 @@
                             <th>Company Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Type Of Delivery</th>
+                            <th>Type of Delivery</th>
                         </tr>
                         <tr>
                             <td style="text-align: left !important;"  ng-show="enquiry.project_infos.enquiry_no">@{{ enquiry.project_infos.enquiry_no }}</td>

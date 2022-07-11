@@ -31,7 +31,7 @@
                         <i class="fa fa-plus"></i> Add 
                     </button>
                 </div>
-                <div class="custom-td text-center"><small class="fw-bold"> Type of delivery </small> </div>
+                <div class="custom-td text-center"><small class="fw-bold"> Type of Delivery </small> </div>
                 <div class="custom-td text-center"><small class="fw-bold"> Design Scope (%)</small> </div>
                 <div class="custom-td text-center">
                     <span class="text-center"><small class="fw-bold">1 to 2</small></span>
