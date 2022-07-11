@@ -144,7 +144,7 @@
                                     <td>@{{ project_info.building_typproject_info.building_type_name }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.no_of_building != null">
-                                    <td><b>Number of Buildings</b></td>
+                                    <td><b>No. of Buildings</b></td>
                                     <td>:</td>
                                     <td>@{{ project_info.no_of_building }}</td>
                                 </tr> 

@@ -819,7 +819,7 @@
                                                     </th><td class="bg-white">2</td>
                                                 </tr> 
                                                 <tr class="border">
-                                                    <th class=" ">Number of Buildings
+                                                    <th class=" ">No. of Buildings
                                                     </th><td class="bg-white">2</td>
                                                 </tr> 
                                                 <tr class="border">
@@ -827,7 +827,7 @@
                                                     </th><td class="bg-white">1</td>
                                                 </tr> 
                                                 <tr class="border">
-                                                    <th class=" ">Deliveryd Date 
+                                                    <th class=" ">Delivery Date 
                                                     </th><td class="bg-white">2021-02-25</td>
                                                 </tr> 
                                                 <tr class="border">

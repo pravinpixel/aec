@@ -110,7 +110,7 @@
                                             <td>@{{ enquiry.project_infos.building_typenquiry.project_infos.building_type_name }}</td>
                                         </tr> 
                                         <tr ng-if="enquiry.project_infos.no_of_building != null">
-                                            <td><b>Number of Buildings</b></td>
+                                            <td><b>No. of Buildings</b></td>
                                             <td>:</td>
                                             <td>@{{ enquiry.project_infos.no_of_building }}</td>
                                         </tr> 
@@ -272,7 +272,7 @@
                                 <table class="table table-bordered m-0 table-striped" ng-init="total = 0 ">
                                     <tbody > 
                                         <tr ng-repeat="building_component in enquiry.building_components"  ng-show="building_component.detail.length">
-                                            <td class="text-center" width="150px">
+                                            <td class="text-left" width="150px">
                                                 <b>@{{ building_component.wall }}</b>
                                             </td>
                                             <td>

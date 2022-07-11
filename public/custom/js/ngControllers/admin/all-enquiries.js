@@ -270,7 +270,11 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                 'Content-Type': 'application/x-www-form-urlencoded' 
             }
         }).then(function successCallback(response) {
-            document.getElementById(`${type}__commentsForm`).reset();
+            if(type == 'building_components') {
+                document.getElementById(`building_component__commentsForm`).reset();
+            } else {
+                document.getElementById(`${type}__commentsForm`).reset();  
+            }
             // $scope.GetCommentsData();
             Message('success',response.data.msg);
             getEnquiryCommentsCountById($scope.enquiry_id);
