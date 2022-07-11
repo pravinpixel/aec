@@ -48,7 +48,7 @@
     
         $scope.addDynamicColumn = (index, columnName) => {
             $scope.editable = false;
-            if(columnName == '') return false;
+            if(columnName == '' || typeof(columnName) == 'undefined') return false;
             $scope.EngineeringEstimate[index].ComponentsTotals.Dynamics.push({
                     "name"   : columnName,
                     "PriceM2": 0,
@@ -501,7 +501,7 @@
                         });
                         let finalJson = {...scope.ResultEngineeringEstimate.costEstimate, ...scope.EngineeringEstimate};
                         scope.ResultEngineeringEstimate.costEstimate =   JSON.parse(JSON.stringify(finalJson));
-                    });
+                    })
                 });
             },
         };

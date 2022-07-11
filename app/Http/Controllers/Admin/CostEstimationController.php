@@ -18,6 +18,7 @@ use App\Http\Requests\ComponentUpdateRequest;
 use App\Http\Requests\TypeCreateRequest;
 use App\Http\Requests\TypeUpdateRequest;
 use App\Models\CalculateCostEstimate;
+use App\Models\DeliveryType;
 
 use function PHPSTORM_META\type;
 
@@ -286,7 +287,7 @@ class CostEstimationController extends Controller
     {
         // print_r("s");die();
         $data['component'] = BuildingComponent::where('is_active','=','1')->get();
-        $data['type'] = Type::where('is_active','=','1')->get();
+        $data['type'] = DeliveryType::where('is_active','=','1')->get();
         $arr=[];
 	// print_r($data['type']);die();
         foreach($data['component'] as $key=>$comp)

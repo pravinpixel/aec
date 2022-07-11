@@ -15,11 +15,11 @@
                 </select>
             </div>
             <div class="col me-2">
-                <small for="" class="mb-2">Building Type</small>
+                <small for="" class="mb-2">Delivery Type</small>
                 <select name="" id="ddlAge" class="form-select cl_age">
                     <option value="all">Select</option>                    
                     @foreach($data['type'] as $type)            
-                    <option value="{{ $type->building_type_name}}"> {{ $type->building_type_name}} </option>
+                    <option value="{{ $type->delivery_type_name}}"> {{ $type->delivery_type_name}} </option>
                     @endforeach
                 </select>
             </div>
@@ -39,7 +39,7 @@
                 <tr>
                     <th style="padding: 0 5px !important"><small>S.No</small> </th>
                     <th style="padding: 0 5px !important"><small>Component</small> </th>
-                    <th style="padding: 0 5px !important"><small>Type</small> </th>
+                    <th style="padding: 0 5px !important"><small>Delivery Type</small> </th>
                     <th style="padding: 0 5px !important"><small>Details Price</small> </th>
                     <!-- <th style="padding: 0 5px !important"><small>Details Sum</small> </th> -->
                     <th style="padding: 0 5px !important"><small>Statistics Price</small> </th>
@@ -63,7 +63,7 @@
                                 <small> {{ $buildingComponent['building_component_name'] }}   </small>
                             </td>
                             <td style="padding: 0 10px !important">
-                                <small>  {{ $type['building_type_name'] }}   </small>
+                                <small>  {{ $type['delivery_type_name'] }}   </small>
                             </td> 
                             <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->detail_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="detail_price"  class="cal_submit text-center" name="detail_price<?php echo $i ?>">
