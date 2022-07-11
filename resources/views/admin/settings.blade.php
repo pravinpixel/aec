@@ -38,6 +38,12 @@
                         </a>
                     </li> 
                     <li class="nav-item">
+                        <a class="nav-link custom-tab-nav EmployeeTab" onclick="changeTab(this)">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Employee</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
                         <a class="nav-link custom-tab-nav GeneralTab" onclick="changeTab(this)">
                             <i class="mdi mdi-account-circle d-md-none d-block"></i>
                             <span class="d-none d-md-block">General</span>
@@ -140,6 +146,12 @@
                                 <strong class="my-1">Vendor</strong>
                                 <hr>
                             </div>
+
+                            <div class="d-none custom-tab" id="EmployeeTab">
+                                <strong class="my-1">Employee</strong>
+                                <hr>
+                            </div>
+
                             <div class="d-none custom-tab" id="GeneralTab">
                                 <strong class="my-1">General</strong>
                                 <hr>
