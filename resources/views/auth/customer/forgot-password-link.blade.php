@@ -15,8 +15,8 @@
                 <label for="password" class="col-md-4 col-form-label text-md-right">Temporary Password</label>
                 <div class="col-md-8 p-0">
                     <div class="input-group flex-nowrap border rounded">
-                        <input type="password" name="temporary_password" id="temporary_password" class="form-control border-0 "  required>
-                        <div class="input-group-text border-0" data-password="false">
+                        <input type="password" name="temporary_password" id="temporary_password" value="{{ old('temporary_password') }}" class="form-control border-0 " onkeypress="return isNumber(event)" required>
+                        <div class="input-group-text border-0" data-password="false" role="button">
                             <span class="password-eye"></span>
                         </div>
                     </div>

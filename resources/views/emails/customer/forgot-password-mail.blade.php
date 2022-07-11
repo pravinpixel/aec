@@ -11,9 +11,13 @@
             </center>
         </b>
     </p>
-    <a href="{{ route('reset.password.get', $token) }}" style="background: #4188F9 !important" class="shadow-sm border my-4 btn btn-lg btn-primary rounded-pill"> 
+    <a href="{{ route('reset.password.get', $data['token']) }}" style="background: #4188F9 !important" class="shadow-sm border my-4 btn btn-lg btn-primary rounded-pill"> 
         <small>Set a New Password</small>
     </a>
+    <div class="text-center">
+    Please use the following temporary password to verify yourself
+    </div>
+    <b> {{ $data['code'] }} </b>
     <div class="text-center">
         <p class="text-center">If you did not initiate this request, please contact us immediately at</p>
         <p class="text-center"><a href="mailto:support@aecprefab.net">support@aecprefab.net</a></p>

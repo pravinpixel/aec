@@ -3,8 +3,6 @@
 <head>
     @include('customer.includes.head')
 </head>
-@include('flash::message')
-    
     <body ng-app="App" class="wrapper d-flex justify-content-center align-items-center"  style="min-height: 100vh">
         <!--========== Start Page Content here ==========-->
                 @yield('customer-content')

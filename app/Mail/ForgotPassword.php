@@ -11,14 +11,16 @@ class ForgotPassword extends Mailable
 {
     use Queueable, SerializesModels;
     public $token;
+    public $code;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($token, $code)
     {
         $this->token = $token;
+        $this->code = $code;
     }
 
     /**
@@ -31,6 +33,6 @@ class ForgotPassword extends Mailable
         return $this->from(config('global.mail_from_address'))
         ->subject(env('APP_NAME')." - Reset Password")
         ->markdown('emails.customer.forgot-password-mail')
-        ->with('token',$this->token);
+        ->with('data',['token'=>$this->token, 'code'=> $this->code]);
     }
 }

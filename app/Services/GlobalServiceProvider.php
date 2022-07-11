@@ -107,4 +107,9 @@ class GlobalServiceProvider extends Controller
     {
         return "/DataBase Test/{$ref}/{$folder}";
     }
+
+    public function getRandomNumber(){
+        $randomNumber = random_int(100000, 999999);
+        return $randomNumber;
+    }
 }

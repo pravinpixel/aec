@@ -7,6 +7,7 @@ use App\Mail\ForgotPassword;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\PasswordReset;
+use App\Services\GlobalService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -52,14 +53,16 @@ class ForgotPasswordController extends Controller
     }
 
     $token = Str::random(64);
+    $code = GlobalService::getRandomNumber();
 
     DB::table('password_resets')->insert([
       'email' => $request->email,
       'token' => $token,
+      'temporary_password'=> $code, 
       'created_at' => Carbon::now()
     ]);
  
-    Mail::to($request->email)->send(new  ForgotPassword($token));
+    Mail::to($request->email)->send(new  ForgotPassword($token, $code));
 
     return back()->with('message', 'We have e-mailed your password reset link!');
   }
@@ -80,48 +83,44 @@ class ForgotPasswordController extends Controller
    */
   public function submitResetPasswordForm(Request $request)
   {
-    $validatorCustomer = Validator::make($request->all(), [
-      'email' => 'required|email|exists:customers',
+    $validatorUser = Validator::make($request->all(), [
+      'temporary_password' => 'required|digits:6',
       'password' => 'required|string|min:8|confirmed',
       'password_confirmation' => 'required'
     ]);
 
-    $validatorEmployee = Validator::make($request->all(), [
-      'email' => 'required|email|exists:employee',
-      'password' => 'required|string|min:8|confirmed',
-      'password_confirmation' => 'required'
-    ]);
-
-    if ($validatorCustomer->fails() && $validatorEmployee->fails()) {
-      $validator = $validatorCustomer->fails() ? $validatorCustomer : $validatorEmployee;
+    if ($validatorUser->fails()) {
+      $validator = $validatorUser;
       return redirect()
         ->back()
         ->withErrors($validator)
         ->withInput();
     }
-
     $updatePassword = PasswordReset::where([
-      'email' => $request->email,
+      'temporary_password' => $request->temporary_password,
       'token' => $request->token
     ])
       ->first();
 
     if (!$updatePassword) {
-      Flash::error('Invalid token!');
+      return redirect()
+        ->back()
+        ->withErrors(['temporary_password' => 'Incorrect temporary password'])
+        ->withInput();
       return redirect()->back();
     }
 
-    $customer = Customer::where('email', $request->email)->first();
+    $customer = Customer::where('email', $updatePassword->email)->first();
     if ($customer) {
       $customer->password = $request->password;
       $customer->save();
     } else {
-      $employee = Employee::where('email', $request->email)->first();
+      $employee = Employee::where('email', $updatePassword->email)->first();
       $employee->password = Hash::make($request->password);
       $employee->save();
     }
 
-    PasswordReset::where(['email' => $request->email])->delete();
+    PasswordReset::where(['email' => $updatePassword->email])->delete();
     Flash::success('Your password has been changed!');
     return redirect(route('login'));
   }

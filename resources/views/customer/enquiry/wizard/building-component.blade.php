@@ -195,7 +195,7 @@
                                                             <div class="col p-0"> 
                                                                 <div class="btn-group shadow-sm border rounded">
                                                                     <div class="form-group">
-                                                                        <label class="form-lable badge-secondary-lighten shadow-sm position-absolute border" style="background: #FFFFFF">Thickness  <sup class="text-danger">*</sup></label>
+                                                                        <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Thickness  <sup class="text-danger">*</sup></label>
                                                                         <input  type="number" min="0" step="0.50" onkeypress="return isNumber(event)" class="form-control rounded-0 rounded-start  border-0 form-control-sm" name="Thickness_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}" ng-model="l.Thickness " required >
                                                                         
                                                                     </div>
