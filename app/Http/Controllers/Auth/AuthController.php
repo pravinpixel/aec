@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
+use App\Models\Project;
 use App\Models\Role;
 use Illuminate\Support\Facades\Session;
 
@@ -92,6 +93,20 @@ class AuthController extends Controller
         }
         Flash::success(__('auth.password_change_success'));
         return redirect()->back();
+    }
+
+    public function deactivateAccount(Request $request)
+    {
+        $id = Customer()->id;
+        $totalProject = Project::where(['customer_id'=> $id, 'status'=> 'live'])->get()->count();
+        if($totalProject > 0) {
+            Flash::error('Can not deactivate your account');
+            return redirect(route('customers-dashboard'));
+        }
+        $customer = Customer::find($id);
+        $customer->is_active = false;
+        $customer->save();
+        return view('auth.customer.deactivate-account');
     }
 
     public function getAdminLogin(Request $request)

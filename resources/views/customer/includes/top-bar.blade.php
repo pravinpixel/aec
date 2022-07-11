@@ -74,8 +74,12 @@
                 </a> 
                 <a href="{{ route('customer.changePassword') }}" class="dropdown-item notify-item">
                     <i class="fa fa-key me-1"></i>
-                    <span>Change password</span>
+                    <span>Change Password</span>
                 </a> 
+                <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="event.preventDefault(); document.getElementById('deactive-form').submit();">
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                    <span>Deactivate Account</span>
+                </a>
                 <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="mdi mdi-logout me-1"></i>
                     <span>Logout</span>
@@ -84,6 +88,9 @@
         </li>
     </ul>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+    <form id="deactive-form" action="{{ route('customer.deactivate-account') }}" method="POST" class="d-none">
         @csrf
     </form>
 </div>

@@ -251,7 +251,7 @@ Route::get('/customers', function () {return redirect(route('login'));});
 Route::get('/customer', function () {return redirect(route('login'));});
 Route::get('customers/change-password',[ AuthController::class, 'changePasswordGet'])->name('customer.changePassword');
 Route::post('customers/change-password',[ AuthController::class, 'changePasswordPost'])->name('customer.changePassword');
-
+Route::post('customer/deactivate-account',[AuthController::class,'deactivateAccount'])->name('customer.deactivate-account');
 /** ===== End : Customers Routes ======*/
 /**
  * admin route
