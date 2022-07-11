@@ -523,6 +523,9 @@ class EnquiryController extends Controller
     public function delete($id)
     {
         $this->customerEnquiryRepo->delete($id);
+        if(request()->ajax()){
+            return response(['status'=> true, 'msg'=> __('global.deleted')]);
+        }
         Flash::success(__('global.deleted'));
         return redirect()->route('customers-my-enquiries');
     }
