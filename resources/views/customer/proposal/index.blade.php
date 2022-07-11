@@ -979,7 +979,7 @@
                 });
                 if(skipUploads.length > 0) {
                     Swal.fire({
-                        title: `${skipUploads.join(',')} are missing, Do you still want to skip it ?`,
+                        title: `${skipUploads.join(', ')} are missing, Do you still want to skip the step ?`,
                         showDenyButton: false,
                         showCancelButton: true,
                         cancelButtonText: 'No',
@@ -1617,8 +1617,22 @@
                     });
                     if( $scope.mandatory.length != 0){   
                         Swal.fire({
-                            title: 'Are you sure you want to skip the file uploads?',
-                            confirmButtonText: 'Yes',
+                            html: `
+                                <h4 class="header-title">Are you sure to skip the step without uploading </h4>
+                                <p class="lead">
+                                    ${
+                                        $scope.mandatory.map((item) => {
+                                            if(item != 'Three_dimensional_model') {
+                                                return  " "+item.replaceAll('_', ' ')
+                                            } else {
+                                                return " 3D Model";
+                                            }
+                                        })
+                                    } ?
+                                </p>
+                            `,
+                            icon: 'question',
+                            confirmButtonText: 'Yes , Skip it !',
                             showCancelButton: true,
                             cancelButtonText: 'No',
                         }).then((result) => {
@@ -1630,7 +1644,7 @@
                                 });
                                 // $scope.mandatory.shift();
                                 // if( $scope.mandatory.length == 0){
-                                    
+                                
                                 // }
                             } else if (result.isDenied) {
                             }

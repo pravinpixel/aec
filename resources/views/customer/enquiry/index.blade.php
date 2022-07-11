@@ -28,7 +28,7 @@
                     <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingOne">
                             <div class="accordion-button"  type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                New enquiries
+                                New Enquiries
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i
@@ -47,7 +47,7 @@
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
                             <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                                 <div class="position-relative">
-                                    Active enquiries 
+                                    Active Enquiries 
                                     <span style="transform: translateY(-10px) !important; display:none" class="commentsCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"> @{{ commentsCount }} </span>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                     <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingThree">
                             <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                Closed enquiries
+                                Closed Enquiries
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i
@@ -137,7 +137,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Enqiury Number | Project Name</label>
+                            <label class="form-label">Enquiry Number | Project Name</label>
                             <input type="text" class="form-control" placeholder="Type Here...">
                         </div> 
                         <div class="text-center">

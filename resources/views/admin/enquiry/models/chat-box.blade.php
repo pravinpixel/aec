@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-footer bg-light">
                     <form id="Inbox__commentsForm" ng-submit="sendInboxComments('Admin')" class="d-flex align-items-center">
-                        <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                        <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                         <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                     </form> 
                 </div>

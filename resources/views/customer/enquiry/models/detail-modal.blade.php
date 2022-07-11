@@ -70,12 +70,12 @@
                                             <td>@{{ customer_info.email }}</td>
                                         </tr> 
                                         <tr ng-if="enquiry.project_infos.mobile_no != null">
-                                            <td><b>Conatct number</b></td>
+                                            <td><b>Contact number</b></td>
                                             <td>:</td>
                                             <td>@{{ enquiry.project_infos.mobile_no }}</td>
                                         </tr> 
                                         <tr ng-if="enquiry.project_infos.secondary_mobile_no != null">
-                                            <td><b>Secondary conatct number</b></td>
+                                            <td><b>Secondary Contact number</b></td>
                                             <td>:</td>
                                             <td>@{{ enquiry.project_infos.secondary_mobile_no }}</td>
                                         </tr> 
@@ -120,7 +120,7 @@
                                             <td>@{{ enquiry.project_infos.delivery_typenquiry.project_infos.delivery_type_name }}</td>
                                         </tr> 
                                         <tr ng-if="enquiry.project_infos.project_delivery_date != null">
-                                            <td><b>Delivered Date</b></td>
+                                            <td><b>Delivery Date</b></td>
                                             <td>:</td>
                                             <td>@{{ enquiry.project_infos.project_delivery_date }}</td>
                                         </tr> 
@@ -281,7 +281,7 @@
                                                         <thead class="table-secondary text-dark">
                                                             <tr>
                                                                 <th>Floor</th>
-                                                                <th>Delivery type</th>
+                                                                <th>Delivery Type</th>
                                                                 <th>Total Area </th>
                                                             </tr>
                                                         </thead>
@@ -346,7 +346,7 @@
                                                                     <tr>
                                                                         <th>Floor</th>
                                                                         <th>wall Number</th>
-                                                                        <th>Delivery type</th>
+                                                                        <th>Delivery Type</th>
                                                                         <th>Total Area</th>
                                                                     </tr> 
                                                                     <tr>

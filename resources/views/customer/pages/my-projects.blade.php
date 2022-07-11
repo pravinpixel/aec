@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Enqiury Number | Project Name</label>
+                            <label class="form-label">Enquiry Number | Project Name</label>
                             <input type="text" class="form-control" placeholder="Type Here...">
                         </div> 
                         <div class="text-center">

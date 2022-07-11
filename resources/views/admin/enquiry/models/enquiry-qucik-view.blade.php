@@ -70,12 +70,12 @@
                                             <td>@{{ customer_info.email }}</td>
                                         </tr> 
                                         <tr ng-if="customer_info.mobile_no != null">
-                                            <td><b>Conatct number</b></td>
+                                            <td><b>Contact number</b></td>
                                             <td>:</td>
                                             <td>@{{ customer_info.mobile_no }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.secondary_mobile_no != null">
-                                            <td><b>Secondary conatct number</b></td>
+                                            <td><b>Secondary Contact number</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.secondary_mobile_no }}</td>
                                         </tr> 
@@ -120,7 +120,7 @@
                                             <td>@{{ project_info.delivery_type.delivery_type_name }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.project_delivery_date != null">
-                                            <td><b>Delivered Date</b></td>
+                                            <td><b>Delivery Date</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.project_delivery_date }}</td>
                                         </tr>  
@@ -272,7 +272,7 @@
                                                         <thead class="table-secondary text-dark">
                                                             <tr>
                                                                 <th>Floor</th>
-                                                                <th>Delivery type</th>
+                                                                <th>Delivery Type</th>
                                                                 <th>Total Area </th>
                                                             </tr>
                                                         </thead>

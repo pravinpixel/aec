@@ -9,9 +9,9 @@
                     <li class="breadcrumb-item active">
                         @if (Route::is('admin-dashboard')) Admin Dashboard @endif
                         @if (Route::is('admin.enquiry-list')) List Of Enquiries @endif
-                        @if (Route::is('view-enquiry')) Enquiries detail @endif
+                        @if (Route::is('view-enquiry')) Enquiry @endif
                         @if (Route::is('admin.enquiry-create')) @lang('menu_module.customer_intro')  @endif
-                        @if (Route::is('admin-estimation-view')) List of Estimation's @endif
+                        @if (Route::is('admin-estimation-view')) List of Estimations @endif
                         @if (Route::is('admin-estimation-single-view')) Estimation View @endif
                         @if (Route::is('admin-cost-estimation-view')) List of Cost Estimation's  @endif
                         @if (Route::is('cost-estimation-single-view'))Estimation Calculation View @endif
@@ -19,16 +19,16 @@
                         @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                         @if (Route::is('gantt-chart')) Gantt Chart @endif
                         @if (Route::is('admin-settings')) Setup @endif
-                        @if (Route::is('admin-employee-control-view')) List of Employee @endif
+                        @if (Route::is('admin-employee-control-view')) List of Employees @endif
                         @if (Route::is('admin.employee-add')) Create Employee @endif
                         @if (Route::is('admin.employeeEdit')) Edit Employee @endif 
                         @if (Route::is('admin-documentary-view')) Document @endif 
                         @if (Route::is('admin.add-documentary')) Create Document  @endif
                         @if (Route::is('admin.documentaryEdit')) Edit Document @endif 
                         @if (Route::is('list-projects')) List Projects @endif                
-                        @if (Route::is('create-projects')) Create Projects @endif         
+                        @if (Route::is('create-projects')) Create Project @endif         
                         @if (Route::is('enquiry.calculate-cost-estimation')) Price Calculation @endif         
-                        @if (Route::is('admin.customer.index')) Customers @endif         
+                        @if (Route::is('admin.customer.index')) List of Customers @endif         
                         @if (Route::is('admin.customer.edit')) Edit Customer @endif  
                            
                     </li>

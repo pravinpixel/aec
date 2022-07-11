@@ -748,7 +748,7 @@
                     });
                     if(skipUploads.length > 0) {
                         Swal.fire({
-                            title: `${skipUploads.join(',')} are missing, Do you still want to skip it ?`,
+                            title: `${skipUploads.join(', ')} are missing, Do you still want to skip the step ?`,
                             showDenyButton: false,
                             showCancelButton: true,
                             cancelButtonText: 'No',
@@ -1417,9 +1417,9 @@
                                         ${
                                             $scope.mandatory.map((item) => {
                                                 if(item != 'Three_dimensional_model') {
-                                                    return  item.replaceAll('_', ' ') 
+                                                    return  " "+item.replaceAll('_', ' ')
                                                 } else {
-                                                    return "3D Model";
+                                                    return " 3D Model";
                                                 }
                                             })
                                         } ?

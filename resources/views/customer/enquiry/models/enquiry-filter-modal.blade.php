@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Enqiury Number </label>
+                        <label class="form-label">Enquiry Number </label>
                         <input type="text" class="form-control" placeholder="Type Here..."  ng-model="enquiry_number" name="enquiry_number">
                     </div> 
                     <div class="text-center">

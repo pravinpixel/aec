@@ -104,12 +104,12 @@
                                     <td>@{{ customer_info.email }}</td>
                                 </tr> 
                                 <tr ng-if="customer_info.mobile_no != null">
-                                    <td><b>Conatct number</b></td>
+                                    <td><b>Contact number</b></td>
                                     <td>:</td>
                                     <td>@{{ customer_info.mobile_no }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.secondary_mobile_no != null">
-                                    <td><b>Secondary conatct number</b></td>
+                                    <td><b>Secondary Contact number</b></td>
                                     <td>:</td>
                                     <td>@{{ project_info.secondary_mobile_no }}</td>
                                 </tr> 
@@ -154,7 +154,7 @@
                                     <td>@{{ project_info.delivery_typproject_info.delivery_type_name }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.project_delivery_date != null">
-                                    <td><b>Delivered Date</b></td>
+                                    <td><b>Delivery Date</b></td>
                                     <td>:</td>
                                     <td>@{{ project_info.project_delivery_date }}</td>
                                 </tr> 
@@ -319,7 +319,7 @@
                                                             <tr>
                                                                 <th>Floor</th>
                                                                 <th>wall Number</th>
-                                                                <th>Delivery type</th>
+                                                                <th>Delivery Type</th>
                                                                 <th >Total Area </th>
                                                             </tr> 
                                                             <tr>
@@ -363,7 +363,7 @@
                                                 <thead class="table-secondary text-dark">
                                                     <tr>
                                                         <th>Floor</th>
-                                                        <th>Delivery type</th>
+                                                        <th>Delivery Type</th>
                                                         <th>Total Area </th>
                                                     </tr>
                                                 </thead>
@@ -474,7 +474,7 @@
                             </div>
                         </div>
                         <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
-                            <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                            <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                         </form>  
                         <div class="text-end pt-3">

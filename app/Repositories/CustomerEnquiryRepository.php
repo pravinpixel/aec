@@ -413,9 +413,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function storeTechnicalEstimateCost($enquiry,$buildingComponents) 
     {   
-        EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete();
-       
-        $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
+        $technicalEstimateObj = EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->first();
+        if($technicalEstimateObj) {
+            $enquiryBuildingComponent = $technicalEstimateObj;
+        } else {
+            $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
+        }
 
         $building_component_number = [];
         $total_wall_area_all = 0;
@@ -440,9 +443,13 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function storeCostEstimation($enquiry,$buildingComponents) 
     {   
-        EnquiryCostEstimate::where('enquiry_id', $enquiry->id)->delete();
-
-        $cost_estimate   =      new EnquiryCostEstimate();
+        $costEstimateObj  = EnquiryCostEstimate::where('enquiry_id', $enquiry->id)->first();
+        if($costEstimateObj) {
+            $cost_estimate = $costEstimateObj;
+        } else {
+            $cost_estimate   =      new EnquiryCostEstimate();
+        }
+       
         $estimations     =      WoodEstimation::get();
         $CostEstimate = [ 
             'type'      => 'Building Type 1',

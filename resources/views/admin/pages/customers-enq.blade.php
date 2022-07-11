@@ -883,7 +883,7 @@
                                                                             </th>
                                                                             <th  class="bg-white">
                                                                                 <div class="form-group">
-                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
+                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery Type</label>
                                                                                     <select class="form-select  form-select-sm my-2 mt-3">
                                                                                         <option selected >-- Choose --</option>
                                                                                         <option value="Element">Element</option>
