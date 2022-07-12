@@ -76,36 +76,35 @@
                                 @endif
                                 
                                 {{-- view history start--}}
-                                    <div class="card border p-0 shadow-sm my-3">
-                                        <div class="card-header">
-                                            <h5 class="m-0">
-                                                <a class="align-items-center d-flex  py-1"   ng-click="getHistory('wood')"
-                                                    ng-show="price_calculation == 'wood_engineering_estimation'">
-                                                    <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
-                                                    Cost Estimation History
-                                                </a>
-                                                <a class="align-items-center d-flex py-1" ng-click="getHistory('precast')"
-                                                    ng-show="price_calculation == 'precast_engineering_estimation'">
-                                                    <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
-                                                </a>
-                                            </h5>
+                                <div class="card border p-0 shadow-sm my-3">
+                                    <div class="card-header">
+                                        <h5 class="m-0">
+                                            <a class="align-items-center d-flex  py-1"   ng-click="getHistory('wood')"
+                                                ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
+                                                Cost Estimation History
+                                            </a>
+                                            <a class="align-items-center d-flex py-1" ng-click="getHistory('precast')"
+                                                ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body bg-light p-0">
+                                        <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                                            <div id="wood_id"></div>
                                         </div>
-                                        <div class="card-body bg-light p-0">
-                                            <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                                                <div id="wood_id"></div>
-                                            </div>
-                                            <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                                                <div id="precast_id"></div>
-                                            </div>
+                                        <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                                            <div id="precast_id"></div>
                                         </div>
                                     </div>
-                                   
+                                </div>
                                 {{-- view history end--}}
                                 @if(userRole()->slug == config('global.cost_estimater'))
                                     <div class="text-end">
                                         <button class="btn btn-success cost_estimate_comments_ul"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
                                             <i class="fa fa-send me-1"></i>  Send a Comments
-                                            @if($comments['admin_role'])
+                                            @if(isset($comments['admin_role']))
                                                 <span class="cost_estimate_comments">
                                                     {{ $comments['admin_role']   }}
                                                 </span>
@@ -113,7 +112,6 @@
                                         </button>
                                     </div>
                                 @endif
-                              
                                 @include("admin.enquiry.models.cost-estimate-chat-box") 
                             </div>
                         </div>
