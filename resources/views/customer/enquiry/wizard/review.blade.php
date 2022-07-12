@@ -174,7 +174,7 @@
                                     
                                     <tr ng-show="ifc_model_uploads.length != 0" ng-repeat="ifc_model_upload in ifc_model_uploads">
                                         <td> @{{ $index + 1}} </td>
-                                        <td> @{{ ifc_model_upload.created_at | data:'dd-MM-yyyy' }}</td>
+                                        <td> @{{ ifc_model_upload.created_at | date:'dd-MM-yyyy' }}</td>
                                         <td> @{{ ifc_model_upload.file_type }}</td>
                                         <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
                                         <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">
@@ -382,7 +382,7 @@
                 <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" >
                     <div class="accordion-body">  
                         <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
-                            <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>
+                            <div dx-html-editor="htmlEditorOptions" contenteditable="false"> </div>
                             </div>
                         </div>
                     </div> 
