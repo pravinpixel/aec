@@ -24,7 +24,7 @@ class DocumentarySeeder extends Seeder
                 <h3 class='h3'>{project_name}</h3>
             </td>
             <td>
-                <img width='150px' src='http://192.168.0.68/aec-santhosh/aec/public/assets/images/logo_customer.png' alt=''>
+                <img width='150px' src='/public/assets/images/logo_customer.png' alt=''>
             </td>
         </tr>
         <tr>

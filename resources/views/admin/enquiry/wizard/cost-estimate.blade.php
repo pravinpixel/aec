@@ -148,17 +148,7 @@
                     <button class="input-group-text btn btn-info"
                         ng-click="assignUserToCostestimate(assign_to, 'verification')"> Assign </button>
                     <button class="input-group-text btn btn-danger" ng-click="removeUser()"> Remove </button>
-                </div>
-                <small class="float-end btn link p-0 mt-2"
-                    ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-                    <i class="fa fa-send me-1"></i> 
-                    <u class="cost_estimate_comments_ul">
-                        Send a Comments
-                        <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
-                            @{{ cost_estimate_comments.cost_estimate_role   }}
-                        </span>
-                    </u>
-                </small>
+                </div> 
             </div>
         </div>
    
@@ -194,6 +184,16 @@
             <button ng-click="printCostEstimate('precast')" class="btn btn-primary"
                 ng-show="price_calculation == 'precast_engineering_estimation'">
                 <i class="me-1 fa fa-print"></i> Print
+            </button>
+            <button class="btn btn-success"
+                ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                <i class="fa fa-send me-1"></i> 
+                <span class="cost_estimate_comments_ul">
+                    Send a Comments
+                    <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
+                        @{{ cost_estimate_comments.cost_estimate_role   }}
+                    </span>
+                </span>
             </button>
         </div>
         {{-- <div ng-show="price_calculation == 'wood_engineering_estimation'">

@@ -137,7 +137,7 @@
                     <div class="card border shadow-sm">
                         <div class="card-header text-end bg-light">
                             <a class="non-printable btn btn-success" download="proposal-{{ date('Y-m-d-H:s:i') }}" href="{{ asset($latest_proposal->pdf_file_name) }}" type="button"><i class="mdi mdi-download me-1"></i> <span>Download PDF</span> </a>
-                            <a  class="non-printable btn btn-primary" onclick="return window.print()"><i class="fa fa-print"></i> <span>Print</span> </a>
+                            <a  class="non-printable btn btn-primary" onclick="printProposalLetter()"><i class="fa fa-print"></i> <span>Print</span> </a>
                         </div>
                         <div class="card-body"> 
                             <div id="printable">
@@ -265,6 +265,27 @@
 
 @push('custom-scripts')
 <script>
+    printProposalLetter = () => {
+        var a = window.open('', '', 'height=10000, width=10000');
+        a.document.write('<html>');
+        a.document.write('<body>');
+        a.document.write(`
+            <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+            <link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css"   />
+            <link href="{{ asset('public/assets/css/app.css') }}" rel="stylesheet" type="text/css" id="dark-style" />
+            <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}">
+            <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
+            <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
+            <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}">
+            <style>* {background : white !important}</style>
+        `);
+        a.document.write($("#printable").html());
+        a.document.write('</body>');
+        a.document.write('</html>');
+        a.document.close();
+        a.print();
+    }
+
     $(document).ready(function () {
         $('#proposalTable').DataTable({
             "ordering": false,
