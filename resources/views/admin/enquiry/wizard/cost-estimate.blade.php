@@ -186,6 +186,16 @@
                 </div>
             </div>
         </div>
+        <div class="text-end my-2">
+            <button ng-click="printCostEstimate('wood')" class="btn btn-primary"
+                ng-show="price_calculation == 'wood_engineering_estimation'">
+                <i class="me-1 fa fa-print"></i> Print
+            </button>
+            <button ng-click="printCostEstimate('precast')" class="btn btn-primary"
+                ng-show="price_calculation == 'precast_engineering_estimation'">
+                <i class="me-1 fa fa-print"></i> Print
+            </button>
+        </div>
         {{-- <div ng-show="price_calculation == 'wood_engineering_estimation'">
             <a class="btn btn-info" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
             <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
