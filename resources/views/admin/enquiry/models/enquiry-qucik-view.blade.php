@@ -14,7 +14,7 @@
                             <th>Company Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Type Of Project</th>
+                            <th>Type of Delivery</th>
                         </tr>
                         <tr>
                             <td class="text-start" style="text-align:left !important">@{{ enqData.enquiry_number }}</td>
@@ -22,7 +22,7 @@
                             <td>@{{ enqData.customer_info.company_name }}</td>
                             <td>@{{ enqData.customer_info.mobile_no }}</td>
                             <td>@{{ enqData.customer_info.email }} </td>
-                            <td>@{{ enqData.project_type.project_type_name }} </td>
+                            <td>@{{ enqData.project_info.delivery_type.delivery_type_name }} </td>
                         </tr>
                     </table>
                 </div>
@@ -122,7 +122,7 @@
                                         <tr ng-if="project_info.project_delivery_date != null">
                                             <td><b>Delivery Date</b></td>
                                             <td>:</td>
-                                            <td>@{{ project_info.project_delivery_date }}</td>
+                                            <td>@{{ project_info.project_delivery_date | date:'dd-MM-yyyy' }}</td>
                                         </tr>  
                                         <tr ng-if="project_info.customerremarks != null">
                                             <td><b>Remarks</b></td>
@@ -217,7 +217,7 @@
                                         <tbody>
                                             <tr ng-repeat="ifc_model_upload in ifc_model_uploads">
                                                 <td> @{{ $index + 1}} </td>
-                                                <td> @{{ ifc_model_upload.created_at }}</td>
+                                                <td> @{{ ifc_model_upload.created_at | date:'dd-MM-yyyy' }}</td>
                                                 <td> @{{ ifc_model_upload.pivot.file_type }}</td>
                                                 <td> @{{ ifc_model_upload.document_type_name }}</td>
                                                 <td class="text-center">
