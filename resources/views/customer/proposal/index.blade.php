@@ -1251,7 +1251,7 @@
                             }, 'separator',
                             'color', 'background', 'separator',
                             'link', 'image', 'separator',
-                            'clear', 'codeBlock', 'separator'
+                            'clear',  'separator'
                         ],
                     },
                     mediaResizing: {

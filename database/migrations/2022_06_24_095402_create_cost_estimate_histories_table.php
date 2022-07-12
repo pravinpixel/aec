@@ -19,7 +19,7 @@ class CreateCostEstimateHistoriesTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('cost_estimate_id');
             $table->string('type');
-            $table->text('history');
+            $table->longText('history');
             $table->foreign('enquiry_id')->on('enquiries')->references('id');
             $table->foreign('created_by')->on('employee')->references('id');
             $table->foreign('cost_estimate_id')->on('enquiry_cost_estimates')->references('id');
