@@ -563,7 +563,7 @@
                                             <tr>
                                                 <th class="text-center">S.No</th>
                                                 <th class="text-center">Deliverable Name</th>
-                                                <th class="text-center">Status</th>
+                                                {{-- <th class="text-center">Status</th> --}}
                                                 <th class="text-center">Assign To</th>
                                                 <th class="text-center">Start Date</th>
                                                 <th class="text-center">End Date</th>
@@ -580,9 +580,9 @@
                                             <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
                                                 <td>@{{ index_3 +1 }}</td>
                                                 <td>@{{ taskListData.task_list }}</td>
-                                                <td class="text-center">
+                                                {{-- <td class="text-center">
                                                     <input disabled  type="checkbox" get-to-do-lists ng-model="taskListData.status" class="form-check-input">
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <select disabled  get-to-do-lists ng-model="taskListData.assign_to" class="form-select border-0  form-select-sm">
                                                         <option value="">-- Project Manager --</option>

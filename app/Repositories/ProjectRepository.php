@@ -33,17 +33,19 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     public function __construct(
         Project $project, 
         ProjectAssignToUser $projectAssignModel, 
-        ProjectTeamSetup $projctTeamSetup, 
+        ProjectTeamSetup $projectTeamSetup, 
         InvoicePlan $invoicePlan,
         TeamSetupTemplate $teamSetupTemplate,
-        SharepointFolder $sharepointFolder
+        SharepointFolder $sharepointFolder,
+        ConnectionPlatform $connectionPlatform
     ){
         $this->model                = $project;
         $this->projectAssignModel   = $projectAssignModel;
-        $this->projectTeamSetup     = $projctTeamSetup;
+        $this->projectTeamSetup     = $projectTeamSetup;
         $this->invoicePlan          = $invoicePlan;
         $this->teamSetupTemplate    = $teamSetupTemplate;
         $this->sharepointFolder     = $sharepointFolder;
+        $this->connectionPlatform   = $connectionPlatform;
     }
 
     public function create($enquiry_id, $data)
@@ -107,7 +109,18 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function storeConnectPlatform($id, $data = [])
     {
-        
+        $this->model->where('id', $id)->update([
+            'language'=> $data['language'],
+            'time_zone' => $data['time_zone'],
+            'address_one' => $data['address_one'],
+            'address_two' => $data['address_two'],
+            'bim_project_type' => $data['bim_project_type'],
+        ]);
+        $connectionPlatform = $this->connectionPlatform->where('project_id', $id)->first();
+        if(!$connectionPlatform) {
+            return $this->connectionPlatform->create(['project_id'=> $id, 'sharepoint_status'=> 0, 'bim_status'=> 0, 'tf_office_status'=>0]);
+        }
+        return true;
     }
 
     public function storeTeamSetupPlatform($project_id, $data)

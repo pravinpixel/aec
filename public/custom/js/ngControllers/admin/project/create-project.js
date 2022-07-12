@@ -103,6 +103,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
 
     $http.get(`${API_URL}project/wizard/create_project`)
     .then((res)=> {
+        $scope.project = formatData(res.data);
         projectActiveTabs(res.data.wizard_status);
     });
 
