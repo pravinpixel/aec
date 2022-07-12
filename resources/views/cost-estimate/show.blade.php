@@ -79,7 +79,7 @@
                                 <div class="card border p-0 shadow-sm my-3">
                                     <div class="card-header">
                                         <h5 class="m-0">
-                                            <a class="align-items-center d-flex  py-1"   ng-click="getHistory('wood')"
+                                            <a class="align-items-center d-flex  py-1" ng-click="getHistory('wood')"
                                                 ng-show="price_calculation == 'wood_engineering_estimation'">
                                                 <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
                                                 Cost Estimation History
@@ -102,6 +102,14 @@
                                 {{-- view history end--}}
                                 @if(userRole()->slug == config('global.cost_estimater'))
                                     <div class="text-end">
+                                        <button ng-click="printCostEstimate('wood')" class="btn btn-primary"
+                                            ng-show="price_calculation == 'wood_engineering_estimation'">
+                                            <i class="me-1 fa fa-print"></i> Print
+                                        </button>
+                                        <button ng-click="printCostEstimate('precast')" class="btn btn-primary"
+                                            ng-show="price_calculation == 'precast_engineering_estimation'">
+                                            <i class="me-1 fa fa-print"></i> Print
+                                        </button>
                                         <button class="btn btn-success cost_estimate_comments_ul"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
                                             <i class="fa fa-send me-1"></i>  Send a Comments
                                             @if(isset($comments['admin_role']))
@@ -132,16 +140,50 @@
             let enquiryId           =  '{{ $enquiry_id }}';
             $scope.current_user     =  '{{Admin()->id}}';
             $scope.historyStatus    =  true
+
+            $scope.printCostEstimate = (type) => {
+                $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
+                .then((res) => {
+                    var currentTabelHistory   =   ''
+                    res.data.forEach((item,i) => {
+                        currentTabelHistory += item.history  
+                    })
+                    const currentTabel          =   $("#costEstimateCurrentData").html()
+                    var a = window.open('', '', 'height=10000, width=10000');
+                    a.document.write('<html>');
+                    a.document.write('<body>');
+                    a.document.write(`
+                        <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+                        <link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css"   />
+                        <link href="{{ asset('public/assets/css/app.css') }}" rel="stylesheet" type="text/css" id="dark-style" />
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}">
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+                        <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}">
+                        <style>.card-header , button , .fa {display:none !important} .card-body { padding : 0 !important}  .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
+                    `);
+                    a.document.write(currentTabel);
+                    a.document.write(currentTabelHistory);
+                    a.document.write('</html>');
+                    a.document.close();
+                    a.print();
+                }); 
+            }
+
             $scope.getHistory       = (type)  => {
                 $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                     .then(function successCallback(res){
                         $scope.historyStatus    =   false
                         var costId              =   $(`#${type}_id`);
                         $(costId).html('');
-
+                        $scope.costEstimateHistoryData = res.data
                         res.data.length && res.data.map((item, key) => {
                             $(costId).append(` 
-                            <div class="card  p-2 border shadow-sm m-2">
+                                <div class="card  p-2 border shadow-sm m-2">
                                     <div id="headingTableHistory${key+1}">
                                         <h5 class="m-0 d-flex align-items-center">
                                             <a class="custom-accordion-title collapsed d-block py-1"
@@ -165,7 +207,7 @@
                         });
                     }, function errorCallback(error){
                         console.log(error);
-                    });
+                });
             }
 
             getUsers = () => {
@@ -486,24 +528,24 @@
                     "total_additional_work_hours": 0,
                     "total_hourly_rate"          : 0,
                     "total_work_hours"           : 0,
-                    "engineering_cost"     : 0,
+                    "engineering_cost"           : 0,
                     "total_central_approval"     : 0,
-                    'total_engineering_cost' : 0,
+                    'total_engineering_cost'     : 0,
                     "Components" : [    
                         {
                             'precast_component': null,
-                            'no_of_staircase': '',
-                            'no_of_new_component':'',
+                            'no_of_staircase'  : '',
+                            'no_of_new_component'         : '',
                             'no_of_different_floor_height': '',
-                            'sqm'           : '',
-                            'complexity'    : '', 
-                            'std_work_hours': '',
-                            'additional_work_hours': '',
-                            'hourly_rate': '',
-                            'total_work_hours': '',
-                            'engineering_cost': '',
-                            'total_central_approval': '',
-                            'total_engineering_cost': ''
+                            'sqm'                         : '',
+                            'complexity'                  : '',
+                            'std_work_hours'              : '',
+                            'additional_work_hours'       : '',
+                            'hourly_rate'                 : '',
+                            'total_work_hours'            : '',
+                            'engineering_cost'            : '',
+                            'total_central_approval'      : '',
+                            'total_engineering_cost'      : ''
                         }
                     ]
                 
@@ -517,23 +559,23 @@
                     "total_additional_work_hours": 0,
                     "total_hourly_rate"          : 0,
                     "total_work_hours"           : 0,
-                    "engineering_cost"     : 0,
+                    "engineering_cost"           : 0,
                     "total_central_approval"     : 0,
-                    "Components" : [ 
+                    "Components"                 : [ 
                         {
-                            'precast_component': '',
-                            'no_of_staircase': '',
-                            'no_of_new_component':'',
+                            'precast_component'           : '',
+                            'no_of_staircase'             : '',
+                            'no_of_new_component'         : '',
                             'no_of_different_floor_height': '',
-                            'sqm'           : '',
-                            'complexity'    : '', 
-                            'std_work_hours': '',
-                            'additional_work_hours': '',
-                            'hourly_rate': '',
-                            'total_work_hours': '',
-                            'engineering_cost': '',
-                            'total_central_approval': '',
-                            'total_engineering_cost': ''
+                            'sqm'                         : '',
+                            'complexity'                  : '',
+                            'std_work_hours'              : '',
+                            'additional_work_hours'       : '',
+                            'hourly_rate'                 : '',
+                            'total_work_hours'            : '',
+                            'engineering_cost'            : '',
+                            'total_central_approval'      : '',
+                            'total_engineering_cost'      : ''
                         }
                     ]
                 });
@@ -543,20 +585,20 @@
             $scope.addPrecastComponent =  (rootKey) => {
                 $scope.PrecastComponent[rootKey].Components.unshift(
                     {
-                            'precast_component': '',
-                            'no_of_staircase': '',
-                            'no_of_new_component':'',
-                            'no_of_different_floor_height': '',
-                            'sqm'           : '',
-                            'complexity'    : '', 
-                            'std_work_hours': '',
-                            'additional_work_hours': '',
-                            'hourly_rate': '',
-                            'total_work_hours': '',
-                            'engineering_cost': '',
-                            'total_central_approval': '',
-                            'total_engineering_cost':''
-                        }
+                        'precast_component'           : '',
+                        'no_of_staircase'             : '',
+                        'no_of_new_component'         : '',
+                        'no_of_different_floor_height': '',
+                        'sqm'                         : '',
+                        'complexity'                  : '',
+                        'std_work_hours'              : '',
+                        'additional_work_hours'       : '',
+                        'hourly_rate'                 : '',
+                        'total_work_hours'            : '',
+                        'engineering_cost'            : '',
+                        'total_central_approval'      : '',
+                        'total_engineering_cost'      : ''
+                    }
                 );
             }
 
@@ -783,4 +825,5 @@
         };
     }]);
 </script>
+
 @endpush

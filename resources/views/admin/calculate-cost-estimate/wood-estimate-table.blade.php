@@ -23,7 +23,7 @@
         </div> 
     </div>
     <div class="card-body p-2"> 
-        <div class="auto-scroll"> 
+        <div class="auto-scroll" id="costEstimateCurrentData"> 
             <div class="custom-row custom-border-left bg-primary text-white m-0">
                 <div class="custom-td text-center"> 
                     <small class="fw-bold">Total</small>
