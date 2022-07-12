@@ -69,9 +69,10 @@
                 <small class="text-danger" ng-show="projectInfoForm.project_type.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="date" class="form-control form-control-sm" id="project_date"  name="project_date" ng-model="projectInfo.project_date" required/>
+                <input type="date" max="@{{ projectInfo.project_delivery_date }}" class="form-control form-control-sm" id="project_date"  name="project_date" ng-model="projectInfo.project_date" required/>
                 <label for="floating">Project Start Date <sup class="text-danger">*</sup></label>
-                <small class="text-danger" ng-show="projectInfoForm.project_date.$invalid && formSubmit">This field is required</small>
+                <small class="text-danger" ng-show="projectInfoForm.project_date.$error.required && formSubmit">This field is required</small>
+                <small class="text-danger" ng-show="projectInfoForm.project_date.$error.max && formSubmit">Start date cannot be greater than delivery date</small>
             </div>
         </div> 
         <div class="col-md-4">
@@ -107,9 +108,10 @@
             </div>
             
             <div class="form-floating  mb-2">
-                <input type="date" class="form-control" name="project_delivery_date" ng-model="projectInfo.project_delivery_date" required/>
+                <input type="date" min="@{{ projectInfo.project_date }}" class="form-control" name="project_delivery_date" ng-model="projectInfo.project_delivery_date" required/>
                 <label for="floating">Project Delivery Date <sup class="text-danger">*</sup></label>
-                <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$invalid && formSubmit">This field is required</small>
+                <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.required && formSubmit">This field is required</small>
+                <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.min && formSubmit">Delivery date cannot be less than start date</small>
             </div>
         </div>
     </div>

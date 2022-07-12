@@ -24,7 +24,6 @@ class ServiceSeeder extends Seeder
         Service::create(['output_type_id' => 1,'service_name' => 'Fabrication Drawing', 'is_active' => 1]);
         Service::create(['output_type_id' => 1,'service_name' => 'Element Static Calculation', 'is_active' => 1]);
         Service::create(['output_type_id' => 1,'service_name' => 'Bill of Material', 'is_active' => 1]);
-
         Service::create(['output_type_id' => 2,'service_name' => 'Approval Drawings, Sections & Plans', 'is_active' => 1]);
         Service::create(['output_type_id' => 2,'service_name' => 'Bill of Materials', 'is_active' => 1]);
     }
