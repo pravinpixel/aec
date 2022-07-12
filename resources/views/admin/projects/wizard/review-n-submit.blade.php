@@ -306,7 +306,14 @@
                                             <label class="col-form-label">BIM 360 Language</label>
                                         </div>
                                         <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.language }} </div>
+                                            <div class="col pe-0"> 
+                                                <select name="language" ng-model="project.language" id="language" class="form-control form-select-sm  border-0"  style="pointer-events:none">
+                                                    <option value=""> @lang('project.select') </option>
+                                                    @foreach(config('project.languages') as $key => $value)
+                                                        <option value="{{ $key }}"> {{  $value }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div> 
                                         </div> 
                                     </div>
                                 </div>
@@ -317,7 +324,12 @@
                                             <label class="col-form-label">Project Time Zone</label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.time_zone }}</div>
+                                            <select name="time_zone" ng-model="project.time_zone" id="time_zone"  class="form-control form-select-sm border-0" style="pointer-events:none">
+                                                <option value=""> @lang('project.select') </option>
+                                                @foreach(config('project.time_zones') as $key => $value)
+                                                    <option value="{{ $key }}"> {{  $value }} </option>
+                                                @endforeach
+                                            </select>
                                         </div> 
                                     </div>
                                 </div>
@@ -584,15 +596,15 @@
                                                     <input disabled  type="checkbox" get-to-do-lists ng-model="taskListData.status" class="form-check-input">
                                                 </td> --}}
                                                 <td>
-                                                    <select disabled  get-to-do-lists ng-model="taskListData.assign_to" class="form-select border-0  form-select-sm">
+                                                    <select  get-to-do-lists ng-model="taskListData.assign_to" class="form-control border-0  form-select-sm" style="pointer-events: none">
                                                         <option value="">-- Project Manager --</option>
                                                         <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
                                                             @{{ projectManager.first_Name }}
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
-                                                <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
                                             </tr> 
                                         </tbody>
                                     </table>
