@@ -286,7 +286,7 @@
                                             <label class="col-form-label">Project Start Date</label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'yyyy-MM-dd' }}</div>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'dd-MM-yyyy' }}</div>
                                         </div> 
                                     </div>  
                                 </div>
@@ -296,7 +296,7 @@
                                             <label class="col-form-label"> Project End Date </label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'yyyy-MM-dd' }}</div>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'dd-MM-yyyy' }}</div>
                                         </div> 
                                     </div>
                                 </div>
@@ -429,7 +429,7 @@
                                             <label class="col-form-label">Project Start Date</label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'yyyy-MM-dd' }}</div>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'dd-MM-yyyy' }}</div>
                                         </div> 
                                     </div>  
                                 </div>
@@ -439,7 +439,7 @@
                                             <label class="col-form-label"> Project End Date </label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'yyyy-MM-dd' }}</div>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'dd-MM-yyyy' }}</div>
                                         </div> 
                                     </div>
                                 </div>
@@ -524,7 +524,7 @@
                 <tbody>
                     <tr ng-repeat="row in review['invoice_plan'].invoice_data">
                         <td class="text-center"> @{{ $index + 1 }} </td>
-                        <td class="text-center">@{{ row.invoice_date | date: 'yyyy-MM-dd' }}</td>
+                        <td class="text-center">@{{ row.invoice_date | date: 'dd-MM-yyyy' }}</td>
                         <td class="text-center">@{{ row.amount }}</td>
                         <td class="text-center">@{{ row.percentage }}</td>
                     </tr> 
@@ -603,8 +603,8 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
-                                                <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
                                             </tr> 
                                         </tbody>
                                     </table>

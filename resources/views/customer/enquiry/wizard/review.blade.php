@@ -98,7 +98,7 @@
                                 <tr ng-if="project_info.project_delivery_date != null">
                                     <td><b>Delivery Date</b></td>
                                     <td>:</td>
-                                    <td>@{{ project_info.project_delivery_date }}</td>
+                                    <td>@{{ project_info.project_delivery_date | date: 'dd-MM-yyyy' }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.customerremarks != null">
                                     <td><b>Remarks</b></td>
@@ -174,7 +174,7 @@
                                     
                                     <tr ng-show="ifc_model_uploads.length != 0" ng-repeat="ifc_model_upload in ifc_model_uploads">
                                         <td> @{{ $index + 1}} </td>
-                                        <td> @{{ ifc_model_upload.created_at }}</td>
+                                        <td> @{{ ifc_model_upload.created_at | data:'dd-MM-yyyy' }}</td>
                                         <td> @{{ ifc_model_upload.file_type }}</td>
                                         <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
                                         <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">

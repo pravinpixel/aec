@@ -768,7 +768,7 @@
                                                 <span> - </span>
                                                 <span>
                                                     <span class="fa fa-calendar text-dark"></span>
-                                                    <small>${moment(item.created_at).format('YYYY-MM-DD h:s a')}</small>
+                                                    <small>${moment(item.created_at).format('dd-MM-yyyy h:s a')}</small>
                                                 </span>
                                             </a>
                                         </h5>

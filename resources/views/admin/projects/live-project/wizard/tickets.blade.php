@@ -437,7 +437,7 @@
                         </tr>
                         <tr>
                             <td><b>Date of Change Request</b></td>
-                                <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date | date: 'yyyy-MM-dd'" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date | date: 'dd-MM-yyyy'" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
                         </tr> 
                     </tbody>
                 </table>
