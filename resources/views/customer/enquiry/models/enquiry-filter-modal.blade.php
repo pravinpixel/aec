@@ -13,11 +13,11 @@
                         
                         <div class="col p-0 me-md-2">
                             <label class="form-label">From Date</label>
-                            <input type="text" class="form-control date"  data-toggle="date-picker" data-single-date-picker="true" id="enquiry_from_date" ng-model="enquiry_from_date" name="enquiry_from_date">
+                            <input type="date" class="form-control date" id="enquiry_from_date" ng-model="enquiry_from_date" name="enquiry_from_date">
                         </div>
                         <div class="col p-0">
                             <label class="form-label">End Date</label>
-                            <input type="text" class="form-control date"  data-toggle="date-picker" data-single-date-picker="true" id="enquiry_to_date" ng-model="enquiry_to_date" name="enquiry_from_date">
+                            <input type="date" class="form-control date" id="enquiry_to_date" ng-model="enquiry_to_date" name="enquiry_from_date">
                         </div>
                     </div>
 
