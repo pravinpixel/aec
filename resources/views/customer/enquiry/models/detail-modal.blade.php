@@ -460,7 +460,7 @@
                             <div class="accordion-body">
                                 {{-- <div ng-bind-html="enquiry.additional_infos.comments"> </div> --}}
                                 <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
-                                    <div dx-html-editor="htmlEditorOptions" contenteditable="false"> </div>
+                                    <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>
                                     </div>
                                 </div>
                                 {{-- <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Customer')" class="input-group mt-3">
