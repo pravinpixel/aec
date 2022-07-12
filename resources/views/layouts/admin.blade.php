@@ -4,7 +4,6 @@
     
     <head>
         @include('admin.includes.head')
-        
         @stack('custom-styles')       
     </head> 
     <body>

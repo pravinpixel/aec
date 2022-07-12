@@ -15909,3 +15909,70 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 {
   padding: 0 !important;
 }
+.conversation__box {
+  padding: 20px;
+  list-style: none;
+  max-height: 450px;
+  overflow: auto;
+  margin: 0 !important;
+}
+.conversation__box li {
+  list-style-type: none ;
+  display: flex !important;
+}
+.right__conversation {
+  justify-content: end !important;
+}
+.left__conversation div ,
+.right__conversation div {
+  padding: 10px;
+  margin-bottom: 15px;
+  position: relative;
+  border-radius: 10px;
+}
+.left__conversation div::after ,
+.right__conversation div::after {
+  content: '';
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  top: 0;
+}
+.left__conversation div::after {
+  left: -15px;
+  clip-path: polygon(100% 0, 0 0, 100% 100%); 
+}
+.right__conversation div::after {
+  right: -15px;
+  clip-path: polygon(100% 0, 0 0, 0 100%);
+}
+.left__conversation  div,
+.left__conversation div::after{
+  background: #e6f6fb;
+}
+.right__conversation div,
+.right__conversation div::after {
+  background: #fff2f2;
+}
+.right__conversation div{
+  text-align: right !important;
+} 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

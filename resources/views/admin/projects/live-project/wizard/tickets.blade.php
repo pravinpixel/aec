@@ -217,8 +217,8 @@
 </div>  
 
 {{-- ========== Ticket Viwe =========== --}} 
-<div id="viewTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-full-width ">
+<div id="viewTicketDetails" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-full-width w-100 h-100 m-0">
         <div class="modal-content card">
             <div class="modal-header bg-light">
                 <div class="modal-title d-flex">
@@ -247,23 +247,88 @@
                                     </div>
                                 </div> 
                                 <hr>
-                                <div class="d-flex align-items-start">
-                                    <i class="uil-envelope-alt f-18 me-3 text-secondary" style="margin-top: -5px;"></i> 
-                                    <div class="w-100 overflow-hidden">
-                                        <h5 class="mt-0 mb-0 font-14">
-                                            Rhonda D
-                                        </h5>
-                                        <p class="mt-1 mb-0 font-14">
-                                            Hi, <br>
-                                            The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.
-                                            <br><br>
-                                            Here is the order number <small><b>FD07062010</b></small>
-                                            <br><br>
-                                            Thanks,
-                                            Sarah
-                                        </p> 
-                                    </div>
-                                </div>  
+                                <ul class="conversation__box">
+                                    <li class="left__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">
+                                                Rhonda D
+                                            </h5>
+                                            <p class="m-0 font-14">
+                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
+                                            </p> 
+                                        </div>
+                                    </li>
+                                    <li class="right__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">
+                                                Rhonda D
+                                            </h5>
+                                            <p class="m-0 font-14">
+                                                Hi, How are you? What about our next meeting?
+                                            </p> 
+                                        </div>
+                                    </li>
+                                    <li class="right__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">
+                                                Rhonda D
+                                            </h5>
+                                            <p class="m-0 font-14">
+                                                Hi, How are you? What about our next meeting?
+                                            </p> 
+                                        </div>
+                                    </li>
+                                    <li class="right__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">
+                                                Rhonda D
+                                            </h5>
+                                            <p class="m-0 font-14">
+                                                Hi, How are you? What about our next meeting?
+                                            </p> 
+                                        </div>
+                                    </li>
+                                    <li class="left__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">
+                                                Rhonda D
+                                            </h5>
+                                            <p class="m-0 font-14">
+                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
+                                            </p> 
+                                        </div>
+                                    </li>
+                                    <li class="left__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">
+                                                Rhonda D
+                                            </h5>
+                                            <p class="m-0 font-14">
+                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
+                                            </p> 
+                                        </div>
+                                    </li>
+                                    <li class="left__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">
+                                                Rhonda D
+                                            </h5>
+                                            <p class="m-0 font-14">
+                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
+                                            </p> 
+                                        </div>
+                                    </li>
+                                    <li class="left__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">
+                                                Rhonda D
+                                            </h5>
+                                            <p class="m-0 font-14">
+                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
+                                            </p> 
+                                        </div>
+                                    </li> 
+                                </ul>
                             </div>
                             <div class="card-footer bg-light border-top">
                                 <div class="collapsed collapse mb-2" id="ReplayMail">
@@ -433,14 +498,9 @@
                             <td rowspan="2" class="text-center"><b>kr@{{modelptickets.total_price}}</b></td> 
                         </tr> 
                     </tfoot>
-                </table>
-
-              
-
+                </table> 
             </form>
-            </div>
-
-            
+            </div> 
             {{-- <div class="modal-footer"> 
                 <button class="btn btn-primary"  ><i class="fa fa-save me-2"></i>Update</button>
             </div> --}}
@@ -452,4 +512,4 @@
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
     <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
 </div>
-@include("admin.enquiry.models.ticket-chat-box") 
+@include("admin.enquiry.models.ticket-chat-box")  
