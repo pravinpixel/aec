@@ -15912,13 +15912,18 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 .conversation__box {
   padding: 20px;
   list-style: none;
-  max-height: 450px;
+  max-height: 400px;
   overflow: auto;
   margin: 0 !important;
 }
 .conversation__box li {
   list-style-type: none ;
   display: flex !important;
+}
+.conversation__box li small {
+  font-size: 9px;
+  color: gray;
+  letter-spacing: 1px;
 }
 .right__conversation {
   justify-content: end !important;

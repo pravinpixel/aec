@@ -219,7 +219,7 @@
 {{-- ========== Ticket Viwe =========== --}} 
 <div id="viewTicketDetails" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-full-width w-100 h-100 m-0">
-        <div class="modal-content card">
+        <div class="modal-content card m-0 h-100">
             <div class="modal-header bg-light">
                 <div class="modal-title d-flex">
                     <i class="uil-envelope-alt f-26 me-2 text-secondary" style="margin-top: -9px;"></i> 
@@ -230,10 +230,10 @@
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: 90vh;overflow:auto">
                 <div class="row m-0">
                     <div class="col-lg-7 p-0">
-                        <div class="card text-start m-0 border" style="min-height: 500px"> 
+                        <div class="card text-start m-0 border" > 
                             <div class="card-body">
                                 <div class="d-flex align-items-start">
                                     <img src="{{ asset('public/assets/images/users/avatar-10.jpg') }}" class="me-2 rounded-circle" height="30" alt="Rhonda D">
@@ -250,82 +250,60 @@
                                 <ul class="conversation__box">
                                     <li class="left__conversation">
                                         <div>
-                                            <h5 class="m-0 mb-1 font-14">
-                                                Rhonda D
-                                            </h5>
-                                            <p class="m-0 font-14">
-                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
-                                            </p> 
+                                            <h5 class="m-0 mb-1 font-14">Rhonda D</h5>
+                                            <p class="m-0 font-14">Hello! </p> 
+                                            <small>10:04</small>
                                         </div>
                                     </li>
                                     <li class="right__conversation">
                                         <div>
+                                            <h5 class="m-0 mb-1 font-14">Dominic</h5>
+                                            <p class="m-0 font-14">Hi, How are you? What about our next meeting?</p> 
+                                            <small>10:04</small>
+                                        </div>
+                                    </li>
+                                    <li class="left__conversation">
+                                        <div>
                                             <h5 class="m-0 mb-1 font-14">
                                                 Rhonda D
+                                                <small>10:04</small>
                                             </h5>
-                                            <p class="m-0 font-14">
-                                                Hi, How are you? What about our next meeting?
-                                            </p> 
+                                            <p class="m-0 font-14">Yeah everything is fine</p> 
                                         </div>
                                     </li>
                                     <li class="right__conversation">
                                         <div>
-                                            <h5 class="m-0 mb-1 font-14">
-                                                Rhonda D
-                                            </h5>
-                                            <p class="m-0 font-14">
-                                                Hi, How are you? What about our next meeting?
-                                            </p> 
+                                            <h5 class="m-0 mb-1 font-14">Dominic</h5>
+                                            <p class="m-0 font-14">Wow that's great</p> 
+                                            <small>10:04</small>
+                                        </div>
+                                    </li>
+                                    <li class="left__conversation">
+                                        <div>
+                                            <h5 class="m-0 mb-1 font-14">Rhonda D</h5>
+                                            <p class="m-0 font-14">Let's have it today if you are free</p> 
+                                            <small>10:04</small>
                                         </div>
                                     </li>
                                     <li class="right__conversation">
                                         <div>
-                                            <h5 class="m-0 mb-1 font-14">
-                                                Rhonda D
-                                            </h5>
-                                            <p class="m-0 font-14">
-                                                Hi, How are you? What about our next meeting?
-                                            </p> 
+                                            <h5 class="m-0 mb-1 font-14">Dominic</h5>
+                                            <p class="m-0 font-14">Sure thing! let me know if 2pm works for you</p> 
+                                            <small>10:04</small>
                                         </div>
                                     </li>
                                     <li class="left__conversation">
                                         <div>
-                                            <h5 class="m-0 mb-1 font-14">
-                                                Rhonda D
-                                            </h5>
-                                            <p class="m-0 font-14">
-                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
-                                            </p> 
+                                            <h5 class="m-0 mb-1 font-14"> Rhonda D </h5>
+                                            <p class="m-0 font-14">Sorry, I have another meeting scheduled at 2pm. Can we have it at 3pm instead?</p> 
+                                            <small>10:04</small>
                                         </div>
                                     </li>
                                     <li class="left__conversation">
                                         <div>
-                                            <h5 class="m-0 mb-1 font-14">
-                                                Rhonda D
-                                            </h5>
-                                            <p class="m-0 font-14">
-                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
-                                            </p> 
-                                        </div>
-                                    </li>
-                                    <li class="left__conversation">
-                                        <div>
-                                            <h5 class="m-0 mb-1 font-14">
-                                                Rhonda D
-                                            </h5>
-                                            <p class="m-0 font-14">
-                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
-                                            </p> 
-                                        </div>
-                                    </li>
-                                    <li class="left__conversation">
-                                        <div>
-                                            <h5 class="m-0 mb-1 font-14">
-                                                Rhonda D
-                                            </h5>
-                                            <p class="m-0 font-14">
-                                                Hi, The television I ordered from your site was delivered with a cracked screen. I need some help with a refund or a replacement.  
-                                            </p> 
+                                            <h5 class="m-0 mb-1 font-14">Rhonda D</h5>
+                                            <p class="m-0 font-14">We can also discuss about the presentation talk format if you have some extra mins</p> 
+                                            <small>10:04</small>
                                         </div>
                                     </li> 
                                 </ul>
@@ -377,11 +355,10 @@
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label">Assign To</label>
                                     <select class="form-select shadow" id="example-select">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                        <option>Alex</option>
+                                        <option>Rhonda </option>
+                                        <option>Dominic</option>
+                                        <option>Jhon</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
