@@ -7,13 +7,16 @@
             <div class="form-check">
                 <input type="radio" id="flexRadioDefault1" name="buildingComponent_" ng-checked="showHideBuildingComponent == 0" ng-model="showHideBuildingComponent" ng-value="false">
                 <label class="form-check-label" for="flexRadioDefault1">
-                Enter Manually   (or)
+                Enter Manually
                 </label>
             </div> 
+			<div class="form-check">
+			 <span>(or)</span>
+			</div>
             <div class="form-check">
                 <input type="radio" id="flexRadioDefault" ng-checked="showHideBuildingComponent == 1" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
                 <label class="form-check-label" for="flexRadioDefault">
-                Upload  
+                 Upload  
                 </label>
             </div>
         </div>

@@ -109,3 +109,23 @@
         return moment(date).format(dateFormat);
     }
     
+
+    function deactivateAccount()
+    {
+        Swal.fire({
+            html: `
+                <h4 class="header-title"> Are you sure to deactivate your account? </h4>
+                <p class="lead">
+                Your Account, enquiries, projects and assets will not be accessible.
+                </p>
+            `,
+            icon: 'warning',
+            confirmButtonText: 'Yes',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deactivate-form').submit();
+            }
+        });
+    }
