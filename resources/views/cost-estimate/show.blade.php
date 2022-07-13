@@ -658,17 +658,24 @@
                 link : function (scope, element, attrs) {
                     element.on('keyup', function () {
                         $(this).addClass('bg-warning');
-                        let $TotalPriceM2   = 0
-                        let $TotalSum       = 0
+                        let $TotalPriceM2   = 0;
+                        let $TotalSum       = 0;
+                        let $TotalRibSum    = 0;
                         scope.CostEstimate.ComponentsTotals.Dynamics.forEach( (item, index) => {
                             scope.CostEstimate.Components[scope.index].Dynamics[index].Sum  = getNum(((scope.CostEstimate.Components[scope.index].Sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2  ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
                             $TotalPriceM2   += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2);
                             $TotalSum       += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].Sum);
                         });
 
-                        scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 = $TotalPriceM2;
-                        scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalSum;
-                        scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalSum;
+                        if(scope.CostEstimate.Components[scope.index].Rib.Sum != 0){
+                            scope.CostEstimate.Components[scope.index].Sqm = 1;
+                            $TotalRibSum = scope.CostEstimate.Components[scope.index].Rib.Sum * scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 ;
+                            scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalRibSum;
+                        } else {
+                            scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalSum;
+                            scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 = $TotalPriceM2;
+                        }
+
                         // for column total
                         let $totalEstimateArea = 0;
                         let $totalEstimateSum = 0;
@@ -689,16 +696,23 @@
                                
                             })
                             Estimates.Components.forEach( (Component, componentIndex) => {
+                                
                                 $sqmTotal += Number(Component.Sqm);
                                 $totalEstimateArea += Number(Component.Sqm);
                                 $ribTotal += Number(Component.Rib.Sum);
-                                Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
-                                    Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += Number(Dynamic.Sum);
-                                    Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum / $totalSql_);
-                                    $totalPrice += Number(Dynamic.PriceM2);
-                                    $totalSum += Number(Dynamic.Sum);
-                                    $totalEstimateSum += Number(Dynamic.Sum);
-                                });
+                                if(Component.Rib.Sum !=0 ){
+                                    $totalSum += Number(Component.Rib.Sum * Component.TotalCost.PriceM2);
+                                    $totalEstimateSum += Number(Component.Rib.Sum * Component.TotalCost.PriceM2);
+                                }else {
+                                    Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
+                                        Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += Number(Dynamic.Sum);
+                                        Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum / $totalSql_);
+                                        $totalPrice += Number(Dynamic.PriceM2);
+                                        $totalSum += Number(Dynamic.Sum);
+                                        $totalEstimateSum += Number(Dynamic.Sum);
+                                    });
+                                }
+                                
                             });
                             Estimates.ComponentsTotals.TotalCost.Sum     = getNum($totalSum);
                             Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalSum / $sqmTotal);
@@ -735,22 +749,22 @@
                                         Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
                                             if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Details') {
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.detail_price || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.detail_sum || 0;
+                                                // Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.detail_sum || 0;
                                             } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Statics') {
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.statistic_price || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.statistic_sum || 0;
+                                                // Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.statistic_sum || 0;
                                             } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'CAD/CAM') {
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.cad_cam_price || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.cad_cam_sum || 0;
+                                                // Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.cad_cam_sum || 0;
                                             } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Logistics') {
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.logistic_price || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.logistic_sum || 0 ;
+                                                // Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.logistic_sum || 0 ;
                                             } else {
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 =  0;
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;
                                             }
                                         });
-                                        Estimates.Components[componentIndex].Complexity = response.complexity || 0;
+                                        Estimates.Components[componentIndex].Complexity = 1;
                                         Estimates.Components[componentIndex].Sqm = 0;
                                     }
                                 });

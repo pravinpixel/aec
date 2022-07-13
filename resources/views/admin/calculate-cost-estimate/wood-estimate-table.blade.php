@@ -164,7 +164,7 @@
                     <div class="custom-td">
                         <div class="text-center custom-row p-0">
                             <div class="p-0">
-                                <input type="text" disabled onkeypress="return isNumber(event)" name="C.TotalCost.PriceM2"
+                                <input type="text" onkeypress="return isNumber(event)" name="C.TotalCost.PriceM2"
                                     ng-model="C.TotalCost.PriceM2" ng-value="C.TotalCost.PriceM2"
                                     class="form-control  rounded-0 text-center form-control-sm">
                             </div>
