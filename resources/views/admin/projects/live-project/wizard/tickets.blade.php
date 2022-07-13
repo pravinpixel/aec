@@ -166,14 +166,43 @@
                         </div>
                     </div>
                 </div>
-                <div class="my-2 x-y-between">
-                    <h3 class="h4">Ticket Summary</h3>
-                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"> +  New Case</button>
+                <h3 class="h4 mb-0 mt-3">Ticket Summary</h3>
+                <div class="d-flex justify-content-between border-bottom align-items-end">
+                    <div>
+                        <button class="fw-bold border-primary border-start-0 border-end-0 border-top-0 rounded-0 border-bottom btn btn-sm">All</button>
+                        <button class="rounded-0 border-0 btn btn-sm ms-1">Assign to me</button>
+                        <button class="rounded-0 border-0 btn btn-sm ms-1">Created by me</button>
+                    </div>
+                    <div class="pb-2">
+                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Case</button>
+                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
+                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button>
+                    </div>
                 </div>
-                <table class="table custom custom table-bordered table-hover m-0">
+                <div class="mb-2 pt-2 row mx-0 align-items-center">
+                    <div class="d-flex align-items-center col-4 p-0">
+                        <label class="m-0 me-1">Quick filters</label>
+                        <select class="form-select form-select-sm" style="width: 150px">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="col-8 p-0">
+                        <div class="input-group justify-content-end">
+                            <div class="border rounded input-group flex-nowrap" style="width: 200px">
+                                <span class="input-group-text btn-sm border-0 bg-none" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                                <input type="text" class="form-control border-0 form-control-sm ps-0" placeholder="Search" aria-describedby="basic-addon1">
+                            </div>
+                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-arrow-up-down me-1"></i> Sort</button>
+                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
+                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields</button>
+                            <button class="ms-1 border rounded btn btn-sm"><i class="fa fa-expand"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table custom custom table-hover m-0 table-responsive">
                     <thead>
                         <tr>
-                            <th>S.No</th>
+                            <th>#</th>
                             <th>ID</th>
                             <th>Requester</th>
                             <th>Title</th>
@@ -183,7 +212,7 @@
                             <th>Priority</th>
                             <th>Created by</th>
                             <th>Modifed at</th>
-                            <th>Action</th>
+                            <th><i class="dripicons-menu"></i></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -191,19 +220,44 @@
                             <tr>
                                 <td>{{ $i+1 }}</td>
                                 <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><small>PRXX / TIKXX-0{{ $i+1 }}</small></button></td>
-                                <td>Alex</td>
-                                <td>Mail Issue</td>
-                                <td>Mark</td>
-                                <td><span class="badge bg-success">New</span></td>
-                                <td> <small>13/01/2021, 12:30 (Due in 1d)</small></td>
-                                <td style="padding: 0 !important" class="text-center">critical <i class="fa fa-arrow-up text-danger ms-1"></i></td>
-                                <td>Alex</td>
-                                <td><small>12/01/2021, 12:30</small> </td>
                                 <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <div>
+                                            <h5 class="m-0 font-14">
+                                                Arya Stark
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Mail Issue</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+2 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <div>
+                                            <h5 class="m-0 font-14">
+                                                Gary Somya
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">New</span></td>
+                                <td> <small>13/01/2021, 12:30 <br> <small class="text-secondary">(Due in 1d)</small></small></td>
+                                <td style="padding: 0 !important" class="text-center">critical <i class="fa fa-arrow-up text-danger ms-1"></i></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <div>
+                                            <h5 class="m-0 font-14">
+                                                Arya Stark
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><small>12/01/2021, 12:30</small> </td>
+                                <td style="padding: 0 !important" class="text-center">
                                     <div class="dropdown">
-                                        <button type="button" class="btn btn-sm py-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="dripicons-dots-3 "></i>
-                                        </button> 
+                                        <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewTicketDetails" href="#">View</a>
                                             <a class="dropdown-item" href="#">Reply</a>
