@@ -7,7 +7,7 @@
             <div class="row align-items-center  m-0">
                 <div class="col-md-4 p-0">
                     <select class="form-select form-select-sm" ng-model="CostEstimate.type" name="type" id="type">
-                        <option ng-value="">-- Select -- </option>
+                        <option value="">-- Select -- </option>
                         <option ng-value="costEstimateType" ng-selected="costEstimateType.type == CostEstimate.type"
                             ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
                     </select>
@@ -174,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="remove_history custom-td text-center" ng-click="delete(firstIndex,secondIndex)">
+                    <div class="remove_history custom-td text-center" ng-click="delete(firstIndex,index)">
                         <i class="fa fa-trash text-danger btn"></i>
                     </div>
                 </div>

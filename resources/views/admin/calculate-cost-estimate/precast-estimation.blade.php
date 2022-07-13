@@ -1,19 +1,19 @@
 <div ng-show="price_calculation == 'precast_engineering_estimation'">
     <div class="table custom-responsive p-0">
-        <table class="cost-estimate-total-table table table-bordered border">
+        <table class="cost-estimate-total-table table table-bordered border text-end">
             <thead>
                 <tr  style="background: var(--primary-bg) !important">
                     <th colspan="3" class="text-center"><h5 class="m-0 py-1 text-white">Total Engineering Cost</h5></th>
                 </tr>
                 <tr>
-                    <th class="text-end">Hourly Rate</th>
-                    <th class="text-end">Sum</th>
+                    <th class="w-50">Total Hourly Rate</th>
+                    <th class="w-50">Sum</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-end font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalArea) }}</b></td>  
-                    <td class="text-end font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalSum) }}</b></td>  
+                    <td class="w-50 font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalArea) }}</b></td>  
+                    <td class="w-50 font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalSum) }}</b></td>  
                 </tr>
             </tbody>
         </table>
@@ -34,12 +34,25 @@
                     <thead>
                         <tr>
                             <td colspan="18" style="padding: 0 !important">
-                                <div  class="text-center">
-                                    <select  class="my-select"  ng-model="PrecastEstimate.type" name="type" id="type">
-                                        <option ng-value="">-- Select -- </option> 
-                                        <option ng-value="costEstimateType" ng-selected="PrecastEstimate.type == costEstimateType.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
-                                    </select>
+                                <div class="card-header bg-light p-2">
+                                    <div class="row align-items-center  m-0">
+                                        <div class="col-md-4 p-0">
+                                            <select  class="form-select form-select-sm "  ng-model="PrecastEstimate.type" name="type" id="type">
+                                                <option value=""> -- Select -- </option> 
+                                                <option ng-value="costEstimateType" ng-selected="PrecastEstimate.type == costEstimateType.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8 pe-0">
+                                            <div class="input-group justify-content-end">
+                                                <button class="btn-sm btn btn-danger" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
+                                                <button class="btn-sm btn btn-warning" type="button"  ng-click="deletePrecastEstimate(pRootKey)"><i title="remove" class="fa fa-trash"></i></button>
+                                            </div> 
+                                        </div>
+                                    </div> 
                                 </div>
+                                {{-- <div  class="text-center">
+                                    
+                                </div> --}}
                             </td>
                         </tr>
                         <tr  style="background: var(--primary-bg) !important">
