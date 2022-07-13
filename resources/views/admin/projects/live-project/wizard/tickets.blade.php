@@ -4,13 +4,13 @@
             <li class="nav-item">
                 <a href="#CustomerTicket" data-bs-toggle="tab" aria-expanded="false" class="nav-link active border-bottom-0">
                     <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                    <span class="d-none d-md-block">Customer Tickets</span>
+                    <span class="d-none d-md-block">Internal Tickets</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#InternalTickets" data-bs-toggle="tab" aria-expanded="true" class="nav-link  border-bottom-0">
                     <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                    <span class="d-none d-md-block">Internal Tickets</span>
+                    <span class="d-none d-md-block">Customer Tickets</span>
                 </a>
             </li> 
         </ul> 

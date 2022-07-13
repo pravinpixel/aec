@@ -56,6 +56,11 @@ class LiveProjectController extends Controller
         
     }
 
+    public function index()
+    {
+        return view('admin.projects.live-project.list-project');
+    }
+
   
 
 

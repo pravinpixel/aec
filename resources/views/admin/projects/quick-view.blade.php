@@ -5,6 +5,7 @@
             <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
         </div>
         <div class="modal-content h-100 p-4" style="overflow: auto">
+           
             <div class="card-body">
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="project_infomation_header">
@@ -21,168 +22,98 @@
                         </div>
                     </div>
                     <div id="project_infomation" class="accordion-collapse collapse show" aria-labelledby="project_infomation_header" >
-                        <div class="card-body">
-                            <div class="row m-0 "> 
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Project ID</label>
-                                        </div>
-                                        <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['reference_number'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Project Name</label>
-                                        </div>
-                                        <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['project_name'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Telephone</label>
-                                        </div>
-                                        <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['mobile_number'] }}</div>
-                                        </div> 
-                                    </div>  
-                                </div>
-                                <div class="col-md-6"> 
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Contact Person</label>
-                                        </div>
-                                        <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['contact_person'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Company</label>
-                                        </div>
-                                        <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['company_name'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Email</label>
-                                        </div>
-                                        <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['email'] }} </div>
-                                        </div> 
-                                    </div>
-                                </div>
+                        <table class="table custom m-0 table-hover">
+                            <tbody>
+                                <tr>
+                                    <td width="30%"><b>Project ID</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['reference_number'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td width="30%"><b>Project Name</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['project_name'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Telephone</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['mobile_number'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Contact Person name</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['contact_person'] }} </td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Company</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['company_name'] }}</td>
+                                </tr> 
+                                <tr >
+                                    <td><b>Email</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['email'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Site Address</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['site_address'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Country</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['country'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Zipcode</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['zipcode'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Start  Date</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['start_date'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>State</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['state'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>No of Building</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['no_of_building'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Type of Project</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['project_type'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Type of Delivery</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['delivery_type'] }}</td>
+                                </tr> 
+                                <tr>
+                                    <td><b>Delivery Date</b></td>
+                                    <td>:</td>
+                                    <td>@{{ review['delivery_date'] }}</td>
+                                </tr> 
                                 
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Site Address</label>
-                                        </div>
-                                        <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['site_address'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                              
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Country</label>
-                                        </div>
-                                        <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['country'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Zipcode</label>
-                                        </div>
-                                        <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['zipcode'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Start  Date</label>
-                                        </div>
-                                        <div class="col pe-0">  
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['start_date'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">State</label>
-                                        </div>
-                                        <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['state'] }}</div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">No of Buildings</label>
-                                        </div>
-                                        <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['no_of_building'] }}</div> 
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Type of Project</label>
-                                        </div>
-                                        <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['project_type'] }}</div>  
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Type of Delivery</label>
-                                        </div>
-                                        <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['delivery_type'] }}</div>  
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-3  p-0">
-                                            <label class="col-form-label">Delivery Date</label>
-                                        </div>
-                                        <div class="col pe-0"> 
-                                            <div class="form-control form-control-sm  border-0 ">@{{ review['delivery_date'] }}</div>  
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
+                            </tbody>
+                        </table>
+
+                    
+
+
+
+                        
                     </div>
                 </fieldset>
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="connection_plateforms_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#connection_plateforms" aria-expanded="false" aria-controls="connection_plateforms">
-                            <span class="position-relative btn py-0"><b>Connect Platform</b></span> 
+                            <span class="position-relative btn py-0"><b> @lang('project.milestone')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 
@@ -462,7 +393,7 @@
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Team_setup_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Team_setup" aria-expanded="false" aria-controls="Team_setup">
-                            <span class="position-relative btn py-0"><b>Team Setup</b></span> 
+                            <span class="position-relative btn py-0"><b>@lang('project.tasklist')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 
@@ -476,26 +407,48 @@
                     </div>
                     <div id="Team_setup" class="accordion-collapse collapse" aria-labelledby="Team_setup_header" >
                         <div class="card-body"> 
-                            <div class="row mb-2 mx-0">
-                                <ul>
-                                    <li ng-repeat="(key,teamSetup) in teamSetups" class="">
-                                        <strong>@{{ teamSetup.role.name }}</strong>
-                                        <div class="row m-0">
-                                            <div ng-repeat="(key,team) in teamSetup.team" class="col-md-4 list-group-item border-0 "> 
-                                                <i class="fa fa-check-circle text-primary me-1"></i>
-                                                @{{ team }}
+                            <table class="m-0 table custom" ng-repeat="(index,check_list) in check_list_items">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">S.No</th>
+                                        <th class="text-center">Deliverable Name</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Assign To</th>
+                                        <th class="text-center">Start Date</th>
+                                        <th class="text-center">End Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
+                                    <tr ng-show="checkListData.text != 'others'">
+                                        <td colspan="6" class="bg-light">
+                                            <div class="text-start">
+                                                <strong>@{{ checkListData.name }}</strong>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>  
-                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
+                                        <td>@{{ index_3 +1 }}</td>
+                                        <td>@{{ taskListData.task_list }}</td>
+                                        <td class="text-center">
+                                            <input disabled  type="checkbox" get-to-do-lists ng-model="taskListData.status" class="form-check-input">
+                                        </td>
+                                        <td>
+                                            <label ng-repeat="projectManager in projectManagers" value="@{{ taskListData.assign_to }}" >
+                                                @{{ projectManager.first_Name }}
+                                            </label>
+                                        </td>
+                                        <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                        <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                    </tr> 
+                                </tbody>
+                            </table>
                         </div> 
                     </div>
                 </fieldset> 
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Invoice_maileStone_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Invoice_maileStone" aria-expanded="false" aria-controls="Invoice_maileStone">
-                            <span class="position-relative btn py-0"><b>Invoice Plan</b></span> 
+                            <span class="position-relative btn py-0"><b>@lang('project.bim360')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 
@@ -534,7 +487,7 @@
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="TO_DO_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#TO_DO" aria-expanded="false" aria-controls="TO_DO">
-                            <span class="position-relative btn py-0"><b>To Do List</b></span> 
+                            <span class="position-relative btn py-0"><b>@lang('project.tickets')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 

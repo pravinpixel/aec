@@ -73,6 +73,8 @@ class ProjectController extends Controller
         return view('admin.projects.index');
     }
 
+    
+
     public function checkListMasterGroup()
     {
         $list       =   CheckList::with('getTaskList')->latest()->get();
@@ -428,8 +430,8 @@ class ProjectController extends Controller
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="'.route('edit-projects', $dataDb->id).'">Edit</a>
-                                <a class="dropdown-item" href="'.route('live-projects-data', $dataDb->id).'">View</a>
+                                <!-- <a class="dropdown-item" href="'.route('edit-projects', $dataDb->id).'">Edit</a> -->
+                                <a class="dropdown-item" href="'.route('live-projects-data', $dataDb->id).'">View/Edit</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Delete" data-title="Are you sure to delete this enquiry" data-action="'.route('enquiry.delete', $dataDb->id).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                             </div>
                         </div>';

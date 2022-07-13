@@ -101,8 +101,23 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
     }
 
     $scope.getQuickProject = (title, id) => {
+
+        $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
+            $scope.projectManagers = res.data;
+            
+        });
+        $http.get(`${API_URL}project/${id}`).then((res) => {
+
+            $scope.project = formatData(res.data);
+            console.log(res.data.gantt_chart_data);
+            $scope.check_list_items = JSON.parse(res.data.gantt_chart_data) == null ? [] : JSON.parse(res.data.gantt_chart_data)
+            $scope.check_list_items_status = JSON.parse(res.data.gantt_chart_data) == null ? false : true
+
+        });
+
         $http.get(`${API_URL}project/overview/${id}`).then((res)=> {
             $scope.review  =  res.data;
+            console.log( $scope.review);
             $scope.teamSetups = res.data.team_setup;
             $scope.project = formatData(res.data.project);
             $scope.project['address_one'] =  res.data.project.site_address;

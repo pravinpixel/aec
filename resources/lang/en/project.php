@@ -23,5 +23,11 @@ return [
     "ticketsaved"           =>       "Ticket saved successfully",
     "ticketmail"            =>        "Mail sent successfuly !",
     "comments_inserted"     =>        "Comment Sent",
+    "milestone"             =>        " Milestone",
+    "tasklist"              =>        "Task list",
+    "bim360"                =>        "Bim 360",
+    "tickets"               =>        "Tickets"  ,
+    "document"              =>        "Documents",
+    "notes"                 =>        "Notes"
 
 ];

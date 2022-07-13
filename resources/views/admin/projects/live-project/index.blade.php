@@ -66,7 +66,7 @@
                                     <p class="h5 mt-2">Tickets</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                         <!--   <li class="nav-item">
                                 <a href="#!/variation-orders" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
@@ -75,8 +75,8 @@
                                     </div>
                                     <p class="h5 mt-2">Variation Orders</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
+                            </li> -->
+                                  <!-- <li class="nav-item">
                                 <a href="#!/invoice-status" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
@@ -85,7 +85,7 @@
                                     </div>
                                     <p class="h5 mt-2">Invoice Status</p>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">

@@ -1,9 +1,9 @@
 <div class="p-2">
    
-    <div class="text-end my-2">
+   <!-- <div class="text-end my-2">
         <button class="btn btn-sm btn-light border me-2">Export</button>
         <button class="btn btn-sm btn-primary">Create Issue</button>
-    </div>
+    </div> -->
     <table class="table custom custom table-bordered table-hover m-0">
         <thead>
             <tr>

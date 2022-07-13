@@ -16,10 +16,10 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::get('live-projects/{id}',[ProjectController::class, 'live'])->name('live-projects-data');
     Route::post('live-project/sendticket/send-mail-ticket/{ticket_id}/customerid/{cid}',[ProjectController::class,'sendcustomerMail']);
     Route::post('live-project/add-comments', [TicketCommentsController::class,'store'])->name("projectticket.comments");
-
-    Route::get('/live-projects', function () {
+    
+    /*Route::get('/live-projects', function () {
         return view('admin.projects.live-project.index');
-    })->name('live-projects');
+    })->name('live-projects');*/
  
     Route::get('/create-project-ticket/{id}',[ProjectController::class, 'createticket'] )->name('admin.live-project.ticket-create');
 
