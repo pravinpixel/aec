@@ -798,11 +798,11 @@
                     });
                     if(skipUploads.length > 0) {
                         Swal.fire({
-                            title: `${skipUploads.join(', ')} are missing, Do you still want to skip the step ?`,
-                            showDenyButton: false,
-                            showCancelButton: true,
-                            cancelButtonText: 'No',
-                            confirmButtonText: 'Yes',
+                                html: `${skipUploads.join(', ')} are missing, Do you still want to skip the step ?`,
+                                icon: 'question',
+                                confirmButtonText: 'Yes , Skip it !',
+                                showCancelButton: true,
+                                cancelButtonText: 'No',
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 $http({
