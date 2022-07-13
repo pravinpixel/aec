@@ -420,19 +420,22 @@
                             let $totalSum = 0;
                             let $sqmTotal = 0;
                             let $ribTotal = 0;
-                           
+                            var $totalSql_ = 0;
                             Estimates.ComponentsTotals.Dynamics.forEach((dynamic) => {
                                 dynamic.PriceM2 = 0;
                                 dynamic.Sum = 0;
-                               
                             })
+                            Estimates.Components.forEach( (Component, componentIndex) => {
+                                $totalSql_ += Number(Component.Sqm);
+                            });
                             Estimates.Components.forEach( (Component, componentIndex) => {
                                 $sqmTotal += Number(Component.Sqm);
                                 $totalEstimateArea += Number(Component.Sqm);
                                 $ribTotal += Number(Component.Rib.Sum);
                                 Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
-                                    Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 += Number(Dynamic.PriceM2);
+
                                     Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += Number(Dynamic.Sum);
+                                    Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum / $totalSql_);
                                     $totalPrice += Number(Dynamic.PriceM2);
                                     $totalSum += Number(Dynamic.Sum);
                                     $totalEstimateSum += Number(Dynamic.Sum);
@@ -442,7 +445,7 @@
                             Estimates.ComponentsTotals.TotalCost.PriceM2 = getNum($totalSum / $sqmTotal);
                             Estimates.ComponentsTotals.Sqm               = getNum($sqmTotal);
                             Estimates.ComponentsTotals.Rib.Sum           = getNum($ribTotal);
-                           
+                            
                         });
                         scope.ResultEngineeringEstimate.total.totalArea = getNum($totalEstimateArea);
                         scope.ResultEngineeringEstimate.total.totalSum = getNum($totalEstimateSum);

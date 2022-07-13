@@ -36,6 +36,14 @@
              </div>
          </div>
      @endsection 
+     @push('custom-styles')
+         <style>
+            .remove_history  {
+                display: block !important;
+            }
+         </style>
+     @endpush
      @push('custom-scripts')
          <script src="{{ asset('public/custom/js/ngControllers/admin/cost-estimate-calculator.js') }}"></script>
      @endpush
+   

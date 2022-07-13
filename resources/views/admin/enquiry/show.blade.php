@@ -129,6 +129,9 @@
         .dynamic_name {
           
         } 
+        #wood-cost-estimate .remove_history {
+            display: block !important;
+        }
     </style>
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"> </script> 
@@ -1388,7 +1391,12 @@
                             let $totalSum = 0;
                             let $sqmTotal = 0;
                             let $ribTotal = 0;
-                           
+                            var $totalSql_ = 0;
+
+                            Estimates.Components.forEach( (Component, componentIndex) => {
+                                $totalSql_ += Number(Component.Sqm);
+                            });
+
                             Estimates.ComponentsTotals.Dynamics.forEach((dynamic) => {
                                 dynamic.PriceM2 = 0;
                                 dynamic.Sum = 0;
@@ -1399,8 +1407,8 @@
                                 $totalEstimateArea += Number(Component.Sqm);
                                 $ribTotal += Number(Component.Rib.Sum);
                                 Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
-                                    Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 += Number(Dynamic.PriceM2);
                                     Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += Number(Dynamic.Sum);
+                                    Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum / $totalSql_);
                                     $totalPrice += Number(Dynamic.PriceM2);
                                     $totalSum += Number(Dynamic.Sum);
                                     $totalEstimateSum += Number(Dynamic.Sum);

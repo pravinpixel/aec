@@ -385,7 +385,7 @@
                                 {{-- <div ng-bind-html="additional_infos.comments"> </div> --}}
                                 <div>
                                     <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
-                                        <div dx-html-editor="htmlEditorOptions" contenteditable="false"> </div>
+                                        <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>
                                     </div>
                                     <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin', enqData.customer_info.id)" class="input-group mt-3">
                                         <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">

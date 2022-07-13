@@ -124,7 +124,7 @@ class WoodEstimateController extends Controller
                     'DesignScope'=> 0,
                     "Component"     => "",
                     "Type"          => "", 
-                    "Sqm"           => "",
+                    "Sqm"           => 1,
                     "Complexity"    => "", 
                     'Dynamics'=> [],
                     "TotalCost" => [
@@ -137,25 +137,25 @@ class WoodEstimateController extends Controller
                 ]
             ],
             "ComponentsTotals" => [
-                "Sqm"           => '',
-                "complexity"    => '', 
+                "Sqm"           => 0,
+                "complexity"    => 0, 
                 'Dynamics'=> [],
                 "TotalCost" =>[
                     "PriceM2"   => 0, 
                     "Sum"       => 0, 
                 ],
                 "Rib"=> [
-                    "Sum" => ""
+                    "Sum" => 0
                 ],
-                "grandTotal"    => '', 
+                "grandTotal"    => 0, 
             ],
         ];
         foreach($estimations as $estimation) {
-            $CostEstimate['Components'][0]['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
-            $CostEstimate['ComponentsTotals']['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+            $CostEstimate['Components'][0]['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => 0, 'Sum' => 0];
+            $CostEstimate['ComponentsTotals']['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => 0, 'Sum' => 0];
         }
-        $CostEstimate['Components'][0]["TotalCost"]  = ['PriceM2' => '', 'Sum' => ''];
-        $CostEstimate['Components'][0]["Rib"]        = ["Sum" => ""];
+        $CostEstimate['Components'][0]["TotalCost"]  = ['PriceM2' => 0, 'Sum' => 0];
+        $CostEstimate['Components'][0]["Rib"]        = ["Sum" => 0];
         return response(['json'=> $CostEstimate]);
     }
 }
