@@ -1643,7 +1643,7 @@
                                             if(item != 'Three_dimensional_model') {
                                                 return  " "+item.replaceAll('_', ' ')
                                             } else {
-                                                return " 3D Model";
+                                                return " 3D Models";
                                             }
                                         })
                                     } ?
