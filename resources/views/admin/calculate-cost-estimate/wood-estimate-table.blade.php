@@ -130,10 +130,10 @@
                         </select>
                     </div>
                     <div class="custom-td"> <input type="text" onkeypress="return isNumber(event)"
-                            name="C.DesignScope" get-cost-details-total="[index]" ng-model="C.DesignScope" ng-value="C.DesignScope" onkeyup="this.value = minmax(this.value, 1, 100)" onkeypress="return isNumber(event)"
+                            name="C.DesignScope" get-cost-details-total="[index]" ng-model="C.DesignScope" ng-value="C.DesignScope" onkeypress="return isNumber(event)"
                             class="form-control  rounded-0 text-center form-control-sm">
                     </div>
-                    <div class="custom-td"> <input type="text" min="0" max="2" onkeyup="this.value = minmax(this.value, 1, 2)" onkeypress="return isNumber(event)" name="Complexity" ng-value="C.Complexity"
+                    <div class="custom-td"> <input type="text" min="0" max="2" onkeyup="this.value = " onkeypress="return isNumber(event)" name="Complexity" ng-value="C.Complexity"
                             get-cost-details-total="[index]" ng-model="C.Complexity"
                             class="form-control  rounded-0 text-center form-control-sm">
                     </div>

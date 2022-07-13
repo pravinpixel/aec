@@ -1376,6 +1376,21 @@
                         let $TotalSum       = 0;
                         let $TotalRibSum    = 0;
                         scope.CostEstimate.ComponentsTotals.Dynamics.forEach( (item, index) => {
+
+                             // designScope percentage validation
+                             if(scope.CostEstimate.Components[scope.index].DesignScope > 100) {
+                                scope.CostEstimate.Components[scope.index].DesignScope = 100;
+                            } else if(scope.CostEstimate.Components[scope.index].DesignScope < 0) {
+                                scope.CostEstimate.Components[scope.index].DesignScope = 1;
+                            }
+
+                            // complexity validation
+                            if(scope.CostEstimate.Components[scope.index].Complexity > 2) {
+                                scope.CostEstimate.Components[scope.index].Complexity = 2;
+                            } else if(scope.CostEstimate.Components[scope.index].Complexity < 1) {
+                                scope.CostEstimate.Components[scope.index].Complexity = 1;
+                            }
+
                             scope.CostEstimate.Components[scope.index].Dynamics[index].Sum  = getNum(((scope.CostEstimate.Components[scope.index].Sqm * scope.CostEstimate.Components[scope.index].Complexity * scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2  ) * scope.CostEstimate.Components[scope.index].DesignScope) / 100);
                             $TotalPriceM2   += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2);
                             $TotalSum       += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].Sum);
@@ -1494,6 +1509,13 @@
             restrict: 'A',
             link : function (scope, element, attrs) {
                 let eventHandle = () => {
+                    // complexity validation
+                    if(scope.PrecastEstimate.Components[scope.index].complexity> 2) {
+                        scope.PrecastEstimate.Components[scope.index].complexity= 2;
+                    } else if(scope.PrecastEstimate.Components[scope.index].complexity< 1) {
+                        scope.PrecastEstimate.Components[scope.index].complexity= 1;
+                    }
+
                     const precast_component = scope.precastEstimateTypes.find(precastEstimateType => scope.PrecastEstimate.Components[scope.index].precast_component == precastEstimateType.id);
                     if(scope.PrecastEstimate.Components[scope.index].no_of_staircase != 0) {
                         scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_staircase * precast_component.hours);
