@@ -6,18 +6,14 @@
                     <th colspan="3" class="text-center"><h5 class="m-0 py-1 text-white">Total Engineering Cost</h5></th>
                 </tr>
                 <tr>
-                    <th class="text-end">Area m<sup>2</sup></th>
-                    <th class="text-end">Pris/m<sup>2</sup></th>
+                    <th class="text-end">Hourly Rate</th>
                     <th class="text-end">Sum</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-
                     <td class="text-end font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalArea) }}</b></td>  
-                    <td class="text-end font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalPris) }}</b></td>  
                     <td class="text-end font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalSum) }}</b></td>  
-                    
                 </tr>
             </tbody>
         </table>
@@ -96,7 +92,7 @@
                                 </select>
                             </td> 
                             <td style="padding: 0 !important">
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.complexity"  ng-value="C.complexity" name="complexity">
+                                <input  get-precast-details-total="[index]" type="number" onkeyup="this.value = minmax(this.value, 1, 2)" onkeypress="return isNumber(event)"  min="0" max="2" class="my-control"  ng-model="C.complexity"  ng-value="C.complexity" name="complexity">
                             </td>
                             <td style="padding: 0 !important">
                                 <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.no_of_staircase" ng-value="C.no_of_staircase" name="no_of_staircase">

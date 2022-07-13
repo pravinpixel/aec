@@ -124,8 +124,8 @@ class WoodEstimateController extends Controller
                     'DesignScope'=> 0,
                     "Component"     => "",
                     "Type"          => "", 
-                    "Sqm"           => 1,
-                    "Complexity"    => "", 
+                    "Sqm"           => 0,
+                    "Complexity"    => 0, 
                     'Dynamics'=> [],
                     "TotalCost" => [
                         "PriceM2"   => 0, 

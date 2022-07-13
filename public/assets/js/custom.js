@@ -15,6 +15,15 @@
         }
     });
 
+    function minmax(value, min, max) 
+    {
+        if(parseInt(value) < min || isNaN(parseInt(value))) 
+            return min; 
+        else if(parseInt(value) > max) 
+            return max; 
+        else return value;
+    }
+    
     function isNumber(evt) {
         var iKeyCode = (evt.which) ? evt.which : evt.keyCode
         if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))

@@ -510,7 +510,7 @@
                                             Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;
                                         }
                                     });
-                                    Estimates.Components[componentIndex].Complexity = 1;
+                                    Estimates.Components[componentIndex].Complexity = 0;
                                     Estimates.Components[componentIndex].Sqm = 0;
                                 }
                             });
@@ -576,12 +576,12 @@
                     let $totalSum  = 0;
 
                     scope.PrecastComponent.forEach( (row) => {
-                        $totalArea += row.total_sqm;
+                        $totalArea += row.total_hourly_rate;
                         $totalSum  += row.total_engineering_cost;
                     });
                     scope.ResultPrecastComponent.total.totalArea = $totalArea;
                     scope.ResultPrecastComponent.total.totalSum  = $totalSum;
-                    scope.ResultPrecastComponent.total.totalPris = $totalSum / $totalArea;
+                    // scope.ResultPrecastComponent.total.totalPris = $totalSum / $totalArea;
                     scope.ResultPrecastComponent.precastEstimate =  scope.PrecastComponent;
                     scope.$apply();
                 }
