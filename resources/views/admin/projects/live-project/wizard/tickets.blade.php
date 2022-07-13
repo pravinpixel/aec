@@ -168,19 +168,21 @@
                 </div>
                 <div class="my-2 x-y-between">
                     <h3 class="h4">Ticket Summary</h3>
-                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails">Raise Ticket</button>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"> +  New Case</button>
                 </div>
                 <table class="table custom custom table-bordered table-hover m-0">
                     <thead>
                         <tr>
                             <th>S.No</th>
-                            <th>Ticket #</th>
-                            <th>Date</th>
+                            <th>ID</th>
+                            <th>Requester</th>
                             <th>Title</th>
-                            <th>Raised By</th>
-                            <th>Last Reply Date</th>
-                            <th>Assign To</th>
+                            <th>Assignee</th>
                             <th>Status</th>
+                            <th>Due by</th>
+                            <th>Priority</th>
+                            <th>Created by</th>
+                            <th>Modifed at</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -188,13 +190,15 @@
                         @for ($i=0;$i<6;$i++)
                             <tr>
                                 <td>{{ $i+1 }}</td>
-                                <td>TIC-00{{ $i+1 }}</td>
-                                <td>01-01-2022</td>
-                                <td>What is the update</td>
+                                <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><small>PRXX / TIKXX-0{{ $i+1 }}</small></button></td>
                                 <td>Alex</td>
-                                <td>02-01-2022</td>
-                                <td>Hema</td>
-                                <td><span class="badge bg-success">open</span></td>
+                                <td>Mail Issue</td>
+                                <td>Mark</td>
+                                <td><span class="badge bg-success">New</span></td>
+                                <td> <small>13/01/2021, 12:30 (Due in 1d)</small></td>
+                                <td style="padding: 0 !important" class="text-center">critical <i class="fa fa-arrow-up text-danger ms-1"></i></td>
+                                <td>Alex</td>
+                                <td><small>12/01/2021, 12:30</small> </td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm py-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
