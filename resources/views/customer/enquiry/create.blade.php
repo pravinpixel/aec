@@ -1310,15 +1310,14 @@
                         });
                         if(response.data.msg == 'submitted') {
                             Swal.fire({
-                                html: `<h3>Enquiry send successfully..!! </br> Our representatives will contact you shortly</h3>`,
-                                showDenyButton: false,
-                                showCancelButton: false,
-                                confirmButtonText: 'Ok',
-                                }).then((result) => {
-                                if (result.isConfirmed) {
-                                    location.href = '{{ route('customers-my-enquiries') }}'
-                                }
+                            icon: 'success',
+                            html: `<h3>Enquiry send successfully..!! </br> Our representatives will contact you shortly</h3>`,
+                            showConfirmButton: false,
+                            timer: 3000
                             });
+                            $timeout(()=> {
+                                location.href = '{{ route('customers-my-enquiries') }}'
+                            }, 3000);
                         } else {
                             Swal.fire({
                                 html: `<h3>Enquiry data are saved locally </br> Do you want to leave the page ?</h3>`,
