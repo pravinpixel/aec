@@ -1,6 +1,11 @@
  
 <meta charset="utf-8" />
+@if (Route::is('login'))
+<title> AEC Prefab | Sign in</title>
+@else 
 <title> AEC Prefab | Customer Portal</title>
+@endif
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
 <meta content="Coderthemes" name="author" />
