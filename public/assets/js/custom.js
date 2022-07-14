@@ -139,3 +139,35 @@
             }
         });
     }
+
+    function ifcAlertHelper(item)
+    {
+        switch (item) {
+            case "Three_dimensional_model":
+                var res = " 3D Models";
+                break;
+            default:
+                var res = " "+item.replaceAll('_', ' ');
+                break;
+        }
+        return  res;
+    }
+
+    function ifcSingularAlertHelper(item)
+    {
+        switch (item) {
+            case "Three_dimensional_model":
+                var res = " 3D Model";
+                break;
+            case "Foundation_drawings_and_others":
+                var res = " Foundation drawing and others";
+                break;
+            case "Drawings":
+                var res = " Drawing";
+                break;
+            default:
+                var res = " "+item.replaceAll('_', ' ');
+                break;
+        }
+        return  res;
+    }

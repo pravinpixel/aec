@@ -29,7 +29,12 @@ class DocumentType extends Model
 
     public function setSlugAttribute($value)
     {
-        $this->attributes['slug'] = Str::of(self::clean($value))->singular()->lower()->ucfirst();
+        if($value == '3D Models' || $value == '3D Model') {
+            $this->attributes['slug'] = "Three_dimensional_model";
+        }else {
+            $this->attributes['slug'] = Str::of(self::clean($value))->ucfirst();
+        }
+       
     }
 
     public function getCreatedAtAttribute($date)

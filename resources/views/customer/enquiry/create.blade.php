@@ -588,7 +588,7 @@
                     file = $scope.$parent['building_component_file'];  
                 }
                 if(file == false){
-                    Message('danger', 'Please upload file');
+                    Message('danger', 'Please choose file');
                     return false;
                 }
                var uploadUrl = '{{ route('customers.store-enquiry') }}';
@@ -1546,11 +1546,7 @@
                                     <p class="lead">
                                         ${
                                             $scope.mandatory.map((item) => {
-                                                if(item != 'Three_dimensional_model') {
-                                                    return  " "+item.replaceAll('_', ' ') 
-                                                } else {
-                                                    return " 3D Models";
-                                                }
+                                               return ifcAlertHelper(item);
                                             })
                                         } ?
                                     </p>
@@ -1612,7 +1608,7 @@
                 }
                 if(file == false && link == false){
                     $(".fileupload").css('pointer-events','');
-                    Message('danger',`${file_type.replaceAll('_',' ') } file required`);
+                    Message('danger',`${ifcSingularAlertHelper(file_type) } file or Url required`);
                     return false;
                 }
                 var uploadUrl = '{{ route('customers.store-enquiry') }}';
