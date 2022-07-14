@@ -483,7 +483,7 @@
                 let removeVal = componentFirstObj.Dynamics.map((obj) => {
                     return {...obj, PriceM2: 0, Sum: 0};
                 });
-                let newObj = {...$scope.CostEstimate.Components[0],  ...{Dynamics: removeVal}}
+                let newObj = {...$scope.NewCostEstimate.Components[0],  ...{Dynamics: removeVal}}
                 $scope.EngineeringEstimate[index].Components.splice(0, 0, newObj);
                 $timeout(function() {
                     angular.element('.sqm_').triggerHandler('keyup');
