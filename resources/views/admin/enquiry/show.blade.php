@@ -129,6 +129,15 @@
         .dynamic_name {
           
         } 
+
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        }
+
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
         #wood-cost-estimate .remove_history {
             display: block !important;
         }
@@ -1497,7 +1506,7 @@
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;
                                             }
                                         });
-                                        Estimates.Components[componentIndex].Complexity = 1;
+                                        Estimates.Components[componentIndex].Complexity = 0;
                                         Estimates.Components[componentIndex].Sqm = 0;
                                     }
                                 });
