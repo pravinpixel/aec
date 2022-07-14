@@ -24,8 +24,8 @@
         <input type="text" onkeypress="return isNumber(event)" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_hours" ng-value="precast_component_hours"placeholder="Enter hours">
         <button ng-show="editorEnabled" class="btn btn-info mx-1" ng-disabled="!precast_component_hours || !precast_component_name"  ng-click="savePrecastComponent()">Save</a>
         <button ng-show="editorEnabled" class="btn btn-danger mx-1" ng-click="editorEnabled = false">cancel</a>
-        <button ng-hide="editorEnabled" class="btn btn-info mx-1" ng-click="editorEnabled = true"> Add Component </button>
-        <button class="btn btn-info mx-1" ng-click="addPrecasEstimate()">Add Building </button>
+        <button ng-hide="editorEnabled" class="btn btn-info mx-1" ng-click="editorEnabled = true"> <i class="fa fa-plus"></i> Component </button>
+        <button class="btn btn-info mx-1" ng-click="addPrecasEstimate()"> <i class="fa fa-plus"></i> Add Building </button>
     </div>
 <section id="precast-cost-estimate">
     <div class="table custom-responsive p-0 table-responsive w-100">
@@ -56,9 +56,7 @@
                             </td>
                         </tr>
                         <tr  style="background: var(--primary-bg) !important">
-                            <td colspan="12" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
-                            <td colspan="1" class="text-center"><i title="remove" ng-click="deletePrecastEstimate(pRootKey)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i></td>
-                            <td colspan="1" class="text-center"><i  title="clone" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)" class="fa fa-copy btn btn-light btn-sm border text-primary h-100 w-100"></i></td>
+                            <td colspan="14" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
                         </tr>
                         <tr class="font-weight-bold">
                             <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">

@@ -1,5 +1,5 @@
 <div class="text-end mt-2">
-    <button class="btn btn-info btn-sm" ng-click="addEngineeringEstimate()">Add Building</button>
+    <button class="btn btn-info btn-sm" ng-click="addEngineeringEstimate()"> <i class="fa fa-plus"></i> Add Building</button>
 </div>
 <div class="costEstimateCurrentData">
     <div class="card custom-div-table my-2 shadow-sm border" ng-repeat="(firstIndex,CostEstimate) in EngineeringEstimate track by $index">
@@ -24,7 +24,10 @@
             </div> 
         </div>
         <div class="card-body p-2"> 
-            <div class="auto-scroll" > 
+            <div class="auto-scroll bg-primary pb-0" > 
+                <div class="text-center bg-primary">
+                    <h5 class="m-0 py-1 text-white">Engineering Estimation</h5>
+                </div>
                 <div class="custom-row custom-border-left bg-primary text-white m-0">
                     <div class="custom-td text-center"> 
                         <small class="fw-bold">Total</small>
@@ -111,7 +114,7 @@
                     <div class="col-1 custom-td text-center remove_history"> Action </div>
                 </div>
                 {{-- input data --}}
-                <div class="custom-row custom-border-left custom-border-bottom" ng-repeat="(index, C) in CostEstimate.Components track by $index">
+                <div class="custom-row custom-border-left custom-border-bottom bg-white" ng-repeat="(index, C) in CostEstimate.Components track by $index">
                     <div class="custom-td">
                         <input type="text" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
                         <select class="my-select w-100 history_building_component_input" get-master-data="[index]" ng-model="C.building_component_id" name="building_component_name">

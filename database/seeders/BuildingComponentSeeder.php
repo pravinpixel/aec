@@ -19,6 +19,7 @@ class BuildingComponentSeeder extends Seeder
         $partitionWall = BuildingComponent::create(['building_component_name' => 'Fire and Sound', 'building_component_icon' =>'uil uil-wall', 'top_position'=> '',  'bottom_position'=> '', 'label'=>'Floor', 'order_id'=> 3, 'is_active' => 1]);
         $ceiling = BuildingComponent::create(['building_component_name' => 'Ceiling', 'building_component_icon' =>'uil uil-layers', 'top_position'=> 'Top',  'bottom_position'=> 'Bottom', 'label'=>'Floor', 'order_id'=> 4,'is_active' => 1]);
         $roof = BuildingComponent::create(['building_component_name' => 'Roof',  'building_component_icon' =>'uil uil-mountains-sun', 'top_position'=> '',  'bottom_position'=> 'Interior', 'label'=>'Roof', 'order_id'=> 5, 'is_active' => 1]);
+        $globalStatic = BuildingComponent::create(['building_component_name' => 'Global Static',  'building_component_icon' =>'uil uil-mountains-sun', 'top_position'=> '',  'bottom_position'=> 'Interior', 'label'=>'Roof', 'order_id'=> 6, 'is_active' => 0]);
 
         $externalWall->layers()->createMany([
             ['layer_name' => 'Construction','user_type' => 'admin'],

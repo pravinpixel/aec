@@ -104,7 +104,7 @@
                 angular.element('.sqm_').triggerHandler('keyup');
             });
         }
-       
+
         $scope.addComponent  = function(index) {
             let newObj = JSON.parse(JSON.stringify($scope.EngineeringEstimate[index].Components[0]));
             $scope.EngineeringEstimate[index].Components.splice(0, 0, newObj);
