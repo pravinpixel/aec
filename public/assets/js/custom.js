@@ -17,12 +17,12 @@
 
     function minmax(value, min, max) 
     {
-        // if(parseInt(value) < min || isNaN(parseInt(value))) 
-        //     return min; 
-        // else if(parseInt(value) > max) 
-        //     return max; 
-        // else return value;
-        return value;
+        if(parseInt(value) < min || isNaN(parseInt(value))) 
+            return min; 
+        else if(parseInt(value) > max) 
+            return max; 
+        else return value;
+    
     }
     
     function isNumber(evt) {

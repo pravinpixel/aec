@@ -682,7 +682,7 @@
                             $TotalSum       += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].Sum);
                         });
 
-                        if(scope.CostEstimate.Components[scope.index].Rib.Sum != 0){
+                        if(scope.CostEstimate.Components[scope.index].Rib.Sum != 0 && scope.CostEstimate.Components[scope.index].Rib.Sum != ''){
                             scope.CostEstimate.Components[scope.index].Sqm = 1;
                             $TotalRibSum = scope.CostEstimate.Components[scope.index].Rib.Sum * scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 ;
                             scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalRibSum;
@@ -796,13 +796,16 @@
             link : function (scope, element, attrs) {
                 let eventHandle = () => {
                     // complexity validation
-                    if(scope.PrecastEstimate.Components[scope.index].complexity> 2) {
+                    const precast_component = scope.precastEstimateTypes.find(precastEstimateType => scope.PrecastEstimate.Components[scope.index].precast_component == precastEstimateType.id);
+                    if(scope.PrecastEstimate.Components[scope.index].complexity > 2) {
                         scope.PrecastEstimate.Components[scope.index].complexity= 2;
                     } else if(scope.PrecastEstimate.Components[scope.index].complexity< 1) {
                         scope.PrecastEstimate.Components[scope.index].complexity= 1;
                     }
-
-                    const precast_component = scope.precastEstimateTypes.find(precastEstimateType => scope.PrecastEstimate.Components[scope.index].precast_component == precastEstimateType.id);
+                    if(typeof(precast_component) == 'undefined') {
+                        scope.$apply();
+                        return false;
+                    }
                     if(scope.PrecastEstimate.Components[scope.index].no_of_staircase != 0) {
                         scope.PrecastEstimate.Components[scope.index].std_work_hours = getNum( scope.PrecastEstimate.Components[scope.index].no_of_staircase * precast_component.hours);
                     } else {

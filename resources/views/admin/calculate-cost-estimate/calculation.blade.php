@@ -38,12 +38,23 @@
      @endsection 
      @push('custom-styles')
          <style>
+            input[type=number]::-webkit-inner-spin-button, 
+            input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            }
+
+            input[type=number] {
+            -moz-appearance: textfield;
+            }
             .remove_history  {
                 display: block !important;
             }
          </style>
      @endpush
      @push('custom-scripts')
+         <script>
+            $(":input").attr("autocomplete","off");
+         </script>
          <script src="{{ asset('public/custom/js/ngControllers/admin/cost-estimate-calculator.js') }}"></script>
      @endpush
    
