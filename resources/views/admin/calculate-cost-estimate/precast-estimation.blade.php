@@ -78,7 +78,7 @@
                             <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
                         </tr>
                         <tr class="bg-light-primary border">
-                            <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
+                            <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Design Complexity</th> 
                         
                         </tr>
                         <tr class="bg-light-primary border">
