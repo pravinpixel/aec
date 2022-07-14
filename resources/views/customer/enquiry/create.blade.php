@@ -174,10 +174,10 @@
                         console.log('get enquiry error');
                 });
             });
-            
 
-         
-        
+
+            
+           
             $scope.getCompany = (text) => {
                 $http.get(`https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=${text}`)
                 .then(function successCallback(res){

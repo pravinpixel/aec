@@ -106,9 +106,11 @@
         }
        
         $scope.addComponent  = function(index) {
-            let newObj = JSON.parse(JSON.stringify($scope.EngineeringEstimate[index].Components[0]));
-            newObj.building_component_id = '';
-            newObj.type_id = '';
+            let componentFirstObj = JSON.parse(JSON.stringify($scope.EngineeringEstimate[index].Components[0]));
+            let removeVal = componentFirstObj.Dynamics.map((obj) => {
+                return {...obj, PriceM2: 0, Sum: 0};
+            });
+            let newObj = {...$scope.CostEstimate.Components[0],  ...{Dynamics: removeVal}}
             $scope.EngineeringEstimate[index].Components.splice(0, 0, newObj);
             $timeout(function() {
                 angular.element('.sqm_').triggerHandler('keyup');
@@ -426,7 +428,7 @@
                             $TotalSum       += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].Sum);
                         });
                         if(scope.CostEstimate.Components[scope.index].Rib.Sum != 0 && scope.CostEstimate.Components[scope.index].Rib.Sum != ''){
-                            scope.CostEstimate.Components[scope.index].Sqm = 1;
+                            scope.CostEstimate.Components[scope.index].Sqm = 0;
                             $TotalRibSum = scope.CostEstimate.Components[scope.index].Rib.Sum * scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 ;
                             scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalRibSum;
                         } else {
@@ -456,7 +458,7 @@
                                 $sqmTotal += Number(Component.Sqm);
                                 $totalEstimateArea += Number(Component.Sqm);
                                 $ribTotal += Number(Component.Rib.Sum);
-                                if(Component.Rib.Sum !=0 ){
+                                if(Component.Rib.Sum !=0 && Component.Rib.Sum != ''){
                                     $totalSum += Number(Component.Rib.Sum * Component.TotalCost.PriceM2);
                                     $totalEstimateSum += Number(Component.Rib.Sum * Component.TotalCost.PriceM2);
                                 }else {
