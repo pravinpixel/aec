@@ -35,8 +35,8 @@ class AutodeskForgeController extends Controller
 			return false;
 		}
 		$fileName = GlobalService::getBucketFilename($fileName).'.'.$extension;
-		$buketFormaedtName = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
-		$bucketName = $this->checkBucketExists($buketFormaedtName);
+		$bucketFormateName = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
+		$bucketName = $this->checkBucketExists($bucketFormateName);
 		$additionalData = ['enquiry' => $enquiry,
 							'bucketName' => $bucketName,
 							'fileName'   => $fileName];
