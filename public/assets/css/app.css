@@ -15994,3 +15994,12 @@ input[type=date]::-webkit-calendar-picker-indicator{
   position:absolute;
   transform: scale(100)
 }
+
+.custom__date__icon {
+    position: absolute;
+    top: 19px;
+    right: 16px;
+    font-size: 24px !important;
+    color: gray;
+    pointer-events: none;
+}
