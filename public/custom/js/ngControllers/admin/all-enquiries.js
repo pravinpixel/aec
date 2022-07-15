@@ -1,7 +1,15 @@
 app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             
     //fetch users listing from 
-    
+    getAutoDeskFileTypes = () => {
+        $http({
+            method: 'GET',
+            url     : API_URL +'get-autodesk-file-type',
+        }).then(function (res) {
+            $scope.autoDeskFileType = res.data;
+        });
+    }
+    getAutoDeskFileTypes();
     getData = function($http, API_URL) {
 
         angular.element(document.querySelector("#loader")).removeClass("d-none"); 
@@ -465,5 +473,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             }
         });
     });
+
+   
 }); 
 
