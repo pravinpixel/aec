@@ -152,11 +152,10 @@ class MailTemplateController extends Controller
         }
 
         $content    =   $data['document']['documentary_content'];
-        $title      =   $data['document']['documentary_title'];
-        $logo       =   Config::get('documentary.logo.key');
-
+        $title      =   $data['document']['documentary_title'];   
        
-        $pdf        =   PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','logo','title'));
+        $pdf        =   PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','title'));
+
         $filePath   =   'uploads/enquiryPDF/'.$data['enquiry']['id'].'/';
         $path       =   public_path($filePath); 
 
