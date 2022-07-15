@@ -13,7 +13,7 @@
     <tbody class="panel"> 
         <tr ng-repeat="viewList in viewLists">
             <td> @{{ $index + 1}}  @{{ viewList.name }}</td>
-                <td >@{{  viewList.pivot.date }}</td>
+                <td >@{{  viewList.pivot.date | date:'dd-MM-yyyy' }}</td>
                 <td style="max-width: 200px !important;overflow:hidden">@{{  viewList.pivot.client_file_name }}</td>
                 <td class="text-success">@{{  viewList.pivot.file_type }}</td>
             <td><span class="badge btn-sm rounded-pill" ng-class="{'badge-outline-success': viewList.pivot.status == 'Completed', 'badge-outline-info': viewList.pivot.status == 'In progress'}"> @{{  viewList.pivot.status }} </span></td>
