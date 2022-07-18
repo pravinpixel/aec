@@ -68,7 +68,7 @@
 <div class="card-header pb-2 p-3 text-center border-0">
     <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> |
         <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span
-            class="text-info">@{{ customer_info.contact_person }}</span></h4>
+            class="text-info">@{{ enquiry.enquiry.contact_person }}</span></h4>
 </div>
 <div class="card-body pt-0 p-0">
     <table class="table custom shadow-none border m-0 table-bordered ">
@@ -83,7 +83,7 @@
         <tbody>
             <tr>
                 <td>@{{ enquiry.enquiry.enquiry_date }}</td>
-                <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
+                <td>@{{ enquiry.enquiry.contact_person }}</td>
                 <td>@{{ enquiry.project_type }}</td>
                 <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span>
                 </td>
