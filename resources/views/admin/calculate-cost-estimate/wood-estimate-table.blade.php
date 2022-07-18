@@ -114,72 +114,76 @@
                     <div class="col-1 custom-td text-center remove_history"> Action </div>
                 </div>
                 {{-- input data --}}
-                <div class="custom-row custom-border-left custom-border-bottom bg-white" ng-repeat="(index, C) in CostEstimate.Components track by $index">
-                    <div class="custom-td">
-                        <input type="text" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
-                        <select class="my-select w-100 history_building_component_input" get-master-data="[index]" ng-model="C.building_component_id" name="building_component_name">
-                            <option value="">-- Select -- </option>
-                            <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.Component"
-                                ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option>
-                        </select>
-                    </div>
-                    <div class="custom-td">
-                        <input type="text" class="history_building_type_value" value="@{{ DeliveryTypeObj[C.type_id] }}">
-                        <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.type_id" ng-change="getMasterData(index)"
-                            name="type_name">
-                            <option value="">-- Select ---</option>
-                            <option ng-value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == C.Type"
-                                ng-repeat="deliveryType in deliveryTypes">@{{ deliveryType.delivery_type_name }}</option>
-                        </select>
-                    </div>
-                    <div class="custom-td"> <input type="number"
-                            name="C.DesignScope" get-cost-details-total="[index]" ng-model="C.DesignScope" ng-value="C.DesignScope" onkeypress="return isNumber(event)"
-                            class="form-control  rounded-0 text-center form-control-sm">
-                    </div>
-                    <div class="custom-td"> <input type="number" onkeypress="return isNumber(event)" name="Complexity" ng-value="C.Complexity"
-                            get-cost-details-total="[index]" ng-model="C.Complexity"
-                            class="form-control  rounded-0 text-center form-control-sm">
-                    </div>
-                    <div class="custom-td "> <input type="text" onkeypress="return isNumber(event)" name="Sqm"  ng-value="C.Sqm"
-                            get-cost-details-total="[index]" ng-model="C.Sqm"
-                            class="form-control  rounded-0 text-center form-control-sm sqm_">
-                    </div>
-                    <div class="custom-td" ng-repeat="(thirdIndex, D) in C.Dynamics">
-                        <div class="custom-row  text-center p-0">
-                            <div class="p-0">
-                                <input type="text" onkeypress="return isNumber(event)" get-cost-details-total="[index]" ng-value="D.PriceM2"
-                                    name="D.PriceM2" ng-model="D.PriceM2"
-                                    class="form-control  rounded-0 text-center form-control-sm">
-                            </div>
-                            <div class="p-0">
-                                <input type="text" onkeypress="return isNumber(event)" ng-model="D.Sum" name="D.Sum" ng-value="D.Sum"
-                                    disabled class="form-control  rounded-0 text-center form-control-sm">
-                            </div>
+                <div psi-sortable="" ng-model="C">
+                    <div ng-repeat="(index, C) in CostEstimate.Components track by $index" class="custom-row custom-border-left custom-border-bottom bg-white" >
+                        <div class="custom_drag" title="drag row"><i class="mdi mdi-drag"></i></div>
+                        <div class="custom-td">
+                            <input type="text" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
+                            <select class="my-select w-100 history_building_component_input" get-master-data="[index]" ng-model="C.building_component_id" name="building_component_name">
+                                <option value="">-- Select -- </option>
+                                <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.Component"
+                                    ng-repeat="buildingComponent in buildingComponents">@{{ buildingComponent.building_component_name }}</option>
+                            </select>
                         </div>
-                    </div>
-                    <div class="custom-td">
-                        <div class="custom-row  text-center p-0">
-                            <input type="text" get-cost-details-total="[index]" onkeypress="return isNumber(event)"
-                                name="C.Rib.Sum" ng-model="C.Rib.Sum" ng-value="C.Rib.Sum"
+                        <div class="custom-td">
+                            <input type="text" class="history_building_type_value" value="@{{ DeliveryTypeObj[C.type_id] }}">
+                            <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.type_id" ng-change="getMasterData(index)"
+                                name="type_name">
+                                <option value="">-- Select ---</option>
+                                <option ng-value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == C.Type"
+                                    ng-repeat="deliveryType in deliveryTypes">@{{ deliveryType.delivery_type_name }}</option>
+                            </select>
+                        </div>
+                        <div class="custom-td"> <input type="number"
+                                name="C.DesignScope" get-cost-details-total="[index]" ng-model="C.DesignScope" ng-value="C.DesignScope" onkeypress="return isNumber(event)"
                                 class="form-control  rounded-0 text-center form-control-sm">
                         </div>
-                    </div>
-                    <div class="custom-td">
-                        <div class="text-center custom-row p-0">
-                            <div class="p-0">
-                                <input type="text"  get-cost-details-total="[index]" onkeypress="return isNumber(event)" name="C.TotalCost.PriceM2"
-                                    ng-model="C.TotalCost.PriceM2" ng-value="C.TotalCost.PriceM2"
-                                    class="form-control  rounded-0 text-center form-control-sm">
-                            </div>
-                            <div class="p-0">
-                                <input type="text" disabled onkeypress="return isNumber(event)" name="C.TotalCost.Sum" ng-value="C.TotalCost.Sum"
-                                    ng-model="C.TotalCost.Sum" class="form-control  rounded-0 text-center form-control-sm">
+                        <div class="custom-td"> <input type="number" onkeypress="return isNumber(event)" name="Complexity" ng-value="C.Complexity"
+                                get-cost-details-total="[index]" ng-model="C.Complexity"
+                                class="form-control  rounded-0 text-center form-control-sm">
+                        </div>
+                        <div class="custom-td "> <input type="text" onkeypress="return isNumber(event)" name="Sqm"  ng-value="C.Sqm"
+                                get-cost-details-total="[index]" ng-model="C.Sqm"
+                                class="form-control  rounded-0 text-center form-control-sm sqm_">
+                        </div>
+                        <div class="custom-td" ng-repeat="(thirdIndex, D) in C.Dynamics">
+                            <div class="custom-row  text-center p-0">
+                                <div class="p-0">
+                                    <input type="text" onkeypress="return isNumber(event)" get-cost-details-total="[index]" ng-value="D.PriceM2"
+                                        name="D.PriceM2" ng-model="D.PriceM2"
+                                        class="form-control  rounded-0 text-center form-control-sm">
+                                </div>
+                                <div class="p-0">
+                                    <input type="text" onkeypress="return isNumber(event)" ng-model="D.Sum" name="D.Sum" ng-value="D.Sum"
+                                        disabled class="form-control  rounded-0 text-center form-control-sm">
+                                </div>
                             </div>
                         </div>
+                        <div class="custom-td">
+                            <div class="custom-row  text-center p-0">
+                                <input type="text" get-cost-details-total="[index]" onkeypress="return isNumber(event)"
+                                    name="C.Rib.Sum" ng-model="C.Rib.Sum" ng-value="C.Rib.Sum"
+                                    class="form-control  rounded-0 text-center form-control-sm">
+                            </div>
+                        </div>
+                        <div class="custom-td">
+                            <div class="text-center custom-row p-0">
+                                <div class="p-0">
+                                    <input type="text"  get-cost-details-total="[index]" onkeypress="return isNumber(event)" name="C.TotalCost.PriceM2"
+                                        ng-model="C.TotalCost.PriceM2" ng-value="C.TotalCost.PriceM2"
+                                        class="form-control  rounded-0 text-center form-control-sm">
+                                </div>
+                                <div class="p-0">
+                                    <input type="text" disabled onkeypress="return isNumber(event)" name="C.TotalCost.Sum" ng-value="C.TotalCost.Sum"
+                                        ng-model="C.TotalCost.Sum" class="form-control  rounded-0 text-center form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="remove_history custom-td text-center" ng-click="delete(firstIndex,index)">
+                            <i class="fa fa-trash text-danger btn"></i>
+                        </div>
                     </div>
-                    <div class="remove_history custom-td text-center" ng-click="delete(firstIndex,index)">
-                        <i class="fa fa-trash text-danger btn"></i>
-                    </div>
+
                 </div>
             </div>
         </div>

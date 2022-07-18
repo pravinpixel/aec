@@ -42,6 +42,7 @@ class  CostEstimateController extends Controller
         $result["enquiry"]          =   $enquiry ?? "";
         $result["others"]           =   $others;
         $result['project_type']     =   $enquiry->projectType->project_type_name ?? '';
+        $result['building_type']    =   $enquiry->BuildingType ?? '';
         $result['cost_estimation']  =   isset($data) ? json_decode($data->build_json) : [];
         return  $result;
     }

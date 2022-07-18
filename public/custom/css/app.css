@@ -547,4 +547,11 @@ sup {
     display: none !important;
 }
 
+.custom_drag {
+    position: absolute;
+    left: 0;
+    background-color: aliceblue;
+    width: 11px;
+    margin-top: 4px;
+}
 

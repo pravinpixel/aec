@@ -111,7 +111,7 @@
                 return {...obj, PriceM2: 0, Sum: 0};
             });
             let newObj = {...$scope.CostEstimate.Components[0],  ...{Dynamics: removeVal}}
-            $scope.EngineeringEstimate[index].Components.splice(0, 0, JSON.parse(JSON.stringify(newObj)));
+            $scope.EngineeringEstimate[index].Components.push(JSON.parse(JSON.stringify(newObj)));
             $timeout(function() {
                 angular.element('.sqm_').triggerHandler('keyup');
             });
@@ -211,7 +211,7 @@
         }
 
         $scope.addPrecastComponent =  (rootKey) => {
-            $scope.PrecastComponent[rootKey].Components.unshift(
+            $scope.PrecastComponent[rootKey].Components.push(
                 {
                         'precast_component': '',
                         'no_of_staircase': '',

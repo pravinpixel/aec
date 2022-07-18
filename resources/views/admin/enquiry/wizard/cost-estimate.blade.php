@@ -74,9 +74,9 @@
     <table class="table custom shadow-none border m-0 table-bordered ">
         <thead class="bg-light">
             <tr>
-                <th>Enquiry Date</th>
+                <th>Enquiry Received Date</th>
                 <th>Person Contact</th>
-                <th>Type of Project</th>
+                <th>Type of Building</th>
                 <th>Enquiry Status</th>
             </tr>
         </thead>
@@ -84,7 +84,7 @@
             <tr>
                 <td>@{{ enquiry.enquiry.enquiry_date }}</td>
                 <td>@{{ enquiry.enquiry.contact_person }}</td>
-                <td>@{{ enquiry.project_type }}</td>
+                <td>@{{ enquiry.building_type.building_type_name  }}</td>
                 <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span>
                 </td>
             </tr>
