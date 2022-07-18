@@ -103,8 +103,16 @@
  
 
 @push('custom-scripts')
-
+       
     <script>
+
+        $(function(){
+            let wallString = localStorage.getItem("wallGroup"); 
+            if(wallString != null) {
+                localStorage.removeItem('wallGroup');
+            }
+        });
+
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -680,8 +688,12 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
-                    $scope.showHideBuildingComponent = res.data.building_component_process_type;
                     enableActiveTabs(res.data.active_tabs);
+                    $scope.showHideBuildingComponent = res.data.building_component_process_type;
+                    if($scope.hasLocal()){
+                        $scope.getFromLocal();
+                        return false;
+                    }
                     if(res.data.building_component.length == 0) {
                         getBuildingComponent();
                         return false;
@@ -823,6 +835,7 @@
                             url: '{{ route('customers.store-enquiry') }}',
                             data: {type: 'building_component', 'data': $scope.wallGroup}
                         }).then(function (res) {
+                            $scope.saveToLocal();
                             $location.path('/additional-info')
                             Message('success', `Building Component updated successfully`);
                         }, function (error) {
@@ -836,19 +849,34 @@
                 
             }
 
-            $scope.addToLocal = () => {
-                $http({
-                    method: 'POST',
-                    url: '{{ route('customers.store-enquiry') }}',
-                    data: {type: 'building_component', 'data': $scope.wallGroup}
-                }).then(function (res) {
-                    Message('success', `Building Component saved successfully`);
-                    return false;
-                }, function (error) {
-                    Message('error', `Somethig went wrong`);
-                }); 
+            $scope.hasLocal = () => {
+                let wallString = localStorage.getItem("wallGroup"); 
+                return wallString == null ? false:true;
             }
 
+            $scope.saveToLocal = () => {
+                localStorage.removeItem("wallGroup");  
+                let objToString = JSON.stringify($scope.wallGroup);
+                localStorage.setItem("wallGroup", objToString);  
+                Message('success', `Building Component saved successfully`);
+            } 
+
+            $scope.addToLocal = () => {
+                let wallString = localStorage.getItem("wallGroup"); 
+                if(wallString == null) {
+                    let objToString = JSON.stringify($scope.wallGroup);
+                    localStorage.setItem("wallGroup", objToString); 
+                } else {
+                    $scope.getFromLocal();
+                }
+            }
+
+            $scope.getFromLocal = () => {
+                let wallString = localStorage.getItem("wallGroup"); 
+                if(wallString != null) {
+                    $scope.wallGroup = JSON.parse(wallString);
+                }
+            }
 
             $scope.saveAndSubmitBuildingComponent = (formValid) => {
                 let isValidField = true;        
@@ -910,6 +938,7 @@
                             url: '{{ route('customers.store-enquiry') }}',
                             data: {type: 'building_component', 'data': $scope.wallGroup}
                         }).then(function (res) {
+                            $scope.saveToLocal();
                             Message('success', `Building Component saved successfully`);
                             return false;
                         }, function (error) {
@@ -960,7 +989,19 @@
                 $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
             }  
             $scope.removeWall = function(fIndex, Secindex){
-                $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
+                let totalWall = $scope.wallGroup.length - 1 ;
+                let filledWall = [];
+                $scope.wallGroup.forEach((item)=> {
+                    if(item.Details.length == 1) {
+                        filledWall.push(true);
+                    }
+                });
+                if(filledWall.length == 1) {
+                    Message('danger', "Can't perform this action")
+                    return false;
+                } else {
+                    $scope.wallGroup[fIndex].Details.splice(Secindex,1);
+                }         
             } 
             $scope.getDocumentView = (file) => {
                 $http({

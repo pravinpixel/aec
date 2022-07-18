@@ -1,9 +1,9 @@
-     
+
 @extends('layouts.customer')
 
 @section('customer-content')
-         
-    
+
+
     <div class="content-page" ng-app="App">
         <div class="content">
 
@@ -11,32 +11,32 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
-                
+
                 <!-- start page title -->
-                
-                @include('customer.includes.page-navigater') 
-            </div>                
-          
- 
+
+                @include('customer.includes.page-navigater')
+            </div>
+
+
             <div class="card border">
                 <div class="card-body pt-0 pb-0">
-                               
+
                     <div id="rootwizard" ng-controller="wizard" style="display: none">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
-                            <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"> 
+                            <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
                                 <a href="#!/" style="min-height: 40px;" class="timeline-step  {{$enquiry->project_info == '1' ? "active" : ""}} " id="project-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle projectInfoForm bg-success">
                                             <i class="fa fa-project-diagram fa-2x "></i>
-                                        </div>       
-                                     
+                                        </div>
+
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.project_information > 0}">
                                             Project Information
                                             <span ng-show="enquiry_active_comments.project_information > 0" class="enquiry__comments__alert">
                                                 @{{ enquiry_active_comments.project_information   }}
                                             </span>
-                                        </div>                                                             
-                                    </div> 
+                                        </div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-item serviceSelection" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection">
@@ -44,14 +44,14 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-list-alt fa-2x mb-1"></i>
-                                        </div>      
+                                        </div>
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.service > 0}">
                                             Service Selection
                                             <span ng-show="enquiry_active_comments.service > 0"  class="enquiry__comments__alert">
                                                 @{{ enquiry_active_comments.service   }}
                                             </span>
-                                        </div>                              
-                                    </div> 
+                                        </div>
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-item IFCModelUpload" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload">
@@ -59,13 +59,13 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
-                                        </div>        
+                                        </div>
                                         <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.ifc_model > 0}">
                                             IFC Model & Uploads
                                             <span ng-show="enquiry_active_comments.ifc_model > 0" class="enquiry__comments__alert">
                                                 @{{ enquiry_active_comments.ifc_model   }}
                                             </span>
-                                        </div>                                                                  
+                                        </div>
                                     </div>
                                 </a>
                             </li>
@@ -74,15 +74,15 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-shapes mb-1"></i>
-                                        </div>              
+                                        </div>
                                         <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.building_components > 0}">
                                             Building  Components
                                             <span ng-show="enquiry_active_comments.building_components > 0" class="enquiry__comments__alert">
                                                 @{{ enquiry_active_comments.building_components   }}
                                             </span>
-                                        </div>                                                            
-                                    
-                                    </div> 
+                                        </div>
+
+                                    </div>
                                 </a>
                             </li>
                             <li class="nav-item additionalInformation" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation">
@@ -90,14 +90,14 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-info mb-1"></i>
-                                        </div>   
+                                        </div>
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.add_info > 0}">
                                             Additional Info
                                             <span ng-show="enquiry_active_comments.add_info > 0" class="enquiry__comments__alert">
                                                 @{{ enquiry_active_comments.add_info   }}
                                             </span>
-                                        </div>             
-                                                                                              
+                                        </div>
+
                                     </div>
                                 </a>
                             </li>
@@ -106,18 +106,18 @@
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-clipboard-check mb-1"></i>
-                                        </div>          
+                                        </div>
                                         <div class="pt-1 mt-2 position-relative">
                                             Review &  Submit
-                                        </div>                                                   
-                                    </div> 
+                                        </div>
+                                    </div>
                                 </a>
                             </li>
-                        </ul>  
+                        </ul>
                         <div class="tab-content my-3" >
                            <ng-view></ng-view>
                         </div> <!-- tab-content -->
-                    </div> <!-- end #rootwizard--> 
+                    </div> <!-- end #rootwizard-->
                 </div> <!-- end card-body -->
             </div>
             </div> <!-- container -->
@@ -125,14 +125,20 @@
         </div> <!-- content -->
 
 
-    </div>  
+    </div>
 
 @endsection
-      
+
 
 @push('custom-scripts')
-
+    
     <script>
+        $(function(){
+            let wallString = localStorage.getItem("wallGroup"); 
+            if(wallString != null) {
+                localStorage.removeItem('wallGroup');
+            }
+        });
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -159,7 +165,7 @@
                 templateUrl : "{{ route('enquiry.review') }}",
                 controller : "Review"
             })
-        }); 
+        });
         app.controller('wizard', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $location.path('/{{$activeTab}}');
             $scope.enquiry_id = {{$id}};
@@ -172,7 +178,7 @@
                 $scope.enquiry_active_comments = res.data.enquiry_active_comments;
             });
         });
-      
+
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $scope.commentShow = true;
             let enquiry_id = {{$id}};
@@ -191,17 +197,17 @@
                     method: 'GET',
                     url: '{{ route("project-type.get") }}'
                 }).then(function (res) {
-                    $scope.projectTypes = res.data;		
+                    $scope.projectTypes = res.data;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
-            } 
+            }
             getDeliveryType = () => {
                 $http({
                     method: 'GET',
                     url: '{{ route("delivery-type.get") }}'
                 }).then(function (res) {
-                    $scope.deliveryTypes    = res.data;		
+                    $scope.deliveryTypes    = res.data;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -212,7 +218,7 @@
                     method: 'GET',
                     url: '{{ route("building-type.get") }}'
                 }).then(function (res) {
-                    $scope.buildingTypes = res.data;		
+                    $scope.buildingTypes = res.data;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -221,7 +227,7 @@
             getBuildingType();
             getDeliveryType();
             getProjectInfoInptuData = function($projectInfo) {
-               
+
                 $scope.data = {
                     'contact_person'       : $projectInfo.contact_person,
                     'mobile_no'            : $projectInfo.mobile_no,
@@ -248,7 +254,7 @@
                 // console.log(enquiry_id);
                 if(typeof(enquiry_id) == 'undefined' ||enquiry_id == ''){
                     return false;
-                } 
+                }
                 $http({
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/project_info`,
@@ -274,9 +280,9 @@
                     url: `https://api.zippopotam.us/NO/${zipcode}`
                 }).then(function successCallback(res) {
                     $scope.zipcodeData = res.data;
-                    console.log("API working") 
+                    console.log("API working")
                     $scope.projectInfo = {
-                        ...$scope.projectInfo, 
+                        ...$scope.projectInfo,
                         ...{
                             'state'     :  $scope.zipcodeData.places[0].state,
                             'place'     :  $scope.zipcodeData.places[0]['place name'],
@@ -287,7 +293,7 @@
                 }, function errorCallback(error) {
                     Message('danger', 'Invalid zipcode');
                     $scope.projectInfo = {
-                        ...$scope.projectInfo, 
+                        ...$scope.projectInfo,
                         ...{
                             'state'     : '',
                             'place'     : '',
@@ -297,7 +303,7 @@
                     };
                     return false;
                 });
-            } 
+            }
             $scope.formSubmit = false;
             $scope.submitProjectInfoForm = (formValid) => {
                 if(formValid == true) {
@@ -313,7 +319,7 @@
                     Message('success','Project Information inserted successfully');
                 }, function (error) {
                     console.log(`storeprojectinfo ${error}`);
-                }); 
+                });
             }
 
             $scope.ProjectInfoSaveAndSubmit = (formValid) => {
@@ -330,11 +336,11 @@
                     return false;
                 }, function (error) {
                     console.log(`storeprojectinfo ${error}`);
-                }); 
+                });
                 return false;
             }
-        }); 
-        
+        });
+
 
         app.controller('Service', function ($scope, $http, $rootScope, Notification, API_URL, $location){
             $scope.commentShow = true;
@@ -349,7 +355,7 @@
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
                         // enquiry_id = res.data.enquiry_id
-                      
+
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
                     }
@@ -361,8 +367,8 @@
                     method: 'GET',
                     url: '{{ route("output-type.get") }}'
                 }).then(function (res) {
-                    $scope.outputTypes =   res.data.map((serviceSelection) => { 
-                                                return {...serviceSelection, 
+                    $scope.outputTypes =   res.data.map((serviceSelection) => {
+                                                return {...serviceSelection,
                                                         services: serviceSelection.services.map((service) => { return  {...service, 'selected': false} })}
                                             });
                 }, function (error) {
@@ -374,18 +380,18 @@
             getLastEnquiry = (enquiry_id) => {
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
                     return false;
-                } 
+                }
                 $http({
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/services`,
                 }).then(function (res) {
                     enableActiveTabs(res.data.active_tabs);
                     $scope.serviceList = res.data.services;
-                    $scope.outputTypes = $scope.outputTypes.map((serviceSelection) => { 
-                        return {...serviceSelection, 
-                                services: serviceSelection.services.map((service) => { 
+                    $scope.outputTypes = $scope.outputTypes.map((serviceSelection) => {
+                        return {...serviceSelection,
+                                services: serviceSelection.services.map((service) => {
                                     if($scope.serviceList.indexOf(service.id) > -1)
-                                        return  {...service, 'selected': true} 
+                                        return  {...service, 'selected': true}
                                     return service;
                                 })}
                     });
@@ -420,7 +426,7 @@
                     Message('success','Service selection inserted successfully');
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });         
+                });
             }
 
             $scope.saveAndSubmitService = (formValid) => {
@@ -438,11 +444,11 @@
                     return false;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });         
+                });
             }
         });
-        
-        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload ) { 
+
+        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload ) {
             $scope.commentShow = true;
             $scope.wallName = 'External Wall';
             $scope.wallGroup = [];
@@ -453,7 +459,7 @@
             let enquiry_id = {{$id}};
             $scope.enquiry_id = {{$id}};
             $scope.callWall = (wall_name) => {
-                $scope.wallName = wall_name; 
+                $scope.wallName = wall_name;
             }
             $http({
                 method: 'GET',
@@ -469,7 +475,7 @@
                 }, function (err) {
                     console.log('get enquiry error');
             });
-           
+
             $scope.callLayerModal = (wall_id) => {
                 building_component_id = wall_id;
                 $("#add-layer-modal").modal('show');
@@ -494,7 +500,7 @@
                 }, function errorCallback(response) {
                     Message('danger', 'Something went wrong');
                 });
-            }   
+            }
 
             $scope.submitTemplate = () => {
                 let index =  $scope.templateData.index_position;
@@ -539,7 +545,7 @@
             $scope.uploadBuildingComponentFile = function() {
                 var file = false;
                 if($scope.$parent['building_component_file']){
-                    file = $scope.$parent['building_component_file'];  
+                    file = $scope.$parent['building_component_file'];
                 }
                 if(file == false){
                     Message('danger', 'Please choose file');
@@ -557,7 +563,7 @@
                         $scope.buildingComponentUploads =  response.data.data;
                         Message('success', response.data.msg);
                         return false;
-                    } 
+                    }
                     Message('danger', response.data.msg);
                     return false;
                 },function(){
@@ -594,21 +600,21 @@
                     method: 'GET',
                     url: '{{ route("delivery-type.get") }}'
                 }).then(function (res) {
-                    $scope.deliveryTypes    = res.data;			    
+                    $scope.deliveryTypes    = res.data;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
-            } 
+            }
             getDeliveryType();
-          
+
             getBuildingComponent = () => {
                 $http({
                     method: 'GET',
                     url: '{{ route("building-component.get") }}'
                     }).then(function success(response) {
-                        
+
                         response.data.map( (item , index) => {
-                            
+
                             let wall = {
                                 WallId    : item.id,
                                 WallName  : item.building_component_name,
@@ -617,27 +623,34 @@
                                 WallBottom: item.bottom_position,
                                 WallLabel : item.label,
                                 Details: [
-                                    
+
                                 ]
                             }
                             $scope.wallGroup.push(wall);
                         });
                         $scope.AddWallDetails(0);
-                        
+                        // $scope.addToLocal();
                     }, function error(response) {
                 });
             }
             getLastEnquiry = (enquiry_id) => {
+
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == '')  {
-                    getBuildingComponent(); 
+                    getBuildingComponent();
                     return false;
                 }
+             
                 $http({
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
                     enableActiveTabs(res.data.active_tabs);
                     $scope.showHideBuildingComponent = res.data.building_component_process_type;
+                    if($scope.hasLocal()){
+                        $scope.getFromLocal();
+                        return false;
+                    }
+                
                     if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
                         $scope.buildingComponentUploads = res.data.building_component;
                         getBuildingComponent();
@@ -650,7 +663,7 @@
                                 let Layer  = [];
                                 if(typeof(detail.layer) != 'undefined') {
                                     Layer = detail.layer.map( (layerObj, index) => {
-                                       
+
                                         return {
                                             LayerName:  layerObj.layer_name,
                                             // LayerNameText:  layerObj.layer_name,
@@ -684,7 +697,6 @@
             }
             $scope.formSubmit = false;
             $scope.submitBuildingComponent = (formValid) => {
-                console.log(formValid,'formValid');
                 let isValidField = true;
                 if($scope.showHideBuildingComponent == 0) {
                     $scope.wallGroup.forEach((wall) => {
@@ -760,11 +772,12 @@
                                     url: '{{ route('customers.update-enquiry', $id) }}',
                                     data: {type: 'building_component', 'data': $scope.wallGroup}
                                 }).then(function (res) {
+                                    $scope.saveToLocal();
                                     $location.path('/additional-info');
                                     Message('success', `Building Component updated successfully`);
                                 }, function (error) {
                                     Message('error', `Somethig went wrong`);
-                                }); 
+                                });
                             }
                         });
                     } else {
@@ -777,28 +790,45 @@
                             Message('success', `Building Component updated successfully`);
                         }, function (error) {
                             Message('error', `Somethig went wrong`);
-                        }); 
-                  
+                        });
+
                     }
-                  
+
                     return false;
                 }
-                
+
                 if($scope.showHideBuildingComponent == 1) { $location.path('/additional-info'); return false;}
-                
+
             }
 
+            $scope.hasLocal = () => {
+                let wallString = localStorage.getItem("wallGroup"); 
+                console.log(wallString);
+                return wallString == null ? false:true;
+            }
+
+            $scope.saveToLocal = () => {
+                localStorage.removeItem("wallGroup");  
+                let objToString = JSON.stringify($scope.wallGroup);
+                localStorage.setItem("wallGroup", objToString);  
+                Message('success', `Building Component saved successfully`);
+            } 
+
             $scope.addToLocal = () => {
-                $http({
-                    method: 'POST',
-                    url: '{{ route('customers.update-enquiry', $id) }}',
-                    data: {type: 'building_component', 'data': $scope.wallGroup}
-                }).then(function (res) {
-                    Message('success', `Building Component saved successfully`);
-                    return false;
-                }, function (error) {
-                    Message('error', `Somethig went wrong`);
-                }); 
+                let wallString = localStorage.getItem("wallGroup"); 
+                if(wallString == null) {
+                    let objToString = JSON.stringify($scope.wallGroup);
+                    localStorage.setItem("wallGroup", objToString); 
+                } else {
+                    $scope.getFromLocal();
+                }
+            }
+
+            $scope.getFromLocal = () => {
+                let wallString = localStorage.getItem("wallGroup"); 
+                if(wallString != null) {
+                    $scope.wallGroup = JSON.parse(wallString);
+                }
             }
 
             $scope.saveAndSubmitBuildingComponent = (formValid) => {
@@ -832,7 +862,7 @@
                                             isValidField = false;
                                             $scope.callWall(wallName);
                                             return false;
-                                    
+
                                         } if(typeof(layer.Breadth) == 'undefined') {
                                             Message('danger', `${wallName} ${wallIndex} field required `);
                                             isValidField = false;
@@ -862,14 +892,15 @@
                             url: '{{ route('customers.update-enquiry', $id) }}',
                             data: {type: 'building_component', 'data': $scope.wallGroup}
                         }).then(function (res) {
+                            $scope.saveToLocal();
                             Message('success', `Building Component saved successfully`);
                             return false;
                         }, function (error) {
                             Message('error', `Somethig went wrong`);
-                        }); 
+                        });
                     return false;
                 }
-                if($scope.showHideBuildingComponent == 1) { 
+                if($scope.showHideBuildingComponent == 1) {
                     Message('success', `Building Component updated successfully`);
                     return false;
                 }
@@ -888,10 +919,10 @@
                             "Thickness": '',
                             "Breadth": '',
                         }
-                    ] 
+                    ]
                 });
                 // console.log( $scope.wallGroup);
-            } 
+            }
             // console.log($scope.wallGroup);
             $scope.AddLayers  =   function(fIndex, index) {
                 $scope.wallGroup[fIndex].Details[index].Layers.push({
@@ -903,19 +934,31 @@
             }
             $scope.delWall = function(index){
                 $scope.wallGroup.splice(index,1);
-            } 
+            }
             $scope.delWallTwo = function(fIndex){
                 $scope.wallGroup.splice(fIndex,1);
-            }  
+            }
             $scope.RemoveDetails = function(fIndex, Secindex){
-                $scope.wallGroup[fIndex].Details.splice(Secindex,1);                
+                $scope.wallGroup[fIndex].Details.splice(Secindex,1);
             }
             $scope.removeLayer = function(fIndex, Secindex, ThreeIndex){
                 $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
-            }  
+            }
             $scope.removeWall = function(fIndex, Secindex){
-                $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
-            } 
+                let totalWall = $scope.wallGroup.length - 1 ;
+                let filledWall = [];
+                $scope.wallGroup.forEach((item)=> {
+                    if(item.Details.length == 1) {
+                        filledWall.push(true);
+                    }
+                });
+                if(filledWall.length == 1) {
+                    Message('danger', "Can't perform this action")
+                    return false;
+                } else {
+                    $scope.wallGroup[fIndex].Details.splice(Secindex,1);
+                }
+            }
             $scope.getDocumentView = (file) => {
                 $http({
                     method: 'POST',
@@ -925,7 +968,7 @@
                         if(file.file_type == 'pdf')
                             var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
                         else
-                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>';
                         $("#document-content").html(htmlPop);
                         $("#document-modal").modal('show');
                     }, function error(res) {
@@ -996,7 +1039,7 @@
                     getLastEnquiry(enquiry_id);
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                     
+
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
                     }
@@ -1007,7 +1050,7 @@
             getLastEnquiry = (enquiry_id) => {
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
                     return false;
-                } 
+                }
                 $http({
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/additional_info`,
@@ -1063,8 +1106,8 @@
                 }, function (error) {
                     Message(`additional info ${error}`);
                 });
-                
-            }  
+
+            }
 
             $scope.saveAndSubmitAdditionalinfoForm = () => {
                 $http({
@@ -1078,11 +1121,11 @@
                     Message(`additional info ${error}`);
                 });
                 return false;
-            }  
+            }
         });
- 
+
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location){
-        
+
             var enquiry_id = {{$id}};
             $http({
                 method: 'GET',
@@ -1091,7 +1134,7 @@
                     getLastEnquiry(enquiry_id);
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                       
+
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
                     }
@@ -1150,7 +1193,7 @@
                         value:  (res.data.additional_infos == null) ? '' : res.data.additional_infos.comments,
                         mediaResizing: {
                         enabled: false,
-                      
+
                         },
                     };
                 }, function (error) {
@@ -1190,7 +1233,7 @@
                                 }
                             });
                         }
-                        
+
                     }, function errorCallback(response) {
                         Message('danger', 'Something went wrong');
                     });
@@ -1198,19 +1241,19 @@
 
             $scope.glued = true;
 
-            $scope.sendComments  = function(type, created_by) { 
+            $scope.sendComments  = function(type, created_by) {
                 $scope.sendCommentsData = {
                     "comments"        :   $scope[`${type}__comments`],
                     "enquiry_id"      :   {{$id}},
                     "type"            :   type,
                     "created_by"      :   created_by,
-                } 
+                }
                 $http({
                     method: "POST",
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     if(type == 'building_components'){
@@ -1228,12 +1271,12 @@
             $scope.showCommentsToggle = function (modalstate, type, header) {
                 $scope.modalstate = modalstate;
                 $scope.module = null;
-                $scope.chatHeader   = header; 
+                $scope.chatHeader   = header;
                 switch (modalstate) {
                     case 'viewConversations':
                         $http.get(API_URL + 'admin/show-comments/'+{{$id}}+'/type/'+type ).then(function (response) {
-                            $scope.commentsData = response.data.chatHistory; 
-                            $scope.chatType     = response.data.chatType;  
+                            $scope.commentsData = response.data.chatHistory;
+                            $scope.chatType     = response.data.chatType;
                             $('#viewConversations-modal').modal('show');
                             getEnquiryCommentsCountById(enquiry_id);
                             getEnquiryActiveCommentsCountById(enquiry_id);
@@ -1241,7 +1284,7 @@
                         break;
                     default:
                         break;
-                } 
+                }
             }
 
             $scope.sendInboxComments  = function(type) {
@@ -1257,7 +1300,7 @@
                     url:  "{{ route('enquiry.comments') }}" ,
                     data: $.param($scope.sendCommentsData),
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function successCallback(response) {
                     document.getElementById("Inbox__commentsForm").reset();
@@ -1276,7 +1319,7 @@
                         if(file.file_type == 'pdf')
                             var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
                         else
-                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>';
                         $("#document-content").html(htmlPop);
                         $("#document-modal").modal('show');
                     }, function error(res) {
@@ -1292,7 +1335,7 @@
                         if(file.file_type == 'pdf')
                             var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
                         else
-                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>';
                         $("#document-content").html(htmlPop);
                         $("#document-modal").modal('show');
                     }, function error(res) {
@@ -1316,7 +1359,7 @@
                 if(res.data.status == "false") {
                     $scope.enquiry_number = res.data.enquiry_number;
                     enquiry_id = res.data.enquiry_id
-                    
+
                 } else {
                     $scope.enquiry_no = res.data.enquiry.enquiry_number;
                 }
@@ -1327,7 +1370,7 @@
                 let slug = [];
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
                     return false;
-                } 
+                }
                 $http({
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/ifc_model_uploads`,
@@ -1340,7 +1383,7 @@
                             getIFCViewList(id,type);
                         }
                     });
-                  
+
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -1404,7 +1447,7 @@
                         $callOnce && res.data.data.map( (item) => {
                             $scope.mandatory.indexOf(item) == -1 && $scope.mandatory.push(item);
                         });
-                        if( $scope.mandatory.length != 0){   
+                        if( $scope.mandatory.length != 0){
 
                             Swal.fire({
                                 html: `
@@ -1426,11 +1469,11 @@
                                     $callOnce =  false;
                                     $timeout(function(){
                                         $location.path('/building-component');
-                                        Message('success',`IFC Models updated successfully`);      
+                                        Message('success',`IFC Models updated successfully`);
                                     });
                                     // $scope.mandatory.shift();
                                     // if( $scope.mandatory.length == 0){
-                                       
+
                                     // }
                                 } else if (result.isDenied) {
                                 }
@@ -1442,8 +1485,8 @@
                     }
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
-                }); 
-                
+                });
+
             }
 
             $scope.saveAndSubmitIFC  = () => {
@@ -1452,12 +1495,12 @@
                     url: '{{ route('customers.update-enquiry', $id) }}',
                     data: {type: 'ifc_model_upload_mandatory', 'data': false}
                 }).then(function (res) {
-                    Message('success',`IFC Models saved successfully`);     
+                    Message('success',`IFC Models saved successfully`);
                     return false;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
-                }); 
-                
+                });
+
             }
 
             $scope.uploadFile = (filename, file_type) => {
@@ -1467,7 +1510,7 @@
                 var callPromise = false;
                 if($scope[`file${filename}`]){
                     file = $scope[`file${filename}`];
-                    var type = 'ifc_model_upload';  
+                    var type = 'ifc_model_upload';
                 } else if($(`#link${filename}`).val()){
                     link =  $(`#link${filename}`).val();
                     var type = 'ifc_link';
@@ -1519,7 +1562,7 @@
                         $scope.serverResponse = 'An error has occurred';
                     });
             };
-         
+
             $scope.performAction = () => {
                 // console.log('called');
                 let route      = $("#exampleModalRoute").val();
@@ -1554,7 +1597,7 @@
                             model = $parse(attrs.fileModel);
                             modelSetter = model.assign;
                         });
-                        
+
                         element.bind('change', function(){
                             scope.$apply(function(){
                                 modelSetter(scope.$parent, element[0].files[0]);
@@ -1568,7 +1611,7 @@
                 restrict: 'A',
                 link: function($scope, element, attrs) {
                     element.bind('change', function(){
-                        var type = 'ifc_model_upload';  
+                        var type = 'ifc_model_upload';
                         var file =  element[0].files[0];
                         var file_type = `${attrs.id}`;
                         var filename = `file${attrs.id}`;
@@ -1589,10 +1632,10 @@
                 }
             };
         });
-            
+
 
             app.service('fileUpload', function ($http, $q) {
-               
+
                 this.uploadFileToUrl = function(file, type, view_type, uploadUrl, $scope){
                     $scope.progress_value = 0;
                     $scope[`${view_type}showProgress`] = true;
@@ -1600,7 +1643,7 @@
                     fd.append('file', file);
                     fd.append('type', type);
                     fd.append('view_type', view_type);
-                  
+
                     var deffered = $q.defer();
                     $http.post(uploadUrl, fd, {
                         transformRequest: angular.identity,
@@ -1635,7 +1678,7 @@
                     fd.append('type', type);
                     fd.append('view_type',view_type);
                     var deffered = $q.defer();
-                  
+
                     $http.post(uploadUrl, fd, {
                         transformRequest: angular.identity,
                         headers: {'Content-Type':undefined, 'Process-Data': false},
@@ -1654,9 +1697,9 @@
                     });
                     return deffered.promise;
                 }
-              
+
             });
-        
+
         window.onbeforeunload = function(e) {
             var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave ?';
             e.returnValue = dialogText;
@@ -1664,5 +1707,5 @@
         };
 </script>
 
-  
+
 @endpush

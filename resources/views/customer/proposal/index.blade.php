@@ -1146,7 +1146,19 @@
             $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
         }  
         $scope.removeWall = function(fIndex, Secindex){
-            $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
+            let totalWall = $scope.wallGroup.length - 1 ;
+            let filledWall = [];
+            $scope.wallGroup.forEach((item)=> {
+                if(item.Details.length == 1) {
+                    filledWall.push(true);
+                }
+            });
+            if(filledWall.length == 1) {
+                Message('danger', "Can't perform this action")
+                return false;
+            } else {
+                $scope.wallGroup[fIndex].Details.splice(Secindex,1);
+            }        
         } 
         $scope.getDocumentView = (file) => {
             $http({
