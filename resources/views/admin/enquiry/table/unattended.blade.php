@@ -3,6 +3,8 @@
         <tr>
             <th class="text-center"> @lang('enquiry.s_no')</th>
             <th class="text-center">@lang('enquiry.enquiry_no')</th>
+            <th class="text-center">@lang('enquiry.company_name')</th>
+            <th class="text-center">@lang('enquiry.project_name')</th>
             <th class="text-center">@lang('enquiry.contact_person')</th>
             <th class="text-center">@lang('enquiry.mobile_no')</th>
             <th class="text-center">@lang('enquiry.enquiry_date')</th>

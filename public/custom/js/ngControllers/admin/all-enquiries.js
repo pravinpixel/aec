@@ -345,6 +345,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
+            {data: 'company_name', name: 'company_name'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'mobile_no', name: 'mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
@@ -387,6 +389,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
+            {data: 'company_name', name: 'company_name'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'mobile_no', name: 'mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
@@ -424,6 +428,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
+            {data: 'company_name', name: 'company_name'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'mobile_no', name: 'customer.mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},

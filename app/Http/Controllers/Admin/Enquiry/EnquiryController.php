@@ -440,6 +440,7 @@ class EnquiryController extends Controller
                 'contact_person'          => $request->contact_person,
                 'project_name'            => $request->project_name,
                 'mobile_no'               => $request->mobile_no,
+                'company_name'            => $request->company_name,
                 'enquiry_date'            => now()
             ]);
             DB::commit();

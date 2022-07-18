@@ -42,6 +42,8 @@ return [
     'assign_user_successfully'    => 'User assigned successfully',
     'follow_up_updated'           => 'Follow up updated',
     'view_proposal'               => 'View Proposal',
+    'company_name'                => 'Company Name',
+    'project_name'                => 'Project Name',
     'denied'                      => 'Denied successfully',
     'approved'                    => 'Approved successfully',
     'change_request'              => 'Change request send successfully',

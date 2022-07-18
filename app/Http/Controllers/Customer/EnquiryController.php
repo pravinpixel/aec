@@ -188,7 +188,7 @@ class EnquiryController extends Controller
         $customer_enquiry_number = $this->getEnquiryNumber();
         $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
         if($type == 'project_info') {
-            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'initiate_from' => 'customer','enquiry_number' => 'Draft']);
+            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'company_name'=>  $customer->company_name, 'initiate_from' => 'customer','enquiry_number' => 'Draft']);
             $res = $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer_enquiry_number, $customer, $array_merge);
             $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
@@ -336,6 +336,7 @@ class EnquiryController extends Controller
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         if($type == 'project_info') {
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
+            $data['company_name'] = $customer->company_name;
             return $this->customerEnquiryRepo->updateEnquiry($id, $data);
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
