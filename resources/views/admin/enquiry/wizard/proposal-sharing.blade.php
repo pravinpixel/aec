@@ -147,7 +147,7 @@
                                                         <a  class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a>
                                                         <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > View / Add comments</u></a>
-                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
+                                                    
                                                     </div>
                                                     <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
                                                        
@@ -155,7 +155,7 @@
                                                         <a class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</a>
                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(P.proposal_id , P.id)">Send Proposal</a>
                                                         <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.id, P.type)" > View / Add comments</u></a>
-                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Remove</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -196,17 +196,16 @@
                                                                     </button>
                                                                     <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'root'">
                                                                         <a  class="btn dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
-                                                                        <a  class="btn dropdown-item" ng-click="ViewEditPropose(V.proposal_id)">View / Edit</a>
+                                                                        <a  class="btn dropdown-item" ng-click="ViewEditPropose(V.proposal_id, false)">View</a>
                                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomer(V.proposal_id)">Send Proposal</a>
                                                                         <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > View / Add comments</u></a>
-                                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(V.proposal_id)">Remove</a>
                                                                     </div>
                                                                     <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
                                                                         <a  class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
-                                                                        <a class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</a>
+                                                                        <a class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id, false)">View </a>
                                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a>
                                                                         <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.id, V.type)" > View / Add comments</u></a>
-                                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Remove</a>
+                                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Delete</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -252,13 +251,13 @@
                    
                 </div>
                 <div class="modal-footer"> 
-                    <button class="btn btn-primary" ng-click="updateProposalMail(proposalId)"><i class="fa fa-save me-2"></i>Update</button>
+                    <button  ng-show="proposalModal" class="btn btn-primary" ng-click="updateProposalMail(proposalId, 'bs-Preview-modal-lg')"><i class="fa fa-save me-2"></i>Update</button>
+                    <button  ng-show="!proposalModal" class="btn btn-primary" data-bs-dismiss="modal" ><i class="fa fa-close me-2"></i>Close</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-    <div class="modal fade" id="bs-PreviewVersions-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div ng-show="proposalModal" class="modal fade" id="bs-PreviewVersions-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-right h-100" style="width:100% !important">
             <div class="modal-content  h-100">
                 <div class="modal-header">
@@ -274,7 +273,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="updateProposalVersionMail()"><i class="fa fa-save me-2"></i>Update</button>
+                    <button ng-show="proposalModal" class="btn btn-primary" ng-click="updateProposalVersionMail('bs-PreviewVersions-modal-lg')"><i class="fa fa-save me-2"></i>Update</button>
+                    <button ng-show="!proposalModal" class="btn btn-primary" data-bs-dismiss="modal"><i class="fa fa-close me-2"></i>Close</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

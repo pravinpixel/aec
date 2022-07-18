@@ -193,6 +193,7 @@
                                 <thead>
                                   <tr>
                                     <th scope="col" >Version</th>
+                                    <th scope="col" >Name</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Comments</th>
                                     <th scope="col">Action</th>
@@ -203,6 +204,7 @@
                                         @if($proposal->status != 'awaiting')
                                             <tr>
                                                 <td style="text-align: left !important;">{{ $proposal->enquiry->project_name }} | {{ $proposal->enquiry->enquiry_number }} | {{ $proposal->version }}</td>
+                                                <td style="text-align: left !important;">{{ $proposal->template_name }}</td>
                                                 <td style="text-align: left !important;">{!! proposalStatusBadge($proposal->proposal_status) !!} </td>
                                                 <td style="text-align: left !important;"> {{ $proposal->comment ?? "-" }} </td>
                                                 <td style="text-align: left !important;" width="100px">

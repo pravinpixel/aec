@@ -22,16 +22,23 @@ class ProposalController extends Controller
     }
     public function index(Request $request, $id) 
     {
-        $proposals    =   $this->customerEnquiryRepo->getCustomerProPosal($id)->toArray();
-        $root = $proposals[0] ?? null;
-        if(count( $proposals ) > 1) {
-            array_shift($proposals);
-            $root['get_versions'] = $proposals;
+        $proposals    =   $this->customerEnquiryRepo->getCustomerProPosal($id)->groupBy('documentary_id')->toArray();
+        $proposalList =  [];
+        foreach($proposals as $proposalVersion){
+            $versionList = [];
+            foreach($proposalVersion as $version){
+                $versionList[] = $version;
+            }
+            $root = $versionList[0] ?? null;
+            if(count( $versionList ) > 1) {
+                array_shift($versionList);
+                $root['get_versions'] = $versionList;
+                $proposalList[] = $root;
+            } else {
+                $proposalList[] = $root;
+            }
         }
-        if(is_null($root)) {
-            return false;
-        }
-        return response([$root]);
+        return response($proposalList);
     }
     public function edit(Request $request, $id, $proposal_id)
     {

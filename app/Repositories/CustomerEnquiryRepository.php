@@ -125,17 +125,17 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     'mail_send_date'
                 ])
                 ->union($proposal)
-                ->orderBy('id', 'desc')
                 ->orderBy('documentary_id', 'asc')
+                ->orderBy('id', 'desc')
                 ->get();
         return $mailTemplate;
     }
 
     public function duplicateProposalVersion($enquiry_id, $proposal_id, $request)
     {
-        $totalProposalVersion = PropoalVersions::where("enquiry_id",$enquiry_id)->get()->count();
-        $version = 'R'.($totalProposalVersion + 1);  
         $result     =   PropoalVersions::where("enquiry_id",$enquiry_id)->where("proposal_id", $proposal_id)->first();
+        $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $enquiry_id, "documentary_id"=> $result->documentary_id])->get()->count();
+        $version = 'R'.($totalProposalVersion + 1);  
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
         $duplicate  ->  parent_id           = $result->proposal_id; 
@@ -198,9 +198,9 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
     { 
-        $totalProposalVersion = PropoalVersions::where("enquiry_id",$id)->get()->count();
-        $version = 'R'.($totalProposalVersion + 1);  
         $result     =   MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
+        $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $id, "documentary_id" => $result->documentary_id])->get()->count();
+        $version = 'R'.($totalProposalVersion + 1);  
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
         $duplicate  ->  parent_id           = $result->proposal_id; 

@@ -1602,9 +1602,9 @@
         };
     }]);
 
-        app.controller('Proposal_Sharing', function ($scope, $http, API_URL) {
+        app.controller('Proposal_Sharing', function ($scope, $http, API_URL, $location, $timeout) {
             $scope.enquiry_id = '{{ $data->id }}';
-          
+            $scope.proposalModal = true;
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -1636,6 +1636,9 @@
                     Message('success',response.data.msg);
                     // $scope.getWizradStatus();
                     $scope.getProposesalData();
+                    $timeout(function(){
+                        window.onbeforeunload = null;
+                    });
                 });
             }
 
@@ -1646,7 +1649,8 @@
             }
             
             // View Propose Data
-            $scope.ViewEditPropose = function (proposal_id) {
+            $scope.ViewEditPropose = function (proposal_id, update_status = true) {
+                $scope.proposalModal = update_status;
                 $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
                     $scope.edit_proposal  = response.data;
                     $scope.mail_content_first = $scope.edit_proposal[0].documentary_content;
@@ -1654,13 +1658,13 @@
                 });
                 $('#bs-Preview-modal-lg').modal('show');
             }
-            $scope.ViewEditProposeVersions = function (proposal_id , Vid) {
+            $scope.ViewEditProposeVersions = function (proposal_id , Vid, update_status = true) {
+                $scope.proposalModal = update_status;
                 $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id+'/version/'+Vid).then(function (response) {
                     $scope.edit_proposal  = response.data;
                     $scope.mail_content = $scope.edit_proposal[0].documentary_content;
                     $scope.proposalVersionId = $scope.edit_proposal[0].proposal_id;
                     $scope.proposalVId = $scope.edit_proposal[0].id;
-                  
                 });
                 $('#bs-PreviewVersions-modal-lg').modal('show');
             }
@@ -1705,7 +1709,7 @@
                 });
             }
 
-            $scope.updateProposalMail = function(proposalId) {
+            $scope.updateProposalMail = function(proposalId, modal) {
 
                 $scope.sendCommentsData = {
                     "mail_content"  : $("#mail_content_first_text_editor [contenteditable=true]").html()
@@ -1720,17 +1724,17 @@
                     }
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
+                    $(`#${modal}`).modal('hide');
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
             }
 
-            $scope.updateProposalVersionMail = function() {
+            $scope.updateProposalVersionMail = function(modal) {
 
                 $scope.sendMailDtata = {
                     "mail_content"  : $("#mail_content_text_editor [contenteditable=true]").html()
                 }
-
                 $http({
                     method: "PUT",
                     url: API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+$scope.proposalVersionId+'/version/'+$scope.proposalVId,
@@ -1740,7 +1744,7 @@
                     }
                 }).then(function successCallback(response) {
                     Message('success',response.data.msg);
-                    $('#bs-PreviewVersions-modal-lg').modal('hide');
+                    $(`#${modal}`).modal('hide');
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors);
                 });
