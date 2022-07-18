@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CostEstimateTemplate;
 use App\Http\Controllers\Admin\Enquiry\CostEstimateController;
 use App\Http\Controllers\Admin\Enquiry\CustomerResponseController;
 use Illuminate\Support\Facades\Route;
@@ -115,4 +116,8 @@ Route::group(['prefix' => 'cost-estimate', 'middleware' => 'common', 'route' => 
 Route::group(['prefix' => 'customer-response', 'middleware' => 'common', 'route' => 'customer-response'], function(){
     Route::post('move-to-project', [CustomerResponseController::class,'moveToProject'])->name('move-to-project');
     Route::post('assign-to-project', [CustomerResponseController::class,'assignToProject'])->name('assign-to-project');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => 'common', 'route' => 'admin'], function(){
+  Route::resource('cost-estimate-template', CostEstimateTemplate::class);
 });

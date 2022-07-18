@@ -7,12 +7,24 @@
             <div class="row align-items-center  m-0">
                 <div class="col-md-4 p-0">
                     <select class="form-select form-select-sm" ng-model="CostEstimate.type" name="type" id="type">
-                        <option value="">-- Select -- </option>
+                        <option value="">-- Select Building -- </option>
                         <option ng-value="costEstimateType" ng-selected="costEstimateType.type == CostEstimate.type"
                             ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
                     </select>
                 </div>
-                <div class="col-md-8 pe-0">
+
+                <div class="col-md-4 p-0 d-flex">
+                    <select class="form-select form-select-sm" ng-model="woodTemplate" ng-change="getWoodTemplate(woodTemplate, firstIndex)" name="woodTemplate" id="woodTemplate">
+                        <option value="">-- Select Template -- </option>
+                        <option ng-value="costEstimateWoodTemplate.id"  ng-selected="CostEstimate.woodTemplate == costEstimateWoodTemplate.id"
+                            ng-repeat="costEstimateWoodTemplate in costEstimateWoodTemplates">@{{ costEstimateWoodTemplate.name }}</option>
+                    </select>
+                    <button class="btn-info btn-sm" ng-click="callWoodTemplate(firstIndex)">
+                        <i class="fa fa-plus"> </i>
+                    </button>
+                </div>
+
+                <div class="col-md-4 pe-0">
                     <div class="input-group justify-content-end">
                         <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
                         <button class="btn-sm btn btn-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
@@ -189,3 +201,5 @@
         </div>
     </div> 
 </div> 
+@include('admin.calculate-cost-estimate.wood-template')
+@include('admin.calculate-cost-estimate.precast-template')

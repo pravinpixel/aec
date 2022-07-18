@@ -760,10 +760,53 @@
         app.controller('Cost_Estimate', function ($scope, $http, $timeout, API_URL) {
             let enquiryId =  '{{ $data->id }}';
             $scope.current_user = '{{Admin()->id}}';
-             
-             $scope.historyStatus    =  true
+            $scope.template_name = '';
+            $scope.is_template_update = false;
+            $scope.historyStatus    =  true;
 
-             $scope.printCostEstimate = (type) => {
+            $scope.callWoodTemplate = (pos) => {
+                $scope.costEstimateWoodTemplate = $scope.EngineeringEstimate[pos];
+                $("#cost-estimate-wood-template-modal").modal('show');
+            }   
+
+            $scope.addWoodTemplate = (type) => {
+                if($scope.template_name == '') {
+                    Message('danger','Template field is required');
+                    return false;
+                }
+                let templateData = {
+                    name: $scope.template_name,
+                    template: $scope.costEstimateWoodTemplate,
+                    type: type
+                } 
+                $http.post(`${API_URL}admin/cost-estimate-template`, {data:templateData})
+                .then(function successCallback(res){
+                    if(res.data.status) {
+                        $scope.is_template_update = !$scope.is_template_update;
+                        Message('success', res.data.msg);
+                        $("#cost-estimate-wood-template-modal").modal('hide');
+                        return false;
+                    }
+                    Message('danger', res.data.msg);
+                });
+            }
+
+            $scope.getWoodTemplate= (id, pos) => {
+                let template = $scope.costEstimateWoodTemplates.find(obj => obj.id === id);
+                $scope.EngineeringEstimate[pos] = JSON.parse(template.json);
+            }
+
+            $scope.$watch('is_template_update', function() {
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}admin/cost-estimate-template`
+                    }).then(function success(res) {
+                       $scope.costEstimateWoodTemplates = res.data.data;
+                    }, function error(response) {
+                });
+            });
+      
+            $scope.printCostEstimate = (type) => {
                 $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                 .then((res) => {
                     var currentTabelHistory   =   ''
