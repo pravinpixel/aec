@@ -26,14 +26,31 @@
                 <viewlist data="documentLists[documentType.slug]" file-type="autoDeskFileType"></viewlist><br/>
             </div>
         </div> 
-        <comment  ng-show="commentShow" data="
-        {'modalState':'viewConversations',
-        'type': 'ifc_model', 
-        'header':'IFC Models & Uploaded Documents',
-        'enquiry_id':enquiry_id,
-        send_by: {{ Customer()->id }}
-        }">
-        </comment>
+
+   
+        <div class="row" ng-show="commentShow">
+            <div class="col-8">
+                <open-comment  data="
+                {'modalState':'viewConversations',
+                'type': 'ifc_model', 
+                'header':'IFC Models & Uploaded Documents',
+                'enquiry_id':enquiry_id,
+                send_by: {{ Customer()->id }},
+                'from':'Customer'
+                }"/> 
+            </div>
+            <div class="col-4">
+                <comment  ng-show="commentShow" data="
+                {'modalState':'viewConversations',
+                'type': 'ifc_model', 
+                'header':'IFC Models & Uploaded Documents',
+                'enquiry_id':enquiry_id,
+                send_by: {{ Customer()->id }},
+                'from':'Customer'
+                }"/>
+            </div>
+        </div>
+   
     <div class="card-footer border-0 p-0">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/service" class="btn btn-light border shadow-sm">Prev</a></li>

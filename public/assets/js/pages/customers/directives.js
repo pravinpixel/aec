@@ -148,8 +148,7 @@ app.directive('comment', function (API_URL, $http) {
         },
         templateUrl: `${API_URL}template/comment`,
         link: function(scope, element, attrs) {
-            console.log(scope.data)
-            let {modalState, type, header, enquiry_id, send_by} = scope.data;
+            let {modalState, type, header, enquiry_id, send_by, from} = scope.data;
             scope.showCommentsToggle = () => {
                 $http.get(API_URL + 'admin/show-comments/'+enquiry_id+'/type/'+type ).then(function (response) {
                     scope.commentsData = response.data.chatHistory; 
@@ -159,6 +158,12 @@ app.directive('comment', function (API_URL, $http) {
                     getEnquiryActiveCommentsCountById(enquiry_id);
                 });
             };
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.sendInboxComments(from);
+                    event.preventDefault();
+                }
+            });
             scope.sendInboxComments  = (type) => {
                 if(scope.inlineComments == '') {
                     Message('danger','Comment field required');
@@ -212,6 +217,61 @@ app.directive('comment', function (API_URL, $http) {
         }
     };
 });
+
+
+app.directive('openComment', function (API_URL, $http) {
+    return {
+        restrict: 'E',
+        scope: {
+            data: '=data'
+        },
+        templateUrl: `${API_URL}template/open-comment`,
+        link: function(scope, element, attrs) {
+            let {modalState, type, header, enquiry_id, send_by, from} = scope.data;
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.sendInboxComments(from);
+                    event.preventDefault();
+                }
+            });
+            scope.sendInboxComments  = (created_by) => {
+                if(scope.inlineComments == '') {
+                    Message('danger','Comment field required');
+                    return false;
+                }
+                scope.sendCommentsData = {
+                    "comments"        :   scope.inlineComments,
+                    "enquiry_id"      :   enquiry_id,
+                    "type"            :   type,
+                    "created_by"      :   created_by,
+                    "seen_by"         :   1,
+                    "send_by"         :   send_by,
+                }
+                $http({
+                    method: "POST",  
+                    url:  API_URL + 'admin/add-comments',
+                    data: $.param(scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    scope.inlineComments = '';
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+        }
+    };
+});
+
+// app.directive('myEnter', function () {
+//     return function (scope, element, attrs) {
+        
+//     };
+// });
+
+
 
 {/* <div class="btn-group w-100 border rounded"> 
 <div dx-tag-box="tagBox.customTemplate" dx-item-alias="product" select-user>

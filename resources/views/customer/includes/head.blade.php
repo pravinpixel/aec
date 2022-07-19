@@ -50,7 +50,7 @@
     }
     .conversation-list  li.Customer_odd  .conversation-text {
         background: #BFDDFE;
-        padding: 15px;
+        padding: 10px;
         font-size: 14px;
         font-weight: bold ;
         border-radius: 5px;
@@ -60,7 +60,7 @@
 
     .conversation-list  li.Admin_odd  .conversation-text {
         background: #eee;
-        padding: 15px;
+        padding: 10px;
         font-size: 14px;
         font-weight: bold ;
         border-radius: 5px;

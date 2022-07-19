@@ -324,20 +324,34 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-end" ng-init="isOpen = false">
-        <a ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen" class="my-2 mx-3" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
-            <u> @{{ isOpen  != true ?  "View Summary" : "Close Summary"  }}</u>
-        </a>
-        <comment  ng-show="commentShow" data="
+ 
+    <div class="row" ng-show="commentShow">
+        <div class="col-8">
+            <open-comment  data="
             {'modalState':'viewConversations',
             'type': 'building_components',
             'header':'Building Components',
             'enquiry_id':enquiry_id,
-            send_by: {{ Customer()->id }}
-            }">
-        </comment>
+            send_by: {{ Customer()->id }},
+            'from':'Customer'
+            }"/> 
+        </div>
+        <div class="col-4">
+            <div class="d-flex justify-content-end" ng-init="isOpen = false">
+                <a ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen" class="my-2 mx-3" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
+                    <u> @{{ isOpen  != true ?  "View Summary" : "Close Summary"  }}</u>
+                </a>
+                <comment  ng-show="commentShow" data="
+                {'modalState':'viewConversations',
+                'type': 'building_components',
+                'header':'Building Components',
+                'enquiry_id':enquiry_id,
+                send_by: {{ Customer()->id }},
+                'from':'Customer'
+                }"/>
+            </div>
+        </div>
     </div>
-
 
     @include('customer.enquiry.models.add-layer-modal')
     @include('customer.enquiry.models.add-template-modal')
