@@ -76,16 +76,16 @@
                                     <p class="h5 mt-2">Variation Orders</p>
                                 </a>
                             </li> -->
-                                  <!-- <li class="nav-item">
+                                  <li class="nav-item">
                                 <a href="#!/invoice-status" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/invoice.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">Invoice Status</p>
+                                    <p class="h5 mt-2">Invoice Plan</p>
                                 </a>
-                            </li> -->
+                            </li> 
                             <li class="nav-item">
                                 <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
@@ -217,6 +217,9 @@
                 redirectTo: "/"
             });
         });
+
+
+  
 
        
     

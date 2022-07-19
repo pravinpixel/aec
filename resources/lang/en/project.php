@@ -28,6 +28,7 @@ return [
     "bim360"                =>        "Bim 360",
     "tickets"               =>        "Tickets"  ,
     "document"              =>        "Documents",
-    "notes"                 =>        "Notes"
+    "notes"                 =>        "Notes",
+    "invoiceplan"           =>         "Invoice Plan"
 
 ];

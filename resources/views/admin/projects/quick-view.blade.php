@@ -407,13 +407,15 @@
                     </div>
                     <div id="Team_setup" class="accordion-collapse collapse" aria-labelledby="Team_setup_header" >
                         <div class="card-body"> 
+                            
                             <table class="m-0 table custom" ng-repeat="(index,check_list) in check_list_items">
                                 <thead>
                                     <tr>
                                         <th class="text-center">S.No</th>
                                         <th class="text-center">Deliverable Name</th>
-                                        <th class="text-center">Status</th>
+                                        
                                         <th class="text-center">Assign To</th>
+                                        <th class="text-center">Status</th>
                                         <th class="text-center">Start Date</th>
                                         <th class="text-center">End Date</th>
                                     </tr>
@@ -426,16 +428,20 @@
                                             </div>
                                         </td>
                                     </tr>
+                                   
                                     <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
                                         <td>@{{ index_3 +1 }}</td>
                                         <td>@{{ taskListData.task_list }}</td>
-                                        <td class="text-center">
-                                            <input disabled  type="checkbox" get-to-do-lists ng-model="taskListData.status" class="form-check-input">
-                                        </td>
+                                      
                                         <td>
                                             <label ng-repeat="projectManager in projectManagers" value="@{{ taskListData.assign_to }}" >
                                                 @{{ projectManager.first_Name }}
                                             </label>
+                                        </td>
+                                          <td class="text-center">  
+                                             @{{(taskListData.status) == 1 ? 'Completed' : 'Pending'}}
+                                                
+                                               
                                         </td>
                                         <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
                                         <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
@@ -446,9 +452,51 @@
                     </div>
                 </fieldset> 
                 <fieldset class="accordion-item">
+                    <div class="accordion-header custom m-0 position-relative" id="Bim360_header">
+                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#bim360" aria-expanded="false" aria-controls="Invoice_maileStone">
+                            <span class="position-relative btn py-0"><b>@lang('project.bim360')</b></span> 
+                        </div>
+                        <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
+                            <i data-bs-toggle="collapse" 
+                                href="#bim360" 
+                                aria-expanded="true" 
+                                aria-controls="bim360" 
+                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                >
+                            </i>
+                        </div>
+                    </div>
+                    <div id="bim360" class="accordion-collapse collapse" aria-labelledby="Bim360_header" >
+                        <table class="table custom m-0 custom table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">S.No</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Su Type</th>
+                                    <th class="text-center">Title </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in review['invoice_plan'].invoice_data">
+                                    <td class="text-center"> @{{ $index + 1 }} </td>
+                                    <td class="text-center">@{{ row.invoice_date | date: 'dd-MM-yyyy' }}</td>
+                                    <td class="text-center">@{{ row.amount }}</td>
+                                    <td class="text-center">@{{ row.percentage }}</td>
+                                </tr> 
+                                <tr ng-show="review['invoice_plan'].invoice_data.length == 0">
+                                    <td class="text-center" colspan="4"> No data found </td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset> 
+
+
+
+                <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Invoice_maileStone_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Invoice_maileStone" aria-expanded="false" aria-controls="Invoice_maileStone">
-                            <span class="position-relative btn py-0"><b>@lang('project.bim360')</b></span> 
+                            <span class="position-relative btn py-0"><b>@lang('project.invoiceplan')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 
@@ -461,6 +509,25 @@
                         </div>
                     </div>
                     <div id="Invoice_maileStone" class="accordion-collapse collapse" aria-labelledby="Invoice_maileStone_header" >
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-8">
+                                <div class="row align-items-center mb-2 m-0">
+                                    <div class="col-3"><strong>Project Cost</strong></div>
+                                    <div class=" col-9"><label>  @{{review.invoice_plan.project_cost}} <label></div>
+                                </div>
+                                <div class="row align-items-center mb-2 m-0">
+                                    <div class="col-3"><strong>No.of Invoices</strong></div>
+                                    <div class=" col-9"><label>  @{{review.invoice_plan.no_of_invoice}} <label></div>
+                                </div>
+                                <div class="row align-items-center mb-2 m-0">
+                                    <div class="col-3"><strong>Project Start Date</strong></div>
+                                    <div class=" col-9"><label>  @{{review.invoice_plan.invoice_data[0].invoice_date | date: 'dd-MM-yyyy' }} <label></div>
+                                </div>
+                               
+                            </div>
+                          
+                        </div>
+                       
                         <table class="table custom m-0 custom table-striped table-bordered">
                             <thead>
                                 <tr>
