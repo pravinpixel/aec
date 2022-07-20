@@ -28,18 +28,18 @@
             <thead>
                 <tr>
                     <th class="text-center">S.No</th>
-                    <th class="text-center">Invoice Date</th>
+                    <th class="text-center">Invoice Date <span class="text-danger">*<span></th>
                     <th class="text-center">Amount</th>
                     <th class="text-center">Percentage %</th>
                 </tr>
             </thead>
             
             <tbody calculate-amount>
-                <tr ng-repeat="invoicePlan in invoicePlans track by $index">
+                <tr ng-repeat="invoicePlan in invoicePlans.invoices track by $index">
                     <td class="text-center">@{{  invoicePlan.index }}</td>
                     <td class="text-center"><input required type="date" name="invoice_date" id="" ng-model="invoicePlan.invoice_date" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
                     <td class="text-center">@{{ invoicePlan.amount }}</td>
-                    <td class="text-center"><input  ng-disabled="invoicePlans.length == $index + 1" required type="number" onkeypress="return isNumber(event)" name="percentage" ng-model="invoicePlan.percentage"  class="text-center form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    <td class="text-center"><input  ng-disabled="invoicePlans.invoices.length == $index + 1" required type="number" onkeypress="return isNumber(event)" name="percentage" ng-model="invoicePlan.percentage"  class="text-center form-control percentage_ form-control-sm border-0 bg-none w-auto mx-auto"></td>
                 </tr> 
             </tbody>
             <thead>

@@ -170,7 +170,7 @@
                     <div class="col pe-0">
                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
                             <option value="">@lang('project.select') </option>
-                            <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" ng-selected="projectType.id == project.project_type_id">
+                            <option ng-repeat="projectType in projectTypes" ng-value="@{{ projectType.id }}" ng-selected="projectType.id == project.project_type_id">
                                 @{{ projectType.project_type_name }}
                             </option>
                         </select>

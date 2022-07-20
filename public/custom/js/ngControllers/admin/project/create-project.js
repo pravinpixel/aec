@@ -1,5 +1,5 @@
 formatData = (project) => {
-    return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.start_date)}}
+    return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.delivery_date)}}
 }
 
 app.controller('CreateProjectController', function ($scope, $http, API_URL, $location, $rootScope){
@@ -335,15 +335,26 @@ app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $r
 
 app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
     $scope.invoicePlans                     = [];
-    $scope.invoicePlans['totalPercentage']  = 100;
-    $scope.invoicePlans['totalAmount']      = 0;
+    $scope.invoicePlans = {
+        totalPercentage: 100,
+        totalAmount: 0,
+        invoices: []
+    };
     $scope.project = {};
+    let totalInvoice = 0;
+    let invoiceStatus = true;
     $http.get(`${API_URL}project/wizard/invoice_plan`)
     .then((res)=> {
         $scope.project = formatData(res.data);
         $scope.project.project_cost = res.data.invoice_plan.project_cost ?? 0;
         $scope.project.no_of_invoice = Number(res.data.invoice_plan.no_of_invoice);
-        let result = JSON.parse(res.data.invoice_plan.invoice_data).map((item)=> {
+        let result = {};
+        let response = JSON.parse(res.data.invoice_plan.invoice_data);
+        totalInvoice = typeof(response.invoices) == 'undefined' ? 0 : response.invoices.length;
+        if(totalInvoice > 0) {
+            invoiceStatus = !invoiceStatus;
+        }
+        let invoices = response.invoices.map((item)=> {
             $scope.invoicePlans.totalPercentage -= item.percentage;
             $scope.invoicePlans.totalAmount += ( $scope.project.project_cost / 100 ) * item.percentage;
             return {
@@ -355,6 +366,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
         });
         result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
         result['totalAmount'] = $scope.invoicePlans.totalAmount;
+        result['invoices'] = invoices;
         $scope.invoicePlans = result;
     });
 
@@ -364,16 +376,37 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
     });
 
     $scope.handleInvoiceChange = () => {
-        $scope.invoicePlans.length = 0;
-        $scope.invoicePlans['totalPercentage']  = 100;
-        $scope.invoicePlans['totalAmount']      = 0;
-        for(var i = 1; i <= $scope.project.no_of_invoice;  i++){
-            $scope.invoicePlans.push({
-                'index': i,
-                'invoice_date': '',
-                'amount' : 0,
-                'percentage': 0
-            });
+        let totalRow = totalInvoice - $scope.project.no_of_invoice;
+        if(invoiceStatus) {
+            totalInvoice = $scope.project.no_of_invoice;
+            invoiceStatus = !invoiceStatus;
+            for(var i = 1; i <= $scope.project.no_of_invoice;  i++){
+                let invoice_date = (i == 1) ? $scope.project.start_date : '';
+                $scope.invoicePlans.invoices.push({
+                    'index': i,
+                    'invoice_date': invoice_date,
+                    'amount' : 0,
+                    'percentage': 0
+                });
+            }
+        } else if(totalRow >  0) {
+            let removeCount = $scope.invoicePlans.invoices.length - totalRow;
+            $scope.invoicePlans.invoices.length = removeCount + 1;
+            $scope.invoicePlans.invoices.splice(-2,1);
+            totalInvoice =  $scope.invoicePlans.invoices.length;
+        } else if(totalRow < 0) {
+            let newRow = [];
+            let numOfRow = $scope.project.no_of_invoice - totalInvoice;
+            for(var i = 0; i < numOfRow;  i++){
+                newRow.push({
+                    'index': totalInvoice + i,
+                    'invoice_date': '',
+                    'amount' : 0,
+                    'percentage': 0
+                });
+            }
+            $scope.invoicePlans.invoices.splice(-1,0, ...newRow);
+            totalInvoice = $scope.project.no_of_invoice;
         }
     }
 
@@ -973,8 +1006,9 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
             element.on('change', function () {
                 scope.invoicePlans.totalPercentage = 100;
                 scope.invoicePlans.totalAmount = 0;
+                let result = {};
                 let projectCost = scope.project.project_cost;
-                let result =   scope.invoicePlans.map((invoicePlan, index) => {
+                let invoices =   scope.invoicePlans.invoices.map((invoicePlan, index) => {
                     if(scope.project.no_of_invoice == index + 1) {
                         projectCost -= scope.invoicePlans.totalAmount;
                         return {
@@ -1005,11 +1039,12 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
                 });
                 result['totalPercentage'] = scope.invoicePlans.totalPercentage;
                 result['totalAmount'] = scope.invoicePlans.totalAmount;
+                result['invoices'] = invoices;
                 scope.invoicePlans = result;
                 scope.$apply();
             });
             scope.$watchGroup(['project.no_of_invoice','project.project_cost'], function() {
-                scope.invoicePlans = scope.invoicePlans.map((invoicePlan, index) => {
+                scope.invoicePlans.invoices = scope.invoicePlans.invoices.map((invoicePlan, index) => {
                     if(scope.project.no_of_invoice == index + 1) {
                         return {    
                             index: index + 1,
@@ -1024,6 +1059,7 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
         },
     };
 }]);
+
 
 app.directive('getRoleUser',function getRoleUser($http, API_URL){
     return {
