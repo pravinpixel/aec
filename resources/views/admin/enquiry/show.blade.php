@@ -1687,7 +1687,12 @@
 
             $scope.moveToProject = () => {
                 $http.post(API_URL + 'proposal-move-to-project/'+{{ $data->id }}).then(function (response) {
-                    window.location.href = `${API_URL}admin/enquiry-list`;
+                    $timeout(function(){
+                        window.onbeforeunload = null;
+                    });
+                    $timeout(()=> {
+                        window.location.href = `${API_URL}admin/enquiry-list`;
+                    }, 1000);
                 });
             }
             
@@ -1931,6 +1936,9 @@
                     Message('danger', 'Assign field required'); return false;
                }
                $http.post(API_URL+'customer-response/move-to-project', {assigned_to: assigned_to, enquiry_id, enquiry_id}).then(function successfunction(res){
+                    $timeout(function(){
+                        window.onbeforeunload = null;
+                    });
                     if(res.data.status == true){
                         Swal.fire({
                             title: `Move to project successfully`,
