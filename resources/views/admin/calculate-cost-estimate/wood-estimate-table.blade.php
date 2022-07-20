@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-1 custom-td text-center remove_history"> Action </div>
+                    <div class="col-1 custom-td text-center dd-sm remove_history"> Action </div>
                 </div>
                 {{-- input data --}}
                 <div psi-sortable="" ng-model="C">
@@ -191,7 +191,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="remove_history custom-td text-center" ng-click="delete(firstIndex,index)">
+                        <div class="remove_history custom-td text-center dd-sm" ng-click="delete(firstIndex,index)">
                             <i class="fa fa-trash text-danger btn"></i>
                         </div>
                     </div>

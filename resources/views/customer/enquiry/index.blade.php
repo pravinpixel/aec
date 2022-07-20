@@ -416,6 +416,11 @@
                         }
                     }
                 ],
+                rowCallback: function( row, data ) {
+                    if(data.response_status == 1){
+                        $(row).addClass('fw-bold bg-light');
+                    }
+                },
                 createdRow: function ( row, data, index ) {
                     $compile(row)($scope);  //add this to compile the DOM
                 }

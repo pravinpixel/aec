@@ -403,6 +403,11 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                 }
             }
         ],
+        rowCallback: function( row, data ) {
+            if(data.response_status == 2){
+                $(row).addClass('fw-bold bg-light');
+            }
+        },
         createdRow: function ( row, data, index ) {
             $compile(row)($scope);  //add this to compile the DOM
         }
