@@ -11,6 +11,46 @@
                         <option ng-value="costEstimateType" ng-selected="costEstimateType.type == CostEstimate.type"
                             ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
                     </select>
+                </div> 
+
+                <div class="col-md-8 pe-0 text-end">
+                    <div class="btn-group">
+                        <select class="form-select form-select-sm me-1" ng-model="woodTemplate" ng-change="getWoodTemplate(woodTemplate, firstIndex)" name="woodTemplate" id="woodTemplate">
+                            <option value="">-- Select Template -- </option>
+                            <option ng-value="costEstimateWoodTemplate.id"  ng-selected="CostEstimate.woodTemplate == costEstimateWoodTemplate.id"
+                                ng-repeat="costEstimateWoodTemplate in costEstimateWoodTemplates">@{{ costEstimateWoodTemplate.name }}</option>
+                        </select> 
+                        <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
+                        <button class="btn-sm btn btn-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
+                        <div class="dropdown">
+                            <button class="btn btn-success border shadow-sm btn-sm" title="More option..." type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="dripicons-dots-3"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <button class="dropdown-item"  ng-click="editable = true" ng-show="editable == false"><i class="mdi mdi-plus me-1"></i>Add</button>
+                                <button class="dropdown-item" ng-click="cloneCostEstimate(firstIndex, CostEstimate)"><i class="fa fa-copy me-1"></i>Duplicate</button>
+                                <button class="dropdown-item" ng-click="callWoodTemplate(firstIndex)"><i class="fa fa-save me-1"></i>Save as template</button>
+                                <button class="dropdown-item text-danger border-top" ng-click="deleteEngineeringEstimate(firstIndex)"><i class="mdi mdi-delete me-1"></i>Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {{-- <div class="input-group justify-content-end">
+                        <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
+                        <button class="btn-sm btn btn-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
+                        <button class="btn-sm btn btn-info" type="button" ng-click="editable = true" ng-show="editable == false"><i title="Add" class="fa fa-plus"></i></button> 
+                    </div>  --}}
+                </div>
+            </div> 
+        </div>
+        {{-- <div class="card-header bg-light p-2">
+            <div class="row align-items-center  m-0">
+                <div class="col-md-4 p-0">
+                    <select class="form-select form-select-sm" ng-model="CostEstimate.type" name="type" id="type">
+                        <option value="">-- Select Building -- </option>
+                        <option ng-value="costEstimateType" ng-selected="costEstimateType.type == CostEstimate.type"
+                            ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+                    </select>
                 </div>
 
                 <div class="col-md-4 p-0 d-flex">
@@ -34,7 +74,7 @@
                     </div> 
                 </div>
             </div> 
-        </div>
+        </div> --}}
         <div class="card-body p-2"> 
             <div class="auto-scroll bg-primary pb-0" > 
                 <div class="text-center bg-primary">
@@ -123,12 +163,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-1 custom-td text-center dd-sm remove_history"> Action </div>
+                    <div class="col-1 custom-td custom-td-sm text-center dd-sm remove_history pt-4" style="width:50px !important;min-width:50px !important;max-width:50px !important;"> <small>Action</small></div>
                 </div>
                 {{-- input data --}}
                 <div psi-sortable="" ng-model="C">
                     <div ng-repeat="(index, C) in CostEstimate.Components track by $index" class="custom-row custom-border-left custom-border-bottom bg-white" >
-                        <div class="custom_drag" title="drag row"><i class="mdi mdi-drag"></i></div>
+                        <div class="custom_drag" title="drag row"><a class="mdi mdi-arrow-top-left-bottom-right-bold border bg-white text-primary shadow-sm"></a></div>
                         <div class="custom-td">
                             <input type="text" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
                             <select class="my-select w-100 history_building_component_input" get-master-data="[index]" ng-model="C.building_component_id" name="building_component_name">
@@ -191,7 +231,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="remove_history custom-td text-center dd-sm" ng-click="delete(firstIndex,index)">
+                        <div class="remove_history  text-center custom-td custom-td-sm" style="width:50px !important;min-width:50px !important;max-width:50px !important;" ng-click="delete(firstIndex,index)">
                             <i class="fa fa-trash text-danger btn"></i>
                         </div>
                     </div>

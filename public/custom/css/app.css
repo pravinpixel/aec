@@ -549,9 +549,12 @@ sup {
 
 .custom_drag {
     position: absolute;
-    left: 0;
+    left: -6px;
     background-color: aliceblue;
     width: 11px;
     margin-top: 4px;
+}
+.custom_drag .mdi-arrow-top-left-bottom-right-bold::before {
+    transform: rotate(45deg);
 }
 
