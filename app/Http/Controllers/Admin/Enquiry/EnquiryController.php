@@ -424,11 +424,11 @@ class EnquiryController extends Controller
                 'remarks'               => $request->remarks,
                 'mobile_no'             => $request->mobile_no,
                 'email'                 => strtolower($email),
-                'password'              => Hash::make($password),
+                'password'              => $password,
                 'password_view'         =>  $password,
                 'created_by'            => Admin()->id,
                 'updated_by'            => Admin()->id,
-                'is_active'             => 0
+                'is_active'             => 1
             ];
             $customer = $this->customer->create($data);
             $customer->enquiry()->create([
