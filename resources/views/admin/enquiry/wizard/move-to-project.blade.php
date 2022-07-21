@@ -76,22 +76,24 @@
     </div>
     <div class="card-body">
         <div class="row m-0">
-            <div class="col">
-                <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Status</strong>
-                <select ng-model="customer_response_obj.follow_up_status" class="form-select mt-2">
-                    <option value="">@lang('customer-enquiry.select')</option>
-                    <option value="Approved"  ng-selected="true">Approved</option>
-                </select>
+            <div class="col-12 mb-3">
+                <strong class="card-text text-secondary "><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Set Next follow up date​</strong>
+                <div class="input-group mt-2">
+                    <input  ng-model="customer_response_obj.follow_up_date" type="date" class="form-control form-control-sm" data-date-inline-picker="true">
+                    <button class="btn btn-info btn-sm">Set</button>
+                </div>
             </div>
-            <div class="col">
-                <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Next Follow Up date</strong>
-                <input  ng-model="customer_response_obj.follow_up_date" type="date" class="form-control mt-2" data-date-inline-picker="true">
-            </div>
-        </div>
-        <div class="d-flex justify-content-center pt-3">
-            <button class="btn btn-light me-2 p-3 py-2">Cancel</button>
-            <button ng-click="updateFollow()" class="btn btn-primary p-3 py-2"> <i class="fa fa-check-circle me-1 text-white"></i> Submit </button>
-        </div>
+            <div class="col-12 mb-3">
+                <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Manual Override​</strong>
+                <div class="input-group mt-2">
+                    <select ng-model="customer_response_obj.follow_up_status" class="form-select form-control-sm">
+                        <option value="">@lang('customer-enquiry.select')</option>
+                        <option value="Approved"  ng-selected="true">Approved</option>
+                    </select>
+                    <button class="btn btn-info btn-sm">Move</button>
+                </div>  
+            </div>  
+        </div>  
     </div>
 </div>
 @if(userHasAccess('customer_response_index'))
@@ -140,11 +142,15 @@
 </div> 
 
 <div class="card-footer">
+    <label for="copy_enq" class="text-center mb-3 col-12">
+        <input id="copy_enq" type="checkbox" class="form-check-input me-2"> Copy Enquiry details to Share Point​
+    </label>
     <div class="d-flex justify-content-between">
         <div>
             <a href="#!/proposal-sharing" class="btn btn-light border" >Prev</a>
         </div>
         <div>
+            <button class="btn btn-info border">Move to Project​</button>
         </div>
     </div>
 </div>
