@@ -58,7 +58,6 @@
                     <small class="error-text" ng-if="frm.number.$error.maxlength">Maxlength 12 digit only</small>
                 </div>
             </div>
-            <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete user​​</button>
         </div>
         
         <div class="col-md-6">

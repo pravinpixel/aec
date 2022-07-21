@@ -16,7 +16,11 @@
                 @include('admin.pages.employee.employee-details')
                 <!-- end page title -->
                 <div class="mb-3 text-end">
-                    <a href="{{ route('admin.employee-add') }}" class="btn btn-primary">
+                    {{-- <a href="{{ route('admin.employee-add') }}" class="btn btn-primary">
+                        <i class="mdi mdi-briefcase-plus me-1"></i> 
+                        Register New Employee​
+                    </a> --}}
+                    <a href="{{ route('create.employee') }}" class="btn btn-primary">
                         <i class="mdi mdi-briefcase-plus me-1"></i> 
                         Register New Employee​
                     </a>

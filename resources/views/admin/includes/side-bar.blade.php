@@ -124,9 +124,9 @@
                             <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
                         </li>
                         @if(userHasAccess('employee_index'))
-                        <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
-                            <a href="{{ route('admin-employee-control-view') }}">Employee Control </a>
-                        </li> 
+                            <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
+                                <a href="{{ route('admin-employee-control-view') }}">Employee Control </a>
+                            </li> 
                         @endif
                     </ul>
                 </div>

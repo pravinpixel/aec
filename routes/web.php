@@ -13,6 +13,7 @@ include 'template.php';
 include 'cost_estimate.php';
 include 'technical_estimate.php';
 include 'live-project.php';
+include 'employee.php';
 
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;

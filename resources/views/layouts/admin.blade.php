@@ -139,5 +139,6 @@
                 swal("Good job!", "Project successfully created!", "success");
             }
         </script>
+        @livewireScripts
     </body>
 </html>

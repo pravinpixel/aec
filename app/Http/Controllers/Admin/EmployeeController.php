@@ -262,7 +262,7 @@ class EmployeeController extends Controller
     {
         return view('admin.pages.employee');
     }
-    public function sharePointAcess(Type $var = null)
+    public function sharePointAcess()
     {
         // return "with out id";
         $id = session('id');
