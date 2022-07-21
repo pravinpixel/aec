@@ -114,7 +114,7 @@
                                                             <i class="fa fa-chevron-down"></i>
                                                         </button>
                                                         <button  type="button" class="ms-2 btn btn-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
-                                                        <button  type="button" ng-click="saveToLocal()" class="ms-2 btn btn-info rounded shadow-sm btn-sm">save</div></button>
+  
                                                     </div>
                                                 </th>
                                             </tr>
@@ -258,6 +258,9 @@
                                                         <small class="text-danger" ng-show="buildingComponentForm.Breadth_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}.$invalid && formSubmit">This field is required</small> --}}
                                                     </div>
                                                     <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallBottom"> @{{ w.WallBottom }}</p>
+                                                    <div class="text-end">
+                                                        <button  type="button" ng-click="saveToLocal()" class="ms-2 btn btn-info rounded shadow-sm btn-sm">save</div></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
