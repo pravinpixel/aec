@@ -257,7 +257,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <div ng-show="proposalModal" class="modal fade" id="bs-PreviewVersions-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade" id="bs-PreviewVersions-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-right h-100" style="width:100% !important">
             <div class="modal-content  h-100">
                 <div class="modal-header">
