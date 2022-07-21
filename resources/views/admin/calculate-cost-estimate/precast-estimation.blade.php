@@ -43,6 +43,16 @@
                                             </select>
                                         </div>
                                         <div class="col-md-8 pe-0">
+                                            <div class="col-md-4 p-0 d-flex">
+                                                <select class="form-select form-select-sm" ng-model="precastTemplate" ng-change="getPrecastTemplate(precastTemplate, pRootKey)" name="woodTemplate" id="woodTemplate">
+                                                    <option value="">-- Select Template -- </option>
+                                                    <option ng-value="costEstimatePrecastTemplate.id"
+                                                        ng-repeat="costEstimatePrecastTemplate in costEstimatePrecastTemplates">@{{ costEstimatePrecastTemplate.name }}</option>
+                                                </select>
+                                                <button class="btn-info btn-sm" ng-click="callPrecastTemplate(pRootKey)">
+                                                    <i class="fa fa-plus"> </i>
+                                                </button>
+                                            </div>
                                             <div class="input-group justify-content-end">
                                                 <button class="btn-sm btn btn-danger" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
                                                 <button class="btn-sm btn btn-warning" type="button"  ng-click="deletePrecastEstimate(pRootKey)"><i title="remove" class="fa fa-trash"></i></button>
@@ -181,3 +191,4 @@
     @include('admin.calculate-cost-estimate.precast-list')
 </div>
 @endif
+@include('admin.calculate-cost-estimate.precast-template')

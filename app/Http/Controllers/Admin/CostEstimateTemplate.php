@@ -15,13 +15,28 @@ class CostEstimateTemplate extends Controller
         return response(['status' => true, 'data'=> $templates]);
     }
 
+    public function getWoodTemplate()
+    {
+        $templates = ModelsCostEstimateTemplate::where('type', 'wood')->get();
+        return response(['status' => true, 'data'=> $templates]);
+    }
+
+    public function getPrecastTemplate()
+    {
+        $templates = ModelsCostEstimateTemplate::where('type', 'precast')->get();
+        return response(['status' => true, 'data'=> $templates]);
+    }
+
     public function store(Request $request)
     {
         $data = [
             'json' => json_encode($request->input('data.template')),
-            'type' => $request->input('data.type')
+         
         ];
-        $template = ModelsCostEstimateTemplate::updateOrCreate(['name' => $request->input('data.name')],$data);
+        $template = ModelsCostEstimateTemplate::updateOrCreate([
+            'name' => $request->input('data.name'),
+            'type' => $request->input('data.type')
+        ],$data);
         if($template) {
             return response(['status' => true, 'msg'=> __('global.template_added'), 'data'=> $template]);
         }

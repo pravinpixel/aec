@@ -242,4 +242,3 @@
     </div> 
 </div> 
 @include('admin.calculate-cost-estimate.wood-template')
-@include('admin.calculate-cost-estimate.precast-template')

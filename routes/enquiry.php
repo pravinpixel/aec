@@ -119,5 +119,7 @@ Route::group(['prefix' => 'customer-response', 'middleware' => 'common', 'route'
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common', 'route' => 'admin'], function(){
+  Route::get('cost-estimate-precast-template',[CostEstimateTemplate::class,'getPrecastTemplate']);
+  Route::get('cost-estimate-wood-template',[CostEstimateTemplate::class,'getWoodTemplate']);
   Route::resource('cost-estimate-template', CostEstimateTemplate::class);
 });
