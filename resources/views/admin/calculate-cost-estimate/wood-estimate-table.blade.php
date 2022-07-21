@@ -23,16 +23,16 @@
                         <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
                         <button class="btn-sm btn btn-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
                         <div class="dropdown">
-                            <button class="btn btn-success border shadow-sm btn-sm" title="More option..." type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-info border shadow-sm btn-sm" title="More option..." type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="dripicons-dots-3"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <button class="dropdown-item"  ng-click="editable = true" ng-show="editable == false"><i class="mdi mdi-plus me-1"></i>Add</button>
-                                <button class="dropdown-item" ng-click="cloneCostEstimate(firstIndex, CostEstimate)"><i class="fa fa-copy me-1"></i>Duplicate</button>
-                                <button class="dropdown-item" ng-click="callWoodTemplate(firstIndex)"><i class="fa fa-save me-1"></i>Save as template</button>
-                                <button class="dropdown-item text-danger border-top" ng-click="deleteEngineeringEstimate(firstIndex)"><i class="mdi mdi-delete me-1"></i>Delete</button>
+                                <button class="dropdown-item" ng-click="callWoodTemplate(firstIndex)"><i class="fa fa-save me-1"></i>Save as template</button> 
                             </div>
                         </div>
+                        <button class="btn btn-sm btn-warning"><i class="fa fa-copy me-1" ng-click="cloneCostEstimate(firstIndex, CostEstimate)"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="mdi mdi-delete me-1" ng-click="deleteEngineeringEstimate(firstIndex)"></i></button>
                     </div>
                     
                     {{-- <div class="input-group justify-content-end">
