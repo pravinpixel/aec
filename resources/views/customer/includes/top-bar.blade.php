@@ -93,4 +93,4 @@
     <form id="deactivate-form" action="{{ route('customer.deactivate-account') }}" method="POST" class="d-none">
         @csrf
     </form>
-</div>
+</div> 
