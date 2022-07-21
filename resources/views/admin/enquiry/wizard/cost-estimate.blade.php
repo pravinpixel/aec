@@ -143,7 +143,7 @@
                     <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
                         <option value=""> @lang('global.select') </option>
                         <option ng-repeat="user in userList" ng-selected="user.id == assign_to"
-                            value="@{{ user.id }}"> @{{ user.id == current_user ? 'You' : user.user_name }}</option>
+                            value="@{{ user.id }}"> @{{ user.id == current_user ? 'You' : user.first_Name }}</option>
                     </select>
                     <button class="input-group-text btn btn-info"
                         ng-click="assignUserToCostestimate(assign_to, 'verification')"> Assign </button>

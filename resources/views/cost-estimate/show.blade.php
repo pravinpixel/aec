@@ -16,122 +16,569 @@
 
                 <!-- end page title -->
                   <!-- Start Content-->
-                  <div id="CostEstimateController" class="container-fluid d-none" ng-controller="CostEstimateController" >
-    
-                    <div class="content container-fluid">
-                        <div class="main"> 
-                            <div class="row m-0"> 
-                                <div class="card-header pb-2 p-3 text-center border-0">
-                                    <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
+                <div class="container-fluid d-none" id="CostEstimateController">
+                    <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                        <li class="nav-item">
+                            <a href="#project_summary" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                <div class="mx-auto inner-circle bg-secondary">
+                                    <img src="{{ asset('public/assets/icons/information.png') }}" class="w-50 invert">
                                 </div>
-                                <div class="card-body pt-0 p-0">
-                                    <table class="table custom shadow-none border m-0 table-bordered ">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th>Enquiry Received Date</th>
-                                                <th>Person Contact</th>
-                                                <th>Type of Building</th>
-                                                <th>Enquiry Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>@{{ enquiry.enquiry.enquiry_date }}</td>
-                                                <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
-                                                <td>@{{ enquiry.building_type.building_type_name  }}</td>
-                                                <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table> 
+                                <span class="d-none d-md-block">Project Summary</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#cost_estimate" data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0 active">
+                                <div class="mx-auto inner-circle bg-secondary">
+                                    <img src="{{ asset('public/assets/icons/budget.png') }}" class="w-50 invert">
                                 </div>
-                                @if(userHasAccess('cost_estimate_index'))
-                                    <div class="container-fluid">
-                                        <br>
-                                        <div class="row m-0  my-3">
-                                            <div class="col">
-                                                <label class="lead">
-                                                    <input type="radio" ng-model="price_calculation" name="price_calculation"
-                                                    class="form-check-input me-2"
-                                                        ng-value="'wood_engineering_estimation'">
-                                                    Wood Engineering Estimation
-                                                </label>
+                                <span class="d-none d-md-block">Cost Estimate</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="project_summary" ng-controller="ProjectSummaryController">
+                            @include("admin.enquiry.models.chat-box")
+                            <div class="summary-group py-3 accordion rounded-0" id="summaryGroupx">
+                                {{-- ProjectInfo --}}
+                                    <fieldset class="accordion-item">
+                                        <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
+                                            <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
+                                                <span class="position-relative btn py-0">Project Information <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small></span> 
                                             </div>
-                                            <div class="col">
-                                                <label class="lead">
-                                                    <input type="radio" ng-model="price_calculation" name="price_calculation"
-                                                    class="form-check-input me-2"
-                                                        ng-value="'precast_engineering_estimation'">
-                                                    Precast Engineering Estimation
-                                                </label>
+                                            <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                                <i data-bs-toggle="collapse" 
+                                                    href="#ProjectInfo" 
+                                                    aria-expanded="false" 
+                                                    aria-controls="ProjectInfo" 
+                                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                                </i>
                                             </div>
-                                
                                         </div>
-                                        <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                                            @include('admin.enquiry.wizard.wood-estimation')
+                                        <div id="ProjectInfo" class="accordion-collapse collapse show" aria-labelledby="ProjectInfo_header" data-bs-parent="#summaryGroup">
+                                            <div class="accordion-body">  
+                                                <table class="table custom m-0 table-hover">
+                                                    <tbody>
+                                                        <tr ng-if="project_info.project_name != null">
+                                                            <td width="30%"><b>Project Name</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.project_name }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.site_address != null">
+                                                            <td><b>Construction Site Address</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.site_address }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.contact_person != null">
+                                                            <td><b>Contact Person name</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.contact_person }} </td>
+                                                        </tr> 
+                                                        <tr ng-if="customer_info.email != null">
+                                                            <td><b>Email</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ customer_info.email }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="customer_info.mobile_no != null">
+                                                            <td><b>Contact number</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ customer_info.mobile_no }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.secondary_mobile_no != null">
+                                                            <td><b>Secondary Contact number</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.secondary_mobile_no }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.zipcode != null">
+                                                            <td><b>Zip Code</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.zipcode }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.place != null">
+                                                            <td><b>Place</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.place }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.state != null">
+                                                            <td><b>State</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.state }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.country != null">
+                                                            <td><b>Country</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.country }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.project_typproject_info.project_type_name != null">
+                                                            <td><b>Type of Project</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.project_typproject_info.project_type_name }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.building_typproject_info.building_type_name != null">
+                                                            <td><b>Type of Building</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.building_typproject_info.building_type_name }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.no_of_building != null">
+                                                            <td><b>No. of Buildings</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.no_of_building }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.delivery_typproject_info.delivery_type_name != null">
+                                                            <td><b>Type of Delivery</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.delivery_typproject_info.delivery_type_name }}</td>
+                                                        </tr> 
+                                                        <tr ng-if="project_info.project_delivery_date != null">
+                                                            <td><b>Delivery Date</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.project_delivery_date  | date: 'dd-MM-yyyy'  }}</td>
+                                                        </tr> 
+                                                
+                                                        <tr ng-if="project_info.customerremarks != null">
+                                                            <td><b>Remarks</b></td>
+                                                            <td>:</td>
+                                                            <td>@{{ project_info.customer.remarks }}</td>
+                                                        </tr> 
+                                                    </tbody>
+                                                </table>
+                                                {{-- <form id="project_information__commentsForm" ng-submit="sendComments('project_information','Admin')" class="input-group mt-3">
+                                                    <input required type="text" ng-model="project_information__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                                    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                                </form>  
+                                                <div class="text-end pt-2">
+                                                    <a class="text-primary p-0 btn"   ng-show="enquiry_comments.project_information"  ng-click="showCommentsToggle('viewConversations', 'project_information', 'Project Information')">
+                                                        <i class="mdi mdi-eye"></i>  Previous chat history
+                                                    </a>
+                                                </div> --}}
+                                            </div> 
                                         </div>
-                                        <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                                            @include('admin.enquiry.wizard.precast-estimation')
+                                    </fieldset>
+                                {{-- ProjectInfo --}}
+                            
+                                {{-- Selected Services --}}
+                                    <fieldset class="accordion-item">
+                                        <div class="accordion-header custom m-0 position-relative" id="service_header">
+                                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#service" aria-expanded="false" aria-controls="service">
+                                                <span class="position-relative btn py-0">Selected Services <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.service > 0"> @{{ enquiry_active_comments.service   }}</small></span> 
+                                            </div>
+                                            <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
+                                                <i data-bs-toggle="collapse" 
+                                                    href="#service" 
+                                                    aria-expanded="false" 
+                                                    aria-controls="service" 
+                                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                                    >
+                                                </i>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endif
-                                
-                                {{-- view history start--}}
-                                <div class="card border p-0 shadow-sm my-3">
-                                    <div class="card-header">
-                                        <h5 class="m-0">
-                                            <a class="align-items-center d-flex  py-1" ng-click="getHistory('wood')"
-                                                ng-show="price_calculation == 'wood_engineering_estimation'">
-                                                <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
-                                                Cost Estimation History
-                                            </a>
-                                            <a class="align-items-center d-flex py-1" ng-click="getHistory('precast')"
-                                                ng-show="price_calculation == 'precast_engineering_estimation'">
-                                                <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div class="card-body bg-light p-0">
-                                        <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                                            <div id="wood_id"></div>
+                                        <div id="service" class="accordion-collapse collapse" aria-labelledby="service_header" data-bs-parent="#summaryGroup">
+                                            <div class="accordion-body">  
+                                                <ul>
+                                                    <li ng-repeat="(key,outputType) in services" class=""> @{{ key }}
+                                                        <ul  class="row m-0 ">
+                                                            <li ng-repeat="service in outputType" class="col-md-4 list-group-item border-0"><i class="fa fa-check-circle text-primary me-1"></i> @{{ service.service_name }}</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>   
+                                                {{-- <form id="service__commentsForm" ng-submit="sendComments('service','Admin')" class="input-group mt-3">
+                                                    <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                                    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                                </form>  
+                                                <div class="text-end pt-3">
+                                                    <a class="text-primary p-0 btn"   ng-show="enquiry_comments.service"  ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
+                                                        <i class="fa fa-eye"></i>  Previous chat history
+                                                    </a>
+                                                </div> --}}
+                                            </div> 
                                         </div>
-                                        <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                                            <div id="precast_id"></div>
+                                    </fieldset> 
+                                {{-- Selected Services --}}
+                            
+                                {{-- IFC Models & Uploaded Documents --}}
+                                    <fieldset class="accordion-item">
+                                        <div class="accordion-header custom m-0 position-relative" id="ifc_model_header">
+                                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#ifc_model" aria-expanded="false" aria-controls="ifc_model">
+                                                <span class="position-relative btn py-0">IFC Models & Uploaded Documents <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.ifc_model > 0"> @{{ enquiry_active_comments.ifc_model   }}</small></span> 
+                                            </div>
+                                            <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                                <i data-bs-toggle="collapse" 
+                                                href="#ifc_model" 
+                                                aria-expanded="false" 
+                                                aria-controls="ifc_model" 
+                                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed ">
+                                                </i>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                {{-- view history end--}}
-                                @if(userRole()->slug == config('global.cost_estimater'))
-                                    <div class="text-end">
-                                        <button ng-click="printCostEstimate('wood')" class="btn btn-primary"
-                                            ng-show="price_calculation == 'wood_engineering_estimation'">
-                                            <i class="me-1 fa fa-print"></i> Print
-                                        </button>
-                                        <button ng-click="printCostEstimate('precast')" class="btn btn-primary"
-                                            ng-show="price_calculation == 'precast_engineering_estimation'">
-                                            <i class="me-1 fa fa-print"></i> Print
-                                        </button>
-                                        <button class="btn btn-success cost_estimate_comments_ul"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-                                            <i class="fa fa-send me-1"></i>  Send a Comments
-                                            @if(isset($comments['admin_role']))
-                                                <span class="cost_estimate_comments">
-                                                    {{ $comments['admin_role']   }}
-                                                </span>
-                                            @endif
-                                        </button>
-                                    </div>
-                                @endif
-                                @include("admin.enquiry.models.cost-estimate-chat-box") 
+                                        <div id="ifc_model" class="accordion-collapse collapse " aria-labelledby="ifc_model_header" data-bs-parent="#summaryGroup">
+                                            <div class="accordion-body"> 
+                                                <table class="table custom custom table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><b>S.No</b></th>
+                                                            <th><b>Date</b></th>
+                                                            <th><b>File Type</b></th>
+                                                            <th><b>View Type</b></th>
+                                                            <th class="text-center" width="150px"><b>Action</b></th>
+                                                        </tr>
+                                                        <tbody>
+                                                            <tr ng-repeat="ifc_model_upload in ifc_model_uploads">
+                                                                <td> @{{ $index + 1}} </td>
+                                                                <td> @{{ ifc_model_upload.created_at | date: 'dd-MM-yyyy' }}</td>
+                                                                <td> @{{ ifc_model_upload.pivot.file_type }}</td>
+                                                                <td> @{{ ifc_model_upload.document_type_name }}</td>
+                                                                <td class="text-center">
+                                                                    <a download="@{{ ifc_model_upload.pivot.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                                                    {{-- <a ng-show="!autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ url('/') }}/get-enquiry-document/@{{ifc_model_upload.pivot.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a> --}}
+                                                                    <a ng-show="!autoDeskFileType.includes(ifc_model_upload.pivot.file_type)"  ng-click="getDocumentView(ifc_model_upload.pivot)" ><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                                    <a ng-show="autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.pivot.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </thead>
+                                                </table>
+                                                {{-- <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Admin')" class="input-group mt-3">
+                                                    <input required type="text" ng-model="ifc_model__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                                    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                                </form>  
+                                                <div class="text-end pt-3">
+                                                    <a class="text-primary p-0 btn"  ng-show="enquiry_comments.ifc_model"  ng-click="showCommentsToggle('viewConversations', 'ifc_model', 'IFC Models & Uploaded Documents')">
+                                                        <i class="fa fa-eye"></i>  Previous chat history
+                                                    </a>
+                                                </div> --}}
+                                            </div> 
+                                        </div>
+                                    </fieldset>  
+                                {{-- IFC Models & Uploaded Documents --}}
+                            
+                                {{-- Building Components --}}
+                                    <fieldset class="accordion-item">
+                                        <div class="accordion-header custom m-0 position-relative" id="building_components_header">
+                                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#building_components" aria-expanded="false" aria-controls="building_components">
+                                                <span class="position-relative btn py-0">Building Components<small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.building_components > 0"> @{{ enquiry_active_comments.building_components   }}</small></span> 
+                            
+                                            </div>
+                                            <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                                <i data-bs-toggle="collapse" 
+                                                    href="#building_components" 
+                                                    aria-expanded="false" 
+                                                    aria-controls="building_components" 
+                                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
+                                            </div>
+                                        </div>
+                                        <div id="building_components"  ng-show="project_info.building_component_process_type == 0" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                                            <div class="accordion-body">  
+                                                {{-- <div  style="max-height: 400px; overflow:auto"> 
+                                                    <table class="table custom table-bordered" ng-init="total = 0 ">
+                                                        <tbody >
+                                                            <tr class="table custom-bold text-center">
+                                                                <th style="padding: 0 !important" colspan="2">
+                                                                    <table class="table custom m-0 custom">
+                                                                        <tr>
+                                                                            <th width="50%">
+                                                                                Wall details
+                                                                            </th>
+                                                                            <th style="padding: 0 !important" width="50%">
+                                                                                Layer details
+                                                                            </th>
+                                                                        </tr>
+                                                                    </table>
+                                                                </th>
+                                                            </tr> 
+                                                            <tr ng-repeat="building_component in building_components" ng-show="building_component.detail.length">
+                                                                <td>@{{ building_component.wall }}</td>
+                                                                <td style="padding: 0 !important" >
+                                                                    <table class="table custom m-0 custom">
+                                                                        <tr ng-repeat="detail in building_component.detail"> 
+                                                                            <td width="50%">
+                                                                                <table class="table custom m-0 table-bordered">
+                                                                                    <tr>
+                                                                                        <th>Floor</th>
+                                                                                        <th>wall Number</th>
+                                                                                        <th>Type of Delivery</th>
+                                                                                        <th >Total Area </th>
+                                                                                    </tr> 
+                                                                                    <tr>
+                                                                                        <td>@{{ detail.floor }}</td>
+                                                                                        <td>@{{ detail.exd_wall_number }}</td>
+                                                                                        <td>@{{ detail.delivery_type.delivery_type_name }}</td>
+                                                                                        <td ng-init="$parent.total = $parent.total ++ detail.approx_total_area">@{{ detail.approx_total_area }}</td>
+                                                                                    </tr> 
+                                                                                </table>
+                                                                            </td>
+                                                                            <td style="padding: 0 !important" width="50%">
+                                                                                <table class="table custom m-0 table-bordered">
+                                                                                    <tr class="table custom-bold">
+                                                                                        <th>Name</th>
+                                                                                        <th>Thickness</th>
+                                                                                        <th>Breadth</th>
+                                                                                    </tr> 
+                                                                                    <tr ng-repeat="layer in detail.layer">
+                                                                                        <td>@{{ layer.layer_name }}</td>
+                                                                                        <td>@{{ layer.thickness }}</td>
+                                                                                        <td>@{{ layer.breath }}</td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr> 
+                                                                    </table> 
+                                                                </td>
+                                                            </tr>  
+                                                        </tbody>                     
+                                                    </table> 
+                                                </div>  --}}
+                                                <table class="table table-bordered m-0 table-striped" ng-init="total = 0 ">
+                                                    <tbody > 
+                                                        <tr ng-repeat="building_component in building_components"  ng-show="building_component.detail.length">
+                                                            <td class="text-center" width="150px">
+                                                                <b>@{{ building_component.wall }}</b>
+                                                            </td>
+                                                            <td>
+                                                                <div class="py-2" ng-repeat="detail in building_component.detail">
+                                                                    <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
+                                                                        <thead class="table-secondary text-dark">
+                                                                            <tr>
+                                                                                <th>Floor</th>
+                                                                                <th>Type of Delivery</th>
+                                                                                <th>Total Area </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="text-align: left !important">@{{ detail.floor }} </td>
+                                                                                <td>@{{ detail.delivery_type.delivery_type_name }}</td>
+                                                                                <td >@{{ building_component.totalWallArea }}</td> 
+                                                                            </tr>
+                                                                        </tbody> 
+                                                                    </table>
+                                                                    <table class="shadow-sm border table-bordered border-dark table m-0 bg-white">
+                                                                        <thead>
+                                                                            <tr> 
+                                                                                <td><b>Name</b></td>
+                                                                                <td><b>Thickness (mm)</b></td>
+                                                                                <td><b>Breadth (mm)</b></td>
+                                                                            </tr> 
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="layer in detail.layer">
+                                                                                <td>@{{ layer.layer_name }}</td>
+                                                                                <td>@{{ layer.thickness }}</td>
+                                                                                <td>@{{ layer.breath }} </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div> 
+                                                            </td>
+                                                        </tr>  
+                                                        <tr ng-show="!building_components.length">
+                                                            <td colspan="4">No data found</td>
+                                                        </tr>
+                                                    </tbody>                     
+                                                </table> 
+                                                {{-- <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
+                                                    <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                                    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                                </form>  
+                                                <div class="text-end pt-3">
+                                                    <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_components"   ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
+                                                        <i class="fa fa-eye"></i>  Previous chat history
+                                                    </a>
+                                                </div>  --}}
+                                            </div> 
+                                        </div>
+                            
+                                        <div id="building_components" ng-show="project_info.building_component_process_type == 1" class="accordion-collapse collapse  " aria-labelledby="building_components_header" data-bs-parent="#summaryGroup">
+                                            <div class="accordion-body">  
+                                                <div  style="max-height: 400px; overflow:auto"> 
+                                                    <table class="table custom custom table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><b>S.No</b></th>
+                                                                <th><b>Date</b></th>
+                                                                <th><b>File Name</b></th>
+                                                                <th><b>File Type</b></th>
+                                                                <th class="text-center" width="150px"><b>Action</b></th>
+                                                            </tr>
+                                                            <tbody>
+                                                                <tr ng-repeat="building_component in building_components">
+                                                                    <td> @{{ $index + 1}} </td>
+                                                                    <td> @{{ building_component.created_at }}</td>
+                                                                    <td> @{{ building_component.file_name }}</td>
+                                                                    <td> @{{ building_component.file_type }}</td>
+                                                                    <td class="text-center">
+                                                                        <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                                                                        <a ng-click="getDocumentViews(building_component)"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </thead>
+                                                    </table>
+                                                </div> 
+                                                {{-- <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Admin')" class="input-group mt-3">
+                                                    <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                                    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                                </form>  
+                                                <div class="text-end pt-3">
+                                                    <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_components"   ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
+                                                        <i class="fa fa-eye"></i>  Previous chat history
+                                                    </a>
+                                                </div>  --}}
+                                            </div> 
+                                        </div>
+                                    </fieldset>
+                                {{-- Building Components --}}
+                            
+                                {{-- Additional Info --}}  
+                                    <fieldset class="accordion-item">
+                                        <div class="accordion-header custom m-0 position-relative" id="add_info_header">
+                                            <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#add_info" aria-expanded="false" aria-controls="add_info">
+                                                <span class="position-relative btn py-0">Additional Info<small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small></span> 
+                            
+                                            </div>
+                                            <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
+                                                <i data-bs-toggle="collapse" 
+                                                    href="#add_info" 
+                                                    aria-expanded="false" 
+                                                    aria-controls="add_info" 
+                                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed"></i>
+                                            </div>
+                                        </div>
+                                        <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" data-bs-parent="#summaryGroup">
+                                            <div class="accordion-body">  
+                                                <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
+                                                    <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>
+                                                </div>
+                                            </div>
+                                            {{-- <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin')" class="input-group mt-3">
+                                                <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                                <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                            </form>  
+                                            <div class="text-end pt-3">
+                                                <a class="text-primary p-0 btn" ng-show="enquiry_comments.add_info"   ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
+                                                    <i class="fa fa-eye"></i>  Previous chat history
+                                                </a>
+                                            </div> --}}
+                                        </div> 
+                                    </fieldset> 
+                                {{-- Additional Info --}}
                             </div>
                         </div>
-                        <!-- container --> 
-                    </div> 
-                    
-                </div> 
+                        <div class="tab-pane show active" id="cost_estimate">
+                            <div class="tab-pane show active" id="cost_estimate" ng-controller="CostEstimateController" >
+                                <div class="content container-fluid">
+                                    <div class="main"> 
+                                        <div class="row m-0"> 
+                                            <div class="card-header pb-2 p-3 text-center border-0">
+                                                <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
+                                            </div>
+                                            <div class="card-body pt-0 p-0">
+                                                <table class="table custom shadow-none border m-0 table-bordered ">
+                                                    <thead class="bg-light">
+                                                        <tr>
+                                                            <th>Enquiry Received Date</th>
+                                                            <th>Person Contact</th>
+                                                            <th>Type of Building</th>
+                                                            <th>Enquiry Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@{{ enquiry.enquiry.enquiry_date }}</td>
+                                                            <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
+                                                            <td>@{{ enquiry.building_type.building_type_name  }}</td>
+                                                            <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table> 
+                                            </div>
+                                           
+                                            <div class="container-fluid">
+                                                <br>
+                                                <div class="row m-0  my-3">
+                                                    <div class="col">
+                                                        <label class="lead">
+                                                            <input type="radio" ng-model="price_calculation" name="price_calculation"
+                                                            class="form-check-input me-2"
+                                                                ng-value="'wood_engineering_estimation'">
+                                                            Wood Engineering Estimation
+                                                        </label>
+                                                    </div>
+                                                    <div class="col">
+                                                        <label class="lead">
+                                                            <input type="radio" ng-model="price_calculation" name="price_calculation"
+                                                            class="form-check-input me-2"
+                                                                ng-value="'precast_engineering_estimation'">
+                                                            Precast Engineering Estimation
+                                                        </label>
+                                                    </div>
+                                        
+                                                </div>
+                                                <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                    @include('admin.enquiry.wizard.wood-estimation')
+                                                </div>
+                                                <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                    @include('admin.enquiry.wizard.precast-estimation')
+                                                </div>
+                                            </div>
+                                         
+                                            {{-- view history start--}}
+                                            <div class="card border p-0 shadow-sm my-3">
+                                                <div class="card-header">
+                                                    <h5 class="m-0">
+                                                        <a class="align-items-center d-flex  py-1" ng-click="getHistory('wood')"
+                                                            ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                            <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
+                                                            Cost Estimation History
+                                                        </a>
+                                                        <a class="align-items-center d-flex py-1" ng-click="getHistory('precast')"
+                                                            ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                            <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="card-body bg-light p-0">
+                                                    <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                        <div id="wood_id"></div>
+                                                    </div>
+                                                    <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                        <div id="precast_id"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- view history end--}}
+                                            @if(userRole()->slug == config('global.cost_estimater'))
+                                                <div class="text-end">
+                                                    <button ng-click="printCostEstimate('wood')" class="btn btn-primary"
+                                                        ng-show="price_calculation == 'wood_engineering_estimation'">
+                                                        <i class="me-1 fa fa-print"></i> Print
+                                                    </button>
+                                                    <button ng-click="printCostEstimate('precast')" class="btn btn-primary"
+                                                        ng-show="price_calculation == 'precast_engineering_estimation'">
+                                                        <i class="me-1 fa fa-print"></i> Print
+                                                    </button>
+                                                    <button class="btn btn-success cost_estimate_comments_ul"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                                                        <i class="fa fa-send me-1"></i>  Send a Comments
+                                                        @if(isset($comments['admin_role']))
+                                                            <span class="cost_estimate_comments">
+                                                                {{ $comments['admin_role']   }}
+                                                            </span>
+                                                        @endif
+                                                    </button>
+                                                </div>
+                                            @endif
+                                            @include("admin.enquiry.models.cost-estimate-chat-box") 
+                                  
+                                        </div>
+                                    </div>
+                                    <!-- container --> 
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div> 
             <!-- container -->
-         
-            </div>
-        </div>
-    </div> 
+    </div>
 @endsection
 @push('custom-styles')
 <style>
@@ -144,12 +591,176 @@
     -moz-appearance: textfield;
     }
     #wood-cost-estimate .remove_history {
-            display: block !important;
-        }
+        display: block !important;
+    }
 </style>
 @endpush
 @push('custom-scripts')
 <script> 
+    app.controller('ProjectSummaryController', function ($scope, $http, API_URL,  $location) {
+            $scope.enquiry_id =  '{{ $enquiry_id }}';
+            var enquiryId     =  '{{ $enquiry_id }}';
+            getEnquiryCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    $scope.enquiry_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            getEnquiryActiveCommentsCountById = (id) => {
+                $http({
+                    method: "get",
+                    url:  API_URL + 'admin/active-comments-count/'+id ,
+                }).then(function successCallback(response) {
+                    $scope.enquiry_active_comments     = response.data;
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+    
+            $scope.GetCommentsData = function() {
+                $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $enquiry_id ?? " " }} ).then(function (res) {
+                    $scope.project_summary_status       = res.data.progress.status;
+                    $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
+                    $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
+                    $scope.proposal_sharing_status       = res.data.progress.proposal_sharing_status;
+                    $scope.customer_response       = res.data.progress.customer_response;
+                    $scope.enquiry_comments     = res.data.enquiry_comments;
+                    $scope.enquiry_active_comments = res.data.enquiry_active_comments;
+                  
+                    $scope.enquiry_number       = res.data.enquiry_number;
+                    $scope.enquiry_comments     = res.data.enquiry_comments;
+                    $scope.enquiry_id           = res.data.enquiry_id;
+                    $scope.customer_info        = res.data.customer_info;
+                    $scope.project_info         = res.data.project_info;
+                    $scope.services             = res.data.services;
+                    $scope.ifc_model_uploads    = res.data.ifc_model_uploads;
+                    $scope.building_components  = res.data.building_component;
+                    $scope.additional_infos     = res.data.additional_infos;
+                    $scope.htmlEditorOptions = {
+                        height: 300,
+                        value: ( res.data.additional_infos == null ) ? '': res.data.additional_infos.comments,
+                        mediaResizing: {
+                        enabled: false,
+                        },
+                    };
+                });
+            }
+            $scope.showCommentsToggle = function (modalstate, type, header) {
+                $scope.modalstate = modalstate;
+                $scope.module = null;
+                $scope.chatHeader   = header; 
+                switch (modalstate) {
+                    case 'viewConversations':
+                        $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
+                            $scope.commentsData = response.data.chatHistory; 
+                            $scope.chatType     = response.data.chatType;  
+                            console.log($scope.commentsData);
+                            $('#viewConversations-modal').modal('show');
+                            getEnquiryCommentsCountById($scope.enquiry_id);
+                            getEnquiryActiveCommentsCountById($scope.enquiry_id);
+                             
+                        });
+                        break;
+                    default:
+                        break;
+                } 
+            }
+            $scope.GetCommentsData();
+ 
+            $scope.sendInboxComments  = function(type, seen_id) { 
+
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope.inlineComments,
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   $scope.chatType,
+                    "created_by"      :   type,
+                    "send_by"         :   {{ Admin()->id }}
+                }
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    document.getElementById("Inbox__commentsForm").reset();
+                    $scope.showCommentsToggle('viewConversations', $scope.chatType);
+                    Message('success',response.data.msg);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+            
+            $scope.sendComments  = function(type, created_by, seen_id) { 
+       
+                $scope.sendCommentsData = {
+                    "comments"        :   $scope[`${type}__comments`],
+                    "enquiry_id"      :   $scope.enquiry_id,
+                    "type"            :   type,
+                    "created_by"      :   created_by,
+                    "send_by"         :   {{ Admin()->id }}
+                }
+              
+                $http({
+                    method: "POST",
+                    url:  "{{ route('enquiry.comments') }}" ,
+                    data: $.param($scope.sendCommentsData),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    }
+                }).then(function successCallback(response) {
+                    if(type == 'building_components'){
+                        document.getElementById(`building_component__commentsForm`).reset();
+                    }
+                    document.getElementById(`${type}__commentsForm`).reset();
+                    // $scope.GetCommentsData();
+                    Message('success',response.data.msg);
+                    getEnquiryCommentsCountById($scope.enquiry_id);
+                    getEnquiryActiveCommentsCountById($scope.enquiry_id);
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            } 
+
+            $scope.getDocumentView = (file) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_name},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
+            $scope.getDocumentViews = (file) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_path},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
+    });
     app.controller('CostEstimateController', function ($scope, $http, $timeout, API_URL) {
             let enquiryId           =  '{{ $enquiry_id }}';
             $scope.current_user     =  '{{Admin()->id}}';
@@ -439,7 +1050,7 @@
             });
 
             
-//  precast
+            //  precast
         $scope.callPrecastTemplate = (pos) => {
             $scope.costEstimatePrecastTemplate = $scope.PrecastComponent[pos];
             $("#cost-estimate-precast-template-modal").modal('show');

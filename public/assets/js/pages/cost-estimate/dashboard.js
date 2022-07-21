@@ -18,7 +18,9 @@ $(function(){
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
             {data: 'enquiry_date', name: 'enquiry_date'},
+            {data: 'company_name', name: 'company_name'},
             {data: 'project_name', name: 'project_name'},
+            {data: 'contact_person', name: 'contact_person'},
             {data: 'status', name: 'status'},
             {
                 data         : 'action', name: 'action', orderable: false, searchable: false,
