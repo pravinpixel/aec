@@ -388,6 +388,9 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
     });
 
     $scope.handleInvoiceChange = () => {
+        if($scope.project.no_of_invoice <= 0){
+            $scope.project.no_of_invoice = 1;
+        }
         let totalRow = totalInvoice - $scope.project.no_of_invoice;
         if(invoiceStatus) {
             totalInvoice = $scope.project.no_of_invoice;

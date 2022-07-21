@@ -9,7 +9,7 @@
                 </div>
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>No.of Invoices</strong></div>
-                    <div class=" col-9"><input type="number" class="form-control" onkeypress="return isNumber(event)"  ng-change="handleInvoiceChange()" ng-model="project.no_of_invoice" placeholder="type here.."></div>
+                    <div class=" col-9"><input type="number" class="form-control" min=0 onkeypress="return isNumber(event)"  ng-change="handleInvoiceChange()" ng-model="project.no_of_invoice" placeholder="type here.."></div>
                 </div>
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>Project Start Date</strong></div>
