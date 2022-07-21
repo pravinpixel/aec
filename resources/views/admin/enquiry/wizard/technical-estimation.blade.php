@@ -288,7 +288,7 @@
                             <option value=""> @lang('global.select') </option>
                             <option ng-repeat="user in userList" 
                                     ng-selected="user.id == assign_to" 
-                                    value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.user_name}}
+                                    value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.first_Name}}
                             </option>
                         </select> 
                         <button class="input-group-text btn btn-info"
@@ -296,9 +296,19 @@
                         <button class="input-group-text btn btn-danger" ng-click="removeUser()"> Remove </button>
                     </div> 
                 </div>
-                <small class="float-end btn link p-0 mt-2" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets" >
-                    <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
-                </small>
+            </div>
+
+            <div class="text-end my-3  col-md-9 me-auto">
+                {{-- <button ng-click="printCostEstimate('wood')" class="btn btn-primary" ng-show="price_calculation == 'wood_engineering_estimation'">
+                            <i class="me-1 fa fa-print"></i> Print
+                        </button>
+                --}}
+                <button class="btn btn-success" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')">
+                    <i class="fa fa-send me-1"></i> 
+                    <span class="cost_estimate_comments_ul">
+                        Send a Comments
+                    </span>
+                </button>
             </div>
 
             <div class="card-footer">

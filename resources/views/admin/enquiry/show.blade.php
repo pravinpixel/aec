@@ -147,57 +147,6 @@
   
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script> 
-        app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) {  
-            return {
-                restrict: 'A',
-                link : function (scope, element, attrs) {
-                    element.on('keyup', function () {
-                        var index   = scope.index;
-                        let bcd = scope.building_building[index].building_component_number.map((item,i) => {
-                            return item.sqfeet;
-                        }); 
-                        let result =  bcd.reduce(function(previousValue, currentValue){
-                            if(typeof(previousValue) == 'undefined') {
-                                previousValue = 0;
-                            }
-                            if(typeof(currentValue) == 'undefined') {
-                                currentValue = 0;
-                            }
-                            return previousValue + currentValue
-                        }, 0);
-                        scope.building_building[index].total_component_area = result; 
-                        scope.$apply();
-                    });
-                },
-            };
-        }]);
-        app.directive('getTotalComponentsDelete',   ['$http' ,function ($http, $scope,$apply) {  
-            return {
-                restrict: 'A',
-                link : function (scope, element, attrs) {
-                    element.on('click', function () {
-                        var index       = scope.index;
-                        var secindex    = scope.secindex;
-                        scope.building_building[index].building_component_number.splice(secindex,1);
-
-                        let bcd = scope.building_building[index].building_component_number.map((item,i) => {
-                            return item.sqfeet;
-                        }); 
-                        let result =  bcd.reduce(function(previousValue, currentValue){
-                            if(typeof(previousValue) == 'undefined') {
-                                previousValue = 0;
-                            }
-                            if(typeof(currentValue) == 'undefined') {
-                                currentValue = 0;
-                            }
-                            return previousValue + currentValue
-                        }, 0);
-                        scope.building_building[index].total_component_area = result; 
-                        scope.$apply();
-                    });
-                },
-            };
-        }]);  
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {

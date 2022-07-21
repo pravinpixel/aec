@@ -191,7 +191,7 @@
                 <span class="cost_estimate_comments_ul">
                     Send a Comments
                     <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
-                        @{{ cost_estimate_comments.cost_estimate_role   }}
+                        @{{ cost_estimate_comments.cost_estimate_role }}
                     </span>
                 </span>
             </button>

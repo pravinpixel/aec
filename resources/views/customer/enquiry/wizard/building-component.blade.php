@@ -51,11 +51,11 @@
                     <div ng-show="wallName ==  w.WallName" get-customer-layer get-template  ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}"  >
                         <div class="d-flex justify-content-between align-items-center">
                             <div > <h3> <div> </div></h3> </div>
-                            <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add New Wall</button>
+                            <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add New @{{  w.WallName }}</button>
                         </div>
                         <div ng-if="!w.Details.length">
                             <div class="text-center pt-5">
-                                <h1 class="h4">Please click to add new wall</p>
+                                <h1 class="h4">Please Click to Add New @{{  w.WallName }}</p>
                                 <img src="{{ asset("public/assets/images/bg-emty.png") }}" width="50%">
                             </div>
                         </div>

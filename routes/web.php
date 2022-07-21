@@ -10,7 +10,8 @@ include 'autodesk.php';
 include 'project.php';
 include 'sharepoint.php';
 include 'template.php';
-include 'cost-estimate.php';
+include 'cost_estimate.php';
+include 'technical_estimate.php';
 include 'live-project.php';
 
 use App\Http\Controllers\Admin\CustomerController;

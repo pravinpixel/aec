@@ -68,8 +68,11 @@ class TechEstimateController extends Controller
         }
         $technicalEstimate->save();
         $enquiry = Enquiry::find($id);  
-        $this->technicalEstimate->assignUser($enquiry, Admin()->id);
-        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
+        if(Admin()->id == $technicalEstimate->assign_by || Admin()->id == 1){
+            $this->technicalEstimate->assignUser($enquiry, Admin()->id);
+            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
+        } 
+
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 

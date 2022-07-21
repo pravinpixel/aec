@@ -26,18 +26,21 @@ class AuthController extends Controller
                 Flash::success( __('auth.login_successful'));
                 return redirect()->route('customers-dashboard');
             } else if (Auth::attempt($request->only(['email','password']), false)) {
-                if(Role::find(Admin()->job_role)->slug == config('global.cost_estimater')) {
+                $role = Role::find(Admin()->job_role)->slug;
+                if($role == config('global.cost_estimater')) {
                     $sharepoint = new SharepointController();
                     $sharepoint->getToken();
-                    Flash::success( __('auth.login_successful'));
+                    Flash::success(__('auth.login_successful'));
                     return redirect()->route('cost-estimate.dashboard');
+                } else if($role == config('global.technical_estimater')) {
+                    Flash::success( __('auth.login_successful'));
+                    return redirect()->route('technical-estimate.dashboard');
                 } else {
                     $sharepoint = new SharepointController();
                     $sharepoint->getToken();
                     Flash::success( __('auth.login_successful'));
                     return redirect()->route('admin-dashboard');
                 }
-              
             } else {
                 Flash::error( __('auth.incorrect_email_id_and_password'));
                 return redirect()->route('login');
