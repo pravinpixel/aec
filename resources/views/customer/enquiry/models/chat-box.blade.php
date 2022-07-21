@@ -20,9 +20,9 @@
                             </div>
                             <div class="conversation-text">
                                 <div class="ctext-wrap"> 
-                                    <div>
+                                    <p class="m-0">
                                        @{{ msg.comments }}
-                                    </div> 
+                                    </p> 
                                     <small class="timesOfMsg">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
                                 </div>
                             </div> 

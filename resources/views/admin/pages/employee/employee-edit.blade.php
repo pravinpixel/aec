@@ -11,9 +11,6 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
-                
-                <!-- start page title -->
-                
                 @include('admin.includes.page-navigater') 
             </div>    
             <div class="card border">
@@ -75,12 +72,12 @@
 @push('custom-scripts')
    <style>
        input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
-}
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0; 
+        }
 
    </style>
  
@@ -141,8 +138,8 @@ input[type=number]::-webkit-outer-spin-button {
             },
         
         
-    }); 
-});
+        }); 
+    });
 </script>
     <script>
         // var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
@@ -217,6 +214,9 @@ input[type=number]::-webkit-outer-spin-button {
                     }).then(function(res){
                 //    alert(JSON.stringify(res.data.data))
                         $scope.EmpData = res.data.data;
+                        localStorage.removeItem("current_employee_data");
+                        localStorage.setItem("current_employee_data", $scope.EmpData);
+
                         if(res.data.data.image != "no_image.jpg")
                         {
                             $scope.deleteImageBtn = true;

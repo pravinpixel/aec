@@ -16,7 +16,10 @@
                 @include('admin.pages.employee.employee-details')
                 <!-- end page title -->
                 <div class="mb-3 text-end">
-                    <a href="{{ route('admin.employee-add') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Employee</a>
+                    <a href="{{ route('admin.employee-add') }}" class="btn btn-primary">
+                        <i class="mdi mdi-briefcase-plus me-1"></i> 
+                        Register New Employee​
+                    </a>
                 </div>
                 <div class="card">
                     
@@ -26,13 +29,11 @@
                                 <tr>
                                     <th class="text-center">S.No</th>
                                     <th class="text-center">Employee ID</th>
-                                    <th class="text-center">Name</th>
-                                    <th class="text-center">Email</th>
+                                    <th class="text-left">Name</th>
+                                    <th class="text-left">Email</th>
+                                    <th class="text-left">Phone No​</th>
                                     <th class="text-center">Share Point</th>
                                     <th class="text-center">BIM</th>
-                                    <th class="text-center">24*7</th>
-                                    <th class="text-center">Role</th>
-                                    <th class="text-center">Status</th> 
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -45,43 +46,30 @@
                                     <td class="text-center"> 
                                         <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.employee_id }}</span>
                                     </td>
-                                    <td class="text-center">@{{ m.first_Name }}</td>
-                                    <td class="text-center">@{{ m.email }}</td>
+                                    <td class="text-left">@{{ m.first_Name }}</td>
+                                    <td class="text-left">@{{ m.email }}</td>
+                                    <td class="text-left">@{{ m.number }}</td>
                                     <td class="text-center">
                                         <div id="tooltip-container2">
-                                            <span  ng-if="m.share_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                            <span  ng-if="m.share_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span> 
+                                            <span  ng-if="m.share_access=='1'" class="text-success" > <i class="fa font-22 fa-check-circle"></i></span>
+                                            <span  ng-if="m.share_access=='0'"  class="text-danger"> <i class="fa font-22 fa-times-circle"></i></span> 
                                         </div>
                                     </td>
                                     <td class="text-center">
                                         <div id="tooltip-container2">
-                                            <span  ng-if="m.bim_access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                            <span  ng-if="m.bim_access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                    <!-- ng-click="toggle('edit', m.customer_id)" -->
-                                        <div id="tooltip-container2" >
-                                            <span  ng-if="m.access=='1'" class="text-success" > <i class="fa fa-2x fa-check-circle"></i></span>
-                                            <span  ng-if="m.access=='0'"  class="text-danger"> <i class="fa fa-2x fa-times-circle"></i></span>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">@{{ m.job_role }}</td>
-                                    <td class="text-center">	
-                                        <div ng-click="checkIt(index, m.id)" title="Click to Change Status">
-                                            <span ng-show="m.status == 1" class="py-0 px-1 btn btn-sm btn-success rounded-pill"><i class="fa fa-check"></i></span>
-                                            <span ng-show="m.status == 0" class="py-0 px-1 btn btn-sm btn-danger rounded-pill"><i class="fa fa-times"></i></span>
+                                            <span  ng-if="m.bim_access=='1'" class="text-success" > <i class="fa font-22 fa-check-circle"></i></span>
+                                            <span  ng-if="m.bim_access=='0'"  class="text-danger"> <i class="fa font-22 fa-times-circle"></i></span>
                                         </div>
                                     </td>
                                     <td class="text-center">
                                         <div class="dropdown">
-                                            <button type="button" class="btn btn-sm rounded-pill shadow-sm btn-light border" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button" class="btn btn-sm shadow-sm btn-light border" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="dripicons-dots-3 "></i>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#" ng-click="employeeEdit(m.id)"><i class="fa fa-edit me-1"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" ng-click="employeeMail(m.id)"><i class="fa fa-envelope me-1"></i>Sent Mail</a>
-                                                <a class="dropdown-item text-danger" href="#" ng-click="employeeDelete(m.id)"><i class="fa fa-trash me-1"></i>Delete</a>
+                                                <button class="dropdown-item"  ng-click="employeeEdit(m.id)"><i class="fa fa-edit me-1"></i> View / Edit</button>
+                                                {{-- <a class="dropdown-item" href="#" ng-click="employeeMail(m.id)"><i class="fa fa-envelope me-1"></i>Sent Mail</a> --}}
+                                                {{-- <a class="dropdown-item text-danger" href="#" ng-click="employeeDelete(m.id)"><i class="fa fa-trash me-1"></i>Delete</a> --}}
                                             </div>
                                         </div>
                                     </td>

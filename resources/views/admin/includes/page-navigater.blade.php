@@ -19,7 +19,7 @@
                         @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                         @if (Route::is('gantt-chart')) Gantt Chart @endif
                         @if (Route::is('admin-settings')) Setup @endif
-                        @if (Route::is('admin-employee-control-view')) List of Employees @endif
+                        @if (Route::is('admin-employee-control-view')) Employees Details​ @endif
                         @if (Route::is('admin.employee-add')) Create Employee @endif
                         @if (Route::is('admin.employeeEdit')) Edit Employee @endif 
                         @if (Route::is('admin-documentary-view')) Document @endif 
@@ -54,7 +54,7 @@
                 @if (Route::is('proposal-conversation')) Proposal Conversation @endif
                 @if (Route::is('gantt-chart')) Gantt Chart @endif
                 @if (Route::is('admin-settings')) Setup @endif
-                @if (Route::is('admin-employee-control-view')) List of Employee @endif
+                @if (Route::is('admin-employee-control-view')) Employees Details​ @endif
                 @if (Route::is('admin.employee-add')) Create Employee @endif
                 @if (Route::is('admin.employeeEdit')) Edit Employee @endif
                 @if (Route::is('admin-documentary-view')) Document @endif
