@@ -20,8 +20,8 @@
                 </ol>
             </div>
             <h4 class="page-title">
-                         
-                @if (Route::is('technical-estimate.show') || Route::is('technical-estimate.dashboard')) Cost Estimate @endif         
+
+                @if (Route::is('technical-estimate.show') || Route::is('technical-estimate.dashboard')) Technical Estimate @endif         
             </h4>
         </div>
     </div>

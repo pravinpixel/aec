@@ -578,8 +578,10 @@ class EmployeeController extends Controller
 
     public function getTechnicalEstimateEmployee(Request $request)
     {
-        $role = Role::where('slug', config('global.technical_estimater'))->first();
-        return Employee::where(['job_role' => $role->id,'status'=> 1])
+        $saleEngineer = Role::where('slug', config('global.technical_estimater'))->first();
+        $projectManager = Role::where('slug', config('global.project_manager'))->first();
+        return Employee::where('status', 1)
+                        ->whereIn('job_role',[$saleEngineer->id,$projectManager->id])
                         ->where('id','!=', Admin()->id)
                         ->get();
     }
