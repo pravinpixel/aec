@@ -21,6 +21,6 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-warning"><i class="fa fa-repeat me-1"></i> Reset Password</button>
+        <button class="btn btn-warning"><i class="fa fa-repeat me-1"></i> Reset Email Password</button>
     </div> 
 </div>
