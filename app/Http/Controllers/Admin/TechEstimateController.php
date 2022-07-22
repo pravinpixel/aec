@@ -92,6 +92,17 @@ class TechEstimateController extends Controller
         }
         return response(['status' => false, 'msg' => __('global.something')]);
     }
+    
+    public function removeUser($enquiry_id)
+    {
+        $enquiry = $this->customerEnquiryRepo->getEnquiryByID($enquiry_id);
+        $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status', false);
+        $result =  $this->technicalEstimate->removeUser($enquiry_id);
+        if($result){
+            return response(['status' => true, 'msg' => __('enquiry.assign_removed_successfully')]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
+    }
 
     public function updateStatus($enquiry_id)
     {

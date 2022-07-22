@@ -166,23 +166,21 @@
                         </div>
                         <div class="p-0 mb-2">
                             @if(userHasAccess('technical_estimate_add'))
-                                <div class="text-end">
-                                    <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
+                                <div class="d-flex justify-content-between">
+                                    <div class="row mx-0 align-items-center" >
+                                        <span ng-show="technical_estimate.assign_for == 'verification' && technical_estimate.assign_for_status == 1" class="alert d-flex align-items-center m-0 shadow border-success border alert-success bg-transparent text-success" role="alert">
+                                            <strong class="fa fa-check-circle fa-2x me-2" aria-hidden="true"></strong>
+                                            <span ng-show="technical_estimate.assign_for == 'verification' && technical_estimate.assign_for_status == 1"> Verification completed successfully</span>
+                                        </span>
+                                        <span  ng-show="technical_estimate.assign_for == 'verification' && technical_estimate.assign_for_status == 0" class="alert d-flex align-items-center m-0 shadow border-warning border alert-warning bg-transparent text-warning" role="alert">
+                                            <strong class="fa fa-exclamation-circle fa-2x me-2" aria-hidden="true"></strong>
+                                            <span> Waiting for verification</span>
+                                        </span>
+                                    </div>
+                                    <div class="text-end">
+                                        <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
+                                    </div>
                                 </div>
-
-                                <p class="lead mb-2 text-danger" ng-show="technical_estimate.assign_for == 'estimation' && technical_estimate.assign_for_status == 0"> <strong>Waiting for estimation</strong></p>
-                                <p class="lead mb-2 text-danger" ng-show="technical_estimate.assign_for == 'approval' && technical_estimate.assign_for_status == 0"> <strong>Waiting for approval</strong></p>
-                                <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'estimation'"> <strong>Estimated successfully</strong></p>
-                                <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'approval'"> <strong>Approved successfully </strong></p>
-                            @else
-                                <div class="text-end" ng-if="technical_estimate.assign_for_status == 0 && technical_estimate.assign_to == {{ Admin()->id }}">
-                                    <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update & Approve</a>
-                                </div>
-                                <div ng-if="technical_estimate.assign_for_status == 1">
-                                    <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'approval'"> <strong> Approved successfully </strong></p>
-                                    <p class="lead mb-2 text-success" ng-show="technical_estimate.assign_for_status == 1 && technical_estimate.assign_for == 'estimation'"> <strong> Estimated successfully</strong></p>
-                                </div>
-
                             @endif
                         </div>
                     </div>  
@@ -239,7 +237,7 @@
         @if(userRole()->slug == config('global.technical_estimater'))
             <div class="card m-0 my-3 border col-md-9 me-auto">
                 <div class="card-body">
-                    <small class="btn link" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets" >
+                    <small class="btn link" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'technical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets" >
                         <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
                     </small>
                 </div>
@@ -303,7 +301,7 @@
                             <i class="me-1 fa fa-print"></i> Print
                         </button>
                 --}}
-                <button class="btn btn-success" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')">
+                <button class="btn btn-success" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'technical_estimation_assign', 'Technical Estimate')">
                     <i class="fa fa-send me-1"></i> 
                     <span class="cost_estimate_comments_ul">
                         Send a Comments

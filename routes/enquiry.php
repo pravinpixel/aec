@@ -103,6 +103,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'common'], function(){
 
 Route::group(['prefix' => 'technical-estimate', 'middleware' => 'common', 'route' => 'technical-estimate'], function(){
     Route::post('assign-user/{enquiry_id}', [TechEstimateController::class,'assignUser'])->name("assign-user");
+    Route::post('remove-user/{enquiry_id}', [TechEstimateController::class,'removeUser'])->name("remove-user");
     Route::post('update-status/{enquiry_id}',[TechEstimateController::class,'updateStatus'])->name("update-status");
 });
 
