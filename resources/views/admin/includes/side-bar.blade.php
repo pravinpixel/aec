@@ -113,7 +113,7 @@
                     <span>Administration</span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee"]) ? "show" : ""}}" id="Administration">
+                <div class="collapse {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee","edit.employee"]) ? "show" : ""}}" id="Administration">
                     <ul class="side-nav-second-level">
                         @if(userHasAccess('cost_estimate_index'))
                         <li>
@@ -124,8 +124,9 @@
                             <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
                         </li>
                         @if(userHasAccess('employee_index'))
-                            <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee"]) ? "menuitem-active" : ""}}">
-                                <a href="{{ route('admin-employee-control-view') }}">Employee Control </a>
+                            <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee",'edit.employee']) ? "menuitem-active" : ""}}">
+                                {{-- <a href="{{ route('admin-employee-control-view') }}">Employee Control </a> --}}
+                                <a href="{{ route('employee.index') }}">Employee Control </a>
                             </li> 
                         @endif
                     </ul>

@@ -9,9 +9,8 @@ use Illuminate\Validation\Rule;
 
 class Wizard extends Component
 {
-    public $currentStep = 1;
+    public $currentStep     = 1;
     public $successMessage  = '';
-    public $page_title = "TE losdgf ssgd";
 
     public $sharePointAccess = null, $email , $number , $display_name = "Prabhu", $email_id = "123" , $first_name, $create_password = 'off';
     public $share_point_status = 0 , $file_name = [];
@@ -22,8 +21,8 @@ class Wizard extends Component
         // $validatedData = $this->validate([
         //     'email'         =>  ['required', Rule::unique('employee')->ignore($this->id)->whereNull('deleted_at')],
         //     'number'        =>  ['required', Rule::unique('employee')->ignore($this->id)->whereNull('deleted_at')],
-        // ]);
-    
+        // ]); 
+        
         $this->sharePointAccess = SharePointAccess::all();
         $this->currentStep = 2;
     }

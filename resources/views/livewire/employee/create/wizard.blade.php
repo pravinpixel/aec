@@ -36,33 +36,33 @@
 	<div class="card-body"> 
 		@switch($currentStep)
 			@case(1)
-				@include('livewire.employee.form.profile-information')
+				@include('livewire.employee.create.form.profile-information')
 			@break
 			@case(2)
-				@include('livewire.employee.form.share-point')
+				@include('livewire.employee.create.form.share-point')
 			@break
 			@case(3)
-				@include('livewire.employee.form.bim')
+				@include('livewire.employee.create.form.bim')
 			@break
-			@default @include('livewire.employee.form.profile-information')
+			@default @include('livewire.employee.create.form.profile-information')
 		@endswitch
 	</div>
 	<div class="card-footer">
 		@switch($currentStep)
 				@case(1)
-					<button wire:click="storePersonalInformation" class="btn btn-primary font-weight-bold px-3 float-end"><i class="fa fa-check-circle "></i> Next </button>
+					<button wire:click="storePersonalInformation" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-chevron-right mdi"></i> Next </button>
 				@break
 				@case(2)
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="fa fa-ban "></i> Prev</button>
-					<button wire:click="storeSharePointAccess" class="btn btn-primary font-weight-bold px-3 float-end"><i class="fa fa-check-circle "></i> Next </button>
+					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
+					<button wire:click="storeSharePointAccess" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-chevron-right mdi"></i> Next </button>
 				@break
 				@case(3)
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="fa fa-ban "></i> Prev</button>
-					<button wire:click="storeSharePointAccess" class="btn btn-primary font-weight-bold px-3 float-end"><i class="fa fa-check-circle "></i> Submit & Save </button>
+					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
+					<button wire:click="storeSharePointAccess" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-check mdi"></i>  Save & Submit </button>
 				@break  
 			@default
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="fa fa-ban "></i> Prev</button>
-					<button wire:click="storePersonalInformation" class="btn btn-primary font-weight-bold px-3 float-end"><i class="fa fa-check-circle "></i> Next </button>
+					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
+					<button wire:click="storePersonalInformation" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-check mdi"></i> Next </button>
 		@endswitch 
 	</div>
 </div>

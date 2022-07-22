@@ -74,8 +74,7 @@
                 aria-labelledby="headingFour"
                 data-bs-parent="#custom-accordion-one">
                 <div class="card-body pt-0">
-                    <div class="form-check mb-2">
-                        {{ $create_password }}
+                    <div class="form-check mb-2"> 
                         <input type="radio" wire:model="create_password" checked class="form-check-input" id="customCheck5">
                         <label class="form-check-label" for="customCheck5">Automatically create a password</label>
                     </div>
