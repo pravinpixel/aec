@@ -558,3 +558,7 @@ sup {
     transform: rotate(45deg);
 }
 
+
+#technical_estimate_histories .btn {
+    display: none !important;
+}

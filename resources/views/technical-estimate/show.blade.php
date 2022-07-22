@@ -255,6 +255,41 @@
                 });
             }
             getAutoDeskFileTypes();
+
+            $scope.getHistory       = (type)  => {
+                $http.get(`${API_URL}technical-estimate/get-history/${$scope.enquiry_id}`)
+                    .then(function successCallback(res){
+                        $scope.historyStatus    =   false;
+                        $("#technical_estimate_histories").html('');
+                        res.data.length && res.data.map((item, key) => {
+                            $("#technical_estimate_histories").append(`
+                                <div class="card  p-2 border shadow-sm m-2">
+                                    <div id="headingTableHistory${key+1}">
+                                        <h5 class="m-0 d-flex align-items-center">
+                                            <a class="custom-accordion-title collapsed d-block py-1"
+                                                data-bs-toggle="collapse" href="#collapseTableHistory${key+1}"
+                                                aria-expanded="true" aria-controls="collapseTableHistory${key+1}">
+                                                <strong class="me-auto text-dark">Version : ${key+1}</strong>
+                                                <span> - </span>
+                                                <span>
+                                                    <span class="fa fa-calendar text-dark"></span>
+                                                    <small>${moment(item.created_at).format('dd-MM-yyyy h:s a')}</small>
+                                                </span>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTableHistory${key+1}" class="collapse ${key == 0 && 'show'}"
+                                        aria-labelledby="headingTableHistory${key+1}" >
+                                            ${item.history}
+                                    </div>
+                                </div> 
+                            `); 
+                        });
+                    }, function errorCallback(error){
+                        console.log(error);
+                    });
+            }
+
             
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $enquiry_id ?? " " }} ).then(function (response) {
                 $scope.enquiry              =   response.data; 
@@ -357,7 +392,7 @@
                 $http({
                     method: "POST",
                     url: API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $enquiry_id ?? " " }} , 
-                    data:{ data : $scope.building_building},
+                    data:{ data : $scope.building_building, history: true, html: $("#root_technical_estimate").html()},
                 }).then(function successCallback(response) {
                     $scope.getWizradStatus();
                     Message('success',response.data.msg);

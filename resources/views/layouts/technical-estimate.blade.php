@@ -19,13 +19,13 @@
             {{-- ======= Alert Part ========== --}}
             <div class="alert-container" id="alert"></div>
             {{-- ======= Alert Part ========== --}}
-
+            
             <!-- ========== Left Sidebar Start ========== -->
                 @include('technical-estimate.includes.side-bar')
             <!--========== Left Sidebar End ========== -->
 
             <!--========== Start Page Content here ==========-->
-  
+                <input type="hidden" name="technical" id="_technical_" value=1>
                 <div class="main-content-rapper" >
                     {{-- <h1 class="fixed-top ps-5 ms-5" >counter : @{{ counter }}</h1> --}}
                     @yield('admin-content')

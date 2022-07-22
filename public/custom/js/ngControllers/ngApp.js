@@ -73,6 +73,11 @@ app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) 
         restrict: 'A',
         link : function (scope, element, attrs) {
             element.on('keyup', function () {
+                if($("#_technical_").val() == 1) {
+                    $(this).addClass('bg-info');
+                } else {
+                    $(this).addClass('bg-warning');
+                }
                 var index   = scope.index;
                 let bcd = scope.building_building[index].building_component_number.map((item,i) => {
                     return item.sqfeet;

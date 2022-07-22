@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     
-                        <div psi-sortable="" ng-model="building_building">
+                        <div psi-sortable="" ng-model="building_building" id="root_technical_estimate">
                             <div class="bg-white mb-2" ng-repeat="(index,buliding) in building_building track by $index">  
                                 <div class="row m-0 justify-content-between align-items-center  border shadow-sm table-bordered bg-white" data-bs-toggle="collapse" href="#toggle_table_@{{ index }}" role="button" aria-expanded="false" aria-controls="toggle_table_@{{ index }}">
                                     <div class="col">
@@ -142,10 +142,10 @@
                                                 @{{ secindex+1 }}
                                             </td>
                                             <td class="col" style="padding:0 !important">
-                                                <input type="text"  required ng-required placeholder="Type here.." ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
+                                                <input type="text"  required ng-required placeholder="Type here.." ng-value="est.name" ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
                                             </td>
                                             <td class="col"  style="padding:0 !important" > 
-                                                <input type="number" onkeypress="return isNumber(event)" min="0" required ng-required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
+                                                <input type="number" onkeypress="return isNumber(event)" min="0" required ng-required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-value="est.sqfeet"ng-model="est.sqfeet">
                                             </td>
                                             <td class="col" class="text-center"  style="padding:0 !important">
                                                 <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="mdi mdi-delete"></i></a>
@@ -293,6 +293,22 @@
                             ng-click="assignTechnicalEstimate(assign_to, 'verification')"> Assign </button>
                         <button class="input-group-text btn btn-danger" ng-click="removeUser()"> Remove </button>
                     </div> 
+                </div>
+            </div>
+
+            <div class="card border shadow-sm my-3 col-md-9 me-auto">
+                <div class="card-header">
+                    <h5 class="m-0">
+                        <a class="align-items-center d-flex  py-1" ng-click="getHistory()">
+                            <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
+                            Technical Estimation History
+                        </a>
+                    </h5>
+                </div>
+                <div class="card-body bg-light p-0">
+                    <div>
+                        <div id="technical_estimate_histories"></div>
+                    </div>
                 </div>
             </div>
 

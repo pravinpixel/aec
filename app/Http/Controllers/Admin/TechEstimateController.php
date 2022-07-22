@@ -10,6 +10,7 @@ use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\TechnicalEstimateRepositoryInterface;
 use Illuminate\Http\Response;
 use App\Models\Enquiry;
+use App\Models\TechnicalEstimateHistory;
 use App\Repositories\TechnicalEstimateRepository;
 
 class TechEstimateController extends Controller
@@ -46,6 +47,8 @@ class TechEstimateController extends Controller
     public function update(Request $request , $id)
     {
         $data = $request->input("data");
+        $history = $request->input("history", false);
+        $html    = $request->input("html");
         if($data == [])  {
             return response(['status' => true,  'msg' => trans('You can not delete all building !')], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -68,12 +71,26 @@ class TechEstimateController extends Controller
         }
         $technicalEstimate->save();
         $enquiry = Enquiry::find($id);  
+        if($history) {
+            $data = [
+                'enquiry_id'            => $enquiry->id,
+                'technical_estimate_id' => $technicalEstimate->id,
+                'history'               => $html,
+                'created_by'            => Admin()->id
+            ];
+            $this->storeTechEstimateHistory($data);
+        }
         if(Admin()->id == $technicalEstimate->assign_by || Admin()->id == 1){
             $this->technicalEstimate->assignUser($enquiry, Admin()->id);
             $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
         } 
 
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
+    }
+
+    public function storeTechEstimateHistory($data) 
+    {
+        return TechnicalEstimateHistory::create($data);
     }
 
     public function assignUser($enquiry_id, Request $request)
@@ -113,4 +130,12 @@ class TechEstimateController extends Controller
         }
         return response(['status' => false]);
     }
+
+    public function getHistory($id)
+    {
+        return TechnicalEstimateHistory::where('created_by', '!=', Admin()->id)
+                                    ->where('enquiry_id', $id)
+                                    ->get();
+    }
+
 } 
