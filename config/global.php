@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'mail_from_address' => 'john_ps@aecprefab.net',
+    'mail_from_address' => 'noreply@aecprefab.net',
     'model_date_format' => 'd-m-Y',
     'db_date_format'    => 'Y-m-d',
     'db_date_format_with_time' => 'Y-m-d H:i:s',
@@ -50,7 +50,7 @@ return [
 
     'cost_estimater' => 'cost_estimate',
 
-    'technical_estimater' => 'technical_estimate',
+    'technical_estimater' => 'sale_engineer',
 
     'project_manager' => 'project_manager',
 
