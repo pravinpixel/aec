@@ -259,7 +259,7 @@
                                                     </div>
                                                     <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallBottom"> @{{ w.WallBottom }}</p>
                                                     <div class="text-end">
-                                                        <button  type="button" ng-click="saveToLocal()" class="ms-2 btn btn-info rounded shadow-sm btn-sm">save</div></button>
+                                                        <button  type="button" ng-click="saveToLocal()" class="ms-2 btn btn-info rounded shadow-sm btn-sm">Save</div></button>
                                                     </div>
                                                 </div>
                                             </div>
