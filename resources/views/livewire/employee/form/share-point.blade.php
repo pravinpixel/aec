@@ -8,7 +8,6 @@
             </div>
         </div>
     </div>
-    
     <div class="col-lg-8 mx-auto">
         @if (!is_null($sharePointAccess))
             <table  dt-options="vm.dtOptions" class="custom table table-striped table-bordered">

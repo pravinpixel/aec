@@ -23,8 +23,8 @@
                     </td>
                     <td>
                         <div>
-                            <input type="checkbox" id="switch30" {{ rand(1,2) == 1 ? 'checked' : '' }} data-switch="{{ rand(1,2) == 1 ? 'success' : 'light' }}" />
-                            <label for="switch30" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
+                            <input type="checkbox" id="switch30{{ $i +1 }}" {{ rand(1,2) == 1 ? 'checked' : '' }} data-switch="{{ rand(1,2) == 1 ? 'primary' : 'info' }}" />
+                            <label for="switch30{{ $i +1 }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
                         </div>
                     </td>
                     <td width="300px">

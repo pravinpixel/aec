@@ -11,6 +11,7 @@ class Wizard extends Component
 {
     public $currentStep = 1;
     public $successMessage  = '';
+    public $page_title = "TE losdgf ssgd";
 
     public $sharePointAccess = null, $email , $number , $display_name = "Prabhu", $email_id = "123" , $first_name, $create_password = 'off';
     public $share_point_status = 0 , $file_name = [];

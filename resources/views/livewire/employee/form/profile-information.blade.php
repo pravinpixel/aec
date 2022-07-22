@@ -3,7 +3,7 @@
         <div class="row m-0">
             <div class="my-2 col-md-6">                                             
                 <label class="form-label">First name</label>
-                <input type="text" wire:model="first_name" class="form-control form-control-sm">
+                <input type="text" wire:model.lazy="first_name" class="form-control form-control-sm">
                 @error('first_name') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="my-2 col-md-6">                                             
