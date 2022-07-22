@@ -50,7 +50,7 @@ return [
 
     'cost_estimater' => 'cost_estimate',
 
-    'technical_estimater' => 'sale_engineer',
+    'technical_estimater' => 'sales_engineer',
 
     'project_manager' => 'project_manager',
 
