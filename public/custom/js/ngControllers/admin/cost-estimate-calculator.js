@@ -524,10 +524,10 @@
                         if(scope.CostEstimate.Components[scope.index].Rib.Sum != 0 && scope.CostEstimate.Components[scope.index].Rib.Sum != ''){
                             scope.CostEstimate.Components[scope.index].Sqm = 0;
                             $TotalRibSum = scope.CostEstimate.Components[scope.index].Rib.Sum * scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 ;
-                            scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalRibSum;
+                            scope.CostEstimate.Components[scope.index].TotalCost.Sum = getNum($TotalRibSum);
                         } else {
-                            scope.CostEstimate.Components[scope.index].TotalCost.Sum = $TotalSum;
-                            scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 = $TotalPriceM2;
+                            scope.CostEstimate.Components[scope.index].TotalCost.Sum = getNum($TotalSum);
+                            scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 = getNum($TotalPriceM2);
                         }
 
                     // for column total

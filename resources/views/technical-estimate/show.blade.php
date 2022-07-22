@@ -1,4 +1,4 @@
-@extends('layouts.cost-estimate')
+@extends('layouts.technical-estimate')
 
 @section('admin-content')
    
