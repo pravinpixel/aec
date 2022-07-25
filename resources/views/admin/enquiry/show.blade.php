@@ -795,6 +795,9 @@
                     let template = $scope.costEstimateWoodTemplates.find(obj => obj.id === id);
                     $scope.EngineeringEstimate[pos] = JSON.parse(template.json);
                 }
+                $timeout(function() {
+                    angular.element('.sqm_').triggerHandler('keyup');
+                });
             }
 
             $scope.$watch('is_template_update', function() {
@@ -840,6 +843,9 @@
                 let template = $scope.costEstimatePrecastTemplates.find(obj => obj.id === id);
                 $scope.PrecastComponent[pos] = JSON.parse(template.json);
             }
+            $timeout(function() {
+                angular.element('.psqm_').triggerHandler('keyup');
+            });
         }
 
         $scope.$watch('is_precast_template_update', function() {
