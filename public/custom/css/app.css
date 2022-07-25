@@ -562,3 +562,6 @@ sup {
 #technical_estimate_histories .btn {
     display: none !important;
 }
+.custom_drag_ .mdi-arrow-top-left-bottom-right-bold::before {
+    transform: rotate(45deg);
+}

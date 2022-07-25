@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="w-50 font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalArea) }}</b></td>  
+                    <td class="w-50 font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalWorkHours) }}</b></td>  
                     <td class="w-50 font-12 p-0"><b>@{{ getNum(ResultPrecastComponent.total.totalSum) }}</b></td>  
                 </tr>
             </tbody>
@@ -43,20 +43,22 @@
                                             </select>
                                         </div>
                                         <div class="col-md-8 pe-0">
-                                            <div class="col-md-4 p-0 d-flex">
-                                                <select class="form-select form-select-sm" ng-model="precastTemplate" ng-change="getPrecastTemplate(precastTemplate, pRootKey)" name="woodTemplate" id="woodTemplate">
-                                                    <option value="">-- Select Template -- </option>
-                                                    <option ng-value="costEstimatePrecastTemplate.id"
-                                                        ng-repeat="costEstimatePrecastTemplate in costEstimatePrecastTemplates">@{{ costEstimatePrecastTemplate.name }}</option>
-                                                </select>
-                                                <button class="btn-info btn-sm" ng-click="callPrecastTemplate(pRootKey)">
-                                                    <i class="fa fa-plus"> </i>
-                                                </button>
-                                            </div>
-                                            <div class="input-group justify-content-end">
-                                                <button class="btn-sm btn btn-danger" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
-                                                <button class="btn-sm btn btn-warning" type="button"  ng-click="deletePrecastEstimate(pRootKey)"><i title="remove" class="fa fa-trash"></i></button>
-                                            </div> 
+                                           <div class="row m-0">
+                                                <div class="col-md-4 p-0 d-flex">
+                                                    <select class="form-select form-select-sm" ng-model="precastTemplate" ng-change="getPrecastTemplate(precastTemplate, pRootKey)" name="woodTemplate" id="woodTemplate">
+                                                        <option value="">-- Select Template -- </option>
+                                                        <option ng-value="costEstimatePrecastTemplate.id"
+                                                            ng-repeat="costEstimatePrecastTemplate in costEstimatePrecastTemplates">@{{ costEstimatePrecastTemplate.name }}</option>
+                                                    </select>
+                                                    <button class="btn-info btn-sm" ng-click="callPrecastTemplate(pRootKey)">
+                                                        <i class="fa fa-plus"> </i>
+                                                    </button>
+                                                </div>
+                                                <div class="col input-group justify-content-end">
+                                                    <button class="btn-sm btn btn-danger" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
+                                                    <button class="btn-sm btn btn-warning" type="button"  ng-click="deletePrecastEstimate(pRootKey)"><i title="remove" class="fa fa-trash"></i></button>
+                                                </div> 
+                                           </div>
                                         </div>
                                     </div> 
                                 </div>
@@ -103,9 +105,10 @@
                         
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr ng-repeat="(index,C) in PrecastEstimate.Components" class="touched-td" >
-                            <td> 
+                    <tbody psi-sortable  ng-model="PrecastSortable">
+                        <tr ng-repeat="(index,C) in PrecastEstimate.Components" class="touched-td">
+                            <td class="d-flex align-items-center custom_drag_"> 
+                                <a class="mdi mdi-arrow-top-left-bottom-right-bold border bg-white text-primary shadow-sm"></a>
                                 <input type="text" class="history_precast_value" value="@{{ precastEstimateTypesObj[C.precast_component] }}">
                                 <select class="my-select history_precast_select" get-precast-details-total="[index]" ng-model="C.precast_component" name="precast_component">
                                     <option value="">-- Select -- </option> 
@@ -123,7 +126,7 @@
 
                             <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.no_of_different_floor_height" ng-value="C.no_of_different_floor_height" name="no_of_different_floor_height" class="my-control"></td>
 
-                            <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" ng-value="C.sqm" name="sqm" class="my-control psqm_"> </td>
+                            <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" ng-value="C.sqm" name="sqm" class="my-control"> </td>
                         
                             <td>
                                 <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.std_work_hours" ng-value="C.std_work_hours"  name="std_work_hours">
@@ -136,7 +139,7 @@
                                 <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.hourly_rate"  ng-value="C.hourly_rate" name="hourly_rate">
                             </td>
                             <td>
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_work_hours" ng-value="C.total_work_hours" name="total_work_hours">
+                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control psqm_"  ng-model="C.total_work_hours" ng-value="C.total_work_hours" name="total_work_hours">
                             </td>
                             <td>
                                 <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.engineering_cost" ng-value="C.engineering_cost"  name="engineering_cost">

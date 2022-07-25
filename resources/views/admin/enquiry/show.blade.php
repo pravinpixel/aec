@@ -1320,10 +1320,10 @@
                 $scope.PrecastComponent[rootKey].Components.splice(index,1);
                 if($scope.PrecastComponent[rootKey].Components.length == 0){
                     $scope.PrecastComponent.splice(rootKey,1);
-                    $timeout(function() {
-                        angular.element('.psqm_').triggerHandler('keyup');
-                    });
                 }
+                $timeout(function() {
+                    angular.element('.psqm_').triggerHandler('keyup');
+                });
                 Message('success','Precast component deleted Successfully');
             }
 
@@ -1669,14 +1669,16 @@
                     let $totalArea = 0;
                     let $totalPris = 0;
                     let $totalSum  = 0;
+                    let $totalWorkHours = 0;
 
                     scope.PrecastComponent.forEach( (row) => {
                         $totalArea += row.total_sqm;
                         $totalSum  += row.total_engineering_cost;
+                        $totalWorkHours += row.total_work_hours;
                     });
-                    scope.ResultPrecastComponent.total.totalArea = $totalArea;
+                    scope.ResultPrecastComponent.total.totalWorkHours = $totalWorkHours;
                     scope.ResultPrecastComponent.total.totalSum  = $totalSum;
-                    scope.ResultPrecastComponent.total.totalPris = $totalSum / $totalArea;
+                    // scope.ResultPrecastComponent.total.totalPris = $totalSum / $totalArea;
                     scope.ResultPrecastComponent.precastEstimate =  scope.PrecastComponent;
                     scope.$apply();
                 }
@@ -1732,6 +1734,7 @@
                 });
             }
 
+           
             $scope.moveToProject = () => {
                 $http.post(API_URL + 'proposal-move-to-project/'+{{ $data->id }}).then(function (response) {
                     $timeout(function(){
@@ -2022,14 +2025,13 @@
 
             // followup date
             $scope.updateFollow = () => {
-                if(typeof($scope.customer_response_obj.follow_up_date) == 'undefined'){
+                if($scope.customer_response_obj.follow_up_date == null || $scope.customer_response_obj.follow_up_date == ''){
                     Message('danger','Follow up date field is required');
                     return false;
                 }
                 $http.post(API_URL+'admin/update-followup', {
                     enquiry_id: enquiry_id, 
                     follow_up_date: $scope.customer_response_obj.follow_up_date,
-                    follow_up_status: $scope.customer_response_obj.follow_up_status,
                 })
                 .then((res) => {
                     Message('success', res.data.msg);
