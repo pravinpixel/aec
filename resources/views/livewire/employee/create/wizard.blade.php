@@ -1,4 +1,7 @@
 <div class="card border shadow-sm">
+	@if ($successMessage)
+		<div class="alert alert-success text-white">{{ $successMessage }}</div>
+	@endif
 	<div class="card-header p-0">
 		<ul class="nav nav-pills nav-justified form-wizard-header bg-light m-0" >
 			<li class="nav-item projectInfoForm">
@@ -58,11 +61,10 @@
 				@break
 				@case(3)
 					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
-					<button wire:click="storeSharePointAccess" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-check mdi"></i>  Save & Submit </button>
+					<button wire:click="submitForm" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-check mdi"></i>  Save & Submit </button>
 				@break  
 			@default
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
-					<button wire:click="storePersonalInformation" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-check mdi"></i> Next </button>
+					
 		@endswitch 
 	</div>
 </div>

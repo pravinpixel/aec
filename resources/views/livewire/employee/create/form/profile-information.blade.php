@@ -9,27 +9,30 @@
             <div class="my-2 col-md-6">                                             
                 <label class="form-label">Last name</label>
                 <input type="text" wire:model="last_name" class="form-control form-control-sm">
+                @error('last_name') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
         <div class="my-2 col-md-12 px-2">                                             
             <label class="form-label">Display name <sup class="text-danger">*</sup></label>
             <input type="text" wire:model="display_name" class="form-control form-control-sm">
+            @error('display_name') <span class="error">{{ $message }}</span> @enderror
         </div>
         <div class="row m-0">
             <div class="my-2 col-md-6 pe-0">                                             
                 <label class="form-label">User name <sup class="text-danger">*</sup></label>
                 <input type="text" wire:model="user_name" class="form-control form-control-sm">
+                @error('user_name') <span class="error">{{ $message }}</span> @enderror
             </div>
             <div class="my-2 col-md-6 ps-0">                                             
-                <label class="form-label ps-4">Email id</label>
+                <label class="form-label ps-4">Domains</label>
                 <div class="d-flex align-items-center">
                     <span class="mx-2">@</span>
-                    <select wire:model="email_id" class="form-select form-select-sm">
+                    <select wire:model="domains" class="form-select form-select-sm">
                         <option value="">- chooes -</option>
-                        <option value="123">aecprefab.net</option>
-                        <option value="43221">aecprefab.net</option>
+                        <option value="aecprefab.net">aecprefab.net</option>
                     </select>
                 </div>
+                @error('domains') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
         <div class="px-2 my-3">
@@ -48,14 +51,16 @@
         </div>
         <div class="my-2 col-md-12 px-2">                                             
             <label class="form-label">Email the new password to the following recipients <sup class="text-danger">*</sup></label>
-            <input type="email" class="form-control form-control-sm" value="arun.kalyan@aecprefab.net">
+            <input type="email" wire:model="email" class="form-control form-control-sm">
+            @error('email') <span class="error">{{ $message }}</span> @enderror
         </div>
     </div>
     <div class="col-md-6">
         <div class="my-2 col-md-6 ps-0">                                             
             <label class="form-label">Select location</label>
-            <select name="" id="" class="form-select form-select-sm">
-                <option value="">India</option>
+            <select wire:model="location" class="form-select form-select-sm">
+                <option value="india">India</option>
+                <option value="usa">USA</option>
             </select>
         </div>
         <div class="mb-0 border-top pt-3 mt-3">
@@ -75,8 +80,8 @@
                 data-bs-parent="#custom-accordion-one">
                 <div class="card-body pt-0">
                     <div class="form-check mb-2"> 
-                        <input type="radio" wire:model="create_password" checked class="form-check-input" id="customCheck5">
-                        <label class="form-check-label" for="customCheck5">Automatically create a password</label>
+                        <input type="radio"  checked class="form-check-input" id="customCheck5">
+                        <label class="form-check-label" for="customCheck5">Assign a user a product license</label>
                     </div>
                     <div class="form-check mb-2 ps-5">
                         <input type="checkbox" class="form-check-input" id="customCheck6">
@@ -90,15 +95,15 @@
         </div>
         <div class="my-2 col-md-12 px-2">                                             
             <label class="form-label">Job title</label>
-            <input type="text" class="form-control form-control-sm">
+            <input type="text" wire:model="job_title" class="form-control form-control-sm">
         </div>
         <div class="my-2 col-md-12 px-2">                                             
             <label class="form-label">Department</label>
-            <input type="text" class="form-control form-control-sm">
+            <input type="text" wire:model="department" class="form-control form-control-sm">
         </div>
         <div class="my-2 col-md-12 px-2">                                             
             <label class="form-label">Mobile Phone</label>
-            <input type="text" class="form-control form-control-sm">
+            <input type="text" wire:model="mobile_phone" class="form-control form-control-sm">
         </div>
     </div>
 </div>

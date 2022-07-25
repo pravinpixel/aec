@@ -78,8 +78,7 @@ class EnquiryController extends Controller
             Flash::error(__('global.access_denied'));
             return redirect(route('admin-dashboard'));
         }
-        return view('admin.enquiry.index');
-       
+        return view('admin.enquiry.index'); 
     }
 
     public function getUnattendedEnquiries(Request $request)

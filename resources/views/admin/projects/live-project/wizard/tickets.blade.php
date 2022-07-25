@@ -206,7 +206,7 @@
                             <th>ID</th>
                             <th>Requester</th>
                             <th>Title</th>
-                            <th>Assignee</th>
+                            <th>Description</th>
                             <th>Status</th>
                             <th>Due by</th>
                             <th>Priority</th>

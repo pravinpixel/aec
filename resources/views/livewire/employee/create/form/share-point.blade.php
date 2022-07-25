@@ -5,10 +5,20 @@
             <div class="ms-auto">
                 <input type="checkbox" id="share_point_status" wire:model="share_point_status" value="1" data-switch="primary"/>
                 <label for="share_point_status" data-on-label="On"  data-off-label="Off"></label>
-            </div>
+            </div> 
+        </div>
+        <div>
+            @error('share_point_status')
+                <span class="text-danger">{{ $message }}</sp>
+            @enderror
         </div>
     </div>
     <div class="col-lg-8 mx-auto">
+        @error('share_folder_name') 
+            <div class="text-center">
+                <span class="error">{{ $message }}</span> 
+            </div>
+        @enderror
         @if (!is_null($sharePointAccess))
             <table  dt-options="vm.dtOptions" class="custom table table-striped table-bordered">
                 <thead>
@@ -25,7 +35,7 @@
                             <td class="text-left">{{ $row->folder_name }}</td>
                             <td class="text-center">
                                 <div>
-                                    <input type="checkbox" value="{{ $row->id }}" id="switch__{{$file_index}}" wire:model="file_name.{{ $file_index }}" {{ $share_point_status === 0 ? 'disabled' : '' }} data-switch="primary"/>
+                                    <input type="checkbox" value="{{ $row->id }}" id="switch__{{$file_index}}" wire:model="share_folder_name.{{ $row->id }}" {{ $share_point_status === 0 ? 'disabled' : '' }} data-switch="primary"/>
                                     <label for="switch__{{$file_index}}" data-on-label="On"  data-off-label="Off"></label>
                                 </div> 
                                 <span ng-if="employee.is_active == 1" class="d-none">1</span>

@@ -23,6 +23,8 @@ class CreateConfigsTable extends Migration
             $table->string('project_number');
             $table->integer('customer_enquiry_year');
             $table->integer('customer_enquiry_number');
+            $table->string('employee_prefix')->nullable();
+            $table->string('employee_number')->nullable();
             $table->timestamps();
         });
     }
