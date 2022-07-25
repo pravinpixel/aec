@@ -410,6 +410,9 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             }
             $scope.invoicePlans.invoices.splice(-1,0, ...newRow);
             totalInvoice = $scope.project.no_of_invoice;
+            if($scope.invoicePlans.invoices.length != 0 ) {
+                $scope.invoicePlans.invoices[0].invoice_date = $scope.project.start_date;
+            }
         }
     }
 
@@ -1156,6 +1159,12 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
         restrict: 'A',
         link: function (scope, element, attrs) {
             element.on('change', function () {
+                if(invoicePlan.percentage > 100) {
+                    invoicePlan.percentage = 100;
+                } 
+                if(invoicePlan.percentage < 0) {
+                    invoicePlan.percentage = 1;
+                }
                 scope.invoicePlans.totalPercentage = 100;
                 scope.invoicePlans.totalAmount = 0;
                 let result = {};
@@ -1196,13 +1205,20 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
                 scope.$apply();
             });
             scope.$watchGroup(['project.no_of_invoice','project.project_cost'], function() {
+                let totalPercentage = 100;
                 scope.invoicePlans.invoices = scope.invoicePlans.invoices.map((invoicePlan, index) => {
+                    if(scope.project.no_of_invoice == 1) {
+                        totalPercentage = 100;
+                        invoice_date = scope.project.start_date;
+                    }else if(scope.project.no_of_invoice != index + 1) {
+                        totalPercentage -= invoicePlan.percentage;
+                    }
                     if(scope.project.no_of_invoice == index + 1) {
                         return {    
                             index: index + 1,
-                            amount: ( scope.project.project_cost / 100 ) * invoicePlan.percentage,
+                            amount: Number.parseFloat(( scope.project.project_cost / 100 ) * invoicePlan.percentage).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
-                            percentage: 100,
+                            percentage: totalPercentage,
                         };
                     }
                     return invoicePlan;

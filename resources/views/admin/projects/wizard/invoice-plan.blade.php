@@ -11,13 +11,19 @@
                     <div class="col-3"><strong>No.of Invoices</strong></div>
                     <div class=" col-9"><input type="number" class="form-control" min=0 onkeypress="return isNumber(event)"  ng-change="handleInvoiceChange()" ng-model="project.no_of_invoice" placeholder="type here.."></div>
                 </div>
-                <div class="row align-items-center mb-2 m-0">
+                <div class="row  align-items-center mb-2 m-0">
                     <div class="col-3"><strong>Project Start Date</strong></div>
-                    <div class=" col-9"><input type="date" class="form-control" ng-model="project.start_date" placeholder="type here.."></div>
+                    <div class=" col-9 position-relative">
+                        <input type="date" class="form-control" ng-model="project.start_date" placeholder="type here..">
+                        <i class="fa fa-calendar custom__date__icon" style="top: 10px;"></i>
+                    </div>
                 </div>
                 <div class="row align-items-center mb-2 m-0">
                     <div class="col-3"><strong>Project End Date</strong></div>
-                    <div class=" col-9"><input type="date" class="form-control" ng-model="project.delivery_date" placeholder="type here.."></div>
+                    <div class="col-9 position-relative">
+                        <input type="date" class="form-control" ng-model="project.delivery_date" placeholder="type here..">
+                        <i class="fa fa-calendar custom__date__icon" style="top: 10px;"></i>
+                    </div>
                 </div>
             </div>
             <div class="col-4 text-center">
@@ -37,7 +43,7 @@
             <tbody calculate-amount>
                 <tr ng-repeat="invoicePlan in invoicePlans.invoices track by $index">
                     <td class="text-center">@{{  invoicePlan.index }}</td>
-                    <td class="text-center"><input required type="date" name="invoice_date" id="" ng-model="invoicePlan.invoice_date" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
+                    <td class="text-center"><input required max="@{{ project.delivery_date }}" min="@{{ project.start_date  }}" ng-disabled="$index == 0" type="date" name="invoice_date" id="" ng-model="invoicePlan.invoice_date" class="form-control form-control-sm border-0 bg-none w-auto mx-auto"></td>
                     <td class="text-center">@{{ invoicePlan.amount }}</td>
                     <td class="text-center"><input  ng-disabled="invoicePlans.invoices.length == $index + 1" required type="number" onkeypress="return isNumber(event)" name="percentage" ng-model="invoicePlan.percentage"  class="text-center form-control percentage_ form-control-sm border-0 bg-none w-auto mx-auto"></td>
                 </tr> 
