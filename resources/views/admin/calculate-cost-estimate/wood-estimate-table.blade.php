@@ -31,8 +31,8 @@
                                 <button class="dropdown-item" ng-click="callWoodTemplate(firstIndex)"><i class="fa fa-save me-1"></i>Save as template</button> 
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-warning"><i class="fa fa-copy me-1" ng-click="cloneCostEstimate(firstIndex, CostEstimate)"></i></button>
-                        <button class="btn btn-sm btn-danger"><i class="mdi mdi-delete me-1" ng-click="deleteEngineeringEstimate(firstIndex)"></i></button>
+                        <button class="btn btn-sm btn-warning" ng-click="cloneCostEstimate(firstIndex, CostEstimate)"><i class="fa fa-copy me-1"></i></button>
+                        <button class="btn btn-sm btn-danger" ng-click="deleteEngineeringEstimate(firstIndex)"><i class="mdi mdi-delete me-1"></i></button>
                     </div>
                     
                     {{-- <div class="input-group justify-content-end">
