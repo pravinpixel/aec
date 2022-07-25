@@ -188,11 +188,11 @@
                                     ng-repeat="deliveryType in deliveryTypes">@{{ deliveryType.delivery_type_name }}</option>
                             </select>
                         </div>
-                        <div class="custom-td"> <input type="number"
+                        <div class="custom-td"> <input type="text"
                                 name="C.DesignScope" get-cost-details-total="[index]" ng-model="C.DesignScope" ng-value="C.DesignScope" onkeypress="return isNumber(event)"
                                 class="form-control  rounded-0 text-center form-control-sm">
                         </div>
-                        <div class="custom-td"> <input type="number" onkeypress="return isNumber(event)" name="Complexity" ng-value="C.Complexity"
+                        <div class="custom-td"> <input type="text" onkeypress="return isNumber(event)" name="Complexity" ng-value="C.Complexity"
                                 get-cost-details-total="[index]" ng-model="C.Complexity"
                                 class="form-control  rounded-0 text-center form-control-sm">
                         </div>
