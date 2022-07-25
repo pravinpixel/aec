@@ -31,7 +31,7 @@
             </div>
             <div class="card card-body">
                 @if($result->proposal_status == 'not_send')
-                    <div class="row">
+                    <div class="row col-md-8 mx-auto">
                         <div class="col-md-3 text-end pt-3 pe-5">
                             <h4>Proposal Action</h4>
                         </div>
