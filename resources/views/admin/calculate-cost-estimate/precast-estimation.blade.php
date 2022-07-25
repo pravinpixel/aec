@@ -6,7 +6,7 @@
                     <th colspan="3" class="text-center"><h5 class="m-0 py-1 text-white">Total Engineering Cost</h5></th>
                 </tr>
                 <tr>
-                    <th class="w-50">Total Hourly Rate</th>
+                    <th class="w-50">Total Work Hours</th>
                     <th class="w-50">Sum</th>
                 </tr>
             </thead>
