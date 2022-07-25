@@ -16,7 +16,9 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::get('live-projects/{id}',[ProjectController::class, 'live'])->name('live-projects-data');
     Route::post('live-project/sendticket/send-mail-ticket/{ticket_id}/customerid/{cid}',[ProjectController::class,'sendcustomerMail']);
     Route::post('live-project/add-comments', [TicketCommentsController::class,'store'])->name("projectticket.comments");
-    
+    Route::post('live-project/store-ticket-case', [TicketCommentsController::class, 'storeTicketCase'])->name('store-ticket-case');
+    Route::post('live-project/add-image', [TicketCommentsController::class,'add_image'])->name("projectticket.add-image");
+    Route::get('project/team/{id}/team_setup',[ProjectController::class, 'tagteamsetup'])->name('tagteamsetup');
     /*Route::get('/live-projects', function () {
         return view('admin.projects.live-project.index');
     })->name('live-projects');*/

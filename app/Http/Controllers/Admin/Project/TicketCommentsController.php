@@ -71,6 +71,31 @@ class TicketCommentsController extends Controller
         return  response(['status' => true, 'data' => 'Success', 'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
     }
 
+    public function storeTicketCase(Request $request){
+
+
+        $role_by        =   Admin()->job_role;
+        $seen_by        =   Admin()->id;
+        $result         =   $this->TicketCommentRepo->store($request, Admin()->id, $role_by,$seen_by);
+
+        //dd($result);
+        //$customer       =   $this->customerEnquiry->getEnquiryByID($result->project_ticket_id);
+        //if($result->created_by == 'Admin') {
+            //$this->customerEnquiry->updateAdminWizardStatus($customer,'response_status',1);
+       // } else {
+            //$this->customerEnquiry->updateAdminWizardStatus($customer,'response_status',2);
+       // }
+       
+
+        $title          =   'New Message From AEC - '.Admin()->id;
+        $body           =   $request->comments;
+
+        return  response(['status' => true, 'data' => 'Success', 'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
+    }
+
+
+
+
     /**
      * Display the specified resource.
      *
@@ -122,6 +147,26 @@ class TicketCommentsController extends Controller
         return $this->TicketCommentRepo->findprojectticketcomment($id, $type);
 
         
+    }
+
+    public function add_image(Request $request){
+      
+
+        $files = [];
+        if($request->hasfile('files'))
+        {
+           foreach($request->file('files') as $file)
+           {
+               $name = time().rand(1,100).'.'.$file->extension();
+               $file->move(public_path('files'), $name);  
+               $files[] =  asset('public/files/').'/'.$name;  
+           }
+        }
+
+        //dd($files);
+
+        $arr = array('name' => $files);
+        echo json_encode($arr);
     }
 
    

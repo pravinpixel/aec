@@ -71,4 +71,17 @@ class Employee extends Authenticatable
     {
         return $this->hasOne(Role::class, 'id', 'job_role');
     }
+
+    public function assigndetails()
+    {
+        return $this->hasOne(Employee::class,'id','assigned');
+    }
+
+    public function requesterdetails()
+    {
+        return $this->hasOne(Employee::class,'id','send_by');
+    }
+        
+
+
 }

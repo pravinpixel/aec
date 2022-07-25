@@ -737,9 +737,58 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
 ///ticket wizard
 
 app.controller('TicketController', function ($scope, $http, API_URL, $rootScope) {
-
-
     let project_id = $('#project_id').val();
+
+    $scope.SelectFile = function (e) {
+        // $window.alert();
+        console.log(e.target.files)
+         // $window.alert();
+         var  form_data = new FormData ();
+         var totalfiles = document.getElementById('files').files.length;
+        for (var index = 0; index < totalfiles; index++) {
+            form_data.append("files[]", document.getElementById('files').files[index]);
+        }
+   
+         $http({
+            method: 'POST',
+            url: `${API_URL}admin/live-project/add-image`,
+            data: form_data,
+            contentType: false,
+            processData: false,
+            headers: {'Content-Type': undefined},
+            }).then(function successCallback(response) {  
+            // Store response data
+            $scope.responses = response.data;
+        });
+        
+    };
+
+     $http.get(`${API_URL}admin/project/team/${project_id}/team_setup`)
+    .then((res)=> {
+        var quotations = [];
+        $scope.teamSetups =  res.data.map( (item) => {
+            //console.log(item.first_Name);
+            quotations.push(item.first_Name);
+            
+        })
+        console.log(quotations);
+        var jsonData = [];
+    
+    for(var i=0;i<quotations.length;i++) jsonData.push({id:i,name:quotations[i]});
+    var ms1 = $('#ms1').tagSuggest({
+        data: jsonData,
+        sortOrder: 'name',
+        maxDropHeight: 200,
+        name: 'ms1'
+    });
+    });
+
+
+
+  
+   // alert('ttt');
+
+   
     $scope.ticket = {};
 
 
@@ -766,9 +815,15 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         });
 
         $http.get(`${API_URL}admin/api/v2/projectticket/${project_id}`).then((res) => {
+
           
             $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
             $scope.customer = res.data.project == null ? false : res.data.project
+            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
+
+
+
+            console.log(res.data.ticketcase );
 
             
            
@@ -777,7 +832,35 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
    
 
      $scope.ticket = { projectid            : project_id,}
-   // console.log($scope.data);
+   console.log($scope.ticket);
+
+
+   
+   
+
+ 
+    $scope.submitticketForm = function(value){
+        var fd =new FormData();
+        //console.log($scope.case)
+        //console.log(fd);
+
+        var image = $('#case_image').text();
+        var project_id = $('#project_case').val();
+        
+
+        $http.post(`${API_URL}admin/live-project/store-ticket-case`, { data: $scope.case,project_id:project_id,image:image})
+        .then((res) => {
+            Message('success', 'Ticket Created Successfully');
+            if(res.data.status == true){
+                location.href = `${API_URL}admin/list-projects`;
+            }
+            console.log(res.data.status);
+            //$location.path('platform');
+        })
+        
+   
+    console.log( $scope.case);
+}
 
     $scope.submitcreatevariationForm = () => {
         $http.post(`${API_URL}admin/api/v2/live-project-ticket`, { data: $scope.ticket, type: 'create_project_ticket' })
@@ -810,6 +893,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
        
         
     }
+   
 
     $scope.sendMailToCustomerticket = function (proposal_id , Vid) { 
        
@@ -834,9 +918,12 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
             case 'viewConversations':
                 
                 $http.get(API_URL + 'admin/api/v2/live-project/show-ticket-comment/'+$scope.id+'/type/'+type ).then(function (response) {
-                    $scope.commentsData = response.data.chatHistory; 
+                    $scope.commentsData     = response.data.chatHistory; 
                     $scope.chatType         = response.data.chatType;  
-                    $('#assing-viewConversations-modal').modal('show');
+                    $scope.projectticket    = response.data.projectticket;
+                    $scope.header           = response.data.header;   
+
+                    $('#viewTicketDetails').modal('show');
                 });
                 break;
             default:
@@ -867,6 +954,68 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
             Message('danger',response.data.errors);
         });
     } 
+    $scope.ticket_type= function (value) {
+        console.log(value);
+        //var ticket_type =  $(this).val();
+        if(value == 'internal'){
+            $('.customer_variation').css("display", "none")
+            $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
+                $scope.projectManagers = res.data;
+            });
+        }else {
+            $scope.projectManagers = '';
+            $('.customer_variation').css("display", "block")
+            
+
+        }
+       
+    }
+    $scope.deleteImageBtn = false;
+
+     // ******* image show ******
+    //  $scope.SelectFile = function (e) {
+    //     alert('hello');
+    //     var reader = new FileReader();
+    //     reader.onload = function (e) {
+    //         $scope.PreviewImage = e.target.result;
+    //         $scope.deleteImageBtn = true;
+
+    //         $scope.$apply();
+    //     };
+
+    //     reader.readAsDataURL(e.target.files[0]);
+    // };
+
+
+    $scope.upload = function(){
+
+        //alert('kumar');
+ 
+        var fd = new FormData();
+        angular.forEach($scope.uploadfiles,function(file){
+          fd.append('file[]',file);
+
+          console.log(fd);
+
+        });
+
+     
+        $http({
+          method: 'POST',
+          url: `${API_URL}admin/live-project/add-image`,
+          data: fd,
+          headers: {'Content-Type': undefined},
+        }).then(function successCallback(response) {  
+          // Store response data
+          $scope.response = response.data;
+        });
+      }
+
+  
+    
+    
+
+   
 
     
 
@@ -1090,5 +1239,61 @@ app.directive('getRoleUser',function getRoleUser($http, API_URL){
         },
     };
 });
+
+
+app.directive('fileModel', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model, modelSetter;
+            comsole.log(element);
+            attrs.$observe('fileModel', function(fileModel){
+                model = $parse(attrs.fileModel);
+                modelSetter = model.assign;
+            });
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope.$parent, element[0].files[0]);
+                });
+            });
+        }
+    };
+});
+
+
+
+// app.directive('ngFile', ['$parse', function ($parse) {
+//     return {
+//      restrict: 'A',
+//      link: function(scope, element, attrs) {
+//       element.bind('change', function(){
+
+//        $parse(attrs.ngFile).assign(scope,element[0].files)
+//        scope.$apply();
+//        var fd = new FormData();
+//         fd.append('file', file);
+
+//        $http({
+//           method: 'POST',
+//           url: `${API_URL}admin/live-project/add-image`,
+//           data: fd,
+//           headers: {'Content-Type': undefined},
+//         }).then(function successCallback(response) {  
+//           // Store response data
+//           $scope.response = response.data;
+//         });
+//       });
+//      }
+//     };
+// }]);
+
+
+
+
+  
+
+
+   
 
 

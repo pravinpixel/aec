@@ -63,7 +63,7 @@
                                             <img src="{{ asset("public/assets/icons/tikets.png") }}" class="w-50 invert">
                                         </div>
                                     </div>
-                                    <p class="h5 mt-2">Tickets</p>
+                                    <p class="h5 mt-2">Issues</p>
                                 </a>
                             </li>
                          <!--   <li class="nav-item">
@@ -102,8 +102,8 @@
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/notes.png") }}" class="w-50 invert">
                                         </div>
-                                    </div>
-                                    <p class="h5 mt-2">Notes</p>
+                                    </div> 
+                                    <p class="h5 mt-2">General Notes</p>
                                 </a>
                             </li> 
                         </ul>
@@ -121,12 +121,22 @@
 @endsection
 @push('custom-styles')
     <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
+    
 @endpush
 @push('custom-scripts')
+
+
+
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/create-project.js") }}"></script> 
+    <script src="{{ asset("public/custom/js/ngControllers/admin/project/tag.js") }}"></script> 
     <script> 
+
+
+
+
+
         app.controller("LiveProjectController", function($rootScope, $scope, $location){
             $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
 
@@ -156,14 +166,16 @@
                 }
                 if($location.path() == '/tickets') {
                     $scope.PrevRoute   =   "/bim360"
-                    $scope.NextRoute   =   "/variation-orders"
+                    $scope.NextRoute   =   "/invoice-status"
+                    //$scope.NextRoute   =   "/variation-orders"
                 }
                 if($location.path() == '/variation-orders') {
                     $scope.PrevRoute   =   "/tickets"
                     $scope.NextRoute   =   "/invoice-status"
                 }
                 if($location.path() == '/invoice-status') {
-                    $scope.PrevRoute   =   "/variation-orders"
+                    //$scope.PrevRoute   =   "/variation-orders"
+                    $scope.PrevRoute   =   "/tickets"
                     $scope.NextRoute   =   "/doc-management"
                 }
                 if($location.path() == '/doc-management') {
@@ -177,6 +189,8 @@
                     $scope.SubmitRoute      =   true;
                 }
             });
+
+          
         });
 
         app.config(function($routeProvider) {
@@ -217,6 +231,9 @@
                 redirectTo: "/"
             });
         });
+
+
+    
 
 
   

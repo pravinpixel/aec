@@ -23,6 +23,7 @@ use App\Models\Project;
 use App\Models\ProjectGranttTask;
 use App\Models\ProjectType;
 use App\Models\ProjectTicket;
+use App\Models\ProjectTeamSetup;
 use Illuminate\Http\Response;
 use App\Repositories\CustomerRepository;
 use App\Repositories\DocumentTypeEnquiryRepository;
@@ -53,9 +54,11 @@ class ProjectController extends Controller
     protected $parentFolder = '';
     protected $rootFolder = '/DataBase Test';
     protected $fileDir = [];
+    protected $ProjectTeamSetup;
 
     public function __construct(
         ProjectRepository $projectRepo,
+       
         ProjectTicketRepositoryInterface $ProjectTicket,
         CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
         CustomerRepositoryInterface $customerRepo,
@@ -237,6 +240,9 @@ class ProjectController extends Controller
                 ];
 
                 foreach ($row_two['data'] as  $row_three) {
+
+                  
+
                    
                     $statuscon =  isset($row_three['status'])  ? 1 : 0;
                     $deliverydate =  isset($row_three['delivery_date'])  ? new DateTime($row_three['delivery_date']) : NULL;
@@ -258,7 +264,7 @@ class ProjectController extends Controller
             }
         } 
 
-       
+   
 
         if($request->update === true) {
 
@@ -1144,9 +1150,9 @@ class ProjectController extends Controller
 
 
         $details = [
-            'ticket_id'     =>'TIC-00'.$projectid,
-            'user_name'     => $project->customerdatails->full_name,
-            'email'    =>$project->customerdatails->email,
+            'ticket_id'         =>'TIC-00'.$projectid,
+            'user_name'         => $project->customerdatails->full_name,
+            'email'              =>$project->customerdatails->email,
             'project_name'      => $project->project_name,
             'company_name'      => $project->company_name,
             'incharge'          => 'test',
@@ -1166,6 +1172,11 @@ class ProjectController extends Controller
         
 
     }
+    public function tagteamsetup($project){
+        return $this->ProjectTicket->findprojectteam($project);
+    }
+
+   
 
 
 

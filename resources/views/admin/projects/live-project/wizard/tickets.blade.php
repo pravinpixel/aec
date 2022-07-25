@@ -1,21 +1,21 @@
-<div class="p-2">    
+<div class="p-2" >    
     <div>
         <ul class="nav nav-tabs mb-0 border-bottom-0">
-            <li class="nav-item">
+           <!-- <li class="nav-item">
                 <a href="#CustomerTicket" data-bs-toggle="tab" aria-expanded="false" class="nav-link active border-bottom-0">
                     <i class="mdi mdi-home-variant d-md-none d-block"></i>
                     <span class="d-none d-md-block">Internal Tickets</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
-                <a href="#InternalTickets" data-bs-toggle="tab" aria-expanded="true" class="nav-link  border-bottom-0">
+                <a href="#InternalTickets" data-bs-toggle="tab" aria-expanded="true" class="nav-link active  border-bottom-0">
                     <i class="mdi mdi-account-circle d-md-none d-block"></i>
                     <span class="d-none d-md-block">Customer Tickets</span>
                 </a>
             </li> 
         </ul> 
         <div class="tab-content border p-2">
-            <div class="tab-pane show active" id="CustomerTicket">
+            <div class="tab-pane " id="CustomerTicket">
                 <div class="card shadow-sm bg-light mb-0 shadow-sm border">
                     <div class="card-header border-0 pb-0 bg-light text-center">
                         <strong class="fw-bold"> Overview</strong>
@@ -116,7 +116,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane" id="InternalTickets"> 
+            <div class="tab-pane show active" id="InternalTickets"> 
                 <div class="card shadow-sm bg-light mb-0 shadow-sm border">
                     <div class="card-header border-0 pb-0 bg-light text-center">
                         <strong class="fw-bold"> Overview</strong>
@@ -166,12 +166,12 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="h4 mb-0 mt-3">Ticket Summary</h3>
+                <h3 class="h4 mb-0 mt-3">Issues Summary</h3>
                 <div class="d-flex justify-content-between border-bottom align-items-end">
                     <div>
                         <button class="fw-bold border-primary border-start-0 border-end-0 border-top-0 rounded-0 border-bottom btn btn-sm">All</button>
-                        <button class="rounded-0 border-0 btn btn-sm ms-1">Assign to me</button>
-                        <button class="rounded-0 border-0 btn btn-sm ms-1">Created by me</button>
+                        <button class="rounded-0 border-0 btn btn-sm ms-1">Internal</button>
+                        <button class="rounded-0 border-0 btn btn-sm ms-1">Customer</button>
                     </div>
                     <div class="pb-2">
                         <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Case</button>
@@ -210,19 +210,19 @@
                             <th>Status</th>
                             <th>Due by</th>
                             <th>Priority</th>
-                            <th>Created by</th>
+                            <!-- <th>Created by</th> -->
                             <th>Modifed at</th>
                             <th><i class="dripicons-menu"></i></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for ($i=0;$i<6;$i++)
-                            <tr>
-                                <td>{{ $i+1 }}</td>
-                                <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><small>PRXX / TIKXX-0{{ $i+1 }}</small></button></td>
+                       
+                            <tr ng-repeat="(ptcindex,pticketscomment) in pticketcomment">
+                                <td>@{{ ptcindex+1 }}</td>
+                                <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><small>PRXX / TIKXX-0@{{ ptcindex+1 }}</small></button></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-@{{ ptcindex+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
                                             <h5 class="m-0 font-14">
                                                 Arya Stark
@@ -230,43 +230,43 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>Mail Issue</td>
+                                <td>@{{pticketscomment.summary}}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+2 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <img src="{{ asset("public/assets/images/") }}/@{{pticketscomment.assigndetails.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
                                             <h5 class="m-0 font-14">
-                                                Gary Somya
+                                                @{{pticketscomment.assigndetails.first_Name}} 
                                             </h5>
                                         </div>
                                     </div>
                                 </td>
                                 <td><span class="badge bg-success">New</span></td>
-                                <td> <small>13/01/2021, 12:30 <br> <small class="text-secondary">(Due in 1d)</small></small></td>
-                                <td style="padding: 0 !important" class="text-center">critical <i class="fa fa-arrow-up text-danger ms-1"></i></td>
-                                <td>
+                                <td> <small>@{{ pticketscomment.ticket_date | date:"MM/dd/yyyy'T' h:mm" }}<br> <small class="text-secondary">(Due in 1d)</small></small></td>
+                                <td style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
+                               <!-- <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-@{{ ptcindex+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
                                             <h5 class="m-0 font-14">
                                                 Arya Stark
                                             </h5>
                                         </div>
                                     </div>
-                                </td>
-                                <td><small>12/01/2021, 12:30</small> </td>
+                                </td> -->
+                                <td><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm" }}</small> </td>
                                 <td style="padding: 0 !important" class="text-center">
                                     <div class="dropdown">
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewTicketDetails" href="#">View</a>
-                                            <a class="dropdown-item" href="#">Reply</a>
+                                            <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',1)">View/Reply</a>
                                             <a class="dropdown-item" href="#">Delete</a>
+                                           
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                        @endfor
+                       
                     </tbody>
                 </table>
             </div> 
@@ -275,8 +275,10 @@
 </div>  
 
 {{-- ========== Raise Ticket ========== --}}
-    <div id="rasieTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+<div id="rasieTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <form class="needs-validations"  id="createvariationForm" name="createvariationForm" ng-submit="submitticketForm()" novalidate enctype="multipart/form-data">
+            
             <div class="modal-content card m-0">
                 <div class="modal-header bg-light">
                     <div class="modal-title d-flex">
@@ -293,40 +295,67 @@
                             <div class="card text-start m-0 border" > 
                                 <div class="card-header">
                                     <h3 class="card-title m-0 h5">Add details</h3>
+                                    <input type = "hidden" id = "project_case"  name = "project_id" ng-model = "case.project_id" value= "@{{ticket.projectid}}">
                                 </div>
                                 <div class="card-body">
+                                    
+
+
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Summary</label>
-                                        <input type="text" class="form-control form-control-sm">
+                                        <input type="text" class="form-control form-control-sm" ng-model = "case.summary">
                                     </div> 
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Description</label>
-                                        <textarea class="form-control form-control-sm" cols="20" rows="5"></textarea>
+                                        <textarea class="form-control form-control-sm" cols="20" rows="5" ng-model = "case.description"></textarea>
                                     </div> 
                                     <div>
+                                        
                                         <div class="mb-3">
+                                            
                                             <label for="Attachments" class="form-label text-secondary" >Attachments</label>
-                                            <div>
-                                                <label for="Attachments" class="btn-sm btn-outline-primary btn p-1 py-0">Attach files</label>
-                                                <input id="Attachments" type="file" class="form-control form-control-sm d-none" multiple>
+                                            
+
+                                            <div class="field" align="left">
+                                               
+                                               <!-- <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" accept="image/png, image/jpeg, image/jpg" id="file" ng-model="FormData.file" name="file" multiple />-->
+
+                                                {{-- <input type='file' multiple ng-file='uploadfiles'  onchange="angular.element(this).scope().upload(event)"> --}}
+                                                {{-- <input  type="file" class="form-control file-control rounded-pill" file-model="projectFiles" id ="@{{ documentType.slug }}"/> --}}
+                                                <input type="file" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
+
+                                                <p id = "case_image"ng-model = "case.file_id" ng-show="!@{{response.name}}">@{{ response.name }}</p>
+                                                
+                                                <div class="error-msg">
+                                                    <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                            <!--<div class="card-body" ng-show="PreviewImage.length">
+                                                <div class="position-relative">
+                                                    <img ng-src="{{ asset("public/files/") }}/@{{PreviewImage}}" id="PreviewImage" ng-show="!@{{PreviewImage}}" width="100px" ng-model="FormData.image"/>
+                                                    <span
+                                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" ng-show="deleteImageBtn" ng-click="deleteImage()">
+                                                        <i class="fa fa-times"></i>
+                                                    </span>
+                                                </div> 
+                                            </div>-->
+
+
+
+                                        </div> 
+                                       
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
                                             <ol class="carousel-indicators">
                                                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
                                                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
                                                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
                                             </ol>
                                             <div class="carousel-inner" role="listbox">
-                                                <div class="carousel-item active">
-                                                    <img class="w-100" style="max-height: 180px;object-fit:cover" src="https://coderthemes.com/hyper/saas/assets/images/small/small-3.jpg" alt="First slide">
+                                                <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat="response in responses.name">
+                                                    
+                                                    <img class="w-100" style="max-height: 180px;object-fit:cover" ng-src="@{{response}}"  alt="First slide">
                                                 </div>
-                                                <div class="carousel-item">
-                                                    <img class="w-100" style="max-height: 180px;object-fit:cover" src="https://coderthemes.com/hyper/saas/assets/images/small/small-2.jpg" alt="Second slide">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img class="w-100" style="max-height: 180px;object-fit:cover" src="https://coderthemes.com/hyper/saas/assets/images/small/small-1.jpg" alt="Third slide">
-                                                </div>
+                                                
                                             </div>
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -344,31 +373,76 @@
                         <div class="col">
                             <div class="cardx">
                                 <div class="card-body">
+
+                                    <div class="mb-3">
+                                        <label for="example-select" class="form-label text-secondary">Assign Type</label>
+
+                                       
+
+
+                                        <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.type"   ng-change="ticket_type(case.type)"  >
+                                           
+                                                <option value="">Select Assign Type</option>
+                                                <option value="internal"> Internal </option>
+                                                <option value="customer"> Customer </option>
+
+                                            
+                                           
+                                        </select>
+
+
+                                        
+                                    </div>
+
+
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Assignee</label>
-                                        <select class="form-select form-select-sm shadow" id="example-select">
-                                            <option>Unassigned</option>
+
+                                       
+
+
+                                        <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.assigned">
+                                           
+                                                <option value="0">-- AEC prefab as --</option>
+                                                <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                                    @{{ projectManager.first_Name }}
+                                                </option>
+
+                                            
+                                           
                                         </select>
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label for="example-select" class="form-label text-secondary">Tag</label>
+                                        <input id="ms1" class="my-control" type="text" name="ms1"/>
+                                    </div>
+
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Priority</label>
-                                        <select class="form-select form-select-sm shadow" id="example-select">
-                                            <option>Critical</option>
-                                            <option>High</option>
-                                            <option>Medium</option>
-                                            <option>Low</option>
+                                        <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority">
+                                            <option value = "critical">Critical</option>
+                                            <option value = "high">High</option>
+                                            <option value = "medium">Medium</option>
+                                            <option value = "low">Low</option>
                                         </select>
                                     </div> 
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Due by</label>
-                                        <input type="datetime-local" class="form-control form-control-sm">
+                                        <input type="datetime-local" class="form-control form-control-sm" ng-model = "case.ticket_date">
                                     </div> 
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Requester</label>
-                                        <select class="form-select form-select-sm shadow" id="example-select">
-                                            <option>Alex</option>
-                                            <option>Mark</option>
-                                        </select>
+                                       
+                                        <label for="example-select" class="form-label text-secondary">Requester</label><Br>
+                                        <span>{{Auth::user()->first_Name}}</span>
+                                        <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by">{{Auth::user()->id}}</label>
+                                    </div> 
+
+                                    <div class="mb-3 customer_variation" style="display: none;" >
+                                        <input class="form-check-input" type="checkbox" ng-model = "case.variation" id="check1" name="option1" value="something" checked>
+                                        <label for="example-select" class="form-label text-secondary">Converted Variation Order</label>
+
+                                        
                                     </div> 
                                 </div>
                             </div>
@@ -377,10 +451,11 @@
                 </div> 
                 <div class="modal-footer border-top text-end">
                     <button class="btn btn-light shadow-sm border btn-sm">Discard</button>
-                    <button class="btn btn-info btn-sm">Submit</button>
+                    <button class="btn btn-info btn-sm" onclick >Submit</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+         </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
     </div>
 {{-- ========== Raise Ticket ========== --}}
 
@@ -392,7 +467,7 @@
                     <div class="modal-title d-flex">
                         <i class="fa fa-thumb-tack f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
                         <div>
-                            <h4 class="m-0">PRO/2022/001  |  <span class="text-secondary f-14 fw-bold">  Kyle Odom </span></h4> 
+                            <h4 class="m-0">@{{projectticket.reference_number}}  |  <span class="text-secondary f-14 fw-bold">  @{{projectticket.project_name}} </span></h4> 
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
@@ -403,10 +478,10 @@
                             <div class="card text-start m-0 border" > 
                                 <div class="card-body">
                                     <div class="d-flex align-items-start">
-                                        <img src="{{ asset('public/assets/images/users/avatar-10.jpg') }}" class="me-2 rounded-circle" height="30" alt="Rhonda D">
+                                        <img src="{{ asset('public/assets/images/') }}/@{{header.image}}" class="me-2 rounded-circle" height="30" alt="Rhonda D">
                                         <div class="w-100 overflow-hidden">
                                             <h5 class="mt-0 mb-0 font-14">
-                                                Rhonda D
+                                               @{{header.username}}
                                             </h5>
                                             <p class="mt-1 mb-0 text-muted font-14">
                                                 <span class="w-75">3 hours ago (Fri, 8 Jul 2022 at 10:08 AM)</span>
@@ -506,7 +581,7 @@
                                         <label for="example-select" class="form-label text-secondary">Tiket ID</label>
                                         <div class="form-control shadow"> 
                                             <a href="#" class="fw-bold">
-                                                <u>PRXX/TIKXX-01</u>
+                                                <u>PRXX/TIKXX-@{{header.ticketid}}</u>
                                             </a> 
                                         </div>
                                     </div>

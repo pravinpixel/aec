@@ -62,6 +62,7 @@ app.directive('viewlist', function(API_URL, $http, $route, $templateCache) {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var model, modelSetter;
+            comsole.log(element);
             attrs.$observe('fileModel', function(fileModel){
                 model = $parse(attrs.fileModel);
                 modelSetter = model.assign;
@@ -264,6 +265,20 @@ app.directive('openComment', function (API_URL, $http) {
         }
     };
 });
+
+
+app.directive('ngFile', ['$parse', function ($parse) {
+    return {
+     restrict: 'A',
+     link: function(scope, element, attrs) {
+      element.bind('change', function(){
+        console.log(element);
+       $parse(attrs.ngFile).assign(scope,element[0].files)
+       scope.$apply();
+      });
+     }
+    };
+   }]);
 
 // app.directive('myEnter', function () {
 //     return function (scope, element, attrs) {

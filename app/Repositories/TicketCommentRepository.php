@@ -8,14 +8,15 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class TicketCommentRepository implements TicketCommentRepositoryInterface {
+class TicketCommentRepository implements TicketCommentRepositoryInterface
+{
     protected $model;
     protected $projectModel;
 
     public function __construct(
         TicketComments $TicketComments,
         Project $projectModel
-        ){
+    ) {
         $this->model = $TicketComments;
         $this->Project   = $projectModel;
     }
@@ -27,10 +28,9 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface {
 
     public function create(array $data)
     {
-      
+
 
         return $this->model->create($data);
-    
     }
 
     public function update(array $data, $id)
@@ -53,17 +53,46 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface {
         }
         return $ProjectTicket;
     }
-    
+
     public function get($request)
     {
-        return $this->model->where('is_active',1)->get();
+        return $this->model->where('is_active', 1)->get();
     }
-   
 
-    public function findprojectticketcomment($id,$type)
+
+    public function findprojectticketcomment($id, $type)
     {
+        $ticketcomments = $this->model->find($id);
+       
+        if($ticketcomments->type == 'internal'){
+            $assigndetails = $this->model->with('assigndetails')->find($id);
+            $requesterdetails = $this->model->with('requesterdetails')->find($id);
 
-        $result["chatHistory"] = $this->model->where(["project_ticket_id"=> $id, "type"=>  $type])->oldest()->get();
+            //dd($assigndetails);
+
+            $header = array('username' => $assigndetails->assigndetails->first_Name,
+                            'image'     => $assigndetails->assigndetails->image,
+                            'email'     => $requesterdetails->assigndetails->email,
+                            'ticketid' => $ticketcomments->id,
+                            'priority' => $ticketcomments->priority,
+                            'status'    => $ticketcomments->status,
+                        );
+
+        }else{
+            $requesterdetails = $this->model->with('requesterdetails')->find($id);
+            $assigndetails = $this->model->with('assigndetails')->find($id);
+
+            $header = array('username' => $requesterdetails->requesterdetails->first_Name,
+                            'image'     => $requesterdetails->requesterdetails->image,
+                            'email'     => $assigndetails->assigndetails->email,
+                            'ticketid' => $ticketcomments->id,
+                            'priority' => $ticketcomments->priority,
+                            'status'    => $ticketcomments->status,);
+        }
+
+        $result['projectticket'] = $this->Project->find($ticketcomments->project_id);
+        $result['header'] = $header;
+        $result["chatHistory"] = $this->model->where(["project_ticket_id" => $id, "type" =>  $type])->oldest()->get();
         $ids = $result["chatHistory"]->pluck('id');
         $this->updateStatus($ids, $type);
         $result["chatType"] =   $type;
@@ -75,15 +104,15 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface {
     {
         list($seenBy, $created_by) = $this->getUser();
         return $this->model->whereIn('id', $ids)
-                            ->where('created_by', $created_by)
-                            ->update(['status' => $status,  'seen_by' => $seenBy]);
+            ->where('created_by', $created_by)
+            ->update(['status' => $status,  'seen_by' => $seenBy]);
     }
 
 
     public function getUser()
     {
-        if(!empty(Customer()->id)){
-            $seenBy = Customer()->id ;
+        if (!empty(Customer()->id)) {
+            $seenBy = Customer()->id;
             $created_by = 'Admin';
         } else {
             $seenBy =  Admin()->id;
@@ -91,24 +120,36 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface {
         }
         return [$seenBy, $created_by];
     }
-    
-    public function store(Request $request, $created_by, $role_by,$seen_by){
+
+    public function store(Request $request, $created_by, $role_by, $seen_by)
+    {
+
+        //dd($request->project_id);
+
+        if (!empty(Customer()->id)) {
+            $send_by = Customer()->id;
+            $created_by = 'Admin';
+        } else {
+            $send_by =  Admin()->id;
+            $created_by = 'Customer';
+        }
+        //dd( $request->project_id);
         $comments = $this->model->create([
-            "comments"      => $request->comments,
-            "project_ticket_id"    => $request->project_ticket_id,
-            "file_id"       => $request->file_id ?? "",
-            "type"          => $request->type,
+            "project_id"    => $request->project_id,
+            "type"          => $request->data['type'],
+            "summary"       => $request->data['summary'],
+            "file_id"       => $request->image ?? " ",
+            "description"   => $request->data['description'],
+            "priority"      => $request->data['priority'],
+            "assigned"      => $request->data['assigned'],
             "created_by"    => $created_by,
             "role_by"       => $role_by,
             "seen_by"       => $seen_by,
-            "send_by"       => $request->send_by,
+            "send_by"       => $send_by,
             "status"        => 0,
         ]);
 
-        return $comments; 
+        return $comments;
     }
-
-      
-    
     
 }
