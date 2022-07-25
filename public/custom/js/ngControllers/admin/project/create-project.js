@@ -1246,7 +1246,6 @@ app.directive('fileModel', function ($parse) {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var model, modelSetter;
-            comsole.log(element);
             attrs.$observe('fileModel', function(fileModel){
                 model = $parse(attrs.fileModel);
                 modelSetter = model.assign;

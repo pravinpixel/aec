@@ -62,7 +62,6 @@ app.directive('viewlist', function(API_URL, $http, $route, $templateCache) {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var model, modelSetter;
-            comsole.log(element);
             attrs.$observe('fileModel', function(fileModel){
                 model = $parse(attrs.fileModel);
                 modelSetter = model.assign;
