@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Employee;
 
-use App\Models\admin\Employees;
+use App\Models\Admin\Employees;
 use Livewire\Component;
 
 class Datatable extends Component

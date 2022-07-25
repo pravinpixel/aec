@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Employee\Create;
 
-use App\Models\admin\Employees;
+use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
