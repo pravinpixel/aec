@@ -261,7 +261,11 @@
                     .then(function successCallback(res){
                         $scope.historyStatus    =   false;
                         $("#technical_estimate_histories").html('');
-                        res.data.length && res.data.map((item, key) => {
+                        if(res.data.length == 0) {
+                            Message('danger', 'Data not found');
+                            return false;
+                        }
+                        res.data.map((item, key) => {
                             $("#technical_estimate_histories").append(`
                                 <div class="card  p-2 border shadow-sm m-2">
                                     <div id="headingTableHistory${key+1}">

@@ -374,6 +374,10 @@
             $scope.getHistory       = (type)  => {
                 $http.get(`${API_URL}technical-estimate/get-history/${$scope.enquiry_id}`)
                     .then(function successCallback(res){
+                        if(res.data.length == 0) {
+                            Message('danger', 'Data not found');
+                            return false;
+                        }
                         $scope.historyStatus    =   false;
                         $("#technical_estimate_histories").html('');
                         res.data.length && res.data.map((item, key) => {
@@ -863,6 +867,10 @@
                 $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                 .then((res) => {
                     var currentTabelHistory   =   ''
+                    if(res.data.length == 0) {
+                        Message('danger', 'Data not found');
+                        return false;
+                    }
                     res.data.forEach((item,i) => {
                         currentTabelHistory += item.history  
                     })
@@ -919,9 +927,14 @@
             $scope.getHistory       = (type)  => {
                 $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                     .then(function successCallback(res){
+                        if(res.data.length == 0) {
+                            Message('danger', 'Data not found');
+                            return false;
+                        }
                         $scope.historyStatus    =   false
                         var costId              =   $(`#${type}_id`);
                         $(costId).html('');
+                     
                         res.data.length && res.data.map((item, key) => {
                             $(costId).append(`
                                 <div class="card  p-2 border shadow-sm m-2">

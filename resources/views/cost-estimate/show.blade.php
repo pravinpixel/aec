@@ -240,6 +240,10 @@
                 $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                 .then((res) => {
                     var currentTabelHistory   =   ''
+                    if(res.data.length == 0) {
+                        Message('danger', 'Data not found');
+                        return false;
+                    }
                     res.data.forEach((item,i) => {
                         currentTabelHistory += item.history  
                     })
