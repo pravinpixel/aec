@@ -24,7 +24,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Enquiry;
-use App\Models\EnquiryComments;
 use App\Repositories\AutoDeskRepository;
 use Exception;
 use Illuminate\Support\Facades\Config as FacadesConfig;
@@ -66,7 +65,7 @@ class EnquiryController extends Controller
     public function myEnquiries() 
     {
         $data['new_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'In-Complete'])->get();
-        $data['active_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'Submitted'])->get();
+        $data['active_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'Active'])->get();
         $data['complete_enquiries']   =   Enquiry::where(["customer_id"=> Customer()->id, 'status' => 'Completed'])->get();
         return view('customer.enquiry.index',compact('data',  $data )); 
     }
@@ -98,19 +97,21 @@ class EnquiryController extends Controller
 
     public function myEnquiriesApprove($type , $id)
     {
-        $result =   Enquiry::find($id)->first();
-        $getProposal = MailTemplate::where('enquiry_id', $id)->latest()->first();
+        $result =   Enquiry::find($id)->with(['getProposal'=> function($q){
+            $q->where(['status' => 'sent'])->latest()->first();
+        }])->first();
         if($result->project_status != 'Unattended') {
             return 'Proposal already Approved !';
-        } 
-        $proposal_id        =   $getProposal->proposal_id;
+        }
+        $proposal_id        =   $result->getProposal[0]->proposal_id;
         if($type == 'preview') {
+        
             $proposal           =   MailTemplate::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
             $proposal_version   =   PropoalVersions::where('proposal_id','=',$proposal_id)->where(['status' => 'sent'])->latest()->first();
             if(empty($proposal_version)) {
                 return $proposal;
             }
-            if($proposal_version->updated_at >= $proposal->updated_at){
+            if($proposal_version->updated_at > $proposal->updated_at){
                 return $proposal_version;
             } 
             if($proposal_version->updated_at < $proposal->updated_at){
@@ -128,7 +129,7 @@ class EnquiryController extends Controller
                                                     ->update(['is_active' => 0]);                        
             return 'Proposal to be Approved !';
         }
-        if($type == 'denie' || $type == 'deny' ) {
+        if($type == 'denie') {
             $result =   Enquiry::find($id);
             $result ->  project_status = 'Unattended';
             $result ->  customer_response = 2;
@@ -188,7 +189,7 @@ class EnquiryController extends Controller
         $customer_enquiry_number = $this->getEnquiryNumber();
         $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
         if($type == 'project_info') {
-            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'company_name'=>  $customer->company_name, 'initiate_from' => 'customer','enquiry_number' => 'Draft']);
+            $array_merge = array_merge($data, ['enquiry_date' => Carbon::now(),'initiate_from' => 'customer','enquiry_number' => 'Draft']);
             $res = $this->customerEnquiryRepo->createCustomerEnquiryProjectInfo($customer_enquiry_number, $customer, $array_merge);
             $enquiry = $this->customerEnquiryRepo->getEnquiryByCustomerEnquiryNo($customer_enquiry_number);
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
@@ -242,7 +243,7 @@ class EnquiryController extends Controller
             return response($result);
         } else if($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
-            if($status == 'Submitted') {
+            if($status == 'Active') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
                 return response(['status' => true, 'msg' => 'submitted']);
             }
@@ -266,16 +267,10 @@ class EnquiryController extends Controller
 
     public function storeIfcLink($request, $enquiry)
     {
-        $prefix    = 'https://';
-        $url      = $request->input('link');
-        $view_type = $request->input('view_type');
-        if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
-            $link = $url;
-        } else {
-            $link =  $prefix.$url;
-        }
+        $view_type =  $request->input('view_type');
+        $link =  $request->input('link');
         $documents =  $this->documentTypeRepo->findBySlug($view_type);
-        $additionalData = ['date'=> now(), 'file_name' => $link, 'client_file_name' => $link, 'file_type' => 'link' , 'status' => 'Completed'];
+        $additionalData = ['date'=> now(), 'file_name' => $link, 'client_file_name' => $link, 'file_type' => 'link' , 'status' => 'In progress'];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
         return $enquiry->id;
     }
@@ -302,8 +297,7 @@ class EnquiryController extends Controller
         $original_name      =   $request->file('file')->getClientOriginalName();
         $extension          =   $request->file('file')->getClientOriginalExtension();
         $documents          =   $this->documentTypeRepo->findBySlug($view_type);
-        $status = !in_array($extension,config('global.autodesk_upload_file_type')) ? 'Completed' :   'In progress';
-        $additionalData     =   ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name,'file_type' => $extension , 'status' => $status];
+        $additionalData     =   ['date'=> now(), 'file_name' => $path, 'client_file_name' => $original_name,'file_type' => $extension , 'status' => 'In progress'];
         $this->customerEnquiryRepo->createEnquiryDocuments($enquiry, $documents, $additionalData);
         $autoDesk = new  AutodeskForgeController(new  AutoDeskRepository);
         $autoDesk->uploadfile($path, $enquiry, $request);
@@ -336,7 +330,6 @@ class EnquiryController extends Controller
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         if($type == 'project_info') {
             $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'project_info');
-            $data['company_name'] = $customer->company_name;
             return $this->customerEnquiryRepo->updateEnquiry($id, $data);
         } else if($type == 'services') {
             $services = $this->serviceRepo->find($data)->pluck('id');
@@ -388,7 +381,7 @@ class EnquiryController extends Controller
             return response($result);
         } else if($type == 'save_or_submit') {
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
-            if($status == 'Submitted') {
+            if($status == 'Active') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
                 return response(['status' => true, 'msg' => 'submitted']);
             }
@@ -428,8 +421,6 @@ class EnquiryController extends Controller
         } else if($type == 'additional_info') {
             $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         }
-        $result['active_tabs'] = $this->getActiveTabs($enquiry);
-        $result["enquiry_active_comments"] = $this->enquiryCommentsRepo->getActiveCommentsCountByType($enquiry->id)->pluck('comments_count', 'type');
         return $result;
     }
 
@@ -524,9 +515,6 @@ class EnquiryController extends Controller
     public function delete($id)
     {
         $this->customerEnquiryRepo->delete($id);
-        if(request()->ajax()){
-            return response(['status'=> true, 'msg'=> __('global.deleted')]);
-        }
         Flash::success(__('global.deleted'));
         return redirect()->route('customers-my-enquiries');
     }
@@ -564,7 +552,6 @@ class EnquiryController extends Controller
         $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent( $enquiry);
         $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
         $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
-        $result['active_tabs'] = $this->getActiveTabs($enquiry);
         return  $result;
     }
 
@@ -580,7 +567,6 @@ class EnquiryController extends Controller
         $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
         $result["enquiry_comments"] = $this->enquiryCommentsRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
         $result["enquiry_active_comments"] = $this->enquiryCommentsRepo->getActiveCommentsCountByType($id)->pluck('comments_count', 'type');
-        $result['active_tabs'] = $this->getActiveTabs($enquiry);
         return  $result;
     }
 
@@ -686,14 +672,12 @@ class EnquiryController extends Controller
                             ->when($projetType, function($q) use($projetType){
                                 $q->where('project_type_id', $projetType);
                             })
-                            ->where(['status' => 'Submitted' , 'customer_id' => Customer()->id]);
+                            ->where(['status' => 'Active' , 'customer_id' => Customer()->id]);
                             
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
-                $proposal_active_border = $dataDb->proposal_sharing_status == 1 ? 'border-success': 'border-primary';
-                $proposal_active_bg = $dataDb->proposal_sharing_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten text-primary';
-                $data = '<button type="button" class="badge '.$proposal_active_bg.' btn p-2 position-relative '.$proposal_active_border.'"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                $data = '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
                     <b>'. $dataDb->enquiry_number .'</b>';
                 if($commentCount != 0){
                     $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$commentCount.' </span>'; 
@@ -705,16 +689,7 @@ class EnquiryController extends Controller
                 return $dataDb->projectType->project_type_name ?? '';
             })
             ->editColumn('status', function($dataDb){
-                if($dataDb->response_status == 0){
-                    $status = '<small class="px-1 bg-info text-white rounded-pill text-center">Submitted</small>';
-                }
-                if($dataDb->response_status == 1){
-                    $status = '<small class="px-1 bg-warning text-white rounded-pill text-center">Awaiting Response</small>';
-                }
-                if($dataDb->response_status == 2){
-                    $status = '<small class="px-1 bg-success text-white rounded-pill text-center">Responded</small>';
-                }
-                return $status;
+                return '<small class="px-1 bg-success text-white rounded-pill text-center">'.$dataDb->status.'</small>';
             })
     
             ->editColumn('enquiry_date', function($dataDb) {
@@ -724,8 +699,10 @@ class EnquiryController extends Controller
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group">
                 <button ng-click=getEnquiry("project_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->project_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
-                <a target="_blank" href="'.route("proposal.index",$dataDb->id) .'" class="btn progress-btn '.($dataDb->proposal_sharing_status == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Received"></a>
-                <button  class="btn progress-btn '.($dataDb->project_status == "Active" ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Proposal Approved"></button> 
+                <button ng-click=getEnquiry("service",'.$dataDb->id.') class="btn progress-btn '.($dataDb->service == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Services"></button> 
+                <button ng-click=getEnquiry("ifc_model",'.$dataDb->id.') class="btn progress-btn '.($dataDb->ifc_model_upload == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="IFC Model and Uploads"></button> 
+                <button ng-click=getEnquiry("building_component",'.$dataDb->id.') class="btn progress-btn '.($dataDb->building_component == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Building Component"></button> 
+                <button ng-click=getEnquiry("additional_info",'.$dataDb->id.') class="btn progress-btn '.($dataDb->additional_info == 1 ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Additional Information"></button>
                 </div>';
             })
             ->addColumn('action', function($dataDb){
@@ -735,12 +712,14 @@ class EnquiryController extends Controller
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="'.route("customers.edit-enquiry",[$dataDb->id,'active']) .'">'.trans('enquiry.view_edit').'</a>
-                                <a class="dropdown-item" target="_blank" href="'.route("proposal.index",$dataDb->id) .'">'.trans('enquiry.view_proposal').'</a>
+                                <a class="dropdown-item" href="" ng-click=getPropodsals('.$dataDb->id.')>'.trans('enquiry.approve_or_denied').'</a>
                                 <a type="button" class="dropdown-item delete-modal" data-header-title="Close Enquiry" data-title="'.trans('enquiry.popup_move_to_cancel', ['enquiry_no' => $dataDb->enquiry_number]).'" data-action="'.route('customers.move-to-cancel',[$dataDb->id]).'" data-method="POST" data-bs-toggle="modal" data-bs-target="#primary-header-modal">'.trans('enquiry.cancel_enquiry').'</a>
                             </div>
                         </div>';
-                        
-                return $actions;
+                if($dataDb->customer_response != 1){
+                    return $actions;
+                }
+                return '';
             })
             ->rawColumns(['action', 'pipeline','enquiry_number','status'])
             ->make(true);
@@ -814,25 +793,6 @@ class EnquiryController extends Controller
         }
     }
 
-    public function getActiveCommentsCount(Request $request)
-    {
-        $customerId = Customer()->id;
-        $comments = DB::select("
-            select sum(c.total) as count  from (
-                select count(*) as total from aec_enquiry_comments 
-                                where  (status = 0 AND created_by = 'Admin') AND enquiry_id in (select id from aec_enquiries where customer_id = {$customerId})
-                union 
-                select count(*) as total from aec_enquiry_proposal 
-                                where status = 'sent' AND enquiry_id in (select id from aec_enquiries where customer_id = {$customerId})
-                union 
-                
-                select count(*) as total from aec_propoal_versions 
-                                where status = 'sent' AND enquiry_id in (select id from aec_enquiries where customer_id = {$customerId})
-            ) as c
-        ")[0];
-        return $comments;
-    }
-
     public function moveToCancel($id)
     {
         $status = $this->customerEnquiryRepo->moveToCancel($id);
@@ -856,23 +816,5 @@ class EnquiryController extends Controller
         $document = $this->documentTypeEnquiryRepo->getDocumentById($id);
         $documentPath =  $url = asset('public/uploads/'.$document->file_name);
         return view('customer.enquiry.document-view', compact('documentPath'));
-    }
-
-    public function getActiveTabs(Enquiry $enquiry)
-    {
-          return  [
-            'project_info'       => $enquiry->project_info ?? false,
-            'service'            => $enquiry->service ?? false,
-            'ifc_model_upload'   => $enquiry->ifc_model_upload ?? false,
-            'building_component' => $enquiry->building_component ?? false,
-            'additional_info'    => $enquiry->additional_info ?? false
-        ];
-    }
-
-    public function getDocumentModal(Request $request)
-    {
-        $url = asset('public/uploads/'.$request->input('url'));
-        $file = file_get_contents(asset($url));
-        return base64_encode($file);
     }
 }

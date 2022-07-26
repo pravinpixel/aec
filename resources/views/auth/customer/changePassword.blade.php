@@ -5,14 +5,14 @@
     <div class="content-page">
         <div class="content">
 
-            @include('customer.includes.top-bar')
+            @include('customer.layouts.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 
-                @include('customer.includes.page-navigater')
+                @include('customer.layouts.page-navigater')
 
                 <div class="card ">
               

@@ -118,7 +118,7 @@
 											<h5>Total Enquiries: 125</h5>
 										</div>
 										<div dir="ltr">
-											<div id="revenue-chart" class="apex-charts mt-3" data-currentMonth="12,30,23,45" data-colors="#163269,#0acf97"></div>
+											<div id="revenue-chart" class="apex-charts mt-3" data-currentMonth="12,30,23,45" data-colors="#727cf5,#0acf97"></div>
 										</div>
 									</div> <!-- end card-body-->
 								</div> <!-- end card--> 
@@ -268,7 +268,7 @@
 								   <div class="card-body">
 									   <h4 class="header-title">Mothly Sales Reports</h4>
 									   <div dir="ltr">
-										   <div id="distributed-column" class="apex-charts" data-colors="#163269,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
+										   <div id="distributed-column" class="apex-charts" data-colors="#727cf5,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
 									   </div>
 								   </div>
 							   </div> <!-- end card-->
@@ -408,7 +408,7 @@
 				this.$body = o("body"), this.charts = []
 			}
 			e.prototype.initCharts = function () { 
-				var e = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"],
+				var e = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"],
 					t = o("#revenue-chart").data("colors");
 					t && (e = t.split(","));
 			 
@@ -465,7 +465,7 @@
 					}
 				};
 				new ApexCharts(document.querySelector("#revenue-chart"), r).render();
-				e = ["#163269", "#e3eaef"];  
+				e = ["#727cf5", "#e3eaef"];  
 			},e.prototype.init = function () {
 
 				o("#dash-daterange").daterangepicker({

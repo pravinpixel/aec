@@ -51,9 +51,9 @@ thead, tbody, tfoot, tr, td, th {
 .accordion-body .table tbody tr:nth-child(1)  .form-control-sm,.form-select-sm {
     padding-top:  13px !important
 }
-/* .accordion-body .table tbody tr td {
+.accordion-body .table tbody tr td {
     padding:  0 10px 5px 0  !important
-} */
+}
 .accordion-body .table tbody tr td .form-select,.form-control,.input-group-text  {
     line-height: 1.2 !important
 } 
@@ -225,17 +225,4 @@ thead, tbody, tfoot, tr, td, th {
     visibility: hidden;
   }
 
-.tab__comment__active {
-    text-decoration: underline;
-    color: black !important;
-}
-
-.swal2-styled.swal2-confirm {
-    border: 0;
-    border-radius: 0.25em;
-    background: initial;
-    background-color: #4199fc !important;
-    color: #fff;
-    font-size: 1em;
-}
  

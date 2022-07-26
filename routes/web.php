@@ -9,11 +9,6 @@ include 'bim.php';
 include 'autodesk.php';
 include 'project.php';
 include 'sharepoint.php';
-include 'template.php';
-include 'cost_estimate.php';
-include 'technical_estimate.php';
-include 'live-project.php';
-include 'employee.php';
 
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -31,10 +26,9 @@ use App\Http\Controllers\Admin\Master\ServiceController;
 use App\Http\Controllers\Admin\Documentary\DocumentaryController;
 use App\Http\Controllers\Admin\Master\RoleController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\AuthCustomerController;
 use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\PushNotificationController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
+
 
 
 /*
@@ -126,14 +120,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
  
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
-    Route::get('customer/inactive-datatable', [CustomerController::class, 'inActiveDatatable'])->name('customer.inactive-datatable');
-    Route::get('customer/active-datatable', [CustomerController::class, 'activeDatatable'])->name('customer.active-datatable');
-    Route::get('customer/cancel-datatable', [CustomerController::class, 'cancelDatatable'])->name('customer.cancel-datatable');
-    Route::put('customer/{id}/status', [CustomerController::class, 'status'])->name('customer.status');
-    Route::put('customer/{id}/activate', [CustomerController::class, 'activate'])->name('customer.activate');
-    Route::resource('customer', CustomerController::class);
-});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
 
@@ -144,7 +130,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('get-editEmployee/{id}', [EmployeeController::class, 'getEditEmployee'])->name('get-editEmployee');
     Route::delete('employee-delete/{id}', [EmployeeController::class, 'employeeDelete'])->name('employee-delete');
     Route::get('get-employee-by-slug/{name}', [RoleController::class,'getRoleBySlug'])->name('get-employee-by-slug');
-    Route::get('get-role-user/{id}',[RoleController::class,'getUserByRoleId'])->name('get-role-user');
     Route::get('employee-role', [EmployeeController::class, 'employeeRole'])->name('employee-role');
     
     Route::get('add-employee', [EmployeeController::class, 'employee_add'])->name('employee-add');
@@ -207,11 +192,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 });
  
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'admin'], function(){ 
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){ 
     
     Route::get('getEnquiryNumber', [EnquiryController::class,'getEnquiryNumber'])->name('getEnquiryNumber');
     Route::resource('customer', CustomerController::class);
     Route::get('enquiry/get-number', [EnquiryController::class,'getEnquiryNumber'])->name('enquiry.get-number');
+    Route::post('costEstimationSingleForm', [CostEstimationController::class,'costEstimationSingleForm'])->name('costEstimationSingleForm');
+    Route::get('costEstimationEdit', [CostEstimationController::class,'costEstimationEdit'])->name('costEstimationEdit');
+    Route::get('estimate/list', [CostEstimationController::class, 'getEstimate'])->name('estimate.list');
+    Route::get('costEstimationDelete', [CostEstimationController::class,'costEstimationDelete'])->name('costEstimationDelete');
     Route::resource('enquiry', EnquiryController::class);
     Route::get('deleteRowData', [CostEstimationController::class,'deleteRowData'])->name('deleteRowData');
     Route::get('masterCalculation', [CostEstimationController::class, 'masterCalculation'])->name('masterCalculation');
@@ -230,31 +219,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'admin'], fu
 });
 
 
-Route::get('admin/calculate-cost-estimation', function () {
-    return view('admin.calculate-cost-estimate.calculation');
-})->middleware('common')->name('enquiry.calculate-cost-estimation');
-
-//Calculator
-Route::group(['prefix' => 'admin/calculate-cost-estimate', 'as' => 'admin.calculate-cost-estimate.', 'middleware'=> 'common'], function(){
-    Route::post('costEstimationSingleForm', [CostEstimationController::class,'costEstimationSingleForm'])->name('costEstimationSingleForm');
-    Route::get('costEstimationEdit', [CostEstimationController::class,'costEstimationEdit'])->name('costEstimationEdit');
-    Route::get('estimate/list', [CostEstimationController::class, 'getEstimate'])->name('estimate.list');
-    Route::get('costEstimationDelete', [CostEstimationController::class,'costEstimationDelete'])->name('costEstimationDelete');
-
-    Route::get('/{type}/list', [CostEstimationController::class, 'index'])->name('list');
-    Route::post('store', [CostEstimationController::class,'store'])->name('store');
-    Route::post('update/{id}', [CostEstimationController::class,'update'])->name('update');
-    // Route::get('edit', [CostEstimationController::class,'edit'])->name('edit');
-    Route::post('delete/{id}/{type}', [CostEstimationController::class,'delete'])->name('delete');
-});
-
 /** ===== Start : Customers Routes ======*/
 
 Route::get('/customers', function () {return redirect(route('login'));});
 Route::get('/customer', function () {return redirect(route('login'));});
 Route::get('customers/change-password',[ AuthController::class, 'changePasswordGet'])->name('customer.changePassword');
 Route::post('customers/change-password',[ AuthController::class, 'changePasswordPost'])->name('customer.changePassword');
-Route::post('customer/deactivate-account',[AuthController::class,'deactivateAccount'])->name('customer.deactivate-account');
+
 /** ===== End : Customers Routes ======*/
 /**
  * admin route
@@ -278,19 +249,6 @@ Route::post('save-admin-token', [PushNotificationController::class,'storeAdminTo
 Route::get('login',[AuthController::class, 'getLogin'])->name('login');
 Route::post('login',[AuthController::class, 'postLogin'])->name('login');
 Route::post('logout',[AuthController::class, 'Logout'])->name('logout');
-Route::get('signup',[AuthCustomerController::class, 'getSignUp'])->name('signup');
-Route::post('signup',[AuthCustomerController::class, 'postSignUp'])->name('signup');
-Route::get('company-info/{id}',[AuthCustomerController::class, 'companyInfo'])->name('company-info');
-Route::post('company-info/{id}',[AuthCustomerController::class, 'StoreCompanyInfo'])->name('company-info');
-
-// forgot password 
-
-Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forgot.password.get');
-Route::post('forgot-password', [ForgotPasswordController::class, 'submitForgotPasswordForm'])->name('forgot.password.post'); 
-Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
-Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-
-
 
 
 

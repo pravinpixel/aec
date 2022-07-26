@@ -5,7 +5,7 @@
         <li class="nav-item Project_Info">
             <a href="#!/project-summary" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
-                    <div class="inner-circle @{{ project_summary_status == 'Submitted' ? 'bg-primary' :'bg-secondary' }}">
+                    <div class="inner-circle @{{ project_summary_status == 'Active' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                 <div class="timeline-content">
                     <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
-                    </div> 
+                    </div>
                 </div>
                 <p class="h5 mt-2">Technical Estimate</p>
             </a>
@@ -68,13 +68,13 @@
                 <div class="card shadow-none p-0 m-0">
                     <div class="card-header pb-0 border-0">
                         <div class="card-header pb-2 p-3 text-center border-0">
-                            <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.enquiry.contact_person }}</span></h4>
+                            <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
                         </div>
                         <div class="card-body ps-0 pt-0 p-0">
                             <table class="table custom shadow-none border m-0 table-bordered ">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th>Enquiry Received Date</th>
+                                        <th>Enquiry Date</th>
                                         <th>Person Contact</th>
                                         <th>Type of Project</th>
                                         <th>Enquiry Status</th>
@@ -83,7 +83,7 @@
                                 <tbody>
                                     <tr>
                                         <td>@{{ enquiry.enquiry.enquiry_date }}</td>
-                                        <td>@{{ enquiry.enquiry.contact_person }}</td>
+                                        <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
                                         <td>@{{ enquiry.enquiry.project_type.project_type_name  }}</td>
                                         <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
                                     </tr>
@@ -91,8 +91,8 @@
                             </table> 
                         </div>
                     </div> 
-                    <div class="card-body mb-0 pb-0">
-                        <div class="row align-items-center mb-2"  class="technicalEstimateCurrentData">
+                    <div class="card-body mb-0 pb-0"  >
+                        <div class="row align-items-center mb-2">
                             <div class="col-sm-6">                        
                                 <button class="btn btn-sm btn-primary" ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button>
                             </div>
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     
-                        <div psi-sortable="" ng-model="building_building" id="root_technical_estimate">
+                        <div psi-sortable="" ng-model="building_building">
                             <div class="bg-white mb-2" ng-repeat="(index,buliding) in building_building track by $index">  
                                 <div class="row m-0 justify-content-between align-items-center  border shadow-sm table-bordered bg-white" data-bs-toggle="collapse" href="#toggle_table_@{{ index }}" role="button" aria-expanded="false" aria-controls="toggle_table_@{{ index }}">
                                     <div class="col">
@@ -125,9 +125,9 @@
                                 <table id="toggle_table_@{{ index }}" class="table custom border shadow-sm table-bordered collapse show">
                                     <thead class="bg-light">
                                         <tr>
-                                            <th class="text-white text-center">S.No</th>
-                                            <th class="text-white">Component Name</th>
-                                            <th class="text-white">Sq. Mt. Estimate</th>
+                                            <th class="text-secondary text-center">S.No</th>
+                                            <th class="text-secondary">Component Name</th>
+                                            <th class="text-secondary">Sq. Mt. Estimate</th>
                                             <th class="text-center" style="padding: 0 !important"> 
                                                 <button type="button" class="btn btn-sm py-0 px-1 rounded bg-primary " ng-click="Add_component(index)"><b><i class="text-white mdi mdi-plus"></i></b></button>
                                             </th>
@@ -142,10 +142,10 @@
                                                 @{{ secindex+1 }}
                                             </td>
                                             <td class="col" style="padding:0 !important">
-                                                <input type="text"  required ng-required placeholder="Type here.." ng-value="est.name" ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
+                                                <input type="text"  required ng-required placeholder="Type here.." ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
                                             </td>
                                             <td class="col"  style="padding:0 !important" > 
-                                                <input type="number" onkeypress="return isNumber(event)" min="0" required ng-required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-value="est.sqfeet"ng-model="est.sqfeet">
+                                                <input type="number" onkeypress="return isNumber(event)" min="0" required ng-required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
                                             </td>
                                             <td class="col" class="text-center"  style="padding:0 !important">
                                                 <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="mdi mdi-delete"></i></a>
@@ -164,24 +164,10 @@
                                 </table> 
                             </div> 
                         </div>
-                        <div class="p-0 mb-2">
-                            @if(userHasAccess('technical_estimate_add'))
-                                <div class="d-flex justify-content-between">
-                                    <div class="row mx-0 align-items-center" >
-                                        <span ng-show="technical_estimate.assign_for == 'verification' && technical_estimate.assign_for_status == 1" class="alert d-flex align-items-center m-0 shadow border-success border alert-success bg-transparent text-success" role="alert">
-                                            <strong class="fa fa-check-circle fa-2x me-2" aria-hidden="true"></strong>
-                                            <span ng-show="technical_estimate.assign_for == 'verification' && technical_estimate.assign_for_status == 1"> Verification completed successfully</span>
-                                        </span>
-                                        <span  ng-show="technical_estimate.assign_for == 'verification' && technical_estimate.assign_for_status == 0" class="alert d-flex align-items-center m-0 shadow border-warning border alert-warning bg-transparent text-warning" role="alert">
-                                            <strong class="fa fa-exclamation-circle fa-2x me-2" aria-hidden="true"></strong>
-                                            <span> Waiting for verification</span>
-                                        </span>
-                                    </div>
-                                    <div class="text-end">
-                                        <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
-                                    </div>
-                                </div>
-                            @endif
+                        <div class="p-0">
+                            <div class="text-end">
+                                <a class="btn btn-success" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
+                            </div>
                         </div>
                     </div>  
                 </div> 
@@ -207,7 +193,7 @@
                                     </div>
                                     </div>
                                 </div>
-                                <a ng-show="!autoDeskFileType.includes(doc.file_type) && doc.file_type != 'link'" ng-click="getDocumentView(doc)"  class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                                <a ng-show="!autoDeskFileType.includes(doc.file_type) && doc.file_type != 'link'" target="_child" href="{{ url('/') }}/get-enquiry-document/@{{ doc.id }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                                 <a ng-show="autoDeskFileType.includes(doc.file_type)" class="badge bg-success rounded-pill" target="_child" href="{{ url('/') }}/viewmodel/@{{ doc.id }}"><i class="text-white fa fa-eye"></i></a>
                                 <a ng-show="doc.file_type == 'link'" target="_child" href="@{{ doc.file_name }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                             </li> 
@@ -227,114 +213,64 @@
                                     </div>
                                 </div>
                             </div>
-                            <a ng-click="getDocumentViews(building_comp)"  class="badge bg-success rounded-pill" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
+                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ building_comp.file_path }}" class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
                         </li>
                     </ul>
                 </div>
             </div> 
         </div>
-
         @if(userRole()->slug == config('global.technical_estimater'))
             <div class="card m-0 my-3 border col-md-9 me-auto">
                 <div class="card-body">
-                    <small class="btn link" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'technical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets" >
+                    <small class="btn link" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets" >
                         <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
                     </small>
                 </div>
             </div>
         @endif
-
         @if(userHasAccess('technical_estimate_add'))
-            {{-- <div class="card m-0 my-3 border col-md-9 me-auto">
-                <div class="card-body"> 
-                    <p class="lead mb-2"> <strong>Assign for verification</strong></p>
-                    <div class="row my-2">
-                        <div class="col">
-                            <div class="form-check">
-                                <input ng-checked="technical_estimate.assign_for == 'estimation'" class="form-check-input" ng-model="technical_estimate_assign_for" name="technical_estimate" type="radio" value="estimation" id="for_estimation">
-                                <label class="form-check-label" for="for_estimation">
-                                    Estimation
-                                </label>
-                            </div>
+            {{-- <div class="col-6 my-1">
+                <div class="row m-0">
+                    <div class="col-md-12 p-0 d-flex">
+                        <div class="input-group border shadow-sm rounded">
+                            <label class=" border-0 input-group-text text-white bg-primary font-weight-bold" for="inputGroupSelect01">Assign to</label>
+                            <select class="form-select border-0 " ng-model="assign_to" id="inputGroupSelect01">
+                                <option value=''> @lang('global.select')</option>
+                                <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}">@{{user.user_name}}</option>
+                            </select>   
+                            <button class="input-group-text btn btn-info"  ng-click="assignTechnicalEstimate(assign_to)"> Send </button>
                         </div>
-                        
-                        <div class="col">
-                            <div class="form-check">
-                                <input ng-checked="technical_estimate.assign_for == 'approval'" class="form-check-input"  ng-model="technical_estimate_assign_for"  name="technical_estimate" type="radio" value="approval" id="for_approval">
-                                <label class="form-check-label" for="for_approval">
-                                    Approval
-                                </label>
-                            </div>
+                        <div class="mx-1">
+                            <button class="btn btn-primary rounded-pill" type="submit" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets">   <i class="fa fa-eye"></i> </button>
                         </div>
                     </div>
+                </div>
+            </div> --}}
+
+
+            <div class="card m-0 my-3 border col-md-9 me-auto">
+                <div class="card-body">
+                    <p class="lead mb-2"> <strong>Assign to</strong></p>
                     <div class="btn-group w-100">
                         <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
                             <option value=""> @lang('global.select') </option>
                             <option ng-repeat="user in userList" ng-selected="user.id == assign_to" value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.user_name}}</option>
                         </select> 
-                        <button class="input-group-text btn btn-info"   ng-click="assignTechnicalEstimate(assign_to, technical_estimate_assign_for)"> Assign  </button>
+                        <button class="input-group-text btn btn-info"   ng-click="assignTechnicalEstimate(assign_to)"> Assign  </button>
                     </div> 
-                    
+                    <small class="float-end btn link p-0 mt-2" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'techical_estimation_assign', 'Technical Estimate')"  title="add and view technical estimate commnets" >
+                        <i class="fa fa-send me-1"></i> <u>Send a Comments</u>
+                    </small>
                 </div>
-            </div>  --}}
-
-            <div class="card m-0 my-3 border col-md-9 me-auto">
-                <div class="card-body">
-                    <p class="lead mb-2"> <strong>Assign for verification</strong></p>
-                    <div class="btn-group w-100">
-                        <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
-                            <option value=""> @lang('global.select') </option>
-                            <option ng-repeat="user in userList" 
-                                    ng-selected="user.id == assign_to" 
-                                    value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.first_Name}}
-                            </option>
-                        </select> 
-                        <button class="input-group-text btn btn-info"
-                            ng-click="assignTechnicalEstimate(assign_to, 'verification')"> Assign </button>
-                        <button class="input-group-text btn btn-danger" ng-click="removeUser()"> Remove </button>
-                    </div> 
-                </div>
-            </div>
-
-            <div class="card border shadow-sm my-3 col-md-9 me-auto">
-                <div class="card-header">
-                    <h5 class="m-0">
-                        <a class="align-items-center d-flex  py-1" ng-click="getHistory()">
-                            <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
-                            Technical Estimation History
-                        </a>
-                    </h5>
-                </div>
-                <div class="card-body bg-light p-0">
-                    <div>
-                        <div id="technical_estimate_histories"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-end my-3  col-md-9 me-auto">
-                <button ng-click="printTechnicalEstimate()" class="btn btn-primary">
-                    <i class="me-1 fa fa-print"></i> Print
-                </button>
-               
-                <button class="btn btn-success" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'technical_estimation_assign', 'Technical Estimate')">
-                    <i class="fa fa-send me-1"></i> 
-                    <span class="cost_estimate_comments_ul">
-                        Send a Comments
-                    </span>
-                </button>
-            </div>
-
+            </div> 
+        
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
                     <div>
                         <a href="#!/project-summary" class="btn btn-light border shadow-sm">Prev</a>
                     </div>
                     <div>
-                        <a ng-show="(technical_estimation_status != 0 && technical_estimate.assign_to == {{ Admin()->id }}) || (technical_estimate.assign_for_status == 1)" 
-                            ng-click="gotoNext()"
-                            class="btn btn-primary">
-                        Next</a>
+                        <a ng-show="technical_estimation_status != 0 && technical_estimate.assign_to" href="#!/cost-estimation"  class="btn btn-primary">Next</a>
                     </div>
                 </div>
             </div>
@@ -342,7 +278,6 @@
     @endif
     @include("admin.enquiry.models.technical-estimation-chat-box") 
     @include("admin.enquiry.models.assign-technical-estimation-chat-box") 
-    @include('customer.enquiry.models.document-modal')
 </div>
 {{-- @{{ building_component }} --}}
 @if (Route::is('enquiry.technical-estimation'))

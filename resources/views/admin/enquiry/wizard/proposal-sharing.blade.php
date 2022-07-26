@@ -4,7 +4,7 @@
     <li class="nav-item Project_Info">
         <a href="#!/project-summary" style="min-height: 40px;" class="timeline-step">
             <div class="timeline-content">
-                <div class="inner-circle @{{ project_summary_status == 'Submitted' ? 'bg-primary' :'bg-secondary' }}">
+                <div class="inner-circle @{{ project_summary_status == 'Active' ? 'bg-primary' :'bg-secondary' }}">
                     <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                 </div>
             </div>
@@ -62,7 +62,7 @@
     @endif
 </ul>
 @if(userHasAccess('proposal_sharing_index'))
-<div>
+<div >
     <div class="card shadow-none p-0" class="accordion accordion-flush" id="accordionFlushExample">
         <div class="p-2 mx-auto col-md-8"> 
             <div>
@@ -76,15 +76,7 @@
                 <button ng-click="documentaryOneData()" class="btn btn-success float-right btn-sm" ><small> Create</small></button>
             </div> 
         </div> 
-        <proposal-comment data="
-            {'modalState':'proposalViewConversations',
-            'type': 'proposal_sharing', 
-            'header':'Proposal Sharing',
-            'enquiry_id':P.enquiry_id,
-            'reference_id':P.enquiry_id,
-            send_by: {{ Admin()->id }}
-            }">
-        </proposal-comment>
+        
         <div class="card-body" >
             <div class="container p-0" ng-show="proposal.length"> 
                 <h4 class="text-center h5 mb-3">Proposal Versioning</h4> 
@@ -95,10 +87,9 @@
                                 <table  class="table custom table-bordereds m-0">
                                     <tr>
                                         <th class="text-center" colspan="2" style="width: 6% !important">No</th>
-                                        <th class="text-center" style="width: 10% !important">File Name</th>
-                                        <th class="text-center" style="width: 10% !important">Version</th>
-                                        <th class="text-center" style="width: 10% !important">Status</th>
-                                        <th class="text-center" style="width: 28% !important">Comments</th>
+                                        <th class="text-center" style="width: 38% !important">File Name</th>
+                                        <th class="text-center" style="width: 16% !important">Version</th>
+                                        <th class="text-center" style="width: 16% !important">Status</th>
                                         <th class="text-center" style="width: 16% !important">Date & Time</th>
                                         <th class="text-center" style="width: 6% !important">Action</th>
                                     </tr>
@@ -121,17 +112,11 @@
                                                     <div class="text-center">@{{ key+1 }}</div>
                                                 </div>
                                             </td>
-                                            <td style="width: 10% !important" class="text-center">@{{ P.template_name }}</td>
-                                            <td style="width: 10% !important" class="text-primary text-center">@{{ P.version }}</td>
-                                            <td style="width: 10% !important" class="text-info text-center"> 
-                                                <proposal-status data="P.status" />
-                                            </td>
-                                            <td style="width: 28% !important" class="text-info text-center">
-                                                <div class="proposal-comment">
-                                                    <div>
-                                                        @{{ P.comment }}
-                                                    </div> 
-                                                </div>
+                                            <td style="width: 38% !important" class="text-center">@{{ P.template_name }}</td>
+                                            <td style="width: 16% !important" class="text-primary text-center">R1</td>
+                                            <td style="width: 16% !important" class="text-info text-center"> 
+                                                <span ng-show="P.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
+                                                <span ng-show="P.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
                                             </td>
                                             <td style="width: 16% !important"class="text-center">
                                                 <small>@{{P.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}} </small>
@@ -141,71 +126,42 @@
                                                     <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="dripicons-dots-3 "></i>
                                                     </button>
-                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
-                                                        
-                                                        <a  class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
-                                                        <a  class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
-                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a>
-                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > View / Add comments</u></a>
-                                                    
-                                                    </div>
-                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
-                                                       
-                                                        <a  class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
-                                                        <a class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</a>
-                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(P.proposal_id , P.id)">Send Proposal</a>
-                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.id, P.type)" > View / Add comments</u></a>
-                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Delete</a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a ng-show="P.status == 'sent'" class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
+                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Mail</a>
+                                                        <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeletePropose(P.proposal_id)">Remove</a>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr> 
                                         <tr  id="togggleTable@{{ key+1 }}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                            <td colspan="8" class="hiddenRow" style="padding: 0 !important">
+                                            <td colspan="7" class="hiddenRow" style="padding: 0 !important">
                                                 <table class="table custom table-bordered m-0">
                                                     <tbody> 
                                                         <tr ng-repeat="(key2,V) in P.get_versions">
                                                             <td  class="text-end" style="width: 6% !important">
                                                                 <div class="text-end">@{{ key+1 }}.@{{ key2+1 }}</div>                                                    
                                                             </td>
-                                                            <td style="width: 10% !important" class="text-center">@{{ V.template_name }}</td>
-                                                            <td style="width: 10% !important" class="text-info text-center"><b><small>@{{ V.version }}</small></b></td>
-                                                            {{-- <td style="width: 10% !important" class="text-info text-center"> 
+                                                            <td style="width: 38% !important" class="text-center">@{{ V.template_name }}</td>
+                                                            <td style="width: 16% !important" class="text-info text-center"><b><small>R@{{ key2+2 }}</small></b></td>
+                                                            <td style="width: 16% !important" class="text-info text-center"> 
                                                                 <span ng-show="V.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
                                                                 <span ng-show="V.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
-                                                                <span> @{{ V.status  }} </span>
-                                                            </td> --}}
-                                                            <td style="width: 10% !important" class="text-info text-center"> 
-                                                                <proposal-status data="V.status" />
                                                             </td>
-                                                        
-                                                            <td style="width: 28% !important" class="text-info text-center">
-                                                                <div class="proposal-comment">
-                                                                    <div>@{{ V.comment }} </div>
-                                                                </div>
-                                                            </td>
-
                                                             <td style="width: 16% !important" class="text-center">
                                                                 <small>@{{V.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}}</small>
                                                             </td>
-                                                            
                                                             <td style="width: 6% !important" class="text-center"> 
                                                                 <div class="dropdown">
                                                                     <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                         <i class="dripicons-dots-3 "></i>
                                                                     </button>
-                                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'root'">
-                                                                        <a  class="btn dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
-                                                                        <a  class="btn dropdown-item" ng-click="ViewEditPropose(V.proposal_id, false)">View</a>
-                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(V.proposal_id)">Send Proposal</a>
-                                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > View / Add comments</u></a>
-                                                                    </div>
-                                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
-                                                                        <a  class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
-                                                                        <a class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id, false)">View </a>
-                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a>
-                                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.id, V.type)" > View / Add comments</u></a>
-                                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Delete</a>
+                                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                                        {{-- <a ng-show="V.status == 'sent'" class="dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a> --}}
+                                                                        <a ng-show="V.status == 'awaiting'" class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id)">View / Edit</a>
+                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Mail</a>
+                                                                        <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id , V.id)">Remove</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -233,7 +189,7 @@
                 </div>
             </div>
         </div> 
-        @include('admin.enquiry.models.proposal-comment-box')
+    
     <div class="modal fade" id="bs-Preview-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-right h-100" style="width:100% !important">
             <div class="modal-content  h-100">
@@ -251,12 +207,12 @@
                    
                 </div>
                 <div class="modal-footer"> 
-                    <button  ng-show="proposalModal" class="btn btn-primary" ng-click="updateProposalMail(proposalId, 'bs-Preview-modal-lg')"><i class="fa fa-save me-2"></i>Update</button>
-                    <button  ng-show="!proposalModal" class="btn btn-primary" data-bs-dismiss="modal" ><i class="fa fa-close me-2"></i>Close</button>
+                    <button class="btn btn-primary" ng-click="updateProposalMail(proposalId)"><i class="fa fa-save me-2"></i>Update</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
     <div class="modal fade" id="bs-PreviewVersions-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-right h-100" style="width:100% !important">
             <div class="modal-content  h-100">
@@ -273,20 +229,15 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button ng-show="proposalModal" class="btn btn-primary" ng-click="updateProposalVersionMail('bs-PreviewVersions-modal-lg')"><i class="fa fa-save me-2"></i>Update</button>
-                    <button ng-show="!proposalModal" class="btn btn-primary" data-bs-dismiss="modal"><i class="fa fa-close me-2"></i>Close</button>
+                    <button class="btn btn-primary" ng-click="updateProposalVersionMail()"><i class="fa fa-save me-2"></i>Update</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 </div>
-
 @endif
 @if (Route::is('enquiry.proposal-sharing')) 
     <style>
-        .proposal-comment {
-            max-height:300px; overflow: auto;
-        }
        .admin-Proposal_Sharing-wiz .timeline-step .inner-circle{
             background: var(--secondary-bg) !important;
             transform: scale(1.2);

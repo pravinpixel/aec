@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
-use App\Models\Project;
-use App\Models\Role;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -21,26 +19,14 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         try {
-            $requestInput = array_merge($request->only(['email','password']),['is_active'=> true]);
-            if (Auth::guard('customers')->attempt(($requestInput), false)) {
+            if (Auth::guard('customers')->attempt($request->only(['email','password']), false)) {
                 Flash::success( __('auth.login_successful'));
                 return redirect()->route('customers-dashboard');
-            } else if (Auth::attempt($request->only(['email','password']), false)) {
-                $role = Role::find(Admin()->job_role)->slug;
-                if($role == config('global.cost_estimater')) {
-                    $sharepoint = new SharepointController();
-                    $sharepoint->getToken();
-                    Flash::success(__('auth.login_successful'));
-                    return redirect()->route('cost-estimate.dashboard');
-                } else if($role == config('global.technical_estimater') || $role == config('global.project_manager')) {
-                    Flash::success( __('auth.login_successful'));
-                    return redirect()->route('technical-estimate.dashboard');
-                } else {
-                    $sharepoint = new SharepointController();
-                    $sharepoint->getToken();
-                    Flash::success( __('auth.login_successful'));
-                    return redirect()->route('admin-dashboard');
-                }
+            } else  if (Auth::attempt($request->only(['email','password']), false)) {
+                $sharepoint = new SharepointController();
+                $sharepoint->getToken();
+                Flash::success( __('auth.login_successful'));
+                return redirect()->route('admin-dashboard');
             } else {
                 Flash::error( __('auth.incorrect_email_id_and_password'));
                 return redirect()->route('login');
@@ -96,20 +82,6 @@ class AuthController extends Controller
         }
         Flash::success(__('auth.password_change_success'));
         return redirect()->back();
-    }
-
-    public function deactivateAccount(Request $request)
-    {
-        $id = Customer()->id;
-        $totalProject = Project::where(['customer_id'=> $id, 'status'=> 'live'])->get()->count();
-        if($totalProject > 0) {
-            Flash::error('Can not deactivate your account');
-            return redirect(route('customers-dashboard'));
-        }
-        $customer = Customer::find($id);
-        $customer->is_active = false;
-        $customer->save();
-        return view('auth.customer.deactivate-account');
     }
 
     public function getAdminLogin(Request $request)

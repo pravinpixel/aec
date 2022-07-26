@@ -54,11 +54,4 @@
     </div>
 </form>
 @include('admin.projects.add-tamplate-modal')
-<style> 
-    .Team_Setup .timeline-step .inner-circle{
-        background: var(--secondary-bg) !important;
-        transform: scale(1.2);
-        box-shadow: 0px 5px 10px #4f4f4fb2 !important
-    }
-</style> 
 

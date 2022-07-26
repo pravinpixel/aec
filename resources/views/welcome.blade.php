@@ -904,6 +904,11 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                                     <!-- item-->
+                                    <div class=" dropdown-header noti-title">
+                                        <h6 class="text-overflow m-0">Welcome !</h6>
+                                    </div>
+
+                                    <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle me-1"></i>
                                         <span>My Account</span>
@@ -1100,7 +1105,7 @@
                                         <h4 class="header-title mb-4">Project Status</h4>
 
                                         <div class="my-4 chartjs-chart" style="height: 202px;">
-                                            <canvas id="project-status-chart" data-colors="#0acf97,#163269,#fa5c7c"></canvas>
+                                            <canvas id="project-status-chart" data-colors="#0acf97,#727cf5,#fa5c7c"></canvas>
                                         </div>
 
                                         <div class="row text-center mt-2 py-2">
@@ -1280,7 +1285,7 @@
 
                                         <div dir="ltr">
                                             <div class="mt-3 chartjs-chart" style="height: 320px;">
-                                                <canvas id="task-area-chart" data-bgColor="#163269" data-borderColor="#163269"></canvas>
+                                                <canvas id="task-area-chart" data-bgColor="#727cf5" data-borderColor="#727cf5"></canvas>
                                             </div>
                                         </div>
 

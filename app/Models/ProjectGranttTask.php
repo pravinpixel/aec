@@ -18,7 +18,5 @@ class ProjectGranttTask extends Model
         "parent"    ,
         "type"      ,
         "project_id",
-        "status",
-        "delivery_date"
     ];
 }

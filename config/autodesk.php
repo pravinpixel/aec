@@ -3,6 +3,6 @@
             // ->setClientSecret("zyUTW5b1ITHYYSfc");
 return [
     'public_key'    => 'transient',
-    'client_id'     => '4GbgakwkXGUfnnvVuCGkOb406wGf7wxZ',
-    'client_secret' => 'BS9FPlctpIFyL3PA',
+    'client_id'     => 'JVcKHNFTUTVmpLenJWwU3RMsmtDaqmq2',
+    'client_secret' => 'ZJQ2aCG5xRrwZMXx',
 ];

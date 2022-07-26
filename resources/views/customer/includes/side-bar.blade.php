@@ -50,16 +50,16 @@
             <li class="side-nav-item {{ Route::is("customers.edit-enquiry") ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Sales" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
-                    <span> Enquiries  </span>
+                    <span> Sales  </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse {{ Route::is("customers.edit-enquiry") || route('customers.create-enquiry') ? "show" : ""}}" id="Sales">
+                <div class="collapse {{ Route::is("customers.edit-enquiry") ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
-                        <li class="{{ Route::is("customers.create-enquiry") ? "menuitem-active" : ""}}">
-                            <a href="#" onclick="return window.location.assign('{{ route('customers.create-enquiry') }}')">Create Enquiry</a>
+                        <li>
+                            <a href="{{ route('customers.create-enquiry') }}">Create enquiry</a>
                         </li>
                         <li class="{{ Route::is("customers.edit-enquiry") ? "menuitem-active" : ""}}">
-                            <a href="{{ route('customers-my-enquiries') }}" >List of Enquiries </a>
+                            <a href="{{ route('customers-my-enquiries') }}" >Enquiries</a>
                         </li> 
                     </ul>
                 </div>

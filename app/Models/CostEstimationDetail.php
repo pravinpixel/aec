@@ -18,12 +18,6 @@ class CostEstimationDetail extends Model
         'complexity_total',
         'status'
     ];
-
-    public function enquiry()
-    {
-        return $this->belongsTo(Enquiry::class,'id', 'enquiry_id');
-    }
-    
     public function CostEstimationCalculations () {
         return $this->hasMany(CostEstimationCalculation::class, 'estimation_detail_id','id'); 
     }

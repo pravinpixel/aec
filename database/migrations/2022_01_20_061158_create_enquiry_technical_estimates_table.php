@@ -18,8 +18,6 @@ class CreateEnquiryTechnicalEstimatesTable extends Migration
             $table->unsignedBigInteger('assign_to')->nullable();
             $table->unsignedBigInteger('assign_by')->nullable();
             $table->string('created_by')->nullable();
-            $table->string('assign_for')->nullable();
-            $table->boolean('assign_for_status')->default(0);
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('enquiry_id')->unsigned(); 
             $table->foreign('enquiry_id')->references('id')->on('enquiries');

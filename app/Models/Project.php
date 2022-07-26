@@ -43,11 +43,7 @@ class Project extends Model
         'wizard_connect_platform', 
         'wizard_teamsetup',  
         'wizard_invoice_plan', 
-        'wizard_todo_list',
-        'bim_project_type',
-        'wizard_status',
-        'bim_id',
-        'bim_account_id'
+        'wizard_todo_list'
     ];
 
     public function setCreatedByAttribute()
@@ -55,27 +51,10 @@ class Project extends Model
         $this->attributes['created_by'] = Admin()->id ?? null;
     }
 
-    public function setWizardStatusAttribute($value)
-    {
-        $this->attributes['wizard_status'] = json_encode($value);
-    }
-
-    public function getWizardStatusAttribute($value)
-    {
-       return json_decode($value);
-    }
-
-
     // public function setUpdatedByAttribute()
     // {
     //     $this->attributes['updated_by'] = Admin()->id ?? null;
     // }
-
-
-    public function customerdatails()
-    {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id');
-    }
 
     public function teamSetup()
     {
@@ -96,15 +75,9 @@ class Project extends Model
     {
         $this->attributes['delivery_date'] = GlobalService::DBDateFormatWithTime($value);
     }
-
     public function sharepointFolder()
     {
         return $this->hasOne(SharepointFolder::class,'project_id','id');
-    }
-
-    public function connectPlatform()
-    {
-        return $this->hasOne(connectPlatform::class,'project_id','id');
     }
 
 }

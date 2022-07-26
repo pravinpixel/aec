@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Bim360;
 
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr;
 use Exception;
+use App\Helper\Bim360\Bim360ApiHelper;
+use App\Helper\Bim360\bim360Api;
+use App\Helper\Bim360\bim360;
 use App\Helper\Bim360\Bim360UsersApi;
 use App\Http\Controllers\Controller;
+use DateTime;
 
 class Bim360UserController extends Controller
 {
@@ -16,7 +21,7 @@ class Bim360UserController extends Controller
 
     public function getUserList()
     {
-        $api = new  Bim360UsersApi();
+        $api = new  Bim360ApiHelper();
         $result = $api->getUserList();
         if (!$result) {
             return response()->json(array());
@@ -34,7 +39,7 @@ class Bim360UserController extends Controller
     public function getUser(Request $request)
     {
         $data = $request->all();
-        $api = new  Bim360UsersApi();
+        $api = new  bim360Api();
         $result = $api->getUser($data["id"]);
         $data = json_decode($result);
 
@@ -51,7 +56,7 @@ class Bim360UserController extends Controller
     public function edit(Request $request)
     {
         $data = $request->all();
-        $api = new  Bim360UsersApi();
+        $api = new  bim360Api();
         $result = $api->getUser($data["id"]);
         $data = json_decode($result);
 
@@ -67,22 +72,61 @@ class Bim360UserController extends Controller
 
     public function save(Request $request)
     {
+
         try {
             $result = "";
             $input = $request->input();
-            $api = new  Bim360UsersApi();
-            
+            $api = new  bim360Api();
+
             if (isset($input["id"]) && !empty($input["id"])) {
-                $editJson = json_encode($input);
-                $result = $api->editUser($input['id'], $editJson);
+                $editJson = bim360::getCreateData(
+                    $input["email"],
+                    $input["company_id"],
+                    $input["nickname"],
+                    $input["first_name"],
+                    $input["last_name"],
+                    $input["image_url"],
+                    $input["phone"],
+                    $input["address_line_1"],
+                    $input["address_line_2"],
+                    $input["city"],
+                    $input["state_or_province"],
+                    $input["postal_code"],
+                    $input["country"],
+                    $input["company"],
+                    $input["job_title"],
+                    $input["industry"],
+                    $input["about_me"]
+                );
+                $result = $api->editUser($input["id"], $editJson);
             } else {
-                $createJson = json_encode($input);
+                $createJson = bim360::getCreateData(
+                    $input["email"],
+                    $input["company_id"],
+                    $input["nickname"],
+                    $input["first_name"],
+                    $input["last_name"],
+                    $input["image_url"],
+                    $input["phone"],
+                    $input["address_line_1"],
+                    $input["address_line_2"],
+                    $input["city"],
+                    $input["state_or_province"],
+                    $input["postal_code"],
+                    $input["country"],
+                    $input["company"],
+                    $input["job_title"],
+                    $input["industry"],
+                    $input["about_me"]
+                );
                 $result = $api->createUser($createJson);
             }
+
             $data = json_decode($result);
             if (isset($data->id)) {
                 $id = $data->id;
                 if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
+
                     // Moving uploaded image to local folder
                     $info = pathinfo($_FILES['image']['name']);
                     $ext = $info['extension']; // get the extension of the file

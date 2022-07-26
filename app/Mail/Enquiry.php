@@ -28,6 +28,6 @@ class Enquiry extends Mailable
      * @return $this
      */
     public function build()    { 
-        return $this->from(config('global.mail_from_address'))->markdown('emails.admin.enquiry');
+        return $this->from('noreplay@gmail.com')->markdown('emails.admin.enquiry');
     }
 }

@@ -41,14 +41,14 @@ class CustomerResponseController extends Controller
             'assign_by'  => Admin()->id,
             'assign_to'  => $assigned_to ?? Admin()->id
         ];
-        $res = $this->projectRepo->assignProjectToUser($enquiry_id, $project_assign);
+        $res = $this->projectRepo->assingProjectToUser($enquiry_id, $project_assign);
         if($res == true){
-            $enquiry_data = $this->getDataFromEnquiry($enquiry);
+            $enquiry_data = $this->getDataFromEnquiey($enquiry);
             $additional_data = [
                 'reference_number' => GlobalService::getProjectNumber()
             ];
             $result = $this->projectRepo->create($enquiry_id, array_merge($enquiry_data, $additional_data));
-            $this->enquiryRepo->updateEnquiry($enquiry_id, ['project_id' => $result->id, 'project_assign_to' => $assigned_to ?? Admin()->id]);
+            $this->enquiryRepo->updateEnquiry($enquiry_id, ['project_id' => $result->id]);
             $costEstimate = $this->enquiryRepo->getCostEstimateByEnquiryId($enquiry_id);
             $this->projectRepo->storeInvoicePlan($result->id, ['project_cost' => $costEstimate->total_cost], false);
             if($res) {
@@ -57,18 +57,6 @@ class CustomerResponseController extends Controller
             }
             return response(['status' => false, 'msg' => __('global.something')]);
         }
-    }
-
-    public function assignToProject(Request $request)
-    {
-        $enquiry_id = $request->input('enquiry_id');
-        $assigned_to = $request->input('assigned_to');
-        $enquiry = $this->enquiryRepo->getEnquiryByID($enquiry_id);
-        $enquiry->project_assign_to = $assigned_to ?? null;
-        if($enquiry->save()) {
-            return response(['status' => true, 'msg' => __('global.assign_project_successfully'), 'data' => []]);
-        }
-        return response(['status' => false, 'msg' => __('global.something')]);
     }
 
     public function createSharepointFolder($project)
@@ -99,9 +87,9 @@ class CustomerResponseController extends Controller
             $ifcDocuments = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry_id);
             $buildingDocuments = $this->documentTypeEnquiryRepo->geBuildingDocumentByEnquiryId($enquiry_id);
             if(!empty($ifcDocuments)) {
-                foreach($ifcDocuments as $ifcDocument) {
-                    $filePath = asset('public/uploads/'.$ifcDocument->file_name);
-                    $job = (new SharepointFileCreation($folderPath ,$filePath, $ifcDocument->client_file_name))->delay(config('global.job_delay'));
+                foreach($ifcDocuments as $ifcdocument) {
+                    $filePath = asset('public/uploads/'.$ifcdocument->file_name);
+                    $job = (new SharepointFileCreation($folderPath ,$filePath, $ifcdocument->client_file_name))->delay(config('global.job_delay'));
                     $this->dispatch($job);
                 }
             }
@@ -121,7 +109,7 @@ class CustomerResponseController extends Controller
         }
     }
 
-    public function getDataFromEnquiry($enquiry)
+    public function getDataFromEnquiey($enquiry)
     {
         return  [
             'customer_id'      => $enquiry->customer_id,

@@ -109,7 +109,7 @@
                                 </a>
                             </div>
                             <div class="col p-2">
-                                <a class="dropdown-icon-item" href="{{ route('enquiry.calculate-cost-estimation') }}">
+                                <a class="dropdown-icon-item" href="{{ route('cost-estimation-single-view') }}">
                                     <img src="{{ asset('public/assets/images/calculator.png') }}" alt="slack">
                                     <span>Calculator</span>
                                 </a>
@@ -139,12 +139,15 @@
                         <img src="{{ asset('public/assets/images/users/avatar-1.jpg') }}" alt="user-image" class="rounded-circle">
                     </span>
                     <span>
-                        <span class="account-user-name text-capitalize">{{ Admin()->full_name ?? 'Avatar' }}</span>
-                        {{-- <span class="account-position  text-capitalize">{{ userRole()->name ?? '' }}</span> --}}
+                        <span class="account-user-name">Dominic Keller</span>
+                        <span class="account-position">Founder</span>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
-            
+                    <!-- item-->
+                    <div class="dropdown-header noti-title">
+                        <h6 class="text-overflow m-0">Welcome !</h6>
+                    </div>
 
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">

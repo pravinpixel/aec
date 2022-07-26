@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\CostEstimateTemplate;
 use App\Http\Controllers\Admin\Enquiry\CostEstimateController;
 use App\Http\Controllers\Admin\Enquiry\CustomerResponseController;
 use Illuminate\Support\Facades\Route;
@@ -48,10 +47,6 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
         return view('admin.enquiry.wizard.move-to-project');
     })->name('enquiry.move-to-project'); 
 
-    Route::get('/calculate-cost-estimation', function () {
-        return view('admin.enquiry.wizard.calculate-cost-estimate');
-    })->name('enquiry.calculate-cost-estimation');
-
 
     //  ****** Enquiery Proposal ******
     Route::get('/get-documentaryData', [MailTemplateController::class,'getDocumentaryData'])->name("get-documentaryData");
@@ -67,7 +62,6 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
     Route::delete('/proposal/enquiry/{id}/edit/{proposal_id}/version/{Vid}',[ProposalController::class,'deleteVersions']);
 
     Route::put('/proposal/enquiry/{id}/duplicate/{proposal_id}',[ProposalController::class,'duplicate'])->name('duplicate.proposal-sharing');
-    Route::put('/proposal/enquiry/{id}/duplicate-version/{proposal_id}', [ProposalController::class,'duplicateVersion'])->name('duplicate.version');
     Route::delete('/proposal/enquiry/{id}/edit/{proposal_id}',[ProposalController::class,'destroy'])->name('delete.proposal-sharing');
     Route::get('/proposal/enquiry/{id}/versions/{proposal_id}',[ProposalController::class,'versions']);
 
@@ -78,24 +72,21 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
 
 Route::get('/approve/{id}/enquiry/{proposal_id}/proposal/{Vid}',[ProposalController::class,'approve'])->name('proposal-approve');
 
-Route::post('customer-approval/{id}/approval-type/{type}',[ProposalController::class,'customerApproval'])->name('customer-approval');
+Route::get('customer-approval/{id}/approval-type/{type}',[ProposalController::class,'customerApproval'])->name('customer-approval');
 Route::post('proposal-move-to-project/{id}',[ProposalController::class,'moveToProject'])->name('proposal-move-to-project');
 
-Route::group(['prefix' => 'admin', 'middleware'=> 'common'], function(){ 
+Route::group(['prefix' => 'admin'], function(){ 
     Route::get('get-unattended-enquiries', [EnquiryController::class, 'getUnattendedEnquiries'])->name('get-unattended-enquiries');
     Route::get('get-active-enquiries', [EnquiryController::class, 'getActiveEnquiries'])->name('get-active-enquiries');
     Route::get('get-cancelled-enquiries', [EnquiryController::class, 'getCancelledEnquiries'])->name('get-cancelled-enquiries');
     Route::delete('enquiry/{id}/delete', [EnquiryController::class, 'destroy'])->name('enquiry.delete');
     Route::post('update-followup', [EnquiryController::class, 'updateFollowUp'])->name('enquiry.update-followup');
-    Route::get('get-active-comments-count',[EnquiryController::class,'getActiveCommentsCount'])->name('get-active-comments-count');
-
     
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'common'], function(){
     Route::post('add-comments', [EnquiryCommentsController::class,'store'])->name("enquiry.comments");
     Route::get('show-comments/{id}/type/{type}', [EnquiryCommentsController::class,'show'])->name("enquiry.show-comments");
-    Route::get('show-comments/{id}/{version}/{proposal_id}', [EnquiryCommentsController::class,'showProposalComment'])->name("enquiry.show-proposal-comments");
     Route::get('comments-count/{id}', [EnquiryCommentsController::class,'getCommentsCountByType'])->name("enquiry.comments-count");
     Route::get('active-comments-count/{id}', [EnquiryCommentsController::class,'getActiveCommentsCountByType'])->name("enquiry.active-comments-count");
     Route::get('show-tech-comments/{id}/type/{type}', [EnquiryCommentsController::class,'showTechChat'])->name("enquiry.show-tech-comments");
@@ -103,25 +94,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'common'], function(){
 
 Route::group(['prefix' => 'technical-estimate', 'middleware' => 'common', 'route' => 'technical-estimate'], function(){
     Route::post('assign-user/{enquiry_id}', [TechEstimateController::class,'assignUser'])->name("assign-user");
-    Route::post('remove-user/{enquiry_id}', [TechEstimateController::class,'removeUser'])->name("remove-user");
-    Route::post('update-status/{enquiry_id}',[TechEstimateController::class,'updateStatus'])->name("update-status");
-    Route::get('get-history/{id}', [TechEstimateController::class, 'getHistory'])->name('get-history');
 });
 
 Route::group(['prefix' => 'cost-estimate', 'middleware' => 'common', 'route' => 'cost-estimate'], function(){
     Route::post('assign-user/{enquiry_id}', [CostEstimateController::class,'assignUser'])->name("assign-user");
-    Route::post('remove-user/{enquiry_id}', [CostEstimateController::class,'removeUser'])->name("remove-user");
-    Route::post('update-status/{enquiry_id}', [CostEstimateController::class,'updateStatus'])->name("update-user");
-    Route::get('get-history/{id}/{type}', [CostEstimateController::class, 'getHistory'])->name('get-history');
 });
 
 Route::group(['prefix' => 'customer-response', 'middleware' => 'common', 'route' => 'customer-response'], function(){
     Route::post('move-to-project', [CustomerResponseController::class,'moveToProject'])->name('move-to-project');
-    Route::post('assign-to-project', [CustomerResponseController::class,'assignToProject'])->name('assign-to-project');
-});
-
-Route::group(['prefix' => 'admin', 'middleware' => 'common', 'route' => 'admin'], function(){
-  Route::get('cost-estimate-precast-template',[CostEstimateTemplate::class,'getPrecastTemplate']);
-  Route::get('cost-estimate-wood-template',[CostEstimateTemplate::class,'getWoodTemplate']);
-  Route::resource('cost-estimate-template', CostEstimateTemplate::class);
 });

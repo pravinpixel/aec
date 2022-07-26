@@ -18,18 +18,18 @@ class CustomerSeeder extends Seeder
     {
         $customer = Customer::create([
             'customer_enquiry_date' => now(),
-            'first_name'            => 'aec',
-            'last_name'             => 'customer',
-            'full_name'             => 'aecprefab customer',
-            'email'                 => 'customer@aecprefab.net',
-            'password'              => 12345678,
-            'mobile_no'             => '87456123',
-            'company_name'          => 'AEC PREFAB AS',
-            'contact_person'        => 'alan walker',
-            'remarks'               => 'ok',
-            'is_active'             => 1,
-            'created_by'            => 1,
-            'updated_by'            => 1,
+            'first_name' => 'aec',
+            'last_name' => 'customer',
+            'full_name' => 'aecprefab customer',
+            'email' => 'customer@aecprefab.net',
+            'password' => Hash::make('12345678'),
+            'mobile_no' => '87456123',
+            'company_name' => 'AEC PREFAB AS', 
+            'contact_person' => 'alan walker',
+            'remarks' => 'ok',
+            'is_active' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
         ]);
         $latest_enquiry_number = GlobalService::customerEnquiryNumber();
         $enquiry_number = GlobalService::enquiryNumber();

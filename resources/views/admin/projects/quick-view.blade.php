@@ -5,7 +5,6 @@
             <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
         </div>
         <div class="modal-content h-100 p-4" style="overflow: auto">
-           
             <div class="card-body">
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="project_infomation_header">
@@ -22,98 +21,168 @@
                         </div>
                     </div>
                     <div id="project_infomation" class="accordion-collapse collapse show" aria-labelledby="project_infomation_header" >
-                        <table class="table custom m-0 table-hover">
-                            <tbody>
-                                <tr>
-                                    <td width="30%"><b>Project ID</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['reference_number'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td width="30%"><b>Project Name</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['project_name'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Telephone</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['mobile_number'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Contact Person name</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['contact_person'] }} </td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Company</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['company_name'] }}</td>
-                                </tr> 
-                                <tr >
-                                    <td><b>Email</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['email'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Site Address</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['site_address'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Country</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['country'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Zipcode</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['zipcode'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Start  Date</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['start_date'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>State</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['state'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>No of Building</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['no_of_building'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Type of Project</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['project_type'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Type of Delivery</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['delivery_type'] }}</td>
-                                </tr> 
-                                <tr>
-                                    <td><b>Delivery Date</b></td>
-                                    <td>:</td>
-                                    <td>@{{ review['delivery_date'] }}</td>
-                                </tr> 
+                        <div class="card-body">
+                            <div class="row m-0 "> 
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project ID</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['reference_number'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Project Name</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['project_name'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Telephone</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['mobile_number'] }}</div>
+                                        </div> 
+                                    </div>  
+                                </div>
+                                <div class="col-md-6"> 
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Contact Person</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['contact_person'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Company</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['company_name'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Email</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['email'] }} </div>
+                                        </div> 
+                                    </div>
+                                </div>
                                 
-                            </tbody>
-                        </table>
-
-                    
-
-
-
-                        
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Site Address</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['site_address'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                              
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Country</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['country'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Zipcode</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['zipcode'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Start  Date</label>
+                                        </div>
+                                        <div class="col pe-0">  
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['start_date'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">State</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['state'] }}</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">No of Building</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['no_of_building'] }}</div> 
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Type of Project</label>
+                                        </div>
+                                        <div class="col pe-0">
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['project_type'] }}</div>  
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Type of Delivery</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['delivery_type'] }}</div>  
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-3  p-0">
+                                            <label class="col-form-label">Delivery Date</label>
+                                        </div>
+                                        <div class="col pe-0"> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ review['delivery_date'] }}</div>  
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="connection_plateforms_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#connection_plateforms" aria-expanded="false" aria-controls="connection_plateforms">
-                            <span class="position-relative btn py-0"><b> @lang('project.milestone')</b></span> 
+                            <span class="position-relative btn py-0"><b>Connect Platform</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 
@@ -136,8 +205,8 @@
                                                 <b>Share Point</b>
                                             </div>
                                             <div class="col-4 text-end">
-                                                <input type="checkbox" id="switch0" data-switch="none" disabled />
-                                                <label for="switch0" class="border" data-on-label="" data-off-label="" disabled></label>
+                                                <input type="checkbox" id="switch0" data-switch="none"/>
+                                                <label for="switch0" class="border" data-on-label="" data-off-label=""></label>
                                             </div>
                                         </div>
                                     </div> 
@@ -148,8 +217,8 @@
                                                 <b>BIM 360</b>
                                             </div>
                                             <div class="col-4 text-end">
-                                                <input type="checkbox" id="switch1" data-switch="none" disabled/>
-                                                <label for="switch1" class="border" data-on-label="" data-off-label="" disabled></label>
+                                                <input type="checkbox" id="switch1" data-switch="none"/>
+                                                <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
                                             </div>
                                         </div>
                                     </div>
@@ -160,8 +229,8 @@
                                                 <b>24 /7 Office</b>
                                             </div>
                                             <div class="col-4 text-end">
-                                                <input type="checkbox" id="switch1" data-switch="none" disabled/>
-                                                <label for="switch1" class="border" data-on-label="" data-off-label="" disabled></label>
+                                                <input type="checkbox" id="switch1" data-switch="none"/>
+                                                <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
                                             </div>
                                         </div>
                                     </div>
@@ -223,7 +292,7 @@
                                                         <label class="col-form-label">Project Start Date</label>
                                                     </div>
                                                     <div class="col pe-0">
-                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'dd-MM-yyyy' }}</div>
+                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'yyyy-MM-dd' }}</div>
                                                     </div> 
                                                 </div>  
                                             </div>
@@ -233,7 +302,7 @@
                                                         <label class="col-form-label"> Project End Date </label>
                                                     </div>
                                                     <div class="col pe-0">
-                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'dd-MM-yyyy' }}</div>
+                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'yyyy-MM-dd' }}</div>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -243,12 +312,7 @@
                                                         <label class="col-form-label">BIM 360 Language</label>
                                                     </div>
                                                     <div class="col pe-0"> 
-                                                        <select name="language" ng-model="project.language" id="language" class="form-control form-select-sm  border-0"  style="pointer-events:none">
-                                                            <option value=""> @lang('project.select') </option>
-                                                            @foreach(config('project.languages') as $key => $value)
-                                                                <option value="{{ $key }}"> {{  $value }} </option>
-                                                            @endforeach
-                                                        </select>
+                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.language }} </div>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -259,13 +323,7 @@
                                                         <label class="col-form-label">Project Time Zone</label>
                                                     </div>
                                                     <div class="col pe-0">
-                                                        <select name="time_zone" ng-model="project.time_zone" id="time_zone"  class="form-control form-select-sm border-0" style="pointer-events:none">
-                                                            <option value=""> @lang('project.select') </option>
-                                                            @foreach(config('project.time_zones') as $key => $value)
-                                                                <option value="{{ $key }}"> {{  $value }} </option>
-                                                            @endforeach
-                                                        </select>
-                                                      
+                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.time_zone }}</div>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -356,7 +414,7 @@
                                                         <label class="col-form-label">Project Start Date</label>
                                                     </div>
                                                     <div class="col pe-0">
-                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'dd-MM-yyyy' }}</div>
+                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'yyyy-MM-dd' }}</div>
                                                     </div> 
                                                 </div>  
                                             </div>
@@ -366,7 +424,7 @@
                                                         <label class="col-form-label"> Project End Date </label>
                                                     </div>
                                                     <div class="col pe-0">
-                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'dd-MM-yyyy' }}</div>
+                                                        <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'yyyy-MM-dd' }}</div>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -393,7 +451,7 @@
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Team_setup_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Team_setup" aria-expanded="false" aria-controls="Team_setup">
-                            <span class="position-relative btn py-0"><b>@lang('project.tasklist')</b></span> 
+                            <span class="position-relative btn py-0"><b>Team Setup</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 
@@ -407,96 +465,26 @@
                     </div>
                     <div id="Team_setup" class="accordion-collapse collapse" aria-labelledby="Team_setup_header" >
                         <div class="card-body"> 
-                            
-                            <table class="m-0 table custom" ng-repeat="(index,check_list) in check_list_items">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">S.No</th>
-                                        <th class="text-center">Deliverable Name</th>
-                                        
-                                        <th class="text-center">Assign To</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Start Date</th>
-                                        <th class="text-center">End Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
-                                    <tr ng-show="checkListData.text != 'others'">
-                                        <td colspan="6" class="bg-light">
-                                            <div class="text-start">
-                                                <strong>@{{ checkListData.name }}</strong>
+                            <div class="row mb-2 mx-0">
+                                <ul>
+                                    <li ng-repeat="(key,teamSetup) in teamSetups" class="">
+                                        <strong>@{{ teamSetup.role.name }}</strong>
+                                        <div class="row m-0">
+                                            <div ng-repeat="(key,team) in teamSetup.team" class="col-md-4 list-group-item border-0 "> 
+                                                <i class="fa fa-check-circle text-primary me-1"></i>
+                                                @{{ team }}
                                             </div>
-                                        </td>
-                                    </tr>
-                                   
-                                    <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
-                                        <td>@{{ index_3 +1 }}</td>
-                                        <td>@{{ taskListData.task_list }}</td>
-                                      
-                                        <td>
-                                            <label ng-repeat="projectManager in projectManagers" value="@{{ taskListData.assign_to }}" >
-                                                @{{ projectManager.first_Name }}
-                                            </label>
-                                        </td>
-                                          <td class="text-center">  
-                                             @{{(taskListData.status) == 1 ? 'Completed' : 'Pending'}}
-                                                
-                                               
-                                        </td>
-                                        <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
-                                        <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
-                                    </tr> 
-                                </tbody>
-                            </table>
+                                        </div>
+                                    </li>
+                                </ul>  
+                            </div>
                         </div> 
                     </div>
                 </fieldset> 
                 <fieldset class="accordion-item">
-                    <div class="accordion-header custom m-0 position-relative" id="Bim360_header">
-                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#bim360" aria-expanded="false" aria-controls="Invoice_maileStone">
-                            <span class="position-relative btn py-0"><b>@lang('project.bim360')</b></span> 
-                        </div>
-                        <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
-                            <i data-bs-toggle="collapse" 
-                                href="#bim360" 
-                                aria-expanded="true" 
-                                aria-controls="bim360" 
-                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
-                                >
-                            </i>
-                        </div>
-                    </div>
-                    <div id="bim360" class="accordion-collapse collapse" aria-labelledby="Bim360_header" >
-                        <table class="table custom m-0 custom table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">S.No</th>
-                                    <th class="text-center">Type</th>
-                                    <th class="text-center">Su Type</th>
-                                    <th class="text-center">Title </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="row in review['invoice_plan'].invoice_data">
-                                    <td class="text-center"> @{{ $index + 1 }} </td>
-                                    <td class="text-center">@{{ row.invoice_date | date: 'dd-MM-yyyy' }}</td>
-                                    <td class="text-center">@{{ row.amount }}</td>
-                                    <td class="text-center">@{{ row.percentage }}</td>
-                                </tr> 
-                                <tr ng-show="review['invoice_plan'].invoice_data.length == 0">
-                                    <td class="text-center" colspan="4"> No data found </td>
-                                </tr> 
-                            </tbody>
-                        </table>
-                    </div>
-                </fieldset> 
-
-
-
-                <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Invoice_maileStone_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Invoice_maileStone" aria-expanded="false" aria-controls="Invoice_maileStone">
-                            <span class="position-relative btn py-0"><b>@lang('project.invoiceplan')</b></span> 
+                            <span class="position-relative btn py-0"><b>Invoice Plan</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 
@@ -509,25 +497,6 @@
                         </div>
                     </div>
                     <div id="Invoice_maileStone" class="accordion-collapse collapse" aria-labelledby="Invoice_maileStone_header" >
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-8">
-                                <div class="row align-items-center mb-2 m-0">
-                                    <div class="col-3"><strong>Project Cost</strong></div>
-                                    <div class=" col-9"><label>  @{{review.invoice_plan.project_cost}} <label></div>
-                                </div>
-                                <div class="row align-items-center mb-2 m-0">
-                                    <div class="col-3"><strong>No.of Invoices</strong></div>
-                                    <div class=" col-9"><label>  @{{review.invoice_plan.no_of_invoice}} <label></div>
-                                </div>
-                                <div class="row align-items-center mb-2 m-0">
-                                    <div class="col-3"><strong>Project Start Date</strong></div>
-                                    <div class=" col-9"><label>  @{{review.invoice_plan.invoice_data[0].invoice_date | date: 'dd-MM-yyyy' }} <label></div>
-                                </div>
-                               
-                            </div>
-                          
-                        </div>
-                       
                         <table class="table custom m-0 custom table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -540,7 +509,7 @@
                             <tbody>
                                 <tr ng-repeat="row in review['invoice_plan'].invoice_data">
                                     <td class="text-center"> @{{ $index + 1 }} </td>
-                                    <td class="text-center">@{{ row.invoice_date | date: 'dd-MM-yyyy' }}</td>
+                                    <td class="text-center">@{{ row.invoice_date | date: 'yyyy-MM-dd' }}</td>
                                     <td class="text-center">@{{ row.amount }}</td>
                                     <td class="text-center">@{{ row.percentage }}</td>
                                 </tr> 
@@ -554,7 +523,7 @@
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="TO_DO_header">
                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#TO_DO" aria-expanded="false" aria-controls="TO_DO">
-                            <span class="position-relative btn py-0"><b>@lang('project.tickets')</b></span> 
+                            <span class="position-relative btn py-0"><b>To Do List</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                             <i data-bs-toggle="collapse" 
@@ -591,7 +560,7 @@
                                                         <tr>
                                                             <th class="text-center">S.No</th>
                                                             <th class="text-center">Deliverable Name</th>
-                                                            {{-- <th class="text-center">Status</th> --}}
+                                                            <th class="text-center">Status</th>
                                                             <th class="text-center">Assign To</th>
                                                             <th class="text-center">Start Date</th>
                                                             <th class="text-center">End Date</th>
@@ -608,19 +577,20 @@
                                                         <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
                                                             <td>@{{ index_3 +1 }}</td>
                                                             <td>@{{ taskListData.task_list }}</td>
-                                                            {{-- <td class="text-center">
+                                                            <td class="text-center">
                                                                 <input disabled  type="checkbox" get-to-do-lists ng-model="taskListData.status" class="form-check-input">
-                                                            </td> --}}
+                                                            </td>
                                                             <td>
-                                                                <select  get-to-do-lists ng-model="taskListData.assign_to" class="form-control border-0  form-select-sm" style="pointer-events: none">
+                                                                <select disabled  get-to-do-lists ng-model="taskListData.assign_to" class="form-select border-0  form-select-sm">
                                                                     <option value="">-- Project Manager --</option>
-                                                                    <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
-                                                                        @{{ projectManager.first_Name }}
-                                                                    </option>
+                                                                    <option value="Alexander">Alexander</option>
+                                                                    <option value="Bjørn">Bjørn</option>
+                                                                    <option value="Gunnar">Gunnar</option>
+                                                                    <option value="Kristoffer">Kristoffer</option>
                                                                 </select>
                                                             </td>
-                                                            <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
-                                                            <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                            <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                            <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
                                                         </tr> 
                                                     </tbody>
                                                 </table>

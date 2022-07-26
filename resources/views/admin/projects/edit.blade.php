@@ -18,7 +18,7 @@
                         <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 p-0 bg-light timeline-steps">
                             <li class="time-bar"></li>
                             <li class="nav-item Create_Project">
-                                <a href="#!/" style="min-height: 40px;" class="timeline-step" id="create-project" data-is-active="active">
+                                <a href="#!/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/create-plateform.png") }}" class="w-50 invert">
@@ -28,7 +28,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item Platform">
-                                <a href="#!/platform" style="min-height: 40px;" class="timeline-step" id="connect-platform" data-is-active>
+                                <a href="#!/platform" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/connectplateform.png") }}" class="w-50 invert">
@@ -38,7 +38,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item Team_Setup">
-                                <a href="#!/team-setup" style="min-height: 40px;" class="timeline-step"  id="team-setup"  data-is-active>
+                                <a href="#!/team-setup" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
                                             <img src="{{ asset("public/assets/icons/team-setup.png") }}" class="w-50 invert">
@@ -48,7 +48,7 @@
                                 </a>
                             </li>  
                             <li class="nav-item Invoice_Plan">
-                                <a href="#!/invoice-plan" style="min-height: 40px;" class="timeline-step"  id="invoice-plan" data-is-active>
+                                <a href="#!/invoice-plan" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
                                             <img src="{{ asset("public/assets/icons/result.png") }}" class="w-50 invert">
@@ -58,7 +58,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item To_Do_List">
-                                <a href="#!/to-do-listing" style="min-height: 40px;" class="timeline-step"  id="todo-list" data-is-active>
+                                <a href="#!/to-do-listing" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
                                             <img src="{{ asset("public/assets/icons/to-do.png") }}" class="w-50 invert">
@@ -68,7 +68,7 @@
                                 </a>
                             </li>
                             <li class="nav-item Project_Scheduling">
-                                <a href="#!/project-scheduling" style="min-height: 40px;" class="timeline-step" id="project-scheduling" data-is-active>
+                                <a href="#!/project-scheduling" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary ">
                                             <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
@@ -78,7 +78,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item admin-Delivery-wiz">
-                                <a href="#!/review-n-submit" style="min-height: 40px;"  class="timeline-step" id="review" data-is-active >
+                                <a href="#!/review-n-submit" style="min-height: 40px;"  class="timeline-step" data-is-active >
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary">
                                             <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
@@ -99,14 +99,13 @@
 @endsection
 
 @push('custom-scripts')
- 
-
+    <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
+    <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
+    
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/edit-project.js") }}"></script> 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-   
-    <script>
-        $("#timepicker").timepicker({showSeconds:!0,icons:{up:"mdi mdi-chevron-up",down:"mdi mdi-chevron-down"},appendWidgetTo:"#timepicker-input-group1"}),$("#timepicker2").timepicker({showSeconds:!0,showMeridian:!1,icons:{up:"mdi mdi-chevron-up",down:"mdi mdi-chevron-down"},appendWidgetTo:"#timepicker-input-group2"}),$("#timepicker3").timepicker({showSeconds:!0,minuteStep:15,icons:{up:"mdi mdi-chevron-up",down:"mdi mdi-chevron-down"},appendWidgetTo:"#timepicker-input-group3"});
-    </script>
+    
+    
     <script>        
         
         app.controller("projectController", function($rootScope, $scope, $location){
@@ -156,7 +155,6 @@
             return dialogText;
         }; 
     </script>
-
       
 @endpush
  

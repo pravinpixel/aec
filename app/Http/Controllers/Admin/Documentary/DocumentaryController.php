@@ -147,6 +147,7 @@ class DocumentaryController extends Controller
 
     public function documentaryEdit($id)
     {
+        $id = $id;
         return view('admin.pages.documentary.edit',compact('id'));
     }
 

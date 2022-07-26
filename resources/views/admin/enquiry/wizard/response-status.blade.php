@@ -819,7 +819,7 @@
                                                     </th><td class="bg-white">2</td>
                                                 </tr> 
                                                 <tr class="border">
-                                                    <th class=" ">No. of Buildings
+                                                    <th class=" ">Number of Buildings
                                                     </th><td class="bg-white">2</td>
                                                 </tr> 
                                                 <tr class="border">
@@ -827,7 +827,7 @@
                                                     </th><td class="bg-white">1</td>
                                                 </tr> 
                                                 <tr class="border">
-                                                    <th class=" ">Delivery Date 
+                                                    <th class=" ">Deliveryd Date 
                                                     </th><td class="bg-white">2021-02-25</td>
                                                 </tr> 
                                                 <tr class="border">
@@ -941,7 +941,7 @@
                                                         <th class="bg-primary text-white">EW_DEWS
                                                         </th>
                                                         <th class="bg-primary text-white">
-                                                            Type of Delivery : Element Type
+                                                            Delivery Type : Element Type
                                                         </th>
                                                         <th class="bg-primary text-white">
                                                             Total : 10

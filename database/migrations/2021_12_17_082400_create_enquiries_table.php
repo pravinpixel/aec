@@ -63,7 +63,6 @@ class CreateEnquiriesTable extends Migration
             $table->datetime('follow_up_date')->nullable();
             $table->integer('follow_up_by')->nullable();
             $table->string('follow_up_status')->nullable();
-            $table->tinyInteger('response_status')->default(0);
             $table->timestamps();
         });
     }

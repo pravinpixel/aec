@@ -14,7 +14,7 @@
                             <th>Company Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Type of Delivery</th>
+                            <th>Type Of Project</th>
                         </tr>
                         <tr>
                             <td class="text-start" style="text-align:left !important">@{{ enqData.enquiry_number }}</td>
@@ -22,14 +22,14 @@
                             <td>@{{ enqData.customer_info.company_name }}</td>
                             <td>@{{ enqData.customer_info.mobile_no }}</td>
                             <td>@{{ enqData.customer_info.email }} </td>
-                            <td>@{{ enqData.project_info.delivery_type.delivery_type_name }} </td>
+                            <td>@{{ enqData.project_type.project_type_name }} </td>
                         </tr>
                     </table>
                 </div>
             </div> 
             
             <div class="summary-group py-3 accordion rounded-0" id="summaryGroup">
-                <input type="hidden" id="admin_auth_id" value="{{ Admin()->id }}">
+                <input type="hidden" id="admin_auth_id" value="{{ Admin()->id }}" >
                 {{-- ProjectInfo --}}
                     <fieldset class="accordion-item">
                         <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
@@ -70,12 +70,12 @@
                                             <td>@{{ customer_info.email }}</td>
                                         </tr> 
                                         <tr ng-if="customer_info.mobile_no != null">
-                                            <td><b>Contact number</b></td>
+                                            <td><b>Conatct number</b></td>
                                             <td>:</td>
                                             <td>@{{ customer_info.mobile_no }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.secondary_mobile_no != null">
-                                            <td><b>Secondary Contact number</b></td>
+                                            <td><b>Secondary conatct number</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.secondary_mobile_no }}</td>
                                         </tr> 
@@ -85,7 +85,7 @@
                                             <td>@{{ project_info.zipcode }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.place != null">
-                                            <td><b>City</b></td>
+                                            <td><b>Place</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.place }}</td>
                                         </tr> 
@@ -110,7 +110,7 @@
                                             <td>@{{ project_info.building_type.building_type_name }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.no_of_building != null">
-                                            <td><b>No. of Buildings</b></td>
+                                            <td><b>Number of Buildings</b></td>
                                             <td>:</td>
                                             <td>@{{ project_info.no_of_building }}</td>
                                         </tr> 
@@ -120,9 +120,9 @@
                                             <td>@{{ project_info.delivery_type.delivery_type_name }}</td>
                                         </tr> 
                                         <tr ng-if="project_info.project_delivery_date != null">
-                                            <td><b>Delivery Date</b></td>
+                                            <td><b>Delivered Date</b></td>
                                             <td>:</td>
-                                            <td>@{{ project_info.project_delivery_date | date:'dd-MM-yyyy' }}</td>
+                                            <td>@{{ project_info.project_delivery_date }}</td>
                                         </tr>  
                                         <tr ng-if="project_info.customerremarks != null">
                                             <td><b>Remarks</b></td>
@@ -217,13 +217,13 @@
                                         <tbody>
                                             <tr ng-repeat="ifc_model_upload in ifc_model_uploads">
                                                 <td> @{{ $index + 1}} </td>
-                                                <td> @{{ ifc_model_upload.created_at | date:'dd-MM-yyyy' }}</td>
+                                                <td> @{{ ifc_model_upload.created_at }}</td>
                                                 <td> @{{ ifc_model_upload.pivot.file_type }}</td>
                                                 <td> @{{ ifc_model_upload.document_type_name }}</td>
                                                 <td class="text-center">
+                                                    
                                                     <a download="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                                    <a ng-show="!autoDeskFileType.includes(ifc_model_upload.pivot.file_type)"  href="javascript:void(0)" ng-click="getDocumentView(ifc_model_upload.pivot)"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
-                                                    <a ng-show="autoDeskFileType.includes(ifc_model_upload.pivot.file_type)" target="_child" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.pivot.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                    <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.pivot.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -242,7 +242,7 @@
                         </div>
                     </fieldset>  
                 {{-- IFC Models & Uploaded Documents --}}
-
+        
                 {{-- Building Components --}}
                     <fieldset class="accordion-item">
                         <div class="accordion-header custom m-0 position-relative" id="building_component_header">
@@ -261,54 +261,66 @@
                         </div>
                         <div id="building_component" ng-show="project_info.building_component_process_type == 0" class="accordion-collapse collapse  " aria-labelledby="building_component_header" >
                             <div class="accordion-body">  
-                                <table class="table table-bordered m-0 table-striped" ng-init="total = 0 ">
-                                    <tbody > 
-                                        <tr ng-repeat="building_component in building_components"  ng-show="building_component.detail.length">
-                                            <td class="text-center" width="150px">
-                                                <b>@{{ building_component.wall }}</b>
-                                            </td>
-                                            <td>
-                                                <div class="py-2" ng-repeat="detail in building_component.detail">
-                                                    <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
-                                                        <thead class="table-secondary text-dark">
-                                                            <tr>
-                                                                <th>Floor</th>
-                                                                <th>Type of Delivery</th>
-                                                                <th>Total Area </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="text-align: left !important">@{{ detail.floor }} </td>
-                                                                <td>@{{ detail.delivery_type.delivery_type_name }}</td>
-                                                                <td >@{{  building_component.totalWallArea }}</td> 
-                                                            </tr>
-                                                        </tbody> 
+                                <div  style="max-height: 400px; overflow:auto"> 
+                                    <table class="custom  table table-bordered" ng-init="total = 0 ">
+                                        <tbody >
+                                            <tr class="table custom-bold text-center">
+                                                <th width="150px"></th>
+                                                <th style="padding: 0 !important">
+                                                    <table class="table custom m-0 ">
+                                                        <tr>
+                                                            <th width="50%">
+                                                                Wall details
+                                                            </th>
+                                                            <th style="padding: 0 !important" width="50%">
+                                                                Layer details
+                                                            </th>
+                                                        </tr>
                                                     </table>
-                                                    <table class="shadow-sm border table-bordered border-dark table m-0 bg-white">
-                                                        <thead>
-                                                            <tr> 
-                                                                <td><b>Name</b></td>
-                                                                <td><b>Thickness (mm)</b></td>
-                                                                <td><b>Breadth (mm)</b></td>
-                                                            </tr> 
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr ng-repeat="layer in detail.layer">
-                                                                <td>@{{ layer.layer_name }}</td>
-                                                                <td>@{{ layer.thickness }}</td>
-                                                                <td>@{{ layer.breath }} </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div> 
-                                            </td>
-                                        </tr>  
-                                        <tr ng-show="!enquiry.building_components.length">
-                                            <td colspan="4">No data found</td>
-                                        </tr>
-                                    </tbody>                     
-                                </table> 
+                                                </th>
+                                            </tr> 
+                                            <tr ng-repeat="building_component in building_components" ng-show="building_component.detail.length">
+                                                <td>@{{ building_component.wall }} </td>
+                                                <td style="padding: 0 !important" >
+                                                    <table class="table custom m-0 ">
+                                                        <tr ng-repeat="detail in building_component.detail"> 
+                                                            <td width="50%">
+                                                                <table class="table custom m-0 table-bordered">
+                                                                    <tr>
+                                                                        <th>Floor</th>
+                                                                        <th>wall Number</th>
+                                                                        <th>Delivery type</th>
+                                                                        <th >Total Area </th>
+                                                                    </tr> 
+                                                                    <tr>
+                                                                        <td>@{{ detail.floor }}</td>
+                                                                        <td>@{{ detail.exd_wall_number }}</td>
+                                                                        <td>@{{ detail.delivery_type.delivery_type_name }}</td>
+                                                                        <td ng-init="$parent.total = $parent.total ++ detail.approx_total_area">@{{ detail.approx_total_area }}</td>
+                                                                    </tr> 
+                                                                </table>
+                                                            </td>
+                                                            <td style="padding: 0 !important" width="50%">
+                                                                <table class="table custom m-0 table-bordered">
+                                                                    <tr class="table custom-bold">
+                                                                        <th>Name</th>
+                                                                        <th>Thickness (mm)</th>
+                                                                        <th>Breadth (mm)</th>
+                                                                    </tr> 
+                                                                    <tr ng-repeat="layer in detail.layer">
+                                                                        <td>@{{ layer.layer.layer_name }}</td>
+                                                                        <td>@{{ layer.thickness }}</td>
+                                                                        <td>@{{ layer.breath }}</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr> 
+                                                    </table> 
+                                                </td>
+                                            </tr>  
+                                        </tbody>                     
+                                    </table> 
+                                </div> 
                                 <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Admin', enqData.customer_info.id)" class="input-group mt-3">
                                     <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
@@ -341,7 +353,7 @@
                                                     <td> @{{ building_component.file_type }}</td>
                                                     <td class="text-center">
                                                         <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                                        <a href="javascript:void(0)" ng-click="getDocumentViews(building_component)"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                        <a target="_child" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -356,54 +368,46 @@
                                     <a class="text-primary p-0 btn"  ng-show="enquiry_comments.building_components" ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
-                                </div>
+                                </div> 
                             </div> 
                         </div>
+
                     </fieldset>
                 {{-- Building Components --}}
-
-                {{-- Additional Info --}}
-                    <fieldset class="accordion-item">
+        
+                {{-- Additional Info --}} 
+                    <fieldset class="accordion-item ">
                         <div class="accordion-header custom m-0 position-relative" id="add_info_header">
                             <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#add_info" aria-expanded="false" aria-controls="add_info">
-                                <span class="position-relative btn py-0">
-                                    Additional Info
-                                    <small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small>
-                                </span>
+                                <span class="position-relative btn py-0">Additional Info<small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small></span> 
+
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
-                                <i
+                                <i data-bs-toggle="collapse" 
                                     href="#add_info" 
                                     aria-expanded="false" 
                                     aria-controls="add_info" 
-                                    data-bs-toggle="collapse"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
-                                </i>
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                             </div>
                         </div>
                         <div id="add_info" class="accordion-collapse collapse" aria-labelledby="add_info_header" >
                             <div class="accordion-body">  
-                                {{-- <div ng-bind-html="additional_infos.comments"> </div> --}}
-                                <div>
-                                    <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
-                                        <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>
-                                    </div>
-                                    <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin', enqData.customer_info.id)" class="input-group mt-3">
-                                        <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                                        <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                    </form>  
-                                    <div class="text-end pt-3">
-                                        <a class="text-primary p-0 btn" ng-show="enquiry_comments.add_info"  ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
-                                            <i class="fa fa-eye"></i>  Previous chat history
-                                        </a>
-                                    </div>
+                                <div ng-bind-html="additional_infos.comments"> </div>
+                                <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Admin', enqData.customer_info.id)" class="input-group mt-3">
+                                    <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+                                    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+                                </form>  
+                                <div class="text-end pt-3">
+                                    <a class="text-primary p-0 btn" ng-show="enquiry_comments.add_info"  ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
+                                        <i class="fa fa-eye"></i>  Previous chat history
+                                    </a>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
-                    </fieldset>
+                    </fieldset> 
                 {{-- Additional Info --}}
-            </div>
-        </div>
-    </div>
+            </div>   
+             
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-@include('customer.enquiry.models.document-modal')

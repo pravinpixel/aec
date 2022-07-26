@@ -9,7 +9,7 @@
                         <b>Share Point</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch0" ng-model="sharepoint"  ng-value="2" ng-click="updateConnectionPlatform('sharepoint')" data-switch="none"/>
+                        <input type="checkbox" id="switch0" data-switch="none"/>
                         <label for="switch0" class="border" data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
@@ -21,8 +21,8 @@
                         <b>BIM 360</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch1"  ng-model="bim" ng-value="2" ng-click="updateConnectionPlatform('bim')" data-switch="none"/>
-                        <label for="switch1" class="border"  data-on-label="" data-off-label=""></label>
+                        <input type="checkbox" id="switch1" data-swit+ch="none"/>
+                        <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
             </div>
@@ -33,8 +33,8 @@
                         <b>24 /7 Office</b>
                     </div>
                     <div class="col-4 text-end">
-                        <input type="checkbox" id="switch2" ng-model="tsoffice"  ng-value="2" ng-click="updateConnectionPlatform('tsoffice')"  data-switch="none"/>
-                        <label for="switch2" class="border" data-on-label="" data-off-label=""></label>
+                        <input type="checkbox" id="switch1" data-switch="none"/>
+                        <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
                     </div>
                 </div>
             </div>
@@ -75,10 +75,10 @@
                         </div>
                         <div class="mb-3">
                             <small>* Project Type</small>
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="bim_project_type" ng-model="project.bim_project_type" required>
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
                                 <option value="">@lang('project.select') </option>
-                                <option ng-repeat="projectType in projectTypes" value="@{{ projectType }}">
-                                    @{{ projectType }}
+                                <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
+                                    @{{ projectType.project_type_name }}
                                 </option>
                             </select>
                         </div>
@@ -125,10 +125,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <input ng-checked="project.linked_to_customer== 1" type="checkbox" ng-model="project.linked_to_customer" class="form-check-input me-2 mb-2" id=""><small>Should the project be linked to a customer ?</small>
-                            <input ng-show="project.linked_to_customer" readonly type="text" name="customer" ng-model="enquiry.customer.first_name" class="form-control form-control-sm">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -152,7 +148,10 @@
                             <input type="date" name="delivery_date" ng-model="project.delivery_date" class="form-control form-control-sm">
                         </div>
                     </div>
-                
+                    <div class="mb-3">
+                        <input ng-checked="project.linked_to_customer== 1" type="checkbox" ng-model="project.linked_to_customer" class="form-check-input me-2 mb-2" id=""><small>Should the project be linked to a customer ?</small>
+                        <input ng-show="project.linked_to_customer" readonly type="text" name="customer" ng-model="enquiry.customer.first_name" class="form-control form-control-sm">
+                    </div>
                 </div>
             </div>
         </div>
@@ -163,14 +162,7 @@
     <input type="submit" class="btn btn-primary" value="Next" ng-disabled="connectPlatformForm.$invalid">
 </div>
 </form>
-<style> 
-    .Platform .timeline-step .inner-circle{
-        background: var(--secondary-bg) !important;
-        transform: scale(1.2);
-        box-shadow: 0px 5px 10px #4f4f4fb2 !important
-    }
-</style> 
-{{-- <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
 <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script> --}}
+<script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
  

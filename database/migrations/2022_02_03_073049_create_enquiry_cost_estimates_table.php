@@ -17,13 +17,10 @@ class CreateEnquiryCostEstimatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('assign_to')->nullable();
             $table->unsignedBigInteger('assign_by')->nullable();
-            $table->string('assign_for')->nullable();
-            $table->boolean('assign_for_status')->default(0);
             $table->string('enquiry_id'); 
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
-            $table->longText('build_json')->nullable();
-            $table->longText('precast_build_json')->nullable();
+            $table->text('build_json')->nullable();
             $table->string('total_cost')->nullable();
             $table->foreign('assign_to')->references('id')->on('employee');
             $table->foreign('assign_by')->references('id')->on('employee');

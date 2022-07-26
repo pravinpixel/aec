@@ -27,7 +27,7 @@ class DocumentTypeRepository implements DocumentTypeRepositoryInterface{
 
     public function update(array $data, $id)
     {
-        return $this->model->find($id)
+        return $this->model->where('id', $id)
             ->update($data);
     }
 

@@ -51,7 +51,7 @@
     <!-- end page -->
 
     <footer class="footer footer-alt">
-          © {{ now()->year }} AEC Prefab. All Rights Reserved.
+          © {{ now()->year }} All rights reserved | AecPrefab
     </footer>
     
 </body>
