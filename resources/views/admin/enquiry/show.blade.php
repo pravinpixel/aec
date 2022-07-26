@@ -2114,6 +2114,35 @@
                }, function errorCallback(error){});
             } 
             
+            $scope.manualMoveToProject = () => {
+               let assigned_to = $scope.customer_response_obj.follow_up_status ?? false;
+               if(assigned_to == false) {
+                    Message('danger', 'Select field required'); return false;
+               }
+               $http.post(API_URL+'customer-response/move-to-project', {assigned_to: '{{ Admin()->id }}', enquiry_id, enquiry_id}).then(function successfunction(res){
+                    $timeout(function(){
+                        window.onbeforeunload = null;
+                    });
+                    if(res.data.status == true){
+                        Swal.fire({
+                            title: `Move to project successfully`,
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            cancelButtonText: 'No',
+                            confirmButtonText: 'Ok',
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = '{{ route('list-projects') }}'
+                            }
+                        });
+                        return false;
+                    }
+                    Message('danger', res.data.msg);
+                    return false;
+               }, function errorCallback(error){});
+            } 
+
+
             $scope.assignToProject = () => {
                let assigned_to = $scope.customer_response_obj.assign_user ?? false;
                if(assigned_to == false) {

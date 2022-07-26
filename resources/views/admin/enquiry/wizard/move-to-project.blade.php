@@ -80,19 +80,21 @@
                 <strong class="card-text text-secondary "><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Set Next follow up date​</strong>
                 <div class="input-group mt-2">
                     <input  ng-model="customer_response_obj.follow_up_date" type="date" class="form-control form-control-sm" data-date-inline-picker="true">
-                    <button class="btn btn-info btn-sm">Set</button>
+                    <button class="btn btn-info btn-sm" ng-click="updateFollow()">Set</button>
                 </div>
             </div>
-            <div class="col-12 mb-3">
-                <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Manual Override​</strong>
-                <div class="input-group mt-2">
-                    <select ng-model="customer_response_obj.follow_up_status" class="form-select form-control-sm">
-                        <option value="">@lang('customer-enquiry.select')</option>
-                        <option value="Approved"  ng-selected="true">Approved</option>
-                    </select>
-                    <button class="btn btn-info btn-sm">Move</button>
+            @if(userRole()->slug == 'admin')
+                <div class="col-12 mb-3">
+                    <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Manual Override​</strong>
+                    <div class="input-group mt-2">
+                        <select ng-model="customer_response_obj.follow_up_status" class="form-select form-control-sm">
+                            <option value="">@lang('customer-enquiry.select')</option>
+                            <option value="Approved"  ng-selected="true">Approved & Move to Project</option>
+                        </select>
+                        <button class="btn btn-info btn-sm" ng-click="manualMoveToProject()">Move</button>
+                    </div>  
                 </div>  
-            </div>  
+            @endif
         </div>  
     </div>
 </div>
