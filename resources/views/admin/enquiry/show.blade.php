@@ -936,7 +936,12 @@
                                                 </h5>`;
                         currentTabelHistory += item.history;
                     })
-                    const currentTabel          =   $(".costEstimateCurrentData").html()
+                    if(type =='wood'){
+                        var currentTabel          =   $(".costEstimateCurrentData").html()
+                    } else {
+                        var currentTabel          =   $("#precast-cost-estimate").html()
+                    }
+                   
                     var a = window.open('', '', 'height=10000, width=10000');
                     a.document.write('<html>');
                     a.document.write('<body>');
