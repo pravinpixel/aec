@@ -167,7 +167,7 @@
                     </a>
                 </h5>
             </div>
-            <div class="card-body bg-light p-0">
+            <div class="card-body bg-light p-0" id="history_id">
                 <div ng-show="price_calculation == 'wood_engineering_estimation'">
                     <div id="wood_id"></div>
                 </div>

@@ -535,6 +535,7 @@ sup {
 
 #history_id .history_building_component_value {
     display: block !important;
+    border: none;
 }
 #history_id .history_building_component_select {
     display: none !important;
