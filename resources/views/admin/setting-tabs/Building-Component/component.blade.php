@@ -7,12 +7,15 @@
         </div>
     </div>
     <div class="card-body">
-        <table datatable="ng" dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+        <table dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th >Order Id</th>
+                    <th >Label</th>
                     <th>Icon</th>
+                    <th>Top Name</th>
+                    <th>Bottom Name</th>
                     <th>Status</th>
                     <th >Actions</th>
                 </tr>
@@ -23,7 +26,10 @@
                     
                     <td class="align-items-center">@{{ comp.building_component_name }}</td>
                     <td ><span>@{{ comp.order_id }} </span></td>
+                    <td ><span>@{{ comp.label }} </span></td>
                     <td ><span style="font-size: 18px">@{{ comp.building_component_icon }} </span></td>
+                    <td ><span>@{{ comp.top_position }} </span></td>
+                    <td ><span>@{{ comp.bottom_position }} </span></td>
                     <td>
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="comp.is_active == 1" data-switch="primary"/>
@@ -64,22 +70,40 @@
                     </div> 
                     <div class="row">
                         <div class="form-group col error">
-                                <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Order Id</label>
+                                <label for="inputEmail4" class="col-sm-12 text-dark control-label mb-2">Order Id</label>
                                 <div class="col-sm-12 me-2">
-                                    <input type="number" class="form-control has-error" id="order_id" name="order_id" placeholder="Type Here.." ng-model="module_comp.order_id" ng-required="true">
+                                    <input type="text" onkeypress="return isNumber(event)" class="form-control has-error" id="order_id" name="order_id" placeholder="Type Here.." ng-model="module_comp.order_id" ng-required="true">
                                     <small class="help-inline text-danger" >This  Fields is Required</small>
                                 </div>
                         </div> 
                         <div class="form-group col error">
-                            <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Menu Icon</label>
+                            <label for="inputEmail5" class="col-sm-12 text-dark control-label mb-2">Menu Icon</label>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control has-error" id="building_component_icon" name="building_component_icon" placeholder="Type Here.." ng-model="module_comp.building_component_icon" ng-required="true">
                                 <small class="help-inline text-danger"  >This  Fields is Required</small>
                             </div>
                         </div> 
+
+                        <div class="row">
+                            <div class="form-group col error">
+                                <label for="inputEmail6" class="col-sm-12 text-dark control-label mb-2">Top Name</label>
+                                <div class="col-sm-12 me-2">
+                                    <input type="text"  class="form-control has-error" id="top_position" name="top_position" placeholder="Type Here.." ng-model="module_comp.top_position" >
+                                    <small class="help-inline text-danger" >This  Fields is Required</small>
+                                </div>
+                            </div> 
+                            <div class="form-group col error">
+                                <label for="inputEmail7" class="col-sm-12 text-dark control-label mb-2">Bottom Name</label>
+                                <div class="col-sm-12 me-2">
+                                    <input type="text"  class="form-control has-error" id="bottom_position" name="bottom_position" placeholder="Type Here.." ng-model="module_comp.bottom_position">
+                                    <small class="help-inline text-danger" >This  Fields is Required</small>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12 pt-3">
+                            <label for="status" class="col-sm-12  text-dark control-label mb-2">Status</label>
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
                                     <input type="radio"  ng-checked="module_comp.is_active == 1" id="active" value="1" ng-model="module_comp.is_active" name="is_active" class="form-check-input"  ng-required="true">
@@ -88,6 +112,17 @@
                                 <div class="form-check form-check-inline form-radio-dark">
                                     <input type="radio" ng-checked="module_comp.is_active == 0" id="Deactive" value="0" ng-model="module_comp.is_active" name="is_active" class="form-check-input" ng-required="true">
                                     <label class="form-check-label" for="Deactive">Inactive</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pt-3">
+                            <label for="status" class="col-sm-12  text-dark control-label mb-2">Label</label>
+                            <div>
+                                <div class="form-check form-check-inline form-radio-@{{form_color}}">
+                                    <input type="text"  class="form-control has-error" id="label" name="label" placeholder="Type Here.." ng-model="module_comp.label">
+                                    <small class="help-inline text-danger" >This  Fields is Required</small>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +139,7 @@
 </div> 
 <style>
     .componentTab{
-        color: #727cf5 !important;
-        background-color: rgba(114,124,245,.18) !important;
+        color: #163269 !important;
+        background-color: #d4e2ff !important;
     }
 </style>

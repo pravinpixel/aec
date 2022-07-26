@@ -11,9 +11,6 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
-                
-                <!-- start page title -->
-                
                 @include('admin.includes.page-navigater') 
             </div>    
             <div class="card border">
@@ -33,6 +30,16 @@
                                         </div> 
                                     </a>
                                 </li>
+                                <li class="nav-item accountSettings" data-target-form="#accountSettings" style="pointer-events:none" >
+                                    <a href="#!/editAccountSettings" style="min-height: 40px;" class="timeline-step" id="service" >
+                                        <div class="timeline-content">
+                                            <div class="inner-circle  bg-secondary share-point">
+                                                <i class="fa fa-address-book fa-2x mb-1"></i>
+                                            </div>        
+                                            <span class="d-none d-sm-inline mt-2">Account Settings</span>                                                                
+                                        </div>
+                                    </a>
+                                </li>
                                 <li class="nav-item serviceSelection" data-target-form="#serviceSelection" style="pointer-events:none" >
                                     <a href="#!/editSharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
                                         <div class="timeline-content">
@@ -41,9 +48,8 @@
                                             </div>        
                                             <span class="d-none d-sm-inline mt-2">share Point Access</span>                                                                
                                         </div>
-                                        
                                     </a>
-                                </li>
+                                </li> 
                                 <li class="nav-item last IFCModelUpload" data-target-form="#IFCModelUpload"   style="pointer-events:none">
                                     <a href="#!/editIbmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
                                         <div class="timeline-content">
@@ -75,12 +81,12 @@
 @push('custom-scripts')
    <style>
        input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
-}
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0; 
+        }
 
    </style>
  
@@ -141,8 +147,8 @@ input[type=number]::-webkit-outer-spin-button {
             },
         
         
-    }); 
-});
+        }); 
+    });
 </script>
     <script>
         // var app = angular.module('AppSale', []).constant('API_URL', $("#baseurl").val()); 
@@ -217,6 +223,9 @@ input[type=number]::-webkit-outer-spin-button {
                     }).then(function(res){
                 //    alert(JSON.stringify(res.data.data))
                         $scope.EmpData = res.data.data;
+                        localStorage.removeItem("current_employee_data");
+                        localStorage.setItem("current_employee_data", $scope.EmpData);
+
                         if(res.data.data.image != "no_image.jpg")
                         {
                             $scope.deleteImageBtn = true;

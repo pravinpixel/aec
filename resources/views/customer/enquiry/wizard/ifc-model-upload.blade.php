@@ -3,7 +3,7 @@
         <div class="row">
             <div ng-repeat="documentType in documentTypes" class="col-md-4">
                 <div  class="card p-3 shadow-sm file-upload-card" style="overflow: hidden">
-                    <h1>@{{  documentType.document_type_name }}</h1>
+                    <h4>@{{  documentType.document_type_name }}</h4>
                     <div class="drag-area">
                     <p class="text-disable text-center"> </p>  
                     <input  type="file" file-drop-zone="@{{'file' + documentType.slug}}" class="form-control file-control rounded-pill" file-model="@{{'file' + documentType.slug}}" id ="@{{ documentType.slug }}"/>
@@ -21,16 +21,41 @@
         @include('customer.enquiry.modal')
         <div ng-repeat="documentType in documentTypes">
             <div class="table custom-header">
-                <h1>@{{documentType.document_type_name }}</h1>
+                <h4>@{{documentType.document_type_name }}</h4>
                 <br>
                 <viewlist data="documentLists[documentType.slug]" file-type="autoDeskFileType"></viewlist><br/>
             </div>
         </div> 
 
+   
+        <div class="row" ng-show="commentShow">
+            <div class="col-8">
+                <open-comment  data="
+                {'modalState':'viewConversations',
+                'type': 'ifc_model', 
+                'header':'IFC Models & Uploaded Documents',
+                'enquiry_id':enquiry_id,
+                send_by: {{ Customer()->id }},
+                'from':'Customer'
+                }"/> 
+            </div>
+            <div class="col-4">
+                <comment  ng-show="commentShow" data="
+                {'modalState':'viewConversations',
+                'type': 'ifc_model', 
+                'header':'IFC Models & Uploaded Documents',
+                'enquiry_id':enquiry_id,
+                send_by: {{ Customer()->id }},
+                'from':'Customer'
+                }"/>
+            </div>
+        </div>
+   
     <div class="card-footer border-0 p-0">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/service" class="btn btn-light border shadow-sm">Prev</a></li>
             <li class="next list-inline-item float-end"><input  class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
+            <li class="next list-inline-item float-end mx-2"><input class="btn btn-light border shadow-sm"   ng-click="saveAndSubmitIFC()" type="button" name="submit" value="Save & Submit Later"/></li>
         </ul>
     </div>
 </form>

@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ui-notification','ngRoute','textAngular','luegg.directives','psi.sortable','ngSanitize']).constant('API_URL', $("#baseurl").val());   
+var app = angular.module('App', ['dx','ui-notification','ngRoute','textAngular','luegg.directives','psi.sortable','ngSanitize']).constant('API_URL', $("#baseurl").val());   
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  
         restrict: 'A',  
@@ -119,4 +119,3 @@ angular.module('psi.sortable', [])
             }
             };
         }]);
- 

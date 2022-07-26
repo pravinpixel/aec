@@ -61,6 +61,8 @@ class Enquiry extends Model
         'follow_up_date',
         'follow_up_status',
         'follow_up_by',
+        'response_status',
+        'project_assign_to'
     ];
 
     public function getCreatedAtAttribute($date)
@@ -101,6 +103,11 @@ class Enquiry extends Model
     public function setEnquiryDateAttribute($value)
     {
         $this->attributes['enquiry_date'] = GlobalService::DBDateFormatWithTime($value);
+    }
+
+    public function setCityAttribute()
+    {
+        $this->attributes['city'] = $this->attributes['place'];
     }
 
     public function getFollowUpDateAttribute($value)
@@ -183,7 +190,7 @@ class Enquiry extends Model
             return  false;
         }
         $clone->enquiry_number = GlobalService::enquiryNumber();
-        $clone->status = 'Active';
+        $clone->status = 'Submitted';
         $clone->from_enquiry_id = $clone->id;
         $clone->push();
         foreach($this->services as $service){

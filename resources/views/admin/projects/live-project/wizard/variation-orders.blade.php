@@ -65,34 +65,40 @@
             </tr>
         </thead>
         <tbody>
-            @for ($i=0;$i<6;$i++)
-                <tr>
-                    <td>{{ $i+1 }}</td>
-                    <td>
-                        <button type="button" class="btn btn-sm py-0 btn-outline-primary" data-bs-toggle="modal" data-bs-target="#Variation_mdal-box">
-                            TIC-00{{ $i+1 }} 
+
+
+            <tr ng-repeat="(index,pticketsdata) in ptickets">
+                <td>@{{ index+1 }}</td>
+                <td>
+                    <button type="button" ng-click="projectticketshow(pticketsdata.id)" class="btn btn-sm py-0 btn-outline-primary" data-bs-toggle="modal" data-bs-target="#Variation_mdal-box">
+                        TIC-00@{{ index+1 }} 
+                    </button>
+                </td>
+                <td> @{{customer.customerdatails.first_name}} @{{customer.customerdatails.first_name}}</td>
+                <td ng-bind-html="pticketsdata.title">@{{ pticketsdata.title }}</td>
+                <td>-</td>
+                <td>@{{ pticketsdata.change_date }}</td>
+                <td><span class="badge bg-success">open</span></td>
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-sm py-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="dripicons-dots-3 "></i>
                         </button>
-                    </td>
-                    <td>Kannan EFWE</td>
-                    <td>What is the update</td>
-                    <td>-</td>
-                    <td>1{{ $i+1 }}-0{{ $i+1 }}-2021</td>
-                    <td><span class="badge bg-success">open</span></td>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-sm py-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="dripicons-dots-3 "></i>
-                            </button>
-                            
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">View</a>
-                                <a class="dropdown-item" href="#">Reply</a>
-                                <a class="dropdown-item" href="#">Delete</a>
-                            </div>
+                        
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" ng-click="projectticketshow(pticketsdata.id)" >View</a>
+                            <a class="btn dropdown-item" ng-click="sendMailToCustomerticket(pticketsdata.id,customer.customerdatails.id)">Send Mail</a>
+                            <a class="dropdown-item" ng-click="showCommentsToggle('viewConversations', 'project_ticket_comment', 'Ticket Comment',pticketsdata.id)">Reply comment</a>
+                            <a class="dropdown-item" href="#">Delete</a>
                         </div>
-                    </td>
-                </tr>
-            @endfor
+                    </div>
+                </td>
+            </tr>
+
+
+
+
+
         </tbody>
     </table>
 </div>
@@ -180,3 +186,8 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<div class="card-footer text-end">
+    <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
+    <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
+    <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
+</div>

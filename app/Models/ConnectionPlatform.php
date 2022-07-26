@@ -10,8 +10,8 @@ class ConnectionPlatform extends Model
     use HasFactory;
     protected $fillable = [
         'project_id',
-        'share_point_access_id',
-        'is_access',
-        'connection_url'
+        'sharepoint_status',
+        'bim_status',
+        'tf_office_status'
     ];
 }

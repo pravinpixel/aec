@@ -40,6 +40,113 @@ app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeo
     };
 }]);
 
+app.directive('getTotalComponentsDelete',   ['$http' ,function ($http, $scope,$apply) {  
+    return {
+        restrict: 'A',
+        link : function (scope, element, attrs) {
+            element.on('click', function () {
+                var index       = scope.index;
+                var secindex    = scope.secindex;
+                scope.building_building[index].building_component_number.splice(secindex,1);
+
+                let bcd = scope.building_building[index].building_component_number.map((item,i) => {
+                    return item.sqfeet;
+                }); 
+                let result =  bcd.reduce(function(previousValue, currentValue){
+                    if(typeof(previousValue) == 'undefined') {
+                        previousValue = 0;
+                    }
+                    if(typeof(currentValue) == 'undefined') {
+                        currentValue = 0;
+                    }
+                    return previousValue + currentValue
+                }, 0);
+                scope.building_building[index].total_component_area = result; 
+                scope.$apply();
+            });
+        },
+    };
+}]);  
+
+app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) {  
+    return {
+        restrict: 'A',
+        link : function (scope, element, attrs) {
+            element.on('keyup', function () {
+                if($("#_technical_").val() == 1) {
+                    $(this).addClass('bg-info');
+                } else {
+                    $(this).addClass('bg-warning');
+                }
+                var index   = scope.index;
+                let bcd = scope.building_building[index].building_component_number.map((item,i) => {
+                    return item.sqfeet;
+                }); 
+                let result =  bcd.reduce(function(previousValue, currentValue){
+                    if(typeof(previousValue) == 'undefined') {
+                        previousValue = 0;
+                    }
+                    if(typeof(currentValue) == 'undefined') {
+                        currentValue = 0;
+                    }
+                    return previousValue + currentValue
+                }, 0);
+                scope.building_building[index].total_component_area = result; 
+                scope.$apply();
+            });
+        },
+    };
+}]);
+
+
+
+app.directive('pris', function () {
+    return {
+        restrict: 'E',
+        template: `{{ sumVal }}`,
+        scope: {
+            data: '=data',
+            type: '=pristype'
+        },
+        link: function(scope, element, attrs) {
+            scope.$watch('data', function(newVal, oldVal){
+                console.log(scope);
+                if(scope.type == 'detail'){
+                    let prisVal =  scope.data.ComponentsTotals.Statistics.Sum;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                } 
+                else if(scope.type == 'statistics') {
+                    let prisVal = scope.data.ComponentsTotals.Statistics.Sum ;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                } else if(scope.type == 'cad') {
+                    let prisVal = scope.data.ComponentsTotals.CadCam.PriceM2 ;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                } else if(scope.type == 'logistics') {
+                    let prisVal = scope.data.ComponentsTotals.Logistics.Sum ;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                } else if(scope.type == 'totalcost') {
+                    let prisVal = scope.data.ComponentsTotals.TotalCost.Sum ;
+                    scope.prisVal =  isNaN(prisVal) == false ? prisVal : 0;
+                }
+            }, true);
+            
+        }
+    };
+});
+
+app.directive('proposalStatus', function () {
+    return {
+        restrict: 'E',
+        template: `<div ng-bind-html="status"></div>`,
+        scope: {
+            data: '=data',
+        },
+        link: function(scope, element, attrs) {
+            scope.status = statusBadge(scope.data);
+        }
+    };
+});
+
 angular.module('psi.sortable', [])
     .value('psiSortableConfig', {
         placeholder: "placeholder",
@@ -116,6 +223,104 @@ angular.module('psi.sortable', [])
         }
         };
     }]);
+
+// angular.module('psi.sortablex', [])
+//     .value('psiSortableConfig', {
+//         placeholder: "placeholder",
+//         opacity: 1,
+//         axis: "x",
+//         helper: 'clone',
+//         forcePlaceholderSize: true
+//     })
+//     .directive("psiSortablex", ['psiSortableConfig', '$log', function(psiSortableConfig, $log) {
+//         return {
+//         require: '?ngModel',
+//         link: function(scope, element, attrs, ngModel) {
+
+//             if(!ngModel) {
+//             $log.error('psiSortable needs a ng-model attribute!', element);
+//             return;
+//             }
+
+//             var opts = {};
+//             angular.extend(opts, psiSortableConfig);
+//             opts.update = update;
+
+//             // listen for changes on psiSortable attribute
+//             scope.$watch(attrs.psiSortable, function(newVal) {
+//             angular.forEach(newVal, function(value, key) {
+//                 element.sortable('option', key, value);
+//             });
+//             }, true);
+
+//             // store the sortable index
+//             scope.$watch(attrs.ngModel+'.length', function() {
+//             element.children().each(function(i, elem) {
+//                 console.log(i);
+//                 jQuery(elem).attr('sortable-index', i);
+//             });
+//             });
+
+//             // jQuery sortable update callback
+//             function update(event, ui) {
+//             // get model
+//             var model = ngModel.$modelValue;
+//             // remember its length
+//             var modelLength = model.length;
+//             // rember html nodes
+//             var items = [];
+
+//             // var Component = [];
+//             // var ComponentLength = scope.CostEstimate.Components.length;
+
+//             // loop through items in new order
+//             element.children().each(function(index) {
+//                 var item = jQuery(this);
+             
+//                 // get old item index
+//                 var oldIndex = parseInt(item.attr("sortable-index"), 10);
+//                 // console.log(oldIndex)
+//                 // // add item to the end of model
+              
+//                 //     // console.log(item.Dynamics[oldIndex]);
+//                 // Component.push(oldIndex);
+            
+                
+//                 // console.log(scope.CostEstimate.Components) ;
+    
+//                 model.push(model[oldIndex]);
+
+//                 if(item.attr("sortable-index")) {
+//                 // items in original order to restore dom
+//                 items[oldIndex] = item;
+//                 // and remove item from dom
+//                 item.detach();
+//                 }
+//             });
+//             // var final = [];
+//             // Component.forEach((index) => {
+//             //     var comps = [];
+//             //     scope.CostEstimate.Components.forEach((item) => {
+//             //         comps.push(item.Dynamics[index]);
+//             //     })
+//             //     final.push(comps);
+//             // })
+//             // console.log('final',final);
+//             // console.log(Component);
+            
+//             model.splice(0, modelLength);
+
+//             // restore original dom order, so angular does not get confused
+//             element.append.apply(element, items);
+
+//             // notify angular of the change
+//             scope.$digest();
+//             }
+
+//             element.sortable(opts);
+//         }
+//         };
+//     }]);
 app.config(function() {
     angular.lowercase = angular.$$lowercase;  
 });

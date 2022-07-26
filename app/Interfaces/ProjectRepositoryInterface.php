@@ -5,7 +5,7 @@ namespace App\Interfaces;
 interface ProjectRepositoryInterface
 {
     public function create($enquiry_id, array  $data);
-    public function assingProjectToUser($enquiry_id, array  $data);
+    public function assignProjectToUser($enquiry_id, array  $data);
     public function unestablishedProjectList($request);
     public function getProjectById($id);
     public function storeProjectCreation($id, $data);
@@ -28,5 +28,6 @@ interface ProjectRepositoryInterface
     public function liveProjectList($request);
     public function createSharepointFolder($project_id);
     public function updateWizardStatus($project, $column, $value);
+    public function liveprojectdata($id);
     // public function storeToDoList($id, $data);
 }

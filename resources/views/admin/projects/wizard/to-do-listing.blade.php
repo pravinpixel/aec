@@ -6,7 +6,7 @@
                 <div class="btn-group w-100 border rounded">
                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
                         <option value="">@lang('project.select') </option>
-                        <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
+                        <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" ng-selected="projectType.id == project.project_type_id">
                             @{{ projectType.project_type_name }}
                         </option>
                     </select>
@@ -72,8 +72,8 @@
                                                 </option>
                                             </select>
                                         </td>
-                                        <td><input type="date" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
-                                        <td><input type="date" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                        <td><input type="date" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                        <td><input type="date" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
                                     </tr> 
                                 </tbody>
                             </table>
@@ -90,7 +90,13 @@
     <a href="#!/invoice-plan" class="btn btn-light float-start">Prev</a>
     <a ng-click="storeToDoLists()" class="btn btn-primary">Next</a>
 </div>
-
+<style> 
+    .To_Do_List .timeline-step .inner-circle{
+        background: var(--secondary-bg) !important;
+        transform: scale(1.2);
+        box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+</style> 
 {{-- <fieldset class="accordion-item">
     <div class="accordion-header custom m-0 position-relative" id="mulistory_header">
         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#mulistory" aria-expanded="false" aria-controls="mulistory">

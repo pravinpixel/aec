@@ -4,18 +4,43 @@
             <h3 class="text-center">Specify additional details</h3>
             <div class="py-3">
                 <div class="form-floating" id="additional_info_text_editor">
-                    {{-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" ng-model="additionalInfo" style="height: 100px;"></textarea> --}}
-                    <div text-angular="text-angular" name="additionalInfo" ng-model="additionalInfo" ta-disabled='disabled'>
-                    </div>  
-                    {{-- <input ng-model="additionalInfo"  />  --}}
+                    <div dx-html-editor="htmlEditorOptions"> </div>
+                    </div>
+                </div>
                 </div> 
             </div>
         </div>
     </div>
+    
+    <hr ng-show="commentShow">  
+    <div class="row" ng-show="commentShow">
+        <div class="col-8">
+            <open-comment  data="
+            {'modalState':'viewConversations',
+            'type': 'add_info', 
+            'header':'Additional Information',
+            'enquiry_id':enquiry_id,
+            send_by: {{ Customer()->id }},
+            'from':'Customer'
+            }"/> 
+        </div>
+        <div class="col-4">
+            <comment  ng-show="commentShow" data="
+            {'modalState':'viewConversations',
+            'type': 'add_info', 
+            'header':'Additional Information',
+            'enquiry_id':enquiry_id,
+            send_by: {{ Customer()->id }},
+            'from':'Customer'
+            }"/>
+        </div>
+    </div>
+    
     <div class="card-footer border-0 p-0">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/building-component" class="btn btn-light border shadow-sm">Prev</a></li>
             <li class="next list-inline-item float-end"><input  class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
+            <li class="next list-inline-item float-end mx-2"><input class="btn btn-light border shadow-sm"  ng-click="saveAndSubmitAdditionalinfoForm()" type="button" name="submit"  value="Save & Submit Later"/></li>
         </ul>
     </div> 
      

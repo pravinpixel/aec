@@ -36,7 +36,7 @@
                                     <div class="col-sm-3 tilebox-one">
                                         <div class="card card-body">
                                             <i class='fa-thumbs-up fa  float-end  dashboard-icon'></i>
-                                            <h6 class=" text-info mt-0">Total enquiries</h6>
+                                            <h6 class=" text-info mt-0">Total Enquiries</h6>
                                             <h2 class="my-2 h3">{{ $totalEnquiry }}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
@@ -44,7 +44,7 @@
                                     <div class="col-sm-3 tilebox-one">
                                         <div class="card card-body">
                                             <i class='fa fa-bullhorn float-end  dashboard-icon'></i>
-                                            <h6 class=" text-primary mt-0 ">New enquiries</h6>
+                                            <h6 class=" text-primary mt-0 ">New Enquiries</h6>
                                             <h2 class="my-2 h3">{{ $totalNewEnquiry }}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
@@ -53,7 +53,7 @@
                                     <div class="col-sm-3 tilebox-one">
                                         <div class="card card-body">
                                             <i class='fa-thumbs-up fa  float-end  dashboard-icon'></i>
-                                            <h6 class=" text-success mt-0">Active enquiries</h6>
+                                            <h6 class=" text-success mt-0">Active Enquiries</h6>
                                             <h2 class="my-2 h3">{{ $totaActiveEnquiry }}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
@@ -62,7 +62,7 @@
                                     <div class="col-sm-3 tilebox-one">
                                         <div class="card card-body">
                                             <i class='fa-thumbs-up fa  float-end  dashboard-icon'></i>
-                                            <h6 class=" text-danger mt-0">Closed enquiries</h6>
+                                            <h6 class=" text-danger mt-0">Closed Enquiries</h6>
                                             <h2 class="my-2 h3">{{ $totaCancelledEnquiry }}</h2>
                                         </div> <!-- end card-body-->
                                     </div>
@@ -76,7 +76,8 @@
                     <!-- container --> 
 				</div> 
                 
-            </div> <!-- container -->
+            </div> 
+            <!-- container -->
 
         </div> <!-- content --> 
 

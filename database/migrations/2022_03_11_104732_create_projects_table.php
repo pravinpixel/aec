@@ -40,8 +40,8 @@ class CreateProjectsTable extends Migration
             $table->string('status')->default('In-Progress');
             $table->string('address_one')->nullable();
             $table->string('address_two')->nullable();
-            $table->string('time_zone')->nullable();
-            $table->string('language')->nullable();
+            $table->string('time_zone')->default('Europe/Amsterdam');
+            $table->string('language')->default('en');
             $table->boolean('linked_to_customer')->default(0);
             $table->boolean('is_submitted')->default(0); //draft
             $table->boolean('wizard_create_project')->default(0); 
@@ -58,6 +58,9 @@ class CreateProjectsTable extends Migration
             $table->foreign('created_by')->references('id')->on('employee');
             $table->foreign('updated_by')->references('id')->on('employee');
             $table->longText('gantt_chart_data')->nullable();
+            $table->string('bim_project_type')->default('Residential');
+            $table->string('bim_account_id')->nullable();
+            $table->string('bim_id')->nullable();
             $table->timestamps();
         });
     }

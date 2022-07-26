@@ -22,7 +22,7 @@
                     <input type="hidden" value="@{{ employeeRowId }}" ng-model="employeeRowId" >
                     <tr ng-repeat="(index,employee) in sharePointAccess_module">
                         <td class="text-center">@{{ index+1 }}</td>
-                        <td class="text-center">@{{ employee.folder_name }}</td>
+                        <td class="text-left">@{{ employee.folder_name }}</td>
                         <td class="text-center">
                             <div>
                                 <input type="checkbox" id="switch__@{{ index }}"   ng-disabled="share_point_status ==0" ng-checked="employee.is_active == 1" 

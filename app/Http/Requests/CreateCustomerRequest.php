@@ -24,11 +24,12 @@ class CreateCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_name'   => 'required',
-            'contact_person' => 'required',
-            'project_name'   => 'required',
-            'mobile_no'      => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'email'          => 'required|unique:customers|email'
+            'company_name'    => 'required',
+            'organization_no' => 'required',
+            'contact_person'  => 'required',
+            'project_name'    => 'required',
+            'mobile_no'       => ['required','regex:/^\d{8}$|^\d{12}$/'],
+            'email'           => 'required|unique:customers|email'
         ];
     }
 }

@@ -83,44 +83,28 @@
                     </div> 
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="row m-0 align-items-center">
-                    <div class="col-3 mb-2 p-0">
-                        <label class="col-form-label">No.of Buildings  <sup class="text-danger"></sup></label>
-                    </div>
-                    <div class="col pe-0">
-                        <input type="text" name="no_of_building_id" ng-model="project.no_of_building" class="form-control form-control-sm" required>
-                        <small class="text-danger" ng-show="createProjectForm.no_of_building_id.$invalid && createProjectForm.no_of_building_id.$toucehd">This field is required</small>
-                    </div> 
-                </div>
-            </div>
+          
             <div class="col-md-6">
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
                         <label class="col-form-label">Zipcode <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
-                        <input type="text" id="zipcode" name="zipcode" ng-model="project.zipcode" ng-change="getZipcode()" class="form-control form-control-sm" required>
+                        <input type="text" onkeypress="return isNumber(event)" id="zipcode" name="zipcode" ng-model="project.zipcode" ng-change="getZipcode()" class="form-control form-control-sm" required>
                         <small class="text-danger" ng-show="createProjectForm.zipcode.$invalid && createProjectForm.zipcode.$toucehd">This field is required</small>
 
                     </div> 
                 </div>
             </div>
-          
+   
             <div class="col-md-6">
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
-                        <label class="col-form-label">Type of Building<sup class="text-danger">*</sup></label>
+                        <label class="col-form-label">City <sup class="text-danger"></sup></label>
                     </div>
                     <div class="col pe-0">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="building_type_id" ng-model="project.building_type_id" required>
-                            <option value="">@lang('project.select') </option>
-                            <option ng-repeat="buildingType in buildingTypes" value="@{{ buildingType.id }}" >
-                                @{{ buildingType.building_type_name }}
-                            </option>
-                        </select>
-                        <small class="text-danger" ng-show="createProjectForm.building_type_id.$invalid && createProjectForm.building_type_id.$toucehd">This field is required</small>
-
+                        <input type="text" name="city" ng-model="project.city" class="form-control form-control-sm" required>
+                        <small class="text-danger" ng-show="createProjectForm.city.$invalid && createProjectForm.city.$toucehd">This field is required</small>
                     </div> 
                 </div>
             </div>
@@ -138,23 +122,6 @@
             <div class="col-md-6">
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
-                        <label class="col-form-label">Type of Project <sup class="danger">*</sup></label>
-                    </div>
-                    <div class="col pe-0">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
-                            <option value="">@lang('project.select') </option>
-                            <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" >
-                                @{{ projectType.project_type_name }}
-                            </option>
-                        </select>
-                        <small class="text-danger" ng-show="createProjectForm.project_type_id.$invalid && createProjectForm.project_type_id.$toucehd">This field is required</small>
-
-                    </div> 
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row m-0 align-items-center">
-                    <div class="col-3 mb-2 p-0">
                         <label class="col-form-label">Country <sub class="text-danger">*</sub></label>
                     </div>
                     <div class="col pe-0">
@@ -164,6 +131,55 @@
                     </div> 
                 </div>
             </div>
+
+            <div class="col-md-6">
+                <div class="row m-0 align-items-center">
+                    <div class="col-3 mb-2 p-0">
+                        <label class="col-form-label">No.of Buildings  <sup class="text-danger"></sup></label>
+                    </div>
+                    <div class="col pe-0">
+                        <input type="text" onkeypress="return isNumber(event)" name="no_of_building_id" ng-model="project.no_of_building" class="form-control form-control-sm" required>
+                        <small class="text-danger" ng-show="createProjectForm.no_of_building_id.$invalid && createProjectForm.no_of_building_id.$toucehd">This field is required</small>
+                    </div> 
+                </div>
+            </div>
+                   
+            <div class="col-md-6">
+                <div class="row m-0 align-items-center">
+                    <div class="col-3 mb-2 p-0">
+                        <label class="col-form-label">Type of Building<sup class="text-danger">*</sup></label>
+                    </div>
+                    <div class="col pe-0">
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="building_type_id" ng-model="project.building_type_id" required>
+                            <option value="">@lang('project.select') </option>
+                            <option ng-repeat="buildingType in buildingTypes" value="@{{ buildingType.id }}" ng-selected="buildingType.id == project.building_type_id">
+                                @{{ buildingType.building_type_name }}
+                            </option>
+                        </select>
+                        <small class="text-danger" ng-show="createProjectForm.building_type_id.$invalid && createProjectForm.building_type_id.$toucehd">This field is required</small>
+
+                    </div> 
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row m-0 align-items-center">
+                    <div class="col-3 mb-2 p-0">
+                        <label class="col-form-label">Type of Project <sup class="danger">*</sup></label>
+                    </div>
+                    <div class="col pe-0">
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
+                            <option value="">@lang('project.select') </option>
+                            <option ng-repeat="projectType in projectTypes" ng-value="@{{ projectType.id }}" ng-selected="projectType.id == project.project_type_id">
+                                @{{ projectType.project_type_name }}
+                            </option>
+                        </select>
+                        <small class="text-danger" ng-show="createProjectForm.project_type_id.$invalid && createProjectForm.project_type_id.$toucehd">This field is required</small>
+
+                    </div> 
+                </div>
+            </div>
+            
             <div class="col-md-6">
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
@@ -172,7 +188,7 @@
                     <div class="col pe-0">
                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="delivery_type_id" ng-model="project.delivery_type_id" required>
                             <option value="">@lang('project.select') </option>
-                            <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" >
+                            <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == project.delivery_type_id" >
                                 @{{ deliveryType.delivery_type_name }}
                             </option>
                         </select>
@@ -214,3 +230,10 @@
     <input ng-disabled ="createProjectForm.$invalid" class="btn btn-primary" type="submit" name="submit" value="Next"/>
 </div>
 </form>
+<style> 
+    .Create_Project .timeline-step .inner-circle{
+        background: var(--secondary-bg) !important;
+        transform: scale(1.2);
+        box-shadow: 0px 5px 10px #4f4f4fb2 !important
+    }
+</style> 

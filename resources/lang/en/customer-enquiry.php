@@ -25,4 +25,5 @@ return [
     'building_component'        => 'Building Components',
     'select_template'           => 'Select template',
     'file_uploaded_successfully'=> 'File upload successfully',
+    'view_status'               => 'View Status',
 ];

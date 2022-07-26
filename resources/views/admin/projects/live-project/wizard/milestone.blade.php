@@ -2,7 +2,7 @@
     <div class="main-container">
         <div class="header gantt-demo-header">
             <ul class="gantt-controls bg-light">
-                <li class="gantt-menu-item"><a ><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_collapse_all_24.png">Collapse All</a></li>
+                <li class="gantt-menu-item"><a data-action="collapseAll"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_collapse_all_24.png">Collapse All</a></li>
                 <li class="gantt-menu-item gantt-menu-item-last"><a data-action="expandAll"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_expand_all_24.png">Expand All</a></li>
                 <li class="gantt-menu-item"><a data-action="undo"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_undo_24.png">Undo</a></li>
                 <li class="gantt-menu-item"><a data-action="redo"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_redo_24.png">Redo</a></li>
@@ -17,14 +17,19 @@
         </div> 
     </div>
 </div>  
- 
+<div class="card-footer text-end">
+    <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
+    <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
+    <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
+</div>
 
+ 
 @if (Route::is('live-project.milestone')) 
-    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/styles/style.css?ver=1">
+   
+    <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">  
+ 
     <script src="{{ asset("public/assets/dhtmlx/dhtmlxgantt.js") }}"></script> 
     <script src="http://export.dhtmlx.com/gantt/api.js"></script> 
-   
     <script>
     var button = document.getElementById("fullscreen_button");
         button.addEventListener("click", function(){
@@ -42,6 +47,7 @@
         if (!window.ganttModules) {
             window.ganttModules = {};
         }
+        gantt.config.open_tree_initially = true;
         gantt.config.autosize = "y";
         ganttModules.layout = {
             init: function(gantt, durationFormatter, linksFormatter) {
@@ -121,10 +127,10 @@
                 }; 
                 gantt.config.columns = [{
                         name: "",
-                        width: 15,
+                        width: 40,
                         resize: false,
                         template: function(task) {
-                            return "<span class='   '>" + gantt.getWBSCode(task) + "</span>"
+                            return "<small class=''>" + gantt.getWBSCode(task) + "</small>"
                         }
                     },
                     {
@@ -139,8 +145,16 @@
                         label: "Start",
                         align: "center",
                         resize: true,
-                        editor: dateEditor
+                        // editor: dateEditor
                     },
+                    // {
+                    //     name: "end_date",
+                    //     label: "End",
+                    //     align: "center",
+                    //     resize: true,
+                    //     // editor: dateEditor
+                    // },
+
                     {
                         name: "duration",
                         label: "Duration",
@@ -161,6 +175,12 @@
                         },
                         editor: hourDurationEditor
                     }, 
+                    //     {
+                    //     name: "project_id",
+                    //     label: "project_id",
+                    //     align: "center",
+                    //     resize: true, 
+                    // },
                     {
                         name: "add",
                         "width": 44
@@ -717,7 +737,7 @@
 
             }
 
-            setInterval(refreshUndoBtns, 1000);
+            // setInterval(refreshUndoBtns, 1000);
 
             function toggleZoomToFitBtn() {
                 if (ganttModules.zoomToFit.isEnabled()) {
@@ -801,8 +821,7 @@
                 toMSProject: function() {
                     gantt.exportToMSProject();
                 }
-            };
-
+            }; 
 
             return {
                 setup: function() {
@@ -816,10 +835,12 @@
 
                         if (target && target.hasAttribute("data-action")) {
                             var action = target.getAttribute("data-action");
+                            console.log(action)
                             if (menu[action]) {
                                 menu[action]();
                             }
                         }
+                         
                     });
                     this.setup = function() {};
                 }
@@ -1006,16 +1027,5 @@
 
         gantt.config.auto_scheduling_strict = true;
         gantt.config.auto_scheduling_compatibility = true;
-
-        // ====== REST API setTransactionMode ==========            
-            var dp = new gantt.dataProcessor("{{ url('api/cost') }}");
-            dp.init(gantt);
-            dp.setTransactionMode("REST");
-        // ====== REST API setTransactionMode ==========
-
-        ganttModules.zoom.setZoom("months");
-        gantt.init("gantt_here");
-        ganttModules.menu.setup();
-        gantt.load("{{ route('costData') }}"); 
     </script>   
 @endif

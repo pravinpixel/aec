@@ -23,11 +23,13 @@ class CreatePropoalVersionsTable extends Migration
             $table->timestamp('mail_send_date')->nullable();
             $table->longText('documentary_content')->nullable();
             $table->string('pdf_file_name')->nullable(); 
-            $table->longText('is_mail_sent')->default(0);
+            $table->string('version')->nullable(); 
+            $table->string('template_name')->nullable(); 
+            $table->boolean('is_mail_sent')->default(0);
             $table->string('status')->default('awaiting');
             $table->boolean('is_active')->default(1);
             $table->string('proposal_status')->default('not_send');
-            $table->text('comment')->nullable();
+            $table->longText('comment')->nullable();
             $table->timestamps();
         });
     }

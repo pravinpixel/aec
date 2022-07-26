@@ -27,6 +27,8 @@ use App\Interfaces\EnquiryTemplateRepositoryInterface;
 use App\Interfaces\MailTemplateRepositoryInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Interfaces\TechnicalEstimateRepositoryInterface;
+use App\Interfaces\ProjectTicketRepositoryInterface;
+use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Repositories\AutoDeskRepository;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
@@ -57,6 +59,8 @@ use App\Interfaces\TaskListRepositoryInterface;
 use App\Repositories\ProjectRepository;
 use App\Repositories\PushNotificationRepository;
 use App\Repositories\TaskListRepository;
+use App\Repositories\ProjectTicketRepository;
+use App\Repositories\TicketCommentRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -194,6 +198,15 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             TaskListRepositoryInterface::class,
             TaskListRepository::class
+        );
+        $this->app->bind(
+            ProjectTicketRepositoryInterface::class,
+            ProjectTicketRepository::class
+        );
+
+        $this->app->bind(
+            TicketCommentRepositoryInterface::class,
+            TicketCommentRepository::class
         );
     }
 

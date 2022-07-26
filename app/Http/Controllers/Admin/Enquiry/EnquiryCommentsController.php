@@ -47,7 +47,12 @@ class EnquiryCommentsController extends Controller
         $seen_by        =   1; 
         $result         =   $this->enquiryCommentRepo->store($request, $request->created_by, $role_by,$seen_by);
         $customer       =   $this->customerEnquiry->getEnquiryByID($result->enquiry_id);
-
+        if($result->created_by == 'Admin') {
+            $this->customerEnquiry->updateAdminWizardStatus($customer,'response_status',1);
+        } else {
+            $this->customerEnquiry->updateAdminWizardStatus($customer,'response_status',2);
+        }
+       
 
         $title          =   'New Message From AEC - '.$request->created_by;
         $body           =   $request->comments;
@@ -64,6 +69,12 @@ class EnquiryCommentsController extends Controller
     {
         return $this->enquiryCommentRepo->show($request,  $id, $type);
     }
+
+    public function showProposalComment(Request $request, $version, $id, $proposal_id)
+    {
+        return $this->enquiryCommentRepo->showProposalComment($request, $version, $id, $proposal_id);
+    }
+
     public function showTechChat(Request $request, $id, $type)
     {
         return $this->enquiryCommentRepo->showTechChat($request,  $id, $type);

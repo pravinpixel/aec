@@ -1,5 +1,8 @@
-<!-- Topbar Start -->
-<div class="navbar-custom">
+<div class="navbar-custom d-flex justify-content-between align-items-center">
+    <button class="button-menu-mobile open-left">
+        <i class="mdi mdi-menu"></i>
+    </button>
+    <h1 class="text-center h3"> {{ Customer()->company_name ?? '' }}</h1>
     <ul class="list-unstyled topbar-menu float-end mb-0">
         <li class="dropdown notification-list d-lg-none">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -12,28 +15,18 @@
             </div>
         </li>
         <li class="dropdown notification-list topbar-dropdown">
-            {{-- <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="{{ asset('public/assets/images/flags/us.jpg') }}" alt="user-image" class="me-0 me-sm-1" height="12"> 
-                <span class="align-middle d-none d-sm-inline-block">English</span> <i class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
-            </a> --}}
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
-
-                <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAABWCAMAAADCF/krAAAAS1BMVEW6DC8AIFv///8AAEy8v8y2ABPv0dUAAEUAE1bw8vVmbo62ABr++/vBPEy5ACvgpK2yAADenqe+LT21AAr46euxtcQAGVhLVn3CxdD2K1KHAAAAoUlEQVRoge3Wyw6CQAxG4c6AgKgoF9H3f1I1ETcQ2gRCEzxnx+LPtxsqMt/pGt8d8/CtKD/f50ul7JaGi4uLi4uLi4uLi4uLu1P3MN+tnnSbVtlpSabUTblRW6lJtDRyF4e7kZtauieD2z+epoWWJKbCr9420JLgEy4u7gqu17vh9U56/Rdwt3G97jqvO9brbsfFxcXFxcXFxcXFxcX9S/cF4yk6Vej5ZroAAAAASUVORK5CYII=" alt="user-image" class="me-1" height="12"> <span class="align-middle">Norway</span>
                 </a> 
-
             </div>
         </li>
-
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none" onclick="initFirebaseMessagingRegistration()" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-bell noti-icon"></i>
                 <span class="noti-icon-badge"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
-
-                <!-- item-->
                 <div class="dropdown-item noti-title">
                     <h5 class="m-0">
                         <span class="float-end">
@@ -43,9 +36,7 @@
                         </span>Notification
                     </h5>
                 </div>
-
                 <div style="max-height: 230px;" data-simplebar>
-                    <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="text-center">There is no new notification.!</div>
                     </a>
@@ -60,52 +51,46 @@
                         </p>
                     </a> --}}
                 </div>
-
-                <!-- All-->
                 <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
                     View All
                 </a>
-
             </div>
         </li> 
-
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                 aria-expanded="false">
-                <span class="account-user-avatar bg-light rounded-circle" style="border: 2px solid #98A6AD"> 
-                    <i class="fa fa-user fa-2x"></i>
+                <span class="account-user-avatar"> 
+                    <i class="mdi mdi-account-circle" style="font-size: 25px"></i>
                 </span>
-                <span>
-                    {{-- <span class="account-user-name">{{ Customer()->full_name ?? '' }}</span> --}}
-                    <span class="account-user-name">{{ Customer()->contact_person ?? '' }}</span>
-                    <span class="account-position"><span class="badge bg-success">Customer</span></span>
+                <span class="account-user-name pt-2">
+                    {{ ucfirst(Customer()->first_name ?? Customer()->contact_person)  }}
+                    {{ ucfirst(Customer()->last_name ?? '') }}
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
-                <!-- item-->
-                <div class=" dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Welcome !</h6>
-                </div>
-
-                <!-- item-->
-                <a href="{{ route('customer.changePassword') }}" class="dropdown-item notify-item">
-                    <i class="mdi mdi-account-circle me-1"></i>
-                    <span>Change password</span>
+                <a href="{{ route('customers-profile') }}" class="dropdown-item notify-item">
+                    <i class="mdi mdi-account me-1"></i>
+                    <span>Profile</span>
                 </a> 
-                <!-- item-->
+                <a href="{{ route('customer.changePassword') }}" class="dropdown-item notify-item">
+                    <i class="fa fa-key me-1"></i>
+                    <span>Change Password</span>
+                </a> 
+                <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="deactivateAccount()">
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                    <span>Deactivate Account</span>
+                </a>
                 <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="mdi mdi-logout me-1"></i>
                     <span>Logout</span>
                 </a>
             </div>
         </li>
-
     </ul>
-    <button class="button-menu-mobile open-left">
-        <i class="mdi mdi-menu"></i>
-    </button>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>
-</div>
-<!-- end Topbar -->
+    <form id="deactivate-form" action="{{ route('customer.deactivate-account') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+</div> 

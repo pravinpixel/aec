@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Enqiury Number | Project Name</label>
+                            <label class="form-label">Enquiry Number | Project Name</label>
                             <input type="text" class="form-control" placeholder="Type Here...">
                         </div> 
                         <div class="text-center">
@@ -224,7 +224,7 @@
                                                 </th><td  class="bg-white">2</td>
                                             </tr> 
                                             <tr class="border">
-                                                <th  class=" ">Number of Buildings
+                                                <th  class=" ">No. of Buildings
                                                 </th><td  class="bg-white">2</td>
                                             </tr> 
                                             <tr class="border">
@@ -232,7 +232,7 @@
                                                 </th><td  class="bg-white">1</td>
                                             </tr> 
                                             <tr class="border">
-                                                <th  class=" ">Deliveryd Date 
+                                                <th  class=" ">Delivery Date 
                                                 </th><td  class="bg-white">2021-02-25</td>
                                             </tr> 
                                             <tr class="border">
@@ -372,7 +372,7 @@
                                                         <th  class="bg-primary text-white">EW_DEWS
                                                         </th>
                                                         <th  class="bg-primary text-white">
-                                                            Delivery Type : Element Type
+                                                            Type of Delivery : Element Type
                                                         </th>
                                                         <th  class="bg-primary text-white">
                                                             Total : 10

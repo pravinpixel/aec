@@ -56,7 +56,7 @@
     }
     .conversation-list  li.Admin_odd  .conversation-text {
         background: #BFDDFE;
-        padding: 15px;
+        padding: 10px;
         font-size: 14px;
         font-weight: bold ;
         border-radius: 5px;
@@ -66,7 +66,7 @@
 
     .conversation-list  li.Customer_odd  .conversation-text {
         background: #eee;
-        padding: 15px;
+        padding: 10px;
         font-size: 14px;
         font-weight: bold ;
         border-radius: 5px;
@@ -120,8 +120,87 @@
         top: 0;
         clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
     } 
-    .form-control.ng-valid ,
-    .form-select.ng-valid {
+    .form-control.ng-valid.ng-touched ,
+    .form-select.ng-valid.ng-touched {
     border-bottom: 1px solid #008a60 !important
+    }
+    .customer-danger {
+        color: red;
+    }
+    .bg-primary2  {
+        background-color: #08357c;
+    }
+    
+</style>
+
+<style>
+    .auto-scroll {
+        overflow: auto;
+        padding-bottom: 10px 
+    }
+    .auto-scroll::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    /* Track */
+    .auto-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    .auto-scroll::-webkit-scrollbar-thumb {
+        background: gray;
+    }
+
+    /* Handle on hover */
+    .auto-scroll::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    .custom-border-left {
+        border-left: 1px solid black !important;
+    }
+    .custom-border-bottom {
+        border-bottom: 1px solid black !important;
+    }
+    .custom-td {
+        border-right: 1px solid black !important; 
+        border-top: 1px solid black !important;
+        border-left:none !important;
+        border-bottom:none !important; 
+        width: 100px !important;
+        min-width: 100px !important;
+        max-width: 100px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+    }
+    .custom-td * {
+        font-size: 12px !important;
+    }
+    .custom-row {
+        display: inline-flex !important;
+    }
+    .custom-td input {
+        padding: 0 !important;
+        height: 100%;
+        width: 100%;
+    }
+    .custom-td select ,
+    .custom-td input {
+        color: black !important
+    }
+    .fa  {
+        cursor: pointer;
+    }
+    .custom-max-h {
+        height: 40px !important;
+        overflow: hidden;
+    }
+
+    .activeTab {
+        pointer-events: none;
     }
 </style>

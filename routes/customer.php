@@ -4,11 +4,17 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Customer\EnquiryController;
 use App\Http\Controllers\Customer\DashboardController;
 use App\Http\Controllers\Customer\EnquiryTemplateController;
+use App\Http\Controllers\Customer\ProposalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PushNotificationController;
 Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
- 
+
+    Route::get('profile', [CustomerController::class,'profile'])->name("customers-profile");
+
+    Route::put('update-profile', [CustomerController::class,'updateProfile'])->name('customers-update-profile');
+
     Route::get('dashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-enquiry-dashboard");
+    
     Route::post('save-customer-token', [PushNotificationController::class,'storeToken'])->name("save-customer-token");
 
     Route::get('/enquirydashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-dashboard");
@@ -72,6 +78,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     
     Route::get('get-customer-completed-enquiries',[EnquiryController::class,'getClosedEnquiries'])->name('get-customer-completed-enquiries');
 
+    Route::get('get-customer-active-comments-count',[EnquiryController::class,'getActiveCommentsCount'])->name('get-customer-active-comments-count');
+
     Route::get('get-document',[EnquiryController::class,'getDocumentById'])->name('get-document');
 
     Route::resource('enquiry-template', EnquiryTemplateController::class);
@@ -109,6 +117,16 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     
 });
 
+Route::group(['prefix'=> 'proposal', 'middleware' => 'common', 'as'=> 'proposal.'], function(){
+    Route::get('get-by-id',[ProposalController::class, 'getProposal'])->name('get-by-id');
+    Route::get('{enquiry_id}', [ProposalController::class, 'index'])->name('index');
+    Route::post('approve-or-deny/{type}',[ProposalController::class, 'approveOrDeny'])->name('approve-or-deny');
+});
+
 Route::group(['prefix' => '', 'middleware' => 'common'], function(){
     Route::get('get-enquiry-document/{id}', [EnquiryController::class, 'getDocumentView'])->name('get-enquiry-document');
+    Route::post('get-document-modal',[EnquiryController::class, 'getDocumentModal'])->name('get-enquiry-modal');
+    Route::get('get-cost-estimate-types', function(){
+        return config('global.cost_estimate_types');
+    })->name('get-cost-estimate-types');
 });

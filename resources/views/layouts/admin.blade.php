@@ -4,7 +4,6 @@
     
     <head>
         @include('admin.includes.head')
-        
         @stack('custom-styles')       
     </head> 
     <body>
@@ -140,5 +139,6 @@
                 swal("Good job!", "Project successfully created!", "success");
             }
         </script>
+        @livewireScripts
     </body>
 </html>

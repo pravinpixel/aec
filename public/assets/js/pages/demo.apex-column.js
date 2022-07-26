@@ -1,4 +1,4 @@
-var colors = ["#727cf5", "#0acf97", "#fa5c7c"],
+var colors = ["#163269", "#0acf97", "#fa5c7c"],
     dataColors = $("#basic-column").data("colors");
 dataColors && (colors = dataColors.split(","));
     var options = {
@@ -70,7 +70,7 @@ dataColors && (colors = dataColors.split(","));
     chart = new ApexCharts(document.querySelector("#basic-column"), options);
 chart.render();
 
-colors = ["#727cf5","#252525"];
+colors = ["#163269","#252525"];
 (dataColors = $("#datalabels-column").data("colors")) && (colors = dataColors.split(","));
 options = {
     chart: {
@@ -283,11 +283,11 @@ options = {
             x: "Bananas",
             seriesIndex: 0,
             label: {
-                borderColor: "#727cf5",
+                borderColor: "#163269",
                 offsetY: 0,
                 style: {
                     color: "#fff",
-                    background: "#727cf5"
+                    background: "#163269"
                 },
                 text: "Bananas are good"
             }
@@ -346,7 +346,7 @@ options = {
     }
 };
 (chart = new ApexCharts(document.querySelector("#rotate-labels-column"), options)).render();
-colors = ["#727cf5"];
+colors = ["#163269"];
 (dataColors = $("#negative-value-column").data("colors")) && (colors = dataColors.split(","));
 options = {
     chart: {
@@ -406,7 +406,7 @@ options = {
 };
 (chart = new ApexCharts(document.querySelector("#negative-value-column"), options)).render();
 
-colors = ["#727cf5", "#6c757d", "#0acf97", "#fa5c7c", "#ffbc00", "#39afd1", "#e3eaef", "#313a46"];
+colors = ["#163269", "#6c757d", "#0acf97", "#fa5c7c", "#ffbc00", "#39afd1", "#e3eaef", "#313a46"];
 
 (dataColors = $("#distributed-column").data("colors")) && (colors = dataColors.split(","));
 options = {

@@ -33,7 +33,7 @@
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >@lang('customer.enquiry_date') <sup class="text-danger">*</sup></label>
-                                                    <input type="date" class="form-control" name="enq_date"  ng-model="enq_date_one" >
+                                                    <input type="date" class="form-control" name="enq_date"  ng-model="enq_date_one" required="required">
                                                 </div>
                                             </div>
                                         </div>
@@ -43,10 +43,17 @@
                                             <label class="form-label" for="validationCustom01"> @lang('customer.company_name') <sup class="text-danger">*</sup></label>
                                             <input type="text"  name="company_name" id="validationCustom01" class="form-control"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(module.company_name)" ng-model="module.company_name" />
                                             <datalist id="companyList">
-                                                <option ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
+                                                <option ng-click="getCompanyByName(module.company_name)" ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
                                             </datalist>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" > @lang('customer.organization_no') <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="organization_no" id="organization_no"   ng-model="module.organization_no" placeholder="Type Here..." ng-required="true">
+                                        </div>
+                                    </div>   
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" > @lang('customer.contact_person') <sup class="text-danger">*</sup></label>
@@ -98,10 +105,11 @@
 @push('custom-styles')
     <style>
         
-    .form-control.ng-valid ,
-    .form-select.ng-valid {
+    .form-control.ng-valid.ng-touched ,
+    .form-select.ng-valid.ng-touched {
     border-bottom: 1px solid #008a60 !important
     }
+    
     </style>
 @endpush
 @push('custom-scripts')

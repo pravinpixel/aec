@@ -57,6 +57,7 @@
                     </div> 
                     <div class="row">
                         <div class="col-12 pt-3">
+                            <label for="status" class="col-sm-12  text-dark control-label mb-2">Status</label>
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
                                     <input type="radio"  ng-checked="task_list_item.is_active == 1" id="active" value="1" ng-model="task_list_item.is_active" name="is_active" class="form-check-input"  ng-required="true">
@@ -82,7 +83,7 @@
 
 <style>
     .taskListTab{
-        color: #727cf5 !important;
-        background-color: rgba(114,124,245,.18) !important;
+        color: #163269 !important;
+        background-color: #d4e2ff !important;
     }
 </style>

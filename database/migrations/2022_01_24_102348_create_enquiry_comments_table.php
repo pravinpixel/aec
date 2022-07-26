@@ -23,6 +23,8 @@ class CreateEnquiryCommentsTable extends Migration
             $table->string('created_by')->nullable();
             $table->unsignedBigInteger('send_by')->nullable();
             $table->unsignedBigInteger('seen_by')->nullable();
+            $table->unsignedBigInteger('reference_id')->nullable();
+            $table->string('version')->nullable();
             $table->string('role_by')->nullable();
             $table->timestamps();
         });

@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table datatable="ng" dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+        <table dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -16,7 +16,7 @@
             </thead>
         
             <tbody>
-                <tr ng-repeat="(index,output) in output_module_get">
+                <tr ng-repeat="(index,output) in output_module_get track by output.id">
                     
                     <td class="align-items-center">@{{ output.output_type_name }}</td>
 
@@ -84,7 +84,7 @@
 </div> 
 <style>
     .outputTab{
-        color: #727cf5 !important;
-        background-color: rgba(114,124,245,.18) !important;
+        color: #163269 !important;
+        background-color: #d4e2ff !important;
     }
 </style>

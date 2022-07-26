@@ -1,5 +1,5 @@
 formatData = (project) => {
-    return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.start_date)}}
+    return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.delivery_date)}}
 }
 
 app.controller('CreateProjectController', function ($scope, $http, API_URL, $location, $rootScope){
@@ -29,6 +29,7 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
     .then((res)=> {
         $rootScope.project_id = res.data.id;
         if(res.data != false) $scope.project = formatData(res.data); 
+        projectActiveTabs($scope.project.wizard_status);
     });
 //postalcode api
     $scope.getZipcode = function() {
@@ -95,19 +96,47 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location){
     $scope.project = {};
     let fileSystem = [];
-    $http.get(`${API_URL}get-project-type`)
+    $http.get(`${API_URL}bim360/projects-type`)
     .then((res)=> {
         $scope.projectTypes = res.data;
     });
 
     $http.get(`${API_URL}project/wizard/create_project`)
     .then((res)=> {
-        if(res.data != false) $scope.project = formatData(res.data);
+        $scope.project = formatData(res.data);
+        projectActiveTabs(res.data.wizard_status);
     });
+
+    $scope.updateConnectionPlatform = (type) => {
+        if(type == 'sharepoint') {
+           $type = 'sharepoint_status';
+        } else if(type == 'bim') {
+            $type = 'bim_status';
+        } else if(type == 'tsoffice') {
+            $type = 'tf_office_status';
+        } else {
+          return false;  
+        }
+        $http.post(`${API_URL}project/connection-platform/${$type}`)
+        .then((res) => {
+            Message('success', res.data.msg);
+        }, (er) => {
+            Message('danger', res.data.msg);
+        })
+    }
 
     $http.get(`${API_URL}project/wizard/connection_platform`)
     .then((res)=> {
-        fileSystem = res.data;
+        fileSystem = res.data.folders;
+        if(res.data.platform_access.sharepoint_status == 1) {
+            $("#switch0").prop('checked', true);
+        }
+        if(res.data.platform_access.bim_status == 1) {
+            $("#switch1").prop('checked', true);
+        }
+        if(res.data.platform_access.tf_office_status == 1) {
+            $("#switch2").prop('checked', true);
+        }
         const fileManager = $('#file-manager').dxFileManager({
             name: 'fileManager',
             fileSystemProvider: fileSystem,
@@ -198,7 +227,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
     });
 
     $scope.submitConnectPlatformForm = () => {
-        $http.post(`${API_URL}project`, {data: $scope.project, type:'create_project'})
+        $http.post(`${API_URL}project`, {data: $scope.project, type:'connect_platform'})
         .then((res) => {
             Message('success', 'Connect platform Created Successfully');
             $location.path('team-setup')
@@ -211,6 +240,11 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     $scope.tagBox     = {};
     $scope.teamSetups = [];
     $scope.Template;
+
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
 
     $scope.selectedTemplate;
     $http.get(`${API_URL}project/get-templates`)
@@ -278,6 +312,11 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
 
 app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $rootScope){
      
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
         let project_id = $scope.project_id;
@@ -296,15 +335,26 @@ app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $r
 
 app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
     $scope.invoicePlans                     = [];
-    $scope.invoicePlans['totalPercentage']  = 100;
-    $scope.invoicePlans['totalAmount']      = 0;
+    $scope.invoicePlans = {
+        totalPercentage: 100,
+        totalAmount: 0,
+        invoices: []
+    };
     $scope.project = {};
+    let totalInvoice = 0;
+    let invoiceStatus = true;
     $http.get(`${API_URL}project/wizard/invoice_plan`)
     .then((res)=> {
         $scope.project = formatData(res.data);
         $scope.project.project_cost = res.data.invoice_plan.project_cost ?? 0;
         $scope.project.no_of_invoice = Number(res.data.invoice_plan.no_of_invoice);
-        let result = JSON.parse(res.data.invoice_plan.invoice_data).map((item)=> {
+        let result = {};
+        let response = JSON.parse(res.data.invoice_plan.invoice_data);
+        totalInvoice = typeof(response.invoices) == 'undefined' ? 0 : response.invoices.length;
+        if(totalInvoice > 0) {
+            invoiceStatus = !invoiceStatus;
+        }
+        let invoices = response.invoices.map((item)=> {
             $scope.invoicePlans.totalPercentage -= item.percentage;
             $scope.invoicePlans.totalAmount += ( $scope.project.project_cost / 100 ) * item.percentage;
             return {
@@ -316,20 +366,53 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
         });
         result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
         result['totalAmount'] = $scope.invoicePlans.totalAmount;
+        result['invoices'] = invoices;
         $scope.invoicePlans = result;
     });
 
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+
     $scope.handleInvoiceChange = () => {
-        $scope.invoicePlans.length = 0;
-        $scope.invoicePlans['totalPercentage']  = 100;
-        $scope.invoicePlans['totalAmount']      = 0;
-        for(var i = 1; i <= $scope.project.no_of_invoice;  i++){
-            $scope.invoicePlans.push({
-                'index': i,
-                'invoice_date': '',
-                'amount' : 0,
-                'percentage': 0
-            });
+        if($scope.project.no_of_invoice <= 0){
+            $scope.project.no_of_invoice = 1;
+        }
+        let totalRow = totalInvoice - $scope.project.no_of_invoice;
+        if(invoiceStatus) {
+            totalInvoice = $scope.project.no_of_invoice;
+            invoiceStatus = !invoiceStatus;
+            for(var i = 1; i <= $scope.project.no_of_invoice;  i++){
+                let invoice_date = (i == 1) ? $scope.project.start_date : '';
+                $scope.invoicePlans.invoices.push({
+                    'index': i,
+                    'invoice_date': invoice_date,
+                    'amount' : 0,
+                    'percentage': 0
+                });
+            }
+        } else if(totalRow >  0) {
+            let removeCount = $scope.invoicePlans.invoices.length - totalRow;
+            $scope.invoicePlans.invoices.length = removeCount + 1;
+            $scope.invoicePlans.invoices.splice(-2,1);
+            totalInvoice =  $scope.invoicePlans.invoices.length;
+        } else if(totalRow < 0) {
+            let newRow = [];
+            let numOfRow = $scope.project.no_of_invoice - totalInvoice;
+            for(var i = 0; i < numOfRow;  i++){
+                newRow.push({
+                    'index': totalInvoice + i,
+                    'invoice_date': '',
+                    'amount' : 0,
+                    'percentage': 0
+                });
+            }
+            $scope.invoicePlans.invoices.splice(-1,0, ...newRow);
+            totalInvoice = $scope.project.no_of_invoice;
+            if($scope.invoicePlans.invoices.length != 0 ) {
+                $scope.invoicePlans.invoices[0].invoice_date = $scope.project.start_date;
+            }
         }
     }
 
@@ -344,7 +427,13 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 });
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
-    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
+
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        projectActiveTabs(res.data.wizard_status);
+    });
+
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
         $scope.projectManagers = res.data;
     });
 
@@ -445,7 +534,507 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     }
 });
 
+// live project milestone
+app.controller('milestoneController', function ($scope, $http, API_URL, $rootScope) {
+
+    $http.get(`${API_URL}get-project-session-id`).then((res) => {
+        $scope.project_id = res.data;
+        let project_id = $('#project_id').val();
+        console.log(project_id);
+        //var project_id  = $('#project_id').val();
+
+        var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
+        dp.init(gantt);
+        dp.setTransactionMode("REST");
+
+        ganttModules.zoom.setZoom("months");
+        gantt.init("gantt_here");
+        ganttModules.menu.setup();
+        gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`);
+    });
+
+});
+
+
+
+//Live project task list
+app.controller('TasklistController', function ($scope, $http, API_URL, $location) {
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res) => {
+        $scope.projectManagers = res.data;
+    });
+
+    $http.get(`${API_URL}get-project-session-id`).then((res) => {
+        $scope.project_id = res.data;
+        //console.log("This is Current Session ID : " , $scope.project_id)
+        var project_id = $('#project_id').val();
+
+        if (project_id != null) {
+            $http.get(`${API_URL}admin/api/v2/get-live-project-type/` + project_id).then((res) => {
+                console.log(res.data);
+                $scope.projectTypes = res.data;
+
+            });
+
+            $http.get(`${API_URL}project/${project_id}`).then((res) => {
+
+                $scope.project = formatData(res.data);
+                $scope.check_list_items = JSON.parse(res.data.gantt_chart_data) == null ? [] : JSON.parse(res.data.gantt_chart_data)
+                $scope.check_list_items_status = JSON.parse(res.data.gantt_chart_data) == null ? false : true
+
+            });
+        }
+
+
+        $scope.storeTaskLists = () => {
+
+            $scope.check_list_items.map((CheckLists) => {
+
+                const CheckListsIndex = Object.entries(CheckLists.data);
+
+                $scope.CallToDB = false;
+
+                CheckListsIndex.map((TaskLists) => {
+
+
+
+                    const TaskListsIndex = TaskLists[1].data;
+                    TaskListsIndex.map((ListItems) => {
+
+
+
+                        if (ListItems.assign_to === undefined || ListItems.assign_to == '') {
+                            Message('danger', 'Assign To Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        } else $scope.CallToDB = true;
+                        if (ListItems.start_date === undefined || ListItems.start_date == '') {
+                            Message('danger', 'Start Date Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        } else $scope.CallToDB = true;
+                        if (ListItems.end_date === undefined || ListItems.end_date == '') {
+                            Message('danger', 'End Date Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        }
+                        else $scope.CallToDB = true;
+                        if (ListItems.delivery_date != undefined && ListItems.delivery_date != '') {
+
+                            if (ListItems.status == '') {
+                                //console.log(ListItems.delivery_date);
+                                Message('danger', 'Please select Status!');
+                                $scope.CallToDB = false;
+                                return false
+                            }
+
+                        } else $scope.CallToDB = true;
+
+                    });
+                });
+
+
+                if ($scope.CallToDB === true) {
+
+
+                    $http.post(`${$("#baseurl").val()}admin/api/v2/store-task-list`, {
+                        id: $('#project_id').val(),
+                        update: $scope.check_list_items_status,
+                        data: $scope.check_list_items,
+                    }).then((res) => {
+                        if (res.data.status === true) {
+                            Message('success', 'To do List Added Success !');
+                            $location.path('project-scheduling')
+                        }
+                    })
+                }
+
+            });
+
+        }
+    });
+
+
+
+
+
+
+    // ======= $scope of Flow ==============
+
+    $http.get(`${API_URL}admin/check-list-master-group`).then((res) => {
+        $scope.check_list_master = res.data.data;
+    })
+
+
+    $scope.add_new_check_list_item = () => {
+        if ($scope.check_list_type === undefined || $scope.check_list_type == '') return false
+
+        // $scope.return   =    true
+
+        // $scope.check_list_items.map(item => {``
+        //     let atime   = item.data[1][0]
+        //     if (atime.name == JSON.parse($scope.check_list_type).name) {
+        //         $scope.return   = false
+        //     }
+        // });
+
+        // if($scope.return   == false) return false
+
+        $http.post(`${API_URL}admin/check-list-master-group`, { data: $scope.check_list_type }).then((res) => {
+            $scope.check_list_items.push(res.data.data)
+            console.log($scope.check_list_items)
+        })
+
+    };
+
+    $scope.delete_this_check_list_item = (index) => $scope.check_list_items.splice(index, 1);
+
+    $scope.storeToDoLists = () => {
+
+        $scope.check_list_items.map((CheckLists) => {
+
+            const CheckListsIndex = Object.entries(CheckLists.data);
+
+            $scope.CallToDB = false;
+
+            CheckListsIndex.map((TaskLists) => {
+                const TaskListsIndex = TaskLists[1].data;
+                TaskListsIndex.map((ListItems) => {
+                    if (ListItems.assign_to === undefined || ListItems.assign_to == '') {
+                        Message('danger', 'Assign To Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    if (ListItems.start_date === undefined || ListItems.start_date == '') {
+                        Message('danger', 'Start Date Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+                    if (ListItems.end_date === undefined || ListItems.end_date == '') {
+                        Message('danger', 'End Date Field is  Required !');
+                        $scope.CallToDB = false;
+                        return false
+                    } else $scope.CallToDB = true;
+
+                });
+            });
+
+            if ($scope.CallToDB === true) {
+                $http.post(`${$("#baseurl").val()}admin/store-to-do-list`, {
+                    id: $scope.project_id,
+                    update: $scope.check_list_items_status,
+                    data: $scope.check_list_items,
+                }).then((res) => {
+                    if (res.data.status === true) {
+                        Message('success', 'To do List Added Success !');
+                        $location.path('project-scheduling')
+                    }
+                })
+            }
+
+        });
+
+    }
+});
+
+
+///ticket wizard
+
+app.controller('TicketController', function ($scope, $http, API_URL, $rootScope) {
+    let project_id = $('#project_id').val();
+
+    $scope.SelectFile = function (e) {
+        // $window.alert();
+        console.log(e.target.files)
+         // $window.alert();
+         var  form_data = new FormData ();
+         var totalfiles = document.getElementById('files').files.length;
+        for (var index = 0; index < totalfiles; index++) {
+            form_data.append("files[]", document.getElementById('files').files[index]);
+        }
+   
+         $http({
+            method: 'POST',
+            url: `${API_URL}admin/live-project/add-image`,
+            data: form_data,
+            contentType: false,
+            processData: false,
+            headers: {'Content-Type': undefined},
+            }).then(function successCallback(response) {  
+            // Store response data
+            $scope.responses = response.data;
+        });
+        
+    };
+
+     $http.get(`${API_URL}admin/project/team/${project_id}/team_setup`)
+    .then((res)=> {
+        var quotations = [];
+        $scope.teamSetups =  res.data.map( (item) => {
+            //console.log(item.first_Name);
+            quotations.push(item.first_Name);
+            
+        })
+        console.log(quotations);
+        var jsonData = [];
+    
+    for(var i=0;i<quotations.length;i++) jsonData.push({id:i,name:quotations[i]});
+    var ms1 = $('#ms1').tagSuggest({
+        data: jsonData,
+        sortOrder: 'name',
+        maxDropHeight: 200,
+        name: 'ms1'
+    });
+    });
+
+
+
+  
+   // alert('ttt');
+
+   
+    $scope.ticket = {};
+
+
+    $scope.getRxcui = function (value) {
+        //console.log($scope.ticket.hours);
+        $scope.result = Number($scope.ticket.hours || 0) * Number($scope.ticket.price || 0);
+    }
+    //editor load
+    $scope.orightml = '<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li>Super Easy <b>Theming</b> Options</li><li style="color: green;">Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li class="text-danger">Doesn&apos;t Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href="https://github.com/fraywing/textAngular">Here</a> </p>';
+    $scope.htmlcontent = $scope.orightml;
+    $scope.disabled = false;
+
+    if (project_id != null) {
+
+
+        $http.get(`${API_URL}project/${project_id}`).then((res) => {
+
+            
+            $scope.project = formatData(res.data);
+          
+            $scope.check_list_items = JSON.parse(res.data.gantt_chart_data) == null ? [] : JSON.parse(res.data.gantt_chart_data)
+            $scope.check_list_items_status = JSON.parse(res.data.gantt_chart_data) == null ? false : true
+
+        });
+
+        $http.get(`${API_URL}admin/api/v2/projectticket/${project_id}`).then((res) => {
+
+          
+            $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
+            $scope.customer = res.data.project == null ? false : res.data.project
+            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
+
+
+
+            console.log(res.data.ticketcase );
+
+            
+           
+        });
+    }
+   
+
+     $scope.ticket = { projectid            : project_id,}
+   console.log($scope.ticket);
+
+
+   
+   
+
+ 
+    $scope.submitticketForm = function(value){
+        var fd =new FormData();
+        //console.log($scope.case)
+        //console.log(fd);
+
+        var image = $('#case_image').text();
+        var project_id = $('#project_case').val();
+        
+
+        $http.post(`${API_URL}admin/live-project/store-ticket-case`, { data: $scope.case,project_id:project_id,image:image})
+        .then((res) => {
+            Message('success', 'Ticket Created Successfully');
+            if(res.data.status == true){
+                location.href = `${API_URL}admin/list-projects`;
+            }
+            console.log(res.data.status);
+            //$location.path('platform');
+        })
+        
+   
+    console.log( $scope.case);
+}
+
+    $scope.submitcreatevariationForm = () => {
+        $http.post(`${API_URL}admin/api/v2/live-project-ticket`, { data: $scope.ticket, type: 'create_project_ticket' })
+            .then((res) => {
+                Message('success', 'Ticket Created Successfully');
+                if(res.data.status == true){
+                    location.href = `${API_URL}admin/list-projects`;
+                }
+                console.log(res.data.status);
+                //$location.path('platform');
+            })
+    }
+    $scope.projectticketshow = (id) => {
+
+        $http.get(`${API_URL}admin/api/v2/projectticketfind/${id}`).then((res) => {
+          
+            $scope.modelptickets = res.data.ticket == null ? [] : res.data.ticket
+            $scope.modelcustomer = res.data.project == null ? false : res.data.project
+
+            if(res.data.ticket != ''){
+                $('#Variation_mdal-box').modal('show');
+
+            }
+           
+
+            
+           
+        });
+
+       
+        
+    }
+   
+
+    $scope.sendMailToCustomerticket = function (proposal_id , Vid) { 
+       
+        $http.post(API_URL + 'admin/live-project/sendticket/send-mail-ticket/'+proposal_id+'/customerid/'+Vid).then(function (response) {
+            Message('success',response.data.msg);
+            // $scope.getWizradStatus();
+            //$scope.getProposesalData();
+        });
+    }
+
+    $scope.showCommentsToggle  =  function (modalstate, type, header,id) {
+      
+        $scope.modalstate      =  modalstate;
+        $scope.module          =  null;
+        $scope.chatHeader      =  header; 
+        $scope.id              =  id; 
+
+      
+      
+        switch (modalstate) {
+         
+            case 'viewConversations':
+                
+                $http.get(API_URL + 'admin/api/v2/live-project/show-ticket-comment/'+$scope.id+'/type/'+type ).then(function (response) {
+                    $scope.commentsData     = response.data.chatHistory; 
+                    $scope.chatType         = response.data.chatType;  
+                    $scope.projectticket    = response.data.projectticket;
+                    $scope.header           = response.data.header;   
+
+                    $('#viewTicketDetails').modal('show');
+                });
+                break;
+            default:
+            break;
+        }
+    }
+
+    $scope.sendprojectticketComments  = function(type , chatSection) { 
+        $scope.sendCommentsData = {
+            "comments"               :   $scope.inlineComments,
+            "project_ticket_id"      :   $scope.id,
+            "type"                   :   chatSection,
+            "created_by"             :   type,
+            "role_by"                : `Cost Estimater ${type}`
+        }
+        $http({
+            method: "POST",
+            url:`${API_URL}admin/live-project/add-comments`,
+            data: $.param($scope.sendCommentsData),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded' 
+            }
+        }).then(function successCallback(response) {
+            document.getElementById("Inbox__commentsForm").reset();
+            $scope.showCommentsToggle('viewConversations', 'project_ticket_comment', chatSection,$scope.id);
+            Message('success',response.data.msg);
+        }, function errorCallback(response) {
+            Message('danger',response.data.errors);
+        });
+    } 
+    $scope.ticket_type= function (value) {
+        console.log(value);
+        //var ticket_type =  $(this).val();
+        if(value == 'internal'){
+            $('.customer_variation').css("display", "none")
+            $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
+                $scope.projectManagers = res.data;
+            });
+        }else {
+            $scope.projectManagers = '';
+            $('.customer_variation').css("display", "block")
+            
+
+        }
+       
+    }
+    $scope.deleteImageBtn = false;
+
+     // ******* image show ******
+    //  $scope.SelectFile = function (e) {
+    //     alert('hello');
+    //     var reader = new FileReader();
+    //     reader.onload = function (e) {
+    //         $scope.PreviewImage = e.target.result;
+    //         $scope.deleteImageBtn = true;
+
+    //         $scope.$apply();
+    //     };
+
+    //     reader.readAsDataURL(e.target.files[0]);
+    // };
+
+
+    $scope.upload = function(){
+
+        //alert('kumar');
+ 
+        var fd = new FormData();
+        angular.forEach($scope.uploadfiles,function(file){
+          fd.append('file[]',file);
+
+          console.log(fd);
+
+        });
+
+     
+        $http({
+          method: 'POST',
+          url: `${API_URL}admin/live-project/add-image`,
+          data: fd,
+          headers: {'Content-Type': undefined},
+        }).then(function successCallback(response) {  
+          // Store response data
+          $scope.response = response.data;
+        });
+      }
+
+  
+    
+    
+
+   
+
+    
+
+
+
+
+});
+
+
 app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
+
+    $http.get(`${API_URL}project/wizard/create_project`)
+    .then((res)=> {
+        $scope.project = formatData(res.data); 
+        projectActiveTabs($scope.project.wizard_status);
+    });
 
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
@@ -453,10 +1042,20 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
         let fileSystem = [];
         $scope.teamSetups = [];
     
-        $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
+        $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
             $scope.projectManagers = res.data;
         });
         $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
+            let connect_platform_access = res.data.connect_platform_access;
+            if(connect_platform_access.sharepoint_status == 1) {
+                $("#switch0").prop('checked', true);
+            }
+            if(connect_platform_access.bim_status == 1) {
+                $("#switch1").prop('checked',true);
+            }
+            if(connect_platform_access.tf_office_status == 1) {
+                $("#switch2").prop('checked',true);
+            }
             $scope.review  =  res.data;
             $scope.teamSetups = res.data.team_setup;
             $scope.project = formatData(res.data.project);
@@ -560,41 +1159,66 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
         restrict: 'A',
         link: function (scope, element, attrs) {
             element.on('change', function () {
+                if(invoicePlan.percentage > 100) {
+                    invoicePlan.percentage = 100;
+                } 
+                if(invoicePlan.percentage < 0) {
+                    invoicePlan.percentage = 1;
+                }
                 scope.invoicePlans.totalPercentage = 100;
                 scope.invoicePlans.totalAmount = 0;
+                let result = {};
                 let projectCost = scope.project.project_cost;
-                let result =   scope.invoicePlans.map((invoicePlan, index) => {
+                let invoices =   scope.invoicePlans.invoices.map((invoicePlan, index) => {
                     if(scope.project.no_of_invoice == index + 1) {
                         projectCost -= scope.invoicePlans.totalAmount;
                         return {
                             index: index + 1,
-                            amount: projectCost,
+                            amount: Number.parseFloat(projectCost).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
                             percentage: scope.invoicePlans.totalPercentage,
                         }
                     }
-                    scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
-                    scope.invoicePlans.totalAmount += ( scope.project.project_cost / 100 ) * invoicePlan.percentage;
-                    return {    
-                        index: index + 1,
-                        amount: ( scope.project.project_cost / 100 ) * invoicePlan.percentage,
-                        invoice_date: invoicePlan.invoice_date,
-                        percentage: invoicePlan.percentage,
-                    };
+                    let totalPercentage = scope.invoicePlans.totalPercentage - invoicePlan.percentage;
+                    if(totalPercentage < 0) {
+                        return {    
+                            index: index + 1,
+                            amount: 0,
+                            invoice_date: invoicePlan.invoice_date,
+                            percentage: 0,
+                        };
+                    } else {
+                        scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
+                        scope.invoicePlans.totalAmount += ( scope.project.project_cost / 100 ) * invoicePlan.percentage;
+                        return {    
+                            index: index + 1,
+                            amount: Number.parseFloat(( scope.project.project_cost / 100 ) * invoicePlan.percentage).toFixed(2),
+                            invoice_date: invoicePlan.invoice_date,
+                            percentage: invoicePlan.percentage,
+                        };
+                    }
                 });
                 result['totalPercentage'] = scope.invoicePlans.totalPercentage;
                 result['totalAmount'] = scope.invoicePlans.totalAmount;
+                result['invoices'] = invoices;
                 scope.invoicePlans = result;
                 scope.$apply();
             });
             scope.$watchGroup(['project.no_of_invoice','project.project_cost'], function() {
-                scope.invoicePlans = scope.invoicePlans.map((invoicePlan, index) => {
+                let totalPercentage = 100;
+                scope.invoicePlans.invoices = scope.invoicePlans.invoices.map((invoicePlan, index) => {
+                    if(scope.project.no_of_invoice == 1) {
+                        totalPercentage = 100;
+                        invoice_date = scope.project.start_date;
+                    }else if(scope.project.no_of_invoice != index + 1) {
+                        totalPercentage -= invoicePlan.percentage;
+                    }
                     if(scope.project.no_of_invoice == index + 1) {
                         return {    
                             index: index + 1,
-                            amount: ( scope.project.project_cost / 100 ) * invoicePlan.percentage,
+                            amount: Number.parseFloat(( scope.project.project_cost / 100 ) * invoicePlan.percentage).toFixed(2),
                             invoice_date: invoicePlan.invoice_date,
-                            percentage: 100,
+                            percentage: totalPercentage,
                         };
                     }
                     return invoicePlan;
@@ -604,12 +1228,13 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
     };
 }]);
 
+
 app.directive('getRoleUser',function getRoleUser($http, API_URL){
     return {
         restrict: 'A',
         link : function (scope, element, attrs) {
             let selectedValues = Object.values(scope.teamSetups[attrs.value].team);
-            $http.get(`${API_URL}role/${scope.teamSetup.role.id}`).then((res) => {
+            $http.get(`${API_URL}admin/get-role-user/${scope.teamSetup.role.id}`).then((res) => {
                 if(selectedValues) {
                     scope.tagBox = {
                         customTemplate: {
@@ -630,5 +1255,60 @@ app.directive('getRoleUser',function getRoleUser($http, API_URL){
         },
     };
 });
+
+
+app.directive('fileModel', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model, modelSetter;
+            attrs.$observe('fileModel', function(fileModel){
+                model = $parse(attrs.fileModel);
+                modelSetter = model.assign;
+            });
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope.$parent, element[0].files[0]);
+                });
+            });
+        }
+    };
+});
+
+
+
+// app.directive('ngFile', ['$parse', function ($parse) {
+//     return {
+//      restrict: 'A',
+//      link: function(scope, element, attrs) {
+//       element.bind('change', function(){
+
+//        $parse(attrs.ngFile).assign(scope,element[0].files)
+//        scope.$apply();
+//        var fd = new FormData();
+//         fd.append('file', file);
+
+//        $http({
+//           method: 'POST',
+//           url: `${API_URL}admin/live-project/add-image`,
+//           data: fd,
+//           headers: {'Content-Type': undefined},
+//         }).then(function successCallback(response) {  
+//           // Store response data
+//           $scope.response = response.data;
+//         });
+//       });
+//      }
+//     };
+// }]);
+
+
+
+
+  
+
+
+   
 
 
