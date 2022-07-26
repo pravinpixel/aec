@@ -391,6 +391,11 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
         if($scope.project.no_of_invoice <= 0){
             $scope.project.no_of_invoice = 1;
         }
+        if($scope.project.no_of_invoice >= 100){
+            $timeout(() => {
+                $scope.project.no_of_invoice = 100;
+            },1000);
+        }
         let totalRow = totalInvoice - $scope.project.no_of_invoice;
         if(invoiceStatus) {
             totalInvoice = $scope.project.no_of_invoice;
@@ -423,7 +428,10 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             $scope.invoicePlans.invoices.splice(-1,0, ...newRow);
             totalInvoice = $scope.project.no_of_invoice;
         }
-        if($scope.invoicePlans.invoices.length != 0 ) {
+        if($scope.invoicePlans.invoices.length == 1) {
+            $scope.invoicePlans.invoices[0].invoice_date = $scope.project.start_date;
+        }
+        if($scope.invoicePlans.invoices[0].invoice_date == '') {
             $scope.invoicePlans.invoices[0].invoice_date = $scope.project.start_date;
         }
     }

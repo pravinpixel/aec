@@ -98,7 +98,15 @@ app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) 
     };
 }]);
 
-
+app.directive('selectOnClick', ['$window', function ($window) {
+    return function (scope, element, attrs) {
+      element.bind('click', function () {
+        if (!$window.getSelection().toString()) {
+          this.setSelectionRange(0, this.value.length)
+        }
+      });
+    };
+}]);
 
 app.directive('pris', function () {
     return {
