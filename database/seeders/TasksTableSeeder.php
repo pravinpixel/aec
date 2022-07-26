@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\WoodEstimation;
 use Illuminate\Database\Seeder;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 class TasksTableSeeder extends Seeder
 {
     /**

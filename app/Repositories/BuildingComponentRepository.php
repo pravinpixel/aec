@@ -59,6 +59,12 @@ class BuildingComponentRepository implements BuildingComponentRepositoryInterfac
 
     public function get($request)
     {
-        return $this->model->where('is_active',1)->get();
+        return $this->model->where('is_active',1)
+                            ->orderby('order_id','asc')->get();
+    }
+
+    public function getForCostEstimate($request)
+    {
+        return $this->model->orderby('order_id','asc')->get();
     }
 }

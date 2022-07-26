@@ -1,12 +1,12 @@
 <div class="card">                              <!-- @{{component_module_get}} -->
     <div class="card-header ">
         <div class="d-flex justify-content-between">
-            <h3 class="haeder-title">Delivery Type</h3>
-            <button class="btn btn-primary " ng-click="toggleDeliveryLayer('add', 0)">Create New Delivery Type</button>
+            <h3 class="haeder-title">Type of Delivery</h3>
+            <button class="btn btn-primary " ng-click="toggleDeliveryLayer('add', 0)">Create New Type of Delivery</button>
         </div>
     </div>
     <div class="card-body">
-        <table datatable="ng" dt-options="vm.dtOptions" class="table table-striped table-bordered">
+        <table  dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -16,7 +16,7 @@
             </thead>
         
             <tbody>
-                <tr ng-repeat="(index,deliveryLayer) in deliveryLayer_module_get">
+                <tr ng-repeat="(index,deliveryLayer) in deliveryLayer_module_get track by deliveryLayer.id">
                     
                     <td class="align-items-center">@{{ deliveryLayer.delivery_type_name }}</td>
 
@@ -52,7 +52,7 @@
             <div class="modal-body">
                 <form name="deliveryLayerModule" class="form-horizontal" novalidate="">
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Delivery Type Name</label>
+                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Type of Delivery Name</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control has-error" id="delivery_type_name" name="delivery_type_name" placeholder="Type Here.." ng-model="module_deliveryLayer.delivery_type_name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>
@@ -60,6 +60,7 @@
                     </div> 
                     <div class="row">
                         <div class="col-12 pt-3">
+                            <label for="status" class="col-sm-12  text-dark control-label mb-2">Status</label>
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
                                     <input type="radio"  ng-checked="module_deliveryLayer.is_active == 1" id="active" value="1" ng-model="module_deliveryLayer.is_active" name="is_active" class="form-check-input"  ng-required="true">
@@ -84,7 +85,7 @@
 </div> 
 <style>
     .deliveryTab{
-        color: #727cf5 !important;
-        background-color: rgba(114,124,245,.18) !important;
+        color: #163269 !important;
+        background-color: #d4e2ff !important;
     }
 </style>

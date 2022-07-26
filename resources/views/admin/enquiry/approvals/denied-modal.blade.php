@@ -8,7 +8,7 @@
                     <input type="hidden" name="vid" value="{{ $additionalInfo['version_id'] }}">
                     <div class="mb-3">
                         <label for="emailaddress1" class="form-label">Comments</label>
-                        <textarea name="proposal_comments" class="form-control" id="" cols="30" rows="10"></textarea>
+                        <textarea required name="proposal_comments" class="form-control" id="" cols="30" rows="10"></textarea>
                     </div>
 
                     <div class="mb-3 text-center">

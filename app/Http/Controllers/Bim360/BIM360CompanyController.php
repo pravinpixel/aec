@@ -72,12 +72,10 @@ class BIM360CompanyController extends Controller
 
     public function save(Request $request)
     {
-
         try {
             $result = "";
             $input = $request->input();
             $api = new  Bim360CompaniesApi();
-
             if (isset($input["id"]) && !empty($input["id"])) {
                 $editJson = Bim360Company::getCreateData(
                     $input["id"],
@@ -97,29 +95,13 @@ class BIM360CompanyController extends Controller
                 );
                 $result = $api->editCompany($input["id"], $editJson);
             } else {
-                $createJson = Bim360Company::getCreateData(
-                    $input["name"],
-                    $input["trade"],
-                    $input["website_url"],
-                    $input["description"],
-                    $input["erp_id"],
-                    $input["tax_id"],
-                    $input["phone"],
-                    $input["address_line_1"],
-                    $input["address_line_2"],
-                    $input["city"],
-                    $input["state_or_province"],
-                    $input["postal_code"],
-                    $input["country"]
-                );
+                $createJson = json_encode($input);
                 $result = $api->createCompany($createJson);
             }
-
             $data = json_decode($result);
             if (isset($data->id)) {
                 $id = $data->id;
                 if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
-
                     // Moving uploaded image to local folder
                     $info = pathinfo($_FILES['image']['name']);
                     $ext = $info['extension']; // get the extension of the file
@@ -130,7 +112,6 @@ class BIM360CompanyController extends Controller
                     }
                     $filePath = $_FILES['image']['tmp_name'];
                     move_uploaded_file($filePath, $target);
-
                     // Uploading image to BIM360
                     $data = array(
                         'tmp_name' => realpath($target),
@@ -143,12 +124,10 @@ class BIM360CompanyController extends Controller
                     }
                 }
             }
-
             $existingImage = glob('/uploads/company/image/' . $data->id . '.*');
             if (!empty($existingImage)) {
                 $data->image = $existingImage[0];
             }
-
             return response()->json($data);
         } catch (Exception $ex) {
             throw ($ex);

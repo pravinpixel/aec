@@ -24,7 +24,7 @@
                     <div id="rootwizard" ng-controller="wizard">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                             <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
-                                <a href="#!/" style="min-height: 40px;" class="timeline-step" id="project-info" style="pointer-events:none">
+                                <a href="#!/" style="min-height: 40px;" class="timeline-step" id="project-info" ng-class="{project_information_w: project_information_w == 1}">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-success">
                                             <i class="fa fa-project-diagram fa-2x "></i>
@@ -33,7 +33,7 @@
                                     </div> 
                                 </a>
                             </li>
-                            <li class="nav-item serviceSelection" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection" style="pointer-events:none">
+                            <li class="nav-item serviceSelection" ng-click="updateWizardStatus(1)" data-target-form="#serviceSelection"  ng-class="{service_selection_w: service_selection_w == 1}">
                                 <a href="#!/service" style="min-height: 40px;" class="timeline-step" id="service">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -44,7 +44,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item IFCModelUpload" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload"  style="pointer-events:none">
+                            <li class="nav-item IFCModelUpload" ng-click="updateWizardStatus(2)" data-target-form="#IFCModelUpload"  ng-class="{ifc_model_w: ifc_model_w == 1}">
                                 <a href="#!/ifc-model-upload" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -55,7 +55,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item buildingComponent" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" style="pointer-events:none">
+                            <li class="nav-item buildingComponent" ng-click="updateWizardStatus(3)"  data-target-form="#buildingComponent" ng-class="{building_component_w: building_component_w == 1}">
                                 <a href="#!/building-component"  style="min-height: 40px;" class="timeline-step" id="building-component">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -66,7 +66,7 @@
                                     
                                 </a>
                             </li>
-                            <li class="nav-item additionalInformation" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" style="pointer-events:none">
+                            <li class="nav-item additionalInformation" ng-click="updateWizardStatus(4)" data-target-form="#additionalInformation" ng-class="{additional_info_w: additional_info_w == 1}">
                                 <a href="#!/additional-info" style="min-height: 40px;" class="timeline-step" id="additional-info">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -76,7 +76,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item last reviewSubmit"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  style="pointer-events:none">
+                            <li class="nav-item last reviewSubmit"  ng-click="updateWizardStatus(5)"  data-target-form="#reviewSubmit"  ng-class="{review_w: review_w == 1}">
                                 <a href="#!/review" style="min-height: 40px;"  class="timeline-step" id="review">
                                     <div class="timeline-content">
                                         <div class="inner-circle  bg-secondary">
@@ -99,13 +99,20 @@
         </div> <!-- content --> 
 
     </div>  
-    @include('customer.enquiry.models.chat-box')
 @endsection
  
 
 @push('custom-scripts')
-
+       
     <script>
+
+        $(function(){
+            let wallString = localStorage.getItem("wallGroup"); 
+            if(wallString != null) {
+                localStorage.removeItem('wallGroup');
+            }
+        });
+
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
@@ -140,6 +147,7 @@
         });
  
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
+            $scope.commentShow = false;
             $scope.enquiry_date = new Date();
             $scope.enquiry_number = 'Draft';
             $("#project-info").addClass('active');
@@ -161,9 +169,11 @@
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
                 }).then( function(res) {
+                        enableActiveTabs({'project_info': 1,'service': 0, 'ifc_model_upload' :0, 'building_component': 0, 'additional_info':0});
                         if(res.data.status == "false") {
                             $scope.customer_enquiry_number = res.data.customer_enquiry_number;
-                            enquiry_id = res.data.enquiry_id
+                            enquiry_id = res.data.enquiry_id;
+                            $scope.enquiry_id = enquiry_id;
                             getLastEnquiry(enquiry_id);
                         } else {
                             $scope.customer_enquiry_number = res.data.enquiry.customer_enquiry_number;
@@ -172,10 +182,10 @@
                         console.log('get enquiry error');
                 });
             });
-            
 
-         
-        
+
+            
+           
             $scope.getCompany = (text) => {
                 $http.get(`https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=${text}`)
                 .then(function successCallback(res){
@@ -185,8 +195,8 @@
                         });
                         if($scope.companyList.length == 1) {
                             $scope.customer.company_name = $scope.companyList[0].company;
-                            $("#zipcode").val($scope.companyList[0].zip_code);
-                            $scope.getZipcodeData();
+                            // $("#zipcode").val($scope.companyList[0].zip_code);
+                            // $scope.getZipcodeData();
                         }
                 }, function errorCallback(error){
                     console.log(error);
@@ -208,7 +218,7 @@
                     method: 'GET',
                     url: '{{ route("delivery-type.get") }}'
                 }).then(function (res) {
-                    $rootScope.deliveryTypes    = res.data;		
+                    $scope.deliveryTypes    = res.data;		
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -279,11 +289,12 @@
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
                     'state'                : $projectInfo.state,
+                    'city'                 : $projectInfo.city,
                     'building_type_id'     : $projectInfo.building_type_id,
                     'project_type_id'      : $projectInfo.project_type_id,
                     'project_date'         : new Date($projectInfo.project_date),
                     'site_address'         : $projectInfo.site_address,
-                    'place'                : $projectInfo.place,
+                    'place'                : $projectInfo.place,    
                     'country'              : $projectInfo.country,
                     'no_of_building'       : $projectInfo.no_of_building,
                     'delivery_type_id'     : $projectInfo.delivery_type_id,
@@ -302,6 +313,7 @@
                     'project_name'         : $projectInfo.project_name,
                     'zipcode'              : $projectInfo.zipcode,
                     'state'                : $projectInfo.state,
+                    'city'                 : $projectInfo.city,
                     'building_type_id'     : $projectInfo.building_type_id,
                     'project_type_id'      : $projectInfo.project_type_id,
                     'project_date'         : new Date($projectInfo.project_date),
@@ -324,6 +336,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/project_info`,
                 }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
                     $scope.projectInfo = getProjectInfoInptuDataFormat(res.data.project_info);
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -332,7 +345,12 @@
             getProjectType();
             getBuildingType();
             getDeliveryType();
-            $scope.submitProjectInfoForm = () => {
+            $scope.formSubmit = false;
+            $scope.submitProjectInfoForm = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -344,9 +362,29 @@
                     console.log(`storeprojectinfo ${error}`);
                 }); 
             }
+     
+            $scope.ProjectInfoSaveAndSubmit = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'project_info', 'data': getProjectInfoInptuData($scope.projectInfo)}
+                }).then(function (res) {
+                    Message('success','Project Information saved successfully');
+                    return false;
+                }, function (error) {
+                    console.log(`storeprojectinfo ${error}`);
+                }); 
+                return false;
+
+            }
         }); 
 
         app.controller('Service', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+            $scope.commentShow = false;
             $scope.serviceList = [];
             $("#service").addClass('active');
             let enquiry_id;
@@ -356,7 +394,8 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
+                        $scope.enquiry_id = enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
@@ -364,6 +403,23 @@
                 }, function (err) {
                     console.log('get enquiry error');
             });
+            
+            getOutputTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("output-type.get") }}'
+                }).then(function (res) {
+                        $scope.outputTypes =  res.data.map((serviceSelection) => { 
+                                                return {...serviceSelection, 
+                                                        services: serviceSelection.services.map((service) => { return  {...service, 'selected': false} })}
+                                            });
+
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+            getOutputTypes();
+            
             getLastEnquiry = (enquiry_id) => {
                 if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
                     return false;
@@ -372,21 +428,21 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/services`,
                 }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
                     $scope.serviceList = res.data.services;
+                    $scope.outputTypes = $scope.outputTypes.map((serviceSelection) => { 
+                        return {...serviceSelection, 
+                                services: serviceSelection.services.map((service) => { 
+                                    if($scope.serviceList.indexOf(service.id) > -1)
+                                        return  {...service, 'selected': true} 
+                                    return service;
+                                })}
+                    });
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             }
-            getOutputTypes = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("output-type.get") }}'
-                }).then(function (res) {
-                        $scope.outputTypes = res.data;	
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            }
+
             getServiceSelectionInptuData = function() {
                 return Object.assign({}, $scope.serviceList);
             }
@@ -396,9 +452,15 @@
                 }else {
                     if($scope.serviceList.indexOf(list) > -1)  $scope.serviceList.splice($scope.serviceList.indexOf(list), 1);
                 }
+                Object.assign({}, $scope.serviceList);
             };
-            $scope.submitService = () => {
-                console.log('called');
+            $scope.formSubmit = false;
+            $scope.submitService = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $scope.formSubmit = false;
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
@@ -410,15 +472,38 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });         
             }
-            getOutputTypes();
+
+            $scope.saveAndSubmitService = (formValid) => {
+                if(formValid == true) {
+                    $scope.formSubmit = true;
+                    return false;
+                }
+                $scope.formSubmit = false;
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'services', 'data': getServiceSelectionInptuData()}
+                }).then(function (res) {
+                    Message('success','Service selection saved successfully');
+                    return false;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });         
+            }
+           
         });
         
-        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload) { 
-            $("#building-component").addClass('active');
+        app.controller('BuildingComponent', function ($scope, $http, $rootScope, Notification, API_URL, $location, fileUpload, $timeout) { 
+            $scope.commentShow = false;
             $scope.fileUploaded = false;
+            $scope.wallName = 'External Wall';
             $scope.wallGroup = [];
             $scope.layerAdd = true;
             $scope.callTemplate = true;
+            $scope.buildingComponentUploads = [];
+            $scope.callWall = (wall_name) => {
+                $scope.wallName = wall_name; 
+            }
             let building_component_id;
             let enquiry_id;
             $http({
@@ -427,7 +512,7 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
@@ -511,7 +596,7 @@
                     file = $scope.$parent['building_component_file'];  
                 }
                 if(file == false){
-                    Message('danger', 'Please upload file');
+                    Message('danger', 'Please choose file');
                     return false;
                 }
                var uploadUrl = '{{ route('customers.store-enquiry') }}';
@@ -568,7 +653,7 @@
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             } 
-            getDeliveryType();
+
             getBuildingComponent = () => {
                 $http({
                     method: 'GET',
@@ -582,6 +667,7 @@
                                 WallIcon  : item.building_component_icon,
                                 WallTop   : item.top_position,
                                 WallBottom: item.bottom_position,
+                                WallLabel : item.label,
                                 Details: [
                                     
                                 ]
@@ -602,11 +688,16 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/building_component`,
                 }).then(function (res){
+                    enableActiveTabs(res.data.active_tabs);
+                    $scope.showHideBuildingComponent = res.data.building_component_process_type;
+                    if($scope.hasLocal()){
+                        $scope.getFromLocal();
+                        return false;
+                    }
                     if(res.data.building_component.length == 0) {
                         getBuildingComponent();
                         return false;
                     }
-                    $scope.showHideBuildingComponent = res.data.building_component_process_type;
                     if(res.data.building_component.length == 0 || res.data.building_component_process_type == 1) {
                         $scope.buildingComponentUploads = res.data.building_component;
                         getBuildingComponent();
@@ -621,8 +712,8 @@
                                     Layer = detail.layer.map( (layerObj, index) => {
                                        
                                         return {
-                                            LayerName:  String(layerObj.layer.id),
-                                            LayerNameText:  layerObj.layer.layer_name,
+                                            LayerName:  String(layerObj.layer_name),
+                                            // LayerNameText:  layerObj.layer.layer_name,
                                             Thickness : Number(layerObj.thickness),
                                             Breadth:  Number(layerObj.breath),
                                         }
@@ -630,7 +721,6 @@
                                 }
                                 return {
                                     FloorName   : detail.floor,
-                                    FloorNumber : Number(detail.exd_wall_number),
                                     TotalArea   : Number(detail.approx_total_area),
                                     DeliveryType:  detail.building_component_delivery_type_id,
                                     Layers : Layer
@@ -643,32 +733,228 @@
                                 WallIcon  : item.icon,
                                 WallTop   : item.top_position,
                                 WallBottom: item.bottom_position,
+                                WallLabel : item.label,
                                 Details: Details
                             }
                         $scope.wallGroup.push(wall);
                     });
                 }, function (error) {
                     console.log('building component error');
+                }).then(function(){
+                    getDeliveryType();
                 });
             }
-            
-            $scope.submitBuildingComponent = () => {
+            $scope.formSubmit = false;
+            $scope.submitBuildingComponent = (formValid) => {
+                let isValidField = true;
+                if($scope.showHideBuildingComponent == 0) {
+                    $scope.wallGroup.forEach((wall) => {
+                        if( wall.Details.length > 0) {
+                            wallName = wall.WallName;
+                            wall.Details.forEach((detail, index) => {
+                                wallIndex = index + 1;
+                                if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    $scope.callWall(wallName);
+                                    return false;
+                                } if(detail.DeliveryType == '' || typeof(detail.DeliveryType) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    $scope.callWall(wallName);
+                                    return false;
+                                } if(typeof(detail.TotalArea) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    $scope.callWall(wallName);
+                                    return false;
+                                }
+                                if( detail.Layers.length > 0) {
+                                    detail.Layers.forEach((layer) => {
+                                        if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            $scope.callWall(wallName);
+                                            return false;
+                                        } if(typeof(layer.Breadth) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            $scope.callWall(wallName);
+                                            return false;
+                                        } if(typeof(layer.Thickness) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            $scope.callWall(wallName);
+                                            return false;
+                                        }
+                                    });
+                                }
+                            return false;
+                            });
+                        }
+                        if(formValid == true) {
+                            $scope.formSubmit = true;
+                            return false;
+                        }
+                    });
+                }
+                if(isValidField == false) { return false;}
+                let skipUploads = [];
+                if($scope.showHideBuildingComponent == 0) {
+                    $scope.wallGroup.forEach((wall) => {
+                       if(wall.Details.length == 0) {
+                            if(skipUploads.indexOf(wall.WallName) > -1 == false) {
+                                skipUploads.push(wall.WallName);
+                            }
+                       }
+                    });
+                    if(skipUploads.length > 0) {
+                        Swal.fire({
+                                html: `${skipUploads.join(', ')} are missing, Do you still want to skip the step ?`,
+                                icon: 'question',
+                                confirmButtonText: 'Yes , Skip it !',
+                                showCancelButton: true,
+                                cancelButtonText: 'No',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $http({
+                                    method: 'POST',
+                                    url: '{{ route('customers.store-enquiry') }}',
+                                    data: {type: 'building_component', 'data': $scope.wallGroup}
+                                }).then(function (res) {
+                                    $location.path('/additional-info')
+                                    Message('success', `Building Component updated successfully`);
+                                }, function (error) {
+                                    Message('error', `Somethig went wrong`);
+                                }); 
+                            }
+                        });
+                    } else {
+                        $http({
+                            method: 'POST',
+                            url: '{{ route('customers.store-enquiry') }}',
+                            data: {type: 'building_component', 'data': $scope.wallGroup}
+                        }).then(function (res) {
+                            $scope.saveToLocal();
+                            $location.path('/additional-info')
+                            Message('success', `Building Component updated successfully`);
+                        }, function (error) {
+                            Message('error', `Somethig went wrong`);
+                        }); 
+                    }
+                    return false;
+                }
+                
                 if($scope.showHideBuildingComponent == 1) { $location.path('/additional-info'); return false;}
-                $http({
-                    method: 'POST',
-                    url: '{{ route('customers.store-enquiry') }}',
-                    data: {type: 'building_component', 'data': $scope.wallGroup}
-                }).then(function (res) {
-                    $location.path('/additional-info')
+                
+            }
+
+            $scope.hasLocal = () => {
+                let wallString = localStorage.getItem("wallGroup"); 
+                return wallString == null ? false:true;
+            }
+
+            $scope.saveToLocal = () => {
+                localStorage.removeItem("wallGroup");  
+                let objToString = JSON.stringify($scope.wallGroup);
+                localStorage.setItem("wallGroup", objToString);  
+                Message('success', `Building Component saved successfully`);
+            } 
+
+            $scope.addToLocal = () => {
+                let wallString = localStorage.getItem("wallGroup"); 
+                if(wallString == null) {
+                    let objToString = JSON.stringify($scope.wallGroup);
+                    localStorage.setItem("wallGroup", objToString); 
+                } else {
+                    $scope.getFromLocal();
+                }
+            }
+
+            $scope.getFromLocal = () => {
+                let wallString = localStorage.getItem("wallGroup"); 
+                if(wallString != null) {
+                    $scope.wallGroup = JSON.parse(wallString);
+                }
+            }
+
+            $scope.saveAndSubmitBuildingComponent = (formValid) => {
+                let isValidField = true;        
+                if($scope.showHideBuildingComponent == 0) {
+                    $scope.wallGroup.forEach((wall) => {
+                        if( wall.Details.length > 0) {
+                            wallName = wall.WallName;
+                            wall.Details.forEach((detail, index) => {
+                                wallIndex = index + 1;
+                                if(detail.FloorName == '' || typeof(detail.FloorName) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    $scope.callWall(wallName);
+                                    return false;
+                                } if(detail.DeliveryType == '' || typeof(detail.DeliveryType) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    $scope.callWall(wallName);
+                                    return false;
+                                } if( typeof(detail.TotalArea) == 'undefined') {
+                                    Message('danger', `${wallName} ${wallIndex} field required `);
+                                    isValidField = false;
+                                    $scope.callWall(wallName);
+                                    return false;
+                                }
+                                if( detail.Layers.length > 0) {
+                                    detail.Layers.forEach((layer) => {
+                                        if(layer.LayerName == '' || typeof(layer.LayerName) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            $scope.callWall(wallName);
+                                            return false;
+                                        } if(typeof(layer.Breadth) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            $scope.callWall(wallName);
+                                            return false;
+                                        } if(typeof(layer.Thickness) == 'undefined') {
+                                            Message('danger', `${wallName} ${wallIndex} field required `);
+                                            isValidField = false;
+                                            $scope.callWall(wallName);
+                                            return false;
+                                        }
+                                    });
+                                }
+                            return false;
+                            });
+                        }
+                        if(formValid == true) {
+                            $scope.formSubmit = true;
+                            return false;
+                        }
+                    });
+                }
+                if(isValidField == false) { return false;}
+                if($scope.showHideBuildingComponent == 0) {
+                    $http({
+                            method: 'POST',
+                            url: '{{ route('customers.store-enquiry') }}',
+                            data: {type: 'building_component', 'data': $scope.wallGroup}
+                        }).then(function (res) {
+                            $scope.saveToLocal();
+                            Message('success', `Building Component saved successfully`);
+                            return false;
+                        }, function (error) {
+                            Message('error', `Somethig went wrong`);
+                        }); 
+                    return false;
+                }
+                if($scope.showHideBuildingComponent == 1) { 
                     Message('success', `Building Component updated successfully`);
-                }, function (error) {
-                    Message('error', `Somethig went wrong`);
-                }); 
+                    return false;
+                }
+                return false;
             }
             $scope.AddWallDetails  =   function(index) {
                 $scope.wallGroup[index].Details.push({
                     "FloorName" : "",
-                    "FloorNumber" : "",
                     "TotalArea" : "",
                     "DeliveryType" : "",
                     "Layers": [
@@ -683,7 +969,7 @@
             } 
             // console.log($scope.wallGroup);
             $scope.AddLayers  =   function(fIndex, index) {
-                $scope.wallGroup[fIndex].Details[index].Layers.unshift({
+                $scope.wallGroup[fIndex].Details[index].Layers.push({
                     "LayerName": '',
                     "LayerType": '',
                     "Thickness ": '',
@@ -703,27 +989,55 @@
                 $scope.wallGroup[fIndex].Details[Secindex].Layers.splice(ThreeIndex,1);
             }  
             $scope.removeWall = function(fIndex, Secindex){
-                $scope.wallGroup[fIndex].Details.splice(Secindex,1);           
+                let totalWall = $scope.wallGroup.length - 1 ;
+                let filledWall = [];
+                $scope.wallGroup.forEach((item)=> {
+                    if(item.Details.length == 1) {
+                        filledWall.push(true);
+                    }
+                });
+                if(filledWall.length == 1) {
+                    Message('danger', "Can't perform this action")
+                    return false;
+                } else {
+                    $scope.wallGroup[fIndex].Details.splice(Secindex,1);
+                }         
             } 
+            $scope.getDocumentView = (file) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_path},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
             }).directive('getLayerType', function layerType($http) {
-                return {
-                    restrict: 'A',
-                    link : function (scope, element, attrs) {
-                        element.on('click', function () {
-                            if(scope.w.WallId == 'undefined') {
-                                return false;
-                            }
-                            $http({
-                                method: 'GET',
-                                url: '{{ route("layer-type.get-layer-type") }}',
-                                params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
-                                }).then(function success(response) {
-                                    scope.layerTypes = response.data;
-                                }, function error(response) {
-                            });
-                        });
-                    },
-                };
+                // return {
+                //     restrict: 'A',
+                //     link : function (scope, element, attrs) {
+                //         element.on('click', function () {
+                //             if(scope.w.WallId == 'undefined') {
+                //                 return false;
+                //             }
+                //             $http({
+                //                 method: 'GET',
+                //                 url: '{{ route("layer-type.get-layer-type") }}',
+                //                 params : {building_component_id: scope.w.WallId, layer_id: scope.l.LayerName}
+                //                 }).then(function success(response) {
+                //                     scope.layerTypes = response.data;
+                //                 }, function error(response) {
+                //             });
+                //         });
+                //     },
+                // };
             }).directive('getCustomerLayer', function customerLayer($http) {
                 return {
                     restrict: 'A',
@@ -774,6 +1088,7 @@
 
 
         app.controller('AdditionalInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location){
+            $scope.commentShow = false;
             $("#additional-info").addClass('active');
             let enquiry_id;
             $http({
@@ -782,7 +1097,8 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
+                        $scope.enquiry_id = enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
@@ -799,24 +1115,69 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/additional_info`,
                 }).then(function (res) {
-                    $scope.additionalInfo = res.data.additional_infos.comments ?? '';
+                    enableActiveTabs(res.data.active_tabs);
+                    $scope.additionalInfo = res.data.additional_infos == null ? '': res.data.additional_infos.comments;
+                    $scope.htmlEditorOptions = {
+                        bindingOptions: {
+                            'toolbar.multiline': 'multilineToolbar',
+                        },
+                        height: 300,
+                        value:  $scope.additionalInfo,
+                        toolbar: {
+                            items: [
+                                'undo', 'redo', 'separator',
+                                {
+                                name: 'size',
+                                acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
+                                },
+                                {
+                                name: 'font',
+                                acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
+                                },
+                                'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
+                                'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+                                'orderedList', 'bulletList', 'separator',
+                                {
+                                name: 'header',
+                                acceptedValues: [false, 1, 2, 3, 4, 5],
+                                }, 'separator',
+                                'color', 'background', 'separator',
+                                'link', 'image', 'separator',
+                                'clear', 'separator'
+                            ],
+                        },
+                        mediaResizing: {
+                        enabled: true,
+                        },
+                    };
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
             }
 
             $scope.submitAdditionalinfoForm = () => {
-                if($scope.additionalInfo == '' || typeof($scope.additionalInfo) == 'undefined'){
-                    $location.path('/review');
-                    return false;
-                }
                 $http({
                     method: 'POST',
                     url: '{{ route("customers.store-enquiry") }}',
-                    data: {type: 'additional_info', 'data': $("#additional_info_text_editor [contenteditable=true]").html()}
+                    data: {type: 'additional_info', 'data':  $(".dx-htmleditor-content").html()}
                 }).then(function (res) {
                     $location.path('/review');
                     Message('success',`Comments added successfully`);
+                }, function (error) {
+        
+                    Message('danger',`additional info ${error}`);
+
+                });
+            }  
+
+            $scope.saveAndSubmitAdditionalinfoForm = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route("customers.store-enquiry") }}',
+                    data: {type: 'additional_info', 'data':  $(".dx-htmleditor-content").html()}
+                }).then(function (res) {
+                    Message('success',`Comments saved successfully`);
+                    return false;
                 }, function (error) {
         
                     Message('danger',`additional info ${error}`);
@@ -835,7 +1196,7 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
                         
                         getLastEnquiry(enquiry_id);
                     } else {
@@ -957,13 +1318,21 @@
                     method: 'GET',
                     url: `${API_URL}customers/edit-enquiry-review/${enquiry_id}`,
                 }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
                     $scope.project_info = res.data.project_infos;
                     $scope.outputTypes = res.data.services;
                     $scope.ifc_model_uploads = res.data.ifc_model_uploads;
                     $scope.building_components = res.data.building_components;
-                    $scope.additional_infos = res.data.additional_infos;
                     $scope.enquiry_active_comments = res.data.enquiry_active_comments;
                     $scope.enquiry_comments = res.data.enquiry_comments;
+                    $scope.htmlEditorOptions = {
+                        height: 300,
+                        value:  (res.data.additional_infos == null) ? '' : res.data.additional_infos.comments ,
+                        contentEditable: false,
+                        mediaResizing: {
+                        enabled: true,
+                        },
+                    };
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -980,21 +1349,19 @@
                         $timeout(function(){
                             window.onbeforeunload = null;
                         });
-                        if(response.msg == 'sbmitted') {
+                        if(response.data.msg == 'submitted') {
                             Swal.fire({
-                                title: `Enquiry submitted successfully are you want to leave the page?`,
-                                showDenyButton: false,
-                                showCancelButton: true,
-                                cancelButtonText: 'No',
-                                confirmButtonText: 'Yes',
-                                }).then((result) => {
-                                if (result.isConfirmed) {
-                                location.href = '{{ route('customers-my-enquiries') }}'
-                                }
+                            icon: 'success',
+                            html: `<h3>Enquiry send successfully..!! </br> Our representatives will contact you shortly</h3>`,
+                            showConfirmButton: false,
+                            timer: 3000
                             });
+                            $timeout(()=> {
+                                location.href = '{{ route('customers-my-enquiries') }}'
+                            }, 3000);
                         } else {
                             Swal.fire({
-                                title: `Enquiry saved successfully are you want to leave the page?`,
+                                html: `<h3>Enquiry data are saved locally </br> Do you want to leave the page ?</h3>`,
                                 showDenyButton: false,
                                 showCancelButton: true,
                                 cancelButtonText: 'No',
@@ -1080,8 +1447,43 @@
                     Message('danger',response.data.errors);
                 });
             }
+
+            $scope.getDocumentView = (file) => {
+                console.log(file);
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_name},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
+            $scope.getDocumentViews = (file) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_path},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
         });
         app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location, fileUpload ){
+            $scope.commentShow = false;
             $("#ifc-model-upload").addClass('active');
             $scope.documentLists = [];
             $scope.mandatory = [];
@@ -1092,7 +1494,8 @@
             }).then( function(res) {
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
-                        enquiry_id = res.data.enquiry_id
+                        enquiry_id = res.data.enquiry_id;
+                        $scope.enquiry_id = enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
@@ -1109,6 +1512,7 @@
                     method: 'GET',
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/ifc_model_uploads`,
                 }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
                     res.data.ifc_model_uploads.map( (item, index) => {
                         let [id, type] = [item.enquiry_id , item.document_type.slug];
                         if(slug.indexOf(type) == -1) {
@@ -1116,7 +1520,7 @@
                             getIFCViewList(id,type);
                         }
                     });
-                  
+
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -1178,8 +1582,18 @@
                         });
                         if( $scope.mandatory.length != 0){   
                             Swal.fire({
-                                title: 'Are you sure to skip the file uploads? ?',
-                                confirmButtonText: 'Yes',
+                                html: `
+                                    <h4 class="header-title">Are you sure to skip the step without uploading </h4>
+                                    <p class="lead">
+                                        ${
+                                            $scope.mandatory.map((item) => {
+                                               return ifcAlertHelper(item);
+                                            })
+                                        } ?
+                                    </p>
+                                `,
+                                icon: 'question',
+                                confirmButtonText: 'Yes , Skip it !',
                                 showCancelButton: true,
                                 cancelButtonText: 'No',
                             }).then((result) => {
@@ -1207,6 +1621,20 @@
                 
             }
 
+            $scope.saveAndSubmitIFC  = () => {
+                $http({
+                    method: 'POST',
+                    url: '{{ route('customers.store-enquiry') }}',
+                    data: {type: 'ifc_model_upload_mandatory', 'data': false}
+                }).then(function (res) {
+                    Message('success',`IFC Models saved successfully`);
+                    return false;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                }); 
+                
+            }
+
             $scope.uploadFile = (filename, file_type) => {
                 $(".fileupload").css('pointer-events','none');
                 var file = false;
@@ -1221,7 +1649,7 @@
                 }
                 if(file == false && link == false){
                     $(".fileupload").css('pointer-events','');
-                    Message('danger',`${file_type.replaceAll('_',' ') } file required`);
+                    Message('danger',`${ifcSingularAlertHelper(file_type) } file or Url required`);
                     return false;
                 }
                 var uploadUrl = '{{ route('customers.store-enquiry') }}';
@@ -1311,8 +1739,33 @@
                 };
             });
 
+            app.directive('fileDropZone', function ($parse, fileUpload) {
+                return {
+                    restrict: 'A',
+                    link: function($scope, element, attrs) {
+                        element.bind('change', function(){
+                            var type = 'ifc_model_upload';  
+                            var file =  element[0].files[0];
+                            var file_type = `${attrs.id}`;
+                            var filename = `file${attrs.id}`;
+                            $(".fileupload").css('pointer-events','none')
+                            var uploadUrl = '{{ route('customers.store-enquiry') }}';
+                            promise = fileUpload.uploadFileToUrl(file, type, file_type, uploadUrl, $scope);
+                            promise.then(function (response) {
+                                $(".fileupload").css('pointer-events','');
+                                delete $scope.$parent[filename];
+                                angular.element("input[type='file']").val(null);
+                                console.log($scope);
+                                Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
+                                getIFCViewList(response.data, file_type);
+                            }, function () {
+                                $scope.serverResponse = 'An error has occurred';
+                            });
+                        });
+                    }
+                };
+            });
             
-
             app.service('fileUpload', function ($http, $q) {
                
                 this.uploadFileToUrl = function(file, type, view_type, uploadUrl, $scope){
@@ -1370,6 +1823,8 @@
                         $scope[`${view_type}showProgress`] = false;
                         deffered.resolve(response);
                     },function (response) {
+                        $scope[`${view_type}showProgress`] = false;
+                        Message("danger", "Something went wrong try again");
                         deffered.reject(response);
                     });
                     return deffered.promise;
@@ -1378,7 +1833,7 @@
             });
 
         window.onbeforeunload = function(e) {
-            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave?';
+            var dialogText = 'We are saving the status of your listing. Are you realy sure you want to leave ?';
             e.returnValue = dialogText;
             return dialogText;
         };

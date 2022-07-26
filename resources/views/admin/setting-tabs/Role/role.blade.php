@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table datatable="ng" dt-options="vm.dtOptions" class="table table-striped table-bordered">
+        <table dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -17,7 +17,7 @@
             </thead>
         
             <tbody>
-                <tr ng-repeat="(index,m) in role_module_get">
+                <tr ng-repeat="(index,m) in role_module_get track by m.id">
                     
                     <td class="align-items-center">@{{ m.name }}</td>
 
@@ -32,7 +32,7 @@
                     </td>
                     <td  >
                         <div class="btn-group">
-                            <a href="#/permission/@{{m.id}}"" class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-gear"></i></a>
+                            <a href="#!/permission/@{{m.id}}"" class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-gear"></i></a>
                             <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleRole('edit', m.id)"><i class="fa fa-edit"></i></button>
                             <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmRoleDelete(m.id)"><i class="fa fa-trash"></i></button>
                         </div>
@@ -63,6 +63,7 @@
                     </div> 
                     <div class="row">
                         <div class="col-12 pt-3">
+                            <label for="status" class="col-sm-12  text-dark control-label mb-2">Status</label>
                             <div>
                                 <div class="form-check form-check-inline form-radio-@{{form_color}}">
                                     <input type="radio"  ng-checked="module.status == 1" id="active" value="1" ng-model="module_role.status" name="status" class="form-check-input"  ng-required="true">
@@ -88,7 +89,7 @@
 
 <style>
     .roleTab{
-        color: #727cf5 !important;
-        background-color: rgba(114,124,245,.18) !important;
+        color: #163269 !important;
+        background-color: #d4e2ff !important;
     }
 </style>

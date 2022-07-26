@@ -37,7 +37,7 @@ interface CustomerEnquiryRepositoryInterface
     public function deleteDocumentEnquiry($id);
 
     public function delete($id);
-    
+
     public function storeBuildingComponent($enquiry,$data);
 
     public function storeTechnicalEstimateCost($enquiry,$data);
@@ -50,17 +50,19 @@ interface CustomerEnquiryRepositoryInterface
 
     public function getEnquiryByID($id);
 
-    public function updateWizardStatus($enquiry, $column); 
+    public function updateWizardStatus($enquiry, $column);
 
-    public function formatEnqInfo($enquiry); 
+    public function formatEnqInfo($enquiry);
 
-    public function formatProjectInfo($enquiry); 
-    
+    public function formatProjectInfo($enquiry);
+
     public function updateStatusById($enquiry, $status);
-    
+
     public function updateProjectById($id, $status);
 
     public function createEnquiryBuildingComponentDocument($storeData);
+
+    public function getCostEstimateByEnquiryId($id);
 
     public function moveToCancel($id);
 
@@ -71,8 +73,10 @@ interface CustomerEnquiryRepositoryInterface
     public function AddEnquiryReferenceNo($enquiry);
 
     public function deleteAndGetBuildingComponentDocument($id);
-    
+
     public function updateNewEnquiryStatus($id);
 
     public function updateAdminWizardStatus($enquiry, $status);
+
+    public function updateFollowUp($id, $data);
 }

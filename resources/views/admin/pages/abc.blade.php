@@ -29,7 +29,7 @@
                         <h4 class="header-title">Admin ABC Cost Estimation</h4>
                     </div>
                     <div class="card-body pt-0">
-                        <table class="table shadow-sm border m-0 table-bordered "  id="costEstimateDetailTable">
+                        <table class="table custom shadow-sm border m-0 table-bordered "  id="costEstimateDetailTable">
                             <thead class="bg-light">
                                 <tr>
                                     <th>Estimate Date ABC</th>
@@ -58,7 +58,7 @@
                         <div class="row">
         
                         <div class="row m-0 mt-3 table-rer" >
-                            <table class="table table-bordered border" id="costEstimateTable">
+                            <table class="table custom table-bordered border" id="costEstimateTable">
                                 <thead>
                                     <tr class="bg-light">
                                         <td colspan="14" class="text-center">
@@ -371,7 +371,7 @@
                 <div class="card-header pb-2 p-3 text-center border-0">
                         <h4 class="header-title">Estimation List</h4>
                     </div>
-                <table id="estimate-datatable" class="table bordered-table estimate-datatable" style="width:100%">
+                <table id="estimate-datatable" class="table custom bordered-table estimate-datatable" style="width:100%">
                     <thead>
                         <tr class="text-left">
                             <th>Name</th>

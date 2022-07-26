@@ -14,3 +14,4 @@ Route::post('translatefile', [AutodeskForgeController::class,'translatefile'])->
 Route::get('test', [AutodeskForgeController::class,'test'])->name('test');
 Route::get('get-autodesk-file-type', [AutodeskForgeController::class,'getAutodeskFileType'])->name('get-autodesk-file-type');
 
+Route::get('autodesk-check-status/{id}', [AutodeskForgeController::class,'checkStatus'])->name('autodesk-check-status');

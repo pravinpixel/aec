@@ -92,9 +92,9 @@
                                         <a href="" class="p-0 float-end">Export <i class="mdi mdi-download ms-1"></i></a>
                                         <h4 class="header-title mt-1 mb-3">Awarded Projects</h4>
 
-                                        <div class="table-responsive table-m">
-                                            <table class="table table-sm table-centered mb-0 font-14">
-                                                <thead class="table-light">
+                                        <div class="table custom-responsive table-m">
+                                            <table class="table custom table-sm table-centered mb-0 font-14">
+                                                <thead class="table custom-light">
                                                     <tr>
                                                         <th>S:NO</th>
                                                         <th>Project Name</th>
@@ -166,7 +166,7 @@
                                                     <ul id="myDIV" class="nav nav-pills rounded nav-justified form-wizard-header mt-0 pt-0 bg-white timeline-steps">
                                                          
                                                         <li class="nav-item  Project_Info">
-                                                            <a href="#/Project_Info"   style="min-height: 40px;" class="timeline-step">
+                                                            <a href="#!/Project_Info"   style="min-height: 40px;" class="timeline-step">
                                                                 <div class="timeline-content">
                                                                     <div class="inner-circle  bg-success">
                                                                         <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
@@ -176,7 +176,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="nav-item  admin-Technical_Estimate-wiz">
-                                                            <a href="#/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
+                                                            <a href="#!/Technical_Estimate" style="min-height: 40px;" class="timeline-step">
                                                                 <div class="timeline-content">
                                                                     <div class="inner-circle bg-success">
                                                                         <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
@@ -186,7 +186,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="nav-item admin-Cost_Estimate-wiz">
-                                                            <a href="#/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
+                                                            <a href="#!/Cost_Estimate" style="min-height: 40px;" class="timeline-step">
                                                                 <div class="timeline-content">
                                                                     <div class="inner-circle  bg-success">
                                                                         <img src="{{ asset("public/assets/icons/budget.png") }}" class="w-50 invert">
@@ -196,7 +196,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="nav-item admin-Project_Schedule-wiz">
-                                                            <a href="#/Project_Schedule" style="min-height: 40px;" class="timeline-step">
+                                                            <a href="#!/Project_Schedule" style="min-height: 40px;" class="timeline-step">
                                                                 <div class="timeline-content">
                                                                     <div class="inner-circle  bg-success">
                                                                         <img src="{{ asset("public/assets/icons/timetable.png") }}" class="w-50 invert">
@@ -206,7 +206,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="nav-item admin-Proposal_Sharing-wiz">
-                                                            <a href="#/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
+                                                            <a href="#!/Proposal_Sharing" style="min-height: 40px;" class="timeline-step">
                                                                 <div class="timeline-content">
                                                                     <div class="inner-circle  bg-success">
                                                                         <img src="{{ asset("public/assets/icons/share.png") }}" class="w-50 invert">
@@ -216,7 +216,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="nav-item admin-Project_Award-wiz" >
-                                                            <a href="#/Response_status"  style="min-height: 40px;"  class="timeline-step">
+                                                            <a href="#!/Response_status"  style="min-height: 40px;"  class="timeline-step">
                                                                 <div class="timeline-content ">
                                                                     <div class="inner-circle  bg-secondary">
                                                                         <img src="{{ asset("public/assets/icons/result.png") }}" class="w-50 invert">
@@ -226,7 +226,7 @@
                                                             </a>
                                                         </li>
                                                         <li class="nav-item admin-Delivery-wiz">
-                                                            <a href="#/Move_to_project" style="min-height: 40px;"  class="timeline-step">
+                                                            <a href="#!/Move_to_project" style="min-height: 40px;"  class="timeline-step">
                                                                 <div class="timeline-content">
                                                                     <div class="inner-circle  bg-secondary">
                                                                         <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
@@ -364,7 +364,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6 shadow py-4">
                                                                             <h4 class="header-title text-center">Project Status</h4>
-                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
+                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#163269,#0acf97,#fa5c7c,#ffbc00"></div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="chart-widget-list mt-md-5 p-md-4">
@@ -416,7 +416,7 @@
                                                                 </h4>
                                                                 
                                                                 <div dir="ltr">
-                                                                    <div id="datalabels-column" class="apex-charts" data-colors="#727cf5"></div>
+                                                                    <div id="datalabels-column" class="apex-charts" data-colors="#163269"></div>
                                                                 </div>
                                                                     
                                                             </div> <!-- end card-body-->
@@ -429,7 +429,7 @@
                                                             <div class="card-body">
                                                                 <h3  class="header-title mb-2">Project Milestone <b class="text-success float-end">78% Completed</b></h3>
 
-                                                                <table class="table m-0">
+                                                                <table class="table custom m-0">
                                                                     
                                                                     <tbody>
                                                                         <tr>
@@ -676,7 +676,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6 shadow py-4">
                                                                             <h4 class="header-title text-center">Project Status</h4>
-                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
+                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#163269,#0acf97,#fa5c7c,#ffbc00"></div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="chart-widget-list mt-md-5 p-md-4">
@@ -728,7 +728,7 @@
                                                                 </h4>
                                                                 
                                                                 <div dir="ltr">
-                                                                    <div id="datalabels-column" class="apex-charts" data-colors="#727cf5"></div>
+                                                                    <div id="datalabels-column" class="apex-charts" data-colors="#163269"></div>
                                                                 </div>
                                                                     
                                                             </div> <!-- end card-body-->
@@ -740,7 +740,7 @@
                                                             
                                                             <div class="card-body">
                                                                 <h3  class="header-title mb-2">Project Milestone <b class="text-success float-end">78% Completed</b></h3>
-                                                                <table class="table m-0">
+                                                                <table class="table custom m-0">
                                                                     
                                                                     <tbody>
                                                                         <tr>

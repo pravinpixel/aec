@@ -14,9 +14,9 @@
 
 {{-- Sortable Js --}}
 
-<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script data-require="jquery@*" data-semver="2.0.3" src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
-<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-route.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
 <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
@@ -37,7 +37,7 @@
 
 <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- ========= For Vendors Js ===========-->
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 
@@ -54,9 +54,14 @@
 <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
 <script src="{{ asset('public/assets/js/custom.js') }}"></script>
-
 <!-- ========= For Vendors Js ===========-->
 <!-- ========= For Validation Js ===========-->
+
+<!-- ========= Text Editor ========== -->
+<script src="https://unpkg.com/devextreme-quill@1.5.14/dist/dx-quill.min.js"></script>
+<script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
+<!-- ========= Text Editor ========== -->
 

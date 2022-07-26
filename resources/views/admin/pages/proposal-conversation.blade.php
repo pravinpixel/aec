@@ -19,7 +19,7 @@
                         <h3 class="header-title"> Proposal conversation</h3>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered">
+                        <table class="table custom table-bordered">
                             <thead class="bg-light">
                                 <th>S.No</th>
                                 <th>Date</th>
@@ -57,7 +57,7 @@
                                 </tr>
                                 <tr id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                     <td colspan="6">
-                                        <table class="table table-bordered">
+                                        <table class="table custom table-bordered">
                                                 <tbody><tr class="bg-light">
                                                     <td><b>Date</b></td>
                                                     <td><b>Offer Letter Number</b></td>
@@ -147,7 +147,7 @@
                                 </tr>
                                 <tr id="flush-collapseOne2" class="accordion-collapse collapse" aria-labelledby="flush-headingOne2" data-bs-parent="#accordionFlushExample">
                                     <td colspan="6">
-                                        <table class="table table-bordered">
+                                        <table class="table custom table-bordered">
                                                 <tbody><tr class="bg-light">
                                                     <td><b>Date</b></td>
                                                     <td><b>Offer Letter Number</b></td>

@@ -20,7 +20,7 @@ Route::post('/bim360/projects/getliveprojects', [Bim360ProjectController::class,
 Route::post('/bim360/projects/getpendingprojects', [Bim360ProjectController::class, 'getPendingProjects'])->name('/bim360/projects/getpendingprojects');
 Route::post('/bim360/projects/getinactiveprojects', [Bim360ProjectController::class, 'getInactiveProjects'])->name('/bim360/projects/getinactiveprojects');
 Route::post('/bim360/projects/getarchivedprojects', [Bim360ProjectController::class, 'getArchivedProjects'])->name('/bim360/projects/getarchivedprojects');
-Route::post('/bim360/projects/saveproject', [Bim360ProjectController::class, 'saveProject'])->name('/bim360/saveproject');
+Route::get('/bim360/projects/saveproject', [Bim360ProjectController::class, 'saveProject'])->name('/bim360/saveproject');
 
 Route::post('/bim360/projects/getaccountusers', [Bim360ProjectController::class, 'getAccountUsers'])->name('/bim360/projects/getaccountusers');
 Route::post('/bim360/projects/getprojectusers', [Bim360ProjectController::class, 'getProjectUsers'])->name('/bim360/projects/getprojectusers');
@@ -29,8 +29,8 @@ Route::get('/bim360/companies/create', [BIM360CompanyController::class, 'create'
 Route::get('/bim360/companies/detail', [Bim360CompanyController::class, 'getCompany'])->name('/bim360/companies/detail');
 Route::get('/bim360/companies/edit', [Bim360CompanyController::class, 'edit'])->name('/bim360/companies/edit');
 Route::get('/bim360/companies/list', [Bim360CompanyController::class, 'list'])->name('/bim360/Companies/list');
-Route::post('/bim360/companies/save', [Bim360CompanyController::class, 'save'])->name('/bim360/companies/save');
-Route::post('/bim360/companies/getcompanylist', [Bim360CompanyController::class, 'getCompanyList'])->name('/bim360/companies/getcompanylist');
+Route::get('/bim360/companies/save', [Bim360CompanyController::class, 'save'])->name('/bim360/companies/save');
+Route::get('/bim360/companies/getcompanylist', [Bim360CompanyController::class, 'getCompanyList'])->name('/bim360/companies/getcompanylist');
 
 Route::get('/bim360/Companies/create', [Bim360CompanyController::class, 'create'])->name('/bim360/Companies/create');
 Route::get('/bim360/Companies/detail', [Bim360CompanyController::class, 'getCompany'])->name('/bim360/Companies/detail');
@@ -43,7 +43,7 @@ Route::get('/bim360/users/create', [Bim360UserController::class, 'create'])->nam
 Route::get('/bim360/users/detail', [Bim360UserController::class, 'getUser'])->name('/bim360/users/detail');
 Route::get('/bim360/users/edit', [Bim360UserController::class, 'edit'])->name('/bim360/users/edit');
 Route::get('/bim360/users/list', [Bim360UserController::class, 'list'])->name('/bim360/Users/list');
-Route::post('/bim360/users/save', [Bim360UserController::class, 'save'])->name('/bim360/users/save');
+Route::get('/bim360/users/save', [Bim360UserController::class, 'save'])->name('/bim360/users/save');
 Route::post('/bim360/users/getuserlist', [Bim360UserController::class, 'getUserList'])->name('/bim360/users/getuserlist');
 
 Route::get('/bim360/Users/create', [Bim360UserController::class, 'create'])->name('/bim360/Users/create');
@@ -52,3 +52,8 @@ Route::get('/bim360/Users/edit', [Bim360UserController::class, 'edit'])->name('/
 Route::get('/bim360/Users/list', [Bim360UserController::class, 'list'])->name('/bim360/Users/list');
 Route::post('/bim360/Users/save', [Bim360UserController::class, 'save'])->name('/bim360/Users/save');
 Route::post('/bim360/Users/getuserlist', [Bim360UserController::class, 'getUserList'])->name('/bim360/Users/getuserlist');
+
+
+Route::get('bim360/projects-type', function(){
+    return config('project.project_types');
+})->name('bim360/projects-type');

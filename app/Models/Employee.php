@@ -30,7 +30,12 @@ class Employee extends Authenticatable
         'status',
         'share_access',
         'bim_access',
-        'access',        
+        'bim_id',
+        'bim_account_id',
+        'bim_uid',
+        'access',
+        'device_token',
+        'notification',
     ];
     
     /**
@@ -39,7 +44,7 @@ class Employee extends Authenticatable
      * @var array
      */
     protected $hidden = [
-      
+        'password',
         'remember_token',
     ];
 
@@ -56,4 +61,27 @@ class Employee extends Authenticatable
     {
         $this->attributes['full_name'] = "{$this->attributes['first_name']} {$this->attributes['last_name']}";
     }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_Name} {$this->last_name}";
+    }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'job_role');
+    }
+
+    public function assigndetails()
+    {
+        return $this->hasOne(Employee::class,'id','assigned');
+    }
+
+    public function requesterdetails()
+    {
+        return $this->hasOne(Employee::class,'id','send_by');
+    }
+        
+
+
 }

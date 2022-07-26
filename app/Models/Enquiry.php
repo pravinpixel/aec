@@ -14,6 +14,7 @@ class Enquiry extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'project_id',
         'enquiry_date',
         'enquiry_number',
         'customer_enquiry_number',
@@ -28,11 +29,13 @@ class Enquiry extends Model
         'project_type_id',
         'project_name',
         'project_date',
+        'organization_number',
         'place',
         'site_address',
         'project_status',
         'country',
         'zipcode',
+        'city',
         'state',
         'no_of_building',
         'project_delivery_date',
@@ -53,6 +56,13 @@ class Enquiry extends Model
         'from_enquiry_id',
         'initiate_from',
         'is_new_enquiry',
+        'device_key',   
+        'device_token',
+        'follow_up_date',
+        'follow_up_status',
+        'follow_up_by',
+        'response_status',
+        'project_assign_to'
     ];
 
     public function getCreatedAtAttribute($date)
@@ -93,6 +103,21 @@ class Enquiry extends Model
     public function setEnquiryDateAttribute($value)
     {
         $this->attributes['enquiry_date'] = GlobalService::DBDateFormatWithTime($value);
+    }
+
+    public function setCityAttribute()
+    {
+        $this->attributes['city'] = $this->attributes['place'];
+    }
+
+    public function getFollowUpDateAttribute($value)
+    {
+        return GlobalService::DBDateFormat($value);
+    }
+
+    public function setFollowUpDateAttribute($value)
+    {
+        $this->attributes['follow_up_date'] = GlobalService::DBDateFormatWithTime($value);
     }
 
     public function customer()
@@ -153,6 +178,11 @@ class Enquiry extends Model
         return $this->hasMany(EnquiryComments::class);
     }
 
+    public function project()
+    {
+        return $this->hasOne(Project::class);
+    }
+
     public function replicateRow()
     {
         $clone = $this->replicate();
@@ -160,7 +190,7 @@ class Enquiry extends Model
             return  false;
         }
         $clone->enquiry_number = GlobalService::enquiryNumber();
-        $clone->status = 'Active';
+        $clone->status = 'Submitted';
         $clone->from_enquiry_id = $clone->id;
         $clone->push();
         foreach($this->services as $service){
@@ -198,7 +228,14 @@ class Enquiry extends Model
             return true;
         }
         return false;
+    }  
+ 
+    public function technicalEstimate() {
+        return $this->hasOne(EnquiryTechnicalEstimate::class, 'enquiry_id', 'id');
     }
-        
+
+    public function costEstimate(){
+        return $this->hasOne(EnquiryCostEstimate::class, 'enquiry_id', 'id');
+    }
 }
 

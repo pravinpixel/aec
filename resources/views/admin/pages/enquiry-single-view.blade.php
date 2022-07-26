@@ -26,7 +26,7 @@
                                     <h4 class="f-20 m-0 p-3">Project Information</h4>
                                 </div>
                                 <div class="col-md-6 p-3">
-                                    <table class="table m-0 table-striped">
+                                    <table class="table custom m-0 table-striped">
                                         <tbody><tr class="border">
                                             <th width="50" class=" ">Project Name
                                             </th><td width="50" class="bg-white">XXXXXXXXXXXXXXXXXXX</td>
@@ -58,7 +58,7 @@
                                     </tbody></table>
                                 </div>
                                 <div class="col-md-6 p-3">
-                                    <table class="table m-0  table-striped">
+                                    <table class="table custom m-0  table-striped">
                                     <tbody><tr class="border">
                                             <th width="50" class=" ">Project Name
                                             </th><td width="50" class="bg-white">XXXXXXXXXXXXXXXXXXX</td>
@@ -95,7 +95,7 @@
                                     <h4 class="f-20 m-0 p-3">Selected Services</h4>
                                 </div>
                                 <div class="col-md-6 p-3 mx-auto">
-                                    <table class="table m-0  table-striped">
+                                    <table class="table custom m-0  table-striped">
                                         <tbody><tr class="border">
                                             <th class=" ">S.no
                                             </th><th class="bg-white">Services</th>
@@ -116,7 +116,7 @@
                                     <h4 class="f-20 m-0 p-3">IFC Models &amp; Uploaded Documents</h4>
                                 </div>
                                 <div class="col-md-12 p-3 mx-auto">
-                                    <table class="table m-0  table-striped">
+                                    <table class="table custom m-0  table-striped">
                                        
                                         <tbody>
                                             <tr>
@@ -178,13 +178,13 @@
                                     <h4 class="f-20 m-0 p-3">Selected Services</h4>
                                 </div>
                                 <div class="col-md-8 p-3 mx-auto">
-                                    <table class="table m-0 table-striped">
+                                    <table class="table custom m-0 table-striped">
                                         
                                         <tbody>
                                             <tr>
                                                 <th class="">EW_DEWS
                                                 </th><th class="">
-                                                    Delivery Type : Element Type
+                                                    Type of Delivery : Element Type
                                                 </th>
                                                 <th class="">
                                                     Total : 10

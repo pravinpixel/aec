@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Bim360\Bim360UsersApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
@@ -22,12 +23,17 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Illuminate\Support\Facades\Session;
+use Laracasts\Flash\Flash;
 use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
     public function employee_control_view()
     {
+        if(!userHasAccess('employee_edit')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         session()->forget('id');
         return view('admin.pages.employee.employee-view');
     }
@@ -50,6 +56,10 @@ class EmployeeController extends Controller
     }
     public function addEmployee(EmployeeCreateRequest $request)
     {
+        if(!userHasAccess('employee_add')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $id = session('id');
  
         $module = new Employee;
@@ -81,6 +91,10 @@ class EmployeeController extends Controller
             $module->image = "no_image.jpg";
         }
         $res = $module->save();
+        $role = Role::find($module->job_role);
+        if($res &&  ($role->slug == config('global.project_manager')) ){
+            $this->createBimUser($module);
+        }
         $id = $module->id;
         $data = new EmployeeSharePointAcess();
         $data->employee_id = $id;
@@ -96,7 +110,10 @@ class EmployeeController extends Controller
 
     public function updateEmployee($ids,EmployeeUpdateRequest $request)
     {
-
+        if(!userHasAccess('employee_update')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $id = session('id');
        
         $module = Employee::find($ids);
@@ -104,12 +121,14 @@ class EmployeeController extends Controller
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
         if(!empty($module)){
-        
+            if($request->epm_password) {
+                $module->password =  Hash::make($request->epm_password);
+            }
         $module->employee_id = $request->epm_id;
         $module->first_Name = $request->epm_fname;
         $module->last_Name = $request->epm_lname;
         $module->user_name = $request->epm_username;
-        $module->password = $request->epm_password;
+      
         $module->job_role = $request->epm_job_role;
         $module->number = $request->number;
         $module->email = $request->email;
@@ -123,10 +142,11 @@ class EmployeeController extends Controller
             
             // $module->image = $image;
         }
-      
-
-
-        $module->update();
+        $res = $module->update();
+        $role = Role::find($module->job_role);
+        if($res &&  ($role->slug == config('global.project_manager')) ){
+            $this->createBimUser($module);
+        }
         return response(['status' => true, 'msg' => trans('module.updated'),'data' => $id], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -179,7 +199,10 @@ class EmployeeController extends Controller
     public function employeeDelete($id)
     {
         # code...
-    
+        if(!userHasAccess('employee_delete')) {
+            Flash::error(__('global.access_denied'));
+            return redirect(route('admin-dashboard'));
+        }
         $module = Employee::find($id);
         if (empty($module)) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
@@ -239,7 +262,7 @@ class EmployeeController extends Controller
     {
         return view('admin.pages.employee');
     }
-    public function sharePointAcess(Type $var = null)
+    public function sharePointAcess()
     {
         // return "with out id";
         $id = session('id');
@@ -555,14 +578,61 @@ class EmployeeController extends Controller
 
     public function getTechnicalEstimateEmployee(Request $request)
     {
-        return Employee::where(['job_role' => 2, 'status'=> 1])->get();
+        $saleEngineer = Role::where('slug', config('global.technical_estimater'))->first();
+        $projectManager = Role::where('slug', config('global.project_manager'))->first();
+        return Employee::where('status', 1)
+                        ->whereIn('job_role',[$saleEngineer->id,$projectManager->id])
+                        ->where('id','!=', Admin()->id)
+                        ->get();
     }
 
     public function getCostEstimateEmployee(Request $request)
     {
-        return Employee::where(['job_role' => 3, 'status'=> 1])->get();
+        $role = Role::where('slug', config('global.cost_estimater'))->first();
+        return Employee::where(['job_role' => $role->id,'status'=> 1])
+                        ->where('id','!=', Admin()->id)
+                        ->get();
     }
 
-
+    public function getDeliveryManager(Request $request)
+    {
+        return Employee::with('role')->where('status', 1)->get()
+                        ->map(function ($employee){
+                            return [
+                                'user_name' => "{$employee->user_name} - ({$employee->role->name})", 
+                                'id' => $employee->id
+                            ];
+                        });
+    }
     
+
+    public function createBimUser($employee)
+    {
+        Log::info('Bim user creation start');
+        $input        = [];
+        $api          = new  Bim360UsersApi();
+        $input["company_id"] = env('BIMDEFAULTCOMPANY');
+        $input["email"]      = $employee->email;
+        $input['bim_id']     = $employee->bim_id ?? Null;
+        $input["nickname"]   = $employee->first_Name;
+        $input["first_name"] = $employee->first_Name;
+        $input["last_name"]  = $employee->last_name;
+        if (isset($input["bim_id"]) && !empty($input["bim_id"])) {
+            $editJson = json_encode($input);
+            $result = $api->editUser($input['bim_id'], $editJson);
+        } else {
+            $createJson = json_encode($input);
+            $result = $api->createUser($createJson);
+        }
+        Log::info("result {$result}");
+        $response = json_decode($result);
+        $employee->bim_id =  $response->id;
+        $employee->bim_account_id =  $response->account_id;
+        $updateUser = json_encode(['status'=> 'active', 'company_id'=> env('BIMDEFAULTCOMPANY')]);
+        $result = $api->editUser($employee->bim_id,  $updateUser);
+        Log::info("result {$result}");
+        Log::info('Bim user creation end');
+        return $employee->save();
+    }
+
 }

@@ -14,7 +14,7 @@
                         <div class="w-100 bg-light">
                             <ul class="nav nav-pills nav-justified col-lg-8 mx-auto form-wizard-header bg-light " >
                                 <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm"  style="pointer-events:none">
-                                    <a href="#/" style="min-height: 40px;" class="timeline-step" id="project-info" >
+                                    <a href="#!/" style="min-height: 40px;" class="timeline-step" id="project-info" >
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-success profile-info" >
                                                 <i class="fa fa-project-diagram fa-2x " ng-click="setActive()"></i>
@@ -24,7 +24,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item serviceSelection layerTab" data-target-form="#serviceSelection"   style="pointer-events:none" >
-                                    <a href="#/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
+                                    <a href="#!/sharePonitAccess" style="min-height: 40px;" class="timeline-step" id="service" >
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary share-point">
                                                 <i class="fa fa-list-alt fa-2x mb-1"></i>
@@ -35,7 +35,7 @@
                                     </a>
                                 </li> 
                                 <li class="nav-item last IFCModelUpload" data-target-form="#IFCModelUpload"  style="pointer-events:none" >
-                                    <a href="#/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
+                                    <a href="#!/ibmAccess" style="min-height: 40px;" class="timeline-step" id="ifc-model-upload" >
                                         <div class="timeline-content">
                                             <div class="inner-circle  bg-secondary ibm-access">
                                                 <i class="fa fa-2x fa-file-upload mb-1"></i>

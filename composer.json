@@ -7,16 +7,22 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-gd": "*",
+        "arcanedev/log-viewer": "^8.3",
         "autodesk/forge-client": "^1.0.3",
         "barryvdh/laravel-dompdf": "^1.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.0.1",
-        "laracasts/flash": "^3.2",
+        "laracasts/flash": "*",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
+        "livewire/livewire": "^2.10",
+        "mediconesystems/livewire-datatables": "^0.9.4",
+        "romanzipp/laravel-queue-monitor": "^2.3",
+        "socialiteproviders/sharepoint": "^5.0",
         "spatie/laravel-permission": "^5.5",
+        "vgrem/php-spo": "^2.5",
         "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
@@ -64,6 +70,9 @@
         }
     },
     "config": {
+        "platform": {
+            "php": "7.4.29"
+        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true

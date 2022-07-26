@@ -15,3 +15,5 @@ yarn-error.log
 /.idea
 /.vscode
 /database/database.sqbpro
+composer.lock
+composer.lock

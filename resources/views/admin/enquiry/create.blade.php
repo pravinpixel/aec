@@ -27,14 +27,14 @@
                                             <div class="col">
                                                 <div class="mb-3">                                             
                                                     <label class="form-label" >@lang('customer.enquiry_number')  <sup class="text-danger">*</sup></label>
-                                                    <input ng-disabled="true" type="text" ng-value="Draft" ng-model="enq_number"  class="form-control">
+                                                    <div class="form-control">Draft</div>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >@lang('customer.enquiry_date') <sup class="text-danger">*</sup></label>
-                                                    <input type="date" class="form-control" name="enq_date"  ng-model="enq_date_one" >
-                                                </div>  
+                                                    <input type="date" class="form-control" name="enq_date"  ng-model="enq_date_one" required="required">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>  
@@ -43,10 +43,17 @@
                                             <label class="form-label" for="validationCustom01"> @lang('customer.company_name') <sup class="text-danger">*</sup></label>
                                             <input type="text"  name="company_name" id="validationCustom01" class="form-control"  placeholder="Type Here..."  ng-required="true" list="companyList" ng-change="getCompany(module.company_name)" ng-model="module.company_name" />
                                             <datalist id="companyList">
-                                                <option ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
+                                                <option ng-click="getCompanyByName(module.company_name)" ng-repeat="item in companyList" value="@{{item.company}}">@{{item.company}}</option>
                                             </datalist>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" > @lang('customer.organization_no') <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="organization_no" id="organization_no"   ng-model="module.organization_no" placeholder="Type Here..." ng-required="true">
+                                        </div>
+                                    </div>   
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" > @lang('customer.contact_person') <sup class="text-danger">*</sup></label>
@@ -58,7 +65,7 @@
                                         <div class="mb-3">
                                             <div class="mb-3">
                                                 <label class="form-label" for="validationCustom01">@lang('customer.email')<sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" id="validationCustom01" name="email" ng-model="module.email" autocomplete="off"  placeholder="Type Here..." ng-pattern="/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/"  ng-required="true">
+                                                <input type="text" class="form-control" id="validationCustom01" name="email" ng-model="module.email" autocomplete="off"  placeholder="Type Here..." ng-pattern="/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.]/" ng-required="true">
                                             </div>
                                         </div> 
                                     </div>
@@ -66,7 +73,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" >@lang('customer.mobile_number')<sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" max="12" ng-pattern="phoneNumbr"  onkeypress="return isNumber(event)" maxlength="12"  placeholder="Type Here..."  name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
+                                            <input type="text" class="form-control"  ng-pattern="/^\d{8}$|^\d{12}$/"  onkeypress="return isNumber(event)" max="12"   maxlength="12"placeholder="Type Here..."  name="mobile_number" ng-model="module.mobile_number"  ng-required="true" />
                                         </div>
                                     </div>
 
@@ -98,10 +105,11 @@
 @push('custom-styles')
     <style>
         
-    .form-control.ng-valid ,
-    .form-select.ng-valid {
+    .form-control.ng-valid.ng-touched ,
+    .form-select.ng-valid.ng-touched {
     border-bottom: 1px solid #008a60 !important
     }
+    
     </style>
 @endpush
 @push('custom-scripts')

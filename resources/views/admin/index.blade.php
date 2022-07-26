@@ -4,10 +4,9 @@
    
 
     <div class="content-page">
-        <div class="content">
+        <div class="content"> 
+            @include('admin.includes.top-bar') 
 
-            @include('admin.includes.top-bar')
-  
 			@if (Route::is('admin-dashboard'))
 				<!-- Start Content-->
 				<div class="container-fluid">
@@ -148,7 +147,7 @@
 									   <h4 class="header-title mb-3">Customers wise sales count</h4>
    
 									   <div dir="ltr">
-										   <div id="simple-pie" class="apex-charts" data-series="20,80" data-labels="New Users,Old users" data-colors="#727cf5,#6c757d,#0acf97,#fa5c7c,#e3eaef"></div>
+										   <div id="simple-pie" class="apex-charts" data-series="20,80" data-labels="New Users,Old users" data-colors="#163269,#6c757d,#0acf97,#fa5c7c,#e3eaef"></div>
 									   </div>
 										   
 								   </div> <!-- end card-body-->
@@ -202,7 +201,7 @@
 									   </div>
 								   </div>
 								   <div class="card-body ">
-									   <table id="scroll-vertical-datatable" class="table dt-responsive nowrap ">
+									   <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap ">
 										   <thead class="">
 											   <tr>
 												   <th>S.No</th>
@@ -270,8 +269,8 @@
 									   </div>
 									   <h4 class="header-title mb-3">Recent Activities</h4>
    
-									   <div class="table-responsive">
-										   <table class="table table-centered table-nowrap table-hover mb-0">
+									   <div class="table custom-responsive">
+										   <table class="table custom table-centered table-nowrap table-hover mb-0">
 											   <tbody>
 												   @for ($i = 0; $i < 5;  $i++)
 												   <tr>
@@ -285,7 +284,7 @@
 														   <span class="text-muted font-13">Project</span> <br>
 														   <p class="mb-0">New Building</p>
 													   </td>
-													   <td class="table-action" style="width: 50px;">
+													   <td class="table custom-action" style="width: 50px;">
 														   <div class="dropdown">
 															   <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
 																   <i class="mdi mdi-dots-horizontal"></i>
@@ -312,7 +311,7 @@
 								   <div class="card-body">
 									   <h4 class="header-title">Mothly Sales Reports</h4>
 									   <div dir="ltr">
-										   <div id="distributed-column" class="apex-charts" data-colors="#727cf5,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
+										   <div id="distributed-column" class="apex-charts" data-colors="#163269,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
 									   </div>
 								   </div>
 							   </div> <!-- end card-->
@@ -325,14 +324,11 @@
 				   <!-- container -->
 				   
 			   </div> <!-- container --> 
-			@endif
-
+			@endif 
         </div> <!-- content --> 
     </div> 
 
-@endsection
-
- 
+@endsection 
 
 @push('custom-styles')
 	<link href="{{ asset('public/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
@@ -451,5 +447,5 @@
 	<script src="{{ asset('public/assets/js/pages/demo.apex-pie.js') }}"></script>
 	<script src="{{ asset('public/assets/js/pages/demo.apex-column.js') }}"></script>
 	<script src="{{ asset('public/assets/js/pages/demo.dashboard-analytics.js') }}"></script> 
+
 @endpush
- 

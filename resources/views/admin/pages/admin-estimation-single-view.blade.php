@@ -23,7 +23,7 @@
                             <div class="card shadow-lg">
                                 <div class="card-header p-3">
                                     <h4 class="header-title my-2 mb-3 text-center">Estimation for ENQ001 - New Building Project - Ada Lovelace</h4>
-                                    <table class="table m-0 bg-white  table-bordered ">
+                                    <table class="table custom m-0 bg-white  table-bordered ">
                                         <thead class="bg-light">
                                             <tr>
                                                 <th>Enquiry Date</th>
@@ -43,7 +43,7 @@
                                     </table>
                                 </div>
                                 <div class="card-body p-3">
-                                    <table class="table m-0 table-bordered">
+                                    <table class="table custom m-0 table-bordered">
                                         <thead class="bg-light">
                                             <tr>
                                                 <th>Component Name</th>

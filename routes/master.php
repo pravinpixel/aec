@@ -14,6 +14,10 @@ use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\OutputTypeController;
 use App\Http\Controllers\Customer\Master\CustomerLayerController;
 use App\Http\Controllers\Admin\Master\RoleController;
+use App\Http\Controllers\Admin\Master\TaskListController;
+use App\Http\Controllers\Admin\Master\CheckListController;
+use App\Http\Controllers\Admin\Master\PrecastEstimateController;
+use App\Http\Controllers\Admin\Master\WoodEstimateController;
 use App\Http\Controllers\Admin\PermissionController;
 
 Route::get('module-file',  function() {
@@ -52,6 +56,23 @@ Route::get('service-file',  function() {
     return view('admin.setting-tabs.Service.service');
 })->name('service-file');
 
+Route::get('task-list-view',  function() {
+    return view('admin.setting-tabs.Task-List.task-list');
+})->name('task-list-view');
+
+Route::get('check-list',  function() {
+    return view('admin.setting-tabs.Check-list.check-list');
+})->name('check-list-file');
+
+Route::get('wood-estimation',  function() {
+    return view('admin.setting-tabs.wood-estimation.wood-estimation-list');
+})->name('wood-estimation');
+
+Route::get('precast-estimation', function (){
+    return view('admin.setting-tabs.precast-estimation.precast-estimation-list');
+})->name('precast-estimation');
+
+Route::group(['middleware' => 'common'], function(){
 
 Route::get('permission/{id}',  [PermissionController::class,'permission'])->name('permission');
 Route::put('set-permission/{id}',  [PermissionController::class,'setPermission'])->name('setPermission');
@@ -105,9 +126,21 @@ Route::resource('output-type', OutputTypeController::class);
 Route::get('get-service', [ServiceController::class,'get'])->name('service.get');
 Route::resource('service', ServiceController::class);
 
+Route::get('get-task-list', [TaskListController::class,'get'])->name('task-list.get');
 
+Route::resource('task-list-master', TaskListController::class);
+ 
+Route::resource('check-list-master', CheckListController::class);
 
+Route::get('wood-estimate-json',[WoodEstimateController::class,'getWoodEstimateJSON']);
 
+Route::put('wood-estimate/{id}/status',[WoodEstimateController::class,'status']);
+
+Route::resource('wood-estimate', WoodEstimateController::class);
+ 
+Route::put('precast-estimate/{id}/status',[PrecastEstimateController::class,'status']);
+
+Route::resource('precast-estimate', PrecastEstimateController::class);
 
 Route::get('get-document-type', [DocumentTypeController::class,'get'])->name('document-type.get');
 Route::put('document-type/status/{id}', [DocumentTypeController::class,'status'] )->name('document-type.status');
@@ -121,6 +154,9 @@ Route::resource('document-type', DocumentTypeController::class);
 
 
 Route::get('get-building-component', [BuildingComponentController::class,'get'])->name('building-component.get');
+
+Route::get('get-for-cost-estimate', [BuildingComponentController::class,'getForCostEstimate'])->name('building-component.for-cost-estimate');
+
 Route::put('building-component/status/{id}', [BuildingComponentController::class,'status'] )->name('building-component.status');
 Route::resource('building-component', BuildingComponentController::class);
 
@@ -133,5 +169,7 @@ Route::resource('layer', LayerController::class);
 
 
 Route::get('get-customer-layer', [CustomerLayerController::class,'get'])->name('customer-layer.get');
+
+});
 
 

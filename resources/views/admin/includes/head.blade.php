@@ -35,6 +35,8 @@
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
 <!-- ========= Alert js Notifications ========== -->
 <link rel="stylesheet" href="{{ asset('public/custom/css/wizz.css') }}"> 
+<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.common.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.light.css" />
 
 
 <style>
@@ -54,7 +56,7 @@
     }
     .conversation-list  li.Admin_odd  .conversation-text {
         background: #BFDDFE;
-        padding: 15px;
+        padding: 10px;
         font-size: 14px;
         font-weight: bold ;
         border-radius: 5px;
@@ -64,7 +66,7 @@
 
     .conversation-list  li.Customer_odd  .conversation-text {
         background: #eee;
-        padding: 15px;
+        padding: 10px;
         font-size: 14px;
         font-weight: bold ;
         border-radius: 5px;
@@ -90,4 +92,115 @@
         clip-path:polygon(0 9%, 0 0, 100% 0, 103% 100%) ;
         left:-11px !important
     }    
+
+    .conversation-list  li.admin_role_odd  .conversation-text::after{
+        position: absolute;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: #BFDDFE;
+        top: 0;
+        clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
+    } 
+    .conversation-list  li.cost_estimate_role_odd  .conversation-text::after{
+        position: absolute;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: #BFDDFE;
+        top: 0;
+        clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
+    } 
+    .conversation-list  li.technical_estimate_role_odd  .conversation-text::after{
+        position: absolute;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: #BFDDFE;
+        top: 0;
+        clip-path:polygon(0 100%, 0 0, 100% 0, 37% 100%)       
+    } 
+    .form-control.ng-valid.ng-touched ,
+    .form-select.ng-valid.ng-touched {
+    border-bottom: 1px solid #008a60 !important
+    }
+    .customer-danger {
+        color: red;
+    }
+    .bg-primary2  {
+        background-color: #08357c;
+    }
+    
+</style>
+
+<style>
+    .auto-scroll {
+        overflow: auto;
+        padding-bottom: 10px 
+    }
+    .auto-scroll::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    /* Track */
+    .auto-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    .auto-scroll::-webkit-scrollbar-thumb {
+        background: gray;
+    }
+
+    /* Handle on hover */
+    .auto-scroll::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    .custom-border-left {
+        border-left: 1px solid black !important;
+    }
+    .custom-border-bottom {
+        border-bottom: 1px solid black !important;
+    }
+    .custom-td {
+        border-right: 1px solid black !important; 
+        border-top: 1px solid black !important;
+        border-left:none !important;
+        border-bottom:none !important; 
+        width: 100px !important;
+        min-width: 100px !important;
+        max-width: 100px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+    }
+    .custom-td * {
+        font-size: 12px !important;
+    }
+    .custom-row {
+        display: inline-flex !important;
+    }
+    .custom-td input {
+        padding: 0 !important;
+        height: 100%;
+        width: 100%;
+    }
+    .custom-td select ,
+    .custom-td input {
+        color: black !important
+    }
+    .fa  {
+        cursor: pointer;
+    }
+    .custom-max-h {
+        height: 40px !important;
+        overflow: hidden;
+    }
+
+    .activeTab {
+        pointer-events: none;
+    }
 </style>

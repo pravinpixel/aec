@@ -45,6 +45,7 @@
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
                             <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                                 Active Enquiries
+                                <span id="active-count" class="badge bg-danger rounded-pill" style="transform: translateY(-10px) !important;"></span>
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i  
@@ -77,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
                 @include('admin.enquiry.models.enquiry-qucik-view')
                 @include('admin.enquiry.models.chat-box')
                 @include('customer.enquiry.models.enquiry-filter-modal')
@@ -88,5 +89,4 @@
 
 @push('custom-scripts')
     <script src="{{ asset("public/custom/js/ngControllers/admin/all-enquiries.js") }}"></script>  
-     
 @endpush

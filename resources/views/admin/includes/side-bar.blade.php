@@ -56,101 +56,129 @@
                     </ul>
                 </div>
             </li> 
-
-
-
-            
             {{-- <li class="side-nav-title side-nav-item mt-1">Sales</li> --}}
-
-            <li class="side-nav-item {{ Route::is(["view-enquiry","admin.enquiry-create"]) ? "menuitem-active" : ""}}">
+            @if(userHasAccess('enquiry_index') || userHasAccess('contract_index'))
+            <li class="side-nav-item {{ Route::is(["view-enquiry","admin.enquiry-create","admin-documentary-view","admin.documentaryEdit","admin.add-documentary"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Sales" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                     <span> Sales </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse {{ Route::is("view-enquiry","admin.enquiry-create") ? "show" : ""}}" id="Sales">
+                <div class="collapse {{ Route::is(["view-enquiry","admin.enquiry-create","admin-documentary-view","admin.documentaryEdit","admin.add-documentary"]) ? "show" : ""}}" id="Sales">
                     <ul class="side-nav-second-level">
-                        <li class="{{ Route::is("view-enquiry","admin.enquiry-create") ? "menuitem-active" : ""}}">
-                            <a href="{{ route('admin.enquiry-list') }}">@lang('menu.customer_intro')</a>
+                        @if(userHasAccess('enquiry_index'))
+                        <li class="{{ Route::is(["view-enquiry","admin.enquiry-create"]) ? "menuitem-active" : ""}}">
+                            <a href="{{ route('admin.enquiry-list') }}">@lang('menu.enquiries')</a>
                         </li>
-                        <li class="{{ Route::is(["admin-documentary-view","admin.admin-documentary-view","admin.admin-documentary-view"]) ? "menuitem-active" : ""}}">
+                        @endif
+                        @if(userHasAccess('contract_index'))
+                        <li class="{{ Route::is(["admin-documentary-view","admin.documentaryEdit","admin.add-documentary"]) ? "menuitem-active" : ""}}">
                             <a href="{{ route('admin-documentary-view') }}">Contract </a>
                         </li> 
+                        @endif
                     </ul>
                 </div>
                 
             </li> 
- 
-
-            <li class="side-nav-item {{ Route::is("projects") ? "menuitem-active" : ""}}">
-                <a href="{{ route('projects') }}" class="side-nav-link">
-                    <i class="fa fa-layer-group" aria-hidden="true"></i>
+            @endif
+            @if(userHasAccess('project_index'))
+            <li class="side-nav-item {{ Route::is(["create-projects", "list-projects"]) ? "menuitem-active" : ""}}">
+                <a data-bs-toggle="collapse" href="#project_creation" aria-expanded="false" aria-controls="project_creation" class="side-nav-link">
+                    <i class="fa fa-tachometer-alt"></i>
                     <span> Projects </span>
-                </a> 
-            </li>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse {{ Route::is(["create-projects", "list-projects","live-projects"]) ? "show" : ""}}" id="project_creation">
+                    <ul class="side-nav-second-level">
+                        <li class="{{ Route::is(["list-projects"]) ? "menuitem-active" : ""}}"><a href="{{ route('list-projects') }}">List of Project</a></li>  
+                        <li class="{{ Route::is(["create-projects"]) ? "menuitem-active" : ""}}"><a onclick="return window.location.assign('{{ route('create-projects') }}')" href="#">Create New Project</a></li>  
+                        <li class="{{ Route::is(["live-projects"]) ? "menuitem-active" : ""}}"><a href="{{ route('live-projects') }}">Live Project</a></li>   
+                        <li><a href="#">Completed Project</a></li>  
+                    </ul>
+                </div>
+            </li> 
+            @endif
+            @if(userHasAccess('project_schedule_index'))
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-server" aria-hidden="true"></i>
                     <span> Projects Schedule </span>
                 </a> 
             </li> 
-
+            @endif
+            @if(userRole()->slug == 'admin')
             <li class="side-nav-item {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Administration" aria-expanded="false" aria-controls="Administration" class="side-nav-link">
                     <i class="fa fa-fingerprint" aria-hidden="true"></i>
                     <span>Administration</span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "show" : ""}}" id="Administration">
+                <div class="collapse {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee","edit.employee"]) ? "show" : ""}}" id="Administration">
                     <ul class="side-nav-second-level">
+                        @if(userHasAccess('cost_estimate_index'))
                         <li>
                             <a href="{{ route('cost-estimation-single-view') }}">Cost Estimation</a>
                         </li>
+                        @endif
                         <li>
                             <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
                         </li>
-                        <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit"]) ? "menuitem-active" : ""}}">
-                            <a href="{{ route('admin-employee-control-view') }}">Employee Control </a>
-                        </li> 
+                        @if(userHasAccess('employee_index'))
+                            <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee",'edit.employee']) ? "menuitem-active" : ""}}">
+                                {{-- <a href="{{ route('admin-employee-control-view') }}">Employee Control </a> --}}
+                                <a href="{{ route('employee.index') }}">Employee Control </a>
+                            </li> 
+                        @endif
                     </ul>
                 </div>
             </li> 
-            <li class="side-nav-item ">
+            @endif
+            @if(userHasAccess('task_index'))
+            <li class="side-nav-item">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     <span> Tasks </span>
                 </a> 
             </li>
+            @endif
+            @if(userHasAccess('economy_index'))
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-globe-americas" aria-hidden="true"></i>
                     <span> Economy </span>
                 </a> 
             </li>
-            <li class="side-nav-item ">
-                <a href="#" class="side-nav-link">
+            @endif
+            @if(userHasAccess('customer_detail_index'))
+            <li class="side-nav-item {{ Route::is(["admin.customer.index","admin.customer.edit"]) ? "menuitem-active" : ""}}">
+                <a href="{{ route('admin.customer.index') }}" class="side-nav-link">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <span> Customer Details </span>
                 </a> 
             </li>
+            @endif
+            @if(userHasAccess('supplier_detail_index'))
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-users-cog" aria-hidden="true"></i>
                     <span> Supplier Details </span>
                 </a> 
             </li>
+            @endif
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-calendar-check" aria-hidden="true"></i>
                     <span> Calendar </span>
                 </a> 
             </li>
+            @if(userRole()->slug == 'admin')
             <li class="side-nav-item ">
                 <a href="{{ route('admin-settings') }}" class="side-nav-link">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <span> Setup </span>
                 </a> 
             </li> 
+            @endif
         </ul>
  
         <!-- End Sidebar -->

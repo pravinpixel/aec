@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-   
-
     <div class="content-page" >
+ 
+
         <div class="content"  ng-controller="moduleController" >
 
             @include('admin.includes.top-bar')
@@ -17,80 +17,150 @@
 
                 <!-- end page title --> 
 
+
+                <ul class="nav nav-tabs nav-bordered mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav AdminTab active" onclick="changeTab(this)" href="#!/role">
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Admin</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav CustomerTab" onclick="changeTab(this)" href="#!/output">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Customer</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav VendorTab" onclick="changeTab(this)">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Vendor</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav EmployeeTab" onclick="changeTab(this)">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Employee</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab-nav GeneralTab" onclick="changeTab(this)">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">General</span>
+                        </a>
+                    </li> 
+                </ul>
+               
                 <div class="row">
-                    
                     <div class="col-sm-2 mb-2 mb-sm-0">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link moduleTab" id="moduleTab"  href="#/" role="tab" aria-controls="v-pills-home"
-                                aria-selected="true">
-                                <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                                <span class="d-none d-md-block" ng-click="moduleGetData()">Module</span>
-                            </a>
-                            <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#/role" role="tab" aria-controls="v-pills-role"
-                                aria-selected="true">
-                                <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                                <span class="d-none d-md-block" ng-click="roleGetData()">Role</span>
-                            </a>
-                            <a class="nav-link masterTab" href="#/master-estimate" role="tab" aria-controls="v-pills-master"
-                                aria-selected="false">
-                                <i class="mdi mdi-master-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block">Master Estimation</span>
-                            </a>
-                            <a class="nav-link componentTab" id="v-pills-component-tab" href="#/component" role="tab" aria-controls="v-pills-component"
-                                aria-selected="false">
-                                <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                <span class="d-none d-md-block" ng-click="componentGetData()">Building Component</span>
-                            </a>
-                            <a class="nav-link typeTab" id="v-pills-type-tab" href="#/type" role="tab" aria-controls="v-pills-type"
-                                aria-selected="false">
-                                <i class="mdi mdi-type-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block"  ng-click="typeGetData()">Building Type</span>
-                            </a>
-                            <a class="nav-link projectTypeTab" id="v-pills-project_type-tab"  href="#/projectType" role="tab" aria-controls="v-pills-project_type"
-                                aria-selected="false">
-                                <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                <span class="d-none d-md-block"  ng-click="projectTypeGetData()">Project Type</span>
-                            </a>
-                            <a class="nav-link documentTab" id="v-pills-document-tab"  href="#/documentType" role="tab" aria-controls="v-pills-document"
-                                aria-selected="false">
-                                <i class="mdi mdi-document-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block" ng-click="documentTypeGetData()">Document Type</span>
-                            </a>
-                            <a class="nav-link layerTab" id="v-pills-layer-tab" href="#/layer" role="tab" aria-controls="v-pills-layer"
-                                aria-selected="false">
-                                <i class="mdi mdi-layer-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block"  ng-click="layerGetData()" >Layer</span>
-                            </a>
-                            
-                            <a class="nav-link deliveryTab" id="v-pills-DeliveryLayer-tab" href="#/deliveryType"  role="tab" aria-controls="v-pills-DeliveryLayer"
-                                aria-selected="false">
-                                <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Delivery Type</span>
-                            </a>
-                            <!-- <a class="nav-link layerTypeTab" id="v-pills-layerType-tab" href="#/layerType"  role="tab" aria-controls="v-pills-layerType"
-                                aria-selected="false">
-                                <i class="mdi mdi-layerType-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block"  ng-click="layerTypeGetData()" >Layer Type</span>
-                            </a> -->
-                            <a class="nav-link outputTab" id="v-pills-output-tab" href="#/output"  role="tab" aria-controls="v-pills-output"
-                                aria-selected="false">
-                                <i class="mdi mdi-output-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block"  ng-click="outputGetData()" >Output Type</span>
-                            </a>
-                            <a class="nav-link serviceTab" id="v-pills-service-tab" href="#/service" role="tab" aria-controls="v-pills-service"
-                                aria-selected="false">
-                                <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
-                            </a>
-                            
+                            <div class="custom-tab" id="AdminTab">
+                                    <strong class="my-1" id="AdminTab">Admin</strong>
+                                    <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#!/role" role="tab" aria-controls="v-pills-role"
+                                        aria-selected="true">
+                                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" ng-click="roleGetData()">Role</span>
+                                    </a>
+                                    <a class="nav-link woodEstimateTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="getWoodEstimation()" >Wood Estimation</span>
+                                    </a>
+
+                                    <a class="nav-link precastEstimateTab" id="v-pills-precast-estimation-tab" href="#!/precast-estimation" role="tab" aria-controls="v-pills-precast-estimation"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="getPrecastEstimation()" >Precast Estimation</span>
+                                    </a>
+                                    <a class="nav-link taskListTab" id="v-pills-service-tab" href="#!/task-list-view" role="tab" aria-controls="v-pills-service"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" >Task list</span>
+                                    </a>
+
+                                    <a class="nav-link checkListTab" id="v-pills-service-tab" href="#!/check-list" role="tab" aria-controls="v-pills-service"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
+                                    </a>
+
+                                    <a class="nav-link masterTab" href="#!/master-estimate" role="tab" aria-controls="v-pills-master"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-master-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block">Master Estimation</span>
+                                    </a>
+                                <hr>
+                            </div>
+                            <div class="d-none custom-tab" id="CustomerTab">
+                                <strong class="my-1" >Customer</strong>
+                                    <a class="nav-link outputTab" id="v-pills-output-tab" href="#!/output"  role="tab" aria-controls="v-pills-output"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-output-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="outputGetData()" >Output Type</span>
+                                    </a>
+
+                                    <a class="nav-link serviceTab" id="v-pills-service-tab" href="#!/service" role="tab" aria-controls="v-pills-service"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
+                                    </a>
+
+                                    <a class="nav-link componentTab" id="v-pills-component-tab" href="#!/component" role="tab" aria-controls="v-pills-component"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" ng-click="componentGetData()">Building Component</span>
+                                    </a>
+                                    <a class="nav-link typeTab" id="v-pills-type-tab" href="#!/type" role="tab" aria-controls="v-pills-type"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-type-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="typeGetData()">Building Type</span>
+                                    </a>
+
+                                    <a class="nav-link projectTypeTab" id="v-pills-project_type-tab"  href="#!/projectType" role="tab" aria-controls="v-pills-project_type"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="projectTypeGetData()">Project Type</span>
+                                    </a>
+
+                                    {{-- <a class="nav-link layerTab" id="v-pills-layer-tab" href="#!/layer" role="tab" aria-controls="v-pills-layer"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-layer-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="layerGetData()" >Layer</span>
+                                    </a> --}}
+
+                                    <a class="nav-link deliveryTab" id="v-pills-DeliveryLayer-tab" href="#!/deliveryType"  role="tab" aria-controls="v-pills-DeliveryLayer"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Type of Delivery</span>
+                                    </a>
+
+                                    <a class="nav-link documentTab" id="v-pills-document-tab"  href="#!/documentType" role="tab" aria-controls="v-pills-document"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-document-outline d-md-none d-block"></i>
+                                        <span class="d-none d-md-block" ng-click="documentTypeGetData()">Document Type</span>
+                                    </a>
+
+                                <hr>
+                            </div>
+                            <div class="d-none custom-tab" id="VendorTab">
+                                <strong class="my-1">Vendor</strong>
+                                <hr>
+                            </div>
+
+                            <div class="d-none custom-tab" id="EmployeeTab">
+                                <strong class="my-1">Employee</strong>
+                                <hr>
+                            </div>
+
+                            <div class="d-none custom-tab" id="GeneralTab">
+                                <strong class="my-1">General</strong>
+                                <hr>
+                            </div>
                         </div>
                     </div> <!-- end col-->
-                
                     <div class="col-sm-10">
-                        
-                        
                         <div class="tab-content" id="v-pills-tabContent">
-                              <ng-view/>
+                            <ng-view/>
                         </div> <!-- end tab-content-->
                     </div> <!-- end col-->
                 </div>
@@ -100,18 +170,14 @@
 
         </div> <!-- content --> 
     </div> 
-
-    
 @endsection
-
- 
 
 @push('custom-styles')
     
     <style>
         .nav-link.active   {
-            color: #727cf5 !important;
-            background-color: rgba(114,124,245,.18) !important;
+            color: #163269 !important;
+            background-color: #d4e2ff !important;
         }
         .dataTables_length {
             display: none !important
@@ -123,7 +189,7 @@
             padding: 10px !important
         }
         
-        .form-control.ng-touched   {
+        .form-control.ng-invalid   {
             border: 1px solid red !important
         }
         .form-control.ng-touched + .help-inline {
@@ -152,7 +218,6 @@
 @endpush
 
 @push('custom-scripts')
-
     <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
@@ -171,61 +236,70 @@
         });
     </script>
     <script >
-            $(document).ready(function(){
+        $(document).ready(function(){
             angular.element(document.querySelector("#loader")).addClass("d-none");
-            
-            }); 
-        // menuController
+        }); 
         app.config(function($routeProvider,API_URL) {
-                $routeProvider
-                .when("/", {
-                    templateUrl : "{{ route('module-file')  }}"
-                })
-                .when("/role", {
-                    
-                    templateUrl : "{{ route('role-file')  }}"
-                })
-                .when("/green", {
-                    templateUrl : "red.htm"
-                })
-                .when("/master-estimate", {
-                    templateUrl : "{{ route('masterEstimation-file')  }}"
-                })
-                .when("/component", {
-                    templateUrl : "{{ route('component-file')  }}"
-                })
-                .when("/type", {
-                    templateUrl : "{{ route('type-file')  }}"
-                })
-                .when("/documentType", {
-                    templateUrl : "{{ route('documentType-file')  }}"
-                })
-                .when("/projectType", {
-                    templateUrl : "{{ route('projectType-file')  }}"
-                })
-                .when("/layer", {
-                    templateUrl : "{{ route('layer-file')  }}"
-                })
-                .when("/deliveryType", {
-                    templateUrl : "{{ route('deliveryType-file')  }}"
-                })
-                .when("/layerType", {
-                    templateUrl : "{{ route('layerType-file')  }}"
-                })
-                .when("/output", {
-                    templateUrl : "{{ route('output-file')  }}"
-                })
-                .when("/service", {
-                    templateUrl : "{{ route('service-file')  }}"
-                })
-                .when("/permission/:id", {
-                    templateUrl: function(params) {
-                        return API_URL +'permission/'+params.id;
-                    },
-                    controller: 'PermissionCtrl'
-                })
+            $routeProvider
+            .when("/", {
+                templateUrl : "{{ route('role-file')  }}"
+            })
+            .when("/role", {
+                templateUrl : "{{ route('role-file')  }}"
+            }) 
+            .when("/master-estimate", {
+                templateUrl : "{{ route('masterEstimation-file')  }}"
+            })
+            .when("/component", {
+                templateUrl : "{{ route('component-file')  }}"
+            })
+            .when("/type", {
+                templateUrl : "{{ route('type-file')  }}"
+            })
+            .when("/documentType", {
+                templateUrl : "{{ route('documentType-file')  }}"
+            })
+            .when("/projectType", {
+                templateUrl : "{{ route('projectType-file')  }}"
+            })
+            .when("/layer", {
+                templateUrl : "{{ route('layer-file')  }}"
+            })
+            .when("/deliveryType", {
+                templateUrl : "{{ route('deliveryType-file')  }}"
+            })
+            .when("/layerType", {
+                templateUrl : "{{ route('layerType-file')  }}"
+            })
+            .when("/output", {
+                templateUrl : "{{ route('output-file')  }}"
+            })
+            .when("/service", {
+                templateUrl : "{{ route('service-file')  }}"
+            })
+            .when("/task-list-view", {
+                templateUrl : "{{ route('task-list-view')  }}",
+                controller : "TaskListController"
+            })
+            .when("/check-list", {
+                templateUrl : "{{ route('check-list-file')  }}",
+                controller : "CheckListController"
+            })
+            .when("/permission/:id", {
+                templateUrl: function(params) {
+                    return API_URL +'permission/'+params.id;
+                },
+                controller: 'PermissionCtrl'
+            })
+            .when("/wood-estimation", {
+                templateUrl : "{{ route('wood-estimation')  }}",
+                controller : "WoodEstimateController"
+            })
+            .when("/precast-estimation", {
+                templateUrl : "{{ route('precast-estimation')  }}",
+                controller : "PrecastEstimateController"
+            })
         });
-        
         app.controller('PermissionCtrl', function($scope, $http, $routeParams,API_URL){
             $scope.setPermission = (role_id) => {
                 $http({
@@ -258,21 +332,180 @@
             getPermission(role_id);
         });
 
+        app.controller('WoodEstimateController', function($scope, $http, $routeParams,API_URL){
+            function getWoodEstimates() {
+                $http.get(`${API_URL}wood-estimate`).then((res)=> {
+                    $scope.woodEstimations = res.data; 
+                });
+            }
+            getWoodEstimates();
 
-        app.controller('moduleController', function ($scope, $http, API_URL) {
-           
+            $scope.toggleModalForm = function (modalstate, id) {
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Task";
+                        $scope.form_color = "primary";
+                        $scope.modalstate   =   'add'
+                        $scope.task_list_item = {};
+                        $('#woodestimate-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Task";
+                        $scope.form_color = "success";
+                        $scope.id = id; 
+                        $scope.task_list_item = {};
+                        $http.get(`${API_URL}wood-estimate/${id}`)
+                            .then(function (response) {
+                                $scope.wood_estimate_item = response.data.data;
+                                $('#woodestimate-form-popup').modal('show');
+                            });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.storeModalWoodForm = (modalstate, id) => { 
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}wood-estimate${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.wood_estimate_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#woodestimate-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    getWoodEstimates();
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors.name[0]);
+                });
+            }
+
+            $scope.changeWoodEstimateStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}wood-estimate/${id}/status`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    getWoodEstimates();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+
+            $scope.delete   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}wood-estimate/${id}`).then(function (response) {
+                            getWoodEstimates();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
+        });
+
+        app.controller('PrecastEstimateController', function($scope, $http, $routeParams, API_URL){
+            function getPrecastEstimates() {
+                $http.get(`${API_URL}precast-estimate`).then((res)=> {
+                    $scope.precastEstimations = res.data; 
+                });
+            }
+            getPrecastEstimates();
+
+            $scope.toggleModalForm = function (modalstate, id) {
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Task";
+                        $scope.form_color = "primary";
+                        $scope.modalstate   =   'add'
+                        $scope.task_list_item = {};
+                        $('#precastestimate-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Task";
+                        $scope.form_color = "success";
+                        $scope.id = id; 
+                        $scope.task_list_item = {};
+                        $http.get(`${API_URL}precast-estimate/${id}`)
+                            .then(function (response) {
+                                $scope.precast_estimate_item = response.data.data;
+                                $('#precastestimate-form-popup').modal('show');
+                            });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.storeModalprecastForm = (modalstate, id) => { 
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}precast-estimate${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.precast_estimate_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#precastestimate-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    getPrecastEstimates();
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors.name[0]);
+                });
+            }
+
+            $scope.changeprecastEstimateStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}precast-estimate/${id}/status`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    getPrecastEstimates();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+
+            $scope.delete   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}precast-estimate/${id}`).then(function (response) {
+                            getPrecastEstimates();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
+        });
+
+        app.controller('moduleController', function ($scope, $http, API_URL, $location) {
+            $location.path('/role');
             //fetch users listing from 
             $scope.moduleGetData = function () {
                 $scope.active = "active";
                 $scope.getData($http, API_URL);
                 angular.element(document.querySelector("#loader")).addClass("d-none"); 
             }
-
-            
-            
-
+ 
             $scope.roleGetData = function () {
-
                
                 // $scope.btnClass = $(this).addClass(active);
                 // angular.element(document.querySelector("#roleTab")).addClass("active");
@@ -294,6 +527,7 @@
                 $scope.getDocumentData($http, API_URL);
             }
             $scope.layerGetData = function () {
+                $scope.getComponentLayerData($http, API_URL);
                 $scope.getLayerData($http, API_URL);
             }
             $scope.deliveryTypeGetData = function () {
@@ -657,7 +891,7 @@
                         });
 
                     }
-                    }
+                }
                     $scope.type_status = function (index  , id) {
                     var url = API_URL + "building-type" + "/status";
                 
@@ -1230,14 +1464,14 @@
         
                 switch (modalstate) {
                     case 'add':
-                        $scope.form_title = "Create Delivery Type";
+                        $scope.form_title = "Create Type of Delivery";
                         $scope.form_color = "primary";
                         $scope.module_deliveryLayer = {};
                         $('#primary-deliveryLayer-modal').modal('show');
 
                         break;
                     case 'edit':
-                        $scope.form_title = "Edit Delivery Type";
+                        $scope.form_title = "Edit Type of Delivery";
                         $scope.form_color = "success";
                         $scope.id = id;
                         $scope.module_deliveryLayer = {};
@@ -1330,19 +1564,21 @@
                 
             }
 
-            $scope.getData($http, API_URL);
+            // $scope.getData($http, API_URL);
             $scope.getRoleData($http, API_URL);
-            $scope.getMasterCalculation($http, API_URL);
-            $scope.getComponentData($http, API_URL);
-            $scope.getTypeData($http, API_URL);
-            $scope.getProjectTypeData($http);
-            $scope.getDocumentData($http, API_URL);
-            $scope.getLayerData($http, API_URL);
-            $scope.getDeliveryLayerData($http, API_URL);
-            $scope.getLayerTypeData($http, API_URL);
-            $scope.getServiceData($http, API_URL);
-            $scope.getOutputData($http, API_URL);
-            
+            // $scope.getMasterCalculation($http, API_URL);
+            // $scope.getComponentData($http, API_URL);
+            // $scope.getTypeData($http, API_URL);
+            // $scope.getProjectTypeData($http);
+            // $scope.getDocumentData($http, API_URL);
+            // $scope.getLayerData($http, API_URL);
+            // $scope.getDeliveryLayerData($http, API_URL);
+            // $scope.getLayerTypeData($http, API_URL);
+            // $scope.getServiceData($http, API_URL);
+            // $scope.getOutputData($http, API_URL);
+            // $scope.getOutputDataService($http, API_URL);
+            // $scope.getSelectLayerData($http, API_URL);
+            // $scope.getComponentLayerData($http, API_URL); 
             
             
             
@@ -2608,11 +2844,190 @@
                     });
                 }
                 
-                $scope.getOutputDataService($http, API_URL);
-                $scope.getSelectLayerData($http, API_URL);
-                $scope.getComponentLayerData($http, API_URL); 
+            
             
         });  
+        app.controller('TaskListController', function ($scope, $http, API_URL, $location) {
+            
+            $scope.getFreshTaskListData = () => {
+                $http.get(`${API_URL}task-list-master`).then((res)=> {
+                    $scope.taskLists = res.data; 
+                });
+            }
+            $scope.getFreshTaskListData();
+
+
+            $scope.toggleModalForm = function (modalstate, id) {
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Task";
+                        $scope.form_color = "primary";
+                        $scope.modalstate   =   'add'
+                        $scope.task_list_item = {};
+                        $('#tasklist-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Task";
+                        $scope.form_color = "success";
+                        $scope.id = id; 
+                        $scope.task_list_item = {};
+                        $http.get(`${API_URL}task-list-master/${id}`)
+                            .then(function (response) {
+                                $scope.task_list_item = response.data.data;
+                                $('#tasklist-form-popup').modal('show');
+                                
+                            });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.storeModalTaskForm = (modalstate, id) => { 
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}task-list-master${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.task_list_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#tasklist-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    $scope.getFreshTaskListData();
+                }, function errorCallback(response) {
+                    console.log(response)
+                    Message('danger',response.data.errors.task_list_name[0]);
+                });
+            }
+
+            $scope.changeTaskListStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}task-list-master/${id}`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    $scope.getFreshTaskListData();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+
+            $scope.deleteThisData   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}task-list-master/${id}`).then(function (response) {
+                            $scope.getFreshTaskListData();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
+        });
+        app.controller('CheckListController', function ($scope, $http, API_URL, $location) {
+
+            $scope.getFreshTaskListData = () => {
+                $http.get(`${API_URL}task-list-master`).then((res)=> {
+                    $scope.task_list_master = res.data; 
+                });
+            }
+            $scope.getFreshTaskListData();
+
+            $scope.getFreshCheckListData    =   ()  => {
+                $http.get(`${API_URL}check-list-master`).then((res)=> {
+                    $scope.checkList = res.data;
+                });
+            }
+            $scope.getFreshCheckListData();
+
+            $scope.toggleModalForm = (modalstate, id) => {
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Check List";
+                        $scope.form_color = "primary";
+                        $scope.check_list_item = {};
+                        $('#checklist-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Check List";
+                        $scope.form_color = "success";
+                        $scope.id = id;
+                        $scope.check_list_item = {};
+                        
+                        $http.get(`${API_URL}check-list-master/${id}`).then(function (response) {
+                            $scope.check_list_item = response.data.data;
+                            $('#checklist-form-popup').modal('show');
+                        });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+
+            $scope.storeModalForm = (modalstate, id) => {
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}check-list-master${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.check_list_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#checklist-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    $scope.getFreshCheckListData();
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors);
+                });
+            }
+
+            $scope.changeCheckListStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}check-list-master/${id}`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    $scope.getFreshCheckListData();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+
+            $scope.deleteThisData   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}check-list-master/${id}`).then(function (response) {
+                            $scope.getFreshCheckListData();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
+        });
     </script>
-       
+    <script>
+        changeTab = (element) => {
+            const TabName = element.className.split(' ').at(-1);
+            $('.custom-tab-nav').removeClass('active')
+            $('.custom-tab').addClass('d-none')
+            $(`.${TabName}`).addClass('active')
+            $(`#${TabName}`).removeClass('d-none')
+        }
+    </script>
 @endpush

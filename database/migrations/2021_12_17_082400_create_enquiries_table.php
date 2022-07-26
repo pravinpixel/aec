@@ -15,6 +15,7 @@ class CreateEnquiriesTable extends Migration
     {
         Schema::create('enquiries', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('project_id')->nullable();
             $table->string('enquiry_date')->nullable();
             $table->string('enquiry_number')->nullable();
             $table->string('customer_enquiry_number')->nullable();
@@ -22,6 +23,7 @@ class CreateEnquiriesTable extends Migration
             $table->string('contact_person')->nullable();
             $table->string('mobile_no')->nullable();
             $table->string('secondary_mobile_no')->nullable();
+            $table->string('organization_number')->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('service_id')->nullable();
             $table->unsignedBigInteger('building_type_id')->nullable();
@@ -33,6 +35,7 @@ class CreateEnquiriesTable extends Migration
             $table->string('site_address')->nullable();
             $table->string('country')->nullable();
             $table->string('zipcode')->nullable();
+            $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->integer('no_of_building')->nullable();
             $table->datetime('project_delivery_date')->nullable();
@@ -57,6 +60,10 @@ class CreateEnquiriesTable extends Migration
             // ======== Admin Wizard Flow Status =======
             $table->unsignedBigInteger('from_enquiry_id')->nullable();
             $table->boolean('is_new_enquiry')->default(1);
+            $table->datetime('follow_up_date')->nullable();
+            $table->integer('follow_up_by')->nullable();
+            $table->string('follow_up_status')->nullable();
+            $table->tinyInteger('response_status')->default(0);
             $table->timestamps();
         });
     }

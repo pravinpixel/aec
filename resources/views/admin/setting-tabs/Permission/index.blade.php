@@ -9,8 +9,8 @@
                     <form id="permissionForm"  name="permissionForm" ng-submit="setPermission({{ $lims_role_data->id }})">
 						<div class="card-body">
 					
-							<div class="table-responsive">
-								<table class="table table-bordered permission-table custom">
+							<div class="table custom-responsive">
+								<table class="table custom table-bordered permission-table custom">
 									<thead>
 									<tr>
 										<th colspan="5" class="text-center">{{ ucfirst($lims_role_data->name)}} {{ trans(' Permission') }}</th>
@@ -32,6 +32,7 @@
 									</tr>
 									</thead>
 									<tbody>
+
 									<tr>
 										<td>{{trans('permission.enquiry')}}</td>
 										<td class="text-center">
@@ -79,6 +80,266 @@
 													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.enquiry_delete" value="1" id="enquiry_delete" name="enquiry_delete" />
 													@endif
 													<label for="enquiry-delete"></label>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>{{trans('permission.project_summary')}}</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("project_summary_index", $all_permission))
+													<input ng-model="permissionForm.project_summary_index" type="checkbox" class="form-check-input" value="1" id="project_summary_index" name="project_summary_index" checked />
+													@else
+													<input ng-model="permissionForm.project_summary_index" type="checkbox" class="form-check-input" value="1" id="project_summary_index" name="project_summary_index" />
+													@endif
+													<label for="eproject_summar_index"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("project_summary_add", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.project_summary_add" value="1" id="project_summary_add" name="project_summary_add" checked>
+													@else
+													<input type="checkbox" class="form-check-input"  ng-model="permissionForm.project_summary_add"value="1" id="project_summary_add" name="project_summary_add">
+													@endif
+													<label for="enquiry-add"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("project_summary_edit", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.project_summary_edit" value="1" id="project_summary_edit" name="project_summary_edit" checked />
+													@else
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.project_summary_edit" value="1" id="project_summary_edit" name="project_summary_edit" />
+													@endif
+													<label for="project_summary_edit"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("project_summary_delete", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.project_summary_delete"value="1" id="project_summary_delete" name="project_summary_delete" checked />
+													@else
+													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.project_summary_delete" value="1" id="project_summary_delete" name="project_summary_delete" />
+													@endif
+													<label for="project_summary_delete"></label>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>{{trans('permission.technical_estimate')}}</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("technical_estimate_index", $all_permission))
+													<input ng-model="permissionForm.technical_estimate_index" type="checkbox" class="form-check-input" value="1" id="technical_estimate_index" name="technical_estimate_index" checked />
+													@else
+													<input ng-model="permissionForm.technical_estimate_index" type="checkbox" class="form-check-input" value="1" id="technical_estimate_index" name="technical_estimate_index" />
+													@endif
+													<label for="eproject_summar_index"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("technical_estimate_add", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.technical_estimate_add" value="1" id="technical_estimate_add" name="technical_estimate_add" checked>
+													@else
+													<input type="checkbox" class="form-check-input"  ng-model="permissionForm.technical_estimate_add"value="1" id="technical_estimate_add" name="technical_estimate_add">
+													@endif
+													<label for="enquiry-add"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("technical_estimate_edit", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.technical_estimate_edit" value="1" id="technical_estimate_edit" name="technical_estimate_edit" checked />
+													@else
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.technical_estimate_edit" value="1" id="technical_estimate_edit" name="technical_estimate_edit" />
+													@endif
+													<label for="technical_estimate_edit"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("technical_estimate_delete", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.technical_estimate_delete"value="1" id="technical_estimate_delete" name="technical_estimate_delete" checked />
+													@else
+													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.technical_estimate_delete" value="1" id="technical_estimate_delete" name="technical_estimate_delete" />
+													@endif
+													<label for="technical_estimate_delete"></label>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>{{trans('permission.cost_estimate')}}</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("cost_estimate_index", $all_permission))
+													<input ng-model="permissionForm.cost_estimate_index" type="checkbox" class="form-check-input" value="1" id="cost_estimate_index" name="cost_estimate_index" checked />
+													@else
+													<input ng-model="permissionForm.cost_estimate_index" type="checkbox" class="form-check-input" value="1" id="cost_estimate_index" name="cost_estimate_index" />
+													@endif
+													<label for="eproject_summar_index"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("cost_estimate_add", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.cost_estimate_add" value="1" id="cost_estimate_add" name="cost_estimate_add" checked>
+													@else
+													<input type="checkbox" class="form-check-input"  ng-model="permissionForm.cost_estimate_add"value="1" id="cost_estimate_add" name="cost_estimate_add">
+													@endif
+													<label for="enquiry-add"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("cost_estimate_edit", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.cost_estimate_edit" value="1" id="cost_estimate_edit" name="cost_estimate_edit" checked />
+													@else
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.cost_estimate_edit" value="1" id="cost_estimate_edit" name="cost_estimate_edit" />
+													@endif
+													<label for="cost_estimate_edit"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("cost_estimate_delete", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.cost_estimate_delete"value="1" id="cost_estimate_delete" name="cost_estimate_delete" checked />
+													@else
+													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.cost_estimate_delete" value="1" id="cost_estimate_delete" name="cost_estimate_delete" />
+													@endif
+													<label for="cost_estimate_delete"></label>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>{{trans('permission.proposal_sharing')}}</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("proposal_sharing_index", $all_permission))
+													<input ng-model="permissionForm.proposal_sharing_index" type="checkbox" class="form-check-input" value="1" id="proposal_sharing_index" name="proposal_sharing_index" checked />
+													@else
+													<input ng-model="permissionForm.proposal_sharing_index" type="checkbox" class="form-check-input" value="1" id="proposal_sharing_index" name="proposal_sharing_index" />
+													@endif
+													<label for="eproject_summar_index"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("proposal_sharing_add", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.proposal_sharing_add" value="1" id="proposal_sharing_add" name="proposal_sharing_add" checked>
+													@else
+													<input type="checkbox" class="form-check-input"  ng-model="permissionForm.proposal_sharing_add"value="1" id="proposal_sharing_add" name="proposal_sharing_add">
+													@endif
+													<label for="enquiry-add"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("proposal_sharing_edit", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.proposal_sharing_edit" value="1" id="proposal_sharing_edit" name="proposal_sharing_edit" checked />
+													@else
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.proposal_sharing_edit" value="1" id="proposal_sharing_edit" name="proposal_sharing_edit" />
+													@endif
+													<label for="proposal_sharing_edit"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("proposal_sharing_delete", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.proposal_sharing_delete"value="1" id="proposal_sharing_delete" name="proposal_sharing_delete" checked />
+													@else
+													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.proposal_sharing_delete" value="1" id="proposal_sharing_delete" name="proposal_sharing_delete" />
+													@endif
+													<label for="proposal_sharing_delete"></label>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>{{trans('permission.customer_response')}}</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("customer_response_index", $all_permission))
+													<input ng-model="permissionForm.customer_response_index" type="checkbox" class="form-check-input" value="1" id="customer_response_index" name="customer_response_index" checked />
+													@else
+													<input ng-model="permissionForm.customer_response_index" type="checkbox" class="form-check-input" value="1" id="customer_response_index" name="customer_response_index" />
+													@endif
+													<label for="eproject_summar_index"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("customer_response_add", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.customer_response_add" value="1" id="customer_response_add" name="customer_response_add" checked>
+													@else
+													<input type="checkbox" class="form-check-input"  ng-model="permissionForm.customer_response_add"value="1" id="customer_response_add" name="customer_response_add">
+													@endif
+													<label for="enquiry-add"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("customer_response_edit", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.customer_response_edit" value="1" id="customer_response_edit" name="customer_response_edit" checked />
+													@else
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.customer_response_edit" value="1" id="customer_response_edit" name="customer_response_edit" />
+													@endif
+													<label for="customer_response_edit"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("customer_response_delete", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.customer_response_delete"value="1" id="customer_response_delete" name="customer_response_delete" checked />
+													@else
+													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.customer_response_delete" value="1" id="customer_response_delete" name="customer_response_delete" />
+													@endif
+													<label for="customer_response_delete"></label>
 												</div>
 											</div>
 										</td>
@@ -287,6 +548,162 @@
 													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.contract_delete" value="1" id="contract_delete" name="contract_delete" />
 													@endif
 													<label for="enquiry-delete"></label>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>{{trans('permission.supplier_details')}}</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("supplier_detail_index", $all_permission))
+													<input ng-model="permissionForm.supplier_detail_index" type="checkbox" class="form-check-input" value="1" id="supplier_detail_index" name="supplier_detail_index" checked />
+													@else
+													<input ng-model="permissionForm.supplier_detail_index" type="checkbox" class="form-check-input" value="1" id="supplier_detail_index" name="supplier_detail_index" />
+													@endif
+													<label for="supplier_detail-index"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("supplier_detail_add", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.supplier_detail_add" value="1" id="supplier_detail_add" name="supplier_detail_add" checked>
+													@else
+													<input type="checkbox" class="form-check-input"  ng-model="permissionForm.supplier_detail_add"value="1" id="supplier_detail_add" name="supplier_detail_add">
+													@endif
+													<label for="supplier_detail-add"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("supplier_detail_edit", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.supplier_detail_edit" value="1" id="supplier_detail_edit" name="supplier_detail_edit" checked />
+													@else
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.supplier_detail_edit" value="1" id="supplier_detail_edit" name="supplier_detail_edit" />
+													@endif
+													<label for="supplier_detail-edit"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("supplier_detail_delete", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.supplier_detail_delete"value="1" id="supplier_detail_delete" name="supplier_detail_delete" checked />
+													@else
+													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.supplier_detail_delete" value="1" id="supplier_detail_delete" name="supplier_detail_delete" />
+													@endif
+													<label for="supplier_detail-delete"></label>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>{{trans('permission.customer_details')}}</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("customer_detail_index", $all_permission))
+													<input ng-model="permissionForm.customer_detail_index" type="checkbox" class="form-check-input" value="1" id="customer_detail_index" name="customer_detail_index" checked />
+													@else
+													<input ng-model="permissionForm.customer_detail_index" type="checkbox" class="form-check-input" value="1" id="customer_detail_index" name="customer_detail_index" />
+													@endif
+													<label for="customer_detail-index"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("customer_detail_add", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.customer_detail_add" value="1" id="customer_detail_add" name="customer_detail_add" checked>
+													@else
+													<input type="checkbox" class="form-check-input"  ng-model="permissionForm.customer_detail_add"value="1" id="customer_detail_add" name="customer_detail_add">
+													@endif
+													<label for="customer_detail-add"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("customer_detail_edit", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.customer_detail_edit" value="1" id="customer_detail_edit" name="customer_detail_edit" checked />
+													@else
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.customer_detail_edit" value="1" id="customer_detail_edit" name="customer_detail_edit" />
+													@endif
+													<label for="customer_detail-edit"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("customer_detail_delete", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.customer_detail_delete"value="1" id="customer_detail_delete" name="customer_detail_delete" checked />
+													@else
+													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.customer_detail_delete" value="1" id="customer_detail_delete" name="customer_detail_delete" />
+													@endif
+													<label for="customer_detail-delete"></label>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>{{trans('permission.project_schedule')}}</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("project_schedule_index", $all_permission))
+													<input ng-model="permissionForm.project_schedule_index" type="checkbox" class="form-check-input" value="1" id="project_schedule_index" name="project_schedule_index" checked />
+													@else
+													<input ng-model="permissionForm.project_schedule_index" type="checkbox" class="form-check-input" value="1" id="project_schedule_index" name="project_schedule_index" />
+													@endif
+													<label for="project_schedule-index"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("project_schedule_add", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.project_schedule_add" value="1" id="project_schedule_add" name="project_schedule_add" checked>
+													@else
+													<input type="checkbox" class="form-check-input"  ng-model="permissionForm.project_schedule_add"value="1" id="project_schedule_add" name="project_schedule_add">
+													@endif
+													<label for="project_schedule-add"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("project_schedule_edit", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.project_schedule_edit" value="1" id="project_schedule_edit" name="project_schedule_edit" checked />
+													@else
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.project_schedule_edit" value="1" id="project_schedule_edit" name="project_schedule_edit" />
+													@endif
+													<label for="project_schedule-edit"></label>
+												</div>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+												<div class="checkbox">
+													@if(in_array("project_schedule_delete", $all_permission))
+													<input type="checkbox" class="form-check-input" ng-model="permissionForm.project_schedule_delete"value="1" id="project_schedule_delete" name="project_schedule_delete" checked />
+													@else
+													<input type="checkbox"  class="form-check-input" ng-model="permissionForm.project_schedule_delete" value="1" id="project_schedule_delete" name="project_schedule_delete" />
+													@endif
+													<label for="project_schedule-delete"></label>
 												</div>
 											</div>
 										</td>

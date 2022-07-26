@@ -2,6 +2,11 @@
     <!-- Topbar Start -->
     <div class="navbar-custom">
         <ul class="list-unstyled topbar-menu float-end mb-0">
+            <li class="notification-list">
+                <a class="nav-link end-bar-toggle"  title="background process" href="{{ url('/jobs') }}">
+                    <i class="dripicons-calendar noti-icon"></i>
+                </a>
+            </li>
             {{-- <li class="dropdown notification-list d-lg-none">
                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="dripicons-search noti-icon"></i>
@@ -43,6 +48,7 @@
             </li> --}}
 
             <li class="dropdown notification-list">
+                
                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="dripicons-bell noti-icon"></i>
                     <span class="noti-icon-badge"></span>
@@ -103,7 +109,7 @@
                                 </a>
                             </div>
                             <div class="col p-2">
-                                <a class="dropdown-icon-item" href="{{ route('cost-estimation-single-view') }}">
+                                <a class="dropdown-icon-item" href="{{ route('enquiry.calculate-cost-estimation') }}">
                                     <img src="{{ asset('public/assets/images/calculator.png') }}" alt="slack">
                                     <span>Calculator</span>
                                 </a>
@@ -133,15 +139,12 @@
                         <img src="{{ asset('public/assets/images/users/avatar-1.jpg') }}" alt="user-image" class="rounded-circle">
                     </span>
                     <span>
-                        <span class="account-user-name">Dominic Keller</span>
-                        <span class="account-position">Founder</span>
+                        <span class="account-user-name text-capitalize">{{ Admin()->full_name ?? 'Avatar' }}</span>
+                        {{-- <span class="account-position  text-capitalize">{{ userRole()->name ?? '' }}</span> --}}
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
-                    <!-- item-->
-                    <div class="dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Welcome !</h6>
-                    </div>
+            
 
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
@@ -176,7 +179,7 @@
             </li>
 
         </ul>
-        <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+        <form id="admin-logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>
         <button class="button-menu-mobile open-left">

@@ -20,7 +20,7 @@ class CommonMiddleware
         if (Auth::guard('customers')->check() || Auth::check()) {
             return $next($request);
         }
-        return redirect(route('customers.login'));
+        return redirect(route('login'));
 
     }
 }

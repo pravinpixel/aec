@@ -13,5 +13,5 @@ interface MailTemplateRepositoryInterface
     public function get($request);
     public function getDocumentaryData($request);
     public function getDocumentaryOneData($request);
-    
+    public function isProposalExists($enquiry_id, $documentary_id);
 }

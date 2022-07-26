@@ -1,8 +1,7 @@
 @extends('layouts.customer')
 
 @section('customer-content')
-   
-
+    
     <div class="content-page">
         <div class="content">
 
@@ -92,9 +91,9 @@
                                         <a href="" class="p-0 float-end">Export <i class="mdi mdi-download ms-1"></i></a>
                                         <h4 class="header-title mt-1 mb-3">Awarded Projects</h4>
 
-                                        <div class="table-responsive table-m">
-                                            <table class="table custom table-sm table-centered mb-0 font-14">
-                                                <thead class="table-light">
+                                        <div class="table custom-responsive table-m">
+                                            <table class="table custom custom table-sm table-centered mb-0 font-14">
+                                                <thead class="table custom-light">
                                                     <tr>
                                                         <th>S:NO</th>
                                                         <th>Project Name</th>
@@ -364,7 +363,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6 shadow py-4">
                                                                             <h4 class="header-title text-center">Project Status</h4>
-                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
+                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#163269,#0acf97,#fa5c7c,#ffbc00"></div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="chart-widget-list mt-md-5 p-md-4">
@@ -416,7 +415,7 @@
                                                                 </h4>
                                                                 
                                                                 <div dir="ltr">
-                                                                    <div id="datalabels-column" class="apex-charts" data-colors="#727cf5"></div>
+                                                                    <div id="datalabels-column" class="apex-charts" data-colors="#163269"></div>
                                                                 </div>
                                                                     
                                                             </div> <!-- end card-body-->
@@ -429,7 +428,7 @@
                                                             <div class="card-body">
                                                                 <h3  class="header-title mb-2">Project Milestone <b class="text-success float-end">78% Completed</b></h3>
 
-                                                                <table class="table m-0">
+                                                                <table class="table custom m-0">
                                                                     
                                                                     <tbody>
                                                                         <tr>
@@ -676,7 +675,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6 shadow py-4">
                                                                             <h4 class="header-title text-center">Project Status</h4>
-                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
+                                                                            <div id="average-sales" class="apex-charts mb-4 mt-4"data-colors="#163269,#0acf97,#fa5c7c,#ffbc00"></div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="chart-widget-list mt-md-5 p-md-4">
@@ -728,7 +727,7 @@
                                                                 </h4>
                                                                 
                                                                 <div dir="ltr">
-                                                                    <div id="datalabels-column" class="apex-charts" data-colors="#727cf5"></div>
+                                                                    <div id="datalabels-column" class="apex-charts" data-colors="#163269"></div>
                                                                 </div>
                                                                     
                                                             </div> <!-- end card-body-->
@@ -740,7 +739,7 @@
                                                             
                                                             <div class="card-body">
                                                                 <h3  class="header-title mb-2">Project Milestone <b class="text-success float-end">78% Completed</b></h3>
-                                                                <table class="table m-0">
+                                                                <table class="table custom m-0">
                                                                     
                                                                     <tbody>
                                                                         <tr>

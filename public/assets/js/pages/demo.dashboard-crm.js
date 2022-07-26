@@ -1,4 +1,4 @@
-var colors = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"],
+var colors = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"],
 	dataColors = $("#campaign-sent-chart").data("colors");
 dataColors && (colors = dataColors.split(","));
 var options1 = {
@@ -44,7 +44,7 @@ var options1 = {
 	}
 };
 new ApexCharts(document.querySelector("#campaign-sent-chart"), options1).render();
-colors = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
+colors = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"];
 (dataColors = $("#new-leads-chart").data("colors")) && (colors = dataColors.split(","));
 var options2 = {
 	chart: {
@@ -85,7 +85,7 @@ var options2 = {
 	}
 };
 new ApexCharts(document.querySelector("#new-leads-chart"), options2).render();
-colors = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
+colors = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"];
 (dataColors = $("#deals-chart").data("colors")) && (colors = dataColors.split(","));
 var options3 = {
 	chart: {
@@ -130,7 +130,7 @@ var options3 = {
 	}
 };
 new ApexCharts(document.querySelector("#deals-chart"), options3).render();
-colors = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
+colors = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"];
 (dataColors = $("#booked-revenue-chart").data("colors")) && (colors = dataColors.split(","));
 var options4 = {
 	chart: {
@@ -175,7 +175,7 @@ var options4 = {
 	}
 };
 new ApexCharts(document.querySelector("#booked-revenue-chart"), options4).render();
-colors = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
+colors = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"];
 (dataColors = $("#dash-campaigns-chart").data("colors")) && (colors = dataColors.split(","));
 var options = {
 		chart: {
@@ -195,7 +195,7 @@ var options = {
 	},
 	chart = new ApexCharts(document.querySelector("#dash-campaigns-chart"), options);
 chart.render();
-colors = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
+colors = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"];
 (dataColors = $("#dash-revenue-chart").data("colors")) && (colors = dataColors.split(","));
 options = {
 	chart: {

@@ -73,7 +73,7 @@ class DocumentTypeController extends Controller
         $role = $request->only([
             "document_type_name","is_active","is_mandatory",
         ]);
-        $slug = Str::slug($request->document_type_name, "_");
+        $slug = $request->document_type_name;
         $roleData = array_merge($role,['slug'=>$slug]);
 
         return response()->json(
@@ -127,7 +127,7 @@ class DocumentTypeController extends Controller
         $role = $request->only([
             "document_type_name","is_active","is_mandatory",
         ]);
-        $slug = Str::slug($request->document_type_name, "_");
+        $slug = $request->document_type_name;
         $roleData = array_merge($role,['slug'=>$slug]);
        
         return response()->json([

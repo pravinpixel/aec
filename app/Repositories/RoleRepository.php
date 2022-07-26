@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\RoleRepositoryInterface;
 use App\Models\BuildingType;
 use App\Models\DeliveryType;
+use App\Models\Employee;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -51,11 +52,24 @@ class RoleRepository implements RoleRepositoryInterface{
         return  $role;
         
     }
+
+    public function show($id)
+    {
+        return $this->model->find($id);
+    }
+
     public function find($id)
     {
-        if (null ==  $projectType = $this->model->find($id)) {
-            throw new ModelNotFoundException("Building Type not found");
+        $roles = Employee::where('job_role', $id)->get();
+        return  $roles;
+    }
+
+    public function getRoleBySlug($name)
+    {
+        $role = $this->model->where('slug', $name)->first();
+        if(!empty($role)) {
+            return Employee::where('job_role', $role->id)->get();
         }
-        return  $projectType;
+        return [];
     }
 }

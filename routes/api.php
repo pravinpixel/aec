@@ -10,7 +10,9 @@ use App\Http\Controllers\Admin\Enquiry\GanttChart\GanttLinkController;
 
 use App\Http\Controllers\Admin\CostGanttTaskController;
 use App\Http\Controllers\Admin\CostGanttLinkController;
-
+use App\Http\Controllers\Admin\Project\ProjectController;
+use App\Http\Controllers\Admin\Project\ProjectGranttChartLinkController;
+use App\Http\Controllers\Admin\Project\ProjectGranttChartTaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +45,14 @@ Route::resource('enquiry/link', GanttLinkController::class);
 Route::get('/costData',[ GanttChartController::class, 'get'])->name('costData'); 
 Route::resource('cost/task', CostGanttTaskController::class);
 Route::resource('cost/link', CostGanttLinkController::class); 
+
+// project scheduler task for edit wizard
+Route::resource('project/{id}/task', ProjectGranttChartTaskController::class);
+Route::resource('project/{id}/link', ProjectGranttChartLinkController::class); 
+// project scheduler task for create wizard
+Route::post('project/task', [ProjectController::class, 'storeGrandChartTask']);
+Route::post('project/link', [ProjectController::class,'storeGrandChartLink']); 
+Route::put('project/task/{id}', [ProjectController::class, 'updateGrandChartTask']);
+Route::put('project/link/{id}', [ProjectController::class,'updateGrandChartLink']); 
+Route::delete('project/task/{id}', [ProjectController::class, 'deleteGrandChartTask']);
+Route::delete('project/link/{id}', [ProjectController::class,'deleteGrandChartLink']);

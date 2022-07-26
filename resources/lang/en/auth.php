@@ -243,6 +243,10 @@
     
         //unauthorized
         'unauthorized_to_access_the_page'						=> 'Unauthorized to access the Page',
+
+        'register_successfully'                                 => 'Register successfully',
+        
+        'email_send_for_verification'                          => 'Email send for verification'
     ];
     
 

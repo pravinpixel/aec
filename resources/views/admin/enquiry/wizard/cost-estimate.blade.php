@@ -1,258 +1,240 @@
 <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header mt-0 pt-0 bg-light timeline-steps">
     <li class="time-bar"></li>
-    <li class="nav-item Project_Info">
-        <a href="#/project-summary" style="min-height: 40px;" class="timeline-step">
-            <div class="timeline-content">
-                <div class="inner-circle @{{ project_summary_status == 'Active' ? 'bg-primary' :'bg-secondary' }}">
-                    <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
+    @if (userHasAccess('project_summary_index'))
+        <li class="nav-item Project_Info">
+            <a href="#!/project-summary" style="min-height: 40px;" class="timeline-step">
+                <div class="timeline-content">
+                    <div class="inner-circle @{{ project_summary_status == 'Submitted' ? 'bg-primary' : 'bg-secondary' }}">
+                        <img src="{{ asset('public/assets/icons/information.png') }}" class="w-50 invert">
+                    </div>
                 </div>
-            </div>
-            <p class="h5 mt-2">Project summary</p>
-        </a>
-    </li>
-    <li class="nav-item  admin-Technical_Estimate-wiz">
-        <a href="#/technical-estimation" style="min-height: 40px;" class="timeline-step">
-            <div class="timeline-content">
-                <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
-                    <img src="{{ asset("public/assets/icons/technical-support.png") }}" class="w-50 invert">
+                <p class="h5 mt-2">Project summary</p>
+            </a>
+        </li>
+    @endif
+    @if (userHasAccess('technical_estimate_index'))
+        <li class="nav-item  admin-Technical_Estimate-wiz">
+            <a href="#!/technical-estimation" style="min-height: 40px;" class="timeline-step">
+                <div class="timeline-content">
+                    <div class="inner-circle @{{ technical_estimation_status == '1' ? 'bg-primary' : 'bg-secondary' }}">
+                        <img src="{{ asset('public/assets/icons/technical-support.png') }}" class="w-50 invert">
+                    </div>
                 </div>
-            </div>
-            <p class="h5 mt-2">Technical Estimate</p>
-        </a>
-    </li>
-    <li class="nav-item admin-Cost_Estimate-wiz"  style="pointer-events: @{{ technical_estimation_status ==  0 ? 'none' :'unset' }}">
-        <a href="#/cost-estimation" style="min-height: 40px;" class="timeline-step">
-            <div class="timeline-content">
-                <div class="inner-circle  @{{ cost_estimation_status == '1' ? 'bg-primary' :'bg-secondary' }}">
-                    <img src="{{ asset("public/assets/icons/budget.png") }}" class="w-50 invert">
+                <p class="h5 mt-2">Technical Estimate</p>
+            </a>
+        </li>
+    @endif
+    @if (userHasAccess('cost_estimate_index'))
+        <li class="nav-item admin-Cost_Estimate-wiz {{ userRole()->slug == config('global.cost_estimater') ? 'last' : '' }}"
+            style="pointer-events: @{{ technical_estimation_status == 0 ? 'none' : 'unset' }}">
+            <a href="#!/cost-estimation" style="min-height: 40px;" class="timeline-step">
+                <div class="timeline-content">
+                    <div class="inner-circle  @{{ cost_estimation_status == '1' ? 'bg-primary' : 'bg-secondary' }}">
+                        <img src="{{ asset('public/assets/icons/budget.png') }}" class="w-50 invert">
+                    </div>
                 </div>
-            </div>
-            <p class="h5 mt-2">Cost Estimate</p>
-        </a>
-    </li> 
-    <li class="nav-item admin-Proposal_Sharing-wiz" ng-class="{last:proposal_sharing_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
-        <a href="#/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
-            <div class="timeline-content">
-                <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
-                    <img src="{{ asset("public/assets/icons/share.png") }}" ng-click="getDocumentaryFun();" class="w-50 invert">
-                </div>                                                                        
-            </div>
-            <p class="h5 mt-2">Proposal Sharing</p>
-        </a>
-    </li> 
-    <li  ng-show="proposal_sharing_status == 1" class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
-        <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" >
-            <div class="timeline-content">
-                <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">
-                    <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
+                <p class="h5 mt-2">Cost Estimate</p>
+            </a>
+        </li>
+    @endif
+    @if (userHasAccess('proposal_sharing_index'))
+        <li class="nav-item admin-Proposal_Sharing-wiz" ng-class="{last:proposal_sharing_status == 0}"
+            style="pointer-events: @{{ cost_estimation_status == 0 ? 'none' : 'unset' }}">
+            <a href="#!/proposal-sharing" style="min-height: 40px;" class="timeline-step">
+                <div class="timeline-content">
+                    <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' : 'bg-secondary' }}">
+                        <img src="{{ asset('public/assets/icons/share.png') }}" ng-click="getDocumentaryFun();"
+                            class="w-50 invert">
+                    </div>
                 </div>
-            </div>
-            <p class="h5  mts-2">Customer Response</p>
-        </a>
-    </li>
+                <p class="h5 mt-2">Proposal Sharing</p>
+            </a>
+        </li>
+    @endif
+    @if (userHasAccess('customer_response_index'))
+        <li ng-show="proposal_sharing_status == 1" class="nav-item admin-Delivery-wiz"
+            style="pointer-events: @{{ customer_response == null ? 'none' : 'unset' }}">
+            <a href="#!/move-to-project" style="min-height: 40px;" class="timeline-step">
+                <div class="timeline-content">
+                    <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' : 'bg-secondary' }}">
+                        <img src="{{ asset('public/assets/icons/arrow-right.png') }}" class="w-50 invert">
+                    </div>
+                </div>
+                <p class="h5  mts-2">Customer Response</p>
+            </a>
+        </li>
+    @endif
 </ul>
-<form class="card shadow-none p-0">
-    <div class="card-header pb-2 p-3 text-center border-0">
-        <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> | <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span class="text-info">@{{ enquiry.customer_info.contact_person }}</span></h4>
-    </div>
-    <div class="card-body pt-0 p-0">
-        <table class="table shadow-none border m-0 table-bordered ">
-            <thead class="bg-light">
-                <tr>
-                    <th>Enquiry Date</th>
-                    <th>Person Contact</th>
-                    <th>Type of Project</th>
-                    <th>Enquiry Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@{{ enquiry.enquiry.enquiry_date }}</td>
-                    <td>@{{ enquiry.enquiry.customer.contact_person }}</td>
-                    <td>@{{ enquiry.project_type  }}</td>
-                    <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
-                </tr>
-            </tbody>
-        </table> 
-        <div class="row m-0 mt-3">
-            <div class="table-responsive p-0">  
-                <table class="cost-estimate-table table table-bordered border">
-                    <thead>
-                        <tr  style="background: var(--primary-bg) !important">
-                            <td colspan="16" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
-                        </tr>
-                        <tr class="font-weight-bold ">
-                            <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
-                                <span class="mb-1 font-12">Component</span>
-                                <button class="btn-sm btn font-12 btn-info shadow-0 w-100 py-0" ng-click="create()"><i class="fa fa-plus"></i> Add </button>
-                            </th>
-                            <th rowspan="3" class="text-center font-12" style="background: var(--primary-bg) !important">Type</th>
-                            
-                            <th class="text-center font-12" style="background: var(--primary-bg) !important" >1 to 2</th>
-                            <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >m2 Gross</th>
-                            <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Details</th>
-                            <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Statistics</th>
-                            <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">CAD/CAM</th>
-                            <th colspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Logistics</th>
-                            <th colspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">Total Cost</th>
-                            <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
-                        </tr>
-                        <tr class="bg-light-primary border">
-                            <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Complexity</th> 
-                            <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                            <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
-                            <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                            <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
-                            <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                            <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
-                            <th class="text-center" style="background: var(--secondary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                            <th class="text-center" style="background: var(--secondary-bg) !important"><small>Sum</small></th> 
-                            <th class="text-center" style="background: var(--primary-bg) !important"><small>Nok/M<sup>2</sup></small></th>
-                            <th class="text-center" style="background: var(--primary-bg) !important"><small>Sum</small></th>  
-                        </tr>
-                        <tr class="bg-light-primary border">
-                            <td class="text-center font-12 p-0"><b>@{{CostEstimate.ComponentsTotals.sqm }}</b></td>  
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Details.Sum / CostEstimate.ComponentsTotals.sqm }}</b></td> 
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Details.Sum }}</b></td>   
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Statistics.Sum / CostEstimate.ComponentsTotals.sqm }}</b></td> 
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Statistics.Sum }}</b></td> 
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.CadCam.Sum / CostEstimate.ComponentsTotals.sqm }}</b></td> 
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.CadCam.Sum }}</b></td> 
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Logistics.Sum / CostEstimate.ComponentsTotals.sqm }}</b></td> 
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.Logistics.Sum }}</b></td> 
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum / CostEstimate.ComponentsTotals.sqm}}</b></td> 
-                            <td class="text-center font-12 p-0"><b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum }}</b></td> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="(index,C) in CostEstimate.Components" class="touched-td" >  
-                            <td> 
-                                <select class="my-select" get-cost-estimate-data ng-model="c.building_component_name" name="building_component_name">
-                                    <option value="">-- Select -- </option> 
-                                    <option value="@{{ c.id }}" ng-selected="c.id == C.Component" ng-repeat="c in cost.component">@{{ c.building_component_name }}</option>
-                                </select>
-                            </td> 
-                            <td style="padding: 0 !important">
-                                <select get-cost-estimate-data class="my-select" ng-model="t.type_name" ng-change="getCostEstimateData(index)" name="type_name">
-                                    <option value="">-- Select ---</option> 
-                                    <option value="@{{ Ctype.id }}" ng-selected="Ctype.id == C.Type" ng-repeat="Ctype in cost.type">@{{ Ctype.building_type_name }}</option>
-                                </select>
-                            </td>
-
-                            
-
-                            <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.Complexity" name="complexity" class="my-control"></td>
-
-                            <td style="padding:0px !important"><input get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" name="sqm" class="my-control"> </td>
-        
-                            {{-- Details --}}
-                            <td>
-                                <input  get-cost-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.Details.PriceM2" name="detail_price">
-                            </td>
-
-                            <td style="background: var(--primary-bg-light) !important">
-                                <input disabled type="text" onkeypress="return isNumber(event)" class="my-control" ng-model="C.Details.Sum" name="detail_sum">
-                            </td>
-        
-                            {{-- Statistics --}}
-                            <td>
-                                <input type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total ng-keyup="getCostDetailsTotal(index)" class="my-control"  ng-model="C.Statistics.PriceM2" name="statistic_price">
-                            </td>
-                            <td style="background:  var(--primary-bg-light) !important">
-                                <input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.Statistics.Sum" name="statistic_sum">
-                            </td>
-        
-                            {{-- CAD/CAM --}}
-                            <td>
-                                <input  type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.CadCam.PriceM2" name="cad_cam_price">
-                            </td>
-                            <td>
-                                <input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.CadCam.Sum" name="cad_cam_sum">
-                            </td>
-        
-                            {{-- Logistics --}}
-                            <td>
-                                <input  type="text" onkeypress="return isNumber(event)" min="0" get-cost-details-total class="my-control" ng-keyup="getCostDetailsTotal(index)" ng-model="C.Logistics.PriceM2" name="logistic_price">
-                            </td>
-                            <td style="background:  var(--primary-bg-light) !important">
-                                <input disabled  type="text" onkeypress="return isNumber(event)" min="0" class="my-control" ng-model="C.Logistics.Sum"  name="logistic_sum">
-                            </td>
-        
-                            {{-- Total Cost --}}
-                            <td><input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_price" ng-model="C.TotalCost.PriceM2"></td>
-                            <td><input disabled type="text" onkeypress="return isNumber(event)" min="0" class="my-control" name="total_sum" ng-model="C.TotalCost.Sum"></td>
-                            <td class="text-center" style="padding: 0 !important">
-                                <i ng-click="delete(index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
-                            </td>
-                        </tr>
-                        {{-- <tr class="text-white " style="background: var(--primary-bg)"> 
-                            <td colspan="2" class="text-center">
-                                <b>Total</b>
-                            </td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.complexity }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.sqm }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Details.PriceM2 }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Details.Sum }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Statistics.PriceM2 }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Statistics.Sum }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.CadCam.PriceM2 }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.CadCam.Sum }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Logistics.PriceM2 }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.Logistics.Sum }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.TotalCost.PriceM2 }}</td>
-                            <td class="font-12 text-end">@{{CostEstimate.ComponentsTotals.TotalCost.Sum }}</td>
-                            <td class="text-center">-</td>
-                        </tr>  --}}
-                    </tbody>
-                </table>
-            </div> 
-            <div class="col-10 shadow text-dark bg-white border p-1 rounded btn-group">
-                {{-- <h4 class="m-0"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.grandTotal }}</b> </h4> --}}
-                <h4 class="m-0 w-100"><span class="text-secondary">Total Cost :</span> <b>@{{ CostEstimate.ComponentsTotals.TotalCost.Sum  }}</b> </h4>
+<div class="card-header pb-2 p-3 text-center border-0">
+    <h4 class="header-title text-secondary">Estimation for <span class="text-primary">@{{ enquiry.enquiry.enquiry_number }}</span> |
+        <span class="text-success">@{{ enquiry.enquiry.project_name }}</span> | <span
+            class="text-info">@{{ enquiry.enquiry.contact_person }}</span></h4>
+</div>
+<div class="card-body pt-0 p-0">
+    <table class="table custom shadow-none border m-0 table-bordered ">
+        <thead class="bg-light">
+            <tr>
+                <th>Enquiry Received Date</th>
+                <th>Person Contact</th>
+                <th>Type of Building</th>
+                <th>Enquiry Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@{{ enquiry.enquiry.enquiry_date }}</td>
+                <td>@{{ enquiry.enquiry.contact_person }}</td>
+                <td>@{{ enquiry.building_type.building_type_name  }}</td>
+                <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container-fluid">
+    @if (userHasAccess('cost_estimate_index'))
+        <br>
+        <hr>
+        <div class="row m-0 my-3">
+            <div class="col">
+                <label class="lead">
+                    <input type="radio" ng-model="price_calculation" name="price_calculation"
+                        ng-value="'wood_engineering_estimation'" class="form-check-input me-2">
+                    Wood Engineering Estimation
+                </label>
             </div>
-            <div class="col-2 text-end">
-                <button class="btn btn-success" ng-click="UpdateCostEstimate()"><i class="uil-sync"></i> Update</button>
+            <div class="col">
+                <label class="lead">
+                    <input type="radio" ng-model="price_calculation" name="price_calculation"
+                        ng-value="'precast_engineering_estimation'" class="form-check-input me-2">
+                    Precast Engineering Estimation
+                </label>
+            </div>
+
+        </div>
+        <div ng-show="price_calculation == 'wood_engineering_estimation'">
+            @include('admin.enquiry.wizard.wood-estimation')
+        </div>
+        <div ng-show="price_calculation == 'precast_engineering_estimation'">
+            @include('admin.enquiry.wizard.precast-estimation')
+        </div>
+    @endif
+    @if (userRole()->slug == config('global.cost_estimater'))
+        <div class="card m-0 my-3 border col-md-9 me-auto">
+            <div class="card-body">
+                <small class="btn link"
+                    ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                    <i class="fa fa-send me-1"></i> 
+                    <u>  
+                        Send a Comments
+                        <span ng-show="cost_estimate_comments.admin_role > 0" class="enquiry__comments__alert">
+                            @{{ cost_estimate_comments.admin_role   }}
+                        </span>
+                    </u>
+                </small>
             </div>
         </div>
-    </div>
-    <div class="col-6 my-1">
-        <div class="row m-0">
-            <div class="col-md-10 p-0 d-flex">@{{ others.assign_to }}
-                <div class="input-group border shadow-sm rounded">
-                    <label class=" border-0 input-group-text text-white bg-primary font-weight-bold" for="inputGroupSelect01">Assign to</label>
-                    <select class="form-select border-0" ng-model="assign_to" name="assign_to"  id="inputGroupSelect01">
-                        <option value=''> @lang('global.select')</option>
-                        <option ng-repeat="user in userList" value="@{{user.id}}" ng-selected="user.id == assign_to">@{{user.user_name}}</option>
+    @endif
+    @if (userHasAccess('cost_estimate_add'))
+        <div class="card m-0 my-3 border">
+            <div class="card-body">
+                <p class="lead mb-2"> <strong>Assign for verification</strong></p>
+                <div class="btn-group w-100">
+                    <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
+                        <option value=""> @lang('global.select') </option>
+                        <option ng-repeat="user in userList" ng-selected="user.id == assign_to"
+                            value="@{{ user.id }}"> @{{ user.id == current_user ? 'You' : user.first_Name }}</option>
                     </select>
-                    <button class="input-group-text btn btn-info"  ng-click="assignUserToCostestimate(assign_to)"> Send </button>
-                </div>
-                <div class="mx-1">
-                    <button class="btn btn-primary rounded-pill"  ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">  <i class="fa fa-eye"></i> </button>
-                </div>
-            </div>
-           
-        </div>
-    </div>
-    <div class="card-footer">
-        <div class="d-flex justify-content-between">
-            <div>
-                <a href="#/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
-            </div>
-            <div>
-                <a ng-show="cost_estimation_status  != 0 && latest_assigned_to == null" href="#/proposal-sharing"  class="btn btn-primary">Next</a>
+                    <button class="input-group-text btn btn-info"
+                        ng-click="assignUserToCostestimate(assign_to, 'verification')"> Assign </button>
+                    <button class="input-group-text btn btn-danger" ng-click="removeUser()"> Remove </button>
+                </div> 
             </div>
         </div>
-    </div> 
-</form> 
-@include("admin.enquiry.models.cost-estimate-chat-box") 
+   
+        {{-- view history start --}}
+        <div class="card border shadow-sm my-3">
+            <div class="card-header">
+                <h5 class="m-0">
+                    <a class="align-items-center d-flex  py-1"   ng-click="getHistory('wood')"
+                        ng-show="price_calculation == 'wood_engineering_estimation'">
+                        <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
+                        Cost Estimation History
+                    </a>
+                    <a class="align-items-center d-flex py-1" ng-click="getHistory('precast')"
+                        ng-show="price_calculation == 'precast_engineering_estimation'">
+                        <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
+                    </a>
+                </h5>
+            </div>
+            <div class="card-body bg-light p-0">
+                <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                    <div id="wood_id"></div>
+                </div>
+                <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                    <div id="precast_id"></div>
+                </div>
+            </div>
+        </div>
+        <div class="text-end my-2">
+            <button ng-click="printCostEstimate('wood')" class="btn btn-primary"
+                ng-show="price_calculation == 'wood_engineering_estimation'">
+                <i class="me-1 fa fa-print"></i> Print
+            </button>
+            <button ng-click="printCostEstimate('precast')" class="btn btn-primary"
+                ng-show="price_calculation == 'precast_engineering_estimation'">
+                <i class="me-1 fa fa-print"></i> Print
+            </button>
+            <button class="btn btn-success"
+                ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                <i class="fa fa-send me-1"></i> 
+                <span class="cost_estimate_comments_ul">
+                    Send a Comments
+                    <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
+                        @{{ cost_estimate_comments.cost_estimate_role }}
+                    </span>
+                </span>
+            </button>
+        </div>
+        {{-- <div ng-show="price_calculation == 'wood_engineering_estimation'">
+            <a class="btn btn-info" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
+            <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
+            <div class="card">
+                <div class="card-body">
+                    <div id="wood_id"></div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="price_calculation == 'precast_engineering_estimation'">
+            <a class="btn btn-info" ng-click="getHistory('precast')"> <i class="fa fa-eye"> </i> View history </a>
+            <a class="btn btn-danger" onclick="$('#precast_id').html('')"> <i class="uil-sync"> </i> Close </a>
+            <div id="precast_id"></div>
+        </div> --}}
+        {{-- view history end --}}
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a href="#!/technical-estimation" class="btn btn-light border shadow-sm">Prev</a>
+                </div>
+                <div>
+                    <a ng-show="cost_estimation_status  != 0  && cost_estimate.assign_to == {{ Admin()->id }} || (cost_estimate.assign_for_status == 1)"
+                        href="#!/proposal-sharing" ng-click="gotoNext()" class="btn btn-primary">Next</a>
+                </div>
+            </div>
+        </div>
+    @endif
+</div>
 
-@if (Route::is('enquiry.cost-estimation')) 
+@include('admin.enquiry.models.cost-estimate-chat-box')
+
+@if (Route::is('enquiry.cost-estimation'))
     <style>
-        .admin-Cost_Estimate-wiz .timeline-step .inner-circle{
+        .admin-Cost_Estimate-wiz .timeline-step .inner-circle {
             background: var(--secondary-bg) !important;
             transform: scale(1.2);
             box-shadow: 0px 5px 10px #4f4f4fb2 !important
         }
+
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {

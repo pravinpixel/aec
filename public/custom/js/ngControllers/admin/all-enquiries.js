@@ -1,7 +1,15 @@
 app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             
     //fetch users listing from 
-    
+    getAutoDeskFileTypes = () => {
+        $http({
+            method: 'GET',
+            url     : API_URL +'get-autodesk-file-type',
+        }).then(function (res) {
+            $scope.autoDeskFileType = res.data;
+        });
+    }
+    getAutoDeskFileTypes();
     getData = function($http, API_URL) {
 
         angular.element(document.querySelector("#loader")).removeClass("d-none"); 
@@ -53,6 +61,15 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
     }
 
 
+    $http({
+        method: 'GET',
+        url: API_URL+'admin/get-active-comments-count',
+    }).then(function (res){
+       $("#active-count").html(res.data.count);
+    }, function (error) {
+        console.log('get project type error');
+    });
+
     getProjectType = () => {
         $http({
                 method: 'GET',
@@ -95,7 +112,14 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                         $scope.ifc_model_uploads    = response.data.ifc_model_uploads;
                         $scope.building_components  = response.data.building_component;
                         $scope.additional_infos     = response.data.additional_infos;
-                        $scope.enqData = response.data;
+                        $scope.enqData = response.data;  
+                        $scope.htmlEditorOptions = {
+                            height: 300,
+                            value:  ( response.data.additional_infos == null) ? '':response.data.additional_infos.comments,
+                            mediaResizing: {
+                            enabled: false,
+                            },
+                        };
                         $('#enquiry-qucik-view-model').modal('show');
                     });
                 
@@ -173,7 +197,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             case 'viewConversations':
                 $http.get(API_URL + 'admin/show-comments/'+$scope.enquiry_id+'/type/'+type ).then(function (response) {
                     $scope.commentsData = response.data.chatHistory; 
-                    $scope.chatType     = response.data.chatType;  
+                    $scope.chatType     = response.data.chatType;   
                     $('#viewConversations-modal').modal('show');
                     getEnquiryCommentsCountById($scope.enquiry_id);
                     getEnquiryActiveCommentsCountById($scope.enquiry_id);
@@ -208,11 +232,14 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
     
      
     $scope.sendInboxComments  = function(type) { 
+        var  admin_auth_id =  $('#admin_auth_id').val();
         $scope.sendCommentsData = {
             "comments"        :   $scope.inlineComments,
             "enquiry_id"      :   $scope.enquiry_id,
             "type"            :   $scope.chatType,
             "created_by"      :   type,
+            "seen_by"         :   $scope.commentsData[0].seen_by,
+            "send_by"         :   admin_auth_id,
         }
     
         $http({
@@ -231,12 +258,16 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         });
     }
     
-    $scope.sendComments  = function(type, created_by) { 
+    $scope.sendComments  = function(type, created_by, seen_id) { 
+        
+        var  admin_auth_id =  $('#admin_auth_id').val();
         $scope.sendCommentsData = {
             "comments"        :   $scope[`${type}__comments`],
             "enquiry_id"      :   $scope.enquiry_id,
             "type"            :   type,
             "created_by"      :   created_by,
+            "seen_by"         :   seen_id,
+            "send_by"         :   admin_auth_id,
         }
       
         $http({
@@ -247,13 +278,50 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                 'Content-Type': 'application/x-www-form-urlencoded' 
             }
         }).then(function successCallback(response) {
-            document.getElementById(`${type}__commentsForm`).reset();
+            if(type == 'building_components') {
+                document.getElementById(`building_component__commentsForm`).reset();
+            } else {
+                document.getElementById(`${type}__commentsForm`).reset();  
+            }
             // $scope.GetCommentsData();
             Message('success',response.data.msg);
             getEnquiryCommentsCountById($scope.enquiry_id);
             getEnquiryActiveCommentsCountById($scope.enquiry_id);
         }, function errorCallback(response) {
             Message('danger',response.data.errors);
+        });
+    }
+
+    $scope.getDocumentView = (file) => {
+        $http({
+            method: 'POST',
+            url: `${API_URL}get-document-modal`,
+            data: {url: file.file_name},
+            }).then(function success(res) {
+                if(file.file_type == 'pdf')
+                    var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                else
+                    var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                $("#document-content").html(htmlPop);
+                $("#document-modal").modal('show');
+            }, function error(res) {
+
+        });
+    }
+    $scope.getDocumentViews = (file) => {
+        $http({
+            method: 'POST',
+            url: `${API_URL}get-document-modal`,
+            data: {url: file.file_path},
+            }).then(function success(res) {
+                if(file.file_type == 'pdf')
+                    var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                else
+                    var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                $("#document-content").html(htmlPop);
+                $("#document-modal").modal('show');
+            }, function error(res) {
+
         });
     }
 
@@ -277,6 +345,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
+            {data: 'company_name', name: 'company_name'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'mobile_no', name: 'mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
@@ -319,6 +389,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
+            {data: 'company_name', name: 'company_name'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'mobile_no', name: 'mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
@@ -331,6 +403,11 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
                 }
             }
         ],
+        rowCallback: function( row, data ) {
+            if(data.response_status == 2){
+                $(row).addClass('fw-bold bg-light');
+            }
+        },
         createdRow: function ( row, data, index ) {
             $compile(row)($scope);  //add this to compile the DOM
         }
@@ -356,6 +433,8 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
         columns       : [
             {data: 'id', name: 'id', visible: false},
             {data: 'enquiry_number', name: 'enquiry_number'},
+            {data: 'company_name', name: 'company_name'},
+            {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'mobile_no', name: 'customer.mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
@@ -405,5 +484,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             }
         });
     });
+
+   
 }); 
 

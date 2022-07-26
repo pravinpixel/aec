@@ -8,14 +8,14 @@
                 </div>
                 <div class="card-body m-0 p-0 py-3 h-100" style="min-height:70vh;overflow:auto">
                     <ul class="conversation-list h-100">
-                        <li class="clearfix @{{ msg.created_by }}_odd" ng-repeat="msg in commentsData">
+                        <li class="clearfix @{{ msg.created_by == 'admin_role'? 'Admin' : 'Customer' }}_odd" ng-repeat="msg in commentsData">
                             <div class="chat-avatar">
                                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"  alt="@{{ msg.created_by }} Image">                                    
                                 <i>@{{ msg.created_by }}</i>
                             </div>
                             <div class="conversation-text">
                                 <div class="ctext-wrap"> 
-                                    <p>
+                                    <p class="m-0">
                                        @{{ msg.comments }}
                                     </p> 
                                     <small style="font-size: 10px !important" class="text-secondary">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
@@ -25,8 +25,8 @@
                     </ul>
                 </div>
                 <div class="card-footer bg-light">
-                    <form id="Inbox__commentsForm" ng-submit="sendAssignCostEstiComments('{{ userRole()->slug }} role', 'cost_estimation_assign')" class="d-flex align-items-center">
-                        <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                    <form id="Inbox__commentsForm" ng-submit="sendAssignCostEstiComments('{{ userRole()->slug }}_role', 'cost_estimation_assign')" class="d-flex align-items-center">
+                        <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                         <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                     </form> 
                 </div>

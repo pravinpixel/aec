@@ -26,6 +26,31 @@ class PermissionSeeder extends Seeder
            Permission::create(['name' => 'enquiry_edit']);
            Permission::create(['name' => 'enquiry_delete']);
 
+           Permission::create(['name' => 'project_summary_index']);
+           Permission::create(['name' => 'project_summary_add']);
+           Permission::create(['name' => 'project_summary_edit']);
+           Permission::create(['name' => 'project_summary_delete']);
+
+           Permission::create(['name' => 'technical_estimate_index']);
+           Permission::create(['name' => 'technical_estimate_add']);
+           Permission::create(['name' => 'technical_estimate_edit']);
+           Permission::create(['name' => 'technical_estimate_delete']);
+
+           Permission::create(['name' => 'cost_estimate_index']);
+           Permission::create(['name' => 'cost_estimate_add']);
+           Permission::create(['name' => 'cost_estimate_edit']);
+           Permission::create(['name' => 'cost_estimate_delete']);
+
+           Permission::create(['name' => 'proposal_sharing_index']);
+           Permission::create(['name' => 'proposal_sharing_add']);
+           Permission::create(['name' => 'proposal_sharing_edit']);
+           Permission::create(['name' => 'proposal_sharing_delete']);
+
+           Permission::create(['name' => 'customer_response_index']);
+           Permission::create(['name' => 'customer_response_add']);
+           Permission::create(['name' => 'customer_response_edit']);
+           Permission::create(['name' => 'customer_response_delete']);
+
            Permission::create(['name' => 'project_index']);
            Permission::create(['name' => 'project_add']);
            Permission::create(['name' => 'project_edit']);
@@ -45,13 +70,34 @@ class PermissionSeeder extends Seeder
            Permission::create(['name' => 'employee_add']);
            Permission::create(['name' => 'employee_edit']);
            Permission::create(['name' => 'employee_delete']);
+
+           Permission::create(['name' => 'economy_index']);
+           Permission::create(['name' => 'economy_add']);
+           Permission::create(['name' => 'economy_edit']);
+           Permission::create(['name' => 'economy_delete']);
+
+           Permission::create(['name' => 'supplier_detail_index']);
+           Permission::create(['name' => 'supplier_detail_add']);
+           Permission::create(['name' => 'supplier_detail_edit']);
+           Permission::create(['name' => 'supplier_detail_delete']);
+
+           Permission::create(['name' => 'customer_detail_index']);
+           Permission::create(['name' => 'customer_detail_add']);
+           Permission::create(['name' => 'customer_detail_edit']);
+           Permission::create(['name' => 'customer_detail_delete']);
+
+           Permission::create(['name' => 'project_schedule_index']);
+           Permission::create(['name' => 'project_schedule_add']);
+           Permission::create(['name' => 'project_schedule_edit']);
+           Permission::create(['name' => 'project_schedule_delete']);
    
            // create roles and assign existing permissions
-           $role1 = Role::create(['name' => 'admin','status' => 1, 'slug' => 'admin']);
-           $role2 = Role::create(['name' => 'technical estimate','status' => 1, 'slug' => 'technical_estimate']);
-           $role3 = Role::create(['name' => 'cost estimate','status' => 1, 'slug' => 'cost_estimate']);
+           $role1 = Role::create(['name' => 'Admin','status' => 1, 'slug' => 'admin']);
+           $role2 = Role::create(['name' => 'Sales Engineer','status' => 1, 'slug' => 'sales_engineer']);
+           $role3 = Role::create(['name' => 'Cost Estimate','status' => 1, 'slug' => 'cost_estimate']);
+           $role4 = Role::create(['name' => 'Delivery Manager','status' => 1, 'slug' => 'delivery_manager']);
+           $role5 = Role::create(['name' => 'Project Manager','status' => 1, 'slug' => 'project_manager']);
         
-
            $role1->givePermissionTo('enquiry_index');
            $role1->givePermissionTo('enquiry_add');
            $role1->givePermissionTo('enquiry_edit');

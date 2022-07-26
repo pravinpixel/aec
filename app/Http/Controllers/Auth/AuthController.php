@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Sharepoint\SharepointController;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,12 +11,47 @@ use Illuminate\Support\Facades\Log;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
+use App\Models\Project;
+use App\Models\Role;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
 
-    public function getCustomerLogin(Request $request)
+    public function postLogin(Request $request)
+    {
+        try {
+            $requestInput = array_merge($request->only(['email','password']),['is_active'=> true]);
+            if (Auth::guard('customers')->attempt(($requestInput), false)) {
+                Flash::success( __('auth.login_successful'));
+                return redirect()->route('customers-dashboard');
+            } else if (Auth::attempt($request->only(['email','password']), false)) {
+                $role = Role::find(Admin()->job_role)->slug;
+                if($role == config('global.cost_estimater')) {
+                    $sharepoint = new SharepointController();
+                    $sharepoint->getToken();
+                    Flash::success(__('auth.login_successful'));
+                    return redirect()->route('cost-estimate.dashboard');
+                } else if($role == config('global.technical_estimater') || $role == config('global.project_manager')) {
+                    Flash::success( __('auth.login_successful'));
+                    return redirect()->route('technical-estimate.dashboard');
+                } else {
+                    $sharepoint = new SharepointController();
+                    $sharepoint->getToken();
+                    Flash::success( __('auth.login_successful'));
+                    return redirect()->route('admin-dashboard');
+                }
+            } else {
+                Flash::error( __('auth.incorrect_email_id_and_password'));
+                return redirect()->route('login');
+            }
+        } catch  (Exception $e) {
+            Log::info($e->getMessage());
+            return redirect()->route('login');
+        }
+    }
+
+    public function getLogin(Request $request)
     {
         if(Auth::check()) {
             return redirect(route('admin-dashboard'));
@@ -23,31 +59,15 @@ class AuthController extends Controller
         else if(Auth::guard('customers')->check()) {
             return redirect(route('customers-dashboard'));
         }
-        return view('auth.customer.login');
+        return view('auth.login');
     }
 
-    public function postCustomerLogin(Request $request)
-    {
-        try {
-            if (Auth::guard('customers')->attempt($request->only(['email','password']), false)) {
-                Flash::success( __('auth.login_successful'));
-                return redirect()->route('customers-dashboard');
-            } else {
-                Flash::error( __('auth.incorrect_email_id_and_password'));
-                return redirect()->route('customers.login');
-            }
-        } catch  (Exception $e) {
-            Log::info($e->getMessage());
-            return redirect()->route('customers.login');
-        }
-       
-    }
-
-    public function customerLogout() {
+    public function Logout() {
         Auth::guard('customers')->logout();
+        Auth::logout();
         Session::flush();
         Flash::success(__('auth.logout_successful'));
-        return redirect(route('customers.login'));
+        return redirect(route('login'));
     }
 
     public function changePasswordGet() {
@@ -78,7 +98,19 @@ class AuthController extends Controller
         return redirect()->back();
     }
 
-
+    public function deactivateAccount(Request $request)
+    {
+        $id = Customer()->id;
+        $totalProject = Project::where(['customer_id'=> $id, 'status'=> 'live'])->get()->count();
+        if($totalProject > 0) {
+            Flash::error('Can not deactivate your account');
+            return redirect(route('customers-dashboard'));
+        }
+        $customer = Customer::find($id);
+        $customer->is_active = false;
+        $customer->save();
+        return view('auth.customer.deactivate-account');
+    }
 
     public function getAdminLogin(Request $request)
     {
@@ -91,25 +123,4 @@ class AuthController extends Controller
         return view('auth.admin.login');
     }
 
-    public function postAdminLogin(Request $request)
-    {
-        try {
-            if (Auth::attempt($request->only(['email','password']), false)) {
-                Flash::success( __('auth.login_successful'));
-                return redirect()->route('admin-dashboard');
-            } else {
-                Flash::error( __('auth.incorrect_email_id_and_password'));
-                return redirect()->route('admin.login');
-            }
-        } catch  (Exception $e) {
-            Log::info($e->getMessage());
-            return redirect()->route('admin.login');
-        }
-    }
-
-    public function adminLogout() {
-        Auth::logout();
-        Flash::success(__('auth.logout_successful'));
-        return redirect(route('admin.login'));
-    }
 }

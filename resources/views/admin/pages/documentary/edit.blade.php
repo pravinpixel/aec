@@ -19,19 +19,63 @@
             </div>                
             
             <div class="row m-0">
-                <div class="col-md-6 ">
+                <div class="col">
                     <div class="card shadow-lg mb-0">
                         <div class="card-body p-3">
                             <form class="needs-validations"  novalidate name="frm">
                                 <div class="row m-0">
                                  <!-- @{{module_enquirie}} -->
                                         
-                                    <div class="col-md-12 mb-1">
-                                        <div class="my-2">
+                                    <div class="d-flex align-items-center justify-content-around mb-2">
+                                        <div class="col">
                                             <label class="form-label" >Title<sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control"  name="documentary_title"   value="" ng-model="module_enquirie.documentary_title" placeholder="Type Here..." ng-required="true">
                                             <div class="error-msg">
                                                 <small class="error-text" ng-if="frm.documentary_title.$touched && frm.documentary_title.$error.required">This field is required!</small> 
+                                            </div>
+                                        </div>
+                                        <div class="col mt-3 mx-2 text-end">
+                                            <a class="btn btn-info"
+                                                data-bs-toggle="collapse" href="#collapseFour"
+                                                aria-expanded="true" aria-controls="collapseFour">
+                                                View merge fields  <i
+                                                    class="mdi mdi-chevron-down accordion-arrow"></i>
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+
+                                       
+                                    <div class="accordion custom-accordion" id="custom-accordion-one">
+                                        <div class="card mb-0">
+                                            <div id="collapseFour" class="collapse show"
+                                                aria-labelledby="headingFour"
+                                                data-bs-parent="#custom-accordion-one">
+                                                <div class="row">
+                                                    <div class="card">
+                                                        <div class="card-body d-flex">
+                                                            <div class="col-md-4 p-0">
+                                                            
+                                                                <strong>Enquiries</strong>
+                                                                <br>
+                                    
+                                                                <div id="dataEnquire"></div>
+                                                                
+                                                            </div>
+                                                            <div class="col-md-4 p-0">
+                                                                <strong>Customer</strong> 
+                                                                <br>
+                                                                <div id="dataCustomer"></div>
+                                                            </div>
+                                                            <div class="col-md-4 p-0">
+                                                                <strong>Others</strong> 
+                                                                <br>
+                                                                <div id="userData"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        
                                             </div>
                                         </div>
                                     </div>
@@ -46,7 +90,7 @@
                                             </div>
                                         </div>
                                     </div>   -->
-                                
+                                    
                                     <div class="col-md-12 mb-1">
                                         <textarea name="editor1" id="editor1" ng-model="module_enquirie.documentary_content">
                                             
@@ -55,46 +99,14 @@
                                 
                                     <div class="text-end mt-3">
                                         <button type="reset" ng-click="cancelForm();" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
-                                        <button ng-click="submit(module_enquirie.id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Send </button>
+                                        <button ng-click="submit(module_enquirie.id);" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Save </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-               
-                <div class="col-md-3">
-                    <div class="card shadow-lg mb-0">
-                        <div class="card-body p-4">
-                            <strong>Enquiries</strong>
-                            <br>
-
-                            <!-- <div ng-repeat="(key,value) in enquire_module" ng-click="insertAtCaret(value)">@{{key}} : <a>{ @{{value}} }</a></div> -->
-                            <div id="dataEnquire"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 p-0">
-                    <div class="card shadow-lg mb-0">
-                        <div class="card-body p-4">
-                            <strong>Customer</strong> 
-                            <br>
-                            <div id="dataCustomer"></div>
-                            <!-- <div ng-repeat="(key,value) in customer_module">@{{key}} : <a>{ @{{value}} }</a></div> -->
-                        </div>
-                    </div>
-                    <div class="card shadow-lg mb-0 mt-3">
-                        <div class="card-body p-4">
-                            <strong>Customer</strong> 
-                            <br>
-                            <div id="userData"></div>
-                            <!-- <div ng-repeat="(key,value) in customer_module">@{{key}} : <a>{ @{{value}} }</a></div> -->
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <!-- <textarea id="textareaid" class="form-control" ></textarea> -->
-                <!-- <a href="#" onclick="insertAtCaret('textareaid', '<h1>text to insert</h1>');return false;">Click Here to Insert</a> -->
+             
             </div>
              
         </div> <!-- content -->

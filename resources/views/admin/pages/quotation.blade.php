@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="scroll-vertical-datatable" class="table dt-responsive nowrap table-striped">
+                        <table id="scroll-vertical-datatable" class="table custom dt-responsive nowrap table-striped">
                             <thead>
                                 <tr>
                                     <th>S.No</th>
@@ -202,7 +202,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Enqiury Number | Project Name</label>
+                            <label class="form-label">Enquiry Number | Project Name</label>
                             <input type="text" class="form-control" placeholder="Type Here...">
                         </div> 
                         <div class="text-center">
@@ -225,7 +225,7 @@
                 <h3>Project Name : <b>XXX</b></h3>
                 <div class="card mt-3">
                     <div class="card-body p-2">
-                        <table class="table table-bordered m-0">
+                        <table class="table custom table-bordered m-0">
                             <tr>
                                 <th>Enquiry Number</th>
                                 <th>Name</th>
@@ -260,7 +260,7 @@
                                         <h4 class="f-20 m-0 p-3">Project Information</h4>
                                     </div>
                                     <div class="col-md-6 p-3">
-                                        <table class="table m-0  table-bordered">
+                                        <table class="table custom m-0  table-bordered">
                                             <tbody>
                                                     <tr class="border">
                                                         <th  class=" ">Project Name
@@ -294,13 +294,13 @@
                                         </table>
                                     </div>
                                     <div class="col-md-6 p-3">
-                                        <table class="table m-0   table-bordered">
+                                        <table class="table custom m-0   table-bordered">
                                         <tbody><tr class="border">
                                                 <th  class=" ">Type of Building
                                                 </th><td  class="bg-white">2</td>
                                             </tr> 
                                             <tr class="border">
-                                                <th  class=" ">Number of Buildings
+                                                <th  class=" ">No. of Buildings
                                                 </th><td  class="bg-white">2</td>
                                             </tr> 
                                             <tr class="border">
@@ -308,7 +308,7 @@
                                                 </th><td  class="bg-white">1</td>
                                             </tr> 
                                             <tr class="border">
-                                                <th  class=" ">Deliveryd Date 
+                                                <th  class=" ">Delivery Date 
                                                 </th><td  class="bg-white">2021-02-25</td>
                                             </tr> 
                                             <tr class="border">
@@ -342,7 +342,7 @@
                                         <h4 class="f-20 m-0 p-3">Selected Services</h4>
                                     </div>
                                     <div class="col-md-6 p-3 mx-auto">
-                                        <table class="table m-0   table-bordered">
+                                        <table class="table custom m-0   table-bordered">
                                             <tbody>
                                                 <tr class="border">
                                                     <th class="bg-primary text-white">S.no</th>
@@ -370,7 +370,7 @@
                             </h2>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <table class="table m-0  ">
+                                    <table class="table custom m-0  ">
                                                                     
                                         <tbody>
                                             <tr>
@@ -441,14 +441,14 @@
                                             <h4 class="f-20 m-0 p-3">Building components</h4>
                                         </div>
                                         <div class="col-md-8 p-3 mx-auto">
-                                            <table class="table m-0 table-bordered ">
+                                            <table class="table custom m-0 table-bordered ">
                                                 
                                                 <tbody>
                                                     <tr>
                                                         <th  class="bg-primary text-white">EW_DEWS
                                                         </th>
                                                         <th  class="bg-primary text-white">
-                                                            Delivery Type : Element Type
+                                                            Type of Delivery : Element Type
                                                         </th>
                                                         <th  class="bg-primary text-white">
                                                             Total : 10
@@ -647,7 +647,7 @@
                             {{-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"></textarea> --}}
                             <textarea id="editor">
                                 <div class="card p-3">
-                                    <table class="table table-borderless">
+                                    <table class="table custom table-borderless">
                                         <tr>
                                             <td>
                                                 <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">
@@ -835,7 +835,7 @@
                 <div class="modal-body"  style="overflow: auto">
                     {{-- <textarea name="" id="editor2" > --}}
                         <div class="card p-3">
-                            <table class="table table-borderless">
+                            <table class="table custom table-borderless">
                                 <tr>
                                     <td>
                                         <img width="150px" src="{{ asset("public/assets/images/logo_customer.png") }}" alt="">

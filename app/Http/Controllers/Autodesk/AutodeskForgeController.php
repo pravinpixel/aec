@@ -35,8 +35,8 @@ class AutodeskForgeController extends Controller
 			return false;
 		}
 		$fileName = GlobalService::getBucketFilename($fileName).'.'.$extension;
-		$buketFormaedtName = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
-		$bucketName = $this->checkBucketExists($buketFormaedtName);
+		$bucketFormateName = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
+		$bucketName = $this->checkBucketExists($bucketFormateName);
 		$additionalData = ['enquiry' => $enquiry,
 							'bucketName' => $bucketName,
 							'fileName'   => $fileName];
@@ -67,12 +67,35 @@ class AutodeskForgeController extends Controller
 				Flash::error(__("Translation process {$status} {$progress}"));
 				return redirect()->back();
 			}
+			$documentTypeEnquiry->status = 'Completed';
+			$documentTypeEnquiry->save();
 			list($urn, $accessToken1) = $result;
 			return view('forge',compact('accessToken1','urn'));
 		} catch(Exception $ex){
 			Log::error($ex->getMessage());
 			Flash::error(__('global.something'));
 			return redirect()->back();
+		}
+	}
+
+	public function checkStatus($id)
+	{
+		try{
+			$documentTypeEnquiry = DocumentTypeEnquiry::find($id);
+			$enquiry             = Enquiry::find($documentTypeEnquiry->enquiry_id);
+			$fname               = GlobalService::getBucketFilename($documentTypeEnquiry->file_name);
+			$bucketName          = GlobalService::bucketStructureFormat($enquiry->customer_enquiry_number);
+			$fname               = $fname.'.'.$documentTypeEnquiry->file_type ?? '';
+			$result 			 = $this->autoDesk->viewModel($bucketName, $fname);
+			if(count($result)  == 3){
+				list($status,  $progress, $type) =	$result;
+				return response(['status' => false,'msg' => "Translation process {$progress}", 'data' => []]);
+			}
+			return response(['status' => true,'msg' => "Translation process completed", 'data' => []]);
+		} catch(Exception $ex){
+			Log::error($ex->getMessage());
+			Flash::error(__('global.something'));
+			return response(['status' => false,'msg' => __('global.something'), 'data' => []]);
 		}
 	}
 	

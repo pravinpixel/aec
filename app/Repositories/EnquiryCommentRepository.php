@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\EnquiryCommentRepositoryInterface;
+use App\Repositories\PushNotificationRepository;
 use App\Models\EnquiryComments;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -17,18 +18,22 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
         $this->model = $enquiryComment;
     }
 
-    public function store(Request $r){
+    public function store(Request $request, $created_by, $role_by,$seen_by){
         $comments = $this->model->create([
-            "comments"      => $r->comments,
-            "enquiry_id"    => $r->enquiry_id,
-            "file_id"       => $r->file_id ?? "",
-            "type"          => $r->type,
-            "created_by"    => $r->created_by,
-            "role_by"       => $r->role_by ?? "",
-            "employee_id"   => $r->employee_id ?? "",
+            "comments"      => $request->comments,
+            "enquiry_id"    => $request->enquiry_id,
+            "file_id"       => $request->file_id ?? Null,
+            "reference_id"  => $request->reference_id ?? Null,
+            "version"       => $request->version ?? Null,
+            "type"          => $request->type,
+            "created_by"    => $created_by,
+            "role_by"       => $role_by,
+            "seen_by"       => $seen_by,
+            "send_by"       => $request->send_by,
             "status"        => 0,
         ]);
-        return response(['status' => true, 'data' => 'Success' ,'msg' => trans('enquiry.comments_inserted')], Response::HTTP_OK);
+
+        return $comments; 
     }
     public function show(Request $r, $id, $type)
     {
@@ -38,6 +43,17 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
         $result["chatType"] =   $type;
         return $result;
     }
+
+    public function showProposalComment($request,  $id, $version, $proposal_id)
+    {
+        $type = 'proposal_sharing';
+        $result["chatHistory"] = $this->model->where(["enquiry_id"=> $id, "version"=> $version, "reference_id"=>  $proposal_id])->oldest()->get();
+        $ids = $result["chatHistory"]->pluck('id');
+        $this->updateStatus($ids, $type);
+        $result["chatType"] =   $type;
+        return $result;
+    }
+
     public function showTechChat(Request $r, $id, $type)
     {
         $result["chatHistory"] =  $this->model->where(["enquiry_id" =>  $id, "file_id" => $type])->oldest()->get();
@@ -62,6 +78,22 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
                                 ->where(['enquiry_id' => $id, 'status' => 0, 'created_by' => $created_by])
                                 ->groupBy('type')
                                 ->get();
+    }
+
+    public function getCostEstimateCount($id)
+    {
+        return  $this->model->select("created_by", DB::raw("count(*) as comments_count"))
+                            ->where(['enquiry_id' => $id, 'status' => 0, 'type' => "cost_estimation_assign"])
+                            ->groupBy('created_by')
+                            ->get();
+    }
+
+    public function getTechnicalEstimateCount($id)
+    {
+        return  $this->model->select("created_by", DB::raw("count(*) as comments_count"))
+                            ->where(['enquiry_id' => $id, 'status' => 0, 'type' => "technical_estimation_assign"])
+                            ->groupBy('created_by')
+                            ->get();
     }
 
     public function updateStatus($ids, $type, $status = 1)

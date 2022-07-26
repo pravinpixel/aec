@@ -301,7 +301,7 @@
                                         <div class="container">
                                             <h3>Plan View </h3>
                                             
-                                            <table class="table table-bordered" id="myTable">
+                                            <table class="table custom table-bordered" id="myTable">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -347,7 +347,7 @@
                                                     <tr id="collapseOne_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
                                                             <div class="p-3 card">
-                                                                <table class="table table-border">
+                                                                <table class="table custom table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -406,7 +406,7 @@
                                                     </tr> 
                                                     <tr id="collapseOne_4" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
+                                                            <table class="table custom table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -452,7 +452,7 @@
                                         <div class="container">
                                             <h3>FACADE View </h3>
                                             
-                                            <table class="table table-bordered" id="myTable">
+                                            <table class="table custom table-bordered" id="myTable">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -485,7 +485,7 @@
                                                     
                                                     <tr id="collapsene_1" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
+                                                            <table class="table custom table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -531,7 +531,7 @@
                                                     
                                                     <tr id="collapsene_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
+                                                            <table class="table custom table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -579,7 +579,7 @@
                                         <div class="container">
                                             <h3>IFC Model </h3>
                                             
-                                            <table class="table table-bordered" id="myTable">
+                                            <table class="table custom table-bordered" id="myTable">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -612,7 +612,7 @@
                                                     
                                                     <tr id="collapsene_1" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
+                                                            <table class="table custom table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -658,7 +658,7 @@
                                                     
                                                     <tr id="collapsene_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
+                                                            <table class="table custom table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -709,7 +709,7 @@
                                         <div class="container">
                                             <h3>Others</h3>
                                             
-                                            <table class="table table-bordered" id="myTable">
+                                            <table class="table custom table-bordered" id="myTable">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -756,7 +756,7 @@
                                                     
                                                     <tr id="collapsene_2" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
+                                                            <table class="table custom table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -802,7 +802,7 @@
                                                     
                                                     <tr id="collapsene_3" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                         <td colspan="7" class="hiddenRow">
-                                                            <table class="table table-border">
+                                                            <table class="table custom table-border">
                                                                     <tbody><tr>
                                                                         <th>Date</th>
                                                                         <th>File Name</th>
@@ -867,7 +867,7 @@
                                                             <div class="accordion-item shadow-sm  ">
                                                                 
                                                                 <div class="accordion-header m-0  " style="background:#f1f2fe" id="headingOne">                                                                    
-                                                                    <table class="table table-bordered m-0  ">
+                                                                    <table class="table custom table-bordered m-0  ">
                                                                         <tr>
                                                                             <th  class="bg-white">
                                                                                 <div class="form-group">
@@ -883,7 +883,7 @@
                                                                             </th>
                                                                             <th  class="bg-white">
                                                                                 <div class="form-group">
-                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Delivery type</label>
+                                                                                    <label class="form-lable text-dark shadow-sm position-absolute border">Type of Delivery</label>
                                                                                     <select class="form-select  form-select-sm my-2 mt-3">
                                                                                         <option selected >-- Choose --</option>
                                                                                         <option value="Element">Element</option>
@@ -950,7 +950,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="card-body pt-4">
-                                                                                <table class="table table-borderless m-0 " > 
+                                                                                <table class="table custom table-borderless m-0 " > 
                                                                                     <tbody>
                                                                                         <tr ng-repeat="(ThreeIndex,l) in d.Layers">
                                                                                             <td>
@@ -1026,13 +1026,13 @@
                                                     {{-- <div >
                                                         <h3>@{{ w.WallName }}</h3>
                                                         <button class="btn btn-info float-end mb-2 "  ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add Floor</button>
-                                                        <table class="table table-bordered ">
+                                                        <table class="table custom table-bordered ">
                                                             <thead class="badge-primary-lighten">
                                                                 <tr>
                                                                     <th>FloorName</th>
                                                                     <th>Floor Number	</th>
                                                                     <th>Total Area	</th>
-                                                                    <th>Delivery Type</th> 
+                                                                    <th>Type of Delivery</th> 
                                                                     <th>Layers</th> 
                                                                     <th>Action</th>
                                                                 </tr>
@@ -1110,7 +1110,7 @@
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row mb-3">
-                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Delivery Type</label>
+                                                                                                        <label for="inputPassword3" class="col-3 col-form-label">Type of Delivery</label>
                                                                                                         <div class="col-9">
                                                                                                             <input type="text" disabled class="form-control" id="inputPassword3" value="@{{ d.DeliveryType }}" >
                                                                                                         </div>
@@ -1121,7 +1121,7 @@
                                                                                         </div>
 
                                                                                         <div >
-                                                                                            <table class="table dt-responsive nowrap m-0" >
+                                                                                            <table class="table custom dt-responsive nowrap m-0" >
                                                                                                 <tr class="bg-light">
                                                                                                     <th> LayerName </th>
                                                                                                     <th> Type </th>
@@ -1244,7 +1244,7 @@
                                                             <h4 class="f-20 m-0 p-3">Project Information</h4>
                                                         </div>
                                                         <div class="col-md-6 p-3">
-                                                            <table class="table m-0  table-bordered">
+                                                            <table class="table custom m-0  table-bordered">
                                                                 <tbody>
                                                                         <tr class="border">
                                                                             <th  class=" ">Project Name
@@ -1278,13 +1278,13 @@
                                                             </table>
                                                         </div>
                                                         <div class="col-md-6 p-3">
-                                                            <table class="table m-0   table-bordered">
+                                                            <table class="table custom m-0   table-bordered">
                                                             <tbody><tr class="border">
                                                                     <th  class=" ">Type of Building
                                                                     </th><td  class="bg-white">2</td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th  class=" ">Number of Buildings
+                                                                    <th  class=" ">No. of Buildings
                                                                     </th><td  class="bg-white">2</td>
                                                                 </tr> 
                                                                 <tr class="border">
@@ -1292,7 +1292,7 @@
                                                                     </th><td  class="bg-white">1</td>
                                                                 </tr> 
                                                                 <tr class="border">
-                                                                    <th  class=" ">Deliveryd Date 
+                                                                    <th  class=" ">Delivery Date 
                                                                     </th><td  class="bg-white">2021-02-25</td>
                                                                 </tr> 
                                                                 <tr class="border">
@@ -1315,7 +1315,7 @@
                                                             <h4 class="f-20 m-0 p-3">Selected Services</h4>
                                                         </div>
                                                         <div class="col-md-6 p-3 mx-auto">
-                                                            <table class="table m-0   table-bordered">
+                                                            <table class="table custom m-0   table-bordered">
                                                                 <tbody>
                                                                     <tr class="border">
                                                                         <th class="bg-primary text-white">S.no</th>
@@ -1337,7 +1337,7 @@
                                                             <h4 class="f-20 m-0 p-3">IFC Models &amp; Uploaded Documents</h4>
                                                         </div>
                                                         <div class="col-md-8 p-3 mx-auto">
-                                                            <table class="table m-0 table-bordered ">
+                                                            <table class="table custom m-0 table-bordered ">
                                                                 
                                                                 <tbody>
                                                                     <tr class="border">
@@ -1399,14 +1399,14 @@
                                                             <h4 class="f-20 m-0 p-3">Building components</h4>
                                                         </div>
                                                         <div class="col-md-8 p-3 mx-auto">
-                                                            <table class="table m-0 table-bordered ">
+                                                            <table class="table custom m-0 table-bordered ">
                                                                 
                                                                 <tbody>
                                                                     <tr>
                                                                         <th  class="bg-primary text-white">EW_DEWS
                                                                         </th>
                                                                         <th  class="bg-primary text-white">
-                                                                            Delivery Type : Element Type
+                                                                            Type of Delivery : Element Type
                                                                         </th>
                                                                         <th  class="bg-primary text-white">
                                                                             Total : 10

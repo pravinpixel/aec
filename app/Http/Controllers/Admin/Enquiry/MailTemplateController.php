@@ -144,40 +144,43 @@ class MailTemplateController extends Controller
     }
     public function getDocumentaryOneData(Request $request)
     {
-        $data =  $this->mailTemplateRepository->getDocumentaryOneData($request);
-        // return $data;
-        
-        $content =$data['document']['documentary_content'];
-        $title = $data['document']['documentary_title'];
-        $logo = Config::get('documentary.logo.key');
-        // dd($content);
-        $pdf = PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','logo','title'));
-        $filePath = 'uploads/enquiryPDF/'.$data['enquiry']['id'].'/';
-        $path = public_path($filePath); 
-        if(!file_exists($path))
-        {
+        $data       =   $this->mailTemplateRepository->getDocumentaryOneData($request);
+        $exists     =   $this->mailTemplateRepository->isProposalExists($request->enquireId, $request->documentId);
+
+        if( $exists ){
+            return response()->json(['status' => false, 'msg' => trans('proposal.proposal_already_generated')]);
+        }
+
+        $content    =   $data['document']['documentary_content'];
+        $title      =   $data['document']['documentary_title'];   
+       
+        $pdf        =   PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','title'));
+
+        $filePath   =   'uploads/enquiryPDF/'.$data['enquiry']['id'].'/';
+        $path       =   public_path($filePath); 
+
+        if(!file_exists($path)) {
             mkdir($path, 0777, true);
         }
-        $name_replace = str_replace(' ', '_', $data['fileName']);
-        $fileName =   $name_replace.'.'. 'pdf' ;
-        $pdf_path=$filePath.$fileName;
+        $name_replace   =   str_replace(' ', '_', $data['fileName']);
+        $fileName       =   $name_replace.'.'. 'pdf' ;
+        $pdf_path       =   $filePath.$fileName;
         $pdf->save($path . '/' . $fileName);
-        $pdf = public_path($pdf_path);
+        $pdf            =   public_path($pdf_path);
 
-        $pdf_store_name = 'public/'.$filePath.$fileName;
-        $mailData = new MailTemplate();
-        $mailData->enquiry_id = $data['enquiry']['id'];
-        $mailData->documentary_id = $data['document']['id'];
-        $mailData->documentary_content = $data['document']['documentary_content'];
-        $mailData->documentary_date = date('Y-m-d');
-        $mailData->template_name =  $title;
-        $mailData->pdf_file_name =$pdf_store_name;
+        $pdf_store_name     =   'public/'.$filePath.$fileName;
+        $mailData           =   new MailTemplate();
+        $mailData   ->  enquiry_id           =   $data['enquiry']['id'];
+        $mailData   ->  documentary_id       =   $data['document']['id'];
+        $mailData   ->  documentary_content  =   $data['document']['documentary_content'];
+        $mailData   ->  documentary_date     =   date('Y-m-d');
+        $mailData   ->  template_name        =   $title;
+        $mailData   ->  pdf_file_name        =   $pdf_store_name;
       
         $res =  $mailData->save();
         if($res)
         {
             $enquiry = Enquiry::find($data['enquiry']['id']);
-            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_sharing_status');
             return response()->json(['status' => true, 'msg' => trans('module.inserted'),'data'=>$fileName], Response::HTTP_OK);
         }
         return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$res], Response::HTTP_OK);

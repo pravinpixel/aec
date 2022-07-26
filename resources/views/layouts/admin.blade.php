@@ -4,7 +4,6 @@
     
     <head>
         @include('admin.includes.head')
-        
         @stack('custom-styles')       
     </head> 
     <body>
@@ -39,7 +38,7 @@
         </div>
         <!-- END wrapper -->
 
-        <!-- Right Sidebar -->
+        {{-- <!-- Right Sidebar -->
             <div class="end-bar">
 
                 <div class="rightbar-title">
@@ -124,7 +123,7 @@
                 </div>
             </div> 
             <div class="rightbar-overlay"></div>
-        <!-- /End-bar -->
+        <!-- /End-bar --> --}}
  
         @include('modal.delete');
         <!--  Footer Scripts  -->
@@ -136,6 +135,10 @@
             function goBack() {
                 window.history.back();
             }
+            function submit() {
+                swal("Good job!", "Project successfully created!", "success");
+            }
         </script>
+        @livewireScripts
     </body>
 </html>

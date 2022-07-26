@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table datatable="ng" dt-options="vm.dtOptions" class="table table-striped table-bordered">
+            <table datatable="ng" dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -111,7 +111,7 @@
 </div>
 <style>
     .moduleTab{
-        color: #727cf5 !important;
-        background-color: rgba(114,124,245,.18) !important;
+        color: #163269 !important;
+        background-color: #d4e2ff !important;
     }
 </style>

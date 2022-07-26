@@ -15,7 +15,7 @@
                             </div>
                             <div class="conversation-text">
                                 <div class="ctext-wrap"> 
-                                    <p>
+                                    <p class="m-0">
                                        @{{ msg.comments }}
                                     </p> 
                                     <small style="font-size: 10px !important" ng-class="{seen: msg.status == 1 , not_seen: msg.status == 0}" class="text-secondary">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-footer bg-light">
                     <form id="Inbox__commentsForm" ng-submit="sendInboxComments('Admin')" class="d-flex align-items-center">
-                        <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type herproject_info.! your comments">
+                        <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                         <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                     </form> 
                 </div>

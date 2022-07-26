@@ -1,7 +1,6 @@
 @extends('auth.layouts.customer')
 
 @section('customer-content')
-@include('flash::message')
     <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -12,7 +11,7 @@
                                 <span><img src="{{ asset("public/assets/images/logo_customer.png") }}" alt="{{ env('APP_NAME') }}" width="150px"></span>
                             </div>
 
-                            <form class="form-horizontal" method="post" action="{{ route('customers.login') }}">
+                            <form class="form-horizontal" method="post" action="{{ route('login') }}">
                                 @csrf
                                 <h4 class="text-dark-50 bg-light p-2 text-center text-primary  mb-3"> <i class="fa fa-user"></i> Customer Login</h4>
 
@@ -66,7 +65,7 @@
     <!-- end page -->
 
     <footer class="footer footer-alt">
-          © {{ now()->year }} All rights reserved | AecPrefab
+           © {{ now()->year }} AEC Prefab. All Rights Reserved.
     </footer>
     
 </body>

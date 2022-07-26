@@ -3,125 +3,85 @@
 @section('admin-content')
    
     <div class="content-page" ng-controller="projectController">
+        @include('admin.projects.quick-view')
         <div class="content" >
-
+            @include('admin.projects.filter-modal')
             @include('admin.includes.top-bar')
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 @include('admin.includes.page-navigater')
                 <!-- end page title -->
-
-                <div class="card border">
-                    <div class="card-header p-0">
-                        <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 p-0 bg-light timeline-steps">
-                            <li class="time-bar"></li>
-                            <li class="nav-item Create_Project">
-                                <a href="#/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">Create Project</p>
-                                </a>
-                            </li> 
-                            <li class="nav-item Platform">
-                                <a href="#/platform" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">Connect Platform</p>
-                                </a>
-                            </li> 
-                            <li class="nav-item Team_Setup">
-                                <a href="#/team-setup" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">Team Setup</p>
-                                </a>
-                            </li> 
-                            <li class="nav-item Project_Scheduling">
-                                <a href="#/project-scheduling" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">Project Scheduling</p>
-                                </a>
-                            </li> 
-                            <li class="nav-item Invoice_Plan">
-                                <a href="#/invoice-plan" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">Invoice Plan</p>
-                                </a>
-                            </li> 
-                            <li class="nav-item To_Do_List">
-                                <a href="#/to-do-listing" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary ">
-                                            <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">To-do List</p>
-                                </a>
-                            </li>                                
-                            <li class="nav-item admin-Delivery-wiz">
-                                <a href="#/move-to-project" style="min-height: 40px;"  class="timeline-step" data-is-active >
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary">
-                                            <img src="{{ asset("public/assets/icons/arrow-right.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5  mts-2">Review & Submit</p>
-                                </a>
-                            </li>
-                        </ul>
+                <div class="d-flex justify-content-between ">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#project-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
+                        <i class="mdi mdi-filter-menu"></i> Filters
+                    </button> 
+                   <div class=""> <a  href="{{ route('create-projects') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> @lang('project.create_project') </a></div>
+                </div>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item mb-2 border rounded shadow-sm">
+                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingOne">
+                            <div class="accordion-button"  type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                @lang('project.un_established')
+                            </div>
+                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
+                                <i
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn">
+                                </i>
+                            </div>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                @include('admin.projects.table.unestablished')
+                            </div>
+                        </div>
                     </div>
-                    {{-- =====NG View  =====--}}
-                        <div ng-view></div>
-                    {{-- =======NG View ==== --}}
+                    <div class="accordion-item mb-2 border rounded shadow-sm">
+                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
+                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                @lang('project.live_projects')
+                            </div>
+                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
+                                <i  
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo"
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
+                                </i>
+                            </div>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body">
+                                @include('admin.projects.table.live')
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-2 border rounded shadow-sm">
+                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingThree">
+                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                @lang('project.completed_projects')
+                            </div>
+                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
+                                <i
+                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree"
+                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
+                                </i>
+                            </div>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                @include('admin.projects.table.completed')
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
         </div>
-    </div> 
-@endsection
 
+    </div> 
+    
+@endsection 
 @push('custom-scripts')
-    <script>        
-        
-        app.controller("projectController", function($rootScope, $scope, $location){
-            $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
-                if($location.url() == '/') $scope.isMain = true;
-                else $scope.isMain = false;
-            });
-        });
-         
-        app.config(function($routeProvider) {
-            $routeProvider
-            .when("/", {
-                templateUrl : "{{ route('create-project') }}",
-            }) 
-            .when("/platform", {
-                templateUrl : "{{ route('platform') }}",
-            })
-            .when("/team-setup", {
-                templateUrl : "{{ route('team-setup') }}",
-            })
-            .otherwise({
-                redirectTo: "/"
-            });
-        });
-    </script>
+    <script src="{{ asset("public/custom/js/ngControllers/admin/project/list.js") }}"></script> 
 @endpush
- 
+

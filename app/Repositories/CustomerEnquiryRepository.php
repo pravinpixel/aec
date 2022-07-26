@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Admin\PropoalVersions;
 use Illuminate\Http\Response;
 use App\Models\Service;
+use App\Models\WoodEstimation;
 use App\Services\GlobalService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -32,14 +34,22 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $enquiry;
     protected $documentTypeEnquiry;
     protected $enquiryBuildingComponentDocument;
+    protected $costEstimate;
 
-    function __construct(Customer $customer,Enquiry $enquiry, Service $service, DocumentTypeEnquiry $documentTypeEnquiry, EnquiryBuildingComponentDocument $enquiryBuildingComponentDocument)
-    {
+    function __construct(
+        Customer $customer,
+        Enquiry $enquiry, 
+        Service $service, 
+        DocumentTypeEnquiry $documentTypeEnquiry, 
+        EnquiryBuildingComponentDocument $enquiryBuildingComponentDocument,
+        EnquiryCostEstimate $costEstimate
+        ) {
         $this->customer = $customer;
         $this->service = $service;
         $this->enquiry = $enquiry;
         $this->documentTypeEnquiry = $documentTypeEnquiry;
         $this->enquiryBuildingComponentDocument = $enquiryBuildingComponentDocument;
+        $this->costEstimate = $costEstimate;
     }
 
     
@@ -82,16 +92,69 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function getCustomerProPosal($id)
     {
-        return MailTemplate::where("enquiry_id", '=', $id)
-                            ->with('getVersions')
-                            ->get();
-         
+        $proposal = MailTemplate::where("enquiry_id", '=', $id)->select([
+            DB::raw("null as id"),
+            DB::raw("'root' as type"),
+            'documentary_id',
+            'enquiry_id',
+            'proposal_id',
+            'version',
+            'template_name',
+            'comment',
+            'status',
+            'proposal_status',
+            'created_at',
+            'updated_at',
+            'mail_send_date'
+        ]);
+
+        $mailTemplate = PropoalVersions::where("enquiry_id", '=', $id)
+                ->select([
+                    'id',
+                    DB::raw("'child' as type"),
+                    'documentary_id',
+                    'enquiry_id',
+                    'proposal_id',
+                    'version',
+                    'template_name',
+                    'comment',
+                    'status',
+                    'proposal_status',
+                    'created_at',
+                    'updated_at',
+                    'mail_send_date'
+                ])
+                ->union($proposal)
+                ->orderBy('documentary_id', 'asc')
+                ->orderBy('id', 'desc')
+                ->get();
+        return $mailTemplate;
     }
+
+    public function duplicateProposalVersion($enquiry_id, $proposal_id, $request)
+    {
+        $result     =   PropoalVersions::where("enquiry_id",$enquiry_id)->where("proposal_id", $proposal_id)->first();
+        $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $enquiry_id, "documentary_id"=> $result->documentary_id])->get()->count();
+        $version = 'R'.($totalProposalVersion + 1);  
+        $duplicate  =  new PropoalVersions;
+        $duplicate  ->  proposal_id         = $proposal_id;
+        $duplicate  ->  parent_id           = $result->proposal_id; 
+        $duplicate  ->  enquiry_id          = $enquiry_id; 
+        $duplicate  ->  documentary_id      = $result->documentary_id; 
+        $duplicate  ->  documentary_date    = $result->documentary_date; 
+        $duplicate  ->  documentary_content = $result->documentary_content; 
+        $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
+        $duplicate  ->  template_name       = $result->template_name;
+        $duplicate  ->  version             = $version;
+        $duplicate  ->  save();  
+        return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
+    }
+
     public function getCustomerProPosalVersions($id, $proposal_id)
     {
         $data =  MailTemplate::where("enquiry_id", '=', $id)->where('reference_no' , '=', $proposal_id)->get();
-        
     }
+
     public function getCustomerProPosalByID($id, $proposal_id)
     {
         return MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->get();
@@ -136,6 +199,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function duplicateCustomerProPosalByID($id, $proposal_id, $request)
     { 
         $result     =   MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
+        $totalProposalVersion = PropoalVersions::where(["enquiry_id"=> $id, "documentary_id" => $result->documentary_id])->get()->count();
+        $version = 'R'.($totalProposalVersion + 1);  
         $duplicate  =  new PropoalVersions;
         $duplicate  ->  proposal_id         = $proposal_id;
         $duplicate  ->  parent_id           = $result->proposal_id; 
@@ -144,6 +209,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $duplicate  ->  documentary_date    = $result->documentary_date; 
         $duplicate  ->  documentary_content = $result->documentary_content; 
         $duplicate  ->  pdf_file_name       = $result->pdf_file_name;
+        $duplicate  ->  template_name       = $result->template_name;
+        $duplicate  ->  version             = $version;
         $duplicate  ->  save();  
         return response(['status' => true, 'msg' => trans('enquiry.duplicate_deleted')], Response::HTTP_CREATED);
     }
@@ -151,16 +218,23 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     public function sendCustomerProPosalMail($id, $proposal_id, $request)
     { 
         $result = MailTemplate::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->first();
-        $user   = $this->enquiry->with('customer')->find($id);
+        $enquiry = $this->getEnquiryByID($id);
+        $version = 'R0';
         $details = [ 
-            'name'          =>  $user->customer->full_name,
-            'email'         =>  $user->customer->email,
-            'EnqId'         =>  Crypt::encryptString($id),
-            'proposal_id'   =>  Crypt::encryptString($proposal_id),
-            'Vid'           =>  Crypt::encryptString(0),
+            'name'        => $enquiry->customer->contact_person ?? '',
+            'email'       => $enquiry->customer->email,
+            'projectName' => $enquiry->project_name,
+            'enquiryNo'   => $enquiry->enquiry_number,
+            'version'     => $version,
+            'EnqId'       => Crypt::encryptString($id),
+            'proposal_id' => Crypt::encryptString($proposal_id),
+            'Vid'         => Crypt::encryptString(0),
         ];  
-
-        Mail::to($user->customer->email)->send(new \App\Mail\ProposalMail($details));
+        try {
+            Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalMail($details));
+        } catch(Exception $ex) {
+            Log::info($ex->getMessage());
+        }
         $result->status =  'sent';
         $result->mail_send_date =  now();
         $result->save();
@@ -171,18 +245,22 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
     public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
     { 
+        Log::info('$proposal_id'.$proposal_id);
+        MailTemplate::where('enquiry_id', $id)->update(['proposal_status' => 'obsolete','status' => 'obsolete']);
+        PropoalVersions::where('enquiry_id', $id)->where('id','!=', $Vid)->update(['proposal_status' => 'obsolete','status' => 'obsolete']); 
         $result = PropoalVersions::where("enquiry_id", '=', $id)->where("proposal_id", '=', $proposal_id)->where("id", '=', $Vid)->first();
- 
-        $user   = $this->enquiry->with('customer')->find($id);
-         
+        $enquiry = $this->getEnquiryByID($id);
         $details = [ 
-            'name'          =>  $user->customer->full_name,
-            'email'         =>  $user->customer->email,
+            'name'          =>  $enquiry->customer->contact_person,
+            'email'         =>  $enquiry->customer->email,
+            'projectName'   =>  $enquiry->project_name,
+            'enquiryNo'     =>  $enquiry->enquiry_number,
+            'version'       =>  $result->version,
             'EnqId'         =>  Crypt::encryptString($id),
             'proposal_id'   =>  Crypt::encryptString($proposal_id),
             'Vid'           =>  Crypt::encryptString($Vid),
         ];  
-        Mail::to($user->customer->email)->send(new \App\Mail\ProposalVersions($details));
+        Mail::to($enquiry->customer->email)->send(new \App\Mail\ProposalVersions($details));
         $result->status =  'sent';
         $result->mail_send_date =  now();
         $result->save();
@@ -309,7 +387,6 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     $enquiryBuildingComponentDetail->enquiry_id                          = $enquiry->id;
                     $enquiryBuildingComponentDetail->building_component_delivery_type_id = $buildingComponentDetail->DeliveryType;
                     $enquiryBuildingComponentDetail->floor                               = $buildingComponentDetail->FloorName;
-                    $enquiryBuildingComponentDetail->exd_wall_number                     = $buildingComponentDetail->FloorNumber;
                     $enquiryBuildingComponentDetail->approx_total_area                   = $buildingComponentDetail->TotalArea;
                     $enquiryBuildingComponentDetail->enquiry_building_component_id       = $enquiryBuildingComponent->id;
                     $total_wall_area +=  $buildingComponentDetail->TotalArea; 
@@ -320,7 +397,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                             $buildingComponentDetailLayer                 = new EnquiryBuildingComponentLayer();
                             $buildingComponentDetailLayer->enquiry_id     = $enquiry->id;
                             $buildingComponentDetailLayer->enquiry_bcd_id = $enquiryBuildingComponentDetail->id;
-                            $buildingComponentDetailLayer->layer_id       = $buildingComponentLayer->LayerName;
+                            $buildingComponentDetailLayer->layer_name       = $buildingComponentLayer->LayerName;
                             $buildingComponentDetailLayer->thickness      = $buildingComponentLayer->Thickness;
                             $buildingComponentDetailLayer->breath         = $buildingComponentLayer->Breadth;
                             $buildingComponentDetailLayer->save();
@@ -336,9 +413,12 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function storeTechnicalEstimateCost($enquiry,$buildingComponents) 
     {   
-        EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete();
-       
-        $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
+        $technicalEstimateObj = EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->first();
+        if($technicalEstimateObj) {
+            $enquiryBuildingComponent = $technicalEstimateObj;
+        } else {
+            $enquiryBuildingComponent = new EnquiryTechnicalEstimate();
+        }
 
         $building_component_number = [];
         $total_wall_area_all = 0;
@@ -363,70 +443,93 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
 
     public function storeCostEstimation($enquiry,$buildingComponents) 
     {   
-        EnquiryCostEstimate::where('enquiry_id', $enquiry->id)->delete();
-
-        $cost_estimate   =      new EnquiryCostEstimate();
-        $result =   [
-                        'Components' => [ 
-                            [
-                                "Component"     => "",
-                                "Type"          => "", 
-                                "sqm"           => "",
-                                "complexity"    => "", 
-                                "Details" => [
-                                    "PriceM2"   => "",
-                                    "Sum"       => ""
-                                ],
-                                "Statistics" => [
-                                    "PriceM2"   => "", 
-                                    "Sum"       => "", 
-                                ],
-                                "CadCam" => [
-                                    "PriceM2"   => "",
-                                    "Sum"       => "", 
-                                ],
-                                "Logistics" => [
-                                    "PriceM2"   => "", 
-                                    "Sum"       => "",
-                                ],
-                                "TotalCost" => [
-                                    "PriceM2"   => "", 
-                                    "Sum"       => "", 
-                                ]
-                            ]
-                        ],
-                    "ComponentsTotals" => [
-                        "sqm"           => 0,
-                        "complexity"    => 0, 
-                        "Details" =>[
-                            "PriceM2"   => 0,
-                            "Sum"       => 0
-                        ],
-                        "Statistics" => [
-                            "PriceM2"   => 0, 
-                            "Sum"       => 0, 
-                        ],
-                        "CadCam" =>[
-                            "PriceM2"   => 0,
-                            "Sum"       => 0, 
-                        ],
-                        "Logistics" =>[
-                            "PriceM2"   => 0, 
-                            "Sum"       => 0,
-                        ],
-                        "TotalCost" =>[
-                            "PriceM2"   => 0, 
-                            "Sum"       => 0, 
-                        ],
-                        "grandTotal"    => 0, 
+        $costEstimateObj  = EnquiryCostEstimate::where('enquiry_id', $enquiry->id)->first();
+        if($costEstimateObj) {
+            $cost_estimate = $costEstimateObj;
+        } else {
+            $cost_estimate   =      new EnquiryCostEstimate();
+        }
+       
+        $estimations     =      WoodEstimation::get();
+        $CostEstimate = [ 
+            'type'      => 'Building Type 1',
+            'totalArea' => 0,
+            'totalPris' => 0,
+            'totalSum'  => 0,
+            "Components" => [ 
+                [
+                    'building_component_id'=> '',
+                    'type_id'=> '',
+                    'DesignScope'=> 0,
+                    "Component"     => "",
+                    "Type"          => "", 
+                    "Sqm"           => "",
+                    "Complexity"    => "", 
+                    'Dynamics'=> [],
+                    "TotalCost" => [
+                        "PriceM2"   => 0, 
+                        "Sum"       => 0, 
                     ],
-                    'enquiry_id' =>  $enquiry->id
-                ];
+                    "Rib"=> [
+                        "Sum" => ""
+                    ]
+                ]
+            ],
+            "ComponentsTotals" => [
+                "Sqm"           => '',
+                "complexity"    => '', 
+                'Dynamics'=> [],
+                "TotalCost" =>[
+                    "PriceM2"   => 0, 
+                    "Sum"       => 0, 
+                ],
+                "Rib"=> [
+                    "Sum" => ""
+                ],
+                "grandTotal"    => '', 
+            ],
+        ];
+        foreach($estimations as $estimation) {
+            $CostEstimate['Components'][0]['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+            $CostEstimate['ComponentsTotals']['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+        }
+        $CostEstimate['Components'][0]["TotalCost"]  = ['PriceM2' => '', 'Sum' => ''];
+        $CostEstimate['Components'][0]["Rib"]        = ["Sum" => ""];
+        $resultWood = ['total'=> ['totalArea'=> 0, 'totalSum'=> 0, 'totalPris'=> 0], 'costEstimate'=> [$CostEstimate]];
         $cost_estimate  ->    enquiry_id = $enquiry->id;
         $cost_estimate  ->    created_by = Customer()->id;
-        $cost_estimate  ->    build_json = json_encode($result);
+        $cost_estimate  ->    build_json = json_encode($resultWood);
+        $precastComponent = [
+            "type"                        => "Building Type 1",
+            "total_sqm"                   => 0,
+            "total_std_work_hours"        => 0,
+            "total_additional_work_hours" => 0,
+            "total_hourly_rate"           => 0,
+            "total_work_hours"            => 0,
+            "engineering_cost"            => 0,
+            "total_central_approval"      => 0,
+            'total_engineering_cost'      => 0,
+            "Components" => [    
+                [
+                    'precast_component'=> null,
+                    'no_of_staircase'=> '',
+                    'no_of_new_component'=>'',
+                    'no_of_different_floor_height'=> '',
+                    'sqm'           => '',
+                    'complexity'    => '', 
+                    'std_work_hours'=> '',
+                    'additional_work_hours'=> '',
+                    'hourly_rate'=> '',
+                    'total_work_hours'=> '',
+                    'engineering_cost'=> '',
+                    'total_central_approval'=> '',
+                    'total_engineering_cost'=> ''
+                ]
+            ]
+        ];
+        $resultPrecast = ['total'=> ['totalArea'=> 0, 'totalSum'=> 0, 'totalPris'=> 0], 'precastEstimate'=> [$precastComponent] ];
+        $cost_estimate  ->    precast_build_json = json_encode($resultPrecast);
         $cost_estimate  ->    save();
-        
         return true;    
     }
 
@@ -478,6 +581,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     'wall' => $buildingComponentMaster->building_component_name,
                     'top_position' => $buildingComponentMaster->top_position,
                     'bottom_position' => $buildingComponentMaster->bottom_position,
+                    'label' =>  $buildingComponentMaster->label,
                     'icon' => $buildingComponentMaster->building_component_icon,
                     'wallId' => $buildingComponentMaster->id,
                     'totalWallArea' => $enquiryBuildingComponent->total_wall_area
@@ -560,6 +664,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         return $this->enquiryBuildingComponentDocument->create($data);
     }
 
+    public function getCostEstimateByEnquiryId($id)
+    {
+        return $this->costEstimate->where('enquiry_id', $id)->first();
+    }
+
     public function moveToCancel($id)
     {
         $enquiry = $this->enquiry->where('customer_id', Customer()->id)->find($id);
@@ -595,5 +704,10 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry = $this->enquiry->find($id);
         $enquiry->is_new_enquiry = 0;
         return $enquiry->save();
+    }
+
+    public function updateFollowUp($id, $data)
+    {
+        return $this->enquiry->find($id)->update($data);
     }
 }

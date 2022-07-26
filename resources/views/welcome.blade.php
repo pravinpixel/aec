@@ -904,11 +904,6 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                                     <!-- item-->
-                                    <div class=" dropdown-header noti-title">
-                                        <h6 class="text-overflow m-0">Welcome !</h6>
-                                    </div>
-
-                                    <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle me-1"></i>
                                         <span>My Account</span>
@@ -1105,7 +1100,7 @@
                                         <h4 class="header-title mb-4">Project Status</h4>
 
                                         <div class="my-4 chartjs-chart" style="height: 202px;">
-                                            <canvas id="project-status-chart" data-colors="#0acf97,#727cf5,#fa5c7c"></canvas>
+                                            <canvas id="project-status-chart" data-colors="#0acf97,#163269,#fa5c7c"></canvas>
                                         </div>
 
                                         <div class="row text-center mt-2 py-2">
@@ -1159,8 +1154,8 @@
 
                                         <p><b>107</b> Tasks completed out of 195</p>
 
-                                        <div class="table-responsive">
-                                            <table class="table table-centered table-nowrap table-hover mb-0">
+                                        <div class="table custom-responsive">
+                                            <table class="table custom table-centered table-nowrap table-hover mb-0">
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -1179,7 +1174,7 @@
                                                             <span class="text-muted font-13">Total time spend</span>
                                                             <h5 class="font-14 mt-1 fw-normal">3h 20min</h5>
                                                         </td>
-                                                        <td class="table-action" style="width: 90px;">
+                                                        <td class="table custom-action" style="width: 90px;">
                                                             <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-pencil"></i></a>
                                                             <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                         </td>
@@ -1201,7 +1196,7 @@
                                                             <span class="text-muted font-13">Total time spend</span>
                                                             <h5 class="font-14 mt-1 fw-normal">12h 21min</h5>
                                                         </td>
-                                                        <td class="table-action" style="width: 90px;">
+                                                        <td class="table custom-action" style="width: 90px;">
                                                             <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-pencil"></i></a>
                                                             <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                         </td>
@@ -1223,7 +1218,7 @@
                                                             <span class="text-muted font-13">Total time spend</span>
                                                             <h5 class="font-14 mt-1 fw-normal">78h 05min</h5>
                                                         </td>
-                                                        <td class="table-action" style="width: 90px;">
+                                                        <td class="table custom-action" style="width: 90px;">
                                                             <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-pencil"></i></a>
                                                             <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                         </td>
@@ -1245,7 +1240,7 @@
                                                             <span class="text-muted font-13">Total time spend</span>
                                                             <h5 class="font-14 mt-1 fw-normal">26h 58min</h5>
                                                         </td>
-                                                        <td class="table-action" style="width: 90px;">
+                                                        <td class="table custom-action" style="width: 90px;">
                                                             <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-pencil"></i></a>
                                                             <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                         </td>
@@ -1285,7 +1280,7 @@
 
                                         <div dir="ltr">
                                             <div class="mt-3 chartjs-chart" style="height: 320px;">
-                                                <canvas id="task-area-chart" data-bgColor="#727cf5" data-borderColor="#727cf5"></canvas>
+                                                <canvas id="task-area-chart" data-bgColor="#163269" data-borderColor="#163269"></canvas>
                                             </div>
                                         </div>
 
@@ -1317,8 +1312,8 @@
                                         </div>
                                         <h4 class="header-title mb-3">Recent Activities</h4>
 
-                                        <div class="table-responsive">
-                                            <table class="table table-centered table-nowrap table-hover mb-0">
+                                        <div class="table custom-responsive">
+                                            <table class="table custom table-centered table-nowrap table-hover mb-0">
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -1334,7 +1329,7 @@
                                                             <span class="text-muted font-13">Project</span> <br/>
                                                             <p class="mb-0">Hyper Mockup</p>
                                                         </td>
-                                                        <td class="table-action" style="width: 50px;">
+                                                        <td class="table custom-action" style="width: 50px;">
                                                             <div class="dropdown">
                                                                 <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <i class="mdi mdi-dots-horizontal"></i>
@@ -1363,7 +1358,7 @@
                                                             <span class="text-muted font-13">Project</span> <br/>
                                                             <p class="mb-0">Hyper Mockup</p>
                                                         </td>
-                                                        <td class="table-action" style="width: 50px;">
+                                                        <td class="table custom-action" style="width: 50px;">
                                                             <div class="dropdown">
                                                                 <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <i class="mdi mdi-dots-horizontal"></i>
@@ -1392,7 +1387,7 @@
                                                             <span class="text-muted font-13">Project</span> <br/>
                                                             <p class="mb-0">Web UI Design</p>
                                                         </td>
-                                                        <td class="table-action" style="width: 50px;">
+                                                        <td class="table custom-action" style="width: 50px;">
                                                             <div class="dropdown">
                                                                 <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <i class="mdi mdi-dots-horizontal"></i>
@@ -1421,7 +1416,7 @@
                                                             <span class="text-muted font-13">Project</span> <br/>
                                                             <p class="mb-0">UBold Admin</p>
                                                         </td>
-                                                        <td class="table-action" style="width: 50px;">
+                                                        <td class="table custom-action" style="width: 50px;">
                                                             <div class="dropdown">
                                                                 <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <i class="mdi mdi-dots-horizontal"></i>
@@ -1450,7 +1445,7 @@
                                                             <span class="text-muted font-13">Project</span> <br/>
                                                             <p class="mb-0">Website Mockup</p>
                                                         </td>
-                                                        <td class="table-action" style="width: 50px;">
+                                                        <td class="table custom-action" style="width: 50px;">
                                                             <div class="dropdown">
                                                                 <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <i class="mdi mdi-dots-horizontal"></i>

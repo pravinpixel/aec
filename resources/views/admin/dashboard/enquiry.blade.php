@@ -11,7 +11,7 @@
 			@if (Route::is('admin-dashboard'))
 				<!-- Start Content-->
 				<div class="container-fluid"> 
-					
+ 
 					<!-- Start Content-->
 					<div>
 					   <!-- start page title -->
@@ -118,7 +118,7 @@
 											<h5>Total Enquiries: 125</h5>
 										</div>
 										<div dir="ltr">
-											<div id="revenue-chart" class="apex-charts mt-3" data-currentMonth="12,30,23,45" data-colors="#727cf5,#0acf97"></div>
+											<div id="revenue-chart" class="apex-charts mt-3" data-currentMonth="12,30,23,45" data-colors="#163269,#0acf97"></div>
 										</div>
 									</div> <!-- end card-body-->
 								</div> <!-- end card--> 
@@ -170,7 +170,7 @@
 									   </div>
 								   </div>
 								   <div class="card-body ">
-									   <table datatable="ng" dt-options="vm.dtOptions" class="table dt-responsive nowrap custom table-striped">
+									   <table datatable="ng" dt-options="vm.dtOptions" class="table custom dt-responsive nowrap custom table-striped">
 										   <thead>
 											   <tr>
 												   <th>S.No</th>
@@ -225,7 +225,7 @@
 									   </div>
 									   <h4 class="header-title mb-3">Recent Activities</h4>
    
-									   <div class="table-responsive">
+									   <div class="table custom-responsive">
 										   
 										   <table class=" table table-centered table-nowrap table-hover mb-0">
 											   <tbody>
@@ -241,7 +241,7 @@
 														   <span class="text-muted font-13">Project</span> <br>
 														   <p class="mb-0">New Building</p>
 													   </td>
-													   <td class="table-action" style="width: 50px;">
+													   <td class="table custom-action" style="width: 50px;">
 														   <div class="dropdown">
 															   <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
 																   <i class="mdi mdi-dots-horizontal"></i>
@@ -268,27 +268,85 @@
 								   <div class="card-body">
 									   <h4 class="header-title">Mothly Sales Reports</h4>
 									   <div dir="ltr">
-										   <div id="distributed-column" class="apex-charts" data-colors="#727cf5,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
+										   <div id="distributed-column" class="apex-charts" data-colors="#163269,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
 									   </div>
 								   </div>
 							   </div> <!-- end card-->
-						   </div> <!-- end col-->
-   
+						   </div> <!-- end col--> 
 					   </div>
-					   <!-- end row -->
-   
+					   <!-- end row --> 
 				   </div>
-				   <!-- container -->
-				   
+				   <!-- container --> 
 			   </div> 
-			@endif
-
+			@endif 
         </div> <!-- content --> 
     </div> 
 
 @endsection 
 
+
 @push('custom-scripts')
+		@if (Route::is('admin-dashboard'))
+			<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script> 
+			{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
+			<script>
+				var firebaseConfig = {
+					apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
+					authDomain: "aec-chat-app.firebaseapp.com",
+					databaseURL: "https://aec-chat-app-default-rtdb.firebaseio.com",
+					projectId: "aec-chat-app",
+					storageBucket: "aec-chat-app.appspot.com",
+					messagingSenderId: "917789039014",
+					appId: "1:917789039014:web:b65a02b06faf684aff1767",
+					measurementId: "G-Q0HGWESJ9T"
+				};
+
+				firebase.initializeApp(firebaseConfig);
+				const messaging = firebase.messaging();
+
+				if(Notification.permission === "granted") {
+					
+					messaging.requestPermission().then(function () {
+							return messaging.getToken()
+					}).then(function(token) {
+						console.log(token);
+
+						$.ajaxSetup({
+							headers: {
+								'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							}
+						});
+
+						$.ajax({
+							url: '{{ route("save-admin-token") }}',
+							type: 'POST',
+							data: {
+								token: token
+							},
+							dataType: 'JSON',
+							success: function (response) {
+								console.log('Token saved successfully.');
+							},
+							error: function (err) {
+								console.log('Error =>'+ err);
+							},
+						});
+
+					}).catch(function (err) {
+						console.log('Error =>'+ err);
+					});
+				}
+
+				messaging.onMessage(function(payload) {
+					const noteTitle = payload.notification.title;
+					const noteOptions = {
+						body: payload.notification.body,
+						icon: payload.notification.icon,
+					};
+					new Notification(noteTitle, noteOptions);
+				}); 
+			</script>
+		@endif
 
 	{{-- =========  MOTHLY SALES REPORTS Chart ============== --}}
 	<script>
@@ -350,7 +408,7 @@
 				this.$body = o("body"), this.charts = []
 			}
 			e.prototype.initCharts = function () { 
-				var e = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"],
+				var e = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"],
 					t = o("#revenue-chart").data("colors");
 					t && (e = t.split(","));
 			 
@@ -407,7 +465,7 @@
 					}
 				};
 				new ApexCharts(document.querySelector("#revenue-chart"), r).render();
-				e = ["#727cf5", "#e3eaef"];  
+				e = ["#163269", "#e3eaef"];  
 			},e.prototype.init = function () {
 
 				o("#dash-daterange").daterangepicker({
@@ -427,4 +485,4 @@
 	{{-- ======== Angular Controllers ========== --}}
 	<script src="{{ asset("public/custom/js/ngControllers/dashboard/enquiry.js") }}"></script>
 @endpush
- 
+
