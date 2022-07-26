@@ -116,6 +116,10 @@
             </div> 
 
             <div class="text-end mx-3 my-2">      
+                <button ng-click="printTechnicalEstimate()" class="btn btn-primary">
+                    <i class="me-1 fa fa-print"></i> Print
+                </button>
+               
                 <button class="btn btn-success" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'technical_estimation_assign', 'Technical Estimate')">
                     <i class="fa fa-send me-1"></i> 
                     <span class="cost_estimate_comments_ul">

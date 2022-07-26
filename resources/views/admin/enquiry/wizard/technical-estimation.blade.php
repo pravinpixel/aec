@@ -74,7 +74,7 @@
                             <table class="table custom shadow-none border m-0 table-bordered ">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th>Enquiry Date</th>
+                                        <th>Enquiry Received Date</th>
                                         <th>Person Contact</th>
                                         <th>Type of Project</th>
                                         <th>Enquiry Status</th>
@@ -91,8 +91,8 @@
                             </table> 
                         </div>
                     </div> 
-                    <div class="card-body mb-0 pb-0"  >
-                        <div class="row align-items-center mb-2">
+                    <div class="card-body mb-0 pb-0">
+                        <div class="row align-items-center mb-2"  class="technicalEstimateCurrentData">
                             <div class="col-sm-6">                        
                                 <button class="btn btn-sm btn-primary" ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button>
                             </div>
@@ -313,10 +313,10 @@
             </div>
 
             <div class="text-end my-3  col-md-9 me-auto">
-                {{-- <button ng-click="printCostEstimate('wood')" class="btn btn-primary" ng-show="price_calculation == 'wood_engineering_estimation'">
-                            <i class="me-1 fa fa-print"></i> Print
-                        </button>
-                --}}
+                <button ng-click="printTechnicalEstimate()" class="btn btn-primary">
+                    <i class="me-1 fa fa-print"></i> Print
+                </button>
+               
                 <button class="btn btn-success" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'technical_estimation_assign', 'Technical Estimate')">
                     <i class="fa fa-send me-1"></i> 
                     <span class="cost_estimate_comments_ul">

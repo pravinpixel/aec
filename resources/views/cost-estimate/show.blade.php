@@ -241,7 +241,12 @@
                 .then((res) => {
                     var currentTabelHistory   =   ''
                     res.data.forEach((item,i) => {
-                        currentTabelHistory += item.history  
+                        currentTabelHistory += `<h5 class="m-0 d-flex align-items-center">
+                                                    <strong class="me-auto text-dark">Version : ${i+1}</strong>
+                                                    <span class="fa fa-calendar text-dark"></span>
+                                                    <small>${moment(item.created_at).format('DD-MM-YYYY h:s a')}</small>
+                                                </h5>`;
+                        currentTabelHistory += item.history ;
                     })
                     const currentTabel          =   $(".costEstimateCurrentData").html()
                     var a = window.open('', '', 'height=10000, width=10000');

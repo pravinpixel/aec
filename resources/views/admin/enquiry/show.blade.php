@@ -371,6 +371,66 @@
             }
             getAutoDeskFileTypes();
 
+            $scope.printTechnicalEstimate = () => {
+                $http.get(`${API_URL}technical-estimate/get-history/${$scope.enquiry_id}`)
+                .then((res) => {
+                    var currentTabelHistory   =   ''
+                    res.data.forEach((item,i) => {
+                        currentTabelHistory += `<h5 class="m-0 d-flex align-items-center">
+                                                    <strong class="me-auto text-dark">Version : ${i+1}</strong>
+                                                    <span class="fa fa-calendar text-dark"></span>
+                                                    <small>${moment(item.created_at).format('DD-MM-YYYY h:s a')}</small>
+                                                </h5>`;
+                        currentTabelHistory += item.history;
+                    });
+                    let currentTable         =   $("#root_technical_estimate").html();
+                    var a = window.open('', '', 'height=10000, width=10000');
+                    a.document.write('<html>');
+                    a.document.write('<body>');
+                    a.document.write(`
+                        <link href="{{ asset('public/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+                        <link href="{{ asset('public/assets/css/app.css') }}"  rel="stylesheet" type="text/css"   />
+                        <link href="{{ asset('public/assets/css/app.css') }}" rel="stylesheet" type="text/css" id="dark-style" />
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/alert.css') }}">
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+                        <link rel="stylesheet" href="https://dropways.github.io/feathericons/assets/themes/twitter/css/feather.css"> 
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
+                        <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}">
+                        <style>.table {border:0 !important; box-shadow: none !important} .thead , button , .fa {display:none !important} .tbody { padding : 0 !important} .btn{display:none !important} input{pointer-events:none } .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
+                    `);
+                    let enquiryData = `
+                        <div class="card-body pt-0 p-0">
+                            <table class="table custom shadow-none border m-0 table-bordered ">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Enquiry Received Date</th>
+                                        <th>Project Name</th>
+                                        <th>Person Contact</th>                                 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${$scope.enquiry.enquiry.enquiry_date }</td>
+                                        <td>${$scope.enquiry.enquiry.project_name }</td>
+                                        <td>${$scope.enquiry.enquiry.contact_person }</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>`;
+                    let startVersion = `<h5 class="text-center"> Version List </h5>`;
+                    a.document.write(enquiryData);
+                    a.document.write(currentTable);
+                    a.document.write(startVersion);
+                    a.document.write(currentTabelHistory);
+                    a.document.write('</html>');
+                    a.document.close();
+                    a.print();
+                }); 
+            }
+
             $scope.getHistory       = (type)  => {
                 $http.get(`${API_URL}technical-estimate/get-history/${$scope.enquiry_id}`)
                     .then(function successCallback(res){
@@ -869,7 +929,12 @@
                     var currentTabelHistory   =   ''
                 
                     res.data.forEach((item,i) => {
-                        currentTabelHistory += item.history  
+                        currentTabelHistory += `<h5 class="m-0 d-flex align-items-center">
+                                                    <strong class="me-auto text-dark">Version : ${i+1}</strong>
+                                                    <span class="fa fa-calendar text-dark"></span>
+                                                    <small>${moment(item.created_at).format('DD-MM-YYYY h:s a')}</small>
+                                                </h5>`;
+                        currentTabelHistory += item.history;
                     })
                     const currentTabel          =   $(".costEstimateCurrentData").html()
                     var a = window.open('', '', 'height=10000, width=10000');

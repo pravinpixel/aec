@@ -152,9 +152,9 @@ class  CostEstimateController extends Controller
 
     public function getHistory($id, $type)
     {
-        return CostEstimateHistory::where('created_by', '!=', Admin()->id)
-                                    ->where(['enquiry_id'=> $id, 'type'=> $type])
-                                    ->get();
+        return CostEstimateHistory::where(['enquiry_id'=> $id, 'type'=> $type])
+                ->limit(10)                    
+                ->get();
     }
 
 }

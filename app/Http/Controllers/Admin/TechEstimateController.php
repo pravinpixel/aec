@@ -133,8 +133,8 @@ class TechEstimateController extends Controller
 
     public function getHistory($id)
     {
-        return TechnicalEstimateHistory::where('created_by', '!=', Admin()->id)
-                                    ->where('enquiry_id', $id)
+        return TechnicalEstimateHistory::where('enquiry_id', $id)
+                                    ->limit(10)  
                                     ->get();
     }
 
