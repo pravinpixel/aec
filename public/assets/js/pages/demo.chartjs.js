@@ -92,7 +92,7 @@ function hexToRGB(a, r) {
         }()
     }, a.prototype.initCharts = function() {
         var a, r, t, e, o, n, s, l = [],
-            i = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"];
+            i = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
         return 0 < d("#line-chart-example").length && (a = {
             labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             datasets: [{

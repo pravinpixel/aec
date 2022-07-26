@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'mail_from_address' => 'noreply@aecprefab.net',
     'model_date_format' => 'd-m-Y',
     'db_date_format'    => 'Y-m-d',
     'db_date_format_with_time' => 'Y-m-d H:i:s',
@@ -50,23 +49,8 @@ return [
 
     'cost_estimater' => 'cost_estimate',
 
-    'technical_estimater' => 'sales_engineer',
-
-    'project_manager' => 'project_manager',
+    'technical_estimater' => 'technical_estimate',
 
     'job_delay' => 60,
-
-    'cost_estimate_types' => [
-        '1' => 'Building Type 1',
-        '2' => 'Building Type 2',
-        '3' => 'Building Type 3',
-        '4' => 'Building Type 4',
-        '5' => 'Building Type 5',
-        '6' => 'Building Type 6',
-        '7' => 'Building Type 7',
-        '8' => 'Building Type 8',
-        '9' => 'Building Type 9',
-        '10' => 'Building Type 10'
-    ],
 
 ];

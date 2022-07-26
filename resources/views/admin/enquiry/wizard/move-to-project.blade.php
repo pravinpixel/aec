@@ -4,7 +4,7 @@
         <li class="nav-item Project_Info">
             <a href="#!/project-summary" style="min-height: 40px;" class="timeline-step">
                 <div class="timeline-content">
-                    <div class="inner-circle @{{ project_summary_status == 'Submitted' ? 'bg-primary' :'bg-secondary' }}">
+                    <div class="inner-circle @{{ project_summary_status == 'Active' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                     </div>
                 </div>
@@ -76,26 +76,22 @@
     </div>
     <div class="card-body">
         <div class="row m-0">
-            <div class="col-12 mb-3">
-                <strong class="card-text text-secondary "><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Set Next follow up date​</strong>
-                <div class="input-group mt-2">
-                    <input  ng-model="customer_response_obj.follow_up_date" type="date" class="form-control form-control-sm" data-date-inline-picker="true">
-                    <button class="btn btn-info btn-sm" ng-click="updateFollow()">Set</button>
-                </div>
+            <div class="col">
+                <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Status</strong>
+                <select ng-model="customer_response_obj.follow_up_status" class="form-select mt-2">
+                    <option value="">@lang('customer-enquiry.select')</option>
+                    <option value="Approved"  ng-selected="true">Approved</option>
+                </select>
             </div>
-            @if(userRole()->slug == 'admin')
-                <div class="col-12 mb-3">
-                    <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Manual Override​</strong>
-                    <div class="input-group mt-2">
-                        <select ng-model="customer_response_obj.follow_up_status" class="form-select form-control-sm">
-                            <option value="">@lang('customer-enquiry.select')</option>
-                            <option value="Approved"  ng-selected="true">Approved & Move to Project</option>
-                        </select>
-                        <button class="btn btn-info btn-sm" ng-click="manualMoveToProject()">Move</button>
-                    </div>  
-                </div>  
-            @endif
-        </div>  
+            <div class="col">
+                <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Next Follow Up date</strong>
+                <input  ng-model="customer_response_obj.follow_up_date" type="date" class="form-control mt-2" data-date-inline-picker="true">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center pt-3">
+            <button class="btn btn-light me-2 p-3 py-2">Cancel</button>
+            <button ng-click="updateFollow()" class="btn btn-primary p-3 py-2"> <i class="fa fa-check-circle me-1 text-white"></i> Submit </button>
+        </div>
     </div>
 </div>
 @if(userHasAccess('customer_response_index'))
@@ -116,14 +112,14 @@
             <strong class="card-text text-secondary"><i class="text-primary mdi-file-replace mdi" aria-hidden="true"></i> Assign to</strong>
             <select name="assign_user" ng-model="customer_response_obj.assign_user" id="" class="form-select shadow mt-2" style="padding: 10px 20px  !important; border: 1px solid lightgray !important" >
                 <option value="">@lang('global.select')</option>
-                <option ng-repeat="(index,user) in userList" value="@{{ user.id }}" ng-selected="user.id == response_data.progress.project_assign_to">
+                <option ng-repeat="(index,user) in userList" value="@{{ user.id }}">
                     @{{ user.user_name }}
                 </option>
             </select>
         </div>
         <div class="d-flex justify-content-center">
             <button class="btn btn-light me-2 p-3 py-2">Cancel</button>
-            <button class="btn btn-primary p-3 py-2 me-2 " ng-click="assignToProject()"> <i class="fa fa-check-circle me-1 text-white"></i> Assign </button>
+            <button class="btn btn-primary p-3 py-2 me-2 "> <i class="fa fa-check-circle me-1 text-white"></i> Assign </button>
             <button class="btn btn-success p-3 py-2" ng-click="moveToProject()"> <i class="fa fa-check-circle me-1 text-white"></i> Move to Project </button>
         </div>
     </div>
@@ -142,17 +138,95 @@
         </div>
     </div> 
 </div> 
-
+<div class="card-body" ng-show="deniedComments.length">
+    <div class="container p-0"> 
+        <table class="table custom table-bordered">
+            <tbody class="panel"> 
+                <tr>
+                    <td style="padding: 0 !important">
+                        <table  class="table custom table-bordereds m-0">
+                            <tr>
+                                <th class="text-center" colspan="2" style="width: 6% !important">No</th>
+                                <th class="text-center" >File Name</th>
+                                <th class="text-center">Version</th>
+                                <th class="text-center">Comment</th>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr ng-repeat="(key,deniedComment) in deniedComments">
+                    <td style="padding: 0 !important" >
+                        <table class="table custom table-bordered m-0">
+                            <tbody class="panel"> 
+                                <tr>
+                                    <td colspan="2" style="width: 6% !important" class="text-center">
+                                        <div class="d-flex text-center">
+                                            <div class="me-2" ng-show="P.get_versions.length">
+                                                <i data-bs-toggle="collapse" href="#togggleTable@{{ key+1 }}" aria-expanded="true" aria-controls="togggleTable@{{ key+1 }}" class="accordion-button custom-accordion-button collapsed bg-primary text-white toggle-btn m-0"></i>
+                                            </div>
+                                            <div class="me-2" ng-show="!P.get_versions.length" style="visibility: hidden">
+                                                <i class="accordion-button custom-accordion-button collapsed bg-white text-white toggle-btn m-0"></i>
+                                            </div>
+                                            <div class="text-center">@{{ key+1 }}</div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 38% !important" class="text-center">@{{ deniedComment.template_name }}</td>
+                                    <td class="text-center">R1 </td>
+                                    <td class="text-center">@{{ deniedComment.comment }}</td>
+                                </tr> 
+                                <tr >
+                                    <td colspan="5"  style="padding: 0 !important">
+                                        <table class="table custom table-bordered m-0">
+                                            <tbody>  
+                                                <tr ng-repeat="(key2,V) in deniedComment.child">
+                                                    <td   class="text-end" style="width: 6% !important">
+                                                        <div class="text-end">@{{ key+1 }}.@{{ key2+1 }}</div>                                                    
+                                                    </td>
+                                                    <td style="width: 38% !important" class="text-start"></td>
+                                                    <td class="text-center">@{{ V.template_name }}</td>
+                                                    <td class="text-center">@{{ deniedComment.comment }}</td>
+                                                </tr> 
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+    </div> 
+</div>
+ 
+<div class="card-body" ng-show="approvedComments.length">
+    <div class="container p-0"> 
+        <table class="table custom table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center"style="width: 6% !important">No</th>
+                    <th class="text-center" >File Name</th>
+                    <th class="text-center">Version</th>
+                    <th class="text-center">Comments</th>
+                </tr>
+            </thead> 
+            <tbody class="panel"> 
+                <tr ng-repeat="(key,row) in approvedComments">
+                    <td class="text-center">@{{ row.key + 1}}</td>
+                    <td class="text-center">@{{ row.template_name }}</td>
+                    <td class="text-center">@{{ row.version}}</td>
+                    <td class="text-center">@{{ row.comment }}</td>
+                </tr>  
+            </tbody>
+        </table>
+    </div> 
+</div>
 <div class="card-footer">
-    <label for="copy_enq" class="text-center mb-3 col-12">
-        <input id="copy_enq" type="checkbox" class="form-check-input me-2"> Copy Enquiry details to Share Point​
-    </label>
     <div class="d-flex justify-content-between">
         <div>
             <a href="#!/proposal-sharing" class="btn btn-light border" >Prev</a>
         </div>
         <div>
-            <button class="btn btn-info border">Move to Project​</button>
         </div>
     </div>
 </div>

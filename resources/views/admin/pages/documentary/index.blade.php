@@ -13,7 +13,7 @@
 
                 <div class="card">
                     <div  class="card-header ">
-                        <div class="d-flex justify-content-between pull-right">
+                        <div class="d-flex justify-content-between ">
                             <a href="{{ route('admin.add-documentary') }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i> New Document</a>
                         </div>
                     </div>
@@ -21,6 +21,7 @@
                         <table datatable="ng" dt-options="vm.dtOptions" class="table custom dt-responsive nowrap table-striped">
                             <thead>
                                 <tr>
+                                 
                                     <th>Documentary Title</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -28,7 +29,7 @@
                             </thead>
                         
                             <tbody> 
-                                <tr ng-repeat="(index,m) in documentary track by m.id">
+                                <tr ng-repeat="(index,m) in documentary">
                                    
                                     <td> 
                                         @{{ m.documentary_title }}
@@ -259,7 +260,24 @@
 					});
 			       
 			    }			
+			  
+			
+			    
 			}); 
+            Message = function (type, head) {
+                $.toast({
+                    heading: head,
+                    icon: type,
+                    showHideTransition: 'plain', 
+                    allowToastClose: true,
+                    hideAfter: 5000,
+                    stack: 10, 
+                    position: 'bootom-left',
+                    textAlign: 'left', 
+                    loader: true, 
+                    loaderBg: '#252525',                
+                });
+            }
         </script>
             
        

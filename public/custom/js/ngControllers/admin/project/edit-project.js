@@ -1,9 +1,8 @@
 formatData = (project) => {
-    return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.delivery_date)}}
+    return {...project, ...{'start_date': new Date(project.start_date), 'delivery_date' : new Date(project.start_date)}}
 }
 
 app.controller('CreateProjectController', function ($scope, $http, API_URL, $location){
-    $("#create-project").addClass('active');
     let project_id =  $("#project_id").val();
      //get building types
     $http.get(`${API_URL}get-building-type`)
@@ -24,7 +23,6 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
     $http.get(`${API_URL}project/${project_id}`)
     .then((res)=> {
         $scope.project = formatData(res.data);
-        projectActiveTabs($scope.project.wizard_status);
     });
 //postalcode api
     $scope.getZipcode = function() {
@@ -90,17 +88,15 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 });
 
 app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location){
-    $("#connect-platform").addClass('active');
     let project_id =  $("#project_id").val();
     let fileSystem = [];
-    $http.get(`${API_URL}bim360/projects-type`)
+    $http.get(`${API_URL}get-project-type`)
     .then((res)=> {
         $scope.projectTypes = res.data;
     });
     $http.get(`${API_URL}project/${project_id}`)
     .then((res)=> {
         $scope.project = formatData(res.data);
-        projectActiveTabs($scope.project.wizard_status);
         $scope.project['address_one'] =  res.data.site_address;
     });
     $http.get(`${API_URL}project/enquiry/${project_id}`)
@@ -108,42 +104,9 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
        $scope.enquiry = res.data;
     });
 
-
-
-    $scope.updateConnectionPlatform = (type) => {
-        console.log('called');
-        if(type == 'sharepoint') {
-           $type = 'sharepoint_status';
-        } else if(type == 'bim') {
-            $type = 'bim_status';
-        } else if(type == 'tsoffice') {
-            $type = 'tf_office_status';
-        } else {
-          return false;  
-        }
-        $http.post(`${API_URL}project/connection-platform/${project_id}/${$type}`)
-        .then((res) => {
-            Message('success', res.data.msg);
-        }, (er) => {
-            Message('danger', res.data.msg);
-        })
-    }
-    
-
     $http.get(`${API_URL}project/edit/${project_id}/connection_platform`)
     .then((res)=> {
-        fileSystem = res.data.folders;
-        if(res.data.platform_access.sharepoint_status == 1) {
-            $("#switch0").prop('checked', true);
-        }
-        if(res.data.platform_access.bim_status == 1) {
-            $("#switch1").prop('checked', true);
-        }
-        if(res.data.platform_access.tf_office_status == 1) {
-            $("#switch2").prop('checked', true);
-        }
-    
-
+        fileSystem = res.data;
         const fileManager = $('#file-manager').dxFileManager({
             name: 'fileManager',
             fileSystemProvider: fileSystem,
@@ -235,9 +198,9 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
          
     });
 
-  
+    
     $scope.submitConnectPlatformForm = () => {
-        $http.put(`${API_URL}project/${project_id}`, {data: $scope.project, type:'connect_platform'})
+        $http.put(`${API_URL}project/${project_id}`, {data: $scope.project, type:'create_project'})
         .then((res) => {
             Message('success', 'Connect Platform updated successfully');
             $location.path('team-setup');
@@ -247,18 +210,12 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
 });
 
 app.controller('TeamSetupController', function ($scope, $http, API_URL, $location){
-    $("#team-setup").addClass('active');
     let project_id        = $("#project_id").val();
     $scope.teamRole   = {};
     $scope.tagBox     = {};
     $scope.teamSetups = [];
     $scope.Template;
     $scope.selectedTemplate;
-    $http.get(`${API_URL}project/${project_id}`)
-    .then((res)=> {
-        projectActiveTabs(res.data.wizard_status);
-    });
-    
     $http.get(`${API_URL}project/get-templates`)
     .then( (res) => {
         console.log('template', res.data);
@@ -325,14 +282,7 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
 });
 
 app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $location){
-    $("#project-scheduler").addClass('active');
     let project_id =  $("#project_id").val();
-
-    $http.get(`${API_URL}project/${project_id}`)
-    .then((res)=> {
-        projectActiveTabs(res.data.wizard_status);
-    });
-
     var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
     dp.init(gantt);
     dp.setTransactionMode("REST");
@@ -343,35 +293,19 @@ app.controller('ProjectSchedulerController', function($scope, $http, API_URL, $l
     gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`); 
 });
 
-app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location, $timeout){
-    $("#invoice-plan").addClass('active');
-    $scope.invoicePlans = {
-        totalPercentage: 100,
-        totalAmount: 0,
-        invoices: []
-    };
+app.controller('InvoicePlanController', function ($scope, $http, API_URL, $location){
+    $scope.invoicePlans                     = [];
+    $scope.invoicePlans['totalPercentage']  = 100;
+    $scope.invoicePlans['totalAmount']      = 0;
     $scope.project = {};
-    var invoiceStatus = true;
-    var totalInvoice = 0;
     let project_id =  $("#project_id").val();
     
-    $http.get(`${API_URL}project/${project_id}`)
-    .then((res)=> {
-        projectActiveTabs(res.data.wizard_status);
-    });
-
     $http.get(`${API_URL}project/edit/${project_id}/invoice_plan`)
     .then((res)=> {
         $scope.project = formatData(res.data);
         $scope.project.project_cost = res.data.invoice_plan.project_cost;
         $scope.project.no_of_invoice = Number(res.data.invoice_plan.no_of_invoice);
-        let result = {};
-        let response = JSON.parse(res.data.invoice_plan.invoice_data);
-        totalInvoice = response.invoices.length;
-        if(totalInvoice > 0) {
-            invoiceStatus = !invoiceStatus;
-        }
-        let invoices = response.invoices.map((item)=> {
+        let result = JSON.parse(res.data.invoice_plan.invoice_data).map((item)=> {
             $scope.invoicePlans.totalPercentage -= item.percentage;
             $scope.invoicePlans.totalAmount += ( $scope.project.project_cost / 100 ) * item.percentage;
             return {
@@ -383,48 +317,20 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
         });
         result['totalPercentage'] = $scope.invoicePlans.totalPercentage;
         result['totalAmount'] = $scope.invoicePlans.totalAmount;
-        result['invoices'] = invoices;
         $scope.invoicePlans = result;
     });
 
     $scope.handleInvoiceChange = () => {
-        if($scope.project.no_of_invoice <= 0){
-            $scope.project.no_of_invoice = 1;
-        }
-        let totalRow = totalInvoice - $scope.project.no_of_invoice;
-        if(invoiceStatus) {
-            totalInvoice = $scope.project.no_of_invoice;
-            invoiceStatus = !invoiceStatus;
-            for(var i = 1; i <= $scope.project.no_of_invoice;  i++){
-                let invoice_date = (i == 1) ? $scope.project.start_date : '';
-                $scope.invoicePlans.invoices.push({
-                    'index': i,
-                    'invoice_date': invoice_date,
-                    'amount' : 0,
-                    'percentage': 0
-                });
-            }
-        } else if(totalRow >  0) {
-            let removeCount = $scope.invoicePlans.invoices.length - totalRow;
-            $scope.invoicePlans.invoices.length = removeCount + 1;
-            $scope.invoicePlans.invoices.splice(-2,1);
-            totalInvoice =  $scope.invoicePlans.invoices.length;
-        } else if(totalRow < 0) {
-            let newRow = [];
-            let numOfRow = $scope.project.no_of_invoice - totalInvoice;
-            for(var i = 0; i < numOfRow;  i++){
-                newRow.push({
-                    'index': totalInvoice + i,
-                    'invoice_date': '',
-                    'amount' : 0,
-                    'percentage': 0
-                });
-            }
-            $scope.invoicePlans.invoices.splice(-1,0, ...newRow);
-            totalInvoice = $scope.project.no_of_invoice;
-        }
-        if($scope.invoicePlans.invoices.length != 0 ) {
-            $scope.invoicePlans.invoices[0].invoice_date = $scope.project.start_date;
+        $scope.invoicePlans.length = 0;
+        $scope.invoicePlans['totalPercentage']  = 100;
+        $scope.invoicePlans['totalAmount']      = 0;
+        for(var i = 1; i <= $scope.project.no_of_invoice;  i++){
+            $scope.invoicePlans.push({
+                'index': i,
+                'invoice_date': '',
+                'amount' : 0,
+                'percentage': 0
+            });
         }
     }
 
@@ -434,18 +340,18 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
         .then((res) => {
             Message('success', 'Invoice Plan updated successfully');
             $location.path('to-do-listing');
-        });
+        })
     }
 });
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
-    $("#todo-list").addClass('active');
+
     let project_id =  $("#project_id").val();
     $http.get(`${API_URL}get-project-type`).then((res)=> {
         $scope.projectTypes = res.data;
     });
 
-    $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
         $scope.projectManagers = res.data;
     });
 
@@ -453,7 +359,6 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
         $scope.project = formatData(res.data);
         $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
         $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
-        projectActiveTabs($scope.project.wizard_status);
     });
  
     // ======= $scope of Flow ==============
@@ -537,31 +442,16 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 });
 
 app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
-    $("#review").addClass('active');
+
     let project_id =  $("#project_id").val();
     $scope.teamSetups = [];
     let fileSystem = [];
 
-    $http.get(`${API_URL}project/${project_id}`)
-    .then((res)=> {
-        projectActiveTabs(res.data.wizard_status);
-    });
-
-    $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res)=> {
         $scope.projectManagers = res.data;
     });
     
     $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
-        let connect_platform_access = res.data.connect_platform_access;
-        if(connect_platform_access.sharepoint_status == 1) {
-            $("#switch0").prop('checked', true);
-        }
-        if(connect_platform_access.bim_status == 1) {
-            $("#switch1").prop('checked',true);
-        }
-        if(connect_platform_access.tf_office_status == 1) {
-            $("#switch2").prop('checked',true);
-        }
         $scope.review  =  res.data 
         $scope.teamSetups = res.data.team_setup;
         $scope.project = formatData(res.data.project);
@@ -689,58 +579,39 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
             element.on('change', function () {
                 scope.invoicePlans.totalPercentage = 100;
                 scope.invoicePlans.totalAmount = 0;
-                let result = {};
                 let projectCost = scope.project.project_cost;
-                let invoices =   scope.invoicePlans.invoices.map((invoicePlan, index) => {
+                let result =   scope.invoicePlans.map((invoicePlan, index) => {
                     if(scope.project.no_of_invoice == index + 1) {
                         projectCost -= scope.invoicePlans.totalAmount;
                         return {
                             index: index + 1,
-                            amount: Number.parseFloat(projectCost).toFixed(2),
+                            amount: projectCost,
                             invoice_date: invoicePlan.invoice_date,
                             percentage: scope.invoicePlans.totalPercentage,
                         }
                     }
-                    let totalPercentage = scope.invoicePlans.totalPercentage - invoicePlan.percentage;
-                    if(totalPercentage < 0) {
-                        return {    
-                            index: index + 1,
-                            amount: 0,
-                            invoice_date: invoicePlan.invoice_date,
-                            percentage: 0,
-                        };
-                    } else {
-                        scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
-                        scope.invoicePlans.totalAmount += ( scope.project.project_cost / 100 ) * invoicePlan.percentage;
-                        return {    
-                            index: index + 1,
-                            amount: Number.parseFloat(( scope.project.project_cost / 100 ) * invoicePlan.percentage).toFixed(2),
-                            invoice_date: invoicePlan.invoice_date,
-                            percentage: invoicePlan.percentage,
-                        };
-                    }
+                    scope.invoicePlans.totalPercentage -= invoicePlan.percentage;
+                    scope.invoicePlans.totalAmount += ( scope.project.project_cost / 100 ) * invoicePlan.percentage;
+                    return {    
+                        index: index + 1,
+                        amount: ( scope.project.project_cost / 100 ) * invoicePlan.percentage,
+                        invoice_date: invoicePlan.invoice_date,
+                        percentage: invoicePlan.percentage,
+                    };
                 });
                 result['totalPercentage'] = scope.invoicePlans.totalPercentage;
                 result['totalAmount'] = scope.invoicePlans.totalAmount;
-                result['invoices'] = invoices;
                 scope.invoicePlans = result;
                 scope.$apply();
             });
             scope.$watchGroup(['project.no_of_invoice','project.project_cost'], function() {
-                let totalPercentage = 100;
-                scope.invoicePlans.invoices = scope.invoicePlans.invoices.map((invoicePlan, index) => {
-                    if(scope.project.no_of_invoice == 1) {
-                        totalPercentage = 100;
-                        invoice_date = scope.project.start_date;
-                    }else if(scope.project.no_of_invoice != index + 1) {
-                        totalPercentage -= invoicePlan.percentage;
-                    }
+                scope.invoicePlans = scope.invoicePlans.map((invoicePlan, index) => {
                     if(scope.project.no_of_invoice == index + 1) {
                         return {    
                             index: index + 1,
-                            amount: Number.parseFloat(( scope.project.project_cost / 100 ) * invoicePlan.percentage).toFixed(2),
+                            amount: ( scope.project.project_cost / 100 ) * invoicePlan.percentage,
                             invoice_date: invoicePlan.invoice_date,
-                            percentage: totalPercentage,
+                            percentage: 100,
                         };
                     }
                     return invoicePlan;
@@ -755,7 +626,7 @@ app.directive('getRoleUser',function getRoleUser($http, API_URL){
         restrict: 'A',
         link : function (scope, element, attrs) {
             let selectedValues = Object.values(scope.teamSetups[attrs.value].team);
-            $http.get(`${API_URL}admin/get-role-user/${scope.teamSetup.role.id}`).then((res) => {
+            $http.get(`${API_URL}role/${scope.teamSetup.role.id}`).then((res) => {
                 if(selectedValues) {
                     scope.tagBox = {
                         customTemplate: {

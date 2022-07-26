@@ -15,11 +15,11 @@
                 </select>
             </div>
             <div class="col me-2">
-                <small for="" class="mb-2">Type of Delivery</small>
+                <small for="" class="mb-2">Building Type</small>
                 <select name="" id="ddlAge" class="form-select cl_age">
                     <option value="all">Select</option>                    
                     @foreach($data['type'] as $type)            
-                    <option value="{{ $type->delivery_type_name}}"> {{ $type->delivery_type_name}} </option>
+                    <option value="{{ $type->building_type_name}}"> {{ $type->building_type_name}} </option>
                     @endforeach
                 </select>
             </div>
@@ -39,15 +39,15 @@
                 <tr>
                     <th style="padding: 0 5px !important"><small>S.No</small> </th>
                     <th style="padding: 0 5px !important"><small>Component</small> </th>
-                    <th style="padding: 0 5px !important"><small>Type of Delivery</small> </th>
+                    <th style="padding: 0 5px !important"><small>Type</small> </th>
                     <th style="padding: 0 5px !important"><small>Details Price</small> </th>
-                    <th style="padding: 0 5px !important"><small>Details Sum</small> </th>
+                    <!-- <th style="padding: 0 5px !important"><small>Details Sum</small> </th> -->
                     <th style="padding: 0 5px !important"><small>Statistics Price</small> </th>
-                    <th style="padding: 0 5px !important"><small>Statistics Sum</small> </th>
+                    <!-- <th style="padding: 0 5px !important"><small>Statistics Sum</small> </th> -->
                     <th style="padding: 0 5px !important"><small>CAD/CAM Price</small> </th>
-                    <th style="padding: 0 5px !important"><small>CAD/CAM Sum</small> </th>
+                    <!-- <th style="padding: 0 5px !important"><small>CAD/CAM Sum</small> </th> -->
                     <th style="padding: 0 5px !important"><small>Logistics Price</small> </th>
-                    <th style="padding: 0 5px !important"><small>Logistics Sum</small> </th>
+                    <!-- <th style="padding: 0 5px !important"><small>Logistics Sum</small> </th> -->
                     <th style="padding: 0 5px !important"><small>Action</small> </th>
                 </tr>
             </thead>
@@ -63,32 +63,32 @@
                                 <small> {{ $buildingComponent['building_component_name'] }}   </small>
                             </td>
                             <td style="padding: 0 10px !important">
-                                <small>  {{ $type['delivery_type_name'] }}   </small>
+                                <small>  {{ $type['building_type_name'] }}   </small>
                             </td> 
                             <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->detail_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="detail_price"  class="cal_submit text-center" name="detail_price<?php echo $i ?>">
                             </td>
-                            <td style="padding: 0 !important;">
+                            <!-- <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->detail_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="detail_sum"  class="cal_submit" name="detail_sum<?php echo $i ?>">
-                            </td>
+                            </td> -->
                             <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->statistic_price  ?? 0}}"  data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="statistic_price" class="cal_submit text-center" name="statistic_price<?php echo $i ?>">
                             </td>
-                            <td style="padding: 0 !important;">
+                            <!-- <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->statistic_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="statistic_sum"  class="cal_submit" name="statistic_sum<?php echo $i ?>">
-                            </td>
+                            </td> -->
                             <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->cad_cam_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="cad_cam_price" class="cal_submit text-center" name="cad_cam_price<?php echo $i ?>" >
                             </td>
-                            <td style="padding: 0 !important;">
+                            <!-- <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->cad_cam_sum ?? 0 }}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="cad_cam_sum"  class="cal_submit" name="cad_cam_sum<?php echo $i ?>">
-                            </td>
+                            </td> -->
                             <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->logistic_price ?? 0 }}"  data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="logistic_price" class="cal_submit text-center" name="logistic_price<?php echo $i ?>">
                             </td>
-                            <td style="padding: 0 !important;">
+                            <!-- <td style="padding: 0 !important;">
                                 <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->logistic_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="logistic_sum"  class="cal_submit" name="logistic_sum<?php echo $i ?>">
-                            </td>
+                            </td> -->
                             <td style="padding: 0 !important;">
                                 @if($arr[$buildingComponent->id][$type->id]->id ??'')
                                     <a class="delete delete_data btn text-danger btn-outline-light border h-100 w-100 cal_delete" name="col_delete<?php echo $i ?>"  data-col_delete_id="{{ $arr[$buildingComponent->id][$type->id]->id ??''}}" >
@@ -110,8 +110,8 @@
 </div>
 <style>
     .masterTab{
-        color: #163269 !important;
-        background-color: #d4e2ff !important;
+        color: #727cf5 !important;
+        background-color: rgba(114,124,245,.18) !important;
     }
 </style>
 <script type="text/javascript">

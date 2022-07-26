@@ -1,9 +1,9 @@
 <div class="p-2">
    
-   <!-- <div class="text-end my-2">
+    <div class="text-end my-2">
         <button class="btn btn-sm btn-light border me-2">Export</button>
         <button class="btn btn-sm btn-primary">Create Issue</button>
-    </div> -->
+    </div>
     <table class="table custom custom table-bordered table-hover m-0">
         <thead>
             <tr>
@@ -44,10 +44,4 @@
             @endfor
         </tbody>
     </table>
-</div>
-
-<div class="card-footer text-end">
-    <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
-    <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
-    <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
 </div>

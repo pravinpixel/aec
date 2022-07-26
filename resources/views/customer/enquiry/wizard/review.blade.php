@@ -41,12 +41,12 @@
                                     <td>@{{ customer_info.email }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.mobile_no != null">
-                                    <td><b>Contact number</b></td>
+                                    <td><b>Conatct number</b></td>
                                     <td>:</td>
                                     <td>@{{ project_info.mobile_no }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.secondary_mobile_no != null">
-                                    <td><b>Secondary Contact number</b></td>
+                                    <td><b>Secondary conatct number</b></td>
                                     <td>:</td>
                                     <td>@{{ project_info.secondary_mobile_no }}</td>
                                 </tr> 
@@ -56,15 +56,15 @@
                                     <td>@{{ project_info.zipcode }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.place != null">
-                                    <td><b>City</b></td>
+                                    <td><b>Place</b></td>
                                     <td>:</td>
                                     <td>@{{ project_info.place }}</td>
                                 </tr> 
-                                {{-- <tr ng-if="project_info.city != null">
+                                <tr ng-if="project_info.city != null">
                                     <td><b>City</b></td>
                                     <td>:</td>
                                     <td>@{{ project_info.city }}</td>
-                                </tr>  --}}
+                                </tr> 
                                 <tr ng-if="project_info.state != null">
                                     <td><b>State</b></td>
                                     <td>:</td>
@@ -86,7 +86,7 @@
                                     <td>@{{ project_info.building_type.building_type_name }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.no_of_building != null">
-                                    <td><b>No. of Buildings</b></td>
+                                    <td><b>Number of Buildings</b></td>
                                     <td>:</td>
                                     <td>@{{ project_info.no_of_building }}</td>
                                 </tr> 
@@ -96,9 +96,9 @@
                                     <td>@{{ project_info.delivery_type.delivery_type_name }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.project_delivery_date != null">
-                                    <td><b>Delivery Date</b></td>
+                                    <td><b>Delivered Date</b></td>
                                     <td>:</td>
-                                    <td>@{{ project_info.project_delivery_date | date: 'dd-MM-yyyy' }}</td>
+                                    <td>@{{ project_info.project_delivery_date }}</td>
                                 </tr> 
                                 <tr ng-if="project_info.customerremarks != null">
                                     <td><b>Remarks</b></td>
@@ -171,25 +171,20 @@
                                     <th class="text-center" width="150px"><b>Action</b></th>
                                 </tr>
                                 <tbody>
-                                    
-                                    <tr ng-show="ifc_model_uploads.length != 0" ng-repeat="ifc_model_upload in ifc_model_uploads">
+                                    <tr ng-repeat="ifc_model_upload in ifc_model_uploads">
                                         <td> @{{ $index + 1}} </td>
-                                        <td> @{{ ifc_model_upload.created_at | date:'dd-MM-yyyy' }}</td>
+                                        <td> @{{ ifc_model_upload.created_at }}</td>
                                         <td> @{{ ifc_model_upload.file_type }}</td>
                                         <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
                                         <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">
                                             <a download="@{{ ifc_model_upload.client_file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.file_type)" ng-click="getDocumentView(ifc_model_upload) "><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
-                                            <a ng-show="autoDeskFileType.includes(ifc_model_upload.file_type)" target="_blank" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            <a ng-show="!autoDeskFileType.includes(ifc_model_upload.file_type)" target="_child" href="{{ url('/') }}/get-enquiry-document/@{{ ifc_model_upload.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            <a ng-show="autoDeskFileType.includes(ifc_model_upload.file_type)" target="_child" href="{{ url('/') }}/viewmodel/@{{ ifc_model_upload.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                         <td class="text-center" ng-show="ifc_model_upload.file_type == 'link'">
                                             <a class="" target="_blank" href="@{{ ifc_model_upload.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
                                     </tr>
-                                    <tr ng-show="ifc_model_uploads.length == 0">
-                                        <td colspan="5">No data found</td>
-                                    </tr>
-                                    
                                 </tbody>
                             </thead>
                         </table>
@@ -215,55 +210,7 @@
                 </div>
                 <div ng-show="project_info.building_component_process_type == 0" id="building_components" class="accordion-collapse collapse  " aria-labelledby="building_components_header" >
                     <div class="accordion-body">  
-                        <table class="table table-bordered m-0 table-striped" ng-init="total = 0 ">
-                            <tbody > 
-                                <tr ng-repeat="building_component in building_components"  ng-show="building_component.detail.length">
-                                    <td class="text-center" width="150px">
-                                        <b>@{{ building_component.wall }}</b>
-                                    </td>
-                                    <td>
-                                        <div class="py-2" ng-repeat="detail in building_component.detail">
-                                            <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
-                                                <thead class="table-secondary text-dark">
-                                                    <tr>
-                                                        <th>Floor</th>
-                                                        <th>Type of Delivery</th>
-                                                        <th>Total Area </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="text-align: left !important">@{{ detail.floor }} </td>
-                                                        <td>@{{ detail.delivery_type.delivery_type_name }}</td>
-                                                        <td >@{{ building_component.totalWallArea }}</td> 
-                                                    </tr>
-                                                </tbody> 
-                                            </table>
-                                            <table class="shadow-sm border table-bordered border-dark table m-0 bg-white">
-                                                <thead>
-                                                    <tr> 
-                                                        <td><b>Name</b></td>
-                                                        <td><b>Thickness (mm)</b></td>
-                                                        <td><b>Breadth (mm)</b></td>
-                                                    </tr> 
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="layer in detail.layer">
-                                                        <td>@{{ layer.layer_name }}</td>
-                                                        <td>@{{ layer.thickness }}</td>
-                                                        <td>@{{ layer.breath }} </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div> 
-                                    </td>
-                                </tr>  
-                                <tr ng-show="!building_components.length">
-                                    <td colspan="4">No data found</td>
-                                </tr>
-                            </tbody>
-                        </table> 
-                        {{-- <div  style="max-height: 400px; overflow:auto"> 
+                        <div  style="max-height: 400px; overflow:auto"> 
                             <table class="table custom table-bordered" ng-init="total = 0 ">
                                 <tbody >
                                     <tr class="table custom-bold text-center">
@@ -290,11 +237,13 @@
                                                         <table class="table custom m-0 table-bordered">
                                                             <tr>
                                                                 <th>Floor</th>
-                                                                <th>Type of Delivery</th>
+                                                                <th>wall Number</th>
+                                                                <th>Delivery type</th>
                                                                 <th >Total Area </th>
                                                             </tr> 
                                                             <tr>
                                                                 <td>@{{ detail.floor }}</td>
+                                                                <td>@{{ detail.exd_wall_number }}</td>
                                                                 <td>@{{ detail.delivery_type.delivery_type_name }}</td>
                                                                 <td ng-init="$parent.total = $parent.total ++ detail.approx_total_area">@{{ detail.approx_total_area }}</td>
                                                             </tr> 
@@ -308,7 +257,7 @@
                                                                 <th>Breadth (mm)</th>
                                                             </tr> 
                                                             <tr ng-repeat="layer in detail.layer">
-                                                                <td>@{{ layer.layer_name }}</td>
+                                                                <td>@{{ layer.layer.layer_name }}</td>
                                                                 <td>@{{ layer.thickness }}</td>
                                                                 <td>@{{ layer.breath }} </td>
                                                             </tr>
@@ -318,12 +267,9 @@
                                             </table> 
                                         </td>
                                     </tr>  
-                                    <tr ng-show="!building_components.length && !building_component.detail.length">
-                                        <td colspan="4"> No data found </td>
-                                    </tr>
                                 </tbody>                     
                             </table> 
-                        </div>  --}}
+                        </div> 
                     </div> 
                 </div>
                 <div ng-show="project_info.building_component_process_type == 1" id="building_components" class="accordion-collapse collapse " aria-labelledby="building_components_header" >
@@ -338,19 +284,15 @@
                                     <th class="text-center" width="150px"><b>Action</b></th>
                                 </tr>
                                 <tbody>
-                                    <tr ng-show="building_components.length" ng-repeat="building_component in building_components">
+                                    <tr ng-repeat="building_component in building_components">
                                         <td> @{{ $index + 1}} </td>
                                         <td> @{{ building_component.created_at }}</td>
                                         <td> @{{ building_component.file_name }}</td>
                                         <td> @{{ building_component.file_type }}</td>
                                         <td class="text-center">
                                             <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                            <a href="javascript:void(0)" ng-click="getDocumentViews(building_component) "data-url="{{ url('/') }}/get-enquiry-document/@{{ buildingComponentUpload.id }}"><i class="document-modal fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
-                                            {{-- <a target="_blank" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a> --}}
+                                            <a target="_child" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                         </td>
-                                    </tr>
-                                    <tr ng-show="!building_components.length && !building_component.detail.length">
-                                        <td colspan="4"> No data found </td>
                                     </tr>
                                 </tbody>
                             </thead>
@@ -381,10 +323,7 @@
                 </div>
                 <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" >
                     <div class="accordion-body">  
-                        <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
-                            <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>
-                            </div>
-                        </div>
+                        <div ng-bind-html="additional_infos.comments"> </div>
                     </div> 
                 </div>
             </fieldset> 
@@ -399,17 +338,17 @@
             <div class="col-6 text-end" ng-show="project_info.status == 'In-Complete'">
                 <div class="btn-group">
                     <button class="next me-2 btn btn-light rounded border"  ng-click="saveOrSubmit('In-Complete')"> Save & Submit Later </button>
-                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Submitted')">Submit </button>
+                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Active')">Submit </button>
                 </div>
             </div>
-            <div class="col-6 text-end" ng-show="project_info.status == 'Submitted' ">
+            <div class="col-6 text-end" ng-show="project_info.status == 'Active' ">
                 <div class="btn-group">
-                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Submitted')">Submit </button>
+                    <button class="next btn-primary btn rounded"  ng-click="saveOrSubmit('Active')">Submit </button>
                 </div>
             </div>
         </div>
     </div>
-    @include('customer.enquiry.models.document-modal')
+    @include('customer.enquiry.models.chat-box')
 </div>
 <style> 
     .reviewSubmit .timeline-step .inner-circle{

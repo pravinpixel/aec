@@ -32,28 +32,3 @@ if(!function_exists('userRole')){
         return $role;
     }
 }
-
-if(!function_exists('proposalStatusBadge')) {
-    function proposalStatusBadge($value) {
-        switch($value){
-            case "not_send": 
-                return "<span class='badge badge-outline-info rounded-pill'>Awaiting</span>";
-                break;
-            case "approved":
-                return "<span class='badge badge-outline-success rounded-pill'>Approved</span>";
-                break;
-            case "obsolete":
-                return "<span class='badge badge-outline-danger rounded-pill'>Obsolete</span>";
-                break;
-            case "denied":
-                return "<span class='badge  badge-outline-danger rounded-pill'>Denied</span>";
-                break;
-            case "change_request":
-                return "<span class='badge badge-outline-danger rounded-pill'>Change Request</span>";
-                break;
-            default:
-                $uValue = (string)ucfirst($value);
-                return "<span class='badge badge-outline-danger rounded-pill'>{$uValue}</span>";
-        }
-    }
-}

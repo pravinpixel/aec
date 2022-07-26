@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\ConnectionPlatformInterface;
 use App\Interfaces\ProjectRepositoryInterface;
-use App\Models\ConnectionPlatform;
 use App\Models\DeliveryType;
 use App\Models\InvoicePlan;
 use App\Models\Project;
@@ -21,7 +19,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatformInterface {
+class ProjectRepository implements ProjectRepositoryInterface{
     protected $model;
     protected $projectAssignModel;
     protected $projectTeamSetup;
@@ -33,19 +31,17 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     public function __construct(
         Project $project, 
         ProjectAssignToUser $projectAssignModel, 
-        ProjectTeamSetup $projectTeamSetup, 
+        ProjectTeamSetup $projctTeamSetup, 
         InvoicePlan $invoicePlan,
         TeamSetupTemplate $teamSetupTemplate,
-        SharepointFolder $sharepointFolder,
-        ConnectionPlatform $connectionPlatform
+        SharepointFolder $sharepointFolder
     ){
         $this->model                = $project;
         $this->projectAssignModel   = $projectAssignModel;
-        $this->projectTeamSetup     = $projectTeamSetup;
+        $this->projectTeamSetup     = $projctTeamSetup;
         $this->invoicePlan          = $invoicePlan;
         $this->teamSetupTemplate    = $teamSetupTemplate;
         $this->sharepointFolder     = $sharepointFolder;
-        $this->connectionPlatform   = $connectionPlatform;
     }
 
     public function create($enquiry_id, $data)
@@ -54,7 +50,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         return $result;
     }
 
-    public function assignProjectToUser($enquiry_id, $data)
+    public function assingProjectToUser($enquiry_id, $data)
     {
        return $this->projectAssignModel
                     ->updateOrCreate(['enquiry_id'=> $enquiry_id],$data);
@@ -89,7 +85,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     }
 
     public function getProjectById($id)
-    { 
+    {
         return $this->model->find($id);
     }
 
@@ -109,18 +105,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function storeConnectPlatform($id, $data = [])
     {
-        $this->model->where('id', $id)->update([
-            'language'=> $data['language'],
-            'time_zone' => $data['time_zone'],
-            'address_one' => $data['address_one'],
-            'address_two' => $data['address_two'],
-            'bim_project_type' => $data['bim_project_type'],
-        ]);
-        $connectionPlatform = $this->connectionPlatform->where('project_id', $id)->first();
-        if(!$connectionPlatform) {
-            return $this->connectionPlatform->create(['project_id'=> $id, 'sharepoint_status'=> 0, 'bim_status'=> 0, 'tf_office_status'=>0]);
-        }
-        return true;
+        
     }
 
     public function storeTeamSetupPlatform($project_id, $data)
@@ -265,28 +250,4 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     {
         return $project->update([$column => $value]);
     }
-
-    public function updateConnectionPlatform($id, $type)
-    {
-        $connectPlatform = ConnectionPlatform::where('project_id', $id)->first();
-        if(empty( $connectPlatform))  {
-            $connectPlatform = new ConnectionPlatform();
-        }
-        $connectPlatform->{$type} = !$connectPlatform->{$type};
-        $connectPlatform->project_id = $id;
-        return $connectPlatform->save();
-    }
-
-    public function getConnectionPlatform($id)
-    {
-        return ConnectionPlatform::where('project_id', $id)->first();
-    }
-    //===========Project To Do List =======
-    public function liveprojectdata($id){
-
-
-        return $this->model->with('customerdatails')->find($id);
-
-    }
-    
 }

@@ -11,24 +11,18 @@
 
                 @include('customer.includes.page-navigater')
 
-                <div class="row m-0">
-                    <div class="col p-0">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
-                            <i class="mdi mdi-filter-menu"></i> Filters
-                        </button> 
-                    </div>
-                    <div class="col text-end p-0">
-                        <a href="{{ route('customers.create-enquiry') }}" class="btn btn-info shadow-sm border mb-3">
-                            <i class="mdi mdi-plus"></i> Create New Enquiry
-                        </a> 
-                    </div>
-                </div>
+                {{--  Fillter Button --}}
+                 
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#enquiry-filter-modal" title="Click to Filter" class="btn btn-light shadow-sm border mb-3">
+                        <i class="mdi mdi-filter-menu"></i> Filters
+                    </button> 
+                {{--  Fillter Button --}}
 
                 <div class="accordion" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingOne">
                             <div class="accordion-button"  type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                New Enquiries
+                                New enquiries
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i
@@ -46,10 +40,7 @@
                     <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
                             <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                <div class="position-relative">
-                                    Active Enquiries 
-                                    <span style="transform: translateY(-10px) !important; display:none" class="commentsCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"> @{{ commentsCount }} </span>
-                                </div>
+                                Active enquiries
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i  
@@ -67,7 +58,7 @@
                     <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingThree">
                             <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                Closed Enquiries
+                                Closed enquiries
                             </div>
                             <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
                                 <i
@@ -84,9 +75,10 @@
                     </div>
                 </div>  
             </div> <!-- container -->
-            @include('customer.enquiry.models.enquiry-filter-modal')
             @include('customer.enquiry.models.detail-modal')
             @include('customer.enquiry.models.approve-modal')
+            @include('customer.enquiry.models.chat-box')
+            @include('customer.enquiry.models.enquiry-filter-modal')
         </div> <!-- content --> 
     </div> 
 
@@ -137,7 +129,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Enquiry Number | Project Name</label>
+                            <label class="form-label">Enqiury Number | Project Name</label>
                             <input type="text" class="form-control" placeholder="Type Here...">
                         </div> 
                         <div class="text-center">
@@ -174,7 +166,7 @@
     
     <script>
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL, $compile ) {
-            $scope.commentsCount = 0;
+           
             $scope.getEnquiry = (type,id) =>  {
                 $(".custom-accordion-collapse").addClass('collapsed');
                 $(".custom-accordion-collapse").removeClass('show');
@@ -183,19 +175,11 @@
                         method: 'GET',
                         url: `${API_URL}customers/edit-enquiry-review/${id}`,
                     }).then(function (res){
-                       
                         $scope.enquiry = res.data;
+                        console.log(res.data);
                         $scope.enquiry_active_comments = res.data.enquiry_active_comments;
                         $scope.enquiry_comments = res.data.enquiry_comments;
                         $scope.enquiry_id = res.data.project_infos.enquiry_id;
-                        $scope.htmlEditorOptions = {
-                            height: 300,
-                            value: ($scope.enquiry.additional_infos == null) ? '' : $scope.enquiry.additional_infos.comments,
-                            contentEditable: false,
-                            mediaResizing: {
-                            enabled: true,
-                            },
-                        };
                         $("#right-modal-progress").modal('show'); 
                         $(`.${type}`).addClass('show');
                     }, function (error) {
@@ -416,11 +400,6 @@
                         }
                     }
                 ],
-                rowCallback: function( row, data ) {
-                    if(data.response_status == 1){
-                        $(row).addClass('fw-bold bg-light');
-                    }
-                },
                 createdRow: function ( row, data, index ) {
                     $compile(row)($scope);  //add this to compile the DOM
                 }
@@ -494,16 +473,6 @@
                     }
                 });
             });
-
-            $http({
-                url     : '{!! route('get-customer-active-comments-count') !!}',
-                method: "GET",
-            }).then(function (res) {
-                $scope.commentsCount = res.data.count;
-                $(".commentsCount").show();
-            }, function (error) {
-                console.log('This is embarassing. An error has occurred. Please check the log for details');
-            })
     });
 
   

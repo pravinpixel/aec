@@ -10,6 +10,5 @@ interface RoleRepositoryInterface
     public function delete($id);
     public function updateStatus($id);
     public function find($id);
-    public function show($id);
     public function getRoleBySlug($name);
 }

@@ -27,9 +27,6 @@ class EmployeeTable extends Migration
             $table->string('status')->nullable();
             $table->string('share_access')->nullable();
             $table->string('bim_access')->nullable();
-            $table->string('bim_id')->nullable();
-            $table->string('bim_account_id')->nullable();
-            $table->string('bim_uid')->nullable();
             $table->string('access')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->string('device_token')->nullable();

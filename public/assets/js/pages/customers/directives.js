@@ -1,5 +1,5 @@
 
-app.directive('viewlist', function(API_URL, $http, $route, $templateCache) {
+app.directive('viewlist', function(API_URL, $http) {
     var directive = {};
     directive.restrict = 'E';
     directive.templateUrl = `${API_URL}customers/view-list`;
@@ -17,31 +17,10 @@ app.directive('viewlist', function(API_URL, $http, $route, $templateCache) {
                         Message('danger', res.data.msg);
                         return false;
                     }
-                    var currentPageTemplate = $route.current.templateUrl;
-                    $templateCache.remove(currentPageTemplate);
-                    $route.reload();
                     window.open(`${API_URL}viewmodel/${document_id}`);
                 }, function error(res) {
 
                 });
-        }
-
-        scope.getDocumentView = (view_type) => {
-            $http({
-                method: 'POST',
-                url: `${API_URL}get-document-modal`,
-                data: {url: view_type.pivot.file_name},
-                }).then(function success(res) {
-                    if(view_type.pivot.file_type == 'pdf')
-                        var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
-                    else
-                        var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
-                    $("#document-content").html(htmlPop);
-                    $("#document-modal").modal('show');
-                }, function error(res) {
-
-            });
-           
         }
     }
     return directive;
@@ -139,154 +118,6 @@ app.service('fileUpload', function ($http, $q) {
         return deffered.promise;
     }
 });
-
-app.directive('comment', function (API_URL, $http) {
-    return {
-        restrict: 'E',
-        scope: {
-            data: '=data'
-        },
-        templateUrl: `${API_URL}template/comment`,
-        link: function(scope, element, attrs) {
-            let {modalState, type, header, enquiry_id, send_by, from} = scope.data;
-            scope.showCommentsToggle = () => {
-                $http.get(API_URL + 'admin/show-comments/'+enquiry_id+'/type/'+type ).then(function (response) {
-                    scope.commentsData = response.data.chatHistory; 
-                    scope.chatType     = response.data.chatType;  
-                    $('#viewConversations-modal').modal('show');
-                    getEnquiryCommentsCountById(enquiry_id);
-                    getEnquiryActiveCommentsCountById(enquiry_id);
-                });
-            };
-            element.bind("keydown keypress", function (event) {
-                if(event.which === 13) {
-                    scope.sendInboxComments(from);
-                    event.preventDefault();
-                }
-            });
-            scope.sendInboxComments  = (type) => {
-                if(scope.inlineComments == '') {
-                    Message('danger','Comment field required');
-                    return false;
-                }
-                scope.sendCommentsData = {
-                    "comments"        :   scope.inlineComments,
-                    "enquiry_id"      :   enquiry_id,
-                    "type"            :   scope.chatType,
-                    "created_by"      :   type,
-                    "seen_by"         :   1,
-                    "send_by"         :   send_by,
-                }
-                $http({
-                    method: "POST",  
-                    url:  API_URL + 'admin/add-comments',
-                    data: $.param(scope.sendCommentsData),
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
-                    }
-                }).then(function successCallback(response) {
-                    scope.inlineComments = '';
-                    scope.showCommentsToggle();
-                    Message('success',response.data.msg);
-                }, function errorCallback(response) {
-                    Message('danger',response.data.errors);
-                });
-            }
-
-            getEnquiryCommentsCountById = (id) => {
-                $http({
-                    method: "get",
-                    url:  API_URL + 'admin/comments-count/'+id ,
-                }).then(function successCallback(response) {
-                    scope.enquiry_comments     = response.data;
-                }, function errorCallback(response) {
-                    Message('danger',response.data.errors);
-                });
-            }
-
-            getEnquiryActiveCommentsCountById = (id) => {
-                $http({
-                    method: "get",
-                    url:  API_URL + 'admin/active-comments-count/'+id ,
-                }).then(function successCallback(response) {
-                    scope.enquiry_active_comments     = response.data;
-                }, function errorCallback(response) {
-                    Message('danger',response.data.errors);
-                });
-            }
-        }
-    };
-});
-
-
-app.directive('openComment', function (API_URL, $http) {
-    return {
-        restrict: 'E',
-        scope: {
-            data: '=data'
-        },
-        templateUrl: `${API_URL}template/open-comment`,
-        link: function(scope, element, attrs) {
-            let {modalState, type, header, enquiry_id, send_by, from} = scope.data;
-            element.bind("keydown keypress", function (event) {
-                if(event.which === 13) {
-                    scope.sendInboxComments(from);
-                    event.preventDefault();
-                }
-            });
-            scope.sendInboxComments  = (created_by) => {
-                if(scope.inlineComments == '') {
-                    Message('danger','Comment field required');
-                    return false;
-                }
-                scope.sendCommentsData = {
-                    "comments"        :   scope.inlineComments,
-                    "enquiry_id"      :   enquiry_id,
-                    "type"            :   type,
-                    "created_by"      :   created_by,
-                    "seen_by"         :   1,
-                    "send_by"         :   send_by,
-                }
-                $http({
-                    method: "POST",  
-                    url:  API_URL + 'admin/add-comments',
-                    data: $.param(scope.sendCommentsData),
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' 
-                    }
-                }).then(function successCallback(response) {
-                    scope.inlineComments = '';
-                    Message('success',response.data.msg);
-                }, function errorCallback(response) {
-                    Message('danger',response.data.errors);
-                });
-            }
-        }
-    };
-});
-
-
-app.directive('ngFile', ['$parse', function ($parse) {
-    return {
-     restrict: 'A',
-     link: function(scope, element, attrs) {
-      element.bind('change', function(){
-        console.log(element);
-       $parse(attrs.ngFile).assign(scope,element[0].files)
-       scope.$apply();
-      });
-     }
-    };
-   }]);
-
-// app.directive('myEnter', function () {
-//     return function (scope, element, attrs) {
-        
-//     };
-// });
-
-
-
 {/* <div class="btn-group w-100 border rounded"> 
 <div dx-tag-box="tagBox.customTemplate" dx-item-alias="product" select-user>
     <div data-options="dxTemplate: { name: 'customItem' }">

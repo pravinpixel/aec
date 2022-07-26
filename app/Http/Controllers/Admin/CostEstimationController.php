@@ -17,8 +17,6 @@ use App\Http\Requests\ComponentUpdateRequest;
 
 use App\Http\Requests\TypeCreateRequest;
 use App\Http\Requests\TypeUpdateRequest;
-use App\Models\CalculateCostEstimate;
-use App\Models\DeliveryType;
 
 use function PHPSTORM_META\type;
 
@@ -29,57 +27,6 @@ class CostEstimationController extends Controller
     {
         
     }
-
-    public function index($type, Request $request)
-    {
-        $calculateCostEstimate = CalculateCostEstimate::where('type',$type)->get();
-        return response($calculateCostEstimate);
-    }
-
-    public function store(Request $request)
-    {
-        $json = $request->input('data');
-        $name = $request->input('name');
-        $type = $request->input('type');
-        $res = CalculateCostEstimate::create([
-            'calculation_json' => json_encode($json),
-            'name'             => $name,
-            'type'             => $type
-        ]);
-        if($res) {
-            return response(['status' => true, 'msg' => __('global.inserted')]);
-        }
-        return response(['status' => false, 'msg' => __('global.something')]);
-    } 
-
-    public function update(Request $request, $id)
-    {
-        $json = $request->input('data');
-        $name = $request->input('name');
-        $type = $request->input('type');
-        $res =  CalculateCostEstimate::findOrFail($id)
-                                    ->update([
-                                        'calculation_json' => json_encode($json),
-                                        'name'             => $name,
-                                        'type'             => $type
-                                    ]);
-        if($res) {
-            return response(['status' => true, 'msg' => __('global.updated')]);
-        }
-        return response(['status' => false, 'msg' => __('global.something')]);
-    }
-
-    public function delete($id, $type)
-    {
-        $res =  CalculateCostEstimate::where(['id'=> $id, 'type'=> $type])
-                                    ->delete();
-        if($res) {
-            return response(['status' => true, 'msg' => __('global.deleted')]);
-        }
-        return response(['status' => false, 'msg' => __('global.something')]);
-    }
-
-
 
     public function cost_estimation_single_view()
     {
@@ -287,7 +234,7 @@ class CostEstimationController extends Controller
     {
         // print_r("s");die();
         $data['component'] = BuildingComponent::where('is_active','=','1')->get();
-        $data['type'] = DeliveryType::where('is_active','=','1')->get();
+        $data['type'] = Type::where('is_active','=','1')->get();
         $arr=[];
 	// print_r($data['type']);die();
         foreach($data['component'] as $key=>$comp)
@@ -556,7 +503,5 @@ class CostEstimationController extends Controller
         return response(['status' => false, 'msg' => __('global.something')]);
     }
     
-
-
     
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helper\Bim360\Bim360UsersApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
@@ -91,10 +90,6 @@ class EmployeeController extends Controller
             $module->image = "no_image.jpg";
         }
         $res = $module->save();
-        $role = Role::find($module->job_role);
-        if($res &&  ($role->slug == config('global.project_manager')) ){
-            $this->createBimUser($module);
-        }
         $id = $module->id;
         $data = new EmployeeSharePointAcess();
         $data->employee_id = $id;
@@ -142,11 +137,10 @@ class EmployeeController extends Controller
             
             // $module->image = $image;
         }
-        $res = $module->update();
-        $role = Role::find($module->job_role);
-        if($res &&  ($role->slug == config('global.project_manager')) ){
-            $this->createBimUser($module);
-        }
+      
+
+
+        $module->update();
         return response(['status' => true, 'msg' => trans('module.updated'),'data' => $id], Response::HTTP_OK);
         }
         return response(['status' => false, 'msg' => trans('module.something')], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -262,7 +256,7 @@ class EmployeeController extends Controller
     {
         return view('admin.pages.employee');
     }
-    public function sharePointAcess()
+    public function sharePointAcess(Type $var = null)
     {
         // return "with out id";
         $id = session('id');
@@ -578,20 +572,14 @@ class EmployeeController extends Controller
 
     public function getTechnicalEstimateEmployee(Request $request)
     {
-        $saleEngineer = Role::where('slug', config('global.technical_estimater'))->first();
-        $projectManager = Role::where('slug', config('global.project_manager'))->first();
-        return Employee::where('status', 1)
-                        ->whereIn('job_role',[$saleEngineer->id,$projectManager->id])
-                        ->where('id','!=', Admin()->id)
-                        ->get();
+        $role = Role::where('slug', config('global.technical_estimater'))->first();
+        return Employee::where(['job_role' => $role->id,'status'=> 1])->orWhere('job_role', 1)->get();
     }
 
     public function getCostEstimateEmployee(Request $request)
     {
         $role = Role::where('slug', config('global.cost_estimater'))->first();
-        return Employee::where(['job_role' => $role->id,'status'=> 1])
-                        ->where('id','!=', Admin()->id)
-                        ->get();
+        return Employee::where(['job_role' => $role->id,'status'=> 1])->orWhere('job_role', 1)->get();
     }
 
     public function getDeliveryManager(Request $request)
@@ -606,33 +594,5 @@ class EmployeeController extends Controller
     }
     
 
-    public function createBimUser($employee)
-    {
-        Log::info('Bim user creation start');
-        $input        = [];
-        $api          = new  Bim360UsersApi();
-        $input["company_id"] = env('BIMDEFAULTCOMPANY');
-        $input["email"]      = $employee->email;
-        $input['bim_id']     = $employee->bim_id ?? Null;
-        $input["nickname"]   = $employee->first_Name;
-        $input["first_name"] = $employee->first_Name;
-        $input["last_name"]  = $employee->last_name;
-        if (isset($input["bim_id"]) && !empty($input["bim_id"])) {
-            $editJson = json_encode($input);
-            $result = $api->editUser($input['bim_id'], $editJson);
-        } else {
-            $createJson = json_encode($input);
-            $result = $api->createUser($createJson);
-        }
-        Log::info("result {$result}");
-        $response = json_decode($result);
-        $employee->bim_id =  $response->id;
-        $employee->bim_account_id =  $response->account_id;
-        $updateUser = json_encode(['status'=> 'active', 'company_id'=> env('BIMDEFAULTCOMPANY')]);
-        $result = $api->editUser($employee->bim_id,  $updateUser);
-        Log::info("result {$result}");
-        Log::info('Bim user creation end');
-        return $employee->save();
-    }
-
+    
 }

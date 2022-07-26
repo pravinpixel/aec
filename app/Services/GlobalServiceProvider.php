@@ -36,12 +36,6 @@ class GlobalServiceProvider extends Controller
         return "{$config->project_prefix}/{$config->enquiry_year}/00{$config->project_number}";
     }
 
-    public function getEmployeeNumber()
-    {
-        $config = $this->getConfig();
-        return "{$config->project_prefix}-{$config->employee_number}";
-    }
-
     public function getConfig()
     {
         return ConfigModel::first();
@@ -61,10 +55,6 @@ class GlobalServiceProvider extends Controller
                 break;
             case 'PRO':
                 $config->project_number += 1;
-                $config->save();
-                break;
-            case 'EMP':
-                $config->employee_number += 1;
                 $config->save();
                 break;
             default:
@@ -116,10 +106,5 @@ class GlobalServiceProvider extends Controller
     public function getSharepointPath($ref='',$folder='')
     {
         return "/DataBase Test/{$ref}/{$folder}";
-    }
-
-    public function getRandomNumber(){
-        $randomNumber = random_int(100000, 999999);
-        return $randomNumber;
     }
 }

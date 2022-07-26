@@ -92,11 +92,11 @@ class PermissionSeeder extends Seeder
            Permission::create(['name' => 'project_schedule_delete']);
    
            // create roles and assign existing permissions
-           $role1 = Role::create(['name' => 'Admin','status' => 1, 'slug' => 'admin']);
-           $role2 = Role::create(['name' => 'Sales Engineer','status' => 1, 'slug' => 'sales_engineer']);
-           $role3 = Role::create(['name' => 'Cost Estimate','status' => 1, 'slug' => 'cost_estimate']);
-           $role4 = Role::create(['name' => 'Delivery Manager','status' => 1, 'slug' => 'delivery_manager']);
-           $role5 = Role::create(['name' => 'Project Manager','status' => 1, 'slug' => 'project_manager']);
+           $role1 = Role::create(['name' => 'admin','status' => 1, 'slug' => 'admin']);
+           $role2 = Role::create(['name' => 'technical estimate','status' => 1, 'slug' => 'technical_estimate']);
+           $role3 = Role::create(['name' => 'cost estimate','status' => 1, 'slug' => 'cost_estimate']);
+           $role4 = Role::create(['name' => 'delivery manager','status' => 1, 'slug' => 'delivery_manager']);
+           $role5 = Role::create(['name' => 'project management','status' => 1, 'slug' => 'project_management']);
         
            $role1->givePermissionTo('enquiry_index');
            $role1->givePermissionTo('enquiry_add');

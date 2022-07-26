@@ -1,11 +1,6 @@
  
 <meta charset="utf-8" />
-@if (Route::is('login'))
-<title> AEC Prefab | Sign in</title>
-@else 
 <title> AEC Prefab | Customer Portal</title>
-@endif
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
 <meta content="Coderthemes" name="author" />
@@ -39,10 +34,6 @@
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
 <!-- ========= Alert js Notifications ========== -->
 
-<!-- ========= Text Editor ========== -->
-<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.common.css" />
-<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.light.css" />
-<!-- ========= Text Editor ========== -->
 <style>
    
     .conversation-list  li.Customer_odd {
@@ -50,7 +41,7 @@
     }
     .conversation-list  li.Customer_odd  .conversation-text {
         background: #BFDDFE;
-        padding: 10px;
+        padding: 15px;
         font-size: 14px;
         font-weight: bold ;
         border-radius: 5px;
@@ -60,7 +51,7 @@
 
     .conversation-list  li.Admin_odd  .conversation-text {
         background: #eee;
-        padding: 10px;
+        padding: 15px;
         font-size: 14px;
         font-weight: bold ;
         border-radius: 5px;
@@ -86,11 +77,8 @@
         clip-path:polygon(0 9%, 0 0, 100% 0, 103% 100%) ;
         left:-11px !important
     }    
-    .form-control.ng-valid.ng-touched ,
-    .form-select.ng-valid.ng-touched {
+    .form-control.ng-valid ,
+    .form-select.ng-valid {
     border-bottom: 1px solid #008a60 !important
-    }
-    .activeTab {
-        pointer-events: none;
     }
 </style>

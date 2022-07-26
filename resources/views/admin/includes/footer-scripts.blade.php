@@ -55,13 +55,9 @@
 <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-<script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
 <script src="{{ asset('public/assets/js/custom.js') }}"></script>
+<script src="https://cdn3.devexpress.com/jslib/21.2.5/js/dx.all.js"></script>
+<script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
 <!-- ========= For Vendors Js ===========-->
 <!-- ========= For Validation Js ===========-->
-
-<!-- ========= Text Editor ========== -->
-<script src="https://unpkg.com/devextreme-quill@1.5.14/dist/dx-quill.min.js"></script>
-<script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
-<!-- ========= Text Editor ========== -->
 

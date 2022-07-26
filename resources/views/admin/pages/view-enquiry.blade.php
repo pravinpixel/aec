@@ -18,7 +18,7 @@
                                         <a href="{{ route("admin-dashboard") }}"><i class="fa fa-home"></i></a>
                                     </li>
                                     <li class="breadcrumb-item active">
-                                        Enquiry detail
+                                        Enquiries detail
                                     </li>
                                     @if (Route::is('view-enquiry')) 
                                         <li class="breadcrumb-item">

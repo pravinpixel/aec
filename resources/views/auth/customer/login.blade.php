@@ -1,6 +1,7 @@
 @extends('auth.layouts.customer')
 
 @section('customer-content')
+@include('flash::message')
     <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -65,7 +66,7 @@
     <!-- end page -->
 
     <footer class="footer footer-alt">
-           © {{ now()->year }} AEC Prefab. All Rights Reserved.
+          © {{ now()->year }} All rights reserved | AecPrefab
     </footer>
     
 </body>

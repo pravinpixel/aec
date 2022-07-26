@@ -132,7 +132,7 @@
                     <div class="col-md-6">
                         <div class="row m-0 align-items-center">
                             <div class="col-3  p-0">
-                                <label class="col-form-label">No of Buildings</label>
+                                <label class="col-form-label">No of Building</label>
                             </div>
                             <div class="col pe-0">
                                 <div class="form-control form-control-sm  border-0 ">@{{ review['building_type'] }}</div> 
@@ -199,7 +199,7 @@
                                     <b>Share Point</b>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <input type="checkbox" id="switch0" disabled data-switch="none"/>
+                                    <input type="checkbox" id="switch0" data-switch="none"/>
                                     <label for="switch0" class="border" data-on-label="" data-off-label=""></label>
                                 </div>
                             </div>
@@ -211,7 +211,7 @@
                                     <b>BIM 360</b>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <input type="checkbox" id="switch1" disabled data-switch="none"/>
+                                    <input type="checkbox" id="switch1" data-switch="none"/>
                                     <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
                                 </div>
                             </div>
@@ -223,8 +223,8 @@
                                     <b>24 /7 Office</b>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <input type="checkbox" id="switch2" disabled data-switch="none"/>
-                                    <label for="switch2" class="border" data-on-label="" data-off-label=""></label>
+                                    <input type="checkbox" id="switch1" data-switch="none"/>
+                                    <label for="switch1" class="border" data-on-label="" data-off-label=""></label>
                                 </div>
                             </div>
                         </div>
@@ -286,7 +286,7 @@
                                             <label class="col-form-label">Project Start Date</label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'dd-MM-yyyy' }}</div>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'yyyy-MM-dd' }}</div>
                                         </div> 
                                     </div>  
                                 </div>
@@ -296,7 +296,7 @@
                                             <label class="col-form-label"> Project End Date </label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'dd-MM-yyyy' }}</div>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'yyyy-MM-dd' }}</div>
                                         </div> 
                                     </div>
                                 </div>
@@ -306,14 +306,7 @@
                                             <label class="col-form-label">BIM 360 Language</label>
                                         </div>
                                         <div class="col pe-0"> 
-                                            <div class="col pe-0"> 
-                                                <select name="language" ng-model="project.language" id="language" class="form-control form-select-sm  border-0"  style="pointer-events:none">
-                                                    <option value=""> @lang('project.select') </option>
-                                                    @foreach(config('project.languages') as $key => $value)
-                                                        <option value="{{ $key }}"> {{  $value }} </option>
-                                                    @endforeach
-                                                </select>
-                                            </div> 
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.language }} </div>
                                         </div> 
                                     </div>
                                 </div>
@@ -324,12 +317,7 @@
                                             <label class="col-form-label">Project Time Zone</label>
                                         </div>
                                         <div class="col pe-0">
-                                            <select name="time_zone" ng-model="project.time_zone" id="time_zone"  class="form-control form-select-sm border-0" style="pointer-events:none">
-                                                <option value=""> @lang('project.select') </option>
-                                                @foreach(config('project.time_zones') as $key => $value)
-                                                    <option value="{{ $key }}"> {{  $value }} </option>
-                                                @endforeach
-                                            </select>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.time_zone }}</div>
                                         </div> 
                                     </div>
                                 </div>
@@ -429,7 +417,7 @@
                                             <label class="col-form-label">Project Start Date</label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'dd-MM-yyyy' }}</div>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.start_date  | date: 'yyyy-MM-dd' }}</div>
                                         </div> 
                                     </div>  
                                 </div>
@@ -439,7 +427,7 @@
                                             <label class="col-form-label"> Project End Date </label>
                                         </div>
                                         <div class="col pe-0">
-                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'dd-MM-yyyy' }}</div>
+                                            <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'yyyy-MM-dd' }}</div>
                                         </div> 
                                     </div>
                                 </div>
@@ -524,7 +512,7 @@
                 <tbody>
                     <tr ng-repeat="row in review['invoice_plan'].invoice_data">
                         <td class="text-center"> @{{ $index + 1 }} </td>
-                        <td class="text-center">@{{ row.invoice_date | date: 'dd-MM-yyyy' }}</td>
+                        <td class="text-center">@{{ row.invoice_date | date: 'yyyy-MM-dd' }}</td>
                         <td class="text-center">@{{ row.amount }}</td>
                         <td class="text-center">@{{ row.percentage }}</td>
                     </tr> 
@@ -575,7 +563,7 @@
                                             <tr>
                                                 <th class="text-center">S.No</th>
                                                 <th class="text-center">Deliverable Name</th>
-                                                {{-- <th class="text-center">Status</th> --}}
+                                                <th class="text-center">Status</th>
                                                 <th class="text-center">Assign To</th>
                                                 <th class="text-center">Start Date</th>
                                                 <th class="text-center">End Date</th>
@@ -592,19 +580,19 @@
                                             <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
                                                 <td>@{{ index_3 +1 }}</td>
                                                 <td>@{{ taskListData.task_list }}</td>
-                                                {{-- <td class="text-center">
+                                                <td class="text-center">
                                                     <input disabled  type="checkbox" get-to-do-lists ng-model="taskListData.status" class="form-check-input">
-                                                </td> --}}
+                                                </td>
                                                 <td>
-                                                    <select  get-to-do-lists ng-model="taskListData.assign_to" class="form-control border-0  form-select-sm" style="pointer-events: none">
+                                                    <select disabled  get-to-do-lists ng-model="taskListData.assign_to" class="form-select border-0  form-select-sm">
                                                         <option value="">-- Project Manager --</option>
                                                         <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
                                                             @{{ projectManager.first_Name }}
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
-                                                <td><input style="pointer-events: none"  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
+                                                <td><input disabled  type="text" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm  border-0 "></td>
                                             </tr> 
                                         </tbody>
                                     </table>
@@ -622,11 +610,3 @@
     <a class="next me-2 btn btn-light rounded border" ng-click="saveProject($event)"> Save & Submit Later </a>
     <a class="next btn-primary btn rounded" ng-click="submitProject($event)">Submit</a>
 </div>
-
-<style> 
-    .Review .timeline-step .inner-circle{
-        background: var(--secondary-bg) !important;
-        transform: scale(1.2);
-        box-shadow: 0px 5px 10px #4f4f4fb2 !important
-    }
-</style> 

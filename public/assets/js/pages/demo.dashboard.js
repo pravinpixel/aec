@@ -17,9 +17,9 @@
 					right: 0
 				}
 			},
-			colors: ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"]
+			colors: ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"]
 		};
-		var e = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"],
+		var e = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"],
 			t = o("#revenue-chart").data("colors");
 		    t && (e = t.split(","));
       
@@ -80,7 +80,7 @@
 
 
 
-		e = ["#163269", "#e3eaef"];
+		e = ["#727cf5", "#e3eaef"];
 		(t = o("#high-performing-product").data("colors")) && (e = t.split(","));
 		r = {
 			chart: {
@@ -142,7 +142,7 @@
 			}
 		};
 		new ApexCharts(document.querySelector("#high-performing-product"), r).render();
-		e = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"];
+		e = ["#727cf5", "#0acf97", "#fa5c7c", "#ffbc00"];
 		(t = o("#average-sales").data("colors")) && (e = t.split(","));
 		r = {
 			chart: {
@@ -185,7 +185,7 @@
 			markerStyle: {
 				initial: {
 					r: 9,
-					fill: "#163269",
+					fill: "#727cf5",
 					"fill-opacity": .9,
 					stroke: "#fff",
 					"stroke-width": 7,

@@ -22,9 +22,7 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
         $comments = $this->model->create([
             "comments"      => $request->comments,
             "enquiry_id"    => $request->enquiry_id,
-            "file_id"       => $request->file_id ?? Null,
-            "reference_id"  => $request->reference_id ?? Null,
-            "version"       => $request->version ?? Null,
+            "file_id"       => $request->file_id ?? "",
             "type"          => $request->type,
             "created_by"    => $created_by,
             "role_by"       => $role_by,
@@ -43,17 +41,6 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
         $result["chatType"] =   $type;
         return $result;
     }
-
-    public function showProposalComment($request,  $id, $version, $proposal_id)
-    {
-        $type = 'proposal_sharing';
-        $result["chatHistory"] = $this->model->where(["enquiry_id"=> $id, "version"=> $version, "reference_id"=>  $proposal_id])->oldest()->get();
-        $ids = $result["chatHistory"]->pluck('id');
-        $this->updateStatus($ids, $type);
-        $result["chatType"] =   $type;
-        return $result;
-    }
-
     public function showTechChat(Request $r, $id, $type)
     {
         $result["chatHistory"] =  $this->model->where(["enquiry_id" =>  $id, "file_id" => $type])->oldest()->get();
@@ -78,22 +65,6 @@ class EnquiryCommentRepository implements EnquiryCommentRepositoryInterface{
                                 ->where(['enquiry_id' => $id, 'status' => 0, 'created_by' => $created_by])
                                 ->groupBy('type')
                                 ->get();
-    }
-
-    public function getCostEstimateCount($id)
-    {
-        return  $this->model->select("created_by", DB::raw("count(*) as comments_count"))
-                            ->where(['enquiry_id' => $id, 'status' => 0, 'type' => "cost_estimation_assign"])
-                            ->groupBy('created_by')
-                            ->get();
-    }
-
-    public function getTechnicalEstimateCount($id)
-    {
-        return  $this->model->select("created_by", DB::raw("count(*) as comments_count"))
-                            ->where(['enquiry_id' => $id, 'status' => 0, 'type' => "technical_estimation_assign"])
-                            ->groupBy('created_by')
-                            ->get();
     }
 
     public function updateStatus($ids, $type, $status = 1)
