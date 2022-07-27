@@ -29,6 +29,7 @@ use App\Interfaces\ProjectRepositoryInterface;
 use App\Interfaces\TechnicalEstimateRepositoryInterface;
 use App\Interfaces\ProjectTicketRepositoryInterface;
 use App\Interfaces\TicketCommentRepositoryInterface;
+use App\Interfaces\TicketcommentsReplayinterface;
 use App\Repositories\AutoDeskRepository;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
@@ -61,6 +62,7 @@ use App\Repositories\PushNotificationRepository;
 use App\Repositories\TaskListRepository;
 use App\Repositories\ProjectTicketRepository;
 use App\Repositories\TicketCommentRepository;
+use App\Repositories\TicketcommentsReplayRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -207,6 +209,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             TicketCommentRepositoryInterface::class,
             TicketCommentRepository::class
+        );
+        $this->app->bind(
+            TicketcommentsReplayinterface::class,
+            TicketcommentsReplayRepository::class
         );
     }
 

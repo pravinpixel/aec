@@ -4,21 +4,26 @@ namespace App\Repositories;
 
 use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Models\TicketComments;
+use App\Models\TicketcommentsReplay;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use DateTime;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TicketCommentRepository implements TicketCommentRepositoryInterface
 {
     protected $model;
     protected $projectModel;
+    protected $ticketcommentsReplay;
 
     public function __construct(
         TicketComments $TicketComments,
-        Project $projectModel
+        Project $projectModel,
+        TicketcommentsReplay $ticketcommentsReplay
     ) {
         $this->model = $TicketComments;
         $this->Project   = $projectModel;
+        $this->TicketcommentsReplay   = $ticketcommentsReplay;
     }
 
     public function all()
@@ -35,6 +40,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
 
     public function update(array $data, $id)
     {
+       
         return $this->model->where('id', $id)
             ->update($data);
     }
@@ -76,23 +82,26 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
                             'ticketid' => $ticketcomments->id,
                             'priority' => $ticketcomments->priority,
                             'status'    => $ticketcomments->status,
+                            'project_id' =>$ticketcomments->project_id
                         );
 
         }else{
             $requesterdetails = $this->model->with('requesterdetails')->find($id);
             $assigndetails = $this->model->with('assigndetails')->find($id);
-
+           
             $header = array('username' => $requesterdetails->requesterdetails->first_Name,
                             'image'     => $requesterdetails->requesterdetails->image,
-                            'email'     => $assigndetails->assigndetails->email,
+                            'email'     => $assigndetails->assigndetails->email ?? '',
                             'ticketid' => $ticketcomments->id,
                             'priority' => $ticketcomments->priority,
-                            'status'    => $ticketcomments->status,);
+                            'status'    => $ticketcomments->status,
+                            'project_id' =>$ticketcomments->project_id);
         }
 
         $result['projectticket'] = $this->Project->find($ticketcomments->project_id);
+        
         $result['header'] = $header;
-        $result["chatHistory"] = $this->model->where(["project_ticket_id" => $id, "type" =>  $type])->oldest()->get();
+        $result["chatHistory"] = $this->TicketcommentsReplay->where(["project_ticket_id" => $id])->oldest()->get();
         $ids = $result["chatHistory"]->pluck('id');
         $this->updateStatus($ids, $type);
         $result["chatType"] =   $type;
@@ -128,12 +137,12 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
 
         if (!empty(Customer()->id)) {
             $send_by = Customer()->id;
-            $created_by = 'Admin';
+            $created_by = Customer()->id;
         } else {
             $send_by =  Admin()->id;
-            $created_by = 'Customer';
+            $created_by = Admin()->id;
         }
-        //dd( $request->project_id);
+        //dd( $request);
         $comments = $this->model->create([
             "project_id"    => $request->project_id,
             "type"          => $request->data['type'],
@@ -142,14 +151,18 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             "description"   => $request->data['description'],
             "priority"      => $request->data['priority'],
             "assigned"      => $request->data['assigned'],
+            "ticket_date"   =>new DateTime($request->data['ticket_date']),
             "created_by"    => $created_by,
             "role_by"       => $role_by,
             "seen_by"       => $seen_by,
             "send_by"       => $send_by,
+            "project_status"=>'New',
             "status"        => 0,
         ]);
 
         return $comments;
     }
+
+    
     
 }

@@ -32,7 +32,7 @@ class AuthController extends Controller
                     $sharepoint->getToken();
                     Flash::success(__('auth.login_successful'));
                     return redirect()->route('cost-estimate.dashboard');
-                } else if($role == config('global.technical_estimater') || $role == config('global.project_manager')) {
+                } else if($role == config('global.technical_estimater')) {
                     Flash::success( __('auth.login_successful'));
                     return redirect()->route('technical-estimate.dashboard');
                 } else {

@@ -118,6 +118,46 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         return $employeedata;
     }
 
+
+    public function getprojectticketsearch($id,$type){
+        if($type == 'show'){
+            $projectticket = $this->Projectticketcase->find($id);
+            $projectcollection = $projectticket->project_id;
+            $ProjectTicket['ticket'] = $this->model->where('project_id',$projectcollection)->get();
+            $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($projectcollection);
+            $searchticket = $this->Projectticketcase->with('assigndetails')
+            ->where('project_id',$projectcollection);
+            
+          
+            $ProjectTicket['ticketcase'] =  $searchticket->orderBy('id','desc')->get();
+
+
+        }
+        else{
+
+        if (null == $ProjectTicket['ticket'] = $this->model->where('project_id',$id)->get()) {
+            throw new ModelNotFoundException("Ticket not found");
+        }
+        $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
+        $searchticket = $this->Projectticketcase->with('assigndetails')
+                                                ->where('project_id',$id);
+                                                if($type != 'all'){
+                                                    $searchticket->where('type',$type);
+
+                                                }
+                                              
+                                                $ProjectTicket['ticketcase'] =  $searchticket->orderBy('id','desc')->get();
+
+        //dd($ProjectTicket['ticketcase']);
+       
+        //$this->projectModel->find($id);
+                                            }
+      
+        return $ProjectTicket;
+     
+
+    }
+
     
     
 }

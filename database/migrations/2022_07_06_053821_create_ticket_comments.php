@@ -24,7 +24,9 @@ class CreateTicketComments extends Migration
             $table->text('priority')->nullable();
             $table->datetime('ticket_date')->nullable();
             $table->boolean('status')->default(0);
+            $table->string('project_status')->default(0);
             $table->string('created_by')->nullable();
+            $table->string('updated_by')->default(0);
             $table->unsignedBigInteger('send_by')->nullable();
             $table->unsignedBigInteger('seen_by')->nullable();
             $table->string('role_by')->nullable();

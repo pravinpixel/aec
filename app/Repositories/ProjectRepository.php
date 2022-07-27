@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\ConnectionPlatformInterface;
 use App\Interfaces\ProjectRepositoryInterface;
+use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Models\ConnectionPlatform;
 use App\Models\DeliveryType;
 use App\Models\InvoicePlan;
@@ -17,6 +18,7 @@ use App\Models\SharepointFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Carbon\Carbon;
+use App\Models\Employee;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
@@ -29,6 +31,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     protected $teamSetupTemplate;
     protected $sharepointFolder;
     protected $fileDir;
+    protected $customerEnquiryRepo;
 
     public function __construct(
         Project $project, 
@@ -37,7 +40,8 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         InvoicePlan $invoicePlan,
         TeamSetupTemplate $teamSetupTemplate,
         SharepointFolder $sharepointFolder,
-        ConnectionPlatform $connectionPlatform
+        ConnectionPlatform $connectionPlatform,
+        CustomerEnquiryRepositoryInterface $customerEnquiryRepository
     ){
         $this->model                = $project;
         $this->projectAssignModel   = $projectAssignModel;
@@ -46,6 +50,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $this->teamSetupTemplate    = $teamSetupTemplate;
         $this->sharepointFolder     = $sharepointFolder;
         $this->connectionPlatform   = $connectionPlatform;
+        $this->customerEnquiryRepo     = $customerEnquiryRepository;
     }
 
     public function create($enquiry_id, $data)
@@ -62,6 +67,8 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     
     public function unestablishedProjectList($request)
     {
+        list($seenBy, $role_id,$created_by) = $this->getUser();
+
         $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
         $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
         $projetType = isset($request->projet_type) ? $request->projet_type : false;
@@ -90,7 +97,43 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function getProjectById($id)
     { 
-        return $this->model->find($id);
+        return$this->model->find($id);
+
+    }
+    public  function getliveProjectById($id){
+        $project = $this->model->find($id);
+
+        $employee =  Employee::find($id);
+        
+      $projechtchart = json_decode($project->gantt_chart_data);
+        foreach($projechtchart as $projectdata){
+           // dd($projectdata->data);
+           
+            foreach($projectdata->data as $key=>$prodata){
+                $finalstatuspercentage = array();
+                $overall = count($prodata->data);
+                $totaloverall[] = $overall;
+                foreach($prodata->data as $finaldata){
+                   if(isset($finaldata->status) &&  $finaldata->status !=  ''){
+                    $finalstatuspercentage[] =   $finaldata->status;
+                   } 
+                  
+                }
+                $completecount = count($finalstatuspercentage);
+                $totalcompletecount[] = $completecount;
+                $rearr[] = array('completed'=> round(($completecount /$overall )*100),2);
+               
+            }
+         }
+         //dd(array_sum($totalcompletecount));
+         $result = array('overall'=> round(((array_sum($totalcompletecount) / array_sum($totaloverall))*100),2),
+         'completed' => $rearr);
+        $result['project'] = $project;
+        $result['lead'] = $employee->first_Name;
+        $result['count']= $result;
+        
+        //dd($project);
+        return $result;
     }
 
     public function checkReferenceNumber()
@@ -287,6 +330,23 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
         return $this->model->with('customerdatails')->find($id);
 
+    }
+
+    public function getUser()
+    {
+
+        //dd(Admin());
+        if (!empty(Customer()->id)) {
+            $seenBy = Customer()->id;
+            $role_id = '';
+            $created_by = 'Admin';
+        } else {
+            $seenBy =  Admin()->id;
+            $role_id = Admin()->job_role;
+
+            $created_by = 'Customer';
+        }
+        return [$seenBy, $role_id,$created_by];
     }
     
 }

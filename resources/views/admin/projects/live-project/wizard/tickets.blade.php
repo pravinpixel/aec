@@ -6,13 +6,13 @@
                     <i class="mdi mdi-home-variant d-md-none d-block"></i>
                     <span class="d-none d-md-block">Internal Tickets</span>
                 </a>
-            </li> -->
+            </li> 
             <li class="nav-item">
                 <a href="#InternalTickets" data-bs-toggle="tab" aria-expanded="true" class="nav-link active  border-bottom-0">
                     <i class="mdi mdi-account-circle d-md-none d-block"></i>
                     <span class="d-none d-md-block">Customer Tickets</span>
                 </a>
-            </li> 
+            </li> -->
         </ul> 
         <div class="tab-content border p-2">
             <div class="tab-pane " id="CustomerTicket">
@@ -169,9 +169,9 @@
                 <h3 class="h4 mb-0 mt-3">Issues Summary</h3>
                 <div class="d-flex justify-content-between border-bottom align-items-end">
                     <div>
-                        <button class="fw-bold border-primary border-start-0 border-end-0 border-top-0 rounded-0 border-bottom btn btn-sm">All</button>
-                        <button class="rounded-0 border-0 btn btn-sm ms-1">Internal</button>
-                        <button class="rounded-0 border-0 btn btn-sm ms-1">Customer</button>
+                        <button class="fw-bold border-primary border-start-0 border-end-0 border-top-0 rounded-0 border-bottom btn btn-sm" ng-click = "tablesearch('all')">All</button>
+                        <button class="rounded-0 border-0 btn btn-sm ms-1" ng-click = "tablesearch('internal')">Internal</button>
+                        <button class="rounded-0 border-0 btn btn-sm ms-1" ng-click = "tablesearch('customer')">Customer</button>
                     </div>
                     <div class="pb-2">
                         <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Case</button>
@@ -182,8 +182,10 @@
                 <div class="mb-2 pt-2 row mx-0 align-items-center">
                     <div class="d-flex align-items-center col-4 p-0">
                         <label class="m-0 me-1">Quick filters</label>
-                        <select class="form-select form-select-sm" style="width: 150px">
-                            <option value="">All</option>
+                        <select class="form-select form-select-sm" style="width: 150px" ng-click = "alert(event)">
+                            <option value="all">All</option>
+                            <option value="internal">Internal</option>
+                            <option value="customer">Customer</option>
                         </select>
                     </div>
                     <div class="col-8 p-0">
@@ -199,12 +201,13 @@
                         </div>
                     </div>
                 </div>
+             
                 <table class="table custom custom table-hover m-0 table-responsive">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>ID</th>
-                            <th>Requester</th>
+                            <th>Type</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>Status</th>
@@ -219,13 +222,13 @@
                        
                             <tr ng-repeat="(ptcindex,pticketscomment) in pticketcomment">
                                 <td>@{{ ptcindex+1 }}</td>
-                                <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><small>PRXX / TIKXX-0@{{ ptcindex+1 }}</small></button></td>
+                                <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(pticketscomment.id,'show')"><small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small></a></button></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-@{{ ptcindex+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <!--<img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-@{{ ptcindex+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">-->
                                         <div>
                                             <h5 class="m-0 font-14">
-                                                Arya Stark
+                                               @{{pticketscomment.type}}
                                             </h5>
                                         </div>
                                     </div>
@@ -241,8 +244,8 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><span class="badge bg-success">New</span></td>
-                                <td> <small>@{{ pticketscomment.ticket_date | date:"MM/dd/yyyy'T' h:mm" }}<br> <small class="text-secondary">(Due in 1d)</small></small></td>
+                                <td><span class="badge bg-success">@{{pticketscomment.project_status}}</span></td>
+                                <td> <small>@{{ pticketscomment.ticket_date | date:"MM/dd/yyyy'T' h:mm" }}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
                                 <td style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
                                <!-- <td>
                                     <div class="d-flex align-items-center">
@@ -259,12 +262,15 @@
                                     <div class="dropdown">
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',1)">View/Reply</a>
+                                            <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',pticketscomment.id)">View/Reply</a>
                                             <a class="dropdown-item" href="#">Delete</a>
                                            
                                         </div>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr ng-show="!pticketcomment.length">
+                                <td colspan="4">No data found</td>
                             </tr>
                        
                     </tbody>
@@ -303,7 +309,7 @@
 
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Summary</label>
-                                        <input type="text" class="form-control form-control-sm" ng-model = "case.summary">
+                                        <input type="text" class="form-control form-control-sm" ng-model = "case.summary" ng-required="true">
                                     </div> 
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Description</label>
@@ -324,21 +330,13 @@
                                                 {{-- <input  type="file" class="form-control file-control rounded-pill" file-model="projectFiles" id ="@{{ documentType.slug }}"/> --}}
                                                 <input type="file" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
 
-                                                <p id = "case_image"ng-model = "case.file_id" ng-show="!@{{response.name}}">@{{ response.name }}</p>
+                                                <p id = "case_image"ng-model = "case.file_id" ng-show="!@{{responses.name}}" style="display: none;">@{{ responses.name }}</p>
                                                 
                                                 <div class="error-msg">
                                                     <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
                                                 </div>
                                             </div>
-                                            <!--<div class="card-body" ng-show="PreviewImage.length">
-                                                <div class="position-relative">
-                                                    <img ng-src="{{ asset("public/files/") }}/@{{PreviewImage}}" id="PreviewImage" ng-show="!@{{PreviewImage}}" width="100px" ng-model="FormData.image"/>
-                                                    <span
-                                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" ng-show="deleteImageBtn" ng-click="deleteImage()">
-                                                        <i class="fa fa-times"></i>
-                                                    </span>
-                                                </div> 
-                                            </div>-->
+                                          
 
 
 
@@ -467,6 +465,7 @@
                     <div class="modal-title d-flex">
                         <i class="fa fa-thumb-tack f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
                         <div>
+                          
                             <h4 class="m-0">@{{projectticket.reference_number}}  |  <span class="text-secondary f-14 fw-bold">  @{{projectticket.project_name}} </span></h4> 
                         </div>
                     </div>
@@ -489,22 +488,23 @@
                                         </div>
                                     </div> 
                                     <hr>
-                                    <ul class="conversation__box">
-                                        <li class="left__conversation">
+                                    <ul class="conversation__box" ng-repeat="comment in commentsData">
+                                     
+                                       <li class="left__conversation" ng-if="comment.created_by == {{ Admin()->id }}">
                                             <div>
-                                                <h5 class="m-0 mb-1 font-14">Rhonda D</h5>
-                                                <p class="m-0 font-14">Hello! </p> 
+                                              
+                                                <p class="m-0 font-14" >   @{{comment.comments}}</p> 
+                                                <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
+                                            </div>
+                                        </li>
+                                        <li class="right__conversation" ng-if="comment.created_by != {{ Admin()->id }}">
+                                            <div>
+                                              
+                                                <p class="m-0 font-14">@{{comment.comments}}</p> 
                                                 <small>10:04</small>
                                             </div>
                                         </li>
-                                        <li class="right__conversation">
-                                            <div>
-                                                <h5 class="m-0 mb-1 font-14">Dominic</h5>
-                                                <p class="m-0 font-14">Hi, How are you? What about our next meeting?</p> 
-                                                <small>10:04</small>
-                                            </div>
-                                        </li>
-                                        <li class="left__conversation">
+                                       <!-- <li class="left__conversation">
                                             <div>
                                                 <h5 class="m-0 mb-1 font-14">
                                                     Rhonda D
@@ -547,13 +547,14 @@
                                                 <p class="m-0 font-14">We can also discuss about the presentation talk format if you have some extra mins</p> 
                                                 <small>10:04</small>
                                             </div>
-                                        </li> 
+                                        </li> -->
                                     </ul>
                                 </div>
                                 <div class="card-footer bg-light border-top">
                                     <div class="collapsed collapse mb-2" id="ReplayMail">
-                                        <small>To : <b>sarah.james@gmail.com</b></small>
-                                        <textarea class="form-control mt-1">Hi.. Rhonda D</textarea>
+                                        <small>To : <b> @{{header.email}}</b></small>
+                                      
+                                        <textarea class="form-control mt-1" ng-model = "inlineComments">Hi..  @{{header.username}}</textarea>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <i class="mdi mdi-account btn me-2 shadow-sm border btn-sm" style="background: #e7e7e7"></i>
@@ -565,8 +566,8 @@
                                             </button>
                                             <i class="mdi mdi-delete btn me-2 shadow-sm border btn-sm collapsed collapse text-danger" data-bs-toggle="collapse"
                                             href="#ReplayMail" aria-expanded="false" aria-controls="ReplayMail" id="ReplayMail" style="background: #e7e7e7"></i>
-                                            <button class="btn btn-primary btn-sm fw-bold collapsed collapse" id="ReplayMail"> 
-                                                <i class="uil-corner-up-left me-1"></i> Send
+                                            <button class="btn btn-primary btn-sm fw-bold collapsed collapse" id="ReplayMail" ng-click = "issuesreplaycomment('issues',header.ticketid,header.project_id)"> 
+                                                <i class="uil-corner-up-left me-1"  ></i> Send
                                             </button>
                                         </div>
                                     </div>
@@ -580,32 +581,32 @@
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Tiket ID</label>
                                         <div class="form-control shadow"> 
-                                            <a href="#" class="fw-bold">
-                                                <u>PRXX/TIKXX-@{{header.ticketid}}</u>
+                                            <a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(header.ticketid,'show')">
+                                                <u>@{{projectticket.reference_number}} /TIK0-@{{header.ticketid}}</u>
                                             </a> 
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Priority</label>
-                                        <select class="form-select shadow" id="example-select">
-                                            <option>Low</option>
-                                            <option>High</option>
-                                            <option>Medium</option>
+                                        <label for="example-select"  class="form-label text-secondary">Priority</label>
+                                        <select class="form-select shadow" id="example-select" ng-model="ticked_update.priority">
+                                            <option value = "low">Low</option>
+                                            <option value = "high">High</option>
+                                            <option value = "medium">Medium</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Status</label>
-                                        <select class="form-select shadow" id="example-select">
-                                            <option>Open</option>
-                                            <option>Close</option>
-                                            <option>Pending</option>
+                                        <select class="form-select shadow" id="example-select" ng-model="ticked_update.status">
+                                            <option value="open">Open</option>
+                                            <option value="close">Close</option>
+                                            <option value="pending">Pending</option>
                                         </select>
                                     </div> 
-                                    <button class="btn btn-sm btn-info w-100"><i class="mdi mdi-rotate-left me-1"></i> Update</button>
+                                    <button class="btn btn-sm btn-info w-100"  ng-click = updateticketstatus(header.ticketid)><i class="mdi mdi-rotate-left me-1"></i> Update</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 p-0 border-start   ">
+                       <!-- <div class="col-lg-2 p-0 border-start   ">
                             <div class="cardx">
                                 <div class="card-body">
                                     <div class="mt-3 text-center">
@@ -620,7 +621,7 @@
                                     </div>
                                 </div>  
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div> 
             </div><!-- /.modal-content -->
@@ -716,6 +717,74 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
+
+
+{{-- ticket comments show start--}}
+
+<div id="ticket_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-right h-100" style="width:100% !important">
+        <div class="modal-content h-100">
+            <div class="modal-header border-0">
+                <h4 class="modal-title" id="myLargeModalLabel"></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body  "  style="overflow: auto">
+                {{-- <div class="card pt-3">
+                    <div id="mail_content_first_text_editor">
+                        <div text-angular="text-angular" name="mail_content_first" ng-model="mail_content_first" ta-disabled='disabled'></div>      
+                    </div>
+                </div> --}}
+
+                
+                <form id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationForm()">
+
+                <table class="table custom table-bordered">
+                    <thead>
+                        <tr>
+                            <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">@{{customer.project_name}}</b></td>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="200px"><b>Reference No </b></td>
+                            <td>@{{ customer_model.reference_number}}/TIK0@{{pticketcomment_model.id}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Summary</b></td>
+                            <td>@{{pticketcomment_model.summary}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Description</b></td>
+                            <td>@{{pticketcomment_model.description}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Priority</b></td>
+                                <td>@{{pticketcomment_model.priority}}</td>
+                        </tr> 
+                        <tr>
+                            <td><b>Status</b></td>
+                                <td>@{{pticketcomment_model.project_status}}</td>
+                        </tr> 
+                        <tr>
+                            <td><b>Due By</b></td>
+                                <td>@{{pticketcomment_model.ticket_date | date: 'dd-MM-yyyy'}}</td>
+                        </tr> 
+                    </tbody>
+                </table>
+                
+                
+            </form>
+            </div> 
+            {{-- <div class="modal-footer"> 
+                <button class="btn btn-primary"  ><i class="fa fa-save me-2"></i>Update</button>
+            </div> --}}
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
 <div class="card-footer text-end">
     <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>

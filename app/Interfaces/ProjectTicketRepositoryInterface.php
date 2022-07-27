@@ -2,6 +2,8 @@
 
 namespace App\Interfaces;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\FuncCall;
+
 interface ProjectTicketRepositoryInterface
 
 {
@@ -15,5 +17,6 @@ interface ProjectTicketRepositoryInterface
     public function getprojectticket($id);
     public function findprojectticket($id);
     public function findprojectteam($project);
+    public function getprojectticketsearch($id ,$type);
     
 }

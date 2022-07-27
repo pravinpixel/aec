@@ -567,7 +567,7 @@ app.controller('milestoneController', function ($scope, $http, API_URL, $rootSco
 
 //Live project task list
 app.controller('TasklistController', function ($scope, $http, API_URL, $location) {
-    $http.get(`${API_URL}admin/get-employee-by-slug/project_management`).then((res) => {
+    $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
         $scope.projectManagers = res.data;
     });
 
@@ -583,12 +583,18 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
 
             });
 
-            $http.get(`${API_URL}project/${project_id}`).then((res) => {
+            $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
+                //console.log(res);
 
-                $scope.project = formatData(res.data);
-                $scope.check_list_items = JSON.parse(res.data.gantt_chart_data) == null ? [] : JSON.parse(res.data.gantt_chart_data)
-                $scope.check_list_items_status = JSON.parse(res.data.gantt_chart_data) == null ? false : true
-
+                $scope.project = formatData(res.data.project);
+                $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
+                $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
+                $scope.countper =res.data.completed == null ? [] : res.data.completed;
+                $scope.overall = res.data.overall;
+                $scope.lead = res.data.lead;
+                //console.log(res.data.overall );
+               
+                
             });
         }
 
@@ -651,7 +657,7 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
                     }).then((res) => {
                         if (res.data.status === true) {
                             Message('success', 'To do List Added Success !');
-                            $location.path('project-scheduling')
+                            //$location.path('project-scheduling')
                         }
                     })
                 }
@@ -830,15 +836,8 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
           
             $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
             $scope.customer = res.data.project == null ? false : res.data.project
-            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
-
-
-
-            console.log(res.data.ticketcase );
-
-            
+            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase});
            
-        });
     }
    
 
@@ -863,7 +862,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         .then((res) => {
             Message('success', 'Ticket Created Successfully');
             if(res.data.status == true){
-                location.href = `${API_URL}admin/list-projects`;
+                window.location.reload();
             }
             console.log(res.data.status);
             //$location.path('platform');
@@ -927,7 +926,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         switch (modalstate) {
          
             case 'viewConversations':
-                
+               
                 $http.get(API_URL + 'admin/api/v2/live-project/show-ticket-comment/'+$scope.id+'/type/'+type ).then(function (response) {
                     $scope.commentsData     = response.data.chatHistory; 
                     $scope.chatType         = response.data.chatType;  
@@ -941,6 +940,17 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
             break;
         }
     }
+    $scope.showTicketComments = function(id,type){
+        //console.log(type);
+        $http.get(`${API_URL}admin/api/v2/projectticketsearch/${id}/${type}`).then((res) => {
+            $scope.ptickets_model = res.data.ticket == null ? [] : res.data.ticket
+            $scope.customer_model = res.data.project == null ? false : res.data.project;
+            $scope.pticketcomment_model = res.data.ticketcase[0] == null ? false : res.data.ticketcase[0];
+            $('#ticket_mdal-box').modal('show');  
+        });
+
+        
+    }
 
     $scope.sendprojectticketComments  = function(type , chatSection) { 
         $scope.sendCommentsData = {
@@ -950,6 +960,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
             "created_by"             :   type,
             "role_by"                : `Cost Estimater ${type}`
         }
+      
         $http({
             method: "POST",
             url:`${API_URL}admin/live-project/add-comments`,
@@ -1021,6 +1032,112 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
           $scope.response = response.data;
         });
       }
+
+      //search tale
+      $scope.tablesearch = function (type){
+         if (project_id != null) {
+             $http.get(`${API_URL}admin/api/v2/projectticketsearch/${project_id}/${type}`).then((res) => {
+                $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
+                $scope.customer = res.data.project == null ? false : res.data.project
+                $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
+            });
+        }
+      }
+
+      $scope.alert = function($event) {
+        let elmSelect = angular.element(event.target)[0];
+        let options = elmSelect.options;
+        let selectedOptionInnerHmtl = options[options.selectedIndex].value;
+ 
+        $http.get(`${API_URL}admin/api/v2/projectticketsearch/${project_id}/${selectedOptionInnerHmtl}`).then((res) => {
+            $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
+            $scope.customer = res.data.project == null ? false : res.data.project
+            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
+        });
+
+      
+      }
+
+      
+
+      $scope.issuesreplaycomment  = function(type , ticketid,project_id) { 
+        //console.log(project_id);
+       
+        $scope.sendCommentsData = {
+            "comments"               :   $scope.inlineComments,
+            "project_ticket_id"      :   ticketid,
+            "project_id"             :   project_id,
+            "created_by"             :   type,
+            "role_by"                : `Cost Estimater ${type}`
+        }
+
+       
+        $scope.CallToDB = false;
+        if (  $scope.inlineComments === undefined ||  $scope.inlineComments == '') {
+            Message('danger', 'Your Issues comment is empty');
+            $scope.CallToDB = false;
+            return false
+        }
+        $http({
+            method: "POST",
+            url:`${API_URL}admin/live-project/replay-comments`,
+            data: $.param($scope.sendCommentsData),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded' 
+            }
+        }).then(function successCallback(response) {
+            //document.getElementById("Inbox__commentsForm").reset();
+            $scope.showCommentsToggle('viewConversations', 'project_ticket_comment', 'Ticket Comment',ticketid);
+            Message('success',response.data.msg);
+            
+        }, function errorCallback(response) {
+            Message('danger',response.data.errors);
+        });
+    } 
+
+    $scope.updateticketstatus = function(ticketid){
+        $scope.sendCommentsData = {
+          
+            "project_ticket_id"    :   ticketid,
+            "priority"             :   $scope.ticked_update.priority,
+            "project_status"       :   $scope.ticked_update.status,
+        }
+
+        $scope.CallToDB = false;
+        if (   $scope.ticked_update.priority === undefined ||   $scope.ticked_update.priority == '') {
+            Message('danger', 'Please Select priority');
+            $scope.CallToDB = false;
+            return false
+        }
+        if (   $scope.ticked_update.status === undefined ||   $scope.ticked_update.status == '') {
+            Message('danger', 'Please Select Status');
+            $scope.CallToDB = false;
+            return false
+        }
+        $http({
+            method: "POST",
+            url:`${API_URL}admin/live-project/replay-comments_update`,
+            data: $.param($scope.sendCommentsData),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded' 
+            }
+        }).then(function successCallback(response) {
+            //document.getElementById("Inbox__commentsForm").reset();
+            //$scope.showCommentsToggle('viewConversations', 'project_ticket_comment', chatSection,$scope.id);
+            Message('success',response.data.msg);
+            window.location.reload();
+        }, function errorCallback(response) {
+            Message('danger',response.data.errors);
+        });
+
+    }
+
+    
+
+    
+
+
+
 
   
     

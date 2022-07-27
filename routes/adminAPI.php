@@ -32,6 +32,7 @@
         Route::post('store-task-list', [ProjectController::class,'storetasklit'])->name('store-task-list');
         Route::post('live-project-ticket', [ProjectController::class,'ticketcreate'])->name('live-project-ticket');
         Route::get('projectticket/{id}', [ProjectController::class,'ticketlist'])->name('live-project-ticket-list');
+        Route::get('projectticketsearch/{id}/{type}', [ProjectController::class,'ticketsearchlist'])->name('live-project-ticket-search-list');
         Route::get('projectticketfind/{id}', [ProjectController::class,'projectticketfind'])->name('live-project-ticket-find');
         Route::get('live-project/show-ticket-comment/{id}/type/{type}',[TicketCommentsController::class,'sendprojectticket']);
         

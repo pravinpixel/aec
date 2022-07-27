@@ -16,6 +16,8 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::get('live-projects/{id}',[ProjectController::class, 'live'])->name('live-projects-data');
     Route::post('live-project/sendticket/send-mail-ticket/{ticket_id}/customerid/{cid}',[ProjectController::class,'sendcustomerMail']);
     Route::post('live-project/add-comments', [TicketCommentsController::class,'store'])->name("projectticket.comments");
+    Route::post('live-project/replay-comments', [TicketCommentsController::class,'replay_comments'])->name("projectticket.replaycomments");
+    Route::post('live-project/replay-comments_update', [TicketCommentsController::class,'replay_comments_update'])->name("projectticket.replaycomments_update");
     Route::post('live-project/store-ticket-case', [TicketCommentsController::class, 'storeTicketCase'])->name('store-ticket-case');
     Route::post('live-project/add-image', [TicketCommentsController::class,'add_image'])->name("projectticket.add-image");
     Route::get('project/team/{id}/team_setup',[ProjectController::class, 'tagteamsetup'])->name('tagteamsetup');
@@ -61,6 +63,8 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::get('get-template-by-id/{id}',[ProjectController::class, 'getTeamsetupTemplateById'])->name('get-template-by-id');
     Route::get('reference-number',[ProjectController::class, 'getReferenceNumber'])->name('reference-number');
     Route::get('/{id}',[ProjectController::class, 'show'])->name('get-by-id');
+    Route::get('liveprojectlist/{id}',[ProjectController::class, 'livetaskshow'])->name('get-by-taskid');
+
   
     Route::post('/',[ProjectController::class, 'store'])->name('store');
     Route::get('wizard/{type}',[ProjectController::class, 'getProject'])->name('wizard');

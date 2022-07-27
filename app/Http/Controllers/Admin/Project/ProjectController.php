@@ -453,7 +453,13 @@ class ProjectController extends Controller
 
     public function show($id)
     {
+        
         return $this->projectRepo->getProjectById($id);
+        
+    }
+
+    public function livetaskshow($id){
+        return $this->projectRepo->getliveProjectById($id);
     }
 
     public function getReferenceNumber()
@@ -1131,6 +1137,10 @@ class ProjectController extends Controller
         return $this->ProjectTicket->getprojectticket($id);
        
     }
+    public function ticketsearchlist($id,$type){
+        return $this->ProjectTicket->getprojectticketsearch($id,$type);
+    }
+
     public function projectticketfind($id){
         return $this->ProjectTicket->findprojectticket($id);
 

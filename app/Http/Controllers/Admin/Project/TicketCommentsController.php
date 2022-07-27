@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Admin\Project;
 use App\Http\Controllers\Controller;
 use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use App\Interfaces\TicketcommentsReplayinterface;
 use App\Models\TicketComments;
+use App\Models\TicketcommentsReplay;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -14,13 +19,16 @@ class TicketCommentsController extends Controller
 
     protected $ticketCommentRepo;
     protected $customerEnquiry;
+    protected $ticketcommentsreplay;
 
     public function __construct(
         TicketCommentRepositoryInterface $ticketCommentRepo,
-        CustomerEnquiryRepositoryInterface $customerEnquiry
+        CustomerEnquiryRepositoryInterface $customerEnquiry,
+        TicketcommentsReplayinterface $ticketcommentsreplay
     ){
     $this->TicketCommentRepo = $ticketCommentRepo;
     $this->customerEnquiry  =   $customerEnquiry;
+    $this->ticketcommentsreplay  =   $ticketcommentsreplay;
  
 }
 
@@ -144,6 +152,7 @@ class TicketCommentsController extends Controller
 
 
     public function sendprojectticket($id,$type){
+       
         return $this->TicketCommentRepo->findprojectticketcomment($id, $type);
 
         
@@ -167,6 +176,60 @@ class TicketCommentsController extends Controller
 
         $arr = array('name' => $files);
         echo json_encode($arr);
+    }
+
+    public function replay_comments(Request $request){
+        
+        try {
+        list($seenBy, $role_by,$created_by)  =  $this->getUser();
+        $data = array('comments' =>$request->comments,
+                      'project_ticket_id' => $request->project_ticket_id,
+                      'project_id'      => isset($request->project_id) ? $request->project_id :'',
+                      'created_by'      => $created_by,
+                      'send_by'         => $created_by,
+                      'role_id'         => $role_by,
+                      'status'          => 1);
+
+        $res = $this->ticketcommentsreplay->create($data); 
+        return response(['status' => true, 'data' => $res ,'msg' => 'sent replay'], Response::HTTP_CREATED); 
+        }
+        catch (\Exception $e) {
+            dd($e);
+           
+            Log::info($e->getMessage());
+            DB::rollBack();
+            Flash::error(__('global.something'));
+            return response(['status' => false, 'data' => '' ,'msg' => trans('global.something')], Response::HTTP_OK);
+        }
+
+                      
+      //dd($request->input());
+    }
+    public function replay_comments_update(Request $request){
+        list($seenBy,$role_by, $created_by) = $this->getUser();
+        $data   = ['project_status' => $request->project_status, 'priority' =>$request->priority, 'updated_by' => $created_by];
+        $id     = $request->project_ticket_id;
+      
+      
+         $this->TicketCommentRepo->update($data,$id);
+         return response(['status' => true, 'msg' => 'Ticket update'], Response::HTTP_CREATED); 
+    }
+
+
+    public function getUser()
+    {
+       
+        
+        if(!empty(Customer()->id)){
+            $seenBy = Customer()->id ;
+            $role_by = userRole()->id;
+            $created_by = Admin()->id;
+        } else {
+            $seenBy =  Admin()->id;
+            $role_by = userRole()->id;
+            $created_by = Admin()->id;
+        }
+        return [$seenBy,$role_by,$created_by];
     }
 
    

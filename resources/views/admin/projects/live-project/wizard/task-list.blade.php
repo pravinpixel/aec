@@ -12,10 +12,12 @@
             <tr>
                 <td><b>Project Lead</b></td>
                 <td>:</td>
-                <td>XXXX</td>
-                <td><b>Final Delivery Date</b></td>
+                <td>@{{lead}}</td>
+                <td><b>Over All Status</b></td>
                 <td>:</td>
-                <td>@{{projectTypes.delivery_date}}</td>
+                <td><div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: @{{overall}}%;" aria-valuenow="@{{overall}}" aria-valuemin="0" aria-valuemax="100">@{{overall}}%</div>
+                </div></td>
             </tr>
         </tbody>
     </table>
@@ -37,13 +39,26 @@
                 <td colspan="5" class="bg-light">
                     <div class="text-center">
                         <strong>@{{ checkListData.name }}</strong>
+                        
                     </div>
                 </td>
+                <td  colspan="5" class="bg-light">
+                    
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @{{countper[$index].completed}}%;" aria-valuenow="@{{countper[$index].completed}}" aria-valuemin="0" aria-valuemax="100">@{{countper[$index].completed}}%</div>
+                    </div>
+                   
+                </td>
+                
             </tr>
+   
             <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
                 <td>@{{ index_3 +1 }}</td>
                 <td>@{{ taskListData.task_list }}</td>
+                
+
                 <td>
+                   
 
                     <input get-to-do-lists  type = "hidden"   ng-model="taskListData.assign_to" value="@{{ taskListData.assign_to }}" >
                     <label ng-repeat="projectManager in projectManagers" value="@{{ taskListData.assign_to }}" >
