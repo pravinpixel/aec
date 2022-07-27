@@ -461,6 +461,7 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
     $("#todo-list").addClass('active');
+    $scope.Date = new Date();
     let project_id =  $("#project_id").val();
     $http.get(`${API_URL}get-delivery-type`).then((res)=> {
         $scope.deliveryTypes = res.data;
@@ -475,6 +476,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
         $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
         $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
         projectActiveTabs($scope.project.wizard_status);
+       
     });
  
     // ======= $scope of Flow ==============
@@ -510,7 +512,9 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     $scope.delete_this_check_list_item  =  (index)  => $scope.check_list_items.splice(index,1);
 
     $scope.storeToDoLists = () => {
-         
+        if($scope.check_list_items.length == 0) {
+            Message('danger','Select checklist'); return false;
+        }
         $scope.check_list_items.map((CheckLists) => {
 
             const CheckListsIndex = Object.entries(CheckLists.data);

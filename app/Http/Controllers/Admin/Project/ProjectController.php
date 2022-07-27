@@ -294,7 +294,12 @@ class ProjectController extends Controller
         $list           =   CheckList::where("name",  '=', $request->data)->with('getTaskList')->latest()->get();
 
         $grouped        =   $list->groupBy('task_list_category')->map(function ($item) {
-            return ['name' => $item[0]->getTaskList->task_list_name, 'data' => $item];
+            $tasks =  $item->map( function($task) {
+                $task->{"start_date"} = now();
+                $task->{"end_date"} = now();
+                return $task;
+            });
+            return ['name' => $item[0]->getTaskList->task_list_name, 'data' => $tasks];
         });
 
         $result = [

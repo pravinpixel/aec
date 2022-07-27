@@ -510,7 +510,9 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     $scope.delete_this_check_list_item  =  (index)  => $scope.check_list_items.splice(index,1);
 
     $scope.storeToDoLists = () => {
-         
+        if($scope.check_list_items.length == 0) {
+            Message('danger','Select checklist'); return false;
+        }
         $scope.check_list_items.map((CheckLists) => {
 
             const CheckListsIndex = Object.entries(CheckLists.data);
