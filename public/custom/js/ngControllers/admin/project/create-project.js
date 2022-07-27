@@ -657,7 +657,7 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
                     }).then((res) => {
                         if (res.data.status === true) {
                             Message('success', 'To do List Added Success !');
-                            //$location.path('project-scheduling')
+                            $location.path('bim360')
                         }
                     })
                 }
