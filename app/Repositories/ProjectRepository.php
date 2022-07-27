@@ -158,6 +158,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             'address_one' => $data['address_one'],
             'address_two' => $data['address_two'],
             'bim_project_type' => $data['bim_project_type'],
+            'linked_to_customer' => $data['linked_to_customer']
         ]);
         $connectionPlatform = $this->connectionPlatform->where('project_id', $id)->first();
         if(!$connectionPlatform) {

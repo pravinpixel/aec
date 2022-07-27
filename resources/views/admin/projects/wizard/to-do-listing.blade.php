@@ -2,12 +2,12 @@
     <div class="row m-0 card-body">
         <div class="col-8 mx-auto d-flex">
             <div class="mb-2 me-3">
-                <label for=""><b>Type of Project</b></label>
+                <label for=""><b>Type of Delivery</b></label>
                 <div class="btn-group w-100 border rounded">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="project_type_id" ng-model="project.project_type_id" required>
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="delivery_type_id" ng-model="project.delivery_type_id" required>
                         <option value="">@lang('project.select') </option>
-                        <option ng-repeat="projectType in projectTypes" value="@{{ projectType.id }}" ng-selected="projectType.id == project.project_type_id">
-                            @{{ projectType.project_type_name }}
+                        <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.id }}" ng-selected="deliveryType.id == project.delivery_type_id">
+                            @{{ deliveryType.delivery_type_name }}
                         </option>
                     </select>
                 </div>
@@ -72,8 +72,8 @@
                                                 </option>
                                             </select>
                                         </td>
-                                        <td><input type="date" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
-                                        <td><input type="date" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                        <td><input type="date" get-to-do-lists ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                        <td><input type="date" get-to-do-lists ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
                                     </tr> 
                                 </tbody>
                             </table>

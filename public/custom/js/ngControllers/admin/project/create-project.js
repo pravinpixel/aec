@@ -440,20 +440,22 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     .then((res)=> {
         projectActiveTabs(res.data.wizard_status);
     });
+    
+    $http.get(`${API_URL}get-delivery-type`).then((res)=> {
+        $scope.deliveryTypes = res.data;
+    });
+    
 
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
         $scope.projectManagers = res.data;
     });
-
+   
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
         console.log("This is Current Session ID : " , $scope.project_id)
         var project_id  = $scope.project_id;
         if(project_id != null) {
-            $http.get(`${API_URL}get-project-type`).then((res)=> {
-                $scope.projectTypes = res.data;
-            });
-                
+            
             $http.get(`${API_URL}project/${project_id}`).then((res)=> {
                 $scope.project = formatData(res.data);
                 $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)

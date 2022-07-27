@@ -449,8 +449,8 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
 app.controller('ToDoListController', function ($scope, $http, API_URL, $location) {
     $("#todo-list").addClass('active');
     let project_id =  $("#project_id").val();
-    $http.get(`${API_URL}get-project-type`).then((res)=> {
-        $scope.projectTypes = res.data;
+    $http.get(`${API_URL}get-delivery-type`).then((res)=> {
+        $scope.deliveryTypes = res.data;
     });
 
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {

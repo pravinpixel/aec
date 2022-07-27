@@ -51,6 +51,8 @@
         (tabs.todo_list == 1) ? $("#todo-list").addClass('active')  : $("#todo-list").removeClass('active');
         (tabs.project_scheduling == 0 || typeof(tabs.project_scheduling) == 'undefined') ? $("#project-scheduling").addClass('activeTab')  : $("#project-scheduling").removeClass('activeTab');
         (tabs.project_scheduling == 1) ? $("#project-scheduling").addClass('active')  : $("#project-scheduling").removeClass('active');
+        (tabs.project_scheduling == 0 && tabs.todo_list == 0 && tabs.invoice_plan == 0 && tabs.team_setup == 0 && tabs.connect_platform == 0 && tabs.create_project == 0) ?
+        $("#review").addClass('activeTab')  : $("#review").removeClass('activeTab');
         (tabs.project_scheduling == 1 && tabs.todo_list == 1 && tabs.invoice_plan == 1 && tabs.team_setup == 1 && tabs.connect_platform == 1 && tabs.create_project == 1) ?
         $("#review").removeClass('active') : $("#review").addClass('active');
     }

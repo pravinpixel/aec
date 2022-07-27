@@ -116,6 +116,8 @@
                 if($location.url() == '/') $scope.isMain = true;
                 else $scope.isMain = false;
             });
+            $location.path('/');
+            projectActiveTabs({'create_project':0, 'connect_platform':0, 'team_setup': 0, 'invoice_plan': 0, 'todo_list':0,'project_scheduling':0});
         });
          
         app.config(function($routeProvider) {

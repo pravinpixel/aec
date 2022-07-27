@@ -394,6 +394,17 @@
                                         </div> 
                                     </div>
                                 </div>
+                                <div class="col-md-12"> 
+                                    <div class="row m-0 align-items-center">
+                                        <div class="col-4 p-0">
+                                            <label class="col-form-label">Should the project be linked to a customer ? </label>
+                                        </div> 
+                                        <div class="col pe-0">
+                                            <i class="fa fa-check-circle text-primary me-1"></i>  @{{ project.linked_to_customer == 0 ? 'No' : 'Yes' }}
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div> 
                         </div>
                     </div>
@@ -441,16 +452,6 @@
                                         <div class="col pe-0">
                                             <div class="form-control form-control-sm  border-0 ">@{{ project.delivery_date  | date: 'dd-MM-yyyy' }}</div>
                                         </div> 
-                                    </div>
-                                </div>
-                                <div class="col-md-12"> 
-                                    <div class="row m-0 align-items-center">
-                                        <div class="col-4 p-0">
-                                            <label class="col-form-label">Should the project be linked to a customer ? </label>
-                                        </div> 
-                                        <div class="col pe-0">
-                                            <i class="fa fa-check-circle text-primary me-1"></i>  @{{ project.linked_to_customer == 0 ? 'No' : 'Yes' }}
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -522,7 +523,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="row in review['invoice_plan'].invoice_data">
+                    <tr ng-repeat="row in review['invoice_plan'].invoice_data.invoices">
                         <td class="text-center"> @{{ $index + 1 }} </td>
                         <td class="text-center">@{{ row.invoice_date | date: 'dd-MM-yyyy' }}</td>
                         <td class="text-center">@{{ row.amount }}</td>
