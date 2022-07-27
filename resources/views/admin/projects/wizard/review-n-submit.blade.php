@@ -621,7 +621,7 @@
 <div class="card-footer text-end">
     <a href="#!/to-do-listing" class="btn btn-light float-start">Prev</a>
     <a class="next me-2 btn btn-light rounded border" ng-click="saveProject($event)"> Save & Submit Later </a>
-    <a class="next btn-primary btn rounded" ng-click="submitProject($event)">Submit</a>
+    <a class="next btn-primary btn rounded" ng-click="submitProject($event)"> Establish New Project </a>
 </div>
 
 <style> 
