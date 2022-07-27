@@ -135,7 +135,7 @@
                                 <label class="col-form-label">No of Buildings</label>
                             </div>
                             <div class="col pe-0">
-                                <div class="form-control form-control-sm  border-0 ">@{{ review['building_type'] }}</div> 
+                                <div class="form-control form-control-sm  border-0 ">@{{ review['no_of_building'] }}</div> 
                             </div> 
                         </div>
                     </div>
