@@ -123,7 +123,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <button class="btn btn-light me-2 p-3 py-2">Cancel</button>
-            <button class="btn btn-primary p-3 py-2 me-2 " ng-click="assignToProject()"> <i class="fa fa-check-circle me-1 text-white"></i> Assign </button>
+            {{-- <button class="btn btn-primary p-3 py-2 me-2 " ng-click="assignToProject()"> <i class="fa fa-check-circle me-1 text-white"></i> Assign </button> --}}
             <button class="btn btn-success p-3 py-2" ng-click="moveToProject()"> <i class="fa fa-check-circle me-1 text-white"></i> Move to Project </button>
         </div>
     </div>
@@ -144,16 +144,14 @@
 </div> 
 
 <div class="card-footer">
-    <label for="copy_enq" class="text-center mb-3 col-12">
+    {{-- <label for="copy_enq" class="text-center mb-3 col-12">
         <input id="copy_enq" type="checkbox" class="form-check-input me-2"> Copy Enquiry details to Share Point​
-    </label>
+    </label> --}}
     <div class="d-flex justify-content-between">
         <div>
             <a href="#!/proposal-sharing" class="btn btn-light border" >Prev</a>
         </div>
-        <div>
-            <button class="btn btn-info border">Move to Project​</button>
-        </div>
+      
     </div>
 </div>
 @endif
