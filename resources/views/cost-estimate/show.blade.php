@@ -295,8 +295,10 @@
                             </table>
                         </div>`;
                     a.document.write(enquiryData);
+                    a.document.write('<div id="history_id">');
                     a.document.write(currentTabel);
                     a.document.write(currentTabelHistory);
+                    a.document.write('</div>');
                     a.document.write('</html>');
                     a.document.close();
                     a.print();

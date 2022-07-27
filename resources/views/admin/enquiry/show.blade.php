@@ -984,8 +984,10 @@
                             </table>
                         </div>`;
                     a.document.write(enquiryData);
+                    a.document.write('<div id="history_id">');
                     a.document.write(currentTabel);
                     a.document.write(currentTabelHistory);
+                    a.document.write('</div>');
                     a.document.write('</html>');
                     a.document.close();
                     a.print();
@@ -1210,9 +1212,12 @@
             
             // $scope.ResultEngineeringEstimate = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'costEstimate': $scope.EngineeringEstimate};
             // $scope.ResultPrecastComponent = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'precastEstimate': $scope.PrecastComponent};
-
+            $scope.precastEstimateTypesObj = {};
             $http.get(`${API_URL}precast-estimate`).then((res) => {
                 $scope.precastEstimateTypes = res.data;
+                res.data.forEach((item) => {
+                    $scope.precastEstimateTypesObj[item.id] = item.name;
+                });
             });
 
             $http.get(`${API_URL}get-cost-estimate-types`).then((res) => {
@@ -2130,16 +2135,14 @@
                     });
                     if(res.data.status == true){
                         Swal.fire({
-                            title: `Move to project successfully`,
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            cancelButtonText: 'No',
-                            confirmButtonText: 'Ok',
-                            }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.href = '{{ route('list-projects') }}'
-                            }
+                            icon: 'success',
+                            html: `<h3>Move to project successfully..!!</h3>`,
+                            showConfirmButton: false,
+                            timer: 3000
                         });
+                        $timeout(()=> {
+                            location.href = '{{ route('list-projects') }}'
+                        }, 3000);
                         return false;
                     }
                     Message('danger', res.data.msg);
