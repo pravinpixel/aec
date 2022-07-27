@@ -624,7 +624,7 @@ class ProjectController extends Controller
 
             if (isset($connectionPlatform->sharepoint_status) && $connectionPlatform->sharepoint_status == 1) {
                 $reference_number = str_replace('/', '-', $project->reference_number);
-                $folderPath = ["path" => "{$this->rootFolder}/{$reference_number}"];
+                $folderPath = ["path" => GlobalService::getSharepointPath($reference_number)];
                 $job = (new SharePointFolderCreation($folderPath))->delay(config('global.job_delay'));
                 $this->dispatch($job);
                 $result = $this->projectRepo->createSharepointFolder($project_id); // get all root and children folder

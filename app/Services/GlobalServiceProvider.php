@@ -115,7 +115,7 @@ class GlobalServiceProvider extends Controller
 
     public function getSharepointPath($ref='',$folder='')
     {
-        return "/DataBase Test/{$ref}/{$folder}";
+        return "/DataBase Test/Projects/{$ref}/{$folder}";
     }
 
     public function getRandomNumber(){
