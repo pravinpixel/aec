@@ -304,7 +304,7 @@
                                                 </div> 
                                             </td>
                                         </tr>  
-                                        <tr ng-show="!enquiry.building_components.length">
+                                        <tr ng-show="!building_components.length">
                                             <td colspan="4">No data found</td>
                                         </tr>
                                     </tbody>                     

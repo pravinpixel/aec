@@ -27,6 +27,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         },
         columns       : [
             {data: 'reference_number', name: 'reference_number'},
+            {data: 'company_name', name: 'company_name'},
             {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'start_date', name: 'start_date'},
@@ -67,6 +68,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         },
         columns       : [
             {data: 'reference_number', name: 'reference_number'},
+            {data: 'company_name', name: 'company_name'},
             {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'start_date', name: 'start_date'},
@@ -117,7 +119,6 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
 
         $http.get(`${API_URL}project/overview/${id}`).then((res)=> {
             $scope.review  =  res.data;
-            console.log( $scope.review);
             $scope.teamSetups = res.data.team_setup;
             $scope.project = formatData(res.data.project);
             $scope.project['address_one'] =  res.data.project.site_address;
@@ -163,8 +164,8 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
                 ]
                 }
             }).dxFileManager('instance');
+            $("#project-quick-modal-view").modal('show');
         }); 
-        $("#project-quick-modal-view").modal('show');
     }
 
 }); 

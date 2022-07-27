@@ -1,7 +1,7 @@
 <?php
 return [
     'create_project'        =>      'Create New Project', 
-
+    'company_name'          =>      'Company Name',  
     // Status 
     'un_established'        =>      'Un-Established Projects' ,
     'live_projects'         =>      'Live Projects' ,

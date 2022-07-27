@@ -3,7 +3,6 @@
 @section('admin-content')
    
     <div class="content-page" ng-controller="projectController">
-        @include('admin.projects.quick-view')
         <div class="content" >
             @include('admin.projects.filter-modal')
             @include('admin.includes.top-bar')
@@ -77,7 +76,7 @@
             </div>
             
         </div>
-
+        @include('admin.projects.quick-view')
     </div> 
     
 @endsection 
