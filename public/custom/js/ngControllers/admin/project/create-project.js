@@ -290,6 +290,19 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     }
     
     $scope.teamSetupFormSubmit = () => {
+        let status = false;
+        if($scope.teamSetups.length == 0){
+            Message('danger', `Please add resource`); return false;
+        } else {
+            $scope.teamSetups.forEach((resource) => {
+                if(resource.team.length == 0) {
+                    status = true;
+                }
+            });
+        }
+        if(status) {
+                Message('danger', `Please select resource`); return false;
+        }
         $http.post(`${API_URL}project`, {data: $scope.teamSetups, type:'team_setup'})
         .then((res) => {
             Message('success', 'Team Setup created successfully');
