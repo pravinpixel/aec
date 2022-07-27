@@ -174,35 +174,30 @@
                         <button class="rounded-0 border-0 btn btn-sm ms-1" ng-click = "tablesearch('customer')">Customer</button>
                     </div>
                     <div class="pb-2">
-                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Case</button>
-                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
-                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button>
+                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issues</button>
+                        <!--<button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
+                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button> -->
                     </div>
                 </div>
                 <div class="mb-2 pt-2 row mx-0 align-items-center">
                     <div class="d-flex align-items-center col-4 p-0">
-                        <label class="m-0 me-1">Quick filters</label>
-                        <select class="form-select form-select-sm" style="width: 150px" ng-click = "alert(event)">
-                            <option value="all">All</option>
-                            <option value="internal">Internal</option>
-                            <option value="customer">Customer</option>
-                        </select>
+                        
                     </div>
                     <div class="col-8 p-0">
                         <div class="input-group justify-content-end">
-                            <div class="border rounded input-group flex-nowrap" style="width: 200px">
-                                <span class="input-group-text btn-sm border-0 bg-none" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-                                <input type="text" class="form-control border-0 form-control-sm ps-0" placeholder="Search" aria-describedby="basic-addon1">
+                            <div class="   style="width: 200px">
+                               
+                               
                             </div>
-                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-arrow-up-down me-1"></i> Sort</button>
-                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
+                            <!--<button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-arrow-up-down me-1"></i> Sort</button> -->
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"  class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
                             <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields</button>
-                            <button class="ms-1 border rounded btn btn-sm"><i class="fa fa-expand"></i></button>
+                           <!-- <button class="ms-1 border rounded btn btn-sm"><i class="fa fa-expand"></i></button> -->
                         </div>
                     </div>
                 </div>
              
-                <table class="table custom custom table-hover m-0 table-responsive">
+                <table class="table custom table-striped table-bordered" datatable="ng" id="tablebqup" dt-options="vm.dtOptions">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -213,7 +208,6 @@
                             <th>Status</th>
                             <th>Due by</th>
                             <th>Priority</th>
-                            <!-- <th>Created by</th> -->
                             <th>Modifed at</th>
                             <th><i class="dripicons-menu"></i></th>
                         </tr>
@@ -225,7 +219,7 @@
                                 <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(pticketscomment.id,'show')"><small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small></a></button></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <!--<img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-@{{ ptcindex+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">-->
+                                       
                                         <div>
                                             <h5 class="m-0 font-14">
                                                @{{pticketscomment.type}}
@@ -247,16 +241,7 @@
                                 <td><span class="badge bg-success">@{{pticketscomment.project_status}}</span></td>
                                 <td> <small>@{{ pticketscomment.ticket_date | date:"MM/dd/yyyy'T' h:mm" }}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
                                 <td style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
-                               <!-- <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-@{{ ptcindex+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
-                                        <div>
-                                            <h5 class="m-0 font-14">
-                                                Arya Stark
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </td> -->
+                              
                                 <td><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm" }}</small> </td>
                                 <td style="padding: 0 !important" class="text-center">
                                     <div class="dropdown">
@@ -269,10 +254,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr ng-show="!pticketcomment.length">
-                                <td colspan="4">No data found</td>
-                            </tr>
-                       
+                           
                     </tbody>
                 </table>
             </div> 
@@ -330,7 +312,7 @@
                                                 {{-- <input  type="file" class="form-control file-control rounded-pill" file-model="projectFiles" id ="@{{ documentType.slug }}"/> --}}
                                                 <input type="file" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
 
-                                                <p id = "case_image"ng-model = "case.file_id" ng-show="!@{{responses.name}}" style="display: none;">@{{ responses.name }}</p>
+                                                <p id = "case_image"ng-model = "case.file_id" ng-show="!responses.name" style="display: none;">@{{ responses.name }}</p>
                                                 
                                                 <div class="error-msg">
                                                     <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
@@ -783,6 +765,69 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
+<!-- filter -->
+
+<div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-right" style="width:100% !important">
+        <div class="modal-content p-3 h-100 d-flex justify-content-center align-items-center" >
+            <div>
+                <div class="border-0">
+                    <button type="button" id= "filter_close" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div >
+                    <div class="my-3">
+                        <h3 class="page-title">Filter</h3>
+                    </div>
+                    <div class="mb-3 row mx-0">
+                        <div class="col p-0 me-md-2">
+                            <label class="form-label">From Date</label>
+                            <input type="date" class="form-control date" id="birthdatepicker" data-toggle="date-picker"  ng-model = "fromdate" data-single-date-picker="true">
+                        </div>
+                        <div class="col p-0">
+                            <label class="form-label">End Date</label>
+                            <input type="date" class="form-control date" id="birthdatepicker" data-toggle="date-picker" ng-model= "todate" data-single-date-picker="true">
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col p-0 me-md-2">
+                            <div class="mb-3 ">
+                                <label class="form-label">Project Priority</label>
+                                <select class="form-select" ng-model="priority">
+                                    <option value = "critical">Critical</option>
+                                    <option value = "high">High</option>
+                                    <option value = "medium">Medium</option>
+                                    <option value = "low">Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col p-0">
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" ng-model="status">
+                                    <option selected>-- select --</option>
+                                    <option value="new">New </option>
+                                    <option value="open">Open</option>
+                                    <option value="close">Close</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Issues Number </label>
+                        <input type="text" class="form-control" ng-model="refno" placeholder="Type Here...">
+                    </div> 
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" ng-click="tablesearch('filtersearch')">
+                            <i class="mdi mdi-filter-menu"></i> Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 <div class="card-footer text-end">

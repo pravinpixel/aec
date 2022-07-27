@@ -886,7 +886,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         })
         
    
-    console.log( $scope.case);
+    //console.log( $scope.case);
 }
 
     $scope.submitcreatevariationForm = () => {
@@ -994,8 +994,10 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         });
     } 
     $scope.ticket_type= function (value) {
-        console.log(value);
+       
         //var ticket_type =  $(this).val();
+       
+
         if(value == 'internal'){
             $('.customer_variation').css("display", "none")
             $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
@@ -1052,7 +1054,43 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
 
       //search tale
       $scope.tablesearch = function (type){
-         if (project_id != null) {
+       // $scope.CallToDB = false;
+        if ($scope.todate != 'Invalid Date' &&  $scope.fromdate === 'Invalid Date' ) {
+            alert('hello');
+            Message('danger', 'Please Select End Date');
+            //$scope.CallToDB = false;
+            return false
+        }
+        if(project_id != null && type == 'filtersearch'){
+            $scope.filterData = {
+                "id"                     :   project_id,
+                "type"                   :   'filtersearch',
+                "fromdate"               :   new Date($scope.fromdate),
+                "todate"                 :   new Date($scope.todate),
+                "priority"               :   $scope.priority,
+                "status"                 :   $scope.status,
+                "refno"                  :   $scope.refno 
+            }
+            $http({
+                method: 'POST',
+                url: `${API_URL}admin/api/v2/projectticketfiltersearch`,
+                data: $.param($scope.filterData),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded' 
+                }
+              }).then(function successCallback(res) {  
+                // Store response data
+                $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
+                $scope.customer = res.data.project == null ? false : res.data.project
+                $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
+                $('#right-modal').modal('hide');
+              });
+            //console.log($.param($scope.filterData));
+           
+
+        }
+
+         else if (project_id != null) {
              $http.get(`${API_URL}admin/api/v2/projectticketsearch/${project_id}/${type}`).then((res) => {
                 $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
                 $scope.customer = res.data.project == null ? false : res.data.project
@@ -1061,19 +1099,6 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         }
       }
 
-      $scope.alert = function($event) {
-        let elmSelect = angular.element(event.target)[0];
-        let options = elmSelect.options;
-        let selectedOptionInnerHmtl = options[options.selectedIndex].value;
- 
-        $http.get(`${API_URL}admin/api/v2/projectticketsearch/${project_id}/${selectedOptionInnerHmtl}`).then((res) => {
-            $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
-            $scope.customer = res.data.project == null ? false : res.data.project
-            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
-        });
-
-      
-      }
 
       
 

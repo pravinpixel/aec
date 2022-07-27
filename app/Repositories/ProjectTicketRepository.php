@@ -120,6 +120,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
 
 
     public function getprojectticketsearch($id,$type){
+        
         if($type == 'show'){
             $projectticket = $this->Projectticketcase->find($id);
             $projectcollection = $projectticket->project_id;
@@ -156,6 +157,43 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         return $ProjectTicket;
      
 
+    }
+    public function getprojectticketfiltersearch(array $data){
+        $projectid = $data['project_id'];
+
+       
+        $ProjectTicket['ticket'] = $this->model->where('project_id',$projectid)->get();
+        $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($projectid);
+        $searchticket = $this->Projectticketcase->with('assigndetails');
+        
+       
+           if($data['project_id'] != ''){
+            $searchticket->where('project_id',$data['project_id']);
+
+           }
+           if($data['fromdate'] != ''){
+            
+            $searchticket->whereDate('created_at', '=', $data['fromdate']);
+
+           }
+           if($data['todate'] != ''){
+            $searchticket->whereDate('updated_at', '=',$data['todate']);
+
+           }
+           if($data['priority'] != ''){
+            $searchticket->where('priority','LIKE','%'.$data['priority'].'%');
+
+           }
+           if($data['status'] != ''){
+            $searchticket->where('project_status',$data['status']);
+
+           }
+           if($data['refno'] != ''){
+            $searchticket->where('id',$data['refno']);
+           }
+        
+           $ProjectTicket['ticketcase'] =  $searchticket->orderBy('id','desc')->get();
+           return $ProjectTicket;
     }
 
     
