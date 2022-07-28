@@ -86,7 +86,7 @@
                                     <p class="h5 mt-2">Invoice Plan</p>
                                 </a>
                             </li> 
-                            <li class="nav-item">
+                          {{--  <li class="nav-item">
                                 <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
@@ -95,7 +95,7 @@
                                     </div>
                                     <p class="h5 mt-2">Documents</p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item last">
                                 <a href="#!/notes" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
@@ -176,14 +176,14 @@
                 if($location.path() == '/invoice-status') {
                     //$scope.PrevRoute   =   "/variation-orders"
                     $scope.PrevRoute   =   "/tickets"
-                    $scope.NextRoute   =   "/doc-management"
+                    $scope.NextRoute   =   "/notes"
                 }
                 if($location.path() == '/doc-management') {
                     $scope.PrevRoute   =   "/invoice-status"
                     $scope.NextRoute   =   "/notes"
                 }
                 if($location.path() == '/notes') {
-                    $scope.PrevRoute        =   "/doc-management"
+                    $scope.PrevRoute        =   "/invoice-status"
                     $scope.NextRoute        =   "/notes"
                     $scope.HideNextRoute    =   false;
                     $scope.SubmitRoute      =   true;
@@ -220,12 +220,14 @@
             })
             .when("/invoice-status", {
                 templateUrl : "{{ route('live-project.invoice-status') }}",
+                controller: 'InvoiceController',
             })
             .when("/doc-management", {
                 templateUrl : "{{ route('live-project.doc-management') }}",
             })
             .when("/notes", {
                 templateUrl : "{{ route('live-project.notes') }}",
+                controller: 'GendralController',
             }) 
             .otherwise({
                 redirectTo: "/"
@@ -241,4 +243,6 @@
        
     
     </script> 
+
+    
 @endpush

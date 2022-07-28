@@ -15913,7 +15913,7 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 .conversation__box {
   padding: 20px;
   list-style: none;
-  max-height: 400px;
+  height: 400px;
   overflow: auto;
   margin: 0 !important;
 }

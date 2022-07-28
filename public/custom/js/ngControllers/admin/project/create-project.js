@@ -290,19 +290,6 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
     }
     
     $scope.teamSetupFormSubmit = () => {
-        let status = false;
-        if($scope.teamSetups.length == 0){
-            Message('danger', `Please add resource`); return false;
-        } else {
-            $scope.teamSetups.forEach((resource) => {
-                if(resource.team.length == 0) {
-                    status = true;
-                }
-            });
-        }
-        if(status) {
-                Message('danger', `Please select resource`); return false;
-        }
         $http.post(`${API_URL}project`, {data: $scope.teamSetups, type:'team_setup'})
         .then((res) => {
             Message('success', 'Team Setup created successfully');
@@ -453,22 +440,20 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     .then((res)=> {
         projectActiveTabs(res.data.wizard_status);
     });
-    
-    $http.get(`${API_URL}get-delivery-type`).then((res)=> {
-        $scope.deliveryTypes = res.data;
-    });
-    
 
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
         $scope.projectManagers = res.data;
     });
-   
+
     $http.get(`${API_URL}get-project-session-id`).then((res)=> {
         $scope.project_id = res.data;
         console.log("This is Current Session ID : " , $scope.project_id)
         var project_id  = $scope.project_id;
         if(project_id != null) {
-            
+            $http.get(`${API_URL}get-project-type`).then((res)=> {
+                $scope.projectTypes = res.data;
+            });
+                
             $http.get(`${API_URL}project/${project_id}`).then((res)=> {
                 $scope.project = formatData(res.data);
                 $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
@@ -510,9 +495,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     $scope.delete_this_check_list_item  =  (index)  => $scope.check_list_items.splice(index,1);
 
     $scope.storeToDoLists = () => {
-        if($scope.check_list_items.length == 0) {
-            Message('danger','Select checklist'); return false;
-        }
+         
         $scope.check_list_items.map((CheckLists) => {
 
             const CheckListsIndex = Object.entries(CheckLists.data);
@@ -584,6 +567,7 @@ app.controller('milestoneController', function ($scope, $http, API_URL, $rootSco
 
 //Live project task list
 app.controller('TasklistController', function ($scope, $http, API_URL, $location) {
+    //$('#rasieTicketDetails').modal('hide');
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
         $scope.projectManagers = res.data;
     });
@@ -597,6 +581,7 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
             $http.get(`${API_URL}admin/api/v2/get-live-project-type/` + project_id).then((res) => {
                 console.log(res.data);
                 $scope.projectTypes = res.data;
+                
 
             });
 
@@ -873,11 +858,12 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
 
         var image = $('#case_image').text();
         var project_id = $('#project_case').val();
+        var assign = $('#example-select_project').find(":selected").val();
         
 
-        $http.post(`${API_URL}admin/live-project/store-ticket-case`, { data: $scope.case,project_id:project_id,image:image})
+        $http.post(`${API_URL}admin/live-project/store-ticket-case`, { data: $scope.case,project_id:project_id,image:image,assign : assign})
         .then((res) => {
-            Message('success', 'Ticket Created Successfully');
+            Message('success', 'Issue Created Successfully');
             if(res.data.status == true){
                 window.location.reload();
             }
@@ -996,21 +982,28 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
     $scope.ticket_type= function (value) {
        
         //var ticket_type =  $(this).val();
-       
+       //alert(value);
 
         if(value == 'internal'){
             $('.customer_variation').css("display", "none")
             $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
                 $scope.projectManagers = res.data;
+                console.log($scope.projectManagers);
             });
         }else {
-            $scope.projectManagers = '';
+          
+            //$scope.projectManagers = '';
+           
+            $scope.projectManagers =[];
+            $('#example-select_project option:eq(2)').prop('selected', true);
+            console.log($scope.projectManagers.length);
             $('.customer_variation').css("display", "block")
             
 
         }
        
     }
+
     $scope.deleteImageBtn = false;
 
      // ******* image show ******
@@ -1131,6 +1124,8 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
             //document.getElementById("Inbox__commentsForm").reset();
             $scope.showCommentsToggle('viewConversations', 'project_ticket_comment', 'Ticket Comment',ticketid);
             Message('success',response.data.msg);
+            $scope.inlineComments = '';
+
             
         }, function errorCallback(response) {
             Message('danger',response.data.errors);
@@ -1174,6 +1169,32 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
 
     }
 
+    $scope.ticketdelete =function(ticketid){
+
+        Swal.fire({
+            title: `Confirm to your Issue delete`,
+            showDenyButton: false,
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes',
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $http.get(`${API_URL}admin/api/v2/projectticketdelete/${ticketid}`).then((res) => {
+                    Message('success',res.data.msg);
+                    window.location.reload();
+          
+                    
+                }, function errorCallback(res) {
+                    Message('danger',res.data.errors);
+                });
+            }
+        });
+    }
+
+    $scope.discardticket = function(){
+        $('#rasieTicketDetails').modal('hide');
+    }
+
     
 
     
@@ -1195,6 +1216,49 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
 });
 
 
+app.controller('GendralController', function ($scope, $http, API_URL, $timeout) {
+   
+    $scope.multilineToolbar = true;
+
+            $scope.htmlEditorOptions = {
+                bindingOptions: {
+                'toolbar.multiline': 'multilineToolbar',
+                },
+                height: 725,
+                value: '',
+                toolbar: {
+                items: [
+                    'undo', 'redo', 'separator',
+                    {
+                    name: 'size',
+                    acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
+                    },
+                    {
+                    name: 'font',
+                    acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
+                    },
+                    'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
+                    'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+                    'orderedList', 'bulletList', 'separator',
+                    {
+                    name: 'header',
+                    acceptedValues: [false, 1, 2, 3, 4, 5],
+                    }, 'separator',
+                    'color', 'background', 'separator',
+                    'link', 'image', 'separator',
+                    'clear', 'codeBlock', 'blockquote', 'separator',
+                    'insertTable', 'deleteTable',
+                    'insertRowAbove', 'insertRowBelow', 'deleteRow',
+                    'insertColumnLeft', 'insertColumnRight', 'deleteColumn',
+                ],
+                },
+                mediaResizing: {
+                enabled: true,
+                },
+            }; 
+
+
+});
 app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
 
     $http.get(`${API_URL}project/wizard/create_project`)
@@ -1282,14 +1346,16 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
             });
             if(res.data.status == true) {
                 Swal.fire({
-                    icon: 'success',
-                    html: `<h3>Project Submitted Successfully..!!</h3>`,
-                    showConfirmButton: false,
-                    timer: 3000
+                    title: `Project submitted successfully are you want to leave the page?`,
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'No',
+                    confirmButtonText: 'Yes',
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href =  `${API_URL}admin/list-projects`;
+                    }
                 });
-                $timeout(()=> {
-                    location.href =  `${API_URL}admin/list-projects`;
-                }, 3000);
             }
         })
     }
@@ -1303,12 +1369,11 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
             });
             if(res.data.status == true) {
                 Swal.fire({
-                    html: `<h3>Project Saved Successfully </br> Do you want to leave the page ?</h3>`,
+                    title: `Project saved successfully are you want to leave the page?`,
                     showDenyButton: false,
                     showCancelButton: true,
                     cancelButtonText: 'No',
                     confirmButtonText: 'Yes',
-                    icon: 'question',
                     }).then((result) => {
                     if (result.isConfirmed) {
                         location.href =  `${API_URL}admin/list-projects`;
@@ -1440,6 +1505,20 @@ app.directive('fileModel', function ($parse) {
             });
         }
     };
+});
+
+app.controller('InvoiceController', function ($scope, $http, API_URL, $location) {
+
+    let project_id = $('#project_id').val();
+    
+    $http.get(`${API_URL}project/overview/${project_id}`).then((res)=> {
+        $scope.review  =  res.data;
+
+        //console.log($scope.review);
+
+    })
+    //console.log(project_id);
+
 });
 
 

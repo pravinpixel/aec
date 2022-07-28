@@ -13,11 +13,13 @@ interface ProjectTicketRepositoryInterface
   
     public function update(array $data, $id);
     public function delete($id);
+    public function ticketdelete($id);
     public function find($id);
     public function getprojectticket($id);
     public function findprojectticket($id);
     public function findprojectteam($project);
     public function getprojectticketsearch($id ,$type);
     public function getprojectticketfiltersearch(array $data);
+    
     
 }

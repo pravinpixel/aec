@@ -81,7 +81,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
                             'email'     => $requesterdetails->assigndetails->email,
                             'ticketid' => $ticketcomments->id,
                             'priority' => $ticketcomments->priority,
-                            'status'    => $ticketcomments->status,
+                            'status'    => $ticketcomments->project_status,
                             'project_id' =>$ticketcomments->project_id
                         );
 
@@ -94,7 +94,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
                             'email'     => $assigndetails->assigndetails->email ?? '',
                             'ticketid' => $ticketcomments->id,
                             'priority' => $ticketcomments->priority,
-                            'status'    => $ticketcomments->status,
+                            'status'    => $ticketcomments->project_status,
                             'project_id' =>$ticketcomments->project_id);
         }
 
@@ -133,16 +133,24 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
     public function store(Request $request, $created_by, $role_by, $seen_by)
     {
 
-        //dd($request->project_id);
+        //dd($request->assign);
 
         if (!empty(Customer()->id)) {
             $send_by = Customer()->id;
             $created_by = Customer()->id;
+            $requester = Customer()->first_name;
         } else {
             $send_by =  Admin()->id;
             $created_by = Admin()->id;
+            $requester = Admin()->first_Name;
         }
-        //dd( $request);
+        if($request->assign == '0'){
+            $projectcustomer = $this->Project->find($request->project_id);
+            $request->assign = $projectcustomer->customer_id ;
+        }
+
+
+        //dd(Admin());
         $comments = $this->model->create([
             "project_id"    => $request->project_id,
             "type"          => $request->data['type'],
@@ -150,8 +158,9 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             "file_id"       => $request->image ?? " ",
             "description"   => $request->data['description'],
             "priority"      => $request->data['priority'],
-            "assigned"      => $request->data['assigned'],
+            "assigned"      => $request->assign,
             "ticket_date"   =>new DateTime($request->data['ticket_date']),
+            "requester"     => $requester,
             "created_by"    => $created_by,
             "role_by"       => $role_by,
             "seen_by"       => $seen_by,

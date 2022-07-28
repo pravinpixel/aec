@@ -1,5 +1,5 @@
 <div class="p-2">
-    <div class="main-container">
+    <div class="main-container"> 
         <div class="header gantt-demo-header">
             <ul class="gantt-controls bg-light">
                 <li class="gantt-menu-item"><a data-action="collapseAll"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_collapse_all_24.png">Collapse All</a></li>

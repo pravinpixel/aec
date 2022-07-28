@@ -108,7 +108,7 @@
                                             <a class="dropdown-item" ng-click="projectticketshow(pticketsdata.id)" >View</a>
                                             <a class="btn dropdown-item" ng-click="sendMailToCustomerticket(pticketsdata.id,customer.customerdatails.id)">Send Mail</a>
                                             <a class="dropdown-item" ng-click="showCommentsToggle('viewConversations', 'project_ticket_comment', 'Ticket Comment',pticketsdata.id)">Reply comment</a>
-                                            <a class="dropdown-item" href="#">Delete</a>
+                                            <a class="dropdown-item" href="#" >Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -174,7 +174,7 @@
                         <button class="rounded-0 border-0 btn btn-sm ms-1" ng-click = "tablesearch('customer')">Customer</button>
                     </div>
                     <div class="pb-2">
-                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issues</button>
+                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issue</button>
                         <!--<button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
                         <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button> -->
                     </div>
@@ -202,9 +202,10 @@
                         <tr>
                             <th>#</th>
                             <th>ID</th>
+                            <th>Requester</th>
                             <th>Type</th>
                             <th>Title</th>
-                            <th>Description</th>
+                            <th>Assignee</th>
                             <th>Status</th>
                             <th>Due by</th>
                             <th>Priority</th>
@@ -217,6 +218,7 @@
                             <tr ng-repeat="(ptcindex,pticketscomment) in pticketcomment">
                                 <td>@{{ ptcindex+1 }}</td>
                                 <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(pticketscomment.id,'show')"><small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small></a></button></td>
+                                <td>@{{pticketscomment.requester}}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                        
@@ -242,13 +244,13 @@
                                 <td> <small>@{{ pticketscomment.ticket_date | date:"MM/dd/yyyy'T' h:mm" }}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
                                 <td style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
                               
-                                <td><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm" }}</small> </td>
+                                <td><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
                                 <td style="padding: 0 !important" class="text-center">
                                     <div class="dropdown">
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',pticketscomment.id)">View/Reply</a>
-                                            <a class="dropdown-item" href="#">Delete</a>
+                                            <a class="dropdown-item"ng-click = "ticketdelete(pticketscomment.id)">Delete</a>
                                            
                                         </div>
                                     </div>
@@ -354,22 +356,21 @@
                             <div class="cardx">
                                 <div class="card-body">
 
-                                    <div class="mb-3">
+                                    <div class="mb-3" >
                                         <label for="example-select" class="form-label text-secondary">Assign Type</label>
-
-                                       
-
-
-                                        <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.type"   ng-change="ticket_type(case.type)"  >
-                                           
-                                                <option value="">Select Assign Type</option>
-                                                <option value="internal"> Internal </option>
-                                                <option value="customer"> Customer </option>
-
+                                        <div>
+                                            <!-- Default radio -->
+                                            <div class="form-check" ng-click="ticket_type('internal')">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type" />
+                                                <label class="form-check-label" for="flexRadioDefault1"> Internal </label>
+                                            </div>
                                             
-                                           
-                                        </select>
-
+                                            <!-- Default checked radio -->
+                                            <div class="form-check" ng-click="ticket_type('customer')">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"   />
+                                                <label class="form-check-label" for="flexRadioDefault2"> Customer </label>
+                                            </div>
+                                        </div>
 
                                         
                                     </div>
@@ -381,9 +382,9 @@
                                        
 
 
-                                        <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.assigned">
+                                        <select class="form-select form-select-sm shadow" id="example-select_project" >
                                            
-                                                <option value="0">-- AEC prefab as --</option>
+                                                <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
                                                 <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
                                                     @{{ projectManager.first_Name }}
                                                 </option>
@@ -414,8 +415,12 @@
                                     <div class="mb-3">
                                        
                                         <label for="example-select" class="form-label text-secondary">Requester</label><Br>
-                                        <span>{{Auth::user()->first_Name}}</span>
-                                        <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by">{{Auth::user()->id}}</label>
+                                       
+                                        <select class="form-select form-select-sm shadow" id="example-select">
+                                            <option value = "{{Auth::user()->id}}">{{Auth::user()->first_Name}}</option>
+                                            
+                                        </select>
+                                        <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;">{{Auth::user()->id}}</label>
                                     </div> 
 
                                     <div class="mb-3 customer_variation" style="display: none;" >
@@ -430,7 +435,7 @@
                     </div>
                 </div> 
                 <div class="modal-footer border-top text-end">
-                    <button class="btn btn-light shadow-sm border btn-sm">Discard</button>
+                    <button class="btn btn-light shadow-sm border btn-sm" ng-click=discardticket()>Discard</button>
                     <button class="btn btn-info btn-sm" onclick >Submit</button>
                 </div>
          </form>
@@ -448,12 +453,12 @@
                         <i class="fa fa-thumb-tack f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
                         <div>
                           
-                            <h4 class="m-0">@{{projectticket.reference_number}}  |  <span class="text-secondary f-14 fw-bold">  @{{projectticket.project_name}} </span></h4> 
+                            <h4 class="m-0">@{{projectticket.reference_number}}  |    @{{projectticket.project_name}} </h4> 
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                 </div>
-                <div class="modal-body" style="max-height: 90vh;overflow:auto">
+                <div class="modal-body" style="height: 90vh;overflow:auto">
                     <div class="row m-0">
                         <div class="col-lg-7 p-0">
                             <div class="card text-start m-0 border" > 
@@ -465,21 +470,22 @@
                                                @{{header.username}}
                                             </h5>
                                             <p class="mt-1 mb-0 text-muted font-14">
-                                                <span class="w-75">3 hours ago (Fri, 8 Jul 2022 at 10:08 AM)</span>
+                                               {{-- <span class="w-75">3 hours ago (Fri, 8 Jul 2022 at 10:08 AM)</span>--}}
                                             </p> 
                                         </div>
                                     </div> 
                                     <hr>
-                                    <ul class="conversation__box" ng-repeat="comment in commentsData">
+                                    {{--  --}}
+                                    <ul class="conversation__box" >
                                      
-                                       <li class="left__conversation" ng-if="comment.created_by == {{ Admin()->id }}">
+                                       <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ Admin()->id }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14" >   @{{comment.comments}}</p> 
                                                 <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
                                             </div>
                                         </li>
-                                        <li class="right__conversation" ng-if="comment.created_by != {{ Admin()->id }}">
+                                        <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ Admin()->id }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14">@{{comment.comments}}</p> 
@@ -536,7 +542,7 @@
                                     <div class="collapsed collapse mb-2" id="ReplayMail">
                                         <small>To : <b> @{{header.email}}</b></small>
                                       
-                                        <textarea class="form-control mt-1" ng-model = "inlineComments">Hi..  @{{header.username}}</textarea>
+                                        <textarea class="form-control mt-1" id = "replay_textarea" ng-model = "inlineComments">Hi..  @{{header.username}}</textarea>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <i class="mdi mdi-account btn me-2 shadow-sm border btn-sm" style="background: #e7e7e7"></i>
@@ -564,24 +570,27 @@
                                         <label for="example-select" class="form-label text-secondary">Tiket ID</label>
                                         <div class="form-control shadow"> 
                                             <a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(header.ticketid,'show')">
-                                                <u>@{{projectticket.reference_number}} /TIK0-@{{header.ticketid}}</u>
+                                                <u>@{{projectticket.reference_number}} /TIK0-@{{header.id}}</u>
                                             </a> 
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="example-select"  class="form-label text-secondary">Priority</label>
                                         <select class="form-select shadow" id="example-select" ng-model="ticked_update.priority">
-                                            <option value = "low">Low</option>
-                                            <option value = "high">High</option>
-                                            <option value = "medium">Medium</option>
+                                            <option value = "low"  ng-selected="header.priority == 'critical'">Critical</option>
+                                            <option value = "high"  ng-selected="header.priority == 'high'">High</option>
+                                            <option value = "high"  ng-selected="header.priority == 'medium'">Medium</option>
+                                            <option value = "low"  ng-selected="header.priority == 'low'">Low</option>
+                                           
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Status</label>
                                         <select class="form-select shadow" id="example-select" ng-model="ticked_update.status">
-                                            <option value="open">Open</option>
-                                            <option value="close">Close</option>
-                                            <option value="pending">Pending</option>
+                                            <option ng-selected = "header.status == 'New'"  value="open">New</option>
+                                            <option ng-selected = "header.status == 'open'"  value="open">Open</option>
+                                            <option  ng-selected = "header.status == 'close'" value="close">Close</option>
+                                            <option  ng-selected = "header.status == 'pending'" value="pending">Pending</option>
                                         </select>
                                     </div> 
                                     <button class="btn btn-sm btn-info w-100"  ng-click = updateticketstatus(header.ticketid)><i class="mdi mdi-rotate-left me-1"></i> Update</button>

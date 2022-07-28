@@ -20,13 +20,14 @@ return [
 
 
     //live ticket
-    "ticketsaved"           =>       "Ticket saved successfully",
+    "ticketsaved"           =>       "Issue saved successfully",
+    "ticketdelete"           =>       "Issue Deleted Successfully",
     "ticketmail"            =>        "Mail sent successfuly !",
     "comments_inserted"     =>        "Comment Sent",
     "milestone"             =>        " Milestone",
     "tasklist"              =>        "Task list",
     "bim360"                =>        "Bim 360",
-    "tickets"               =>        "Tickets"  ,
+    "tickets"               =>        "Issue"  ,
     "document"              =>        "Documents",
     "notes"                 =>        "Notes",
     "invoiceplan"           =>         "Invoice Plan"

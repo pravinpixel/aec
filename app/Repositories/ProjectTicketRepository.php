@@ -56,6 +56,11 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $taskList = $this->model->find($id);
         $taskList->delete();
     }
+    public function ticketdelete($id){
+
+        return $this->Projectticketcase->where('id', $id)->delete();
+        
+    }
 
 
     public function find($id)

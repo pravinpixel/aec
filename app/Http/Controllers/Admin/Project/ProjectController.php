@@ -1215,6 +1215,10 @@ class ProjectController extends Controller
     public function tagteamsetup($project){
         return $this->ProjectTicket->findprojectteam($project);
     }
+    public function ticketlistdelete($ticketid){
+         $this->ProjectTicket->ticketdelete($ticketid);
+        return response(['status' => true, 'msg' => trans('project.ticketdelete')],  Response::HTTP_OK);
+    }
 
    
 
