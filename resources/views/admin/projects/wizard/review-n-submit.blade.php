@@ -512,7 +512,26 @@
                 </i>
             </div>
         </div>
+        
         <div id="Invoice_maileStone" class="accordion-collapse collapse" aria-labelledby="Invoice_maileStone_header" >
+            <div class="row my-2 align-items-center">
+                <div class="col-6">
+                    <div class="row align-items-center mb-2 m-0">
+                        <strong>Project Cost: @{{review.invoice_plan.project_cost}}</strong>
+                    </div>
+                    <div class="row align-items-center mb-2 m-0">
+                        <strong>Project Start Date:  @{{project.start_date  | date: 'dd-MM-yyyy' }}</strong>
+                     </div>
+                </div>
+                <div class="col-6">
+                    <div class="row align-items-center mb-2 m-0">
+                       <strong>No.of Invoices: @{{review.invoice_plan.no_of_invoice}} </strong>
+                    </div>
+                    <div class="row align-items-center mb-2 m-0">
+                        <strong>Project Start Date:  @{{project.start_date  | date: 'dd-MM-yyyy' }}</strong>
+                     </div>
+                </div>
+            </div>
             <table class="table custom m-0 custom table-striped table-bordered">
                 <thead>
                     <tr>

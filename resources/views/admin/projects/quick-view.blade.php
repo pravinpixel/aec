@@ -508,21 +508,22 @@
                         </div>
                     </div>
                     <div id="Invoice_maileStone" class="accordion-collapse collapse" aria-labelledby="Invoice_maileStone_header" >
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-8">
+                        <div class="row my-2 align-items-center">
+                            <div class="col-6">
                                 <div class="row align-items-center mb-2 m-0">
-                                    <div class="col-3"><strong>Project Cost</strong></div>
-                                    <div class=" col-9"><label>  @{{review.invoice_plan.project_cost}} <label></div>
+                                    <strong>Project Cost: @{{review.invoice_plan.project_cost}}</strong>
                                 </div>
                                 <div class="row align-items-center mb-2 m-0">
-                                    <div class="col-3"><strong>No.of Invoices</strong></div>
-                                    <div class=" col-9"><label>  @{{review.invoice_plan.no_of_invoice}} <label></div>
+                                    <strong>Project Start Date:  @{{project.start_date  | date: 'dd-MM-yyyy' }}</strong>
+                                 </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row align-items-center mb-2 m-0">
+                                   <strong>No.of Invoices: @{{review.invoice_plan.no_of_invoice}} </strong>
                                 </div>
                                 <div class="row align-items-center mb-2 m-0">
-                                    <div class="col-3"><strong>Project Start Date</strong></div>
-                                    <div class=" col-9"><label>  @{{review.invoice_plan.invoice_data[0].invoice_date | date: 'dd-MM-yyyy' }} <label></div>
-                                </div>
-                               
+                                    <strong>Project Start Date:  @{{project.start_date  | date: 'dd-MM-yyyy' }}</strong>
+                                 </div>
                             </div>
                           
                         </div>
