@@ -20,11 +20,11 @@
                         {{ $index + 1}}
                     </td>
                     <td class="text-center"> 
-                        <span   class="badge badge-primary-lighten btn  p-2">{{ $employee->employee_id }}</span>
+                        <span   class="badge badge-primary-lighten btn  p-2">{{ $employee->reference_number }}</span>
                     </td>
                     <td class="text-left">{{ $employee->first_name }}</td>
                     <td class="text-left">{{ $employee->email }}</td>
-                    <td class="text-left">{{ $employee->mobile_phone }}</td>
+                    <td class="text-left">{{ $employee->mobile_number }}</td>
                     <td class="text-center">
                         <div id="tooltip-container2">
                             <span class="{{ $employee->share_access === 1 ? 'text-success' : 'text-danger' }}"> <i class="fa font-22 fa-{{ $employee->share_access === 1 ? 'check' : 'times' }}-circle"></i></span>

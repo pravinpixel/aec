@@ -4,8 +4,8 @@
 	@endif
 	<div class="card-header p-0">
 		<ul class="nav nav-pills nav-justified form-wizard-header bg-light m-0" >
-			<li class="nav-item projectInfoForm">
-				<a style="min-height: 40px;" class="timeline-step" >
+			<li class="nav-item {{ $completed_wizard >= 1 ? '': 'pe-none' }}">
+				<a style="min-height: 40px;" class="timeline-step" wire:click="goTo('project_info')">
 					<div class="timeline-content">
 						<div class="inner-circle {{ $currentStep === 1 ? 'bg-success' : 'bg-secondary' }} ">
 							<i class="fa fa-project-diagram fa-2x"></i>
@@ -14,8 +14,8 @@
 					</div> 
 				</a>
 			</li>
-			<li class="nav-item">
-				<a style="min-height: 40px;" class="timeline-step">
+			<li class="nav-item {{ $completed_wizard >= 2 ? '': 'pe-none' }}">
+				<a style="min-height: 40px;" class="timeline-step"  wire:click="goTo('sharepoint')">
 					<div class="timeline-content">
 						<div class="inner-circle {{ $currentStep === 2 ? 'bg-success' : 'bg-secondary' }} ">
 							<i class="fa fa-list-alt fa-2x mb-1"></i>
@@ -24,8 +24,8 @@
 					</div>
 				</a>
 			</li> 
-			<li class="nav-item last">
-				<a style="min-height: 40px;" class="timeline-step">
+			<li class="nav-item last {{ $completed_wizard >= 3 ? '': 'pe-none' }}"">
+				<a style="min-height: 40px;" class="timeline-step" wire:click="goTo('bim')">
 					<div class="timeline-content">
 						<div class="inner-circle  {{ $currentStep === 3 ? 'bg-success' : 'bg-secondary' }} ">
 							<i class="fa fa-2x fa-file-upload mb-1"></i>

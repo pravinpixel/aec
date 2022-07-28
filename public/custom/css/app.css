@@ -566,3 +566,7 @@ sup {
 .custom_drag_ .mdi-arrow-top-left-bottom-right-bold::before {
     transform: rotate(45deg);
 }
+
+.pe-none{
+    pointer-events: none;
+}

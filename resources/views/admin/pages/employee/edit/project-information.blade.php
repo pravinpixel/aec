@@ -5,27 +5,27 @@
         <div class="col-md-6"> 
             <div class="mb-3">                                             
                 <label class="form-label"> Employee ID <sup class="text-danger">*</sup></label>
-                <input ng-disabled="true" type="text" name="epm_id" id="epm_id" ng-value="EmpData.employee_id" class="form-control">
+                <input ng-disabled="true" type="text" name="epm_id" id="epm_id" ng-value="EmpData.employee_id" class="form-control" required>
             </div> 
         </div> 
         <div class="col-md-6">
             <div class="mb-3">
                 <div class="mb-3">
                     <label class="form-label" for="validationCustom01">Display Name​<sup class="text-danger">*</sup></label>
-                    <input type="text" class="form-control" id="epm_username" name="epm_username"  ng-value="EmpData.user_name"  placeholder="Type Here..."  ng-required="true">
+                    <input type="text" required class="form-control" id="epm_username" name="epm_username"  ng-value="EmpData.user_name"  placeholder="Type Here..."  ng-required="true" required>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="mb-3">
                 <label class="form-label" >First name<sup class="text-danger">*</sup></label>
-                <input type="text" class="form-control"  name="epm_fname" id="epm_fname"   ng-value="EmpData.first_Name" placeholder="Type Here..."ng-required="true">
+                <input type="text" class="form-control"  name="epm_fname" id="epm_fname"   ng-value="EmpData.first_Name" placeholder="Type Here..."ng-required="true" required>
             </div>
         </div>
         <div class="col-md-6">
             <div class="mb-3">
                 <label class="form-label" >Last name<sup class="text-danger">*</sup></label>
-                <input type="text" class="form-control" name="epm_lname" id="epm_lname"  ng-value="EmpData.last_name" placeholder="Type Here..." ng-required="true">
+                <input type="text" class="form-control" name="epm_lname" id="epm_lname"  ng-value="EmpData.last_name" placeholder="Type Here..." ng-required="true" required>
             </div>
         </div>   
         {{--         
@@ -37,7 +37,7 @@
         </div> --}}
         <div class="col-md-6">
             <div class="mb-3">
-                <label class="form-label" > Job Title​<sup class="text-danger">*</sup></label>
+                <label class="form-label" > Job Title​<sup class="text-danger" required>*</sup></label>
                 <select aria-label="ngSelected demo" ng-model="EmpData.job_role" name="epm_job_role" id="epm_job_role"  class="form-select">
                     <option value="@{{ emp.id }}" ng-repeat="(index,emp) in employee_module_role">@{{ emp.name }}</option>
                 </select>
@@ -45,13 +45,13 @@
         </div>
         <div class="col-md-6">
             <div class="mb-3">
-                <label class="form-label" >Email Id<sup class="text-danger">*</sup></label>
+                <label class="form-label" >Email Id<sup class="text-danger" required>*</sup></label>
                 <input type="email" class="form-control" name="epm_email" id="epm_email" readonly ng-value="EmpData.email"  placeholder="Type Here..."  ng-required="true">
             </div>
         </div>  
         <div class="col-md-6">
             <div class="mb-3">
-                <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
+                <label class="form-label" >Mobile Number<sup class="text-danger" required>*</sup></label>
                 <input type="number"  class="form-control" name="epm_number" min="8" id="epm_number"   ng-value="EmpData.number" ng-maxlength="12"  ng-minlength="8"  placeholder="Type Here..."  ng-required="true">
                 <div class="error-msg">
                     <small class="error-text" ng-if="frm.number.$error.minlength">Minlength 8 digit only</small>
@@ -63,7 +63,7 @@
         <div class="col-md-6">
             <div class="cardx row m-0">
                 <div class="col-9 p-0">
-                    <label for="file" class="form-label" >Select Image<sup class="text-danger"></sup></label>
+                    <label for="file" class="form-label" >Select Image</label>
                     <input type="file" class="form-control" id="file"  name="file" /> 
                     <div class="error-msg">
                         <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>

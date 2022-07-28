@@ -1,4 +1,5 @@
 <div class="card border shadow-sm">
+	
 	<div class="card-header p-0">
 		<ul class="nav nav-pills nav-justified form-wizard-header bg-light m-0" >
 			<li class="nav-item projectInfoForm">
@@ -64,6 +65,7 @@
 		@switch($currentStep)
 				@case(1)
 					<button wire:click="updatePersonalInformation" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-chevron-right mdi"></i> Next </button>
+					
 				@break
 				@case(2)
 					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>

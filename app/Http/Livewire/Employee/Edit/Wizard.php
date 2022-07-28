@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\Employee\Edit;
 
+use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
-use App\Models\Employee;
+use App\Models\Role;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -11,35 +14,55 @@ class Wizard extends Component
 {
     use WithFileUploads;
 
-    public $employee_id, $display_name, $first_Name, $last_name, $job_title, $email, $image, $number;
+    public $employee_id, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
     public $currentStep        = 1;
     public $share_point_status = 0;
     public $successMessage     = '';
     public $sharePointAccess   = null;
     public $employees;
-    
-    public function mount() { // ComponentDidMount
-        $employees          = Employee::findOrFail(session()->get('employee_id'));
-        $this->employee_id  = $employees->employee_id;
-        $this->display_name = $employees->user_name;
-        $this->first_Name   = $employees->first_Name;
-        $this->last_name    = $employees->last_name;
-        $this->job_title    = $employees->job_title;
-        $this->email        = $employees->email;
-        $this->image        = $employees->image;
-        $this->number       = $employees->number;
+    public $roles = [];
+    public  $id;
+
+    public function __construct()
+    {
+        $this->id = Route::current()->parameter('id');
+    }
+
+    public function mount() {
+        $employee          = Employees::findOrFail($this->id);
+        $this->reference_number = $employee->reference_number;
+        $this->display_name     = $employee->display_name;
+        $this->first_name       = $employee->first_name;
+        $this->last_name        = $employee->last_name;
+        $this->job_title        = $employee->job_title;
+        $this->job_role         = $employee->job_role;
+        $this->email            = $employee->email;
+        $this->image            = $employee->image;
+        $this->mobile_number     = $employee->mobile_number;
+        $this->roles = Role::all();
     }
     
     public function updatePersonalInformation()    {
-        // $this->validate([
-        //     'display_name' => ['required'],
-        //     'last_name'    => ['required'],
-        //     'first_Name'    => ['required'],
-        //     'job_title'    => ['required'],
-        //     'email'        => ['required'],
-        //     'image'        => ['required'],
-        //     'number'       => ['required'],
-        // ]);
+        $employee = Employees::findOrFail($this->id);
+        $customMessages = [
+            'regex' => 'Mobile no between 8 to 12 digits'
+        ];
+        $this->validate([
+            'email'         => ['required','email', Rule::unique('employees')->ignore($employee->id)],
+            'job_role'      => ['required'],
+            'first_name'    => ['required'],
+            'last_name'     => ['required'],
+            'display_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
+            'mobile_number' => ['required','regex:/^\d{8}$|^\d{12}$/',Rule::unique('employees')->ignore($employee->id)],
+        ], $customMessages); 
+        $employee->first_name              = $this->first_name;
+        $employee->last_name               = $this->last_name;
+        $employee->display_name            = $this->display_name;
+        $employee->email                   = $this->email; 
+        $employee->job_title               = $this->job_title;
+        $employee->job_role                = $this->job_role;
+        $employee->mobile_number            = $this->mobile_number;
+        $employee->save();
         $this->next();
     }
     public function updateAccountSettings()    {
