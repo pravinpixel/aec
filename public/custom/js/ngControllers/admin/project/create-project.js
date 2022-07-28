@@ -568,6 +568,7 @@ app.controller('milestoneController', function ($scope, $http, API_URL, $rootSco
 //Live project task list
 app.controller('TasklistController', function ($scope, $http, API_URL, $location) {
     //$('#rasieTicketDetails').modal('hide');
+    $("#rasieTicketDetails").modal('hide');
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
         $scope.projectManagers = res.data;
     });
@@ -757,6 +758,7 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
 
 app.controller('TicketController', function ($scope, $http, API_URL, $rootScope) {
     let project_id = $('#project_id').val();
+    $("#rasieTicketDetails").modal('hide');
 
     $scope.SelectFile = function (e) {
         // $window.alert();

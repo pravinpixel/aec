@@ -517,7 +517,7 @@
             <div class="row my-2 mx-3 align-items-center">
                 <div class="col-6">
                     <div class="row m-0 align-items-center">
-                        <div class="col-3  p-0">
+                        <div class="col-6  p-0">
                             <label class="col-form-label">Project Cost</label>
                         </div>
                         <div class="col pe-0"> 
@@ -525,7 +525,7 @@
                         </div> 
                     </div>
                     <div class="row m-0 align-items-center">
-                        <div class="col-4  p-0">
+                        <div class="col-6  p-0">
                             <label class="col-form-label">Project Start Date</label>
                         </div>
                         <div class="col pe-0"> 
@@ -536,7 +536,7 @@
                 </div>
                 <div class="col-6">
                      <div class="row m-0 align-items-center">
-                        <div class="col-4  p-0">
+                        <div class="col-6  p-0">
                             <label class="col-form-label">No.of Invoices</label>
                         </div>
                         <div class="col pe-0"> 
@@ -544,7 +544,7 @@
                         </div> 
                     </div>
                     <div class="row m-0 align-items-center">
-                        <div class="col-3  p-0">
+                        <div class="col-6  p-0">
                             <label class="col-form-label">Project End Date</label>
                         </div>
                         <div class="col pe-0"> 

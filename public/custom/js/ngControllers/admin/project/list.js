@@ -27,6 +27,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         },
         columns       : [
             {data: 'reference_number', name: 'reference_number'},
+            {data: 'company_name', name: 'company_name'},
             {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'start_date', name: 'start_date'},
@@ -67,6 +68,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         },
         columns       : [
             {data: 'reference_number', name: 'reference_number'},
+            {data: 'company_name', name: 'company_name'},
             {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'start_date', name: 'start_date'},
@@ -158,9 +160,9 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         gantt.init("gantt_here");
         ganttModules.menu.setup();
         gantt.load(`${API_URL}project/edit/${id}/project_scheduler`);
-            
+        $("#project-quick-modal-view").modal('show');  
         }); 
-        $("#project-quick-modal-view").modal('show');
+    
     }
 
 }); 
