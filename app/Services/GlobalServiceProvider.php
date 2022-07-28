@@ -39,7 +39,7 @@ class GlobalServiceProvider extends Controller
     public function getEmployeeNumber()
     {
         $config = $this->getConfig();
-        return "{$config->project_prefix}-{$config->employee_number}";
+        return "{$config->employee_prefix}-{$config->employee_number}";
     }
 
     public function getConfig()
