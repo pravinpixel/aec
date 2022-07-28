@@ -508,24 +508,44 @@
                         </div>
                     </div>
                     <div id="Invoice_maileStone" class="accordion-collapse collapse" aria-labelledby="Invoice_maileStone_header" >
-                        <div class="row my-2 align-items-center">
+                        <div class="row my-2 mx-3 align-items-center">
                             <div class="col-6">
-                                <div class="row align-items-center mb-2 m-0">
-                                    <strong>Project Cost: @{{review.invoice_plan.project_cost}}</strong>
+                                <div class="row m-0 align-items-center">
+                                    <div class="col-4 p-0">
+                                        <label class="col-form-label">Project Cost</label>
+                                    </div>
+                                    <div class="col pe-0"> 
+                                        <div class="form-control form-control-sm  border-0  ng-binding">@{{review.invoice_plan.project_cost}}</div>  
+                                    </div> 
                                 </div>
-                                <div class="row align-items-center mb-2 m-0">
-                                    <strong>Project Start Date:  @{{project.start_date  | date: 'dd-MM-yyyy' }}</strong>
-                                 </div>
+                                <div class="row m-0 align-items-center">
+                                    <div class="col-4 p-0">
+                                        <label class="col-form-label">Project Start Date</label>
+                                    </div>
+                                    <div class="col pe-0"> 
+                                        <div class="form-control form-control-sm  border-0  ng-binding"> @{{project.start_date  | date: 'dd-MM-yyyy' }}</div>  
+                                    </div> 
+                                </div>
+                              
                             </div>
                             <div class="col-6">
-                                <div class="row align-items-center mb-2 m-0">
-                                   <strong>No.of Invoices: @{{review.invoice_plan.no_of_invoice}} </strong>
+                                 <div class="row m-0 align-items-center">
+                                    <div class="col-3  p-0">
+                                        <label class="col-form-label">No.of Invoices</label>
+                                    </div>
+                                    <div class="col pe-0"> 
+                                        <div class="form-control form-control-sm  border-0  ng-binding">@{{review.invoice_plan.no_of_invoice}}</div>  
+                                    </div> 
                                 </div>
-                                <div class="row align-items-center mb-2 m-0">
-                                    <strong>Project Start Date:  @{{project.start_date  | date: 'dd-MM-yyyy' }}</strong>
-                                 </div>
+                                <div class="row m-0 align-items-center">
+                                    <div class="col-3  p-0">
+                                        <label class="col-form-label">Project End Date</label>
+                                    </div>
+                                    <div class="col pe-0"> 
+                                        <div class="form-control form-control-sm  border-0  ng-binding"> @{{project.delivery_date  | date: 'dd-MM-yyyy' }}</div>  
+                                    </div> 
+                                </div>
                             </div>
-                          
                         </div>
                        
                         <table class="table custom m-0 custom table-striped table-bordered">
