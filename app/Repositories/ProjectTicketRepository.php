@@ -127,15 +127,17 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
     public function getprojectticketsearch($id,$type){
         
         if($type == 'show'){
+           
             $projectticket = $this->Projectticketcase->find($id);
             $projectcollection = $projectticket->project_id;
             $ProjectTicket['ticket'] = $this->model->where('project_id',$projectcollection)->get();
             $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($projectcollection);
             $searchticket = $this->Projectticketcase->with('assigndetails')
-            ->where('project_id',$projectcollection);
+                             ->where('project_id',$projectcollection);
             
           
             $ProjectTicket['ticketcase'] =  $searchticket->orderBy('id','desc')->get();
+            $ProjectTicket['ticketmodel'] = $projectticket;
 
 
         }
@@ -194,7 +196,13 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
 
            }
            if($data['refno'] != ''){
-            $searchticket->where('id',$data['refno']);
+            $refno  = explode('-',$data['refno']);
+            //dd();
+
+           
+            $searchticket->where('id',$refno[1]);
+           }if($data['tickettype'] != ''){
+            $searchticket->where('type',$data['tickettype']);
            }
         
            $ProjectTicket['ticketcase'] =  $searchticket->orderBy('id','desc')->get();

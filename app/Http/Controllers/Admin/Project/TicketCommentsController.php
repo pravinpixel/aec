@@ -86,7 +86,7 @@ class TicketCommentsController extends Controller
         $seen_by        =   Admin()->id;
         $result         =   $this->TicketCommentRepo->store($request, Admin()->id, $role_by,$seen_by);
 
-        //dd($result);
+        //dd($result->variation_order);
         //$customer       =   $this->customerEnquiry->getEnquiryByID($result->project_ticket_id);
         //if($result->created_by == 'Admin') {
             //$this->customerEnquiry->updateAdminWizardStatus($customer,'response_status',1);
@@ -98,7 +98,7 @@ class TicketCommentsController extends Controller
         $title          =   'New Message From AEC - '.Admin()->id;
         $body           =   $request->comments;
 
-        return  response(['status' => true, 'data' => 'Success', 'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
+        return  response(['status' => true, 'data' => 'Success', 'variation' => $result->variation_order ,'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
     }
 
 

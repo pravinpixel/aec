@@ -1110,8 +1110,8 @@ class ProjectController extends Controller
             $data = [
                 'project_id'     => $request->data['projectid'],
                 'title'          => $request->data['title'],
-                'description'    => $request->data['description'],
-                'response'       => $request->data['reason_for_variation'],
+                'description'    => $request->description,
+                'response'       => $request->variationchange,
                 'change_date'    =>  date('Y-m-d', strtotime($request->data['change_date'])),
                 'project_hrs'    => $request->data['hours'],
                 'project_price'  => $request->data['price'],
@@ -1163,6 +1163,7 @@ class ProjectController extends Controller
                      'priority' =>$request->priority,
                      'status'   =>$request->status ?? '',
                      'refno'   =>$request->refno ?? '',
+                     'tickettype' => $request->tickettype ?? '',
                     
 
     );

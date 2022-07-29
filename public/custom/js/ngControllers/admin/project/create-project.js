@@ -762,7 +762,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
 
     $scope.SelectFile = function (e) {
         // $window.alert();
-        console.log(e.target.files)
+        //console.log(e.target.files)
          // $window.alert();
          var  form_data = new FormData ();
          var totalfiles = document.getElementById('files').files.length;
@@ -818,9 +818,49 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         $scope.result = Number($scope.ticket.hours || 0) * Number($scope.ticket.price || 0);
     }
     //editor load
-    $scope.orightml = '<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li>Super Easy <b>Theming</b> Options</li><li style="color: green;">Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li class="text-danger">Doesn&apos;t Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href="https://github.com/fraywing/textAngular">Here</a> </p>';
-    $scope.htmlcontent = $scope.orightml;
-    $scope.disabled = false;
+    //$scope.orightml = '<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li>Super Easy <b>Theming</b> Options</li><li style="color: green;">Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li class="text-danger">Doesn&apos;t Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href="https://github.com/fraywing/textAngular">Here</a> </p>';
+    //$scope.htmlcontent = $scope.orightml;
+    //$scope.htmlcontent = $scope.orightml;
+    //$scope.disabled = false;
+
+     $scope.multilineToolbar = true;
+
+            $scope.htmlEditorOptions = {
+                bindingOptions: {
+                'toolbar.multiline': 'multilineToolbar',
+                },
+                height: 725,
+                value: '',
+                toolbar: {
+                items: [
+                    'undo', 'redo', 'separator',
+                    {
+                    name: 'size',
+                    acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
+                    },
+                    {
+                    name: 'font',
+                    acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
+                    },
+                    'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
+                    'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+                    'orderedList', 'bulletList', 'separator',
+                    {
+                    name: 'header',
+                    acceptedValues: [false, 1, 2, 3, 4, 5],
+                    }, 'separator',
+                    'color', 'background', 'separator',
+                    'link', 'image', 'separator',
+                    'clear', 'codeBlock', 'blockquote', 'separator',
+                    'insertTable', 'deleteTable',
+                    'insertRowAbove', 'insertRowBelow', 'deleteRow',
+                    'insertColumnLeft', 'insertColumnRight', 'deleteColumn',
+                ],
+                },
+                mediaResizing: {
+                enabled: true,
+                },
+            }; 
 
     if (project_id != null) {
 
@@ -866,7 +906,13 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         $http.post(`${API_URL}admin/live-project/store-ticket-case`, { data: $scope.case,project_id:project_id,image:image,assign : assign})
         .then((res) => {
             Message('success', 'Issue Created Successfully');
-            if(res.data.status == true){
+            if(res.data.status == true && res.data.variation == true){
+                $scope.case = '';
+                $('#rasieTicketDetails').modal('hide');
+                location.href = `${API_URL}admin/create-project-ticket/${project_id}`;
+            }
+
+            else if(res.data.status == true){
                 window.location.reload();
             }
             console.log(res.data.status);
@@ -878,7 +924,11 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
 }
 
     $scope.submitcreatevariationForm = () => {
-        $http.post(`${API_URL}admin/api/v2/live-project-ticket`, { data: $scope.ticket, type: 'create_project_ticket' })
+
+        var description =  $(".description").html();
+        var variationchanges = $(".variationchanges").html();
+
+        $http.post(`${API_URL}admin/api/v2/live-project-ticket`, { data: $scope.ticket, type: 'create_project_ticket',description : description ,variationchange :variationchanges})
             .then((res) => {
                 Message('success', 'Ticket Created Successfully');
                 if(res.data.status == true){
@@ -950,7 +1000,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         $http.get(`${API_URL}admin/api/v2/projectticketsearch/${id}/${type}`).then((res) => {
             $scope.ptickets_model = res.data.ticket == null ? [] : res.data.ticket
             $scope.customer_model = res.data.project == null ? false : res.data.project;
-            $scope.pticketcomment_model = res.data.ticketcase[0] == null ? false : res.data.ticketcase[0];
+            $scope.pticketcomment_model = res.data.ticketmodel == null ? false : res.data.ticketmodel;
             $('#ticket_mdal-box').modal('show');  
         });
 
@@ -1064,7 +1114,8 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
                 "todate"                 :   new Date($scope.todate),
                 "priority"               :   $scope.priority,
                 "status"                 :   $scope.status,
-                "refno"                  :   $scope.refno 
+                "refno"                  :   $scope.refno ,
+                "tickettype"             :   $scope.tickettype
             }
             $http({
                 method: 'POST',
@@ -1138,12 +1189,12 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
         $scope.sendCommentsData = {
           
             "project_ticket_id"    :   ticketid,
-            "priority"             :   $scope.ticked_update.priority,
-            "project_status"       :   $scope.ticked_update.status,
+            "priority"             :   $scope.header.priority,
+            "project_status"       :   $scope.header.status,
         }
 
         $scope.CallToDB = false;
-        if (   $scope.ticked_update.priority === undefined ||   $scope.ticked_update.priority == '') {
+       /* if (   $scope.ticked_update.priority === undefined ||   $scope.ticked_update.priority == '') {
             Message('danger', 'Please Select priority');
             $scope.CallToDB = false;
             return false
@@ -1152,7 +1203,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
             Message('danger', 'Please Select Status');
             $scope.CallToDB = false;
             return false
-        }
+        }*/
         $http({
             method: "POST",
             url:`${API_URL}admin/live-project/replay-comments_update`,

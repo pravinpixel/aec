@@ -133,7 +133,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
     public function store(Request $request, $created_by, $role_by, $seen_by)
     {
 
-        //dd($request->assign);
+        //dd($request);
 
         if (!empty(Customer()->id)) {
             $send_by = Customer()->id;
@@ -167,6 +167,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             "send_by"       => $send_by,
             "project_status"=>'New',
             "status"        => 0,
+            "variation_order"=> $request->data['variation']  ??  "0",
         ]);
 
         return $comments;

@@ -175,6 +175,7 @@
                     </div>
                     <div class="pb-2">
                         <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issue</button>
+                        {{-- <a  href="{{ route('admin.live-project.ticket-create', ['id'=>  1]) }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i>   Create Variation Order </a>--}}
                         <!--<button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
                         <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button> -->
                     </div>
@@ -360,14 +361,14 @@
                                         <label for="example-select" class="form-label text-secondary">Assign Type</label>
                                         <div>
                                             <!-- Default radio -->
-                                            <div class="form-check" ng-click="ticket_type('internal')">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type" />
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type"  ng-click="ticket_type('internal')" />
                                                 <label class="form-check-label" for="flexRadioDefault1"> Internal </label>
                                             </div>
                                             
                                             <!-- Default checked radio -->
-                                            <div class="form-check" ng-click="ticket_type('customer')">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"   />
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"  ng-click="ticket_type('customer')"   />
                                                 <label class="form-check-label" for="flexRadioDefault2"> Customer </label>
                                             </div>
                                         </div>
@@ -570,24 +571,24 @@
                                         <label for="example-select" class="form-label text-secondary">Tiket ID</label>
                                         <div class="form-control shadow"> 
                                             <a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(header.ticketid,'show')">
-                                                <u>@{{projectticket.reference_number}} /TIK0-@{{header.id}}</u>
+                                                <u>@{{projectticket.reference_number}} /TIK0-@{{header.ticketid}}</u>
                                             </a> 
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="example-select"  class="form-label text-secondary">Priority</label>
-                                        <select class="form-select shadow" id="example-select" ng-model="ticked_update.priority">
-                                            <option value = "low"  ng-selected="header.priority == 'critical'">Critical</option>
+                                        <select class="form-select shadow" id="example-select" ng-model="header.priority">
+                                            <option value = "critical"  ng-selected="header.priority == 'critical'">Critical</option>
                                             <option value = "high"  ng-selected="header.priority == 'high'">High</option>
-                                            <option value = "high"  ng-selected="header.priority == 'medium'">Medium</option>
+                                            <option value = "medium"  ng-selected="header.priority == 'medium'">Medium</option>
                                             <option value = "low"  ng-selected="header.priority == 'low'">Low</option>
                                            
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Status</label>
-                                        <select class="form-select shadow" id="example-select" ng-model="ticked_update.status">
-                                            <option ng-selected = "header.status == 'New'"  value="open">New</option>
+                                        <select class="form-select shadow" id="example-select" ng-model="header.status">
+                                            <option ng-selected = "header.status == 'New'"  value="New">New</option>
                                             <option ng-selected = "header.status == 'open'"  value="open">Open</option>
                                             <option  ng-selected = "header.status == 'close'" value="close">Close</option>
                                             <option  ng-selected = "header.status == 'pending'" value="pending">Pending</option>
@@ -622,7 +623,7 @@
 
 
 
-<div id="Variation_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="Variation_mdal-box_pop" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-right h-100" style="width:100% !important">
         <div class="modal-content h-100">
             <div class="modal-header border-0">
@@ -823,10 +824,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Issues Number </label>
-                        <input type="text" class="form-control" ng-model="refno" placeholder="Type Here...">
-                    </div> 
+
+                    <div class="row m-0">
+                        <div class="col p-0 me-md-2">
+                            <div class="mb-3 ">
+                                <label class="form-label">Ticket Type</label>
+                                <select class="form-select" ng-model="tickettype">
+                                    <option value = "internal">Internal</option>
+                                    <option value = "customer">Customer</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col p-0">
+                            <div class="mb-3">
+                                <label class="form-label">Issues Number </label>
+                                <input type="text" class="form-control" ng-model="refno" placeholder="Type Here...">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    
+                    
                     <div class="text-center">
                         <button type="button" class="btn btn-primary" ng-click="tablesearch('filtersearch')">
                             <i class="mdi mdi-filter-menu"></i> Submit

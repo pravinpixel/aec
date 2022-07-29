@@ -50,7 +50,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Date of Change Request</b></td>
-                                                <td><input type="date" get-to-do-lists ng-value="ticket.change_date | date: 'dd-MM-yyyy'" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                                <td><input type="date" get-to-do-lists  ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
                                         </tr> 
                                     </tbody>
                                 </table>
@@ -60,13 +60,13 @@
                                             <div class="col">
                                                 <div class="mb-3">                                             
                                                     <label class="form-label" >Description of Variation / Change  <sup class="text-danger">*</sup></label>
-                                                    <div text-angular="text-angular" name="htmlcontent" ng-model="ticket.description" ta-disabled='disabled'></div>
+                                                    <div dx-html-editor="htmlEditorOptions" class = "description"> </div>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >Reason for Variation / Change <sup class="text-danger">*</sup></label>
-                                                    <div text-angular="text-angular" name="htmlcontent" ng-model="ticket.reason_for_variation" ta-disabled='disabled1'></div>
+                                                    <div dx-html-editor="htmlEditorOptions" class = "variationchanges"> </div>
                                                 </div>
                                             </div>
                                         </div>
