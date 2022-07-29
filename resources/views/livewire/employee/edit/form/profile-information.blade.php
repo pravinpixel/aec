@@ -68,12 +68,14 @@
         <div class="cardx row m-0">
             <div class="col-9 p-0">
                 <label for="file" class="form-label" >Select Image<sup class="text-danger"></sup></label>
-                <input type="file" class="form-control"  wire:model="image" />   
+                <input type="file" class="form-control"  wire:model="image"/>   
                 @error('image') <span class="error"> {{ $message }}</span> @enderror
             </div>
             <div class="card-body col-3">
                 <div class="position-relative" style="width: 100px"> 
-                    @if ($image) 
+                    @if($is_uploaded) 
+                        <img src="{{ asset('public/uploads/'.$uploaded_image) }}"  class="w-100">
+                    @else
                         <img src="{{ $image->temporaryUrl() }}"  class="w-100">
                     @endif
                 </div>

@@ -35,7 +35,7 @@ class Wizard extends Component
     public $sign_in_password_change = 0;
     public $send_password_to_email = 0;
     public $recipient_email;
-    public $completed_wizard;
+    public $completed_wizard = 0;
     public $roles = [];
 
     public function getEnquiryNumber() 

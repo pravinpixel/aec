@@ -125,8 +125,8 @@
                         </li>
                         @if(userHasAccess('employee_index'))
                             <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee",'edit.employee']) ? "menuitem-active" : ""}}">
-                                <a href="{{ route('admin-employee-control-view') }}">Employee Control </a>
-                                {{-- <a href="{{ route('employee.index') }}">Employee Control </a> --}}
+                                {{-- <a href="{{ route('admin-employee-control-view') }}">Employee Control </a> --}}
+                                <a href="{{ route('employee.index') }}">Employee Control </a>
                             </li> 
                         @endif
                     </ul>

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Employee\Edit;
 use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
 use App\Models\Role;
+use App\Services\GlobalService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -22,6 +23,8 @@ class Wizard extends Component
     public $employees;
     public $roles = [];
     public  $id;
+    public $is_uploaded;
+    public $uploaded_image;
 
     public function __construct()
     {
@@ -38,12 +41,30 @@ class Wizard extends Component
         $this->job_role         = $employee->job_role;
         $this->email            = $employee->email;
         $this->image            = $employee->image;
-        $this->mobile_number     = $employee->mobile_number;
+        $this->uploaded_image   = $employee->image;
+        $this->mobile_number    = $employee->mobile_number;
+        $this->is_uploaded        = true;
         $this->roles = Role::all();
     }
     
+    public function updatedImage($newValue)
+    {
+        $employee        = Employees::findOrFail($this->id);
+        $profile = public_path('uploads/'.$employee->image);
+        if(file_exists($profile)) {
+            @unlink($profile);
+        }
+        $uploadPath      = GlobalService::getEmployeePath();
+        $path            = $this->image->storePublicly($uploadPath, 'enquiry_uploads');
+        $employee->image = $path;
+        $employee->save();
+        $this->is_uploaded = false;
+    }
+
     public function updatePersonalInformation()    {
         $employee = Employees::findOrFail($this->id);
+        $uploadPath         =   GlobalService::getEmployeePath();
+        $path               =   $this->image->storePublicly($uploadPath, 'enquiry_uploads');
         $customMessages = [
             'regex' => 'Mobile no between 8 to 12 digits'
         ];
@@ -61,7 +82,9 @@ class Wizard extends Component
         $employee->email                   = $this->email; 
         $employee->job_title               = $this->job_title;
         $employee->job_role                = $this->job_role;
-        $employee->mobile_number            = $this->mobile_number;
+        $employee->mobile_number           = $this->mobile_number;
+        $employee->image                   = $path;
+        $this->is_upload                   = false;
         $employee->save();
         $this->next();
     }

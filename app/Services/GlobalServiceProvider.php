@@ -101,6 +101,11 @@ class GlobalServiceProvider extends Controller
         return 'customers/'.Customer()->id.'/'.Config::get('global.file_path.ifc_model_uploads');
     }
 
+    public function getEmployeePath()
+    {
+        return 'employees/'.Admin()->id.'/'.Config::get('global.file_path.profile');
+    }
+
     public function bucketStructureFormat($enquiryNumber)
     {
         $rstring = Str::replace('/', '-', $enquiryNumber);

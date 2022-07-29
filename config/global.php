@@ -13,6 +13,7 @@ return [
     'file_path' => [
         'building_component_uploads' => 'building_component_uploads',
         'ifc_model_uploads' => 'ifc_model_uploads',
+        'profile'=>'profile',
     ],
     'autodesk_upload_file_type' => [
         'nwd', 
