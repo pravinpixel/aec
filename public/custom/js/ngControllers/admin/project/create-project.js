@@ -440,7 +440,11 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
     .then((res)=> {
         projectActiveTabs(res.data.wizard_status);
     });
-
+    
+    $http.get(`${API_URL}get-delivery-type`).then((res)=> {
+        $scope.deliveryTypes = res.data;
+    });
+    
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
         $scope.projectManagers = res.data;
     });
@@ -1399,16 +1403,14 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
             });
             if(res.data.status == true) {
                 Swal.fire({
-                    title: `Project submitted successfully are you want to leave the page?`,
-                    showDenyButton: false,
-                    showCancelButton: true,
-                    cancelButtonText: 'No',
-                    confirmButtonText: 'Yes',
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.href =  `${API_URL}admin/list-projects`;
-                    }
+                    icon: 'success',
+                    html: `<h3>Project Submitted Successfully..!!</h3>`,
+                    showConfirmButton: false,
+                    timer: 3000
                 });
+                $timeout(()=> {
+                    location.href =  `${API_URL}admin/list-projects`;
+                }, 3000);
             }
         })
     }
@@ -1422,11 +1424,12 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
             });
             if(res.data.status == true) {
                 Swal.fire({
-                    title: `Project saved successfully are you want to leave the page?`,
+                    html: `<h3>Project Saved Successfully </br> Do you want to leave the page ?</h3>`,
                     showDenyButton: false,
                     showCancelButton: true,
                     cancelButtonText: 'No',
                     confirmButtonText: 'Yes',
+                    icon: 'question',
                     }).then((result) => {
                     if (result.isConfirmed) {
                         location.href =  `${API_URL}admin/list-projects`;
