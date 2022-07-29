@@ -167,7 +167,7 @@
                                             <div class="col text-center">
                                                 <h5 class="card-title  h3">Deactivate Account ?</h5>
                                                 <p class="card-text">This action will remove all here information assets data related to <b>AECPrefab</b></p>
-                                                <button {{ $paymentDue && $activeProject == 0 ? '': 'disabled' }}   class="btn btn-{{ $paymentDue  && $activeProject == 0 ? 'success': 'danger' }}  rounded-pill px-3" onclick="deactivateAccount()">Deactivate</button>
+                                                <button {{ $paymentDue && $activeProject == 0 ? '': 'disabled' }}   class="btn btn-{{ $paymentDue  && $activeProject == 0 ? 'danger' : 'secondary' }}  rounded-pill px-3" onclick="deactivateAccount()">Deactivate</button>
                                             </div>
                                         </div>
                                     </div>
