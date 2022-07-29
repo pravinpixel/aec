@@ -7,6 +7,7 @@ use App\Http\Requests\CreateCustomerRequest;
 use App\Http\Requests\CustomerProfileRequest;
 use App\Http\Requests\UpdateCustomerDetailRequest;
 use App\Models\Customer;
+use App\Models\Project;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -152,7 +153,9 @@ class CustomerController extends Controller
     {
         $id = Customer()->id;
         $customer = Customer::find($id);
-        return view('customer.pages.profile', compact('customer'));
+        $paymentDue = true;
+        $activeProject = Project::where(['customer_id'=> $id, 'status'=> 'live'])->get()->count();
+        return view('customer.pages.profile', compact('customer','activeProject','paymentDue'));
     }
 
     public function updateProfile(CustomerProfileRequest $request)
