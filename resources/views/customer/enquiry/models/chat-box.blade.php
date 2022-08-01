@@ -1,6 +1,6 @@
-<div class="text-end pt-2">
-    <a class="text-primary p-0 btn"  ng-click="showCommentsToggle()" >
-       <u> <i class="mdi mdi-eye"></i>  View /   Add comments</u>
+<div class="text-end pt-2" id="customer_chat">
+    <a class="text-primary p-0 btn">
+       <u><a ng-click="showCommentsToggle()"  class="btn btn-primary rounded-pill"><i class='far fa-comment-dots'></i> Chat</a></u>
     </a>
 </div>
 <div id="viewConversations-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >

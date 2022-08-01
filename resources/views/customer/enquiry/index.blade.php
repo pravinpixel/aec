@@ -5,6 +5,7 @@
     <div class="content-page" ng-app="App">
         <div class="content" ng-controller="enquiryModalCtrl"> 
             @include('customer.includes.top-bar')
+        
 
             <!-- Start Content-->
             <div class="container-fluid">
@@ -87,69 +88,10 @@
             @include('customer.enquiry.models.enquiry-filter-modal')
             @include('customer.enquiry.models.detail-modal')
             @include('customer.enquiry.models.approve-modal')
+            @include('customer.enquiry.models.chat-box')
         </div> <!-- content --> 
     </div> 
 
-    
-    <div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-md modal-right" style="width:100% !important">
-            <div class="modal-content p-3 h-100 d-flex justify-content-center align-items-center" >
-                <div>
-                    <div class="border-0">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                    </div>
-                    <div >
-                        <div class="my-3">
-                            <h3 class="page-title">Filter</h3>
-                        </div>
-                        <div class="mb-3 row mx-0">
-                            <div class="col p-0 me-md-2">
-                                <label class="form-label">From Date</label>
-                                <input type="text" class="form-control date" id="birthdatepicker" data-toggle="date-picker" data-single-date-picker="true">
-                            </div>
-                            <div class="col p-0">
-                                <label class="form-label">End Date</label>
-                                <input type="text" class="form-control date" id="birthdatepicker" data-toggle="date-picker" data-single-date-picker="true">
-                            </div>
-                        </div>
-                        <div class="row m-0">
-                            <div class="col p-0 me-md-2">
-                                <div class="mb-3 ">
-                                    <label class="form-label">Project Type</label>
-                                    <select class="form-select">
-                                        <option selected>-- select --</option>
-                                        <option value="1">Construction</option>
-                                        <option value="2">New Construction</option>
-                                        <option value="3">Old Construction</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col p-0">
-                                <div class="mb-3">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select">
-                                        <option selected>-- select --</option>
-                                        <option value="1">In Progress </option>
-                                        <option value="2">Awarded</option>
-                                        <option value="3">Yet to Start</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Enquiry Number | Project Name</label>
-                            <input type="text" class="form-control" placeholder="Type Here...">
-                        </div> 
-                        <div class="text-center">
-                            <button type="button" class="btn btn-primary  ">
-                                <i class="mdi mdi-filter-menu"></i> Submit
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 <!-- /.modal -->
 
 @endsection
@@ -174,6 +116,7 @@
     
     <script>
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL, $compile ) {
+            $("#customer_chat").hide();
             $scope.commentsCount = 0;
             $scope.getEnquiry = (type,id) =>  {
                 $(".custom-accordion-collapse").addClass('collapsed');

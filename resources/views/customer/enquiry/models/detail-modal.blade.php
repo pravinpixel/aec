@@ -136,15 +136,15 @@
                                         </tr> 
                                     </tbody>
                                 </table>
-                                {{-- <form id="project_information__commentsForm" ng-submit="sendComments('project_information','Customer')" class="input-group mt-3">
+                                <form id="project_information__commentsForm" ng-submit="sendComments('project_information','Customer')" class="input-group mt-3">
                                     <input required type="text" ng-model="project_information__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                </form>   --}}
-                                {{-- <div class="text-end pt-2">
+                                </form>  
+                                <div class="text-end pt-2">
                                     <a class="text-primary p-0 btn" ng-show="enquiry_comments.project_information" ng-click="showCommentsToggle('viewConversations', 'project_information', 'Project Information')">
                                         <i class="mdi mdi-eye"></i>  Previous chat history
                                     </a>
-                                </div> --}}
+                                </div>
                             </div> 
                         </div>
                     </fieldset>
@@ -176,15 +176,15 @@
                                         </ul>
                                     </li>
                                 </ul>  
-                                {{-- <form id="service__commentsForm" ng-submit="sendComments('service','Customer')" class="input-group mt-3">
+                                <form id="service__commentsForm" ng-submit="sendComments('service','Customer')" class="input-group mt-3">
                                     <input required type="text" ng-model="service__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                </form>   --}}
-                                {{-- <div class="text-end pt-3">
+                                </form>  
+                                <div class="text-end pt-3">
                                     <a class="text-primary p-0 btn"  ng-show="enquiry_comments.service" ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
-                                </div> --}}
+                                </div>
                             </div> 
                         </div>
                     </fieldset> 
@@ -238,15 +238,15 @@
                                         </tbody>
                                     </thead>
                                 </table>
-                                {{-- <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Customer')" class="input-group mt-3">
+                                <form id="ifc_model__commentsForm" ng-submit="sendComments('ifc_model','Customer')" class="input-group mt-3">
                                     <input required type="text" ng-model="ifc_model__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                </form>   --}}
-                                {{-- <div class="text-end pt-3">
+                                </form>  
+                                <div class="text-end pt-3">
                                     <a class="text-primary p-0 btn" ng-show="enquiry_comments.ifc_model" ng-click="showCommentsToggle('viewConversations', 'ifc_model', 'IFC Models & Uploaded Documents')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
-                                </div> --}}
+                                </div>
                             </div> 
                         </div>
                     </fieldset>  
@@ -385,15 +385,15 @@
                                     
                                     </table> 
                                 </div>  --}}
-                                {{-- <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Customer')" class="input-group mt-3">
+                                <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Customer')" class="input-group mt-3">
                                     <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                </form>   --}}
-                                {{-- <div class="text-end pt-3">
+                                </form>  
+                                <div class="text-end pt-3">
                                     <a class="text-primary p-0 btn"   ng-show="enquiry_comments.building_components"  ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
-                                </div>  --}}
+                                </div> 
                             </div> 
                         </div>
 
@@ -427,15 +427,15 @@
                                         </thead>
                                     </table>
                                 </div>
-                                {{-- <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Customer')" class="input-group mt-3">
+                                <form id="building_components__commentsForm" ng-submit="sendComments('building_components','Customer')" class="input-group mt-3">
                                     <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                </form>   --}}
-                                {{-- <div class="text-end pt-3">
+                                </form>  
+                                <div class="text-end pt-3">
                                     <a class="text-primary p-0 btn"   ng-show="enquiry_comments.building_components" ng-click="showCommentsToggle('viewConversations', 'building_components', 'Building Components')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
-                                </div>  --}}
+                                </div> 
                             </div> 
                         </div>
                     </fieldset>
@@ -463,21 +463,19 @@
                                     <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>
                                     </div>
                                 </div>
-                                {{-- <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Customer')" class="input-group mt-3">
+                                <form id="add_info__commentsForm" ng-submit="sendComments('add_info','Customer')" class="input-group mt-3">
                                     <input required type="text" ng-model="add_info__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                </form>   --}}
-                                {{-- <div class="text-end pt-3">
+                                </form>  
+                                <div class="text-end pt-3">
                                     <a class="text-primary p-0 btn" ng-show="enquiry_comments.add_info"   ng-click="showCommentsToggle('viewConversations', 'add_info', 'Additional Information')">
                                         <i class="fa fa-eye"></i>  Previous chat history
                                     </a>
-                                </div> --}}
+                                </div>
                             </div> 
                         </div>
                     </fieldset> 
                 {{-- Additional Info --}}
             </div>   
-             
         </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div><!-- /.modal-dialog -->

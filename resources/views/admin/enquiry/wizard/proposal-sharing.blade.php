@@ -146,7 +146,7 @@
                                                         <a  class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
                                                         <a  class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a>
-                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > View / Add comments</u></a>
+                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
                                                     
                                                     </div>
                                                     <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
@@ -154,7 +154,7 @@
                                                         <a  class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
                                                         <a class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</a>
                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(P.proposal_id , P.id)">Send Proposal</a>
-                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.id, P.type)" > View / Add comments</u></a>
+                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.id, P.type)" > Chat</u></a>
                                                         <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Delete</a>
                                                     </div>
                                                 </div>
@@ -198,13 +198,13 @@
                                                                         <a  class="btn dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
                                                                         <a  class="btn dropdown-item" ng-click="ViewEditPropose(V.proposal_id, false)">View</a>
                                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomer(V.proposal_id)">Send Proposal</a>
-                                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > View / Add comments</u></a>
+                                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
                                                                     </div>
                                                                     <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
                                                                         <a  class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
                                                                         <a class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id, false)">View </a>
                                                                         <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a>
-                                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.id, V.type)" > View / Add comments</u></a>
+                                                                        <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.id, V.type)" > Chat</u></a>
                                                                         <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Delete</a>
                                                                     </div>
                                                                 </div>
