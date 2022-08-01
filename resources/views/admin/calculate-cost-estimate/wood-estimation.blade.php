@@ -7,8 +7,8 @@
                 </th>
             </tr>
             <tr>
-                <th class="text-end">Area m<sup>2<sup></sup></sup></th>
-                <th class="text-end">Pris/m<sup>2<sup></sup></sup></th>
+                <th class="text-end">Total Area m<sup>2<sup></th>
+                <th class="text-end">Pris/m<sup>2<sup></th>
                 <th class="text-end">Sum</th>
             </tr>
         </thead>

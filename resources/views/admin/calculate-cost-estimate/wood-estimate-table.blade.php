@@ -82,7 +82,7 @@
                 </div>
                 <div class="custom-row custom-border-left bg-primary text-white m-0">
                     <div class="custom-td text-center"> 
-                        <small class="fw-bold">Total</small>
+                        <small class="fw-bold">Building Components</small>
                         <button class="btn-sm btn font-12 btn-info py-0 mt-1" ng-click="addComponent(firstIndex)">
                             <i class="fa fa-plus"></i> Add 
                         </button>
@@ -99,15 +99,15 @@
                     </div>
                     <div  ng-model="CostEstimate.ComponentsTotals.Dynamics" class="d-flex">
                         <div class="custom-td text-center p-0 bg-primary2" ng-repeat="(dynamicIndex, Dynamic) in CostEstimate.ComponentsTotals.Dynamics track by $index">
-                            <span class="border-bottom w-100 text-center custom-max-h">
+                            <span class="border-bottom w-100 text-center custom-max-h mt-1">
                                 <i class="fa fa-trash text-danger dynamic_name" ng-click="deleteDynamic(firstIndex,dynamicIndex)"> </i>
                                 <small class="fw-bold">@{{ Dynamic.name }}</small> 
                             </span>
                             <div class="row text-center m-0 w-100">
-                                <div class="col p-0 font-12 text-center">
-                                    <small class="fw-bold">Pris/m2</small>
+                                <div class="col p-0 font-12 text-center my-1">
+                                    <small class="fw-bold">Pris/m<sup>2</sup></small>
                                 </div>
-                                <div class="col p-0 font-12 text-center">
+                                <div class="col p-0 font-12 text-center my-1">
                                     <small class="fw-bold">Sum </small>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                         <span><small class="fw-bold">Total Cost</small></span>
                         <div class="custom-row text-center m-0">
                             <div class="col">
-                                <small class="fw-bold">Pris/m2</small>
+                                <small class="fw-bold">Pris/m<sup>2</sup></small>
                             </div>
                             <div class="col">
                                 <small class="fw-bold">Sum</small>
