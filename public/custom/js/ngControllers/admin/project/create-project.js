@@ -1404,7 +1404,7 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
             if(res.data.status == true) {
                 Swal.fire({
                     icon: 'success',
-                    html: `<h3>Project Submitted Successfully..!!</h3>`,
+                    html: `<h3>Project Established Successfully..!!</h3>`,
                     showConfirmButton: false,
                     timer: 3000
                 });
