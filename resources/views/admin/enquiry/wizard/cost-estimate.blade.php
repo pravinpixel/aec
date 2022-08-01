@@ -138,7 +138,7 @@
     @if (userHasAccess('cost_estimate_add'))
         <div class="card m-0 my-3 border">
             <div class="card-body">
-                <p class="lead mb-2"> <strong>Assign for verification</strong></p>
+                <p class="lead mb-2"> <strong>Assign for Verification</strong></p>
                 <div class="btn-group w-100">
                     <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
                         <option value=""> @lang('global.select') </option>
