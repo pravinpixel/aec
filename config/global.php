@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'mail_from_address' => 'noreply@crm.aecprefab.net',
+    'mail_from_address' => env('MAIL_FROM_ADDRESS'),
     'model_date_format' => 'd-m-Y',
     'db_date_format'    => 'Y-m-d',
     'db_date_format_with_time' => 'Y-m-d H:i:s',
