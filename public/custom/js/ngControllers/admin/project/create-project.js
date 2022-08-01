@@ -489,7 +489,7 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
 
         // if($scope.return   == false) return false
 
-        $http.post(`${API_URL}admin/check-list-master-group`, {data:  $scope.check_list_type}).then((res) => {
+        $http.post(`${API_URL}admin/check-list-master-group`, {data:  $scope.check_list_type,  project_id: project_id}).then((res) => {
             $scope.check_list_items.push(res.data.data)
             console.log($scope.check_list_items)
         })

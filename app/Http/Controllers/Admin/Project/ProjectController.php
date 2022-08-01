@@ -290,13 +290,15 @@ class ProjectController extends Controller
 
     public function checkListMasterGroupList(Request $request)
     {
-
+        $project = Project::findOrFail($request->project_id);
+        $start_date = $project->start_date;
+        $end_date   = $project->delivery_date;
         $list           =   CheckList::where("name",  '=', $request->data)->with('getTaskList')->latest()->get();
 
-        $grouped        =   $list->groupBy('task_list_category')->map(function ($item) {
-            $tasks =  $item->map( function($task) {
-                $task->{"start_date"} = now();
-                $task->{"end_date"} = now();
+        $grouped        =   $list->groupBy('task_list_category')->map(function ($item) use($start_date, $end_date) {
+            $tasks =  $item->map( function($task) use($start_date, $end_date) {
+                $task->{"start_date"} = $start_date;
+                $task->{"end_date"} = $end_date;
                 return $task;
             });
             return ['name' => $item[0]->getTaskList->task_list_name, 'data' => $tasks];
