@@ -1,5 +1,90 @@
 var app = angular.module('App', ['ngRoute','datatables','luegg.directives','textAngular','psi.sortable','dx']).constant('API_URL', $("#baseurl").val());
  
+app.directive('deleteTemplate', function(API_URL ,$http){
+    return {
+        restrict: 'A',
+        scope: {
+            data: '=deleteTemplate',
+        },
+        link: function(scope, element, attrs) {
+            element.on('click', function(){
+                console.log(scope);
+                if(scope.data.template == '' || scope.data.template == null || scope.data.template == 'undefined') {
+                    Message('danger', 'Template field is required'); return false;
+                }
+                $http.delete(`${API_URL}admin/cost-estimate-template/${scope.data.template}`)
+                .then(function successCallback(res){
+                    console.log(scope);
+                    if(res.data.status) {
+                        if(scope.data.type =='wood') {
+                            scope.$parent.$parent.costEstimateWoodTemplates = scope.$parent.$parent.costEstimateWoodTemplates.filter(object => {
+                                return object.id !== scope.data.template;
+                            });
+                        } else {
+                            scope.$parent.$parent.costEstimatePrecastTemplates = scope.$parent.$parent.costEstimatePrecastTemplates.filter(object => {
+                                return object.id !== scope.data.template;
+                            });
+                        }
+                        Message('success', res.data.msg);
+                        return false;
+                    }
+                    Message('danger', res.data.msg);
+                    return false;
+                });
+                scope.$apply();
+            });
+        }
+    };
+});
+
+app.directive('overwriteTemplate', function(API_URL ,$http){
+    return {
+        restrict: 'A',
+        scope: {
+            data: '=overwriteTemplate',
+        },
+        link: function(scope, element, attrs) {
+            element.on('click', function(){
+                if(scope.data.template == '' || scope.data.template == null || scope.data.template == 'undefined') {
+                    Message('danger', 'Template field is required'); return false;
+                }
+                if(scope.data.type == 'wood') {
+                    var template = scope.$parent.CostEstimate;
+                } else {
+                    var template = scope.$parent.PrecastEstimate;
+                }
+                $http.put(`${API_URL}admin/cost-estimate-template/${scope.data.template}`, { template: template})
+                .then(function successCallback(res){
+                    if(res.data.status) {
+                        if(scope.data.type =='wood') {
+                            $http({
+                                method: 'GET',
+                                url: `${API_URL}admin/cost-estimate-wood-template`
+                                }).then(function success(res) {
+                                    scope.$parent.$parent.costEstimateWoodTemplates = res.data.data;
+                                }, function error(response) {
+                            });
+                        } else {
+                            $http({
+                                method: 'GET',
+                                url: `${API_URL}admin/cost-estimate-precast-template`
+                                }).then(function success(res) {
+                                    scope.$parent.$parent.costEstimatePrecastTemplates = res.data.data;
+                                }, function error(response) {
+                            });
+                        }
+                        Message('success', res.data.msg);
+                        return false;
+                    }
+                    Message('danger', res.data.msg);
+                    return false;
+                });
+               
+            });
+        }
+    };
+});
+
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  
         restrict: 'A',  

@@ -49,4 +49,23 @@ class CostEstimateTemplate extends Controller
         return response(['status' => true, 'data'=> $template]);
     }
 
+    public function update($id,Request $request)
+    {
+        $template = ModelsCostEstimateTemplate::findOrFail($id);
+        $template->json = json_encode($request->input('template'));
+        if($template->save()) {
+            return response(['status' => true, 'msg'=> __('global.updated')]);
+        }
+        return response(['status' => false, 'msg'=> __('global.something')]);
+    }
+
+    public function destroy($id)
+    {
+        $template = ModelsCostEstimateTemplate::findOrFail($id);
+        if($template->delete()) {
+            return response(['status' => true,'msg' => __('global.deleted')]);
+        }
+        return response(['status' => false,'msg' => __('global.something')]);
+    }
+
 }

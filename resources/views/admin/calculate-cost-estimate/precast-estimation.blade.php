@@ -53,6 +53,16 @@
                                                     <button class="btn-info btn-sm" ng-click="callPrecastTemplate(pRootKey)">
                                                         <i class="fa fa-plus"> </i>
                                                     </button>
+                                                    <div class="dropdown text-end">
+                                                        <button class="btn-info btn-sm" title="More option..." type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="dripicons-dots-3"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <button  class="dropdown-item" overwrite-template="{template:precastTemplate, type:'precast'}"><i class="fa fa-save me-1"></i>Overwrite Template </button> 
+                                                            <button  class="dropdown-item" delete-template="{template:precastTemplate, type:'precast'}"><i class="fa fa-trash me-1"></i>Delete Template </button> 
+                                                        </div>
+                                                    </div>
+                                                   
                                                 </div>
                                                 <div class="col input-group justify-content-end">
                                                     <button class="btn-sm btn btn-danger" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
