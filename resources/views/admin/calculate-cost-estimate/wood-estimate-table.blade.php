@@ -175,7 +175,7 @@
                         <div class="custom-td custom_drag_">
                             <div class="d-flex align-items-center">
                                 <a class="mdi mdi-arrow-top-left-bottom-right-bold border bg-white text-primary shadow-sm"></a> 
-                                <input type="number" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
+                                <input type="text" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
                                 <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.building_component_id" name="building_component_name">
                                     <option value="">-- Select -- </option>
                                     <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.Component"
@@ -184,7 +184,7 @@
                             </div>
                         </div>
                         <div class="custom-td">
-                            <input type="number" class="history_building_type_value" value="@{{DeliveryTypeObj[C.type_id] }}">
+                            <input type="text" class="history_building_type_value" value="@{{DeliveryTypeObj[C.type_id] }}">
                             <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.type_id" ng-change="getMasterData(index)"
                                 name="type_name">
                                 <option value="">-- Select ---</option>

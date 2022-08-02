@@ -21,7 +21,7 @@
       
     <div class="input-group my-3 justify-content-end"> 
         <input type="text" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_name"  ng-value="precast_component_name" placeholder="Enter precast component">
-        <input type="text" onkeypress="return isNumber(event)" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_hours" ng-value="precast_component_hours"placeholder="Enter hours">
+        <input type="number" onkeypress="return isNumber(event)" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_hours" ng-value="precast_component_hours"placeholder="Enter hours">
         <button ng-show="editorEnabled" class="btn btn-info mx-1" ng-disabled="!precast_component_hours || !precast_component_name"  ng-click="savePrecastComponent()">Save</a>
         <button ng-show="editorEnabled" class="btn btn-danger mx-1" ng-click="editorEnabled = false">cancel</a>
         <button ng-hide="editorEnabled" class="btn btn-info mx-1" ng-click="editorEnabled = true"> <i class="fa fa-plus"></i> Component </button>
@@ -126,39 +126,39 @@
                                 </select>
                             </td> 
                             <td style="padding: 0 !important">
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" class="my-control"  ng-model="C.complexity"  ng-value="C.complexity" name="complexity">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" class="my-control"  ng-model="C.complexity"  ng-value="C.complexity" name="complexity">
                             </td>
                             <td style="padding: 0 !important">
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.no_of_staircase" ng-value="C.no_of_staircase" name="no_of_staircase">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.no_of_staircase" ng-value="C.no_of_staircase" name="no_of_staircase">
                             </td>
 
-                            <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  min="100"  ng-model="C.no_of_new_component" ng-value="C.no_of_new_component" name="no_of_new_component" class="my-control"></td>
+                            <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0"  min="100"  ng-model="C.no_of_new_component" ng-value="C.no_of_new_component" name="no_of_new_component" class="my-control"></td>
 
-                            <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.no_of_different_floor_height" ng-value="C.no_of_different_floor_height" name="no_of_different_floor_height" class="my-control"></td>
+                            <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0"  ng-model="C.no_of_different_floor_height" ng-value="C.no_of_different_floor_height" name="no_of_different_floor_height" class="my-control"></td>
 
-                            <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" ng-value="C.sqm" name="sqm" class="my-control"> </td>
+                            <td style="padding:0px !important"><input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0"  ng-model="C.sqm" ng-value="C.sqm" name="sqm" class="my-control"> </td>
                         
                             <td>
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.std_work_hours" ng-value="C.std_work_hours"  name="std_work_hours">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.std_work_hours" ng-value="C.std_work_hours"  name="std_work_hours">
                             </td>
                         
                             <td>
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.additional_work_hours"  ng-value="C.additional_work_hours" name="additional_work_hours">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.additional_work_hours"  ng-value="C.additional_work_hours" name="additional_work_hours">
                             </td>
                             <td>
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.hourly_rate"  ng-value="C.hourly_rate" name="hourly_rate">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.hourly_rate"  ng-value="C.hourly_rate" name="hourly_rate">
                             </td>
                             <td>
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control psqm_"  ng-model="C.total_work_hours" ng-value="C.total_work_hours" name="total_work_hours">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control psqm_"  ng-model="C.total_work_hours" ng-value="C.total_work_hours" name="total_work_hours">
                             </td>
                             <td>
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.engineering_cost" ng-value="C.engineering_cost"  name="engineering_cost">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.engineering_cost" ng-value="C.engineering_cost"  name="engineering_cost">
                             </td>
                             <td>
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_central_approval" ng-value="C.total_central_approval" name="total_central_approval">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_central_approval" ng-value="C.total_central_approval" name="total_central_approval">
                             </td>
                             <td>
-                                <input  get-precast-details-total="[index]" type="text" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_engineering_cost" ng-value="C.total_engineering_cost" name="total_engineering_cost">
+                                <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_engineering_cost" ng-value="C.total_engineering_cost" name="total_engineering_cost">
                             </td>
                             <td class="text-center" style="padding: 0 !important">
                                 <i ng-click="deletePrecastComponent(pRootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
