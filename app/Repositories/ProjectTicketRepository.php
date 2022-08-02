@@ -83,7 +83,44 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         }
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $ProjectTicket['ticketcase'] = $this->Projectticketcase->with('assigndetails')
-                                                ->where('project_id',$id)->orderBy('id','desc')->get();
+                                                ->where('project_id',$id)->orderBy('updated_at','desc')->get();
+        $newissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','New')->count();                                        
+        $openissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','open')->count();                                        
+        $closeissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','close')->count();                                        
+        $pendingissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','pending')->count();                                        
+        $ProjectTicket['overview'] = array('new' =>$newissues,
+                                            'open' => $openissues,
+                                            'close' => $closeissues,
+                                            'pending' =>$pendingissues);
+        $showing = $ProjectTicket['ticketcase']['0']->showing;
+       $showingarr = isset($showing) ? explode(',',$showing) :array();
+        //$showingarr =explode(',',$showing) ;
+        $header = ['Id','Requester','Type','Title','Assign','Status','Due Date','Priority','Modifiedat'];
+        //dd($showingarr);
+        foreach($header as $key=>$data){
+            //dd($data);
+            $showing = true;
+          
+                if(in_array($key ,$showingarr)){
+                    $showing = false;
+                }
+
+            
+           
+            $shoeresult[] = array('field'=>$key,
+                                'title' => $data,
+                                'show' => $showing 
+
+        );
+
+        $ProjectTicket['showhide'] = $shoeresult;
+        }
+
+
+
+
+
+
 
         //dd($ProjectTicket['ticketcase']);
        

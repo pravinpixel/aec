@@ -37,6 +37,7 @@
         Route::Post('projectticketfiltersearch', [ProjectController::class,'ticketfiltersearch'])->name('live-project-ticket-filter-list');
         Route::get('projectticketfind/{id}', [ProjectController::class,'projectticketfind'])->name('live-project-ticket-find');
         Route::get('live-project/show-ticket-comment/{id}/type/{type}',[TicketCommentsController::class,'sendprojectticket']);
+        Route::get('liveprojectnote/{id}',[ProjectController::class,'liveprojectnote']);
         
         
 

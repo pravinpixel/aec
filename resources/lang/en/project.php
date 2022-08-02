@@ -30,6 +30,7 @@ return [
     "tickets"               =>        "Issue"  ,
     "document"              =>        "Documents",
     "notes"                 =>        "Notes",
-    "invoiceplan"           =>         "Invoice Plan"
+    "invoiceplan"           =>         "Invoice Plan",
+    "generalnotes"          =>         "General Notes"
 
 ];

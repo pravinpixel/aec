@@ -126,43 +126,43 @@
                             <div class="col">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-center">
-                                        <strong class="lead fw-bold ms-2">15</strong>
+                                        <strong class="lead fw-bold ms-2">@{{overview.new}}</strong>
                                     </div>
-                                    <div class="fw-bold text-danger">Open</div>
+                                    <div class="fw-bold text-danger">New</div>
                                 </div>
                             </div> 
                             <div class="col">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-center">
-                                        <strong class="lead fw-bold ms-2">5</strong>
+                                        <strong class="lead fw-bold ms-2">@{{overview.open}}</strong>
                                     </div>
-                                    <div class="fw-bold text-info">Inprogress</div>
+                                    <div class="fw-bold text-info">Open</div>
                                 </div>
                             </div> 
                             <div class="col">
+                                <div class="card shadow-sm border m-0 p-2 text-center">
+                                    <div class="x-y-center">
+                                        <strong class="lead fw-bold ms-2">@{{overview.close}}</strong>
+                                    </div>
+                                    <div class="fw-bold text-dark">Close</div>
+                                </div>
+                            </div> 
+                            <div class="col">
+                                <div class="card shadow-sm border m-0 p-2 text-center">
+                                    <div class="x-y-center">
+                                        <strong class="lead fw-bold ms-2">@{{overview.pending}} </strong>
+                                    </div>
+                                    <div class="fw-bold text-warning">Pending</div>
+                                </div>
+                            </div> 
+                           {{-- <div class="col">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-center">
                                         <strong class="lead fw-bold ms-2">6</strong>
                                     </div>
-                                    <div class="fw-bold text-dark">Answered</div>
+                                    <div class="fw-bold text-success">Low</div>
                                 </div>
-                            </div> 
-                            <div class="col">
-                                <div class="card shadow-sm border m-0 p-2 text-center">
-                                    <div class="x-y-center">
-                                        <strong class="lead fw-bold ms-2">6</strong>
-                                    </div>
-                                    <div class="fw-bold text-warning">On Hold</div>
-                                </div>
-                            </div> 
-                            <div class="col">
-                                <div class="card shadow-sm border m-0 p-2 text-center">
-                                    <div class="x-y-center">
-                                        <strong class="lead fw-bold ms-2">6</strong>
-                                    </div>
-                                    <div class="fw-bold text-success">Closed</div>
-                                </div>
-                            </div> 
+                            </div>  --}}
                         </div>
                     </div>
                 </div>
@@ -185,42 +185,44 @@
                         
                     </div>
                     <div class="col-8 p-0">
+                       
                         <div class="input-group justify-content-end">
-                            <div class="   style="width: 200px">
-                               
-                               
-                            </div>
-                            <!--<button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-arrow-up-down me-1"></i> Sort</button> -->
+                           
                             <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"  class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
-                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields</button>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <label for="test@{{$index}}" class="dropdown-item" ng-repeat="col in cols" >
+                                        <input type="checkbox"  ng-model="col.show" name="" id="test@{{$index}}" class="form-check-input me-1">
+                                        @{{col.title}}
+                                    </label>
+                                  
+                                </ul>
+                              </div>
                            <!-- <button class="ms-1 border rounded btn btn-sm"><i class="fa fa-expand"></i></button> -->
                         </div>
                     </div>
                 </div>
+               
              
                 <table class="table custom table-striped table-bordered" datatable="ng" id="tablebqup" dt-options="vm.dtOptions">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>ID</th>
-                            <th>Requester</th>
-                            <th>Type</th>
-                            <th>Title</th>
-                            <th>Assignee</th>
-                            <th>Status</th>
-                            <th>Due by</th>
-                            <th>Priority</th>
-                            <th>Modifed at</th>
+                            <th ng-repeat="locale in cols" ng-show="locale.show">@{{locale.title}}</th>
+                          
                             <th><i class="dripicons-menu"></i></th>
                         </tr>
                     </thead>
                     <tbody>
                        
                             <tr ng-repeat="(ptcindex,pticketscomment) in pticketcomment">
-                                <td>@{{ ptcindex+1 }}</td>
-                                <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(pticketscomment.id,'show')"><small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small></a></button></td>
-                                <td>@{{pticketscomment.requester}}</td>
-                                <td>
+                                <td >@{{ ptcindex+1 }}</td>
+                                <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(pticketscomment.id,'show')"><small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small></a></button></td>
+                                <td ng-show="cols[1].show">@{{pticketscomment.requester}}</td>
+                                <td ng-show="cols[2].show">
                                     <div class="d-flex align-items-center">
                                        
                                         <div>
@@ -230,8 +232,8 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>@{{pticketscomment.summary}}</td>
-                                <td>
+                                <td ng-show="cols[3].show">@{{pticketscomment.summary}}</td>
+                                <td ng-show="cols[4].show">
                                     <div class="d-flex align-items-center">
                                         <img src="{{ asset("public/assets/images/") }}/@{{pticketscomment.assigndetails.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
@@ -241,12 +243,13 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><span class="badge bg-success">@{{pticketscomment.project_status}}</span></td>
-                                <td> <small>@{{ pticketscomment.ticket_date | date:"MM/dd/yyyy'T' h:mm" }}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
-                                <td style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
+                                
+                                <td ng-show="cols[5].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
+                                <td ng-show="cols[6].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
+                                <td ng-show="cols[7].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
                               
-                                <td><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
-                                <td style="padding: 0 !important" class="text-center">
+                                <td ng-show="cols[8].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
+                                <td style="padding: 0 !important" class="text-center" >
                                     <div class="dropdown">
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
@@ -275,7 +278,7 @@
                     <div class="modal-title d-flex">
                         <i class="fa fa-plus f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
                         <div>
-                            <h4 class="m-0">Create a new Case</h4> 
+                            <h4 class="m-0">Create a new Issue</h4> 
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
@@ -298,7 +301,7 @@
                                     </div> 
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Description</label>
-                                        <textarea class="form-control form-control-sm" cols="20" rows="5" ng-model = "case.description"></textarea>
+                                        <textarea class="form-control form-control-sm" cols="20" rows="5" ng-model = "case.description"  ng-required="true"></textarea>
                                     </div> 
                                     <div>
                                         
@@ -362,13 +365,13 @@
                                         <div>
                                             <!-- Default radio -->
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type"  ng-click="ticket_type('internal')" />
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type"  ng-click="ticket_type('internal')"  ng-required="true" />
                                                 <label class="form-check-label" for="flexRadioDefault1"> Internal </label>
                                             </div>
                                             
                                             <!-- Default checked radio -->
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"  ng-click="ticket_type('customer')"   />
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"  ng-click="ticket_type('customer')"  ng-required="true"  />
                                                 <label class="form-check-label" for="flexRadioDefault2"> Customer </label>
                                             </div>
                                         </div>
@@ -383,7 +386,7 @@
                                        
 
 
-                                        <select class="form-select form-select-sm shadow" id="example-select_project" >
+                                        <select class="form-select form-select-sm shadow" id="example-select_project"  ng-required="true" >
                                            
                                                 <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
                                                 <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
@@ -402,7 +405,7 @@
 
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Priority</label>
-                                        <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority">
+                                        <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority"  ng-required="true">
                                             <option value = "critical">Critical</option>
                                             <option value = "high">High</option>
                                             <option value = "medium">Medium</option>
@@ -410,8 +413,8 @@
                                         </select>
                                     </div> 
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Due by</label>
-                                        <input type="datetime-local" class="form-control form-control-sm" ng-model = "case.ticket_date">
+                                        <label for="example-select" class="form-label text-secondary">Due Date</label>
+                                        <input type="datetime-local" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
                                     </div> 
                                     <div class="mb-3">
                                        
@@ -437,7 +440,8 @@
                 </div> 
                 <div class="modal-footer border-top text-end">
                     <button class="btn btn-light shadow-sm border btn-sm" ng-click=discardticket()>Discard</button>
-                    <button class="btn btn-info btn-sm" onclick >Submit</button>
+                    
+                    <button class="btn btn-info btn-sm" ng-disabled="enqForm.$invalid" onclick >Submit</button>
                 </div>
          </form>
         </div><!-- /.modal-content -->
@@ -792,6 +796,7 @@
                     <div class="mb-3 row mx-0">
                         <div class="col p-0 me-md-2">
                             <label class="form-label">From Date</label>
+                            
                             <input type="date" class="form-control date" id="birthdatepicker" data-toggle="date-picker"  ng-model = "fromdate" data-single-date-picker="true">
                         </div>
                         <div class="col p-0">
@@ -857,6 +862,37 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<!-- show hide -->
+<div id="right-modal-show" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-right" style="width:100% !important">
+        <div class="modal-content p-3 h-100 d-flex justify-content-center align-items-center" >
+            <div>
+                <div class="border-0">
+                    <button type="button" id= "filter_close" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div >
+                    <div class="my-3">
+                        <h3 class="page-title">Header</h3>
+                    </div>
+
+                    <label class="checkbox-inline" ng-repeat="col in cols">
+                        <input type="checkbox" ng-model="col.show" /> @{{col.title}}
+                      </label>
+                    
+                    
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" ng-click="showhide(col.show)">
+                            <i class="mdi mdi-filter-menu"></i> Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    
 
 
 <div class="card-footer text-end">

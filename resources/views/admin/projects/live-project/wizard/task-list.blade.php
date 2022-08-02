@@ -75,7 +75,7 @@
                 <td> 
                     <input type="hidden" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm">
                     <label get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" id="" class=" border-0 form-control form-control-sm" ng-readonly="">@{{taskListData.end_date | date: 'dd-MM-yyyy'}}</label></td>
-                <td class="text-center"><input type="checkbox" name="" ng-model="taskListData.status" id="" class="form-check-input" ng-value = "taskListData.status" ></td>
+                <td class="text-center"><input type="checkbox" name="" ng-model="taskListData.status" id="" class="form-check-input" ng-value = "taskListData.status" ng-click=statusprogress()></td>
                 
                 <td><input type="date" get-to-do-lists ng-value="taskListData.delivery_date | date: 'yyyy-MM-dd'" ng-model="taskListData.delivery_date" id="" class=" border-0 form-control form-control-sm"></td>
             </tr> 

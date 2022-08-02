@@ -431,6 +431,34 @@
                         </table>
                     </div>
                 </fieldset> 
+                <fieldset class="accordion-item">
+                    <div class="accordion-header custom m-0 position-relative" id="Gendral_notes_header">
+                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Gendral_notes" aria-expanded="false" aria-controls="Invoice_maileStone">
+                            <span class="position-relative btn py-0"><b>@lang('project.generalnotes')</b></span> 
+                        </div>
+                        <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
+                            <i data-bs-toggle="collapse" 
+                                href="#Gendral_notes" 
+                                aria-expanded="true" 
+                                aria-controls="Gendral_notes" 
+                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                >
+                            </i>
+                        </div>
+                    </div>
+                    <div id="Gendral_notes" class="accordion-collapse collapse" aria-labelledby="Gendral_notes_header" >
+                        <div class="row my-2 mx-3 align-items-center">
+                            <div class="col-12" ng-bind-html="notes.notes">
+                               
+                               @{{notes.notes}}
+                              
+                            </div>
+                           
+                        </div>
+                       
+                       
+                    </div>
+                </fieldset> 
                 
             </div>
         </div><!-- /.modal-content -->

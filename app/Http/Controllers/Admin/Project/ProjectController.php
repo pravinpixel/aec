@@ -21,6 +21,7 @@ use App\Models\Employee;
 use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectGranttTask;
+use App\Models\GeneralNote;
 use App\Models\ProjectType;
 use App\Models\ProjectTicket;
 use App\Models\ProjectTeamSetup;
@@ -176,6 +177,7 @@ class ProjectController extends Controller
 
             foreach ($result as $task) {
                 ProjectGranttTask::create($task);
+               
             }
         } else {
             foreach ($result as $task) {
@@ -194,7 +196,7 @@ class ProjectController extends Controller
 
         $this->checkIndex();
         $loop_one =  $request->data;
-
+       
       
       
         $result = [];
@@ -226,6 +228,8 @@ class ProjectController extends Controller
             foreach ($row_one['data'] as $row_two) {
                  
                 $subParentTwo      =    $this->updateIndex();
+                //dd($loop_one);
+
 
                 $result[] = [
                     "project_id"    =>  $request->id,
@@ -1226,6 +1230,18 @@ class ProjectController extends Controller
     public function ticketlistdelete($ticketid){
          $this->ProjectTicket->ticketdelete($ticketid);
         return response(['status' => true, 'msg' => trans('project.ticketdelete')],  Response::HTTP_OK);
+    }
+    public function storeNotes(Request $request){
+        //dd($request->data);
+        GeneralNote::create(array('notes'=>$request->data,
+                                  'project_id' =>$request->project_id,
+                                ));
+                                return response(['status' => true, 'msg' => 'Generel Note Added'],  Response::HTTP_OK);
+    }
+     public function liveprojectnote($id)
+    {
+        return GeneralNote ::where('project_id',$id)
+                    ->first();
     }
 
    

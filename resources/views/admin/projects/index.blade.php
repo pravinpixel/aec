@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-   
+
     <div class="content-page" ng-controller="projectController">
         <div class="content" >
             @include('admin.projects.filter-modal')
@@ -82,5 +82,5 @@
 @endsection 
 @push('custom-scripts')
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/list.js") }}"></script> 
-@endpush
+   @endpush
 

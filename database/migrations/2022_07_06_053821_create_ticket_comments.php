@@ -28,6 +28,7 @@ class CreateTicketComments extends Migration
             $table->string('created_by')->nullable();
             $table->string('requester')->nullable();
             $table->boolean('variation_order')->default(0);
+            $table->string('showing')->nullable();
             $table->string('updated_by')->default(0);
             $table->unsignedBigInteger('send_by')->nullable();
             $table->unsignedBigInteger('seen_by')->nullable();

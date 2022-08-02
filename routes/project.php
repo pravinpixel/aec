@@ -19,6 +19,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::post('live-project/replay-comments', [TicketCommentsController::class,'replay_comments'])->name("projectticket.replaycomments");
     Route::post('live-project/replay-comments_update', [TicketCommentsController::class,'replay_comments_update'])->name("projectticket.replaycomments_update");
     Route::post('live-project/store-ticket-case', [TicketCommentsController::class, 'storeTicketCase'])->name('store-ticket-case');
+    Route::post('live-project/store-notes', [ProjectController::class, 'storeNotes'])->name('store-notes');
     Route::post('live-project/add-image', [TicketCommentsController::class,'add_image'])->name("projectticket.add-image");
     Route::get('project/team/{id}/team_setup',[ProjectController::class, 'tagteamsetup'])->name('tagteamsetup');
     /*Route::get('/live-projects', function () {

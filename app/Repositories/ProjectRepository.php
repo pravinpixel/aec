@@ -103,9 +103,14 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     public  function getliveProjectById($id){
         $project = $this->model->find($id);
 
-        $employee =  Employee::find($id);
+        $employee =  Employee::find($project->created_by );
+        //dd($project->gantt_chart_data);
         
-      $projechtchart = json_decode($project->gantt_chart_data);
+      $projechtchart =  isset($project->gantt_chart_data) ? json_decode($project->gantt_chart_data) :array();
+        $totalcompletecount = array();
+        $totaloverall = array();
+        $rearr = array();
+
         foreach($projechtchart as $projectdata){
            // dd($projectdata->data);
            
@@ -126,8 +131,13 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             }
          }
          //dd(array_sum($totalcompletecount));
+         
+         if(count($projechtchart) > 0){
+         
          $result = array('overall'=> round(((array_sum($totalcompletecount) / array_sum($totaloverall))*100),2),
          'completed' => $rearr);
+            
+        }
         $result['project'] = $project;
         $result['lead'] = $employee->first_Name;
         $result['count']= $result;

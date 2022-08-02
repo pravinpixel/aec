@@ -137,11 +137,20 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         });
 
         $http.get(`${API_URL}admin/api/v2/projectticket/${id}`).then((res) => {
+            //console.log('raj');
 
           
             $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
             $scope.customer = res.data.project == null ? false : res.data.project
-            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase});
+            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
+        });
+        $http.get(`${API_URL}admin/api/v2/liveprojectnote/${id}`).then((res) => {
+            
+            $scope.notes = res.data == null ? [] :res.data;
+            
+       
+           
+        });
 
         $http.get(`${API_URL}project/overview/${id}`).then((res)=> {
             $scope.review  =  res.data;

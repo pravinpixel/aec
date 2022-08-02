@@ -571,6 +571,7 @@ app.controller('milestoneController', function ($scope, $http, API_URL, $rootSco
 
 //Live project task list
 app.controller('TasklistController', function ($scope, $http, API_URL, $location) {
+    
     //$('#rasieTicketDetails').modal('hide');
     $("#rasieTicketDetails").modal('hide');
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
@@ -599,11 +600,16 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
                 $scope.countper =res.data.completed == null ? [] : res.data.completed;
                 $scope.overall = res.data.overall;
                 $scope.lead = res.data.lead;
-                //console.log(res.data.overall );
+                console.log(res.data.check_list_items );
                
                 
             });
         }
+        $scope.statusprogress = () => {
+           
+            
+        }
+
 
 
         $scope.storeTaskLists = () => {
@@ -662,6 +668,7 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
                         update: $scope.check_list_items_status,
                         data: $scope.check_list_items,
                     }).then((res) => {
+                        
                         if (res.data.status === true) {
                             Message('success', 'To do List Added Success !');
                             $location.path('bim360')
@@ -760,7 +767,7 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
 
 ///ticket wizard
 
-app.controller('TicketController', function ($scope, $http, API_URL, $rootScope) {
+app.controller('TicketController', function ($scope, $http, API_URL, $rootScope,$location) {
     let project_id = $('#project_id').val();
     $("#rasieTicketDetails").modal('hide');
 
@@ -884,7 +891,11 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
           
             $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
             $scope.customer = res.data.project == null ? false : res.data.project
-            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase});
+            $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
+            $scope.overview = res.data.overview == null ? false : res.data.overview
+            $scope.cols  = res.data.showhide == null ?false :  res.data.showhide
+        });
+          
            
     }
    
@@ -928,7 +939,8 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
 }
 
     $scope.submitcreatevariationForm = () => {
-
+        var id =$scope.ticket.projectid;
+       
         var description =  $(".description").html();
         var variationchanges = $(".variationchanges").html();
 
@@ -936,7 +948,8 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
             .then((res) => {
                 Message('success', 'Ticket Created Successfully');
                 if(res.data.status == true){
-                    location.href = `${API_URL}admin/list-projects`;
+                    //$location.path('ticket');
+                    location.href = `${API_URL}admin/live-projects/${id}#!/tickets`;
                 }
                 console.log(res.data.status);
                 //$location.path('platform');
@@ -1249,7 +1262,11 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
     }
 
     $scope.discardticket = function(){
-        $('#rasieTicketDetails').modal('hide');
+        window.location.reload();
+        //$('#rasieTicketDetails').modal('hide');
+    }
+    $scope.showhide =function(){
+        console.log( $scope);
     }
 
     
@@ -1273,7 +1290,8 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope)
 });
 
 
-app.controller('GendralController', function ($scope, $http, API_URL, $timeout) {
+app.controller('GendralController', function ($scope, $http, API_URL, $timeout,$location) {
+    let project_id = $('#project_id').val();
    
     $scope.multilineToolbar = true;
 
@@ -1313,6 +1331,22 @@ app.controller('GendralController', function ($scope, $http, API_URL, $timeout) 
                 enabled: true,
                 },
             }; 
+
+
+            $scope.submitgeneralinfo = () => {
+                $http({
+                    method: 'POST',
+                    url:`${API_URL}admin/live-project/store-notes`,
+                    data: {project_id: project_id, 'data':  $(".dx-htmleditor-content").html()}
+                }).then(function (res) {
+                    $location.path('/review');
+                    Message('success',`Notes added successfully`);
+                }, function (error) {
+        
+                    Message('danger',`General info ${error}`);
+
+                });
+            } 
 
 
 });
