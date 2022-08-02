@@ -40,7 +40,7 @@
                     </div>
                     
                     {{-- <div class="input-group justify-content-end">
-                        <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
+                        <input type="number" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
                         <button class="btn-sm btn btn-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
                         <button class="btn-sm btn btn-info" type="button" ng-click="editable = true" ng-show="editable == false"><i title="Add" class="fa fa-plus"></i></button> 
                     </div>  --}}
@@ -70,7 +70,7 @@
 
                 <div class="col-md-4 pe-0">
                     <div class="input-group justify-content-end">
-                        <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
+                        <input type="number" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
                         <button class="btn-sm btn btn-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
                         <button class="btn-sm btn btn-info" type="button" ng-click="editable = true" ng-show="editable == false"><i title="Add" class="fa fa-plus"></i></button>
                         <button class="btn-sm btn btn-warning" type="button" ng-click="cloneCostEstimate(firstIndex, CostEstimate)"><i title="Clone" class="fa fa-copy "></i></button>
@@ -117,11 +117,11 @@
                             </div>
                             <div class="custom-row text-center m-0 h-100">
                                 <div class="p-0">
-                                    <input type="text" disabled onkeypress="return isNumber(event)" name="Dynamic.PriceM2" ng-value="Dynamic.PriceM2"
+                                    <input type="number" disabled onkeypress="return isNumber(event)" name="Dynamic.PriceM2" ng-value="Dynamic.PriceM2"
                                         ng-model="Dynamic.PriceM2" class="form-control  rounded-0 text-center form-control-sm">
                                 </div>
                                 <div class="p-0">
-                                    <input type="text" disabled onkeypress="return isNumber(event)" name="Dynamic.Sum" ng-value="Dynamic.Sum"
+                                    <input type="number" disabled onkeypress="return isNumber(event)" name="Dynamic.Sum" ng-value="Dynamic.Sum"
                                         ng-model="Dynamic.Sum" class="form-control  rounded-0 text-center form-control-sm">
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                             </div>
                         </small>
                         <div class="text-center m-0">
-                            <input type="text" disabled onkeypress="return isNumber(event)"
+                            <input type="number" disabled onkeypress="return isNumber(event)"
                                 name="CostEstimate.ComponentsTotals.Rib.Sum"
                                 ng-value="CostEstimate.ComponentsTotals.Rib.Sum"
                                 ng-model="CostEstimate.ComponentsTotals.Rib.Sum"
@@ -154,13 +154,13 @@
                         </div>
                         <div class="custom-row text-center m-0">
                             <div class="p-0">
-                                <input type="text" onkeypress="return isNumber(event)"
+                                <input type="number" onkeypress="return isNumber(event)"
                                     name="CostEstimate.ComponentsTotals.TotalCost.PriceM2"
                                     ng-model="CostEstimate.ComponentsTotals.TotalCost.PriceM2" ng-value="CostEstimate.ComponentsTotals.TotalCost.PriceM2"
                                     class="form-control  rounded-0 text-center form-control-sm">
                             </div>
                             <div class="p-0">
-                                <input type="text" disabled onkeypress="return isNumber(event)" ng-value="CostEstimate.ComponentsTotals.TotalCost.Sum"
+                                <input type="number" disabled onkeypress="return isNumber(event)" ng-value="CostEstimate.ComponentsTotals.TotalCost.Sum"
                                     name="CostEstimate.ComponentsTotals.TotalCost.Sum"
                                     ng-model="CostEstimate.ComponentsTotals.TotalCost.Sum"
                                     class="form-control  rounded-0 text-center form-control-sm">
@@ -175,7 +175,7 @@
                         <div class="custom-td custom_drag_">
                             <div class="d-flex align-items-center">
                                 <a class="mdi mdi-arrow-top-left-bottom-right-bold border bg-white text-primary shadow-sm"></a> 
-                                <input type="text" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
+                                <input type="number" class="history_building_component_value" value="@{{ BuildingComponentObj[C.building_component_id] }}">
                                 <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.building_component_id" name="building_component_name">
                                     <option value="">-- Select -- </option>
                                     <option ng-value="@{{ buildingComponent.id }}" ng-selected="buildingComponent.id == C.Component"
@@ -184,7 +184,7 @@
                             </div>
                         </div>
                         <div class="custom-td">
-                            <input type="text" class="history_building_type_value" value="@{{DeliveryTypeObj[C.type_id] }}">
+                            <input type="number" class="history_building_type_value" value="@{{DeliveryTypeObj[C.type_id] }}">
                             <select class="my-select w-100 history_building_type_select" get-master-data="[index]" ng-model="C.type_id" ng-change="getMasterData(index)"
                                 name="type_name">
                                 <option value="">-- Select ---</option>
@@ -192,34 +192,34 @@
                                     ng-repeat="deliveryType in deliveryTypes">@{{ deliveryType.delivery_type_name }}</option>
                             </select>
                         </div>
-                        <div class="custom-td"> <input type="text"
+                        <div class="custom-td"> <input type="number"
                                 name="C.DesignScope" get-cost-details-total="[index]" ng-model="C.DesignScope" ng-value="C.DesignScope" onkeypress="return isNumber(event)"
                                 class="form-control  rounded-0 text-center form-control-sm">
                         </div>
-                        <div class="custom-td"> <input type="text" onkeypress="return isNumber(event)" name="Complexity" ng-value="C.Complexity"
+                        <div class="custom-td"> <input type="number" onkeypress="return isNumber(event)" name="Complexity" ng-value="C.Complexity"
                                 get-cost-details-total="[index]" ng-model="C.Complexity"
                                 class="form-control  rounded-0 text-center form-control-sm">
                         </div>
-                        <div class="custom-td "> <input type="text" onkeypress="return isNumber(event)" name="Sqm"  ng-value="C.Sqm"
+                        <div class="custom-td "> <input type="number" onkeypress="return isNumber(event)" name="Sqm"  ng-value="C.Sqm"
                                 get-cost-details-total="[index]" ng-model="C.Sqm"
                                 class="form-control  rounded-0 text-center form-control-sm sqm_">
                         </div>
                         <div class="custom-td" ng-repeat="(thirdIndex, D) in C.Dynamics">
                             <div class="custom-row  text-center p-0">
                                 <div class="p-0">
-                                    <input type="text" onkeypress="return isNumber(event)" get-cost-details-total="[index]" ng-value="D.PriceM2"
+                                    <input type="number" onkeypress="return isNumber(event)" get-cost-details-total="[index]" ng-value="D.PriceM2"
                                         name="D.PriceM2" ng-model="D.PriceM2"
                                         class="form-control  rounded-0 text-center form-control-sm">
                                 </div>
                                 <div class="p-0">
-                                    <input type="text" onkeypress="return isNumber(event)" ng-model="D.Sum" name="D.Sum" ng-value="D.Sum"
+                                    <input type="number" onkeypress="return isNumber(event)" ng-model="D.Sum" name="D.Sum" ng-value="D.Sum"
                                         disabled class="form-control  rounded-0 text-center form-control-sm">
                                 </div>
                             </div>
                         </div>
                         <div class="custom-td">
                             <div class="custom-row  text-center p-0">
-                                <input type="text" get-cost-details-total="[index]" onkeypress="return isNumber(event)"
+                                <input type="number" get-cost-details-total="[index]" onkeypress="return isNumber(event)"
                                     name="C.Rib.Sum" ng-model="C.Rib.Sum" ng-value="C.Rib.Sum"
                                     class="form-control  rounded-0 text-center form-control-sm">
                             </div>
@@ -227,12 +227,12 @@
                         <div class="custom-td">
                             <div class="text-center custom-row p-0">
                                 <div class="p-0">
-                                    <input type="text"  get-cost-details-total="[index]" onkeypress="return isNumber(event)" name="C.TotalCost.PriceM2"
+                                    <input type="number"  get-cost-details-total="[index]" onkeypress="return isNumber(event)" name="C.TotalCost.PriceM2"
                                         ng-model="C.TotalCost.PriceM2" ng-value="C.TotalCost.PriceM2"
                                         class="form-control  rounded-0 text-center form-control-sm">
                                 </div>
                                 <div class="p-0">
-                                    <input type="text" disabled onkeypress="return isNumber(event)" name="C.TotalCost.Sum" ng-value="C.TotalCost.Sum"
+                                    <input type="number" disabled onkeypress="return isNumber(event)" name="C.TotalCost.Sum" ng-value="C.TotalCost.Sum"
                                         ng-model="C.TotalCost.Sum" class="form-control  rounded-0 text-center form-control-sm">
                                 </div>
                             </div>
