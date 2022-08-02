@@ -376,8 +376,8 @@ class EnquiryController extends Controller
             return 'technical-estimation';
         } else if($enquiry->cost_estimation_status == 0) {
             return 'cost-estimation';
-        } else if($enquiry->proposal_sharing_status == 0) {
-            return 'proposal-sharing';
+        } else if($enquiry->proposal_mail_status == 0) {
+                return 'proposal-sharing';
         } else if($enquiry->customer_response == 0 || 1 || 2) {
             return 'move-to-project';
         }
@@ -556,6 +556,7 @@ class EnquiryController extends Controller
         $data = [
             'follow_up_date'   => $request->follow_up_date,
             'follow_up_status' => $request->follow_up_status,
+            'follow_up_comment' => $request->follow_up_comment,
             'follow_up_by'     => Admin()->id,
         ];
         $response = $this->customerEnquiryRepo->updateFollowUp($id, $data);

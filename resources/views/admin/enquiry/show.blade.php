@@ -2059,6 +2059,8 @@
         app.controller('Customer_response', function ($scope, $http, API_URL, $location, $timeout) {
             $scope.customer_response_obj = {};
             let enquiry_id = '{{ $id }}';
+            var dt = new Date();
+            $scope.followupDate = new Date(dt.setDate( dt.getDate() - 1)); 
             $scope.getWizradStatus = function() {
                 $http.get(API_URL + 'admin/api/v2/customers-enquiry/' + {{ $data->id ?? " " }} ).then(function (res) {
                     $scope.project_summary_status       = res.data.progress.status;
@@ -2067,6 +2069,10 @@
                     $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
                     $scope.customer_response    = res.data.progress.customer_response; 
                     $scope.response_data        = res.data; 
+                    $scope.customer_response_obj = {
+                        follow_up_date: new Date(res.data.progress.follow_up_date),
+                        follow_up_comment: res.data.progress.follow_up_comment
+                    }
                 });
             }
             $scope.getWizradStatus();
@@ -2175,6 +2181,7 @@
                 $http.post(API_URL+'admin/update-followup', {
                     enquiry_id: enquiry_id, 
                     follow_up_date: $scope.customer_response_obj.follow_up_date,
+                    follow_up_comment: $scope.customer_response_obj.follow_up_comment
                 })
                 .then((res) => {
                     Message('success', res.data.msg);

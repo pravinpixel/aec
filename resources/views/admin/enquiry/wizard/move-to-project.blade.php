@@ -75,27 +75,40 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="row m-0">
-            <div class="col-12 mb-3">
-                <strong class="card-text text-secondary "><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Set Next follow up date​</strong>
-                <div class="input-group mt-2">
-                    <input  ng-model="customer_response_obj.follow_up_date" type="date" class="form-control form-control-sm" data-date-inline-picker="true">
-                    <button class="btn btn-info btn-sm" ng-click="updateFollow()">Set</button>
-                </div>
-            </div>
-            @if(userRole()->slug == 'admin')
+        <form name="FollowUpForm">
+            <div class="row m-0">
                 <div class="col-12 mb-3">
-                    <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Manual Override​</strong>
+                    <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Set Next Follow Up Date​</strong>
                     <div class="input-group mt-2">
-                        <select ng-model="customer_response_obj.follow_up_status" class="form-select form-control-sm">
-                            <option value="">@lang('customer-enquiry.select')</option>
-                            <option value="Approved"  ng-selected="true">Approved & Move to Project</option>
-                        </select>
-                        <button class="btn btn-info btn-sm" ng-click="manualMoveToProject()">Move</button>
+                        <input type="date" min='@{{ followupDate }}' ng-model="customer_response_obj.follow_up_date" name="follow_up_date"  class="form-control form-control-sm" data-date-inline-picker="true">
+                    </div>
+                    <small class="text-danger" ng-show="FollowUpForm.follow_up_date.$error.min && FollowUpForm.follow_up_date.$touched">Invalid follow up date</small>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <strong class="card-text text-secondary "><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Notes </strong>
+                    <div class="input-group mt-2">
+                        <textarea class="form-control" ng-model="customer_response_obj.follow_up_comment" name="comments" id="" cols="90" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="col-12 mb-3 text-end">
+                    <button class="btn btn-info btn-sm" ng-disabled="FollowUpForm.$invalid" ng-click="updateFollow()">Set Follow Up</button>
+                </div>
+                
+                @if(userRole()->slug == 'admin')
+                    <div class="col-12 mb-3">
+                        <strong class="card-text text-secondary"><i class="text-secondary mdi-chevron-right-circle mdi " aria-hidden="true"></i> Manual Override​</strong>
+                        <div class="input-group mt-2">
+                            <select ng-model="customer_response_obj.follow_up_status" class="form-select form-control-sm">
+                                <option value="">@lang('customer-enquiry.select')</option>
+                                <option value="Approved"  ng-selected="true">Approved & Move to Project</option>
+                            </select>
+                            <button class="btn btn-info btn-sm" ng-click="manualMoveToProject()">Move</button>
+                        </div>  
                     </div>  
-                </div>  
-            @endif
-        </div>  
+                @endif
+            </div>  
+        </form>
     </div>
 </div>
 @if(userHasAccess('customer_response_index'))
