@@ -30,6 +30,23 @@ class EnquiryTemplateRepository implements EnquiryTemplateRepositoryInterface {
         return $this->model->find($id);
     }
 
+    public function update($id, $request)
+    {
+        $template = $this->model->find($id);
+        $template->template = json_encode($request->input('template'));
+        if($template->save()) {
+            return response(['status' => true, 'msg'=> __('global.updated')]);
+        }
+        return response(['status' => false, 'msg'=> __('global.something')]);
+    
+    }
+
+    public function destroy($id)
+    {
+        $template = $this->model->find($id);
+        return $template->delete();
+    }
+
     public function isTemplateExists($request){
         return $this->model->where([
             'template_name'         => $request->template_name,

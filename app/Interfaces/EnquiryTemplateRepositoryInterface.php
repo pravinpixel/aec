@@ -10,4 +10,6 @@ interface EnquiryTemplateRepositoryInterface
     public function show($data);
     public function isTemplateExists($request);
     public function getTemplateByBuildingComponentId($id);
+    public function destroy($id);
+    public function update($id, $request);
 }

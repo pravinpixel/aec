@@ -1,4 +1,61 @@
 
+app.directive('deleteTemplate', function(API_URL ,$http){
+    return {
+        restrict: 'A',
+        scope: {
+            data: '=deleteTemplate',
+        },
+        link: function(scope, element, attrs) {
+            element.on('click', function(){
+                if(scope.data.template == '' || scope.data.template == null || scope.data.template == 'undefined') {
+                    Message('danger', 'Template field is required'); return false;
+                }
+                $http.delete(`${API_URL}customers/enquiry-template/${scope.data.template}`)
+                .then(function successCallback(res){
+                    if(res.data.status) {
+                        scope.$parent.$parent.Templates = scope.$parent.$parent.Templates.filter(object => {
+                            return object.id != scope.data.template;
+                        });
+                        Message('success', res.data.msg);
+                        return false;
+                    }
+                    Message('danger', res.data.msg);
+                    return false;
+                });
+                scope.$apply();
+            });
+        }
+    };
+});
+
+app.directive('overwriteTemplate', function(API_URL ,$http){
+    return {
+        restrict: 'A',
+        scope: {
+            data: '=overwriteTemplate',
+        },
+        link: function(scope, element, attrs) {
+            element.on('click', function(){
+                if(scope.$parent.d  != 'undefined') {
+                    if(scope.data.template == '' || scope.data.template == null || scope.data.template == 'undefined') {
+                        Message('danger', 'Template field is required'); return false;
+                    }
+                    let template = scope.$parent.d;
+                    $http.put(`${API_URL}customers/enquiry-template/${scope.data.template}`, {template: template})
+                    .then(function successCallback(res){
+                        if(res.data.status) {
+                            Message('success', res.data.msg);
+                            return false;
+                        }
+                        Message('danger', res.data.msg);
+                        return false;
+                    });
+                }
+            });
+        }
+    };
+});
+
 app.directive('viewlist', function(API_URL, $http, $route, $templateCache) {
     var directive = {};
     directive.restrict = 'E';

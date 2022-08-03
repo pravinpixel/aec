@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div ng-repeat="(Secindex,d) in w.Details">
+                        <div ng-repeat="(Secindex,d) in w.Details track by $index">
                             <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
                                 <div class="d-flex justify-content-between">
                                     <div class="btn border d-flex justify-content-center align-items-center" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">
@@ -74,7 +74,19 @@
                                                     @{{ Template.template_name }}
                                                 </option>
                                             </select>
-                                            <button ng-click="callTemplateModal(fIndex, w.WallId, Secindex)" class="w-100 btn btn-success btn-sm  border-0" ng-show="d">Save as template</button>
+                                            <button ng-click="callTemplateModal(fIndex, w.WallId, Secindex)" class="w-100 btn btn-success btn-sm  border-0" ng-show="d">Save Template</button>
+                                            <button overwrite-template="{
+                                                building_component_id: w.WallId,
+                                                index_position: fIndex,
+                                                detail_position: Secindex,
+                                                template: template
+                                            }" class="w-100 btn btn-info btn-sm  border-0" ng-show="d">Overwrite Template</button>
+                                            <button delete-template="{
+                                                building_component_id: w.WallId,
+                                                index_position: fIndex,
+                                                detail_position:  Secindex,
+                                                template: template
+                                            }" class="w-100 btn btn-danger btn-sm  border-0" ng-show="d">Delete Template</button>
                                         </div>
                                     </div>
                                 </div>
@@ -328,8 +340,8 @@
     </div>
 
  
-    <div class="row" ng-show="commentShow">
-        <div class="col-8">
+    <div class="row">
+        <div class="col-8" ng-show="commentShow">
             <open-comment  data="
             {'modalState':'viewConversations',
             'type': 'building_components',

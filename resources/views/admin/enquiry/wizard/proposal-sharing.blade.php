@@ -229,7 +229,7 @@
                 </div>
                 <div>
                     <a ng-show="proposal_sharing_status == 1" href="#!/move-to-project" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
-                    <a ng-show="proposal_sharing_status == 0" ng-click="moveToProject()" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Submit</a>
+                    <a ng-show="proposal_sharing_status == 0" ng-click="moveToProject()" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Save & Continue Later</a>
                 </div>
             </div>
         </div> 
