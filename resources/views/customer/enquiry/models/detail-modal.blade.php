@@ -226,7 +226,8 @@
                                                 <td> @{{ ifc_model.document_type.document_type_name }}</td>
                                                 <td class="text-center" ng-show="ifc_model.file_type != 'link'">
                                                     <a download="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                                    <a target="_child" href="{{ asset("public/uploads/") }}/@{{ ifc_model.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                    <a ng-show="!autoDeskFileType.includes(ifc_model.file_type)"  href="javascript:void(0)" ng-click="getDocumentView(ifc_model.id)"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                                    <a ng-show="autoDeskFileType.includes(ifc_model.file_type)" target="_child" href="{{ url('/') }}/viewmodel/@{{ ifc_model.id }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                                 </td>
                                                 <td class="text-center" ng-show="ifc_model.file_type == 'link'">
                                                     <a target="_blank" href="@{{ ifc_model.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>

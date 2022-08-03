@@ -146,6 +146,16 @@
                     });
             }
 
+            getAutoDeskFileTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("get-autodesk-file-type") }}'
+                }).then(function (res) {
+                    $scope.autoDeskFileType = res.data;
+                });
+            }
+            getAutoDeskFileTypes();
+
             $scope.getPropodsals = (id) =>  {
                   
                 $http({
