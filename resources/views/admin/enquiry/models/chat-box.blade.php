@@ -18,7 +18,7 @@
                                     <p class="m-0">
                                        @{{ msg.comments }}
                                     </p> 
-                                    <small style="font-size: 10px !important" ng-class="{seen: msg.status == 1 , not_seen: msg.status == 0}" class="text-secondary">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
+                                    <small  ng-class="{seen: msg.status == 1 , not_seen: msg.status == 0}" class="text-secondary">@{{ msg.created_at | date:'hh:mm:ss a'  }}</small>
                                 </div>
                             </div> 
                         </li> 

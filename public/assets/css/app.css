@@ -16002,6 +16002,14 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
     clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
     background: lightgray
 }
+.conversation-list li {
+  padding:  0 !important;
+}
+.ctext-wrap small {
+  position: relative;
+  font-size: 8px !important;
+  bottom: -3px;
+}
 .progress-btn.active {
     background: #20CF98 !important
 } 

@@ -90,7 +90,7 @@
         background: #eee;
         top: 0;
         clip-path:polygon(0 9%, 0 0, 100% 0, 103% 100%) ;
-        left:-11px !important
+        left:-18px !important
     }    
 
     .conversation-list  li.admin_role_odd  .conversation-text::after{
