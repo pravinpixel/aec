@@ -416,7 +416,7 @@
                                     </div> 
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Due Date<sup class="text-danger">*</sup></label>
-                                        <input type="datetime-local" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
+                                        <input type="datetime-local"  min="2001-01-01T00:00:00" max="2013-12-31T00:00:00" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
                                     </div> 
                                     <div class="mb-3">
                                        
@@ -485,14 +485,14 @@
                                     {{--  --}}
                                     <ul class="conversation__box" >
                                      
-                                       <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ Admin()->id }}">
+                                       <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ Admin()->id }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14" >   @{{comment.comments}}</p> 
                                                 <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
                                             </div>
                                         </li>
-                                        <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ Admin()->id }}">
+                                        <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ Admin()->id }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14">@{{comment.comments}}</p> 
@@ -940,8 +940,10 @@
 </div>
 @include("admin.enquiry.models.ticket-chat-box")  
 @push('custom-styles')
+<style>
 div#tablebqup_length {
     display: none !important;
 }
+</style>
     
 @endpush
