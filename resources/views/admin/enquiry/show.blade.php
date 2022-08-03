@@ -445,7 +445,7 @@
                                 <div class="card  p-2 border shadow-sm m-2">
                                     <div id="headingTableHistory${key+1}">
                                         <h5 class="m-0 d-flex align-items-center">
-                                            <a class="custom-accordion-title collapsed d-block py-1"
+                                            <a class="custom-accordion-title d-block py-1"
                                                 data-bs-toggle="collapse" href="#collapseTableHistory${key+1}"
                                                 aria-expanded="true" aria-controls="collapseTableHistory${key+1}">
                                                 <strong class="me-auto text-dark">Version : ${key+1}</strong>
@@ -457,7 +457,7 @@
                                             </a>
                                         </h5>
                                     </div>
-                                    <div id="collapseTableHistory${key+1}" class="collapse ${key == 0 && 'show'}"
+                                    <div id="collapseTableHistory${key+1}" class="collapse m-0 pt-2 ${key == 0 && 'show'}"
                                         aria-labelledby="headingTableHistory${key+1}" >
                                             ${item.history}
                                     </div>

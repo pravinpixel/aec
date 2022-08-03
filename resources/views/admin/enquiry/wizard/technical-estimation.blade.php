@@ -109,20 +109,24 @@
                     
                         <div psi-sortable="" ng-model="building_building" id="root_technical_estimate">
                             <div class="bg-white mb-2" ng-repeat="(index,buliding) in building_building track by $index">  
-                                <div class="row m-0 justify-content-between align-items-center  border shadow-sm table-bordered bg-white" data-bs-toggle="collapse" href="#toggle_table_@{{ index }}" role="button" aria-expanded="false" aria-controls="toggle_table_@{{ index }}">
+                                <div class="row m-0 justify-content-between align-items-center  border shadow-sm table-bordered bg-white custom-toggle"  >
                                     <div class="col">
-                                        <h1  class="h5 text-secondary "><a class="btn btn-danger btn-sm  me-2 p-1 py-0" ng-click="Delete_building(index)">
-                                            <i class="mdi mdi-delete text-white"></i> 
-                                        </a>Building No : @{{ index+1 }}</h1>
+                                        <h1  class="h5 text-secondary ">
+                                            <a class="btn btn-light btn-sm border shadow-sm me-2 p-1 py-0" >
+                                                <i class="bi bi-arrows-move"></i>
+                                            </a> 
+                                            Building No : @{{ index+1 }}
+                                        </h1>
                                     </div>
                                     <div class="col text-end p-0">
                                         
-                                        <a class="btn btn-light btn-sm border shadow-sm me-2 p-1 py-0" >
-                                            <i class="bi bi-arrows-move"></i>
-                                        </a> 
+                                        <a class="btn btn-danger btn-sm  me-2 p-1 py-0" ng-click="Delete_building(index)">
+                                            <i class="mdi mdi-delete text-white"></i> 
+                                        </a>
+                                        
                                     </div>
                                 </div>
-                                <table id="toggle_table_@{{ index }}" class="table custom border shadow-sm table-bordered collapse show">
+                                <table class="table custom border shadow-sm table-bordered ">
                                     <thead class="bg-light">
                                         <tr>
                                             <th class="text-white text-center">S.No</th>
