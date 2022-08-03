@@ -813,12 +813,14 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope,
      $http.get(`${API_URL}admin/project/team/${project_id}/team_setup`)
     .then((res)=> {
         var quotations = [];
-        $scope.teamSetups =  res.data.map( (item) => {
+       //console.log(res.data.cus)
+        $scope.teamSetups =  res.data.emp.map( (item) => {
             //console.log(item.first_Name);
             quotations.push(item.first_Name);
             
         })
-        console.log(quotations);
+
+        quotations.push(res.data.cus);
         var jsonData = [];
     
     for(var i=0;i<quotations.length;i++) jsonData.push({id:i,name:quotations[i]});

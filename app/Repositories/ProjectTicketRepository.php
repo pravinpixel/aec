@@ -153,7 +153,11 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
             $team[] = implode(",",$projectteam->team);
         }
        
-        $employeedata =  $this->employee->select('first_Name')->whereIn('id' ,$team)->get() ;
+        $employeedata['emp'] =  $this->employee->select('first_Name')->whereIn('id' ,$team)->get() ;
+
+        $customer = $this->Project ::with('customerdatails') ->find($projectid);
+        $employeedata['cus'] = $customer->customerdatails->first_name;
+
 
         
         

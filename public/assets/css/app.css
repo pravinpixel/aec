@@ -16283,6 +16283,10 @@ input[type=date]::-webkit-calendar-picker-indicator{
 }
 .tag-ctn-bootstrap-focus{
   border-bottom: 1px solid #CCC;
+  width: 100% !important;
+}
+.tag-ctn {
+  width: 100% !important;
 }
 .tag-res-ctn{
   position: relative;

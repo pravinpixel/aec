@@ -272,7 +272,7 @@
 {{-- ========== Raise Ticket ========== --}}
 <div id="rasieTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <form class="needs-validations"  id="createvariationForm" name="createvariationForm" ng-submit="submitticketForm()" novalidate enctype="multipart/form-data">
+        <form class="needs-validations"  id="newissuesForm" name="newissuesForm" ng-submit="submitticketForm()" novalidate enctype="multipart/form-data">
             
             <div class="modal-content card m-0">
                 <div class="modal-header bg-light">
@@ -297,11 +297,12 @@
 
 
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Summary</label>
-                                        <input type="text" class="form-control form-control-sm" ng-model = "case.summary" ng-required="true">
+                                        <label for="example-select" class="form-label text-secondary">Summary<sup class="text-danger">*</sup></label>
+                                        <input type="text" class="form-control form-control-sm"  name = "summary" ng-model = "case.summary" ng-required="true">
+                                        <small class="text-danger" ng-show="newissuesForm.summary.$invalid && newissuesForm.summary.$toucehd">This field is required</small>
                                     </div> 
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Description</label>
+                                        <label for="example-select" class="form-label text-secondary">Description<sup class="text-danger">*</sup></label>
                                         <textarea class="form-control form-control-sm" cols="20" rows="5" ng-model = "case.description"  ng-required="true"></textarea>
                                     </div> 
                                     <div>
@@ -362,7 +363,7 @@
                                 <div class="card-body">
 
                                     <div class="mb-3" >
-                                        <label for="example-select" class="form-label text-secondary">Assign Type</label>
+                                        <label for="example-select" class="form-label text-secondary">Assign Type <sup class="text-danger">*</sup></label>
                                         <div>
                                             <!-- Default radio -->
                                             <div class="form-check">
@@ -382,7 +383,7 @@
 
 
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Assignee</label>
+                                        <label for="example-select" class="form-label text-secondary">Assignee<sup class="text-danger">*</sup></label>
 
                                        
 
@@ -405,7 +406,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Priority</label>
+                                        <label for="example-select" class="form-label text-secondary">Priority<sup class="text-danger">*</sup></label>
                                         <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority"  ng-required="true">
                                             <option value = "critical">Critical</option>
                                             <option value = "high">High</option>
@@ -414,7 +415,7 @@
                                         </select>
                                     </div> 
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Due Date</label>
+                                        <label for="example-select" class="form-label text-secondary">Due Date<sup class="text-danger">*</sup></label>
                                         <input type="datetime-local" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
                                     </div> 
                                     <div class="mb-3">
@@ -442,7 +443,7 @@
                 <div class="modal-footer border-top text-end">
                     <button class="btn btn-light shadow-sm border btn-sm" ng-click=discardticket()>Discard</button>
                     
-                    <button class="btn btn-info btn-sm" ng-disabled="enqForm.$invalid" onclick >Submit</button>
+                    <button class="btn btn-info btn-sm" ng-disabled="newissuesForm.$invalid" onclick >Submit</button>
                 </div>
          </form>
         </div><!-- /.modal-content -->
