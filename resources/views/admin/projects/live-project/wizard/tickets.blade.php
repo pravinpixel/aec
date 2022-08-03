@@ -233,7 +233,8 @@
                                     </div>
                                 </td>
                                 <td ng-show="cols[3].show">@{{pticketscomment.summary}}</td>
-                                <td ng-show="cols[4].show">
+                                <td ng-show="cols[4].show">@{{pticketscomment.description}}</td>
+                                <td ng-show="cols[5].show">
                                     <div class="d-flex align-items-center">
                                         <img src="{{ asset("public/assets/images/") }}/@{{pticketscomment.assigndetails.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
@@ -244,11 +245,11 @@
                                     </div>
                                 </td>
                                 
-                                <td ng-show="cols[5].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
-                                <td ng-show="cols[6].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
-                                <td ng-show="cols[7].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
+                                <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
+                                <td ng-show="cols[7].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
+                                <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
                               
-                                <td ng-show="cols[8].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
+                                <td ng-show="cols[9].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
                                 <td style="padding: 0 !important" class="text-center" >
                                     <div class="dropdown">
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -451,8 +452,8 @@
 
 {{-- ========== Ticket Viwe =========== --}} 
     <div id="viewTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-full-width w-100 h-100 m-0">
-            <div class="modal-content card m-0 h-100">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content card m-0">
                 <div class="modal-header bg-light">
                     <div class="modal-title d-flex">
                         <i class="fa fa-thumb-tack f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
@@ -783,7 +784,7 @@
 <!-- filter -->
 
 <div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-right" style="width:100% !important">
+    <div class="modal-dialog modal-sm modal-right" style="width:100% !important">
         <div class="modal-content p-3 h-100 d-flex justify-content-center align-items-center" >
             <div>
                 <div class="border-0">
@@ -890,7 +891,7 @@
                     
                     <div class="text-center">
                         <button type="button" class="btn btn-primary" ng-click="tablesearch('filtersearch')">
-                            <i class="mdi mdi-filter-menu"></i> Submit
+                            <i class="mdi me-1 mdi-filter-variant"></i> Submit
                         </button>
                     </div>
                 </div>
@@ -937,3 +938,9 @@
     <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
 </div>
 @include("admin.enquiry.models.ticket-chat-box")  
+@push('custom-styles')
+div#tablebqup_length {
+    display: none !important;
+}
+    
+@endpush

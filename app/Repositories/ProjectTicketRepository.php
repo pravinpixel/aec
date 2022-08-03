@@ -95,7 +95,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $showing = $ProjectTicket['ticketcase']['0']->showing;
        $showingarr = isset($showing) ? explode(',',$showing) :array();
         //$showingarr =explode(',',$showing) ;
-        $header = ['Id','Requester','Type','Title','Assign','Status','Due Date','Priority','Modifiedat'];
+        $header = ['Id','Requester','Type','Title','Description','Assign','Status','Due Date','Priority','Modifiedat'];
         //dd($showingarr);
         foreach($header as $key=>$data){
             //dd($data);
