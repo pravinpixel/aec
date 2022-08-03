@@ -18,72 +18,106 @@
 					   <div class="row">
 						   <div class="col-12">
 							   <div class="page-title-box">
-								   <div class="page-title-right">
+								   <div class="page-title-right d-flex">
+								   		
+									   <div class="dropdown float-end">
+										   <a href="#" class="dropdown-toggle arrow-none btn btn-success mr-3" data-bs-toggle="dropdown" aria-expanded="false">
+											   <i class="mdi mdi-calendar"></i>
+										   </a>
+										   <div class="dropdown-menu dropdown-menu-end">
+											   <!-- item-->
+											   <a href="javascript:void(0);" class="dropdown-item">Weekly</a>
+											   <!-- item-->
+											   <a href="javascript:void(0);" class="dropdown-item">1 Monthly</a>
+											   <!-- item-->
+											   <a href="javascript:void(0);" class="dropdown-item">1 Quarter</a>
+											   <!-- item-->
+											   <a href="javascript:void(0);" class="dropdown-item">1 Year</a>
+										   </div>
+									   </div>
 									   <form class="d-flex">
 										   <a href="javascript: void(0);" class="btn btn-primary ms-2">
 											   <i class="mdi mdi-autorenew"></i>
 										   </a>
 									   </form>
 								   </div>
+								    
 								   <h4 class="page-title">Dashboard</h4>
 							   </div>
 						   </div>
 					   </div>
 					   <!-- end page title -->
-   
+
+					   <div class="row">   
+						   <div class="col-xl-12 col-lg-12">
+								<h4 class="header-title text-uppercase"><strong>Live Status</strong></h4>
+								<div class="row text-center">
+									<div class="col-md-3">
+										<div class="live-status-bg">
+											<h3>New Enquiries</h3>
+											<p class="count">30</p>
+											<span class="btn btn-success">
+												<i class="mdi mdi-comment-plus-outline"></i>
+											</span>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="live-status-bg">
+											<h3>Unattended Enquiries</h3>
+											<p class="count">10</p>
+											<span class="btn btn-danger">
+												<i class="mdi mdi-comment-remove-outline"></i>
+											</span>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="live-status-bg">
+											<h3>Ready for Project</h3>
+											<p class="count">15</p>
+											<span class="btn btn-primary">
+												<i class="mdi mdi-comment-check-outline"></i>
+											</span>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="live-status-bg">
+											<h3>Waiting for Customer Response</h3>
+											<p class="count">5</p>
+											<span class="btn btn-secondary text-white">
+												<i class="mdi mdi-comment-processing-outline"></i>
+											</span>
+										</div>
+									</div>
+								</div> 
+						   </div> <!-- end col -->
+					   </div>
+					   <!-- end row -->
+						 <hr/>
 					   <div class="row">
-						   <div class="col-xl-5 col-lg-6">
+						   <div class="col-xl-3 col-lg-3">
+						   		<h4 class="header-title text-uppercase"><strong>Statistics</strong></h4>
 							   <div class="row">
-								   <div class="col-lg-6">
+								   <div class="col-lg-12">
 									   <div class="card widget-flat">
 										   <div class="card-body">
 											   <div class="float-end">
-												   <i class="mdi mdi-pulse widget-icon"></i>
+												   <i class="mdi mdi-comment-plus-outline widget-icon text-success"></i>
 											   </div>
-											   <h5 class="text-muted fw-normal mt-0" title="Growth">New Enquiries</h5>
-											   <p class="mb-0 text-muted">
+											   <h3 class="card-heading">New Enquiries</h3>											   
 												   <div class="text-success me-2"><i class="mdi mdi-arrow-up-bold fa-2x"></i> <span class="fa-2x">40</span></div>
 												   <span class="text-nowrap">Since last month</span>  
-											   </p>
 										   </div> <!-- end card-body-->
 									   </div> <!-- end card-->
 								   </div> <!-- end col-->
-								   <div class="col-lg-6">
+								   <div class="col-lg-12">
 									   <div class="card widget-flat">
 										   <div class="card-body">
 											   <div class="float-end">
-												   <i class="mdi mdi-pulse widget-icon"></i>
+												   <i class="mdi mdi-comment-remove-outline widget-icon text-danger"></i>
 											   </div>
-											   <h5 class="text-muted fw-normal mt-0" title="Growth">Customer response awaiting</h5>
-											   <p class="mb-0 text-muted">
+											   <h3 class="card-heading">Lost Enquiries</h3>
 												   <div class="text-danger me-2"><i class="mdi mdi-arrow-down-bold fa-2x"></i> <span class="fa-2x">3</span></div>
 												   <span class="text-nowrap">Since last month</span>
-											   </p>
-										   </div> <!-- end card-body-->
-									   </div> <!-- end card-->
-								   </div> <!-- end col-->
-								   
-								   <div class="col-lg-6">
-									   <div class="card widget-flat">
-										   <div class="card-body">
-											   <div class="float-end">
-												   <i class="mdi mdi-account-multiple widget-icon"></i>
-											   </div>
-											   <h5 class="text-muted fw-normal mt-0" >Unattended Enquiries</h5>
-											   <h3 class="mt-3 mb-3 text-primary">{{ $enquiryCount }}</h3>
-										   </div> <!-- end card-body-->
-									   </div> <!-- end card-->
-								   </div> <!-- end col-->
-   
-								   <div class="col-lg-6">
-									   <div class="card widget-flat">
-										   <div class="card-body">
-											   <div class="float-end">
-												   <i class="mdi mdi-cart-plus widget-icon"></i>
-											   </div>
-											   <h5 class="text-muted fw-normal mt-0" >Active Enquiries</h5>
-											   <h3 class="mt-3 mb-3 text-info">0</h3>
-												
 										   </div> <!-- end card-body-->
 									   </div> <!-- end card-->
 								   </div> <!-- end col-->
@@ -91,10 +125,10 @@
    
 						   </div> <!-- end col -->
    
-						   <div class="col-xl-7 col-lg-6">
+						   <div class="col-xl-9 col-lg-9">						   		
+								<h4 class="header-title text-uppercase">Enquiries</h4>
 								<div class="card">
 									<div class="card-body">
-										<h4 class="header-title mb-3">Enquiries</h4>
 										<div class="chart-content-bg">
 											<div class="row text-center">
 												<div class="col-md-6">
@@ -130,15 +164,21 @@
 						   <div class="col-lg-12">
 							   <div class="card shadow-sm">
 								   <div class="card-header bg-light">
+								   <h4 class="header-title text-uppercase mt-2"><strong>Enquiries Summary​</strong></h4>
 									   <div >
 										   <form class="d-flex p-2 justify-content-between">
 											   <div>
-												   <small>Project From Date</small>
+												   <small>Date / Month</small>
 												   <input type="date" name="" id="" class="form-control">
 											   </div>
 											   <div>
-												   <small>Project From Date</small>
-												   <input type="date" name="" id="" class="form-control">
+												   <small>Type of Delivery</small>
+												   <select name="" id="" class="form-select">
+													   <option value="">-- Choose -- </option>
+													   <option value="">Type of Delivery 1</option>
+													   <option value="">Type of Delivery 2</option>
+													   <option value="">Others</option>
+												   </select>
 											   </div>
 											   <div>
 												   <small>Type of Project</small>
@@ -146,16 +186,25 @@
 													   <option value="">-- Choose -- </option>
 													   <option value="">New contructions</option>
 													   <option value="">Old contructions</option>
-													   <option value="">others</option>
+													   <option value="">Others</option>
 												   </select>
 											   </div>
 											   <div>
-												   <small>Status</small>
+												   <small>Customer</small>
 												   <select name="" id="" class="form-select">
 													   <option value="">-- Choose -- </option>
-													   <option value="">Inprogress</option>
-													   <option value="">Pending</option>
-													   <option value="">Canceled</option>
+													   <option value="">Customer 1</option>
+													   <option value="">Customer 2</option>
+													   <option value="">Customer 3</option>
+												   </select>
+											   </div>
+											   <div>
+												   <small>Project Name</small>
+												   <select name="" id="" class="form-select">
+													   <option value="">-- Choose -- </option>
+													   <option value="">Project Name 1</option>
+													   <option value="">Project Name 2</option>
+													   <option value="">Project Name 3</option>
 												   </select>
 											   </div>
 											   <div>
@@ -201,80 +250,6 @@
 						   </div> <!-- end col--> 
 					   </div>
 					   <!-- end row -->
-   
-   
-					   <div class="row">
-						   
-						   <div class="col-lg-5">
-							   <div class="card">
-								   <div class="card-body">
-									   <div class="dropdown float-end">
-										   <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-											   <i class="mdi mdi-dots-vertical"></i>
-										   </a>
-										   <div class="dropdown-menu dropdown-menu-end">
-											   <!-- item-->
-											   <a href="javascript:void(0);" class="dropdown-item">Weekly Report</a>
-											   <!-- item-->
-											   <a href="javascript:void(0);" class="dropdown-item">Monthly Report</a>
-											   <!-- item-->
-											   <a href="javascript:void(0);" class="dropdown-item">Action</a>
-											   <!-- item-->
-											   <a href="javascript:void(0);" class="dropdown-item">Settings</a>
-										   </div>
-									   </div>
-									   <h4 class="header-title mb-3">Recent Activities</h4>
-   
-									   <div class="table custom-responsive">
-										   
-										   <table class=" table table-centered table-nowrap table-hover mb-0">
-											   <tbody>
-												   @for ($i = 0; $i < 5;  $i++)
-												   <tr>
-													   <td>
-															
-														   <h5 class="mt-0 mb-1">Soren Drouin   </h5>
-														   <span class="font-13">18 Jan 2019 11:28 pm</span>
-																
-													   </td>
-													   <td>
-														   <span class="text-muted font-13">Project</span> <br>
-														   <p class="mb-0">New Building</p>
-													   </td>
-													   <td class="table custom-action" style="width: 50px;">
-														   <div class="dropdown">
-															   <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-																   <i class="mdi mdi-dots-horizontal"></i>
-															   </a>
-															   <div class="dropdown-menu dropdown-menu-end">
-																   <!-- item-->
-																   <a href="javascript:void(0);" class="dropdown-item">view</a>
-																   <!-- item-->
-															   </div>
-														   </div>
-													   </td>
-												   </tr> 
-												   @endfor
-											   </tbody>
-										   </table>
-									   </div> <!-- end table-responsive-->
-   
-								   </div> <!-- end card body-->
-							   </div>
-						   </div> <!-- end col-->
-   
-						   <div class="col-lg-7">
-							   <div class="card">
-								   <div class="card-body">
-									   <h4 class="header-title">Mothly Sales Reports</h4>
-									   <div dir="ltr">
-										   <div id="distributed-column" class="apex-charts" data-colors="#163269,#6c757d,#0acf97,#fa5c7c,#ffbc00,#39afd1,#e3eaef,#313a46"></div>
-									   </div>
-								   </div>
-							   </div> <!-- end card-->
-						   </div> <!-- end col--> 
-					   </div>
-					   <!-- end row --> 
 				   </div>
 				   <!-- container --> 
 			   </div> 
@@ -287,7 +262,39 @@
 
 @push('custom-scripts')
 		@if (Route::is('admin-dashboard'))
-			<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script> 
+			<script>
+				var options = {
+          series: [{
+          name: 'series1',
+          data: [31, 40, 28, 51, 42, 109, 100]
+        }, {
+          name: 'series2',
+          data: [11, 32, 45, 32, 34, 52, 41]
+        }],
+          chart: {
+          height: 350,
+          type: 'area'
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        xaxis: {
+          type: 'datetime',
+          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+        },
+        tooltip: {
+          x: {
+            format: 'dd/MM/yy HH:mm'
+          },
+        },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
+        chart.render();
+			</script>
 			{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
 			<script>
 				var firebaseConfig = {

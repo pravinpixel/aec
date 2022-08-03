@@ -32,6 +32,13 @@ class DashboardController extends Controller
     { 
         return view('admin.dashboard.project');
     }
+
+    public function economyDashboard()
+    {
+        return view('admin.dashboard.economy');
+
+    }
+
     public function allowNotification(Request $request)
     {
         $adminData                  =   Employee::where('id', Admin()->id)->firstOrFail();

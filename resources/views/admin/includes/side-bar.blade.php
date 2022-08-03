@@ -48,7 +48,7 @@
                             <a href="{{ route('admin-project-dashboard') }}">Projects</a>
                         </li> 
                         <li>
-                            <a href="#">Economy</a>
+                            <a href="{{ route('admin-economy-dashboard') }}">Economy</a>
                         </li> 
                         <li>
                             <a href="#">Employee performance</a>
