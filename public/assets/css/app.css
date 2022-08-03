@@ -88,12 +88,182 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
 }
 
+.live-status-bg{
+  background: #FFF;
+  margin-bottom: 10px;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e6e6e6;
+  padding: 15px;
+  text-align: left;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.live-status-bg:hover{
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.live-status-bg h3, .card-heading{
+  font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  color: #666;
+  font-weight: 400;
+}
+.live-status-bg p.count{
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 40px;
+  margin-bottom: 0px;
+}
+.live-status-bg span.btn{
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  font-size: 25px;
+  cursor: text;
+  padding: 3px 12px 0px 12px;
+}
+.project-status-btn{
+  padding: 5px 5px 3px 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #FFF;
+    color: #666;
+    margin-right: 10px;
+    font-size: 20px;
+    display: inline-block;
+}
+.project-status-btn i.mdi-format-horizontal-align-right.mdi-format-horizontal-align-left:before{
+  content:"\F061F";
+}
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.highcharts-data-table th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+  padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}
+nav.sidebar{
+  border-right: 1px solid #d3d3d3;
+  width: 200px;
+  padding: 0px;
+  background: #FFF;
+  margin-right: 20px;
+  transition: all 0.3s ease;
+}
+
+nav.sidebar ul#nav_accordion li.nav-item a.nav-link{
+  padding: 15px 20px 15px 10px;
+  position: relative;
+  color: #666;
+  font-weight: 600;
+  border-bottom: 1px solid #ebebeb;
+}
+nav.sidebar ul#nav_accordion li.nav-item a.nav-link:hover{
+  color: #000;
+  background: rgba(0, 0, 0, 0.02);
+}
+nav.sidebar ul#nav_accordion li.nav-item.has-submenu>a.nav-link:before{
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  color: #666;
+  font-size: 15px;
+  content:"\F0142";
+  font-family: "Material Design Icons";
+}
+nav.sidebar ul#nav_accordion li.nav-item.has-submenu ul.submenu{
+  margin: 0;
+  padding: 0;
+}
+nav.sidebar ul#nav_accordion li.nav-item.has-submenu ul.submenu li{
+  list-style: none;
+}
+nav.sidebar ul#nav_accordion li.nav-item.has-submenu ul.submenu li a.nav-link{
+  padding: 7px 10px;
+  font-size: 12px;
+}
+li.nav-item.has-submenu.active a.nav-link:before{
+  transform: rotate(90deg);
+}
+#project-status-chart{
+  width: 100%;
+  height: 300px;
+}
+table.running-projects .running-project-name{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 18px;
+}
+table.running-projects tr td{
+  font-weight: 600;
+}
+table.running-projects .progress{
+  background: #CCC;
+}
+table.project-dashboard-table tbody tr td{
+  white-space: nowrap;
+  font-size: 13px;
+  padding: 10px !important;
+}
+table.economy-dashboard-table tbody tr td{
+  white-space: nowrap;
+  font-size: 13px;
+  padding: 10px !important;
+}
+table.project-dashboard-table thead tr th, table.economy-dashboard-table thead tr th{
+  background: rgb(210, 219, 247);
+  color: #111d41;
+  white-space: nowrap;
+  font-size: 15px;
+  padding: 10px !important;
+}
+table.economy-dashboard-table tbody tr td .btn{
+  font-size: 16px;
+  padding: 2px 7px;
+}
+table.economy-dashboard-table tbody tr td i{
+  font-size: 16px;
+}
 hr {
   margin: 1rem 0;
   color: inherit;
   background-color: currentColor;
   border: 0;
-  opacity: 0.25; }
+  opacity: 0.1; }
 
 hr:not([size]) {
   height: 1px; }
@@ -4230,7 +4400,7 @@ textarea.form-control-lg {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 1.5rem 0;
+  padding: 5px 0;
   margin-bottom: 1rem;
   list-style: none; }
 
@@ -10506,7 +10676,7 @@ body[data-layout-mode="boxed"][data-layout="topnav"] .navbar-custom {
     overflow: auto; } }
 
 .page-title-box .page-title {
-  font-size: 18px;
+  font-size: 24px;
   margin: 0;
   line-height: 75px;
   overflow: hidden;
@@ -10519,7 +10689,7 @@ body[data-layout-mode="boxed"][data-layout="topnav"] .navbar-custom {
   margin-top: 20px; }
 
 .page-title-box .breadcrumb {
-  padding-top: 8px; }
+  padding-top: 0px; }
 
 .page-title-box-sm .page-title {
   line-height: 1 !important;
