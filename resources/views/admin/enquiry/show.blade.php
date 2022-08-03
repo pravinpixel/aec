@@ -372,8 +372,7 @@
             getAutoDeskFileTypes();
 
             $scope.printTechnicalEstimate = () => {
-                $http.get(`${API_URL}technical-estimate/get-history/${$scope.enquiry_id}`)
-                .then((res) => {
+                $http.get(`${API_URL}technical-estimate/get-history/${$scope.enquiry_id}`).then((res) => {
                     var currentTabelHistory   =   ''
                     res.data.forEach((item,i) => {
                         currentTabelHistory += `<h5 class="m-0 d-flex align-items-center">
@@ -427,7 +426,12 @@
                     a.document.write(currentTabelHistory);
                     a.document.write('</html>');
                     a.document.close();
-                    a.print();
+                    console.log("First")
+                    
+                    setTimeout(() => {
+                        console.log("Seconday")
+                        a.print(); 
+                    }, 1000);
                 }); 
             }
 
@@ -457,7 +461,7 @@
                                             </a>
                                         </h5>
                                     </div>
-                                    <div id="collapseTableHistory${key+1}" class="collapse m-0 pt-2 ${key == 0 && 'show'}"
+                                    <div id="collapseTableHistory${key+1}" class="collapse m-0 pt-3 ${key == 0 && 'show'}"
                                         aria-labelledby="headingTableHistory${key+1}" >
                                             ${item.history}
                                     </div>
@@ -990,7 +994,7 @@
                     a.document.write('</div>');
                     a.document.write('</html>');
                     a.document.close();
-                    a.print();
+                        a.print();
                 }); 
             }
             $scope.getHistory       = (type)  => {
