@@ -49,9 +49,9 @@
             <div class="col-sm-10">
                 <div class="tab-content" >
                     <div ng-show="wallName ==  w.WallName" get-customer-layer get-template  ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}"  >
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div > <h3> <div> </div></h3> </div>
-                            <button class="btn btn-info mb-2 float-end" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add New @{{  w.WallName }}</button>
+                        <div class="text-end"> 
+                            <button class="btn btn-info" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add New @{{  w.WallName }}</button> 
+                            <hr>
                         </div>
                         <div ng-if="!w.Details.length">
                             <div class="text-center pt-5">
@@ -62,31 +62,31 @@
 
                         <div ng-repeat="(Secindex,d) in w.Details track by $index">
                             <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
-                                <div class="d-flex justify-content-between">
-                                    <div class="btn border d-flex justify-content-center align-items-center" style="border-bottom:0px !important;background:#F1F2FE;border-radius: 10px 10px 0 0; transform:translateY(2px)">
-                                        @{{ w.WallName }} - @{{$index + 1}}
-                                    </div>
-                                    <div>
-                                        <div class="btn-group border shadow-sm mb-2">
-                                            <select style="width: unset !important;" class="form-select border-0 f" name="template" ng-change="getTemplate(fIndex, w.WallId, Secindex,template)" ng-model="template">
+                                <div class="d-flex ">
+                                    <div class="btn border d-flex justify-content-center align-items-center" style="background:#EBEFF4;border-radius: 10px 10px 0 0; transform:translateY(2px)">
+                                        <div class="lead fw-bold  me-2 pe-2 border-end" style="font-size: 15px !important;color: #4a99f9;">@{{ w.WallName }} - @{{$index + 1}}</div>
+                                        <div class="btn-group border shadow-sm">
+                                            <select title="Set as Template" class="form-select  border-0" name="template" ng-change="getTemplate(fIndex, w.WallId, Secindex,template)" ng-model="template">
                                                 <option value="">@lang('customer-enquiry.select_template')</option>
                                                 <option ng-repeat="Template in Templates" value="@{{ Template.id }}">
                                                     @{{ Template.template_name }}
                                                 </option>
                                             </select>
-                                            <button ng-click="callTemplateModal(fIndex, w.WallId, Secindex)" class="w-100 btn btn-success btn-sm  border-0" ng-show="d">Save Template</button>
-                                            <button overwrite-template="{
+                                            <button title="Create Template" ng-click="callTemplateModal(fIndex, w.WallId, Secindex)" class="btn btn-success btn-sm  border-0" ng-show="d">
+                                                <i class="mdi mdi-plus-box-multiple"></i>
+                                            </button>
+                                            <button title="Edit" overwrite-template="{
                                                 building_component_id: w.WallId,
                                                 index_position: fIndex,
                                                 detail_position: Secindex,
                                                 template: template
-                                            }" class="w-100 btn btn-info btn-sm  border-0" ng-show="d">Overwrite Template</button>
-                                            <button delete-template="{
+                                            }" class="btn btn-primary  btn-sm  border-0" ng-show="d"><i class="mdi mdi-pencil"></i></button>
+                                            <button title="Delete" delete-template="{
                                                 building_component_id: w.WallId,
                                                 index_position: fIndex,
                                                 detail_position:  Secindex,
                                                 template: template
-                                            }" class="w-100 btn btn-danger btn-sm  border-0" ng-show="d">Delete Template</button>
+                                            }" class="btn btn-danger btn-sm  border-0" ng-show="d"><i class="mdi mdi-trash-can"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +162,6 @@
                                                                 <div class="d-flex justify-content-end">
                                                                     <button class="btn-sm float-end btn btn-outline-primary me-2" ng-click="AddLayers(fIndex , Secindex)" title="Add New Layer" ><i class="fa fa-plus" ></i> Add Layer</button>
                                                                     {{-- <button ng-click="RemoveDetails(fIndex , Secindex)" class=" btn-danger btn shadow-lg  RemoveDetails" type="button"><i class="fa fa-trash"></i></button> --}}
-
                                                                     <div id="ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
                                                                         <div class="modal-dialog">
                                                                             <div class="modal-content text-center">
