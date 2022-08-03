@@ -1,15 +1,15 @@
-@extends('layouts.admin')
+@extends('layouts.customer')
 
-@section('admin-content')
+@section('customer-content')
    
     <div class="content-page" ng-controller="LiveProjectController">
         <div class="content">
 
-            @include('admin.includes.top-bar')
+            @include('customer.includes.top-bar')
             <div class="container-fluid">
                 
                 <!-- start page title -->
-                @include('admin.includes.page-navigater')
+                @include('customer.includes.page-navigater')
                 <!-- end page title --> 
                 <input type="hidden" name="project_id" id="project_id" value="{{ $id }}"> 
                 <div class="card border">
@@ -131,7 +131,10 @@
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/create-project.js") }}"></script> 
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/tag.js") }}"></script> 
-   
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="{{ asset("public/js/datepicker.js") }}"></script>
     <script> 
 
 

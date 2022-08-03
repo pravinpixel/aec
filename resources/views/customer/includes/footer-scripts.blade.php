@@ -13,7 +13,7 @@
 <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
-<script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script>
+{{-- <script src="{{ asset('public/assets/js/pages/demo.form-wizard.js') }}"></script> --}}
 <script src="{{ asset('public/assets/js/vendor/dropzone.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/ui/component.fileupload.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/handlebars.min.js') }}"></script>

@@ -80,9 +80,9 @@
                         <li class="{{ Route::is("customers-my-projects") ? "menuitem-active" : ""}}">
                             <a href="#">Enquiry</a>
                         </li>
-                       {{--<li class="{{ Route::is("list-projects") ? "menuitem-active" : ""}}">
-                            <a href="{{ route('list-projects') }}">Live project</a>
-                        </li>--}}
+                    <li class="{{ Route::is("list-projects") ? "menuitem-active" : ""}}">
+                            <a href="{{ route('customer-list-projects') }}">Live project</a>
+                        </li>
                         
                     </ul>
                 </div>

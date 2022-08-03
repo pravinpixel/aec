@@ -1158,19 +1158,13 @@ class ProjectController extends Controller
     }
 
     public function ticketfiltersearch(Request $request){
-        if($request->fromdate != 'Invalid Date'){
-            $strDate = substr($request->fromdate,4,11 );
-            $fromdate = date('Y-m-d', strtotime($strDate));
-        } else if($request->todate != 'Invalid Date'){
-            $strtoDate = substr($request->todate,4,11 );
-            $todate = date('Y-m-d', strtotime($strtoDate));
-        }
+        
         
       
 	    
         $data = array('project_id' => $request->id,
-                     'fromdate' => (($request->fromdate != 'Invalid Date') ? $fromdate :''),
-                     'todate' => (($request->todate != 'Invalid Date') ? $todate :''),
+                     'duedate' => (($request->duedate != '') ? $request->duedate :''),
+                     'requesterdate' => (($request->requesterdate != '') ? $request->requesterdate :''),
                      'priority' =>$request->priority,
                      'status'   =>$request->status ?? '',
                      'refno'   =>$request->refno ?? '',

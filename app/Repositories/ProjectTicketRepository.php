@@ -213,15 +213,19 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
        
            if($data['project_id'] != ''){
             $searchticket->where('project_id',$data['project_id']);
+          
 
            }
-           if($data['fromdate'] != ''){
+           if($data['duedate'] != ''){
+            $datearr = explode('-',$data['duedate']);
             
-            $searchticket->whereDate('created_at', '=', $data['fromdate']);
+           // $searchticket->whereDate('created_at', '=', $data['fromdate']);
+            $searchticket->whereBetween('ticket_date', [date('Y-m-d',strtotime($datearr[0])), date('Y-m-d',strtotime($datearr[1]))]);
 
            }
-           if($data['todate'] != ''){
-            $searchticket->whereDate('updated_at', '=',$data['todate']);
+           if($data['requesterdate'] != ''){
+            $reqarrdate = explode('-',$data['requesterdate']);
+            $searchticket->whereBetween('ticket_date', [date('Y-m-d',strtotime($reqarrdate[0])), date('Y-m-d',strtotime($reqarrdate[1]))]);
 
            }
            if($data['priority'] != ''){

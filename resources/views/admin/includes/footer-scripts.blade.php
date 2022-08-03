@@ -24,6 +24,7 @@
 
 
 
+
 <!-- ====== Ajax Call Loader Js ========== -->
 <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
 
@@ -63,5 +64,10 @@
 <!-- ========= Text Editor ========== -->
 <script src="https://unpkg.com/devextreme-quill@1.5.14/dist/dx-quill.min.js"></script>
 <script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
+ 
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+   <script type="text/javascript" src="{{ asset("public/js/datepicker.js") }}"></script>
+
 <!-- ========= Text Editor ========== -->
 

@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngRoute','datatables','luegg.directives','textAngular','psi.sortable','dx']).constant('API_URL', $("#baseurl").val());
+var app = angular.module('App', ['ngRoute','datatables','luegg.directives','textAngular','psi.sortable','dx','angularjs.daterangepicker']).constant('API_URL', $("#baseurl").val());
  
 app.directive('deleteTemplate', function(API_URL ,$http){
     return {

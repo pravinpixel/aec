@@ -424,7 +424,7 @@
                                             <option value = "{{Auth::user()->id}}">{{Auth::user()->first_Name}}</option>
                                             
                                         </select>
-                                        <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;">{{Auth::user()->id}}</label>
+                                        <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;">{{Customer::->id}}</label>
                                     </div> 
 
                                     <div class="mb-3 customer_variation" style="display: none;" >
@@ -801,17 +801,14 @@
                             {{--<input type="date" class="form-control date" id="birthdatepicker" data-toggle="date-picker"  ng-model = "fromdate" data-single-date-picker="true">--}}
                             <div class="form-group">
                                 <input date-range-picker="t1"
-                                id = "due_date"
                                 start-date="startDate"
                                 end-date="endDate"
                                 placeholder="select"
                                 data-ng-required="true"
-                                ng-model = "due_date"
                                
                                 clear-on-cancel="true"
                                 date-range-picker-options="options"
                                 class="form-control">
-                               
                 
                        
                         </div>
@@ -825,7 +822,6 @@
                             {{--<input type="date" class="form-control date" id="birthdatepicker" data-toggle="date-picker"  ng-model = "fromdate" data-single-date-picker="true">--}}
                             <div class="form-group">
                                 <input date-range-picker="t2"
-                                id="requester_date"
                                 start-date="startDate2"
                                 end-date="endDate2"
                                 placeholder="select"

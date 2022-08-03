@@ -7,6 +7,8 @@ use App\Http\Controllers\Customer\EnquiryTemplateController;
 use App\Http\Controllers\Customer\ProposalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PushNotificationController;
+use App\Http\Controllers\Customer\CustomerProjectController;
+
 Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
 
     Route::get('profile', [CustomerController::class,'profile'])->name("customers-profile");
@@ -113,6 +115,12 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     Route::get('enquiry/review', function(){
         return view('customer.enquiry.wizard.review');
     })->name('enquiry.review');
+
+    Route::get('list-projects', [CustomerProjectController::class, 'index'])->name('customer-list-projects');
+
+    Route::get('project-unestablished-list', [CustomerProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');
+    Route::get('project-live-list', [CustomerProjectController::class, 'liveProjectList'])->name('project-live-list');
+    Route::get('live-projects/{id}',[CustomerProjectController::class, 'live'])->name('customer-live-projects-data');
 
     
 });

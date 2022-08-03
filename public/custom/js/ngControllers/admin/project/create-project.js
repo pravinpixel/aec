@@ -767,7 +767,22 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
 
 ///ticket wizard
 
-app.controller('TicketController', function ($scope, $http, API_URL, $rootScope,$location) {
+app.controller('TicketController', function ($scope, $http, API_URL, $rootScope,$location,$timeout) {
+
+    $scope.options = {
+        locale: {cancelLabel: 'Clear'},
+        showDropdowns: true,
+        // singleDatePicker:true
+    };
+
+    // $scope.startDate = moment();
+    // $scope.endDate = moment();
+
+    $scope.onChange = function () {
+        console.dir($scope);
+}
+
+
     let project_id = $('#project_id').val();
     $("#rasieTicketDetails").modal('hide');
 
@@ -1123,12 +1138,14 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope,
             //$scope.CallToDB = false;
             return false
         }
+        
+        console.log();
         if(project_id != null && type == 'filtersearch'){
             $scope.filterData = {
                 "id"                     :   project_id,
                 "type"                   :   'filtersearch',
-                "fromdate"               :   new Date($scope.fromdate),
-                "todate"                 :   new Date($scope.todate),
+                "duedate"                :   $('#due_date').val(),
+                "requesterdate"          :   $('#requester_date').val(),
                 "priority"               :   $scope.priority,
                 "status"                 :   $scope.status,
                 "refno"                  :   $scope.refno ,
