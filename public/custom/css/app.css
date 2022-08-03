@@ -18,6 +18,10 @@
 .text-black {
     color: black !important;
 }
+
+.m_two_cross {
+    padding: 18px;
+}
 .x-y-center {
     display: flex !important;
     align-items: center !important;

@@ -98,8 +98,11 @@
                         <span class="text-center"><small class="fw-bold">Complexity</small></span>
                     </div>
                     <div class="custom-td m_two_cross_column text-center">
-                        <span class="text-center"><small class="fw-bold">m2 Gross</small></span> 
-                        <span class="text-center"><small class="fw-bold"> @{{ CostEstimate.ComponentsTotals.Sqm }} </small></span>
+                        <span class="text-center m_two_cross"><small class="fw-bold">m<sup>2</sup> Gross</small></span> 
+                  
+                            <input type="number" disabled onkeypress="return isNumber(event)" name="CostEstimate.ComponentsTotals.Sqm" ng-value="CostEstimate.ComponentsTotals.Sqm"
+                            ng-model="CostEstimate.ComponentsTotals.Sqm" class="form-control  rounded-0 text-center form-control-sm">
+                       
                     </div>
                     <div  ng-model="CostEstimate.ComponentsTotals.Dynamics" class="d-flex">
                         <div class="custom-td text-center p-0 bg-primary2" ng-repeat="(dynamicIndex, Dynamic) in CostEstimate.ComponentsTotals.Dynamics track by $index">
