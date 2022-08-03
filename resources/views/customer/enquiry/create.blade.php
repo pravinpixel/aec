@@ -536,6 +536,9 @@
             }
 
             $scope.getTemplate = (index, building_component_id, detail_id ,template_id) => {
+                if(template_id == '' || template_id == 'undefined' || template_id == null) {
+                    return false;
+                }
                 $http({
                     method: 'get',
                     url: `${API_URL}customers/enquiry-template/${template_id}`,

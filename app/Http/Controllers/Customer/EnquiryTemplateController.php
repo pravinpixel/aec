@@ -37,4 +37,22 @@ class EnquiryTemplateController extends Controller
         return $result->template ?? [];
     }
 
+    public function update($id, Request $request)
+    {
+        $result = $this->templateRepo->update($id, $request);
+        if($result) {
+            return response(['status' => true, 'msg'=> __('global.updated')]);
+        }
+        return response(['status' => false, 'msg'=> __('global.something')]);  
+    }
+
+    public function destroy($id)
+    {
+        $result = $this->templateRepo->destroy($id);
+        if($result) {
+            return response(['status' => true, 'msg'=> __('global.deleted')]);
+        }
+        return response(['status' => false, 'msg'=> __('global.something')]);       
+    }
+
 }
