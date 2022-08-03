@@ -583,7 +583,7 @@
             $scope.assignTechnicalEstimate = (user, technical_estimate_assign_for) => {
                 let assign_to = user == '' ? null: user;
                 if($scope.assign_to == '') {
-                    Message('danger', "Please choose a user !");
+                    Message('danger', "Please Choose The User !");
                     return false;
                 }
 
@@ -1048,7 +1048,7 @@
             $scope.assignUserToCostestimate = (user, cost_estimate_assign_for) => {
                 let assign_to = user == '' ? null: user;
                 if($scope.assign_to == '') {
-                    Message('danger', "Please choose a user !");
+                    Message('danger', "Please Choose The User !");
                     return false;
                 }
                 $http.post(`${API_URL}cost-estimate/assign-user/${enquiryId}`, {assign_to: assign_to, type: cost_estimate_assign_for})

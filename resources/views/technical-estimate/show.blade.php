@@ -469,7 +469,7 @@
             $scope.assignTechnicalEstimate = (user, technical_estimate_assign_for) => {
                 let assign_to = user == '' ? null: user;
                 if($scope.assign_to == '') {
-                    Message('danger', "Please choose a user !");
+                    Message('danger', "Please Choose The User !");
                     return false;
                 }
 
