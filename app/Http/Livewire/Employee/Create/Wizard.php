@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Employee\Create;
 
+use App\Helper\Bim360\Bim360ProjectsApi;
 use App\Helper\Bim360\Bim360UsersApi;
 use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
@@ -37,6 +38,7 @@ class Wizard extends Component
     public $recipient_email;
     public $completed_wizard = 0;
     public $roles = [];
+    public $projects = [];
 
     public function getEnquiryNumber() 
     {
@@ -94,6 +96,7 @@ class Wizard extends Component
         $employee->job_role                = $this->job_role;
         $employee->department              = $this->department;
         $employee->mobile_number            = $this->mobile_number;
+        $employee->image                   = 'no_image.jpg';
         $employee->password                = Hash::make($this->password);
         $employee->sign_in_password_change = $this->sign_in_password_change ?? 0;
         $employee->send_password_to_email  = $this->send_password_to_email ?? 0;
@@ -121,6 +124,9 @@ class Wizard extends Component
             $employee->save();
         }
         $this->currentStep = 3;
+        $bimProject = new Bim360ProjectsApi();
+        $result = $bimProject->getProjectList();
+        $this->projects = json_decode($result);
     }
    
     /**
