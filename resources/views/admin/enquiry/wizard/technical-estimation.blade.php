@@ -162,9 +162,9 @@
                 </div>  
             </div>
             <div class="col-lg-3 pe-0 pt-2"> 
-                <div class="card shadow-sm border mb-2" >
+                <div class="card shadow-sm border mb-2" ng-show="enquiry.ifc_model_uploads.length !== 0">
                     <div class="card-header bg-light p-2">
-                        <h4 class="m-0">Reference Doc's </h4>
+                        <h4 class="m-0">Reference Doc's </h4> 
                     </div>
                     <div style="max-height: 250px;overflow:auto">
                         <ul class="list-group mt-0" ng-repeat="doc in enquiry.ifc_model_uploads">
