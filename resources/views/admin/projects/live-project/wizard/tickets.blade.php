@@ -179,55 +179,45 @@
                         <!--<button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
                         <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button> -->
                     </div>
-                </div>
-                <div class="mb-2 pt-2 row mx-0 align-items-center">
-                    <div class="d-flex align-items-center col-4 p-0">
-                        
+                </div> 
+                <div class="hide-page-size">
+                    <div class="input-group justify-content-end my-2">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"  class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <label for="test@{{$index}}" class="dropdown-item" ng-repeat="col in cols" >
+                                    <input type="checkbox"  ng-model="col.show" name="" id="test@{{$index}}" class="form-check-input me-1">
+                                    @{{col.title}}
+                                </label>
+                            </div>
+                          </div>
                     </div>
-                    <div class="col-8 p-0">
-                       
-                        <div class="input-group justify-content-end">
-                           
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"  class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <label for="test@{{$index}}" class="dropdown-item" ng-repeat="col in cols" >
-                                        <input type="checkbox"  ng-model="col.show" name="" id="test@{{$index}}" class="form-check-input me-1">
-                                        @{{col.title}}
-                                    </label>
-                                  
-                                </ul>
-                              </div>
-                           <!-- <button class="ms-1 border rounded btn btn-sm"><i class="fa fa-expand"></i></button> -->
-                        </div>
-                    </div>
-                </div>
-               
-             
-                <table class="table custom table-striped table-bordered" datatable="ng" id="tablebqup" dt-options="vm.dtOptions">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th ng-repeat="locale in cols" ng-show="locale.show" class="text-center">@{{locale.title}}</th>
-                          
-                            <th><i class="dripicons-menu"></i></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       
+                    <table class="table custom table-striped table-bordered" datatable="ng"  dt-options="vm.dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th ng-repeat="locale in cols" ng-show="locale.show" class="text-center">@{{locale.title}}</th>
+                                <th><i class="dripicons-menu"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <tr ng-repeat="(ptcindex,pticketscomment) in pticketcomment">
                                 <td >@{{ ptcindex+1 }}</td>
-                                <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(pticketscomment.id,'show')"><small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small></a></button></td>
+                                <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center">
+                                    <button  class="btn btn-sm btn-outline-primary p-0 px-1" ng-click="showTicketComments(pticketscomment.id,'show')">
+                                        <small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small>
+                                    </button>
+                                </td>
                                 <td ng-show="cols[1].show">@{{pticketscomment.requester}}</td>
                                 <td ng-show="cols[2].show">
                                     <div class="d-flex align-items-center">
-                                       
+                                        
                                         <div>
                                             <h5 class="m-0 font-14">
-                                               @{{pticketscomment.type}}
+                                                @{{pticketscomment.type}}
                                             </h5>
                                         </div>
                                     </div>
@@ -248,7 +238,7 @@
                                 <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
                                 <td ng-show="cols[7].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
                                 <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} </td>
-                              
+                                
                                 <td ng-show="cols[9].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
                                 <td style="padding: 0 !important" class="text-center" >
                                     <div class="dropdown">
@@ -256,14 +246,14 @@
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',pticketscomment.id)">View/Reply</a>
                                             <a class="dropdown-item"ng-click = "ticketdelete(pticketscomment.id)">Delete</a>
-                                           
+                                            
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                           
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div> 
         </div>
     </div>
@@ -469,7 +459,7 @@
                 </div>
                 <div class="modal-body" style="height: 90vh;overflow:auto">
                     <div class="row m-0">
-                        <div class="col-lg-7 p-0">
+                        <div class="col-lg-8 p-0">
                             <div class="card text-start m-0 border" > 
                                 <div class="card-body">
                                     <div class="d-flex align-items-start">
@@ -571,7 +561,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 p-0 ">
+                        <div class="col-lg-4 p-0 ">
                             <div class="cardx">
                                 <div class="card-body">
                                     <div class="cart-title"><b>PROPERTIES</b> </div> <br>
@@ -605,23 +595,7 @@
                                     <button class="btn btn-sm btn-info w-100"  ng-click = updateticketstatus(header.ticketid)><i class="mdi mdi-rotate-left me-1"></i> Update</button>
                                 </div>
                             </div>
-                        </div>
-                       <!-- <div class="col-lg-2 p-0 border-start   ">
-                            <div class="cardx">
-                                <div class="card-body">
-                                    <div class="mt-3 text-center">
-                                        <img src="{{ asset('public/assets/images/users/avatar-10.jpg') }}" alt="shreyu" class="img-thumbnail avatar-lg rounded-circle">
-                                        <h4>Shreyu N</h4>
-                                        <p class="mt-2 font-14">Last Interacted: <strong>3 hours ago</strong></p>
-                                    </div>
-                                    <div class="mt-3">
-                                        <hr>
-                                        <p class="mt-4 mb-1"><strong><i class="uil uil-envelope-alt me-1"></i></strong><span>support@gmail.com</span></p>
-                                        <p class="mt-3 mb-1"><strong><i class="uil uil-phone me-1"></i></strong><span>+1 456 9595 9594</span> </p>
-                                    </div>
-                                </div>  
-                            </div>
-                        </div>-->
+                        </div> 
                     </div>
                 </div> 
             </div><!-- /.modal-content -->

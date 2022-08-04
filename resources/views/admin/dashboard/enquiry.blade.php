@@ -264,38 +264,36 @@
 		@if (Route::is('admin-dashboard'))
 			<script>
 				var options = {
-          series: [{
-          name: 'series1',
-          data: [31, 40, 28, 51, 42, 109, 100]
-        }, {
-          name: 'series2',
-          data: [11, 32, 45, 32, 34, 52, 41]
-        }],
-          chart: {
-          height: 350,
-          type: 'area'
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: 'smooth'
-        },
-        xaxis: {
-          type: 'datetime',
-          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-        },
-        tooltip: {
-          x: {
-            format: 'dd/MM/yy HH:mm'
-          },
-        },
-        };
-
-        var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
-        chart.render();
+					series: [{
+						name: 'series1',
+						data: [31, 40, 28, 51, 42, 109, 100]
+					}, {
+						name: 'series2',
+						data: [11, 32, 45, 32, 34, 52, 41]
+					}],
+					chart: {
+						height: 350,
+						type: 'area'
+					},
+					dataLabels: {
+						enabled: false
+					},
+					stroke: {
+						curve: 'smooth'
+					},
+					xaxis: {
+						type: 'datetime',
+						categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+					},
+					tooltip: {
+						x: {
+							format: 'dd/MM/yy HH:mm'
+						},
+					},
+				};
+				var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
+				chart.render();
 			</script>
-			{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
 			<script>
 				var firebaseConfig = {
 					apiKey: "AIzaSyCZ8uoPo9bfpdc51gVpB91z_X5s-hF7bL4",
@@ -408,79 +406,7 @@
 	</script>
 
 	{{-- ================ ENQUIRIES CHRT ============= --}}
-	<script>
-		! function (o) {
-			"use strict";
-			function e() {
-				this.$body = o("body"), this.charts = []
-			}
-			e.prototype.initCharts = function () { 
-				var e = ["#163269", "#0acf97", "#fa5c7c", "#ffbc00"],
-					t = o("#revenue-chart").data("colors");
-					t && (e = t.split(","));
-			 
-				var r = {
-					chart: {
-						height: 200,
-						type: "line",
-						dropShadow: {
-							enabled: !0,
-							opacity: .2,
-							blur: 7,
-							left: -7,
-							top: 7
-						}
-					},
-					dataLabels: {
-						enabled: !1
-					},
-					stroke: {
-						curve: "smooth",
-						width: 4
-					},
-					series: [{
-						name: "Current Month",
-						data:   [10, 20, 15, 25, 20, 30, 20]
-					}, {
-						name: "Previous Month",
-						data: [0, 15, 10, 30, 15, 35, 25]
-					}],
-					colors: e,
-					zoom: {
-						enabled: !1
-					},
-					legend: {
-						show: !1
-					},
-					xaxis: {
-						type: "string",
-						categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-						tooltip: {
-							enabled: !1
-						},
-						axisBorder: {
-							show: !1
-						}
-					},
-					yaxis: {
-						labels: {
-							formatter: function (e) {
-								return e + "k"
-							},
-							offsetX: -15
-						}
-					}
-				};
-				new ApexCharts(document.querySelector("#revenue-chart"), r).render();
-				e = ["#163269", "#e3eaef"];  
-			},e.prototype.init = function () {
-
-				o("#dash-daterange").daterangepicker({
-					singleDatePicker: !0
-				}), this.initCharts()
-
-			}, o.Dashboard = new e, o.Dashboard.Constructor = e
-		}(window.jQuery),
+	<script> 
 		function (t) {
 			"use strict";
 			t(document).ready(function (e) {

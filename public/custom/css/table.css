@@ -20,3 +20,7 @@
  .dataTables_length {
     margin-bottom: 15px;
  }
+
+.hide-page-size .dataTables_length {
+    display: none !important;
+}
