@@ -84,19 +84,17 @@
                                             <input type="text" ng-keyup="getRxcui(medicineB)"  ng-model="ticket.price" class="form-control form-control-sm">
                                         </div>
                                     </div>   
-                                    <div class="col-md-6">
+                           
+                                    <div class="text-end mt-3 col-12"> 
                                         <div class="mb-3">
-                                            <label class="form-label" > Total <sup class="text-danger">*</sup></label>
-                                            kr@{{result}}
+                                            <label class="form-label" > <b>Total</b> </label>
+                                            <span> :   kr @{{result}}</span>
                                         </div>
-                                    </div>  
-
-
+                                        <input type="reset"  class="btn btn-outline-secondary font-weight-bold px-3" value="Cancel">
+                                        <button type="submit" ng-disabled="enqForm.$invalid" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> @lang('global.send') </button>
+                                    </div>
                                 </div>
-                                <div class="text-end mt-3"> 
-                                    <input type="reset"  class="btn btn-outline-secondary font-weight-bold px-3" value="Cancel">
-                                    <button type="submit" ng-disabled="enqForm.$invalid" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> @lang('global.send') </button>
-                                </div>
+                               
                             </form>
                         </div> 
                     </div>
