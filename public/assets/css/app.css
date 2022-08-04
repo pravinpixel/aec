@@ -16455,3 +16455,20 @@ input[type=date]::-webkit-calendar-picker-indicator{
 .custom-accordion-title.collapsed::after {
   content: '+';
 }
+.ng-invalid-url .fileupload {
+  pointer-events: none !important;
+}
+
+.ng-invalid-url::before {
+  content: 'Invalid Url !';
+  font-size: 18px;
+  display: block;
+  text-align: center;
+  background: #ffedee;
+  color: #ce080d;
+  font-weight: bold;
+  border: 1px solid #d4282c;
+  border-radius: 3px;
+  margin: 10px 0;
+  box-shadow: 0 0 4px grey;
+}
