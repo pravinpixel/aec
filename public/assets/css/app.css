@@ -9884,8 +9884,12 @@ body {
     text-transform: uppercase;
     color: #cedce4;
     font-weight: 700; }
+
   .side-nav .menuitem-active > a {
-    color: #ffffff !important; }
+    color: #ffffff !important;  
+  }
+
+ 
 
 *[dir="ltr"] .side-nav .side-nav-item .menu-arrow:before {
   content: "\F0141" !important; }
@@ -16018,6 +16022,19 @@ div.dataTables_wrapper > div.row > div[class^="col-"]:first-child {
 }
 
 .side-nav-item .menuitem-active::after {
+  position: absolute;
+  background: white;
+  height: 1px;
+  width: 20%;
+  content: '';
+  left: 25%;
+  top: 82%;
+}
+.menuitem-active .side-nav-link.active{
+  position: relative ;
+}
+
+.menuitem-active .side-nav-link.active::after{
   position: absolute;
   background: white;
   height: 1px;
