@@ -3,10 +3,10 @@
 namespace App\Repositories;
 
 use App\Interfaces\ProjectTicketRepositoryInterface;
+use App\Models\Admin\Employees;
 use App\Models\ProjectTicket;
 use App\Models\TicketComments;
 use App\Models\Project;
-use App\Models\Employee;
 use App\Models\ProjectTeamSetup;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -22,7 +22,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         Project $projectModel,
         TicketComments $projectTicketCase,
         ProjectTeamSetup $projectteamsetup,
-        Employee $employee
+        Employees $employee
        
         ){
         $this->model                            = $ProjectTicket;
@@ -153,7 +153,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
             $team[] = implode(",",$projectteam->team);
         }
        
-        $employeedata['emp'] =  $this->employee->select('first_Name')->whereIn('id' ,$team)->get() ;
+        $employeedata['emp'] =  $this->employee->select('first_name')->whereIn('id' ,$team)->get() ;
 
         $customer = $this->Project ::with('customerdatails') ->find($projectid);
         $employeedata['cus'] = $customer->customerdatails->first_name;

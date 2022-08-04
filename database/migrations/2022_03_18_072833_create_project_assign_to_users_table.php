@@ -19,8 +19,8 @@ class CreateProjectAssignToUsersTable extends Migration
             $table->unsignedBigInteger('assign_by');
             $table->unsignedBigInteger('assign_to');
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
-            $table->foreign('assign_by')->references('id')->on('employee');
-            $table->foreign('assign_to')->references('id')->on('employee');
+            $table->foreign('assign_by')->references('id')->on('employees');
+            $table->foreign('assign_to')->references('id')->on('employees');
             $table->timestamps();
         });
     }

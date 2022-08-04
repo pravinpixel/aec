@@ -185,7 +185,7 @@
                                             <option value=""> @lang('global.select') </option>
                                             <option ng-repeat="user in userList" 
                                                     ng-selected="user.id == assign_to" 
-                                                    value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.first_Name}}
+                                                    value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.first_name}}
                                             </option>
                                         </select> 
                                         <button class="input-group-text btn btn-info"

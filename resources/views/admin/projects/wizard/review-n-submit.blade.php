@@ -640,7 +640,7 @@
                                                     <select  get-to-do-lists ng-model="taskListData.assign_to" class="form-control border-0  form-select-sm" style="pointer-events: none">
                                                         <option value="">-- Project Manager --</option>
                                                         <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
-                                                            @{{ projectManager.first_Name }}
+                                                            @{{ projectManager.first_name }}
                                                         </option>
                                                     </select>
                                                 </td>

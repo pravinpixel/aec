@@ -15,7 +15,7 @@ class CreateTicketComments extends Migration
     {
         Schema::create('ticket_comments', function (Blueprint $table) {
             $table->id();
-            
+            $table->unsignedInteger('project_id');
             $table->string("type")->nullable();
             $table->text('summary')->nullable();
             $table->text('description')->nullable();

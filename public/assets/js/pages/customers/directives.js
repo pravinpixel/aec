@@ -348,7 +348,7 @@ app.directive('ngFile', ['$parse', function ($parse) {
 <div dx-tag-box="tagBox.customTemplate" dx-item-alias="product" select-user>
     <div data-options="dxTemplate: { name: 'customItem' }">
       <div class="custom-item" dx-click="getItem($key)">
-        <div class="product-name"> @{{product.first_Name}}</div>
+        <div class="product-name"> @{{product.first_name}}</div>
       </div>
     </div>
   </div>

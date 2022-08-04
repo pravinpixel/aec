@@ -76,7 +76,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
 
             //dd($assigndetails);
 
-            $header = array('username' => $assigndetails->assigndetails->first_Name,
+            $header = array('username' => $assigndetails->assigndetails->first_name,
                             'image'     => $assigndetails->assigndetails->image,
                             'email'     => $requesterdetails->assigndetails->email,
                             'ticketid' => $ticketcomments->id,
@@ -89,7 +89,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             $requesterdetails = $this->model->with('requesterdetails')->find($id);
             $assigndetails = $this->model->with('assigndetails')->find($id);
            
-            $header = array('username' => $requesterdetails->requesterdetails->first_Name,
+            $header = array('username' => $requesterdetails->requesterdetails->first_name,
                             'image'     => $requesterdetails->requesterdetails->image,
                             'email'     => $assigndetails->assigndetails->email ?? '',
                             'ticketid' => $ticketcomments->id,

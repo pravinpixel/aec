@@ -16,7 +16,7 @@ class CreateGeneralNotes extends Migration
         Schema::create('general_notes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id')->nullable();
-            $table->string('notes')->nullable(); 
+            $table->longText('notes')->nullable(); 
             $table->foreign('project_id')->references('id')->on('projects');
             $table->timestamps();
         });

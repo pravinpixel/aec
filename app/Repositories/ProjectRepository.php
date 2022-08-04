@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\ConnectionPlatformInterface;
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use App\Models\Admin\Employees;
 use App\Models\ConnectionPlatform;
 use App\Models\DeliveryType;
 use App\Models\InvoicePlan;
@@ -18,7 +19,6 @@ use App\Models\SharepointFolder;
 use App\Models\TeamSetupTemplate;
 use App\Services\GlobalService;
 use Carbon\Carbon;
-use App\Models\Employee;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
@@ -111,7 +111,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
     public  function getliveProjectById($id){
         $project = $this->model->find($id);
 
-        $employee =  Employee::find($project->created_by );
+        $employee =  Employees::find($project->created_by );
         //dd($project->customer_id);
         //dd($project->gantt_chart_data);
         
@@ -148,7 +148,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             
         }
         $result['project'] = $project;
-        $result['lead'] = $employee->first_Name;
+        $result['lead'] = $employee->first_name;
         $result['count']= $result;
         
         //dd($project);

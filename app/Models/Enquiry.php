@@ -52,7 +52,7 @@ class Enquiry extends Model
         'technical_estimation_status',
         'cost_estimation_status',
         'proposal_sharing_status',
-        'proposal_mail_status',
+        'proposal_email_status',
         'customer_response_status',
         'from_enquiry_id',
         'initiate_from',

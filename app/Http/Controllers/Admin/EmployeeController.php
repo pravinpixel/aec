@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Helper\Bim360\Bim360UsersApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Employee;
 use App\Models\Admin\SharePointAccess;
 use App\Models\Admin\EmployeeSharePointAcess;
 use App\Http\Requests\EmployeeUpdateRequest;
@@ -17,6 +16,7 @@ use App\Models\BuildingComponent;
 use App\Models\Type;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
+use App\Models\Admin\Employees;
 use App\Models\MasterCalculation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Response;
@@ -62,10 +62,10 @@ class EmployeeController extends Controller
         }
         $id = session('id');
  
-        $module = new Employee;
+        $module = new Employees();
 
         $module->employee_id = $request->epm_id;
-        $module->first_Name = $request->epm_fname;
+        $module->first_name = $request->epm_fname;
         $module->last_Name = $request->epm_lname;
         $module->user_name = $request->epm_username;
         $module->password = Hash::make($request->epm_password);
@@ -116,7 +116,7 @@ class EmployeeController extends Controller
         }
         $id = session('id');
        
-        $module = Employee::find($ids);
+        $module = Employees::find($ids);
         if( empty( $module ) ) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
@@ -125,7 +125,7 @@ class EmployeeController extends Controller
                 $module->password =  Hash::make($request->epm_password);
             }
         $module->employee_id = $request->epm_id;
-        $module->first_Name = $request->epm_fname;
+        $module->first_name = $request->epm_fname;
         $module->last_Name = $request->epm_lname;
         $module->user_name = $request->epm_username;
       
@@ -157,7 +157,7 @@ class EmployeeController extends Controller
         {
             $data = session('id');
             // return 1;
-            // $data = Employee::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
+            // $data = Employees::select('id')->withTrashed()->orderBy('created_at', 'desc')->first();
             if( !empty( $data ) ) {
                 return response(['status' => true, 'data' => $data], Response::HTTP_OK);
             }
@@ -171,7 +171,7 @@ class EmployeeController extends Controller
 
         }else{
 
-            $data = Employee::select('id')->orderBy('created_at', 'desc')->first();
+            $data = Employees::select('id')->orderBy('created_at', 'desc')->first();
             if( !empty( $data ) ) {
                 return response(['status' => true, 'data' => $data], Response::HTTP_OK);
             }
@@ -189,7 +189,7 @@ class EmployeeController extends Controller
     {
         # code..
        
-        $data= Employee::get();
+        $data= Employees::get();
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
@@ -203,7 +203,7 @@ class EmployeeController extends Controller
             Flash::error(__('global.access_denied'));
             return redirect(route('admin-dashboard'));
         }
-        $module = Employee::find($id);
+        $module = Employees::find($id);
         if (empty($module)) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
@@ -222,7 +222,7 @@ class EmployeeController extends Controller
     public function getEditEmployee($id)
     {
         $valueId = session(['id'=>$id]);
-        $data = Employee::find($id);
+        $data = Employees::find($id);
         if( !empty( $data ) ) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         } 
@@ -231,7 +231,7 @@ class EmployeeController extends Controller
    
     public function employeeStatus($id)
     {
-        $module = Employee::find($id);
+        $module = Employees::find($id);
 
         if( empty( $module ) ) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
@@ -247,7 +247,7 @@ class EmployeeController extends Controller
     public function employee_enquiry($id)
     {
         # code...
-        $module = Employee::where('id',$id)->first();
+        $module = Employees::where('id',$id)->first();
 
         if( empty( $module ) ) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
@@ -270,7 +270,7 @@ class EmployeeController extends Controller
         if(!empty($data1['employeeFolderStatus']))
         {
     
-            $employeData =Employee::where('id',$id)->first();
+            $employeData =Employees::where('id',$id)->first();
             $data1['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
             $data = SharePointAccess::where('is_active','=','1')->get();
             foreach( $data1['employeeFolderStatus'] as $key=>$val)
@@ -308,7 +308,7 @@ class EmployeeController extends Controller
     public function sharePointAcessId($id)
     {
        
-        $employeData =Employee::where('id',$id)->first();
+        $employeData =Employees::where('id',$id)->first();
         $data1['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first();
         if(!empty($data1['employeeFolderStatus'])){
             $data1['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
@@ -333,7 +333,7 @@ class EmployeeController extends Controller
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
         else{
-            $employeData =Employee::where('id',$id)->first();
+            $employeData =Employees::where('id',$id)->first();
             $data = SharePointAccess::where('is_active','=','1')->get();
             if( !empty( $data ) ) {
                 return response(['status' => true,'active'=>true, 'data' => $data,'employeeData'=>$employeData], Response::HTTP_OK);
@@ -347,7 +347,7 @@ class EmployeeController extends Controller
     {
         $id = session('id');
 
-        $data['employeeDetail']=Employee::where('id',$id)->first();
+        $data['employeeDetail']=Employees::where('id',$id)->first();
         $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
         $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
         foreach( $data['employeeFolderStatus'] as $key=>$val)
@@ -406,7 +406,7 @@ class EmployeeController extends Controller
     {
         // return 1;
 
-        $data['employeeDetail']=Employee::where('id',$id)->first();
+        $data['employeeDetail']=Employees::where('id',$id)->first();
         $data['employeeFolderStatus']=EmployeeSharePointAcess::where('employee_id',$id)->first()->toArray();
         $data['sharePointAccess'] = SharePointAccess::where('is_active','=','1')->get();
         foreach( $data['employeeFolderStatus'] as $key=>$val)
@@ -427,7 +427,7 @@ class EmployeeController extends Controller
     public function employeeSharePointAccessStatus(Request $request)
     {
         $id = session('id');
-        $data = Employee::where('id',$id)->first();
+        $data = Employees::where('id',$id)->first();
 
         if($data)
         {
@@ -512,7 +512,7 @@ class EmployeeController extends Controller
     public function employeeBIMStatus(Request $request)
     {
         
-        $data = Employee::where('id',$request->employeeId)->first();
+        $data = Employees::where('id',$request->employeeId)->first();
 
         if($data)
         {
@@ -525,7 +525,7 @@ class EmployeeController extends Controller
     {
 
         try {
-       $data = Employee::where('id',$id)->first();
+       $data = Employees::where('id',$id)->first();
         
        $details = [
         'user_name'     => $data->user_name,
@@ -544,7 +544,7 @@ class EmployeeController extends Controller
     {
    
         $id = session('id');
-        $data = Employee::where('id',$id)->first();
+        $data = Employees::where('id',$id)->first();
         if( !empty( $data ) ) {
             return response(['status' => true,'active'=>"active", 'data' => $data,'deleteImageBtn'=>false], Response::HTTP_OK);
         } 
@@ -553,7 +553,7 @@ class EmployeeController extends Controller
     public function deleteEmployeeImage(Type $var = null)
     {
         $id = session('id');
-        $data = Employee::where('id',$id)->first();
+        $data = Employees::where('id',$id)->first();
         $data->image="no_image.jpg";
         $data->save();
         return 1;
@@ -561,7 +561,7 @@ class EmployeeController extends Controller
     }
     public function sharePointAccessStatus($id)
     {
-        $module = Employee::find($id);
+        $module = Employees::find($id);
 
         if( empty( $module ) ) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
@@ -580,7 +580,7 @@ class EmployeeController extends Controller
     {
         $saleEngineer = Role::where('slug', config('global.technical_estimater'))->first();
         $projectManager = Role::where('slug', config('global.project_manager'))->first();
-        return Employee::where('status', 1)
+        return Employees::where('status', 1)
                         ->whereIn('job_role',[$saleEngineer->id,$projectManager->id])
                         ->where('id','!=', Admin()->id)
                         ->get();
@@ -589,14 +589,14 @@ class EmployeeController extends Controller
     public function getCostEstimateEmployee(Request $request)
     {
         $role = Role::where('slug', config('global.cost_estimater'))->first();
-        return Employee::where(['job_role' => $role->id,'status'=> 1])
+        return Employees::where(['job_role' => $role->id,'status'=> 1])
                         ->where('id','!=', Admin()->id)
                         ->get();
     }
 
     public function getDeliveryManager(Request $request)
     {
-        return Employee::with('role')->where('status', 1)->get()
+        return Employees::with('role')->where('status', 1)->get()
                         ->map(function ($employee){
                             return [
                                 'user_name' => "{$employee->user_name} - ({$employee->role->name})", 
@@ -614,8 +614,8 @@ class EmployeeController extends Controller
         $input["company_id"] = env('BIMDEFAULTCOMPANY');
         $input["email"]      = $employee->email;
         $input['bim_id']     = $employee->bim_id ?? Null;
-        $input["nickname"]   = $employee->first_Name;
-        $input["first_name"] = $employee->first_Name;
+        $input["nickname"]   = $employee->first_name;
+        $input["first_name"] = $employee->first_name;
         $input["last_name"]  = $employee->last_name;
         if (isset($input["bim_id"]) && !empty($input["bim_id"])) {
             $editJson = json_encode($input);

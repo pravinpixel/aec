@@ -784,7 +784,7 @@ app.directive('getRoleUser',function getRoleUser($http, API_URL){
                     scope.tagBox = {
                         customTemplate: {
                         dataSource:  res.data.data,
-                        displayExpr: 'first_Name',
+                        displayExpr: 'first_name',
                         valueExpr: 'id',
                         itemTemplate: 'customItem',
                         value: selectedValues,

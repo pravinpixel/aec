@@ -2,13 +2,18 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
-class Employees extends Model
+class Employees extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable;
+    use HasRoles,SoftDeletes;
 
     protected $fillable =[
         'id',
@@ -38,4 +43,50 @@ class Employees extends Model
         'completed_wizard',
         'created_by'
     ];
+
+     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function setFullNameAttribute()
+    {
+        $this->attributes['full_name'] = "{$this->attributes['first_name']} {$this->attributes['last_name']}";
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'job_role');
+    }
+
+    public function assigndetails()
+    {
+        return $this->hasOne(Employees::class,'id','assigned');
+    }
+
+    public function requesterdetails()
+    {
+        return $this->hasOne(Employees::class,'id','send_by');
+    }
+        
+
 }

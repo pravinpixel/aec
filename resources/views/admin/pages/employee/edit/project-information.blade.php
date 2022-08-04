@@ -19,7 +19,7 @@
         <div class="col-md-6">
             <div class="mb-3">
                 <label class="form-label" >First name<sup class="text-danger">*</sup></label>
-                <input type="text" class="form-control"  name="epm_fname" id="epm_fname"   ng-value="EmpData.first_Name" placeholder="Type Here..."ng-required="true" required>
+                <input type="text" class="form-control"  name="epm_fname" id="epm_fname"   ng-value="EmpData.first_name" placeholder="Type Here..."ng-required="true" required>
             </div>
         </div>
         <div class="col-md-6">

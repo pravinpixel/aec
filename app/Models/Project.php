@@ -52,7 +52,7 @@ class Project extends Model
 
     public function setCreatedByAttribute()
     {
-        $this->attributes['created_by'] = Admin()->id ?? null;
+        $this->attributes['created_by'] = Admin()->id;
     }
 
     public function setWizardStatusAttribute($value)

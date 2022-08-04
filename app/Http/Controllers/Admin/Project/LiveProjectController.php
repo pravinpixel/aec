@@ -16,7 +16,6 @@ use App\Jobs\SharepointFolderDelete;
 use App\Models\CheckList;
 use App\Models\Customer;
 use App\Models\DeliveryType;
-use App\Models\Employee;
 use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectGranttTask;

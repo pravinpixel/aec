@@ -46,7 +46,7 @@
                                     <td class="text-center"> 
                                         <span ng-click="toggle('edit', m.id)" class="badge badge-primary-lighten btn  p-2">@{{ m.employee_id }}</span>
                                     </td>
-                                    <td class="text-left">@{{ m.first_Name }}</td>
+                                    <td class="text-left">@{{ m.first_name }}</td>
                                     <td class="text-left">@{{ m.email }}</td>
                                     <td class="text-left">@{{ m.number }}</td>
                                     <td class="text-center">

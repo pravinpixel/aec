@@ -24,7 +24,7 @@ class ConfigSeeder extends Seeder
             'project_prefix' => 'PRO',
             'project_number' => '1',
             'employee_prefix' => 'EMP',
-            'employee_number' => '1'
+            'employee_number' => '2'
         ]);
     }
 }

@@ -238,7 +238,7 @@
                                         <img src="{{ asset("public/assets/images/") }}/@{{pticketscomment.assigndetails.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
                                             <h5 class="m-0 font-14">
-                                                @{{pticketscomment.assigndetails.first_Name}} 
+                                                @{{pticketscomment.assigndetails.first_name}} 
                                             </h5>
                                         </div>
                                     </div>
@@ -390,7 +390,7 @@
                                            
                                                 <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
                                                 <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
-                                                    @{{ projectManager.first_Name }}
+                                                    @{{ projectManager.first_name }}
                                                 </option>
 
                                             
@@ -421,7 +421,7 @@
                                         <label for="example-select" class="form-label text-secondary">Requester</label><Br>
                                        
                                         <select class="form-select form-select-sm shadow" id="example-select">
-                                            <option value = "{{Auth::user()->id}}">{{Auth::user()->first_Name}}</option>
+                                            <option value = "{{Auth::user()->id}}">{{Auth::user()->first_name}}</option>
                                             
                                         </select>
                                         <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;">{{Customer::->id}}</label>

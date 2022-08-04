@@ -19,7 +19,7 @@ class Employee extends Authenticatable
     protected $primaryKey = 'id';
     protected $fillable = [
         'employee_id',
-        'first_Name',
+        'first_name',
         'last_name',
         'user_name',
         'password',
@@ -64,7 +64,7 @@ class Employee extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return "{$this->first_Name} {$this->last_name}";
+        return "{$this->first_name} {$this->last_name}";
     }
 
     public function role()

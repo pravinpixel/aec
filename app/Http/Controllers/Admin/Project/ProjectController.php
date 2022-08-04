@@ -15,10 +15,10 @@ use App\Interfaces\RoleRepositoryInterface;
 use App\Jobs\SharepointFileCreation;
 use App\Jobs\SharePointFolderCreation;
 use App\Jobs\SharepointFolderDelete;
+use App\Models\Admin\Employees;
 use App\Models\CheckList;
 use App\Models\Customer;
 use App\Models\DeliveryType;
-use App\Models\Employee;
 use App\Models\InvoicePlan;
 use App\Models\Project;
 use App\Models\ProjectGranttTask;
@@ -305,7 +305,8 @@ class ProjectController extends Controller
        
         $project = Project::findOrFail($request->project_id);
         $project_manager_id = Role::where('slug', config('global.project_manager'))->first();
-        $project_manager    = Employee::where('job_role', $project_manager_id->id)->where('status',1)->first();
+        $project_manager    = Employees::where('job_role', $project_manager_id->id)->where('status',1)->first();
+
         $start_date         = $project->start_date;
         $end_date           = $project->delivery_date;
         $list           =   CheckList::where("name",  '=', $request->data)->with('getTaskList')->latest()->get();
@@ -535,9 +536,9 @@ class ProjectController extends Controller
         $team_setup = [];
         if (!empty($project_team_setups)) {
             foreach ($project_team_setups as $project_team) {
-                $employee = Employee::find($project_team->team);
+                $employee = Employees::find($project_team->team);
                 $team = $employee->map(function ($user) {
-                    return $user->first_Name;
+                    return $user->first_name;
                 });
                 $project_team->team = $team;
                 $team_setup[] =  $project_team;
@@ -1071,7 +1072,7 @@ class ProjectController extends Controller
             }
         }
         $employees_id = Arr::flatten($employees);
-        $employees = Employee::find($employees_id);
+        $employees = Employees::find($employees_id);
         $project_id = $project->bim_id;
         $data = [];
         foreach ($employees as $employee) {
@@ -1249,7 +1250,7 @@ class ProjectController extends Controller
 
         if($type == 'internal'){
             $result['team'] = $this->roleRepository->getRoleBySlug($name);
-            $result['user'] =  Employee :: find(Admin()->id);
+            $result['user'] =  Employees :: find(Admin()->id);
         }else{
             $result['team'] = array(); 
             $projectdata  = $this->projectRepo->liveprojectdata($project_id);

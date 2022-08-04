@@ -227,7 +227,7 @@
                                       
                                         <td>
                                             <label ng-repeat="projectManager in projectManagers" value="@{{ taskListData.assign_to }}" >
-                                                @{{ projectManager.first_Name }}
+                                                @{{ projectManager.first_name }}
                                             </label>
                                         </td>
                                           <td class="text-center">  
@@ -329,7 +329,7 @@
                                                             <img src="{{ asset("public/assets/images/") }}/@{{pticketscomment.assigndetails.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
                                                             <div>
                                                                 <h5 class="m-0 font-14">
-                                                                    @{{pticketscomment.assigndetails.first_Name}} 
+                                                                    @{{pticketscomment.assigndetails.first_name}} 
                                                                 </h5>
                                                             </div>
                                                         </div>

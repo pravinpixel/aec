@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Interfaces\RoleRepositoryInterface;
+use App\Models\Admin\Employees;
 use App\Models\BuildingType;
 use App\Models\DeliveryType;
-use App\Models\Employee;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -60,7 +60,7 @@ class RoleRepository implements RoleRepositoryInterface{
 
     public function find($id)
     {
-        $roles = Employee::where('job_role', $id)->get();
+        $roles = Employees::where('job_role', $id)->get();
         return  $roles;
     }
 
@@ -68,7 +68,7 @@ class RoleRepository implements RoleRepositoryInterface{
     {
         $role = $this->model->where('slug', $name)->first();
         if(!empty($role)) {
-            return Employee::where('job_role', $role->id)->get();
+            return Employees::where('job_role', $role->id)->get();
         }
         return [];
     }

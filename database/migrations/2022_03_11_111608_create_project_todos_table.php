@@ -25,8 +25,8 @@ class CreateProjectTodosTable extends Migration
             $table->foreign('project_id')->references('id')->on('projects');
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
-            $table->foreign('assign_to')->references('id')->on('employee');
-            $table->foreign('assign_by')->references('id')->on('employee');
+            $table->foreign('assign_to')->references('id')->on('employees');
+            $table->foreign('assign_by')->references('id')->on('employees');
             $table->timestamps();
         });
     }

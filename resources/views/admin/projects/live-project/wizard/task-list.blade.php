@@ -62,7 +62,7 @@
 
                     <input get-to-do-lists  type = "hidden"   ng-model="taskListData.assign_to" value="@{{ taskListData.assign_to }}" >
                     <label ng-repeat="projectManager in projectManagers" value="@{{ taskListData.assign_to }}" >
-                        @{{ projectManager.first_Name }}
+                        @{{ projectManager.first_name }}
                     </label>
 
                    

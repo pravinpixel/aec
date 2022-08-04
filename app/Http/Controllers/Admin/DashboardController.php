@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Employees;
 use Illuminate\Http\Request;
 use App\Models\Enquiry;
 use App\Models\Customer;
-use App\Models\Employee;
 
 
 class DashboardController extends Controller
@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $EnqData        =   Enquiry::with('customer')                        
                                 ->join("customers", "customers.id", "=" ,"enquiries.customer_id")
                                 ->get();
-        $adminData          =   Employee::where('id', Admin()->id)->firstOrFail();
+        $adminData          =   Employees::where('id', Admin()->id)->firstOrFail();
          
         return view('admin.dashboard.enquiry',
                         compact(
@@ -41,7 +41,7 @@ class DashboardController extends Controller
 
     public function allowNotification(Request $request)
     {
-        $adminData                  =   Employee::where('id', Admin()->id)->firstOrFail();
+        $adminData                  =   Employees::where('id', Admin()->id)->firstOrFail();
         $adminData->notification    =   1;
         $adminData->save();
         return redirect()->back();

@@ -100,7 +100,7 @@
             <div class="col-md-6">
                 <div class="row m-0 align-items-center">
                     <div class="col-3 mb-2 p-0">
-                        <label class="col-form-label">City <sup class="text-danger"></sup></label>
+                        <label class="col-form-label">City <sup class="text-danger">*</sup></label>
                     </div>
                     <div class="col pe-0">
                         <input type="text" name="city" ng-model="project.city" class="form-control form-control-sm" required>

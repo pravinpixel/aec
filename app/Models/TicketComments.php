@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Employees;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,12 +15,12 @@ class TicketComments extends Model
 
     public function assigndetails()
     {
-        return $this->belongsTo(Employee::class, 'assigned', 'id');
+        return $this->belongsTo(Employees::class, 'assigned', 'id');
     }
 
     public function requesterdetails()
     {
-        return $this->belongsTo(Employee::class, 'send_by', 'id');
+        return $this->belongsTo(Employees::class, 'send_by', 'id');
     }
 
     

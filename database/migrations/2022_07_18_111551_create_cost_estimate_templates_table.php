@@ -19,7 +19,7 @@ class CreateCostEstimateTemplatesTable extends Migration
             $table->longText('json')->nullable();
             $table->string('type')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
-            $table->foreign('created_by')->on('employee')->references('id');
+            $table->foreign('created_by')->on('employees')->references('id');
             $table->timestamps();
         });
     }

@@ -21,7 +21,7 @@ class CreateInvoicePlansTable extends Migration
             $table->integer('no_of_invoice');
             $table->text('invoice_data');
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->foreign('created_by')->references('id')->on('employee');
+            $table->foreign('created_by')->references('id')->on('employees');
             $table->timestamps();
         });
     }

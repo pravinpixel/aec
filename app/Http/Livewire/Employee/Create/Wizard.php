@@ -102,6 +102,7 @@ class Wizard extends Component
         $employee->send_password_to_email  = $this->send_password_to_email ?? 0;
         $employee->recipient_email         = $this->recipient_email;
         $employee->completed_wizard        = $this->completed_wizard;
+        $employee->status                  = 1;
         $employee->save();
         $this->createBimUser($employee);
         Session::put('employee',  $employee);

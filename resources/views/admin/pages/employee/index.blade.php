@@ -169,7 +169,7 @@
                     {
                         $scope.employeeRowId =   response.data.data.id;
                         $scope.myWelcome = response.data.data.employee_id;	
-                        $scope.FormData.epm_fname = response.data.data.first_Name;
+                        $scope.FormData.epm_fname = response.data.data.first_name;
                         $scope.FormData.epm_lname = response.data.data.last_name;
                         $scope.FormData.epm_username = response.data.data.user_name;
                         $scope.FormData.epm_password = response.data.data.password;

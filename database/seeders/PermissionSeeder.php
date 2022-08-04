@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Employee;
+use App\Models\Admin\Employees;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Auth;
@@ -104,7 +104,7 @@ class PermissionSeeder extends Seeder
            $role1->givePermissionTo('enquiry_delete');
            // create demo users
 
-           $user = Employee::find(1);
+           $user = Employees::find(1);
            $user->assignRole($role1);
 
     }

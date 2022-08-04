@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ForgotPassword;
+use App\Models\Admin\Employees;
 use App\Models\Customer;
-use App\Models\Employee;
 use App\Models\PasswordReset;
 use App\Services\GlobalService;
 use Illuminate\Http\Request;
@@ -42,7 +42,7 @@ class ForgotPasswordController extends Controller
     ]);
 
     $validatorEmployee = Validator::make($request->all(), [
-      'email' => 'required|email|exists:employee',
+      'email' => 'required|email|exists:employees',
     ]);
     if ($validatorCustomer->fails()  &&  $validatorEmployee->fails()) {
       $validator = $validatorCustomer->fails() ? $validatorCustomer : $validatorEmployee;
@@ -115,7 +115,7 @@ class ForgotPasswordController extends Controller
       $customer->password = $request->password;
       $customer->save();
     } else {
-      $employee = Employee::where('email', $updatePassword->email)->first();
+      $employee = Employees::where('email', $updatePassword->email)->first();
       $employee->password = Hash::make($request->password);
       $employee->save();
     }

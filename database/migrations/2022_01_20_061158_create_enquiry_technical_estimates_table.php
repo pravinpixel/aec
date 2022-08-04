@@ -23,8 +23,8 @@ class CreateEnquiryTechnicalEstimatesTable extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('enquiry_id')->unsigned(); 
             $table->foreign('enquiry_id')->references('id')->on('enquiries');
-            $table->foreign('assign_to')->references('id')->on('employee');
-            $table->foreign('assign_by')->references('id')->on('employee');
+            $table->foreign('assign_to')->references('id')->on('employees');
+            $table->foreign('assign_by')->references('id')->on('employees');
             $table->integer('total_wall_area')->default(0);
             $table->string('wall')->nullable(); 
             $table->text('build_json')->nullable(); 
