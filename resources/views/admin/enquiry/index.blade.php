@@ -36,7 +36,7 @@
                             </div>
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                            <div class="accordion-body">
+                            <div class="accordion-body table-responsive">
                                 @include('admin.enquiry.table.unattended')
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                             </div>
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                            <div class="accordion-body">
+                            <div class="accordion-body table-responsive">
                                 @include('admin.enquiry.table.active')
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                             </div>
                         </h2>
                         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                            <div class="accordion-body">
+                            <div class="accordion-body table-responsive">
                                 @include('admin.enquiry.table.cancelled')
                             </div>
                         </div>

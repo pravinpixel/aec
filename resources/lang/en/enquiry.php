@@ -40,7 +40,7 @@ return [
     'enquiry_cancel_to_move'      => 'Enquiry move to active successfully',
     'enquiry_approved'            => 'Approved Success',
     'assign_user_successfully'    => 'User assigned successfully',
-    'follow_up_updated'           => 'Follow up updated',
+    'follow_up_updated'           => 'Follow up date updated',
     'view_proposal'               => 'View Proposal',
     'company_name'                => 'Company Name',
     'project_name'                => 'Project Name',
@@ -48,4 +48,6 @@ return [
     'approved'                    => 'Approved successfully',
     'change_request'              => 'Change request send successfully',
     'assign_removed_successfully' => 'User removed successfully',
+    'generate_proposal'           => 'Please Create Proposal Document',
+    'follow_up_date'              => 'Follow Up Date',
 ];

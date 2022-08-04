@@ -73,6 +73,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'admin'], function(){
 
     Route::post('/proposal/enquiry/{id}/send-mail/{proposal_id}',[ProposalController::class,'sendMail']);
     Route::post('/proposal/enquiry/{id}/send-mail/{proposal_id}/version/{Vid}',[ProposalController::class,'sendMailVersion']);
+    Route::post('/proposal/send-proposal/{id}',[ProposalController::class,'sendProposal']);
  
 });
 

@@ -394,6 +394,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             {data: 'contact_person', name: 'contact_person'},
             {data: 'mobile_no', name: 'mobile_no'},
             {data: 'enquiry_date', name: 'enquiry_date'},
+            {data: 'follow_up_date', name: 'follow_up_date'},
             {data: 'pipeline', name: 'pipeline'},
             {data: 'project_status', name: 'project_status'},
             {
