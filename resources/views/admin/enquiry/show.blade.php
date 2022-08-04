@@ -468,6 +468,7 @@
                                 </div> 
                             `); 
                         });
+                        $('#technical_history').modal('show');
                     }, function errorCallback(error){
                         console.log(error);
                     });
