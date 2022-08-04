@@ -282,10 +282,7 @@
                                     <h3 class="card-title m-0 h5">Add details</h3>
                                     <input type = "hidden" id = "project_case"  name = "project_id" ng-model = "case.project_id" value= "@{{ticket.projectid}}">
                                 </div>
-                                <div class="card-body">
-                                    
-
-
+                                <div class="card-body"> 
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Summary<sup class="text-danger">*</sup></label>
                                         <input type="text" class="form-control form-control-sm"  name = "summary" ng-model = "case.summary" ng-required="true">
@@ -296,43 +293,24 @@
                                         <textarea class="form-control form-control-sm" cols="20" rows="5" ng-model = "case.description"  ng-required="true"></textarea>
                                     </div> 
                                     <div>
-                                        
                                         <div class="mb-3">
-                                            
                                             <label for="Attachments" class="form-label text-secondary" >Attachments</label>
-                                            
-
                                             <div class="field" align="left">
-                                               
-                                               <!-- <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" accept="image/png, image/jpeg, image/jpg" id="file" ng-model="FormData.file" name="file" multiple />-->
-
-                                                {{-- <input type='file' multiple ng-file='uploadfiles'  onchange="angular.element(this).scope().upload(event)"> --}}
-                                                {{-- <input  type="file" class="form-control file-control rounded-pill" file-model="projectFiles" id ="@{{ documentType.slug }}"/> --}}
-                                                <input type="file" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
-
+                                                <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
                                                 <p id = "case_image"ng-model = "case.file_id" ng-show="!responses.name" style="display: none;">@{{ responses.name }}</p>
-                                                
                                                 <div class="error-msg">
                                                     <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
                                                 </div>
                                             </div>
-                                          
-
-
-
                                         </div> 
-                                       
                                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
                                             <ol class="carousel-indicators">
                                                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="$index" class="active"  ng-repeat="curesponse in responses.name"></li>
-                                                
                                             </ol>
                                             <div class="carousel-inner" role="listbox">
                                                 <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat="response in responses.name">
-                                                    
                                                     <img class="w-100" style="max-height: 180px;object-fit:cover" ng-src="@{{response}}"  alt="First slide">
                                                 </div>
-                                                
                                             </div>
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -350,50 +328,32 @@
                         <div class="col">
                             <div class="cardx">
                                 <div class="card-body">
-
                                     <div class="mb-3" >
                                         <label for="example-select" class="form-label text-secondary">Assign Type <sup class="text-danger">*</sup></label>
-                                        <div>
-                                            <!-- Default radio -->
-                                            <div class="form-check">
+                                        <div class="row m-0">
+                                            <div class="form-check col">
                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type"  ng-click="ticket_type('internal')"  ng-required="true" />
                                                 <label class="form-check-label" for="flexRadioDefault1"> Internal </label>
                                             </div>
-                                            
-                                            <!-- Default checked radio -->
-                                            <div class="form-check">
+                                            <div class="form-check col">
                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"  ng-click="ticket_type('customer')"  ng-required="true"  />
                                                 <label class="form-check-label" for="flexRadioDefault2"> Customer </label>
                                             </div>
                                         </div>
-
-                                        
                                     </div>
-
-
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Assignee<sup class="text-danger">*</sup></label>
-
-                                       
-
-
                                         <select class="form-select form-select-sm shadow" id="example-select_project"  ng-required="true" >
-                                           
-                                                <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
-                                                <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
-                                                    @{{ projectManager.first_name }}
-                                                </option>
-
-                                            
-                                           
+                                            <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
+                                            <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                                @{{ projectManager.first_name }}
+                                            </option>
                                         </select>
                                     </div>
-
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Tag</label>
                                         <input id="ms1" class="my-control" type="text" name="ms1"/>
                                     </div>
-
                                     <div class="mb-3">
                                         <label for="example-select" class="form-label text-secondary">Priority<sup class="text-danger">*</sup></label>
                                         <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority"  ng-required="true">
@@ -408,24 +368,17 @@
                                         <input type="datetime-local"  min="2001-01-01T00:00:00" max="2013-12-31T00:00:00" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
                                     </div> 
                                     <div class="mb-3">
-                                       
                                         <label for="example-select" class="form-label text-secondary">Requester</label><Br>
-                                       
                                         <select class="form-select form-select-sm shadow requested" id="example-select">
                                             <option ng-repeat="req in Requester" value="@{{ req.id }}" ng-selected="projectManager.id == taskListData.assign_to">
                                                 @{{ req.first_name }}
                                             </option>
-                                            
-                                            
                                         </select>
                                         <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;">{{Auth::user()->id}}</label>
                                     </div> 
-
                                     <div class="mb-3 customer_variation" style="display: none;" >
                                         <input class="form-check-input" type="checkbox" ng-model = "case.variation" id="check1" name="option1" value="something" checked>
                                         <label for="example-select" class="form-label text-secondary">Converted Variation Order</label>
-
-                                        
                                     </div> 
                                 </div>
                             </div>
@@ -434,7 +387,6 @@
                 </div> 
                 <div class="modal-footer border-top text-end">
                     <button class="btn btn-light shadow-sm border btn-sm" ng-click=discardticket()>Discard</button>
-                    
                     <button class="btn btn-info btn-sm" ng-disabled="newissuesForm.$invalid" onclick >Submit</button>
                 </div>
          </form>
@@ -451,7 +403,6 @@
                     <div class="modal-title d-flex">
                         <i class="fa fa-thumb-tack f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
                         <div>
-                          
                             <h4 class="m-0">@{{projectticket.reference_number}}  |    @{{projectticket.project_name}} </h4> 
                         </div>
                     </div>
@@ -613,87 +564,73 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body  "  style="overflow: auto">
-                {{-- <div class="card pt-3">
-                    <div id="mail_content_first_text_editor">
-                        <div text-angular="text-angular" name="mail_content_first" ng-model="mail_content_first" ta-disabled='disabled'></div>      
-                    </div>
-                </div> --}}
-
-                
                 <form id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationForm()">
-
-                <table class="table custom table-bordered">
-                    <thead>
-                        <tr>
-                            <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
-                        </tr>
-                        
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td width="200px"><b>Project Name</b></td>
-                            <td>@{{ modelcustomer.project_name}}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Client Name</b></td>
-                            <td>@{{ modelcustomer.company_name}}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Project Incharge</b></td>
-                            <td>Mariusz Pierzgalski</td>
-                        </tr>
-                        <tr>
-                            <td><b>Date of Change Request</b></td>
-                                <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date | date: 'dd-MM-yyyy'" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
-                        </tr> 
-                    </tbody>
-                </table>
-                <table class="table custom table-bordered">
-                    <tbody>
-                        <tr><td colspan="2" class="text-center" style="background: #F4F4F4"><b>Change Request Overview</b></td></tr>
-                        <tr>
-                            <td width="250px"><b>Description of Variation / Change</b></td>
-                            <td ng-bind-html="modelptickets.description">@{{modelptickets.description}}</td>
-                        </tr> 
-                        <tr>
-                            <td><b>Reason for Variation / Change</b></td>
-                            <td ng-bind-html="modelptickets.response">@{{modelptickets.response}}</td>
-                        </tr>  
-                    </tbody>
-                </table>
-                <table class="table custom table-bordered">
-                    <tbody>
-                        <tr><td colspan="4"class="text-center" style="background: #F4F4F4"><b>Change in Contract Price</b></td></tr>
-                        <tr>
-                            <td><b>Estimated Hours</b></td>
-                            <td><b>Price/Hr</b></td>
-                            <td rowspan="2"></td> 
-                            <td rowspan="2" class="text-center">kr @{{modelptickets.total_price}}</td> 
-                        </tr> 
-                        <tr>
-                            <td>@{{modelptickets.project_hrs}}</td>
-                            <td>@{{modelptickets.project_price}}</td> 
-                        </tr> 
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                           <td colspan="2"></td>
-                            <td rowspan="2" class="text-end"><b>Total Price</b></td> 
-                            <td rowspan="2" class="text-center"><b>kr@{{modelptickets.total_price}}</b></td> 
-                        </tr> 
-                    </tfoot>
-                </table> 
-            </form>
-            </div> 
-            {{-- <div class="modal-footer"> 
-                <button class="btn btn-primary"  ><i class="fa fa-save me-2"></i>Update</button>
-            </div> --}}
+                    <table class="table custom table-bordered">
+                        <thead>
+                            <tr>
+                                <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="200px"><b>Project Name</b></td>
+                                <td>@{{ modelcustomer.project_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Client Name</b></td>
+                                <td>@{{ modelcustomer.company_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project Incharge</b></td>
+                                <td>Mariusz Pierzgalski</td>
+                            </tr>
+                            <tr>
+                                <td><b>Date of Change Request</b></td>
+                                    <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date | date: 'dd-MM-yyyy'" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                    <table class="table custom table-bordered">
+                        <tbody>
+                            <tr><td colspan="2" class="text-center" style="background: #F4F4F4"><b>Change Request Overview</b></td></tr>
+                            <tr>
+                                <td width="250px"><b>Description of Variation / Change</b></td>
+                                <td ng-bind-html="modelptickets.description">@{{modelptickets.description}}</td>
+                            </tr> 
+                            <tr>
+                                <td><b>Reason for Variation / Change</b></td>
+                                <td ng-bind-html="modelptickets.response">@{{modelptickets.response}}</td>
+                            </tr>  
+                        </tbody>
+                    </table>
+                    <table class="table custom table-bordered">
+                        <tbody>
+                            <tr><td colspan="4"class="text-center" style="background: #F4F4F4"><b>Change in Contract Price</b></td></tr>
+                            <tr>
+                                <td><b>Estimated Hours</b></td>
+                                <td><b>Price/Hr</b></td>
+                                <td rowspan="2"></td> 
+                                <td rowspan="2" class="text-center">kr @{{modelptickets.total_price}}</td> 
+                            </tr> 
+                            <tr>
+                                <td>@{{modelptickets.project_hrs}}</td>
+                                <td>@{{modelptickets.project_price}}</td> 
+                            </tr> 
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                            <td colspan="2"></td>
+                                <td rowspan="2" class="text-end"><b>Total Price</b></td> 
+                                <td rowspan="2" class="text-center"><b>kr@{{modelptickets.total_price}}</b></td> 
+                            </tr> 
+                        </tfoot>
+                    </table> 
+                </form>
+            </div>  
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div>
-
-
-
+</div> 
 {{-- ticket comments show start--}}
 
 <div id="ticket_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
