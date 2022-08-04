@@ -600,18 +600,16 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
                 $scope.countper =res.data.completed == null ? [] : res.data.completed;
                 $scope.overall = res.data.overall;
                 $scope.lead = res.data.lead;
-                console.log(res.data.check_list_items );
+                //console.log(res.data.check_list_items );
                
                 
             });
         }
-        $scope.statusprogress = () => {
-           
-            
-        }
+       
 
 
 
+       
         $scope.storeTaskLists = () => {
 
             $scope.check_list_items.map((CheckLists) => {
@@ -678,6 +676,88 @@ app.controller('TasklistController', function ($scope, $http, API_URL, $location
 
             });
 
+        }
+
+
+        $scope.storeTaskListsStatus = (statusValue) => {
+            
+            $scope.check_list_items.map((CheckLists) => {
+
+                const CheckListsIndex = Object.entries(CheckLists.data);
+
+                $scope.CallToDB = false;
+
+                CheckListsIndex.map((TaskLists) => {
+
+
+
+                    const TaskListsIndex = TaskLists[1].data;
+                    TaskListsIndex.map((ListItems) => {
+
+
+
+                        if (ListItems.assign_to === undefined || ListItems.assign_to == '') {
+                            Message('danger', 'Assign To Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        } else $scope.CallToDB = true;
+                        if (ListItems.start_date === undefined || ListItems.start_date == '') {
+                            Message('danger', 'Start Date Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        } else $scope.CallToDB = true;
+                        if (ListItems.end_date === undefined || ListItems.end_date == '') {
+                            Message('danger', 'End Date Field is  Required !');
+                            $scope.CallToDB = false;
+                            return false
+                        }
+                        else $scope.CallToDB = true;
+                        if (ListItems.delivery_date != undefined && ListItems.delivery_date != '') {
+
+                            if (ListItems.status == '') {
+                                //console.log(ListItems.delivery_date);
+                                Message('danger', 'Please select Status!');
+                                $scope.CallToDB = false;
+                                return false
+                            }
+
+                        } else $scope.CallToDB = true;
+
+                    });
+                });
+
+
+                if ($scope.CallToDB === true) {
+
+
+                    $http.post(`${$("#baseurl").val()}admin/api/v2/store-task-list`, {
+                        id: $('#project_id').val(),
+                        update: $scope.check_list_items_status,
+                        data: $scope.check_list_items,
+                    }).then((res) => {
+                        
+                        if (res.data.status === true) {
+                            Message('success', 'To do List Added Success !');
+                            $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
+                                //console.log(res);
+                
+                                $scope.project = formatData(res.data.project);
+                                $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
+                                $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
+                                $scope.countper =res.data.completed == null ? [] : res.data.completed;
+                                $scope.overall = res.data.overall;
+                                $scope.lead = res.data.lead;
+                                //console.log(res.data.check_list_items );
+                               
+                                
+                            });
+                        }
+                    })
+                }
+
+            });
+
+        
         }
     });
 

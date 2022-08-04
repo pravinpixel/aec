@@ -148,7 +148,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
             
         }
         $result['project'] = $project;
-        $result['lead'] = $employee->first_name;
+        $result['lead'] = isset($employee) ? $employee->first_name : '';
         $result['count']= $result;
         
         //dd($project);
