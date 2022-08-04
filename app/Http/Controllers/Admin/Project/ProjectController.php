@@ -11,6 +11,7 @@ use App\Http\Controllers\Sharepoint\SharepointController;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\ProjectTicketRepositoryInterface;
+use App\Interfaces\RoleRepositoryInterface;
 use App\Jobs\SharepointFileCreation;
 use App\Jobs\SharePointFolderCreation;
 use App\Jobs\SharepointFolderDelete;
@@ -30,7 +31,9 @@ use Illuminate\Http\Response;
 use App\Repositories\CustomerRepository;
 use App\Repositories\DocumentTypeEnquiryRepository;
 use App\Repositories\ProjectRepository;
+use App\Repositories\RoleRepository;
 use App\Services\GlobalService;
+
 use Carbon\Carbon;
 use DateTime;
 use Exception;
@@ -57,6 +60,7 @@ class ProjectController extends Controller
     protected $rootFolder = '/DataBase Test';
     protected $fileDir = [];
     protected $ProjectTeamSetup;
+    protected $roleRepository;
 
     public function __construct(
         ProjectRepository $projectRepo,
@@ -64,13 +68,16 @@ class ProjectController extends Controller
         ProjectTicketRepositoryInterface $ProjectTicket,
         CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
         CustomerRepositoryInterface $customerRepo,
-        DocumentTypeEnquiryRepository $documentTypeEnquiryRepo
+        DocumentTypeEnquiryRepository $documentTypeEnquiryRepo,
+        RoleRepositoryInterface $roleRepository
+
     ) {
         $this->projectRepo        = $projectRepo;
         $this->customerEnquiryRepo = $customerEnquiryRepo;
         $this->customerRepo        = $customerRepo;
         $this->ProjectTicket       = $ProjectTicket;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
+        $this->roleRepository = $roleRepository;
     }
 
     public function index()
@@ -1236,6 +1243,22 @@ class ProjectController extends Controller
     {
         return GeneralNote ::where('project_id',$id)
                     ->first();
+    }
+     public function getRoleByProjectSlug($name,$type,$project_id){
+        
+
+        if($type == 'internal'){
+            $result['team'] = $this->roleRepository->getRoleBySlug($name);
+            $result['user'] =  Employee :: find(Admin()->id);
+        }else{
+            $result['team'] = array(); 
+            $projectdata  = $this->projectRepo->liveprojectdata($project_id);
+            //dd($projectdata->customerdatails);
+            $result['user'] =  $projectdata->customerdatails;
+        }
+        return $result;
+
+
     }
 
    

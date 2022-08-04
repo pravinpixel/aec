@@ -211,7 +211,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th ng-repeat="locale in cols" ng-show="locale.show">@{{locale.title}}</th>
+                            <th ng-repeat="locale in cols" ng-show="locale.show" class="text-center">@{{locale.title}}</th>
                           
                             <th><i class="dripicons-menu"></i></th>
                         </tr>
@@ -247,7 +247,7 @@
                                 
                                 <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
                                 <td ng-show="cols[7].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
-                                <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
+                                <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} </td>
                               
                                 <td ng-show="cols[9].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
                                 <td style="padding: 0 !important" class="text-center" >
@@ -334,9 +334,8 @@
                                        
                                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
                                             <ol class="carousel-indicators">
-                                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+                                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="$index" class="active"  ng-repeat="curesponse in responses.name"></li>
+                                                
                                             </ol>
                                             <div class="carousel-inner" role="listbox">
                                                 <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat="response in responses.name">
@@ -350,7 +349,7 @@
                                                 <span class="visually-hidden">Previous</span>
                                             </a>
                                             <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="carousel-control-next-icon" ng-show="responses.name.length != $index "  aria-hidden="true"></span>
                                                 <span class="visually-hidden">Next</span>
                                             </a>
                                         </div>
@@ -422,8 +421,11 @@
                                        
                                         <label for="example-select" class="form-label text-secondary">Requester</label><Br>
                                        
-                                        <select class="form-select form-select-sm shadow" id="example-select">
-                                            <option value = "{{Auth::user()->id}}">{{Auth::user()->first_Name}}</option>
+                                        <select class="form-select form-select-sm shadow requested" id="example-select">
+                                            <option ng-repeat="req in Requester" value="@{{ req.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                                @{{ req.first_Name }}
+                                            </option>
+                                            
                                             
                                         </select>
                                         <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;">{{Auth::user()->id}}</label>
@@ -941,8 +943,12 @@
 @include("admin.enquiry.models.ticket-chat-box")  
 @push('custom-styles')
 <style>
-div#tablebqup_length {
+#tablebqup_length {
     display: none !important;
+    
+}
+.dataTables_length {
+    display: none !important
 }
 </style>
     

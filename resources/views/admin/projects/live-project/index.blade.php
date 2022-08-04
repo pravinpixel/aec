@@ -86,7 +86,7 @@
                                     <p class="h5 mt-2">Invoice Plan</p>
                                 </a>
                             </li> 
-                          {{--  <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
@@ -95,7 +95,7 @@
                                     </div>
                                     <p class="h5 mt-2">Documents</p>
                                 </a>
-                            </li> --}}
+                            </li> 
                             <li class="nav-item last">
                                 <a href="#!/notes" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">

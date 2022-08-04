@@ -138,11 +138,11 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
         if (!empty(Customer()->id)) {
             $send_by = Customer()->id;
             $created_by = Customer()->id;
-            $requester = Customer()->first_name;
+           
         } else {
             $send_by =  Admin()->id;
             $created_by = Admin()->id;
-            $requester = Admin()->first_Name;
+            
         }
         if($request->assign == '0'){
             $projectcustomer = $this->Project->find($request->project_id);
@@ -160,7 +160,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             "priority"      => $request->data['priority'],
             "assigned"      => $request->assign,
             "ticket_date"   =>new DateTime($request->data['ticket_date']),
-            "requester"     => $requester,
+            "requester"     => $request->requester,
             "created_by"    => $created_by,
             "role_by"       => $role_by,
             "seen_by"       => $seen_by,

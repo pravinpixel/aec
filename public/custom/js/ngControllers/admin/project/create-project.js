@@ -933,9 +933,10 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope,
         var image = $('#case_image').text();
         var project_id = $('#project_case').val();
         var assign = $('#example-select_project').find(":selected").val();
+        var requester = $('.requested').find(":selected").text();
         
 
-        $http.post(`${API_URL}admin/live-project/store-ticket-case`, { data: $scope.case,project_id:project_id,image:image,assign : assign})
+        $http.post(`${API_URL}admin/live-project/store-ticket-case`, { data: $scope.case,project_id:project_id,image:image,assign : assign,requester:requester})
         .then((res) => {
             Message('success', 'Issue Created Successfully');
             if(res.data.status == true && res.data.variation == true){
@@ -1066,23 +1067,25 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope,
         });
     } 
     $scope.ticket_type= function (value) {
-       
-        //var ticket_type =  $(this).val();
-       //alert(value);
-
         if(value == 'internal'){
             $('.customer_variation').css("display", "none")
-            $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {
-                $scope.projectManagers = res.data;
-                console.log($scope.projectManagers);
-            });
+            $http.get(`${API_URL}admin/get-employee-by-slug/project_manager/${value}/${project_id}`).then((res)=> {
+                $scope.projectManagers = res.data.team;
+                $scope.Requester = [{id : res.data.user.id,
+                                    first_Name: res.data.user.first_Name }];
+                                });
         }else {
-          
-            //$scope.projectManagers = '';
+            $http.get(`${API_URL}admin/get-employee-by-slug/project_manager/${value}/${project_id}`).then((res)=> {
+                $scope.projectManagers =[{id : res.data.user.id,
+                                 first_Name: res.data.user.first_name }];
+                $scope.Requester =  [{id : res.data.user.id,
+                    first_Name: res.data.user.first_name }];
+               
+                });
            
-            $scope.projectManagers =[];
-            $('#example-select_project option:eq(2)').prop('selected', true);
-            console.log($scope.projectManagers.length);
+           
+            //$('#example-select_project option:eq(2)').prop('selected', true);
+            //console.log($scope.projectManagers.length);
             $('.customer_variation').css("display", "block")
             
 
