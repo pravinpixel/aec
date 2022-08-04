@@ -166,7 +166,7 @@
                     <div class="card-header bg-light p-2">
                         <h4 class="m-0">Reference Doc's </h4>
                     </div>
-                    <div>
+                    <div style="max-height: 250px;overflow:auto">
                         <ul class="list-group mt-0" ng-repeat="doc in enquiry.ifc_model_uploads">
                             <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ps-2">
                                 <div class="d-flex align-items-center">
