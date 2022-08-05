@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Delivery Lsit</label>
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Delivery List</label>
                         <div class="col">
                             <select ng-model="check_list_item.task_list_category" ng-required="true" class="form-select form-select-sm" required>
                                 <option value="">-- select --</option>
