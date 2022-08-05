@@ -137,7 +137,7 @@
             <li class="side-nav-item">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
-                    <span> Tasks </span>
+                    <span> Issues </span>
                 </a> 
             </li>
             @endif
