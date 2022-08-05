@@ -132,65 +132,81 @@
         </div>
     </div>
 @endif
-@if (userHasAccess('cost_estimate_add'))
+@if (userHasAccess('cost_estimate_add')) 
+    <div class="row m-0">
+        <div class="col-md-4 ps-0">
+            <div class="card shadow-sm border mb-2"> 
+                <div class="card-header bg-light p-2">
+                    <h4 class="m-0">Assign for Estimation</h4>
+                </div> 
+                <div class="card-body p-2">
+                    <select class="form-select form-select-sm" ng-model="assign_to" id="inputGroupSelect01">
+                        <option value=""> @lang('global.select') </option>
+                        <option ng-repeat="user in userList" 
+                                ng-selected="user.id == assign_to" 
+                                value="@{{user.id}}"> @{{ user.id == current_user ? 'You' : user.first_name}}
+                        </option>
+                    </select> 
+                </div> 
+                <div class="card-footer p-2 text-center">
+                    <button class="input-group-text btn-sm btn btn-info" ng-click="assignUserToCostestimate(assign_to, 'verification')"><i class="fa fa-pen"></i> Assign </button>
+                    <button class="input-group-text btn-sm btn btn-danger" ng-click="removeUser()"><i class="fa fa-times"></i> Remove </button>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-8">
+            <div class="card border shadow-sm mb-2"> 
+                <div class="card-header bg-light p-2">
+                    <h4 class="m-0">Estimation History</h4>
+                </div> 
+                <div class="card-body p-2 text-center">
+                    <h5 class="m-0">
+                        <a class="align-items-center d-flex"  href="#"  ng-click="getHistory('wood')"
+                            ng-show="price_calculation == 'wood_engineering_estimation'">
+                            <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
+                            View Wood engineering estimation
+                        </a>
+                        <a class="align-items-center d-flex" href="#" ng-click="getHistory('precast')"
+                            ng-show="price_calculation == 'precast_engineering_estimation'">
+                            <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> 
+                            View Precast engineering estimation
+                        </a>
+                    </h5>
+         
+                    <div id="history_id">
+                        <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                            <div id="wood_id"></div>
+                        </div>
+                        <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                            <div id="precast_id"></div>
+                        </div>
+                    </div>
+                </div>  
+                <div class="card-footer text-end p-2">
+                    <button ng-click="printCostEstimate('wood')" class="btn btn-primary btn-sm"
+                        ng-show="price_calculation == 'wood_engineering_estimation'">
+                        <i class="me-1 fa fa-print"></i> Print
+                    </button>
+                    <button ng-click="printCostEstimate('precast')" class="btn btn-primary btn-sm"
+                        ng-show="price_calculation == 'precast_engineering_estimation'">
+                        <i class="me-1 fa fa-print"></i> Print
+                    </button>
+                    <button class="btn btn-success btn-sm"
+                        ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                        <i class="fa fa-send me-1"></i> 
+                        <span class="cost_estimate_comments_ul">
+                            Send a Comments
+                            <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
+                                @{{ cost_estimate_comments.cost_estimate_role }}
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <p class="lead mb-2"> <strong>Assign for Verification</strong></p>
-    <div class="btn-group w-100">
-        <select class="form-select" ng-model="assign_to" id="inputGroupSelect01">
-            <option value=""> @lang('global.select') </option>
-            <option ng-repeat="user in userList" ng-selected="user.id == assign_to"
-                value="@{{ user.id }}"> @{{ user.id == current_user ? 'You' : user.first_name }}</option>
-        </select>
-        <button class="input-group-text btn btn-info"
-            ng-click="assignUserToCostestimate(assign_to, 'verification')"> Assign </button>
-        <button class="input-group-text btn btn-danger" ng-click="removeUser()"> Remove </button>
-    </div> 
-        
-
-    {{-- view history start --}}
-    <div class="card border shadow-sm my-3">
-        <div class="card-header">
-            <h5 class="m-0">
-                <a class="align-items-center d-flex  py-1"   ng-click="getHistory('wood')"
-                    ng-show="price_calculation == 'wood_engineering_estimation'">
-                    <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
-                    Cost Estimation History
-                </a>
-                <a class="align-items-center d-flex py-1" ng-click="getHistory('precast')"
-                    ng-show="price_calculation == 'precast_engineering_estimation'">
-                    <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> Cost Estimation History
-                </a>
-            </h5>
-        </div>
-        <div class="card-body bg-light p-0" id="history_id">
-            <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                <div id="wood_id"></div>
-            </div>
-            <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                <div id="precast_id"></div>
-            </div>
-        </div>
-    </div>
-    <div class="text-end my-2">
-        <button ng-click="printCostEstimate('wood')" class="btn btn-primary"
-            ng-show="price_calculation == 'wood_engineering_estimation'">
-            <i class="me-1 fa fa-print"></i> Print
-        </button>
-        <button ng-click="printCostEstimate('precast')" class="btn btn-primary"
-            ng-show="price_calculation == 'precast_engineering_estimation'">
-            <i class="me-1 fa fa-print"></i> Print
-        </button>
-        <button class="btn btn-success"
-            ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
-            <i class="fa fa-send me-1"></i> 
-            <span class="cost_estimate_comments_ul">
-                Send a Comments
-                <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
-                    @{{ cost_estimate_comments.cost_estimate_role }}
-                </span>
-            </span>
-        </button>
-    </div>
+ 
     {{-- <div ng-show="price_calculation == 'wood_engineering_estimation'">
         <a class="btn btn-info" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
         <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
