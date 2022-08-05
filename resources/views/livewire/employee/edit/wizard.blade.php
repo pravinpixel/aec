@@ -12,20 +12,11 @@
 					</div> 
 				</a>
 			</li>
-			<li class="nav-item">
-				<a style="min-height: 40px;" class="timeline-step">
-					<div class="timeline-content">
-						<div class="inner-circle {{ $currentStep === 2 ? 'bg-success' : 'bg-secondary' }} ">
-							<i class="fa fa-list-alt fa-2x mb-1"></i>
-						</div>        
-						<span class="d-none d-sm-inline mt-2">Account Settings</span>                                                                
-					</div>
-				</a>
-			</li>
+		
 			<li class="nav-item ">
 				<a style="min-height: 40px;" class="timeline-step">
 					<div class="timeline-content">
-						<div class="inner-circle  {{ $currentStep === 3 ? 'bg-success' : 'bg-secondary' }} ">
+						<div class="inner-circle  {{ $currentStep === 2 ? 'bg-success' : 'bg-secondary' }} ">
 							<i class="fa fa-2x fa-file-upload mb-1"></i>
 						</div>                                                                        
 						<span class="d-none d-sm-inline mt-2">Share Point</span>
@@ -35,7 +26,7 @@
 			<li class="nav-item last">
 				<a style="min-height: 40px;" class="timeline-step">
 					<div class="timeline-content">
-						<div class="inner-circle  {{ $currentStep === 4 ? 'bg-success' : 'bg-secondary' }} ">
+						<div class="inner-circle  {{ $currentStep === 3 ? 'bg-success' : 'bg-secondary' }} ">
 							<i class="fa fa-2x fa-file-upload mb-1"></i>
 						</div>                                                                        
 						<span class="d-none d-sm-inline mt-2">BIM 360 Access</span>
@@ -49,13 +40,13 @@
 			@case(1)
 				@include('livewire.employee.edit.form.profile-information')
 			@break
-			@case(2)
+			{{-- @case(2)
 				@include('livewire.employee.edit.form.account-settings')
-			@break
-			@case(3)
+			@break --}}
+			@case(2)
 				@include('livewire.employee.edit.form.share-point')
 			@break
-			@case(4)
+			@case(3)
 				@include('livewire.employee.edit.form.bim')
 			@break
 			@default @include('livewire.employee.edit.form.bim')
