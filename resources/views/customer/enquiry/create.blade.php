@@ -1663,6 +1663,7 @@
                     promise = fileUpload.uploadLinkToUrl(link, type, file_type, uploadUrl, $scope);
                     callPromise = true;
                 }
+                let message = '';
                 if(callPromise){
                     promise.then(function (response) {
                         $(".fileupload").css('pointer-events','');
@@ -1671,7 +1672,12 @@
                         callPromise = false;
                         angular.element("input[type='file']").val(null);
                         $(`#link${filename}`).val('');
-                        Message('success',`${file_type.replaceAll('_',' ')} uploaded successfully`);
+                        if(type == 'ifc_link') {
+                            message = `${file_type.replaceAll('_',' ')} url uploaded successfully`;
+                        }else {
+                            message = `${file_type.replaceAll('_',' ')} uploaded successfully`;
+                        }
+                        Message('success',message);
                         getIFCViewList(response.data, file_type);
                     }, function () {
                         $scope.serverResponse = 'An error has occurred';
