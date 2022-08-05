@@ -9,9 +9,9 @@
         <th class="bg-light">Pris / m<sup>2<sup></th>
         <td class="bg-light">:</td>
         <td>@{{ ResultEngineeringEstimate.total.totalPris }}</td>
-        <th class="bg-light">Sum</th>
+        <th class="bg-light">Sum (kr)</th>
         <td class="bg-light">:</td>
-        <td>@{{ ResultEngineeringEstimate.total.totalSum }}</td>
+        <td>@{{ ResultEngineeringEstimate.total.totalSum }} </td>
     </tr>
 </table>
 {{--    

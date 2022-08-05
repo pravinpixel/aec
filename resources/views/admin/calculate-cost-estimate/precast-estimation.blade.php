@@ -7,7 +7,7 @@
             <th class="bg-light">Total Work Hours</th>
             <td class="bg-light">:</td>
             <td>@{{  getNum(ResultPrecastComponent.total.totalWorkHours) }}</td>
-            <th class="bg-light">Sum</th>
+            <th class="bg-light">Sum (kr)</th>
             <td class="bg-light">:</td>
             <td>@{{ getNum(ResultPrecastComponent.total.totalSum) }}</td> 
         </tr>
@@ -88,11 +88,11 @@
                             <th rowspan="2" class="font-12 text-center" style="background: var(--primary-bg) !important">m<sup>2</sup> Gross</th>
                             <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Std work Hours</th>
                             <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Additional Work Hours</th>
-                            <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Hourly Rate (550/Hr)</th>
+                            <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Hourly Rate (kr) (550/Hr)</th>
                             <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Work Hours</th>
-                            <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Engineering Cost</th>
-                            <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Central Approval</th>
-                            <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Engineering Cost</th>
+                            <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Engineering Cost  (kr)</th>
+                            <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Central Approval  (kr)</th>
+                            <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Engineering Cost  (kr)</th>
                             <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
                         </tr>
                         <tr class="bg-light-primary border">
