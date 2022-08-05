@@ -25,7 +25,7 @@ class UpdateActivityListRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>  ['required', Rule::unique('delivery_lists')->ignore($this->id)->whereNull('deleted_at')],
+            'name' =>  ['required', Rule::unique('activity_lists')->ignore($this->id)->whereNull('deleted_at')],
         ];
     }
 }
