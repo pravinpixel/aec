@@ -5,13 +5,19 @@
     <div class="card custom-div-table my-2 shadow-sm border" ng-repeat="(firstIndex,CostEstimate) in EngineeringEstimate track by $index">
         <div class="card-header bg-light p-2">
             <div class="row align-items-center  m-0">
-                <div class="col-md-4 p-0">
+                <div class="col-md-3 p-0">
                     <select class="form-select form-select-sm" ng-model="CostEstimate.type" name="type" id="type">
                         <option value="">-- Select Building -- </option>
                         <option ng-value="costEstimateType" ng-selected="costEstimateType.type == CostEstimate.type"
                             ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
                     </select> 
                 </div>  
+                <div class="col-9 text-end">
+                    <div class="btn-group">  
+                        <button class="btn btn-sm btn-warning" title="Clone" ng-click="cloneCostEstimate(firstIndex, CostEstimate)"><i class="fa fa-copy me-1"></i></button>
+                        <button class="btn btn-sm btn-danger" title="Delete" ng-click="deleteEngineeringEstimate(firstIndex)"><i class="mdi mdi-delete me-1"></i></button>
+                    </div> 
+                </div>
             </div> 
         </div> 
         <div class="card-body p-2"> 
@@ -23,17 +29,15 @@
                                 <option value="">Set template</option>
                                 <option ng-value="costEstimateWoodTemplate.id"  ng-selected="CostEstimate.woodTemplate == costEstimateWoodTemplate.id" ng-repeat="costEstimateWoodTemplate in costEstimateWoodTemplates">@{{ costEstimateWoodTemplate.name }}</option>
                             </select>
-                            <button ng-click="callWoodTemplate(firstIndex)" title="Add" class="btn btn-success btn-sm border-0"><i class="mdi mdi-plus-box-multiple"></i></button>
-                            <button overwrite-template="{template:woodTemplate,type:'wood'}" title="Edit" class="btn btn-primary btn-sm border-0"><i class="mdi mdi-pencil"></i></button>
-                            <button delete-template="{template:woodTemplate,type:'wood'}" title="Delete" class="btn btn-danger btn-sm border-0"><i class="mdi mdi-trash-can"></i></button>
+                            <button ng-click="callWoodTemplate(firstIndex)" title="Create / Save Template" class="btn btn-success btn-sm border-0"><i class="mdi mdi-plus-box-multiple"></i></button>
+                            <button overwrite-template="{template:woodTemplate,type:'wood'}" title="Overwrite Template" class="btn btn-primary btn-sm border-0"><i class="mdi mdi-pencil"></i></button>
+                            <button delete-template="{template:woodTemplate,type:'wood'}" title="Delete Template" class="btn btn-danger btn-sm border-0"><i class="mdi mdi-trash-can"></i></button>
                         </div>
                         <h5 class="m-0 py-1 text-white">Engineering Estimation</h5>
-                        <div class="btn-group"> 
+                        <div class="btn-group">
                             <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
-                            <button ng-click="editable = true" ng-show="editable == false" title="Create Template" class="btn btn-outline-success btn-sm "><i class="mdi mdi-plus"></i></button>
+                            <button ng-click="editable = true" ng-show="editable == false" title="Add Column" class="btn btn-outline-success btn-sm "><i class="mdi mdi-plus"></i> Add</button>
                             <button class="btn-sm btn btn-outline-success" type="button" ng-click="editable = false; addDynamicColumn(firstIndex, column_name)"  ng-show="editable"><i class="fa fa-check"></i></button>
-                            <button class="btn btn-sm btn-outline-warning" ng-click="cloneCostEstimate(firstIndex, CostEstimate)"><i class="fa fa-copy me-1"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" ng-click="deleteEngineeringEstimate(firstIndex)"><i class="mdi mdi-delete me-1"></i></button>
                         </div> 
                     </div>
                 </div>
