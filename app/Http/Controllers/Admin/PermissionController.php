@@ -68,6 +68,42 @@ class PermissionController extends Controller
         } else
             $role->revokePermissionTo('enquiry_delete');
         // project summary
+
+        // sale 
+
+        if ($request->sale_index == true) {
+            $permission = Permission::firstOrCreate(['name' => 'sale_index']);
+            if (!$role->hasPermissionTo('sale_index')) {
+                $role->givePermissionTo($permission);
+            }
+        } else
+            $role->revokePermissionTo('sale_index');
+
+        if ($request->sale_add == true) {
+            $permission = Permission::firstOrCreate(['name' => 'sale_add']);
+            if (!$role->hasPermissionTo('sale_add')) {
+                $role->givePermissionTo($permission);
+            }
+        } else
+            $role->revokePermissionTo('sale_add');
+
+        if ($request->sale_edit == true) {
+            $permission = Permission::firstOrCreate(['name' => 'sale_edit']);
+            if (!$role->hasPermissionTo('sale_edit')) {
+                $role->givePermissionTo($permission);
+            }
+        } else
+            $role->revokePermissionTo('sale_edit');
+
+        if ($request->sale_delete == true) {
+            $permission = Permission::firstOrCreate(['name' => 'sale_delete']);
+            if (!$role->hasPermissionTo('sale_delete')) {
+                $role->givePermissionTo($permission);
+            }
+        } else
+            $role->revokePermissionTo('sale_delete');
+
+        //end sale
         if ($request->project_summary_index == true) {
             $permission = Permission::firstOrCreate(['name' => 'project_summary_index']);
             if (!$role->hasPermissionTo('project_summary_index')) {

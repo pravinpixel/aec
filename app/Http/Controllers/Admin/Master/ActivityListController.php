@@ -57,7 +57,6 @@ class ActivityListController extends Controller
      */
     public function edit($id)
     {
-        dd("edit");
         $data = $this->activityListRepo->find($id);
         if (!empty($data)) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);

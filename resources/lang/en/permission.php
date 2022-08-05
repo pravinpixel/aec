@@ -18,6 +18,6 @@ return [
     'proposal_sharing'   => 'Proposal Sharing',
     'customer_response'  => 'Customer Response',
     'customer_details'   => 'Customer Details',
-    'supplier_details'   => 'Supplier Details', 
+    'supplier_details'   => 'Supplier Details',
     'project_schedule'   => 'Project Schedule',
 ];

@@ -18,7 +18,7 @@ class CheckSheetController extends Controller
     public function __construct(CheckSheetRepository $checkSheetRepo)
     {
 
-
+        
         $this->checkSheetRepo = $checkSheetRepo;
     }
 
@@ -58,7 +58,6 @@ class CheckSheetController extends Controller
      */
     public function edit($id)
     {
-        dd("edit");
         $data = $this->checkSheetRepo->find($id);
         if (!empty($data)) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);

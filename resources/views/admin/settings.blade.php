@@ -389,156 +389,197 @@
             //         $scope.delete_checkbox = false; 
             //     }
             // });
-            $('#view_checkbox').on('change', function() {
-                var checked = this.checked;
-                // alert(checked)
-                if(checked)
-                {
-                    $scope.permissionForm.enquiry_index = true;
-                    $scope.permissionForm.project_summary_index = true;
-                    $scope.permissionForm.technical_estimate_index = true;
-                    $scope.permissionForm.cost_estimate_index = true;
-                    $scope.permissionForm.proposal_sharing_index = true;
-                    $scope.permissionForm.customer_response_index = true;
-                    $scope.permissionForm.employee_index = true;
-                    $scope.permissionForm.project_index = true;
-                    $scope.permissionForm.task_index = true;
-                    $scope.permissionForm.contract_index = true;
-                    $scope.permissionForm.supplier_detail_index = true;
-                    $scope.permissionForm.customer_detail_index = true;
-                    $scope.permissionForm.project_schedule_index = true;
+            // $('#sale_index').on('change', function() {
+            //     var checked = this.checked;
+            //     // alert(checked)
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.enquiry_index = true;
+            //         // $scope.permissionForm.project_summary_index = true;
+            //         $scope.permissionForm.technical_estimate_index = true;
+            //         $scope.permissionForm.cost_estimate_index = true;
+            //         // $scope.permissionForm.proposal_sharing_index = true;
+            //         // $scope.permissionForm.customer_response_index = true;
+            //         // $scope.permissionForm.employee_index = true;
+            //         // $scope.permissionForm.project_index = true;
+            //         // $scope.permissionForm.task_index = true;
+            //         $scope.permissionForm.contract_index = true;
+            //         // $scope.permissionForm.supplier_detail_index = true;
+            //         // $scope.permissionForm.customer_detail_index = true;
+            //         // $scope.permissionForm.project_schedule_index = true;
             
-                }
-                else{
-                    $scope.permissionForm.enquiry_index = false;
-                    $scope.permissionForm.project_summary_index = false;
-                    $scope.permissionForm.technical_estimate_index = false;
-                    $scope.permissionForm.cost_estimate_index = false;
-                    $scope.permissionForm.proposal_sharing_index = false;
-                    $scope.permissionForm.customer_response_index = false;
-                    $scope.permissionForm.employee_index = false;
-                    $scope.permissionForm.project_index = false;
-                    $scope.permissionForm.task_index = false;
-                    $scope.permissionForm.contract_index = false;
-                    $scope.permissionForm.supplier_detail_index = false;
-                    $scope.permissionForm.customer_detail_index = false;
-                    $scope.permissionForm.project_schedule_index = false;
+            //     }
+            //     else{
+            //         $scope.permissionForm.enquiry_index = false;
+            //         // $scope.permissionForm.project_summary_index = false;
+            //         $scope.permissionForm.technical_estimate_index = false;
+            //         $scope.permissionForm.cost_estimate_index = false;
+            //         // $scope.permissionForm.proposal_sharing_index = false;
+            //         // $scope.permissionForm.customer_response_index = false;
+            //         // $scope.permissionForm.employee_index = false;
+            //         // $scope.permissionForm.project_index = false;
+            //         // $scope.permissionForm.task_index = false;
+            //         $scope.permissionForm.contract_index = false;
+            //         // $scope.permissionForm.supplier_detail_index = false;
+            //         // $scope.permissionForm.customer_detail_index = false;
+            //         // $scope.permissionForm.project_schedule_index = false;
 
-                }
+            //     }
                
-            });
-            $('#add_checkbox').on('change', function() {
-                var checked = this.checked;
-                if(checked)
-                {
-                    $scope.permissionForm.enquiry_add = true;
-                    $scope.permissionForm.project_summary_add = true;
-                    $scope.permissionForm.technical_estimate_add = true;
-                    $scope.permissionForm.cost_estimate_add = true;
-                    $scope.permissionForm.proposal_sharing_add = true;
-                    $scope.permissionForm.customer_response_add = true;
-                    $scope.permissionForm.employee_add = true;
-                    $scope.permissionForm.project_add = true;
-                    $scope.permissionForm.task_add = true;
-                    $scope.permissionForm.contract_add = true;
-                    $scope.permissionForm.supplier_detail_add = true;
-                    $scope.permissionForm.customer_detail_add = true;
-                    $scope.permissionForm.project_schedule_add = true;
+            // });
+            // $('#sale_add').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.enquiry_add = true;
+            //         // $scope.permissionForm.project_summary_add = true;
+            //         $scope.permissionForm.technical_estimate_add = true;
+            //         $scope.permissionForm.cost_estimate_add = true;
+            //         // $scope.permissionForm.proposal_sharing_add = true;
+            //         // $scope.permissionForm.customer_response_add = true;
+            //         // $scope.permissionForm.employee_add = true;
+            //         // $scope.permissionForm.project_add = true;
+            //         // $scope.permissionForm.task_add = true;
+            //         $scope.permissionForm.contract_add = true;
+            //         // $scope.permissionForm.supplier_detail_add = true;
+            //         // $scope.permissionForm.customer_detail_add = true;
+            //         // $scope.permissionForm.project_schedule_add = true;
             
-                }
-                else{
-                    $scope.permissionForm.enquiry_add = false;
-                    $scope.permissionForm.project_summary_add = false;
-                    $scope.permissionForm.technical_estimate_add = false;
-                    $scope.permissionForm.cost_estimate_add = false;
-                    $scope.permissionForm.proposal_sharing_add = false;
-                    $scope.permissionForm.customer_response_add = false;
-                    $scope.permissionForm.employee_add = false;
-                    $scope.permissionForm.project_add = false;
-                    $scope.permissionForm.task_add = false;
-                    $scope.permissionForm.contract_add = false;
-                    $scope.permissionForm.supplier_detail_add = false;
-                    $scope.permissionForm.customer_detail_add = false;
-                    $scope.permissionForm.project_schedule_add = false;
+            //     }
+            //     else{
+            //         $scope.permissionForm.enquiry_add = false;
+            //         // $scope.permissionForm.project_summary_add = false;
+            //         $scope.permissionForm.technical_estimate_add = false;
+            //         $scope.permissionForm.cost_estimate_add = false;
+            //         // $scope.permissionForm.proposal_sharing_add = false;
+            //         // $scope.permissionForm.customer_response_add = false;
+            //         // $scope.permissionForm.employee_add = false;
+            //         // $scope.permissionForm.project_add = false;
+            //         // $scope.permissionForm.task_add = false;
+            //         $scope.permissionForm.contract_add = false;
+            //         // $scope.permissionForm.supplier_detail_add = false;
+            //         // $scope.permissionForm.customer_detail_add = false;
+            //         // $scope.permissionForm.project_schedule_add = false;
 
-                }
+            //     }
                
-            });
+            // });
 
-            $('#edit_checkbox').on('change', function() {
-                var checked = this.checked;
-                if(checked)
-                {
-                    $scope.permissionForm.enquiry_edit = true;
-                    $scope.permissionForm.project_summary_edit = true;
-                    $scope.permissionForm.technical_estimate_edit = true;
-                    $scope.permissionForm.cost_estimate_edit = true;
-                    $scope.permissionForm.proposal_sharing_edit = true;
-                    $scope.permissionForm.customer_response_edit = true;
-                    $scope.permissionForm.employee_edit = true;
-                    $scope.permissionForm.project_edit = true;
-                    $scope.permissionForm.task_edit = true;
-                    $scope.permissionForm.contract_edit = true;
-                    $scope.permissionForm.supplier_detail_edit = true;
-                    $scope.permissionForm.customer_detail_edit = true;
-                    $scope.permissionForm.project_schedule_edit = true;
+            // $('#sale_edit').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.enquiry_edit = true;
+            //         // $scope.permissionForm.project_summary_edit = true;
+            //         $scope.permissionForm.technical_estimate_edit = true;
+            //         $scope.permissionForm.cost_estimate_edit = true;
+            //         // $scope.permissionForm.proposal_sharing_edit = true;
+            //         // $scope.permissionForm.customer_response_edit = true;
+            //         // $scope.permissionForm.employee_edit = true;
+            //         // $scope.permissionForm.project_edit = true;
+            //         // $scope.permissionForm.task_edit = true;
+            //         $scope.permissionForm.contract_edit = true;
+            //         // $scope.permissionForm.supplier_detail_edit = true;
+            //         // $scope.permissionForm.customer_detail_edit = true;
+            //         // $scope.permissionForm.project_schedule_edit = true;
             
-                }
-                else{
-                    $scope.permissionForm.enquiry_edit = false;
-                    $scope.permissionForm.project_summary_edit = false;
-                    $scope.permissionForm.technical_estimate_edit = false;
-                    $scope.permissionForm.cost_estimate_edit = false;
-                    $scope.permissionForm.proposal_sharing_edit = false;
-                    $scope.permissionForm.customer_response_edit = false;
-                    $scope.permissionForm.employee_edit = false;
-                    $scope.permissionForm.project_edit = false;
-                    $scope.permissionForm.task_edit = false;
-                    $scope.permissionForm.contract_edit = false;
-                    $scope.permissionForm.supplier_detail_edit = false;
-                    $scope.permissionForm.customer_detail_edit = false;
-                    $scope.permissionForm.project_schedule_edit = false;
+            //     }
+            //     else{
+            //         $scope.permissionForm.enquiry_edit = false;
+            //         // $scope.permissionForm.project_summary_edit = false;
+            //         $scope.permissionForm.technical_estimate_edit = false;
+            //         $scope.permissionForm.cost_estimate_edit = false;
+            //         // $scope.permissionForm.proposal_sharing_edit = false;
+            //         // $scope.permissionForm.customer_response_edit = false;
+            //         // $scope.permissionForm.employee_edit = false;
+            //         // $scope.permissionForm.project_edit = false;
+            //         // $scope.permissionForm.task_edit = false;
+            //         $scope.permissionForm.contract_edit = false;
+            //         // $scope.permissionForm.supplier_detail_edit = false;
+            //         // $scope.permissionForm.customer_detail_edit = false;
+            //         // $scope.permissionForm.project_schedule_edit = false;
 
-                }
+            //     }
                
-            });
-            $('#delete_checkbox').on('change', function() {
-                var checked = this.checked;
-                if(checked)
-                {
-                    $scope.permissionForm.enquiry_delete = true;
-                    $scope.permissionForm.project_summary_delete = true;
-                    $scope.permissionForm.technical_estimate_delete = true;
-                    $scope.permissionForm.cost_estimate_delete = true;
-                    $scope.permissionForm.proposal_sharing_delete = true;
-                    $scope.permissionForm.customer_response_delete = true;
-                    $scope.permissionForm.employee_delete = true;
-                    $scope.permissionForm.project_delete = true;
-                    $scope.permissionForm.task_delete = true;
-                    $scope.permissionForm.contract_delete = true;
-                    $scope.permissionForm.supplier_detail_delete = true;
-                    $scope.permissionForm.customer_detail_delete = true;
-                    $scope.permissionForm.project_schedule_delete = true;
+            // });
+            // $('#sale_delete').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.enquiry_delete = true;
+            //         // $scope.permissionForm.project_summary_delete = true;
+            //         $scope.permissionForm.technical_estimate_delete = true;
+            //         $scope.permissionForm.cost_estimate_delete = true;
+            //         // $scope.permissionForm.proposal_sharing_delete = true;
+            //         // $scope.permissionForm.customer_response_delete = true;
+            //         // $scope.permissionForm.employee_delete = true;
+            //         // $scope.permissionForm.project_delete = true;
+            //         // $scope.permissionForm.task_delete = true;
+            //         $scope.permissionForm.contract_delete = true;
+            //         // $scope.permissionForm.supplier_detail_delete = true;
+            //         // $scope.permissionForm.customer_detail_delete = true;
+            //         // $scope.permissionForm.project_schedule_delete = true;
             
-                }
-                else{
-                    $scope.permissionForm.enquiry_delete = false;
-                    $scope.permissionForm.project_summary_delete = false;
-                    $scope.permissionForm.technical_estimate_delete = false;
-                    $scope.permissionForm.cost_estimate_delete = false;
-                    $scope.permissionForm.proposal_sharing_delete = false;
-                    $scope.permissionForm.customer_response_delete = false;
-                    $scope.permissionForm.employee_delete = false;
-                    $scope.permissionForm.project_delete = false;
-                    $scope.permissionForm.task_delete = false;
-                    $scope.permissionForm.contract_delete = false;
-                    $scope.permissionForm.supplier_detail_delete = false;
-                    $scope.permissionForm.customer_detail_delete = false;
-                    $scope.permissionForm.project_schedule_delete = false;
+            //     }
+            //     else{
+            //         $scope.permissionForm.enquiry_delete = false;
+            //         // $scope.permissionForm.project_summary_delete = false;
+            //         $scope.permissionForm.technical_estimate_delete = false;
+            //         $scope.permissionForm.cost_estimate_delete = false;
+            //         // $scope.permissionForm.proposal_sharing_delete = false;
+            //         // $scope.permissionForm.customer_response_delete = false;
+            //         // $scope.permissionForm.employee_delete = false;
+            //         // $scope.permissionForm.project_delete = false;
+            //         // $scope.permissionForm.task_delete = false;
+            //         $scope.permissionForm.contract_delete = false;
+            //         // $scope.permissionForm.supplier_detail_delete = false;
+            //         // $scope.permissionForm.customer_detail_delete = false;
+            //         // $scope.permissionForm.project_schedule_delete = false;
 
-                }
+            //     }
                
-            });
+            // });
+            // $('#project_index').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.project_schedule_index = true;
+            //     }
+            //     else{
+            //         $scope.permissionForm.project_schedule_index = false;
+            //     }
+            // });
+            // $('#project_add').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.project_schedule_add = true;
+            //     }
+            //     else{
+            //         $scope.permissionForm.project_schedule_add = false;
+            //     }
+            // });
+            // $('#project_edit').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.project_schedule_edit = true;
+            //     }
+            //     else{
+            //         $scope.permissionForm.project_schedule_edit = false;
+            //     }
+            // });
+            // $('#project_delete').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.project_schedule_delete = true;
+            //     }
+            //     else{
+            //         $scope.permissionForm.project_schedule_delete = false;
+            //     }
+            // });
+            
             
         });
 
@@ -861,6 +902,11 @@
                         Message('success',msg.msg);
                         // getMasterCalculation($http, API_URL);
                         $scope.getMasterCalculation($http, API_URL);
+                        // $location.path('/wood-estimation');
+                        // location.reload();
+                        $window.location.reload();
+                        location.url('/wood-estimation');
+                      
                     }
                     })
                     });
