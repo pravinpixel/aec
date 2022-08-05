@@ -8,8 +8,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use App\Models\Role;
+use Exception;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
+
 class RoleController extends Controller
 {
     protected $roleRepository;
@@ -34,13 +38,13 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleCreateRequest $request): JsonResponse 
+    public function store(RoleCreateRequest $request): JsonResponse
     {
         $role = $request->only([
-            "name","status",
+            "name", "status",
         ]);
         $slug = Str::slug($request->name, "_");
-        $roleData = array_merge($role,['slug'=>$slug]);
+        $roleData = array_merge($role, ['slug' => $slug]);
 
         return response()->json(
             [
@@ -57,7 +61,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): JsonResponse 
+    public function show($id): JsonResponse
     {
 
         return response()->json([
@@ -72,19 +76,19 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id,RoleUpdateRequest $request): JsonResponse 
+    public function update($id, RoleUpdateRequest $request): JsonResponse
     {
-        
+
         $role = $request->only([
-            "name","status",
+            "name", "status",
         ]);
         $slug = Str::slug($request->name, "_");
-        $roleData = array_merge($role,['slug'=>$slug]);
-       
+        $roleData = array_merge($role, ['slug' => $slug]);
+
         return response()->json([
             'data' => $this->roleRepository->update($roleData, $id),
             'status' => true, 'msg' => trans('module.updated'),
-             
+
         ]);
     }
     /**
@@ -96,17 +100,17 @@ class RoleController extends Controller
     public function status(Request $request)
     {
         # code...
-        $role = $request->route('id');  
+        $role = $request->route('id');
         $this->roleRepository->updateStatus($role);
         // return response()->json(null, Response::HTTP_NO_CONTENT);
         return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $role], Response::HTTP_OK);
     }
-    public function destroy($id) 
+    public function destroy($id)
     {
         // dd($request->id);
         $role = $id;
         $this->roleRepository->delete($role);
-        return response()->json(['status' => true, 'msg' => trans('module.deleted'),'data'=>$role], Response::HTTP_OK);
+        return response()->json(['status' => true, 'msg' => trans('module.deleted'), 'data' => $role], Response::HTTP_OK);
     }
 
     public function getUserByRoleId($id)
@@ -120,5 +124,5 @@ class RoleController extends Controller
     {
         return $this->roleRepository->getRoleBySlug($name);
     }
-
+    
 }

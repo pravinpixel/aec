@@ -17,6 +17,7 @@
                     <th>Top Name</th>
                     <th>Bottom Name</th>
                     <th>Status</th>
+                    <th>Cost Estimate</th>
                     <th >Actions</th>
                 </tr>
             </thead>
@@ -37,6 +38,14 @@
                         </div>  
                         <span ng-if="comp.is_active == 1" class="d-none">1</span>              
                         <span ng-if="comp.is_active == 0" class="d-none">0</span>            
+                    </td>
+                    <td>
+                        <div>
+                            <input type="checkbox" id="switch_cost_estimate__@{{ index }}" ng-checked="comp.cost_estimate_status == 1" data-switch="primary"/>
+                            <label for="switch_cost_estimate__@{{index}}" data-on-label="On" ng-click="component_cost_estimate_status(index,comp.id)" data-off-label="Off"></label>
+                        </div>  
+                        <span ng-if="comp.cost_estimate_status == 1" class="d-none">1</span>              
+                        <span ng-if="comp.cost_estimate_status == 0" class="d-none">0</span>            
                     </td>
                     <td  >
                         <div class="btn-group">
@@ -112,6 +121,21 @@
                                 <div class="form-check form-check-inline form-radio-dark">
                                     <input type="radio" ng-checked="module_comp.is_active == 0" id="Deactive" value="0" ng-model="module_comp.is_active" name="is_active" class="form-check-input" ng-required="true">
                                     <label class="form-check-label" for="Deactive">Inactive</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pt-3">
+                            <label for="cost_estimate_status" class="col-sm-12  text-dark control-label mb-2">Cost Estimate</label>
+                            <div>
+                                <div class="form-check form-check-inline form-radio-@{{form_color}}">
+                                    <input type="radio"  ng-checked="module_comp.cost_estimate_status == 1" id="active1" value="1" ng-model="module_comp.cost_estimate_status" name="cost_estimate_status" class="form-check-input"  ng-required="true">
+                                    <label class="form-check-label" for="active1">Active</label>
+                                </div>
+                                <div class="form-check form-check-inline form-radio-dark">
+                                    <input type="radio" ng-checked="module_comp.cost_estimate_status == 0" id="Deactive1" value="0" ng-model="module_comp.cost_estimate_status" name="cost_estimate_status" class="form-check-input" ng-required="true">
+                                    <label class="form-check-label" for="Deactive1">Inactive</label>
                                 </div>
                             </div>
                         </div>

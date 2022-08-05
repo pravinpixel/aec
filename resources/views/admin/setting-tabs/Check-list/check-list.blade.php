@@ -2,17 +2,49 @@
 <div class="card">
     <div class="card-header ">
         <div class="d-flex justify-content-between">
-            <h3 class="haeder-title">Check List</h3>
-            <button class="btn btn-primary " ng-click="toggleModalForm('add', 0)">Create Check List</button>
+            <h3 class="haeder-title"></h3>
+            <div>
+                <button class="btn btn-primary btn-sm " ng-click="toggleModalForm('add', 0)">Create Check sheet</button>
+            </div>
         </div>
     </div>
     <div class="card-body">
+        <div class="row mx-0 pb-3 mb-2 border-bottom">
+            <div class="col">
+                <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Check Sheet Name</label>
+                <select ng-model="check_list_item1.name" ng-change="changedValue()" class="form-select form-select-sm" >
+                    <option value="">-- select --</option>
+                    <option value="@{{ row.name }}" ng-repeat="row in check_sheet_master">@{{ row.name }}</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Delivery List</label>
+                <select ng-model="check_list_item1.task_list_category" ng-change="changedValue()"  class="form-select form-select-sm" >
+                    <option value="">-- select --</option>
+                    <option value="@{{ row.id }}" ng-repeat="row in task_list_master">@{{ row.task_list_name }}</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Activity List</label>
+                <select ng-model="check_list_item1.task_list"  ng-change="changedValue()" class="form-select form-select-sm" >
+                    <option value="">-- select --</option>
+                    <option value="@{{ row.name }}" ng-repeat="row in activity_list_master">@{{ row.name }}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2" style="opacity: 0">Activity List</label>
+               <button class="btn btn-info btn-sm" ng-click="resetButton()">
+                    <i class="fa fa-refresh"></i> Reset
+                </button>
+            </div>
+        </div>
         <table class="table custom table-striped table-bordered" datatable="ng" dt-options="vm.dtOptions">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Task list group</th>
-                    <th>Task list</th>
+                   
+                    <th>Check Sheet Name</th>
+                    <th>Delivery List</th>
+                    <th>Activity List</th>
                     <th>Status</th>
                     <th >Actions</th>
                 </tr>
@@ -20,8 +52,9 @@
             <tbody>
                 <tr ng-repeat="(index,checkListitem) in checkList">
                     <td class="align-items-center"><small class="text-black">@{{ checkListitem.name }}</small></td>
-                    <td class="align-items-center"><small class="text-black">@{{ checkListitem.task_list }}</small></td>
                     <td class="align-items-center"><small class="text-black">@{{ checkListitem.get_task_list.task_list_name }}</small></td>
+                    <td class="align-items-center"><small class="text-black">@{{ checkListitem.task_list }}</small></td>
+                   
                     <td>
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="checkListitem.is_active == 1" data-switch="primary"/>
@@ -53,16 +86,20 @@
             <div class="modal-body">
                 <form name="LayerModule" class="form-horizontal" novalidate="">
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Name</label>
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Check Sheet Name</label>
                         <div class="col">
-                            <input type="text" class="form-control has-error" id="name" name="name" placeholder="Type Here.." ng-model="check_list_item.name" ng-required="true" required>
+                            <select ng-model="check_list_item.name" ng-required="true" class="form-select form-select-sm" required>
+                                <option value="">-- select --</option>
+                                <option value="@{{ row.name }}" ng-repeat="row in check_sheet_master">@{{ row.name }}</option>
+                            </select>
+                            {{-- <input type="text" class="form-control has-error" id="name" name="name" placeholder="Type Here.." ng-model="check_list_item.name" ng-required="true" required> --}}
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
                     </div>
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Task Group</label>
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Delivery Lsit</label>
                         <div class="col">
-                            <select ng-model="check_list_item.task_list_category" ng-required="true" class="form-select" required>
+                            <select ng-model="check_list_item.task_list_category" ng-required="true" class="form-select form-select-sm" required>
                                 <option value="">-- select --</option>
                                 <option value="@{{ row.id }}" ng-repeat="row in task_list_master">@{{ row.task_list_name }}</option>
                             </select>
@@ -70,9 +107,13 @@
                         </div>
                     </div>
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Task List</label>
+                        <label for="inputEmail3" class="col-sm-12 text-dark control-label mb-2">Activity List</label>
                         <div class="col">
-                            <input type="text" class="form-control has-error" id="task_list" name="task_list" placeholder="Type Here.." ng-model="check_list_item.task_list" ng-required="true" required>
+                            <select ng-model="check_list_item.task_list" ng-required="true" class="form-select form-select-sm" required>
+                                <option value="">-- select --</option>
+                                <option value="@{{ row.name }}" ng-repeat="row in activity_list_master">@{{ row.name }}</option>
+                            </select>
+                            {{-- <input type="text" class="form-control has-error" id="task_list" name="task_list" placeholder="Type Here.." ng-model="check_list_item.task_list" ng-required="true" required> --}}
                             <small class="help-inline text-danger">This  Fields is Required</small>
                         </div>
                     </div>

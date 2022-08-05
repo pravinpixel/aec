@@ -36,7 +36,7 @@ class BuildingComponentController extends Controller
     public function store(ComponentCreateRequest $request): JsonResponse 
     {
         $projectType = $request->only([
-            "building_component_name","building_component_icon","order_id","is_active",  "top_position", "bottom_position","label"
+            "building_component_name","cost_estimate_status","building_component_icon","order_id","is_active",  "top_position", "bottom_position","label"
         ]);
 
         return response()->json(
@@ -71,7 +71,7 @@ class BuildingComponentController extends Controller
     public function update($id,ComponentUpdateRequest $request): JsonResponse 
     {
         $projectType = $request->only([
-            "building_component_name","building_component_icon","order_id","is_active","top_position", "bottom_position","label"
+            "building_component_name","cost_estimate_status","building_component_icon","order_id","is_active","top_position", "bottom_position","label"
         ]);
 
         return response()->json([
@@ -84,6 +84,13 @@ class BuildingComponentController extends Controller
     {
         $projectType = $request->route('id');
         $this->buildingComponent->updateStatus($projectType);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $projectType], Response::HTTP_OK);
+    }
+
+    public function updateCostEstimateStatus(Request $request)
+    {
+        $projectType = $request->route('id');
+        $this->buildingComponent->updateCostEstimateStatus($projectType);
         return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $projectType], Response::HTTP_OK);
     }
     /**

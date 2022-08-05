@@ -1,38 +1,46 @@
 
-<div class="card">
-    <div class="card-header ">
-        <div class="d-flex justify-content-between">
-            <h3 class="haeder-title">Role</h3>
-            <button class="btn btn-primary " ng-click="toggleRole('add', 0)">Create New Role</button>
+<ul class="nav nav-tabs nav-justified nav-bordered mb-3">
+    <li class="nav-item">
+        <a href="#role"  ng-click="precostEstimation()" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
+            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+            <span class="d-none d-md-block">Role</span>
+        </a>
+    </li>
+    <li class="nav-item" >
+        <a href="#permission"  ng-click="rolePermission()"  data-bs-toggle="tab" aria-expanded="false" class="nav-link ">
+            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+            <span class="d-none d-md-block" >Permission</span>
+        </a>
+    </li> 
+</ul>
+<div class="card"> 
+    <div class="card-body"> 
+        <div class="text-end mb-3">
+            <button class="btn btn-primary btn-sm" ng-click="toggleRole('add', 0)">Create New Role</button>
         </div>
-    </div>
-    <div class="card-body">
-        <table dt-options="vm.dtOptions" class="table custom table-striped table-bordered">
+        <table dt-options="vm.dtOptions" class="table m-0 custom table-centered table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Status</th>
-                    <th >Actions</th>
+                    <th width="45px">Actions</th>
                 </tr>
             </thead>
         
             <tbody>
                 <tr ng-repeat="(index,m) in role_module_get track by m.id">
                     
-                    <td class="align-items-center">@{{ m.name }}</td>
-
-                    <td>
+                    <td>@{{ m.name }}</td>
+                    <td width="50px">
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.status == 1" data-switch="primary"/>
-                            
                             <label for="switch__@{{index}}" data-on-label="On" ng-click="checkItRole(index, m.id)" data-off-label="Off"></label>
                         </div>
                         <span ng-if="m.status == 1" class="d-none">1</span>              
                         <span ng-if="m.status == 0" class="d-none">0</span>              
                     </td>
-                    <td  >
+                    <td>
                         <div class="btn-group">
-                            <a href="#!/permission/@{{m.id}}"" class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-gear"></i></a>
                             <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleRole('edit', m.id)"><i class="fa fa-edit"></i></button>
                             <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmRoleDelete(m.id)"><i class="fa fa-trash"></i></button>
                         </div>

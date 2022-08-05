@@ -17,7 +17,8 @@ class BuildingComponent extends Model
         'order_id',
         'top_position',
         'bottom_position',
-        'is_active'
+        'is_active',
+        'cost_estimate_status'
     ];
 
     public function layers()

@@ -3,25 +3,28 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreatePrecastEstimationRequest;
-use App\Http\Requests\UpdatePrecastEstimationRequest;
-use App\Repositories\PrecastEstimationRepository;
+use App\Http\Requests\CreateCheckSheetRequest;
+use App\Http\Requests\UpdateCheckSheetRequest;
+use App\Repositories\CheckSheetRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class PrecastEstimateController extends Controller
-{
-    public  $precastEstimateRepo;
 
-    public function __construct(PrecastEstimationRepository $precastEstimateRepo)
+class CheckSheetController extends Controller
+{
+    public  $checkSheetRepo;
+
+    public function __construct(CheckSheetRepository $checkSheetRepo)
     {
-        $this->precastEstimateRepo = $precastEstimateRepo;
+
+
+        $this->checkSheetRepo = $checkSheetRepo;
     }
 
     public function index()
     {
-        return response()->json($this->precastEstimateRepo->all());
+        return response()->json($this->checkSheetRepo->all());
     }
 
     /**
@@ -30,16 +33,17 @@ class PrecastEstimateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreatePrecastEstimationRequest $request)
+    public function store(CreateCheckSheetRequest $request)
     {
 
-        $precastEstimation = $request->only([
-            "name", "hours", "is_active"
+        // dd($request->all());
+        $checkSheet = $request->only([
+            "name", "is_active"
         ]);
 
         return response()->json(
             [
-                'data' => $this->precastEstimateRepo->create($precastEstimation),
+                'data' => $this->checkSheetRepo->create($checkSheet),
                 'status' => true, 'msg' => trans('module.inserted')
             ],
             Response::HTTP_CREATED
@@ -54,7 +58,8 @@ class PrecastEstimateController extends Controller
      */
     public function edit($id)
     {
-        $data = $this->precastEstimateRepo->find($id);
+        dd("edit");
+        $data = $this->checkSheetRepo->find($id);
         if (!empty($data)) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
         }
@@ -72,18 +77,18 @@ class PrecastEstimateController extends Controller
     {
 
         return response()->json([
-            'data' => $this->precastEstimateRepo->find($id)
+            'data' => $this->checkSheetRepo->find($id)
         ]);
     }
 
-    public function update(UpdatePrecastEstimationRequest $request, $id)
+    public function update(UpdateCheckSheetRequest $request, $id)
     {
-        $precastEstimation = $request->only([
+        $checkSheet = $request->only([
             "name", "hours", "is_active"
         ]);
 
         return response()->json([
-            'data' => $this->precastEstimateRepo->update($precastEstimation, $id),
+            'data' => $this->checkSheetRepo->update($checkSheet, $id),
             'status' => true, 'msg' => trans('module.updated'),
 
         ]);
@@ -91,9 +96,10 @@ class PrecastEstimateController extends Controller
 
     public function status(Request $request)
     {
-        $precastEstimation = $request->route('id');
-        $this->precastEstimateRepo->updateStatus($precastEstimation);
-        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $precastEstimation], Response::HTTP_OK);
+
+        $checkSheet = $request->route('id');
+        $this->checkSheetRepo->updateStatus($checkSheet);
+        return response(['status' => true, 'msg' => trans('module.status_updated'),  'data' => $checkSheet], Response::HTTP_OK);
     }
     /**
      * Remove the specified resource from storage.
@@ -104,12 +110,9 @@ class PrecastEstimateController extends Controller
 
     public function destroy($id)
     {
-        $precastEstimation = $this->precastEstimateRepo->find($id);
-        $precastEstimation->delete();
-        return response()->json(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
-    }
 
-    public function getPrecastEstimateJSON(Request $request)
-    {
+        $checkSheet = $this->checkSheetRepo->find($id);
+        $checkSheet->delete();
+        return response()->json(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
 }
