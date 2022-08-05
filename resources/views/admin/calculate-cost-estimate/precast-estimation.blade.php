@@ -47,51 +47,34 @@
                     <thead>
                         <tr>
                             <td colspan="18" style="padding: 0 !important">
-                                <div class="card-header bg-light p-2">
-                                    <div class="row align-items-center  m-0">
-                                        <div class="col-md-4 p-0">
-                                            <select  class="form-select form-select-sm "  ng-model="PrecastEstimate.type" name="type" id="type">
-                                                <option value=""> -- Select -- </option> 
-                                                <option ng-value="costEstimateType" ng-selected="PrecastEstimate.type == costEstimateType.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-8 pe-0">
-                                           <div class="row m-0">
-                                                <div class="col-md-4 p-0 d-flex">
-                                                    <select class="form-select form-select-sm" ng-model="precastTemplate" ng-change="getPrecastTemplate(precastTemplate, pRootKey)" name="woodTemplate" id="woodTemplate">
-                                                        <option value="">-- Select Template -- </option>
-                                                        <option ng-value="costEstimatePrecastTemplate.id"
-                                                            ng-repeat="costEstimatePrecastTemplate in costEstimatePrecastTemplates">@{{ costEstimatePrecastTemplate.name }}</option>
-                                                    </select>
-                                                    <button class="btn-info btn-sm" ng-click="callPrecastTemplate(pRootKey)">
-                                                        <i class="fa fa-plus"> </i>
-                                                    </button>
-                                                    <div class="dropdown text-end">
-                                                        <button class="btn-info btn-sm" title="More option..." type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="dripicons-dots-3"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <button  class="dropdown-item" overwrite-template="{template:precastTemplate, type:'precast'}"><i class="fa fa-save me-1"></i>Overwrite Template </button> 
-                                                            <button  class="dropdown-item" delete-template="{template:precastTemplate, type:'precast'}"><i class="fa fa-trash me-1"></i>Delete Template </button> 
-                                                        </div>
-                                                    </div>
-                                                   
-                                                </div>
-                                                <div class="col input-group justify-content-end">
-                                                    <button class="btn-sm btn btn-danger" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
-                                                    <button class="btn-sm btn btn-warning" type="button"  ng-click="deletePrecastEstimate(pRootKey)"><i title="remove" class="fa fa-trash"></i></button>
-                                                </div> 
-                                           </div>
-                                        </div>
-                                    </div> 
-                                </div>
-                                {{-- <div  class="text-center">
-                                    
-                                </div> --}}
+                                <div class="p-2 bg-light ">
+                                    <div class="col-3">
+                                        <select  class="form-select form-select-sm "  ng-model="PrecastEstimate.type" name="type" id="type">
+                                            <option value=""> -- Select -- </option> 
+                                            <option ng-value="costEstimateType" ng-selected="PrecastEstimate.type == costEstimateType.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
+                                        </select>
+                                    </div>
+                                </div> 
                             </td>
                         </tr>
-                        <tr  style="background: var(--primary-bg) !important">
-                            <td colspan="14" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
+                        <tr  style="background: var(--secondary-bg) !important">
+                            <td colspan="4">
+                                <div class="d-flex">
+                                    <select class="form-select form-select-sm" ng-model="precastTemplate" ng-change="getPrecastTemplate(precastTemplate, pRootKey)" name="woodTemplate" id="woodTemplate">
+                                        <option value="">-- Select Template -- </option>
+                                        <option ng-value="costEstimatePrecastTemplate.id"
+                                            ng-repeat="costEstimatePrecastTemplate in costEstimatePrecastTemplates">@{{ costEstimatePrecastTemplate.name }}</option>
+                                    </select>
+                                    <button class="btn btn-success btn-sm" ng-click="callPrecastTemplate(pRootKey)"><i class="mdi mdi-plus-box-multiple"> </i></button>
+                                    <button class="btn btn-sm btn-primary" overwrite-template="{template:precastTemplate, type:'precast'}"><i class="mdi mdi-pencil"></i></button> 
+                                    <button class="btn btn-sm btn-danger" delete-template="{template:precastTemplate, type:'precast'}"><i class="fa fa-trash"></i></button> 
+                                </div>
+                            </td>
+                            <td colspan="8" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
+                            <td colspan="2">
+                                <button class="btn-sm btn btn-outline-warning" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
+                                <button class="btn-sm btn btn-outline-danger" type="button"  ng-click="deletePrecastEstimate(pRootKey)"><i title="remove" class="fa fa-trash"></i></button>
+                            </td>
                         </tr>
                         <tr class="font-weight-bold">
                             <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">
