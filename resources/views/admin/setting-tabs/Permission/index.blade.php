@@ -2,13 +2,13 @@
     <li class="nav-item">
 		<a class="nav-link roleTab ng-pristine ng-untouched ng-valid ng-empty" id="v-pills-role-tab" ng-model="btnClass" href="#!/role" role="tab" aria-controls="v-pills-role" aria-selected="true">
 			<i class="mdi mdi-home-variant d-md-none d-block"></i>
-			<span class="d-none d-md-block" ng-click="roleGetData()">Role</span>
+			<span class="d-none d-md-block" ng-click="roleGetData()">Roles</span>
 		</a>
     </li>
     <li class="nav-item" >
         <a href="#permission"  ng-click="rolePermission()"  data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
             <i class="mdi mdi-account-circle d-md-none d-block"></i>
-            <span class="d-none d-md-block" >Permission</span>
+            <span class="d-none d-md-block" >Permissions</span>
         </a>
     </li>
 </ul>

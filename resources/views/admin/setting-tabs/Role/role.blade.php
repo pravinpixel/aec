@@ -3,13 +3,13 @@
     <li class="nav-item">
         <a href="#role"  ng-click="precostEstimation()" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
             <i class="mdi mdi-home-variant d-md-none d-block"></i>
-            <span class="d-none d-md-block">Role</span>
+            <span class="d-none d-md-block">Roles</span>
         </a>
     </li>
     <li class="nav-item" >
         <a href="#permission"  ng-click="rolePermission()"  data-bs-toggle="tab" aria-expanded="false" class="nav-link ">
             <i class="mdi mdi-account-circle d-md-none d-block"></i>
-            <span class="d-none d-md-block" >Permission</span>
+            <span class="d-none d-md-block" >Permissions</span>
         </a>
     </li> 
 </ul>
