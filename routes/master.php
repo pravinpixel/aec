@@ -17,9 +17,9 @@ use App\Http\Controllers\Admin\Master\RoleController;
 use App\Http\Controllers\Admin\Master\TaskListController;
 use App\Http\Controllers\Admin\Master\ActivityListController;
 use App\Http\Controllers\Admin\Master\CheckListController;
+use App\Http\Controllers\Admin\Master\CheckSheetController;
 use App\Http\Controllers\Admin\Master\PrecastEstimateController;
 use App\Http\Controllers\Admin\Master\WoodEstimateController;
-use App\Http\Controllers\Admin\Master\CheckSheetController;
 use App\Http\Controllers\Admin\PermissionController;
 
 Route::get('module-file',  function () {
@@ -138,9 +138,10 @@ Route::group(['middleware' => 'common'], function () {
 
     Route::resource('task-list-master', TaskListController::class);
 
-    Route::resource('check-sheet-master', CheckSheetController::class);
-
+    
     Route::put('check-sheet/{id}/status', [CheckSheetController::class, 'status']);
+
+    Route::resource('check-sheet-master', CheckSheetController::class);
 
     Route::resource('activity-list-master', ActivityListController::class);
 
