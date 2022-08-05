@@ -372,7 +372,7 @@
                                 </div> 
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Due Date<sup class="text-danger">*</sup></label>
-                                    <input type="datetime-local"  min="2001-01-01T00:00:00" max="2013-12-31T00:00:00" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
+                                    <input type="datetime-local"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
                                 </div> 
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Requester</label><Br>
