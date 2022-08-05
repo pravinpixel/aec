@@ -169,7 +169,7 @@ class EnquiryController extends Controller
             $dataDb = Enquiry::with(['projectType',  'comments'=> function($q){
                                 $q->where(['status' => 0, 'created_by' => 'Customer']);
                             }])
-                            ->where(['proposal_sharing_status'=> 1])
+                            ->where(['proposal_email_status'=> 1])
                             ->whereNull('project_id')
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
