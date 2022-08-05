@@ -336,9 +336,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
- 
+    </div> 
     <div class="row justify-content-end">
         <div class="col-8" ng-show="commentShow">
             <open-comment  data="
@@ -352,8 +350,8 @@
         </div>
         <div class="col-4">
             <div class="d-flex justify-content-end" ng-init="isOpen = false">
-                <button ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen" class="my-2  btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
-                     @{{ isOpen  != true ?  "View Summary" : "Close Summary"  }} 
+                <button ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen" class="my-2  btn btn-info rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
+                    @{{ isOpen  != true ?  "View Summary" : "Close Summary"  }} 
                 </button>
                 <comment  ng-show="commentShow" data="
                 {'modalState':'viewConversations',
