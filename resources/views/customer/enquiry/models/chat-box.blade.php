@@ -1,7 +1,9 @@
-<div class="text-end pt-2" id="customer_chat">
-    <a class="text-primary p-0 btn">
-       <u><a ng-click="showCommentsToggle()"  class="btn btn-primary rounded-pill"><i class='far fa-comment-dots'></i> Chat</a></u>
-    </a>
+<div class="col-6">
+    <div class="text-end pt-2" id="customer_chat">
+        <a class="text-primary p-0 btn">
+           <u><a ng-click="showCommentsToggle()"  class="btn btn-primary rounded-pill"><i class='far fa-comment-dots'></i> Chat</a></u>
+        </a>
+    </div>
 </div>
 <div id="viewConversations-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >
     <div class="modal-dialog h-100 modal-right" style="width:100% !important">            
@@ -39,4 +41,4 @@
         </div><!-- /.modal-content -->
         
     </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div>

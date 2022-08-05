@@ -57,7 +57,7 @@
                         </span>
                     </div>
                     <div class="custom-td m_two_cross_column text-center custom-td-sm">
-                        <span style="height: 50px;" class="text-center m_two_cross m-0" ><small class="fw-bold">m<sup>2</sup> Gross</small></span> 
+                        <span style="height: 50px;" class="text-center m_two_cross m-0 pt-1" ><small class="fw-bold">m<sup>2</sup> Gross</small></span> 
                         <input type="number" disabled onkeypress="return isNumber(event)" name="CostEstimate.ComponentsTotals.Sqm" ng-value="CostEstimate.ComponentsTotals.Sqm" ng-model="CostEstimate.ComponentsTotals.Sqm" class="form-control  rounded-0 text-center form-control-sm">
                     </div>
                     <div  ng-model="CostEstimate.ComponentsTotals.Dynamics" class="d-flex">

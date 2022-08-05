@@ -338,7 +338,7 @@
         </div>
     </div> 
     <div class="row justify-content-end">
-        <div class="col-8" ng-show="commentShow">
+        <div class="col" ng-show="commentShow">
             <open-comment  data="
             {'modalState':'viewConversations',
             'type': 'building_components',
@@ -347,21 +347,15 @@
             send_by: {{ Customer()->id }},
             'from':'Customer'
             }"/> 
-        </div>
-        <div class="col-4">
-            <div class="d-flex justify-content-end" ng-init="isOpen = false">
-                <button ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen" class="my-2  btn btn-info rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
-                    @{{ isOpen  != true ?  "View Summary" : "Close Summary"  }} 
-                </button>
-                <comment  ng-show="commentShow" data="
-                {'modalState':'viewConversations',
-                'type': 'building_components',
-                'header':'Building Components',
-                'enquiry_id':enquiry_id,
-                send_by: {{ Customer()->id }},
-                'from':'Customer'
-                }"/>
-            </div>
+            <hr>
+            <comment  ng-show="commentShow" data="
+            {'modalState':'viewConversations',
+            'type': 'building_components',
+            'header':'Building Components',
+            'enquiry_id':enquiry_id,
+            send_by: {{ Customer()->id }},
+            'from':'Customer'
+            }"/>
         </div>
     </div>
 

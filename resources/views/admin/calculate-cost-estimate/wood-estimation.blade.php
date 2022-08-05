@@ -1,5 +1,5 @@
 <table class="table text-center border shadow-sm m-0">
-    <tr>
+    <tr class="bg-success">
         <th colspan="9"><strong>Total Engineering Cost</strong></th>
     </tr>
     <tr>

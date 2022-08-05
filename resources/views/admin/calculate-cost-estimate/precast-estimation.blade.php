@@ -1,6 +1,6 @@
 <div ng-show="price_calculation == 'precast_engineering_estimation'">
     <table class="table text-center border shadow-sm m-0">
-        <tr>
+        <tr class="bg-success">
             <th colspan="6"><strong>Total Engineering Cost</strong></th>
         </tr>
         <tr>
