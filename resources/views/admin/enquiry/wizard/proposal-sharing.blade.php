@@ -49,7 +49,7 @@
     </li>
     @endif
     @if(userHasAccess('customer_response_index'))
-    <li  ng-show="proposal_sharing_status == 1"  class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
+    <li  ng-show="proposal_email_status == 1"  class="nav-item admin-Delivery-wiz" style="pointer-events: @{{ customer_response ==  null ? 'none' :'unset' }}">
         <a href="#!/move-to-project" style="min-height: 40px;"  class="timeline-step" >
             <div class="timeline-content">
                 <div class="inner-circle @{{ customer_response == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -228,8 +228,8 @@
                     <a href="#!/cost-estimation" class="btn btn-light border shadow-sm">Prev</a>
                 </div>
                 <div>
-                    <a ng-show="proposal_sharing_status == 1" href="#!/move-to-project" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
-                    <a ng-show="proposal_sharing_status == 0" ng-click="moveToProject()" style="pointer-events: @{{ proposal_sharing_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Save & Continue Later</a>
+                    <a ng-show="proposal_email_status == 1" href="#!/move-to-project" style="pointer-events: @{{ proposal_email_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                    <a ng-show="proposal_email_status == 0" ng-click="sendProposal()" style="pointer-events: @{{ proposal_email_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Send Proposal</a>
                 </div>
             </div>
         </div> 

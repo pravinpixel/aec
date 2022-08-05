@@ -1824,6 +1824,7 @@
                     $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status      = res.data.progress.proposal_sharing_status;
+                    $scope.proposal_email_status        = res.data.progress.proposal_email_status;
                     $scope.customer_response    = res.data.progress.customer_response; 
                 });
             }
@@ -1852,6 +1853,30 @@
                     $timeout(function(){
                         window.onbeforeunload = null;
                     });
+                });
+            }
+
+            $scope.sendProposal = function() {
+                $http.post(API_URL + 'admin/proposal/send-proposal/'+$scope.enquiry_id).then(function (res) {
+                    if(res.data.status) {
+                        $timeout(function(){
+                            window.onbeforeunload = null;
+                        });
+                        Swal.fire({
+                            icon: 'success',
+                            html: `<h3>${res.data.msg}</h3>`,
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        $timeout(()=> {
+                            location.href = '{{ route('list-projects') }}'
+                        }, 3000);
+                        return false;
+                    } else {
+                        Message('danger', res.data.msg);
+                        return false;
+                    }
+                   
                 });
             }
 
@@ -2072,6 +2097,7 @@
                     $scope.technical_estimation_status  = res.data.progress.technical_estimation_status;
                     $scope.cost_estimation_status       = res.data.progress.cost_estimation_status;
                     $scope.proposal_sharing_status  = res.data.progress.proposal_sharing_status;
+                    $scope.proposal_email_status  = res.data.progress.proposal_email_status;
                     $scope.customer_response    = res.data.progress.customer_response; 
                     $scope.response_data        = res.data; 
                     $scope.customer_response_obj = {
@@ -2141,9 +2167,6 @@
                     Message('danger', 'Select field required'); return false;
                }
                $http.post(API_URL+'customer-response/move-to-project', {assigned_to: '{{ Admin()->id }}', enquiry_id, enquiry_id}).then(function successfunction(res){
-                    $timeout(function(){
-                        window.onbeforeunload = null;
-                    });
                     if(res.data.status == true){
                         Swal.fire({
                             icon: 'success',
@@ -2152,7 +2175,7 @@
                             timer: 3000
                         });
                         $timeout(()=> {
-                            location.href = '{{ route('list-projects') }}'
+                            location.href = '{{ route('admin.enquiry-list') }}'
                         }, 3000);
                         return false;
                     }
@@ -2189,7 +2212,16 @@
                     follow_up_comment: $scope.customer_response_obj.follow_up_comment
                 })
                 .then((res) => {
-                    Message('success', res.data.msg);
+                    Swal.fire({
+                        icon: 'success',
+                        html: `<h3>${res.data.msg}</h3>`,
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                    $timeout(()=> {
+                        window.onbeforeunload = null;
+                        location.href = '{{ route('admin.enquiry-list') }}'
+                    }, 1000);
                 })
             } 
 

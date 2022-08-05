@@ -89,6 +89,26 @@ class ProposalController extends Controller
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_email_status');
         return  $enquiry    =   $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid);
     } 
+
+    public function sendProposal($id)
+    {
+        $rootVersion = MailTemplate::where(['enquiry_id'=> $id, 'proposal_status' => 'not_send'])->latest()->first();
+        $childVersion = ProposalVersions::where(['enquiry_id'=> $id, 'proposal_status' => 'not_send'])->latest()->first();
+        if(!$rootVersion && !$childVersion ) {
+            return response(['status' => false, 'msg' => __('enquiry.generate_proposal')]);
+        }
+        $enquiry = Enquiry::find($id);
+        if(!isset($childVersion->updated_at)) {
+            $result = $this->customerEnquiryRepo->sendCustomerProPosalMail($id, $rootVersion->proposal_id, null);
+        } else if($rootVersion->updated_at > $childVersion->updated_at) {
+            $result = $this->customerEnquiryRepo->sendCustomerProPosalMail($id, $rootVersion->proposal_id, null);
+        } else {
+            $result = $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $childVersion->proposal_id, null, $childVersion->id);
+        }
+        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_email_status');
+        return $result;
+    }
+
     public function approve(Request $request, $id, $proposal_id, $Vid)
     { 
        
