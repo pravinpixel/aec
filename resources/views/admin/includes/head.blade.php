@@ -168,9 +168,9 @@
         border-top: 1px solid black !important;
         border-left:none !important;
         border-bottom:none !important; 
-        width: 100px !important;
-        min-width: 100px !important;
-        max-width: 100px !important;
+        width: 100px ;
+        min-width: 100px ;
+        max-width: 100px ;
         display: flex;
         justify-content: center;
         align-items: center;
