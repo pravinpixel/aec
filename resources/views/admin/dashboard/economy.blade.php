@@ -160,11 +160,10 @@
 								</div>                                
                                 <select name="" id="" class="form-select float-end w-auto">
 									<option value="">-- Choose -- </option>
-									<option value="" selected>January</option>
-									<option value="">February</option>
-									<option value="">March</option>
-                                    <option value="">April</option>
-                                    <option value="">May</option>
+									<option value="" selected>1 Month</option>
+                                    <option value="">1 Quarter</option>
+                                    <option value="">1 Year</option>
+                                    <option value="">2 Years</option>
 								</select>
                             </div>
                             <div class="card-body">
@@ -499,12 +498,12 @@
     series: [{
         showInLegend: false, 
         name: 'Company 1',
-        data: [{y: 49.9, color: '#4ab1ff'}, {y: 135.5, color: '#4ab1ff'}, {y: 106.4, color: '#4ab1ff'}, {y: 129.2, color: '#4ab1ff'}, {y: 144.0, color: '#4ab1ff'}, {y: 176.0, color: '#4ab1ff'}, {y: 136.6, color: '#4ab1ff'}, {y: 148.5, color: '#4ab1ff'}, {y: 216.4, color: '#4ab1ff'}, {y: 294.1, color: '#4ab1ff'}, {y: 295.6, color: '#4ab1ff'}, {y: 354.4, color: '#4ab1ff'}]
+        data: [{y: 49.9, color: '#008ffb'}, {y: 135.5, color: '#008ffb'}, {y: 106.4, color: '#008ffb'}, {y: 129.2, color: '#008ffb'}, {y: 144.0, color: '#008ffb'}, {y: 176.0, color: '#008ffb'}, {y: 136.6, color: '#008ffb'}, {y: 148.5, color: '#008ffb'}, {y: 216.4, color: '#008ffb'}, {y: 294.1, color: '#008ffb'}, {y: 295.6, color: '#008ffb'}, {y: 354.4, color: '#008ffb'}]
 
     }, {
         showInLegend: false, 
         name: 'Company 2',
-        data: [{y: 93.8, color: '#CCC'}, {y: 78.8, color: '#CCC'}, {y: 198.5, color: '#CCC'}, {y: 263.4, color: '#CCC'}, {y: 106.0, color: '#CCC'}, {y: 84.5, color: '#CCC'}, {y: 105.0, color: '#CCC'}, {y: 204.3, color: '#CCC'}, {y: 191.2, color: '#CCC'}, {y: 283.5, color: '#CCC'}, {y: 106.6, color: '#CCC'}, {y: 292.3, color: '#CCC'}]
+        data: [{y: 93.8, color: '#00e396'}, {y: 78.8, color: '#00e396'}, {y: 198.5, color: '#00e396'}, {y: 263.4, color: '#00e396'}, {y: 106.0, color: '#00e396'}, {y: 84.5, color: '#00e396'}, {y: 105.0, color: '#00e396'}, {y: 204.3, color: '#00e396'}, {y: 191.2, color: '#00e396'}, {y: 283.5, color: '#00e396'}, {y: 106.6, color: '#00e396'}, {y: 292.3, color: '#00e396'}]
 
     }]
 });
@@ -605,11 +604,11 @@ Highcharts.chart('customer-sales-chart', {
     series: [{
         showInLegend: false, 
         name: ' ',
-        data: [{y: 2, color: '#CCC'}, {y: 3, color: '#CCC'}, {y: 1, color: '#CCC'}, {y: 4, color: '#CCC'}, {y: 2, color: '#CCC'}]
+        data: [{y: 2, color: '#00e396'}, {y: 3, color: '#00e396'}, {y: 1, color: '#00e396'}, {y: 4, color: '#00e396'}, {y: 2, color: '#00e396'}]
     }, {
         showInLegend: false, 
         name: ' ',
-        data: [{y: 1, color: '#4ab1ff'}, {y: 4, color: '#4ab1ff'}, {y: 2, color: '#4ab1ff'}, {y: 3, color: '#4ab1ff'}, {y: 4, color: '#4ab1ff'}]
+        data: [{y: 1, color: '#008ffb'}, {y: 4, color: '#008ffb'}, {y: 2, color: '#008ffb'}, {y: 3, color: '#008ffb'}, {y: 4, color: '#008ffb'}]
     }]
 });
 </script>

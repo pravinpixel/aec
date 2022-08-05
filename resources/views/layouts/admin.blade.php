@@ -129,6 +129,9 @@
         <!--  Footer Scripts  -->
         @include('admin.includes.footer-scripts')
 
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+
         <!--  Push Scripts  -->        
         @stack('custom-scripts')
         <script>
@@ -139,6 +142,8 @@
                 swal("Good job!", "Project successfully created!", "success");
             }
         </script>
+
+
         @livewireScripts
     </body>
 </html>
