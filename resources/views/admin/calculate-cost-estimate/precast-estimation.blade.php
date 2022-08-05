@@ -1,5 +1,18 @@
 <div ng-show="price_calculation == 'precast_engineering_estimation'">
-    <div class="table custom-responsive p-0">
+    <table class="table text-center border shadow-sm m-0">
+        <tr>
+            <th colspan="6"><strong>Total Engineering Cost</strong></th>
+        </tr>
+        <tr>
+            <th class="bg-light">Total Work Hours</th>
+            <td class="bg-light">:</td>
+            <td>@{{  getNum(ResultPrecastComponent.total.totalWorkHours) }}</td>
+            <th class="bg-light">Sum</th>
+            <td class="bg-light">:</td>
+            <td>@{{ getNum(ResultPrecastComponent.total.totalSum) }}</td> 
+        </tr>
+    </table>
+    {{-- <div class="table custom-responsive p-0">
         <table class="cost-estimate-total-table table table-bordered border text-end">
             <thead>
                 <tr  style="background: var(--primary-bg) !important">
@@ -17,7 +30,7 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> --}}
       
     <div class="input-group my-3 justify-content-end"> 
         <input type="text" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_name"  ng-value="precast_component_name" placeholder="Enter precast component">

@@ -89,7 +89,7 @@
                                     <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
                                 </tr>
                             </tbody>
-                        </table> 
+                        </table>
                     </div>
                 </div> 
                 <div class="border my-2 shadow-sm bg-white" >
