@@ -577,3 +577,7 @@ sup {
 .pe-none{
     pointer-events: none;
 }
+
+.bg-primary2 {
+    background-color: #0C326C !important;
+}

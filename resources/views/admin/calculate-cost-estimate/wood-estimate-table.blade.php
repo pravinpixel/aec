@@ -20,7 +20,7 @@
                 </div>
             </div> 
         </div> 
-        <div class="card-body p-2"> 
+        <div class="card-body p-0"> 
             <div class="auto-scroll bg-primary2 pb-0" > 
                 <div class="text-center border border-bottom-0 border-dark">
                     <div class="d-flex align-items-center p-1 justify-content-between bg-primary2">
@@ -33,7 +33,7 @@
                             <button overwrite-template="{template:woodTemplate,type:'wood'}" title="Overwrite Template" class="btn btn-primary btn-sm border-0"><i class="mdi mdi-pencil"></i></button>
                             <button delete-template="{template:woodTemplate,type:'wood'}" title="Delete Template" class="btn btn-danger btn-sm border-0"><i class="mdi mdi-trash-can"></i></button>
                         </div>
-                        <h5 class="m-0 py-1 text-white">Engineering Estimation</h5>
+                        <h5 class="m-0 bg-primary2 py-1 text-white">Engineering Estimation</h5>
                         <div class="btn-group">
                             <input type="text" class="form-control btn-sm " placeholder="Type here..." ng-model="column_name" ng-show="editable">
                             <button ng-click="editable = true" ng-show="editable == false" title="Add Column" class="btn btn-outline-success btn-sm "><i class="mdi mdi-plus"></i> Add</button>

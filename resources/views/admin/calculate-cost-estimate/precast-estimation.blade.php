@@ -32,13 +32,13 @@
         </table>
     </div> --}}
       
-    <div class="input-group my-3 justify-content-end"> 
-        <input type="text" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_name"  ng-value="precast_component_name" placeholder="Enter precast component">
-        <input type="number" onkeypress="return isNumber(event)" ng-show="editorEnabled" class="form-control mx-1" ng-model="precast_component_hours" ng-value="precast_component_hours"placeholder="Enter hours">
-        <button ng-show="editorEnabled" class="btn btn-info mx-1" ng-disabled="!precast_component_hours || !precast_component_name"  ng-click="savePrecastComponent()">Save</a>
-        <button ng-show="editorEnabled" class="btn btn-danger mx-1" ng-click="editorEnabled = false">cancel</a>
-        <button ng-hide="editorEnabled" class="btn btn-info mx-1" ng-click="editorEnabled = true"> <i class="fa fa-plus"></i> Component </button>
-        <button class="btn btn-info mx-1" ng-click="addPrecasEstimate()"> <i class="fa fa-plus"></i> Add Building </button>
+    <div class="input-group my-2 justify-content-end"> 
+        <input type="text" ng-show="editorEnabled" class="form-control ms-1 form-control-sm" ng-model="precast_component_name"  ng-value="precast_component_name" placeholder="Enter precast component">
+        <input type="number" onkeypress="return isNumber(event)" ng-show="editorEnabled" class="form-control form-control-sm mx-1" ng-model="precast_component_hours" ng-value="precast_component_hours"placeholder="Enter hours">
+        <button ng-show="editorEnabled" class="btn  btn-sm btn-info ms-1" ng-disabled="!precast_component_hours || !precast_component_name"  ng-click="savePrecastComponent()">Save</a>
+        <button ng-show="editorEnabled" class="btn  btn-sm btn-danger ms-1" ng-click="editorEnabled = false">cancel</a>
+        <button ng-hide="editorEnabled" class="btn  btn-sm btn-info ms-1" ng-click="editorEnabled = true"> <i class="fa fa-plus"></i> Component </button>
+        <button class="btn btn-sm btn-info ms-1" ng-click="addPrecasEstimate()"> <i class="fa fa-plus"></i> Add Building </button>
     </div>
 <section id="precast-cost-estimate">
     <div class="table custom-responsive p-0 table-responsive w-100">
@@ -47,12 +47,16 @@
                     <thead>
                         <tr>
                             <td colspan="18" style="padding: 0 !important">
-                                <div class="p-2 bg-light ">
+                                <div class="p-2 bg-light row m-0">
                                     <div class="col-3">
                                         <select  class="form-select form-select-sm "  ng-model="PrecastEstimate.type" name="type" id="type">
                                             <option value=""> -- Select -- </option> 
                                             <option ng-value="costEstimateType" ng-selected="PrecastEstimate.type == costEstimateType.type" ng-repeat="costEstimateType in costEstimateTypes">@{{ costEstimateType }}</option>
                                         </select>
+                                    </div>
+                                    <div class="col text-end">
+                                        <button class="btn-sm btn btn-warning" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
+                                        <button class="btn-sm btn btn-danger" type="button"  ng-click="deletePrecastEstimate(pRootKey)"><i title="remove" class="fa fa-trash"></i></button>
                                     </div>
                                 </div> 
                             </td>
@@ -70,11 +74,7 @@
                                     <button class="btn btn-sm btn-danger" delete-template="{template:precastTemplate, type:'precast'}"><i class="fa fa-trash"></i></button> 
                                 </div>
                             </td>
-                            <td colspan="8" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
-                            <td colspan="2">
-                                <button class="btn-sm btn btn-outline-warning" type="button" ng-click="clonePrecastEstimate(pRootKey,PrecastEstimate)"><i  title="clone"  class="fa fa-copy "></i></button>
-                                <button class="btn-sm btn btn-outline-danger" type="button"  ng-click="deletePrecastEstimate(pRootKey)"><i title="remove" class="fa fa-trash"></i></button>
-                            </td>
+                            <td colspan="10" class="text-center"><h5 class="m-0 py-1 text-white">Engineering Estimation</h5></td>
                         </tr>
                         <tr class="font-weight-bold">
                             <th rowspan="3" class="text-center " style="background: var(--primary-bg) !important">

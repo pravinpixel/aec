@@ -16484,3 +16484,9 @@ input[type=date]::-webkit-calendar-picker-indicator{
   max-width: 150px !important;
   min-width: 150px !important;
 }
+
+
+#history_id select ,
+#history_id input {
+  display: none !important;
+}
