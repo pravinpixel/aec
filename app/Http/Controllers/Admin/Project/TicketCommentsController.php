@@ -191,7 +191,7 @@ class TicketCommentsController extends Controller
                       'status'          => 1);
 
         $res = $this->ticketcommentsreplay->create($data); 
-        return response(['status' => true, 'data' => $res ,'msg' => 'sent replay'], Response::HTTP_CREATED); 
+        return response(['status' => true, 'data' => $res ,'msg' => 'Replied Successfully'], Response::HTTP_CREATED); 
         }
         catch (\Exception $e) {
             dd($e);
@@ -212,7 +212,7 @@ class TicketCommentsController extends Controller
       
       
          $this->TicketCommentRepo->update($data,$id);
-         return response(['status' => true, 'msg' => 'Ticket update'], Response::HTTP_CREATED); 
+         return response(['status' => true, 'msg' => 'Issue details updated'], Response::HTTP_CREATED); 
     }
 
 

@@ -25,7 +25,8 @@
                     </ul>
                 </div>
                 <div class="card-footer bg-light">
-                    <form id="Inbox__commentsForm" ng-submit="sendprojectticketComments('{{ userRole()->slug }}_role', 'project_ticket_comment')" class="d-flex align-items-center">
+                   {{-- <form id="Inbox__commentsForm"  ng-submit="sendprojectticketComments('{{ userRole()->slug }}_role', 'project_ticket_comment')" class="d-flex align-items-center"> --}}
+                    <form id="Inbox__commentsForm"  class="d-flex align-items-center">
                         <input type="text" required ng-model="inlineComments" name="inlineComments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                         <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                     </form> 

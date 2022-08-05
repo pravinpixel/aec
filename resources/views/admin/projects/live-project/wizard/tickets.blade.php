@@ -381,7 +381,7 @@
                                             @{{ req.first_name }}
                                         </option>
                                     </select>
-                                    <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;">{{Auth::user()->id}}</label>
+                                    <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;"></label>
                                 </div> 
                                 <div class="mb-3 customer_variation" style="display: none;" >
                                     <input class="form-check-input" type="checkbox" ng-model = "case.variation" id="check1" name="option1" value="something" checked>
@@ -434,14 +434,14 @@
                                     {{--  --}}
                                     <ul class="conversation__box" >
                                      
-                                       <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ Admin()->id }}">
+                                       <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ isset(Admin()->id) ? Admin()->id : ''  }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14" >   @{{comment.comments}}</p> 
                                                 <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
                                             </div>
                                         </li>
-                                        <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ Admin()->id }}">
+                                        <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ isset(Admin()->id) ? Admin()->id : ''  }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14">@{{comment.comments}}</p> 

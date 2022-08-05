@@ -811,7 +811,7 @@ class ProjectController extends Controller
             'last_name'      => $data['contact_person'],
             'full_name'      => $data['contact_person'],
             'email'          => $data['email'],
-            'password'       => Hash::make('12345678'),
+            'password'       => '12345678',
             'mobile_no'      => $data['mobile_number'],
             'contact_person' => $data['contact_person'],
             'company_name'   => $data['company_name'],

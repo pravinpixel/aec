@@ -55,7 +55,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
     public function find($id)
     {
         if (null == $ProjectTicket = $this->model->find($id)) {
-            throw new ModelNotFoundException("Ticket not found");
+            throw new ModelNotFoundException("Issue not found");
         }
         return $ProjectTicket;
     }

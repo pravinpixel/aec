@@ -27,7 +27,7 @@
                                     <div class="x-y-center">
                                         <strong class="lead fw-bold ms-2">15</strong>
                                     </div>
-                                    <div class="fw-bold text-danger">Open</div>
+                                    <div class="fw-bold text-danger">CustomerOpen</div>
                                 </div>
                             </div> 
                             <div class="col">
