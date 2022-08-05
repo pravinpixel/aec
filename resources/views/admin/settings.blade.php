@@ -59,7 +59,7 @@
                                     <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#!/role" role="tab" aria-controls="v-pills-role"
                                         aria-selected="true">
                                         <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                                        <span class="d-none d-md-block" ng-click="roleGetData()">Role & Permissions</span>
+                                        <span class="d-none d-md-block" ng-click="roleGetData()">Roles & Permissions</span>
                                     </a>
                                     <a class="nav-link woodEstimateTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
                                         aria-selected="false">
