@@ -599,7 +599,7 @@
                     file = $scope.$parent['building_component_file'];  
                 }
                 if(file == false){
-                    Message('danger', 'Please choose file');
+                    Message('danger', 'Please Choose The File');
                     return false;
                 }
                var uploadUrl = '{{ route('customers.store-enquiry') }}';
