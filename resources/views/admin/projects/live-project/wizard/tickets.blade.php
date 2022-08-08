@@ -433,21 +433,29 @@
                                     <hr>
                                     {{--  --}}
                                     <ul class="conversation__box" >
-                                     
-                                       <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ isset(Admin()->id) ? Admin()->id : ''  }}">
+
+                                        <li ng-class="{right__conversation: comment.created_by == {{ isset(Admin()->id) ? Admin()->id :Customer()->id }} , left__conversation: comment.created_by != {{ isset(Admin()->id) ? Admin()->id : Customer()->id  }}}" ng-repeat="comment in commentsData" >
                                             <div>
                                               
                                                 <p class="m-0 font-14" >   @{{comment.comments}}</p> 
                                                 <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
                                             </div>
                                         </li>
-                                        <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ isset(Admin()->id) ? Admin()->id : ''  }}">
+                                     
+                                      {{-- <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ isset(Admin()->id) ? Admin()->id :Customer()->id }}">
+                                            <div>
+                                              
+                                                <p class="m-0 font-14" >   @{{comment.comments}}</p> 
+                                                <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
+                                            </div>
+                                        </li>
+                                        <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ isset(Admin()->id) ? Admin()->id : Customer()->id  }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14">@{{comment.comments}}</p> 
                                                 <small>10:04</small>
                                             </div>
-                                        </li>
+                                        </li>--}}
                                        <!-- <li class="left__conversation">
                                             <div>
                                                 <h5 class="m-0 mb-1 font-14">

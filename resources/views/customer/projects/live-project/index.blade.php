@@ -1,21 +1,28 @@
+     
 @extends('layouts.customer')
 
 @section('customer-content')
-   
-    <div class="content-page" ng-controller="LiveProjectController">
+         
+    
+    <div class="content-page" ng-app="App">
         <div class="content">
 
             @include('customer.includes.top-bar')
+
+            <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
-                @include('customer.includes.page-navigater')
-                <!-- end page title --> 
-                <input type="hidden" name="project_id" id="project_id" value="{{ $id }}"> 
-                <div class="card border">
-                    <div class="card-header p-0">
-                        <ul id="myDIV" class="nav nav-pills nav-justified form-wizard-header m-0 p-0 bg-light timeline-steps">
-                            <li class="time-bar"></li>
+                
+                @include('customer.includes.page-navigater') 
+            </div>                
+            <input type="hidden" name="project_id" id="project_id" value="{{ $id }}"> 
+            <div class="card border">
+               
+                <div class="card-body pt-0 pb-0">
+                               
+                    <div id="rootwizard" ng-controller="CustomerProjectController">
+                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                             <li class="nav-item">
                                 <a href="#!/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
                                     <div class="timeline-content">
@@ -25,7 +32,7 @@
                                     </div>
                                     <p class="h5 mt-2"> Overview</p>
                                 </a>
-                            </li> 
+                            </li>
                             <li class="nav-item">
                                 <a href="#!/milestone" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
@@ -35,17 +42,7 @@
                                     </div>
                                     <p class="h5 mt-2"> Milestone</p>
                                 </a>
-                            </li>    
-                            <li class="nav-item">
-                                <a href="#!/task-list" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/task-list.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2"> Task list</p>
-                                </a>
-                            </li>    
+                            </li> 
                             <li class="nav-item">
                                 <a href="#!/bim360" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
@@ -55,7 +52,7 @@
                                     </div>
                                     <p class="h5 mt-2">BIM 360</p>
                                 </a>
-                            </li>                         
+                            </li> 
                             <li class="nav-item">
                                 <a href="#!/tickets" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
@@ -66,27 +63,7 @@
                                     <p class="h5 mt-2">Issues</p>
                                 </a>
                             </li>
-                         <!--   <li class="nav-item">
-                                <a href="#!/variation-orders" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/orders.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">Variation Orders</p>
-                                </a>
-                            </li> -->
-                                  <li class="nav-item">
-                                <a href="#!/invoice-status" style="min-height: 40px;" class="timeline-step" data-is-active>
-                                    <div class="timeline-content">
-                                        <div class="inner-circle bg-secondary " >
-                                            <img src="{{ asset("public/assets/icons/invoice.png") }}" class="w-50 invert">
-                                        </div>
-                                    </div>
-                                    <p class="h5 mt-2">Invoice Plan</p>
-                                </a>
-                            </li> 
-                          {{--  <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
@@ -95,7 +72,7 @@
                                     </div>
                                     <p class="h5 mt-2">Documents</p>
                                 </a>
-                            </li> --}}
+                            </li>
                             <li class="nav-item last">
                                 <a href="#!/notes" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
@@ -103,45 +80,31 @@
                                             <img src="{{ asset("public/assets/icons/notes.png") }}" class="w-50 invert">
                                         </div>
                                     </div> 
-                                    <p class="h5 mt-2">General Notes</p>
+                                    <p class="h5 mt-2">Final Feedback</p>
                                 </a>
                             </li> 
-                        </ul>
-                    </div>
-
-                    {{-- =====NG View  =====--}}
-                        <div ng-view></div>
-                    {{-- =======NG View ==== --}}
-                    
-                  
-                </div>
+                        </ul>  
+                        <div ng-view></div> <!-- tab-content -->
+                    </div> <!-- end #rootwizard--> 
+                </div> <!-- end card-body -->
             </div>
-        </div>
-    </div> 
+            </div> <!-- container -->
+
+        </div> <!-- content --> 
+
+    </div>  
 @endsection
-@push('custom-styles')
-    <link href="{{ asset('public/assets/css/vendor/jstree.min.css') }}" rel="stylesheet" type="text/css">
-    
-@endpush
+ 
+
 @push('custom-scripts')
 
-
-
-    <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
-    <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
-    <script src="{{ asset("public/custom/js/ngControllers/customer/project/customer-project.js") }}"></script> 
-    <script src="{{ asset("public/custom/js/ngControllers/admin/project/tag.js") }}"></script> 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="{{ asset("public/js/datepicker.js") }}"></script>
-    <script> 
-
-
-
-
-
-        app.controller("LiveProjectController", function($rootScope, $scope, $location){
+<script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
+<script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
+<script src="{{ asset("public/custom/js/ngControllers/customer/project/customer-project.js") }}"></script> 
+<script src="{{ asset("public/custom/js/ngControllers/admin/project/tag.js") }}"></script> 
+       
+    <script>
+            app.controller("CustomerProjectController", function($rootScope, $scope, $location){
             $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
 
                 if($location.url() == '/') $scope.isMain = true; else $scope.isMain = false; 
@@ -158,24 +121,21 @@
                 }
                 if($location.path() == '/milestone') { 
                     $scope.PrevRoute   =   "/"
-                    $scope.NextRoute   =   "/task-list"
-                }
-                if($location.path() == '/task-list') {
-                    $scope.PrevRoute   =   "/milestone"
                     $scope.NextRoute   =   "/bim360"
                 }
+                
                 if($location.path() == '/bim360') {
                     $scope.PrevRoute   =   "/task-list"
                     $scope.NextRoute   =   "/tickets"
                 }
                 if($location.path() == '/tickets') {
                     $scope.PrevRoute   =   "/bim360"
-                    $scope.NextRoute   =   "/invoice-status"
+                    $scope.NextRoute   =   "/doc-management"
                     //$scope.NextRoute   =   "/variation-orders"
                 }
                 if($location.path() == '/variation-orders') {
                     $scope.PrevRoute   =   "/tickets"
-                    $scope.NextRoute   =   "/invoice-status"
+                    $scope.NextRoute   =   "/doc-management"
                 }
                 if($location.path() == '/invoice-status') {
                     //$scope.PrevRoute   =   "/variation-orders"
@@ -187,17 +147,14 @@
                     $scope.NextRoute   =   "/notes"
                 }
                 if($location.path() == '/notes') {
-                    $scope.PrevRoute        =   "/invoice-status"
+                    $scope.PrevRoute        =   "/doc-management"
                     $scope.NextRoute        =   "/notes"
                     $scope.HideNextRoute    =   false;
                     $scope.SubmitRoute      =   true;
                 }
             });
-
-          
-        });
-
-        app.config(function($routeProvider) {
+         });
+         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
                 templateUrl : "{{ route('live-project.overview') }}",
@@ -216,11 +173,11 @@
             })
             .when("/tickets", {
                 templateUrl : "{{ route('live-project.tickets') }}",
-                controller: 'CustomerTicketController',
+                controller: 'TicketController',
             })
             .when("/variation-orders", {
                 templateUrl : "{{ route('live-project.variation-orders') }}",
-                controller: 'CustomerTicketController',
+                controller: 'TicketController',
             })
             .when("/invoice-status", {
                 templateUrl : "{{ route('live-project.invoice-status') }}",
@@ -239,14 +196,7 @@
         });
 
 
-    
-
+</script>
 
   
-
-       
-    
-    </script> 
-
-    
 @endpush

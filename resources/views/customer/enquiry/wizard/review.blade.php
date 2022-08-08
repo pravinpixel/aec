@@ -378,7 +378,7 @@
                             aria-controls="add_info" 
                             class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "></i>
                     </div>
-                </div>
+                </div> 
                 <div id="add_info" class="accordion-collapse collapse  " aria-labelledby="add_info_header" >
                     <div class="accordion-body">  
                         <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">

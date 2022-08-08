@@ -130,3 +130,39 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
  
 }); 
 
+Route::group(['prefix' => 'customer', 'middleware'=>'common'], function () {
+    
+    // ==========  Live PROJECT flow  ================
+    Route::get('live-project/overview', function () {
+        return view('customer.projects.live-project.wizard.overview');
+    })->name('live-project.overview');
+
+    Route::get('live-project/milestone', function () {
+        return view('customer.projects.live-project.wizard.milestone');
+    })->name('live-project.milestone');
+    
+    Route::get('live-project/bim360', function () {
+        return view('customer.projects.live-project.wizard.bim360');
+    })->name('live-project.bim360');
+
+    Route::get('live-project/tickets', function () {
+        return view('customer.projects.live-project.wizard.tickets');
+    })->name('live-project.tickets');
+
+    Route::get('live-project/variation-orders', function () {
+        return view('customer.projects.live-project.wizard.variation-orders');
+    })->name('live-project.variation-orders');
+
+  
+    Route::get('live-project/doc-management', function () {
+        return view('customer.projects.live-project.wizard.doc-management');
+    })->name('live-project.doc-management');
+
+    Route::get('live-project/notes', function () {
+        return view('customer.projects.live-project.wizard.notes');
+    })->name('live-project.notes');
+  
+    // ========== END  :  Live PROJECT flow  ================
+ 
+});
+

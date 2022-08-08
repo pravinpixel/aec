@@ -13,7 +13,7 @@
             </ul>
         </div> 
         <div class="demo-main-content">
-            <div id="gantt_here"></div>
+            <div id="gantt_here" style="pointer-events: none;"></div>
         </div> 
     </div>
 </div>  
