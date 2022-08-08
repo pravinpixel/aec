@@ -1,5 +1,21 @@
-<div class="table custom-responsive p-0">
-    <table class="cost-estimate-total-table table table-bordered border">
+<table class="table text-center border shadow-sm m-0">
+    <tr class="bg-success">
+        <th colspan="9"><strong>Total Engineering Cost</strong></th>
+    </tr>
+    <tr>
+        <th class="bg-light">Total Area m<sup>2<sup></th>
+        <td class="bg-light">:</td>
+        <td>@{{ ResultEngineeringEstimate.total.totalArea }}</td>
+        <th class="bg-light">Pris / m<sup>2<sup></th>
+        <td class="bg-light">:</td>
+        <td>@{{ ResultEngineeringEstimate.total.totalPris }}</td>
+        <th class="bg-light">Sum (kr)</th>
+        <td class="bg-light">:</td>
+        <td>@{{ ResultEngineeringEstimate.total.totalSum }} </td>
+    </tr>
+</table>
+{{--    
+    <table class="cost-estimate-total-table table table-borderless border table-sm">
         <thead>
             <tr style="background: var(--primary-bg) !important">
                 <th colspan="3" class="text-center">
@@ -7,20 +23,20 @@
                 </th>
             </tr>
             <tr>
-                <th class="text-end">Total Area m<sup>2<sup></th>
+                <th class="text-end"></th>
                 <th class="text-end">Pris/m<sup>2<sup></th>
                 <th class="text-end">Sum</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="text-end font-12 p-0"> <b>@{{ ResultEngineeringEstimate.total.totalArea }} </b></td>
+                <td class="text-end font-12 p-0"> <b> </b></td>
                 <td class="text-end font-12 p-0"><b> @{{ ResultEngineeringEstimate.total.totalPris }}</b></td>
                 <td class="text-end font-12 p-0"><b> @{{ ResultEngineeringEstimate.total.totalSum }}</b></td>
             </tr>
         </tbody>
-    </table>
-</div>
+    </table> --}}
+ 
 <section id="wood-cost-estimate">
     {{-- ========= WOOD ESTIMATE TABLE ======== --}}
         @include('admin.calculate-cost-estimate.wood-estimate-table')

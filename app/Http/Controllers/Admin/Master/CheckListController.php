@@ -17,7 +17,7 @@ class CheckListController extends Controller
     public function index()
     {
         return CheckList::with('getTaskList')->latest()->get();
-    } 
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -45,7 +45,7 @@ class CheckListController extends Controller
         ]);
 
         return response()->json([
-            'status'    => true, 
+            'status'    => true,
             'msg'       => trans('module.inserted')
         ], Response::HTTP_OK);
     }
@@ -61,7 +61,7 @@ class CheckListController extends Controller
         $CheckList  =   CheckList::findOrFail($id);
 
         return response()->json([
-            'status'    =>  true, 
+            'status'    =>  true,
             'data'      =>  $CheckList
         ], Response::HTTP_OK);
     }
@@ -74,7 +74,6 @@ class CheckListController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**
@@ -89,9 +88,9 @@ class CheckListController extends Controller
         CheckList::find($id)->update($request->all());
 
         return response()->json([
-            'status'    => true, 
+            'status'    => true,
             'msg'       => trans('module.updated')
-        ], Response::HTTP_OK); 
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -104,8 +103,35 @@ class CheckListController extends Controller
         CheckList::find($id)->delete();
 
         return response()->json([
-            'status'    => true, 
+            'status'    => true,
             'msg'       => trans('module.deleted')
         ], Response::HTTP_OK);
+    }
+    public function selectCheckSheet(Request $request)
+    {
+        // dd($request->all());
+        $checkSheet = $request->checkSheet;
+        $deliveryList = $request->deliveryList;
+        $activityList = $request->activityList;
+        return CheckList::when($request->checkSheet != null, function ($q) use ($request) {
+            $q->where('name', $request->checkSheet);
+        })
+            ->when($request->deliveryList != null, function ($q) use ($request) {
+                $q->where('task_list_category', $request->deliveryList);
+            })
+            ->when($request->activityList != null, function ($q) use ($request) {
+                $q->where('task_list', $request->activityList);
+            })
+            ->with('getTaskList')->get();
+
+        // if ($checkSheet) {
+        //     return  CheckList::where('name', $checkSheet)->with('getTaskList')->get();
+        // } else if ($checkSheet &&  $deliveryList) {
+        //     return  CheckList::where('name', $checkSheet)->where('task_list_category', $deliveryList)->with('getTaskList')->get();
+        // } else if ($checkSheet && $deliveryList  && $activityList) {
+        //     return  CheckList::where('name', $checkSheet)->where('task_list_category', $deliveryList)->where('task_list', $activityList)->with('getTaskList')->get();
+        // }
+        // return  CheckList::where('name', $checkSheet)->with('getTaskList')->get();
+        # code...
     }
 }

@@ -63,8 +63,8 @@ class Wizard extends Component
 
     public function updatePersonalInformation()    {
         $employee = Employees::findOrFail($this->id);
-        $uploadPath         =   GlobalService::getEmployeePath();
-        $path               =   $this->image->storePublicly($uploadPath, 'enquiry_uploads');
+        // $uploadPath         =   GlobalService::getEmployeePath();
+        // $path               =   $this->image->storePublicly($uploadPath, 'enquiry_uploads');
         $customMessages = [
             'regex' => 'Mobile no between 8 to 12 digits'
         ];
@@ -83,7 +83,6 @@ class Wizard extends Component
         $employee->job_title               = $this->job_title;
         $employee->job_role                = $this->job_role;
         $employee->mobile_number           = $this->mobile_number;
-        $employee->image                   = $path;
         $this->is_upload                   = false;
         $employee->save();
         $this->next();

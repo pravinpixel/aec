@@ -70,16 +70,16 @@
 
 
 
-            <li class="side-nav-item ">
-                <a href="{{ route('customers-my-projects') }}" class="side-nav-link">
+            <li class="side-nav-item  {{ Route::is("list-projects") ? "menuitem-active" : ""}}" ">
+                <a data-bs-toggle="collapse" href="#Project" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-layer-group" aria-hidden="true"></i>
                     <span> Projects </span>
                 </a> 
-                <div class="collapse {{ Route::is("customers-my-projects")  ? "show" : ""}}" id="Sales">
+                <div class="collapse {{ Route::is("customers-my-projects")  ? "show" : ""}}" id="Project">
                     <ul class="side-nav-second-level">
-                        <li class="{{ Route::is("customers-my-projects") ? "menuitem-active" : ""}}">
+                       {{--<li class="{{ Route::is("customers-my-projects") ? "menuitem-active" : ""}}">
                             <a href="#">Enquiry</a>
-                        </li>
+                        </li>--}} 
                     <li class="{{ Route::is("list-projects") ? "menuitem-active" : ""}}">
                             <a href="{{ route('customer-list-projects') }}">Live project</a>
                         </li>

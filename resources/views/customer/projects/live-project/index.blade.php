@@ -129,7 +129,7 @@
 
     <script src="{{ asset('public/assets/js/vendor/jstree.min.js') }}"></script>
     <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
-    <script src="{{ asset("public/custom/js/ngControllers/admin/project/create-project.js") }}"></script> 
+    <script src="{{ asset("public/custom/js/ngControllers/customer/project/customer-project.js") }}"></script> 
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/tag.js") }}"></script> 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -180,7 +180,7 @@
                 if($location.path() == '/invoice-status') {
                     //$scope.PrevRoute   =   "/variation-orders"
                     $scope.PrevRoute   =   "/tickets"
-                    $scope.NextRoute   =   "/notes"
+                    $scope.NextRoute   =   "/doc-management"
                 }
                 if($location.path() == '/doc-management') {
                     $scope.PrevRoute   =   "/invoice-status"
@@ -216,11 +216,11 @@
             })
             .when("/tickets", {
                 templateUrl : "{{ route('live-project.tickets') }}",
-                controller: 'TicketController',
+                controller: 'CustomerTicketController',
             })
             .when("/variation-orders", {
                 templateUrl : "{{ route('live-project.variation-orders') }}",
-                controller: 'TicketController',
+                controller: 'CustomerTicketController',
             })
             .when("/invoice-status", {
                 templateUrl : "{{ route('live-project.invoice-status') }}",

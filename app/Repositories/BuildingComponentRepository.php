@@ -49,6 +49,17 @@ class BuildingComponentRepository implements BuildingComponentRepositoryInterfac
         return  $buildingComponent;
         
     }
+
+    public function updateCostEstimateStatus($id)
+    {
+        if (null ==  $buildingComponent = $this->model->find($id)) {
+            throw new ModelNotFoundException("Status Not Updated");
+        }
+        $buildingComponent->cost_estimate_status =  !$buildingComponent->cost_estimate_status;
+        $buildingComponent->save();
+        return  $buildingComponent;
+    }
+
     public function find($id)
     {
         if (null == $buildingComponent = $this->model->find($id)) {
@@ -65,6 +76,6 @@ class BuildingComponentRepository implements BuildingComponentRepositoryInterfac
 
     public function getForCostEstimate($request)
     {
-        return $this->model->orderby('order_id','asc')->get();
+        return $this->model->where('cost_estimate_status',1)->orderby('order_id','asc')->get();
     }
 }

@@ -1,8 +1,8 @@
 <div class="card">                              <!-- @{{component_module_get}} -->
     <div class="card-header ">
         <div class="d-flex justify-content-between">
-            <h3 class="haeder-title">Building Type</h3>
-            <button class="btn btn-primary " ng-click="toggleType('add', 0)">Create New Building Type</button>
+            <h3 class="haeder-title">Construction Type</h3>
+            <button class="btn btn-primary " ng-click="toggleType('add', 0)">Create New Construction Type</button>
         </div>
     </div>
     <div class="card-body">
@@ -53,7 +53,7 @@
             <div class="modal-body">
                 <form name="TypeModule" class="form-horizontal" novalidate="">
                     <div class="form-group error mb-2">
-                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Building Type Name</label>
+                        <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Construction Type Name</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control has-error" id="type_name" name="type_name" placeholder="Type Here.." ng-model="module_type.building_type_name" ng-required="true" required>
                             <small class="help-inline text-danger">This  Fields is Required</small>

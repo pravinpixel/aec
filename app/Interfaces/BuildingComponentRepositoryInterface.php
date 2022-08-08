@@ -12,4 +12,5 @@ interface BuildingComponentRepositoryInterface
     public function find($id);
     public function get($request);
     public function getForCostEstimate($request);
+    public function updateCostEstimateStatus($id);
 }

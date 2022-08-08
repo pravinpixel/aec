@@ -30,6 +30,10 @@ use App\Interfaces\TechnicalEstimateRepositoryInterface;
 use App\Interfaces\ProjectTicketRepositoryInterface;
 use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Interfaces\TicketcommentsReplayinterface;
+use App\Interfaces\CheckSheetInterface;
+use App\Interfaces\DeliveryListInterface;
+use App\Repositories\DeliveryListRepository;
+use App\Repositories\CheckSheetRepository;
 use App\Repositories\AutoDeskRepository;
 use App\Repositories\BuildingComponentRepository;
 use App\Repositories\BuildingTypeRepository;
@@ -73,25 +77,25 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        
+
         $this->app->bind(
-            ServiceRepositoryInterface::class, 
+            ServiceRepositoryInterface::class,
             ServiceRepository::class
         );
         $this->app->bind(
-            UserRepositoryInterface::class, 
+            UserRepositoryInterface::class,
             UserRepository::class
         );
         $this->app->bind(
-            CustomerRepositoryInterface::class, 
+            CustomerRepositoryInterface::class,
             CustomerRepository::class
         );
 
         $this->app->bind(
-            CustomerEnquiryRepositoryInterface::class, 
+            CustomerEnquiryRepositoryInterface::class,
             CustomerEnquiryRepository::class
-        ); 
-        
+        );
+
         $this->app->bind(
             BuildingTypeRepositoryInterface::class,
             BuildingTypeRepository::class
@@ -109,7 +113,7 @@ class RepositoryServiceProvider extends ServiceProvider
             DocumentTypeRepositoryInterface::class,
             DocumentTypeRepository::class
         );
-        
+
         $this->app->bind(
             BuildingComponentRepositoryInterface::class,
             BuildingComponentRepository::class
@@ -144,7 +148,7 @@ class RepositoryServiceProvider extends ServiceProvider
             CustomerLayerRepositoryInterface::class,
             CustomerLayerRepository::class
         );
-        
+
         $this->app->bind(
             ModuleRepositoryInterface::class,
             ModuleRepository::class
@@ -161,7 +165,7 @@ class RepositoryServiceProvider extends ServiceProvider
             MailTemplateRepositoryInterface::class,
             MailTemplateRepository::class
         );
-        
+
         $this->app->bind(
             EnquiryTemplateRepositoryInterface::class,
             EnquiryTemplateRepository::class
@@ -213,6 +217,16 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             TicketcommentsReplayinterface::class,
             TicketcommentsReplayRepository::class
+        );
+
+        $this->app->bind(
+            CheckSheetInterface::class,
+            CheckSheetRepository::class
+        );
+
+        $this->app->bind(
+            DeliveryListInterface::class,
+            DeliveryListRepository::class
         );
     }
 

@@ -8,6 +8,7 @@ use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
 use App\Models\Role;
 use App\Services\GlobalService;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -227,31 +228,37 @@ class Wizard extends Component
 
     public function createBimUser($employee)
     {
-        Log::info('Bim user creation start');
-        $input        = [];
-        $api          = new  Bim360UsersApi();
-        $input["company_id"] = env('BIMDEFAULTCOMPANY');
-        $input["email"]      = $employee->email;
-        $input['bim_id']     = $employee->bim_id ?? Null;
-        $input["nickname"]   = $employee->display_name;
-        $input["first_name"] = $employee->first_name;
-        $input["last_name"]  = $employee->last_name;
-        if (isset($input["bim_id"]) && !empty($input["bim_id"])) {
-            $editJson = json_encode($input);
-            $result = $api->editUser($input['bim_id'], $editJson);
-        } else {
-            $createJson = json_encode($input);
-            $result = $api->createUser($createJson);
+        try {
+            Log::info('Bim user creation start');
+            $input        = [];
+            $api          = new  Bim360UsersApi();
+            $input["company_id"] = env('BIMDEFAULTCOMPANY');
+            $input["email"]      = $employee->email;
+            $input['bim_id']     = $employee->bim_id ?? Null;
+            $input["nickname"]   = $employee->display_name;
+            $input["first_name"] = $employee->first_name;
+            $input["last_name"]  = $employee->last_name;
+            if (isset($input["bim_id"]) && !empty($input["bim_id"])) {
+                $editJson = json_encode($input);
+                $result = $api->editUser($input['bim_id'], $editJson);
+            } else {
+                $createJson = json_encode($input);
+                $result = $api->createUser($createJson);
+            }
+            Log::info("result {$result}");
+            $response = json_decode($result);
+            $employee->bim_id =  $response->id;
+            $employee->bim_account_id =  $response->account_id;
+            $updateUser = json_encode(['status'=> 'active', 'company_id'=> env('BIMDEFAULTCOMPANY')]);
+            $result = $api->editUser($employee->bim_id,  $updateUser);
+            Log::info("result {$result}");
+            Log::info('Bim user creation end');
+            return $employee->save();
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+            return false;
         }
-        Log::info("result {$result}");
-        $response = json_decode($result);
-        $employee->bim_id =  $response->id;
-        $employee->bim_account_id =  $response->account_id;
-        $updateUser = json_encode(['status'=> 'active', 'company_id'=> env('BIMDEFAULTCOMPANY')]);
-        $result = $api->editUser($employee->bim_id,  $updateUser);
-        Log::info("result {$result}");
-        Log::info('Bim user creation end');
-        return $employee->save();
+       
     }
 
     public function render()

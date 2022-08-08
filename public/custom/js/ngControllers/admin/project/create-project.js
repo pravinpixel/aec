@@ -1344,7 +1344,7 @@ app.controller('TicketController', function ($scope, $http, API_URL, $rootScope,
     $scope.ticketdelete =function(ticketid){
 
         Swal.fire({
-            title: `Confirm to your Issue delete`,
+            title: `Are you sure want to Delete ?`,
             showDenyButton: false,
             showCancelButton: true,
             cancelButtonText: 'No',
@@ -1423,10 +1423,7 @@ app.controller('GendralController', function ($scope, $http, API_URL, $timeout,$
                     }, 'separator',
                     'color', 'background', 'separator',
                     'link', 'image', 'separator',
-                    'clear', 'codeBlock', 'blockquote', 'separator',
-                    'insertTable', 'deleteTable',
-                    'insertRowAbove', 'insertRowBelow', 'deleteRow',
-                    'insertColumnLeft', 'insertColumnRight', 'deleteColumn',
+                    'clear', 'codeBlock', 'blockquote',
                 ],
                 },
                 mediaResizing: {

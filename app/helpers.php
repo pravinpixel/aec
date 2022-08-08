@@ -28,7 +28,11 @@ if(!function_exists('userRole')){
     function userRole()
     {
         $user =  Admin();
-        $role = Role::find($user->job_role);
+        $role = array();
+        if($user != ""){
+            $role = Role::find($user->job_role);
+        }
+       
         return $role;
     }
 }

@@ -41,7 +41,7 @@
         <li class="nav-item admin-Proposal_Sharing-wiz" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
             <a href="#!/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
                 <div class="timeline-content">
-                    <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
+                    <div class="inner-circle @{{ proposal_email_status == '1' ? 'bg-primary' :'bg-secondary' }}">
                         <img src="{{ asset("public/assets/icons/share.png") }}" ng-click="getDocumentaryFun();" class="w-50 invert">
                     </div>                                                                        
                 </div>

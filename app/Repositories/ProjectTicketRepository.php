@@ -66,7 +66,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
     public function find($id)
     {
         if (null == $ProjectTicket = $this->model->find($id)) {
-            throw new ModelNotFoundException("Ticket not found");
+            throw new ModelNotFoundException("Issues not found");
         }
         return $ProjectTicket;
     }
@@ -79,7 +79,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
     {
       
         if (null == $ProjectTicket['ticket'] = $this->model->where('project_id',$id)->get()) {
-            throw new ModelNotFoundException("Ticket not found");
+            throw new ModelNotFoundException("Issues not found");
         }
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $ProjectTicket['ticketcase'] = $this->Projectticketcase->with('assigndetails')
@@ -135,7 +135,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $ticket =  $this->model->find($id);
       
         if (null == $ProjectTicket['ticket'] = $this->model->find($id)) {
-            throw new ModelNotFoundException("Ticket not found");
+            throw new ModelNotFoundException("Issue not found");
         }
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($ticket->project_id);
        
@@ -185,7 +185,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         else{
 
         if (null == $ProjectTicket['ticket'] = $this->model->where('project_id',$id)->get()) {
-            throw new ModelNotFoundException("Ticket not found");
+            throw new ModelNotFoundException("Issues not found");
         }
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $searchticket = $this->Projectticketcase->with('assigndetails')

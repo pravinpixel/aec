@@ -1,9 +1,28 @@
+<ul class="nav nav-tabs nav-justified nav-bordered mb-3">
+    <li class="nav-item">
+        <a href="#services-b2"  ng-click="precostEstimationService()" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
+            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+            <span class="d-none d-md-block">Services</span>
+        </a>
+    </li>
+    <li class="nav-item" >
+        <a href="#costPreset-b2" ng-click="precostEstimation()" data-bs-toggle="tab" aria-expanded="false" class="nav-link ">
+            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+            <span class="d-none d-md-block" >Cost Preset</span>
+        </a>
+    </li>
+   <li  class="nav-item">
+    <button class="btn btn-primary" id="preCostEstimationTab" ng-click="toggleModalForm('add', 0)">Add new</button>
+   </li>
+</ul>
 
+<div class="tab-content">
+    <div class="tab-pane show active" id="services-b2">
 <div class="card">
     <div class="card-header ">
         <div class="d-flex justify-content-between">
             <h3 class="haeder-title">Precast Estimation</h3>
-            <button class="btn btn-primary " ng-click="toggleModalForm('add', 0)">Add new</button>
+            {{-- <button class="btn btn-primary " ng-click="toggleModalForm('add', 0)">Add new</button> --}}
         </div>
     </div>
     <div class="card-body">
@@ -11,7 +30,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Hours</th>
+                    {{-- <th>Hours</th> --}}
                     <th>Status</th>
                     <th >Actions</th>
                 </tr>
@@ -19,7 +38,7 @@
             <tbody>
                 <tr ng-repeat="(index,precastEstimation) in precastEstimations">
                     <td class="align-items-center">@{{ precastEstimation.name }}</td>
-                    <td class="align-items-center">@{{ precastEstimation.hours }}</td>
+                    {{-- <td class="align-items-center">@{{ precastEstimation.hours }}</td> --}}
                     <td>
                         <div>
                             <input type="checkbox" id="switch__@{{ index }}" ng-checked="precastEstimation.is_active == 1" data-switch="primary"/>
@@ -40,6 +59,39 @@
     </div>
     <div class="card-fooetr"></div>
 </div> 
+
+
+    </div>
+    <div class="tab-pane " id="costPreset-b2">
+        
+        <div class="card">
+            <div class="card-header ">
+                <div class="d-flex justify-content-between">
+                    <h3 class="haeder-title">Precast Estimation</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table custom table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Hours</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="(index,precastEstimation) in precastEstimations">
+                            <td class="align-items-center">@{{ precastEstimation.name }}</td>
+                            <td class="align-items-center">@{{ precastEstimation.hours }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-fooetr"></div>
+        </div>
+        
+    </div>
+</div>
 
 <div id="precastestimate-form-popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="@{{form_color}}-header-modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -89,7 +141,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div> 
-
 <style>
     .precastEstimateTab{
         color: #163269 !important;

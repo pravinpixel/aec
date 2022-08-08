@@ -16472,3 +16472,21 @@ input[type=date]::-webkit-calendar-picker-indicator{
   margin: 10px 0;
   box-shadow: 0 0 4px grey;
 }
+
+.custom-td-sm {
+  width: 60px !important;
+  max-width: 60px !important;
+  min-width: 60px !important;
+}
+
+.custom-td-lg {
+  width: 150px !important;
+  max-width: 150px !important;
+  min-width: 150px !important;
+}
+
+
+#history_id select ,
+#history_id input {
+  display: none !important;
+}

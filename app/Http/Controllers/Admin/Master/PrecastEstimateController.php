@@ -14,7 +14,7 @@ class PrecastEstimateController extends Controller
 {
     public  $precastEstimateRepo;
 
-    public function __construct(PrecastEstimationRepository $precastEstimateRepo) 
+    public function __construct(PrecastEstimationRepository $precastEstimateRepo)
     {
         $this->precastEstimateRepo = $precastEstimateRepo;
     }
@@ -32,9 +32,9 @@ class PrecastEstimateController extends Controller
      */
     public function store(CreatePrecastEstimationRequest $request)
     {
-        
+
         $precastEstimation = $request->only([
-            "name","hours","is_active"
+            "name", "hours", "is_active"
         ]);
 
         return response()->json(
@@ -52,12 +52,12 @@ class PrecastEstimateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) 
+    public function edit($id)
     {
         $data = $this->precastEstimateRepo->find($id);
-        if( !empty( $data ) ) {
+        if (!empty($data)) {
             return response(['status' => true, 'data' => $data], Response::HTTP_OK);
-        } 
+        }
         return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
     }
 
@@ -68,7 +68,7 @@ class PrecastEstimateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): JsonResponse 
+    public function show($id): JsonResponse
     {
 
         return response()->json([
@@ -76,16 +76,16 @@ class PrecastEstimateController extends Controller
         ]);
     }
 
-    public function update(UpdatePrecastEstimationRequest $request,$id)
+    public function update(UpdatePrecastEstimationRequest $request, $id)
     {
         $precastEstimation = $request->only([
-            "name","hours","is_active"
+            "name", "hours", "is_active"
         ]);
 
         return response()->json([
             'data' => $this->precastEstimateRepo->update($precastEstimation, $id),
             'status' => true, 'msg' => trans('module.updated'),
-             
+
         ]);
     }
 
@@ -101,8 +101,8 @@ class PrecastEstimateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
-    public function destroy($id) 
+
+    public function destroy($id)
     {
         $precastEstimation = $this->precastEstimateRepo->find($id);
         $precastEstimation->delete();
@@ -111,6 +111,5 @@ class PrecastEstimateController extends Controller
 
     public function getPrecastEstimateJSON(Request $request)
     {
-      
     }
 }

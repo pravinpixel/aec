@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link custom-tab-nav CustomerTab" onclick="changeTab(this)" href="#!/output">
+                        <a class="nav-link custom-tab-nav CustomerTab" onclick="changeTab(this)" href="#!/projectType">
                             <i class="mdi mdi-account-circle d-md-none d-block"></i>
                             <span class="d-none d-md-block">Customer</span>
                         </a>
@@ -59,7 +59,7 @@
                                     <a class="nav-link roleTab"   id="v-pills-role-tab"  id="roleTab" ng-model="btnClass" href="#!/role" role="tab" aria-controls="v-pills-role"
                                         aria-selected="true">
                                         <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                                        <span class="d-none d-md-block" ng-click="roleGetData()">Role</span>
+                                        <span class="d-none d-md-block" ng-click="roleGetData()">Roles & Permissions</span>
                                     </a>
                                     <a class="nav-link woodEstimateTab" id="v-pills-wood-estimation-tab" href="#!/wood-estimation" role="tab" aria-controls="v-pills-wood-estimation"
                                         aria-selected="false">
@@ -72,38 +72,49 @@
                                         <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                         <span class="d-none d-md-block"  ng-click="getPrecastEstimation()" >Precast Estimation</span>
                                     </a>
-                                    <a class="nav-link taskListTab" id="v-pills-service-tab" href="#!/task-list-view" role="tab" aria-controls="v-pills-service"
+                                    {{-- <a class="nav-link taskListTab" id="v-pills-service-tab" href="#!/task-list-view" role="tab" aria-controls="v-pills-service"
                                         aria-selected="false">
                                         <i class="mdi mdi-service-outline d-md-none d-block"></i>
                                         <span class="d-none d-md-block" >Task list</span>
+                                    </a> --}}
+                                    <a class="nav-link checkSheetTab" id="v-pills-service-tab" href="#!/check-sheet" role="tab" aria-controls="v-pills-service"
+                                    aria-selected="false">
+                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                    <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check Sheets</span>
                                     </a>
-
                                     <a class="nav-link checkListTab" id="v-pills-service-tab" href="#!/check-list" role="tab" aria-controls="v-pills-service"
                                         aria-selected="false">
                                         <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                        <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check list</span>
+                                        <span class="d-none d-md-block"  ng-click="serviceGetData()" >Check Sheet Setup</span>
                                     </a>
-
-                                    <a class="nav-link masterTab" href="#!/master-estimate" role="tab" aria-controls="v-pills-master"
+                                                                   
+                                    {{-- <a class="nav-link masterTab" href="#!/master-estimate" role="tab" aria-controls="v-pills-master"
                                         aria-selected="false">
                                         <i class="mdi mdi-master-outline d-md-none d-block"></i>
                                         <span class="d-none d-md-block">Master Estimation</span>
-                                    </a>
+                                    </a> --}}
                                 <hr>
                             </div>
                             <div class="d-none custom-tab" id="CustomerTab">
                                 <strong class="my-1" >Customer</strong>
+
+                                <a class="nav-link projectTypeTab" id="v-pills-project_type-tab"  href="#!/projectType" role="tab" aria-controls="v-pills-project_type"
+                                        aria-selected="false">
+                                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                                        <span class="d-none d-md-block"  ng-click="projectTypeGetData()">Project Type</span>
+                                    </a>
+                                    <a class="nav-link serviceTab" id="v-pills-service-tab" href="#!/service" role="tab" aria-controls="v-pills-service"
+                                    aria-selected="false">
+                                    <i class="mdi mdi-service-outline d-md-none d-block"></i>
+                                    <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
+                                    </a>
                                     <a class="nav-link outputTab" id="v-pills-output-tab" href="#!/output"  role="tab" aria-controls="v-pills-output"
                                         aria-selected="false">
                                         <i class="mdi mdi-output-outline d-md-none d-block"></i>
-                                        <span class="d-none d-md-block"  ng-click="outputGetData()" >Output Type</span>
+                                        <span class="d-none d-md-block"  ng-click="outputGetData()" >Building Type</span>
                                     </a>
 
-                                    <a class="nav-link serviceTab" id="v-pills-service-tab" href="#!/service" role="tab" aria-controls="v-pills-service"
-                                        aria-selected="false">
-                                        <i class="mdi mdi-service-outline d-md-none d-block"></i>
-                                        <span class="d-none d-md-block"  ng-click="serviceGetData()" >Service</span>
-                                    </a>
+                                  
 
                                     <a class="nav-link componentTab" id="v-pills-component-tab" href="#!/component" role="tab" aria-controls="v-pills-component"
                                         aria-selected="false">
@@ -113,14 +124,9 @@
                                     <a class="nav-link typeTab" id="v-pills-type-tab" href="#!/type" role="tab" aria-controls="v-pills-type"
                                         aria-selected="false">
                                         <i class="mdi mdi-type-outline d-md-none d-block"></i>
-                                        <span class="d-none d-md-block"  ng-click="typeGetData()">Building Type</span>
+                                        <span class="d-none d-md-block"  ng-click="typeGetData()">Construction Type</span>
                                     </a>
-
-                                    <a class="nav-link projectTypeTab" id="v-pills-project_type-tab"  href="#!/projectType" role="tab" aria-controls="v-pills-project_type"
-                                        aria-selected="false">
-                                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                                        <span class="d-none d-md-block"  ng-click="projectTypeGetData()">Project Type</span>
-                                    </a>
+                                 
 
                                     {{-- <a class="nav-link layerTab" id="v-pills-layer-tab" href="#!/layer" role="tab" aria-controls="v-pills-layer"
                                         aria-selected="false">
@@ -131,13 +137,13 @@
                                     <a class="nav-link deliveryTab" id="v-pills-DeliveryLayer-tab" href="#!/deliveryType"  role="tab" aria-controls="v-pills-DeliveryLayer"
                                         aria-selected="false">
                                         <i class="mdi mdi-DeliveryLayer-outline d-md-none d-block"></i>
-                                        <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Type of Delivery</span>
+                                        <span class="d-none d-md-block" ng-click="deliveryTypeGetData()" >Delivery Type</span>
                                     </a>
 
                                     <a class="nav-link documentTab" id="v-pills-document-tab"  href="#!/documentType" role="tab" aria-controls="v-pills-document"
                                         aria-selected="false">
                                         <i class="mdi mdi-document-outline d-md-none d-block"></i>
-                                        <span class="d-none d-md-block" ng-click="documentTypeGetData()">Document Type</span>
+                                        <span class="d-none d-md-block" ng-click="documentTypeGetData()">Upload Document</span>
                                     </a>
 
                                 <hr>
@@ -245,7 +251,8 @@
                 templateUrl : "{{ route('role-file')  }}"
             })
             .when("/role", {
-                templateUrl : "{{ route('role-file')  }}"
+                templateUrl : "{{ url('role-file')  }}"
+              
             }) 
             .when("/master-estimate", {
                 templateUrl : "{{ route('masterEstimation-file')  }}"
@@ -285,6 +292,13 @@
                 templateUrl : "{{ route('check-list-file')  }}",
                 controller : "CheckListController"
             })
+            
+            
+            .when("/check-sheet", {
+                templateUrl : "{{ route('check-sheet-file')  }}",
+                controller : "CheckSheetController"
+            })
+            
             .when("/permission/:id", {
                 templateUrl: function(params) {
                     return API_URL +'permission/'+params.id;
@@ -302,6 +316,8 @@
         });
         app.controller('PermissionCtrl', function($scope, $http, $routeParams,API_URL){
             $scope.setPermission = (role_id) => {
+              
+                console.log($scope.permissionForm);
                 $http({
                     method: 'PUT',
                     url: `${API_URL}set-permission/${role_id}`,
@@ -315,21 +331,256 @@
                     return false;
                 });
             }
-            getPermission = (role_id) => {
+            $scope.getPermission = (role_id) => {
                 $http({
                     method: 'GET',
                     url: `${API_URL}get-permission/${role_id}`,
                 }).then(function successCallback(res) {
                     if(res.data.status == true){
                         $scope.permissionForm = res.data.permission
+                       
                         return false;
+
                     } 
                 }, function errorCallback(error) {
                     return false;
                 });
             }
             var role_id = $routeParams.id
-            getPermission(role_id);
+            $scope.getPermission(role_id);
+           
+            $scope.viewAllPermission = () => {
+           
+                
+                    $('.view_checkbox').each(function () {
+
+                    if (this.checked) {
+                       
+                    $scope.view_checkbox = true; 
+                    }
+                    else{
+                        $scope.view_checkbox = false; 
+                    }
+                });
+
+            }
+            $scope.viewAllPermission();
+            // $('.add_checkbox').each(function () {
+            //     if (this.checked) {
+            //        $scope.add_checkbox = true; 
+            //     }
+            //     else{
+            //         $scope.add_checkbox = false; 
+            //     }
+            // });
+            // $('.edit_checkbox').each(function () {
+            //     if (this.checked) {
+            //        $scope.edit_checkbox = true; 
+            //     }
+            //     else{
+            //         $scope.edit_checkbox = false; 
+            //     }
+            // });
+            // $('.delete_checkbox').each(function () {
+            //     if (this.checked) {
+            //        $scope.delete_checkbox = true; 
+            //     }
+            //     else{
+            //         $scope.delete_checkbox = false; 
+            //     }
+            // });
+            // $('#sale_index').on('change', function() {
+            //     var checked = this.checked;
+            //     // alert(checked)
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.enquiry_index = true;
+            //         // $scope.permissionForm.project_summary_index = true;
+            //         $scope.permissionForm.technical_estimate_index = true;
+            //         $scope.permissionForm.cost_estimate_index = true;
+            //         // $scope.permissionForm.proposal_sharing_index = true;
+            //         // $scope.permissionForm.customer_response_index = true;
+            //         // $scope.permissionForm.employee_index = true;
+            //         // $scope.permissionForm.project_index = true;
+            //         // $scope.permissionForm.task_index = true;
+            //         $scope.permissionForm.contract_index = true;
+            //         // $scope.permissionForm.supplier_detail_index = true;
+            //         // $scope.permissionForm.customer_detail_index = true;
+            //         // $scope.permissionForm.project_schedule_index = true;
+            
+            //     }
+            //     else{
+            //         $scope.permissionForm.enquiry_index = false;
+            //         // $scope.permissionForm.project_summary_index = false;
+            //         $scope.permissionForm.technical_estimate_index = false;
+            //         $scope.permissionForm.cost_estimate_index = false;
+            //         // $scope.permissionForm.proposal_sharing_index = false;
+            //         // $scope.permissionForm.customer_response_index = false;
+            //         // $scope.permissionForm.employee_index = false;
+            //         // $scope.permissionForm.project_index = false;
+            //         // $scope.permissionForm.task_index = false;
+            //         $scope.permissionForm.contract_index = false;
+            //         // $scope.permissionForm.supplier_detail_index = false;
+            //         // $scope.permissionForm.customer_detail_index = false;
+            //         // $scope.permissionForm.project_schedule_index = false;
+
+            //     }
+               
+            // });
+            // $('#sale_add').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.enquiry_add = true;
+            //         // $scope.permissionForm.project_summary_add = true;
+            //         $scope.permissionForm.technical_estimate_add = true;
+            //         $scope.permissionForm.cost_estimate_add = true;
+            //         // $scope.permissionForm.proposal_sharing_add = true;
+            //         // $scope.permissionForm.customer_response_add = true;
+            //         // $scope.permissionForm.employee_add = true;
+            //         // $scope.permissionForm.project_add = true;
+            //         // $scope.permissionForm.task_add = true;
+            //         $scope.permissionForm.contract_add = true;
+            //         // $scope.permissionForm.supplier_detail_add = true;
+            //         // $scope.permissionForm.customer_detail_add = true;
+            //         // $scope.permissionForm.project_schedule_add = true;
+            
+            //     }
+            //     else{
+            //         $scope.permissionForm.enquiry_add = false;
+            //         // $scope.permissionForm.project_summary_add = false;
+            //         $scope.permissionForm.technical_estimate_add = false;
+            //         $scope.permissionForm.cost_estimate_add = false;
+            //         // $scope.permissionForm.proposal_sharing_add = false;
+            //         // $scope.permissionForm.customer_response_add = false;
+            //         // $scope.permissionForm.employee_add = false;
+            //         // $scope.permissionForm.project_add = false;
+            //         // $scope.permissionForm.task_add = false;
+            //         $scope.permissionForm.contract_add = false;
+            //         // $scope.permissionForm.supplier_detail_add = false;
+            //         // $scope.permissionForm.customer_detail_add = false;
+            //         // $scope.permissionForm.project_schedule_add = false;
+
+            //     }
+               
+            // });
+
+            // $('#sale_edit').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.enquiry_edit = true;
+            //         // $scope.permissionForm.project_summary_edit = true;
+            //         $scope.permissionForm.technical_estimate_edit = true;
+            //         $scope.permissionForm.cost_estimate_edit = true;
+            //         // $scope.permissionForm.proposal_sharing_edit = true;
+            //         // $scope.permissionForm.customer_response_edit = true;
+            //         // $scope.permissionForm.employee_edit = true;
+            //         // $scope.permissionForm.project_edit = true;
+            //         // $scope.permissionForm.task_edit = true;
+            //         $scope.permissionForm.contract_edit = true;
+            //         // $scope.permissionForm.supplier_detail_edit = true;
+            //         // $scope.permissionForm.customer_detail_edit = true;
+            //         // $scope.permissionForm.project_schedule_edit = true;
+            
+            //     }
+            //     else{
+            //         $scope.permissionForm.enquiry_edit = false;
+            //         // $scope.permissionForm.project_summary_edit = false;
+            //         $scope.permissionForm.technical_estimate_edit = false;
+            //         $scope.permissionForm.cost_estimate_edit = false;
+            //         // $scope.permissionForm.proposal_sharing_edit = false;
+            //         // $scope.permissionForm.customer_response_edit = false;
+            //         // $scope.permissionForm.employee_edit = false;
+            //         // $scope.permissionForm.project_edit = false;
+            //         // $scope.permissionForm.task_edit = false;
+            //         $scope.permissionForm.contract_edit = false;
+            //         // $scope.permissionForm.supplier_detail_edit = false;
+            //         // $scope.permissionForm.customer_detail_edit = false;
+            //         // $scope.permissionForm.project_schedule_edit = false;
+
+            //     }
+               
+            // });
+            // $('#sale_delete').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.enquiry_delete = true;
+            //         // $scope.permissionForm.project_summary_delete = true;
+            //         $scope.permissionForm.technical_estimate_delete = true;
+            //         $scope.permissionForm.cost_estimate_delete = true;
+            //         // $scope.permissionForm.proposal_sharing_delete = true;
+            //         // $scope.permissionForm.customer_response_delete = true;
+            //         // $scope.permissionForm.employee_delete = true;
+            //         // $scope.permissionForm.project_delete = true;
+            //         // $scope.permissionForm.task_delete = true;
+            //         $scope.permissionForm.contract_delete = true;
+            //         // $scope.permissionForm.supplier_detail_delete = true;
+            //         // $scope.permissionForm.customer_detail_delete = true;
+            //         // $scope.permissionForm.project_schedule_delete = true;
+            
+            //     }
+            //     else{
+            //         $scope.permissionForm.enquiry_delete = false;
+            //         // $scope.permissionForm.project_summary_delete = false;
+            //         $scope.permissionForm.technical_estimate_delete = false;
+            //         $scope.permissionForm.cost_estimate_delete = false;
+            //         // $scope.permissionForm.proposal_sharing_delete = false;
+            //         // $scope.permissionForm.customer_response_delete = false;
+            //         // $scope.permissionForm.employee_delete = false;
+            //         // $scope.permissionForm.project_delete = false;
+            //         // $scope.permissionForm.task_delete = false;
+            //         $scope.permissionForm.contract_delete = false;
+            //         // $scope.permissionForm.supplier_detail_delete = false;
+            //         // $scope.permissionForm.customer_detail_delete = false;
+            //         // $scope.permissionForm.project_schedule_delete = false;
+
+            //     }
+               
+            // });
+            // $('#project_index').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.project_schedule_index = true;
+            //     }
+            //     else{
+            //         $scope.permissionForm.project_schedule_index = false;
+            //     }
+            // });
+            // $('#project_add').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.project_schedule_add = true;
+            //     }
+            //     else{
+            //         $scope.permissionForm.project_schedule_add = false;
+            //     }
+            // });
+            // $('#project_edit').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.project_schedule_edit = true;
+            //     }
+            //     else{
+            //         $scope.permissionForm.project_schedule_edit = false;
+            //     }
+            // });
+            // $('#project_delete').on('change', function() {
+            //     var checked = this.checked;
+            //     if(checked)
+            //     {
+            //         $scope.permissionForm.project_schedule_delete = true;
+            //     }
+            //     else{
+            //         $scope.permissionForm.project_schedule_delete = false;
+            //     }
+            // });
+            
+            
         });
 
         app.controller('WoodEstimateController', function($scope, $http, $routeParams,API_URL){
@@ -376,6 +627,7 @@
                 }).then(function successCallback(response) {
                     $('#woodestimate-form-popup').modal('hide');
                     Message('success',response.data.msg);
+                    $scope.wood_estimate_item = {};
                     getWoodEstimates();
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors.name[0]);
@@ -430,6 +682,7 @@
                         $scope.form_color = "primary";
                         $scope.modalstate   =   'add'
                         $scope.task_list_item = {};
+                        $scope.precast_estimate_item = {};
                         $('#precastestimate-form-popup').modal('show');
                         break;
                     case 'edit':
@@ -459,6 +712,7 @@
                     $('#precastestimate-form-popup').modal('hide');
                     Message('success',response.data.msg);
                     getPrecastEstimates();
+                    $scope.precast_estimate_item = {};
                 }, function errorCallback(response) {
                     Message('danger',response.data.errors.name[0]);
                 });
@@ -498,13 +752,59 @@
 
         app.controller('moduleController', function ($scope, $http, API_URL, $location) {
             $location.path('/role');
+          
             //fetch users listing from 
             $scope.moduleGetData = function () {
                 $scope.active = "active";
                 $scope.getData($http, API_URL);
                 angular.element(document.querySelector("#loader")).addClass("d-none"); 
             }
- 
+            var role_id = 1
+          
+            $scope.rolePermission = function () {
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}get-permission/1`,
+                }).then(function successCallback(res) {
+                    if(res.data.status == true){
+                        $scope.permissionForm = res.data.permission
+                        return false;
+                    } 
+                }, function errorCallback(error) {
+                    return false;
+                });
+
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}permission/1`,
+                }).then(function successCallback(res) {
+                    $location.path('/permission/2');
+                    $scope.check_permission = '2';
+                }, function errorCallback(error) {
+                    return false;
+                });
+
+                var url = API_URL + "role";
+                $http({
+                        method: 'GET',
+                        url: url,
+                    }).then(function (response) {
+                        
+                        $scope.check_permission_master = response.data;		
+                        console.log(response.data)
+                    }, function (error) {
+                        console.log(error);
+                        console.log('This is embarassing. An error has occurred. Please check the log for details');
+                    });
+            }
+          
+            $scope.changePermission = (data) =>{   
+           
+            $location.path('permission/'+data);
+            $scope.check_permission = data;
+            
+            }
+            
             $scope.roleGetData = function () {
                
                 // $scope.btnClass = $(this).addClass(active);
@@ -550,11 +850,46 @@
             //     alert()
             //     // $scope.getRoleData($http, API_URL);
             // }
+            $scope.costPreset = function () {
+                $('#costEstimationTab').hide();
+            };
+            $scope.servicesTab = function () {
+                $('#costEstimationTab').show();
+            };
+            
+            $scope.precostEstimationService = function () {
+                $('#preCostEstimationTab').show();
+            };
+            $scope.precostEstimation = function () {
+                $('#preCostEstimationTab').hide();
+            };
+            
+            // $scope.masterEstimation = function () {
+            //     alert(API_URL + "masterEstimation-file")
+            //     window.location = "#!/master-estimate"
+            // };
+
+            
+            // $http({
+            //             method: 'GET',
+            //             url: API_URL + "masterEstimation-file"
+            //         }).then(function (response) {
+            //         console.log(response)
+            //         alert()
+            //         $scope.module_get = response.data;	
+            //         return false;
+            //             console.log(response.data)
+            //             $scope.module_get = response.data;	
+                       
+                        
+            //         }, function (error) {
+            //             console.log(error);
+            //             console.log('This is embarassing. An error has occurred. Please check the log for details');
+            //         });
+            // }
             
                 $(document).on('click','.cal_delete', function(){
-                // alert()
                 var delete_id = $(this).data('col_delete_id');
-                // alert($(this).data('col_delete_id'))
                 $.ajax({
                     type: "DELETE",
                     url: "{{ route('admin.col-delete') }}",
@@ -567,9 +902,15 @@
                         Message('success',msg.msg);
                         // getMasterCalculation($http, API_URL);
                         $scope.getMasterCalculation($http, API_URL);
+                        // $location.path('/wood-estimation');
+                        // location.reload();
+                        $window.location.reload();
+                        location.url('/wood-estimation');
+                      
                     }
+                    })
                     });
-            });
+            
             $(document).on('keyup change','.cal_submit', function(){
                 // alert()
                 console.log($(this).data('component_id'));
@@ -772,7 +1113,30 @@
                 
                 } 
             
-            
+                $scope.component_cost_estimate_status = function(index  , id) {
+                    var url = API_URL + "building-component" + "/cost-estimate-status";
+                    if (id) {
+
+                        url += "/" + id;
+                        method = "PUT";
+
+                        $http({
+                            method: method,
+                            url: url,
+                            data: $.param({'cost_estimate_status':0}),
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+                        }).then(function (response) {
+                            $scope.getComponentData($http, API_URL);
+                            Message('success',response.data.msg);
+
+                        }), (function (error) {
+                            console.log(error);
+                            console.log('This is embarassing. An error has occurred. Please check the log for details');
+                        });
+
+                    }
+                }
             
                 $scope.component_status = function (index  , id) {
 
@@ -1282,7 +1646,7 @@
         
                 switch (modalstate) {
                     case 'add':
-                        $scope.form_title = "Create Output Type";
+                        $scope.form_title = "Create Building Type";
                         $scope.form_color = "primary";
                         $scope.module_output = {};
                         // $scope.OutputModule.$setPristine();
@@ -1291,7 +1655,7 @@
 
                         break;
                     case 'edit':
-                        $scope.form_title = "Edit Output Type";
+                        $scope.form_title = "Edit Building Type";
                         $scope.form_color = "success";
                         $scope.id = id;
                         $scope.module_output = {};
@@ -2847,28 +3211,125 @@
             
             
         });  
-        app.controller('TaskListController', function ($scope, $http, API_URL, $location) {
+        // app.controller('TaskListController', function ($scope, $http, API_URL, $location) {
             
+        //     $scope.getFreshTaskListData = () => {
+        //         $http.get(`${API_URL}task-list-master`).then((res)=> {
+        //             $scope.taskLists = res.data; 
+        //         });
+        //     }
+        //     $scope.getFreshTaskListData();
+
+
+        //     $scope.toggleModalForm = function (modalstate, id) {
+        //         $scope.modalstate = modalstate;
+        //         switch (modalstate) {
+        //             case 'add':
+        //                 $scope.form_title = "Create Task";
+        //                 $scope.form_color = "primary";
+        //                 $scope.modalstate   =   'add'
+        //                 $scope.task_list_item = {};
+        //                 $('#tasklist-form-popup').modal('show');
+        //                 break;
+        //             case 'edit':
+        //                 $scope.form_title = "Edit Task";
+        //                 $scope.form_color = "success";
+        //                 $scope.id = id; 
+        //                 $scope.task_list_item = {};
+        //                 $http.get(`${API_URL}task-list-master/${id}`)
+        //                     .then(function (response) {
+        //                         $scope.task_list_item = response.data.data;
+        //                         $('#tasklist-form-popup').modal('show');
+                                
+        //                     });
+        //                 break;
+                    
+        //             default:
+        //                 break;
+        //         } 
+        //     }
+
+        //     $scope.storeModalTaskForm = (modalstate, id) => { 
+        //         $http({
+        //             method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+        //             url: `${API_URL}task-list-master${modalstate == 'edit' ? '/'+id : ''}`,
+        //             data:$.param($scope.task_list_item),
+        //             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        //         }).then(function successCallback(response) {
+        //             $('#tasklist-form-popup').modal('hide');
+        //             Message('success',response.data.msg);
+        //             $scope.getFreshTaskListData();
+        //         }, function errorCallback(response) {
+        //             console.log(response)
+        //             Message('danger',response.data.errors.task_list_name[0]);
+        //         });
+        //     }
+
+        //     $scope.changeTaskListStatus = (id , params) =>{
+        //         $http({
+        //             method: "put",
+        //             url: `${API_URL}task-list-master/${id}`,
+        //             data: $.param({'is_active':params == 1 ? 0 : 1}),
+        //             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        //         }).then(function (response) {
+        //             $scope.getFreshTaskListData();
+        //             Message('success',response.data.msg);
+        //         }), (function (error) {
+        //             console.log(error);
+        //         });
+        //     }
+
+        //     $scope.deleteThisData   =   (id) => {
+        //         swal({
+        //             title: "Are you sure?",
+        //             text: "Once deleted, you will not be able to recover this Data!",
+        //             icon: "warning",
+        //             buttons: true,
+        //             dangerMode: true,
+        //         }).then((willDelete) => {
+        //             if(willDelete) {
+        //                 $http.delete(`${API_URL}task-list-master/${id}`).then(function (response) {
+        //                     $scope.getFreshTaskListData();
+        //                     Message('success',response.data.msg);
+        //                 }); 
+        //             }
+        //         });
+        //     }
+        // });
+        app.controller('CheckSheetController', function ($scope, $http, API_URL, $location) {
+            $scope.getFreshCheckSheetData = () => {
+                $http.get(`${API_URL}check-sheet-master`).then((res)=> {
+                    $scope.checkSheet = res.data; 
+                });
+            }
+            $scope.getFreshActivityListData = () => {
+               
+                $http.get(`${API_URL}activity-list-master`).then((res)=> {
+                        $scope.activityList = res.data; 
+                    });
+            }
             $scope.getFreshTaskListData = () => {
                 $http.get(`${API_URL}task-list-master`).then((res)=> {
                     $scope.taskLists = res.data; 
                 });
             }
+            
+            $scope.getFreshActivityListData();
+            $scope.getFreshCheckSheetData();
             $scope.getFreshTaskListData();
-
 
             $scope.toggleModalForm = function (modalstate, id) {
                 $scope.modalstate = modalstate;
                 switch (modalstate) {
                     case 'add':
-                        $scope.form_title = "Create Task";
+                        $scope.form_title = "Create Delivery List";
                         $scope.form_color = "primary";
                         $scope.modalstate   =   'add'
                         $scope.task_list_item = {};
                         $('#tasklist-form-popup').modal('show');
                         break;
                     case 'edit':
-                        $scope.form_title = "Edit Task";
+                        $scope.form_title = "Edit Delivery List";
                         $scope.form_color = "success";
                         $scope.id = id; 
                         $scope.task_list_item = {};
@@ -2931,20 +3392,207 @@
                     }
                 });
             }
+       
+            
+            $scope.toggleModalCheckSheetForm = (modalstate, id) => {
+                $scope.modalstate = modalstate;
+
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Check Sheet";
+                        $scope.form_color = "primary";
+                        $scope.check_sheet_item = {};
+                        $('#checksheet-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Check Sheet";
+                        $scope.form_color = "success";
+                        $scope.id = id;
+                        $scope.check_sheet_item = {};
+                        
+                        $http.get(`${API_URL}check-sheet-master/${id}`).then(function (response) {
+                            $scope.check_sheet_item = response.data.data;
+                            $('#checksheet-form-popup').modal('show');
+                        });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+            $scope.toggleModalActivityListForm = (modalstate, id) => {
+
+                $scope.modalstate = modalstate;
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Create Activity List";
+                        $scope.form_color = "primary";
+                        $scope.activity_list_item = {};
+                        $('#activityList-form-popup').modal('show');
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Edit Activity List";
+                        $scope.form_color = "success";
+                        $scope.id = id;
+                        $scope.delivery_list_item = {};
+                        
+                        $http.get(`${API_URL}activity-list-master/${id}`).then(function (response) {
+                            $scope.activity_list_item = response.data.data;
+                            $('#activityList-form-popup').modal('show');
+                        });
+                        break;
+                    
+                    default:
+                        break;
+                } 
+            }
+            
+            $scope.storeModalCheckSheetForm = (modalstate, id) => {
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}check-sheet-master${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.check_sheet_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    // alert("111")
+                    // alert(response.data)
+                    $('#checksheet-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    $scope.getFreshCheckSheetData();
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors.name[0]);
+                });
+            }
+
+            $scope.storeModalActivityListForm = (modalstate, id) => {
+                // alert(modalstate)
+                // alert(id)
+                $http({
+                    method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
+                    url: `${API_URL}activity-list-master${modalstate == 'edit' ? '/'+id : ''}`,
+                    data:$.param($scope.activity_list_item),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function successCallback(response) {
+                    $('#activityList-form-popup').modal('hide');
+                    Message('success',response.data.msg);
+                    $scope.getFreshActivityListData();
+                }, function errorCallback(response) {
+                    Message('danger',response.data.errors.name[0]);
+                });
+            }
+            $scope.changeCheckSheetStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}check-sheet/${id}/status`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    $scope.getFreshCheckSheetData();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+            $scope.changeActivityListStatus = (id , params) =>{
+                $http({
+                    method: "put",
+                    url: `${API_URL}activity-list/${id}/status`,
+                    data: $.param({'is_active':params == 1 ? 0 : 1}),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (response) {
+                    $scope.getFreshActivityListData();
+                    Message('success',response.data.msg);
+                }), (function (error) {
+                    console.log(error);
+                });
+            }
+            
+            $scope.deleteThisSheetData   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}check-sheet-master/${id}`).then(function (response) {
+                            $scope.getFreshCheckSheetData();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
+            $scope.deleteThisActivityListData   =   (id) => {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this Data!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $http.delete(`${API_URL}activity-list-master/${id}`).then(function (response) {
+                            $scope.getFreshActivityListData();
+                            Message('success',response.data.msg);
+                        }); 
+                    }
+                });
+            }
         });
         app.controller('CheckListController', function ($scope, $http, API_URL, $location) {
 
             $scope.getFreshTaskListData = () => {
                 $http.get(`${API_URL}task-list-master`).then((res)=> {
                     $scope.task_list_master = res.data; 
+                    $scope.task_list_master1 = res.data; 
                 });
             }
             $scope.getFreshTaskListData();
 
+            $scope.getFreshCheckSheetData = () => {
+                $http.get(`${API_URL}check-sheet-master`).then((res)=> {
+                    $scope.check_sheet_master = res.data; 
+                    $scope.check_sheet_master1 = res.data; 
+                });
+            }
+            $scope.getFreshCheckSheetData();
+            $scope.getFreshActivityListData = () => {
+                $http.get(`${API_URL}activity-list-master`).then((res)=> {
+                    $scope.activity_list_master = res.data; 
+                    $scope.activity_list_master1 = res.data; 
+                });
+            }
+            $scope.getFreshActivityListData();
+
+            
             $scope.getFreshCheckListData    =   ()  => {
                 $http.get(`${API_URL}check-list-master`).then((res)=> {
                     $scope.checkList = res.data;
                 });
+            }
+            $scope.changedValue = () =>{
+                // $scope.checkSheet = checkSheet;
+              console.log($scope.check_list_item1.name);
+              console.log($scope.check_list_item1.task_list_category);
+              console.log($scope.check_list_item1.task_list);
+
+                // alert($scope.check_list_item.name)
+                // console.log(checkSheet);
+                $http({
+                    method: "POST",
+                    url: `${API_URL}select-check-sheet`,
+                    data: {"checkSheet":$scope.check_list_item1.name,"deliveryList":$scope.check_list_item1.task_list_category,"activityList":$scope.check_list_item1.task_list},
+                }).then(function successCallback(res) {
+                    $scope.checkList = res.data;
+                }, function errorCallback(response) {
+                    
+                });
+            }
+            $scope.resetButton = () =>{
+                $scope.getFreshCheckListData();
+                $scope.check_list_item1 = {};
+                 
             }
             $scope.getFreshCheckListData();
 
@@ -2975,6 +3623,8 @@
             }
 
             $scope.storeModalForm = (modalstate, id) => {
+                // console.log($.param($scope.check_list_item));
+                // return false;
                 $http({
                     method: `${modalstate == 'edit' ? 'PUT' : 'POST'}`,
                     url: `${API_URL}check-list-master${modalstate == 'edit' ? '/'+id : ''}`,
@@ -2982,6 +3632,7 @@
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).then(function successCallback(response) {
                     $('#checklist-form-popup').modal('hide');
+                    $scope.check_list_item1 = {};
                     Message('success',response.data.msg);
                     $scope.getFreshCheckListData();
                 }, function errorCallback(response) {

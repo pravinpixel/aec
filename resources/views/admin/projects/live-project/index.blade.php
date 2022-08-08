@@ -177,14 +177,14 @@
                 if($location.path() == '/invoice-status') {
                     //$scope.PrevRoute   =   "/variation-orders"
                     $scope.PrevRoute   =   "/tickets"
-                    $scope.NextRoute   =   "/notes"
+                    $scope.NextRoute   =   "/doc-management"
                 }
                 if($location.path() == '/doc-management') {
                     $scope.PrevRoute   =   "/invoice-status"
                     $scope.NextRoute   =   "/notes"
                 }
                 if($location.path() == '/notes') {
-                    $scope.PrevRoute        =   "/invoice-status"
+                    $scope.PrevRoute        =   "/doc-management"
                     $scope.NextRoute        =   "/notes"
                     $scope.HideNextRoute    =   false;
                     $scope.SubmitRoute      =   true;
