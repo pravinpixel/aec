@@ -681,7 +681,7 @@ app.controller('ToDoListController', function($scope, $http, API_URL, $location)
 app.controller('milestoneController', function($scope, $http, API_URL, $rootScope)
 {
   let project_id = $('#project_id').val();;
-  //console.log(project_id);
+  console.log(project_id);
   //var project_id  = $('#project_id').val();
   var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
   dp.init(gantt);
@@ -958,6 +958,7 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
     console.dir($scope);
   }
   let project_id = $('#project_id').val();
+
   $("#rasieTicketDetails").modal('hide');
   $scope.SelectFile = function(e)
   {
@@ -997,13 +998,14 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
         //console.log(item.first_name);
         quotations.push(item.first_name);
       })
-      quotations.push(res.data.cus);
+     // quotations.push(res.data.cus);
       var jsonData = [];
       for (var i = 0; i < quotations.length; i++) jsonData.push(
       {
         id: i,
         name: quotations[i]
       });
+      console.log(jsonData);
       var ms1 = $('#ms1').tagSuggest(
       {
         data: jsonData,

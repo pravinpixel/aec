@@ -10,6 +10,7 @@ class ProjectTicket extends Model
     use HasFactory;
     protected $fillable = [
         'project_id',
+        'ticket_comment_id',
         'title',
         'description',
         'response',

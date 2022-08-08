@@ -135,7 +135,7 @@ Route::group(['prefix' => 'customer', 'middleware'=>'common'], function () {
     // ==========  Live PROJECT flow  ================
     Route::get('live-project/overview', function () {
         return view('customer.projects.live-project.wizard.overview');
-    })->name('live-project.overview');
+    })->name('customer-live-project.overview');
 
     Route::get('live-project/milestone', function () {
         return view('customer.projects.live-project.wizard.milestone');
@@ -143,24 +143,24 @@ Route::group(['prefix' => 'customer', 'middleware'=>'common'], function () {
     
     Route::get('live-project/bim360', function () {
         return view('customer.projects.live-project.wizard.bim360');
-    })->name('live-project.bim360');
+    })->name('customer-live-project.bim360');
 
     Route::get('live-project/tickets', function () {
         return view('customer.projects.live-project.wizard.tickets');
-    })->name('live-project.tickets');
+    })->name('customer-live-project.tickets');
 
     Route::get('live-project/variation-orders', function () {
         return view('customer.projects.live-project.wizard.variation-orders');
-    })->name('live-project.variation-orders');
+    })->name('customer-live-project.variation-orders');
 
   
     Route::get('live-project/doc-management', function () {
         return view('customer.projects.live-project.wizard.doc-management');
-    })->name('live-project.doc-management');
+    })->name('customer-live-project.doc-management');
 
     Route::get('live-project/notes', function () {
         return view('customer.projects.live-project.wizard.notes');
-    })->name('live-project.notes');
+    })->name('customer-live-project.notes');
   
     // ========== END  :  Live PROJECT flow  ================
  

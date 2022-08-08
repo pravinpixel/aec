@@ -131,16 +131,12 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
 
     public function findprojectticket($id)
     {
-
-        $ticket =  $this->model->find($id);
-      
-        if (null == $ProjectTicket['ticket'] = $this->model->find($id)) {
+        $ticket =  $this->model->where('ticket_comment_id',$id)->first();
+        //dd($ticket);
+        if (null == $ProjectTicket['ticket'] = $this->model->where('ticket_comment_id',$id)->first()) {
             throw new ModelNotFoundException("Issue not found");
         }
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($ticket->project_id);
-       
-        //$this->projectModel->find($id);
-      
         return $ProjectTicket;
     }
 

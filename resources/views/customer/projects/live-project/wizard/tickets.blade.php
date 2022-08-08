@@ -254,6 +254,7 @@
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',pticketscomment.id)">View/Reply</a>
+                                            <a class="dropdown-item" ng-show="pticketscomment.variation_order == 1"  ng-click="projectticketshow(pticketscomment.id)" >View</a>
                                             <a class="dropdown-item"ng-click = "ticketdelete(pticketscomment.id)">Delete</a>
                                             
                                         </div>
@@ -570,7 +571,7 @@
 
 
 
-<div id="Variation_mdal-box_pop" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="Variation_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-right h-100" style="width:100% !important">
         <div class="modal-content h-100">
             <div class="modal-header border-0">

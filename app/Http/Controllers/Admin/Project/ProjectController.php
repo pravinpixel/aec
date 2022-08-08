@@ -1117,16 +1117,11 @@ class ProjectController extends Controller
     }
     
     public function ticketcreate(Request $request){
-       
+       //dd($request->input());
         DB::beginTransaction();
         try{
-
             $maildata = "<html> <body><table class='table custom table-bordered'> <thead> <tr> <td colspan='2' class='text-center' style='background: #F4F4F4'><b class='h4'>Variation Request - 01</b></td> </tr> <tr> <td colspan='2' class='text-center'><b class='h4'>Architectural Support for Hytte Norefiell</b></td> </tr> </thead> <tbody> <tr> <td width='200px'><b>Project Name</b></td> <td>Hytte Norefiell</td> </tr> <tr> <td><b>Client Name</b></td> <td>Modul Pluss</td> </tr> <tr> <td><b>Project Incharge</b></td> <td>Mariusz Pierzgalski</td> </tr> <tr> <td><b>Date of Change Request</b></td> <td>22/05/2021</td> </tr> </tbody> </table> <table class='table custom table-bordered'> <tbody> <tr><td colspan='2' class='text-center' style='background: #F4F4F4'><b>Change Request Overview</b></td></tr> <tr> <td width='250px'><b>Description of Variation / Change</b></td> <td>Architectural support for over all building design & detailing</td> </tr> <tr> <td><b>Reason for Variation / Change</b></td> <td>There was no Architectural design for the building</td> </tr> </tbody> </table> <table class='table custom table-bordered'> <tbody> <tr><td colspan='4'class='text-center' style='background: #F4F4F4'><b>Change in Contract Price</b></td></tr> <tr> <td><b>Estimated Hours</b></td> <td><b>Price/Hr</b></td> <td rowspan='2'></td> <td rowspan='2' class='text-center'>kr 30, 000</td> </tr> <tr> <td>60</td> <td>kr 500</td> </tr> </tbody> <tfoot> <tr> <td colspan='2'></td> <td rowspan='2' class='text-end'><b>Total Price</b></td> <td rowspan='2' class='text-center'><b>kr 30, 000</b></td> </tr> </tfoot> </table></body></html>";
-
-
-
-           
-            $data = [
+             $data = [
                 'project_id'     => $request->data['projectid'],
                 'title'          => $request->data['title'],
                 'description'    => $request->description,
@@ -1137,6 +1132,7 @@ class ProjectController extends Controller
                 'total_price'    =>$request->data['hours'] * $request->data['price'] ,
                 'status'         =>  1,
                 'is_mail_sent'   => $maildata,
+                'ticket_comment_id'=> $request->ticket_comment
                 
             ];
           
@@ -1186,6 +1182,7 @@ class ProjectController extends Controller
     }
 
     public function projectticketfind($id){
+       
         return $this->ProjectTicket->findprojectticket($id);
 
     }
@@ -1246,9 +1243,16 @@ class ProjectController extends Controller
                     ->first();
     }
      public function getRoleByProjectSlug($name,$type,$project_id){
-        
 
-        if($type == 'internal'){
+        list($seenBy, $role_id,$created_by) = $this->getUser();
+      
+        if($type == 'internal' &&  $role_id == ''){
+            $result['team'] = $this->roleRepository->getRoleBySlug($name);
+            $projectdata  = $this->projectRepo->liveprojectdata($project_id);
+            $result['user'] =  $projectdata->customerdatails;
+
+        }
+        else if($type == 'internal'){
             $result['team'] = $this->roleRepository->getRoleBySlug($name);
             $result['user'] =  Employees :: find(Admin()->id);
         }else{
@@ -1260,6 +1264,23 @@ class ProjectController extends Controller
         return $result;
 
 
+    }
+
+    public function getUser()
+    {
+
+        //dd(Admin());
+        if (!empty(Customer()->id)) {
+            $seenBy = Customer()->id;
+            $role_id = '';
+            $created_by = 'Admin';
+        } else {
+            $seenBy =  Admin()->id;
+            $role_id = Admin()->job_role;
+
+            $created_by = 'Customer';
+        }
+        return [$seenBy, $role_id,$created_by];
     }
 
    

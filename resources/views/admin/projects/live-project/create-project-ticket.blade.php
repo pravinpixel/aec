@@ -20,14 +20,21 @@
             <div class="row">
                 <div class="col-md-12 mb-4">
                     <div class="card shadow-lg mb-0">
+                        @php
+                        $urlsplit = explode('-',$id);
+                        //dd($urlsplit);
+
+                            
+                        @endphp
                         <div class="card-body p-4"> 
                             <form class="needs-validations"  id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationForm()" novalidate>
-                                <input type = "hidden" name = "project_id" id = "project_id" ng-model = "ticket.project_id" value = "{{$id}}">
+                                <input type = "hidden" name = "project_id" id = "project_id" ng-model = "ticket.project_id" value = "{{$urlsplit[0]}}">
+                                <input type = "text" name = "tickrt_comment_id" id = "ticket_comment_id"  value = "{{$urlsplit[1]}}">
 
                                 <table class="table custom table-bordered">
                                     <thead>
                                         <tr>
-                                            <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
+                                            <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request</b></td>
                                         </tr>
                                         
                                     </thead>

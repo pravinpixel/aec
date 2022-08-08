@@ -98,7 +98,7 @@ class TicketCommentsController extends Controller
         $title          =   'New Message From AEC - '.Admin()->id;
         $body           =   $request->comments;
 
-        return  response(['status' => true, 'data' => 'Success', 'variation' => $result->variation_order ,'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
+        return  response(['status' => true,'titketid'=>$result->id,  'data' => 'Success', 'variation' => $result->variation_order ,'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
     }
 
 

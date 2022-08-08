@@ -157,37 +157,30 @@
          app.config(function($routeProvider) {
             $routeProvider
             .when("/", {
-                templateUrl : "{{ route('live-project.overview') }}",
+                templateUrl : "{{ route('customer-live-project.overview') }}",
             }) 
             .when("/milestone", {
                 templateUrl : "{{ route('live-project.milestone') }}",
                 controller: 'milestoneController',
             })
-            .when("/task-list", {
-                templateUrl : "{{ route('live-project.task-list') }}",
-                controller: 'TasklistController',
-
-            })
+           
             .when("/bim360", {
-                templateUrl : "{{ route('live-project.bim360') }}",
+                templateUrl : "{{ route('customer-live-project.bim360') }}",
             })
             .when("/tickets", {
-                templateUrl : "{{ route('live-project.tickets') }}",
+                templateUrl : "{{ route('customer-live-project.tickets') }}",
                 controller: 'TicketController',
             })
             .when("/variation-orders", {
-                templateUrl : "{{ route('live-project.variation-orders') }}",
+                templateUrl : "{{ route('customer-live-project.variation-orders') }}",
                 controller: 'TicketController',
             })
-            .when("/invoice-status", {
-                templateUrl : "{{ route('live-project.invoice-status') }}",
-                controller: 'InvoiceController',
-            })
+           
             .when("/doc-management", {
-                templateUrl : "{{ route('live-project.doc-management') }}",
+                templateUrl : "{{ route('customer-live-project.doc-management') }}",
             })
             .when("/notes", {
-                templateUrl : "{{ route('live-project.notes') }}",
+                templateUrl : "{{ route('customer-live-project.notes') }}",
                 controller: 'GendralController',
             }) 
             .otherwise({
