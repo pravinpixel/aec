@@ -127,4 +127,22 @@ class GlobalServiceProvider extends Controller
         $randomNumber = random_int(100000, 999999);
         return $randomNumber;
     }
+
+    public function getProposalStatusValue($status) {
+        switch ($status) {
+            case 'change_request':
+                $value = 3;
+                break;
+            case 'deny':
+                $value = 2;
+                break;
+            case 'approve':
+                $value = 1;
+                break;
+            default:
+                $value = 2;
+                break;
+        }
+        return $value;
+    }
 }

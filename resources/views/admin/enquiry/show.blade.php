@@ -2134,7 +2134,7 @@
             getDeliveryManager();
 
             $scope.moveToProject = () => {
-               let assigned_to = $scope.customer_response_obj.assign_user ?? false;
+               let assigned_to = $scope.customer_response_obj.assign_user ?? {{ Admin()->id }};
                if(assigned_to == false) {
                     Message('danger', 'Assign field required'); return false;
                }

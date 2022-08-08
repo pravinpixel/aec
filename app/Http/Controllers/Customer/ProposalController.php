@@ -7,6 +7,7 @@ use App\Models\Admin\MailTemplate;
 use App\Models\Admin\PropoalVersions as ProposalVersions;
 use App\Models\Enquiry;
 use App\Repositories\CustomerEnquiryRepository;
+use App\Services\GlobalService;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 
@@ -48,7 +49,7 @@ class ProposalController extends Controller
         $enquiry     = Enquiry::find($enquiry_id);
         if($type == 'change_request' || $type == 'deny') {
             $enquiry->project_status = "Unattended";
-            $enquiry->customer_response = 2;
+            $enquiry->customer_response = GlobalService::getProposalStatusValue($type);
             $enquiry->proposal_sharing_status = 0;
             $enquiry->save();
             $this->addComment($enquiry_id, $request, $type);
