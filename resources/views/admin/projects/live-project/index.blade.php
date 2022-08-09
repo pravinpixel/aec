@@ -132,11 +132,7 @@
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/create-project.js") }}"></script> 
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/tag.js") }}"></script> 
    
-    <script> 
-
-
-
-
+    <script>  
 
         app.controller("LiveProjectController", function($rootScope, $scope, $location){
             $rootScope.$on("$locationChangeSuccess", function(event, newUrl){

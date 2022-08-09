@@ -120,7 +120,7 @@ class EnquiryController extends Controller
         if($type == 'approve') {
             $result =   Enquiry::find($id);
             $result ->  project_status = 'Active';
-            $result ->  customer_response = 1;
+            $result ->  customer_response = GlobalService::getProposalStatusValue($type);
             $result ->  save();
             $proposal           =   MailTemplate::where('enquiry_id', $id)->whereNotIn('proposal_id', [$proposal_id])
                                                     ->update(['is_active' => 0]);
@@ -691,8 +691,8 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
-                $proposal_active_border = $dataDb->proposal_sharing_status == 1 ? 'border-success': 'border-primary';
-                $proposal_active_bg = $dataDb->proposal_sharing_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten text-primary';
+                $proposal_active_border = $dataDb->proposal_email_status == 1 ? 'border-success': 'border-primary';
+                $proposal_active_bg = $dataDb->proposal_email_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten text-primary';
                 $data = '<button type="button" class="badge '.$proposal_active_bg.' btn p-2 position-relative '.$proposal_active_border.'"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
                     <b>'. $dataDb->enquiry_number .'</b>';
                 if($commentCount != 0){

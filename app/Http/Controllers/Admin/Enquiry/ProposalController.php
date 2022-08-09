@@ -8,6 +8,7 @@ use App\Models\Admin\MailTemplate;
 use App\Models\Admin\PropoalVersions as ProposalVersions;
 use App\Models\Enquiry;
 use App\Repositories\CustomerEnquiryRepository;
+use App\Services\GlobalService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Crypt;
 use Laracasts\Flash\Flash;
@@ -98,9 +99,11 @@ class ProposalController extends Controller
             return response(['status' => false, 'msg' => __('enquiry.generate_proposal')]);
         }
         $enquiry = Enquiry::find($id);
-        if(!isset($childVersion->updated_at)) {
+        if(!isset($childVersion->created_at)) {
             $result = $this->customerEnquiryRepo->sendCustomerProPosalMail($id, $rootVersion->proposal_id, null);
-        } else if($rootVersion->updated_at > $childVersion->updated_at) {
+        }else if(!isset($rootVersion->updated_at)) {
+            $result = $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $childVersion->proposal_id, null, $childVersion->id);
+        }else if($rootVersion->updated_at > $childVersion->updated_at) {
             $result = $this->customerEnquiryRepo->sendCustomerProPosalMail($id, $rootVersion->proposal_id, null);
         } else {
             $result = $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $childVersion->proposal_id, null, $childVersion->id);
@@ -123,7 +126,7 @@ class ProposalController extends Controller
         $enquiry     = Enquiry::find($enquiry_id);
         if($type == 'change_request' || $type == 'deny') {
             $enquiry->project_status = "Unattended";
-            $enquiry->customer_response = 2;
+            $enquiry->customer_response = GlobalService::getProposalStatusValue($type);
             $enquiry->proposal_sharing_status = 0;
             $enquiry->save();
             $other = [
@@ -136,7 +139,7 @@ class ProposalController extends Controller
         } 
         if($type == 'approve'){ 
             $enquiry->project_status = "Active";
-            $enquiry->customer_response = 1;
+            $enquiry->customer_response = GlobalService::getProposalStatusValue($type);
             $enquiry->save();
             MailTemplate::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);
             ProposalVersions::where('enquiry_id', $enquiry_id)->update(['proposal_status' => 'obsolete']);      

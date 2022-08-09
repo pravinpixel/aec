@@ -37,7 +37,7 @@
     </li> 
     @endif
     @if(userHasAccess('proposal_sharing_index'))
-    <li class="nav-item admin-Proposal_Sharing-wiz" ng-class="{last:proposal_sharing_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
+    <li class="nav-item admin-Proposal_Sharing-wiz" ng-class="{last:proposal_email_status == 0}" style="pointer-events: @{{ cost_estimation_status ==  0 ? 'none' :'unset' }}">
         <a href="#!/proposal-sharing" style="min-height: 40px;"  class="timeline-step">
             <div class="timeline-content">
                 <div class="inner-circle @{{ proposal_sharing_status == '1' ? 'bg-primary' :'bg-secondary' }}">
@@ -197,13 +197,13 @@
                                                                     <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'root'">
                                                                         <a  class="btn dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
                                                                         <a  class="btn dropdown-item" ng-click="ViewEditPropose(V.proposal_id, false)">View</a>
-                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomer(V.proposal_id)">Send Proposal</a>
+                                                                        {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(V.proposal_id)">Send Proposal</a> --}}
                                                                         <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
                                                                     </div>
                                                                     <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
                                                                         <a  class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
                                                                         <a class="dropdown-item" ng-click="ViewEditProposeVersions(V.proposal_id , V.id, false)">View </a>
-                                                                        <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a>
+                                                                        {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a> --}}
                                                                         <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.id, V.type)" > Chat</u></a>
                                                                         <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Delete</a>
                                                                     </div>
@@ -228,8 +228,8 @@
                     <a href="#!/cost-estimation" class="btn btn-light border shadow-sm">Prev</a>
                 </div>
                 <div>
-                    <a ng-show="proposal_email_status == 1" href="#!/move-to-project" style="pointer-events: @{{ proposal_email_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
-                    <a ng-show="proposal_email_status == 0" ng-click="sendProposal()" style="pointer-events: @{{ proposal_email_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Send Proposal</a>
+                    <a ng-show="proposal_email_status == 1 && customer_response == 1" href="#!/move-to-project" style="pointer-events: @{{ proposal_email_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Next</a>
+                    <a ng-show="proposal_email_status == 0 || (customer_response == 2 ||  customer_response == 3)" ng-click="sendProposal()" style="pointer-events: @{{ proposal_email_status ==  null ? 'none' :'unset' }}" class="btn btn-primary">Send Proposal</a>
                 </div>
             </div>
         </div> 

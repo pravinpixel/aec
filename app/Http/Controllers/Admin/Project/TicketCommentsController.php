@@ -98,7 +98,7 @@ class TicketCommentsController extends Controller
         $title          =   'New Message From AEC - '.Admin()->id;
         $body           =   $request->comments;
 
-        return  response(['status' => true, 'data' => 'Success', 'variation' => $result->variation_order ,'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
+        return  response(['status' => true,'titketid'=>$result->id,  'data' => 'Success', 'variation' => $result->variation_order ,'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
     }
 
 
@@ -181,7 +181,9 @@ class TicketCommentsController extends Controller
     public function replay_comments(Request $request){
         
         try {
+          
         list($seenBy, $role_by,$created_by)  =  $this->getUser();
+      
         $data = array('comments' =>$request->comments,
                       'project_ticket_id' => $request->project_ticket_id,
                       'project_id'      => isset($request->project_id) ? $request->project_id :'',
@@ -222,8 +224,8 @@ class TicketCommentsController extends Controller
         
         if(!empty(Customer()->id)){
             $seenBy = Customer()->id ;
-            $role_by = userRole()->id;
-            $created_by = Admin()->id;
+            $role_by = '0';
+            $created_by = Customer()->id;
         } else {
             $seenBy =  Admin()->id;
             $role_by = userRole()->id;

@@ -254,6 +254,8 @@
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',pticketscomment.id)">View/Reply</a>
+                                            <a class="dropdown-item" ng-show="pticketscomment.variation_order == 1"  ng-click="projectticketshow(pticketscomment.id)" >View</a>
+                                            
                                             <a class="dropdown-item"ng-click = "ticketdelete(pticketscomment.id)">Delete</a>
                                             
                                         </div>
@@ -433,21 +435,29 @@
                                     <hr>
                                     {{--  --}}
                                     <ul class="conversation__box" >
-                                     
-                                       <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ isset(Admin()->id) ? Admin()->id : ''  }}">
+
+                                        <li ng-class="{right__conversation: comment.created_by == {{ isset(Admin()->id) ? Admin()->id :Customer()->id }} , left__conversation: comment.created_by != {{ isset(Admin()->id) ? Admin()->id : Customer()->id  }}}" ng-repeat="comment in commentsData" >
                                             <div>
                                               
                                                 <p class="m-0 font-14" >   @{{comment.comments}}</p> 
                                                 <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
                                             </div>
                                         </li>
-                                        <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ isset(Admin()->id) ? Admin()->id : ''  }}">
+                                     
+                                      {{-- <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ isset(Admin()->id) ? Admin()->id :Customer()->id }}">
+                                            <div>
+                                              
+                                                <p class="m-0 font-14" >   @{{comment.comments}}</p> 
+                                                <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
+                                            </div>
+                                        </li>
+                                        <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ isset(Admin()->id) ? Admin()->id : Customer()->id  }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14">@{{comment.comments}}</p> 
                                                 <small>10:04</small>
                                             </div>
-                                        </li>
+                                        </li>--}}
                                        <!-- <li class="left__conversation">
                                             <div>
                                                 <h5 class="m-0 mb-1 font-14">
@@ -562,7 +572,7 @@
 
 
 
-<div id="Variation_mdal-box_pop" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="Variation_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-right h-100" style="width:100% !important">
         <div class="modal-content h-100">
             <div class="modal-header border-0">

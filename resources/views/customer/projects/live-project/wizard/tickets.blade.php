@@ -27,7 +27,7 @@
                                     <div class="x-y-center">
                                         <strong class="lead fw-bold ms-2">15</strong>
                                     </div>
-                                    <div class="fw-bold text-danger">CustomerOpen</div>
+                                    <div class="fw-bold text-danger">Open</div>
                                 </div>
                             </div> 
                             <div class="col">
@@ -167,73 +167,73 @@
                     </div>
                 </div>
                 <h3 class="h4 mb-0 mt-3">Issues Summary</h3>
-                <div class="d-flex justify-content-between border-bottom align-items-end">
-                    <div>
-                        <button class="fw-bold border-primary border-start-0 border-end-0 border-top-0 rounded-0 border-bottom btn btn-sm" ng-click = "tablesearch('all')">All</button>
-                        <button class="rounded-0 border-0 btn btn-sm ms-1" ng-click = "tablesearch('internal')">Internal</button>
-                        <button class="rounded-0 border-0 btn btn-sm ms-1" ng-click = "tablesearch('customer')">Customer</button>
-                    </div>
-                    <div class="pb-2">
-                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issue</button>
-                        {{-- <a  href="{{ route('admin.live-project.ticket-create', ['id'=>  1]) }}" class="btn btn-primary"><i class="mdi mdi-briefcase-plus"></i>   Create Variation Order </a>--}}
-                        <!--<button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
-                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button> -->
-                    </div>
-                </div>
-                <div class="mb-2 pt-2 row mx-0 align-items-center">
-                    <div class="d-flex align-items-center col-4 p-0">
-                        
-                    </div>
-                    <div class="col-8 p-0">
-                       
-                        <div class="input-group justify-content-end">
-                           
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"  class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <label for="test@{{$index}}" class="dropdown-item" ng-repeat="col in cols" >
-                                        <input type="checkbox"  ng-model="col.show" name="" id="test@{{$index}}" class="form-check-input me-1">
-                                        @{{col.title}}
-                                    </label>
-                                  
-                                </ul>
-                              </div>
-                           <!-- <button class="ms-1 border rounded btn btn-sm"><i class="fa fa-expand"></i></button> -->
+                <ul class="nav nav-tabs nav-bordered mb-3">
+                    <li class="nav-item">
+                        <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link" ng-click="tablesearch('all')">
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">All</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile-b1" data-bs-toggle="tab" aria-expanded="true" class="nav-link active" ng-click="tablesearch('internal')">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Internal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link"  ng-click="tablesearch('customer')">
+                            <i class="mdi mdi-settings-outline d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Customer</span>
+                        </a>
+                    </li>
+                </ul> 
+                 
+                <div class="hide-page-size position-relative">
+                    <div class="d-flex justify-content-end mt-2 mb-1">
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm dropdown-toggle border" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <label for="test@{{$index}}" class="dropdown-item" ng-repeat="col in cols" >
+                                    <input type="checkbox"  ng-model="col.show" name="" id="test@{{$index}}" class="form-check-input me-1">
+                                    @{{col.title}}
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                </div>
-               
-             
-                <table class="table custom table-striped table-bordered" datatable="ng" id="tablebqup" dt-options="vm.dtOptions">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th ng-repeat="locale in cols" ng-show="locale.show">@{{locale.title}}</th>
-                          
-                            <th><i class="dripicons-menu"></i></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       
+                        <button class="ms-1 border rounded btn btn-sm btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
+                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issue</button>
+                        </div>
+                    <table class="table custom table-striped table-bordered" datatable="ng"  dt-options="vm.dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th ng-repeat="locale in cols" ng-show="locale.show" class="text-center">@{{locale.title}}</th>
+                                <th><i class="dripicons-menu"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <tr ng-repeat="(ptcindex,pticketscomment) in pticketcomment">
                                 <td >@{{ ptcindex+1 }}</td>
-                                <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(pticketscomment.id,'show')"><small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small></a></button></td>
+                                <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center">
+                                    <button  class="btn btn-sm btn-outline-primary p-0 px-1" ng-click="showTicketComments(pticketscomment.id,'show')">
+                                        <small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small>
+                                    </button>
+                                </td>
                                 <td ng-show="cols[1].show">@{{pticketscomment.requester}}</td>
                                 <td ng-show="cols[2].show">
                                     <div class="d-flex align-items-center">
-                                       
+                                        
                                         <div>
                                             <h5 class="m-0 font-14">
-                                               @{{pticketscomment.type}}
+                                                @{{pticketscomment.type}}
                                             </h5>
                                         </div>
                                     </div>
                                 </td>
                                 <td ng-show="cols[3].show">@{{pticketscomment.summary}}</td>
-                                <td ng-show="cols[4].show">
+                                <td ng-show="cols[4].show">@{{pticketscomment.description}}</td>
+                                <td ng-show="cols[5].show">
                                     <div class="d-flex align-items-center">
                                         <img src="{{ asset("public/assets/images/") }}/@{{pticketscomment.assigndetails.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
@@ -244,25 +244,26 @@
                                     </div>
                                 </td>
                                 
-                                <td ng-show="cols[5].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
-                                <td ng-show="cols[6].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
-                                <td ng-show="cols[7].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} <i class="fa fa-arrow-up text-danger ms-1"></i></td>
-                              
-                                <td ng-show="cols[8].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
+                                <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
+                                <td ng-show="cols[7].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
+                                <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} </td>
+                                
+                                <td ng-show="cols[9].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
                                 <td style="padding: 0 !important" class="text-center" >
                                     <div class="dropdown">
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',pticketscomment.id)">View/Reply</a>
+                                            <a class="dropdown-item" ng-show="pticketscomment.variation_order == 1"  ng-click="projectticketshow(pticketscomment.id)" >View</a>
                                             <a class="dropdown-item"ng-click = "ticketdelete(pticketscomment.id)">Delete</a>
-                                           
+                                            
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                           
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div> 
         </div>
     </div>
@@ -270,202 +271,153 @@
 
 {{-- ========== Raise Ticket ========== --}}
 <div id="rasieTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <form class="needs-validations"  id="createvariationForm" name="createvariationForm" ng-submit="submitticketForm()" novalidate enctype="multipart/form-data">
-            
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <form class="needs-validations modal-content card m-0" id="newissuesForm" name="newissuesForm" ng-submit="submitticketForm()" novalidate enctype="multipart/form-data">
+            <div class="modal-header bg-light">
+                <div class="modal-title d-flex">
+                    <i class="fa fa-plus f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
+                    <div>
+                        <h4 class="m-0">Create a new Issue</h4> 
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row m-0">
+                    <div class="col-lg-7 p-0">
+                        <div class="card text-start m-0 border" > 
+                            <div class="card-header">
+                                <h3 class="card-title m-0 h5">Add details</h3>
+                                <input type = "hidden" id = "project_case"  name = "project_id" ng-model = "case.project_id" value= "@{{ticket.projectid}}">
+                            </div>
+                            <div class="card-body"> 
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label text-secondary">Summary<sup class="text-danger">*</sup></label>
+                                    <input type="text" class="form-control form-control-sm"  name = "summary" ng-model = "case.summary" ng-required="true">
+                                    <small class="text-danger" ng-show="newissuesForm.summary.$invalid && newissuesForm.summary.$toucehd">This field is required</small>
+                                </div> 
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label text-secondary">Description<sup class="text-danger">*</sup></label>
+                                    <textarea class="form-control form-control-sm" cols="20" rows="5" ng-model = "case.description"  ng-required="true"></textarea>
+                                </div> 
+                                <div>
+                                    <div class="mb-3">
+                                        <label for="Attachments" class="form-label text-secondary" >Attachments</label>
+                                        <div class="field" align="left">
+                                            <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
+                                            <p id = "case_image"ng-model = "case.file_id" ng-show="!responses.name" style="display: none;">@{{ responses.name }}</p>
+                                            <div class="error-msg">
+                                                <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
+                                        <ol class="carousel-indicators">
+                                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="$index" class="active"  ng-repeat="curesponse in responses.name"></li>
+                                        </ol>
+                                        <div class="carousel-inner" role="listbox">
+                                            <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat="response in responses.name">
+                                                <img class="w-100" style="max-height: 180px;object-fit:cover" ng-src="@{{response}}"  alt="First slide">
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" ng-show="responses.name.length != $index "  aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </a>
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="cardx">
+                            <div class="card-body">
+                                <div class="mb-3" >
+                                    <label for="example-select" class="form-label text-secondary">Assign Type <sup class="text-danger">*</sup></label>
+                                    <div class="row m-0">
+                                        <div class="form-check col">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type"  ng-click="ticket_type('internal')"  ng-required="true" />
+                                            <label class="form-check-label" for="flexRadioDefault1"> Internal </label>
+                                        </div>
+                                        <div class="form-check col">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"  ng-click="ticket_type('customer')"  ng-required="true"  />
+                                            <label class="form-check-label" for="flexRadioDefault2"> Customer </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label text-secondary">Assignee<sup class="text-danger">*</sup></label>
+                                    <select class="form-select form-select-sm shadow" id="example-select_project"  ng-required="true" >
+                                        <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
+                                        <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                            @{{ projectManager.first_name }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label text-secondary">Tag</label>
+                                    <input id="ms1" class="my-control" type="text" name="ms1"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label text-secondary">Priority<sup class="text-danger">*</sup></label>
+                                    <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority"  ng-required="true">
+                                        <option value = "critical">Critical</option>
+                                        <option value = "high">High</option>
+                                        <option value = "medium">Medium</option>
+                                        <option value = "low">Low</option>
+                                    </select>
+                                </div> 
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label text-secondary">Due Date<sup class="text-danger">*</sup></label>
+                                    <input type="datetime-local"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
+                                </div> 
+                                <div class="mb-3">
+                                    <label for="example-select" class="form-label text-secondary">Requester</label><Br>
+                                    <select class="form-select form-select-sm shadow requested" id="example-select">
+                                        <option ng-repeat="req in Requester" value="@{{ req.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                            @{{ req.first_name }}
+                                        </option>
+                                    </select>
+                                    <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;"></label>
+                                </div> 
+                                <div class="mb-3 customer_variation" style="display: none;" >
+                                    <input class="form-check-input" type="checkbox" ng-model = "case.variation" id="check1" name="option1" value="something" checked>
+                                    <label for="example-select" class="form-label text-secondary">Converted Variation Order</label>
+                                </div> 
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+            <div class="modal-footer border-top text-end">
+                <button class="btn btn-light shadow-sm border btn-sm" ng-click=discardticket()>Discard</button>
+                <button class="btn btn-info btn-sm" ng-disabled="newissuesForm.$invalid" onclick >Submit</button>
+            </div>
+        </form><!-- /.modal-content -->
+    </div><!-- /.modal-dialog modal-dialog-centered -->
+</div>
+{{-- ========== Raise Ticket ========== --}}
+
+{{-- ========== Ticket Viwe =========== --}} 
+    <div id="viewTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content card m-0">
                 <div class="modal-header bg-light">
                     <div class="modal-title d-flex">
-                        <i class="fa fa-plus f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
+                        <i class="fa fa-thumb-tack f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
                         <div>
-                            <h4 class="m-0">Create a new Issue</h4> 
+                            <h4 class="m-0">@{{projectticket.reference_number}}  |    @{{projectticket.project_name}} </h4> 
                         </div>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row m-0">
-                        <div class="col-lg-7 p-0">
-                            <div class="card text-start m-0 border" > 
-                                <div class="card-header">
-                                    <h3 class="card-title m-0 h5">Add details</h3>
-                                    <input type = "hidden" id = "project_case"  name = "project_id" ng-model = "case.project_id" value= "@{{ticket.projectid}}">
-                                </div>
-                                <div class="card-body">
-                                    
-
-
-                                    <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Summary</label>
-                                        <input type="text" class="form-control form-control-sm" ng-model = "case.summary" ng-required="true">
-                                    </div> 
-                                    <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Description</label>
-                                        <textarea class="form-control form-control-sm" cols="20" rows="5" ng-model = "case.description"  ng-required="true"></textarea>
-                                    </div> 
-                                    <div>
-                                        
-                                        <div class="mb-3">
-                                            
-                                            <label for="Attachments" class="form-label text-secondary" >Attachments</label>
-                                            
-
-                                            <div class="field" align="left">
-                                               
-                                               <!-- <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" accept="image/png, image/jpeg, image/jpg" id="file" ng-model="FormData.file" name="file" multiple />-->
-
-                                                {{-- <input type='file' multiple ng-file='uploadfiles'  onchange="angular.element(this).scope().upload(event)"> --}}
-                                                {{-- <input  type="file" class="form-control file-control rounded-pill" file-model="projectFiles" id ="@{{ documentType.slug }}"/> --}}
-                                                <input type="file" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
-
-                                                <p id = "case_image"ng-model = "case.file_id" ng-show="!responses.name" style="display: none;">@{{ responses.name }}</p>
-                                                
-                                                <div class="error-msg">
-                                                    <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
-                                                </div>
-                                            </div>
-                                          
-
-
-
-                                        </div> 
-                                       
-                                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
-                                            <ol class="carousel-indicators">
-                                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-                                            </ol>
-                                            <div class="carousel-inner" role="listbox">
-                                                <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat="response in responses.name">
-                                                    
-                                                    <img class="w-100" style="max-height: 180px;object-fit:cover" ng-src="@{{response}}"  alt="First slide">
-                                                </div>
-                                                
-                                            </div>
-                                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </a>
-                                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </a>
-                                        </div>
-                                    </div> 
-                                </div> 
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="cardx">
-                                <div class="card-body">
-
-                                    <div class="mb-3" >
-                                        <label for="example-select" class="form-label text-secondary">Assign Type</label>
-                                        <div>
-                                            <!-- Default radio -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type"  ng-click="ticket_type('internal')"  ng-required="true" />
-                                                <label class="form-check-label" for="flexRadioDefault1"> Internal </label>
-                                            </div>
-                                            
-                                            <!-- Default checked radio -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"  ng-click="ticket_type('customer')"  ng-required="true"  />
-                                                <label class="form-check-label" for="flexRadioDefault2"> Customer </label>
-                                            </div>
-                                        </div>
-
-                                        
-                                    </div>
-
-
-                                    <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Assignee</label>
-
-                                       
-
-
-                                        <select class="form-select form-select-sm shadow" id="example-select_project"  ng-required="true" >
-                                           
-                                                <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
-                                                <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
-                                                    @{{ projectManager.first_name }}
-                                                </option>
-
-                                            
-                                           
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Tag</label>
-                                        <input id="ms1" class="my-control" type="text" name="ms1"/>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Priority</label>
-                                        <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority"  ng-required="true">
-                                            <option value = "critical">Critical</option>
-                                            <option value = "high">High</option>
-                                            <option value = "medium">Medium</option>
-                                            <option value = "low">Low</option>
-                                        </select>
-                                    </div> 
-                                    <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Due Date</label>
-                                        <input type="datetime-local" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
-                                    </div> 
-                                    <div class="mb-3">
-                                       
-                                        <label for="example-select" class="form-label text-secondary">Requester</label><Br>
-                                       
-                                        <select class="form-select form-select-sm shadow" id="example-select">
-                                            <option value = "{{Auth::user()->id}}">{{Auth::user()->first_name}}</option>
-                                            
-                                        </select>
-                                        <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;">{{Customer::->id}}</label>
-                                    </div> 
-
-                                    <div class="mb-3 customer_variation" style="display: none;" >
-                                        <input class="form-check-input" type="checkbox" ng-model = "case.variation" id="check1" name="option1" value="something" checked>
-                                        <label for="example-select" class="form-label text-secondary">Converted Variation Order</label>
-
-                                        
-                                    </div> 
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-                </div> 
-                <div class="modal-footer border-top text-end">
-                    <button class="btn btn-light shadow-sm border btn-sm" ng-click=discardticket()>Discard</button>
-                    
-                    <button class="btn btn-info btn-sm" ng-disabled="enqForm.$invalid" onclick >Submit</button>
-                </div>
-         </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-    </div>
-{{-- ========== Raise Ticket ========== --}}
-
-{{-- ========== Ticket Viwe =========== --}} 
-    <div id="viewTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-full-width w-100 h-100 m-0">
-            <div class="modal-content card m-0 h-100">
-                <div class="modal-header bg-light">
-                    <div class="modal-title d-flex">
-                        <i class="fa fa-thumb-tack f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
-                        <div>
-                          
-                            <h4 class="m-0">@{{projectticket.reference_number}}  |    @{{projectticket.project_name}} </h4> 
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                </div>
-                <div class="modal-body" style="height: 90vh;overflow:auto">
-                    <div class="row m-0">
-                        <div class="col-lg-7 p-0">
+                        <div class="col-lg-8 p-0">
                             <div class="card text-start m-0 border" > 
                                 <div class="card-body">
                                     <div class="d-flex align-items-start">
@@ -482,21 +434,29 @@
                                     <hr>
                                     {{--  --}}
                                     <ul class="conversation__box" >
-                                     
-                                       <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ Admin()->id }}">
+
+                                        <li ng-class="{right__conversation: comment.created_by == {{ isset(Admin()->id) ? Admin()->id :Customer()->id }} , left__conversation: comment.created_by != {{ isset(Admin()->id) ? Admin()->id : Customer()->id  }}}" ng-repeat="comment in commentsData" >
                                             <div>
                                               
                                                 <p class="m-0 font-14" >   @{{comment.comments}}</p> 
                                                 <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
                                             </div>
                                         </li>
-                                        <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ Admin()->id }}">
+                                     
+                                      {{-- <li class="right__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by == {{ isset(Admin()->id) ? Admin()->id :Customer()->id }}">
+                                            <div>
+                                              
+                                                <p class="m-0 font-14" >   @{{comment.comments}}</p> 
+                                                <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
+                                            </div>
+                                        </li>
+                                        <li class="left__conversation" ng-repeat="comment in commentsData" ng-if="comment.created_by != {{ isset(Admin()->id) ? Admin()->id : Customer()->id  }}">
                                             <div>
                                               
                                                 <p class="m-0 font-14">@{{comment.comments}}</p> 
                                                 <small>10:04</small>
                                             </div>
-                                        </li>
+                                        </li>--}}
                                        <!-- <li class="left__conversation">
                                             <div>
                                                 <h5 class="m-0 mb-1 font-14">
@@ -567,7 +527,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 p-0 ">
+                        <div class="col-lg-4 p-0 ">
                             <div class="cardx">
                                 <div class="card-body">
                                     <div class="cart-title"><b>PROPERTIES</b> </div> <br>
@@ -601,125 +561,95 @@
                                     <button class="btn btn-sm btn-info w-100"  ng-click = updateticketstatus(header.ticketid)><i class="mdi mdi-rotate-left me-1"></i> Update</button>
                                 </div>
                             </div>
-                        </div>
-                       <!-- <div class="col-lg-2 p-0 border-start   ">
-                            <div class="cardx">
-                                <div class="card-body">
-                                    <div class="mt-3 text-center">
-                                        <img src="{{ asset('public/assets/images/users/avatar-10.jpg') }}" alt="shreyu" class="img-thumbnail avatar-lg rounded-circle">
-                                        <h4>Shreyu N</h4>
-                                        <p class="mt-2 font-14">Last Interacted: <strong>3 hours ago</strong></p>
-                                    </div>
-                                    <div class="mt-3">
-                                        <hr>
-                                        <p class="mt-4 mb-1"><strong><i class="uil uil-envelope-alt me-1"></i></strong><span>support@gmail.com</span></p>
-                                        <p class="mt-3 mb-1"><strong><i class="uil uil-phone me-1"></i></strong><span>+1 456 9595 9594</span> </p>
-                                    </div>
-                                </div>  
-                            </div>
-                        </div>-->
+                        </div> 
                     </div>
                 </div> 
             </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+        </div><!-- /.modal-dialog modal-dialog-centered -->
     </div>
 {{-- ========== Ticket Viwe =========== --}}
 
 
 
-<div id="Variation_mdal-box_pop" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-right h-100" style="width:100% !important">
+<div id="Variation_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-right h-100" style="width:100% !important">
         <div class="modal-content h-100">
             <div class="modal-header border-0">
                 <h4 class="modal-title" id="myLargeModalLabel"></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body  "  style="overflow: auto">
-                {{-- <div class="card pt-3">
-                    <div id="mail_content_first_text_editor">
-                        <div text-angular="text-angular" name="mail_content_first" ng-model="mail_content_first" ta-disabled='disabled'></div>      
-                    </div>
-                </div> --}}
-
-                
                 <form id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationForm()">
-
-                <table class="table custom table-bordered">
-                    <thead>
-                        <tr>
-                            <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
-                        </tr>
-                        
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td width="200px"><b>Project Name</b></td>
-                            <td>@{{ modelcustomer.project_name}}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Client Name</b></td>
-                            <td>@{{ modelcustomer.company_name}}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Project Incharge</b></td>
-                            <td>Mariusz Pierzgalski</td>
-                        </tr>
-                        <tr>
-                            <td><b>Date of Change Request</b></td>
-                                <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date | date: 'dd-MM-yyyy'" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
-                        </tr> 
-                    </tbody>
-                </table>
-                <table class="table custom table-bordered">
-                    <tbody>
-                        <tr><td colspan="2" class="text-center" style="background: #F4F4F4"><b>Change Request Overview</b></td></tr>
-                        <tr>
-                            <td width="250px"><b>Description of Variation / Change</b></td>
-                            <td ng-bind-html="modelptickets.description">@{{modelptickets.description}}</td>
-                        </tr> 
-                        <tr>
-                            <td><b>Reason for Variation / Change</b></td>
-                            <td ng-bind-html="modelptickets.response">@{{modelptickets.response}}</td>
-                        </tr>  
-                    </tbody>
-                </table>
-                <table class="table custom table-bordered">
-                    <tbody>
-                        <tr><td colspan="4"class="text-center" style="background: #F4F4F4"><b>Change in Contract Price</b></td></tr>
-                        <tr>
-                            <td><b>Estimated Hours</b></td>
-                            <td><b>Price/Hr</b></td>
-                            <td rowspan="2"></td> 
-                            <td rowspan="2" class="text-center">kr @{{modelptickets.total_price}}</td> 
-                        </tr> 
-                        <tr>
-                            <td>@{{modelptickets.project_hrs}}</td>
-                            <td>@{{modelptickets.project_price}}</td> 
-                        </tr> 
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                           <td colspan="2"></td>
-                            <td rowspan="2" class="text-end"><b>Total Price</b></td> 
-                            <td rowspan="2" class="text-center"><b>kr@{{modelptickets.total_price}}</b></td> 
-                        </tr> 
-                    </tfoot>
-                </table> 
-            </form>
-            </div> 
-            {{-- <div class="modal-footer"> 
-                <button class="btn btn-primary"  ><i class="fa fa-save me-2"></i>Update</button>
-            </div> --}}
+                    <table class="table custom table-bordered">
+                        <thead>
+                            <tr>
+                                <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="200px"><b>Project Name</b></td>
+                                <td>@{{ modelcustomer.project_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Client Name</b></td>
+                                <td>@{{ modelcustomer.company_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project Incharge</b></td>
+                                <td>Mariusz Pierzgalski</td>
+                            </tr>
+                            <tr>
+                                <td><b>Date of Change Request</b></td>
+                                    <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date | date: 'dd-MM-yyyy'" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                    <table class="table custom table-bordered">
+                        <tbody>
+                            <tr><td colspan="2" class="text-center" style="background: #F4F4F4"><b>Change Request Overview</b></td></tr>
+                            <tr>
+                                <td width="250px"><b>Description of Variation / Change</b></td>
+                                <td ng-bind-html="modelptickets.description">@{{modelptickets.description}}</td>
+                            </tr> 
+                            <tr>
+                                <td><b>Reason for Variation / Change</b></td>
+                                <td ng-bind-html="modelptickets.response">@{{modelptickets.response}}</td>
+                            </tr>  
+                        </tbody>
+                    </table>
+                    <table class="table custom table-bordered">
+                        <tbody>
+                            <tr><td colspan="4"class="text-center" style="background: #F4F4F4"><b>Change in Contract Price</b></td></tr>
+                            <tr>
+                                <td><b>Estimated Hours</b></td>
+                                <td><b>Price/Hr</b></td>
+                                <td rowspan="2"></td> 
+                                <td rowspan="2" class="text-center">kr @{{modelptickets.total_price}}</td> 
+                            </tr> 
+                            <tr>
+                                <td>@{{modelptickets.project_hrs}}</td>
+                                <td>@{{modelptickets.project_price}}</td> 
+                            </tr> 
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                            <td colspan="2"></td>
+                                <td rowspan="2" class="text-end"><b>Total Price</b></td> 
+                                <td rowspan="2" class="text-center"><b>kr@{{modelptickets.total_price}}</b></td> 
+                            </tr> 
+                        </tfoot>
+                    </table> 
+                </form>
+            </div>  
         </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-
-
-
+    </div><!-- /.modal-dialog modal-dialog-centered -->
+</div> 
 {{-- ticket comments show start--}}
 
 <div id="ticket_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-right h-100" style="width:100% !important">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-right h-100" style="width:100% !important">
         <div class="modal-content h-100">
             <div class="modal-header border-0">
                 <h4 class="modal-title" id="myLargeModalLabel"></h4>
@@ -777,13 +707,13 @@
                 <button class="btn btn-primary"  ><i class="fa fa-save me-2"></i>Update</button>
             </div> --}}
         </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal-dialog modal-dialog-centered -->
 </div>
 
 <!-- filter -->
 
 <div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-right" style="width:100% !important">
+    <div class="modal-dialog modal-dialog-centered modal-sm modal-right" style="width:100% !important">
         <div class="modal-content p-3 h-100 d-flex justify-content-center align-items-center" >
             <div>
                 <div class="border-0">
@@ -801,14 +731,17 @@
                             {{--<input type="date" class="form-control date" id="birthdatepicker" data-toggle="date-picker"  ng-model = "fromdate" data-single-date-picker="true">--}}
                             <div class="form-group">
                                 <input date-range-picker="t1"
+                                id = "due_date"
                                 start-date="startDate"
                                 end-date="endDate"
                                 placeholder="select"
                                 data-ng-required="true"
+                                ng-model = "due_date"
                                
                                 clear-on-cancel="true"
                                 date-range-picker-options="options"
                                 class="form-control">
+                               
                 
                        
                         </div>
@@ -822,6 +755,7 @@
                             {{--<input type="date" class="form-control date" id="birthdatepicker" data-toggle="date-picker"  ng-model = "fromdate" data-single-date-picker="true">--}}
                             <div class="form-group">
                                 <input date-range-picker="t2"
+                                id="requester_date"
                                 start-date="startDate2"
                                 end-date="endDate2"
                                 placeholder="select"
@@ -886,19 +820,19 @@
                     
                     <div class="text-center">
                         <button type="button" class="btn btn-primary" ng-click="tablesearch('filtersearch')">
-                            <i class="mdi mdi-filter-menu"></i> Submit
+                                 Submit
                         </button>
                     </div>
                 </div>
             </div>
         </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal-dialog modal-dialog-centered -->
 </div><!-- /.modal -->
 
 
 <!-- show hide -->
 <div id="right-modal-show" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-right" style="width:100% !important">
+    <div class="modal-dialog modal-dialog-centered modal-md modal-right" style="width:100% !important">
         <div class="modal-content p-3 h-100 d-flex justify-content-center align-items-center" >
             <div>
                 <div class="border-0">
@@ -916,13 +850,13 @@
                     
                     <div class="text-center">
                         <button type="button" class="btn btn-primary" ng-click="showhide(col.show)">
-                            <i class="mdi mdi-filter-menu"></i> Submit
+                        Submit
                         </button>
                     </div>
                 </div>
             </div>
         </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal-dialog modal-dialog-centered -->
 </div><!-- /.modal -->
     
 
@@ -932,4 +866,22 @@
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
     <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
 </div>
+
 @include("admin.enquiry.models.ticket-chat-box")  
+
+ 
+<style>
+    #tablebqup_length {
+        display: none !important;
+    }
+    .dataTables_length {
+        display: none !important
+    }
+    .dataTables_filter {
+        position: absolute;
+        z-index: 11;
+        top: 1px;
+        left: 0;
+    }
+</style>
+    

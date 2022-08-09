@@ -146,7 +146,14 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
         });
         $http.get(`${API_URL}admin/api/v2/liveprojectnote/${id}`).then((res) => {
             
-            $scope.notes = res.data == null ? [] :res.data;
+           // $scope.notes = res.data == null ? [] :res.data;
+            $scope.htmlEditorOptions = {
+                height: 300,
+                value:  res.data == null ? [] :res.data,
+                mediaResizing: {
+                enabled: false,
+                },
+            };
             
        
            

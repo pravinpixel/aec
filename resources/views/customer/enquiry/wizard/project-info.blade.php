@@ -93,7 +93,7 @@
                 <small class="text-danger" ng-show="projectInfoForm.country.$invalid && formSubmit">This field is required</small>
             </div>
             <div class="form-floating  mb-2">
-                <input type="text" onkeypress="return isNumber(event)"  class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required/>
+                <input type="number" onkeypress="return isNumber(event)" min="1" class="form-control form-control-sm" id="floating" name="no_of_building" ng-model="projectInfo.no_of_building" required/>
                 <label for="floating">No of Buildings <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.no_of_building.$invalid && formSubmit">This field is required</small>
             </div>

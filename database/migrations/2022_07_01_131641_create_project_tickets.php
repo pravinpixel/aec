@@ -15,6 +15,7 @@ class CreateProjectTickets extends Migration
     {
         Schema::create('project_tickets', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('ticket_comment_id')->nullable();
             $table->unsignedBigInteger('project_id')->nullable();
             $table->string('title')->nullable(); 
             $table->longText('description')->nullable();
@@ -27,6 +28,7 @@ class CreateProjectTickets extends Migration
             $table->longText('is_mail_sent')->nullable();
             $table->boolean('is_active')->default(1);
             $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('id')->references('id')->on('ticket_comments');
             $table->timestamps();
         });
     }
