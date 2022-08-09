@@ -83,6 +83,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         }
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $ProjectTicket['ticketcase'] = $this->Projectticketcase->with('assigndetails')
+                                                                ->with('assigncustomerdetails')
                                                 ->where('project_id',$id)->orderBy('updated_at','desc')->get();
         $newissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','New')->count();                                        
         $openissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','open')->count();                                        

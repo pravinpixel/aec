@@ -17,6 +17,9 @@ class TicketComments extends Model
     {
         return $this->belongsTo(Employees::class, 'assigned', 'id');
     }
+    public function assigncustomerdetails(){
+        return $this->belongsTo(Customer::class, 'assigned', 'id');
+    }
 
     public function requesterdetails()
     {

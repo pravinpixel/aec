@@ -52,6 +52,10 @@ class Customer extends Authenticatable
         'bim_id',
         'bim_account_id'
     ];
+    public function assigncustomerdetails()
+    {
+        return $this->hasOne(TicketComments::class,'assigned','id');
+    }
 
     public function setPasswordAttribute($password)
     {

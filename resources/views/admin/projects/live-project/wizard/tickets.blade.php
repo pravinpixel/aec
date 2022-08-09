@@ -235,10 +235,12 @@
                                 <td ng-show="cols[4].show">@{{pticketscomment.description}}</td>
                                 <td ng-show="cols[5].show">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset("public/assets/images/") }}/@{{pticketscomment.assigndetails.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
+                                      
+                                        <img src="{{ asset("public/assets/images/") }}/  @{{ pticketscomment.type == 'customer' ? pticketscomment.assigncustomerdetails.image :pticketscomment.assigndetails.image }}" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
                                             <h5 class="m-0 font-14">
-                                                @{{pticketscomment.assigndetails.first_name}} 
+                                               <span ng-show ="pticketscomment.type != 'customer'">  @{{pticketscomment.assigndetails.first_name}}</span> 
+                                               <span ng-show ="pticketscomment.type == 'customer'">  @{{pticketscomment.assigncustomerdetails.first_name}}</span> 
                                             </h5>
                                         </div>
                                     </div>

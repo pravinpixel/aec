@@ -82,9 +82,9 @@ class TicketCommentsController extends Controller
     public function storeTicketCase(Request $request){
 
 
-        $role_by        =   Admin()->job_role;
-        $seen_by        =   Admin()->id;
-        $result         =   $this->TicketCommentRepo->store($request, Admin()->id, $role_by,$seen_by);
+        $role_by        =   isset(Admin()->job_role) ? Admin()->job_role : 0;
+        $seen_by        =   isset( Admin()->id) ? Admin()->id : Customer()->id;
+        $result         =   $this->TicketCommentRepo->store($request, $seen_by, $role_by,$seen_by);
 
         //dd($result->variation_order);
         //$customer       =   $this->customerEnquiry->getEnquiryByID($result->project_ticket_id);
@@ -95,7 +95,7 @@ class TicketCommentsController extends Controller
        // }
        
 
-        $title          =   'New Message From AEC - '.Admin()->id;
+        //$title          =   'New Message From AEC - '.Admin()->id;
         $body           =   $request->comments;
 
         return  response(['status' => true,'titketid'=>$result->id,  'data' => 'Success', 'variation' => $result->variation_order ,'msg' => trans('project.comments_inserted')], Response::HTTP_OK);
