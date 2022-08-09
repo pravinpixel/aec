@@ -29,7 +29,7 @@
                         <div class="card-body p-4"> 
                             <form class="needs-validations"  id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationForm()" novalidate>
                                 <input type = "hidden" name = "project_id" id = "project_id" ng-model = "ticket.project_id" value = "{{$urlsplit[0]}}">
-                                <input type = "text" name = "tickrt_comment_id" id = "ticket_comment_id"  value = "{{$urlsplit[1]}}">
+                                <input type = "hidden" name = "tickrt_comment_id" id = "ticket_comment_id"  value = "{{$urlsplit[1]}}">
 
                                 <table class="table custom table-bordered">
                                     <thead>

@@ -586,7 +586,7 @@
                     <table class="table custom table-bordered">
                         <thead>
                             <tr>
-                                <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
+                                <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request </b></td>
                             </tr>
                             
                         </thead>
@@ -605,7 +605,7 @@
                             </tr>
                             <tr>
                                 <td><b>Date of Change Request</b></td>
-                                    <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date | date: 'dd-MM-yyyy'" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                    <td>@{{modelptickets.change_date | date: 'dd-MM-yyyy'}}</td>
                             </tr> 
                         </tbody>
                     </table>

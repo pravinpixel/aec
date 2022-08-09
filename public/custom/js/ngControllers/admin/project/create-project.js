@@ -1078,7 +1078,7 @@ formatData = (project) => {
             let variationticketid = res.data.titketid;
             $scope.case = '';
             $('#rasieTicketDetails').modal('hide');
-            location.href = `${API_URL}admin/create-project-ticket/${project_id}-${ticketid}`;
+            location.href = `${API_URL}admin/create-project-ticket/${project_id}-${variationticketid}`;
           } else if (res.data.status == true) {
             window.location.reload();
           }
