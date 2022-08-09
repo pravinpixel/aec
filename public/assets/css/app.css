@@ -135,6 +135,40 @@ body {
 .project-status-btn i.mdi-format-horizontal-align-right.mdi-format-horizontal-align-left:before{
   content:"\F061F";
 }
+.accordion-button{
+  font-size: 20px !important;
+}
+.custom-accordion-button.accordion-button, i.accordion-button{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.custom-accordion-button.accordion-button:before, .custom-accordion-button.accordion-button:after {
+  background: #666 !important;
+}
+.accordion-button:not(.collapsed):before {
+  background: #0C326C !important;
+}
+.custom-accordion-button.accordion-button{
+  padding:10px !important;
+  box-shadow: none !important;
+}
+.custom-accordion-button.accordion-button:before{
+  height: 10px !important;
+}
+.custom-accordion-button.accordion-button:after{
+  height: 10px !important;
+}
+.accordion-collapse.show{
+  border: none !important;
+  background: #FFF;
+  box-shadow: 0px 0px 30px rgba(0,0,0,0.1);
+}
+div.accordion-button:not(.collapsed){
+  background: #dee6ff !important;
+  color: #0C326C !important;
+}
 
 .highcharts-data-table table {
   font-family: Verdana, sans-serif;

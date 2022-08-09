@@ -39,6 +39,8 @@
         <!-- END wrapper --> 
         @include('modal.delete');
         @include('customer.includes.footer-scripts')
+           <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
         @stack('custom-scripts')
        
         <script>

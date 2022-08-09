@@ -627,7 +627,7 @@
                 enabledOnSeries: [1]
             },
             stroke: {
-              curve: 'smooth',
+                curve: 'smooth',
                 width: [0, 3]
             },
             title: {
@@ -636,7 +636,9 @@
                 offsetX: 110
             },
             xaxis: {
-                categories: ['Customer 1', 'Customer 2', 'Customer 3', 'Customer 4', 'Customer 5', 'Customer 6', 'Customer 7', 'Customer 8'],
+                categories: ['Customer 1', 'Customer 2', 'Customer 3', 'Customer 4', 'Customer 5', 'Customer 6',
+                    'Customer 7', 'Customer 8'
+                ],
             },
             yaxis: [{
                     axisTicks: {
