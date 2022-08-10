@@ -359,12 +359,12 @@ class EnquiryController extends Controller
 
     public function getRoleBaseTab()
     {
-        $role_name = userRole()->slug;
-        if($role_name == config('global.technical_estimater')){
-            return 'technical-estimation';
-        } else if($role_name == config('global.cost_estimater')){
-            return 'cost-estimation';
-        }
+        // $role_name = userRole()->slug;
+        // if($role_name == config('global.technical_estimater')){
+        //     return 'technical-estimation';
+        // } else if($role_name == config('global.cost_estimater')){
+        //     return 'cost-estimation';
+        // }
         return false;
     }
 

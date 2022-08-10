@@ -16520,7 +16520,6 @@ input[type=date]::-webkit-calendar-picker-indicator{
 }
 
 
-#history_id select ,
-#history_id input {
+#history_id select   {
   display: none !important;
 }

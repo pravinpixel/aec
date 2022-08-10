@@ -161,12 +161,12 @@
                 </div> 
                 <div class="card-body p-2 text-center">
                     <h5 class="m-0">
-                        <a class="align-items-center d-flex"  href="#"  ng-click="getHistory('wood')"
+                        <a class="align-items-center d-flex"   ng-click="getHistory('wood')"
                             ng-show="price_calculation == 'wood_engineering_estimation'">
                             <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
                             View Wood engineering estimation
                         </a>
-                        <a class="align-items-center d-flex" href="#" ng-click="getHistory('precast')"
+                        <a class="align-items-center d-flex" ng-click="getHistory('precast')"
                             ng-show="price_calculation == 'precast_engineering_estimation'">
                             <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> 
                             View Precast engineering estimation
