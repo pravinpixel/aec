@@ -74,9 +74,9 @@
                     </div> --}}
                 </div>
             </div>
-            
+            @include('customer.projects.quick-view')
         </div>
-        @include('customer.projects.quick-view')
+      
     </div> 
     
 @endsection 

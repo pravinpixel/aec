@@ -103,7 +103,7 @@
                                             <img src="{{ asset("public/assets/icons/notes.png") }}" class="w-50 invert">
                                         </div>
                                     </div> 
-                                    <p class="h5 mt-2">General Notes</p>
+                                    <p class="h5 mt-2">Project Closer</p>
                                 </a>
                             </li> 
                         </ul>
@@ -194,6 +194,8 @@
             $routeProvider
             .when("/", {
                 templateUrl : "{{ route('live-project.overview') }}",
+                controller: 'OverviewController',
+
             }) 
             .when("/milestone", {
                 templateUrl : "{{ route('live-project.milestone') }}",

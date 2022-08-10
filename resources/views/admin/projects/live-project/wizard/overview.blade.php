@@ -3,8 +3,8 @@
         <div class="d-flex">
             <i class="mdi mdi-account fa-3x text-success mb-0 me-2"></i>
             <div>
-                <h4>Customer Name</h4>
-                <p class="mb-0">William M. Iglesias</p>
+                <h4>Company Name</h4>
+                <p class="mb-0">@{{overview.company_name}}</p>
             </div>
         </div>
     </div>
@@ -13,7 +13,7 @@
             <i class="mdi mdi-comment-account fa-3x text-primary mb-0 me-2"></i>
             <div>
                 <h4>Contact Person</h4>
-                <p class="mb-0">Douglas W. Puleo</p>
+                <p class="mb-0">@{{overview.contact_person}}</p>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <i class="mdi mdi-email-open fa-3x text-danger mb-0 me-2"></i>
             <div>
                 <h4>Email</h4>
-                <p class="mb-0">DouglasWPuleo@jourrapide.com</p>
+                <p class="mb-0">@{{overview.email}}</p>
             </div>
         </div>
     </div>
@@ -31,14 +31,14 @@
             <i class="mdi mdi-deskphone fa-3x text-info mb-0 me-2"></i>
             <div>
                 <h4>Phone</h4>
-                <p class="mb-0">707-629-8764</p>
+                <p class="mb-0">@{{overview.mobile_number}}</p>
             </div>
         </div>
     </div>
 </div>
 <hr />
 <div class="row m-0">
-    <div class="col-xl-6 col-lg-6 col-md-12">
+    <div class="col-xl-12 col-lg-12 col-md-12">
         <div class="card border shadow-none">
             <div class="card-header p-2">
                 <h4 class="header-title text-uppercase mb-0">
@@ -117,7 +117,7 @@
         </div>
     </div>
     <!-- end col -->
-    <div class="col-xl-6 col-lg-6 col-md-12">
+    <div class="col-xl-12 col-lg-12 col-md-12">
         <div class="card border shadow-none">
             <div class="card-header p-2">
                 <h4 class="header-title text-uppercase mb-0">
@@ -323,18 +323,18 @@
                             <div class="col-lg-12 mb-2">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-between">
-                                        <strong>Open</strong>
+                                        <strong>New</strong>
                                         <strong
-                                            class="lead fw-bold ms-2 badge bg-danger x-y-center count-box">15</strong>
+                                            class="lead fw-bold ms-2 badge bg-danger x-y-center count-box">@{{overviewinternal.new}}</strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 mb-2">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-between">
-                                        <strong>Answered</strong>
+                                        <strong>Open</strong>
                                         <strong
-                                            class="lead fw-bold ms-2 badge bg-success x-y-center count-box">5</strong>
+                                            class="lead fw-bold ms-2 badge bg-success x-y-center count-box">@{{overviewinternal.open}}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -343,16 +343,16 @@
                                     <div class="x-y-between">
                                         <strong>Closed</strong>
                                         <strong
-                                            class="lead fw-bold ms-2 badge bg-secondary x-y-center count-box">6</strong>
+                                            class="lead fw-bold ms-2 badge bg-secondary x-y-center count-box">@{{overviewinternal.close}}</strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-between">
-                                        <strong>Void</strong>
+                                        <strong>Pending</strong>
                                         <strong
-                                            class="lead fw-bold ms-2 badge bg-light text-secondary border x-y-center count-box">6</strong>
+                                            class="lead fw-bold ms-2 badge bg-light text-secondary border x-y-center count-box">@{{overviewinternal.pending}}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -366,18 +366,18 @@
                             <div class="col-lg-12 mb-2">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-between">
-                                        <strong>Open</strong>
+                                        <strong>New</strong>
                                         <strong
-                                            class="lead fw-bold ms-2 badge bg-danger x-y-center count-box">15</strong>
+                                            class="lead fw-bold ms-2 badge bg-danger x-y-center count-box">@{{overviewcustomer.new}}</strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 mb-2">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-between">
-                                        <strong>Answered</strong>
+                                        <strong>Open</strong>
                                         <strong
-                                            class="lead fw-bold ms-2 badge bg-success x-y-center count-box">5</strong>
+                                            class="lead fw-bold ms-2 badge bg-success x-y-center count-box">@{{overviewcustomer.open}}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -386,16 +386,16 @@
                                     <div class="x-y-between">
                                         <strong>Closed</strong>
                                         <strong
-                                            class="lead fw-bold ms-2 badge bg-secondary x-y-center count-box">6</strong>
+                                            class="lead fw-bold ms-2 badge bg-secondary x-y-center count-box">@{{overviewcustomer.close}}</strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-between">
-                                        <strong>Void</strong>
+                                        <strong>Pending</strong>
                                         <strong
-                                            class="lead fw-bold ms-2 badge bg-light text-secondary border x-y-center count-box">6</strong>
+                                            class="lead fw-bold ms-2 badge bg-light text-secondary border x-y-center count-box">@{{overviewcustomer.pending}}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -493,30 +493,9 @@
     </script>
     <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
     <script>
-        var options = {
-            series: [{
-                data: [400, 430, 448, 470, 540, 580]
-            }],
-            chart: {
-                type: 'bar',
-                height: 230
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 4,
-                    horizontal: true,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
-                categories: ['Design', 'Discovery', 'Out of Scope', 'Development', 'Quality Assurance', 'Production'],
-            }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#project-completion-chart"), options);
-        chart.render();
+       
+       
+       
     </script>
 
     <script>
@@ -706,105 +685,6 @@
 
 
     <script>
-        $(function() {
-            $('#estimated-utilized-chart').highcharts({
-                chart: {
-                    zoomType: 'xy'
-                },
-                title: {
-                    text: ' '
-                },
-                xAxis: [{
-                    categories: ['Milstone_02', 'Milstone_15', 'Milstone_09', 'Milstone_01',
-                        'Milstone_06', 'Milstone_12', 'Milstone_07', 'Milstone_04',
-                        'Milstone_13', 'Milstone_03', 'Milstone_05', 'Milstone_10'
-                    ],
-                    crosshair: true
-                }],
-                yAxis: [{ // Primary yAxis
-                    labels: {
-
-                    },
-                    title: {
-                        text: '',
-                    }
-                }, { // Secondary yAxis
-                    title: {
-                        text: 'Estimated Hours',
-                    },
-                    labels: {
-                        format: '{value}',
-                        style: {
-                            color: Highcharts.getOptions().colors[0]
-                        }
-                    },
-                    opposite: true
-                }],
-                tooltip: {
-                    shared: true
-                },
-                plotOptions: {
-                    column: {
-                        stacking: 'normal'
-                    }
-                },
-                credits: {
-                    enabled: false,
-                },
-                legend: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Rainfall',
-                    type: 'column',
-                    stack: 1,
-                    yAxis: 1,
-                    data: [{
-                        y: 49.9,
-                        color: '#008ffb'
-                    }, {
-                        y: 135.5,
-                        color: '#008ffb'
-                    }, {
-                        y: 106.4,
-                        color: '#00e396'
-                    }, {
-                        y: 129.2,
-                        color: '#00e396'
-                    }, {
-                        y: 144.0,
-                        color: '#008ffb'
-                    }, {
-                        y: 176.0,
-                        color: '#008ffb'
-                    }, {
-                        y: 136.6,
-                        color: '#00e396'
-                    }, {
-                        y: 148.5,
-                        color: '#008ffb'
-                    }, {
-                        y: 216.4,
-                        color: '#00e396'
-                    }, {
-                        y: 294.1,
-                        color: '#008ffb'
-                    }, {
-                        y: 295.6,
-                        color: '#008ffb'
-                    }, {
-                        y: 354.4,
-                        color: '#00e396'
-                    }],
-
-
-                }, {
-                    name: 'Temperature',
-                    type: 'spline',
-                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-
-                }]
-            });
-        });
+      
     </script>
 @endif

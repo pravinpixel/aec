@@ -119,29 +119,47 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $totalcompletecount = array();
         $totaloverall = array();
         $rearr = array();
+        $gnttname = array();
 
         foreach($projechtchart as $projectdata){
            // dd($projectdata->data);
+            //$gnttname = array();
            
             foreach($projectdata->data as $key=>$prodata){
                 $finalstatuspercentage = array();
+               
                 $overall = count($prodata->data);
                 $totaloverall[] = $overall;
+               
                 foreach($prodata->data as $finaldata){
+                   
+                  
                    if(isset($finaldata->status) &&  $finaldata->status !=  ''){
                     $finalstatuspercentage[] =   $finaldata->status;
                    } 
-                  
+                   $gnttname[] = $finaldata->task_list;
+                   $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
+                   $start  = date_create($finaldata->start_date);
+                   $end    = date_create($finaldata->end_date); // Current time and date
+                   $diff   = date_diff( $start, $end );
+                   $seriesdata[] = array('y'=>$diff->days,
+                                        'color'=>'#008ffb' );
+
+
+                   //dd($diff->days);
+
                 }
+                
                 $completecount = count($finalstatuspercentage);
                 $totalcompletecount[] = $completecount;
-                $rearr[] = array('completed'=> round(($completecount /$overall )*100),2);
+                $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
+                                 'completed'=> round(($completecount /$overall )*100),2);
                
             }
-         }
-         //dd(array_sum($totalcompletecount));
+        }
+         //dd(json_encode($seriesdata));
          
-         if(count($projechtchart) > 0){
+        if(count($projechtchart) > 0){
          
          $result = array('overall'=> round(((array_sum($totalcompletecount) / array_sum($totaloverall))*100),2),
          'completed' => $rearr);
@@ -150,6 +168,8 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $result['project'] = $project;
         $result['lead'] = isset($employee) ? $employee->first_name : '';
         $result['count']= $result;
+        $result['series']= $seriesdata;
+        $result['categories']= $gnttname;
         
         //dd($project);
         return $result;

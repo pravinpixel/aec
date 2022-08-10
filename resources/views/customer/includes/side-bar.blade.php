@@ -87,12 +87,12 @@
                     </ul>
                 </div>
             </li>
-            <li class="side-nav-item ">
+           {{-- <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-server" aria-hidden="true"></i>
                     <span>  Projects Schedule  </span>
                 </a> 
-            </li>
+            </li>--}}
             <li class="side-nav-item ">
                 <a href="#" class="side-nav-link">
                     <i class="fa fa-tasks" aria-hidden="true"></i>

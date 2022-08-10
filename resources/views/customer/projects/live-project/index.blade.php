@@ -159,6 +159,7 @@
             $routeProvider
             .when("/", {
                 templateUrl : "{{ route('customer-live-project.overview') }}",
+                controller: 'OverviewController',
             }) 
             .when("/milestone", {
                 templateUrl : "{{ route('live-project.milestone') }}",

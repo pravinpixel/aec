@@ -93,10 +93,19 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
                                             'open' => $openissues,
                                             'close' => $closeissues,
                                             'pending' =>$pendingissues);
-        $showing = $ProjectTicket['ticketcase']['0']->showing;
+        $ProjectTicket['internaloverview'] = array('new' => $this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','New')->count(),
+                                            'open' => $this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','open')->count(),
+                                            'close' =>$this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','close')->count(),
+                                            'pending' =>$this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','pending')->count());
+         $ProjectTicket['customeroverview'] = array('new' => $this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','New')->count(),
+                                            'open' => $this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','open')->count(),
+                                            'close' =>$this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','close')->count(),
+                                            'pending' =>$this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','pending')->count());
+                                    
+        $showing = isset($ProjectTicket['ticketcase']['0'])? $ProjectTicket['ticketcase']['0']->showing : '';
        $showingarr = isset($showing) ? explode(',',$showing) :array();
         //$showingarr =explode(',',$showing) ;
-        $header = ['Id','Requester','Type','Title','Description','Assign','Status','Due Date','Priority','Modifiedat'];
+        $header = ['Id','Requester','Type','Title','Description','Assign','Status','Due Date','Priority','Modified at'];
         //dd($showingarr);
         foreach($header as $key=>$data){
             //dd($data);

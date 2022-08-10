@@ -68,7 +68,7 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
         },
         columns       : [
             {data: 'reference_number', name: 'reference_number'},
-            {data: 'company_name', name: 'company_name'},
+           
             {data: 'project_name', name: 'project_name'},
             {data: 'contact_person', name: 'contact_person'},
             {data: 'start_date', name: 'start_date'},
@@ -103,6 +103,7 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
     }
 
     $scope.getQuickProject = (title, id) => {
+        
 
         $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
             $scope.projectManagers = res.data;
@@ -161,7 +162,7 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
 
         $http.get(`${API_URL}project/overview/${id}`).then((res)=> {
             $scope.review  =  res.data;
-            //console.log( $scope.review);
+            //console.log('reviews',$scope.reviews);
             $scope.teamSetups = res.data.team_setup;
             $scope.project = formatData(res.data.project);
             $scope.project['address_one'] =  res.data.project.site_address;
@@ -169,14 +170,14 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
             fileSystem = res.data.sharepoint;
             var dp = new gantt.dataProcessor(`${API_URL}api/project/${id}`);
             //console.log(dp);
-        dp.init(gantt);
-        dp.setTransactionMode("REST");
+            dp.init(gantt);
+            dp.setTransactionMode("REST");
 
-        ganttModules.zoom.setZoom("months");
-        gantt.init("gantt_here");
-        ganttModules.menu.setup();
-        gantt.load(`${API_URL}project/edit/${id}/project_scheduler`);
-        $("#customer-project-quick-modal-view").modal('show');  
+            ganttModules.zoom.setZoom("months");
+            gantt.init("gantt_here");
+            ganttModules.menu.setup();
+            gantt.load(`${API_URL}project/edit/${id}/project_scheduler`);
+            $("#customer-project-quick-modal-view").modal('show');  
         }); 
     
     }

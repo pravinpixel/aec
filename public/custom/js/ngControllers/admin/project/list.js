@@ -103,6 +103,13 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
     }
 
     $scope.getQuickProject = (title, id) => {
+       console.log(title);
+       if(title != ''){
+        $(".quickview").removeClass("show");
+        $("."+title).attr("aria-expanded","true");
+        $("#"+title).addClass("show");
+
+       }
 
         $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
             $scope.projectManagers = res.data;
@@ -146,9 +153,16 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         });
         $http.get(`${API_URL}admin/api/v2/liveprojectnote/${id}`).then((res) => {
             
-            $scope.notes = res.data == null ? [] :res.data;
+            // $scope.notes = res.data == null ? [] :res.data;
             
-       
+            $scope.htmlEditorOptions = {
+                height: 300,
+                value: res.data.notes,
+                contentEditable: false,
+                mediaResizing: {
+                enabled: true,
+                },
+            };
            
         });
 

@@ -225,14 +225,14 @@
                                     <div class="d-flex align-items-center">
                                         
                                         <div>
-                                            <h5 class="m-0 font-14">
+                                            <h5 class="m-0 font-14 capitalize">
                                                 @{{pticketscomment.type}}
                                             </h5>
                                         </div>
                                     </div>
                                 </td>
                                 <td ng-show="cols[3].show">@{{pticketscomment.summary}}</td>
-                                <td ng-show="cols[4].show">@{{pticketscomment.description}}</td>
+                                <td ng-show="cols[4].show">@{{pticketscomment.description | limitTo:20}}@{{pticketscomment.description.length > 20 ? '...' : ''}}</td>
                                 <td ng-show="cols[5].show">
                                     <div class="d-flex align-items-center">
                                       
@@ -872,7 +872,9 @@
 
 @include("admin.enquiry.models.ticket-chat-box")  
 
- 
+ @push('custom-style')
+     
+ @endpush
 <style>
     #tablebqup_length {
         display: none !important;
@@ -886,5 +888,8 @@
         top: 1px;
         left: 0;
     }
+    .capitalize {
+   text-transform: capitalize;
+}
 </style>
     

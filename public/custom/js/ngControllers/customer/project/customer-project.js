@@ -1800,6 +1800,133 @@ app.controller('InvoiceController', function($scope, $http, API_URL, $location)
   })
   //console.log(project_id);
 });
+
+app.controller('OverviewController', function($scope, $http, API_URL, $location, $rootScope) {
+  let project_id = $('#project_id').val();
+  $http.get(`${API_URL}project/overview/${project_id}`).then((res) => {
+    $scope.overview = res.data;
+  })
+
+  $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
+    
+   
+    $scope.countper = res.data.completed == null ? [] : res.data.completed;
+    $scope.overall = res.data.overall;
+    $scope.lead = res.data.lead;
+    var pname = [];
+    var pnamevalue = [];
+    $scope.teamSetups = $scope.countper.map((item) => {
+        //console.log(item.first_name);
+        pname.push(item.name);
+        pnamevalue.push(item.completed);
+
+      })
+      $scope.projectstag = pname;
+      $scope.projectscompletetag = pnamevalue;
+    console.log($scope.projectstag);
+    var options = {
+      series: [{
+          data: $scope.projectscompletetag
+      }],
+      chart: {
+          type: 'bar',
+          height: 230
+      },
+      plotOptions: {
+          bar: {
+              borderRadius: 4,
+              horizontal: true,
+          }
+      },
+      dataLabels: {
+          enabled: false
+      },
+      xaxis: {
+          categories:   $scope.projectstag ,
+      }
+  };
+  var chart = new ApexCharts(document.querySelector("#project-completion-chart"), options);
+  chart.render();
+  $scope.categories = res.data.categories;
+  $scope.Series = res.data.series;
+  console.log($scope.categories);
+
+  $(function() {
+    $('#estimated-utilized-chart').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: ' '
+        },
+        xAxis: [{
+            categories: $scope.categories,
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+
+            },
+            title: {
+                text: '',
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: 'Estimated Hours',
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal'
+            }
+        },
+        credits: {
+            enabled: false,
+        },
+        legend: {
+            enabled: false
+        },
+        series: [{
+            name: 'Rainfall',
+            type: 'column',
+            stack: 1,
+            yAxis: 1,
+            data:  $scope.Series ,
+
+
+        }, {
+            name: 'Temperature',
+            type: 'spline',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+
+        }]
+    });
+});
+
+
+
+
+  });
+  $http.get(`${API_URL}admin/api/v2/projectticket/${project_id}`).then((res) => {
+    $scope.overviewinternal = res.data.internaloverview == null ? false : res.data.internaloverview
+    $scope.overviewcustomer = res.data.customeroverview == null ? false : res.data.customeroverview
+
+    console.log($scope.overviewinternal);
+   
+  });
+
+
+});
 // app.directive('ngFile', ['$parse', function ($parse) {
 //     return {
 //      restrict: 'A',
