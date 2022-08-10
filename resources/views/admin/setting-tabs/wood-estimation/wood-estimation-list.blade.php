@@ -19,12 +19,6 @@
 <div class="tab-content">
     <div class="tab-pane show active" id="services-b2">
         <div class="card">
-            <div class="card-header ">
-                <div class="d-flex justify-content-between">
-                    {{-- <h3 class="haeder-title">Wood Estimation</h3> --}}
-                    {{-- <button class="btn btn-primary " ng-click="toggleModalForm('add', 0)">Add new</button> --}}
-                </div>
-            </div>
             <div class="card-body">
                 <table class="table custom table-striped table-bordered">
                     <thead>
@@ -57,7 +51,6 @@
             </div>
             <div class="card-fooetr"></div>
         </div> 
-        
     </div>
     <div id="woodestimate-form-popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="@{{form_color}}-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -101,9 +94,6 @@
         </div><!-- /.modal-dialog -->
     </div> 
     <div class="tab-pane " id="costPreset-b2">
-        {{-- <p>222</p> --}}
-        <?php $i=0 ?>
-        <?php $index=1 ?>
         <div class="card ">
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-around">
@@ -111,18 +101,18 @@
                         <small for="" class="mb-2">Building Component</small>
                         <select name="" class="form-select cl_country" id="ddlCountry">
                         <option value="all">Select</option>    
-                            @foreach($data['component'] as $buildingComponent)                 
-                            <option value="{{ $buildingComponent->building_component_name }}"> {{ $buildingComponent->building_component_name }}</option>
-                            @endforeach
+                        <option ng-repeat="buildingComponent in buildingComponents" value="@{{ buildingComponent.building_component_name}}">
+                            @{{ buildingComponent.building_component_name }}
+                        </option>
                         </select>
                     </div>
                     <div class="col me-2">
                         <small for="" class="mb-2">Type of Delivery</small>
                         <select name="" id="ddlAge" class="form-select cl_age">
                             <option value="all">Select</option>                    
-                            @foreach($data['type'] as $type)            
-                            <option value="{{ $type->delivery_type_name}}"> {{ $type->delivery_type_name}} </option>
-                            @endforeach
+                            <option ng-repeat="deliveryType in deliveryTypes" value="@{{ deliveryType.delivery_type_name}}">
+                                @{{ deliveryType.delivery_type_name }}
+                            </option>
                         </select>
                     </div>
                     <div class="cols" >
@@ -152,60 +142,50 @@
                             <th style="padding: 0 5px !important"><small>Logistics Sum</small> </th>
                             <th style="padding: 0 5px !important"><small>Action</small> </th>
                         </tr>
-                    </thead>
+                    </thead> 
                     <tbody> 
-                   
-                     
-                        @foreach($data['component'] as $buildingComponent)
-                            @foreach($data['type'] as  $type) 
-                                <tr class="needs-validations " name="cal_frm" >
-                                    <td>{{ $index++ }}</td>
-                                    <?php $i++; ?>
-                                    <td style="padding: 0 10px !important" class="text-left">
-                                        <small> {{ $buildingComponent['building_component_name'] }}   </small>
-                                    </td>
-                                    <td style="padding: 0 10px !important">
-                                        <small>  {{ $type['delivery_type_name'] }}   </small>
-                                    </td> 
-                                    <td style="padding: 0 !important;">
-                                        <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->detail_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="detail_price"  class="cal_submit text-center" name="detail_price<?php echo $i ?>">
-                                    </td>
-                                    <td style="padding: 0 !important;">
-                                        <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->detail_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="detail_sum"  class="cal_submit" name="detail_sum<?php echo $i ?>">
-                                    </td>
-                                    <td style="padding: 0 !important;">
-                                        <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->statistic_price  ?? 0}}"  data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="statistic_price" class="cal_submit text-center" name="statistic_price<?php echo $i ?>">
-                                    </td>
-                                    <td style="padding: 0 !important;">
-                                        <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->statistic_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="statistic_sum"  class="cal_submit" name="statistic_sum<?php echo $i ?>">
-                                    </td>
-                                    <td style="padding: 0 !important;">
-                                        <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->cad_cam_price  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="cad_cam_price" class="cal_submit text-center" name="cad_cam_price<?php echo $i ?>" >
-                                    </td>
-                                    <td style="padding: 0 !important;">
-                                        <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->cad_cam_sum ?? 0 }}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="cad_cam_sum"  class="cal_submit" name="cad_cam_sum<?php echo $i ?>">
-                                    </td>
-                                    <td style="padding: 0 !important;">
-                                        <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" min="0" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->logistic_price ?? 0 }}"  data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="logistic_price" class="cal_submit text-center" name="logistic_price<?php echo $i ?>">
-                                    </td>
-                                    <td style="padding: 0 !important;">
-                                        <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" type="number" value="{{ $arr[$buildingComponent->id][$type->id]->logistic_sum  ?? 0}}" data-component_id="{{$buildingComponent->id}}" data-type_id="{{$type->id}}" data-field_name="logistic_sum"  class="cal_submit" name="logistic_sum<?php echo $i ?>">
-                                    </td>
-                                    <td style="padding: 0 !important;">
-                                        @if($arr[$buildingComponent->id][$type->id]->id ??'')
-                                            <a class="delete delete_data btn text-danger btn-outline-light border h-100 w-100 cal_delete" name="col_delete<?php echo $i ?>"  data-col_delete_id="{{ $arr[$buildingComponent->id][$type->id]->id ??''}}" >
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                            @else 
-                                        @endif
-                                    </td>
-                                    <!-- <td style="padding: 0 !important">
-                                        <button class="cal_submit" data-bci="{{ $buildingComponent['id']}}" data-type="{{ $type['id']}}" >Submit</button>
-                                    </td> -->
-                                </tr> 
-                            @endforeach
-                        @endforeach 
-        
+                        <tr class="needs-validations " name="cal_frm"  ng-repeat="calculation in calculations">
+                            <td style="padding: 0 10px !important" class="text-left">
+                               @{{ $index + 1}}
+                            </td>
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <span> @{{  calculation.component }}</span>
+                            </td>
+                            <td style="padding: 0 10px !important">
+                                <span> @{{  calculation.type }}</span>
+                            </td> 
+                           <td style="padding: 0 10px !important" class="text-left">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation" min="0" type="number" ng-model="calculation.detail_price" > 
+                            </td>
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.detail_sum"> 
+                            </td>
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.statistic_price" > 
+                            </td>
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.statistic_sum"> 
+                            </td>
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.cad_cam_price" > 
+                            </td>
+                        
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.cad_cam_sum"> 
+                            </td>
+
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_price"> 
+                            </td>
+
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_sum"> 
+                            </td>
+
+                            <td style="padding: 0 10px !important" class="text-left">
+                                <button ng-show="calculation.status == '1'" class="btn btn-danger" ng-click="deleteCalculation(calculation.id)"><i class="fa fa-refresh"></i></button>
+                            </td>
+                        </tr> 
                     </tbody>
                 </table>
             </div>
@@ -222,12 +202,6 @@
         background-color: #d4e2ff !important;
     }
 </style>
-{{-- <style>
-    .masterTab{
-        color: #163269 !important;
-        background-color: #d4e2ff !important;
-    }
-</style> --}}
 <script type="text/javascript">
     $(document).ready(function () {
         $("#ddlCountry,#ddlAge").on("change", function () {
@@ -256,7 +230,6 @@
             $('#table11 tbody tr:has(td)').each(function () {
                 var component = $.trim($(this).find('td:eq(1)').text());
                 var type = $.trim($(this).find('td:eq(2)').text());
-               
                 if(selectType == '' && selectComponent == component){
                     $(this).show();
                 } else if(selectComponent == '' && selectType == type ){
@@ -290,4 +263,3 @@
 
     
 </script>
-

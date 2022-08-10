@@ -212,8 +212,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::resource('enquiry', EnquiryController::class);
     Route::get('deleteRowData', [CostEstimationController::class, 'deleteRowData'])->name('deleteRowData');
     Route::get('masterCalculation', [CostEstimationController::class, 'masterCalculation'])->name('masterCalculation');
-    Route::get('costMasterVal', [CostEstimationController::class, 'costMasterVal'])->name('costMasterVal');
-    Route::delete('col-delete', [CostEstimationController::class, 'colDelete'])->name('col-delete');
+    Route::post('costMasterVal', [CostEstimationController::class, 'costMasterVal'])->name('costMasterVal');
+    Route::delete('cal-wood-estimation/{id}', [CostEstimationController::class, 'colDelete'])->name('delete-cal-wood-estimation');
     Route::get('/ganttChart/list', [GanttChartController::class, 'ganttChart'])->name('ganttChart.list');
     Route::post('/ganttChart/list/task', [GanttChartController::class, 'storeData'])->name('ganttChart.list.task');
     Route::put('/ganttChart/list/task/{id}', [GanttChartController::class, 'updateGanttChart'])->name('ganttChart.list.task');

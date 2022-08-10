@@ -268,21 +268,32 @@ class CostEstimationController extends Controller
 
     public function getMasterCalculation()
     {
-        // print_r("s");
-        // die();
-        $data['component'] = BuildingComponent::where('cost_estimate_status', '=', '1')->get();
-        $data['type'] = DeliveryType::where('is_active', '=', '1')->get();
+        $data['component'] = BuildingComponent::where('cost_estimate_status', '1')->get();
+        $data['type'] = DeliveryType::where('is_active', '1')->get();
         $arr = [];
-        foreach ($data['component'] as $key => $comp) {
-            $arr_type = [];
-            foreach ($data['type'] as $key1 => $type) {
-                $arr_type[$type->id] = MasterCalculation::where('component_id', $comp['id'])->where('type_id', $type['id'])->where('status', '=', '1')->first() ?? 0;
+        foreach ($data['component'] as  $comp) {
+            foreach ($data['type'] as $type) {
+                $calculation = MasterCalculation::where('component_id', $comp['id'])->where('type_id', $type['id'])->where('status',1)->first();
+                if($calculation) {
+                    $calculation->{'component'} = $comp['building_component_name'];
+                    $calculation->{'type'} = $type['delivery_type_name'];
+                    $arr[] = $calculation;
+                } else {
+                    $master = new MasterCalculation();
+                    $columns = $master->getFillable();
+                    $values = array_fill(0,count($columns),0);
+                    $result =  array_combine($columns, $values);
+                    $result['component_id'] = $comp['id'];
+                    $result['type_id'] = $type['id'];
+                    $result['component'] = $comp['building_component_name'];
+                    $result['type'] = $type['delivery_type_name'];
+                    $arr[] = (object)$result;
+                }
             }
-            $arr[$comp->id] = $arr_type;
         }
-        // return view('admin.pages.calculationView', compact('data', 'arr'));
-        return view('admin.setting-tabs.wood-estimation.wood-estimation-list', compact('data', 'arr'));
+        return response($arr);
     }
+
     public function costEstimationDelete(Request $id)
     {
 
@@ -295,10 +306,10 @@ class CostEstimationController extends Controller
         $data->delete();
         return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
     }
-    public function colDelete(Request $request)
+    public function colDelete($id)
     {
         //    return $request->all();
-        $data = MasterCalculation::find($request->delete_id);
+        $data = MasterCalculation::find($id);
         if (empty($data)) {
             return response(['status' => false, 'msg' => trans('module.item_not_found')], Response::HTTP_NOT_FOUND);
         }
@@ -314,26 +325,14 @@ class CostEstimationController extends Controller
         $data->status = 2;
         $data->update();
         // $data->delete();
-        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+        return response(['status' => true, 'data'=>  $data, 'msg' =>  trans('module.deleted')], Response::HTTP_OK);
     }
     public function costMasterVal(Request $request)
     {
-        if ($request->value) {
-            $model = MasterCalculation::where('component_id', $request->component_id)->where('type_id', $request->type_id)->first();
-            if ($model) {
-                $model->{$request->field_name} = $request->value;
-                $model->status = 1;
-                $model->update();
-            } else {
-                $model = new MasterCalculation();
-                $model->component_id = $request->component_id;
-                $model->type_id = $request->type_id;
-                $model->{$request->field_name} = $request->value;
-                $model->status = 1;
-                $model->save();
-            }
-            return "true";
-        }
+        $data = $request->except('updated_at','id','status','created_at','deleted_at','component','type');
+        $data['status'] = 1;
+        MasterCalculation::updateOrCreate(['component_id' => $request->component_id, 'type_id' => $request->type_id],$data);
+        return MasterCalculation::where(['component_id' => $request->component_id, 'type_id' => $request->type_id])->first();
     }
     public function costEstimationEdit(Request $id)
     {

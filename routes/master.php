@@ -70,11 +70,12 @@ Route::get('check-sheet',  function () {
     return view('admin.setting-tabs.Check-sheet.check-sheet');
 })->name('check-sheet-file');
 
+Route::get('wood-estimation',  function() {
+    return view('admin.setting-tabs.wood-estimation.wood-estimation-list');
+})->name('wood-estimation');
 
-// Route::get('wood-estimation',  function () {
-//     return view('admin.setting-tabs.wood-estimation.wood-estimation-list');
-// })->name('wood-estimation');
-Route::get('wood-estimation',  [CostEstimationController::class, 'getMasterCalculation'])->name('wood-estimation');
+
+Route::get('wood-estimation-values',  [CostEstimationController::class, 'getMasterCalculation'])->name('wood-estimation-values');
 
 Route::get('precast-estimation', function () {
     return view('admin.setting-tabs.precast-estimation.precast-estimation-list');

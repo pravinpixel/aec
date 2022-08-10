@@ -11,6 +11,10 @@ class MasterCalculation extends Model
     protected $table = 'master_calculation';
     protected $primaryKey = 'id';
     public $fillable = [
+        'id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
         'component_id',
         'type_id',
         'status',

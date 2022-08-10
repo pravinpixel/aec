@@ -85,6 +85,38 @@ app.directive('overwriteTemplate', function(API_URL ,$http){
     };
 });
 
+app.directive('updateMaster', function(API_URL ,$http, $route) {
+    return {
+        restrict: 'A',
+        scope: {
+            data: '=updateMaster',
+        },
+        link: function(scope, element, attrs , route) {
+            element.on('change', function(){
+                $http.post(`${API_URL}admin/costMasterVal`,scope.data)
+                .then(function successCallback(res){
+                    scope.$parent.$parent.calculations = scope.$parent.$parent.calculations.map(obj => {
+                        if (obj.component_id == res.data.component_id && obj.type_id == res.data.type_id) {
+                            return {...obj, ... {...res.data, ...{
+                                detail_price: Number(res.data.detail_price),
+                                detail_sum: Number(res.data.detail_sum),
+                                statistic_price: Number(res.data.statistic_price),
+                                statistic_sum:Number(res.data.statistic_sum),
+                                cad_cam_price: Number(res.data.cad_cam_price),
+                                cad_cam_sum:Number(res.data.cad_cam_sum),
+                                logistic_price: Number(res.data.logistic_price),
+                                logistic_sum: Number(res.data.logistic_sum),
+                                total_price:Number(res.data.total_price)}
+                            }};
+                        }
+                        return obj;
+                    });
+                });
+            });
+        }
+    };
+});
+
 app.directive('loading',   ['$http' ,'$timeout' ,function ($http, $scope, $timeout) {  
     return {  
         restrict: 'A',  

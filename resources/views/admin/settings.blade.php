@@ -584,6 +584,62 @@
         });
 
         app.controller('WoodEstimateController', function($scope, $http, $routeParams,API_URL){
+
+            $http.get(`${API_URL}get-for-cost-estimate`)
+            .then((res) => {
+                $scope.buildingComponents = res.data;
+            });
+
+            $http.get(`${API_URL}get-delivery-type`)
+            .then((res) => {
+                $scope.deliveryTypes = res.data;
+            });
+
+            $http.get(`${API_URL}wood-estimation-values`)
+                .then((res) => {
+                    $scope.calculations = res.data.map( (item) => {
+                        return { ...item, ...{
+                            detail_price: Number(item.detail_price),
+                            detail_sum: Number(item.detail_sum),
+                            statistic_price: Number(item.statistic_price),
+                            statistic_sum:Number(item.statistic_sum),
+                            cad_cam_price: Number(item.cad_cam_price),
+                            cad_cam_sum:Number(item.cad_cam_sum),
+                            logistic_price: Number(item.logistic_price),
+                            logistic_sum: Number(item.logistic_sum),
+                            total_price:Number(item.total_price)}
+                        }
+                    });
+            });
+   
+            $scope.deleteCalculation =  (id) => {
+                $http.delete(`${API_URL}admin/cal-wood-estimation/${id}`)
+                .then((res) => {
+                    if(res.data.status) {
+                        Message('success',res.data.msg);
+                        $scope.calculations = $scope.calculations.map((obj) => {
+                            if (obj.component_id == res.data.data.component_id && obj.type_id == res.data.data.type_id) {
+                                return {...obj, ...{
+                                            detail_price: 0,
+                                            detail_sum: 0,
+                                            statistic_price: 0,
+                                            statistic_sum:0,
+                                            cad_cam_price:0,
+                                            cad_cam_sum:0,
+                                            logistic_price:0,
+                                            logistic_sum: 0,
+                                            total_price:0,
+                                            status: 2
+                                        }
+                                    }
+                                };
+                            
+                            return obj;
+                        });
+                    }
+                });
+            }
+            
             function getWoodEstimates() {
                 $http.get(`${API_URL}wood-estimate`).then((res)=> {
                     $scope.woodEstimations = res.data; 
@@ -892,7 +948,7 @@
                 var delete_id = $(this).data('col_delete_id');
                 $.ajax({
                     type: "DELETE",
-                    url: "{{ route('admin.col-delete') }}",
+                 
                     data: {
                         "_token": "{{ csrf_token() }}",
                         delete_id:delete_id,
