@@ -75,7 +75,7 @@
                     <i class="fa fa-layer-group" aria-hidden="true"></i>
                     <span> Projects </span>
                 </a> 
-                <div class="collapse {{ Route::is("list-projects")  ? "show" : ""}}" id="Project">
+                <div class="collapse {{ Route::is("list-projects","customer-live-projects-data")  ? "show" : ""}}" id="Project">
                     <ul class="side-nav-second-level">
                        {{--<li class="{{ Route::is("customers-my-projects") ? "menuitem-active" : ""}}">
                             <a href="#">Enquiry</a>

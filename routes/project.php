@@ -131,6 +131,8 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
 }); 
 
 Route::group(['prefix' => 'customer', 'middleware'=>'common'], function () {
+
+   
     
     // ==========  Live PROJECT flow  ================
     Route::get('live-project/overview', function () {

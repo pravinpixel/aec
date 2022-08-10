@@ -9,7 +9,7 @@
             <div class="card-body">
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="project_infomation_header">
-                        <div class="accordion-button " data-bs-toggle="collapse" data-bs-target="#project_infomation" aria-expanded="true" aria-controls="project_infomation">
+                        <div class="accordion-button " data-bs-toggle="collapse project_infomation" data-bs-target="#project_infomation" aria-expanded="true" aria-controls="project_infomation">
                             <span class="position-relative btn py-0"><b>Project Infomation</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
@@ -17,11 +17,11 @@
                                 href="#project_infomation" 
                                 aria-expanded="false" 
                                 aria-controls="project_infomation" 
-                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
+                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn project_infomation">
                             </i>
                         </div>
                     </div>
-                    <div id="project_infomation" class="accordion-collapse collapse show" aria-labelledby="project_infomation_header" >
+                    <div id="project_infomation" class="accordion-collapse collapse show quickview" aria-labelledby="project_infomation_header" >
                         <table class="table custom m-0 table-hover">
                             <tbody>
                                 <tr>
@@ -112,7 +112,7 @@
                 </fieldset>
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="connection_plateforms_header">
-                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#connection_plateforms" aria-expanded="false" aria-controls="connection_plateforms">
+                        <div class="accordion-button collapsed connection_plateforms" data-bs-toggle="collapse" data-bs-target="#connection_plateforms" aria-expanded="false" aria-controls="connection_plateforms">
                             <span class="position-relative btn py-0"><b> @lang('project.milestone')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
@@ -120,13 +120,13 @@
                                 href="#connection_plateforms" 
                                 aria-expanded="true" 
                                 aria-controls="connection_plateforms" 
-                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed connection_plateforms "
                                 >
                             </i>
                         </div>
                        
                     </div>
-                    <div id="connection_plateforms" class="accordion-collapse collapse" aria-labelledby="connection_plateforms_header" >
+                    <div id="connection_plateforms" class="accordion-collapse collapse quickview" aria-labelledby="connection_plateforms_header" >
                         
                         <div>
                             <div class="header gantt-demo-header">
@@ -151,7 +151,7 @@
                 </fieldset>
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Team_setup_header">
-                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Team_setup" aria-expanded="false" aria-controls="Team_setup">
+                        <div class="accordion-button collapsed Team_setup" data-bs-toggle="collapse" data-bs-target="#Team_setup" aria-expanded="false" aria-controls="Team_setup">
                             <span class="position-relative btn py-0"><b>@lang('project.tasklist')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
@@ -159,12 +159,12 @@
                                 href="#Team_setup" 
                                 aria-expanded="true" 
                                 aria-controls="Team_setup" 
-                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed  Team_setup"
                                 >
                             </i>
                         </div>
                     </div>
-                    <div id="Team_setup" class="accordion-collapse collapse" aria-labelledby="Team_setup_header" >
+                    <div id="Team_setup" class="accordion-collapse collapse quickview" aria-labelledby="Team_setup_header" >
                         <div class="card-body"> 
 
                             <table class="mb-2 table border custom ng-scope" >
@@ -245,7 +245,7 @@
                 </fieldset> 
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Bim360_header">
-                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#bim360" aria-expanded="false" aria-controls="Invoice_maileStone">
+                        <div class="accordion-button collapsed bim360" data-bs-toggle="collapse" data-bs-target="#bim360" aria-expanded="false" aria-controls="Invoice_maileStone">
                             <span class="position-relative btn py-0"><b>@lang('project.bim360')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
@@ -253,12 +253,12 @@
                                 href="#bim360" 
                                 aria-expanded="true" 
                                 aria-controls="bim360" 
-                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed bim360 "
                                 >
                             </i>
                         </div>
                     </div>
-                    <div id="bim360" class="accordion-collapse collapse" aria-labelledby="Bim360_header" >
+                    <div id="bim360" class="accordion-collapse collapse quickview" aria-labelledby="Bim360_header" >
                         <table class="table custom m-0 custom table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -284,12 +284,12 @@
                 </fieldset> 
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="TO_DO_header">
-                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#TO_DO" aria-expanded="false" aria-controls="TO_DO">
+                        <div class="accordion-button collapsed TO_DO" data-bs-toggle="collapse" data-bs-target="#TO_DO" aria-expanded="false" aria-controls="TO_DO">
                             <span class="position-relative btn py-0"><b>@lang('project.tickets')</b></span> 
                         </div>
                        
                     </div>
-                    <div id="TO_DO" class="accordion-collapse collapse" aria-labelledby="TO_DO_header" >
+                    <div id="TO_DO" class="accordion-collapse collapse quickview" aria-labelledby="TO_DO_header" >
                         <div class="card-body">
                             <div >
                                 <div >
@@ -354,7 +354,7 @@
 
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Invoice_maileStone_header">
-                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Invoice_maileStone" aria-expanded="false" aria-controls="Invoice_maileStone">
+                        <div class="accordion-button collapsed Invoice_maileStone" data-bs-toggle="collapse" data-bs-target="#Invoice_maileStone" aria-expanded="false" aria-controls="Invoice_maileStone">
                             <span class="position-relative btn py-0"><b>@lang('project.invoiceplan')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
@@ -362,12 +362,12 @@
                                 href="#Invoice_maileStone" 
                                 aria-expanded="true" 
                                 aria-controls="Invoice_maileStone" 
-                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed Invoice_maileStone "
                                 >
                             </i>
                         </div>
                     </div>
-                    <div id="Invoice_maileStone" class="accordion-collapse collapse" aria-labelledby="Invoice_maileStone_header" >
+                    <div id="Invoice_maileStone" class="accordion-collapse collapse quickview" aria-labelledby="Invoice_maileStone_header" >
                         <div class="row my-2 mx-3 align-items-center">
                             <div class="col-6">
                                 <div class="row m-0 align-items-center">
@@ -433,7 +433,7 @@
                 </fieldset> 
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="Gendral_notes_header">
-                        <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#Gendral_notes" aria-expanded="false" aria-controls="Invoice_maileStone">
+                        <div class="accordion-button collapsed Gendral_notes" data-bs-toggle="collapse" data-bs-target="#Gendral_notes" aria-expanded="false" aria-controls="Invoice_maileStone">
                             <span class="position-relative btn py-0"><b>@lang('project.generalnotes')</b></span> 
                         </div>
                         <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
@@ -441,18 +441,15 @@
                                 href="#Gendral_notes" 
                                 aria-expanded="true" 
                                 aria-controls="Gendral_notes" 
-                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed "
+                                class="accordion-button custom-accordion-button bg-primary text-white toggle-btn  collapsed Gendral_notes"
                                 >
                             </i>
                         </div>
                     </div>
-                    <div id="Gendral_notes" class="accordion-collapse collapse" aria-labelledby="Gendral_notes_header" >
+                    <div id="Gendral_notes" class="accordion-collapse collapse quickview" aria-labelledby="Gendral_notes_header" >
                         <div class="row my-2 mx-3 align-items-center">
-                            <div class="col-12" ng-bind-html="notes.notes">
-                               
-                               @{{notes.notes}}
-                              
-                            </div>
+                            <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>
+                          
                            
                         </div>
                        

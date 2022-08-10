@@ -225,14 +225,14 @@
                                     <div class="d-flex align-items-center">
                                         
                                         <div>
-                                            <h5 class="m-0 font-14">
+                                            <h5 class="m-0 font-14 capitalize">
                                                 @{{pticketscomment.type}}
                                             </h5>
                                         </div>
                                     </div>
                                 </td>
                                 <td ng-show="cols[3].show">@{{pticketscomment.summary}}</td>
-                                <td ng-show="cols[4].show">@{{pticketscomment.description}}</td>
+                                <td ng-show="cols[4].show">@{{pticketscomment.description | limitTo:20}}@{{pticketscomment.description.length > 20 ? '...' : ''}}</td>
                                 <td ng-show="cols[5].show">
                                     <div class="d-flex align-items-center">
                                         <img src="{{ asset("public/assets/images/") }}/  @{{ pticketscomment.type == 'customer' ? pticketscomment.assigncustomerdetails.image :pticketscomment.assigndetails.image }}" alt="Arya S" class="rounded-circle me-2" height="24">
@@ -344,10 +344,7 @@
                                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="internal" ng-model = "case.type"  ng-click="ticket_type('internal')"  ng-required="true" />
                                             <label class="form-check-label" for="flexRadioDefault1"> Internal </label>
                                         </div>
-                                        <div class="form-check col">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="customer" ng-model = "case.type"  ng-click="ticket_type('customer')"  ng-required="true"  />
-                                            <label class="form-check-label" for="flexRadioDefault2"> Customer </label>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -385,10 +382,7 @@
                                     </select>
                                     <label for="example-select" class="form-label text-secondary" ng-model = "case.created_by" style="display: none;"></label>
                                 </div> 
-                                <div class="mb-3 customer_variation" style="display: none;" >
-                                    <input class="form-check-input" type="checkbox" ng-model = "case.variation" id="check1" name="option1" value="something" checked>
-                                    <label for="example-select" class="form-label text-secondary">Converted Variation Order</label>
-                                </div> 
+                                
                             </div>
                         </div>
                     </div> 
@@ -884,5 +878,8 @@
         top: 1px;
         left: 0;
     }
+    .capitalize {
+   text-transform: capitalize;
+}
 </style>
 

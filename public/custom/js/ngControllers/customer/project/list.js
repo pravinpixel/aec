@@ -103,6 +103,12 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
     }
 
     $scope.getQuickProject = (title, id) => {
+        if(title != ''){
+            $(".quickview").removeClass("show");
+            $("."+title).attr("aria-expanded","true");
+            $("#"+title).addClass("show");
+    
+           }
         
 
         $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
@@ -146,11 +152,12 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
             $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
         });
         $http.get(`${API_URL}admin/api/v2/liveprojectnote/${id}`).then((res) => {
+            console.log(res.data.notes);
             
            // $scope.notes = res.data == null ? [] :res.data;
             $scope.htmlEditorOptions = {
                 height: 300,
-                value:  res.data == null ? [] :res.data,
+                value:  res.data.notes == null ? [] :res.data.notes,
                 mediaResizing: {
                 enabled: false,
                 },

@@ -680,6 +680,7 @@ app.controller('ToDoListController', function($scope, $http, API_URL, $location)
 // live project milestone
 app.controller('milestoneController', function($scope, $http, API_URL, $rootScope)
 {
+  wizardactiveTabs('milestone');
   let project_id = $('#project_id').val();;
   console.log(project_id);
   //var project_id  = $('#project_id').val();
@@ -694,6 +695,7 @@ app.controller('milestoneController', function($scope, $http, API_URL, $rootScop
 //Live project task list
 app.controller('TasklistController', function($scope, $http, API_URL, $location)
 {
+  wizardactiveTabs('issues');
   //$('#rasieTicketDetails').modal('hide');
   $("#rasieTicketDetails").modal('hide');
   $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) =>
@@ -943,6 +945,7 @@ app.controller('TasklistController', function($scope, $http, API_URL, $location)
 ///ticket wizard
 app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout)
 {
+  wizardactiveTabs('issues');
   $scope.options = {
     locale:
     {
@@ -1109,9 +1112,10 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
         Message('success', 'Issue Created Successfully');
         if (res.data.status == true && res.data.variation == true)
         {
+          let variationticketid = res.data.titketid;
           $scope.case = '';
           $('#rasieTicketDetails').modal('hide');
-          location.href = `${API_URL}admin/create-project-ticket/${project_id}`;
+          location.href = `${API_URL}customer/create-project-ticket/${project_id}-${variationticketid}`;
         }
         else if (res.data.status == true)
         {
@@ -1463,6 +1467,7 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
 });
 app.controller('GendralController', function($scope, $http, API_URL, $timeout, $location)
 {
+  wizardactiveTabs('notes');
   let project_id = $('#project_id').val();
   $scope.multilineToolbar = true;
   $http.get(`${API_URL}admin/api/v2/liveprojectnote/${project_id}`).then((res) =>
@@ -1800,8 +1805,19 @@ app.controller('InvoiceController', function($scope, $http, API_URL, $location)
   })
   //console.log(project_id);
 });
+app.controller('DocumentController', function($scope, $http, API_URL, $timeout, $location)
+{
+  wizardactiveTabs('document');
+});
+app.controller('Bim360Controller', function($scope, $http, API_URL, $timeout, $location)
+{
+  wizardactiveTabs('bim360');
+})
+
 
 app.controller('OverviewController', function($scope, $http, API_URL, $location, $rootScope) {
+  
+  wizardactiveTabs('overview');
   let project_id = $('#project_id').val();
   $http.get(`${API_URL}project/overview/${project_id}`).then((res) => {
     $scope.overview = res.data;
@@ -1927,6 +1943,7 @@ app.controller('OverviewController', function($scope, $http, API_URL, $location,
 
 
 });
+
 // app.directive('ngFile', ['$parse', function ($parse) {
 //     return {
 //      restrict: 'A',

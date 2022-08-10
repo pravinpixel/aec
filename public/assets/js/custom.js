@@ -173,3 +173,13 @@
         }
         return  res;
     }
+
+    function wizardactiveTabs(tableval) {
+        $('.wizard_active').removeClass('active');
+        $("."+tableval).attr("data-is-active","");
+        
+        $('#'+tableval).addClass('active');
+        $("."+tableval).attr("data-is-active","active");
+        //console.log(tableval);
+
+    }

@@ -103,7 +103,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
     }
 
     $scope.getQuickProject = (title, id) => {
-       console.log(title);
+       //console.log(title);
        if(title != ''){
         $(".quickview").removeClass("show");
         $("."+title).attr("aria-expanded","true");

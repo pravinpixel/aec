@@ -140,8 +140,8 @@
                 if($location.url() == '/') $scope.isMain = true; else $scope.isMain = false; 
                 $scope.PrevRoute    =  ""; $scope.NextRoute = ""; 
                 $scope.id = $rootScope.categoryId;
-                
-                $scope.indexRoute       =   true;
+              
+                 $scope.indexRoute       =   true;
                 $scope.HideNextRoute    =   true;
                 $scope.SubmitRoute      =   false;
 

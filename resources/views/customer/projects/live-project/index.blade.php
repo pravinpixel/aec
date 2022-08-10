@@ -24,7 +24,7 @@
                     <div id="rootwizard" ng-controller="CustomerProjectController">
                         <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
                             <li class="nav-item">
-                                <a href="#!/" style="min-height: 40px;" class="timeline-step" data-is-active="active">
+                                <a href="#!/" style="min-height: 40px;" id= "overview" class="timeline-step wizard_active active" data-is-active="active">
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/create-plateform.png") }}" class="w-50 invert">
@@ -34,7 +34,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#!/milestone" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/milestone" id= "milestone" style="min-height: 40px;" class="timeline-step wizard_active" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/mailtone.png") }}" class="w-50 invert">
@@ -44,7 +44,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item">
-                                <a href="#!/bim360" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/bim360" style="min-height: 40px;" id="bim360" class="timeline-step wizard_active" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/bim360.png") }}" class="w-50 invert">
@@ -54,7 +54,7 @@
                                 </a>
                             </li> 
                             <li class="nav-item">
-                                <a href="#!/tickets" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/tickets" style="min-height: 40px;" id="issues" class="timeline-step wizard_active" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/tikets.png") }}" class="w-50 invert">
@@ -64,7 +64,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#!/doc-management" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/doc-management" style="min-height: 40px;" id="document" class="timeline-step wizard_active" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/doc-man.png") }}" class="w-50 invert">
@@ -74,7 +74,7 @@
                                 </a>
                             </li>
                             <li class="nav-item last">
-                                <a href="#!/notes" style="min-height: 40px;" class="timeline-step" data-is-active>
+                                <a href="#!/notes" style="min-height: 40px;" id="notes" class="timeline-step wizard_active" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
                                             <img src="{{ asset("public/assets/icons/notes.png") }}" class="w-50 invert">
@@ -126,6 +126,7 @@
                 }
                 
                 if($location.path() == '/bim360') {
+                  
                     $scope.PrevRoute   =   "/task-list"
                     $scope.NextRoute   =   "/tickets"
                 }
@@ -168,6 +169,7 @@
            
             .when("/bim360", {
                 templateUrl : "{{ route('customer-live-project.bim360') }}",
+                controller: 'Bim360Controller',
             })
             .when("/tickets", {
                 templateUrl : "{{ route('customer-live-project.tickets') }}",
@@ -180,6 +182,7 @@
            
             .when("/doc-management", {
                 templateUrl : "{{ route('customer-live-project.doc-management') }}",
+                controller: 'DocumentController',
             })
             .when("/notes", {
                 templateUrl : "{{ route('customer-live-project.notes') }}",

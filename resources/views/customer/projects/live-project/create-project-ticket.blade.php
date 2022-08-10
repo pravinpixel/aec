@@ -1,19 +1,19 @@
      
-@extends('layouts.admin')
+@extends('layouts.customer')
 
-@section('admin-content')
+@section('customer-content')
          
     
     <div class="content-page">
         <div class="content" ng-controller="TicketController">
-            @include('admin.includes.top-bar')
+            @include('customer.includes.top-bar')
 
             <!-- Start Content-->
             <div class="container-fluid">
                 
                 <!-- start page title -->
                 
-                @include('admin.includes.page-navigater') 
+                @include('customer.includes.page-navigater') 
             </div>  
                          
 
