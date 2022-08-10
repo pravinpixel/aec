@@ -7,5 +7,6 @@ return  [
     'deleted'        => 'Module deleted successfully',
     'can_not_delete' => 'Can not delete this module item',
     'item_not_found' => 'Module item not found',
-    'status_updated' => 'Module status updated successfully'
+    'status_updated' => 'Module status updated successfully',
+    'reset'          => 'Module reset successfully'
 ];

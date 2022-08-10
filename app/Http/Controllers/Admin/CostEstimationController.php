@@ -304,7 +304,7 @@ class CostEstimationController extends Controller
         $data->status = 0;
         $data->save();
         $data->delete();
-        return response(['status' => true, 'msg' => trans('module.deleted')], Response::HTTP_OK);
+        return response(['status' => true, 'msg' => trans('module.reset')], Response::HTTP_OK);
     }
     public function colDelete($id)
     {
