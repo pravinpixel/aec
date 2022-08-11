@@ -731,49 +731,30 @@ formatData = (project) => {
           const CheckListsIndex = Object.entries(CheckLists.data);
   
           $scope.CallToDB = false;
-  
+          let isValidDate = [];
           CheckListsIndex.map((TaskLists) => {
-  
-  
-  
             const TaskListsIndex = TaskLists[1].data;
             TaskListsIndex.map((ListItems) => {
-  
-  
-  
-              if (ListItems.assign_to === undefined || ListItems.assign_to == '') {
-                Message('danger', 'Assign To Field is  Required !');
-                $scope.CallToDB = false;
-                return false
-              } else $scope.CallToDB = true;
-              if (ListItems.start_date === undefined || ListItems.start_date == '') {
-                Message('danger', 'Start Date Field is  Required !');
-                $scope.CallToDB = false;
-                return false
-              } else $scope.CallToDB = true;
-              if (ListItems.end_date === undefined || ListItems.end_date == '') {
-                Message('danger', 'End Date Field is  Required !');
-                $scope.CallToDB = false;
-                return false
-              } else $scope.CallToDB = true;
-              if (ListItems.delivery_date != undefined && ListItems.delivery_date != '') {
-  
-                if (ListItems.status == '') {
-                  //console.log(ListItems.delivery_date);
-                  Message('danger', 'Please select Status!');
-                  $scope.CallToDB = false;
-                  return false
-                }
-  
-              } else $scope.CallToDB = true;
-  
+              if(ListItems.status != undefined && ListItems.status == true ) {
+                  // isValidDate.push(true);
+                  if(ListItems.delivery_date == undefined || ListItems.delivery_date == '' ){
+                    isValidDate.push(true);
+                  }
+              }
             });
           });
-  
+          //console.log(isValidDate);
+          if(isValidDate.includes(true)){
+            isValidDate.length = 0;
+            Message('danger', 'Please select Delivery Date!');
+           
+            return false
+          }else{
+           
+            $scope.CallToDB = true;
+          }
   
           if ($scope.CallToDB === true) {
-  
-  
             $http.post(`${$("#baseurl").val()}admin/api/v2/store-task-list`, {
               id: $('#project_id').val(),
               update: $scope.check_list_items_status,
@@ -781,19 +762,14 @@ formatData = (project) => {
             }).then((res) => {
   
               if (res.data.status === true) {
-                Message('success', 'To do List Added Success !');
+                Message('success', 'Task List Updated !');
                 $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
-                  //console.log(res);
-  
                   $scope.project = formatData(res.data.project);
                   $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
                   $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
                   $scope.countper = res.data.completed == null ? [] : res.data.completed;
                   $scope.overall = res.data.overall;
                   $scope.lead = res.data.lead;
-                  //console.log(res.data.check_list_items );
-  
-  
                 });
               }
             })
@@ -892,6 +868,10 @@ formatData = (project) => {
   ///ticket wizard
   
   app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout) {
+    $scope.autotrigger = function() {
+      $('#flexRadioDefault1').click();
+     
+    }
   
     $scope.options = {
       locale: {
@@ -904,9 +884,7 @@ formatData = (project) => {
     // $scope.startDate = moment();
     // $scope.endDate = moment();
   
-    $scope.onChange = function() {
-      console.dir($scope);
-    }
+    
   
   
     let project_id = $('#project_id').val();
@@ -1052,9 +1030,13 @@ formatData = (project) => {
     console.log($scope.ticket);
   
   
+    $scope.formSave = false;
   
-  
-    $scope.submitticketForm = function(value) {
+    $scope.submitticketForm = function(formValid) {
+      if(formValid == true) {
+          $scope.formSave = true;
+          return false;
+      }
       var fd = new FormData();
       //console.log($scope.case)
       //console.log(fd);
@@ -1490,7 +1472,40 @@ formatData = (project) => {
     $scope.submitgeneralinfo = () => {
 
       Swal.fire({
-        title: `Are you sure want  submit ?`,
+        title: `Do you want to complete the project?`,
+        showDenyButton: false,
+        showCancelButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes',
+      }).then((result) => {
+        if (result.isConfirmed) {
+         
+      $http({
+        method: 'POST',
+        url: `${API_URL}admin/live-project/store-notes`,
+        data: {
+          project_id: project_id,
+          'data': $(".dx-htmleditor-content").html()
+        }
+      }).then(function(res) {
+        $location.path('/review');
+        Message('success', `Notes added successfully`);
+      }, function(error) {
+  
+        Message('danger', `General info ${error}`);
+  
+      });
+        }
+      });
+
+
+
+    }
+
+    $scope.storegeneralinfo = () => {
+
+      Swal.fire({
+        title: `Saved successfully`,
         showDenyButton: false,
         showCancelButton: true,
         cancelButtonText: 'No',
@@ -1897,12 +1912,9 @@ formatData = (project) => {
 
           }]
       });
-  });
-
-
-
-apexcharts.min.js
     });
+    apexcharts.min.js
+  });
     $http.get(`${API_URL}admin/api/v2/projectticket/${project_id}`).then((res) => {
       $scope.overviewinternal = res.data.internaloverview == null ? false : res.data.internaloverview
       $scope.overviewcustomer = res.data.customeroverview == null ? false : res.data.customeroverview
@@ -1910,6 +1922,62 @@ apexcharts.min.js
       console.log($scope.overviewinternal);
      
     });
+
+    //projecttask
+
+    $scope.completiontask = (type) => {
+      $http.get(`${API_URL}project/overview/${project_id}`).then((res) => {
+        $scope.overview = res.data;
+      })
+  
+      $http.get(`${API_URL}project/searchchart/${project_id}/${type}`).then((res) => {
+        
+       
+        $scope.countper = res.data.completed == null ? [] : res.data.completed;
+        $scope.overall = res.data.overall;
+        $scope.lead = res.data.lead;
+        var pname = [];
+        var pnamevalue = [];
+        $scope.teamSetups = $scope.countper.map((item) => {
+            //console.log(item.first_name);
+            pname.push(item.name);
+            pnamevalue.push(item.completed);
+    
+          })
+          $scope.projectstag = pname;
+          $scope.projectscompletetag = pnamevalue;
+        console.log($scope.projectstag);
+        var options = {
+          series: [{
+              data: $scope.projectscompletetag
+          }],
+          chart: {
+              type: 'bar',
+              height: 230
+          },
+          plotOptions: {
+              bar: {
+                  borderRadius: 4,
+                  horizontal: true,
+              }
+          },
+          dataLabels: {
+              enabled: false
+          },
+          xaxis: {
+              categories:   $scope.projectstag ,
+          }
+      };
+      var chart = new ApexCharts(document.querySelector("#project-completion-chart"), options);
+      chart.render();
+      
+  
+    
+      apexcharts.min.js
+    });
+      //alert(type);
+
+    }
 
 
   });

@@ -30,5 +30,6 @@ interface ProjectRepositoryInterface
     public function updateWizardStatus($project, $column, $value);
     public function liveprojectdata($id);
     public function getliveProjectById($id);
+    public function getliveProjectchart($id,$type);
     // public function storeToDoList($id, $data);
 }

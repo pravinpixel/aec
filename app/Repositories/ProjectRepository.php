@@ -142,8 +142,10 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                    $start  = date_create($finaldata->start_date);
                    $end    = date_create($finaldata->end_date); // Current time and date
                    $diff   = date_diff( $start, $end );
-                   $seriesdata[] = array('y'=>$diff->days,
+                   $seriesdata[] = array('y'=>$diff->days * 24,
                                         'color'=>'#008ffb' );
+
+                                      
 
 
                    //dd($diff->days);
@@ -370,6 +372,80 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
         return $this->model->with('customerdatails')->find($id);
 
+    }
+
+    //==chart===//
+
+    public  function getliveProjectchart($id,$type){
+        $project = $this->model->find($id);
+        $employee =  Employees::find($project->created_by );
+        $projechtchart =  isset($project->gantt_chart_data) ? json_decode($project->gantt_chart_data) :array();
+        $totalcompletecount = array();
+        $totaloverall = array();
+        $rearr = array();
+        $gnttname = array();
+        $startOfWeek = date("Y-m-d", strtotime("Monday this week"));
+        for ($i=0; $i<7;$i++){
+            $finddays[]= date("d-m-Y", strtotime($startOfWeek . " + $i day"));
+        }
+
+        for($x=2; $x>=0;$x--){
+            $qutermonth[] = date('m-Y', strtotime(date('Y-m')." -" . $x . " month"));
+           
+            }
+       
+        foreach($projechtchart as $projectdata){
+            foreach($projectdata->data as $key=>$prodata){
+                $finalstatuspercentage = array();
+                $overall = count($prodata->data);
+                $totaloverall[] = $overall;
+                //dd($totaloverall);
+                foreach($prodata->data as $finaldata){
+                   
+                    if(isset($finaldata->status) &&  $finaldata->status !=  '' && (in_array(date("d-m-Y", strtotime($finaldata->delivery_date)), $finddays)) && $type == 'weekly'){
+                   $finalstatuspercentage[] =   $finaldata->status;
+                   } 
+                   if(isset($finaldata->status) &&  $finaldata->status !=  '' && date("m-Y", strtotime($finaldata->delivery_date)) ==  date("m-Y")  && $type == 'monthly'){
+                    $finalstatuspercentage[] =   $finaldata->status;
+                    } 
+                    if(isset($finaldata->status) &&  $finaldata->status !=  '' && (in_array(date("m-Y", strtotime($finaldata->delivery_date)), $qutermonth)) && $type == 'weekly'){
+                        $finalstatuspercentage[] =   $finaldata->status;
+                        }  
+                    if(isset($finaldata->status) &&  $finaldata->status !=  '' && date("Y", strtotime($finaldata->delivery_date)) ==  date("Y")  && $type == 'Year'){
+                        $finalstatuspercentage[] =   $finaldata->status;
+                        } 
+                   $gnttname[] = $finaldata->task_list;
+                   $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
+                   $start  = date_create($finaldata->start_date);
+                   $end    = date_create($finaldata->end_date); // Current time and date
+                   $diff   = date_diff( $start, $end );
+                   $seriesdata[] = array('y'=>$diff->days,
+                                        'color'=>'#008ffb' );
+                    }
+                
+                $completecount = count($finalstatuspercentage);
+                $totalcompletecount[] = $completecount;
+                $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
+                                 'completed'=> round(($completecount /$overall )*100),2);
+               
+            }
+        }
+         //dd(json_encode($seriesdata));
+         
+        if(count($projechtchart) > 0){
+         
+         $result = array('overall'=> round(((array_sum($totalcompletecount) / array_sum($totaloverall))*100),2),
+         'completed' => $rearr);
+            
+        }
+        $result['project'] = $project;
+        $result['lead'] = isset($employee) ? $employee->first_name : '';
+        $result['count']= $result;
+        $result['series']= $seriesdata;
+        $result['categories']= $gnttname;
+        
+        //dd($project);
+        return $result;
     }
 
     public function getUser()

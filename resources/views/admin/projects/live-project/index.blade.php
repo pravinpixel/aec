@@ -103,7 +103,7 @@
                                             <img src="{{ asset("public/assets/icons/notes.png") }}" class="w-50 invert">
                                         </div>
                                     </div> 
-                                    <p class="h5 mt-2">Project Closer</p>
+                                    <p class="h5 mt-2">Project Closure</p>
                                 </a>
                             </li> 
                         </ul>

@@ -8,5 +8,6 @@
 <div class="card-footer text-end">
     <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
-    <a ng-click= "submitgeneralinfo()" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
+    <a ng-click= "storegeneralinfo()" ng-show="SubmitRoute" class="btn btn-primary">Sumbmit</a>
+    <a ng-click= "submitgeneralinfo()" ng-show="SubmitRoute" class="btn btn-primary" style="display: none;">Complete project</a>
 </div>

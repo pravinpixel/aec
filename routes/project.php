@@ -55,6 +55,9 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
         Route::get('project-unestablished-list', [ProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');
         Route::get('project-live-list', [ProjectController::class, 'liveProjectList'])->name('project-live-list');
     //========= END :  Wizard Flow Views =========
+
+    //========Chart Search==========//
+   
 });
 
 Route::get('/get-project-session-id',[ProjectController::class, 'getProjectId'])->name("vetri");
@@ -66,6 +69,7 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::get('reference-number',[ProjectController::class, 'getReferenceNumber'])->name('reference-number');
     Route::get('/{id}',[ProjectController::class, 'show'])->name('get-by-id');
     Route::get('liveprojectlist/{id}',[ProjectController::class, 'livetaskshow'])->name('get-by-taskid');
+    Route::get('searchchart/{id}/{type}',[ProjectController::class, 'searchchart'])->name('get-by-chart-search');
 
   
     Route::post('/',[ProjectController::class, 'store'])->name('store');

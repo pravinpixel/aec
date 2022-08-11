@@ -8,52 +8,99 @@
 </div>--}}
 <div class="card m-0">
     <div class="card-body">
-        <div class="row mb-3 align-items-center">
+        <div class="row my-2 mx-3 align-items-center">
             <div class="col-6">
-                <div class="row align-items-center mb-2 m-0">
-                    <div class="col-3"><strong>Project Cost</strong></div>
-                    <div class=" col-9">@{{review.invoice_plan.project_cost}}</div>
-                </div>
-                <div class="row align-items-center mb-2 m-0">
-                    <div class="col-3"><strong>No.of Invoices</strong></div>
-                    <div class=" col-9"> @{{review.invoice_plan.no_of_invoice}}</div>
-                </div>
-                <div class="row  align-items-center mb-2 m-0">
-                    <div class="col-3"><strong>Project Start Date</strong></div>
-                    <div class=" col-9 position-relative">
-                       
-                        @{{review.project.start_date | date: 'dd-MM-yyyy' }}
+                <div class="row m-0 align-items-center">
+                    <div class="col-4 p-0">
+                        <label class="col-form-label">Project Cost</label>
                     </div>
+                    <div class="col pe-0"> 
+                        <div class="form-control form-control-sm  border-0  ng-binding">@{{review.invoice_plan.project_cost}}</div>  
+                    </div> 
                 </div>
-                <div class="row align-items-center mb-2 m-0">
-                    <div class="col-3"><strong>Project End Date</strong></div>
-                    <div class="col-9 position-relative">
-                       
-                        @{{review.project.delivery_date | date: 'dd-MM-yyyy' }}
+                <div class="row m-0 align-items-center">
+                    <div class="col-4 p-0">
+                        <label class="col-form-label">Project Start Date</label>
                     </div>
+                    <div class="col pe-0"> 
+                        <div class="form-control form-control-sm  border-0  ng-binding">  @{{review.project.start_date | date: 'dd-MM-yyyy' }}</div>  
+                    </div> 
+                </div>
+              
+            </div>
+            <div class="col-6">
+                 <div class="row m-0 align-items-center">
+                    <div class="col-3  p-0">
+                        <label class="col-form-label">No.of Invoices</label>
+                    </div>
+                    <div class="col pe-0"> 
+                        <div class="form-control form-control-sm  border-0  ng-binding"> @{{review.invoice_plan.no_of_invoice}}</div>  
+                    </div> 
+                </div>
+                <div class="row m-0 align-items-center">
+                    <div class="col-3  p-0">
+                        <label class="col-form-label">Project End Date</label>
+                    </div>
+                    <div class="col pe-0"> 
+                        <div class="form-control form-control-sm  border-0  ng-binding">  @{{review.project.delivery_date | date: 'dd-MM-yyyy' }}</div>  
+                    </div> 
                 </div>
             </div>
-            <div class="col-6 row">
-                <div class="col text-center">
-                    <span class=""><strong>Paid</strong></span>
-                    <div class="pie animate" style="--p:90;--c:lightgreen"> 90%</div>
-                </div>
-                <div class="col text-center">
-                    <span class=""><strong>UnPaid</strong></span>
-                    <div class="pie animate" style="--p:80;--c:purple"> 80%</div>
-                </div>
-                <div class="col text-center">
-                    <span class=""><strong>Pending</strong></span>
-                    <div class="pie animate" style="--p:70;--c:orange"> 70%</div>
+        </div>
+        <div class="row ">
+            <div class="col-md-4">
+               <div class="card">
+                  <table class="text-center  m-0  table table-bordered" >
+                    <tr>
+                        <th colspan="2" > Overall Amount</th>
+                    </tr>
+                    <tr>
+                        <th> Count</th>
+                        <th> paid</th>
+                    </tr>
+                    <tr>
+                        <td> 1</td>
+                        <td> 100</td>
+                    </tr>
+                    
+                  </table>
+               </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <table class="text-center  m-0  table table-bordered" >
+                        <tr>
+                            <th colspan="2" > paid Amount</th>
+                        </tr>
+                        <tr>
+                            <th> Count</th>
+                            <th> paid</th>
+                        </tr>
+                        <tr>
+                            <td> 1</td>
+                            <td> 100</td>
+                        </tr>
+                  </table>
                 </div>
             </div>
-           
-
-           
-            <div class="col-4 text-center">
-                <div data-provide="datepicker-inline"></div>
+            <div class="col-md-4">
+                <div class="card">
+                    <table class="text-center m-0  table table-bordered" >
+                        <tr>
+                            <th colspan="2" > Unpaid Amount</th>
+                        </tr>
+                        <tr>
+                            <th> Count</th>
+                            <th> paid</th>
+                        </tr>
+                        <tr>
+                            <td> 1</td>
+                            <td> 100</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div> 
+        </div>
         <table class="table custom m-0 custom table-bordered">
             <thead>
                 <tr>
@@ -78,7 +125,6 @@
             
         </table>
     </div>
-    
 </div>
 <div class="card-footer text-end">
     <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>

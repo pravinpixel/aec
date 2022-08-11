@@ -61,13 +61,14 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">Weekly</a>
+                                        
+                                        <a href="javascript:void(0);" ng-click="completiontask('weekly')" class="dropdown-item">Weekly</a>
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">1 Monthly</a>
+                                        <a href="javascript:void(0);"  ng-click="completiontask('monthly')" class="dropdown-item">1 Monthly</a>
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">1 Quarter</a>
+                                        <a href="javascript:void(0);" ng-click="completiontask('quarter')" class="dropdown-item">1 Quarter</a>
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item">1 Year</a>
+                                        <a href="javascript:void(0);" ng-click="completiontask('Year')" class="dropdown-item">1 Year</a>
                                     </div>
                                 </div>
                                 <a href="#" class="btn float-end btn-xs">
@@ -225,7 +226,40 @@
         </div>
     </div>
     <!-- end col -->
+
+    
+
+            
+
     <div class="col-xl-6 col-lg-6 col-md-12">
+      
+        <div class="card shadow-none border mb-0">
+           <div class="card-header">
+               <h5 class="m-0">
+                   Issues by Severity
+               </h5>
+           </div>
+           <div class="card-body p-0 py-2">
+              <div class="m-0 text-center min-h-300">
+           <div>
+               <canvas id="project-status"></canvas>
+           </div>
+           
+       </div>
+           </div>
+        </div>
+     </div>
+
+       </div>
+       
+   </div>
+   <!-- end col -->
+
+</div>
+
+   <div class="row m-0">
+
+    <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
         <div class="card shadow-sm border">
             <div class="card-header">
                 <h4 class="header-title text-uppercase mb-0">
@@ -265,10 +299,9 @@
             </div>
         </div>    
         
-        <div class="row">
+    </div>
 
-
-    <div class="col-xl-8 col-lg-8 col-md-12">
+    <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
          <div class="card shadow-sm border mb-0 bg-light">
             <div class="card-body p-0 py-2">
                 <div class="row m-0">
@@ -404,30 +437,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- end col -->
-
-    <div class="col-xl-4 col-lg-4 col-md-12">
-      
-         <div class="card shadow-sm border mb-0">
-            <div class="card-header">
-                <h5 class="m-0">
-                    Issues by Severity
-                </h5>
-            </div>
-            <div class="card-body p-0 py-2">
-               <div class="m-0 text-center min-h-300">
-            <div>
-                <canvas id="project-status"></canvas>
-            </div>
-            
-        </div>
-            </div>
-         </div>
-      </div>
-
-        </div>
-        
     </div>
     <!-- end col -->
 

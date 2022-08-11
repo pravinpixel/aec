@@ -436,7 +436,7 @@
 @if (Route::is('customer-live-project.overview'))
     {!! Html::script('public/assets/js/vendor/Chart.bundle.min.js') !!}
     <script>
-        const project_status = document.getElementById('project-status').getContext('2d');
+        const project_status_data = document.getElementById('project-status').getContext('2d');
 
         const data = {
             labels: ['On Schedule', ' All Tasks', 'Overdue', ],
@@ -446,7 +446,7 @@
                 backgroundColor: ["#20CF98", "#FDBC2A", "#F85A7E"]
             }]
         };
-        const config = new Chart(project_status, {
+        const config = new Chart(project_status_data, {
             type: 'doughnut',
             data: data,
             options: {

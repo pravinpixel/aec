@@ -202,7 +202,7 @@
                             </div>
                         </div>
                         <button class="ms-1 border rounded btn btn-sm btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
-                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issue</button>
+                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" ng-click="autotrigger('internal')" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issue</button>
                         </div>
                     <table class="table custom table-striped table-bordered" datatable="ng"  dt-options="vm.dtOptions">
                         <thead>
@@ -236,7 +236,7 @@
                                 <td ng-show="cols[5].show">
                                     <div class="d-flex align-items-center">
                                       
-                                        <img src="{{ asset("public/assets/images/") }}/  @{{ pticketscomment.type == 'customer' ? pticketscomment.assigncustomerdetails.image :pticketscomment.assigndetails.image }}" alt="Arya S" class="rounded-circle me-2" height="24">
+                                       
                                         <div>
                                             <h5 class="m-0 font-14">
                                                <span ng-show ="pticketscomment.type != 'customer'">  @{{pticketscomment.assigndetails.first_name}}</span> 
@@ -248,7 +248,7 @@
                                 
                                 <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
                                 <td ng-show="cols[7].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
-                                <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center">@{{pticketscomment.priority}} </td>
+                                <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center capitalize">@{{pticketscomment.priority}} </td>
                                 
                                 <td ng-show="cols[9].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
                                 <td style="padding: 0 !important" class="text-center" >
@@ -275,7 +275,7 @@
 {{-- ========== Raise Ticket ========== --}}
 <div id="rasieTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
-        <form class="needs-validations modal-content card m-0" id="newissuesForm" name="newissuesForm" ng-submit="submitticketForm()" novalidate enctype="multipart/form-data">
+        <form class="needs-validations modal-content card m-0" id="newissuesForm" name="newissuesForm" ng-submit="submitticketForm(newissuesForm.$invalid)" novalidate enctype="multipart/form-data">
             <div class="modal-header bg-light">
                 <div class="modal-title d-flex">
                     <i class="fa fa-plus f-26 me-1 text-secondary" style="margin-top: -4px;"></i> 
@@ -297,7 +297,7 @@
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Summary<sup class="text-danger">*</sup></label>
                                     <input type="text" class="form-control form-control-sm"  name = "summary" ng-model = "case.summary" ng-required="true">
-                                    <small class="text-danger" ng-show="newissuesForm.summary.$invalid && newissuesForm.summary.$toucehd">This field is required</small>
+                                    <small class="text-danger" ng-show="newissuesForm.summary.$invalid && formSave">This field is required</small>
                                 </div> 
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Description<sup class="text-danger">*</sup></label>
@@ -355,6 +355,7 @@
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Assignee<sup class="text-danger">*</sup></label>
                                     <select class="form-select form-select-sm shadow" id="example-select_project"  ng-required="true" >
+                                       <option>Select Assignee</option>
                                         <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
                                         <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
                                             @{{ projectManager.first_name }}
@@ -364,10 +365,12 @@
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Tag</label>
                                     <input id="ms1" class="my-control" type="text" name="ms1"/>
+                                    
                                 </div>
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Priority<sup class="text-danger">*</sup></label>
                                     <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority"  ng-required="true">
+                                         <option value ="">Select Assignee</option>
                                         <option value = "critical">Critical</option>
                                         <option value = "high">High</option>
                                         <option value = "medium">Medium</option>
@@ -389,7 +392,7 @@
                                 </div> 
                                 <div class="mb-3 customer_variation" style="display: none;" >
                                     <input class="form-check-input" type="checkbox" ng-model = "case.variation" id="check1" name="option1" value="something" checked>
-                                    <label for="example-select" class="form-label text-secondary">Converted Variation Order</label>
+                                    <label for="example-select" class="form-label text-secondary">Convert to Variation Order</label>
                                 </div> 
                             </div>
                         </div>
@@ -398,7 +401,7 @@
             </div> 
             <div class="modal-footer border-top text-end">
                 <button class="btn btn-light shadow-sm border btn-sm" ng-click=discardticket()>Discard</button>
-                <button class="btn btn-info btn-sm" ng-disabled="newissuesForm.$invalid" onclick >Submit</button>
+                <button class="btn btn-info btn-sm" onclick >Submit</button>
             </div>
         </form><!-- /.modal-content -->
     </div><!-- /.modal-dialog modal-dialog-centered -->

@@ -1268,6 +1268,11 @@ class ProjectController extends Controller
 
 
     }
+    //Search Chart
+    public function searchchart($id,$type){
+        //dd($type);
+        return $this->projectRepo->getliveProjectchart($id,$type);
+    }
 
     public function getUser()
     {
@@ -1285,6 +1290,7 @@ class ProjectController extends Controller
         }
         return [$seenBy, $role_id,$created_by];
     }
+
 
    
 
