@@ -61,3 +61,9 @@ if(!function_exists('proposalStatusBadge')) {
         }
     }
 }
+
+if(!function_exists('permissionHeader')) {
+    function permissionHeader($str){
+        return  ucwords(str_replace('_', ' ',$str));
+    }
+}

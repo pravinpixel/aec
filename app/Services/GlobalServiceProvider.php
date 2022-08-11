@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\Config as ConfigModel;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 // use PhpParser\Node\Stmt\Switch_;
 
 class GlobalServiceProvider extends Controller
 {
-   
+    protected $permissions = '';
+    protected $root_name;
     public function getMenus()
     {
         
@@ -144,5 +146,54 @@ class GlobalServiceProvider extends Controller
                 break;
         }
         return $value;
+    }
+
+
+    public function permissionHtmlView($appPermissions,  $all_permission)
+    {
+        foreach($appPermissions as $name => $permissions) {
+           $this->root_name = $name;
+           $this->recursiveHtmlView($name, $permissions, $all_permission);
+        }
+        return $this->permissions;
+    }
+
+    private function recursiveHtmlView($name, $permissions, $all_permission)
+    {
+        $heading = $name;
+        $this->root_name = $name;
+        $is_disable = true;
+        if(!is_array($permissions)) {
+            $this->permissions .= $this->processRow($is_disable, $heading, $name, $all_permission);
+        } else {
+            $this->permissions .="<tr>";
+            foreach($permissions as $key => $permission) {
+                $heading = $key;
+                if(!is_array($permission)) {
+                    $this->permissions .= $this->processRow($is_disable, $heading, $key, $all_permission);
+                    $is_disable = false;
+                } else { 
+                    $this->recursiveHtmlView($heading, $permission,  $all_permission);
+                }
+            }
+        }
+    }
+
+    private function processRow($is_disable, $heading, $permission,  $all_permission)
+    {
+        $row = '';
+        if($is_disable) {
+            $row .= "<td class='font-weight-bold'> <span class='".config('permission.permission_styles')[$this->root_name]."'>".permissionHeader( $this->root_name )." </span></td>";
+        }
+        $row .= "<td class='text-center'>
+                        <div class='icheckbox_square-blue checked'>
+                            <div class='checkbox'> <input ng-model='permissionForm.".$permission."' type='checkbox'
+                                    class='form-check-input view_checkbox' value='1'
+                                    id='sale_index'  name='".$permission."'  />
+                                <label for='sales-index'></label>
+                            </div>
+                        </div>
+                    </td>";
+        return $row;
     }
 }

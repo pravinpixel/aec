@@ -9,20 +9,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Spatie\Permission\Models\Permission;
-
 class PermissionController extends Controller
 {
     public function permission($id)
     {
         try {
-            $lims_role_data = Role::find($id);
-            if (!empty($lims_role_data)) {
-                $permissions = Role::findByName($lims_role_data->name)->permissions;
+            $li_role_data = Role::find($id);
+            $appPermissions = config('permission.permissions');
+            if (!empty($li_role_data)) {
+                $permissions = Role::findByName($li_role_data->name)->permissions;
                 foreach ($permissions as $permission)
                     $all_permission[] = $permission->name;
                 if (empty($all_permission))
                     $all_permission[] = 'dummy text';
-                return view('admin.setting-tabs.Permission.index', compact('lims_role_data', 'all_permission'));
+                return view('admin.setting-tabs.Permission.index', compact('li_role_data', 'appPermissions', 'all_permission'));
             } else
                 return  response(['status' => false, 'msg' => __('global.item_not_found')]);
         } catch (Exception $ex) {
@@ -537,16 +537,15 @@ class PermissionController extends Controller
                 $all_permission[$permission->name] = true;
             if (empty($all_permission))
                 $all_permission[] = 'dummy text';
-
             return response(['status' => true, 'permission' => (object)$all_permission]);
         }
     }
 
     public function destroy($id)
     {
-        $lims_role_data = Role::find($id);
-        $lims_role_data->is_active = false;
-        $lims_role_data->save();
+        $li_role_data = Role::find($id);
+        $li_role_data->is_active = false;
+        $li_role_data->save();
         return redirect('role')->with('not_permitted', 'Data deleted successfully');
     }
 }

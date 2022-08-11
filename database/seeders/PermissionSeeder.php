@@ -90,6 +90,11 @@ class PermissionSeeder extends Seeder
            Permission::create(['name' => 'project_schedule_add']);
            Permission::create(['name' => 'project_schedule_edit']);
            Permission::create(['name' => 'project_schedule_delete']);
+
+           Permission::create(['name' => 'sale_index']);
+           Permission::create(['name' => 'sale_add']);
+           Permission::create(['name' => 'sale_edit']);
+           Permission::create(['name' => 'sale_delete']);
    
            // create roles and assign existing permissions
            $role1 = Role::create(['name' => 'Admin','status' => 1, 'slug' => 'admin']);

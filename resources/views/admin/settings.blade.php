@@ -847,7 +847,6 @@
                     }).then(function (response) {
                         
                         $scope.check_permission_master = response.data;		
-                        console.log(response.data)
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');

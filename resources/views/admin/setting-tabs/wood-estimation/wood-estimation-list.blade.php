@@ -145,44 +145,44 @@
                     </thead> 
                     <tbody> 
                         <tr class="needs-validations " name="cal_frm"  ng-repeat="calculation in calculations">
-                            <td style="padding: 0 10px !important" class="text-left">
+                            <td class="text-left wood_estimation_td">
                                @{{ $index + 1}}
                             </td>
-                            <td style="padding: 0 10px !important" class="text-left">
+                            <td class="text-left wood_estimation_td">
                                 <span> @{{  calculation.component }}</span>
                             </td>
-                            <td style="padding: 0 10px !important">
+                            <td class="wood_estimation_td">
                                 <span> @{{  calculation.type }}</span>
                             </td> 
-                           <td style="padding: 0 10px !important" class="text-left">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation" min="0" type="number" ng-model="calculation.detail_price" > 
+                           <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data" update-master="calculation" min="0" type="number" ng-model="calculation.detail_price" > 
                             </td>
-                            <td style="padding: 0 10px !important" class="text-left">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.detail_sum"> 
+                            <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.detail_sum"> 
                             </td>
-                            <td style="padding: 0 10px !important" class="text-left">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.statistic_price" > 
+                            <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.statistic_price" > 
                             </td>
-                            <td style="padding: 0 10px !important" class="text-left">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.statistic_sum"> 
+                            <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.statistic_sum"> 
                             </td>
-                            <td style="padding: 0 10px !important" class="text-left">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.cad_cam_price" > 
+                            <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.cad_cam_price" > 
                             </td>
                         
-                            <td style="padding: 0 10px !important" class="text-left">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.cad_cam_sum"> 
+                            <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.cad_cam_sum"> 
                             </td>
 
-                            <td style="padding: 0 10px !important" class="text-left">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_price"> 
+                            <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_price"> 
                             </td>
 
-                            <td style="padding: 0 10px !important" class="text-left">
-                                <input style="width: 100%; border:0;background:none;text-align:right;font-size:12px" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_sum"> 
+                            <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_sum"> 
                             </td>
 
-                            <td style="padding: 0 10px !important" class="text-left">
+                            <td class="text-left wood_estimation_td">
                                 <button ng-show="calculation.status == '1'" class="btn btn-danger" ng-click="deleteCalculation(calculation.id)"><i class="fa fa-refresh"></i></button>
                             </td>
                         </tr> 
