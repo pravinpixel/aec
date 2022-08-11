@@ -233,7 +233,7 @@ return [
             ]
         ],
        
-        'task' => [
+        'issues' => [
             'task_index'  => '',
             'task_add'    => '',
             'task_edit'   => '',
@@ -285,6 +285,7 @@ return [
         'task'                      => 'px-0',
         'project'                   => 'px-0',
         'task'                      => 'px-0',
+        'issues'                    => 'px-0',
         'supplier_detail'           => 'px-0',
         'customer_detail'           => 'px-0',
         'project_schedule'          => 'px-4',
