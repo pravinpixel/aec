@@ -32,8 +32,8 @@
 
         <!--- Sidemenu -->
         <ul class="side-nav pt-3">
- 
-            <li class="side-nav-item">
+            @if(userHasAccess('enquiry_dashboard') || userHasAccess('project_dashboard') || userHasAccess('economy_dashboard') ||  userHasAccess('employee_performance'))
+                <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#dashboard" aria-expanded="false" aria-controls="dashboard" class="side-nav-link">
                     <i class="fa fa-tachometer-alt"></i>
                     <span> Dashboards </span>
@@ -41,23 +41,33 @@
                 </a>
                 <div class="collapse" id="dashboard">
                     <ul class="side-nav-second-level">
-                        <li>
-                            <a href="{{ route('admin-dashboard') }}">Enquiries</a>
-                        </li> 
-                        <li>
-                            <a href="{{ route('admin-project-dashboard') }}">Projects</a>
-                        </li> 
-                        <li>
-                            <a href="{{ route('admin-economy-dashboard') }}">Economy</a>
-                        </li> 
-                        <li>
-                            <a href="#">Employee performance</a>
-                        </li> 
+                        @if(userHasAccess('enquiry_dashboard'))
+                            <li>
+                                <a href="{{ route('admin-dashboard') }}">Enquiries</a>
+                            </li> 
+                        @endif
+                        @if(userHasAccess('project_dashboard'))
+                            <li>
+                                <a href="{{ route('admin-project-dashboard') }}">Projects</a>
+                            </li> 
+                        @endif
+                        @if(userHasAccess('economy_dashboard'))
+                            <li>
+                                <a href="{{ route('admin-economy-dashboard') }}">Economy</a>
+                            </li> 
+                        @endif
+                        @if(userHasAccess('employee_performance'))
+                            <li>
+                                <a href="#">Employee performance</a>
+                            </li> 
+                        @endif
+                        
                     </ul>
                 </div>
-            </li> 
+                </li> 
+            @endif
             {{-- <li class="side-nav-title side-nav-item mt-1">Sales</li> --}}
-            @if(userHasAccess('enquiry_index') || userHasAccess('contract_index'))
+            @if(userHasAccess('enquiry_index') || userHasAccess('contract_index') || userHasAccess('sale_index'))
             <li class="side-nav-item {{ Route::is(["view-enquiry","admin.enquiry-create","admin-documentary-view","admin.documentaryEdit","admin.add-documentary"]) ? "menuitem-active" : ""}}">
                 <a data-bs-toggle="collapse" href="#Sales" aria-expanded="false" aria-controls="Sales" class="side-nav-link">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
@@ -113,24 +123,27 @@
                     <span>Administration</span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee","edit.employee"]) ? "show" : ""}}" id="Administration">
-                    <ul class="side-nav-second-level">
-                        @if(userHasAccess('cost_estimate_index'))
-                        <li>
-                            <a href="{{ route('cost-estimation-single-view') }}">Cost Estimation</a>
-                        </li>
-                        @endif
-                        <li>
-                            <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
-                        </li>
-                        @if(userHasAccess('employee_index'))
-                            <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee",'edit.employee']) ? "menuitem-active" : ""}}">
-                                {{-- <a href="{{ route('admin-employee-control-view') }}">Employee Control </a> --}}
-                                <a href="{{ route('employee.index') }}">Employee Control </a>
-                            </li> 
-                        @endif
-                    </ul>
-                </div>
+                @if(userHasAccess('cost_estimate_calculation_index') || userHasAccess('gantt_chart_index') || userHasAccess('employee_index'))
+                    <div class="collapse {{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee","edit.employee"]) ? "show" : ""}}" id="Administration">
+                        <ul class="side-nav-second-level">
+                            @if(userHasAccess('cost_estimate_calculation_index'))
+                            <li>
+                                <a href="{{ route('enquiry.calculate-cost-estimation') }}">Cost Estimation</a>
+                            </li>
+                            @endif
+                            {{-- @if(userHasAccess('gantt_chart_index'))
+                            <li>
+                                <a href="{{ route('gantt-chart') }}">Gantt Chart</a>
+                            </li>
+                            @endif --}}
+                            @if(userHasAccess('employee_index'))
+                                <li class="{{ Route::is(["admin-employee-control-view","admin.employee-add","admin.employeeEdit","create.employee",'edit.employee']) ? "menuitem-active" : ""}}">
+                                    <a href="{{ route('employee.index') }}">Employee Control </a>
+                                </li> 
+                            @endif
+                        </ul>
+                    </div>
+                @endif
             </li> 
             @endif
             @if(userHasAccess('task_index'))

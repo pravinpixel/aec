@@ -160,6 +160,18 @@ return [
     ],
 
     'permissions' => [
+        'enquiry_dashboard' => [
+            'enquiry_dashboard' => ''
+        ],
+        'project_dashboard' => [
+            'project_dashboard' => ''
+        ],
+        'economy_dashboard' => [
+            'economy_dashboard' => ''
+        ],
+        'employee_performance' => [
+            'employee_performance' => ''
+        ],
         'sale' => [
             'sale_index'  => '',
             'sale_add'    => '',
@@ -221,13 +233,6 @@ return [
             ]
         ],
        
-        'employee' => [
-            'employee_index'  => '',
-            'employee_add'    => '',
-            'employee_edit'   => '',
-            'employee_delete' => '',
-        ],
-
         'task' => [
             'task_index'  => '',
             'task_add'    => '',
@@ -247,24 +252,46 @@ return [
             'customer_detail_edit'   => '',
             'customer_detail_delete' => '',
         ],
-        
+        'administrator' => [
+            'administrator_index' => '', 
+            'cost_estimate_calculation' => [
+                'cost_estimate_calculation_index' => ''
+            ],
+            'gantt_chart' => [
+                'gantt_chart_index' => ''
+            ],
+            'employee' => [
+                'employee_index'  => '',
+                'employee_add'    => '',
+                'employee_edit'   => '',
+                'employee_delete' => '',
+            ],
+    
+        ],
     ],
     'permission_styles' => [
-        'sale'               => 'px-0',
-        'enquiry'            => 'px-2',
-        'technical_estimate' => 'px-4',
-        'cost_estimate'      => 'px-4',
-        'proposal_sharing'   => 'px-4',
-        'customer_response'  => 'px-4',
-        'contract'           => 'px-2',
-        'project'            => 'px-2',
-        'employee'           => 'px-0',
-        'task'               => 'px-0',
-        'project'            => 'px-0',
-        'task'               => 'px-0',
-        'supplier_detail'    => 'px-2',
-        'customer_detail'    => 'px-2',
-        'project_schedule'   => 'px-4',
-        'project_summary'    => 'px-4'
+        'enquiry_dashboard'         => 'px-0',
+        'project_dashboard'         => 'px-0',
+        'economy_dashboard'         => 'px-0',
+        'employee_performance'      => 'px-0',
+        'sale'                      => 'px-0',
+        'enquiry'                   => 'px-2',
+        'technical_estimate'        => 'px-4',
+        'cost_estimate'             => 'px-4',
+        'proposal_sharing'          => 'px-4',
+        'customer_response'         => 'px-4',
+        'contract'                  => 'px-2',
+        'project'                   => 'px-2',
+        'task'                      => 'px-0',
+        'project'                   => 'px-0',
+        'task'                      => 'px-0',
+        'supplier_detail'           => 'px-0',
+        'customer_detail'           => 'px-0',
+        'project_schedule'          => 'px-4',
+        'project_summary'           => 'px-4',
+        'cost_estimate_calculation' => 'px-2',
+        'gantt_chart'               => 'px-2',
+        'employee'                  => 'px-2',
+        'administrator'             => 'px-0',
     ]
 ];

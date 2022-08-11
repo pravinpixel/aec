@@ -95,7 +95,17 @@ class PermissionSeeder extends Seeder
            Permission::create(['name' => 'sale_add']);
            Permission::create(['name' => 'sale_edit']);
            Permission::create(['name' => 'sale_delete']);
-   
+
+           Permission::create(['name'=> 'enquiry_dashboard']);
+           Permission::create(['name'=> 'project_dashboard']);
+           Permission::create(['name'=> 'economy_dashboard']);
+           Permission::create(['name'=> 'employee_performance']);
+
+
+           Permission::create(['name'=> 'cost_estimate_calculation_index']);
+           Permission::create(['name'=> 'gantt_chart_index']);
+           Permission::create(['name'=> 'administrator_index']);
+           
            // create roles and assign existing permissions
            $role1 = Role::create(['name' => 'Admin','status' => 1, 'slug' => 'admin']);
            $role2 = Role::create(['name' => 'Sales Engineer','status' => 1, 'slug' => 'sales_engineer']);

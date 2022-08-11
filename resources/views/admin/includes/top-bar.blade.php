@@ -93,38 +93,44 @@
                 </div>
             </li>
 
-            <li class="dropdown notification-list d-none d-sm-inline-block">
-                <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <i class="dripicons-view-apps noti-icon"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
+            @if(userHasAccess('gantt_chart_index') || userHasAccess('cost_estimate_calculation_index'))
+                <li class="dropdown notification-list d-none d-sm-inline-block">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <i class="dripicons-view-apps noti-icon"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
 
-                    <div class="p-2 shadow-sm border">
+                        <div class="p-2 shadow-sm border">
+                            
+                            <div class="row g-0 p-0 m-0">
+                                @if(userHasAccess('gantt_chart_index'))
+                                    <div class="col p-2">
+                                        <a class="dropdown-icon-item" href="{{ route('admin-gantt-chart-single-view') }}">
+                                            <img src="{{ asset('public/assets/images/gantt-chart.png') }}" alt="slack">
+                                            <span>Gantt chart</span>
+                                        </a>
+                                    </div>
+                                @endif
+                                @if(userHasAccess('cost_estimate_calculation_index'))
+                                    <div class="col p-2">
+                                        <a class="dropdown-icon-item" href="{{ route('enquiry.calculate-cost-estimation') }}">
+                                            <img src="{{ asset('public/assets/images/calculator.png') }}" alt="slack">
+                                            <span>Calculator</span>
+                                        </a>
+                                    </div>
+                                @endif
+                                {{-- <div class="col p-2">
+                                    <a class="dropdown-icon-item" href="#">
+                                        <img src="{{ asset('public/assets/images/brands/g-suite.png') }}" alt="G Suite">
+                                        <span>E search</span>
+                                    </a>
+                                </div> --}}
+                            </div> <!-- end row-->
+                        </div>
                         
-                        <div class="row g-0 p-0 m-0">
-                            <div class="col p-2">
-                                <a class="dropdown-icon-item" href="{{ route('admin-gantt-chart-single-view') }}">
-                                    <img src="{{ asset('public/assets/images/gantt-chart.png') }}" alt="slack">
-                                    <span>Gantt chart</span>
-                                </a>
-                            </div>
-                            <div class="col p-2">
-                                <a class="dropdown-icon-item" href="{{ route('enquiry.calculate-cost-estimation') }}">
-                                    <img src="{{ asset('public/assets/images/calculator.png') }}" alt="slack">
-                                    <span>Calculator</span>
-                                </a>
-                            </div>
-                            {{-- <div class="col p-2">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ asset('public/assets/images/brands/g-suite.png') }}" alt="G Suite">
-                                    <span>E search</span>
-                                </a>
-                            </div> --}}
-                        </div> <!-- end row-->
                     </div>
-
-                </div>
-            </li>
+                </li>
+            @endif
 
             <li class="notification-list">
                 <a class="nav-link end-bar-toggle" href="javascript: void(0);">
