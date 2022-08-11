@@ -845,8 +845,8 @@
                         method: 'GET',
                         url: url,
                     }).then(function (response) {
-                        
-                        $scope.check_permission_master = response.data;		
+                        $scope.check_permission_master = response.data;
+                        $scope.check_permission_master.splice(0,1);
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -1025,7 +1025,7 @@
                     }).then(function (response) {
 
                         $scope.role_module_get = response.data;		
-                        
+                        $scope.role_module_get.splice(0,1);
                     }, function (error) {
                         console.log(error);
                         console.log('This is embarassing. An error has occurred. Please check the log for details');
