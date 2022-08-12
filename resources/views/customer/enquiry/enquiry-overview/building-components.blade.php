@@ -1,4 +1,4 @@
-<small class="badge rounded-circle  bg-danger" ng-if="enquiry_active_comments.building_components > 0"> @{{ enquiry_active_comments.building_components   }}</small>
+<small class="comments-count" ng-if="enquiry_active_comments.building_components > 0"> @{{ enquiry_active_comments.building_components   }}</small>
 <div  style="max-height: 400px; overflow:auto">
     <table class="table custom custom table-hover">
         <thead>

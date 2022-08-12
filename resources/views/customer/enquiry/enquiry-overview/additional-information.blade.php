@@ -1,4 +1,4 @@
-<small class="badge rounded-circle  bg-danger" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small>
+<small class="comments-count" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small>
 <div>
     <div class="form-floating" id="additional_info_text_editor" style="pointer-events: none">
         <div dx-html-editor="htmlEditorOptions" contenteditable="true"> </div>

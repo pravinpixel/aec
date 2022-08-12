@@ -62,3 +62,18 @@
     font-size: 14px ;
     font-weight: normal !important;
 }
+.comments-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #F65B7F;
+    width: 15px;
+    height: 15px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold !important;
+    border-radius: 50%;
+    z-index: 999 !important;
+}

@@ -1,4 +1,4 @@
-<small class="badge rounded-circle  bg-danger" ng-if="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small>
+<small class="comments-count" ng-if="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small>
 <table class="table custom m-0 table-hover">
     <tbody>
         <tr ng-if="project_info.project_name != null">
