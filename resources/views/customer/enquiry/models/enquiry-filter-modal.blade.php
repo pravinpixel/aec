@@ -1,5 +1,5 @@
 <div id="enquiry-filter-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-right" style="width:100% !important">
+    <div class="modal-dialog modal-sm modal-right" style="width:100% !important">
         <div class="modal-content p-3 h-100 d-flex justify-content-center align-items-center" >
             <div>
                 <div class="border-0">
@@ -11,7 +11,7 @@
                     </div>
                     <div class="mb-3 row mx-0">
                         
-                        <div class="col p-0 me-md-2">
+                        <div class="col p-0 me-md-2 mb-3">
                             <label class="form-label">From Date</label>
                             <input type="date" class="form-control date" id="enquiry_from_date" ng-model="enquiry_from_date" name="enquiry_from_date">
                         </div>
