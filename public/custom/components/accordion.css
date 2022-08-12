@@ -9,7 +9,9 @@
 }
 .custom-accordion .card-body{
     padding: 0 !important;
+    overflow-x: auto;
 }
+ 
 .custom-accordion .card-header ,
 .custom-accordion  .card-content{
     padding: 15px !important;
