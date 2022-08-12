@@ -452,11 +452,11 @@
                                             <a class="custom-accordion-title d-block py-1"
                                                 data-bs-toggle="collapse" href="#collapseTableHistory${key+1}"
                                                 aria-expanded="true" aria-controls="collapseTableHistory${key+1}">
-                                                <strong class="me-auto text-dark">Version : ${key+1}</strong>
+                                                <strong class="me-auto text-dark">Version : ${res.data.length - key}</strong>
                                                 <span> - </span>
                                                 <span>
                                                     <span class="fa fa-calendar text-dark"></span>
-                                                    <small>${moment(item.created_at).format('dd-MM-yyyy h:s a')}</small>
+                                                    <small>${item.created_at}</small>
                                                 </span>
                                             </a>
                                         </h5>
@@ -1017,11 +1017,11 @@
                                             <a class="custom-accordion-title collapsed d-block py-1"
                                                 data-bs-toggle="collapse" href="#collapseTableHistory${key+1}"
                                                 aria-expanded="true" aria-controls="collapseTableHistory${key+1}">
-                                                <strong class="me-auto text-dark">Version : ${key+1}</strong>
+                                                <strong class="me-auto text-dark">Version : ${res.data.length - key}</strong>
                                                 <span> - </span>
                                                 <span>
                                                     <span class="fa fa-calendar text-dark"></span>
-                                                    <small>${moment(item.created_at).format('dd-MM-yyyy h:s a')}</small>
+                                                    <small>${item.created_at}</small>
                                                 </span>
                                             </a>
                                         </h5>
