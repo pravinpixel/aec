@@ -1,3 +1,4 @@
+<small class="badge rounded-circle  bg-danger" ng-if="enquiry_active_comments.ifc_model > 0"> @{{ enquiry_active_comments.ifc_model   }}</small>
 <table class="table custom custom table-hover">
     <thead>
         <tr>

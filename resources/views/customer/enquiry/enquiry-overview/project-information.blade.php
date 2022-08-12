@@ -1,3 +1,4 @@
+<small class="badge rounded-circle  bg-danger" ng-if="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small>
 <table class="table custom m-0 table-hover">
     <tbody>
         <tr ng-if="enquiry.project_infos.project_name != null">

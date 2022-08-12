@@ -1,3 +1,4 @@
+<small class="badge rounded-circle  bg-danger" ng-if="enquiry_active_comments.service > 0"> @{{ enquiry_active_comments.service   }}</small>
 <ul>
     <li ng-repeat="(key,outputType) in enquiry.services" class=""> @{{ key }}
         <ul  class="row m-0 ">

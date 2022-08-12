@@ -29,11 +29,11 @@
                 </div>
             </div> 
             <secti>
-                <x-accordion slug="project_information" title="Project Information" path="customer.enquiry.enquiry-overview.project-information" open="true"></x-accordion>
-                <x-accordion slug="service" title="Selected Services" path="customer.enquiry.enquiry-overview.selected-service" open="false"></x-accordion>
-                <x-accordion slug="ifc_model" title="IFC Models and Uploaded Documents" path="customer.enquiry.enquiry-overview.ifc-upload" open="false"></x-accordion>
-                <x-accordion slug="building_components" title="Building Components" path="customer.enquiry.enquiry-overview.building-components" open="false"></x-accordion>
-                <x-accordion slug="add_info" title="Additional Information" path="customer.enquiry.enquiry-overview.additional-information" open="false"></x-accordion>
+                <x-accordion title="Project Information" path="customer.enquiry.enquiry-overview.project-information" open="true"></x-accordion>
+                <x-accordion title="Selected Services" path="customer.enquiry.enquiry-overview.selected-service" open="false"></x-accordion>
+                <x-accordion title="IFC Models and Uploaded Documents" path="customer.enquiry.enquiry-overview.ifc-upload" open="false"></x-accordion>
+                <x-accordion title="Building Components" path="customer.enquiry.enquiry-overview.building-components" open="false"></x-accordion>
+                <x-accordion title="Additional Information" path="customer.enquiry.enquiry-overview.additional-information" open="false"></x-accordion>
             </secti
             on> 
         </div><!-- /.modal-content -->

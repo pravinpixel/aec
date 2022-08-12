@@ -1,3 +1,4 @@
+<small class="badge rounded-circle  bg-danger" ng-if="enquiry_active_comments.ifc_model > 0"> @{{ enquiry_active_comments.ifc_model   }}</small>
 <table class="table table-bordered m-0 table-striped" ng-init="total = 0 ">
     <tbody > 
         <tr ng-repeat="building_component in enquiry.building_components"  ng-show="building_component.detail.length">
