@@ -13,29 +13,7 @@
         <td class="bg-light">:</td>
         <td>@{{ ResultEngineeringEstimate.total.totalSum }} </td>
     </tr>
-</table>
-{{--    
-    <table class="cost-estimate-total-table table table-borderless border table-sm">
-        <thead>
-            <tr style="background: var(--primary-bg) !important">
-                <th colspan="3" class="text-center">
-                    <h5 class="m-0 py-1 text-white">Total Engineering Cost</h5>
-                </th>
-            </tr>
-            <tr>
-                <th class="text-end"></th>
-                <th class="text-end">Pris/m<sup>2<sup></th>
-                <th class="text-end">Sum</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-end font-12 p-0"> <b> </b></td>
-                <td class="text-end font-12 p-0"><b> @{{ ResultEngineeringEstimate.total.totalPris }}</b></td>
-                <td class="text-end font-12 p-0"><b> @{{ ResultEngineeringEstimate.total.totalSum }}</b></td>
-            </tr>
-        </tbody>
-    </table> --}}
+</table> 
  
 <section id="wood-cost-estimate">
     {{-- ========= WOOD ESTIMATE TABLE ======== --}}

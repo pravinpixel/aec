@@ -134,7 +134,7 @@
 @endif
 @if (userHasAccess('cost_estimate_add')) 
     <div class="row m-0">
-        <div class="col-md-4 ps-0">
+        <div class="col-md-6 ps-0">
             <div class="card shadow-sm border mb-2"> 
                 <div class="card-header bg-light p-2">
                     <h4 class="m-0">Assign for Estimation</h4>
@@ -154,35 +154,18 @@
                 </div>
             </div> 
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card border shadow-sm mb-2"> 
                 <div class="card-header bg-light p-2">
                     <h4 class="m-0">Estimation History</h4>
                 </div> 
                 <div class="card-body p-2 text-center">
-                    <h5 class="m-0">
-                        <a class="align-items-center d-flex"   ng-click="getHistory('wood')"
-                            ng-show="price_calculation == 'wood_engineering_estimation'">
-                            <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i>
-                            View Wood engineering estimation
-                        </a>
-                        <a class="align-items-center d-flex" ng-click="getHistory('precast')"
-                            ng-show="price_calculation == 'precast_engineering_estimation'">
-                            <i class="fa fa-history me-2 fa-2x" aria-hidden="true"></i> 
-                            View Precast engineering estimation
-                        </a>
-                    </h5>
-         
-                    <div id="history_id">
-                        <div ng-show="price_calculation == 'wood_engineering_estimation'">
-                            <div id="wood_id"></div>
-                        </div>
-                        <div ng-show="price_calculation == 'precast_engineering_estimation'">
-                            <div id="precast_id"></div>
-                        </div>
-                    </div>
-                </div>  
-                <div class="card-footer text-end p-2">
+                    <button type="button" ng-click="getHistory('wood')"  ng-show="price_calculation == 'wood_engineering_estimation'"class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#Cost-estimate-history-modal">
+                        <i class="fa fa-history"></i> View 
+                     </button>
+                     <button type="button" ng-click="getHistory('precast')" ng-show="price_calculation == 'precast_engineering_estimation'" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#Cost-estimate-history-modal">
+                        <i class="fa fa-history"></i> View  
+                     </button> 
                     <button ng-click="printCostEstimate('wood')" class="btn btn-primary btn-sm"
                         ng-show="price_calculation == 'wood_engineering_estimation'">
                         <i class="me-1 fa fa-print"></i> Print
@@ -205,23 +188,7 @@
             </div>
         </div>
     </div>
-    
- 
-    {{-- <div ng-show="price_calculation == 'wood_engineering_estimation'">
-        <a class="btn btn-info" ng-click="getHistory('wood')"> <i class="fa fa-eye"> </i> View history </a>
-        <a class="btn btn-danger" onclick="$('#wood_id').html('')"> <i class="uil-sync"> </i> Close </a>
-        <div class="card">
-            <div class="card-body">
-                <div id="wood_id"></div>
-            </div>
-        </div>
-    </div>
-    <div ng-show="price_calculation == 'precast_engineering_estimation'">
-        <a class="btn btn-info" ng-click="getHistory('precast')"> <i class="fa fa-eye"> </i> View history </a>
-        <a class="btn btn-danger" onclick="$('#precast_id').html('')"> <i class="uil-sync"> </i> Close </a>
-        <div id="precast_id"></div>
-    </div> --}}
-    {{-- view history end --}}
+     
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
@@ -236,6 +203,50 @@
 @endif
 
 @include('admin.enquiry.models.cost-estimate-chat-box')
+<!-- Right modal -->
+
+<div id="Cost-estimate-history-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-right w-100 h-100">
+        <div class="modal-content h-100">
+            <div class="modal-header border-0 bg-light">
+                <h3>Cost Estimation History</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body " style="max-height: 80vh;overflow:auto">
+                <div id="history_id">
+                    <div ng-show="price_calculation == 'wood_engineering_estimation'">
+                        <div id="wood_id"></div>
+                    </div>
+                    <div ng-show="price_calculation == 'precast_engineering_estimation'">
+                        <div id="precast_id"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-end">
+                    <button ng-click="printCostEstimate('wood')" class="btn btn-primary btn-sm"
+                        ng-show="price_calculation == 'wood_engineering_estimation'">
+                        <i class="me-1 fa fa-print"></i> Print
+                    </button>
+                    <button ng-click="printCostEstimate('precast')" class="btn btn-primary btn-sm"
+                        ng-show="price_calculation == 'precast_engineering_estimation'">
+                        <i class="me-1 fa fa-print"></i> Print
+                    </button>
+                    <button class="btn btn-success btn-sm"
+                        ng-click="showCommentsToggle('viewConversations', 'cost_estimation_assign', 'Cost Estimate')">
+                        <i class="fa fa-send me-1"></i> 
+                        <span class="cost_estimate_comments_ul">
+                            Send a Comments
+                            <span class="cost_estimate_comments" ng-show="cost_estimate_comments.cost_estimate_role > 0">
+                                @{{ cost_estimate_comments.cost_estimate_role }}
+                            </span>
+                        </span>
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div> 
 
 @if (Route::is('enquiry.cost-estimation'))
     <style>
