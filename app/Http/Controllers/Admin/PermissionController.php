@@ -21,7 +21,7 @@ class PermissionController extends Controller
                 foreach ($permissions as $permission)
                     $all_permission[] = $permission->name;
                 if (empty($all_permission))
-                    $all_permission[] = 'dummy text';
+                    $all_permission[] = [];
                 return view('admin.setting-tabs.Permission.index', compact('li_role_data', 'appPermissions', 'all_permission'));
             } else
                 return  response(['status' => false, 'msg' => __('global.item_not_found')]);
@@ -54,7 +54,7 @@ class PermissionController extends Controller
             foreach ($permissions as $permission)
                 $all_permission[$permission->name] = true;
             if (empty($all_permission))
-                $all_permission[] = 'dummy text';
+                $all_permission[] = [];
             return response(['status' => true, 'permission' => (object)$all_permission]);
         }
     }
