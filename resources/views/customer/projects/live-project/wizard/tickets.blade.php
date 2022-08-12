@@ -745,7 +745,7 @@
                     </div>
                     <div class="mb-3 row mx-0">
                         <div class="col p-0 me-md-2">
-                            <label class="form-label">Requster Date</label>
+                            <label class="form-label">Requsted Date</label>
                             
                             {{--<input type="date" class="form-control date" id="birthdatepicker" data-toggle="date-picker"  ng-model = "fromdate" data-single-date-picker="true">--}}
                             <div class="form-group">
@@ -794,7 +794,7 @@
                     <div class="row m-0">
                         <div class="col p-0 me-md-2">
                             <div class="mb-3 ">
-                                <label class="form-label">Ticket Type</label>
+                                <label class="form-label">Issue Type</label>
                                 <select class="form-select" ng-model="tickettype">
                                     <option value = "internal">Internal</option>
                                     <option value = "customer">Customer</option>
@@ -804,7 +804,7 @@
                         </div>
                         <div class="col p-0">
                             <div class="mb-3">
-                                <label class="form-label">Issues Number </label>
+                                <label class="form-label">Issue Number </label>
                                 <input type="text" class="form-control" ng-model="refno" placeholder="Type Here...">
                             </div>
                         </div>
