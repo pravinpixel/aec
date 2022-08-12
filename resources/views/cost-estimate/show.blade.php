@@ -301,7 +301,9 @@
                     a.document.write('</div>');
                     a.document.write('</html>');
                     a.document.close();
-                    a.print();
+                    setTimeout(() => {
+                        a.print(); 
+                    }, 1000);
                 }); 
             }
 

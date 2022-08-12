@@ -312,7 +312,9 @@
                     a.document.write(currentTabelHistory);
                     a.document.write('</html>');
                     a.document.close();
-                    a.print();
+                    setTimeout(() => {
+                        a.print(); 
+                    }, 1000);
                 }); 
             }
 
