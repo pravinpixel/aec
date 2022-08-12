@@ -693,9 +693,11 @@ class EnquiryController extends Controller
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
                 $proposal_active_border = $dataDb->proposal_email_status == 1 ? 'border-success': 'border-primary';
-                $proposal_active_bg = $dataDb->proposal_email_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten text-primary';
-                $data = '<button type="button" class="badge '.$proposal_active_bg.' btn p-2 position-relative '.$proposal_active_border.'"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
-                    <b>'. $dataDb->enquiry_number .'</b>';
+                $proposal_active_bg = $dataDb->proposal_email_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten';
+                $data = '
+                    <button type="button" class="btn-quick-view '.$proposal_active_bg.' '.$proposal_active_border.'"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                    '. $dataDb->enquiry_number .'
+                ';
                 if($commentCount != 0){
                     $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$commentCount.' </span>'; 
                 }
