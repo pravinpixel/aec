@@ -1,4 +1,4 @@
-<div class="" id="reviewSubmit">
+<div class="p-3" id="reviewSubmit">
     <section>
         <x-accordion title="Project Information" path="customer.enquiry.wizard.overview.project-information" open="true"></x-accordion>
         <x-accordion title="Selected Services" path="customer.enquiry.wizard.overview.selected-service" open="false"></x-accordion>
