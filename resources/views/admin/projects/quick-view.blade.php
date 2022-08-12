@@ -6,7 +6,7 @@
         </div>
         <div class="modal-content h-100 p-4" style="overflow: auto">
            
-            <div class="card-body">
+            <div class="card-body"> 
                 <fieldset class="accordion-item">
                     <div class="accordion-header custom m-0 position-relative" id="project_infomation_header">
                         <div class="accordion-button project_infomation " data-bs-toggle="collapse" data-bs-target="#project_infomation" aria-expanded="true" aria-controls="project_infomation">
