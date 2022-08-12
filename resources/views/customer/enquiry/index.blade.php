@@ -24,66 +24,9 @@
                         </a> 
                     </div>
                 </div>
-
-                <div class="accordion" id="accordionPanelsStayOpenExample">
-                    <div class="accordion-item mb-2 border rounded shadow-sm">
-                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingOne">
-                            <div class="accordion-button"  type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                New Enquiries
-                            </div>
-                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
-                                <i
-                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn ">
-                                </i>
-                            </div>
-                        </h2>
-                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                            <div class="accordion-body">
-                                @include('customer.enquiry.table.new-enquiries')
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item mb-2 border rounded shadow-sm">
-                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
-                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                <div class="position-relative">
-                                    Active Enquiries 
-                                    <span style="transform: translateY(-10px) !important; display:none" class="commentsCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"> @{{ commentsCount }} </span>
-                                </div>
-                            </div>
-                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
-                                <i  
-                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
-                                </i>
-                            </div>
-                        </h2>
-                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                            <div class="accordion-body">
-                                @include('customer.enquiry.table.active-enquiries')
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item mb-2 border rounded shadow-sm">
-                        <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingThree">
-                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                Closed Enquiries
-                            </div>
-                            <div class="icon m-0 position-absolute rounded-pills" style="right: 10px;top:30%; z-index:111 !important">
-                                <i
-                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree"
-                                    class="accordion-button custom-accordion-button bg-primary text-white toggle-btn collapsed">
-                                </i>
-                            </div>
-                        </h2>
-                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                            <div class="accordion-body">
-                                @include('customer.enquiry.table.completed-enquiries')
-                            </div>
-                        </div>
-                    </div>
-                </div>  
+                <x-accordion slug="New_Enquiries" title="New Enquiries" path="customer.enquiry.table.new-enquiries" open="true"></x-accordion>
+                <x-accordion slug="Active_Enquiries" title="Active Enquiries" path="customer.enquiry.table.active-enquiries" open="false"></x-accordion>
+                <x-accordion slug="Closed_Enquiries" title="Closed Enquiries" path="customer.enquiry.table.completed-enquiries" open="false"></x-accordion>
             </div> <!-- container -->
             @include('customer.enquiry.models.enquiry-filter-modal')
             @include('customer.enquiry.models.detail-modal')
