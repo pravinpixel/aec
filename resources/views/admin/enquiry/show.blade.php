@@ -2175,6 +2175,7 @@
                             timer: 3000
                         });
                         $timeout(()=> {
+                            window.onbeforeunload = null;
                             location.href = '{{ route('admin.enquiry-list') }}'
                         }, 3000);
                         return false;
