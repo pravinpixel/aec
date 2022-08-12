@@ -1,0 +1,64 @@
+/*========== custom-accordion ============== */
+.custom-accordion .card-header {
+    position: relative; 
+    cursor: pointer;
+}
+.custom-accordion .card-header .card-title {
+    font-weight: bold;
+    margin: 0 !important;
+}
+.custom-accordion .card-body{
+    padding: 0 !important;
+}
+.custom-accordion .card-header ,
+.custom-accordion  .card-content{
+    padding: 15px !important;
+    transition: all .5s !important;
+}
+.custom-accordion .accordion-icon {
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(-50%, -42%);
+}
+.custom-accordion .accordion-icon:before {
+    font-family: unicons;
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+}
+.custom-accordion .card-header.collapsed .accordion-icon:before { 
+    content: '\eb04';  /* + */
+}
+.custom-accordion .card-header .accordion-icon:before {
+    content: '\eaba';  /* - */
+}
+.custom-accordion .card-header {
+    background: #4199FC;
+    color: white ;
+}
+.custom-accordion .card-header.collapsed 
+{
+    background: white !important;
+    color: #4199FC !important;
+} 
+.custom-accordion .table th {
+    font-size: 12px !important;
+    font-weight: normal !important;
+    letter-spacing: 1px;
+}
+.custom-accordion .table td {
+    font-size: 14px ;
+    font-weight: normal !important;
+}

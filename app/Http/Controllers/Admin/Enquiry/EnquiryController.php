@@ -117,7 +117,7 @@ class EnquiryController extends Controller
                 $commentCount = $dataDb->comments->count();
                 $enquiryComments = $commentCount == 0 ? '' : $commentCount;
                 return '
-                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
+                    <button type="button" class="btn-quick-view" ng-click=toggle("edit",'.$dataDb->id.')>
                         <b>'. $dataDb->enquiry_number.'</b>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$enquiryComments.'</span>
                     </button>
@@ -184,7 +184,7 @@ class EnquiryController extends Controller
                 $commentCount = $dataDb->comments->count();
                 $enquiryComments = $commentCount == 0 ? '' : $commentCount;
                 return '
-                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
+                    <button type="button" class="btn-quick-view" ng-click=toggle("edit",'.$dataDb->id.')>
                         <b>'. $dataDb->enquiry_number.'</b>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$enquiryComments.'</span>
                     </button>
@@ -259,7 +259,7 @@ class EnquiryController extends Controller
                 $commentCount = $dataDb->comments->count();
                 $enquiryComments = $commentCount == 0 ? '' : $commentCount;
                 return '
-                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",'.$dataDb->id.')>
+                    <button type="button" class="btn-quick-view" ng-click=toggle("edit",'.$dataDb->id.')>
                         <b>'. $dataDb->enquiry_number.'</b>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$enquiryComments.'</span>
                     </button>

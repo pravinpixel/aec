@@ -67,3 +67,10 @@ if(!function_exists('permissionHeader')) {
         return  ucwords(str_replace('_', ' ',$str));
     }
 }
+
+if(!function_exists('slug')) {
+    function slug($title){ 
+        return strtolower(str_replace(' ', '-', $title));
+    }
+}
+ 

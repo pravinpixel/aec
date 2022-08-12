@@ -17,7 +17,7 @@
             <tr class="ng-scope odd">
                 <td>{{ $i+1 }}</td>
                 <td class="text-center">
-                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click="toggle(&quot;edit&quot;,2)">
+                    <button type="button" class="btn-quick-view" ng-click="toggle(&quot;edit&quot;,2)">
                         <b>ENQ-PRO00{{ $i+1 }}</b>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
                     </button>

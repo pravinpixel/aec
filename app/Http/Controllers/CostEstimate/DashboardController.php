@@ -45,7 +45,7 @@ class DashboardController extends Controller
 
             ->editColumn('enquiry_number', function($dataDb){
                 return '
-                    <button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary">
+                    <button type="button" class="btn-quick-view">
                         <b>'. $dataDb->enquiry_number.'</b>
                     </button>
                 ';

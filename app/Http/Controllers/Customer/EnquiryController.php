@@ -623,7 +623,7 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
-                $data = '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                $data = '<button type="button" class="btn-quick-view"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
                     <b>'. $dataDb->enquiry_number .'</b>';
                 if($commentCount != 0){
                     $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$commentCount.' </span>'; 
@@ -769,7 +769,7 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
-                $data = '<button type="button" class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
+                $data = '<button type="button" class="btn-quick-view"  ng-click=getEnquiry("project_info",'. $dataDb->id .')> 
                     <b>'. $dataDb->enquiry_number .'</b>';
                 if($commentCount != 0){
                     $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >'.$commentCount.' </span>'; 

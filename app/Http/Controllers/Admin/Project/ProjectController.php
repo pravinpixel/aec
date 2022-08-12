@@ -387,7 +387,7 @@ class ProjectController extends Controller
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     return '
-                    <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",' . $dataDb->id . ')>
+                    <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
                         <b>' . $dataDb->reference_number . '</b>
                     </button>
                 ';
@@ -432,7 +432,7 @@ class ProjectController extends Controller
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     return '
-                    <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="badge badge-primary-lighten text-primary btn p-2 position-relative border-primary" ng-click=toggle("edit",' . $dataDb->id . ')>
+                    <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
                         <b>' . $dataDb->reference_number . '</b>
                     </button>
                 ';
