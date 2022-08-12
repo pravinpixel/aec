@@ -136,7 +136,7 @@ body {
   content:"\F061F";
 }
 .accordion-button{
-  font-size: 20px !important;
+  font-size: 17px !important;
 }
 .custom-accordion-button.accordion-button, i.accordion-button{
   background: transparent !important;
@@ -145,11 +145,11 @@ body {
 }
 
 .custom-accordion-button.accordion-button:before, .custom-accordion-button.accordion-button:after {
-  background: #666 !important;
+  background: #002a80 !important;
 }
-.accordion-button:not(.collapsed):before {
+/* .accordion-button:not(.collapsed):before {
   background: #0C326C !important;
-}
+} */
 .custom-accordion-button.accordion-button{
   padding:10px !important;
   box-shadow: none !important;
@@ -165,10 +165,10 @@ body {
   background: #FFF;
   box-shadow: 0px 0px 30px rgba(0,0,0,0.1);
 }
-div.accordion-button:not(.collapsed){
+/* div.accordion-button:not(.collapsed){
   background: #dee6ff !important;
   color: #0C326C !important;
-}
+} */
 
 .highcharts-data-table table {
   font-family: Verdana, sans-serif;
