@@ -16543,6 +16543,6 @@ input[type=date]::-webkit-calendar-picker-indicator{
 }
 
 .admin_estimate_click {
-  color:#e96b2f !important;
+  color: black !important;
   font-weight: bold !important;
 }

@@ -133,10 +133,10 @@
                                             @{{ secindex+1 }}
                                         </td>
                                         <td class="col" style="padding:0 !important">
-                                            <input type="text"  required ng-required placeholder="Type here.." ng-value="est.name" ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
+                                            <input type="text" placeholder="Type here.." ng-value="est.name" ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
                                         </td>
                                         <td class="col"  style="padding:0 !important" > 
-                                            <input type="number" onkeypress="return isNumber(event)" min="0" required ng-required get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-value="est.sqfeet"ng-model="est.sqfeet">
+                                            <input type="number" onkeypress="return isNumber(event)" min="0" get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-value="est.sqfeet"ng-model="est.sqfeet">
                                         </td>
                                         <td class="col" class="text-center"  style="padding:0 !important">
                                             <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="mdi mdi-delete"></i></a>
@@ -299,15 +299,13 @@
                         </button>
                         <button class="btn btn-success" ng-click="showCommentsToggle('viewAssingTechicalConversations', 'technical_estimation_assign', 'Technical Estimate')">
                             <i class="fa fa-send me-1"></i> 
-                            <span class="cost_estimate_comments_ul">
-                                Chat
-                            </span>
+                            <span class="cost_estimate_comments_ul">Chat</span>
                         </button>
                     </div> 
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
     @include("admin.enquiry.models.technical-estimation-chat-box") 
     @include("admin.enquiry.models.assign-technical-estimation-chat-box") 
     @include('customer.enquiry.models.document-modal')
