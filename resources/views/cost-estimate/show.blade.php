@@ -548,6 +548,7 @@
                 $timeout(function() {
                     angular.element('.sqm_').triggerHandler('keyup');
                 });
+                Message('success','Templated selected successfully');
             }
 
             $scope.$watch('is_template_update', function() {
@@ -664,7 +665,8 @@
                 $http.post(`${API_URL}wood-estimate`,{name:columnName}).then((res) => {
                     console.log(res.data);
                 })
-                $scope.columnName = '';
+                $scope.column_name = '';
+                Message('success','Column Added successfully');
             }
 
             $scope.deleteDynamic = (rootIndex, dynamicIndex) => {
@@ -679,6 +681,7 @@
             }
 
             $scope.addEngineeringEstimate = () => {
+                Message('success', 'Building component Added successfully');
                 let newCostEstimate = JSON.parse(JSON.stringify($scope.NewCostEstimate));
                 console.log(newCostEstimate);
                 $scope.EngineeringEstimate.push(newCostEstimate);
@@ -698,6 +701,7 @@
             }
 
             $scope.cloneCostEstimate = (index, CostEstimate) => {
+                Message('success', 'Building component cloned successfully');
                 let cloneObject = JSON.parse(JSON.stringify(CostEstimate));
                 $scope.EngineeringEstimate.splice(index, 0, cloneObject);
                 $timeout(function() {
