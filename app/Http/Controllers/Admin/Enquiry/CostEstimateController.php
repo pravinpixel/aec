@@ -153,7 +153,8 @@ class  CostEstimateController extends Controller
     public function getHistory($id, $type)
     {
         return CostEstimateHistory::where(['enquiry_id'=> $id, 'type'=> $type])
-                ->limit(10)                    
+                ->limit(20)  
+                ->orderBy('id','desc')       
                 ->get();
     }
 

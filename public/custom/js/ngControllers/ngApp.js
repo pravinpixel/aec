@@ -191,9 +191,9 @@ app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) 
         link : function (scope, element, attrs) {
             element.on('keyup', function () {
                 if($("#_technical_").val() == 1) {
-                    $(this).addClass('text-success fw-bold');
+                    $(this).addClass('technical_estimate_click');
                 } else {
-                    $(this).addClass('text-info fw-bold');
+                    $(this).addClass('admin_estimate_click');
                 }
                 var index   = scope.index;
                 let bcd = scope.building_building[index].building_component_number.map((item,i) => {

@@ -888,7 +888,7 @@
                 restrict: 'A',
                 link : function (scope, element, attrs) {
                     element.on('keyup', function () {
-                        $(this).addClass('bg-info');
+                        $(this).addClass('cost_estimate_click');
                         let $TotalPriceM2   = 0;
                         let $TotalSum       = 0;
                         let $TotalRibSum    = 0;
@@ -994,17 +994,17 @@
                                     if(scope.index == componentIndex) {
                                         Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
                                             if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Details') {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.detail_price || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.detail_sum || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.detail_price) || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = Number(response.detail_sum) || 0;
                                             } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Statics') {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.statistic_price || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.statistic_sum || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.statistic_price) || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = Number(response.statistic_sum) || 0;
                                             } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'CAD/CAM') {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.cad_cam_price || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.cad_cam_sum || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.cad_cam_price) || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = Number(response.cad_cam_sum) || 0;
                                             } else if(Estimates.Components[componentIndex].Dynamics[dynamicIndex].name == 'Logistics') {
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = response.logistic_price || 0;
-                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = response.logistic_sum || 0 ;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 = Number(response.logistic_price) || 0;
+                                                Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum = Number(response.logistic_sum) || 0 ;
                                             } else {
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].PriceM2 =  0;
                                                 Estimates.Components[componentIndex].Dynamics[dynamicIndex].Sum =  0 ;

@@ -16531,3 +16531,18 @@ input[type=date]::-webkit-calendar-picker-indicator{
 .wood_estimation_td_data {
   width: 100%; border:0;background:none;text-align:right;font-size:12px;
 }
+
+.technical_estimate_click {
+  color: #0acf97 !important;
+  font-weight: bold !important;
+}
+
+.cost_estimate_click {
+  color: #0acf97 !important;
+  font-weight: bold !important;
+}
+
+.admin_estimate_click {
+  color:#e96b2f !important;
+  font-weight: bold !important;
+}

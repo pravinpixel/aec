@@ -190,7 +190,7 @@
     }
     .custom-td select ,
     .custom-td input {
-        color: black !important
+        color: black
     }
     .fa  {
         cursor: pointer;

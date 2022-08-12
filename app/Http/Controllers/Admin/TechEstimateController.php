@@ -134,7 +134,8 @@ class TechEstimateController extends Controller
     public function getHistory($id)
     {
         return TechnicalEstimateHistory::where('enquiry_id', $id)
-                                    ->limit(10)  
+                                    ->limit(20)  
+                                    ->orderBy('id','desc')
                                     ->get();
     }
 
