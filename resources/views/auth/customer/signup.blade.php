@@ -4,7 +4,8 @@
     <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-8 col-6 shadow-lg border">  
         <div class="card-header text-center py-3 border-0">
             <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2">
-            <p class="lead" style="font-weight: 400;">Welcome to AEC Prefab Create Account</p>
+            <p class="lead" style="font-weight: 400;">Welcome to AEC Prefab </p>
+            <p class="lead text-center" style="font-weight: 400;">Create Account</p>
             <b>Already have an account ?  <a href="{{ route('login') }}">Sign In</a></b>
         </div>
         <div class="card-body pt-0 p-4">                            
@@ -56,7 +57,7 @@
                     @endif
                 </div>           
                 <div class="mb-0 text-center">
-                    <button class="btn btn-primary w-100" type="submit"> Sign  In </button>
+                    <button class="btn btn-primary w-100" type="submit"> Sign Up </button>
                 </div>
             </form>
         </div>

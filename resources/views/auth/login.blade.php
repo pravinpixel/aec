@@ -4,7 +4,7 @@
 <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-8 shadow-lg border">  
     <div class="card-header text-center py-3 border-0">
         <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2">
-        <p class="lead" style="font-weight: 400;">Welcome to AEC Prefab My Account</p>
+        <p class="lead" style="font-weight: 400;">Welcome to AEC Prefab</p>
         <b>Don't have an account ? <a href="{{ route('signup') }}">Sign up</a></b>
     </div>
     <div class="card-body pt-0 p-4">                            
