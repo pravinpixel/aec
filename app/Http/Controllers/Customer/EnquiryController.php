@@ -608,7 +608,7 @@ class EnquiryController extends Controller
             $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
             $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiry_number = isset($request->enquiry_number) ? $request->enquiry_number : false;
-            $projetType = isset($request->project_type) ? $request->project_type : false;
+            $projectType = isset($request->project_type) ? $request->project_type : false;
             $dataDb = Enquiry::with(['projectType', 'comments'=> function($q){
                             $q->where(['status' => 0, 'created_by' => 'Admin']);
                         }])
@@ -616,8 +616,8 @@ class EnquiryController extends Controller
                         ->when( $enquiry_number, function($q) use($enquiry_number){
                             $q->where('enquiry_number', $enquiry_number);
                         })
-                        ->when($projetType, function($q) use($projetType){
-                            $q->where('project_type_id', $projetType);
+                        ->when($projectType, function($q) use($projectType){
+                            $q->where('project_type_id', $projectType);
                         })
                         ->where(['status' => 'In-Complete', 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)
@@ -675,7 +675,7 @@ class EnquiryController extends Controller
             $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
             $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
-            $projetType = isset($request->projet_type) ? $request->projet_type : false;
+            $projectType = isset($request->project_type) ? $request->project_type : false;
             $dataDb = Enquiry::with(['projectType', 'comments'=> function($q){
                                 $q->where(['status' => 0, 'created_by' => 'Admin']);
                             }])
@@ -684,8 +684,8 @@ class EnquiryController extends Controller
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
                             })
-                            ->when($projetType, function($q) use($projetType){
-                                $q->where('project_type_id', $projetType);
+                            ->when($projectType, function($q) use($projectType){
+                                $q->where('project_type_id', $projectType);
                             })
                             ->where(['status' => 'Submitted' , 'customer_id' => Customer()->id]);
                             
@@ -756,7 +756,7 @@ class EnquiryController extends Controller
             $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
             $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
             $enquiryNumber = isset($request->enquiry_number) ? $request->enquiry_number : false;
-            $projetType = isset($request->projet_type) ? $request->projet_type : false;
+            $projectType = isset($request->project_type) ? $request->project_type : false;
 
             $dataDb = Enquiry::with(['projectType', 'comments'=> function($q){
                                 $q->where(['status' => 0, 'created_by' => 'Admin']);
@@ -765,8 +765,8 @@ class EnquiryController extends Controller
                             ->when($enquiryNumber, function($q) use($enquiryNumber){
                                 $q->where('enquiry_number', $enquiryNumber);
                             })
-                            ->when($projetType, function($q) use($projetType){
-                                $q->where('project_type_id', $projetType);
+                            ->when($projectType, function($q) use($projectType){
+                                $q->where('project_type_id', $projectType);
                             })
                             ->where(['status'=>'Closed' , 'customer_id' => Customer()->id]);
             return DataTables::eloquent($dataDb)

@@ -121,7 +121,7 @@ class ForgotPasswordController extends Controller
     }
 
     PasswordReset::where(['email' => $updatePassword->email])->delete();
-    Flash::success('Your password has been changed!');
+    Flash::success('Changed password successfully!');
     return redirect(route('login'));
   }
 }

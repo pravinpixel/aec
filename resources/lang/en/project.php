@@ -24,6 +24,7 @@ return [
     "ticketdelete"           =>       "Issue Deleted Successfully",
     "ticketmail"            =>        "Mail sent successfuly !",
     "comments_inserted"     =>        "Comment Sent",
+    'comments_updated'      =>        'Comment Updated',  
     "milestone"             =>        " Milestone",
     "tasklist"              =>        "Task list",
     "bim360"                =>        "Bim 360",

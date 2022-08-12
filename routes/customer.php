@@ -19,10 +19,10 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     
     Route::post('save-customer-token', [PushNotificationController::class,'storeToken'])->name("save-customer-token");
 
-    Route::get('/enquirydashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-dashboard");
+    Route::get('/enquirydashboard', [DashboardController::class,'enquiryDashboard'])->name("customers-dashboard");
 
 
-    Route::get('project-dashboard', [DashboardController::class,'projectDashborad'])->name("customers-project-dashboard");
+    Route::get('project-dashboard', [DashboardController::class,'projectDashboard'])->name("customers-project-dashboard");
 
   
     Route::get('my-enquiries', [EnquiryController::class,'myEnquiries'])->name("customers-my-enquiries");

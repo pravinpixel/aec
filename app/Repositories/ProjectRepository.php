@@ -72,14 +72,14 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
         $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
         $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
-        $projetType = isset($request->projet_type) ? $request->projet_type : false;
+        $projectType = isset($request->project_type) ? $request->project_type : false;
         $dataDb =  $this->model::where('status', 'In-Progress') ;
                                     if($role_id == ''){
                                       $dataDb->where('customer_id',$seenBy) ; 
                                     }
                                 $dataDb->whereBetween('created_at', [$fromDate, $toDate])
-                                ->when($projetType, function($q) use($projetType){
-                                    $q->where('project_type_id', $projetType);
+                                ->when($projectType, function($q) use($projectType){
+                                    $q->where('project_type_id', $projectType);
                                 })
                                 ->orderBy('id','desc');
         return $dataDb;
@@ -90,14 +90,14 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         list($seenBy, $role_id,$created_by) = $this->getUser();
         $fromDate = isset($request->from_date) ? Carbon::parse($request->from_date)->format('Y-m-d') : now()->subDays(config('global.date_period'));
         $toDate = isset($request->from_date) ? Carbon::parse($request->to_date)->format('Y-m-d') : now();
-        $projetType = isset($request->projet_type) ? $request->projet_type : false;
+        $projectType = isset($request->project_type) ? $request->project_type : false;
         $dataDb =  $this->model::where('status', 'Live');
                                 if($role_id == ''){
                                     $dataDb->where('customer_id',$seenBy) ; 
                                 }
                                $dataDb->whereBetween('created_at', [$fromDate, $toDate])
-                                ->when($projetType, function($q) use($projetType){
-                                    $q->where('project_type_id', $projetType);
+                                ->when($projectType, function($q) use($projectType){
+                                    $q->where('project_type_id', $projectType);
                                 })
                                 ->orderBy('id','desc');
         return $dataDb;

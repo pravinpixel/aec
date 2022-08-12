@@ -115,7 +115,7 @@
                 <label for="floating">Project Delivery Date <sup class="text-danger">*</sup></label>
                 <i class="fa fa-calendar custom__date__icon"></i>
                 <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.required && formSubmit">This field is required</small>
-                <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.min && formSubmit">Delivery date cannot be less than start date</small>
+                <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.min && formSubmit">Delivery date should not be less than that of the project's start date</small>
             </div>
         </div>
     </div>

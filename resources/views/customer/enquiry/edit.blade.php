@@ -291,7 +291,7 @@
                         }
                     };
                 }, function errorCallback(error) {
-                    Message('danger', 'Invalid zipcode');
+                    Message('danger', 'The entered zip code is not valid');
                     $scope.projectInfo = {
                         ...$scope.projectInfo,
                         ...{
@@ -332,7 +332,7 @@
                     url: '{{ route("customers.update-enquiry", $id) }}',
                     data: {type: 'project_info', 'data': getProjectInfoInptuData($scope.projectInfo)}
                 }).then(function (res) {
-                    Message('success','Project Information saved successfully');
+                    Message('success','Saved the information successfully');
                     return false;
                 }, function (error) {
                     console.log(`storeprojectinfo ${error}`);
@@ -423,7 +423,7 @@
                     data: {type: 'services', 'data': getServiceSelectionInptuData()}
                 }).then(function (res) {
                     $location.path('/ifc-model-upload');
-                    Message('success','Service selection inserted successfully');
+                    Message('success','Saved the selected service successfully');
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
@@ -440,7 +440,7 @@
                     url: '{{ route("customers.update-enquiry", $id) }}',
                     data: {type: 'services', 'data': getServiceSelectionInptuData()}
                 }).then(function (res) {
-                    Message('success','Service selection saved successfully');
+                    Message('success','Saved the selected service successfully');
                     return false;
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
@@ -765,7 +765,7 @@
                         Swal.fire({
                                 html: `${skipUploads.join(', ')} are missing, Do you still want to skip the step ?`,
                                 icon: 'question',
-                                confirmButtonText: 'Yes , Skip it !',
+                                confirmButtonText: 'Yes, Skip it !',
                                 showCancelButton: true,
                                 cancelButtonText: 'No',
                         }).then((result) => {
@@ -1464,7 +1464,7 @@
                                     </p>
                                 `,
                                 icon: 'question',
-                                confirmButtonText: 'Yes , Skip it !',
+                                confirmButtonText: 'Yes, Skip it !',
                                 showCancelButton: true,
                                 cancelButtonText: 'No',
                             }).then((result) => {

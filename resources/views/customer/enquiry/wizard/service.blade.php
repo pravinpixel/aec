@@ -10,7 +10,7 @@
   
     <div class="container p-4 border">
         <div ng-show="formSubmit">
-            <h5 class="text-danger" >Please choose any services</h5>
+            <h5 class="text-danger" >Select the service of your choice</h5>
         </div>
         <div class="tab-content">
             <div class="tab-pane @{{ index == 0 ? 'active' :'' }}"  id="tab_@{{ outputType.id }}_content" ng-repeat="(index,outputType) in outputTypes">

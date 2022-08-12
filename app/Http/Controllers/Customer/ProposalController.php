@@ -31,7 +31,7 @@ class ProposalController extends Controller
         $data['proposals'] = $this->customerEnquiryRepo->getCustomerProPosal($id);
         $latestVersion = $this->getLatestProposal($id);
         if(empty($latestVersion )) {
-            Flash::error('There is no proposal found');
+            Flash::error('No proposal found.');
             return redirect(route('customers-enquiry-dashboard'));
         }
         $data['enquiry_id']      = $latestVersion->enquiry_id;

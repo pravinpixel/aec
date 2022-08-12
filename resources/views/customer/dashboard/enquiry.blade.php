@@ -30,7 +30,7 @@
                                     <div class="col-md-3">
                                         <div class="live-status-bg">
                                             <h3>Active Enquiries</h3>
-                                            <p class="count">30</p>
+                                            <p class="count">{{ $totalActiveEnquiries }}</p>
                                             <span class="btn btn-success">
                                                 <i class="mdi mdi-comment-check-outline"></i>
                                             </span>
@@ -39,7 +39,7 @@
                                     <div class="col-md-3">
                                         <div class="live-status-bg">
                                             <h3>Proposals waiting for Approval</h3>
-                                            <p class="count">10</p>
+                                            <p class="count">{{ $totalWaitingApprovals }}</p>
                                             <span class="btn btn-secondary">
                                                 <i class="mdi mdi-comment-processing-outline"></i>
                                             </span>
@@ -48,7 +48,7 @@
                                     <div class="col-md-3">
                                         <div class="live-status-bg">
                                             <h3>New Invoices</h3>
-                                            <p class="count">15</p>
+                                            <p class="count">{{ $totalNewInvoices }}</p>
                                             <span class="btn btn-primary">
                                                 <i class="mdi mdi-comment-plus-outline"></i>
                                             </span>
@@ -57,7 +57,7 @@
                                     <div class="col-md-3">
                                         <div class="live-status-bg">
                                             <h3>Unpaid Invoices</h3>
-                                            <p class="count">5</p>
+                                            <p class="count">{{ $totalUnpaidInvoices }}</p>
                                             <span class="btn btn-info text-white">
                                                 <i class="mdi mdi-comment-remove-outline"></i>
                                             </span>

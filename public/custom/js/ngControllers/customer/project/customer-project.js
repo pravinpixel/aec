@@ -70,7 +70,7 @@ app.controller('CreateProjectController', function($scope, $http, API_URL, $loca
       };
     }, function errorCallback(error)
     {
-      Message('danger', 'Invalid zipcode');
+      Message('danger', 'The entered zip code is not valid');
       $scope.project = {
         ...$scope.project,
         ...
