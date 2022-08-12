@@ -1,4 +1,3 @@
-<small class="comments-count" ng-if="enquiry_active_comments.building_components > 0"> @{{ enquiry_active_comments.building_components   }}</small>
 <table class="table table-bordered m-0 table-striped" ng-init="total = 0 ">
     <tbody > 
         <tr ng-repeat="building_component in building_components"  ng-show="building_component.detail.length">

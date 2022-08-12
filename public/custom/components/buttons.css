@@ -5,6 +5,7 @@
     border:1px solid #4199FC;
     border-radius: 2px;
     box-shadow: 0 0 2px #4199FC;
+    position: relative;
 }
 .btn-quick-view:hover {
     background-color: #4199FC;

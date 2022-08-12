@@ -64,7 +64,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
     $http({
         method: 'GET',
         url: API_URL+'admin/get-active-comments-count',
-    }).then(function (res){
+    }).then(function (res){ 
        $("#active-count").html(res.data.count);
     }, function (error) {
         console.log('get project type error');

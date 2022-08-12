@@ -1,4 +1,3 @@
-<small class="comments-count" ng-if="enquiry_active_comments.service > 0"> @{{ enquiry_active_comments.service   }}</small>
 <ul >
     <li ng-repeat="(key,outputType) in services" class=""> @{{ key }}
         <ul  class="row m-0 ">

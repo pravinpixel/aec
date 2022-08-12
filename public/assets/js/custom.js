@@ -182,4 +182,4 @@
         $("."+tableval).attr("data-is-active","active");
         //console.log(tableval);
 
-    }
+    } 
