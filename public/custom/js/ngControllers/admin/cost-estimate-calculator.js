@@ -167,7 +167,7 @@
                 console.log(res.data);
             })
             $scope.column_name = '';
-            Message('success','Column Added successfully');
+            Message('success','Column added successfully');
         }
 
         $scope.deleteDynamic = (rootIndex, dynamicIndex) => {
@@ -179,10 +179,11 @@
             $timeout(function() {
                 angular.element('.sqm_').triggerHandler('keyup');
             });
+            Message('success','Column removed successfully');
         }
 
         $scope.addEngineeringEstimate = () => {
-            Message('success', 'Building component Added successfully');
+            Message('success', 'Building component added successfully');
             let newCostEstimate = JSON.parse(JSON.stringify($scope.CostEstimate));
             $scope.EngineeringEstimate.push(newCostEstimate);
         }
@@ -219,6 +220,8 @@
             $timeout(function() {
                 angular.element('.sqm_').triggerHandler('keyup');
             });
+            Message('success', 'Component added successfully');
+
         }
 
         $scope.delete   =   function(rootKey, index) { 
