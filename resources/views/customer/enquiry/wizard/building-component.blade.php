@@ -357,6 +357,11 @@
             'from':'Customer'
             }"/>
         </div>
+        <div class="pull-right">
+            <button ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen" class="my-2  btn btn-info rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
+                @{{ isOpen  != true ?  "View Summary" : "Close Summary"  }} 
+            </button>
+        </div>
     </div>
 
     @include('customer.enquiry.models.add-layer-modal')
