@@ -105,7 +105,7 @@
                                 class="form-control  rounded-0 text-center form-control-sm">
                         </div>
                     </div>
-                    <div class="custom-td text-center p-0 justify-content-between">
+                    <div class="custom-td custom-td-lg text-center p-0 justify-content-between">
                         <span><small class="fw-bold">Total Cost</small> <small class="fw-normal">(kr)</small></small> </span>
                         <div class="custom-row text-center m-0">
                             <div class="col">
@@ -187,7 +187,7 @@
                                     class="form-control  rounded-0 text-center form-control-sm">
                             </div>
                         </div>
-                        <div class="custom-td">
+                        <div class="custom-td custom-td-lg">
                             <div class="text-center custom-row p-0">
                                 <div class="p-0">
                                     <input type="number"  get-cost-details-total="[index]" onkeypress="return isNumber(event)" name="C.TotalCost.PriceM2"
