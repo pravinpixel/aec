@@ -169,13 +169,13 @@
                 <h3 class="h4 mb-0 mt-3">Issues Summary</h3>
                 <ul class="nav nav-tabs nav-bordered mb-3">
                     <li class="nav-item">
-                        <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link" ng-click="tablesearch('all')">
+                        <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active" ng-click="tablesearch('all')">
                             <i class="mdi mdi-home-variant d-md-none d-block"></i>
                             <span class="d-none d-md-block">All</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#profile-b1" data-bs-toggle="tab" aria-expanded="true" class="nav-link active" ng-click="tablesearch('internal')">
+                        <a href="#profile-b1" data-bs-toggle="tab" aria-expanded="true" class="nav-link " ng-click="tablesearch('internal')">
                             <i class="mdi mdi-account-circle d-md-none d-block"></i>
                             <span class="d-none d-md-block">Internal</span>
                         </a>
@@ -301,7 +301,8 @@
                                 </div> 
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Description<sup class="text-danger">*</sup></label>
-                                    <textarea class="form-control form-control-sm" cols="20" rows="5" ng-model = "case.description"  ng-required="true"></textarea>
+                                    <textarea class="form-control form-control-sm" cols="20" rows="5"name ="description" ng-model = "case.description"  ng-required="true"></textarea>
+                                    <small class="text-danger" ng-show="newissuesForm.description.$invalid && formSave">This field is required</small>
                                 </div> 
                                 <div>
                                     <div class="mb-3">
@@ -354,13 +355,14 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Assignee<sup class="text-danger">*</sup></label>
-                                    <select class="form-select form-select-sm shadow" id="example-select_project"  ng-required="true" >
+                                    <select class="form-select form-select-sm shadow" name= "assignee" id="example-select_project"  ng-required="true" >
                                        <option>Select Assignee</option>
                                         <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
                                         <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
                                             @{{ projectManager.first_name }}
                                         </option>
                                     </select>
+                                    <small class="text-danger" ng-show="newissuesForm.assignee.$invalid && formSave">This field is required</small>
                                 </div>
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Tag</label>
@@ -369,17 +371,19 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Priority<sup class="text-danger">*</sup></label>
-                                    <select class="form-select form-select-sm shadow" id="example-select" ng-model = "case.priority"  ng-required="true">
+                                    <select class="form-select form-select-sm shadow" name = "priority" id="example-select" ng-model = "case.priority"  ng-required="true">
                                          <option value ="">Select Assignee</option>
                                         <option value = "critical">Critical</option>
                                         <option value = "high">High</option>
                                         <option value = "medium">Medium</option>
                                         <option value = "low">Low</option>
                                     </select>
+                                    <small class="text-danger" ng-show="newissuesForm.priority.$invalid && formSave">This field is required</small>
                                 </div> 
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Due Date<sup class="text-danger">*</sup></label>
-                                    <input type="datetime-local"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
+                                    <input type="datetime-local"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" name = "due_date" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
+                                    <small class="text-danger" ng-show="newissuesForm.due_date.$invalid && formSave">This field is required</small>
                                 </div> 
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Requester</label><Br>

@@ -56,8 +56,6 @@
                 <td>@{{ index_3 +1 }}</td>
                 <td>@{{ taskListData.task_list }}</td>
                 <td>
-                   
-
                     <input get-to-do-lists  type = "hidden"   ng-model="taskListData.assign_to" value="@{{ taskListData.assign_to }}" >
                     <label ng-repeat="projectManager in projectManagers" value="@{{ taskListData.assign_to }}" >
                         @{{ projectManager.first_name }}
