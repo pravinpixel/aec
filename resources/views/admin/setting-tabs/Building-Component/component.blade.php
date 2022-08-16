@@ -88,9 +88,10 @@
                         <div class="form-group col error">
                             <label for="inputEmail5" class="col-sm-12 text-dark control-label mb-2">Menu Icon</label>
                             <div class="col-sm-12">
-                                <input type="text" class="form-control has-error" id="building_component_icon" name="building_component_icon" placeholder="Type Here.." ng-model="module_comp.building_component_icon" ng-required="true">
-                                <small class="help-inline text-danger"  >This  Fields is Required</small>
-                            </div>
+                                <input type="file" class="form-control" id="building_component_icon" name="building_component_icon" placeholder="Type Here.." ng-model="module_comp.building_component_icon">
+                                <small class="help-inline text-danger" >This  Fields is Required</small>
+                            </div>                          
+                            <img src="{{ asset('/public/uploads/building-component-icon/') }}/@{{module_comp.building_component_icon}}" ng-show="module_comp.building_component_icon" alt="no image" width="60px"></td>
                         </div> 
 
                         <div class="row">

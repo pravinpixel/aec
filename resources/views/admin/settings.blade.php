@@ -2305,20 +2305,38 @@
             }
             $scope.save_component = function (modalstate, id) {
                 
-                var url = API_URL + "building-component";
+                var url = API_URL + "building-component-update";
                 var method = "POST";
-        
+                    var file =  document.getElementById('building_component_icon').files[0];
+                    $scope.file = file;
+                    
+                    console.log($scope.module_comp.building_component_name);
+                    // return false;
+                    var fd = new FormData();
+                    fd.append('building_component_name', $scope.module_comp.building_component_name);
+                    fd.append('order_id',$scope.module_comp.order_id);
+                    fd.append('file',  $scope.file);
+                    fd.append('top_position', $scope.module_comp.top_position);
+                    fd.append('bottom_position',$scope.module_comp.bottom_position);
+                    fd.append('is_active', $scope.module_comp.is_active);
+                    fd.append('cost_estimate_status',$scope.module_comp.cost_estimate_status);
+                    fd.append('label', $scope.module_comp.label);
+                    fd.append('id', id);
+                    console.log(fd);
+                    // return false;
                 //append module id to the URL if the form is in edit mode
                 if (modalstate === 'edit') {
-                    url += "/" + id;
-                    // alert(url)
-                    method = "PUT";
-                    // alert(url)
+                    // url += "/" + id;
+                    method = "POST";
+                //   console.log("1111")
+                  console.log(url)
                     $http({
                         method: method,
                         url: url,
-                        data: $.param($scope.module_comp),
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                        data:fd,
+                        // data: $.param($scope.module_comp),
+                        headers: { 'Content-Type': undefined},
+                          transformRequest: angular.identity
 
                     }).then(function successCallback(response) {
                         $scope.getComponentData($http, API_URL);
@@ -2328,19 +2346,40 @@
 
                     }, function errorCallback(response) {
                         
-                        Message('danger',response.data.errors.role);
+                        Message('danger',response.data.errors.building_component_name);
                     });
 
                 }else {
                     
-                    console.log($scope.module_comp);
+                    // console.log($scope.module_comp);
+                    
+                    // var file =  document.getElementById('building_component_icon').files[0];
+                    // // console.log(file);
+                    // $scope.file = file;
+                    
+                    // var fd = new FormData();
+                    // fd.append('building_component_name', $scope.module_comp.building_component_name);
+                    // fd.append('order_id',$scope.module_comp.order_id);
+                    // fd.append('file',  $scope.file);
+                    // fd.append('top_position', $scope.module_comp.top_position);
+                    // fd.append('bottom_position',$scope.module_comp.bottom_position);
+                    // fd.append('is_active', $scope.module_comp.is_active);
+                    // fd.append('cost_estimate_status',$scope.module_comp.cost_estimate_status);
+                    // fd.append('label', $scope.module_comp.label);
+                    // console.log(fd); 
+                    url = API_URL + "building-component";
+                    // alert(url)
                     $http({
                         method: method,
                         url: url,
-                        data: $.param($scope.module_comp),
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
+                        // data: $.param($scope.module_comp),
+                        data: fd,
+                        headers: { 'Content-Type': undefined},
+                          transformRequest: angular.identity
+                        // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        // transformRequest: angular.identity
                     }).then(function successCallback(response) {
+                        // alert(JSON.stringify(response))
                         $scope.getComponentData($http, API_URL);
                         angular.element(document.querySelector("#loader")).addClass("d-none"); 
                         $('#primary-component-modal').modal('hide');

@@ -25,7 +25,7 @@ class ComponentUpdateRequest extends FormRequest
     {
         return [
             'building_component_name' => ['required', Rule::unique('building_components')->ignore($this->id)->whereNull('deleted_at')],
-           
+
         ];
     }
 }

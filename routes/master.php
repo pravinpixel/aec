@@ -139,7 +139,7 @@ Route::group(['middleware' => 'common'], function () {
 
     Route::resource('task-list-master', TaskListController::class);
 
-    
+
     Route::put('check-sheet/{id}/status', [CheckSheetController::class, 'status']);
 
     Route::resource('check-sheet-master', CheckSheetController::class);
@@ -180,6 +180,7 @@ Route::group(['middleware' => 'common'], function () {
     Route::put('building-component/status/{id}', [BuildingComponentController::class, 'status'])->name('building-component.status');
     Route::put('building-component/cost-estimate-status/{id}', [BuildingComponentController::class, 'updateCostEstimateStatus'])->name('building-component.cost-estimate-status');
     Route::resource('building-component', BuildingComponentController::class);
+    Route::post('building-component-update', [BuildingComponentController::class, 'buildingComponentUpdate'])->name('building-component.building-component-update');
 
     Route::get('get-layer', [LayerController::class, 'get'])->name('layer.get');
     Route::get('get-layer-by-building-component', [LayerController::class, 'getByBuildingComponentId'])->name('layer.get-layer-by-building-component');
