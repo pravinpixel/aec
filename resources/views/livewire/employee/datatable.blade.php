@@ -7,6 +7,7 @@
                 <th class="text-left">Name</th>
                 <th class="text-left">Email</th>
                 <th class="text-left">Mobile Phone​</th>
+                <th class="text-left">Role​</th>
                 <th class="text-center">Share Point</th>
                 <th class="text-center">BIM</th>
                 <th class="text-center">Actions</th>
@@ -25,6 +26,7 @@
                     <td class="text-left">{{ $employee->first_name }}</td>
                     <td class="text-left">{{ $employee->email }}</td>
                     <td class="text-left">{{ $employee->mobile_number }}</td>
+                    <td class="text-left">{{ $employee->role->name }}</td>
                     <td class="text-center">
                         <div id="tooltip-container2">
                             <span class="{{ $employee->share_access === 1 ? 'text-success' : 'text-danger' }}"> <i class="fa font-22 fa-{{ $employee->share_access === 1 ? 'check' : 'times' }}-circle"></i></span>

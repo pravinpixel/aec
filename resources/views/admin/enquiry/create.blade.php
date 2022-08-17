@@ -37,7 +37,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>    
                                     <div class="col-md-6"> 
                                         <div class="mb-3">
                                             <label class="form-label" for="validationCustom01"> @lang('customer.company_name') <sup class="text-danger">*</sup></label>

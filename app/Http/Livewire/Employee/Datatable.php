@@ -10,7 +10,7 @@ class Datatable extends Component
     
     public function render()
     {
-        $employee_data = Employees::paginate(10);
+        $employee_data = Employees::with('role')->paginate(10);
         return view('livewire.employee.datatable',[
             "employee_data" =>  $employee_data
         ]);

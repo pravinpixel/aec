@@ -146,6 +146,7 @@ class Bim360ApiHelper
       Log::info("end point: {$this->base_url}{$url}");
       $token = 'Authorization: Bearer ' . $authtoken;
       $xuserid = 'x-user-id: '.$x_user_id;
+      Log::info('request json'.$data);
       $curl = curl_init();
       switch ($method) {
          case "POST":

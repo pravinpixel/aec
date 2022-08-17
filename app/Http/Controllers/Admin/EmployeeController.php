@@ -628,7 +628,7 @@ class EmployeeController extends Controller
         $response = json_decode($result);
         $employee->bim_id =  $response->id;
         $employee->bim_account_id =  $response->account_id;
-        $updateUser = json_encode(['status'=> 'active', 'company_id'=> env('BIMDEFAULTCOMPANY')]);
+        $updateUser = json_encode(['status'=> 'active', 'role' =>'project_admin', 'company_id'=> env('BIMDEFAULTCOMPANY')]);
         $result = $api->editUser($employee->bim_id,  $updateUser);
         Log::info("result {$result}");
         Log::info('Bim user creation end');

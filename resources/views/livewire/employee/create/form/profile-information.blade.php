@@ -22,6 +22,14 @@
             <input type="text" wire:model="email" class="form-control form-control-sm">
             @error('email') <span class="error">{{ $message }}</span> @enderror
         </div>
+
+        <div class="my-2 col-md-12 px-2">
+            <div class="form-check mb-2"> 
+                <input type="checkbox" class="form-check-input" id="customCheck1" wire:click="generatePassword"  wire:model="user_password">
+                <label class="form-check-label" for="customCheck1">Automatically create a password</label>
+            </div>
+        </div>
+
         <div class="my-2 col-md-12 px-2">                                             
             <label class="form-label">Password<sup class="text-danger">*</sup></label>
             <input type="password" wire:model="password" class="form-control form-control-sm">
@@ -29,10 +37,6 @@
         </div>
 
         <div class="px-2 my-3">
-            <div class="form-check mb-2"> 
-                <input type="checkbox" class="form-check-input" id="customCheck1" wire:click="generatePassword"  wire:model="user_password">
-                <label class="form-check-label" for="customCheck1">Automatically create a password</label>
-            </div>
             <div class="form-check mb-2">
                 <input type="checkbox" class="form-check-input" id="customCheck2" wire:model="sign_in_password_change">
                 <label class="form-check-label" for="customCheck2">Require this user to change their password when they first sign in</label>

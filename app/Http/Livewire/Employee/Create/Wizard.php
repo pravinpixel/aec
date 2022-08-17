@@ -6,11 +6,15 @@ use App\Helper\Bim360\Bim360ProjectsApi;
 use App\Helper\Bim360\Bim360UsersApi;
 use App\Models\Admin\Employees;
 use App\Models\Admin\SharePointAccess;
+use App\Models\EmployeeBimAccessProject;
+use App\Models\Project;
 use App\Models\Role;
 use App\Services\GlobalService;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Laracasts\Flash\Flash;
@@ -126,9 +130,7 @@ class Wizard extends Component
             $employee->save();
         }
         $this->currentStep = 3;
-        $bimProject = new Bim360ProjectsApi();
-        $result = $bimProject->getProjectList();
-        $this->projects = json_decode($result);
+        $this->projects = $this->getProjectList();
     }
    
     /**
@@ -238,6 +240,7 @@ class Wizard extends Component
             $input["nickname"]   = $employee->display_name;
             $input["first_name"] = $employee->first_name;
             $input["last_name"]  = $employee->last_name;
+            $roleName = Role::find($employee->job_role)->name;
             if (isset($input["bim_id"]) && !empty($input["bim_id"])) {
                 $editJson = json_encode($input);
                 $result = $api->editUser($input['bim_id'], $editJson);
@@ -249,7 +252,7 @@ class Wizard extends Component
             $response = json_decode($result);
             $employee->bim_id =  $response->id;
             $employee->bim_account_id =  $response->account_id;
-            $updateUser = json_encode(['status'=> 'active', 'company_id'=> env('BIMDEFAULTCOMPANY')]);
+            $updateUser = json_encode(['status'=> 'active',  'default_role'=> $roleName, 'company_id'=> env('BIMDEFAULTCOMPANY')]);
             $result = $api->editUser($employee->bim_id,  $updateUser);
             Log::info("result {$result}");
             Log::info('Bim user creation end');
@@ -260,6 +263,157 @@ class Wizard extends Component
         }
        
     }
+
+    public function getProjectList()
+    {
+        $session_employee = Session::get('employee');
+        return DB::select("select
+        `aec_projects` .*,
+        `aec_roles`.`name` as `role_name`,
+        `aec_project_types`.`project_type_name` as `project_type_name`,
+        `aec_employee_bim_access_projects`.`access_status` as `access_status`,
+        `aec_employee_bim_access_projects`.`document_management` as `document_management`,
+        `aec_employee_bim_access_projects`.`insight` as `insight`,
+        `aec_employee_bim_access_projects`.`design_collaboration` as `design_collaboration`,
+        `aec_employee_bim_access_projects`.`is_project_admin` as `is_project_admin`
+    from
+        `aec_projects`
+    left join `aec_project_types` on
+        `aec_projects`.`project_type_id` = `aec_project_types`.`id`
+    left join `aec_employee_bim_access_projects` on
+        (`aec_projects`.`id` = `aec_employee_bim_access_projects`.`project_id`
+            and `aec_employee_bim_access_projects`.`employee_id` = {$session_employee->id})
+    left join `aec_employees` on
+        `aec_employees`.`id` = `aec_employee_bim_access_projects`.`employee_id`
+    left join `aec_roles` on 
+        `aec_roles`.`id` = `aec_employees`.`job_role`
+    where
+        `aec_projects`.`bim_id` is not null");
+    }
+
+    public function updateAccessStatus($projectId)
+    {
+        $session_employee = Session::get('employee');
+        $employee = Employees::with('role')->find($session_employee->id);
+        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $employee->id, 'project_id' => $projectId])->first();
+        if(!$employeeBimProjects) {
+            $employeeBimProjects = new EmployeeBimAccessProject();
+            $employeeBimProjects->employee_id = $employee->id;
+            $employeeBimProjects->project_id = $projectId;
+            $employeeBimProjects->access_status = 1;
+        } else {
+            $employeeBimProjects->access_status = !$employeeBimProjects->access_status;
+        }
+        $employeeBimProjects->save();
+        if($employeeBimProjects->access_status) {
+           
+        }
+        $this->projects = $this->getProjectList();
+    }
+
+    public function updateIsProjectAdminStatus($projectId)
+    {
+        $session_employee = Session::get('employee');
+        $employee = Employees::with('role')->find($session_employee->id);
+        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $employee->id, 'project_id' => $projectId])->first();
+        if(!$employeeBimProjects) {
+            $employeeBimProjects = new EmployeeBimAccessProject();
+            $employeeBimProjects->employee_id = $employee->id;
+            $employeeBimProjects->project_id = $projectId;
+            $employeeBimProjects->is_project_admin = 1;
+        } else {
+            $employeeBimProjects->is_project_admin = !$employeeBimProjects->is_project_admin;
+        }
+        $employeeBimProjects->save();
+        if($employeeBimProjects->is_project_admin  && $employeeBimProjects->access_status) {
+           
+        }
+        $this->projects = $this->getProjectList();
+    }
+
+   
+    public function updateDocumentManagement($projectId)
+    {
+        $sessionEmployee = Session::get('employee');
+        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $sessionEmployee->id, 'project_id' => $projectId])->first();
+        if(!$employeeBimProjects) {
+            $employeeBimProjects = new EmployeeBimAccessProject();
+            $employeeBimProjects->employee_id = $sessionEmployee->id;
+            $employeeBimProjects->project_id = $projectId;
+            $employeeBimProjects->document_management = 1;
+        } else {
+            $employeeBimProjects->document_management = !$employeeBimProjects->document_management;
+        }
+        $employeeBimProjects->save();
+        if($employeeBimProjects->document_management  && $employeeBimProjects->access_status) {
+           $this->updateBimService('document_management', $projectId);
+        }
+        $this->projects = $this->getProjectList();
+    }
+
+    public function updateInsight($projectId)   
+    {
+        $sessionEmployee = Session::get('employee');
+        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $sessionEmployee->id, 'project_id' => $projectId])->first();
+        if(!$employeeBimProjects) {
+            $employeeBimProjects = new EmployeeBimAccessProject();
+            $employeeBimProjects->employee_id = $sessionEmployee->id;
+            $employeeBimProjects->project_id = $projectId;
+            $employeeBimProjects->insight = 1;
+        } else {
+            $employeeBimProjects->insight = !$employeeBimProjects->insight;
+        }
+        $employeeBimProjects->save();
+        if($employeeBimProjects->insight  && $employeeBimProjects->access_status) {
+            $this->updateBimService('insight', $projectId);
+        }
+        $this->projects = $this->getProjectList();
+    }
+    
+    public function updateDesignCollaboration($projectId)   
+    {
+        $sessionEmployee = Session::get('employee');
+        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $sessionEmployee->id, 'project_id' => $projectId])->first();
+        if(!$employeeBimProjects) {
+            $employeeBimProjects = new EmployeeBimAccessProject();
+            $employeeBimProjects->employee_id = $sessionEmployee->id;
+            $employeeBimProjects->project_id = $projectId;
+            $employeeBimProjects->design_collaboration = 1;
+        } else {
+            $employeeBimProjects->design_collaboration = !$employeeBimProjects->design_collaboration;
+        }
+        $employeeBimProjects->save();
+        if($employeeBimProjects->design_collaboration  && $employeeBimProjects->access_status) {
+            $this->updateBimService('design_collaboration', $projectId);
+        }
+        $this->projects = $this->getProjectList();
+    }
+
+    public function updateBimService($serviceName,$projectId)
+    {
+        $sessionEmployee = Session::get('employee');
+        $project = Project::find($projectId);
+        $employee = Employees::find($sessionEmployee->id);
+        $project_id = $project->bim_id;
+        $data = [
+            'email' => $employee->email,
+            "services" => [
+                $serviceName => [
+                    "access_level"=> "user"
+                ]
+            ],
+            "company_id" => env('BIMDEFAULTCOMPANY'),
+            "industry_roles" => []
+        ];
+        $userApi = new  Bim360UsersApi();
+        $userJson = $userApi->getUser(env('BIMACCOUNTADMIN'));
+        $userObj =  json_decode($userJson);
+        $input = json_encode([$data]);
+        $projectApi = new  Bim360ProjectsApi();
+        $result = $projectApi->importUser($project_id, $input, $userObj->uid);
+        Log::info("result {$result}");
+    }
+
 
     public function render()
     {

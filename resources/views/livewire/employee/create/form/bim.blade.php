@@ -5,7 +5,7 @@
                 <th>Projects</th>
                 <th width="80px">Access Status</th>
                 <th>Roles</th>
-                <th width="80px">Project Admin</th>
+                <th>Project Admin</th>
                 <th><i class="font-22 mdi mdi-chart-line-variant"></i></th>
                 <th><i class="font-22 mdi mdi-file-image"></i></th>
                 <th><i class="font-22 mdi mdi-electron-framework"></i></th>
@@ -17,25 +17,31 @@
                 <td class="table-user d-flex">
                     <img src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/344/external-building-interface-kiranshastry-solid-kiranshastry.png" alt="table-user" class="me-2 rounded-circle" />
                     <div>
-                        {{ $project->project_type }} <br>
-                        <small class="text-secondary"> {{ $project->name  }}</small>
+                        {{ $project->project_type_name }} <br>
+                        <small class="text-secondary"> {{ $project->project_name  }}</small>
                     </div>
                 </td>
                 <td>
                     <div>
-                        <input type="checkbox" id="switch30{{ $i +1 }}" {{ rand(1,2) == 1 ? 'checked' : '' }} data-switch="{{ rand(1,2) == 1 ? 'primary' : 'info' }}" />
+                        <input name="access_status" wire:click="updateAccessStatus({{ $project->id }})" type="checkbox" id="switch30{{ $i +1 }}" {{ $project->access_status == 1 ? 'checked' : '' }} data-switch="{{ $project->access_status == 1 ? 'primary' : 'info' }}" />
                         <label for="switch30{{ $i +1 }}" data-on-label="Yes" data-off-label="No" class="mb-0 d-block"></label>
                     </div>
                 </td>
                 <td width="300px">
-                    <span class="badge badge-primary-lighten">Project Engineer</span>
-                    <span class="badge badge-info-lighten">Project Leader</span>
-                    <span class="badge badge-success-lighten">Cost estimater</span>
+                    <span class="badge badge-primary-lighten">{{ $project->role_name }}</span>
                 </td>
-                <td><i class="font-22 {{ rand(1,2) == 1 ? 'text-success mdi mdi-checkbox-marked' : 'text-danger fa fa-times' }} "></i></td>
-                <td><i class="font-22 {{ rand(1,2) == 1 ? 'text-success mdi mdi-checkbox-marked' : 'text-danger fa fa-times' }} "></i></td>
-                <td><i class="font-22 {{ rand(1,2) == 1 ? 'text-success mdi mdi-checkbox-marked' : 'text-danger fa fa-times' }} "></i></td>
-                <td><i class="font-22 {{ rand(1,2) == 1 ? 'text-success mdi mdi-checkbox-marked' : 'text-danger fa fa-times' }}"></i></td> 
+                <td>
+                    <input name="is_project_admin" wire:change="updateIsProjectAdminStatus({{ $project->id }})" type="checkbox"  {{ $project->is_project_admin == 1 ? 'checked' : '' }}  {{ $project->access_status == 0 ? 'disabled' : '' }} />
+                </td>
+                <td>
+                    <input name="document_management" wire:change="updateDocumentManagement({{ $project->id }})" type="checkbox"  {{ $project->document_management == 1 ? 'checked' : '' }}  {{ $project->access_status == 0 ? 'disabled' : '' }} />
+                </td>
+                <td>
+                    <input name="insight" wire:change="updateInsight({{ $project->id }})" type="checkbox"  {{ $project->insight == 1 ? 'checked' : '' }}   {{ $project->access_status == 0 ? 'disabled' : '' }}/>
+                </td>
+                <td>
+                    <input name="design_collaboration" wire:change="updateDesignCollaboration({{ $project->id }})" type="checkbox"  {{ $project->design_collaboration == 1 ? 'checked' : '' }}   {{ $project->access_status == 0 ? 'disabled' : '' }}/>
+                </td> 
             </tr>
             @endforeach
         </tbody>

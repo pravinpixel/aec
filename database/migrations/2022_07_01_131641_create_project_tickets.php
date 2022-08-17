@@ -28,7 +28,7 @@ class CreateProjectTickets extends Migration
             $table->longText('is_mail_sent')->nullable();
             $table->boolean('is_active')->default(1);
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->foreign('id')->references('id')->on('ticket_comments');
+            $table->foreign('ticket_comment_id')->references('id')->on('ticket_comments');
             $table->timestamps();
         });
     }
