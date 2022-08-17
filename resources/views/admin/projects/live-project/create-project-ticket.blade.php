@@ -73,7 +73,7 @@
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >Reason for Variation / Change <sup class="text-danger">*</sup></label>
-                                                    <div dx-html-editor="htmlEditorOptions" class = "variationchanges"> </div>
+                                                    <div dx-html-editor="Variationchanges" class = "variationchanges"> </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -16,11 +16,13 @@ class CreateTicketComments extends Migration
         Schema::create('ticket_comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('project_id');
+            $table->integer('ticket_num')->nullable();
             $table->string("type")->nullable();
             $table->text('summary')->nullable();
             $table->text('description')->nullable();
             $table->text('file_id')->nullable();
             $table->text('assigned')->nullable();
+            $table->string("tag")->nullable();
             $table->text('priority')->nullable();
             $table->datetime('ticket_date')->nullable();
             $table->boolean('status')->default(0);
@@ -33,6 +35,7 @@ class CreateTicketComments extends Migration
             $table->unsignedBigInteger('send_by')->nullable();
             $table->unsignedBigInteger('seen_by')->nullable();
             $table->string('role_by')->nullable();
+            $table->boolean('is_active')->default(1);
             
             $table->timestamps();
         });

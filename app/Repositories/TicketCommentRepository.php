@@ -69,8 +69,10 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
     public function findprojectticketcomment($id, $type)
     {
         $ticketcomments = $this->model->find($id);
+        
        
         if($ticketcomments->type == 'internal'){
+
             $assigndetails = $this->model->with('assigndetails')->find($id);
             $requesterdetails = $this->model->with('requesterdetails')->find($id);
 
@@ -148,11 +150,18 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             $projectcustomer = $this->Project->find($request->project_id);
             $request->assign = $projectcustomer->customer_id ;
         }
+        $series  =  $this->model->where('project_id',$request->project_id)->where('is_active','1')->count();
+        if(isset($series) && strlen($series) > 0){
+            $series += 1; 
+        } else {
+            $series = 1;
+        }
 
 
         //dd(Admin());
         $comments = $this->model->create([
             "project_id"    => $request->project_id,
+            "ticket_num"    => $series,
             "type"          => $request->data['type'],
             "summary"       => $request->data['summary'],
             "file_id"       => $request->image ?? " ",
@@ -168,6 +177,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             "project_status"=>'New',
             "status"        => 0,
             "variation_order"=> $request->data['variation']  ??  "0",
+            "tag"             => $request->tag
         ]);
 
         return $comments;

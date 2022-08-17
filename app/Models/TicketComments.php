@@ -11,7 +11,7 @@ class TicketComments extends Model
 {
     use HasFactory;
     protected $dates = ['ticket_date'];
-    protected $fillable = [ 'project_id','type', 'requester','variation_order','showing','created_by', 'updated_by','summary','description', 'file_id', 'assigned','priority','ticket_date','status', 'project_status','send_by', 'role_by','seen_by'];
+    protected $fillable = [ 'project_id','ticket_num','type', 'requester','variation_order','showing','created_by', 'updated_by','summary','description', 'file_id', 'assigned','tag','priority','ticket_date','status', 'project_status','send_by', 'role_by','seen_by','is_active'];
 
     public function assigndetails()
     {

@@ -6,6 +6,7 @@ use App\Interfaces\ProjectTicketRepositoryInterface;
 use App\Models\Admin\Employees;
 use App\Models\ProjectTicket;
 use App\Models\TicketComments;
+use App\Models\TicketcommentsReplay;
 use App\Models\Project;
 use App\Models\ProjectTeamSetup;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -16,13 +17,15 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
     protected $projectTicketCase;
     protected $projectteamsetup;
     protected $employee;
+    protected $ticketcommentsReplay;
 
     public function __construct(
         ProjectTicket $ProjectTicket,
         Project $projectModel,
         TicketComments $projectTicketCase,
         ProjectTeamSetup $projectteamsetup,
-        Employees $employee
+        Employees $employee,
+        TicketcommentsReplay $ticketcommentsReplay
        
         ){
         $this->model                            = $ProjectTicket;
@@ -30,6 +33,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $this->Projectticketcase                = $projectTicketCase;
         $this->projectteamsetup                 = $projectteamsetup;
         $this->employee                         = $employee;
+        $this->TicketcommentsReplay   = $ticketcommentsReplay;
     }
 
     public function all()
@@ -87,7 +91,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
                                                 ->where('project_id',$id)->orderBy('updated_at','desc')->get();
         $newissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','New')->count();                                        
         $openissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','open')->count();                                        
-        $closeissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','close')->count();                                        
+        $closeissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','closed')->count();                                        
         $pendingissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','pending')->count();                                        
         $ProjectTicket['overview'] = array('new' =>$newissues,
                                             'open' => $openissues,
@@ -95,17 +99,17 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
                                             'pending' =>$pendingissues);
         $ProjectTicket['internaloverview'] = array('new' => $this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','New')->count(),
                                             'open' => $this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','open')->count(),
-                                            'close' =>$this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','close')->count(),
+                                            'close' =>$this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','closed')->count(),
                                             'pending' =>$this->Projectticketcase->where('project_id',$id)->Where('type','internal')->where('project_status','pending')->count());
          $ProjectTicket['customeroverview'] = array('new' => $this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','New')->count(),
                                             'open' => $this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','open')->count(),
-                                            'close' =>$this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','close')->count(),
+                                            'close' =>$this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','closed')->count(),
                                             'pending' =>$this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','pending')->count());
                                     
         $showing = isset($ProjectTicket['ticketcase']['0'])? $ProjectTicket['ticketcase']['0']->showing : '';
        $showingarr = isset($showing) ? explode(',',$showing) :array();
         //$showingarr =explode(',',$showing) ;
-        $header = ['Id','Requester','Type','Title','Description','Assign','Status','Due Date','Priority','Modified at'];
+        $header = ['Id','Requester','Type','Title','Description','Assignee','Status','Due Date','Priority','Modified at'];
         //dd($showingarr);
         foreach($header as $key=>$data){
             //dd($data);
@@ -159,10 +163,12 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
             $team[] = implode(",",$projectteam->team);
         }
        
-        $employeedata['emp'] =  $this->employee->select('first_name')->whereIn('id' ,$team)->get() ;
+        $employeedata['emp'] =  $this->employee->select('first_name','id')->whereIn('id' ,$team)->get() ;
 
         $customer = $this->Project ::with('customerdatails') ->find($projectid);
         $employeedata['cus'] = $customer->customerdatails->first_name;
+        $employeedata['cusid'] = $customer->customerdatails->id;
+
 
 
         
@@ -181,10 +187,10 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
             $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($projectcollection);
             $searchticket = $this->Projectticketcase->with('assigndetails')
                              ->where('project_id',$projectcollection);
-            
-          
             $ProjectTicket['ticketcase'] =  $searchticket->orderBy('id','desc')->get();
             $ProjectTicket['ticketmodel'] = $projectticket;
+            $ProjectTicket["chatHistory"] = $this->TicketcommentsReplay->where(["project_ticket_id" => $id])->oldest()->get();
+             $ids = $ProjectTicket["chatHistory"]->pluck('id');
 
 
         }

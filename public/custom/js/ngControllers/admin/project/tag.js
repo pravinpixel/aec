@@ -1037,6 +1037,7 @@
                 ms._valueContainer = $('<input/>', {
                     type: 'hidden',
                     name: cfg.name,
+                    id  : 'tag_input',
                     value: JSON.stringify(ms.getValue())
                 });
                 ms._valueContainer.appendTo(ms.selectionContainer);

@@ -80,7 +80,7 @@ class TicketCommentsController extends Controller
     }
 
     public function storeTicketCase(Request $request){
-
+       
 
         $role_by        =   isset(Admin()->job_role) ? Admin()->job_role : 0;
         $seen_by        =   isset( Admin()->id) ? Admin()->id : Customer()->id;

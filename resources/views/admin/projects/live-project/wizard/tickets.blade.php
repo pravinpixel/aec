@@ -217,7 +217,7 @@
                                 <td >@{{ ptcindex+1 }}</td>
                                 <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center">
                                     <button  class="btn btn-sm btn-outline-primary p-0 px-1" ng-click="showTicketComments(pticketscomment.id,'show')">
-                                        <small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.id }}</small>
+                                        <small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.ticket_num }}</small>
                                     </button>
                                 </td>
                                 <td ng-show="cols[1].show">@{{pticketscomment.requester}}</td>
@@ -246,7 +246,7 @@
                                     </div>
                                 </td>
                                 
-                                <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'close', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
+                                <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'closed', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
                                 <td ng-show="cols[7].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
                                 <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center capitalize">@{{pticketscomment.priority}} </td>
                                 
@@ -356,7 +356,7 @@
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Assignee<sup class="text-danger">*</sup></label>
                                     <select class="form-select form-select-sm shadow" name= "assignee" id="example-select_project"  ng-required="true" >
-                                       <option>Select Assignee</option>
+                                       <option>--Select--</option>
                                         <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
                                         <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
                                             @{{ projectManager.first_name }}
@@ -364,15 +364,17 @@
                                     </select>
                                     <small class="text-danger" ng-show="newissuesForm.assignee.$invalid && formSave">This field is required</small>
                                 </div>
+                               
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Tag</label>
-                                    <input id="ms1" class="my-control" type="text" name="ms1"/>
+                                    <input id="ms1" class="my-control" type="text" name="ms1" ng-model = "case.tag"/>
+                                    <p>Model: @{{case.tag}}</p>
                                     
                                 </div>
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Priority<sup class="text-danger">*</sup></label>
                                     <select class="form-select form-select-sm shadow" name = "priority" id="example-select" ng-model = "case.priority"  ng-required="true">
-                                         <option value ="">Select Assignee</option>
+                                         <option value ="">--Select --</option>
                                         <option value = "critical">Critical</option>
                                         <option value = "high">High</option>
                                         <option value = "medium">Medium</option>
@@ -431,7 +433,7 @@
                             <div class="card text-start m-0 border" > 
                                 <div class="card-body">
                                     <div class="d-flex align-items-start">
-                                        <img src="{{ asset('public/assets/images/') }}/@{{header.image}}" class="me-2 rounded-circle" height="30" alt="Rhonda D">
+                                       {{--  <img src="{{ asset('public/assets/images/') }}/@{{header.image}}" class="me-2 rounded-circle" height="30" alt="Rhonda D"> --}}
                                         <div class="w-100 overflow-hidden">
                                             <h5 class="mt-0 mb-0 font-14">
                                                @{{header.username}}
@@ -527,8 +529,8 @@
                                                 aria-controls="ReplayMail"> 
                                                 <i class="uil-corner-up-left me-1"></i> Reply
                                             </button>
-                                            <i class="mdi mdi-delete btn me-2 shadow-sm border btn-sm collapsed collapse text-danger" data-bs-toggle="collapse"
-                                            href="#ReplayMail" aria-expanded="false" aria-controls="ReplayMail" id="ReplayMail" style="background: #e7e7e7"></i>
+                                            {{--<i class="mdi mdi-delete btn me-2 shadow-sm border btn-sm collapsed collapse text-danger" data-bs-toggle="collapse"
+                                            href="#ReplayMail" aria-expanded="false" aria-controls="ReplayMail" id="ReplayMail" style="background: #e7e7e7"></i>--}}
                                             <button class="btn btn-primary btn-sm fw-bold collapsed collapse" id="ReplayMail" ng-click = "issuesreplaycomment('issues',header.ticketid,header.project_id)"> 
                                                 <i class="uil-corner-up-left me-1"  ></i> Send
                                             </button>
@@ -564,7 +566,7 @@
                                         <select class="form-select shadow" id="example-select" ng-model="header.status">
                                             <option ng-selected = "header.status == 'New'"  value="New">New</option>
                                             <option ng-selected = "header.status == 'open'"  value="open">Open</option>
-                                            <option  ng-selected = "header.status == 'close'" value="close">Close</option>
+                                            <option  ng-selected = "header.status == 'closed'" value="closed">Close</option>
                                             <option  ng-selected = "header.status == 'pending'" value="pending">Pending</option>
                                         </select>
                                     </div> 
@@ -713,6 +715,72 @@
                 
             </form>
             </div> 
+
+            <ul class="conversation__box">
+
+                <!-- ngRepeat: comment in commentsData -->
+                <li ng-class="{right__conversation: comment.created_by == 1 , left__conversation: comment.created_by != 1}" ng-repeat="comment in commentsData" class="ng-scope right__conversation">
+                    <div>
+                      
+                        <p class="m-0 font-14" >   @{{comment.comments}}</p> 
+                        <small> @{{comment.created_at  | date: 'dd-MM-yyyy'}}</small>
+                    </div>
+                </li><!-- end ngRepeat: comment in commentsData -->
+             
+              
+               <!-- <li class="left__conversation">
+                    <div>
+                        <h5 class="m-0 mb-1 font-14">
+                            Rhonda D
+                            <small>10:04</small>
+                        </h5>
+                        <p class="m-0 font-14">Yeah everything is fine</p> 
+                    </div>
+                </li>
+                <li class="right__conversation">
+                    <div>
+                        <h5 class="m-0 mb-1 font-14">Dominic</h5>
+                        <p class="m-0 font-14">Wow that's great</p> 
+                        <small>10:04</small>
+                    </div>
+                </li>
+                <li class="left__conversation">
+                    <div>
+                        <h5 class="m-0 mb-1 font-14">Rhonda D</h5>
+                        <p class="m-0 font-14">Let's have it today if you are free</p> 
+                        <small>10:04</small>
+                    </div>
+                </li>
+                <li class="right__conversation">
+                    <div>
+                        <h5 class="m-0 mb-1 font-14">Dominic</h5>
+                        <p class="m-0 font-14">Sure thing! let me know if 2pm works for you</p> 
+                        <small>10:04</small>
+                    </div>
+                </li>
+                <li class="left__conversation">
+                    <div>
+                        <h5 class="m-0 mb-1 font-14"> Rhonda D </h5>
+                        <p class="m-0 font-14">Sorry, I have another meeting scheduled at 2pm. Can we have it at 3pm instead?</p> 
+                        <small>10:04</small>
+                    </div>
+                </li>
+                <li class="left__conversation">
+                    <div>
+                        <h5 class="m-0 mb-1 font-14">Rhonda D</h5>
+                        <p class="m-0 font-14">We can also discuss about the presentation talk format if you have some extra mins</p> 
+                        <small>10:04</small>
+                    </div>
+                </li> -->
+            </ul>
+
+
+
+
+
+
+
+
             {{-- <div class="modal-footer"> 
                 <button class="btn btn-primary"  ><i class="fa fa-save me-2"></i>Update</button>
             </div> --}}
@@ -878,11 +946,13 @@
 </div>
 
 @include("admin.enquiry.models.ticket-chat-box")  
-
  @push('custom-style')
      
  @endpush
 <style>
+     .dx-htmleditor-toolbar.dx-toolbar.dx-toolbar-multiline.dx-widget.dx-visibility-change-handler.dx-collection {
+    display: none;
+}
     #tablebqup_length {
         display: none !important;
     }

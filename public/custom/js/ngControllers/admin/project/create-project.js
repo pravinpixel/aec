@@ -919,21 +919,26 @@ formatData = (project) => {
     $http.get(`${API_URL}admin/project/team/${project_id}/team_setup`)
       .then((res) => {
         var quotations = [];
-        //console.log(res.data.cus)
+        var arr = [];
+
+       //console.log(res.data);
         $scope.teamSetups = res.data.emp.map((item) => {
           //console.log(item.first_name);
           quotations.push(item.first_name);
+          arr.push(item.id+'-emp');
+          
   
         })
-  
+        
         quotations.push(res.data.cus);
+        arr.push(res.data.cusid+'-cus');
         var jsonData = [];
   
         for (var i = 0; i < quotations.length; i++) jsonData.push({
-          id: i,
+          id: arr[i],
           name: quotations[i]
         });
-        console.log(jsonData);
+        //console.log(jsonData);
         var ms1 = $('#ms1').tagSuggest({
           data: jsonData,
           sortOrder: 'name',
@@ -966,9 +971,46 @@ formatData = (project) => {
     $scope.htmlEditorOptions = {
       bindingOptions: {
         'toolbar.multiline': 'multilineToolbar',
+       
+      },
+      height: 725, 
+      value: '',
+      toolbar: {
+        items: [
+          'undo', 'redo', 'separator',
+          {
+            name: 'size',
+            acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
+          },
+          {
+            name: 'font',
+            acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
+          },
+          'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
+          'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+          'orderedList', 'bulletList', 'separator',
+          {
+            name: 'header',
+            acceptedValues: [false, 1, 2, 3, 4, 5],
+          }, 'separator',
+          'color', 'background', 'separator',
+          'link', 'image', 'separator',
+          'clear', 'separator'
+        ],
+      },
+      mediaResizing: {
+        enabled: true,
+      },
+    };
+
+    $scope.Variationchanges = {
+      bindingOptions: {
+        'toolbar.multiline': 'multilineToolbar',
+        
       },
       height: 725,
       value: '',
+      id: 'variationchanges',
       toolbar: {
         items: [
           'undo', 'redo', 'separator',
@@ -1045,16 +1087,22 @@ formatData = (project) => {
       var project_id = $('#project_case').val();
       var assign = $('#example-select_project').find(":selected").val();
       var requester = $('.requested').find(":selected").text();
+      var tag_input = $('#tag_input').val();
+      
   
   
       $http.post(`${API_URL}admin/live-project/store-ticket-case`, {
+        
           data: $scope.case,
           project_id: project_id,
           image: image,
           assign: assign,
-          requester: requester
+          requester: requester,
+          tag : tag_input
         })
+        
         .then((res) => {
+
           Message('success', 'Issue Created Successfully');
           if (res.data.status == true && res.data.variation == true) {
             let variationticketid = res.data.titketid;
@@ -1077,8 +1125,10 @@ formatData = (project) => {
       var ticket_comment_id = $('#ticket_comment_id').val();
       console.log(ticket_comment_id);
   
-      var description = $(".description").html();
-      var variationchanges = $(".variationchanges").html();
+      var description = $(".dx-htmleditor-content").html();
+      var variationchanges = $(".variationchanges ").html();
+
+     
   
       $http.post(`${API_URL}admin/api/v2/live-project-ticket`, {
           data: $scope.ticket,
@@ -1162,10 +1212,9 @@ formatData = (project) => {
         $scope.ptickets_model = res.data.ticket == null ? [] : res.data.ticket
         $scope.customer_model = res.data.project == null ? false : res.data.project;
         $scope.pticketcomment_model = res.data.ticketmodel == null ? false : res.data.ticketmodel;
+        $scope.commentsData = res.data.chatHistory;
         $('#ticket_mdal-box').modal('show');
       });
-  
-  
     }
   
     $scope.sendprojectticketComments = function(type, chatSection) {
