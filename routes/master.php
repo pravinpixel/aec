@@ -70,7 +70,7 @@ Route::get('check-sheet',  function () {
     return view('admin.setting-tabs.Check-sheet.check-sheet');
 })->name('check-sheet-file');
 
-Route::get('wood-estimation',  function() {
+Route::get('wood-estimation',  function () {
     return view('admin.setting-tabs.wood-estimation.wood-estimation-list');
 })->name('wood-estimation');
 

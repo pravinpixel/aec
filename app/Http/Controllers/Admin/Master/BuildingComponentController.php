@@ -79,12 +79,10 @@ class BuildingComponentController extends Controller
         $this->validate($request, [
             'building_component_name' => [
                 Rule::unique('building_components')->ignore($request->id)->where(function ($query) {
-                    return $query->where('is_active', 1);
+                    return $query->where('deleted_at');
                 }),
             ],
-
         ]);
-        // dd($request->all());
         $projectType = $request->only([
             "building_component_name", "cost_estimate_status", "building_component_icon", "order_id", "is_active", "top_position", "bottom_position", "label"
         ]);

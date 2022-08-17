@@ -28,7 +28,11 @@
                     <td class="align-items-center">@{{ comp.building_component_name }}</td>
                     <td ><span>@{{ comp.order_id }} </span></td>
                     <td ><span>@{{ comp.label }} </span></td>
-                    <td ><span style="font-size: 18px">@{{ comp.building_component_icon }} </span></td>
+                    <td >
+                        {{-- <span style="font-size: 18px">@{{ comp.building_component_icon }} </span> --}}
+                        <img src="{{ asset('/public/uploads/building-component-icon/') }}/@{{comp.building_component_icon}}" ng-show="comp.building_component_icon" alt="no image" width="60px">
+                        {{-- <img src="{{ asset('/public/uploads/building-component-icon/') }}/@{{comp.building_component_icon}}" alt="no image" width="60px"> --}}
+                    </td>
                     <td ><span>@{{ comp.top_position }} </span></td>
                     <td ><span>@{{ comp.bottom_position }} </span></td>
                     <td>
