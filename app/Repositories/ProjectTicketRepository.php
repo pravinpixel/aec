@@ -86,9 +86,16 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
             throw new ModelNotFoundException("Issues not found");
         }
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
-        $ProjectTicket['ticketcase'] = $this->Projectticketcase->with('assigndetails')
-                                                                ->with('assigncustomerdetails')
-                                                ->where('project_id',$id)->orderBy('updated_at','desc')->get();
+        $ProjectTicketCollection = $this->Projectticketcase->with('assigndetails')
+                                                                ->with('assigncustomerdetails');
+                                                                if(!empty(Customer()->id)){
+                                                                    $ProjectTicketCollection->where('cus_tag',Customer()->id)
+                                                                        ->where('type','internal')
+                                                                        ->orWhere('type','customer');
+                                                                }
+
+                                                 $ProjectTicket['ticketcase'] =  $ProjectTicketCollection->where('project_id',$id)->orderBy('updated_at','desc')->get();
+                                                //dd( $ProjectTicket['ticketcase']);
         $newissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','New')->count();                                        
         $openissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','open')->count();                                        
         $closeissues  = $this->Projectticketcase->where('project_id',$id)->where('project_status','closed')->count();                                        
@@ -178,6 +185,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
 
 
     public function getprojectticketsearch($id,$type){
+        //dd($type);
         
         if($type == 'show'){
            
@@ -187,6 +195,11 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
             $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($projectcollection);
             $searchticket = $this->Projectticketcase->with('assigndetails')
                              ->where('project_id',$projectcollection);
+                             if(!empty(Customer()->id)){
+                                $searchticket->where('cus_tag',Customer()->id)
+                                    ->where('type','internal')
+                                    ->orWhere('type','customer');
+                            }
             $ProjectTicket['ticketcase'] =  $searchticket->orderBy('id','desc')->get();
             $ProjectTicket['ticketmodel'] = $projectticket;
             $ProjectTicket["chatHistory"] = $this->TicketcommentsReplay->where(["project_ticket_id" => $id])->oldest()->get();
@@ -202,9 +215,25 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $searchticket = $this->Projectticketcase->with('assigndetails')
                                                 ->where('project_id',$id);
-                                                if($type != 'all'){
+                                                if($type == 'all'){
+                                                    if(!empty(Customer()->id)){
+                                                        $searchticket->where('cus_tag',Customer()->id)
+                                                            ->where('type','internal')
+                                                            ->orWhere('type','customer')
+                                                            ->where('project_id',$id);
+                                                    }
+                                                }
+                                                else if($type == 'internal'){
+                                                    if(!empty(Customer()->id)){
+                                                        $searchticket->where('cus_tag',Customer()->id);
+                                                          
+                                                           
+                                                    }
                                                     $searchticket->where('type',$type);
 
+                                                }else{
+                                                  
+                                                    $searchticket->where('type',$type); 
                                                 }
                                               
                                                 $ProjectTicket['ticketcase'] =  $searchticket->orderBy('id','desc')->get();

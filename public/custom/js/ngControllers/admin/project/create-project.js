@@ -867,7 +867,7 @@ formatData = (project) => {
   
   ///ticket wizard
   
-  app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout) {
+  app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout) { 
     $scope.autotrigger = function() {
       $('#flexRadioDefault1').click();
      
@@ -1123,7 +1123,7 @@ formatData = (project) => {
     $scope.submitcreatevariationForm = () => {
       var id = $scope.ticket.projectid;
       var ticket_comment_id = $('#ticket_comment_id').val();
-      console.log(ticket_comment_id);
+      //console.log(ticket_comment_id);
   
       var description = $(".dx-htmleditor-content").html();
       var variationchanges = $(".variationchanges ").html();

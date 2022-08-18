@@ -91,13 +91,13 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             $requesterdetails = $this->model->with('requesterdetails')->find($id);
             $assigndetails = $this->model->with('assigndetails')->find($id);
            
-            $header = array('username' => $requesterdetails->requesterdetails->first_name,
-                            'image'     => $requesterdetails->requesterdetails->image,
+            $header = array('username'  => isset($requesterdetails->requesterdetails) ? $requesterdetails->requesterdetails->first_name : '',
+                            'image'     => isset($requesterdetails->requesterdetails) ?  $requesterdetails->requesterdetails->image : '',
                             'email'     => $assigndetails->assigndetails->email ?? '',
-                            'ticketid' => $ticketcomments->id,
-                            'priority' => $ticketcomments->priority,
+                            'ticketid'  => $ticketcomments->id,
+                            'priority'  => $ticketcomments->priority,
                             'status'    => $ticketcomments->project_status,
-                            'project_id' =>$ticketcomments->project_id);
+                            'project_id'=>$ticketcomments->project_id);
         }
 
         $result['projectticket'] = $this->Project->find($ticketcomments->project_id);
@@ -156,9 +156,23 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
         } else {
             $series = 1;
         }
+        $tagdata    = json_decode($request->tag);
+        $emparr= array();
+        $cusarr =array();
+       
+        foreach($tagdata as $tag){
+            if (str_contains($tag, 'emp')) { 
+               $stringrem  = explode('-',$tag);
+               $emparr[] = $stringrem['0'];
+            }else{
+                $stringrem  = explode('-',$tag);
+                $cusarr[] = $stringrem['0'];
+            }
+        }
 
 
-        //dd(Admin());
+
+       // dd($cusarr);
         $comments = $this->model->create([
             "project_id"    => $request->project_id,
             "ticket_num"    => $series,
@@ -177,7 +191,8 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
             "project_status"=>'New',
             "status"        => 0,
             "variation_order"=> $request->data['variation']  ??  "0",
-            "tag"             => $request->tag
+            "emp_tag"             => (isset($emparr) ? implode(',',$emparr) : ''),
+            "cus_tag"             => (isset($cusarr) ? implode(',',$cusarr) : ''),
         ]);
 
         return $comments;

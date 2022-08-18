@@ -22,7 +22,8 @@ class CreateTicketComments extends Migration
             $table->text('description')->nullable();
             $table->text('file_id')->nullable();
             $table->text('assigned')->nullable();
-            $table->string("tag")->nullable();
+            $table->string("cus_tag")->nullable();
+            $table->string("emp_tag")->nullable();
             $table->text('priority')->nullable();
             $table->datetime('ticket_date')->nullable();
             $table->boolean('status')->default(0);

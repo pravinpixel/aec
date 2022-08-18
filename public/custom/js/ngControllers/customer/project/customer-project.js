@@ -945,6 +945,10 @@ app.controller('TasklistController', function($scope, $http, API_URL, $location)
 ///ticket wizard
 app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout)
 {
+  $scope.autotrigger = function() {
+    $('#flexRadioDefault1').click();
+   
+  }
   wizardactiveTabs('issues');
   $scope.options = {
     locale:
@@ -1090,8 +1094,13 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
     projectid: project_id,
   }
   console.log($scope.ticket);
-  $scope.submitticketForm = function(value)
+  $scope.formSave = false;
+  $scope.submitticketForm = function(formValid)
   {
+    if(formValid == true) {
+      $scope.formSave = true;
+      return false;
+  }
     var fd = new FormData();
     //console.log($scope.case)
     //console.log(fd);
@@ -1099,13 +1108,16 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
     var project_id = $('#project_case').val();
     var assign = $('#example-select_project').find(":selected").val();
     var requester = $('.requested').find(":selected").text();
+    var tag_input = $('#tag_input').val();
     $http.post(`${API_URL}admin/live-project/store-ticket-case`,
       {
         data: $scope.case,
         project_id: project_id,
         image: image,
         assign: assign,
-        requester: requester
+        requester: requester,
+        tag : tag_input
+        
       })
       .then((res) =>
       {

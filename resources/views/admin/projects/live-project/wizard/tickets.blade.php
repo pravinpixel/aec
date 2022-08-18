@@ -544,7 +544,7 @@
                                 <div class="card-body">
                                     <div class="cart-title"><b>PROPERTIES</b> </div> <br>
                                     <div class="mb-3">
-                                        <label for="example-select" class="form-label text-secondary">Tiket ID</label>
+                                        <label for="example-select" class="form-label text-secondary">Issue ID</label>
                                         <div class="form-control shadow"> 
                                             <a class="dropdown-item fw-bold" data-bs-toggle="modal" ng-click="showTicketComments(header.ticketid,'show')">
                                                 <u>@{{projectticket.reference_number}} /TIK0-@{{header.ticketid}}</u>
