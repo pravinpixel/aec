@@ -378,7 +378,7 @@
                         currentTabelHistory += `<h5 class="m-0 d-flex align-items-center">
                                                     <strong class="me-auto text-dark">Version : ${i+1}</strong>
                                                     <span class="fa fa-calendar text-dark"></span>
-                                                    <small>${moment(item.created_at).format('DD-MM-YYYY h:s a')}</small>
+                                                    <small>${item.created_at}</small>
                                                 </h5>`;
                         currentTabelHistory += item.history;
                     });
@@ -426,10 +426,10 @@
                     a.document.write(currentTabelHistory);
                     a.document.write('</html>');
                     a.document.close();
-                    console.log("First")
+                  
                     
                     setTimeout(() => {
-                        console.log("Seconday")
+                        
                         a.print(); 
                     }, 1000);
                 }); 
@@ -938,7 +938,7 @@
                         currentTabelHistory += `<h5 class="m-0 d-flex align-items-center">
                                                     <strong class="me-auto text-dark">Version : ${i+1}</strong>
                                                     <span class="fa fa-calendar text-dark"></span>
-                                                    <small>${moment(item.created_at).format('DD-MM-YYYY h:s a')}</small>
+                                                    <small>${item.created_at}</small>
                                                 </h5>`;
                         currentTabelHistory += item.history;
                     })
@@ -996,7 +996,9 @@
                     a.document.write('</div>');
                     a.document.write('</html>');
                     a.document.close();
-                        a.print();
+                    setTimeout(() => {
+                        a.print(); 
+                    }, 3000);
                 }); 
             }
             $scope.getHistory       = (type)  => {
@@ -1810,11 +1812,11 @@
                     scope.$apply();
                 }
                 element.on('keyup', function () {
-                    $(this).addClass('bg-warning');
+                    $(this).addClass('admin_estimate_click');
                     eventHandle();
                 });
                 element.on('change', function () {
-                    $(this).addClass('bg-warning');
+                    $(this).addClass('admin_estimate_click');
                     eventHandle();
                 });
             },

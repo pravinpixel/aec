@@ -1103,11 +1103,11 @@
                     scope.$apply();
                 }
                 element.on('keyup', function () {
-                    $(this).addClass('bg-info');
+                    $(this).addClass('cost_estimate_click');
                     eventHandle();
                 });
                 element.on('change', function () {
-                    $(this).addClass('bg-info');
+                    $(this).addClass('cost_estimate_click');
                     eventHandle();
                 });
             },

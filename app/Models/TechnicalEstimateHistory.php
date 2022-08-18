@@ -10,8 +10,8 @@ class TechnicalEstimateHistory extends Model
     use HasFactory;
 
     protected $casts = [
-        'created_at' => "datetime:Y-m-d -h-i-s A",
-        'updated_at' => "datetime:Y-m-d -h-i-s A",
+        'created_at' => "datetime:Y-m-d h-i-s A",
+        'updated_at' => "datetime:Y-m-d h-i-s A",
     ];
 
     public $fillable = [
