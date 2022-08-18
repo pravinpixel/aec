@@ -3,7 +3,7 @@
         <fieldset class="accordion-item">
             <div class="accordion-header custom m-0 position-relative" id="ProjectInfo_header">
                 <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#ProjectInfo" aria-expanded="true" aria-controls="ProjectInfo">
-                    <span class="position-relative btn py-0">Project Information <small class="comments-count" ng-show="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small></span> 
+                    <span class="position-relative btn py-0">Project Information </span> 
                 </div>
                 <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                     <i data-bs-toggle="collapse" 
@@ -119,7 +119,7 @@
         <fieldset class="accordion-item">
             <div class="accordion-header custom m-0 position-relative" id="service_header">
                 <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#service" aria-expanded="false" aria-controls="service">
-                    <span class="position-relative btn py-0">Selected Services <small class="comments-count" ng-show="enquiry_active_comments.service > 0"> @{{ enquiry_active_comments.service   }}</small></span> 
+                    <span class="position-relative btn py-0">Selected Services </span> 
                 </div>
                 <div class="icon m-0 position-absolute rounded-pills  " style="right: 10px;top:30%; z-index:111 !important">
                     <i data-bs-toggle="collapse" 
@@ -158,7 +158,7 @@
         <fieldset class="accordion-item">
             <div class="accordion-header custom m-0 position-relative" id="ifc_model_header">
                 <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#ifc_model" aria-expanded="false" aria-controls="ifc_model">
-                    <span class="position-relative btn py-0">IFC Models & Uploaded Documents <small class="comments-count" ng-show="enquiry_active_comments.ifc_model > 0"> @{{ enquiry_active_comments.ifc_model   }}</small></span> 
+                    <span class="position-relative btn py-0">IFC Models & Uploaded Documents </span> 
                 </div>
                 <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
                     <i data-bs-toggle="collapse" 
@@ -214,7 +214,7 @@
         <fieldset class="accordion-item">
             <div class="accordion-header custom m-0 position-relative" id="building_components_header">
                 <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#building_components" aria-expanded="false" aria-controls="building_components">
-                    <span class="position-relative btn py-0">Building Components<small class="comments-count" ng-show="enquiry_active_comments.building_components > 0"> @{{ enquiry_active_comments.building_components   }}</small></span> 
+                    <span class="position-relative btn py-0">Building Components </span> 
 
                 </div>
                 <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
@@ -391,7 +391,7 @@
         <fieldset class="accordion-item">
             <div class="accordion-header custom m-0 position-relative" id="add_info_header">
                 <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#add_info" aria-expanded="false" aria-controls="add_info">
-                    <span class="position-relative btn py-0">Additional Info<small class="comments-count" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small></span> 
+                    <span class="position-relative btn py-0">Additional Info</span> 
 
                 </div>
                 <div class="icon m-0 position-absolute rounded-pills btnj" style="right: 10px;top:30%; z-index:111 !important">
