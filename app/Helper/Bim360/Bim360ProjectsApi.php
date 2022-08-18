@@ -11,6 +11,7 @@ interface IBim360ProjectsApi
     public function getProjectList();
     public function getProject($id);
     public function importUser($id, $data, $x_user_id);
+    public function updateProjectService($id, $userId, $data, $x_user_id);
 }
 
 class Bim360ProjectsApi implements IBim360ProjectsApi
@@ -89,6 +90,15 @@ class Bim360ProjectsApi implements IBim360ProjectsApi
         $url = $this->apiHelper->urls['projects_projectId_users_import'];
         $url = str_replace("{ProjectId}", $id, $url);
         $result = $this->apiHelper->callAPI($this->token, 'POST', $url, $data, $x_user_id);
+        return $result;
+    }
+
+    public function updateProjectService($id, $userId, $data, $x_user_id)
+    {
+        $url = $this->apiHelper->urls['projects_projectId_user_patch'];
+        $url = str_replace("{ProjectId}", $id, $url);
+        $url = str_replace("{UserId}", $userId, $url);
+        $result = $this->apiHelper->callAPI($this->token, 'PATCH', $url, $data, $x_user_id);
         return $result;
     }
 }

@@ -31,16 +31,16 @@
                     <span class="badge badge-primary-lighten">{{ $project->role_name }}</span>
                 </td>
                 <td>
-                    <input name="is_project_admin" wire:change="updateIsProjectAdminStatus({{ $project->id }})" type="checkbox"  {{ $project->is_project_admin == 1 ? 'checked' : '' }}  {{ $project->access_status == 0 ? 'disabled' : '' }} />
+                    <input name="is_project_admin" wire:change="updateServices('is_project_admin',{{ $project->id }})" type="checkbox"  {{ $project->is_project_admin == 1 ? 'checked' : '' }}  {{ $project->access_status == 0 ? 'disabled' : '' }} />
                 </td>
                 <td>
-                    <input name="document_management" wire:change="updateDocumentManagement({{ $project->id }})" type="checkbox"  {{ $project->document_management == 1 ? 'checked' : '' }}  {{ $project->access_status == 0 ? 'disabled' : '' }} />
+                    <input name="document_management" wire:change="updateServices('document_management',{{ $project->id }})" type="checkbox"  {{ $project->document_management == 1 ? 'checked' : '' }}  {{ $project->access_status == 0 ? 'disabled' : '' }} />
                 </td>
                 <td>
-                    <input name="insight" wire:change="updateInsight({{ $project->id }})" type="checkbox"  {{ $project->insight == 1 ? 'checked' : '' }}   {{ $project->access_status == 0 ? 'disabled' : '' }}/>
+                    <input name="insight" wire:change="updateServices('insight',{{ $project->id }})" type="checkbox"  {{ $project->insight == 1 ? 'checked' : '' }} {{ $project->access_status == 0 ? 'disabled' : '' }} />
                 </td>
                 <td>
-                    <input name="design_collaboration" wire:change="updateDesignCollaboration({{ $project->id }})" type="checkbox"  {{ $project->design_collaboration == 1 ? 'checked' : '' }}   {{ $project->access_status == 0 ? 'disabled' : '' }}/>
+                    <input name="design_collaboration" wire:change="updateServices('design_collaboration',{{ $project->id }})" type="checkbox"  {{ $project->design_collaboration == 1 ? 'checked' : '' }}  {{ $project->access_status == 0 ? 'disabled' : '' }} />
                 </td> 
             </tr>
             @endforeach

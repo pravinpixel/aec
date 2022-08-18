@@ -236,14 +236,13 @@ class Wizard extends Component
             $api          = new  Bim360UsersApi();
             $input["company_id"] = env('BIMDEFAULTCOMPANY');
             $input["email"]      = $employee->email;
-            $input['bim_id']     = $employee->bim_id ?? Null;
             $input["nickname"]   = $employee->display_name;
             $input["first_name"] = $employee->first_name;
             $input["last_name"]  = $employee->last_name;
             $roleName = Role::find($employee->job_role)->name;
-            if (isset($input["bim_id"]) && !empty($input["bim_id"])) {
+            if (isset($employee->bim_id) && !empty($employee->bim_id)) {
                 $editJson = json_encode($input);
-                $result = $api->editUser($input['bim_id'], $editJson);
+                $result = $api->editUser($employee->bim_id, $editJson);
             } else {
                 $createJson = json_encode($input);
                 $result = $api->createUser($createJson);
@@ -311,106 +310,74 @@ class Wizard extends Component
         $this->projects = $this->getProjectList();
     }
 
-    public function updateIsProjectAdminStatus($projectId)
+    public function updateServices($service, $projectId)
     {
         $session_employee = Session::get('employee');
-        $employee = Employees::with('role')->find($session_employee->id);
-        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $employee->id, 'project_id' => $projectId])->first();
+        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $session_employee->id, 'project_id' => $projectId])->first();
         if(!$employeeBimProjects) {
             $employeeBimProjects = new EmployeeBimAccessProject();
-            $employeeBimProjects->employee_id = $employee->id;
+            $employeeBimProjects->employee_id = $session_employee->id;
             $employeeBimProjects->project_id = $projectId;
-            $employeeBimProjects->is_project_admin = 1;
+            $employeeBimProjects->{$service} = 1;
         } else {
-            $employeeBimProjects->is_project_admin = !$employeeBimProjects->is_project_admin;
+            $employeeBimProjects->{$service} = !$employeeBimProjects->{$service};
         }
         $employeeBimProjects->save();
-        if($employeeBimProjects->is_project_admin  && $employeeBimProjects->access_status) {
-           
+        if($employeeBimProjects->access_status) {
+            $services = $this->getActiveServices($employeeBimProjects);
+            $userExists = $this->checkUserExists($employeeBimProjects);
+            $this->updateBimService($services, $projectId,  $userExists);
         }
         $this->projects = $this->getProjectList();
     }
 
-   
-    public function updateDocumentManagement($projectId)
-    {
-        $sessionEmployee = Session::get('employee');
-        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $sessionEmployee->id, 'project_id' => $projectId])->first();
-        if(!$employeeBimProjects) {
-            $employeeBimProjects = new EmployeeBimAccessProject();
-            $employeeBimProjects->employee_id = $sessionEmployee->id;
-            $employeeBimProjects->project_id = $projectId;
-            $employeeBimProjects->document_management = 1;
-        } else {
-            $employeeBimProjects->document_management = !$employeeBimProjects->document_management;
+    public function getActiveServices($projectServices) {
+        $service = [];
+        if($projectServices->document_management) {
+            $service['document_management'] = ['access_level' => $projectServices->is_project_admin ? 'admin' : 'user'];
         }
-        $employeeBimProjects->save();
-        if($employeeBimProjects->document_management  && $employeeBimProjects->access_status) {
-           $this->updateBimService('document_management', $projectId);
+        if($projectServices->is_project_admin) {
+            $service['project_administration'] = ['access_level' => 'admin'];
         }
-        $this->projects = $this->getProjectList();
+        if($projectServices->insight) {
+            $service ['insight'] =  ['access_level' => 'admin'];
+        }
+        return  $service;
     }
 
-    public function updateInsight($projectId)   
-    {
-        $sessionEmployee = Session::get('employee');
-        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $sessionEmployee->id, 'project_id' => $projectId])->first();
-        if(!$employeeBimProjects) {
-            $employeeBimProjects = new EmployeeBimAccessProject();
-            $employeeBimProjects->employee_id = $sessionEmployee->id;
-            $employeeBimProjects->project_id = $projectId;
-            $employeeBimProjects->insight = 1;
-        } else {
-            $employeeBimProjects->insight = !$employeeBimProjects->insight;
+    public function checkUserExists($projectServices) {
+        $useExists = false;
+        if($projectServices->document_management) {
+            $useExists = true;
+        }else if($projectServices->is_project_admin) {
+            $useExists = true;
+        } else if($projectServices->insight) {
+            $useExists = true;
         }
-        $employeeBimProjects->save();
-        if($employeeBimProjects->insight  && $employeeBimProjects->access_status) {
-            $this->updateBimService('insight', $projectId);
-        }
-        $this->projects = $this->getProjectList();
-    }
-    
-    public function updateDesignCollaboration($projectId)   
-    {
-        $sessionEmployee = Session::get('employee');
-        $employeeBimProjects = EmployeeBimAccessProject::where(['employee_id' => $sessionEmployee->id, 'project_id' => $projectId])->first();
-        if(!$employeeBimProjects) {
-            $employeeBimProjects = new EmployeeBimAccessProject();
-            $employeeBimProjects->employee_id = $sessionEmployee->id;
-            $employeeBimProjects->project_id = $projectId;
-            $employeeBimProjects->design_collaboration = 1;
-        } else {
-            $employeeBimProjects->design_collaboration = !$employeeBimProjects->design_collaboration;
-        }
-        $employeeBimProjects->save();
-        if($employeeBimProjects->design_collaboration  && $employeeBimProjects->access_status) {
-            $this->updateBimService('design_collaboration', $projectId);
-        }
-        $this->projects = $this->getProjectList();
+        return $useExists;
     }
 
-    public function updateBimService($serviceName,$projectId)
+    public function updateBimService($services, $projectId, $isUserExists = false)
     {
-        $sessionEmployee = Session::get('employee');
         $project = Project::find($projectId);
-        $employee = Employees::find($sessionEmployee->id);
+        $employee = Employees::find($this->id);
         $project_id = $project->bim_id;
         $data = [
             'email' => $employee->email,
-            "services" => [
-                $serviceName => [
-                    "access_level"=> "user"
-                ]
-            ],
+            'services' => $services,
             "company_id" => env('BIMDEFAULTCOMPANY'),
             "industry_roles" => []
         ];
         $userApi = new  Bim360UsersApi();
         $userJson = $userApi->getUser(env('BIMACCOUNTADMIN'));
         $userObj =  json_decode($userJson);
-        $input = json_encode([$data]);
+        $input = json_encode($data);
         $projectApi = new  Bim360ProjectsApi();
-        $result = $projectApi->importUser($project_id, $input, $userObj->uid);
+        if(!$isUserExists) {
+            $result = $projectApi->importUser($project_id, $input, $userObj->uid);
+        } else {
+            $result = $projectApi->updateProjectService($project_id, $employee->bim_id , $input, $userObj->uid);
+        }
         Log::info("result {$result}");
     }
 
