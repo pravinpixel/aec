@@ -218,10 +218,19 @@ class Wizard extends Component
             $this->sign_in_password_change = $employee->sign_in_password_change;
             $this->send_password_to_email  = $employee->send_password_to_email;
             $this->recipient_email         = $employee->recipient_email;
+            $this->share_point_status      = $employee->share_point_status;
         }
         $this->sharePointAccess = SharePointAccess::all();
         $this->roles = Role::all();
     }
+
+    public function updatedSharePointStatus($value) {
+        $session_employee = Session::get('employee');
+        $employee        = Employees::findOrFail($session_employee->id);
+        $employee->share_point_status = !$employee->share_point_status;
+        $employee->save();
+    }
+
     
 
     public function generatePassword()
@@ -320,13 +329,14 @@ class Wizard extends Component
             $employeeBimProjects->employee_id = $session_employee->id;
             $employeeBimProjects->project_id = $projectId;
             $employeeBimProjects->{$service} = 1;
+            $userExists = false;
         } else {
             $employeeBimProjects->{$service} = !$employeeBimProjects->{$service};
+            $userExists = $this->checkUserExists($employeeBimProjects);
         }
         $employeeBimProjects->save();
         if($employeeBimProjects->access_status) {
             $services = $this->getActiveServices($employeeBimProjects);
-            $userExists = $this->checkUserExists($employeeBimProjects);
             $this->updateBimService($services, $projectId,  $userExists);
         }
         $this->projects = $this->getProjectList();

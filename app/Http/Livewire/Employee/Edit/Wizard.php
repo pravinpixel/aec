@@ -55,6 +55,7 @@ class Wizard extends Component
         $this->image            = $employee->image;
         $this->uploaded_image   = $employee->image;
         $this->mobile_number    = $employee->mobile_number;
+        $this->share_point_status = $employee->share_point_status;
         $this->is_uploaded        = true;
         $this->roles = Role::all();
         $this->sharePointAccess = SharePointAccess::all();
@@ -72,6 +73,12 @@ class Wizard extends Component
         $employee->image = $path;
         $employee->save();
         $this->is_uploaded = false;
+    }
+
+    public function updatedSharePointStatus($value) {
+        $employee        = Employees::findOrFail($this->id);
+        $employee->share_point_status = !$employee->share_point_status;
+        $employee->save();
     }
 
     public function updatePersonalInformation()    {
@@ -174,13 +181,14 @@ class Wizard extends Component
             $employeeBimProjects->employee_id = $employee->id;
             $employeeBimProjects->project_id = $projectId;
             $employeeBimProjects->{$service} = 1;
+            $userExists = false;
         } else {
             $employeeBimProjects->{$service} = !$employeeBimProjects->{$service};
+            $userExists = $this->checkUserExists($employeeBimProjects);
         }
         $employeeBimProjects->save();
         if($employeeBimProjects->access_status) {
             $services = $this->getActiveServices($employeeBimProjects);
-            $userExists = $this->checkUserExists($employeeBimProjects);
             $this->updateBimService($services, $projectId,  $userExists);
         }
         $this->projects = $this->getProjectList();
@@ -237,7 +245,7 @@ class Wizard extends Component
     }
 
     public function updateBim() {
-        Flash::success(__('global.updated'));
+        Flash::success('Profile information updated successfully');
         return redirect(route('employee.index'));
     }
 

@@ -29,12 +29,12 @@
                     <td class="text-left">{{ $employee->role->name }}</td>
                     <td class="text-center">
                         <div id="tooltip-container2">
-                            <span class="{{ $employee->share_access === 1 ? 'text-success' : 'text-danger' }}"> <i class="fa font-22 fa-{{ $employee->share_access === 1 ? 'check' : 'times' }}-circle"></i></span>
+                            <span class="{{ $employee->share_point_status == 1 ? 'text-success' : 'text-danger' }}"> <i class="fa font-22 fa-{{ $employee->share_point_status == 1 ? 'check' : 'times' }}-circle"></i></span>
                         </div>
                     </td>
                     <td class="text-center">
                         <div id="tooltip-container2">
-                            <span class="{{ $employee->bim_access === 1 ? 'text-success' : 'text-danger' }}"> <i class="fa font-22 fa-{{ $employee->share_access === 1 ? 'check' : 'times' }}-circle"></i></span>
+                            <span class="{{ $employee->bim_id ? 'text-success' : 'text-danger' }}"> <i class="fa font-22 fa-{{ $employee->bim_id ? 'check' : 'times' }}-circle"></i></span>
                         </div>
                     </td>
                     <td class="text-center">
