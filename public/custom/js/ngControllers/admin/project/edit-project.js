@@ -296,7 +296,7 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
             Message('danger','Role already added');
             return false;
         }
-        $scope.teamSetups.push( {role: role_data, team:{}});
+        $scope.teamSetups.push( {role: role_data, team:[]});
         $scope.teamRole.role = "";
     }
     $scope.removeResource = (index) => {

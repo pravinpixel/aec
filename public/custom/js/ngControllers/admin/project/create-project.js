@@ -311,7 +311,7 @@ formatData = (project) => {
       }
       $scope.teamSetups.push({
         role: role_data,
-        team: {}
+        team: []
       });
       $scope.teamRole.role = "";
     }
