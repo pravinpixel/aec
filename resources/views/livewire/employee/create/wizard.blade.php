@@ -14,7 +14,7 @@
 					</div> 
 				</a>
 			</li>
-			<li class="nav-item {{ $completed_wizard >= 2 ? '': 'pe-none' }}">
+			<li class="nav-item {{ $completed_wizard >= 1 ? '': 'pe-none' }}">
 				<a style="min-height: 40px;" class="timeline-step"  wire:click="goTo('sharepoint')">
 					<div class="timeline-content">
 						<div class="inner-circle {{ $currentStep === 2 ? 'bg-success' : 'bg-secondary' }} ">
@@ -24,7 +24,7 @@
 					</div>
 				</a>
 			</li> 
-			<li class="nav-item last {{ $completed_wizard >= 3 ? '': 'pe-none' }}">
+			<li class="nav-item last {{ $completed_wizard >= 1 ? '': 'pe-none' }}">
 				<a style="min-height: 40px;" class="timeline-step" wire:click="goTo('bim')">
 					<div class="timeline-content">
 						<div class="inner-circle  {{ $currentStep === 3 ? 'bg-success' : 'bg-secondary' }} ">

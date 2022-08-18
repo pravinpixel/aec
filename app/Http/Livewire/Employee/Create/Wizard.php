@@ -164,6 +164,7 @@ class Wizard extends Component
                 $this->currentStep = 2;
                 break;
             case 'bim':
+                $this->projects = $this->getProjectList();
                 $this->currentStep = 3;
                 break;
             default:
