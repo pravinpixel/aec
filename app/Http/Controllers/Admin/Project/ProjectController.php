@@ -47,6 +47,7 @@ use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 use RicorocksDigitalAgency\Soap\Facades\Soap;
 use Illuminate\Support\Facades\Mail;
+use App\Interfaces\ProjectChatRepositoryInterface;
 
 class ProjectController extends Controller
 {
@@ -61,6 +62,7 @@ class ProjectController extends Controller
     protected $fileDir = [];
     protected $ProjectTeamSetup;
     protected $roleRepository;
+    protected $projectChatRepo;
 
     public function __construct(
         ProjectRepository $projectRepo,
@@ -69,7 +71,8 @@ class ProjectController extends Controller
         CustomerEnquiryRepositoryInterface $customerEnquiryRepo,
         CustomerRepositoryInterface $customerRepo,
         DocumentTypeEnquiryRepository $documentTypeEnquiryRepo,
-        RoleRepositoryInterface $roleRepository
+        RoleRepositoryInterface $roleRepository,
+        ProjectChatRepositoryInterface $projectChatRepo
 
     ) {
         $this->projectRepo        = $projectRepo;
@@ -78,6 +81,7 @@ class ProjectController extends Controller
         $this->ProjectTicket       = $ProjectTicket;
         $this->documentTypeEnquiryRepo = $documentTypeEnquiryRepo;
         $this->roleRepository = $roleRepository;
+        $this->projectChatRepo = $projectChatRepo;
     }
 
     public function index()
@@ -434,10 +438,11 @@ class ProjectController extends Controller
                     return '
                     <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
                         <b>' . $dataDb->reference_number . '</b>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
                     </button>
                 ';
                 })
-                ->editColumn('start_date', function ($dataDb) {
+                ->editColumn('start_date', function ($dataDb) { 
                     $format = config('global.model_date_format');
                     return Carbon::parse($dataDb->start_date)->format($format);
                 })
@@ -537,6 +542,7 @@ class ProjectController extends Controller
         $project = $this->projectRepo->getSharePointFolder($id);
         $sharepoint =  isset($project->sharepointFolder->folder) ? json_decode($project->sharepointFolder->folder) : [];
         $team_setup = [];
+       
         if (!empty($project_team_setups)) {
             foreach ($project_team_setups as $project_team) {
                 $employee = Employees::find($project_team->team);
@@ -560,6 +566,8 @@ class ProjectController extends Controller
                 'no_of_invoice' =>  $invoice_plan->no_of_invoice ?? '',
                 'invoice_data'  =>  $invoice_data == '' ? [] : $invoice_data,
             ],
+            "project_comments"  => $this->projectChatRepo->getCommentsCountByType($id)->pluck('comments_count', 'type'),
+            "project_active_comments" => $this->projectChatRepo->getActiveCommentsCountByType($id)->pluck('comments_count', 'type')
         ];
 
         return array_merge($project_data, $data);

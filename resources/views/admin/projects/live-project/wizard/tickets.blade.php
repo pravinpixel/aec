@@ -539,7 +539,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 p-0 ">
+                        <div class="col-lg-4 p-0">
                             <div class="cardx">
                                 <div class="card-body">
                                     <div class="cart-title"><b>PROPERTIES</b> </div> <br>

@@ -1,5 +1,5 @@
 <table class="table custom m-0 table-hover">
-    <tbody>
+    <tbody> 
         <tr ng-if="project_info.project_name != null">
             <td width="30%"><b>Project Name</b></td>
             <td>:</td>

@@ -31,8 +31,8 @@ use App\Interfaces\ProjectTicketRepositoryInterface;
 use App\Interfaces\TicketCommentRepositoryInterface;
 use App\Interfaces\TicketcommentsReplayinterface;
 use App\Interfaces\CheckSheetInterface;
-use App\Interfaces\DeliveryListInterface;
 use App\Repositories\DeliveryListRepository;
+use App\Interfaces\ProjectChatRepositoryInterface;
 use App\Repositories\CheckSheetRepository;
 use App\Repositories\AutoDeskRepository;
 use App\Repositories\BuildingComponentRepository;
@@ -67,6 +67,7 @@ use App\Repositories\TaskListRepository;
 use App\Repositories\ProjectTicketRepository;
 use App\Repositories\TicketCommentRepository;
 use App\Repositories\TicketcommentsReplayRepository;
+use App\Repositories\ProjectChatRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -227,6 +228,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             DeliveryListInterface::class,
             DeliveryListRepository::class
+        );
+        $this->app->bind(
+            ProjectChatRepositoryInterface::class,
+            ProjectChatRepository::class
         );
     }
 

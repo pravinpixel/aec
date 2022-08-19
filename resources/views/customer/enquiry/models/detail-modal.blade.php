@@ -24,7 +24,7 @@
                             <td>{{ Customer()->mobile_no }}</td>
                             <td>{{ Customer()->email }}</td>
                             <td>@{{ enquiry.project_infos.delivery_type.delivery_type_name}}</td>
-                        </tr>
+                        </tr> 
                     </table>
                 </div>
             </div> 

@@ -18,6 +18,7 @@
                    
                 </div>
                     <x-accordion title="Live Projects" path="customer.projects.table.live" open="true"></x-accordion>
+                    
                 
                    {{-- <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
@@ -56,13 +57,24 @@
                         </div>
                     </div> --}}
                 </div>
+                @include('customer.projects.quick-view')
+                @include('customer.projects.live-project.models.chat-box')
+               
             </div>
-            @include('customer.projects.quick-view')
+          
         </div>
       
     </div> 
     
 @endsection 
+@push('custom-styles')
+<style>
+    primary.rounded-pill {
+    display: none;
+}
+    </style>
+@endpush
+
 @push('custom-scripts')
    <script src="{{ asset("public/custom/js/ngControllers/customer/project/list.js") }}"></script> 
   <script>

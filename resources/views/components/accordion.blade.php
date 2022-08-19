@@ -3,8 +3,10 @@
         <div class="card-title">{{ $title }}</div> 
         <i class="accordion-icon"></i> 
         @switch(slug($title))
+            
             @case('project-information')
                 <small class="comments-count" ng-if="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small>
+                <small class="comments-count" ng-if="project_active_comments.project_information > 0"> @{{ project_active_comments.project_information   }}</small>
             @break
             @case('project-information')
                 <small class="comments-count" ng-if="enquiry_active_comments.service > 0"> @{{ enquiry_active_comments.service   }}</small>
@@ -21,6 +23,13 @@
             @case('active-enquiries')
                 <span id="active-count" class="comments-count" style="transform: translateY(-10px) !important;">@{{ commentsCount }}</span>
             @break
+            @case('milestone')
+            <small class="comments-count" ng-if="project_active_comments.milestone > 0"> @{{ project_active_comments.milestone   }}</small>
+            @break
+            @case('notes')
+            <small class="comments-count" ng-if="project_active_comments.notes > 0"> @{{ project_active_comments.notes   }}</small>
+            @break
+      
             @default
         @endswitch
     </div>

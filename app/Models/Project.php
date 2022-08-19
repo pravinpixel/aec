@@ -107,4 +107,9 @@ class Project extends Model
         return $this->hasOne(connectPlatform::class,'project_id','id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(ProjectChats::class);
+    }
+
 }

@@ -169,7 +169,10 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
 
         $http.get(`${API_URL}project/overview/${id}`).then((res)=> {
             $scope.review  =  res.data;
-            //console.log('reviews',$scope.reviews);
+            $scope.project_active_comments = res.data.project_active_comments;
+            $scope.project_comments = res.data.project_comments;
+            //console.log(res.data);
+            
             $scope.teamSetups = res.data.team_setup;
             $scope.project = formatData(res.data.project);
             $scope.project['address_one'] =  res.data.project.site_address;
@@ -184,9 +187,114 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
             gantt.init("gantt_here");
             ganttModules.menu.setup();
             gantt.load(`${API_URL}project/edit/${id}/project_scheduler`);
-            $("#customer-project-quick-modal-view").modal('show');  
+           
         }); 
+        $("#customer-project-quick-modal-view").modal('show');  
+
+        $scope.sendComments  = function(type, created_by, seen_id) { 
+          
+            $scope.sendCommentsData = {
+                "comments"        :   $scope[`${type}__comments`],
+                "project_id"      :   id,
+                "type"            :   type,
+                "created_by"      :   created_by,
+                "seen_by"         :   1,
+                "send_by"         :   seen_id,
+            } 
+            $http({
+                method: "POST",
+                url:  API_URL + 'admin/add-project-comments', 
+                data: $.param($scope.sendCommentsData),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded' 
+                }
+            }).then(function successCallback(response) {
+                console.log(type);
+                if(type == 'building_components'){
+                    document.getElementById(`building_component__commentsForm`).reset();
+                }
+                document.getElementById(`${type}__commentsForm`).reset();
+                getprojectCommentsCountById(id);
+                getprojectActiveCommentsCountById(id);
+                Message('success',response.data.msg);
+            }, function errorCallback(response) {
+                Message('danger',response.data.errors);
+            });
+        }
+    
+        $scope.showCommentsToggle = function (modalstate, type, header) {
+           
+            $scope.modalstate = modalstate;
+            $scope.module = null;
+            $scope.chatHeader   = header; 
+            $scope.project_id =id;
+            switch (modalstate) {
+                case 'viewConversations':
+                    $http.get(API_URL + 'admin/project-show-comments/'+$scope.project_id+'/type/'+type ).then(function (response) {
+                        $scope.commentsData = response.data.chatHistory; 
+                        
+                        $scope.chatType     = response.data.chatType;  
+                        $('#viewConversations-modal').modal('show');
+                        getprojectCommentsCountById($scope.project_id);
+                        getprojectActiveCommentsCountById($scope.project_id);
+                    });
+                    break;
+                default:
+                    break;
+            } 
+        }
+        
+
+        $scope.sendInboxComments  = function(type) {
+            var login_id = $('#login_id').val();
+            $scope.sendCommentsData = {
+                "comments"        :   $scope.inlineComments,
+                "project_id"      :   $scope.project_id,
+                "type"            :   $scope.chatType,
+                "created_by"      :   type,
+                "seen_by"         :   1,
+                "send_by"         :   login_id,
+            }
+            //console.log($scope.sendCommentsData);
+            $http({
+                method: "POST",
+                url:  API_URL + 'admin/add-project-comments', 
+                data: $.param($scope.sendCommentsData),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded' 
+                }
+            }).then(function successCallback(response) {
+                document.getElementById("Inbox__commentsForm").reset();
+                $scope.showCommentsToggle('viewConversations', $scope.chatType);
+                Message('success',response.data.msg);
+            }, function errorCallback(response) {
+                Message('danger',response.data.errors);
+            });
+          }
+        getprojectCommentsCountById = (id) => {
+            $http({
+                method: "get",
+                url:  API_URL + 'admin/project-comments-count/'+id ,
+            }).then(function successCallback(response) {
+                $scope.enquiry_comments     = response.data;
+            }, function errorCallback(response) {
+                Message('danger',response.data.errors);
+            });
+        }
+    
+        getprojectActiveCommentsCountById = (id) => {
+            $http({
+                method: "get",
+                url:  API_URL + 'admin/project-active-comments-count/'+id ,
+            }).then(function successCallback(response) {
+                $scope.enquiry_active_comments     = response.data;
+            }, function errorCallback(response) {
+                Message('danger',response.data.errors);
+            });
+        }
     
     }
+
+
 
 }); 

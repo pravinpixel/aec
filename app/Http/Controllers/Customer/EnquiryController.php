@@ -42,7 +42,7 @@ class EnquiryController extends Controller
     protected $documentTypeEnquiryRepo;
     protected $outputTypeRepository;
     protected $enquiryCommentsRepo;
-
+ 
     public function __construct(
         CustomerEnquiryRepositoryInterface $customerEnquiryRepository,
         ServiceRepositoryInterface $serviceRepo,

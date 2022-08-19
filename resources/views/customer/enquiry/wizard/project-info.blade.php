@@ -123,7 +123,7 @@
                                             <input required type="text" ng-model="project_information__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
                                             <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
                                         </form>   --}}
-  
+   
     <div class="row" ng-show="commentShow">
         <div class="col-8">
             <open-comment  data="

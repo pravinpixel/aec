@@ -681,8 +681,11 @@ app.controller('ToDoListController', function($scope, $http, API_URL, $location)
 app.controller('milestoneController', function($scope, $http, API_URL, $rootScope)
 {
   wizardactiveTabs('milestone');
-  let project_id = $('#project_id').val();;
-  console.log(project_id);
+  let project_id = $('#project_id').val();
+  var login_id = $('#login_id').val();
+  $scope.project_id = project_id;
+  console.log($scope.project_id );
+ 
   //var project_id  = $('#project_id').val();
   var dp = new gantt.dataProcessor(`${API_URL}api/project/${project_id}`);
   dp.init(gantt);
@@ -691,6 +694,57 @@ app.controller('milestoneController', function($scope, $http, API_URL, $rootScop
   gantt.init("gantt_here");
   ganttModules.menu.setup();
   gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`);
+
+  $scope.showCommentsToggle = function (modalstate, type, header) {
+    $scope.modalstate = modalstate;
+    $scope.module = null;
+    $scope.chatHeader   = header; 
+    switch (modalstate) {
+        case 'viewConversations':
+            $http.get(API_URL + 'admin/project-show-comments/'+$scope.project_id+'/type/'+type ).then(function (response) {
+                $scope.commentsData = response.data.chatHistory; 
+                
+                $scope.chatType     = response.data.chatType;  
+                $('#viewConversations-modal').modal('show');
+                getEnquiryCommentsCountById($scope.project_id);
+                getEnquiryActiveCommentsCountById($scope.project_id);
+            });
+            break;
+        default:
+            break;
+    } 
+  }
+  
+  
+  $scope.sendInboxComments  = function(type) {
+    $scope.sendCommentsData = {
+        "comments"        :   $scope.inlineComments,
+        "project_id"      :   $scope.project_id,
+        "type"            :   $scope.chatType,
+        "created_by"      :   type,
+        "seen_by"         :   1,
+        "send_by"         :    login_id,
+    }
+    //console.log($scope.sendCommentsData);
+    $http({
+        method: "POST",
+        url:  API_URL + 'admin/add-project-comments', 
+        data: $.param($scope.sendCommentsData),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded' 
+        }
+    }).then(function successCallback(response) {
+        document.getElementById("Inbox__commentsForm").reset();
+        $scope.showCommentsToggle('viewConversations', $scope.chatType);
+        Message('success',response.data.msg);
+    }, function errorCallback(response) {
+        Message('danger',response.data.errors);
+    });
+  }
+  
+  
+
+
 });
 //Live project task list
 app.controller('TasklistController', function($scope, $http, API_URL, $location)
@@ -1321,7 +1375,7 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
     // $scope.CallToDB = false;
     if ($scope.todate != 'Invalid Date' && $scope.fromdate === 'Invalid Date')
     {
-      alert('hello');
+      //alert('hello');
       Message('danger', 'Please Select End Date');
       //$scope.CallToDB = false;
       return false
@@ -1515,8 +1569,12 @@ app.controller('GendralController', function($scope, $http, API_URL, $timeout, $
     });
   }
 });
+
+
+
 app.controller('ReviewAndSubmit', function($scope, $http, API_URL, $timeout)
 {
+   
   $http.get(`${API_URL}project/wizard/create_project`)
     .then((res) =>
     {

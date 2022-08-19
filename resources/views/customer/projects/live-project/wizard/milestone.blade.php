@@ -1,3 +1,4 @@
+<input type ="hidden" id="login_id" value = "{{ Customer()->id }}">
 <div class="p-2">
     <div class="main-container"> 
         <div class="header gantt-demo-header">
@@ -17,6 +18,28 @@
         </div> 
     </div>
 </div>  
+<div class="row" >
+    <div class="col-8">
+        <project-open-comment  data="
+        {'modalState':'viewConversations',
+        'type': 'milestone', 
+        'header':'milestone',
+        'project_id':project_id ,
+        send_by: {{ Customer()->id }},
+        'from':'Customer'
+        }"/> 
+    </div>                                
+    <div class="col-4">
+        <project-comment data="
+        {'modalState':'viewConversations',
+        'type': 'milestone', 
+        'header':'milestone',
+        'project_id':project_id ,
+        send_by: {{ Customer()->id }},
+        'from':'Customer'
+        }"/>
+    </div>                                
+</div>
 <div class="card-footer text-end">
     <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
