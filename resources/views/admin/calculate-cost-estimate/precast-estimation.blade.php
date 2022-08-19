@@ -93,7 +93,7 @@
                             <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Engineering Cost  (kr)</th>
                             <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Central Approval  (kr)</th>
                             <th rowspan="2" class="font-12 text-center" style="background: var(--secondary-bg) !important">Total Engineering Cost  (kr)</th>
-                            <td rowspan="3" class="font-12 text-center" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
+                            <td rowspan="3" class="font-12 text-center remove_print_history" style="background: var(--primary-bg) !important"><b class="text-white">Action</b></td>
                         </tr>
                         <tr class="bg-light-primary border">
                             <th rowspan="2" class="text-center font-12" style="background: var(--primary-bg) !important" >Design Complexity</th> 
@@ -156,7 +156,7 @@
                             <td>
                                 <input  get-precast-details-total="[index]" type="number" onkeypress="return isNumber(event)" min="0" class="my-control"  ng-model="C.total_engineering_cost" ng-value="C.total_engineering_cost" name="total_engineering_cost">
                             </td>
-                            <td class="text-center" style="padding: 0 !important">
+                            <td class="text-center remove_print_history" style="padding: 0 !important">
                                 <i ng-click="deletePrecastComponent(pRootKey, index)" class="fa fa-trash btn btn-light btn-sm border text-danger h-100 w-100"></i>
                             </td>
                         </tr>

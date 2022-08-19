@@ -8,16 +8,16 @@
                 <small class="comments-count" ng-if="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small>
                 <small class="comments-count" ng-if="project_active_comments.project_information > 0"> @{{ project_active_comments.project_information   }}</small>
             @break
-            @case('project-information')
+            @case('selected-services')
                 <small class="comments-count" ng-if="enquiry_active_comments.service > 0"> @{{ enquiry_active_comments.service   }}</small>
             @break
-            @case('project-information')
+            @case('ifc-models-and-uploaded-documents')
                 <small class="comments-count" ng-if="enquiry_active_comments.ifc_model > 0"> @{{ enquiry_active_comments.ifc_model   }}</small>
             @break
-            @case('project-information')
+            @case('building-components')
                 <small class="comments-count" ng-if="enquiry_active_comments.building_components > 0"> @{{ enquiry_active_comments.building_components   }}</small>
             @break
-            @case('project-information')
+            @case('additional-information')
                 <small class="comments-count" ng-show="enquiry_active_comments.add_info > 0"> @{{ enquiry_active_comments.add_info   }}</small>
             @break
             @case('active-enquiries')

@@ -141,6 +141,12 @@
         #wood-cost-estimate .remove_history {
             display: block !important;
         }
+        #history_id .remove_print_history {
+            display: none;
+        }
+        #history_id input {
+            border: none;
+        }
     </style>
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"> </script> 
@@ -398,7 +404,7 @@
                         <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
                         <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
                         <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}">
-                        <style>.table {border:0 !important; box-shadow: none !important} .thead , button , .btn-group , .fa {display:none !important} .tbody { padding : 0 !important} .btn{display:none !important} input{pointer-events:none } .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
+                        <style>.history_precast_value{border: none} .table {border:0 !important; box-shadow: none !important} .thead , button , .btn-group , .fa {display:none !important} .tbody { padding : 0 !important} .btn{display:none !important} input{pointer-events:none } .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
                     `);
                     let enquiryData = `
                         <div class="card-body pt-0 p-0">
@@ -963,7 +969,7 @@
                         <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
                         <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
                         <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}">
-                        <style> input,select{pointer-events:none},.card {border:0 !important; box-shadow: none !important} .card-header , button, .btn-group , .fa {display:none !important} .card-body { padding : 0 !important}  .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
+                        <style> .remove_print_history{display:none} input,select{pointer-events:none; border:none},.card {border:0 !important; box-shadow: none !important} .card-header , button, .btn-group , .fa {display:none !important} .card-body { padding : 0 !important}  .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
                     `);
                     let enquiryData = `
                         <div class="card-body pt-0 p-0">
