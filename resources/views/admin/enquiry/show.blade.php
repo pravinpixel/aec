@@ -191,7 +191,16 @@
         });
         app.controller('WizzardCtrl', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id = '{{ $id }}';
-            $scope.enquiry_number ='dd';
+            getAutoDeskFileTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("get-autodesk-file-type") }}'
+                }).then(function (res) {
+                    $scope.autoDeskFileType = res.data;
+                });
+            }
+            getAutoDeskFileTypes();
+
             getEnquiryCommentsCountById = (id) => {
                 $http({
                     method: "get",
