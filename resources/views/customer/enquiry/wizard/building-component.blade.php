@@ -43,7 +43,7 @@
                     <a ng-click="callWall(w.WallName)" ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: wallName ==  w.WallName}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center">
                         {{-- <i class="fa-2x @{{ w.WallIcon }}"></i> --}}
                         <div>
-                            <img src="{{ asset('/public/uploads/building-component-icon/') }}/@{{w.WallIcon}}" width="60px">
+                            <img src="{{ asset('/public/uploads/building-component-icon/') }}/@{{w.WallIcon}}" alt="no image" width="60px">
                         </div>
                         <div>@{{ w.WallName }}</div>
                     </a>
