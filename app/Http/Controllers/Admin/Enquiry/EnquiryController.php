@@ -110,8 +110,8 @@ class EnquiryController extends Controller
                             })
                             ->when($projectType, function($q) use($projectType){
                                 $q->where('project_type_id', $projectType);
-                            });
-                            
+                            })
+                            ->orderBy('id', 'desc');
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
@@ -177,8 +177,8 @@ class EnquiryController extends Controller
                             })
                             ->when($projectType, function($q) use($projectType){
                                 $q->where('project_type_id', $projectType);
-                            });
-                            
+                            })
+                            ->orderBy('id', 'desc');
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
@@ -252,8 +252,8 @@ class EnquiryController extends Controller
                             })
                             ->when($projectType, function($q) use($projectType){
                                 $q->where('project_type_id', $projectType);
-                            });
-                         
+                            })
+                            ->orderBy('id', 'desc');
             return DataTables::eloquent($dataDb)
             ->editColumn('enquiry_number', function($dataDb){
                 $commentCount = $dataDb->comments->count();
