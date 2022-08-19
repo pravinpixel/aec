@@ -4,6 +4,29 @@
         </div>
 </div> 
 
+<div class="row" >
+    <div class="col-8">
+        <project-open-comment  data="
+        {'modalState':'viewConversations',
+        'type': 'notes', 
+        'header':'notes',
+        'project_id':projectID ,
+        send_by: {{ Customer()->id }},
+        'from':'Customer'
+        }"/> 
+    </div>                                
+    <div class="col-4">
+        <project-comment data="
+        {'modalState':'viewConversations',
+        'type': 'notes', 
+        'header':'notes',
+        'project_id':projectID,
+        send_by: {{ Customer()->id }},
+        'from':'Customer'
+        }"/>
+    </div>                                
+</div>
+
 <div class="card-footer text-end">
     <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>

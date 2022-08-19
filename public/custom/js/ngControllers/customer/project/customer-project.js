@@ -1535,6 +1535,7 @@ app.controller('GendralController', function($scope, $http, API_URL, $timeout, $
 {
   wizardactiveTabs('notes');
   let project_id = $('#project_id').val();
+  $scope.projectID = project_id;
   $scope.multilineToolbar = true;
   $http.get(`${API_URL}admin/api/v2/liveprojectnote/${project_id}`).then((res) =>
   {

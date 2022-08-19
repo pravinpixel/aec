@@ -24,7 +24,7 @@
         {'modalState':'viewConversations',
         'type': 'milestone', 
         'header':'milestone',
-        'project_id':$scope.project_id ,
+        'project_id':project_id ,
         send_by: {{ Customer()->id }},
         'from':'Customer'
         }"/> 
