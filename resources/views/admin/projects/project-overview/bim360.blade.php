@@ -19,3 +19,14 @@
         </tr> 
     </tbody>
 </table>
+
+<input type="hidden" id = "login_id" value = "{{Admin()->id}}">
+<form id="bim360__commentsForm" ng-submit="sendComments('bim360','Admin', {{Admin()->id}})" class="input-group mt-3">
+    <input required type="text" ng-model="bim360__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+</form>  
+<div class="text-end pt-2">
+    <a class="text-primary p-0 btn" ng-show="project_comments.bim360" ng-click="showCommentsToggle('viewConversations', 'bim360', 'bim360')">
+        <i class="mdi mdi-eye"></i>  Previous chat history
+    </a>
+</div>

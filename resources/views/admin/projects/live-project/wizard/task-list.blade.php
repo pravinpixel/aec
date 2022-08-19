@@ -1,5 +1,5 @@
-<div class="p-2">
-    <table class="mb-2 table border custom" ng-controller="TasklistController">
+<div class="p-2" ng-controller="TasklistController">
+    <table class="mb-2 table border custom" >
         <tbody>
             <tr>
                 <td><b>Project Name</b></td>
@@ -74,7 +74,7 @@
                 <td class="text-center"><input type="checkbox" name="" ng-model="taskListData.status" id="" class="form-check-input" ng-value = "taskListData.status" ng-change=storeTaskListsStatus(taskListData.status)></td>
                 
                 <td><input type="date" get-to-do-lists ng-value="taskListData.delivery_date | date: 'yyyy-MM-dd'" ng-model="taskListData.delivery_date" id="" class=" border-0 form-control form-control-sm" ng-change=storeTaskListsStatus(taskListData.status)></td>
-            </tr> 
+            </tr>  
             
             {{-- <tr>
                 <td>2</td>
@@ -196,7 +196,31 @@
             </tr>--}}
         </tbody>
     </table>
+    <div class="row" >
+        <div class="col-8" ng-if="projectTypes">
+            <project-open-comment  data="
+            {'modalState':'viewConversations',
+            'type': 'task', 
+            'header':'task',
+            'project_id':projectTypes.id,
+            send_by: {{ Admin()->id }},
+            'from':'Admin'
+            }"/> 
+        </div>                                
+        <div class="col-4" ng-if="projectTypes">
+            <project-comment data="
+            {'modalState':'viewConversations',
+            'type': 'task', 
+            'header':'task',
+            'project_id':projectTypes.id,
+            send_by: {{ Admin()->id }},
+            'from':'Admin'
+            }"/>
+        </div>                                
+    </div>
 </div>
+
+
 
 <div class="card-footer text-end">
     <a href="#!/invoice-plan" class="btn btn-light float-start">Prev</a>

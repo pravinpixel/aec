@@ -617,7 +617,7 @@ formatData = (project) => {
   
   //Live project task list
   app.controller('TasklistController', function($scope, $http, API_URL, $location) {
-  
+  $scope.project_id = project_id;
     //$('#rasieTicketDetails').modal('hide');
     $("#rasieTicketDetails").modal('hide');
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res) => {
@@ -1479,6 +1479,7 @@ formatData = (project) => {
   
   app.controller('GendralController', function($scope, $http, API_URL, $timeout, $location) {
     let project_id = $('#project_id').val();
+    $scope.projectId = project_id;
   
     $scope.multilineToolbar = true;
   

@@ -562,6 +562,7 @@ app.directive("isActive", function($location, $rootScope, isActiveConfig) {
             },
             templateUrl: `${API_URL}template/admin-open-comment`,
             link: function(scope, element, attrs) {
+                console.log(scope.data);
                 let {modalState, type, header, project_id, send_by, from} = scope.data;
                 element.bind("keydown keypress", function (event) {
                     if(event.which === 13) {
