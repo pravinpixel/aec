@@ -56,12 +56,14 @@ class BuildingComponentController extends Controller
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
-            // dd("!11");
+            
             $image = $request->file('file')->getClientOriginalName();
             // $request->file('file')->move(public_path('image'),$image);
 
             $request->file('file')->move(public_path('uploads/building-component-icon/'), $image);
             $module->building_component_icon = $image;
+        } else {
+            $module->building_component_icon = "No_Image.jpg";
         }
         $res = $module->save();
 
