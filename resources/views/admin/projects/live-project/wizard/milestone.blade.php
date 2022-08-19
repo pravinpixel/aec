@@ -1,3 +1,4 @@
+<input type ="hidden" id="login_id" value = "{{ Admin()->id }}">
 <div class="p-2">
     <div class="main-container"> 
         <div class="header gantt-demo-header">
@@ -17,14 +18,36 @@
         </div> 
     </div>
 </div>  
+<div class="row" >
+    <div class="col-8">
+        <project-open-comment  data="
+        {'modalState':'viewConversations',
+        'type': 'milestone', 
+        'header':'milestone',
+        'project_id':4 ,
+        send_by: {{ Admin()->id }},
+        'from':'Admin'
+        }"/> 
+    </div>                                
+    <div class="col-4">
+        <project-comment data="
+        {'modalState':'viewConversations',
+        'type': 'milestone', 
+        'header':'milestone',
+        'project_id':4 ,
+        send_by: {{ Admin()->id }},
+        'from':'Admin'
+        }"/>
+    </div>                                
+</div>
 <div class="card-footer text-end">
     <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
     <a href="#" ng-show="SubmitRoute" class="btn btn-primary">Submit & Save</a>
 </div>
-
  
-@if (Route::is('live-project.milestone')) 
+ 
+@if (Route::is('live-project.admin.milestone')) 
    
     <link href="{{ asset("public/assets/dhtmlx/dhtmlxgantt.css") }}" rel="stylesheet">  
  

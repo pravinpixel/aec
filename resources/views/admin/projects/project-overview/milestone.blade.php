@@ -15,3 +15,13 @@
         <div id="gantt_here"></div>
     </div> 
 </div>
+<input type="hidden" id = "login_id" value = "{{Admin()->id}}">
+<form id="milestone__commentsForm" ng-submit="sendComments('milestone','Admin', {{Admin()->id}})" class="input-group mt-3">
+    <input required type="text" ng-model="milestone__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
+    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
+</form>  
+<div class="text-end pt-2">
+    <a class="text-primary p-0 btn" ng-show="project_comments.milestone" ng-click="showCommentsToggle('viewConversations', 'milestone', 'milestone')">
+        <i class="mdi mdi-eye"></i>  Previous chat history
+    </a>
+</div>

@@ -97,7 +97,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
 
     Route::get('live-project/milestone', function () {
         return view('admin.projects.live-project.wizard.milestone');
-    })->name('live-project.milestone');
+    })->name('live-project.admin.milestone');
     //raj
     Route::get('live-project/task-list', [ProjectController::class, 'liveprojecttasklist'])->name('live-project.task-list');
 

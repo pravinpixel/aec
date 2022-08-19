@@ -473,3 +473,130 @@ app.directive("isActive", function($location, $rootScope, isActiveConfig) {
         }
     }
 });
+      //project comments
+
+      app.directive('projectComment', function (API_URL, $http) {
+        return {
+            restrict: 'E',
+            scope: {
+                data: '=data'
+            },
+            templateUrl: `${API_URL}template/admin-project-comment`,
+            link: function(scope, element, attrs) {
+                let {modalState, type, header, project_id, send_by, from} = scope.data;
+                scope.showCommentsToggle = () => {
+                    $http.get(API_URL + 'admin/project-show-comments/'+project_id+'/type/'+type ).then(function (response) {
+                        scope.commentsData = response.data.chatHistory; 
+                        scope.chatType     = response.data.chatType;  
+                        $('#viewConversations-modal').modal('show');
+                        getEnquiryCommentsCountById(project_id);
+                        getEnquiryActiveCommentsCountById(project_id);
+                    });
+                };
+                element.bind("keydown keypress", function (event) {
+                    if(event.which === 13) {
+                        scope.sendInboxComments(from);
+                        event.preventDefault();
+                    }
+                });
+                scope.sendInboxComments  = (type) => {
+                    if(scope.inlineComments == '') {
+                        Message('danger','Comment field required');
+                        return false;
+                    }
+                    scope.sendCommentsData = {
+                        "comments"        :   scope.inlineComments,
+                        "project_id"      :   project_id,
+                        "type"            :   scope.chatType,
+                        "created_by"      :   type,
+                        "seen_by"         :   1,
+                        "send_by"         :   send_by,
+                    }
+                    $http({
+                        method: "POST",  
+                        url:  API_URL + 'admin/add-project-comments',
+                        data: $.param(scope.sendCommentsData),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded' 
+                        }
+                    }).then(function successCallback(response) {
+                        scope.inlineComments = '';
+                        scope.showCommentsToggle();
+                        Message('success',response.data.msg);
+                    }, function errorCallback(response) {
+                        Message('danger',response.data.errors);
+                    });
+                }
+    
+                getEnquiryCommentsCountById = (id) => {
+                    $http({
+                        method: "get",
+                        url:  API_URL + 'admin/project-comments-count/'+id ,
+                    }).then(function successCallback(response) {
+                        scope.enquiry_comments     = response.data;
+                    }, function errorCallback(response) {
+                        Message('danger',response.data.errors);
+                    });
+                }
+    
+                getEnquiryActiveCommentsCountById = (id) => {
+                    $http({
+                        method: "get",
+                        url:  API_URL + 'admin/project-active-comments-count/'+id ,
+                    }).then(function successCallback(response) {
+                        scope.enquiry_active_comments     = response.data;
+                    }, function errorCallback(response) {
+                        Message('danger',response.data.errors);
+                    });
+                }
+            }
+        };
+    });
+    
+    
+    app.directive('projectOpenComment', function (API_URL, $http) {
+        return {
+            restrict: 'E',
+            scope: {
+                data: '=data'
+            },
+            templateUrl: `${API_URL}template/admin-open-comment`,
+            link: function(scope, element, attrs) {
+                let {modalState, type, header, project_id, send_by, from} = scope.data;
+                element.bind("keydown keypress", function (event) {
+                    if(event.which === 13) {
+                        scope.sendInboxComments(from);
+                        event.preventDefault();
+                    }
+                });
+                scope.sendInboxComments  = (created_by) => {
+                    if(scope.inlineComments == '') {
+                        Message('danger','Comment field required');
+                        return false;
+                    }
+                    scope.sendCommentsData = {
+                        "comments"        :   scope.inlineComments,
+                        "project_id"      :   project_id,
+                        "type"            :   type,
+                        "created_by"      :   created_by,
+                        "seen_by"         :   1,
+                        "send_by"         :   send_by,
+                    }
+                    $http({
+                        method: "POST",  
+                        url:  API_URL + 'admin/add-project-comments',
+                        data: $.param(scope.sendCommentsData),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded' 
+                        }
+                    }).then(function successCallback(response) {
+                        scope.inlineComments = '';
+                        Message('success',response.data.msg);
+                    }, function errorCallback(response) {
+                        Message('danger',response.data.errors);
+                    });
+                }
+            }
+        };
+    });
+

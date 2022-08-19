@@ -14,7 +14,7 @@
     <div class="demo-main-content">
         <div id="gantt_here"></div>
     </div> 
-</div>
+</div> 
 <input type="hidden" id = "login_id" value = "{{Customer()->id}}">
 <form id="milestone__commentsForm" ng-submit="sendComments('milestone','Customer', {{Customer()->id}})" class="input-group mt-3">
     <input required type="text" ng-model="milestone__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">

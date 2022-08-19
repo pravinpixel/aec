@@ -3,6 +3,7 @@
 @section('admin-content')
     <div class="content-page" ng-controller="projectController">
         @include('admin.projects.quick-view')
+        @include('admin.projects.live-project.models.chat-box')
         <div class="content" >
                 @include('admin.projects.filter-modal')
                 @include('admin.includes.top-bar')

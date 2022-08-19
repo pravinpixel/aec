@@ -432,13 +432,18 @@ class ProjectController extends Controller
     public function liveProjectList(Request $request)
     {
         if ($request->ajax() == true) {
-            $dataDb = $this->projectRepo->liveProjectList($request);
+            ///$dataDb = $this->projectRepo->liveProjectList($request);
+            $dataDb = Project::with(['comments'=> function($q){
+                $q->where(['status' => 0, 'created_by' => 'Customer']);
+            }]);
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
+                    $commentCount = $dataDb->comments->count();
+                    $projectComments = $commentCount == 0 ? '' : $commentCount;
                     return '
                     <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
                         <b>' . $dataDb->reference_number . '</b>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$projectComments.'</span>
                     </button>
                 ';
                 })

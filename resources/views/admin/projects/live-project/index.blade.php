@@ -198,7 +198,7 @@
 
             }) 
             .when("/milestone", {
-                templateUrl : "{{ route('live-project.milestone') }}",
+                templateUrl : "{{ route('live-project.admin.milestone') }}",
                 controller: 'milestoneController',
             })
             .when("/task-list", {

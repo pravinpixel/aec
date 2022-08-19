@@ -596,8 +596,7 @@ formatData = (project) => {
   // live project milestone
   app.controller('milestoneController', function($scope, $http, API_URL, $rootScope) {
   
-    $http.get(`${API_URL}get-project-session-id`).then((res) => {
-      $scope.project_id = res.data;
+  
       let project_id = $('#project_id').val();
       console.log(project_id);
       //var project_id  = $('#project_id').val();
@@ -610,7 +609,7 @@ formatData = (project) => {
       gantt.init("gantt_here");
       ganttModules.menu.setup();
       gantt.load(`${API_URL}project/edit/${project_id}/project_scheduler`);
-    });
+    
   
   });
   

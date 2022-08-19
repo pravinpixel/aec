@@ -13,9 +13,14 @@ Route::group(['prefix' => 'template', 'middleware' => 'common'], function () {
         return view('customer.enquiry.open-comment');
     })->name('project-open-comment');
     Route::get('project-comment', function(){
-       
         return view('customer.projects.live-project.models.chat-box');
     })->name('project-comment');
+    Route::get('admin-open-comment', function(){
+        return view('admin.projects.live-project.models.open-comment');
+    })->name('admin-open-comment');
+    Route::get('admin-project-comment', function(){
+        return view('admin.projects.live-project.models.chat-box');
+    })->name('admin-project-comment');
 
 });
 
