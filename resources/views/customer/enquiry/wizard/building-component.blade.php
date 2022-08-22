@@ -341,7 +341,7 @@
         </div>
     </div> 
     <div class="row justify-content-end">
-        <div class="col" ng-show="commentShow">
+        <div class="col-6" ng-show="commentShow">
             <open-comment  data="
             {'modalState':'viewConversations',
             'type': 'building_components',
@@ -349,16 +349,17 @@
             'enquiry_id':enquiry_id,
             send_by: {{ Customer()->id }},
             'from':'Customer'
-            }"/> 
-            <hr>
-            <comment  ng-show="commentShow" data="
+            }">  </open-comment>
+        </div>
+        <div class="col-3" ng-show="commentShow">
+            <comment  data="
             {'modalState':'viewConversations',
             'type': 'building_components',
             'header':'Building Components',
             'enquiry_id':enquiry_id,
             send_by: {{ Customer()->id }},
             'from':'Customer'
-            }"/>
+            }"> </comment>
         </div>
         <div class="pull-right">
             <button ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen" class="my-2  btn btn-info rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
