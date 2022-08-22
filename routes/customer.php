@@ -15,7 +15,7 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
 
     Route::put('update-profile', [CustomerController::class,'updateProfile'])->name('customers-update-profile');
 
-    Route::get('dashboard', [DashboardController::class,'enquiryDashborad'])->name("customers-enquiry-dashboard");
+    Route::get('dashboard', [DashboardController::class,'enquiryDashboard'])->name("customers-enquiry-dashboard");
     
     Route::post('save-customer-token', [PushNotificationController::class,'storeToken'])->name("save-customer-token");
 
