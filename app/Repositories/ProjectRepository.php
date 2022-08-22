@@ -22,6 +22,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
+use DateTime;
 
 class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatformInterface {
     protected $model;
@@ -112,32 +113,43 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $project = $this->model->find($id);
 
         $employee =  Employees::find($project->created_by );
-        //dd($project->customer_id);
-        //dd($project->gantt_chart_data);
-        
-      $projechtchart =  isset($project->gantt_chart_data) ? json_decode($project->gantt_chart_data) :array();
+        $projechtchart =  isset($project->gantt_chart_data) ? json_decode($project->gantt_chart_data) :array();
         $totalcompletecount = array();
         $totaloverall = array();
         $rearr = array();
         $gnttname = array();
+        $intervalday = array();
 
         foreach($projechtchart as $projectdata){
-           // dd($projectdata->data);
-            //$gnttname = array();
-           
             foreach($projectdata->data as $key=>$prodata){
                 $finalstatuspercentage = array();
-               
                 $overall = count($prodata->data);
                 $totaloverall[] = $overall;
-               
+              
                 foreach($prodata->data as $finaldata){
                    
-                  
+                  //dd($finaldata->delivery_date);
+
+                  $delivery_date = isset($finaldata->delivery_date) ? Carbon::parse($finaldata->delivery_date)->format('Y-m-d') : '';
+
+              
                    if(isset($finaldata->status) &&  $finaldata->status !=  ''){
                     $finalstatuspercentage[] =   $finaldata->status;
                    } 
                    $gnttname[] = $finaldata->task_list;
+                 
+                   $date_now = date("Y-m-d"); // this format is string comparable
+                   
+                   if (isset($delivery_date) && $date_now > $delivery_date) {
+                    $datetime1 = new DateTime($date_now);
+                    $datetime2 = new DateTime($delivery_date);
+                    $intervalday[] = $datetime1->diff($datetime2)->days * 24;
+                   }else{
+                    $intervalday[] = 0;
+                   }
+                    
+                 
+
                    $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
                    $start  = date_create($finaldata->start_date);
                    $end    = date_create($finaldata->end_date); // Current time and date
@@ -151,7 +163,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                    //dd($diff->days);
 
                 }
-                
+               
                 $completecount = count($finalstatuspercentage);
                 $totalcompletecount[] = $completecount;
                 $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
@@ -159,7 +171,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
                
             }
         }
-         //dd(json_encode($seriesdata));
+         //dd($interval);
          
         if(count($projechtchart) > 0){
          
@@ -172,6 +184,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $result['count']= $result;
         $result['series']= $seriesdata;
         $result['categories']= $gnttname;
+        $result['intervelday']= $intervalday;
         
         //dd($project);
         return $result;

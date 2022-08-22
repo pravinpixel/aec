@@ -1,5 +1,5 @@
 <div class="col-6">
-    <div class="text-end pt-2">
+    <div class="text-end pt-2"  id="customer_chat">
         <a class="text-primary p-0 btn">
            <u><a ng-click="showCommentsToggle()"  class="btn btn-primary rounded-pill"><i class='far fa-comment-dots'></i> Chat</a></u>
         </a>

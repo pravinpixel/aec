@@ -256,7 +256,7 @@
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',pticketscomment.id)">View/Reply</a>
-                                            <a class="dropdown-item" ng-show="pticketscomment.variation_order == 1"  ng-click="projectticketshow(pticketscomment.id)" >View</a>
+                                            <a class="dropdown-item" ng-show="pticketscomment.variation_order == 1"  ng-click="projectticketshow(pticketscomment.id)" >View Variation Order </a>
                                             
                                             <a class="dropdown-item"ng-click = "ticketdelete(pticketscomment.id)">Delete</a>
                                             
@@ -368,7 +368,7 @@
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Tag</label>
                                     <input id="ms1" class="my-control" type="text" name="ms1" ng-model = "case.tag"/>
-                                    <p>Model: @{{case.tag}}</p>
+                                   
                                     
                                 </div>
                                 <div class="mb-3">
@@ -566,7 +566,7 @@
                                         <select class="form-select shadow" id="example-select" ng-model="header.status">
                                             <option ng-selected = "header.status == 'New'"  value="New">New</option>
                                             <option ng-selected = "header.status == 'open'"  value="open">Open</option>
-                                            <option  ng-selected = "header.status == 'closed'" value="closed">Close</option>
+                                            <option  ng-selected = "header.status == 'closed'" value="closed">Closed</option>
                                             <option  ng-selected = "header.status == 'pending'" value="pending">Pending</option>
                                         </select>
                                     </div> 

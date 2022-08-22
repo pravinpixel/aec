@@ -435,6 +435,7 @@
 
 @if (Route::is('customer-live-project.overview'))
     {!! Html::script('public/assets/js/vendor/Chart.bundle.min.js') !!}
+    <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
     <script>
         const project_status_data = document.getElementById('project-status').getContext('2d');
 
@@ -491,7 +492,7 @@
             }
         });
     </script>
-    <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
+  
     <script>
        
        

@@ -1,5 +1,5 @@
 app.controller('projectController', function ($scope, $http, API_URL, $compile) {
-
+      
     $scope.projectTypes = [];
     $http.get(`${API_URL}get-project-type`).then((res) => {  $scope.projectTypes = res.data; });
     $http.get(`${API_URL}admin/get-employee-by-slug/project_manager`).then((res)=> {

@@ -135,6 +135,7 @@
     <script>  
 
         app.controller("LiveProjectController", function($rootScope, $scope, $location){
+        
             $rootScope.$on("$locationChangeSuccess", function(event, newUrl){
 
                 if($location.url() == '/') $scope.isMain = true; else $scope.isMain = false; 

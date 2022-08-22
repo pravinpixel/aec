@@ -78,7 +78,7 @@
 @push('custom-scripts')
    <script src="{{ asset("public/custom/js/ngControllers/customer/project/list.js") }}"></script> 
   <script>
-  
+  $("#customer_chat").hide();
    
   </script>
    @endpush

@@ -2000,6 +2000,64 @@ app.controller('OverviewController', function($scope, $http, API_URL, $location,
     });
 });
 
+    //projecttask
+
+    $scope.completiontask = (type) => {
+      $('#project-completion-chart').empty();
+
+      $http.get(`${API_URL}project/overview/${project_id}`).then((res) => {
+        $scope.overview = res.data;
+      })
+  
+      $http.get(`${API_URL}project/searchchart/${project_id}/${type}`).then((res) => {
+        
+       
+        $scope.countper = res.data.completed == null ? [] : res.data.completed;
+        $scope.overall = res.data.overall;
+        $scope.lead = res.data.lead;
+        var pname = [];
+        var pnamevalue = [];
+        $scope.teamSetups = $scope.countper.map((item) => {
+            //console.log(item.first_name);
+            pname.push(item.name);
+            pnamevalue.push(item.completed);
+    
+          })
+          $scope.projectstag = pname;
+          $scope.projectscompletetag = pnamevalue;
+        //console.log($scope.projectstag);
+        var options = {
+          series: [{
+              data: $scope.projectscompletetag
+          }],
+          chart: {
+              type: 'bar',
+              height: 230
+          },
+          plotOptions: {
+              bar: {
+                  borderRadius: 4,
+                  horizontal: true,
+              }
+          },
+          dataLabels: {
+              enabled: false
+          },
+          xaxis: {
+              categories:   $scope.projectstag ,
+          }
+      };
+      var chart = new ApexCharts(document.querySelector("#project-completion-chart"), options);
+      chart.render();
+      
+  
+    
+      //apexcharts.min.js
+    });
+      //alert(type);
+
+    }
+
 
 
 

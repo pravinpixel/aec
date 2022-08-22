@@ -778,6 +778,66 @@ formatData = (project) => {
   
   
       }
+
+
+      $scope.storeTaskListsDeliverydate = (statusValue) => {
+  
+        $scope.check_list_items.map((CheckLists) => {
+  
+          const CheckListsIndex = Object.entries(CheckLists.data);
+  
+          $scope.CallToDB = false;
+          let isValidDate = [];
+          CheckListsIndex.map((TaskLists) => {
+            const TaskListsIndex = TaskLists[1].data;
+            TaskListsIndex.map((ListItems) => {
+              if(ListItems.delivery_date != undefined && ListItems.delivery_date != '' ) {
+                  // isValidDate.push(true);
+                  if(ListItems.status == undefined || ListItems.status == false ){
+                    isValidDate.push(true);
+                  }
+              }
+            });
+          });
+          //console.log(isValidDate);
+          if(isValidDate.includes(true)){
+            isValidDate.length = 0;
+            Message('danger', 'Please select Status !');
+           
+            return false
+          }else{
+           
+            $scope.CallToDB = true;
+          }
+  
+          if ($scope.CallToDB === true) {
+            $http.post(`${$("#baseurl").val()}admin/api/v2/store-task-list`, {
+              id: $('#project_id').val(),
+              update: $scope.check_list_items_status,
+              data: $scope.check_list_items,
+            }).then((res) => {
+  
+              if (res.data.status === true) {
+                Message('success', 'Task List Updated !');
+                $http.get(`${API_URL}project/liveprojectlist/${project_id}`).then((res) => {
+                  $scope.project = formatData(res.data.project);
+                  $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
+                  $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
+                  $scope.countper = res.data.completed == null ? [] : res.data.completed;
+                  $scope.overall = res.data.overall;
+                  $scope.lead = res.data.lead;
+                });
+              }
+            })
+          }
+  
+        });
+  
+  
+      }
+
+
+
     });
   
   
@@ -1863,6 +1923,8 @@ formatData = (project) => {
       $scope.countper = res.data.completed == null ? [] : res.data.completed;
       $scope.overall = res.data.overall;
       $scope.lead = res.data.lead;
+      $scope.intervelday = res.data.intervelday;
+      //console.log($scope.intervelday);
       var pname = [];
       var pnamevalue = [];
 		  $scope.teamSetups = $scope.countper.map((item) => {
@@ -1947,7 +2009,7 @@ formatData = (project) => {
               enabled: false
           },
           series: [{
-              name: 'Rainfall',
+              name: 'Overall hours ',
               type: 'column',
               stack: 1,
               yAxis: 1,
@@ -1955,9 +2017,9 @@ formatData = (project) => {
 
 
           }, {
-              name: 'Temperature',
+              name: 'Delay Hours',
               type: 'spline',
-              data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+              data: $scope.intervelday,
 
           }]
       });
@@ -1967,14 +2029,72 @@ formatData = (project) => {
     $http.get(`${API_URL}admin/api/v2/projectticket/${project_id}`).then((res) => {
       $scope.overviewinternal = res.data.internaloverview == null ? false : res.data.internaloverview
       $scope.overviewcustomer = res.data.customeroverview == null ? false : res.data.customeroverview
+      $scope.overview         = res.data.overview == null ? false : res.data.overview 
+      console.log($scope.overview);
+      const project_status = document.getElementById('project-status').getContext('2d');
+
+      const data = {
+          labels: ['New', 'Open', 'Closed','Pending'],
+          datasets: [{
+              label: 'Dataset 1',
+              data: [$scope.overview.new, $scope.overview.open, $scope.overview.close,$scope.overview.pending],
+              backgroundColor: ["#20CF98", "#FDBC2A", "#F85A7E"]
+          }]
+      };
+      const config = new Chart(project_status, {
+          type: 'doughnut',
+          data: data,
+          options: {
+              responsive: true,
+              legend: {
+                  display: true
+              },
+              title: {
+                  display: true,
+                  text: ' '
+              },
+          },
+      });
+
+      var data2 = {
+          datasets: [{
+              data: [34, 66],
+              backgroundColor: [
+                  "#20CF98",
+                  "#eee",
+              ]
+          }]
+      };
+
+      var ctx = document.getElementById("budgetChart");
+
+      // And for a doughnut chart
+      var myDoughnutChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: data2,
+          options: {
+              rotation: 1 * Math.PI,
+              circumference: 1 * Math.PI,
+              responsive: true,
+              legend: {
+                  display: false
+              },
+              title: {
+                  display: false,
+                  text: 'Project Tasks'
+              },
+          }
+      });
   
-      console.log($scope.overviewinternal);
+      //console.log($scope.overviewinternal);
      
     });
 
     //projecttask
 
     $scope.completiontask = (type) => {
+      $('#project-completion-chart').empty();
+
       $http.get(`${API_URL}project/overview/${project_id}`).then((res) => {
         $scope.overview = res.data;
       })
@@ -1995,7 +2115,7 @@ formatData = (project) => {
           })
           $scope.projectstag = pname;
           $scope.projectscompletetag = pnamevalue;
-        console.log($scope.projectstag);
+        //console.log($scope.projectstag);
         var options = {
           series: [{
               data: $scope.projectscompletetag
@@ -2022,7 +2142,7 @@ formatData = (project) => {
       
   
     
-      apexcharts.min.js
+      //apexcharts.min.js
     });
       //alert(type);
 

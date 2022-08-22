@@ -200,22 +200,22 @@
                 <h4 class="header-title text-uppercase mb-0 mt-2 float-start">
                     Estimated Vs. Utilized Hours by Milestone
                 </h4>
-                <div class="dropdown float-end">
+               {{-- <div class="dropdown float-end">
                     <a href="javascript:void(0);" class="dropdown-toggle arrow-none btn btn-light btn-xs border"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="mdi mdi-dots-vertical"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Weekly</a>
+                         <a href="javascript:void(0);" ng-click=  class="dropdown-item">Weekly</a>
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item">1 Monthly</a>
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item">1 Quarter</a>
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">1 Year</a>
+                        <a href="javascript:void(0);" class="dropdown-item">1 Year</a> 
                     </div>
-                </div>
+                </div>--}}
                 <a href="#" class="btn float-end btn-xs">
                     <i class="mdi mdi-arrow-expand"></i>
                 </a>
@@ -444,62 +444,7 @@
 
 @if (Route::is('live-project.overview'))
     {!! Html::script('public/assets/js/vendor/Chart.bundle.min.js') !!}
-    <script>
-        const project_status = document.getElementById('project-status').getContext('2d');
-
-        const data = {
-            labels: ['On Schedule', ' All Tasks', 'Overdue', ],
-            datasets: [{
-                label: 'Dataset 1',
-                data: [100, 100, 100],
-                backgroundColor: ["#20CF98", "#FDBC2A", "#F85A7E"]
-            }]
-        };
-        const config = new Chart(project_status, {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true,
-                legend: {
-                    display: true
-                },
-                title: {
-                    display: true,
-                    text: ' '
-                },
-            },
-        });
-
-        var data2 = {
-            datasets: [{
-                data: [34, 66],
-                backgroundColor: [
-                    "#20CF98",
-                    "#eee",
-                ]
-            }]
-        };
-
-        var ctx = document.getElementById("budgetChart");
-
-        // And for a doughnut chart
-        var myDoughnutChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: data2,
-            options: {
-                rotation: 1 * Math.PI,
-                circumference: 1 * Math.PI,
-                responsive: true,
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false,
-                    text: 'Project Tasks'
-                },
-            }
-        });
-    </script>
+   
     <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
     <script>
        

@@ -17,5 +17,8 @@
     </div> 
 @endsection 
 @push('custom-scripts')
+<script>
+       $("#customer_chat").hide();
+</script>
     <script src="{{ asset("public/custom/js/ngControllers/admin/project/list.js") }}"></script> 
 @endpush

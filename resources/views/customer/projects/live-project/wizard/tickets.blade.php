@@ -255,7 +255,7 @@
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" data-bs-toggle="modal" ng-click="showCommentsToggle('viewConversations', 'internal', 'Ticket Comment',pticketscomment.id)">View/Reply</a>
-                                            <a class="dropdown-item" ng-show="pticketscomment.variation_order == 1"  ng-click="projectticketshow(pticketscomment.id)" >View</a>
+                                            <a class="dropdown-item" ng-show="pticketscomment.variation_order == 1"  ng-click="projectticketshow(pticketscomment.id)" >View Variation Order</a>
                                             <a class="dropdown-item"ng-click = "ticketdelete(pticketscomment.id)">Delete</a>
                                             
                                         </div>
@@ -269,6 +269,7 @@
         </div>
     </div>
 </div>  
+
 
 {{-- ========== Raise Ticket ========== --}}
 <div id="rasieTicketDetails" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
@@ -554,7 +555,7 @@
                                         <select class="form-select shadow" id="example-select" ng-model="header.status">
                                             <option ng-selected = "header.status == 'New'"  value="New">New</option>
                                             <option ng-selected = "header.status == 'open'"  value="open">Open</option>
-                                            <option  ng-selected = "header.status == 'closed'" value="closed">Close</option>
+                                            <option  ng-selected = "header.status == 'closed'" value="closed">Closed</option>
                                             <option  ng-selected = "header.status == 'pending'" value="pending">Pending</option>
                                         </select>
                                     </div> 
@@ -868,8 +869,6 @@
 </div>
 
 @include("admin.enquiry.models.ticket-chat-box")  
-
- 
 <style>
     #tablebqup_length {
         display: none !important;
@@ -887,4 +886,5 @@
    text-transform: capitalize;
 }
 </style>
+
 
