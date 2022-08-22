@@ -103,6 +103,7 @@ class EnquiryController extends Controller
                                 });
                             })
                             ->where('enquiry_number', '!=','Draft')
+                            ->where('proposal_email_status', 0)
                             ->WhereNotIn('project_status', ['Active'])
                             ->whereBetween('enquiry_date', [$fromDate, $toDate])
                             ->when( $enquiryNumber, function($q) use($enquiryNumber){

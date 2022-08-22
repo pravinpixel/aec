@@ -28,6 +28,8 @@ class MailTemplate extends Model
         'comment',
         'status',
         'proposal_status',
+        'is_admin_approved',
+        'approved_admin_id'
     ];  
 
     public function getVersions()

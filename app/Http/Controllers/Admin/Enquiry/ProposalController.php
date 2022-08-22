@@ -230,4 +230,29 @@ class ProposalController extends Controller
         $enquiry->created_by = Admin()->id;
         return $enquiry->save();
     }
+
+    public function manualApproveFromAdmin($enquiryId)
+    {
+        $rootVersion = MailTemplate::where(['enquiry_id'=> $enquiryId, 'proposal_status' => 'awaiting'])->latest()->first();
+        $childVersion = ProposalVersions::where(['enquiry_id'=> $enquiryId, 'proposal_status' => 'awaiting'])->latest()->first();
+        if(!$rootVersion && !$childVersion ) {
+            return response(['status' => false, 'msg' => __('enquiry.generate_proposal')]);
+        }
+        MailTemplate::where('enquiry_id', $enquiryId)->update(['proposal_status' => 'obsolete']);
+        ProposalVersions::where('enquiry_id', $enquiryId)->update(['proposal_status' => 'obsolete']);     
+        if(!isset($childVersion->created_at)) {
+            ProposalVersions::where(['enquiry_id'=> $enquiryId, 'id' => $childVersion->id])
+                            ->update(['proposal_status' => 'approved','status' => 'approved']);  
+        }else if(!isset($rootVersion->updated_at)) {
+            MailTemplate::where(['enquiry_id'=> $enquiryId, 'proposal_id'=> $rootVersion->proposal_id])
+                            ->update(['proposal_status' => 'approved','status' => 'approved']);
+        }else if($rootVersion->updated_at > $childVersion->updated_at) {
+            ProposalVersions::where(['enquiry_id'=> $enquiryId, 'id' => $childVersion->id])
+                            ->update(['proposal_status' => 'approved','status' => 'approved']);  
+        } else {
+            MailTemplate::where(['enquiry_id'=> $enquiryId, 'proposal_id'=> $rootVersion->proposal_id])
+                    ->update(['proposal_status' => 'approved','status' => 'approved']);
+        }
+        return true;
+    }
 }

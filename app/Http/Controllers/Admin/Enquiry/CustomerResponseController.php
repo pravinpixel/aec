@@ -33,6 +33,7 @@ class CustomerResponseController extends Controller
     {
         $enquiry_id = $request->input('enquiry_id');
         $assigned_to = $request->input('assigned_to');
+        $is_admin_approved = $request->input('is_admin_approved', false);
         $enquiry = $this->enquiryRepo->getEnquiryByID($enquiry_id);
         if($enquiry->project()->exists()){
             return response(['status' => false, 'msg' => __('global.already_moved_to_project')]);

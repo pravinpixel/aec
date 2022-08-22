@@ -25,6 +25,8 @@ class PropoalVersions extends Model
         'comment',
         'is_active',
         'proposal_status',
+        'is_admin_approved',
+        'approved_admin_id'
     ];  
 
     public function enquiryProposal()

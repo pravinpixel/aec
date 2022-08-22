@@ -2189,7 +2189,7 @@
                if(assigned_to == false) {
                     Message('danger', 'Select field required'); return false;
                }
-               $http.post(API_URL+'customer-response/move-to-project', {assigned_to: '{{ Admin()->id }}', enquiry_id, enquiry_id}).then(function successfunction(res){
+               $http.post(API_URL+'customer-response/move-to-project', {assigned_to: '{{ Admin()->id }}', enquiry_id, enquiry_id, is_admin_approved: true}).then(function successfunction(res){
                     if(res.data.status == true){
                         Swal.fire({
                             icon: 'success',
