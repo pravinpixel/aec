@@ -30,6 +30,7 @@
             </div> <!-- container -->
             @include('customer.enquiry.models.enquiry-filter-modal') 
             @include('customer.enquiry.models.detail-modal')
+            @include('customer.enquiry.models.document-modal')
             @include('customer.enquiry.models.approve-modal')
             @include('customer.enquiry.models.chat-box')
         </div> <!-- content --> 
@@ -390,6 +391,23 @@
                     }
                 });
             });
+
+            $scope.getDocumentView = (file) => {
+                $http({
+                    method: 'POST',
+                    url: `${API_URL}get-document-modal`,
+                    data: {url: file.file_name},
+                    }).then(function success(res) {
+                        if(file.file_type == 'pdf')
+                            var htmlPop = '<iframe id="iframe" src="data:application/pdf;base64,'+res.data+'"  width="100%" height="1000" allowfullscreen webkitallowfullscreen disableprint=true; ></iframe>';
+                        else
+                            var htmlPop = '<embed width="100%" height="1000" src="data:image/png;base64,'+res.data+'"></embed>'; 
+                        $("#document-content").html(htmlPop);
+                        $("#document-modal").modal('show');
+                    }, function error(res) {
+
+                });
+            }
 
             $http({
                 url     : '{!! route('get-customer-active-comments-count') !!}',

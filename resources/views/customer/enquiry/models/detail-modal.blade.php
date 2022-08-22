@@ -31,8 +31,8 @@
             <section>
                 <x-accordion title="Project Information" path="customer.enquiry.enquiry-overview.project-information" open="true"></x-accordion>
                 <x-accordion title="Selected Services" path="customer.enquiry.enquiry-overview.selected-service" open="false"></x-accordion>
-                <x-accordion title="Building Components" path="customer.enquiry.enquiry-overview.ifc-upload" open="false"></x-accordion>
-                <x-accordion title="IFC Models and Uploaded Documents" path="customer.enquiry.enquiry-overview.building-components" open="false"></x-accordion>
+                <x-accordion title="Building Components" path="customer.enquiry.enquiry-overview.building-components" open="false"></x-accordion>
+                <x-accordion title="IFC Models and Uploaded Documents" path="customer.enquiry.enquiry-overview.ifc-upload" open="false"></x-accordion>
                 <x-accordion title="Additional Information" path="customer.enquiry.enquiry-overview.additional-information" open="false"></x-accordion>
             </section> 
         </div><!-- /.modal-content -->
