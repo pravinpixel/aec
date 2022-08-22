@@ -79,4 +79,6 @@ interface CustomerEnquiryRepositoryInterface
     public function updateAdminWizardStatus($enquiry, $status);
 
     public function updateFollowUp($id, $data);
+
+    public function manualApproveFromAdmin($enquiryId);
 }

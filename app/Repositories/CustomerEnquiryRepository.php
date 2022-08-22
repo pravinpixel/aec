@@ -710,4 +710,26 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     {
         return $this->enquiry->find($id)->update($data);
     }
+
+    
+    public function manualApproveFromAdmin($enquiryId)
+    {
+        $rootVersion = MailTemplate::where(['enquiry_id'=> $enquiryId, 'proposal_status' => 'not_send'])->latest()->first();
+        $childVersion = PropoalVersions::where(['enquiry_id'=> $enquiryId, 'proposal_status' => 'not_send'])->latest()->first();
+        $updateValue = ['is_admin_approved' => true, 'approved_admin_id'=> Admin()->id, 'proposal_status' => 'approved','status' => 'approved'];
+        MailTemplate::where('enquiry_id', $enquiryId)->update(['proposal_status' => 'obsolete']);
+        PropoalVersions::where('enquiry_id', $enquiryId)->update(['proposal_status' => 'obsolete']);     
+        if(!isset($childVersion->created_at)) {
+            MailTemplate::where(['enquiry_id'=> $enquiryId, 'proposal_id' => $rootVersion->proposal_id])
+                            ->update($updateValue);  
+        }else if($rootVersion->created_at > $childVersion->created_at) {
+            PropoalVersions::where(['enquiry_id'=> $enquiryId, 'proposal_id' => $rootVersion->proposal_id])
+                            ->update($updateValue);  
+        } else {
+            PropoalVersions::where(['enquiry_id'=> $enquiryId, 'proposal_id'=> $childVersion->id])
+                    ->update($updateValue);
+        }
+        return true;
+    }
+
 }

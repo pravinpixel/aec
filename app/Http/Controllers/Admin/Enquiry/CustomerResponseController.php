@@ -44,6 +44,9 @@ class CustomerResponseController extends Controller
         ];
         $res = $this->projectRepo->assignProjectToUser($enquiry_id, $project_assign);
         if($res == true){
+            if($is_admin_approved) {
+                $this->enquiryRepo->manualApproveFromAdmin($enquiry_id);
+            }
             $enquiry_data = $this->getDataFromEnquiry($enquiry);
             $additional_data = [
                 'reference_number' => GlobalService::getProjectNumber()

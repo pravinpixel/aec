@@ -13,7 +13,7 @@ class AddIsAdminApprovedToProposalVersionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('proposal_versions', function (Blueprint $table) {
+        Schema::table('propoal_versions', function (Blueprint $table) {
             $table->boolean('is_admin_approved')->default(0);
             $table->boolean('approved_admin_id')->nullable();
         });
@@ -26,7 +26,7 @@ class AddIsAdminApprovedToProposalVersionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('proposal_versions', function (Blueprint $table) {
+        Schema::table('propoal_versions', function (Blueprint $table) {
             $table->dropColumn('is_admin_approved');
             $table->dropColumn('approved_admin_id');
         });
