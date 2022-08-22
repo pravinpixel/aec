@@ -67,6 +67,7 @@
 @endpush
 @push('custom-scripts')
 <script> 
+   $(":input").attr("autocomplete","off");
     app.controller('ProjectSummaryController', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id =  '{{ $enquiry_id }}';
             var enquiryId     =  '{{ $enquiry_id }}';
