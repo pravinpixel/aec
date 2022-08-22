@@ -211,6 +211,10 @@ class EnquiryController extends Controller
             } else  if ($type == "ifc_link") {
                 return $this->storeIfcLink($request, $enquiry);
             }
+            $extension          =   $request->file('file')->getClientOriginalExtension();
+            if(!in_array($extension , config('global.upload_file_types'))) {
+                return response(['status' => false, 'msg' => __('global.invalid_file_format')]);
+            }
             return $this->storeIfcUpload($request, $enquiry);
         } else if ($type == 'building_component') {
             DB::beginTransaction();
@@ -358,6 +362,10 @@ class EnquiryController extends Controller
                 return response(['status' => true, 'msg' => '', 'data' => '']);
             } else  if ($type == "ifc_link") {
                 return $this->storeIfcLink($request, $enquiry);
+            }
+            $extension          =   $request->file('file')->getClientOriginalExtension();
+            if(!in_array($extension , config('global.upload_file_types'))) {
+                return response(['status' => false, 'msg' => __('global.invalid_file_format')]);
             }
             return $this->storeIfcUpload($request, $enquiry);
         } else if ($type == 'building_component') {

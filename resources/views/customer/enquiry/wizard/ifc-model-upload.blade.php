@@ -6,7 +6,7 @@
                     <h4>@{{  documentType.document_type_name }}</h4>
                     <div class="drag-area">
                     <p class="text-disable text-center"> </p>  
-                    <input  type="file" file-drop-zone="@{{'file' + documentType.slug}}" class="form-control file-control rounded-pill" file-model="@{{'file' + documentType.slug}}" id ="@{{ documentType.slug }}"/>
+                    <input  type="file" file-drop-zone="@{{'file' + documentType.slug}}" accept="{{ implode(',',config('global.upload_file_extension')) }}" class="form-control file-control rounded-pill" file-model="@{{'file' + documentType.slug}}" id ="@{{ documentType.slug }}"/>
                     </div>
                     <small class="text-center my-1">(OR)</small>
                     <input type="url" id="@{{'link' +documentType.slug}}" class="form-control rounded-pill border" name="url" ng-model="url" placeholder="URL">

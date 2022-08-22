@@ -31,4 +31,5 @@ return [
     'can_not_edit_project_move_to_live' => 'Can not edit project moved to live',
     'connection_platform_enabled' => 'Connection platform enable successfully',
     'assign_project_successfully' => 'Assign Project Successfully',
+    'invalid_file_format'         => 'Invalid file format',
 ];
