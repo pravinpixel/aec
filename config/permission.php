@@ -172,51 +172,65 @@ return [
         'employee_performance' => [
             'employee_performance' => ''
         ],
-   
+        'sale' => [
+            'sale_index'  => '',
+            'sale_add'    => '',
+            'sale_edit'   => '',
+            'sale_delete' => '',
             'enquiry'    => [
-                'enquiry_index'  => '',
-                'enquiry_add'    => '',
-                'enquiry_edit'   => '',
-                'enquiry_delete' => '',
-            ],
-            'technical_estimate' => [
-                'technical_estimate_index'  => '',
-                'technical_estimate_add'    => '',
-                'technical_estimate_edit'   => '',
-                'technical_estimate_delete' => '',
-            ],
-            'cost_estimate' => [
-                'cost_estimate_index'  => '',
-                'cost_estimate_add'    => '',
-                'cost_estimate_edit'   => '',
-                'cost_estimate_delete' => '',
-            ],
-            'proposal_sharing' => [
-                'proposal_sharing_index'  => '',
-                'proposal_sharing_add'    => '',
-                'proposal_sharing_edit'   => '',
-                'proposal_sharing_delete' => '',
-            ],
-            'customer_response' => [
-                'customer_response_index'  => '',
-                'customer_response_add'    => '',
-                'customer_response_edit'   => '',
-                'customer_response_delete' => '',
-            ],
-            'contract' => [
-                'contract_index'  => '',
-                'contract_add'    => '',
-                'contract_edit'   => '',
-                'contract_delete' => '',
-            ],
-            
-    
+                'enquiry_index'      => '',
+                'enquiry_add'        => '',
+                'enquiry_edit'       => '',
+                'enquiry_delete'     => '', 
+                'technical_estimate' => [
+                    'technical_estimate_index'  => '',
+                    'technical_estimate_add'    => '',
+                    'technical_estimate_edit'   => '',
+                    'technical_estimate_delete' => '',
+                ],
+                'cost_estimate' => [
+                    'cost_estimate_index'  => '',
+                    'cost_estimate_add'    => '',
+                    'cost_estimate_edit'   => '',
+                    'cost_estimate_delete' => '',
+                ],
+                'proposal_sharing' => [
+                    'proposal_sharing_index'  => '',
+                    'proposal_sharing_add'    => '',
+                    'proposal_sharing_edit'   => '',
+                    'proposal_sharing_delete' => '',
+                ],
+                'customer_response' => [
+                    'customer_response_index'  => '',
+                    'customer_response_add'    => '',
+                    'customer_response_edit'   => '',
+                    'customer_response_delete' => '',
+                ],
+                'contract' => [
+                    'contract_index'  => '',
+                    'contract_add'    => '',
+                    'contract_edit'   => '',
+                    'contract_delete' => '',
+                ]
+            ]
+        ],
         'project' => [
-            'project_index'  => '',
-            'project_add'    => '',
-            'project_edit'   => '',
-            'project_delete' => '',
-           
+            'project_index'    => '',
+            'project_add'      => '',
+            'project_edit'     => '',
+            'project_delete'   => '',
+            'project_schedule' => [
+                'project_schedule_index'  => '',
+                'project_schedule_add'    => '',
+                'project_schedule_edit'   => '',
+                'project_schedule_delete' => '',
+            ],
+            'project_summary' => [
+                'project_summary_index'  => '',
+                'project_summary_add'    => '',
+                'project_summary_edit'   => '',
+                'project_summary_delete' => '',
+            ]
         ],
        
         'issues' => [
@@ -238,7 +252,8 @@ return [
             'customer_detail_edit'   => '',
             'customer_detail_delete' => '',
         ],
-     
+        'administrator' => [
+            'administrator_index' => '', 
             'cost_estimate_calculation' => [
                 'cost_estimate_calculation_index' => ''
             ],
@@ -251,7 +266,8 @@ return [
                 'employee_edit'   => '',
                 'employee_delete' => '',
             ],
-
+    
+        ],
     ],
     'permission_styles' => [
         'enquiry_dashboard'         => 'px-0',
@@ -259,162 +275,24 @@ return [
         'economy_dashboard'         => 'px-0',
         'employee_performance'      => 'px-0',
         'sale'                      => 'px-0',
-        'enquiry'                   => 'px-0',
-        'technical_estimate'        => 'px-0',
-        'cost_estimate'             => 'px-0',
-        'proposal_sharing'          => 'px-0',
-        'customer_response'         => 'px-0',
-        'contract'                  => 'px-0',
-        'project'                   => 'px-0',
+        'enquiry'                   => 'px-2',
+        'technical_estimate'        => 'px-4',
+        'cost_estimate'             => 'px-4',
+        'proposal_sharing'          => 'px-4',
+        'customer_response'         => 'px-4',
+        'contract'                  => 'px-2',
+        'project'                   => 'px-2',
         'task'                      => 'px-0',
         'project'                   => 'px-0',
         'task'                      => 'px-0',
         'issues'                    => 'px-0',
         'supplier_detail'           => 'px-0',
         'customer_detail'           => 'px-0',
-        'project_schedule'          => 'px-0',
-        'project_summary'           => 'px-0',
-        'cost_estimate_calculation' => 'px-0',
-        'gantt_chart'               => 'px-0',
-        'employee'                  => 'px-0',
+        'project_schedule'          => 'px-4',
+        'project_summary'           => 'px-4',
+        'cost_estimate_calculation' => 'px-2',
+        'gantt_chart'               => 'px-2',
+        'employee'                  => 'px-2',
         'administrator'             => 'px-0',
     ]
-
-    
-    // 'permissions' => [
-    //     'enquiry_dashboard' => [
-    //         'enquiry_dashboard' => ''
-    //     ],
-    //     'project_dashboard' => [
-    //         'project_dashboard' => ''
-    //     ],
-    //     'economy_dashboard' => [
-    //         'economy_dashboard' => ''
-    //     ],
-    //     'employee_performance' => [
-    //         'employee_performance' => ''
-    //     ],
-    //     'sale' => [
-    //         'sale_index'  => '',
-    //         'sale_add'    => '',
-    //         'sale_edit'   => '',
-    //         'sale_delete' => '',
-    //         'enquiry'    => [
-    //             'enquiry_index'      => '',
-    //             'enquiry_add'        => '',
-    //             'enquiry_edit'       => '',
-    //             'enquiry_delete'     => '', 
-    //             'technical_estimate' => [
-    //                 'technical_estimate_index'  => '',
-    //                 'technical_estimate_add'    => '',
-    //                 'technical_estimate_edit'   => '',
-    //                 'technical_estimate_delete' => '',
-    //             ],
-    //             'cost_estimate' => [
-    //                 'cost_estimate_index'  => '',
-    //                 'cost_estimate_add'    => '',
-    //                 'cost_estimate_edit'   => '',
-    //                 'cost_estimate_delete' => '',
-    //             ],
-    //             'proposal_sharing' => [
-    //                 'proposal_sharing_index'  => '',
-    //                 'proposal_sharing_add'    => '',
-    //                 'proposal_sharing_edit'   => '',
-    //                 'proposal_sharing_delete' => '',
-    //             ],
-    //             'customer_response' => [
-    //                 'customer_response_index'  => '',
-    //                 'customer_response_add'    => '',
-    //                 'customer_response_edit'   => '',
-    //                 'customer_response_delete' => '',
-    //             ],
-    //             'contract' => [
-    //                 'contract_index'  => '',
-    //                 'contract_add'    => '',
-    //                 'contract_edit'   => '',
-    //                 'contract_delete' => '',
-    //             ]
-    //         ]
-    //     ],
-    //     'project' => [
-    //         'project_index'    => '',
-    //         'project_add'      => '',
-    //         'project_edit'     => '',
-    //         'project_delete'   => '',
-    //         'project_schedule' => [
-    //             'project_schedule_index'  => '',
-    //             'project_schedule_add'    => '',
-    //             'project_schedule_edit'   => '',
-    //             'project_schedule_delete' => '',
-    //         ],
-    //         'project_summary' => [
-    //             'project_summary_index'  => '',
-    //             'project_summary_add'    => '',
-    //             'project_summary_edit'   => '',
-    //             'project_summary_delete' => '',
-    //         ]
-    //     ],
-       
-    //     'issues' => [
-    //         'task_index'  => '',
-    //         'task_add'    => '',
-    //         'task_edit'   => '',
-    //         'task_delete' => '',
-    //     ],
-
-    //     'supplier_detail' => [
-    //         'supplier_detail_index'  => '',
-    //         'supplier_detail_add'    => '',
-    //         'supplier_detail_edit'   => '',
-    //         'supplier_detail_delete' => '',
-    //     ],
-    //     'customer_detail' => [
-    //         'customer_detail_index'  => '',
-    //         'customer_detail_add'    => '',
-    //         'customer_detail_edit'   => '',
-    //         'customer_detail_delete' => '',
-    //     ],
-    //     'administrator' => [
-    //         'administrator_index' => '', 
-    //         'cost_estimate_calculation' => [
-    //             'cost_estimate_calculation_index' => ''
-    //         ],
-    //         'gantt_chart' => [
-    //             'gantt_chart_index' => ''
-    //         ],
-    //         'employee' => [
-    //             'employee_index'  => '',
-    //             'employee_add'    => '',
-    //             'employee_edit'   => '',
-    //             'employee_delete' => '',
-    //         ],
-    
-    //     ],
-    // ],
-    // 'permission_styles' => [
-    //     'enquiry_dashboard'         => 'px-0',
-    //     'project_dashboard'         => 'px-0',
-    //     'economy_dashboard'         => 'px-0',
-    //     'employee_performance'      => 'px-0',
-    //     'sale'                      => 'px-0',
-    //     'enquiry'                   => 'px-2',
-    //     'technical_estimate'        => 'px-4',
-    //     'cost_estimate'             => 'px-4',
-    //     'proposal_sharing'          => 'px-4',
-    //     'customer_response'         => 'px-4',
-    //     'contract'                  => 'px-2',
-    //     'project'                   => 'px-2',
-    //     'task'                      => 'px-0',
-    //     'project'                   => 'px-0',
-    //     'task'                      => 'px-0',
-    //     'issues'                    => 'px-0',
-    //     'supplier_detail'           => 'px-0',
-    //     'customer_detail'           => 'px-0',
-    //     'project_schedule'          => 'px-4',
-    //     'project_summary'           => 'px-4',
-    //     'cost_estimate_calculation' => 'px-2',
-    //     'gantt_chart'               => 'px-2',
-    //     'employee'                  => 'px-2',
-    //     'administrator'             => 'px-0',
-    // ]
 ];
