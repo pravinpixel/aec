@@ -6,12 +6,12 @@
         </div>
         <div class="modal-content h-100 p-4" style="overflow: auto">
             <x-accordion title="Project Infomation" path="admin.projects.project-overview.project-information" open="true"></x-accordion>
-            <x-accordion title="Milestone" path="admin.projects.project-overview.milestone" open="false"></x-accordion>
-            <x-accordion title="Task List" path="admin.projects.project-overview.task-list" open="false"></x-accordion>
-            <x-accordion title="BIM 360" path="admin.projects.project-overview.bim360" open="false"></x-accordion>
-            <x-accordion title="Issues" path="admin.projects.project-overview.issues" open="false"></x-accordion>
-            <x-accordion title="Invoice Plan" path="admin.projects.project-overview.invoice-plan" open="false"></x-accordion>
-            <x-accordion title="General Notes" path="admin.projects.project-overview.general-notes" open="false"></x-accordion> 
+            <x-accordion title="milestone" path="admin.projects.project-overview.milestone" open="false"></x-accordion>
+            <x-accordion title="task" path="admin.projects.project-overview.task-list" open="false"></x-accordion>
+            <x-accordion title="bim360" path="admin.projects.project-overview.bim360" open="false"></x-accordion>
+            <x-accordion title="Issue" path="admin.projects.project-overview.issues" open="false"></x-accordion>
+            <x-accordion title="invoice" path="admin.projects.project-overview.invoice-plan" open="false"></x-accordion>
+            <x-accordion title="notes" path="admin.projects.project-overview.general-notes" open="false"></x-accordion> 
         </div>
     </div>
 </div>

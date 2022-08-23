@@ -103,6 +103,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
     }
 
     $scope.getQuickProject = (title, id) => {
+        
        //console.log(title);
        if(title != ''){
         $(".quickview").removeClass("show");
@@ -172,7 +173,7 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             $scope.teamSetups = res.data.team_setup;
             $scope.project_active_comments = res.data.project_active_comments;
             $scope.project_comments = res.data.project_comments;
-            //console.log( $scope.project_active_comments);
+            console.log( $scope.project_active_comments);
             
             $scope.project = formatData(res.data.project);
             $scope.project['address_one'] =  res.data.project.site_address;

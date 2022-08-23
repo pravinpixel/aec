@@ -224,5 +224,5 @@
 
 <div class="card-footer text-end">
     <a href="#!/invoice-plan" class="btn btn-light float-start">Prev</a>
-    <a ng-click="storeTaskLists()" class="btn btn-primary">Next</a>
+    <a href="#!/bim360" class="btn btn-primary">Next</a>
 </div>

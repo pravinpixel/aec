@@ -588,3 +588,7 @@ sup {
 .bg-primary2 {
     background-color: #0C326C !important;
 } 
+
+.removeNext {
+    display: none;
+}

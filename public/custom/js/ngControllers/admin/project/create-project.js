@@ -970,7 +970,7 @@ formatData = (project) => {
         },
       }).then(function successCallback(response) {
         // Store response data
-        $scope.responses = response.data;
+        $scope.responses = response.data.name;
       });
   
     };

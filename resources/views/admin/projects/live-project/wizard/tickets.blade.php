@@ -309,29 +309,36 @@
                                         <label for="Attachments" class="form-label text-secondary" >Attachments</label>
                                         <div class="field" align="left">
                                             <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
-                                            <p id = "case_image"ng-model = "case.file_id" ng-show="!responses.name" style="display: none;">@{{ responses.name }}</p>
+                                            <p id = "case_image"ng-model = "case.file_id" ng-show="!responses" style="display: none;">@{{ responses }}</p>
                                             <div class="error-msg">
                                                 <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
                                             </div>
                                         </div>
                                     </div> 
-                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
+                                    
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.length">
                                         <ol class="carousel-indicators">
-                                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="$index" class="active"  ng-repeat="curesponse in responses.name"></li>
+                                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="$index" class="active"  ng-repeat="curesponse in responses"></li>
                                         </ol>
                                         <div class="carousel-inner" role="listbox">
-                                            <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat="response in responses.name">
-                                                <img class="w-100" style="max-height: 180px;object-fit:cover" ng-src="@{{response}}"  alt="First slide">
+                                            <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat=" response in responses">
+                                                <img class="w-100" style="max-height: 180px;object-fit:cover" ng-src="@{{response}}"  alt="@{{suIndex}}">
                                             </div>
                                         </div>
-                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" ng-show="responses.name.length != $index "  aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </a>
+                                        <div  ng-repeat="(suIndex, response) in responses">
+                                            <a class="carousel-control-prev"  href="#carouselExampleIndicators" role="button" data-bs-slide="prev" >
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </a>
+                                            
+                                            <a class="carousel-control-next"  href="#carouselExampleIndicators" role="button" myvalue=@{{suIndex}} ng-class="{ 'removeNext': (responses.length - 1) == suIndex }"  data-bs-slide="next">
+    
+                                                <span class="carousel-control-next-icon" aria-hidden="true">@{{$suIndex }}</span>
+                                                <span class="visually-hidden">Next</span>
+                                            </a>
+                                
+                                        </div>
+                                     
                                     </div>
                                 </div> 
                             </div> 

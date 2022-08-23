@@ -433,7 +433,7 @@ class ProjectController extends Controller
     {
         if ($request->ajax() == true) {
             $dataDb = Project::with(['comments'=> function($q){
-                $q->where(['status' => 0, 'created_by' => 'Admin']);
+                $q->where(['status' => 0, 'created_by' => 'Customer']);
             }]);
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
