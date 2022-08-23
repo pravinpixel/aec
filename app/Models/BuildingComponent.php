@@ -28,7 +28,10 @@ class BuildingComponent extends Model
 
     public static function createOrUpdateComponentByEstimate($data)
     {
-        self::updateOrCreate($data, ['is_active'=> 0, 'cost_estimate_status' => 1]);
+        $buildingComponent = self::where($data)->first();
+        if(!$buildingComponent) {
+            self::updateOrCreate($data, ['is_active'=> 0, 'cost_estimate_status' => 1]);
+        }
         return self::where($data)->first();
     }
 }

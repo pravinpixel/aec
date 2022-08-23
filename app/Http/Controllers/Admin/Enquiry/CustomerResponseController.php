@@ -137,7 +137,7 @@ class CustomerResponseController extends Controller
             'email'            => $enquiry->customer->email,
             'no_of_building'   => $enquiry->no_of_building,
             'site_address'     => $enquiry->site_address,
-            'city'             => $enquiry->city,
+            'city'             => $enquiry->place,
             'state'            => $enquiry->state,
             'zipcode'          => $enquiry->zipcode,
             'country'          => $enquiry->country,
