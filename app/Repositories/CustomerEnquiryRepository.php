@@ -17,6 +17,7 @@ use App\Models\EnquiryComments;
 use App\Models\Admin\MailTemplate;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Admin\PropoalVersions;
+use App\Models\BuildingComponent;
 use Illuminate\Http\Response;
 use App\Models\Service;
 use App\Models\WoodEstimation;
@@ -27,6 +28,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     protected $customer;
@@ -449,55 +451,67 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         } else {
             $cost_estimate   =      new EnquiryCostEstimate();
         }
-       
-        $estimations     =      WoodEstimation::get();
-        $CostEstimate = [ 
-            'type'      => 'Building Type 1',
-            'totalArea' => 0,
-            'totalPris' => 0,
-            'totalSum'  => 0,
-            "Components" => [ 
-                [
-                    'building_component_id'=> '',
-                    'type_id'=> '',
-                    'DesignScope'=> 0,
-                    "Component"     => "",
-                    "Type"          => "", 
-                    "Sqm"           => "",
-                    "Complexity"    => "", 
-                    'Dynamics'=> [],
-                    "TotalCost" => [
-                        "PriceM2"   => 0, 
-                        "Sum"       => 0, 
+        $estimations     = WoodEstimation::get();
+        $costEstimateJson = [];
+      
+        foreach($buildingComponents as $rootKey => $buildingComponent){
+            $components      = [];
+            $ComponentsTotalDynamic = [];
+            foreach($buildingComponent['building_component_number'] as $key => $wall) {
+               
+                $components[] =  [
+                    'building_component_id' => BuildingComponent::createOrUpdateComponentByEstimate(['building_component_name' => Str::ucfirst($wall['name'])])->id ??'',
+                    'type_id'               => '',
+                    'DesignScope'           => 0,
+                    "Component"             => "",
+                    "Type"                  => "",
+                    "Sqm"                   => $wall['sqfeet'],
+                    "Complexity"            => "",
+                    'Dynamics'              => [],
+                    "TotalCost"             => [
+                        "PriceM2" => 0,
+                        "Sum"     => 0,
+                    ],
+                    "Rib"=> [
+                        "Sum" => 0
+                    ]
+                ];
+                foreach($estimations as $estimation) {
+                    $components[$key]['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+                    $components[$key]["TotalCost"]  = ['PriceM2' => '', 'Sum' => ''];
+                    $components[$key]["Rib"]        = ["Sum" => 0];
+                }
+            }
+            foreach($estimations as $estimation) {
+                $ComponentsTotalDynamic[]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+            }
+            $CostEstimate = [ 
+                'type'       => 'Building Type 1',
+                'totalArea'  => 0,
+                'totalPris'  => 0,
+                'totalSum'   => 0,
+                "Components" =>
+                    $components
+                ,
+                "ComponentsTotals" => [
+                    "Sqm"        => '',
+                    "complexity" => '',
+                    'Dynamics'   => $ComponentsTotalDynamic,
+                    "TotalCost"  => [
+                        "PriceM2" => 0,
+                        "Sum"     => 0,
                     ],
                     "Rib"=> [
                         "Sum" => ""
-                    ]
-                ]
-            ],
-            "ComponentsTotals" => [
-                "Sqm"           => '',
-                "complexity"    => '', 
-                'Dynamics'=> [],
-                "TotalCost" =>[
-                    "PriceM2"   => 0, 
-                    "Sum"       => 0, 
+                    ],
+                    "grandTotal" => '',
                 ],
-                "Rib"=> [
-                    "Sum" => ""
-                ],
-                "grandTotal"    => '', 
-            ],
-        ];
-        foreach($estimations as $estimation) {
-            $CostEstimate['Components'][0]['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
-            $CostEstimate['ComponentsTotals']['Dynamics'][]      = ["name"=> $estimation->name, 'PriceM2' => '', 'Sum' => ''];
+            ];
+            $costEstimateJson[] = $CostEstimate;
         }
-        $CostEstimate['Components'][0]["TotalCost"]  = ['PriceM2' => '', 'Sum' => ''];
-        $CostEstimate['Components'][0]["Rib"]        = ["Sum" => ""];
-        $resultWood = ['total'=> ['totalArea'=> 0, 'totalSum'=> 0, 'totalPris'=> 0], 'costEstimate'=> [$CostEstimate]];
+        $resultWood = ['total'=> ['totalArea'=> 0, 'totalSum'=> 0, 'totalPris'=> 0], 'costEstimate'=> $costEstimateJson];
         $cost_estimate  ->    enquiry_id = $enquiry->id;
-        $cost_estimate  ->    created_by = Customer()->id;
+        $cost_estimate  ->    created_by = Admin()->id;
         $cost_estimate  ->    build_json = json_encode($resultWood);
         $precastComponent = [
             "type"                        => "Building Type 1",
@@ -532,7 +546,6 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $cost_estimate  ->    save();
         return true;    
     }
-
     public function updateTechnicalEstimateCost($enquiry,$buildingComponents) 
     {   
         EnquiryTechnicalEstimate::where('enquiry_id', $enquiry->id)->delete(); 

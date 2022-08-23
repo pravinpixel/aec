@@ -232,7 +232,7 @@ class EnquiryController extends Controller
             $result = $this->storeBuildingComponentUpload($request, $enquiry);
             $buildingComponents = $this->buildingComponent->all();
             $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry, $buildingComponents);
-            $this->customerEnquiryRepo->storeCostEstimation($enquiry, $buildingComponents);
+            // $this->customerEnquiryRepo->storeCostEstimation($enquiry, $buildingComponents);
             $buildingComponentUploads = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
             if ($result) {
                 return response(['status' => true, 'data' => $buildingComponentUploads, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);
@@ -374,8 +374,7 @@ class EnquiryController extends Controller
 
                 $this->storeBuildingComponent($data, $enquiry);
                 $this->StoreTechnicalEstimation($data, $enquiry);
-                $this->StoreCostEstimation($data, $enquiry);
-
+                // $this->StoreCostEstimation($data, $enquiry);
                 DB::commit();
             } catch (Exception $ex) {
                 DB::rollBack();
@@ -385,7 +384,7 @@ class EnquiryController extends Controller
             $result = $this->storeBuildingComponentUpload($request, $enquiry);
             $buildingComponents = $this->buildingComponent->all();
             $this->customerEnquiryRepo->storeTechnicalEstimateCost($enquiry, $buildingComponents);
-            $this->customerEnquiryRepo->storeCostEstimation($enquiry, $buildingComponents);
+            // $this->customerEnquiryRepo->storeCostEstimation($enquiry, $buildingComponents);
             $buildingComponentUploads = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
             if ($result) {
                 return response(['status' => true, 'data' => $buildingComponentUploads, 'msg' => __('customer-enquiry.file_uploaded_successfully')]);

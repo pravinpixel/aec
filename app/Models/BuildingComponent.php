@@ -25,4 +25,10 @@ class BuildingComponent extends Model
     {
         return $this->hasMany(Layer::class);
     }
+
+    public static function createOrUpdateComponentByEstimate($data)
+    {
+        self::updateOrCreate($data, ['is_active'=> 0, 'cost_estimate_status' => 1]);
+        return self::where($data)->first();
+    }
 }

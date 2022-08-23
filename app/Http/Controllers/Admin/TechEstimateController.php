@@ -71,6 +71,7 @@ class TechEstimateController extends Controller
         }
         $technicalEstimate->save();
         $enquiry = Enquiry::find($id);  
+        $this->customerEnquiryRepo->storeCostEstimation($enquiry, $data);
         if($history) {
             $data = [
                 'enquiry_id'            => $enquiry->id,

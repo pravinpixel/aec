@@ -1226,14 +1226,14 @@
             $scope.price_calculation = 'wood_engineering_estimation';
             $scope.EngineeringEstimate = [];
             $scope.editorEnabled = false; // precast
-            $http.get(`${API_URL}wood-estimate-json`).then((res) => {
-                $scope.NewCostEstimate = res.data.json;
-                let newCostEstimate = JSON.parse(JSON.stringify($scope.NewCostEstimate));
-                $timeout(function() {
-                    angular.element('.sqm_').triggerHandler('keyup');
+                $http.get(`${API_URL}wood-estimate-json`).then((res) => {
+                    $scope.NewCostEstimate = res.data.json;
+                    let newCostEstimate = JSON.parse(JSON.stringify($scope.NewCostEstimate));
+                    $timeout(function() {
+                        angular.element('.sqm_').triggerHandler('keyup');
+                    });
                 });
-            });
-            
+                
             // $scope.ResultEngineeringEstimate = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'costEstimate': $scope.EngineeringEstimate};
             // $scope.ResultPrecastComponent = {'total': {totalArea: 0, totalSum: 0, totalPris: 0}, 'precastEstimate': $scope.PrecastComponent};
             $scope.precastEstimateTypesObj = {};
@@ -1643,8 +1643,8 @@
                             $TotalPriceM2   += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].PriceM2);
                             $TotalSum       += Number(scope.CostEstimate.Components[scope.index].Dynamics[index].Sum);
                         });
-
-                        if(scope.CostEstimate.Components[scope.index].Rib.Sum != 0 && scope.CostEstimate.Components[scope.index].Rib.Sum != ''){
+                        console.log(' scope.CostEstimate.Components[scope.index].Rib.Sum', scope.CostEstimate.Components[scope.index].Rib.Sum)
+                        if(scope.CostEstimate.Components[scope.index].Rib.Sum != 0 && scope.CostEstimate.Components[scope.index].Rib.Sum != '' && scope.CostEstimate.Components[scope.index].Rib.Sum != 'undefined'){
                             scope.CostEstimate.Components[scope.index].Sqm = 0;
                             $TotalRibSum = scope.CostEstimate.Components[scope.index].Rib.Sum * scope.CostEstimate.Components[scope.index].TotalCost.PriceM2 ;
                             scope.CostEstimate.Components[scope.index].TotalCost.Sum = getNum($TotalRibSum);
@@ -1682,7 +1682,7 @@
                                     $totalEstimateSum += Number(Component.Rib.Sum * Component.TotalCost.PriceM2);
                                 }else {
                                     Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
-                                        Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += Number(Dynamic.Sum);
+                                        Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += getNum(Dynamic.Sum);
                                         Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum / $totalSql_);
                                         $totalPrice += Number(Dynamic.PriceM2);
                                         $totalSum += Number(Dynamic.Sum);
@@ -1742,7 +1742,7 @@
                                             }
                                         });
                                         Estimates.Components[componentIndex].Complexity = 0;
-                                        Estimates.Components[componentIndex].Sqm = 0;
+                                        // Estimates.Components[componentIndex].Sqm = 0;
                                     }
                                 });
                             });
