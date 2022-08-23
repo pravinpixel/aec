@@ -1036,7 +1036,8 @@ class ProjectController extends Controller
             $buildingDocuments = $this->documentTypeEnquiryRepo->geBuildingDocumentByEnquiryId($enquiry_id);
             if (!empty($ifcDocuments)) {
                 foreach ($ifcDocuments as $ifcdocument) {
-                    $filePath = asset('public/uploads/' . $ifcdocument->file_name);
+                    $filePath = asset('public/uploads/'.$ifcdocument->file_name);
+                    Log::info(' $filePath '. $filePath );
                     $job = (new SharepointFileCreation($folderPath, $filePath, $ifcdocument->client_file_name))->delay(config('global.job_delay'));
                     $this->dispatch($job);
                 }
