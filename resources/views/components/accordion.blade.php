@@ -33,7 +33,7 @@
             @default
         @endswitch
     </div>
-    <div class="card-body collapse {{ $open }}" id="custom-accordion-collapse-{{ slug($title) }}">
+    <div class="card-body collapse {{ $open == 'true' ? "show" : '' }}" id="custom-accordion-collapse-{{ slug($title) }}">
         <div class="card-content">
             @include($path)
         </div>
