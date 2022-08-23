@@ -26,7 +26,54 @@
             </div>
         </div>
         <div class="col-12 mt-4 pe-0" ng-show="check_list_items.length != 0">
-            <div >
+            <div class="custom-accordion card border shadow-sm rounded" ng-repeat="(index,check_list) in check_list_items">
+                <div class="card-header collapsed" id="custom-accordion-head-@{{ index }}" data-bs-toggle="collapse" data-bs-target="#custom-accordion-collapse-@{{ index }}">
+                    <div class="card-title">
+                        <i class="text-danger fa fa-trash btn-sm btn" ng-click="delete_this_check_list_item(index)"></i>
+                        @{{ check_list.name }}
+                    </div> 
+                    <i class="accordion-icon"></i> 
+                </div>
+                <div class="card-body collapse " id="custom-accordion-collapse-@{{ index }}">
+                    <div class="card-content">
+                        <table class="m-0 table custom">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">S.No</th>
+                                    <th class="text-center">Deliverable Name</th>
+                                    <th class="text-center">Assign To</th>
+                                    <th class="text-center">Start Date</th>
+                                    <th class="text-center">End Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
+                                <tr ng-show="checkListData.text != 'others'">
+                                    <td colspan="6" class="bg-light">
+                                        <div class="text-start">
+                                            <strong>@{{ checkListData.name }}</strong>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
+                                    <td>@{{ index_3 +1 }}</td>
+                                    <td>@{{ taskListData.task_list }}</td>
+                                    <td>
+                                        <select get-to-do-lists ng-model="taskListData.assign_to" class="form-select border-0  form-select-sm">
+                                            <option value="">-- Project Manager --</option>
+                                            <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
+                                                @{{ projectManager.first_name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td><input type="date" get-to-do-lists  ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                    <td><input type="date" get-to-do-lists  ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{-- <div >
                 <fieldset class="accordion-item" ng-repeat="(index,check_list) in check_list_items">
                     <div class="accordion-header py-0 custom m-0 position-relative" id="OpenCloseBoxHeader_@{{ index }}">
                         <div class="accordion-button py-1 collapsed" data-bs-toggle="collapse" data-bs-target="#OpenCloseBoxBody_@{{ index }}" aria-expanded="true" aria-controls="OpenCloseBoxBody_@{{ index }}">
@@ -80,7 +127,7 @@
                         </div>  
                     </div>
                 </fieldset> 
-            </div>
+            </div> --}}
         </div>
     </div> 
 </div>
