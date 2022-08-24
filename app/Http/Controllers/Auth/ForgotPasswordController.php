@@ -41,14 +41,14 @@ class ForgotPasswordController extends Controller
       'email' => 'required|email|exists:customers',
     ]);
 
-    $validatorEmployee = Validator::make($request->all(), [
-      'email' => 'required|email|exists:employees',
-    ]);
-    if ($validatorCustomer->fails()  &&  $validatorEmployee->fails()) {
-      $validator = $validatorCustomer->fails() ? $validatorCustomer : $validatorEmployee;
+    // $validatorEmployee = Validator::make($request->all(), [
+    //   'email' => 'required|email|exists:employees',
+    // ]);
+    if ($validatorCustomer->fails()) {
+      // $validator = $validatorCustomer->fails() ? $validatorCustomer : $validatorEmployee;
       return redirect()
         ->back()
-        ->withErrors($validator)
+        ->withErrors($validatorCustomer)
         ->withInput();
     }
 
