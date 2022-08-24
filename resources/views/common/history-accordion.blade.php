@@ -6,7 +6,7 @@
                 <span> - </span>
                 <span>
                     <span class="fa fa-calendar"></span>
-                    <small>{{ $data->created_at->format('d-m-YY h:m:s A') }}</small>
+                    <small>{{ $data->created_at->format('d-m-Y h:m:s A') }}</small>
                 </span>
             </div> 
             <i class="accordion-icon"></i> 
