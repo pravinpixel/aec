@@ -134,10 +134,11 @@ class TechEstimateController extends Controller
 
     public function getHistory($id)
     {
-        return TechnicalEstimateHistory::where('enquiry_id', $id)
+        $history = TechnicalEstimateHistory::where('enquiry_id', $id)
                                     ->limit(20)  
                                     ->orderBy('id','desc')
-                                    ->get();
+                                    ->get(); 
+        return view('common.history-accordion',compact('history'));
     }
 
 } 

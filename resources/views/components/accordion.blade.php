@@ -2,7 +2,6 @@
     <div class="card-header {{ $open  == 'false' ? 'collapsed' : ''}}" id="custom-accordion-head-{{ slug($title) }}" data-bs-toggle="collapse" data-bs-target="#custom-accordion-collapse-{{ slug($title) }}">
         <div class="card-title">{{ $title }}</div> 
         <i class="accordion-icon"></i> 
-     
         @switch(slug($title))
             
             @case('project-information')

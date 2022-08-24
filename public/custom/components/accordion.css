@@ -50,7 +50,7 @@
     background: #4199FC;
     color: white ;
 }
-.custom-accordion .card-header.collapsed 
+.custom-accordion .card-header.collapsed
 {
     background: white !important;
     color: #4199FC !important;
