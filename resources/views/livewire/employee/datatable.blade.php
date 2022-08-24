@@ -50,10 +50,13 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="{{ route('edit.employee', $employee->id) }}"><i class="fa fa-edit me-1"></i> View / Edit</a>
-                                @if($employee->status)
-                                    <a class="dropdown-item" onclick="UpdateUserStatus(event,{{ $employee->id }}, {{ $employee->status }})"><i class="fas fa-user-alt-slash"></i> Inactive </a>
-                                @else
-                                    <a class="dropdown-item" onclick="UpdateUserStatus(event,{{ $employee->id }},{{ $employee->status }})"><i class="fas fa-user-alt"></i> Active </a>
+                                @if(userRole()->slug == 'admin')
+                                    @if($employee->status)
+                                        <a class="dropdown-item" onclick="UpdateUserStatus(event,{{ $employee->id }}, {{ $employee->status }})"><i class="fas fa-user-alt-slash"></i> Inactive </a>
+                                    @else
+                                        <a class="dropdown-item" onclick="UpdateUserStatus(event,{{ $employee->id }},{{ $employee->status }})"><i class="fas fa-user-alt"></i> Active </a>
+                                    @endif
+                                    <a class="dropdown-item" href="{{ route('employee.change-password', $employee->id) }}"><i class="fa fa-edit me-1"></i>Change Password </a>
                                 @endif
                             </div>
                         </div>
