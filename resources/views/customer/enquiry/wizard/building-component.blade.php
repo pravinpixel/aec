@@ -75,16 +75,16 @@
                                                     @{{ Template.template_name }}
                                                 </option>
                                             </select>
-                                            <button title="Create Template" ng-click="callTemplateModal(fIndex, w.WallId, Secindex)" class="btn btn-success btn-sm  border-0" ng-show="d">
+                                            <button title="Create / Save Template" ng-click="callTemplateModal(fIndex, w.WallId, Secindex)" class="btn btn-success btn-sm  border-0" ng-show="d">
                                                 <i class="mdi mdi-plus-box-multiple"></i>
                                             </button>
-                                            <button title="Edit" overwrite-template="{
+                                            <button title="Overwrite Template" overwrite-template="{
                                                 building_component_id: w.WallId,
                                                 index_position: fIndex,
                                                 detail_position: Secindex,
                                                 template: template
                                             }" class="btn btn-primary  btn-sm  border-0" ng-show="d"><i class="mdi mdi-pencil"></i></button>
-                                            <button title="Delete" delete-template="{
+                                            <button title="Delete Template" delete-template="{
                                                 building_component_id: w.WallId,
                                                 index_position: fIndex,
                                                 detail_position:  Secindex,

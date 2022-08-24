@@ -137,7 +137,7 @@
         <div class="col-md-6 ps-0">
             <div class="card shadow-sm border mb-2"> 
                 <div class="card-header bg-light p-2">
-                    <h4 class="m-0">Assign for Estimation</h4>
+                    <h4 class="m-0">Assign for Verification</h4>
                 </div> 
                 <div class="card-body p-2">
                     <select class="form-select form-select-sm" ng-model="assign_to" id="inputGroupSelect01">
