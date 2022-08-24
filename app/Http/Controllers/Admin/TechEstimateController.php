@@ -132,13 +132,21 @@ class TechEstimateController extends Controller
         return response(['status' => false]);
     }
 
-    public function getHistory($id)
+    public function getHistory($id, $type)
     {
+         
         $history = TechnicalEstimateHistory::where('enquiry_id', $id)
                                     ->limit(20)  
                                     ->orderBy('id','desc')
                                     ->get(); 
-        return view('common.history-accordion',compact('history'));
+        switch ($type) {
+            case 'print':
+                $view = view('common.print-history-accordion',compact('history'));
+            break;
+            case 'view':
+                $view = view('common.history-accordion',compact('history'));
+            break;
+        }
+        return $view;
     }
-
 } 

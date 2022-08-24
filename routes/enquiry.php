@@ -106,7 +106,7 @@ Route::group(['prefix' => 'technical-estimate', 'middleware' => 'common', 'route
     Route::post('assign-user/{enquiry_id}', [TechEstimateController::class,'assignUser'])->name("assign-user");
     Route::post('remove-user/{enquiry_id}', [TechEstimateController::class,'removeUser'])->name("remove-user");
     Route::post('update-status/{enquiry_id}',[TechEstimateController::class,'updateStatus'])->name("update-status");
-    Route::get('get-history/{id}', [TechEstimateController::class, 'getHistory'])->name('get-history');
+    Route::get('get-history/{id}/{type}', [TechEstimateController::class, 'getHistory'])->name('get-history');
 });
 
 Route::group(['prefix' => 'cost-estimate', 'middleware' => 'common', 'route' => 'cost-estimate'], function(){
