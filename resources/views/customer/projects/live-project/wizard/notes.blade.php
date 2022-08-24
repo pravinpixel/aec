@@ -1,7 +1,7 @@
-<div class="p-2 col-md-10 mx-auto my-3" id="additional_info_text_editor">
+<div class="p-2 col-md-10 mx-auto my-3" >
     <div class="form-floating" id="additional_info_text_editor">
-        <div class="dx-htmleditor-content" dx-html-editor="htmlEditorOptions"> </div>
-        </div>
+        <div dx-html-editor="htmlEditorOptions"> </div>
+    </div>
 </div> 
 
 <div class="row" >

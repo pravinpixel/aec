@@ -1898,6 +1898,146 @@ formatData = (project) => {
     };
   });
   
+  app.controller('DocumentController', function($scope, $http, API_URL, $location) {
+    let project_id = $('#project_id').val();
+
+    $http.get(`${API_URL}admin/api/v2/projectdocument/${project_id}`).then((res) => {
+        $scope.fileSystem = res;
+        console.log(res.data);
+     
+    $(() => {
+      const fileManager = $('#file-manager').dxFileManager({
+        name: 'fileManager',
+        fileSystemProvider:   $scope.fileSystem,
+        height: 450,
+        permissions: {
+          create: false,
+          delete: false,
+          rename: false,
+          download: true,
+        },
+        itemView: {
+          details: {
+            columns: [
+              'thumbnail', 'name',
+              'dateModified', 'size',
+            ],
+          },
+          showParentFolder: false,
+        },
+        toolbar: {
+          items: [
+            {
+              name: 'showNavPane',
+              visible: true,
+            },
+            'separator', 'create',
+            {
+              widget: 'dxMenu',
+              location: 'before',
+              options: {
+               
+                onItemClick,
+              },
+            },
+            'refresh',
+            {
+              name: 'separator',
+              location: 'after',
+            },
+            'switchView',
+          ]
+        },
+        onContextMenuItemClick: onItemClick,
+        onDirectoryCreating: function (e) {
+                    let path = e.parentDirectory.relativeName+'/'+e.name;
+                    $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem, path: path})
+                    .then((res) => {
+                        Message('success', 'updated successfully');
+                     
+                    })
+                },
+                onItemDeleting: function (e) {
+                    $http.post(`${API_URL}project/sharepoint-folder-delete/${project_id}`, {data: fileSystem, path: path})
+                    .then((res) => {
+                        Message('success', 'deleted successfully');
+                    })
+                },
+                onItemRenamed: function(e) {
+                    console.log('onItemRenamed',fileSystem);
+                    $http.put(`${API_URL}project/sharepoint-folder/${project_id}`, {data: fileSystem})
+                    .then((res) => {
+                        Message('success', 'updated successfully');
+                     
+                    })
+                }
+       
+      }).dxFileManager('instance');
+      function onItemClick(args) {
+        
+        let updated = false;
+        if (args.itemData.extension) {
+          updated = createFile(args.itemData.extension, args.fileSystemItem);
+        } else if (args.itemData.category !== undefined) {
+          updated = updateCategory(args.itemData.category, args.fileSystemItem, args.viewArea);
+        }
+        if (updated) {
+          fileManager.refresh();
+        }
+      }
+    });
+    const fileSystem = [
+      {
+        name: 'Documents',
+        isDirectory: true,
+        category: 'Work',
+        items: [
+          {
+            name: 'Projects',
+            isDirectory: true,
+            category: 'Work',
+            items: [
+              {
+                name: 'About.rtf',
+                isDirectory: false,
+                size: 1024,
+              },
+              {
+                name: 'Passwords.rtf',
+                isDirectory: false,
+                category: 'Important',
+                size: 2048,
+              },
+            ],
+          },
+          {
+            name: 'About.xml',
+            isDirectory: false,
+            size: 1024,
+          },
+          {
+            name: 'Managers.rtf',
+            isDirectory: false,
+            size: 2048,
+          },
+          {
+            name: 'ToDo.txt',
+            isDirectory: false,
+            size: 3072,
+          },
+        ],
+      },
+      {
+        name: 'Images',
+        isDirectory: true,
+        category: 'Home',
+      },
+     
+    ];
+  });
+
+  });
+  
   app.controller('InvoiceController', function($scope, $http, API_URL, $location) {
   
     let project_id = $('#project_id').val();

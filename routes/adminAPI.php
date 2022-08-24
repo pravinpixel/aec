@@ -8,6 +8,7 @@
     use App\Http\Controllers\Admin\Enquiry\ProposalController;
     use App\Http\Controllers\Admin\Project\ProjectController;
     use App\Http\Controllers\Admin\Project\TicketCommentsController;
+    use App\Http\Controllers\Sharepoint\SharepointController;
 
     Route::prefix('admin/api/v2')->group(function () {
         Route::post('customers-enquiry', [EnquiryController::class,'store']); 
@@ -38,6 +39,8 @@
         Route::get('projectticketfind/{id}', [ProjectController::class,'projectticketfind'])->name('live-project-ticket-find');
         Route::get('live-project/show-ticket-comment/{id}/type/{type}',[TicketCommentsController::class,'sendprojectticket']);
         Route::get('liveprojectnote/{id}',[ProjectController::class,'liveprojectnote']);
+        Route::get('projectdocument/{id}', [SharepointController::class,'listAllFolder'])->name('list-All-Folder');
+
         
         
 

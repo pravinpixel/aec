@@ -6,7 +6,7 @@
     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
 </form>  
 <div class="text-end pt-2">
-    <a class="text-primary p-0 btn" ng-show="project_comments.notes" ng-click="showCommentsToggle('viewConversations', 'invoice', 'invoice')">
+    <a class="text-primary p-0 btn" ng-show="project_comments.notes" ng-click="showCommentsToggle('viewConversations', 'notes', 'notes')">
         <i class="mdi mdi-eye"></i>  Previous chat history
     </a>
 </div>

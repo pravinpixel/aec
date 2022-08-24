@@ -224,6 +224,7 @@
             })
             .when("/doc-management", {
                 templateUrl : "{{ route('live-project.doc-management') }}",
+                controller: 'DocumentController',
             })
             .when("/notes", {
                 templateUrl : "{{ route('live-project.notes') }}",

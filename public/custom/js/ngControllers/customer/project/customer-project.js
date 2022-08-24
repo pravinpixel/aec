@@ -1540,12 +1540,39 @@ app.controller('GendralController', function($scope, $http, API_URL, $timeout, $
   $http.get(`${API_URL}admin/api/v2/liveprojectnote/${project_id}`).then((res) =>
   {
     // $scope.notes = res.data == null ? [] :res.data;
+    $scope.multilineToolbar = true;
+  
     $scope.htmlEditorOptions = {
-      height: 300,
-      value: res.data.notes == null ? [] : res.data.notes,
-      mediaResizing:
-      {
-        enabled: false,
+      bindingOptions: {
+        'toolbar.multiline': 'multilineToolbar',
+      },
+      height: 725,
+      value: '',
+      toolbar: {
+        items: [
+          'undo', 'redo', 'separator',
+          {
+            name: 'size',
+            acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
+          },
+          {
+            name: 'font',
+            acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
+          },
+          'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
+          'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+          'orderedList', 'bulletList', 'separator',
+          {
+            name: 'header',
+            acceptedValues: [false, 1, 2, 3, 4, 5],
+          }, 'separator',
+          'color', 'background', 'separator',
+          'link', 'image', 'separator',
+          'clear', 'codeBlock', 'blockquote',
+        ],
+      },
+      mediaResizing: {
+        enabled: true,
       },
     };
   });
