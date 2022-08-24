@@ -1079,44 +1079,48 @@ class ProjectController extends Controller
 
     public function addMemberToProject($project)
     {
-        Log::info("add member to project start");
-        $employees = [];
-        $teamSetups = $this->projectRepo->getProjectTeamSetup($project->id);
-        foreach ($teamSetups as $teamSetup) {
-            if (!empty($teamSetup->team)) {
-                $employees[] = $teamSetup->team;
+        try {
+            Log::info("add member to project start");
+            $employees = [];
+            $teamSetups = $this->projectRepo->getProjectTeamSetup($project->id);
+            foreach ($teamSetups as $teamSetup) {
+                if (!empty($teamSetup->team)) {
+                    $employees[] = $teamSetup->team;
+                }
             }
-        }
-        $employees_id = Arr::flatten($employees);
-        $employees = Employees::find($employees_id);
-        $project_id = $project->bim_id;
-        $data = [];
-        foreach ($employees as $employee) {
-            $data[] = [
-                'email' => $employee->email,
-                "services" => [
-                    "document_management" => [
-                        "access_level" => "user"
+            $employees_id = Arr::flatten($employees);
+            $employees = Employees::find($employees_id);
+            $project_id = $project->bim_id;
+            $data = [];
+            foreach ($employees as $employee) {
+                $data[] = [
+                    'email' => $employee->email,
+                    "services" => [
+                        "document_management" => [
+                            "access_level" => "user"
+                        ]
+                    ],
+                    "company_id" => env('BIMDEFAULTCOMPANY'),
+                    "industry_roles" => [
+                        env('BIMDEFAULTROLE')
                     ]
-                ],
-                "company_id" => env('BIMDEFAULTCOMPANY'),
-                "industry_roles" => [
-                    env('BIMDEFAULTROLE')
-                ]
-            ];
+                ];
+            }
+            $userApi = new  Bim360UsersApi();
+            if (isset($employee->bim_id) && !empty($employee->bim_id)) {
+                $userJson = $userApi->getUser($employee->bim_id);
+                $userObj =  json_decode($userJson);
+                $input = json_encode($data);
+                Log::info("x-user-id {$input}");
+                Log::info("x-user-id {$userObj->uid}");
+                $projectApi = new  Bim360ProjectsApi();
+                $result = $projectApi->importUser($project_id, $input, $userObj->uid);
+                Log::info("add member result  {$result}");
+            }
+            Log::info("add member to project end");
+        } catch (Exception $ex) {
+            Log::info($ex->getMessage());
         }
-        $userApi = new  Bim360UsersApi();
-        if (isset($employee->bim_id) && !empty($employee->bim_id)) {
-            $userJson = $userApi->getUser($employee->bim_id);
-            $userObj =  json_decode($userJson);
-            $input = json_encode($data);
-            Log::info("x-user-id {$input}");
-            Log::info("x-user-id {$userObj->uid}");
-            $projectApi = new  Bim360ProjectsApi();
-            $result = $projectApi->importUser($project_id, $input, $userObj->uid);
-            Log::info("add member result  {$result}");
-        }
-        Log::info("add member to project end");
     }
     //live project model
     public function liveprojecttasklist(){
