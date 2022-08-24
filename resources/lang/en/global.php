@@ -32,4 +32,5 @@ return [
     'connection_platform_enabled' => 'Connection platform enable successfully',
     'assign_project_successfully' => 'Assign Project Successfully',
     'invalid_file_format'         => 'Invalid file format',
+    'inactive_customer'           => 'Are you sure to in-active this customer \':customer\'?',
 ];

@@ -635,4 +635,11 @@ class EmployeeController extends Controller
         return $employee->save();
     }
 
+    public function updateStatus($id)
+    {
+        $employee = Employees::find($id);
+        $employee->status = !$employee->status;
+        return $employee->save();
+    }
+
 }

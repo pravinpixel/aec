@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Admin\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware('common')->group(function () {
@@ -13,4 +15,5 @@ Route::prefix('admin')->middleware('common')->group(function () {
     Route::get('/employee/edit/{id}',  function($id) {
         return view('livewire.employee.edit.index');
     })->name('edit.employee');
+    Route::post('/employee/{id}/status', [EmployeeController::class, 'updateStatus'])->name('employee.update-status');
 });

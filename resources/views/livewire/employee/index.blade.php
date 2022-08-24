@@ -39,3 +39,39 @@
     </div>
    
 @endsection 
+
+
+@push('custom-scripts') 
+<script>
+    function UpdateUserStatus(event,userId, status)
+    {
+        let url = $("#baseurl").val()+`admin/employee/${userId}/status`;
+        let text = status == 1 ? `Are you sure to in-active the user ?` : `Are you sure to active the user ?`;
+        event.preventDefault();
+        Swal.fire({
+            html: text,
+            icon: 'question',
+            confirmButtonText: 'Yes',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+                .then((response) => {
+                    location.reload();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+               
+            }
+        });
+    }
+</script>
+@endpush

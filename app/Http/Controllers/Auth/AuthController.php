@@ -22,10 +22,11 @@ class AuthController extends Controller
     {
         try {
             $requestInput = array_merge($request->only(['email','password']),['is_active'=> true]);
+            $employeeInput = array_merge($request->only(['email','password']),['status'=> true]);
             if (Auth::guard('customers')->attempt(($requestInput), false)) {
                 Flash::success( __('auth.login_successful'));
                 return redirect()->route('customers-dashboard');
-            } else if (Auth::attempt($request->only(['email','password']), false)) {
+            } else if (Auth::attempt(($employeeInput), false)){
                 $role = Role::find(Admin()->job_role)->slug;
                 if($role == config('global.cost_estimater')) {
                     $sharepoint = new SharepointController();
