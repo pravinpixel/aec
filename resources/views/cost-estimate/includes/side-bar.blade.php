@@ -5,12 +5,12 @@
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
-                <img src="{{ asset('public/assets/images/admin/logo.png') }}" alt="AEC Prefab" width="150px">
+                <img src="{{ asset('public/assets/images/logo_employee.png') }}" alt="AECPrefab" width="150px">
             </span>
         </span>
         <span class="logo-sm font-weight-bold ">
             {{-- <b class="page-title text-danger" style="font-size: 15px">AEC</b> --}}
-            <img src="{{ asset('public/assets/images/logo_sm.png') }}" alt="AEC Prefab" width="20px" style="filter: drop-shadow(2px 4px 6px #555555);">
+            <img src="{{ asset('public/assets/images/logo_sm.png') }}" alt="AECPrefab" width="20px" style="filter: drop-shadow(2px 4px 6px #555555);">
         </span>
     </a>
 
