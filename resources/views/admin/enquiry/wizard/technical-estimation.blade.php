@@ -100,14 +100,14 @@
                     </div>
                     <div class="p-2" psi-sortable="" ng-model="building_building" id="root_technical_estimate" style="max-height: 400px;overflow:auto">
                         <div class="bg-white w-100 mb-2" ng-repeat="(index,buliding) in building_building track by $index">  
-                            <table class="table custom border">
-                                <thead class="bg-light">
-                                    <tr>
+                            <table class="table border">
+                                <thead>
+                                    <tr class="bg-primary">
                                         <td colspan="3">
                                             <a class="btn btn-light btn-sm border shadow-sm me-2 p-1 py-0" >
                                                 <i class="bi bi-arrows-move"></i>
                                             </a> 
-                                            <span class="fw-bold">Building No : @{{ index+1 }}</span>
+                                            <span class="fw-bold text-white">Building No : @{{ index+1 }}</span>
                                         </td>
                                         <td class="text-center">
                                             <a class="btn btn-danger btn-sm border-0 me-2 p-1 py-0" ng-click="Delete_building(index)">
@@ -116,10 +116,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="text-white text-center">S.No</th>
-                                        <th class="text-white">Component Name</th>
-                                        <th class="text-white">Sq. Mt. Estimate</th>
-                                        <th class="text-center" style="padding: 0 !important"> 
+                                        <th style="background: #4a99f933 !important" class=" text-center">S.No</th>
+                                        <th style="background: #4a99f933 !important" class="">Component Name</th>
+                                        <th style="background: #4a99f933 !important" class="">Sq. Mt. Estimate</th>
+                                        <th style="background: #4a99f933 !important" class="text-center" style="padding: 0 !important"> 
                                             <button type="button" class="btn btn-sm py-0 px-1 rounded bg-primary " ng-click="Add_component(index)"><b><i class="text-white mdi mdi-plus"></i></b></button>
                                         </th>
                                     </tr>

@@ -3,7 +3,7 @@
 @section('customer-content')
 
 <div class="card col-lg-5 col-md-6 col-sm-8 shadow-lg border">
-    <div class="card-header text-center pt-3 pb-0 b ">
+    <div class="card-header text-center pt-3 pb-0 border-0 ">
         <img src="{{ asset("public/assets/images/logo_customer.png") }}" width="150px" class="mb-2">
         <p class="lead p-0" style="font-weight: 400;">Change Account Password</p>
     </div>
@@ -14,7 +14,7 @@
             <div class="form-group row m-0 p-2">
                 <label for="password" class="p-0 col-md-4 col-form-label text-md-right">Temporary Password</label>
                 <div class="col-md-8 p-0">
-                    <div class="input-group flex-nowrap border rounded">
+                    <div class="input-group flex-nowrap border border-dark rounded">
                         <input type="password" name="temporary_password" id="temporary_password" value="{{ old('temporary_password') }}" class="form-control border-0 " onkeypress="return isNumber(event)" required>
                         <div class="input-group-text border-0" data-password="false" role="button">
                             <span class="password-eye"></span>
@@ -28,7 +28,7 @@
             <div class="form-group row m-0 p-2">
                 <label for="password" class="p-0 col-md-4 col-form-label text-md-right">New Password</label>
                 <div class="col-md-8 p-0">
-                    <div class="input-group flex-nowrap border rounded">
+                    <div class="input-group flex-nowrap border border-dark rounded">
                         <input type="password" name="password" id="password" class="form-control border-0" required>
                         <div class="input-group-text border-0" data-password="false" role="button">
                             <span class="password-eye"></span>
@@ -42,7 +42,7 @@
             <div class="form-group row m-0 p-2">
                 <label for="password-confirm" class="p-0 col-md-4 col-form-label text-md-right">Repeat Password</label>
                 <div class="col-md-8 p-0">
-                    <div class="input-group flex-nowrap border rounded">
+                    <div class="input-group flex-nowrap border border-dark rounded">
                         <input type="password" name="password_confirmation" id="password-confirm" class="form-control border-0" required autofocus>
                         <div class="input-group-text border-0" data-password="false" role="button">
                             <span class="password-eye"></span>
