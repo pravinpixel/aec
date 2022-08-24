@@ -1,7 +1,7 @@
-<div class="border border-dark p-3">
-    <h3 class="text-center m-0"> Version List </h3>
+<div>
+    <h3 class="text-center text-primary"> Version List </h3> <br>
     @foreach ($history as $index => $data) 
-        <div class="card border shadow-sm rounded ">
+        <div class="card">
             <div class="card-header">
                 <div class="card-title d-flex justify-content-between m-0 align-items-center">
                     <div>
