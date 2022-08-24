@@ -19,7 +19,7 @@ class ConfigSeeder extends Seeder
             'enquiry_number' => '001',
             'enquiry_year' => '2022', 
             'customer_enquiry_year' => '2022', 
-            'customer_prefix' => 'CUENQ', 
+            'customer_prefix' => 'CUEN', 
             'customer_enquiry_number' => '001',
             'project_prefix' => 'PRO',
             'project_number' => '1',
