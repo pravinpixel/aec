@@ -63,7 +63,12 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 })
-                .then((response) => {
+                .then((response) => response.json())
+                .then((data) => {
+                    if(data.status == false) {
+                        Message('danger', data.msg);
+                        return false;
+                    }
                     location.reload();
                 })
                 .catch((error) => {

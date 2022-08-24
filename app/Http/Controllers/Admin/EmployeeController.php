@@ -638,8 +638,12 @@ class EmployeeController extends Controller
     public function updateStatus($id)
     {
         $employee = Employees::find($id);
-        $employee->status = !$employee->status;
-        return $employee->save();
+        if($employee->id != Admin()->id && userRole()->name != 'admin') {
+            $employee->status = !$employee->status;
+            $employee->save();
+            return response(['status'=> true, 'msg'=>__('global.updated')]);
+        }
+        return response(['status'=> false, 'msg'=>__('global.something')]);
     }
 
 }
