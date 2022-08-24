@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Employees;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,5 +21,16 @@ class CostEstimateHistory extends Model
         'type',
         'history',
         'created_by',
+        'role_id',
     ];
+
+    public function employee()
+    {
+        return $this->belongsTo(Employees::class,'created_by','id');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class,'role_id','id');
+    }
 }

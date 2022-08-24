@@ -96,7 +96,8 @@ class  CostEstimateController extends Controller
                 'type'             => $type,
                 'cost_estimate_id' => $costEstimate->id,
                 'history'          => $html,
-                'created_by'       => Admin()->id
+                'created_by'       => Admin()->id,
+                'role_id'          => Admin()->job_role,
             ];
             $this->storeCostEstimateHistory($data);
         }
@@ -152,7 +153,7 @@ class  CostEstimateController extends Controller
 
     public function getHistory($id, $type)
     {
-        return CostEstimateHistory::where(['enquiry_id'=> $id, 'type'=> $type])
+        return CostEstimateHistory::with(['employee','role'])->where(['enquiry_id'=> $id, 'type'=> $type])
                 ->limit(20)  
                 ->orderBy('id','desc')       
                 ->get();

@@ -77,7 +77,8 @@ class TechEstimateController extends Controller
                 'enquiry_id'            => $enquiry->id,
                 'technical_estimate_id' => $technicalEstimate->id,
                 'history'               => $html,
-                'created_by'            => Admin()->id
+                'created_by'            => Admin()->id,
+                'role_id'               => Admin()->job_role,
             ];
             $this->storeTechEstimateHistory($data);
         }
@@ -135,10 +136,11 @@ class TechEstimateController extends Controller
     public function getHistory($id, $type)
     {
          
-        $history = TechnicalEstimateHistory::where('enquiry_id', $id)
+        $history = TechnicalEstimateHistory::with(['employee','role'])->where('enquiry_id', $id)
                                     ->limit(20)  
                                     ->orderBy('id','desc')
                                     ->get(); 
+                                    
         switch ($type) {
             case 'print':
                 $view = view('common.print-history-accordion',compact('history'));
