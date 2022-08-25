@@ -108,6 +108,7 @@ class ProposalController extends Controller
         } else {
             $result = $this->customerEnquiryRepo->sendCustomerProPosalMailVersion($id, $childVersion->proposal_id, null, $childVersion->id);
         }
+        $enquiry->is_new_enquiry = 1;
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'proposal_email_status');
         return $result;
     }

@@ -405,7 +405,7 @@ app.controller('EnqController', function ($scope, $http, API_URL, $compile) {
             }
         ],
         rowCallback: function( row, data ) {
-            if(data.response_status == 2){
+            if(data.is_new_enquiry == 1){
                 $(row).addClass('fw-bold bg-light');
             }
         },
