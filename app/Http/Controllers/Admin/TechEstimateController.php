@@ -8,10 +8,12 @@ use App\Models\EnquiryTechnicalEstimate;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
 use App\Interfaces\TechnicalEstimateRepositoryInterface;
+use App\Models\Admin\Employees;
 use Illuminate\Http\Response;
 use App\Models\Enquiry;
 use App\Models\TechnicalEstimateHistory;
 use App\Repositories\TechnicalEstimateRepository;
+use Illuminate\Support\Facades\Mail;
 
 class TechEstimateController extends Controller
 {
@@ -105,6 +107,13 @@ class TechEstimateController extends Controller
             $type = $request->type ?? '';
             $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status', false);
             $result = $this->technicalEstimate->assignUser($enquiry,$request->assign_to, $type);
+            $employee = Employees::find($request->assign_to);
+            $details = [
+                'name' => $employee->user_name,
+                'route' => route('technical-estimate.show', $enquiry->id),
+                'enquiry_number' => $enquiry->enquiry_number
+            ];
+            Mail::to($employee->email)->send(new \App\Mail\AssignTechnicalEstimation($details));
         }
         if($result){
             return response(['status' => true, 'msg' => __('enquiry.assign_user_successfully')]);

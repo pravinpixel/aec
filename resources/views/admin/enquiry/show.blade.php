@@ -1645,11 +1645,12 @@
                                     $totalEstimateSum += Number(Component.Rib.Sum * Component.TotalCost.PriceM2);
                                 }else {
                                     Component.Dynamics.forEach( (Dynamic, dynamicIndex) => {
-                                        Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += getNum(Dynamic.Sum);
+                                        Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum += Number(Dynamic.Sum);
                                         Estimates.ComponentsTotals.Dynamics[dynamicIndex].PriceM2 = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum / $totalSql_);
                                         $totalPrice += Number(Dynamic.PriceM2);
                                         $totalSum += Number(Dynamic.Sum);
                                         $totalEstimateSum += Number(Dynamic.Sum);
+                                        Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum = getNum(Estimates.ComponentsTotals.Dynamics[dynamicIndex].Sum);
                                     });
                                 }
                                 

@@ -1,6 +1,6 @@
 @component("mail::message")
 <div>
-    <h1> <center>CONFIRM YOUR SUBSCRIPTION</center> </h1>
+    <h3> <center>CONFIRM YOUR SUBSCRIPTION</center> </h3>
     <p>Hello <b>{{  $details['full_name']  }}</b>, <br></p>
     <p> Thanks for subscriping to the <b>AEC Prefab AS </b> Web Service. <br></p>
     <p>Please click the link below to confirm and activate yours subscription.</p>

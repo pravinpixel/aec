@@ -10,14 +10,14 @@ use App\Models\MasterCalculation;
 use Illuminate\Http\Request;
 use App\Interfaces\CustomerEnquiryRepositoryInterface;
 use App\Interfaces\DocumentTypeEnquiryRepositoryInterface;
+use App\Models\Admin\Employees;
 use Illuminate\Http\Response;
 use App\Models\BuildingComponent;
 use App\Models\CostEstimateHistory;
 use App\Models\Type;
 use App\Models\EnquiryCostEstimate;
 use App\Models\Enquiry;
-
-
+use Illuminate\Support\Facades\Mail;
 
 class  CostEstimateController extends Controller
 {
@@ -123,6 +123,13 @@ class  CostEstimateController extends Controller
             $type = $request->type ?? '';
             $enquiry = $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status', false);
             $result =  $this->costEstimate->assignUser($enquiry,$request->assign_to,  $type);
+            $employee = Employees::find($request->assign_to);
+            $details = [
+                'name' => $employee->user_name,
+                'route' => route('cost-estimate.show', $enquiry->id),
+                'enquiry_number' => $enquiry->enquiry_number
+            ];
+            Mail::to($employee->email)->send(new \App\Mail\AssignCostEstimation($details));
         }
         if($result){
             return response(['status' => true, 'msg' => __('enquiry.assign_user_successfully')]);

@@ -2,7 +2,7 @@
 <div class="text-center">
     <h2 class="text-center text-dark">Reset your Password</h2>
     <hr>
-    <p class="lead ">  
+    <p class="lead">  
         <b class="text-center text-secondary">
             <center>
                 We're sending you this email because you requested
@@ -22,7 +22,7 @@
         <p class="text-center">If you did not initiate this request, please contact us immediately at</p>
         <p class="text-center"><a href="mailto:support@aecprefab.net">support@aecprefab.net</a></p>
         <br>
-        <b>The Aec Prefab Team</b>
+        <b>The AecPrefab Team</b>
     </div>
 </div>
 @endcomponent
