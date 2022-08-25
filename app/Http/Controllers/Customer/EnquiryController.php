@@ -220,7 +220,7 @@ class EnquiryController extends Controller
             DB::beginTransaction();
             try {
                 $this->StoreTechnicalEstimation($data, $enquiry);
-                $this->StoreCostEstimation($data, $enquiry);
+                // $this->StoreCostEstimation($data, $enquiry);
                 $this->storeBuildingComponent($data, $enquiry);
 
                 DB::commit();
