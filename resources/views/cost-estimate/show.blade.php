@@ -37,12 +37,13 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" id="project_summary" ng-controller="ProjectSummaryController">
-                            @include("admin.enquiry.models.chat-box")
                             @include('cost-estimate.project-summary')
+                            @include("admin.enquiry.models.chat-box")
                         </div>
                         <div class="tab-pane show active" id="cost_estimate">
                             @include('cost-estimate.cost-estimate')
                         </div>
+                        @include('customer.enquiry.models.document-modal')
                     </div>
                 </div>
             </div> 
@@ -71,6 +72,16 @@
     app.controller('ProjectSummaryController', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id =  '{{ $enquiry_id }}';
             var enquiryId     =  '{{ $enquiry_id }}';
+            getAutoDeskFileTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("get-autodesk-file-type") }}'
+                }).then(function (res) {
+                    $scope.autoDeskFileType = res.data;
+                });
+            }
+            getAutoDeskFileTypes();
+
             getEnquiryCommentsCountById = (id) => {
                 $http({
                     method: "get",
@@ -304,7 +315,7 @@
                     a.document.close();
                     setTimeout(() => {
                         a.print(); 
-                    }, 1000);
+                    }, 2000);
                 }); 
             }
 
