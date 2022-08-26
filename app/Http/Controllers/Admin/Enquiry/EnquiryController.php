@@ -211,6 +211,10 @@ class EnquiryController extends Controller
                 $format = config('global.model_date_format');
                 return Carbon::parse($dataDb->enquiry_date)->format($format);
             })
+            ->editColumn('follow_up_date', function($dataDb) {
+                $format = config('global.model_date_format');
+                return Carbon::parse($dataDb->follow_up_date)->format($format);
+            })
             ->addColumn('pipeline', function($dataDb){
                 return '<div class="btn-group" ng-click=toggle("edit",'.$dataDb->id.')>
                 <button  class="btn progress-btn '.($dataDb->status == 'Submitted' ? "active": "").'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Initiation"></button> 
