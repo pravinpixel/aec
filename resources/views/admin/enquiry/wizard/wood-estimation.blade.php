@@ -1,5 +1,5 @@
 @include('admin.calculate-cost-estimate.wood-estimation')
-@if(userHasAccess('cost_estimate_add')) 
+{{-- @if(userHasAccess('cost_estimate_add'))  --}}
     <div class="row mx-0 align-items-center" >
         <div class="col-md-4 p-0">
             <span ng-show="cost_estimate.assign_for == 'verification' && cost_estimate.assign_for_status == 1" class="alert d-flex align-items-center m-0 shadow border-success border alert-success bg-transparent text-success" role="alert">
@@ -18,4 +18,4 @@
             </div>
         </div> 
     </div>
-@endif
+{{-- @endif --}}
