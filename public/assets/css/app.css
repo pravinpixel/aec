@@ -16546,6 +16546,30 @@ input[type=date]::-webkit-calendar-picker-indicator{
   color: black !important;
   font-weight: bold !important;
 }
-tr.font-weight-bold td {
+
+.font-weight-bold td {
   font-weight: bold !important;
+}
+.unattended-table-row {
+  background: #ffdde8 !important;
+}
+.unattended-table-row  th,
+.unattended-table-row  td,
+.unattended-table-row  span,
+.unattended-table-row  small,
+.unattended-table-row  a,
+.unattended-table-row  i {
+  font-weight:  bold !important;
+}
+
+.active-table-row {
+  background: #d3f7e3 !important;
+}
+.active-table-row  th,
+.active-table-row td,
+.active-table-row span,
+.active-table-row small,
+.active-table-row a,
+.active-table-row i {
+  font-weight:  bold !important;
 }

@@ -57,12 +57,12 @@
 } 
 .custom-accordion .table th {
     font-size: 12px !important;
-    font-weight: normal !important;
+    font-weight: normal;
     letter-spacing: 1px;
 }
 .custom-accordion .table td {
     font-size: 14px ;
-    font-weight: normal !important;
+    font-weight: normal ;
 }
 .comments-count {
     position: absolute;
