@@ -16546,3 +16546,6 @@ input[type=date]::-webkit-calendar-picker-indicator{
   color: black !important;
   font-weight: bold !important;
 }
+tr.font-weight-bold td {
+  font-weight: bold !important;
+}
