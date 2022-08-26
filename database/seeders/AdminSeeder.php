@@ -17,11 +17,11 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $admin = Employees::create([
-            'first_name' => 'aec',
-            'last_name' => 'admin',
-            'user_name' => 'aecprefab admin',
-            'display_name' => 'aecprefab admin',
-            'email' => 'admin@aecprefab.net',
+            'first_name' => 'Arun',
+            'last_name' => 'kalyan',
+            'user_name' => 'arun',
+            'display_name' => 'Arun kalyan',
+            'email' => 'arun.kalyan@aecprefab.net',
             'password' => Hash::make('12345678'),
             'mobile_number' => '98786756',
             // 'share_access' => 1, 
@@ -33,11 +33,11 @@ class AdminSeeder extends Seeder
             'reference_number' => 'EMP-1',
         ]);
         $admin = Employees::create([
-            'first_name' => 'aecadmnusr',
-            'last_name' => '2',
-            'user_name' => 'Alan',
-            'display_name' => 'Alan',
-            'email' => 'aecadmnusr1@gmail.com',
+            'first_name' => 'Super',
+            'last_name' => 'Admin',
+            'user_name' => 'Admin',
+            'display_name' => 'Super Admin',
+            'email' => 'admin@aecprefab.net ',
             'password' => Hash::make('12345678'),
             'mobile_number' => '98786757',
             // 'share_access' => 1, 
