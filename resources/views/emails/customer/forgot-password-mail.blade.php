@@ -20,7 +20,7 @@
     <h4><b> {{ $data['code'] }} </b></h4>
     <div class="text-center">
         <p class="text-center">If you did not initiate this request, please contact us immediately at</p>
-        <p class="text-center"><a href="mailto:support@aecprefab.net">support@aecprefab.net</a></p>
+        <p class="text-center"><a href="mailto:support@aecprefab.net">{{ env('FOOTER_EMAIL') }}</a></p>
         <br>
         <b>The AecPrefab Team</b>
     </div>

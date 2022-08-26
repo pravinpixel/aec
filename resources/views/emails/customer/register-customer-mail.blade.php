@@ -6,7 +6,7 @@
     <p>Please click the link below to confirm and activate yours subscription.</p>
     <p>You will be able to update your preferences at anytime  <br><br></p> 
     <p>See you soon  <br></p>  
-    <p> <b>AEC Prefab AS </b></p>
+    <p> <b>AECPrefab AS </b></p>
     @component('mail::button', ['url' => $details['route']]) Sign me up @endcomponent
 </div>
 @endcomponent

@@ -8,8 +8,8 @@
     <p><br><strong>Kindly use this username and password to login</strong></p>
     <a href="{{ route("customers-enquiry-dashboard")}}">Upload your project information</a>
     <p><br>For any information contact us</p>
-    <p>04321 - 56789</p>
-    <p><a href="">aecprefab@gmail.com</a></p>
+    <p>{{ env('FOOTER_COMPANY_CONTACT') }}</p>
+    <p><a href="">{{ env('FOOTER_EMAIL') }}</a></p>
     <center><b>Thank you</b></center>
 </div>
 @endcomponent
