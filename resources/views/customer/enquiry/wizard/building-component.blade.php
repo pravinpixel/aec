@@ -32,7 +32,7 @@
                 <div class="d-flex my-2 mx-auto bg-primary shadow justify-content-center align-items-center rounded-circle" style="height: 100px;width:100px">
                     <i class="fa fa-file-text text-white fa-3x"></i>
                 </div>
-                <input type="file" class="form-control col-lg-8 mx-auto  file-control rounded-pill mb-2" id ="building-component-file" file-model ="building_component_file" required />
+                <input type="file" class="form-control col-lg-8 mx-auto  file-control rounded-pill mb-2" id ="building-component-file"  accept="{{ implode(',',config('global.upload_file_extension')) }}" file-model ="building_component_file" required />
                 <button ng-click = "uploadBuildingComponentFile()" class=" col-lg-8 mx-auto btn btn-info form-control rounded-pill"> Upload file</button>
             </div>
             @include('customer.enquiry.table.building-component-upload-list')
