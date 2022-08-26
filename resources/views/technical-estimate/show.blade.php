@@ -37,15 +37,15 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" id="project_summary" ng-controller="ProjectSummaryController">
-                            @include("admin.enquiry.models.chat-box")
                             @include('technical-estimate.project-summary')
+                            @include("admin.enquiry.models.technical-estimation-chat-box") 
+                            @include("admin.enquiry.models.chat-box")
                         </div>
                         <div class="tab-pane show active" id="technical_estimate" ng-controller="TechEstimateController">
                             @include("admin.enquiry.models.assign-technical-estimation-chat-box") 
                             @include('technical-estimate.technical-estimate')
-                          
                         </div>
-                      
+                        @include('customer.enquiry.models.document-modal')
                     </div>
                 </div>
             </div> 
@@ -74,6 +74,15 @@
     app.controller('ProjectSummaryController', function ($scope, $http, API_URL,  $location) {
             $scope.enquiry_id =  '{{ $enquiry_id }}';
             var enquiryId     =  '{{ $enquiry_id }}';
+            getAutoDeskFileTypes = () => {
+                $http({
+                    method: 'GET',
+                    url: '{{ route("get-autodesk-file-type") }}'
+                }).then(function (res) {
+                    $scope.autoDeskFileType = res.data;
+                });
+            }
+            getAutoDeskFileTypes();
             getEnquiryCommentsCountById = (id) => {
                 $http({
                     method: "get",
@@ -247,15 +256,7 @@
                 });
             }
             getUsers();
-            getAutoDeskFileTypes = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("get-autodesk-file-type") }}'
-                }).then(function (res) {
-                    $scope.autoDeskFileType = res.data;
-                });
-            }
-            getAutoDeskFileTypes();
+           
             $scope.printTechnicalEstimate = () => {
                 $http.get(`${API_URL}technical-estimate/get-history/${$scope.enquiry_id}/print`).then((res) => {
                     let currentTable        =   $("#root_technical_estimate").html();

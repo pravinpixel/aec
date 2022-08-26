@@ -46,6 +46,33 @@
         </tr>
     </tbody>                     
 </table> 
+<table ng-show="project_info.building_component_process_type == 1" class="table custom custom table-hover">
+    <thead>
+        <tr>
+            <th><b>S.No</b></th>
+            <th><b>Date</b></th>
+            <th><b>File Name</b></th>
+            <th><b>File Type</b></th>
+            <th class="text-center" width="150px"><b>Action</b></th>
+        </tr>
+        <tbody>
+            <tr ng-show="building_components.length" ng-repeat="building_component in building_components">
+                <td> @{{ $index + 1}} </td>
+                <td> @{{ building_component.created_at }}</td>
+                <td> @{{ building_component.file_name }}</td>
+                <td> @{{ building_component.file_type }}</td>
+                <td class="text-center">
+                    <a download="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
+                    <a href="javascript:void(0)" ng-click="getDocumentViews(building_component) "data-url="{{ url('/') }}/get-enquiry-document/@{{ buildingComponentUpload.id }}"><i class="document-modal fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                    {{-- <a target="_blank" href="{{ asset("public/uploads/") }}/@{{ building_component.file_path }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a> --}}
+                </td>
+            </tr>
+            <tr ng-show="!building_components.length && !building_component.detail.length">
+                <td colspan="4"> No data found </td>
+            </tr>
+        </tbody>
+    </thead>
+</table> 
 <form id="building_component__commentsForm" ng-submit="sendComments('building_components','Admin', enqData.customer_info.id)" class="input-group mt-3">
     <input required type="text" ng-model="building_components__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
