@@ -574,7 +574,7 @@ class EnquiryController extends Controller
     public function getActiveCommentsCount()
     {
         $comments = DB::select("
-            select sum(c.total) as count  from (
+            select sum(c.total) as active_count  from (
                 select count(*) as total from aec_propoal_versions 
                                 where status in ('denied','approved','obsolete') 
                                 and enquiry_id in (select id from aec_enquiries ae where project_id is null)
@@ -585,7 +585,11 @@ class EnquiryController extends Controller
                         and enquiry_id in  (select id from aec_enquiries ae where project_id is null)
             ) as c
         ")[0];
-        return $comments;
+
+        $unestablishedCount = DB::select("
+        select count(*) as unestablished_count from aec_enquiries ae where status = 'Submitted' and project_status = 'Unattended' and is_new_enquiry = 1
+        ")[0];
+        return [$comments, $unestablishedCount];
     }
 
     public function getVersion()

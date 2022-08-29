@@ -23,6 +23,9 @@
             @case('active-enquiries')
                 <span id="active-count" class="comments-count" style="transform: translateY(-10px) !important;">@{{ commentsCount }}</span>
             @break
+            @case('unattended-enquiries')
+                <span id="unestablished-count" class="comments-count" style="transform: translateY(-10px) !important;">@{{ commentsCount }}</span>
+            @break
             @case('milestone')
             <small class="comments-count" ng-if="project_active_comments.milestone > 0"> @{{ project_active_comments.milestone }}</small>
             @break
