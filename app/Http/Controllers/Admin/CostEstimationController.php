@@ -321,7 +321,7 @@ class CostEstimationController extends Controller
         $data->cad_cam_sum = 0;
         $data->logistic_price = 0;
         $data->logistic_sum = 0;
-
+        $data->total_sum = 0;
         $data->status = 2;
         $data->update();
         // $data->delete();
