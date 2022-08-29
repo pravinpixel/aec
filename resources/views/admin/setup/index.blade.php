@@ -28,7 +28,7 @@
                     <div class="card border shadow-sm">
                         <div class="card-body p-2">
                             <ul class="nav nav-tabs nav-bordered mb-2">
-                                <li class="nav-item"><a class="nav-link {{ Route::is(['setup.roles','setup.permissions','setup.wood-estimation','setup.wood-estimation-cost-preset','setup.precast-estimation','setup.precast-estimation-cost-preset','setup.check-list'])  ? 'setup-active' : '' }}">Admin</a></li>
+                                <li class="nav-item"><a class="nav-link {{ Route::is(['setup.roles','setup.permissions','setup.wood-estimation','setup.wood-estimation-cost-preset','setup.precast-estimation','setup.precast-estimation-cost-preset','setup.check-list','setup.check-sheet'])  ? 'setup-active' : '' }}">Admin</a></li>
                                 <li class="nav-item"><a class="nav-link">Customer</a></li>
                                 <li class="nav-item"><a class="nav-link">Vendor</a></li>
                                 <li class="nav-item"><a class="nav-link">Employee</a></li>
@@ -42,7 +42,7 @@
                                             <a class="nav-link text-secondary {{ Route::is(['setup.wood-estimation','setup.wood-estimation-cost-preset'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.wood-estimation') }}">Wood Estimation</a>
                                             <a class="nav-link text-secondary {{ Route::is(['setup.precast-estimation','setup.precast-estimation-cost-preset'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.precast-estimation') }}">Precast Estimation</a>
                                             <a class="nav-link text-secondary {{ Route::is(['setup.check-list'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-list') }}">Check Sheets</a>
-                                            <a class="nav-link text-secondary" href="#">Check Sheet Setup</a>
+                                            <a class="nav-link text-secondary {{ Route::is(['setup.check-sheet'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-sheet') }}">Check Sheet Setup</a>
                                         </div>
                                     </div>
                                     <div class="col-sm-10 ps-3">

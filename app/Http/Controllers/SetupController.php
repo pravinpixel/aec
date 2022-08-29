@@ -79,4 +79,8 @@ class SetupController extends Controller
     {
         return  view('admin.setup.check-sheets.check-list');
     }
+    public function check_sheet()
+    {
+        return  view('admin.setup.check-sheets.check-sheet');
+    }
 }
