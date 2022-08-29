@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SetupController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/setup', function () {
@@ -7,7 +8,5 @@ Route::get('admin/setup', function () {
 })->name('admin-settings');
 
 Route::prefix('admin/setup')->middleware('common')->group(function () {
-    Route::get('/role-and-permission', function () {
-        return  view('admin.setup.role-permission.index');
-    })->name('setup.role-permission');
+    Route::get('/role-and-permission',[SetupController::class, 'role_permission_index'])->name('setup.role-permission');
 });

@@ -134,6 +134,7 @@
 
         <!--  Push Scripts  -->        
         @stack('custom-scripts')
+         
         <script>
             function goBack() {
                 window.history.back();

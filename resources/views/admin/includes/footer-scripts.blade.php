@@ -39,12 +39,13 @@
 <script src="{{ asset("public/custom/js/ngControllers/alerts.js") }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- ========= For Vendors Js ===========-->
 
 
 <script src="{{ asset('public/assets/js/vendor/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
-{{-- <script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script> --}}
+<script src="{{ asset('public/assets/js/vendor/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/responsive.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/buttons.bootstrap5.min.js') }}"></script>

@@ -37,7 +37,7 @@
                             <label for="switch__@{{index}}" data-on-label="On" ng-click="checkItRole(index, m.id)" data-off-label="Off"></label>
                         </div>
                         <span ng-if="m.status == 1" class="d-none">1</span>              
-                        <span ng-if="m.status == 0" class="d-none">0</span>              
+                        <span ng-if="m.status == 0" class="d-none">0</span>
                     </td>
                     <td>
                         <div class="btn-group">

@@ -38,7 +38,7 @@
                                 <div class="row m-0">
                                     <div class="col-sm-2 ps-0 border-end">
                                         <div class="nav flex-column">
-                                            <a class="nav-link setup-link-active" href="#">Roles & Permissions</a>
+                                            <a class="nav-link setup-link-active" href="{{ route('setup.role-permission') }}">Roles & Permissions</a>
                                             <a class="nav-link text-secondary" href="#">Wood Estimation</a>
                                             <a class="nav-link text-secondary" href="#">Precast Estimation</a>
                                             <a class="nav-link text-secondary" href="#">Check Sheets</a>
@@ -56,4 +56,12 @@
             </div>
         </div>
     </div> 
-@endsection 
+@endsection  
+@push('custom-styles')
+    <style>
+        .swal2-actions {
+            margin: 0 25px 0 0 !important;
+            justify-content: end !important
+        }
+    </style>
+@endpush
