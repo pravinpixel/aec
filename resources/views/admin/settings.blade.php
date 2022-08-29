@@ -842,15 +842,15 @@
 
                 var url = API_URL + "role";
                 $http({
-                        method: 'GET',
-                        url: url,
-                    }).then(function (response) {
-                        $scope.check_permission_master = response.data;
-                        $scope.check_permission_master.splice(0,1);
-                    }, function (error) {
-                        console.log(error);
-                        console.log('This is embarassing. An error has occurred. Please check the log for details');
-                    });
+                    method: 'GET',
+                    url: url,
+                }).then(function (response) {
+                    $scope.check_permission_master = response.data;
+                    $scope.check_permission_master.splice(0,1);
+                }, function (error) {
+                    console.log(error);
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
             }
           
             $scope.changePermission = (data) =>{   

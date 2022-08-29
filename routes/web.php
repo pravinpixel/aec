@@ -14,6 +14,7 @@ include 'cost_estimate.php';
 include 'technical_estimate.php';
 include 'live-project.php';
 include 'employee.php';
+include 'setup.php';
 
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -60,6 +61,7 @@ Route::prefix('admin')->middleware('common')->group(function () {
     // Route::get('/', function () {
     //     return redirect(route('admin.login'));
     // });
+   
     Route::get('/settings', function () {
         return  view('admin.settings');
     })->name('admin-settings');

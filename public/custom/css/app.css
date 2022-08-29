@@ -21,6 +21,16 @@
 .text-black {
     color: black !important;
 }
+.nav-link.setup-active {
+    border-bottom: 2px solid var(--primary-bg) !important;
+    color: var(--primary-bg) !important;
+    font-weight: bold !important;
+}
+.nav-link.setup-link-active {
+    border-left: 2px solid var(--primary-bg) !important;
+    color: black;
+    font-weight: bold !important;
+}
 
 .m_two_cross {
     padding: 18px;
