@@ -3,10 +3,10 @@
     <section ng-controller="WoodEstimateController">
         <ul class="nav nav-tabs mb-3">
             <li class="nav-item">
-                <a href="{{ route('setup.roles') }}" class="nav-link active fw-bold text-primary">Service</a>
+                <a href="{{ route('setup.wood-estimation') }}" class="nav-link active fw-bold text-primary">Service</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('setup.permissions',1) }}" class="nav-link">Cost Preset</a>
+                <a href="{{ route('setup.wood-estimation-cost-preset') }}" class="nav-link">Cost Preset</a>
             </li>
         </ul>
         <div class="text-end mb-2">

@@ -28,7 +28,7 @@
                     <div class="card border shadow-sm">
                         <div class="card-body p-2">
                             <ul class="nav nav-tabs nav-bordered mb-2">
-                                <li class="nav-item"><a class="nav-link {{ Route::is(['setup.roles','setup.permissions'])  ? 'setup-active' : '' }}">Admin</a></li>
+                                <li class="nav-item"><a class="nav-link {{ Route::is(['setup.roles','setup.permissions','setup.wood-estimation','setup.wood-estimation-cost-preset'])  ? 'setup-active' : '' }}">Admin</a></li>
                                 <li class="nav-item"><a class="nav-link">Customer</a></li>
                                 <li class="nav-item"><a class="nav-link">Vendor</a></li>
                                 <li class="nav-item"><a class="nav-link">Employee</a></li>
@@ -39,7 +39,7 @@
                                     <div class="col-sm-2 p-0 border-end bg-light">
                                         <div class="nav flex-column">
                                             <a class="nav-link text-secondary {{ Route::is(['setup.roles','setup.permissions'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.roles') }}">Roles & Permissions</a>
-                                            <a class="nav-link text-secondary" href="{{ route('setup.wood-estimation') }}">Wood Estimation</a>
+                                            <a class="nav-link text-secondary  {{ Route::is(['setup.wood-estimation','setup.wood-estimation-cost-preset'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.wood-estimation') }}">Wood Estimation</a>
                                             <a class="nav-link text-secondary" href="#">Precast Estimation</a>
                                             <a class="nav-link text-secondary" href="#">Check Sheets</a>
                                             <a class="nav-link text-secondary" href="#">Check Sheet Setup</a>
@@ -58,12 +58,7 @@
     </div> 
 @endsection  
 @push('custom-styles')
-    <style>
-        .swal2-actions {
-            margin: 0 25px 0 0 !important;
-            justify-content: end !important
-        }
-    </style>
+    <style> .swal2-actions { margin: 0 25px 0 0 !important; justify-content: end !important }</style>
 @endpush
 @push('custom-scripts')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -63,4 +63,8 @@ class SetupController extends Controller
     {  
         return  view('admin.setup.wood-estimation.index');
     }
+    public function wood_estimation_cost_preset (Request $request)
+    {  
+        return  view('admin.setup.wood-estimation.cost-preset');
+    }
 }
