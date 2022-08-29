@@ -629,6 +629,7 @@
                                             logistic_price:0,
                                             logistic_sum: 0,
                                             total_price:0,
+                                            total_sum:0,
                                             status: 2
                                         }
                                     }
