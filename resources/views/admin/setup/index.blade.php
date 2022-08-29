@@ -27,7 +27,7 @@
                 <section>
                     <div class="card border shadow-sm">
                         <div class="card-body p-2">
-                            <ul class="nav nav-tabs nav-bordered mb-3">
+                            <ul class="nav nav-tabs nav-bordered mb-2">
                                 <li class="nav-item"><a class="nav-link setup-active">Admin</a></li>
                                 <li class="nav-item"><a class="nav-link">Customer</a></li>
                                 <li class="nav-item"><a class="nav-link">Vendor</a></li>
@@ -36,16 +36,16 @@
                             </ul> <!-- end nav-->
                             <div class="tab-content">
                                 <div class="row m-0">
-                                    <div class="col-sm-2 ps-0 border-end">
+                                    <div class="col-sm-2 p-0 border-end bg-light">
                                         <div class="nav flex-column">
-                                            <a class="nav-link setup-link-active" href="{{ route('setup.role-permission') }}">Roles & Permissions</a>
+                                            <a class="nav-link setup-link-active" href="{{ route('setup.roles') }}">Roles & Permissions</a>
                                             <a class="nav-link text-secondary" href="#">Wood Estimation</a>
                                             <a class="nav-link text-secondary" href="#">Precast Estimation</a>
                                             <a class="nav-link text-secondary" href="#">Check Sheets</a>
                                             <a class="nav-link text-secondary" href="#">Check Sheet Setup</a>
                                         </div>
                                     </div>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-10 ps-3">
                                         @yield('setup-content')
                                     </div> <!-- end col-->
                                 </div>

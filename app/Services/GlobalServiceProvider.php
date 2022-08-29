@@ -183,12 +183,12 @@ class GlobalServiceProvider extends Controller
     {
         $row = '';
         if($is_disable) {
-            $row .= "<td class='font-weight-bold'> <span class='".config('permission.permission_styles')[$this->root_name]."'>".permissionHeader( $this->root_name )." </span></td>";
+            $row .= "<td class='text-primary-2'> <span class='".config('permission.permission_styles')[$this->root_name]."'>".permissionHeader( $this->root_name )." </span></td>";
         }
         $row .= "<td class='text-center'>
                         <div class='icheckbox_square-blue checked'>
                             <div class='checkbox'> <input ng-model='permissionForm.".$permission."' type='checkbox'
-                                    class='form-check-input view_checkbox' value='1'
+                                    class='form-check-input border-dark border view_checkbox' value='1'
                                     id='sale_index'  name='".$permission."'  />
                                 <label for='sales-index'></label>
                             </div>

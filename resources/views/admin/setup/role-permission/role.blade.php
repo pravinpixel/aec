@@ -1,6 +1,14 @@
 @extends('admin.setup.index')
 @section('setup-content')
     <section>
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <a href="{{ route('setup.roles') }}" class="nav-link active fw-bold text-primary">Role</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('setup.permissions',1) }}" class="nav-link">Permissions</a>
+            </li>
+        </ul>
         <table class="table" id="setup-table">
             <thead>
                 <th>S.No</th>
@@ -15,12 +23,12 @@
 @push('custom-scripts')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
-        const APP_URL  = "{{ url('/') }}";
+        const APP_URL   = "{{ url('/') }}";
         const TOKEN   = "{{ csrf_token() }}";
         const table   = $('#setup-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('setup.role-permission') }}",
+            ajax: "{{ route('setup.roles') }}",
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
@@ -31,7 +39,7 @@
         reload = () => table.ajax.reload();
 
         $('.dataTables_filter').append(`
-            <a class="btn btn-primary btn-sm ms-2">+ Add</a>
+            <button onclick="createRole()" class="btn btn-primary btn-sm ms-2">+ Add</button>
         `)
 
         changeStatus = (id) => {
@@ -45,6 +53,36 @@
             }).then(response => response.json()).then(response => {
                 Message('success', response.msg)
                 reload()
+            });
+        }
+        createRole = () => {
+            Swal.fire({
+                showConfirmButton: false,
+                html: `
+                    <div>
+                        <h3 class="text-primary">Create Role</h3>
+                        <hr/>
+                        <div class="text-start">
+                            <div class="row mb-3 mx-0 align-items-center">
+                                <span class="col-3 fw-bold font-14">Role Name</span>
+                                <div class="col-9">
+                                    <input type="name" id="role_name" name="role_name" class="form-control" placeholder="Enter here.."  required>
+                                </div>
+                            </div>
+                            <div class="row mx-0 align-items-center">
+                                <span class="col-3 fw-bold font-14">Role Status</span>
+                                <div class="col-9">
+                                    <input type="checkbox"name="role_status" id="role_status" value="1" checked data-switch="success" />
+                                    <label for="role_status" data-on-label="On" data-off-label="Off"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="text-end">
+                            <button onclick="storeRole()" class="btn btn-primary me-auto rounded-pill">Submit</button>    
+                        </div>
+                    </div>
+                `,
             });
         }
         editRole = (e, id) => {
@@ -71,13 +109,13 @@
                         </div>
                         <hr/>
                         <div class="text-end">
-                            <button onclick="storeRole(${id})" class="btn btn-primary me-auto rounded-pill">Submit</button>    
+                            <button onclick="updateRole(${id})" class="btn btn-primary me-auto rounded-pill">Submit</button>    
                         </div>
                     </div>
                 `,
             });
         }
-        storeRole = (id) => {
+        updateRole = (id) => {
             var role_name   =   document.getElementById('role_name').value
             fetch(`${APP_URL}/role/${id}`, {
                 method: 'PUT',
@@ -89,8 +127,35 @@
             }).then(response => response.json()).then(response => {
                 Message('success', response.msg)
                 reload()
-                console.log("Swal.close();")
                 Swal.close();
+            });
+        }
+        storeRole = () => {
+            var role_name       =   document.getElementById('role_name').value
+            var role_status     =   document.getElementById('role_status').value
+            if(role_name == '' || role_name == null || role_name == undefined) {
+                Message('info', 'Role name is Required !') 
+                return false 
+            }
+
+            fetch(`${APP_URL}/role`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json",
+                    'X-CSRF-TOKEN': TOKEN
+                },
+                body: JSON.stringify({name  : role_name,status  : role_status})
+            }).then(response => response.json()).then(response => {
+                if(response.msg !== undefined) {
+                    Message('success', response.msg)
+                } else {
+                    Message('danger', response.errors.name[0])
+                }
+                reload()
+                Swal.close();
+            }).catch(error => {
+                console.error('There was an error!', error);
             });
         }
         deleteRole = (id) => {  
@@ -102,7 +167,7 @@
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    fetch(`${API_URL}/role/${id}`, {
+                    fetch(`${APP_URL}/role/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',

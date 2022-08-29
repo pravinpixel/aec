@@ -30,8 +30,11 @@
     border-left: 2px solid var(--primary-bg) !important;
     color: black;
     font-weight: bold !important;
+    box-shadow: 0 0 10px #cecbcb;
 }
-
+.bg-primary-light {
+    background: #4199FC !important;
+}
 .m_two_cross {
     padding: 18px;
 }

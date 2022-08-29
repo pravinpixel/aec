@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\RoleRepositoryInterface;
 use App\Models\Role;
+use Exception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,7 +14,7 @@ class SetupController extends Controller
     {
         $this->roleRepository = $roleRepository;
     }
-    public function role_permission_index(Request $request)
+    public function role_index(Request $request)
     { 
         if ($request->ajax() == true) {
             $data   = Role::select('*');
@@ -37,6 +38,25 @@ class SetupController extends Controller
             ->rawColumns(['action','status'])
             ->make(true);
         }
-        return  view('admin.setup.role-permission.index');
+        return  view('admin.setup.role-permission.role');
+    }
+    public function permission_index(Request $request,$id)
+    { 
+        try {
+            $li_role_data = Role::find($id);
+            $appPermissions = config('permission.permissions');
+            if (!empty($li_role_data)) {
+                $permissions = Role::findByName($li_role_data->name)->permissions;
+                foreach ($permissions as $permission)
+                    $all_permission[] = $permission->name;
+                if (empty($all_permission))
+                    $all_permission[] = [];
+                $check_permission_master = Role::all();
+                return view('admin.setup.role-permission.permission', compact('check_permission_master','li_role_data', 'appPermissions', 'all_permission'));
+            } else
+                return  response(['status' => false, 'msg' => __('global.item_not_found')]);
+        } catch (Exception $ex) {
+            return  response(['status' => false, 'msg' => __('global.something')]);
+        } 
     }
 }

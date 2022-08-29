@@ -856,8 +856,8 @@
           
             $scope.changePermission = (data) =>{   
            
-            $location.path('permission/'+data);
-            $scope.check_permission = data;
+                $location.path('permission/'+data);
+                $scope.check_permission = data;
             
             }
             
