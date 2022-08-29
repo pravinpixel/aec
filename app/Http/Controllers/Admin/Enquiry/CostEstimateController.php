@@ -103,8 +103,8 @@ class  CostEstimateController extends Controller
         }
         if(Admin()->id == $costEstimate->assign_by || Admin()->id == 1){
             $this->costEstimate->assignUser($enquiry, Admin()->id);
-            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         } 
+        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 
