@@ -121,11 +121,11 @@ class WoodEstimateController extends Controller
                 [
                     'building_component_id'=> '',
                     'type_id'=> '',
-                    'DesignScope'=> 0,
+                    'DesignScope'=> 100,
                     "Component"     => "",
                     "Type"          => "", 
                     "Sqm"           => 0,
-                    "Complexity"    => 0, 
+                    "Complexity"    => 1, 
                     'Dynamics'=> [],
                     "TotalCost" => [
                         "PriceM2"   => 0, 

@@ -129,18 +129,18 @@
                 <table class="table custom custom custom-table table-hover table-s" id="table11" >
                     <thead>
                         <tr>
-                            <th style="padding: 0 5px !important"><small>S.No</small> </th>
-                            <th style="padding: 0 5px !important"><small>Component</small> </th>
-                            <th style="padding: 0 5px !important"><small>Type of Delivery</small> </th>
-                            <th style="padding: 0 5px !important"><small>Details Price</small> </th>
-                            <th style="padding: 0 5px !important"><small>Details Sum</small> </th>
-                            <th style="padding: 0 5px !important"><small>Statistics Price</small> </th>
-                            <th style="padding: 0 5px !important"><small>Statistics Sum</small> </th>
-                            <th style="padding: 0 5px !important"><small>CAD/CAM Price</small> </th>
-                            <th style="padding: 0 5px !important"><small>CAD/CAM Sum</small> </th>
-                            <th style="padding: 0 5px !important"><small>Logistics Price</small> </th>
-                            <th style="padding: 0 5px !important"><small>Logistics Sum</small> </th>
-                            <th style="padding: 0 5px !important"><small>Action</small> </th>
+                            <th><small>S.No</small> </th>
+                            <th><small>Component</small> </th>
+                            <th><small>Type of Delivery</small> </th>
+                            <th><small>Details Price</small> </th>
+                            {{-- <th><small>Details Sum</small> </th> --}}
+                            <th><small>Statistics Price</small> </th>
+                            {{-- <th><small>Statistics Sum</small> </th> --}}
+                            <th><small>CAD/CAM Price</small> </th>
+                            {{-- <th><small>CAD/CAM Sum</small> </th> --}}
+                            <th><small>Logistics Price</small> </th>
+                            <th><small>Sum</small> </th>
+                            <th><small>Action</small> </th>
                         </tr>
                     </thead> 
                     <tbody> 
@@ -157,29 +157,29 @@
                            <td class="text-left wood_estimation_td">
                                 <input class="wood_estimation_td_data" update-master="calculation" min="0" type="number" ng-model="calculation.detail_price" > 
                             </td>
-                            <td class="text-left wood_estimation_td">
+                            {{-- <td class="text-left wood_estimation_td">
                                 <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.detail_sum"> 
-                            </td>
+                            </td> --}}
                             <td class="text-left wood_estimation_td">
                                 <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.statistic_price" > 
                             </td>
-                            <td class="text-left wood_estimation_td">
+                            {{-- <td class="text-left wood_estimation_td">
                                 <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.statistic_sum"> 
-                            </td>
+                            </td> --}}
                             <td class="text-left wood_estimation_td">
                                 <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.cad_cam_price" > 
                             </td>
                         
-                            <td class="text-left wood_estimation_td">
+                            {{-- <td class="text-left wood_estimation_td">
                                 <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.cad_cam_sum"> 
+                            </td> --}}
+
+                            <td class="text-left wood_estimation_td">
+                                <input class="wood_estimation_td_data text-left" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_price"> 
                             </td>
 
                             <td class="text-left wood_estimation_td">
-                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_price"> 
-                            </td>
-
-                            <td class="text-left wood_estimation_td">
-                                <input class="wood_estimation_td_data" update-master="calculation"  min="0" type="number" ng-model="calculation.logistic_sum"> 
+                                <span> @{{ calculation.total_sum }}</span>
                             </td>
 
                             <td class="text-left wood_estimation_td">

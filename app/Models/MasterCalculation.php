@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class MasterCalculation extends Model
 {
     use HasFactory, SoftDeletes;
@@ -31,4 +32,12 @@ class MasterCalculation extends Model
         'total_price',
         'total_sum'
     ];
+
+    public function setTotalSumAttribute() {
+        $columns = config('global.master_calculation_column');
+        $totals = collect($columns)->map(function($item, $key){
+           return $this->attributes[$item];
+        });
+        $this->attributes['total_sum'] = $totals->sum();
+    }
 }

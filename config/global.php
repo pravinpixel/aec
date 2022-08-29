@@ -154,4 +154,10 @@ return [
         '10' => 'Building Type 10'
     ],
 
+    'master_calculation_column' => [
+        'detail_price',
+        'statistic_price',
+        'cad_cam_price',
+        'logistic_price',
+    ],
 ];
