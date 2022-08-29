@@ -223,7 +223,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry = $this->getEnquiryByID($id);
         $version = 'R0';
         $details = [ 
-            'name'        => $enquiry->customer->contact_person ?? '',
+            'name'        => $enquiry->customer->full_name ?? $enquiry->customer->contact_person,
             'email'       => $enquiry->customer->email,
             'projectName' => $enquiry->project_name,
             'enquiryNo'   => $enquiry->enquiry_number,

@@ -40,7 +40,12 @@
                         </div> 
                         <div class="my-3 col-md-6">
                             <label for="mobile_no" class="form-label text-secondary">Mobile no <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="mobile_no" id="mobile_no" value="{{ old('mobile_no') }}"  required placeholder="Enter mobile no">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">+47</div>
+                                </div>
+                                <input class="form-control" type="text" name="mobile_no" id="mobile_no" pattern="{{ config('global.mobile_no_pattern') }}" value="{{ old('mobile_no') }}"  required placeholder="Enter mobile no">
+                              </div>
                             @if($errors->has('mobile_no'))
                                 <span class="text-danger my-2">{{ $errors->first('mobile_no') }}</span>
                             @endif
