@@ -3,7 +3,7 @@
         <div class="btn-group col-4 p-2 px-3 rounded-pill border border-primary shadow mx-auto align-items-center">
             <span class="me-1"><strong class="text-primary">Share Point Access</strong></span>
             <div class="ms-auto">
-                <input type="checkbox" id="switch__@{{ index }}"  ng-change="sharePoint_status(share_access)" ng-model="share_access"  ng-checked="share_access == 1" data-switch="primary"/>
+                <input type="checkbox" id="switch__@{{ index }}"  ng-change="sharePoint_status(share_access)" ng-model="share_access"  ng-checked="share_access == 1" data-switch="success"/>
                 <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>  
             </div>
         </div>
@@ -26,7 +26,7 @@
                         <td class="text-center">
                             <div>
                                 <input type="checkbox" id="switch__@{{ index }}" ng-disabled="share_access ==0" ng-checked="employee.is_active == 1"
-                                ng-change="employee_status(share_access,employee.status,employee.data_name)" ng-model="employee.status" data-switch="primary"/>
+                                ng-change="employee_status(share_access,employee.status,employee.data_name)" ng-model="employee.status" data-switch="success"/>
                                 <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                             </div>          
                         </td>                    

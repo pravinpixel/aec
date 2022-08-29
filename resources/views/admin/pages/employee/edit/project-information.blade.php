@@ -89,6 +89,6 @@
     </div> 
 </form>   
 <div class="card-footer text-end mt-3 pt-3">
-    <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+    <button type="reset" class="btn btn-outline-danger font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
     <button  ng-click="update(modalstate, id);"  class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Next </button>
 </div> 

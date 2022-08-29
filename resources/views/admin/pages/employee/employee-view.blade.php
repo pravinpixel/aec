@@ -177,7 +177,7 @@
                                                         <td class="text-center">@{{ employee.folder_name }}</td>
                                                         <td class="text-center">
                                                             <div>
-                                                                <input type="checkbox" id="switch__@{{ index }}" abled="true" ng-disabled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
+                                                                <input type="checkbox" id="switch__@{{ index }}" abled="true" ng-disabled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="success"/>
                                                                 <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                                             </div>          
                                                         </td>                    
@@ -221,7 +221,7 @@
                                                     <td class="text-center">@{{ employee.folder_name }}</td>
                                                     <td class="text-center">
                                                         <div>
-                                                            <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
+                                                            <input type="checkbox" id="switch__@{{ index }}" abled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="success"/>
                                                             <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                                         </div>          
                                                     </td>                    

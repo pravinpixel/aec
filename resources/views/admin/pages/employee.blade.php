@@ -28,7 +28,7 @@
 
             <div>@{{epm_fname}}</div>
             <div class="text-end mt-3">
-                <button type="reset" class="btn btn-outline-secondary "><i class="fa fa-ban "></i> Cancel</button>
+                <button type="reset" class="btn btn-outline-danger "><i class="fa fa-ban "></i> Cancel</button>
                 <button ng-click="submit()"class="btn btn-primary "><i class="fa fa-check-circle "></i> Send </button>
             </div>
         </form>

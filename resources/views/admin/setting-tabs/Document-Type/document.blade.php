@@ -23,14 +23,14 @@
 
                     <td>
                         <div>
-                            <input type="checkbox" id="switch1__@{{ index }}" ng-checked="document.is_active == 1" data-switch="primary"/>
+                            <input type="checkbox" id="switch1__@{{ index }}" ng-checked="document.is_active == 1" data-switch="success"/>
                             <label for="switch1__@{{index}}" data-on-label="On" ng-click="document_status(index,document.id)" data-off-label="Off"></label>
                         </div>    
                         <span ng-if="document.is_active == 1" class="d-none">1</span>              
                         <span ng-if="document.is_active == 0" class="d-none">0</span>           
                     </td>
                     <td>
-                        <input type="checkbox" id="switch__@{{ index }}" ng-checked="document.is_mandatory == 1" data-switch="primary"/>
+                        <input type="checkbox" id="switch__@{{ index }}" ng-checked="document.is_mandatory == 1" data-switch="success"/>
                         <label for="switch__@{{index}}" data-on-label="On" ng-click="document_mandatory(index,document.id)" data-off-label="Off"></label>
                         <span ng-if="document.is_mandatory == 1" class="d-none">1</span>              
                         <span ng-if="document.is_mandatory == 0" class="d-none">0</span> 
@@ -38,7 +38,7 @@
                     <td  >
                         <div class="btn-group">
                             <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleDocument('edit', document.id)"><i class="fa fa-edit"></i></button>
-                            <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmDocumentDelete(document.id)"><i class="fa fa-trash"></i></button>
+                            <button class="shadow btn btn-sm btn-outline-danger rounded-pill  " ng-click="confirmDocumentDelete(document.id)"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
                     
@@ -68,7 +68,7 @@
                     <!-- <div class="form-group error mb-2">
                         <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Mandatory Name</label>
                         <div class="col-sm-12">
-                        <input type="checkbox" id="switch__@{{ index }}" name="is_mandatory" class="is_mandatory"  ng-model="module_document.is_mandatory" ng-checked="module_document.is_mandatory == 1" data-switch="primary"/>
+                        <input type="checkbox" id="switch__@{{ index }}" name="is_mandatory" class="is_mandatory"  ng-model="module_document.is_mandatory" ng-checked="module_document.is_mandatory == 1" data-switch="success"/>
                         <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
 
                         

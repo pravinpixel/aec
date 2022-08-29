@@ -67,4 +67,16 @@ class SetupController extends Controller
     {  
         return  view('admin.setup.wood-estimation.cost-preset');
     }
+    public function precast_estimation(Request $request)
+    {  
+        return  view('admin.setup.precast-estimation.index');
+    }
+    public function precast_estimation_cost_preset (Request $request)
+    {  
+        return  view('admin.setup.precast-estimation.cost-preset');
+    }
+    public function check_list()
+    {
+        return  view('admin.setup.check-sheets.check-list');
+    }
 }

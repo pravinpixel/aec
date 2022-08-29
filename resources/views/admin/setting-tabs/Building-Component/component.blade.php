@@ -37,7 +37,7 @@
                     <td ><span>@{{ comp.bottom_position }} </span></td>
                     <td>
                         <div>
-                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="comp.is_active == 1" data-switch="primary"/>
+                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="comp.is_active == 1" data-switch="success"/>
                             <label for="switch__@{{index}}" data-on-label="On" ng-click="component_status(index,comp.id)" data-off-label="Off"></label>
                         </div>  
                         <span ng-if="comp.is_active == 1" class="d-none">1</span>              
@@ -45,7 +45,7 @@
                     </td>
                     <td>
                         <div>
-                            <input type="checkbox" id="switch_cost_estimate__@{{ index }}" ng-checked="comp.cost_estimate_status == 1" data-switch="primary"/>
+                            <input type="checkbox" id="switch_cost_estimate__@{{ index }}" ng-checked="comp.cost_estimate_status == 1" data-switch="success"/>
                             <label for="switch_cost_estimate__@{{index}}" data-on-label="On" ng-click="component_cost_estimate_status(index,comp.id)" data-off-label="Off"></label>
                         </div>  
                         <span ng-if="comp.cost_estimate_status == 1" class="d-none">1</span>              
@@ -54,7 +54,7 @@
                     <td  >
                         <div class="btn-group">
                             <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleComponent('edit', comp.id)"><i class="fa fa-edit"></i></button>
-                            <button class="shadow btn btn-sm btn-outline-secondary rounded-pill  " ng-click="confirmComponentDelete(comp.id)"><i class="fa fa-trash"></i></button>
+                            <button class="shadow btn btn-sm btn-outline-danger rounded-pill  " ng-click="confirmComponentDelete(comp.id)"><i class="fa fa-trash"></i></button>
                         </div>
                     </td>
                     

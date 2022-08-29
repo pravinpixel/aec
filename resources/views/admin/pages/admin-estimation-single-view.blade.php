@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="card-footer ">
                                     <div class="text-end">
-                                        <button type="reset" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+                                        <button type="reset" class="btn btn-outline-danger font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
                                         <a class="btn btn-primary" onclick="submit()" href=""><i class="uil-sync"></i> Update</a>
                                     </div>
                                 </div>

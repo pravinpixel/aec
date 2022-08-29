@@ -210,7 +210,7 @@
                                     </div>  
                                 
                                     <div class="text-end mt-3">
-                                        <button type="reset" ng-click="cancelForm();" class="btn btn-outline-secondary font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
+                                        <button type="reset" ng-click="cancelForm();" class="btn btn-outline-danger font-weight-bold px-3"><i class="fa fa-ban "></i> Cancel</button>
                                         <button ng-click="submit();" ng-disabled="frm.$invalid || frm.$pending" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> Submit </button>
                                     </div>
                                 </div>

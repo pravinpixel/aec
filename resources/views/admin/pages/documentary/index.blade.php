@@ -36,7 +36,7 @@
                                     <!-- <td>@{{ m.documentary_type }}</td>                                   -->
                                     <td>	
                                         {{-- <div>
-                                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.is_active == 1" data-switch="primary"/>
+                                            <input type="checkbox" id="switch__@{{ index }}" ng-checked="m.is_active == 1" data-switch="success"/>
                                             <label for="switch__@{{index}}"   ng-click="documentary_status(index, m.id)" ></label>
                                         </div>     --}}
                                         <div class="form-check form-switch" ng-click="documentary_status(index, m.id)">
@@ -47,7 +47,7 @@
                                     <td>
                                     
                                     <a class="shadow btn btn-sm mx-2 btn-outline-primary l rounded-pill" ng-click="documentaryEdit(m.id)"><i class="fa fa-edit"></i></a>
-                                    <a class="shadow btn btn-sm btn-outline-secondary rounded-pill" ng-click="documentaryDelete(m.id)" ><i class="fa fa-trash"></i></a>
+                                    <a class="shadow btn btn-sm btn-outline-danger rounded-pill" ng-click="documentaryDelete(m.id)" ><i class="fa fa-trash"></i></a>
                                    
                                     </td>
                                 </tr> 

@@ -144,7 +144,7 @@
                                         <td>
                                             <div>
                                             
-                                                <input type="checkbox" id="switch__@{{ index }}" ng-disabled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="primary"/>
+                                                <input type="checkbox" id="switch__@{{ index }}" ng-disabled="true"  ng-checked="employee.is_active == 1"  ng-model="employee.is_active" data-switch="success"/>
                                                 <label for="switch__@{{index}}" data-on-label="On"  data-off-label="Off"></label>
                                             </div>          
                                         </td>                    

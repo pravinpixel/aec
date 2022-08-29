@@ -97,7 +97,7 @@
                                             <label class="form-label" > <b>Total</b> </label>
                                             <span> :   kr @{{result}}</span>
                                         </div>
-                                        <input type="reset"  class="btn btn-outline-secondary font-weight-bold px-3" value="Cancel">
+                                        <input type="reset"  class="btn btn-outline-danger font-weight-bold px-3" value="Cancel">
                                         <button type="submit" ng-disabled="enqForm.$invalid" class="btn btn-primary font-weight-bold px-3"><i class="fa fa-check-circle "></i> @lang('global.send') </button>
                                     </div>
                                 </div>
