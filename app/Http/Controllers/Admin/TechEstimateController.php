@@ -11,6 +11,7 @@ use App\Interfaces\TechnicalEstimateRepositoryInterface;
 use App\Models\Admin\Employees;
 use Illuminate\Http\Response;
 use App\Models\Enquiry;
+use App\Models\Role;
 use App\Models\TechnicalEstimateHistory;
 use App\Repositories\TechnicalEstimateRepository;
 use Illuminate\Support\Facades\Mail;
@@ -84,10 +85,12 @@ class TechEstimateController extends Controller
             ];
             $this->storeTechEstimateHistory($data);
         }
-        if(Admin()->id == $technicalEstimate->assign_by || Admin()->id == 1){
+        $role = Role::where('slug','admin')->first();
+        if(Admin()->id == $technicalEstimate->assign_by || Admin()->job_role ==  $role->id){
             $this->technicalEstimate->assignUser($enquiry, Admin()->id);
+            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
         } 
-        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'technical_estimation_status');
+
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 

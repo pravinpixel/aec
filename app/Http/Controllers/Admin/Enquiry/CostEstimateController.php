@@ -17,6 +17,7 @@ use App\Models\CostEstimateHistory;
 use App\Models\Type;
 use App\Models\EnquiryCostEstimate;
 use App\Models\Enquiry;
+use App\Models\Role;
 use Illuminate\Support\Facades\Mail;
 
 class  CostEstimateController extends Controller
@@ -101,10 +102,11 @@ class  CostEstimateController extends Controller
             ];
             $this->storeCostEstimateHistory($data);
         }
-        if(Admin()->id == $costEstimate->assign_by || Admin()->id == 1){
+        $role = Role::where('slug','admin')->first();
+        if(Admin()->id == $costEstimate->assign_by || Admin()->job_role ==  $role->id){
             $this->costEstimate->assignUser($enquiry, Admin()->id);
+            $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         } 
-        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry, 'cost_estimation_status');
         return response(['status' => true,  'msg' => trans('technicalEstimate.status_updated')], Response::HTTP_CREATED);
     }
 
