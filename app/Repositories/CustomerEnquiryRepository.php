@@ -243,7 +243,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry = Enquiry::find($id);
         $enquiry->customer_response = 0;
         $enquiry->save(); 
-        return response(['status' => true, 'msg' => trans('The Proposal document sent to customer successfully')], Response::HTTP_CREATED);
+        return response(['status' => true, 'msg' => trans('The proposal document sent to customer successfully')], Response::HTTP_CREATED);
     }
     public function sendCustomerProPosalMailVersion($id, $proposal_id, $request, $Vid)
     { 
@@ -269,7 +269,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
         $enquiry = Enquiry::find($id);
         $enquiry->customer_response = 0;
         $enquiry->save(); 
-        return response(['status' => true, 'msg' => trans('The Proposal document sent to customer successfully')], Response::HTTP_CREATED);
+        return response(['status' => true, 'msg' => trans('The proposal document sent to customer successfully')], Response::HTTP_CREATED);
     }
     public function aprovalProPosalMail($id, $proposal_id_, $Vid, $request)
     { 

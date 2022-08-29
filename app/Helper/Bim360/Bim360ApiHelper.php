@@ -23,25 +23,22 @@ use Illuminate\Support\Facades\Log;
 
 class Bim360ApiHelper
 {
-   //https://developer.api.autodesk.com/hq/v1/accounts/e3d5ef8d-5c37-4b9d-925d-1e6d24753ace/projects' \
    private $base_url = "https://developer.api.autodesk.com/";
-   //https://developer.api.autodesk.com/bim360/admin/v1/projects/:projectId/users
-   // elaa1979@gmail.com
-   private $clientId = "4GbgakwkXGUfnnvVuCGkOb406wGf7wxZ";
-   private $clientSecret = "BS9FPlctpIFyL3PA";
-   private $accountid = "12474028-b4c3-4b61-b518-4d5034341db0";
-   private $hubid = "b.12474028-b4c3-4b61-b518-4d5034341db0";
+   private $clientId = "oqlXBJL6lr0Gcn7mQp2s1GfuTBi7I13g";
+   private $clientSecret = "tTREY5lFAF0pEH7G";
+   private $accountId = "083663d7-cf19-423e-8b8b-1d9c4a444fab";
+   private $hubId = "b.083663d7-cf19-423e-8b8b-1d9c4a444fab";
 
    // private $clientId = "tAY4ATBA78LG9PZG3geOW7cbDyxs4JGR";
    // private $clientSecret = "8fWzMPGVZH5bGfC6";
-   // private $accountid = "d6c5bc07-b549-4faf-aee4-7bfc521e8cce";
-   // private $hubid = "b.d6c5bc07-b549-4faf-aee4-7bfc521e8cce";
+   // private $accountId = "d6c5bc07-b549-4faf-aee4-7bfc521e8cce";
+   // private $hubId = "b.d6c5bc07-b549-4faf-aee4-7bfc521e8cce";
 
    // Arun account
    // private $clientId = "AA9tRkeDQP9TmvPPtUG540plagL9XKCH";
    // private $clientSecret = "zyUTW5b1ITHYYSfc";
-   // private $accountid = "ae8f84cf-204a-45bd-9cbc-684e323e1ba3";
-   // private $hubid = "b.ae8f84cf-204a-45bd-9cbc-684e323e1ba3";
+   // private $accountId = "ae8f84cf-204a-45bd-9cbc-684e323e1ba3";
+   // private $hubId = "b.ae8f84cf-204a-45bd-9cbc-684e323e1ba3";
 
    private $accountRegion = "US";
    private $token;
@@ -213,28 +210,28 @@ class Bim360ApiHelper
             break;
       }
 
-      $Urls["projects"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/projects";
-      $Urls["projects_projectId"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/projects/{ProjectId}";
-      $Urls["projects_projectId_companies"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/projects/{ProjectId}/companies";
-      $Urls["projects_projectId_image_patch"] = "hq/v1/accounts/" . $this->accountid . "/projects/{ProjectId}/image";
+      $Urls["projects"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/projects";
+      $Urls["projects_projectId"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/projects/{ProjectId}";
+      $Urls["projects_projectId_companies"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/projects/{ProjectId}/companies";
+      $Urls["projects_projectId_image_patch"] = "hq/v1/accounts/" . $this->accountId . "/projects/{ProjectId}/image";
       //https://developer.api.autodesk.com/bim360/admin/v1/projects/:projectId/users
-      $Urls["projects_projectId_users"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/projects/{ProjectId}/users";
+      $Urls["projects_projectId_users"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/projects/{ProjectId}/users";
       $Urls["projects_projectId_users1"] = "bim360/admin/v1/projects/{ProjectId}/users";
-      $Urls["projects_projectId_users_import"] = "hq/v2/" . $regionBasedUrl . "accounts/" . $this->accountid . "/projects/{ProjectId}/users/import";
-      $Urls["projects_projectId_user_patch"] = "hq/v2/" . $regionBasedUrl . "accounts/" . $this->accountid . "/projects/{ProjectId}/users/{UserId}";
-      $Urls["projects_projectId_industryRoles"] = "hq/v2/" . $regionBasedUrl . "accounts/" . $this->accountid . "/projects/{ProjectId}/industry_roles";
+      $Urls["projects_projectId_users_import"] = "hq/v2/" . $regionBasedUrl . "accounts/" . $this->accountId . "/projects/{ProjectId}/users/import";
+      $Urls["projects_projectId_user_patch"] = "hq/v2/" . $regionBasedUrl . "accounts/" . $this->accountId . "/projects/{ProjectId}/users/{UserId}";
+      $Urls["projects_projectId_industryRoles"] = "hq/v2/" . $regionBasedUrl . "accounts/" . $this->accountId . "/projects/{ProjectId}/industry_roles";
       
-      $Urls["companies"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/companies";
-      $Urls["companies_companyId"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/companies/{CompanyId}";
-      $Urls["companies_import"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/companies/import";
-      $Urls["companies_companyId_image_patch"] = "hq/v1/accounts/" . $this->accountid . "/companies/{CompanyId}/image";
+      $Urls["companies"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/companies";
+      $Urls["companies_companyId"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/companies/{CompanyId}";
+      $Urls["companies_import"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/companies/import";
+      $Urls["companies_companyId_image_patch"] = "hq/v1/accounts/" . $this->accountId . "/companies/{CompanyId}/image";
       
-      $Urls["users"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/users";
-      $Urls["users_userId"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/users/{UserId}";
-      $Urls["users_import"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/users/import";
-      $Urls["users_userId_image_patch"] = "hq/v1/accounts/" . $this->accountid . "/users/{UserId}/image";
+      $Urls["users"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/users";
+      $Urls["users_userId"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/users/{UserId}";
+      $Urls["users_import"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/users/import";
+      $Urls["users_userId_image_patch"] = "hq/v1/accounts/" . $this->accountId . "/users/{UserId}/image";
       
-      $Urls["businessUnitsStructure"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountid . "/business_units_structure";
+      $Urls["businessUnitsStructure"] = "hq/v1/" . $regionBasedUrl . "accounts/" . $this->accountId . "/business_units_structure";
       $Urls["folders_folder_contents"] = "data/v1/projects/{ProjectId}/folders/{FolderId}/contents";
       $Urls["hubs"] = "project/v1/hubs";
       $Urls["hubs_hubId"] = "project/v1/hubs/{HubId}";
