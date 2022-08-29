@@ -82,10 +82,4 @@
            
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div> 
-<style>
-    .projectTypeTab{
-        color: #163269 !important;
-        background-color: #d4e2ff !important;
-    }
-</style>
+</div>  

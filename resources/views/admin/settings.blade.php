@@ -1550,14 +1550,14 @@
             
                 $scope.confirmpTypeDelete = function (id) {
                     
-                // var isConfirmDelete = confirm('Are you sure you want this record?');
-                swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this Data!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((willDelete) => {
+                    // var isConfirmDelete = confirm('Are you sure you want this record?');
+                    swal({
+                        title: "Are you sure?",
+                        text: "Once deleted, you will not be able to recover this Data!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
 
                     if (willDelete) {
 

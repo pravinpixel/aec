@@ -28,8 +28,8 @@
                     <div class="card border shadow-sm">
                         <div class="card-body p-2">
                             <ul class="nav nav-tabs nav-bordered mb-2">
-                                <li class="nav-item"><a class="nav-link {{ Route::is(['setup.roles','setup.permissions','setup.wood-estimation','setup.wood-estimation-cost-preset','setup.precast-estimation','setup.precast-estimation-cost-preset','setup.check-list','setup.check-sheet'])  ? 'setup-active' : '' }}">Admin</a></li>
-                                <li class="nav-item"><a class="nav-link">Customer</a></li>
+                                <li class="nav-item"><a href="{{ route('setup.roles') }}" class="nav-link {{ Route::is(['setup.roles','setup.permissions','setup.wood-estimation','setup.wood-estimation-cost-preset','setup.precast-estimation','setup.precast-estimation-cost-preset','setup.check-list','setup.check-sheet'])  ? 'setup-active' : '' }}">Admin</a></li>
+                                <li class="nav-item"><a href="{{ route('setup.project-type') }}" class="nav-link {{ Route::is(['setup.project-type'])  ? 'setup-active' : '' }}">Customer</a></li>
                                 <li class="nav-item"><a class="nav-link">Vendor</a></li>
                                 <li class="nav-item"><a class="nav-link">Employee</a></li>
                                 <li class="nav-item"><a class="nav-link">General</a></li>
@@ -38,11 +38,22 @@
                                 <div class="row m-0">
                                     <div class="col-sm-2 p-0 border-end bg-light">
                                         <div class="nav flex-column">
-                                            <a class="nav-link text-secondary {{ Route::is(['setup.roles','setup.permissions'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.roles') }}">Roles & Permissions</a>
-                                            <a class="nav-link text-secondary {{ Route::is(['setup.wood-estimation','setup.wood-estimation-cost-preset'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.wood-estimation') }}">Wood Estimation</a>
-                                            <a class="nav-link text-secondary {{ Route::is(['setup.precast-estimation','setup.precast-estimation-cost-preset'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.precast-estimation') }}">Precast Estimation</a>
-                                            <a class="nav-link text-secondary {{ Route::is(['setup.check-list'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-list') }}">Check Sheets</a>
-                                            <a class="nav-link text-secondary {{ Route::is(['setup.check-sheet'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-sheet') }}">Check Sheet Setup</a>
+                                            @if ( Route::is(['setup.roles','setup.permissions','setup.wood-estimation','setup.wood-estimation-cost-preset','setup.precast-estimation','setup.precast-estimation-cost-preset','setup.check-list','setup.check-sheet']))
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.roles','setup.permissions'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.roles') }}">Roles & Permissions</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.wood-estimation','setup.wood-estimation-cost-preset'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.wood-estimation') }}">Wood Estimation</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.precast-estimation','setup.precast-estimation-cost-preset'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.precast-estimation') }}">Precast Estimation</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.check-list'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-list') }}">Check Sheets</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.check-sheet'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-sheet') }}">Check Sheet Setup</a>
+                                            @endif
+                                            @if ( Route::is(['setup.project-type']))
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.project-type'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.project-type') }}">Project Type</a> 
+                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Service</a>
+                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Building Type</a>
+                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Building Component</a>
+                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Construction Type</a>
+                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Delivery Type</a>
+                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Upload Document</a>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-10 ps-3">

@@ -83,4 +83,8 @@ class SetupController extends Controller
     {
         return  view('admin.setup.check-sheets.check-sheet');
     }
+    public function project_type()
+    {
+        return  view('admin.setup.project-type.index');
+    }
 }
