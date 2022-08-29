@@ -21,7 +21,6 @@
     </section>
 @endsection
 @push('custom-scripts')
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
         const APP_URL   = "{{ url('/') }}";
         const TOKEN   = "{{ csrf_token() }}";

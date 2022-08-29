@@ -32,7 +32,7 @@ class SetupController extends Controller
             ->addColumn('action', function($data){ 
                 return '<div class="btn-group">  
                         <button class="shadow btn btn-sm me-2 btn-outline-primary rounded-pill" onclick="editRole(this,'.$data->id.')" name="'.$data->name.'" status="'.$data->status.'"> <i class="fa fa-edit"></i></button> 
-                        <button class="shadow btn btn-sm btn-outline-secondary rounded-pill" onclick="deleteRole('.$data->id.')"><i class="fa fa-trash"></i></button>
+                        <button class="shadow btn btn-sm btn-outline-danger rounded-pill" onclick="deleteRole('.$data->id.')"><i class="fa fa-trash"></i></button>
                     </div>';
             })
             ->rawColumns(['action','status'])
@@ -58,5 +58,9 @@ class SetupController extends Controller
         } catch (Exception $ex) {
             return  response(['status' => false, 'msg' => __('global.something')]);
         } 
+    }
+    public function wood_estimation(Request $request)
+    {  
+        return  view('admin.setup.wood-estimation.index');
     }
 }
