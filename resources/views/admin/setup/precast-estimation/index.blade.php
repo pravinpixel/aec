@@ -93,6 +93,12 @@
 @push('custom-scripts') 
     <script>
         app.controller('PrecastEstimateController', function($scope, $http, $routeParams, API_URL){
+            function getPrecastEstimates() {
+                $http.get(`${API_URL}precast-estimate`).then((res)=> {
+                    $scope.precastEstimations = res.data; 
+                });
+            }
+            getPrecastEstimates();
             $scope.toggleModalForm = function (modalstate, id) {
                 $scope.modalstate = modalstate;
                 switch (modalstate) {
