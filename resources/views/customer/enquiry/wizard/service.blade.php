@@ -28,29 +28,34 @@
         </div>
     </div>
     <br>
-    <div class="row" ng-show="commentShow">
-        <div class="col-8">
-            <open-comment  data="
-            {'modalState':'viewConversations',
-            'type': 'service', 
-            'header':'Selected Services',
-            'enquiry_id':enquiry_id,
-            send_by: {{ Customer()->id }},
-            'from':'Customer'
-            }"/> 
+    <div class="card border shadow-sm mb-0 col-md-4 ms-auto">
+        <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
+        <div class="card-body">
+            <div class="d-flex align-items-center" ng-show="commentShow">
+                <div>
+                    <open-comment  data="
+                    {'modalState':'viewConversations',
+                    'type': 'service', 
+                    'header':'Selected Services',
+                    'enquiry_id':enquiry_id,
+                    send_by: {{ Customer()->id }},
+                    'from':'Customer'
+                    }"/> 
+                </div>
+                <div class="ms-2">
+                    <comment data="
+                     {'modalState':'viewConversations',
+                        'type': 'service', 
+                        'header':'Selected Services',
+                        'enquiry_id':enquiry_id,
+                        send_by: {{ Customer()->id }},
+                        'from':'Customer'
+                        }"
+                    />
+                </div>
+            </div>
         </div>
-        <div class="col-4">
-            <comment data="
-            {'modalState':'viewConversations',
-            'type': 'service', 
-            'header':'Selected Services',
-            'enquiry_id':enquiry_id,
-            send_by: {{ Customer()->id }},
-            'from':'Customer'
-            }"/>
-        </div>
-    </div>
-       
+    </div>  
     <div class="card-footer border-0 p-0">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#!/" class="btn btn-light border shadow-sm">Prev</a></li>

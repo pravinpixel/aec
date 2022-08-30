@@ -340,32 +340,46 @@
             </table>
         </div>
     </div> 
-    <div class="row justify-content-end">
-        <div class="col-6" ng-show="commentShow">
-            <open-comment  data="
-            {'modalState':'viewConversations',
-            'type': 'building_components',
-            'header':'Building Components',
-            'enquiry_id':enquiry_id,
-            send_by: {{ Customer()->id }},
-            'from':'Customer'
-            }">  </open-comment>
-        </div>
-        <div class="col-3" ng-show="commentShow">
-            <comment  data="
-            {'modalState':'viewConversations',
-            'type': 'building_components',
-            'header':'Building Components',
-            'enquiry_id':enquiry_id,
-            send_by: {{ Customer()->id }},
-            'from':'Customer'
-            }"> </comment>
-        </div>
-        <div class="pull-right">
-            <button ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen" class="my-2  btn btn-info rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab">
-                @{{ isOpen  != true ?  "View Summary" : "Close Summary"  }} 
-            </button>
-        </div>
+    <div class="row m-0 justify-content-end mt-2">
+        <div class="col-md-3">
+            <div class="card border shadow-sm mb-0">
+                <div class="card-header bg-light"><strong>BUILDING SUMMARY</strong></div>
+                <div class="card-body text-center">
+                    <button ng-class="isOpen  != true ?  'w-100 btn-sm rounded-pill btn btn-info' : 'w-100 btn-sm rounded-pill btn btn-light border shadow-sm'" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab" ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen"> 
+                      <i ng-class='isOpen  != true ?  "fa fa-eye" : "fa fa-eye-slash"'></i>  @{{ isOpen  != true ?  "View" : "Close"  }}
+                    </button> 
+                </div>
+            </div>  
+        </div> 
+        <div class="col-md-4">
+            <div class="card border shadow-sm mb-0">
+                <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center" ng-show="commentShow">
+                        <div>
+                            <open-comment  data="
+                            {'modalState':'viewConversations',
+                            'type': 'building_components',
+                            'header':'Building Components',
+                            'enquiry_id':enquiry_id,
+                            send_by: {{ Customer()->id }},
+                            'from':'Customer'
+                            }">  </open-comment>
+                        </div>
+                        <div class="ms-2">
+                            <comment  data="
+                            {'modalState':'viewConversations',
+                            'type': 'building_components',
+                            'header':'Building Components',
+                            'enquiry_id':enquiry_id,
+                            send_by: {{ Customer()->id }},
+                            'from':'Customer'
+                            }"> </comment>
+                        </div> 
+                    </div>
+                </div>
+            </div>  
+        </div> 
     </div>
 
     @include('customer.enquiry.models.add-layer-modal')
@@ -373,8 +387,8 @@
     @include('customer.enquiry.modal')
     <div class="card-footer border-0 p-0 " >
         <ul class="list-inline wizard mb-0 pt-3">
-            <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li>
-             <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent(buildingComponentForm.$invalid)"  ng-show="showHideBuildingComponent == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
+            <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li> 
+            <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent(buildingComponentForm.$invalid)"  ng-show="showHideBuildingComponent == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li> 
             <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent(buildingComponentForm.$invalid)"  ng-show="showHideBuildingComponent == 1" ng-disabled="buildingComponentUploads.length == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
             <li class="next list-inline-item float-end mx-2"><input class="btn btn-light border shadow-sm" g-show="showHideBuildingComponent == 0" ng-click="saveAndSubmitBuildingComponent(buildingComponentForm.$invalid)" type="button" name="submit"  value="Save & Submit Later"/></li>
         </ul>

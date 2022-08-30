@@ -605,3 +605,41 @@ sup {
 .removeNext {
     display: none;
 }
+.chat-input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dee2e6 ;
+    justify-content: space-between;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.chat-input {
+    width: 100%;
+}
+.chat-btn , .chat-input {
+    display: flex;
+    border: 0;
+    outline: none;
+    padding: 0.28rem 0.8rem;
+    font-size: 0.875rem;
+    align-items: center;
+}
+.chat-btn i {
+    margin-right: 8px;
+}
+.chat-btn {
+    font-weight: bold ;
+    background: #2CC998;
+    color: white;
+    transition: all .5s;
+}
+.chat-btn:hover {
+    background: #056349;
+    transition: all .5s;
+}
+.chat-input:hover ,
+.chat-input:active ,
+.chat-input:focus  {
+    background: #EEF2F7;
+    color: black;
+}

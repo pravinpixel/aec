@@ -1,5 +1,5 @@
 <form id="projectInfoForm" ng-submit="submitProjectInfoForm(projectInfoForm.$invalid)" name="projectInfoForm" method="post" class="form-horizontal" novalidate>
-    <div class="row">
+    <div class="row m-0">
         <div class="col-md-4">
             <div class="form-floating  mb-2">
                 <input disabled value="" ng-model="enquiry_date" type="date" class="form-control form-control-sm" id="floating"  required/>
@@ -107,10 +107,7 @@
                 </select>
                 <label for="floatingSelect">Type of Delivery <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.delivery_type.$invalid && formSubmit">This field is required</small>
-            </div>
-
-            
-            
+            </div> 
             <div class="form-floating  mb-2">
                 <input type="date" min="@{{ projectInfo.project_date }}" class="form-control" name="project_delivery_date" ng-model="projectInfo.project_delivery_date" required/>
                 <label for="floating">Project Delivery Date <sup class="text-danger">*</sup></label>
@@ -119,36 +116,37 @@
                 <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.min && formSubmit">Delivery date should not be less than that of the project's start date</small>
             </div>
         </div>
+        <div class="col-md-4 ms-auto pt-2">
+            <div class="card border shadow-sm m-0">
+                <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center" ng-show="commentShow">
+                        <div>
+                            <open-comment data="{
+                                'modalState': 'viewConversations',
+                                'type'      : 'project_information',
+                                'header'    : 'Project Information',
+                                'enquiry_id': enquiry_id,
+                                'send_by'   : {{ Customer()->id }},
+                                'from'      : 'Customer'
+                            }"/>
+                        </div>
+                        <div class="ms-2">
+                            <comment data="{
+                                'modalState': 'viewConversations',
+                                'type'      : 'project_information',
+                                'header'    : 'Project Information',
+                                'enquiry_id': enquiry_id,
+                                'send_by'   : {{ Customer()->id }},
+                                'from'      : 'Customer'
+                            }"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-            {{-- <form id="project_information__commentsForm" ng-submit="sendComments('project_information','Customer')" class="input-group mt-3">
-                                            <input required type="text" ng-model="project_information__comments" name="comments" class="form-control rounded-pill me-2" placeholder="Type here..!">
-                                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
-                                        </form>   --}}
-   
-    <div class="row" ng-show="commentShow">
-        <div class="col-8">
-            <open-comment  data="
-            {'modalState':'viewConversations',
-            'type': 'project_information', 
-            'header':'Project Information',
-            'enquiry_id':enquiry_id,
-            send_by: {{ Customer()->id }},
-            'from':'Customer'
-            }"/> 
-        </div>                                
-        <div class="col-4">
-            <comment data="
-            {'modalState':'viewConversations',
-            'type': 'project_information', 
-            'header':'Project Information',
-            'enquiry_id':enquiry_id,
-            send_by: {{ Customer()->id }},
-            'from':'Customer'
-            }"/>
-        </div>                                
-    </div>
-
-  
+    
     <div class="card-footer border-0 p-0">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"><a href="#" class="btn btn-light border shadow-sm">Prev</a></li>

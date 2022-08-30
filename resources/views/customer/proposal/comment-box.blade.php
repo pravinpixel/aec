@@ -1,4 +1,3 @@
-{{-- <a class="btn dropdown-item"  ng-click="showCommentsToggle()" >Chat</u></a> --}}
 <div id="proposalViewConversations-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >
     <div class="modal-dialog h-100 modal-right" style="width:100% !important">            
         <div class="modal-content h-100 d-flex justify-content-center bg-light align-items-center" >

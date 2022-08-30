@@ -1,8 +1,4 @@
-<div class="col-6">
-    <form id="Inbox__commentsForm">
-        <div class="d-flex">
-            <input  type="text"  ng-model="inlineComments" id="inlineComments" name="inlineComments" class="form-control rounded-pill" placeholder="Type here..."/>
-            <button class="btn btn-primary rounded-pill mx-2" type="button" ng-click="sendInboxComments('Customer')">Send</button>
-        </div>
-    </form>
-</div> 
+<div class="chat-input-group" id="Inbox__commentsForm">
+    <input type="text" class="chat-input" placeholder="Type here ..." ng-model="inlineComments" id="inlineComments" name="inlineComments"> 
+    <button class="chat-btn" type="button" ng-click="sendInboxComments('Customer')"><i class="uil uil-message"></i> Send</button>
+</div>
