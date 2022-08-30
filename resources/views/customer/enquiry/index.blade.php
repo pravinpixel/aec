@@ -313,11 +313,12 @@
                         }
                     }
                 ],
+
                 rowCallback: function( row, data ) {
-                    if(data.response_status == 1){
-                        $(row).addClass('fw-bold bg-light');
+                    if(data.proposal_email_status == 1){
+                        $(row).addClass('active-table-row');
                     }
-                },
+                },               
                 createdRow: function ( row, data, index ) {
                     $compile(row)($scope);  //add this to compile the DOM
                 }
