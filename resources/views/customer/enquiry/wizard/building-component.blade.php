@@ -360,7 +360,7 @@
                 </div>
             </div>  
         </div> 
-        <div class="col-md-4">
+        <div class="col-md-4"  ng-show="commentShow">
             <div class="card border shadow-sm mb-0">
                 <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
                 <div class="card-body">

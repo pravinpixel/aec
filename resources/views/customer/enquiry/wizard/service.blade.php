@@ -28,7 +28,7 @@
         </div>
     </div>
     <br>
-    <div class="card border shadow-sm mb-0 col-md-4 ms-auto">
+    <div class="card border shadow-sm mb-0 col-md-4 ms-auto"  ng-show="commentShow">
         <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
         <div class="card-body">
             <div class="d-flex align-items-center" ng-show="commentShow">

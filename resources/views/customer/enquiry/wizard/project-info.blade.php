@@ -116,11 +116,11 @@
                 <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.min && formSubmit">Delivery date should not be less than that of the project's start date</small>
             </div>
         </div>
-        <div class="col-md-4 ms-auto pt-2">
+        <div class="col-md-4 ms-auto pt-2" ng-show="commentShow">
             <div class="card border shadow-sm m-0">
                 <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
                 <div class="card-body">
-                    <div class="d-flex align-items-center" ng-show="commentShow">
+                    <div class="d-flex align-items-center" >
                         <div>
                             <open-comment data="{
                                 'modalState': 'viewConversations',
