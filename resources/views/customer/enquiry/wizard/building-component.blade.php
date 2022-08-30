@@ -66,7 +66,7 @@
                         </div>
                         <div ng-if="!w.Details.length" class="d-flex justify-content-center align-items-center card card-body p-3 m-0 border shadow-sm" style="min-height: 450px">
                             <div class="text-center">
-                                <img src="{{ asset("public/assets/images/bg-emty.png") }}" width="75%">
+                                <img src="{{ asset("public/assets/images/bg-emty-2.png") }}" width="75%">
                                 <h1 class="h4">Please Click to Add New @{{  w.WallName }}</p>
                                 <button class="btn btn-success" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add New </button> 
                             </div>
