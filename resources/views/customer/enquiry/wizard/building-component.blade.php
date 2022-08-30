@@ -137,7 +137,7 @@
                                                         <button class="btn-light shadow-sm border btn more-btn-layer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}" aria-expanded="true" aria-controls="collapseOneaccordionTable_@{{ Secindex }}_@{{ fIndex  }}">
                                                             <i class="fa fa-chevron-down"></i>
                                                         </button>
-                                                        <button  type="button" class="ms-2 btn btn-danger rounded shadow-sm btn-sm" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
+                                                        <button  type="button" class="ms-2 btn btn-danger rounded shadow-sm btn-sm" title="Delete Wall" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
   
                                                     </div>
                                                 </th>
@@ -207,7 +207,7 @@
                                                                     <div class="btn btn-light border btn-sm d-flex justify-content-center align-items-center"><i class="mdi mdi-drag"></i></div>
                                                                     <div class="form-group w-100 ">
                                                                         <label class="form-lable shadow-sm position-absolute border" style="background: #FFFFFF">Layer Name  <sup class="text-danger">*</sup></label>
-                                                                        <input  type="text" class="form-control form-control-sm" name="LayerName_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"  ng-model="l.LayerName" required>
+                                                                        <input  type="text" class="form-control form-control-sm " autocomplete="off" name="LayerName_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"  ng-model="l.LayerName" required>
                                                                     </div>
                                                                     {{-- <select class="form-select form-select-sm form-control" id="floatingSelect" aria-label="Floating label select example"  name="LayerName_@{{ fIndex }}_@{{ Secindex }}_@{{ ThreeIndex }}"   ng-model="l.LayerName" required>
                                                                                 <option value="">@lang('customer-enquiry.select')</option>
