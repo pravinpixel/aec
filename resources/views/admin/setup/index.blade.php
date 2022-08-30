@@ -29,11 +29,11 @@
                         <div class="card-body p-2">
                             <ul class="nav nav-tabs nav-bordered mb-2">
                                 <li class="nav-item"><a href="{{ route('setup.roles') }}" class="nav-link {{ Route::is(['setup.roles','setup.permissions','setup.wood-estimation','setup.wood-estimation-cost-preset','setup.precast-estimation','setup.precast-estimation-cost-preset','setup.check-list','setup.check-sheet'])  ? 'setup-active' : '' }}">Admin</a></li>
-                                <li class="nav-item"><a href="{{ route('setup.project-type') }}" class="nav-link {{ Route::is(['setup.project-type'])  ? 'setup-active' : '' }}">Customer</a></li>
+                                <li class="nav-item"><a href="{{ route('setup.project-type') }}" class="nav-link {{ Route::is(['setup.project-type','setup.service','setup.building-type','setup.building-component','setup.construction-type','setup.delivery-type','setup.document-type'])  ? 'setup-active' : '' }}">Customer</a></li>
                                 <li class="nav-item"><a class="nav-link">Vendor</a></li>
                                 <li class="nav-item"><a class="nav-link">Employee</a></li>
                                 <li class="nav-item"><a class="nav-link">General</a></li>
-                            </ul> <!-- end nav-->
+                            </ul>
                             <div class="tab-content">
                                 <div class="row m-0">
                                     <div class="col-sm-2 p-0 border-end bg-light">
@@ -45,14 +45,14 @@
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.check-list'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-list') }}">Check Sheets</a>
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.check-sheet'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.check-sheet') }}">Check Sheet Setup</a>
                                             @endif
-                                            @if ( Route::is(['setup.project-type']))
+                                            @if ( Route::is(['setup.project-type','setup.service','setup.building-type','setup.building-component','setup.construction-type','setup.delivery-type','setup.document-type']))
                                                 <a class="nav-link text-secondary {{ Route::is(['setup.project-type'])  ? 'setup-link-active' : '' }}" href="{{ route('setup.project-type') }}">Project Type</a> 
-                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Service</a>
-                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Building Type</a>
-                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Building Component</a>
-                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Construction Type</a>
-                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Delivery Type</a>
-                                                <a class="nav-link text-secondary"  href="{{ route('setup.check-sheet') }}">Upload Document</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.service'])  ? 'setup-link-active' : '' }}"  href="{{ route('setup.service') }}">Service</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.building-type'])  ? 'setup-link-active' : '' }}"  href="{{ route('setup.building-type') }}">Building Type</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.building-component'])  ? 'setup-link-active' : '' }}"  href="{{ route('setup.building-component') }}">Building Component</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.construction-type'])  ? 'setup-link-active' : '' }}"  href="{{ route('setup.construction-type') }}">Construction Type</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.delivery-type'])  ? 'setup-link-active' : '' }}"  href="{{ route('setup.delivery-type') }}">Delivery Type</a>
+                                                <a class="nav-link text-secondary {{ Route::is(['setup.document-type'])  ? 'setup-link-active' : '' }}"  href="{{ route('setup.document-type') }}">Upload Document</a>
                                             @endif
                                         </div>
                                     </div>

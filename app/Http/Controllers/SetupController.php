@@ -87,4 +87,28 @@ class SetupController extends Controller
     {
         return  view('admin.setup.project-type.index');
     }
+    public function service()
+    {
+        return  view('admin.setup.service.index');
+    }
+    public function building_type()
+    {
+        return  view('admin.setup.building-type.index');
+    }
+    public function building_component()
+    {
+        return  view('admin.setup.building-component.index');
+    }
+    public function construction_type()
+    {
+        return  view('admin.setup.construction-type.index');
+    }
+    public function delivery_type()
+    {
+        return  view('admin.setup.delivery-type.index');
+    }
+    public function document_type()
+    {
+        return  view('admin.setup.document-type.index');
+    }
 }
