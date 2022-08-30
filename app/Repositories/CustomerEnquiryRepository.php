@@ -462,11 +462,11 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                 $components[] =  [
                     'building_component_id' => BuildingComponent::createOrUpdateComponentByEstimate(['building_component_name' => Str::ucfirst($wall['name'])])->id ??'',
                     'type_id'               => '',
-                    'DesignScope'           => 0,
+                    'DesignScope'           => 100,
                     "Component"             => "",
                     "Type"                  => "",
                     "Sqm"                   => $wall['sqfeet'],
-                    "Complexity"            => "",
+                    "Complexity"            => 1,
                     'Dynamics'              => [],
                     "TotalCost"             => [
                         "PriceM2" => 0,
