@@ -1,27 +1,34 @@
 <form class="row" id="buildingComponent" name="buildingComponentForm" novalidate>
 
-    <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert">
-        <div class="d-flex align-items-center justify-content-center    ">
-            <i class="dripicons-information me-2"></i>
-            Do you want to
-            <div class="form-check">
-                <input type="radio" id="flexRadioDefault1" name="buildingComponent_" ng-checked="showHideBuildingComponent == 0" ng-model="showHideBuildingComponent" ng-value="false">
-                <label class="form-check-label" for="flexRadioDefault1">
-                Enter Manually
-                </label>
+    {{-- <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert">
+        <div class="row m-0">
+            <div class="col-6 d-flex align-items-center"><i class="dripicons-information me-2"></i> <strong>Do you want to Enter Manually ?</strong></div>
+            <div class="col d-flex align-items-center">
+                <input class="form-check-input" type="radio" id="flexRadioDefault1" name="buildingComponent_" ng-checked="showHideBuildingComponent == 0" ng-model="showHideBuildingComponent" ng-value="false">
+                <label class="form-check-label" for="flexRadioDefault1">  Enter Manually </label>
             </div>
-			<div class="form-check">
-			 <span>(or)</span>
-			</div>
-            <div class="form-check">
-                <input type="radio" id="flexRadioDefault" ng-checked="showHideBuildingComponent == 1" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
-                <label class="form-check-label" for="flexRadioDefault">
-                 Upload
-                </label>
+            <div class="col d-flex align-items-center">
+                <input class="form-check-input" type="radio" id="flexRadioDefault" ng-checked="showHideBuildingComponent == 1" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
+                <label class="form-check-label" for="flexRadioDefault"> Upload </label>
+            </div>
+        </div> 
+    </div> --}}
+
+    <div class="d-flex justify-content-between alert bg-primary align-items-center shadow-sm border border-secondary text-white col-5 mx-auto" role="alert">
+        <div>
+            <strong>Do you want to Enter Manually ?</strong>
+        </div>
+        <div class="d-flex">
+            <div class="mx-3 btn btn-sm btn-light border shadow-sm">
+                <input class="form-check-input border shadow-sm border-dark" type="radio" id="flexRadioDefault1" name="buildingComponent_" ng-checked="showHideBuildingComponent == 0" ng-model="showHideBuildingComponent" ng-value="false">
+                <label class="form-check-label" for="flexRadioDefault1">  Yes </label>
+            </div>
+            <div class=" btn btn-sm btn-light border shadow-sm">
+                <input class="form-check-input border shadow-sm border-dark" type="radio" id="flexRadioDefault" ng-checked="showHideBuildingComponent == 1" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
+                <label class="form-check-label" for="flexRadioDefault"> No </label>
             </div>
         </div>
     </div>
-
 
     <div class="collapse multi-collapse show" id="buildingComponentTab">
         <div ng-show="showHideBuildingComponent == 1">
@@ -40,26 +47,28 @@
         <div class="row" ng-show="showHideBuildingComponent == 0">
             <div class="col-sm mb-2 mb-sm-0">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a ng-click="callWall(w.WallName)" ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: wallName ==  w.WallName}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center">
-                        {{-- <i class="fa-2x @{{ w.WallIcon }}"></i> --}}
-                        <div>
-                            <img src="{{ asset('/public/uploads/building-component-icon/') }}/@{{w.WallIcon}}" alt="no image" width="60px">
+                    <button ng-click="callWall(w.WallName)" ng-repeat="(fIndex,w) in wallGroup" ng-class="{active: wallName ==  w.WallName}" class="border mb-2 nav-link d-flex flex-column align-items-center justify-content-center">
+                        <div ng-if="w.WallIcon != null">
+                            <img src="{{ asset('/public/uploads/building-component-icon/') }}/@{{w.WallIcon}}" width="60px" class="mb-1">
                         </div>
-                        <div>@{{ w.WallName }}</div>
-                    </a>
+                        <div ng-if="w.WallIcon == null">
+                            <img class="rounded-pill mb-1 border shadow-sm" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS33NUKvo6xLaAcTaCGFggAzBhYYEf7Rn2RzAVr5PB3NZ94VwKxFrAL_8KHjdXJqRbP6U0&usqp=CAU" alt="no image" width="60px">
+                        </div>
+                        <div class="fw-bold">@{{ w.WallName }}</div>
+                    </button>
                 </div>
             </div>
             <div class="col-sm-10">
                 <div class="tab-content" >
                     <div ng-show="wallName ==  w.WallName" get-customer-layer get-template  ng-repeat="(fIndex,w) in wallGroup" ng-class="{show: $index == 0, active: $index == 0}"  >
-                        <div class="text-end"> 
-                            <button class="btn btn-info" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add New @{{  w.WallName }}</button> 
-                            <hr>
+                        <div class="text-end" ng-if="w.Details.length"> 
+                            <button class="btn btn-success" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add New @{{  w.WallName }}</button> 
                         </div>
-                        <div ng-if="!w.Details.length">
-                            <div class="text-center pt-5">
+                        <div ng-if="!w.Details.length" class="d-flex justify-content-center align-items-center card card-body p-3 m-0 border shadow-sm" style="min-height: 450px">
+                            <div class="text-center">
+                                <img src="{{ asset("public/assets/images/bg-emty.png") }}" width="75%">
                                 <h1 class="h4">Please Click to Add New @{{  w.WallName }}</p>
-                                <img src="{{ asset("public/assets/images/bg-emty.png") }}" width="50%">
+                                <button class="btn btn-success" ng-click="AddWallDetails(fIndex)"><i class="fa fa-plus"></i> Add New </button> 
                             </div>
                         </div>
 
@@ -273,7 +282,7 @@
                                                     </div>
                                                     <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallBottom"> @{{ w.WallBottom }}</p>
                                                     <div class="text-end">
-                                                        <button  type="button" ng-click="saveToLocal()" class="ms-2 btn btn-info rounded shadow-sm btn-sm">Save</div></button>
+                                                        <button  type="button" ng-click="saveToLocal()" class="ms-2 btn btn-primary rounded shadow-sm btn-sm"><i class="fa fa-save me-1"></i> Save</div></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -341,11 +350,11 @@
         </div>
     </div> 
     <div class="row m-0 justify-content-end mt-2">
-        <div class="col-md-3">
+        <div class="col-md-3" ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid">
             <div class="card border shadow-sm mb-0">
                 <div class="card-header bg-light"><strong>BUILDING SUMMARY</strong></div>
                 <div class="card-body text-center">
-                    <button ng-class="isOpen  != true ?  'w-100 btn-sm rounded-pill btn btn-info' : 'w-100 btn-sm rounded-pill btn btn-light border shadow-sm'" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab" ng-show="showHideBuildingComponent == 0 && !buildingComponentForm.$invalid" ng-click="isOpen = !isOpen"> 
+                    <button ng-class="isOpen  != true ?  'w-100 btn-sm rounded-pill btn btn-info' : 'w-100 btn-sm rounded-pill btn btn-light border shadow-sm'" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="buildingComponentTab reviewTab"  ng-click="isOpen = !isOpen"> 
                       <i ng-class='isOpen  != true ?  "fa fa-eye" : "fa fa-eye-slash"'></i>  @{{ isOpen  != true ?  "View" : "Close"  }}
                     </button> 
                 </div>
