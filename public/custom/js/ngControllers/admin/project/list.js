@@ -41,8 +41,8 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
             }
         ],
         rowCallback: function( row, data ) {
-           if(data.is_new_enquiry == 1){
-                $(row).addClass('font-weight-bold bg-light');
+           if(data.is_new_project == 1){
+                $(row).addClass('active-table-row');
            }
         },
         createdRow: function ( row, data, index ) {

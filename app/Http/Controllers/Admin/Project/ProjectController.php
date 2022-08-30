@@ -489,9 +489,10 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        
-        return $this->projectRepo->getProjectById($id);
-        
+        $project = $this->projectRepo->getProjectById($id);
+        $project->is_new_project = false;
+        $project->save();
+        return $project;
     }
 
     public function livetaskshow($id){

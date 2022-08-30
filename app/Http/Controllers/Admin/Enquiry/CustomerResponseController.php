@@ -49,7 +49,8 @@ class CustomerResponseController extends Controller
             }
             $enquiry_data = $this->getDataFromEnquiry($enquiry);
             $additional_data = [
-                'reference_number' => GlobalService::getProjectNumber()
+                'reference_number' => GlobalService::getProjectNumber(),
+                'is_new_project' => 1
             ];
             $result = $this->projectRepo->create($enquiry_id, array_merge($enquiry_data, $additional_data));
             $this->enquiryRepo->updateEnquiry($enquiry_id, ['project_id' => $result->id, 'project_assign_to' => $assigned_to ?? Admin()->id]);

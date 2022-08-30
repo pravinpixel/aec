@@ -46,6 +46,7 @@ class Project extends Model
         'wizard_todo_list',
         'bim_project_type',
         'wizard_status',
+        'is_new_project',
         'bim_id',
         'bim_account_id'
     ];
