@@ -162,96 +162,100 @@
                                     </div>
                                     <div class="fw-bold text-success">Low</div>
                                 </div>
-                            </div>  --}}
+                            </div> 
                         </div>
                     </div>
                 </div>
-                <h3 class="h4 mb-0 mt-3">Issues Summary</h3>
-                <ul class="nav nav-tabs nav-bordered mb-3">
-                    <li class="nav-item">
-                        <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active" ng-click="tablesearch('all')">
-                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                            <span class="d-none d-md-block">All</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#profile-b1" data-bs-toggle="tab" aria-expanded="true" class="nav-link " ng-click="tablesearch('internal')">
-                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                            <span class="d-none d-md-block">Internal</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link"  ng-click="tablesearch('customer')">
-                            <i class="mdi mdi-settings-outline d-md-none d-block"></i>
-                            <span class="d-none d-md-block">Customer</span>
-                        </a>
-                    </li>
-                </ul> 
-                 
-                <div class="hide-page-size position-relative">
-                    <div class="d-flex justify-content-end mt-2 mb-1">
-                        <div class="dropdown">
-                            <button class="btn btn-light btn-sm dropdown-toggle border" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <label for="test@{{$index}}" class="dropdown-item" ng-repeat="col in cols" >
-                                    <input type="checkbox"  ng-model="col.show" name="" id="test@{{$index}}" class="form-check-input me-1">
-                                    @{{col.title}}
-                                </label>
+                <h3 class="h4 mb-0 mt-3">Ticket Summary</h3>
+                <div class="d-flex justify-content-between border-bottom align-items-end">
+                    <div>
+                        <button class="fw-bold border-primary border-start-0 border-end-0 border-top-0 rounded-0 border-bottom btn btn-sm">All</button>
+                        <button class="rounded-0 border-0 btn btn-sm ms-1">Assign to me</button>
+                        <button class="rounded-0 border-0 btn btn-sm ms-1">Created by me</button>
+                    </div>
+                    <div class="pb-2">
+                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Case</button>
+                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
+                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button>
+                    </div>
+                </div>
+                <div class="mb-2 pt-2 row mx-0 align-items-center">
+                    <div class="d-flex align-items-center col-4 p-0">
+                        <label class="m-0 me-1">Quick filters</label>
+                        <select class="form-select form-select-sm" style="width: 150px">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="col-8 p-0">
+                        <div class="input-group justify-content-end">
+                            <div class="border rounded input-group flex-nowrap" style="width: 200px">
+                                <span class="input-group-text btn-sm border-0 bg-none" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                                <input type="text" class="form-control border-0 form-control-sm ps-0" placeholder="Search" aria-describedby="basic-addon1">
                             </div>
+                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-arrow-up-down me-1"></i> Sort</button>
+                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
+                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields</button>
+                            <button class="ms-1 border rounded btn btn-sm"><i class="fa fa-expand"></i></button>
                         </div>
-                        <button class="ms-1 border rounded btn btn-sm btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
-                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" ng-click="autotrigger('internal')" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issue</button>
-                        </div>
-                    <table class="table custom table-striped table-bordered" datatable="ng"  dt-options="vm.dtOptions">
-                        <thead>
+                    </div>
+                </div>
+                <table class="table custom custom table-hover m-0 table-responsive">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Requester</th>
+                            <th>Title</th>
+                            <th>Assignee</th>
+                            <th>Status</th>
+                            <th>Due by</th>
+                            <th>Priority</th>
+                            <th>Created by</th>
+                            <th>Modifed at</th>
+                            <th><i class="dripicons-menu"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for ($i=0;$i<6;$i++)
                             <tr>
-                                <th>#</th>
-                                <th ng-repeat="locale in cols" ng-show="locale.show" class="text-center">@{{locale.title}}</th>
-                                <th><i class="dripicons-menu"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="(ptcindex,pticketscomment) in pticketcomment">
-                                <td >@{{ ptcindex+1 }}</td>
-                                <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center">
-                                    <button  class="btn btn-sm btn-outline-primary p-0 px-1" ng-click="showTicketComments(pticketscomment.id,'show')">
-                                        <small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.ticket_num }}</small>
-                                    </button>
-                                </td>
-                                <td ng-show="cols[1].show">@{{pticketscomment.requester}}</td>
-                                <td ng-show="cols[2].show">
+                                <td>{{ $i+1 }}</td>
+                                <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><small>PRXX / TIKXX-0{{ $i+1 }}</small></button></td>
+                                <td>
                                     <div class="d-flex align-items-center">
-                                        
-                                        <div>
-                                            <h5 class="m-0 font-14 capitalize">
-                                                @{{pticketscomment.type}}
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td ng-show="cols[3].show">@{{pticketscomment.summary}}</td>
-                                <td ng-show="cols[4].show">@{{pticketscomment.description | limitTo:20}}@{{pticketscomment.description.length > 20 ? '...' : ''}}</td>
-                                <td ng-show="cols[5].show">
-                                    <div class="d-flex align-items-center">
-                                      
-                                       
+                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
                                         <div>
                                             <h5 class="m-0 font-14">
-                                               <span ng-show ="pticketscomment.type != 'customer'">  @{{pticketscomment.assigndetails.first_name}}</span> 
-                                               <span ng-show ="pticketscomment.type == 'customer'">  @{{pticketscomment.assigncustomerdetails.first_name}}</span> 
+                                                Arya Stark
                                             </h5>
                                         </div>
                                     </div>
                                 </td>
-                                
-                                <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'closed', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
-                                <td ng-show="cols[7].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
-                                <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center capitalize">@{{pticketscomment.priority}} </td>
-                                
-                                <td ng-show="cols[9].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
-                                <td style="padding: 0 !important" class="text-center" >
+                                <td>Mail Issue</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+2 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <div>
+                                            <h5 class="m-0 font-14">
+                                                Gary Somya
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">New</span></td>
+                                <td> <small>13/01/2021, 12:30 <br> <small class="text-secondary">(Due in 1d)</small></small></td>
+                                <td style="padding: 0 !important" class="text-center">critical <i class="fa fa-arrow-up text-danger ms-1"></i></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        <div>
+                                            <h5 class="m-0 font-14">
+                                                Arya Stark
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><small>12/01/2021, 12:30</small> </td>
+                                <td style="padding: 0 !important" class="text-center">
                                     <div class="dropdown">
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
