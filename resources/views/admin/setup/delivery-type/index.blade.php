@@ -1,11 +1,12 @@
+
 @extends('admin.setup.index')
 @section('setup-content')
-    <div ng-controller="constructionTypeController">
+    <div ng-controller="deliveryTypeController">
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <h4 class="haeder-title">Construction Type</h4>
-                    <button class="btn btn-primary btn-sm" ng-click="toggleType('add', 0)">Create New Construction Type</button>
+                    <h4 class="haeder-title">Type of Delivery </h4>
+                    <button class="btn btn-primary btn-sm" ng-click="toggleType('add', 0)">Create New Type</button>
                 </div>
             </div>
             <div class="card-body">
@@ -19,7 +20,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="(index,type) in type_module_get track by type.id">
-                            <td class="align-items-center">@{{ type.building_type_name }}</td>
+                            <td class="align-items-center">@{{ type.delivery_type_name }}</td>
                             <td>
                                 <div>
                                     <input type="checkbox" id="switch__@{{ index }}" ng-checked="type.is_active == 1" data-switch="success"/>
@@ -51,7 +52,7 @@
                             <div class="form-group error mb-2">
                                 <label for="inputEmail3" class="col-sm-12  text-dark control-label mb-2">Construction Type Name</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control has-error" id="type_name" name="type_name" placeholder="Type Here.." ng-model="module_type.building_type_name" ng-required="true" required>
+                                    <input type="text" class="form-control has-error" id="type_name" name="type_name" placeholder="Type Here.." ng-model="module_type.delivery_type_name" ng-required="true" required>
                                     <small class="help-inline text-danger">This  Fields is Required</small>
                                 </div>
                             </div>
@@ -83,8 +84,7 @@
 @endsection
 @push('custom-scripts') 
     <script>
-        app.controller('constructionTypeController', function ($scope, $http, API_URL, $location) {
-            
+        app.controller('deliveryTypeController', function ($scope, $http, API_URL, $location) {
             $scope.toggleType = function (modalstate, id) {
                 $scope.modalstate = modalstate;
                 $scope.module_type = {};
@@ -99,7 +99,7 @@
                         $scope.form_color = "success";
                         $scope.id = id;
                         $scope.module_type = {};
-                        $http.get(API_URL +'building-type/' + id ).then(function (response) {
+                        $http.get(API_URL +'delivery-type/' + id ).then(function (response) {
                                 $scope.module_type = response.data.data;
                                 $('#primary-type-modal').modal('show');
                             });
@@ -107,7 +107,7 @@
                 } 
             }
             $scope.confirmTypeDelete = function (id) {
-                var url = API_URL + 'building-type/';
+                var url = API_URL + 'delivery-type/';
                 swal({
                     title: "Are you sure?",
                     text: "Once deleted, you will not be able to recover this Data!",
@@ -136,7 +136,7 @@
                 });
             }
             $scope.save_type = function (modalstate, id) {
-                var url = API_URL + "building-type";
+                var url = API_URL + "delivery-type";
                 var method = "POST";
                 if (modalstate === 'edit') {
                     url += "/" + id;
@@ -151,7 +151,7 @@
                         $('#primary-type-modal').modal('hide');
                         Message('success',response.data.msg);
                     }, function errorCallback(response) {
-                        Message('danger',response.data.errors.building_type_name);
+                        Message('danger',response.data.errors.delivery_type_name);
                     });
                 }else {
                     $http({
@@ -164,14 +164,14 @@
                         $('#primary-type-modal').modal('hide');
                         Message('success',response.data.msg);
                     }, function errorCallback(response) {
-                        Message('danger',response.data.errors.building_type_name);
+                        Message('danger',response.data.errors.delivery_type_name);
                     });
                 } 
             } 
             $scope.getTypeData = function($http, API_URL) { 
                 $http({
                     method: 'GET',
-                    url: API_URL + "building-type",
+                    url: API_URL + "delivery-type",
                 }).then(function (response) {
                     $scope.type_module_get = response.data;		
                 }, function (error) {
@@ -182,7 +182,7 @@
             $scope.type_status = function (index  , id) {
                 $http({
                     method: "PUT",
-                    url: API_URL + "building-type/status/" + id,
+                    url: API_URL + "delivery-type/status/" + id,
                     data: $.param({'status':0}),
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 }).then(function (response) {
