@@ -268,4 +268,9 @@
             -moz-appearance: textfield;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            $('input').attr('autocomplete', 'off');
+        });
+    </script>
 @endif

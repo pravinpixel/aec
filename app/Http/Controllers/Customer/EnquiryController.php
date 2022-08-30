@@ -248,6 +248,7 @@ class EnquiryController extends Controller
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
             if ($status == 'Submitted') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
+                $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'is_customer_active_enquiry');
                 return response(['status' => true, 'msg' => 'submitted']);
             }
             return response(['status' => true, 'msg' => 'saved']);
@@ -400,6 +401,7 @@ class EnquiryController extends Controller
             $status = $this->customerEnquiryRepo->updateStatusById($enquiry, $data);
             if ($status == 'Submitted') {
                 $this->customerEnquiryRepo->AddEnquiryReferenceNo($enquiry);
+                $this->customerEnquiryRepo->updateWizardStatus($enquiry, 'is_customer_active_enquiry');
                 return response(['status' => true, 'msg' => 'submitted']);
             }
             return response(['status' => true, 'msg' => 'saved']);
@@ -582,6 +584,7 @@ class EnquiryController extends Controller
     {
         $outputTypes =  $this->outputTypeRepository->get();
         $enquiry = $this->customerEnquiryRepo->getEnquiryById($id);
+        $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry,'is_customer_active_enquiry',false);
         $services = $enquiry->services()->get();
         $result['project_infos'] = $this->formatProjectInfo($enquiry);
         $result['services'] =  $this->formatServices($outputTypes, $services);

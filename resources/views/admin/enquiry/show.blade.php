@@ -153,9 +153,6 @@
   
     <script src="{{ asset("public/custom/js/ngControllers/admin/enquiryWizzard.js") }}"></script>
     <script> 
-        $(document).ready(function() {
-            $('input').attr('autocomplete', 'off');
-        });
         app.config(function($routeProvider) {
             $routeProvider
             .when("/", {

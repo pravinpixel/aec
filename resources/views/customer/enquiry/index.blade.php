@@ -315,7 +315,7 @@
                 ],
 
                 rowCallback: function( row, data ) {
-                    if(data.proposal_email_status == 1){
+                    if(data.is_customer_active_enquiry == 1 || data.customer_response == 0){
                         $(row).addClass('active-table-row');
                     }
                 },               
