@@ -214,6 +214,7 @@ app.directive('comment', function (API_URL, $http) {
                     getEnquiryCommentsCountById(enquiry_id);
                     getEnquiryActiveCommentsCountById(enquiry_id);
                 });
+                $(`#${type}_count`).hide();
             };
             element.bind("keydown keypress", function (event) {
                 if(event.which === 13) {

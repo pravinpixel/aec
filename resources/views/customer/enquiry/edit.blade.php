@@ -32,7 +32,7 @@
 
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.project_information > 0}">
                                             Project Information
-                                            <span ng-show="enquiry_active_comments.project_information > 0" class="enquiry__comments__alert">
+                                            <span ng-show="enquiry_active_comments.project_information > 0" class="enquiry__comments__alert" id="project_information_count">
                                                 @{{ enquiry_active_comments.project_information   }}
                                             </span>
                                         </div>
@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.service > 0}">
                                             Service Selection
-                                            <span ng-show="enquiry_active_comments.service > 0"  class="enquiry__comments__alert">
+                                            <span ng-show="enquiry_active_comments.service > 0"  class="enquiry__comments__alert"  id="service_count">
                                                 @{{ enquiry_active_comments.service   }}
                                             </span>
                                         </div>
@@ -60,9 +60,9 @@
                                         <div class="inner-circle  bg-secondary">
                                             <i class="fa fa-2x fa-file-upload mb-1"></i>
                                         </div>
-                                        <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.ifc_model > 0}">
+                                        <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.ifc_model > 0}" >
                                             IFC Model & Uploads
-                                            <span ng-show="enquiry_active_comments.ifc_model > 0" class="enquiry__comments__alert">
+                                            <span ng-show="enquiry_active_comments.ifc_model > 0" class="enquiry__comments__alert" id="ifc_model_count">
                                                 @{{ enquiry_active_comments.ifc_model   }}
                                             </span>
                                         </div>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="pt-1 mt-2 position-relative"  ng-class="{tab__comment__active: enquiry_active_comments.building_components > 0}">
                                             Building  Components
-                                            <span ng-show="enquiry_active_comments.building_components > 0" class="enquiry__comments__alert">
+                                            <span ng-show="enquiry_active_comments.building_components > 0" class="enquiry__comments__alert"   id="building_components_count">
                                                 @{{ enquiry_active_comments.building_components   }}
                                             </span>
                                         </div>
@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="pt-1 mt-2 position-relative" ng-class="{tab__comment__active: enquiry_active_comments.add_info > 0}">
                                             Additional Info
-                                            <span ng-show="enquiry_active_comments.add_info > 0" class="enquiry__comments__alert">
+                                            <span ng-show="enquiry_active_comments.add_info > 0" class="enquiry__comments__alert" id="add_info_count">
                                                 @{{ enquiry_active_comments.add_info   }}
                                             </span>
                                         </div>
