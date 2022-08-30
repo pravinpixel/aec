@@ -91,6 +91,15 @@ app.controller('projectController', function ($scope, $http, API_URL, $compile) 
         }
     });
 
+    $http({
+        method: 'GET',
+        url: API_URL+'admin/get-project-count',
+    }).then(function (res){ 
+        $("#project-unestablished-count").html(res.data.unestablishedCount);
+    }, function (error) {
+        console.log('get project type error');
+    });
+
     $scope.projectFilter = () => {
         $scope.from_date = $("#from_date").val();
         $scope.to_date = $("#to_date").val();

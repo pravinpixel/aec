@@ -41,7 +41,9 @@
             @case('task')
             <small class="comments-count" ng-if="project_active_comments.task > 0"> @{{ project_active_comments.task   }}</small>
             @break
-      
+            @case('un-established-projects')
+            <span class="comments-count" id="project-unestablished-count"> </span>
+            @break
             @default
         @endswitch
     </div>

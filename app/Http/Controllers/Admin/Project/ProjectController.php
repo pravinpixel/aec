@@ -1366,4 +1366,10 @@ class ProjectController extends Controller
         //     $this->dispatch($job);
         // }
     }
+
+    public function getProjectCount()
+    {
+        $unestablishedCount = Project::where(['status'=>'In-Progress', 'is_new_project' => 1])->get()->count();
+        return ['unestablishedCount'=>$unestablishedCount];
+    }
 }

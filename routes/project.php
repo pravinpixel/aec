@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::post('live-project/add-image', [TicketCommentsController::class,'add_image'])->name("projectticket.add-image");
     Route::get('project/team/{id}/team_setup',[ProjectController::class, 'tagteamsetup'])->name('tagteamsetup');
     Route::get('get-employee-by-slug/{name}/{type}/{projectid}', [ProjectController::class,'getRoleByProjectSlug'])->name('get-employee-by-slug-ticket');
+    Route::get('get-project-count',[ProjectController::class,'getProjectCount']);
     /*Route::get('/live-projects', function () {
         return view('admin.projects.live-project.index');
     })->name('live-projects');*/
@@ -60,7 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
    
 });
 
-Route::get('/get-project-session-id',[ProjectController::class, 'getProjectId'])->name("vetri");
+Route::get('/get-project-session-id',[ProjectController::class, 'getProjectId']);
 
 Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.'], function () {
     Route::get('test-demo',[ProjectController::class, 'testDemo'])->name('sharepoint-test-demo'); 
