@@ -148,6 +148,7 @@
  
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $scope.commentShow = false;
+            $scope.projectStartDate = getYesterdayDate();
             $scope.enquiry_date = new Date();
             $scope.enquiry_number = 'Draft';
             $("#project-info").addClass('active');
@@ -183,9 +184,6 @@
                 });
             });
 
-
-            
-           
             $scope.getCompany = (text) => {
                 $http.get(`https://hotell.difi.no/api/json/brreg/enhetsregisteret?query=${text}`)
                 .then(function successCallback(res){

@@ -181,6 +181,7 @@
 
         app.controller('ProjectInfo', function ($scope, $http, $rootScope, Notification, API_URL, $location) {
             $scope.commentShow = true;
+            $scope.projectStartDate = getYesterdayDate();
             let enquiry_id = {{$id}};
             $scope.enquiry_id = {{$id}};
             // console.log('enquiry_id',enquiry_id);

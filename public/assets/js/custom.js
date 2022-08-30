@@ -183,3 +183,11 @@
         //console.log(tableval);
 
     } 
+
+    $(document).ready(function() {
+        $('input').attr('autocomplete', 'off');
+    });
+
+    function getYesterdayDate() {
+        return new Date(new Date().getTime() - 24*60*60*1000);
+    }
