@@ -19,7 +19,7 @@
         {'modalState':'viewConversations',
         'type': 'document', 
         'header':'document',
-        'project_id':4 ,
+        'project_id':projectId,
         send_by: {{ Admin()->id }},
         'from':'Admin'
         }"/> 
@@ -29,7 +29,7 @@
         {'modalState':'viewConversations',
         'type': 'document', 
         'header':'document',
-        'project_id':4 ,
+        'project_id':projectId,
         send_by: {{ Admin()->id }},
         'from':'Admin'
         }"/>

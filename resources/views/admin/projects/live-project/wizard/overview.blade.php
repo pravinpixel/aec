@@ -4,7 +4,7 @@
             <i class="mdi mdi-account fa-3x text-success mb-0 me-2"></i>
             <div>
                 <h4>Company Name</h4>
-                <p class="mb-0">@{{overview.company_name}}</p>
+                <p class="mb-0">@{{projectreview.company_name}}</p>
             </div>
         </div>
     </div>
@@ -13,7 +13,7 @@
             <i class="mdi mdi-comment-account fa-3x text-primary mb-0 me-2"></i>
             <div>
                 <h4>Contact Person</h4>
-                <p class="mb-0">@{{overview.contact_person}}</p>
+                <p class="mb-0">@{{projectreview.contact_person}}</p>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <i class="mdi mdi-email-open fa-3x text-danger mb-0 me-2"></i>
             <div>
                 <h4>Email</h4>
-                <p class="mb-0">@{{overview.email}}</p>
+                <p class="mb-0">@{{projectreview.email}}</p>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
             <i class="mdi mdi-deskphone fa-3x text-info mb-0 me-2"></i>
             <div>
                 <h4>Phone</h4>
-                <p class="mb-0">@{{overview.mobile_number}}</p>
+                <p class="mb-0">@{{projectreview.mobile_number}}</p>
             </div>
         </div>
     </div>

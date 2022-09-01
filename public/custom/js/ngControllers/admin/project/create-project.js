@@ -1900,7 +1900,7 @@ formatData = (project) => {
   
   app.controller('DocumentController', function($scope, $http, API_URL, $location) {
     let project_id = $('#project_id').val();
-
+    $scope.projectId = project_id;
     $http.get(`${API_URL}admin/api/v2/projectdocument/${project_id}`).then((res) => {
         $scope.fileSystem = res;
         console.log(res.data);
@@ -2164,13 +2164,14 @@ formatData = (project) => {
           }]
       });
     });
-    apexcharts.min.js
+    
   });
     $http.get(`${API_URL}admin/api/v2/projectticket/${project_id}`).then((res) => {
       $scope.overviewinternal = res.data.internaloverview == null ? false : res.data.internaloverview
       $scope.overviewcustomer = res.data.customeroverview == null ? false : res.data.customeroverview
       $scope.overview         = res.data.overview == null ? false : res.data.overview 
-      console.log($scope.overview);
+      $scope.projectreview         = res.data.project == null ? false : res.data.project 
+      console.log(   $scope.projectreview );
       const project_status = document.getElementById('project-status').getContext('2d');
 
       const data = {
