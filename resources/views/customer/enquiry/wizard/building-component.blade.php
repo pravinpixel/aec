@@ -282,6 +282,7 @@
                                                     </div>
                                                     <p class="text-center p-1 bg-light border shadow-sm rounded" ng-if="w.WallBottom"> @{{ w.WallBottom }}</p>
                                                     <div class="text-end">
+                                                        <small ng-if="d.LastAction"><b>last update</b> - @{{ d.LastAction }}</small>
                                                         <button  type="button" ng-click="saveToLocal()" class="ms-2 btn btn-primary rounded shadow-sm btn-sm"><i class="fa fa-save me-1"></i> Save</div></button>
                                                     </div>
                                                 </div>

@@ -618,7 +618,7 @@
                     }).then(function success(response) {
 
                         response.data.map( (item , index) => {
-
+                            console.log(item)
                             let wall = {
                                 WallId    : item.id,
                                 WallName  : item.building_component_name,
@@ -677,13 +677,14 @@
                                     });
                                 }
                                 return {
+                                    LastAction  : detail.LastAction,
                                     FloorName   : detail.floor,
                                     TotalArea   : Number(detail.approx_total_area),
-                                    DeliveryType : detail.building_component_delivery_type_id,
-                                    Layers : Layer
+                                    DeliveryType: detail.building_component_delivery_type_id,
+                                    Layers      : Layer
                                 }
                             });
-                        }
+                        } 
                         let wall = {
                                 WallId    : item.wallId,
                                 WallName  : item.wall,
@@ -691,7 +692,7 @@
                                 WallTop   : item.top_position,
                                 WallBottom: item.bottom_position,
                                 WallLabel : item.label,
-                                Details: Details
+                                Details   : Details
                             }
                         $scope.wallGroup.push(wall);
                     });

@@ -586,7 +586,8 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                             }
                         }
                         $toArrayDetails = $enquiryBuildingComponentDetail->toArray();
-                        $detail[] = array_merge( $toArrayDetails, $layer);
+                        
+                        $detail[] = array_merge( $toArrayDetails, $layer , ['LastAction' => $enquiryBuildingComponentDetail->updated_at->format('Y-md-d h:m:s')]);
                     }
                     $buildingComponent['detail']= $detail;
                 }
@@ -597,7 +598,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     'label' =>  $buildingComponentMaster->label,
                     'icon' => $buildingComponentMaster->building_component_icon,
                     'wallId' => $buildingComponentMaster->id,
-                    'totalWallArea' => $enquiryBuildingComponent->total_wall_area
+                    'totalWallArea' => $enquiryBuildingComponent->total_wall_area, 
                 ];
                 $buildingComponentData[] = (object)array_merge($buildingComponent, $componentAdditionalData);
         }
