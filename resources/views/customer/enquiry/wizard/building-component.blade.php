@@ -14,19 +14,19 @@
         </div> 
     </div> --}}
 
-    <div class="d-flex justify-content-between alert bg-primary align-items-center shadow-sm border border-secondary text-white col-5 mx-auto" role="alert">
+    <div class="rounded-pill d-flex justify-content-between alert bg-light align-items-center shadow-sm border  col-5 mx-auto" role="alert">
         <div>
             <strong>Do you want to Enter Manually ?</strong>
         </div>
         <div class="d-flex">
-            <div class="mx-3 btn btn-sm btn-light border shadow-sm">
+            <label for="flexRadioDefault1" class="rounded-pill mx-3 btn btn-sm btn-success border shadow-sm">
                 <input class="form-check-input border shadow-sm border-dark" type="radio" id="flexRadioDefault1" name="buildingComponent_" ng-checked="showHideBuildingComponent == 0" ng-model="showHideBuildingComponent" ng-value="false">
-                <label class="form-check-label" for="flexRadioDefault1">  Yes </label>
-            </div>
-            <div class=" btn btn-sm btn-light border shadow-sm">
+                <strong>  Yes </strong>
+            </label>
+            <label for="flexRadioDefault"  class="rounded-pill  btn btn-sm btn-primary border shadow-sm">
                 <input class="form-check-input border shadow-sm border-dark" type="radio" id="flexRadioDefault" ng-checked="showHideBuildingComponent == 1" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
                 <label class="form-check-label" for="flexRadioDefault"> No </label>
-            </div>
+            </label>
         </div>
     </div>
 
