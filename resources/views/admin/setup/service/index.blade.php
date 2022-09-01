@@ -2,10 +2,15 @@
 @section('setup-content')
 <div ng-controller="serviceController">
     <div class="card">
-        <div class="card-header ">
-            <div class="d-flex justify-content-between">
+        <div class="card-header">
+            <div class="align-items-center d-flex justify-content-between">
                 <h4 class="haeder-title">Service</h4>
-                <button class="btn btn-primary btn-sm" ng-click="toggleService('add', 0)">Create New Service</button>
+                <div>
+                    <label for="all" class="mx-2"><input ng-click="filter(0)" checked type="radio" name="filter" class="form-check-input me-2" id="all">All</label>
+                    <label for="type1" class="mx-2"><input ng-click="filter(2)" type="radio" name="filter" class="form-check-input me-2" id="type1">Precast</label>
+                    <label for="type2" class="mx-2"><input ng-click="filter(1)" type="radio" name="filter" class="form-check-input me-2" id="type2">Timber Frame</label>
+                    <button class="btn btn-primary btn-sm" ng-click="toggleService('add', 0)">Create New Service</button>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -15,7 +20,7 @@
                         <th>Name</th>
                         <th>Status</th>
                         <th>Output Type</th>
-                        <th >Actions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,7 +30,7 @@
                             <div>
                                 <input type="checkbox" id="switch__@{{ index }}" ng-checked="service.is_active == 1" data-switch="success"/>
                                 <label for="switch__@{{index}}" data-on-label="On" ng-click="service_status(index,service.id)" data-off-label="Off"></label>
-                            </div> 
+                            </div>
                             <span ng-if="service.is_active == 1" class="d-none">1</span>              
                             <span ng-if="service.is_active == 0" class="d-none">0</span>             
                         </td>
@@ -33,14 +38,14 @@
                         <td>
                             <div class="btn-group">
                                 <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill" ng-click="toggleService('edit', service.id)"><i class="fa fa-edit"></i></button>
-                                <button class="shadow btn btn-sm btn-outline-danger rounded-pill  " ng-click="confirmServiceDelete(service.id)"><i class="fa fa-trash"></i></button>
+                                <button class="shadow btn btn-sm btn-outline-danger rounded-pill" ng-click="confirmServiceDelete(service.id)"><i class="fa fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div> 
+    </div>
     <div id="primary-service-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="@{{form_color}}-header-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -170,12 +175,11 @@
                 });
             }
             $scope.getServiceData = function($http, API_URL) {
-                var url = API_URL + "service";
                 $http({
                     method: 'GET',
-                    url: url,
+                    url: API_URL + "service",
                 }).then(function (response) {
-                    $scope.service_module_get = response.data;		
+                    $scope.service_module_get = response.data;
                 }, function (error) {
                     console.log(error);
                 });
@@ -235,6 +239,24 @@
                         console.log(error);
                     });
                 }
+            } 
+            $scope.filter = (type_id) => {
+                var tempData = [];
+                $http({
+                    method: 'GET',
+                    url: API_URL + "service",
+                }).then(function (response) {
+                    if(type_id != 0) {
+                        response.data.map((item) =>  {
+                            if(item.output_type_id == type_id) {
+                                tempData.push(item)
+                            }
+                        })
+                        $scope.service_module_get =  tempData 
+                    } else {
+                        $scope.service_module_get = response.data
+                    }
+                }); 
             }
         });
     </script>
