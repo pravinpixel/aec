@@ -68,8 +68,8 @@
                 <label for="floatingSelect">Type of Project <sup class="text-danger">*</sup></label>
                 <small class="text-danger" ng-show="projectInfoForm.project_type.$invalid && formSubmit">This field is required</small>
             </div>
-            <div class="form-floating  mb-2">
-                <input type="date"  class="form-control form-control-sm" id="project_date" name="project_date" ng-model="projectInfo.project_date" required/>
+            <div class="form-floating  mb-2"> 
+                <input type="date" min="{{ now()->format('Y-m-d') }}" class="form-control form-control-sm" id="project_date" name="project_date" ng-model="projectInfo.project_date" required/>
                 <label for="floating">Project Start Date <sup class="text-danger">*</sup></label>
                 <i class="fa fa-calendar custom__date__icon"></i>
                 <small class="text-danger" ng-show="projectInfoForm.project_date.$error.required && formSubmit">This field is required</small>

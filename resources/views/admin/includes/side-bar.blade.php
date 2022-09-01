@@ -186,7 +186,7 @@
             </li>
             @if(userRole()->slug == 'admin')
             <li class="side-nav-item ">
-                <a href="{{ route('admin-settings') }}" class="side-nav-link">
+                <a href="{{ route('setup.roles') }}" class="side-nav-link">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <span> Setup </span>
                 </a> 
