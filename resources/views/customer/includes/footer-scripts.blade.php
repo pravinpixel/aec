@@ -46,3 +46,9 @@
 <script src="https://unpkg.com/devextreme-quill@1.5.14/dist/dx-quill.min.js"></script>
 <script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
 <!-- ========= Text Editor ========== -->
+
+<script>
+    $("#alert-log").fadeTo(3000, 1000).slideUp(1000, function(){
+        $("#alert-log").slideUp(5000);
+    }); 
+</script>
