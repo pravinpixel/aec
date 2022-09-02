@@ -16562,7 +16562,7 @@ input[type=date]::-webkit-calendar-picker-indicator{
 .unattended-table-row  i {
   font-weight:  bold !important;
 }
-
+#unestablished-table tr ,
 .active-table-row {
   background: #d3f7e3 !important;
 }
@@ -16572,5 +16572,13 @@ input[type=date]::-webkit-calendar-picker-indicator{
 .active-table-row small,
 .active-table-row a,
 .active-table-row i {
+  font-weight:  bold !important;
+}
+#unestablished-table tr   th,
+#unestablished-table tr  td,
+#unestablished-table tr  span,
+#unestablished-table tr  small,
+#unestablished-table tr  a,
+#unestablished-table tr  i {
   font-weight:  bold !important;
 }
