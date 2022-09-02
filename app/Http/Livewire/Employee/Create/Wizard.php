@@ -140,7 +140,6 @@ class Wizard extends Component
      */
     public function submitForm()
     {
-       
         if(Session::has('employee')) {
             $session_employee = Session::get('employee');
             $employee = Employees::find($session_employee->id);
@@ -332,9 +331,8 @@ class Wizard extends Component
             $employeeBimProjects->{$service} = 1;
             $userExists = false;
         } else {
-            $employeeBimProjectClone = clone $employeeBimProjects;
-            $employeeBimProjects->{$service} = !$employeeBimProjectClone->{$service};
-            $userExists = $this->checkUserExists($employeeBimProjectClone);
+            $employeeBimProjects->{$service} = !$employeeBimProjects->{$service};
+            $userExists = $this->checkUserExists($employeeBimProjects);
         }
         $employeeBimProjects->save();
         if($employeeBimProjects->access_status) {
@@ -384,13 +382,11 @@ class Wizard extends Component
         $userApi = new  Bim360UsersApi();
         $userJson = $userApi->getUser(env('BIMACCOUNTADMIN'));
         $userObj =  json_decode($userJson);
-        
+        $input = json_encode($data);
         $projectApi = new  Bim360ProjectsApi();
         if(!$isUserExists) {
-            $input = json_encode([$data]);
             $result = $projectApi->importUser($project_id, $input, $userObj->uid);
         } else {
-            $input = json_encode($data);
             $result = $projectApi->updateProjectService($project_id, $employee->bim_id , $input, $userObj->uid);
         }
         Log::info("result {$result}");

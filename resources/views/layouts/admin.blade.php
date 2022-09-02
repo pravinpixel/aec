@@ -142,9 +142,26 @@
             function submit() {
                 swal("Good job!", "Project successfully created!", "success");
             }
+            validate = (event, type) => {
+                const error = document.createElement("span");
+
+                for (const iterator of event.parentNode.childNodes) {
+                    if(iterator.nodeName == 'SPAN') {
+                        iterator.remove()
+                    }
+                }
+                error.classList.add("error")
+                error.innerHTML  = "Invalid Mobile Number !" 
+                if(type == 'mobile') {
+                    var patten = /^\d{8}$|^\d{12}$/;
+                    if(event.value.match(patten)) { 
+                        console.log("")
+                    } else {
+                        event.parentNode.appendChild(error)
+                    }
+                }
+            }
         </script>
-
-
         @livewireScripts
     </body>
 </html>
