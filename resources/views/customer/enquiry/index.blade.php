@@ -252,7 +252,7 @@
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 serverSide: true,
                 ajax          : {
-                    url     : '{!! route('get-customer-new-enquiries') !!}',
+                    url     : '{!! route("get-customer-new-enquiries") !!}',
                     dataType: 'json',
                     data: function (d) {
                       d.from_date      = $scope.enquiry_from_date,
@@ -280,6 +280,7 @@
                     $compile(row)($scope);  //add this to compile the DOM
                 }
             });
+  
 
             var activeEnquiry = $('#active-enquiries').DataTable({
                 aaSorting     : [[0, 'desc']],

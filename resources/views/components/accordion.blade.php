@@ -3,7 +3,9 @@
         <div class="card-title">{{ $title }}</div> 
         <i class="accordion-icon"></i> 
         @switch(slug($title))
-            
+            @case('new-enquiries')
+                <small class="comments-count">1</small>
+            @break
             @case('project-information')
                 <small class="comments-count" ng-if="enquiry_active_comments.project_information > 0"> @{{ enquiry_active_comments.project_information   }}</small>
                 <small class="comments-count" ng-if="project_active_comments.project_information > 0"> @{{ project_active_comments.project_information   }}</small>
