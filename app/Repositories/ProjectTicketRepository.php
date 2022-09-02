@@ -226,7 +226,6 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
     public function findprojectticket($id)
     {
         $ticket =  $this->model->where('ticket_comment_id',$id)->first();
-        //dd($ticket);
         if (null == $ProjectTicket['ticket'] = $this->model->where('ticket_comment_id',$id)->first()) {
             throw new ModelNotFoundException("Issue not found");
         }

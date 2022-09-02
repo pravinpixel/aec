@@ -67,13 +67,14 @@
                                             <div class="col">
                                                 <div class="mb-3">                                             
                                                     <label class="form-label" >Description of Variation / Change  <sup class="text-danger">*</sup></label>
-                                                    <div dx-html-editor="htmlEditorOptions" class = "description"> </div>
+                                                    <div dx-html-editor="htmlEditorOptions" ng-model = "ticket.description" class = "description"> </div>
                                                 </div>
                                             </div>
+                                           
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" >Reason for Variation / Change <sup class="text-danger">*</sup></label>
-                                                    <div dx-html-editor="Variationchanges" class = "variationchanges"> </div>
+                                                    <div dx-html-editor="Variationchanges"  ng-model ="ticket.Variationchanges" class = "variationchanges "> </div>
                                                 </div>
                                             </div>
                                         </div>

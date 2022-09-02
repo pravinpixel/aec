@@ -95,7 +95,8 @@
                                 </td>
                                 <td style="width: 28% !important" class="text-info text-center">
                                     <div class="proposal-comment">
-                                        <div>
+                                        <div ng-bind-html="P.comment ">
+                                            
                                             @{{ P.comment }}
                                         </div> 
                                     </div>
@@ -110,7 +111,7 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
                                             
-                                            <a  class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
+                                            <a  class="btn dropdown-item" ng-click="DuplicateVariation(P.id)">Duplicate</a>
                                             <a  class="btn dropdown-item" ng-click="variationticketshow(P.id,true)">View / Edit</a>
                                             {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a> --}}
                                             <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
@@ -148,7 +149,7 @@
                                             
                                                 <td style="width: 28% !important" class="text-info text-center">
                                                     <div class="proposal-comment">
-                                                        <div>@{{ V.comment }} </div>
+                                                        <div ng-bind-html="V.comment">@{{ V.comment }} </div>
                                                     </div>
                                                 </td>
 
@@ -164,7 +165,7 @@
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'root'">
                                                             <a  class="btn dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
                                                             <a  class="btn dropdown-item" ng-click="variationticketshow(P.id,false)">View</a>
-                                                            {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(V.proposal_id)">Send Proposal</a> --}}
+                                                          <a class="btn dropdown-item" ng-click="sendMailToCustomerticket(V.id,V.id)">Send Mail</a> 
                                                             <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
                                                         </div>
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
@@ -250,6 +251,7 @@
             </div>
             <div class="modal-body  "  style="overflow: auto">
                 <form id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationForm()">
+                    <input type = "hidden" id = "ticket_comment_id" ng-value = "modelptickets.id ">
                     <table class="table custom table-bordered">
                         <thead>
                             <tr>
@@ -272,7 +274,7 @@
                             </tr>
                             <tr>
                                 <td><b>Date of Change Request</b></td>
-                                    <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                    <td><input type="date" get-to-do-lists value="@{{ modelptickets.change_date }}" ng-model="modelptickets.change_date" id="" class=" border-0 form-control form-control-sm"></td>
                             </tr> 
                         </tbody>
                     </table>
@@ -281,11 +283,13 @@
                             <tr><td colspan="2" class="text-center" style="background: #F4F4F4"><b>Change Request Overview</b></td></tr>
                             <tr>
                                 <td width="250px"><b>Description of Variation / Change</b></td>
-                                <td ng-bind-html="modelptickets.description">@{{modelptickets.description}}</td>
+                              
+                                <td ><div dx-html-editor="htmlEditorOptions" ng-model = "modelptickets.description" class = "description"> </div></td>
                             </tr> 
                             <tr>
                                 <td><b>Reason for Variation / Change</b></td>
-                                <td ng-bind-html="modelptickets.response">@{{modelptickets.response}}</td>
+                                <td ><div dx-html-editor="htmlEditorOptions" ng-model = "modelptickets.response" class = "response"> </div></td>
+                             
                             </tr>  
                         </tbody>
                     </table>
@@ -296,23 +300,22 @@
                                 <td><b>Estimated Hours</b></td>
                                 <td><b>Price/Hr</b></td>
                                 <td rowspan="2"></td> 
-                                <td rowspan="2" class="text-center">kr @{{modelptickets.total_price}}</td> 
+                                <td rowspan="2" class="text-center"> <span ng-show ='result != 0' >   kr @{{result}}</span></td> 
                             </tr> 
                             <tr>
-                                <td>@{{modelptickets.project_hrs}}</td>
-                                <td>@{{modelptickets.project_price}}</td> 
+                                <td><input type="text" ng-keyup="getveriation(medicineA)"  ng-model="modelptickets.project_hrs" class="form-control form-control-sm" ng-value = modelptickets.project_hrs></td>
+                                <td><input type="text" ng-keyup="getveriation(medicineB)"  ng-model="modelptickets.project_price" class="form-control form-control-sm" ng-value = modelptickets.project_price></td> 
                             </tr> 
                         </tbody>
                         <tfoot>
                             <tr>
                             <td colspan="2"></td>
                                 <td rowspan="2" class="text-end"><b>Total Price</b></td> 
-                                <td rowspan="2" class="text-center"><b>kr@{{modelptickets.total_price}}</b></td> 
+                                <td rowspan="2" class="text-center"><b>kr@{{modelptickets.total_price}}</b>  </td> 
                             </tr> 
                         </tfoot>
                     </table> 
-                    
-                    <a ng-click= "" ng-show="viewtype == true" class="btn btn-primary" >Update</a>
+                    <input type="submit" ng-show="viewtype == true" class="btn btn-primary" value = "update" >
                 </form>
             </div>  
         </div><!-- /.modal-content -->

@@ -996,6 +996,23 @@ app.controller('TasklistController', function($scope, $http, API_URL, $location)
     });
   }
 });
+app.controller('VariationController', function($scope, $http, API_URL, $rootScope, $location, $timeout)
+{
+  wizardactiveTabs('variation');
+  let project_id = $('#project_id').val();
+  $http.get(`${API_URL}admin/api/v2/projectticket/${project_id}`).then((res) => {
+  
+  
+    $scope.ptickets = res.data.ticket == null ? [] : res.data.ticket
+    $scope.customer = res.data.project == null ? false : res.data.project
+    $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
+    $scope.overview = res.data.overview == null ? false : res.data.overview
+    $scope.cols = res.data.showhide == null ? false : res.data.showhide
+    $scope.proposal = res.data.variationorder == null ?false : res.data.variationorder 
+    console.log( $scope.proposal);
+  });
+
+})
 ///ticket wizard
 app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout)
 {
@@ -1004,6 +1021,7 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
    
   }
   wizardactiveTabs('issues');
+  
   $scope.options = {
     locale:
     {

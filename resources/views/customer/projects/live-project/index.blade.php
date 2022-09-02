@@ -64,6 +64,16 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="#!/variation-orders" style="min-height: 40px;" id = "variation" class="timeline-step" data-is-active>
+                                    <div class="timeline-content">
+                                        <div class="inner-circle bg-secondary " >
+                                            <img src="{{ asset("public/assets/icons/orders.png") }}" class="w-50 invert">
+                                        </div>
+                                    </div>
+                                    <p class="h5 mt-2">Variation Orders</p>
+                                </a>
+                            </li> 
+                            <li class="nav-item">
                                 <a href="#!/doc-management" style="min-height: 40px;" id="document" class="timeline-step wizard_active" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
@@ -178,7 +188,7 @@
             })
             .when("/variation-orders", {
                 templateUrl : "{{ route('customer-live-project.variation-orders') }}",
-                controller: 'TicketController',
+                controller: 'VariationController',
             })
            
             .when("/doc-management", {

@@ -29,9 +29,9 @@
         //=========Live Project =========
 
         Route::get('get-live-project-type/{id}', [ProjectController::class,'liveprojectdata'])->name('project-live.get');
-
         Route::post('store-task-list', [ProjectController::class,'storetasklit'])->name('store-task-list');
         Route::post('live-project-ticket', [ProjectController::class,'ticketcreate'])->name('live-project-ticket');
+        Route::post('VariationUpdate', [ProjectController::class,'VariationUpdate'])->name('Variation-Update');
         Route::get('projectticket/{id}', [ProjectController::class,'ticketlist'])->name('live-project-ticket-list');
         Route::get('projectticketdelete/{id}', [ProjectController::class,'ticketlistdelete'])->name('live-project-ticket-listdelete');
         Route::get('projectticketsearch/{id}/{type}', [ProjectController::class,'ticketsearchlist'])->name('live-project-ticket-search-list');
@@ -41,6 +41,7 @@
         Route::get('live-project/show-ticket-comment/{id}/type/{type}',[TicketCommentsController::class,'sendprojectticket']);
         Route::get('liveprojectnote/{id}',[ProjectController::class,'liveprojectnote']);
         Route::get('projectdocument/{id}', [SharepointController::class,'listAllFolder'])->name('list-All-Folder');
+        Route::put('/DuplicateVariation/{id}/duplicate',[ProjectController::class,'Duplicatevariation'])->name('duplicate.variation');
 
         
         

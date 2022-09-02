@@ -1215,18 +1215,14 @@ class ProjectController extends Controller
     }
 
     public function sendcustomerMail($projectid,$cid){
-        $project_ticket = $this->ProjectTicket->findprojectticket($projectid);
+       $data =  ProjectTicket::find($projectid);
+       //dd($data['ticket_comment_id']);
 
+       
+        $project_ticket = $this->ProjectTicket->findprojectticket($data['ticket_comment_id']);
+       
         $project        = $this->projectRepo->liveprojectdata($project_ticket['ticket']['project_id']);
        
-
-       
-       
-
-      
-
-
-
         $details = [
             'ticket_id'         =>'TIC-00'.$projectid,
             'user_name'         => $project->customerdatails->full_name,
@@ -1243,9 +1239,8 @@ class ProjectController extends Controller
             'total_price'       => $project_ticket['ticket']['total_price']  
 
             ]; 
-
-          
            $res = Mail::to('rajkumarm.pixel@gmail.com')->send(new \App\Mail\projectticketmail($details));
+           
            return response(['status' => true, 'msg' => trans('project.ticketmail')],  Response::HTTP_OK);
         
 
@@ -1371,10 +1366,46 @@ class ProjectController extends Controller
         //     $this->dispatch($job);
         // }
     }
+    public function VariationUpdate(Request $request){
+        $id = $request->ticket_comment;
+       $data =  ProjectTicket :: find($id);
+       $data->description = $request->description;
+       $data->response    = $request->variationchange;
+       $data->project_hrs = $request->project_hrs;
+       $data->project_price = $request->estimate_hrs;
+       $data->change_date   = $request->changedate;
+       $data-> total_price = $request->total;
+       $data->update();
+       return response(['status' => true, 'data'=>  $data, 'msg' => 'updated'], Response::HTTP_OK);
+
+        //dd($request->input());
+    }
+
+
 
     public function getProjectCount()
     {
         $unestablishedCount = Project::where(['status'=>'In-Progress', 'is_new_project' => 1])->get()->count();
         return ['unestablishedCount'=>$unestablishedCount];
+    }
+
+    public function Duplicatevariation($id){
+        $result                 =    ProjectTicket :: find($id);
+        $totalvariationVersion  =    ProjectTicket::where(["ticket_comment_id" => $result->ticket_comment_id ])->get()->count();
+        $duplicate              =    new ProjectTicket;
+        $duplicate->ticket_comment_id =  $result->ticket_comment_id;
+        $duplicate->project_id        = $result->project_id ;
+        $duplicate->title             = $result->title;
+        $duplicate->description       = $result->description;
+        $duplicate->response         =  $result->response;
+        $duplicate->change_date      = $result->change_date;
+        $duplicate->project_hrs      = $result->project_hrs;
+        $duplicate->project_price   =  $result->project_price;
+        $duplicate->total_price     = $result->total_price;
+        $duplicate->status          = $result->status;
+        $duplicate->is_mail_sent    = $result->is_mail_sent;
+        $duplicate->is_active       = $result->is_active;
+        $duplicate  ->  save();  
+        return response(['status' => true, 'msg' => 'Variation Order Duplication Created'], Response::HTTP_CREATED);
     }
 }

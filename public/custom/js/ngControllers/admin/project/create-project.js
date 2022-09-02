@@ -1019,6 +1019,12 @@ formatData = (project) => {
     $scope.getRxcui = function(value) {
       //console.log($scope.ticket.hours);
       $scope.result = Number($scope.ticket.hours || 0) * Number($scope.ticket.price || 0);
+      
+    }
+    $scope.getveriation = function(value) {
+      //console.log($scope.ticket.hours);
+      $scope.result = Number($scope.modelptickets.project_hrs || 0) * Number($scope.modelptickets.project_price || 0);
+      
     }
     //editor load
     //$scope.orightml = '<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li>Super Easy <b>Theming</b> Options</li><li style="color: green;">Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li class="text-danger">Doesn&apos;t Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href="https://github.com/fraywing/textAngular">Here</a> </p>';
@@ -1134,22 +1140,51 @@ formatData = (project) => {
         $scope.modelptickets = res.data.ticket == null ? [] : res.data.ticket
         $scope.modelcustomer = res.data.project == null ? false : res.data.project
         $scope.viewtype   = type;
-        console.log( $scope.viewtype);
-        
+
+        $scope.multilineToolbar = true;
+        $scope.description = res.data.ticket.description;
+        console.log(res.data.ticket);
 
   
+    $scope.htmlEditorOptions = {
+      bindingOptions: {
+        'toolbar.multiline': 'multilineToolbar',
+      },
+      height: 725,
+      value:  $scope.description ,
+      toolbar: {
+        items: [
+          'undo', 'redo', 'separator',
+          {
+            name: 'size',
+            acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
+          },
+          {
+            name: 'font',
+            acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
+          },
+          'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
+          'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+          'orderedList', 'bulletList', 'separator',
+          {
+            name: 'header',
+            acceptedValues: [false, 1, 2, 3, 4, 5],
+          }, 'separator',
+          'color', 'background', 'separator',
+          'link', 'image', 'separator',
+          'clear', 'codeBlock', 'blockquote',
+        ],
+      },
+      mediaResizing: {
+        enabled: true,
+      },
+    };
+
         if (res.data.ticket != '') {
           $('#Variation_mdal-box').modal('show');
   
         }
-  
-  
-  
-  
       });
-  
-  
-  
     }
   
   
@@ -1208,34 +1243,54 @@ formatData = (project) => {
     }
   
     $scope.submitcreatevariationForm = () => {
+     
       var id = $scope.ticket.projectid;
       var ticket_comment_id = $('#ticket_comment_id').val();
       //console.log(ticket_comment_id);
   
-      var description = $(".dx-htmleditor-content").html();
-      var variationchanges = $(".variationchanges ").html();
-
+      var description       =  $scope.modelptickets.description;
+      var variationchanges  =  $scope.modelptickets.response;
+      var project_hrs       =  $scope.modelptickets.project_hrs;
+      var estimate_hrs      =  $scope.modelptickets.project_price;
+      var total             =  $scope.modelptickets.project_hrs * $scope.modelptickets.project_price ;
+      var changedate        =  moment($scope.modelptickets.change_date).format('YYYY-MM-DD');
      
   
-      $http.post(`${API_URL}admin/api/v2/live-project-ticket`, {
-          data: $scope.ticket,
+      $http.post(`${API_URL}admin/api/v2/VariationUpdate`, {
+          data: $scope.modelptickets,
           type: 'create_project_ticket',
           description: description,
           variationchange: variationchanges,
+          project_hrs :project_hrs,
+          estimate_hrs :estimate_hrs,
+          total :total,
           ticket_comment    : ticket_comment_id,
+          changedate :changedate,
+          
         })
         .then((res) => {
-          Message('success', 'Ticket Created Successfully');
+          Message('success', 'Variation Update Successfully');
           if (res.data.status == true) {
+            $('#Variation_mdal-box').modal('hide');
             //$location.path('ticket');
-            location.href = `${API_URL}admin/live-projects/${id}#!/tickets`;
+            //location.href = `${API_URL}admin/live-projects/${id}#!/tickets`;
           }
           console.log(res.data.status);
           //$location.path('platform');
         })
     }
+    $scope.DuplicateVariation = (id)=>{
+      let project_id = $('#project_id').val();
+      $http.put(`${API_URL}admin/api/v2/DuplicateVariation/${id}/duplicate/`).then(function (response) {
+        Message('success',response.data.msg);
+        location.href = `${API_URL}admin/live-projects/${project_id}#!/variation-orders`;
+        //$scope.getProposesalData();
+    });
+
+    }
+
     $scope.projectticketshow = (id) => {
-  
+
       $http.get(`${API_URL}admin/api/v2/projectticketfind/${id}`).then((res) => {
   
         $scope.modelptickets = res.data.ticket == null ? [] : res.data.ticket
@@ -1258,9 +1313,8 @@ formatData = (project) => {
     }
   
   
-    $scope.sendMailToCustomerticket = function(proposal_id, Vid) {
-  
-      $http.post(API_URL + 'admin/live-project/sendticket/send-mail-ticket/' + proposal_id + '/customerid/' + Vid).then(function(response) {
+    $scope.sendMailToCustomerticket = function(variation_id, Vid) {
+      $http.post(API_URL + 'admin/live-project/sendticket/send-mail-ticket/' + variation_id + '/customerid/' + Vid).then(function(response) {
         Message('success', response.data.msg);
         // $scope.getWizradStatus();
         //$scope.getProposesalData();
