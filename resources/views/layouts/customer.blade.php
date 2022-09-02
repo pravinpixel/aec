@@ -47,6 +47,14 @@
             function goBack() {
                 window.history.back();
             } 
+            
+            getTimeStamp = (event) => {
+                for (const iterator of event.parentNode.childNodes) {
+                    if(iterator.nodeName == 'SMALL') {
+                        iterator.innerHTML = ` <b>last update</b> - <small >${moment(new Date()).format('Y-m-d h:m:s')}</small>`
+                    }
+                }
+            }
         </script>  
     </body>
 </html>
