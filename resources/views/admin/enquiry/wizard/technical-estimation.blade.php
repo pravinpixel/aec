@@ -100,7 +100,7 @@
                     </div>
                     <div class="p-2" psi-sortable="" ng-model="building_building" id="root_technical_estimate" style="max-height: 400px;overflow:auto">
                         <div class="bg-white w-100 mb-2" ng-repeat="(index,buliding) in building_building track by $index">  
-                            <table class="table border">
+                            <table class="table border table-bordered">
                                 <thead>
                                     <tr class="bg-primary">
                                         <td colspan="3">
