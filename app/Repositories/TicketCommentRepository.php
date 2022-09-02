@@ -156,7 +156,7 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
         } else {
             $series = 1;
         }
-        $tagdata    = json_decode($request->tag);
+        $tagdata    = isset($request->tag) ? json_decode($request->tag) : array();
         $emparr= array();
         $cusarr =array();
        

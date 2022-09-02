@@ -88,6 +88,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $groupvariationorderticket = $this->model->where('project_id',$id)
                                      ->groupBy('ticket_comment_id')
                                          ->orderBy('id','desc')->get();
+                                         $variation = array();
         foreach($groupvariationorderticket as $groupvariationticket){
             $key = 1;
             $variationorderticket = $this->model->where('ticket_comment_id',$groupvariationticket->ticket_comment_id)->orderBy('id','desc')->get();
@@ -95,6 +96,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         //$variationorderticket = $this->model->where('project_id',$id)->orderBy('id','desc')->get();
         
         $get_versions= array();
+        
        
         foreach($variationorderticket as $variationticket){
             $rootin = $key++;
@@ -154,12 +156,15 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $ProjectTicketCollection = $this->Projectticketcase->with('assigndetails')
                                                                 ->with('assigncustomerdetails')
+
                                                                 ->orderBy('project_status','desc')
+                                                                
                                                                 ;
                                                                 if(!empty(Customer()->id)){
-                                                                    $ProjectTicketCollection->where('cus_tag',Customer()->id)
-                                                                        ->where('type','internal')
-                                                                        ->orWhere('type','customer');
+                                                                    $ProjectTicketCollection ->where('project_id',$id)->where('cus_tag',Customer()->id)
+                                                                        ->orWhere('created_by',Customer()->id)
+                                                                       ;
+
                                                                 }
 
                                                  $ProjectTicket['ticketcase'] =  $ProjectTicketCollection->where('project_id',$id)->orderBy('updated_at','desc')->get();

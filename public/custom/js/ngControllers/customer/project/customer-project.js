@@ -1163,6 +1163,8 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
     var assign = $('#example-select_project').find(":selected").val();
     var requester = $('.requested').find(":selected").text();
     var tag_input = $('#tag_input').val();
+    $scope.case.type = 'internal';
+
     $http.post(`${API_URL}admin/live-project/store-ticket-case`,
       {
         data: $scope.case,

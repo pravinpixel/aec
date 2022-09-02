@@ -123,14 +123,14 @@
                     </div>
                     <div class="card-body p-0 py-2">
                         <div class="row m-0">
-                            <div class="col">
+                           {{--   <div class="col">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-center">
                                         <strong class="lead fw-bold ms-2">@{{overview.new}}</strong>
                                     </div>
                                     <div class="fw-bold text-danger">New</div>
                                 </div>
-                            </div> 
+                            </div> --}}
                             <div class="col">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-center">
@@ -144,7 +144,7 @@
                                     <div class="x-y-center">
                                         <strong class="lead fw-bold ms-2">@{{overview.close}}</strong>
                                     </div>
-                                    <div class="fw-bold text-dark">Close</div>
+                                    <div class="fw-bold text-dark">Closed</div>
                                 </div>
                             </div> 
                             <div class="col">
@@ -167,7 +167,7 @@
                     </div>
                 </div>
                 <h3 class="h4 mb-0 mt-3">Issues Summary</h3>
-                <ul class="nav nav-tabs nav-bordered mb-3">
+               {{--  <ul class="nav nav-tabs nav-bordered mb-3">
                     <li class="nav-item">
                         <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active" ng-click="tablesearch('all')">
                             <i class="mdi mdi-home-variant d-md-none d-block"></i>
@@ -186,7 +186,7 @@
                             <span class="d-none d-md-block">Customer</span>
                         </a>
                     </li>
-                </ul> 
+                </ul> --}} 
                  
                 <div class="hide-page-size position-relative">
                     <div class="d-flex justify-content-end mt-2 mb-1">
@@ -314,7 +314,9 @@
                                             </div>
                                         </div>
                                     </div> 
-                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
+                                    <img  ng-repeat="response in responses.showimag" ng-src="@{{response.showimage}}" class="imageThumb">
+
+                                  {{--    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
                                         <ol class="carousel-indicators">
                                             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="$index" class="active"  ng-repeat="curesponse in responses.name"></li>
                                         </ol>
@@ -331,7 +333,7 @@
                                             <span class="carousel-control-next-icon" ng-show="responses.name.length != $index "  aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </a>
-                                    </div>
+                                    </div>--}}
                                 </div> 
                             </div> 
                         </div>
@@ -339,7 +341,7 @@
                     <div class="col">
                         <div class="cardx">
                             <div class="card-body">
-                                <div class="mb-3" >
+                                <div class="mb-3" style="display: none;">
                                     <label for="example-select" class="form-label text-secondary">Assign Type <sup class="text-danger">*</sup></label>
                                     <div class="row m-0">
                                         <div class="form-check col">
@@ -349,7 +351,7 @@
                                         
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3" style="display: none;">
                                     <label for="example-select" class="form-label text-secondary">Assignee<sup class="text-danger">*</sup></label>
                                     <select class="form-select form-select-sm shadow" name= "assignee" id="example-select_project"  ng-required="true" >
                                         <option ng-if = "projectManagers.length == '0'" selected value = "0" > AEC prefab as </option>
@@ -359,7 +361,7 @@
                                     </select>
                                     <small class="text-danger" ng-show="newissuesForm.assignee.$invalid && formSave">This field is required</small>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3" style="display: none;">
                                     <label for="example-select" class="form-label text-secondary">Tag</label>
                                     <input id="ms1" class="my-control" type="text" name="ms1"/>
                                 </div>
@@ -376,7 +378,7 @@
                                 </div> 
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Due Date<sup class="text-danger">*</sup></label>
-                                    <input type="datetime-local"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" name="due_date" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
+                                    <input type="date"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" name = "due_date" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
                                     <small class="text-danger" ng-show="newissuesForm.due_date.$invalid && formSave">This field is required</small>
                                 </div> 
                                 <div class="mb-3">
@@ -884,6 +886,16 @@
     }
     .capitalize {
    text-transform: capitalize;
+}
+.imageThumb {
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 0 5px gray;
+    border: 1px lightgray
 }
 </style>
 
