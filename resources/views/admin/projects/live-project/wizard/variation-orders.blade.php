@@ -61,7 +61,7 @@
                     <table  class="table custom table-bordereds m-0">
                         <tr>
                             <th class="text-center" colspan="2" style="width: 6% !important">No</th>
-                            <th class="text-center" style="width: 10% !important">File Name</th>
+                            <th class="text-center" style="width: 10% !important">Title</th>
                             <th class="text-center" style="width: 10% !important">Version</th>
                             <th class="text-center" style="width: 10% !important">Status</th>
                             <th class="text-center" style="width: 28% !important">Comments</th>
@@ -95,10 +95,10 @@
                                 </td>
                                 <td style="width: 28% !important" class="text-info text-center">
                                     <div class="proposal-comment">
-                                        <div ng-bind-html="P.comment ">
+                                        {{--  <div ng-bind-html="P.comment ">
                                             
                                             @{{ P.comment }}
-                                        </div> 
+                                        </div> --}}
                                     </div>
                                 </td>
                                 <td style="width: 16% !important"class="text-center">
@@ -149,7 +149,7 @@
                                             
                                                 <td style="width: 28% !important" class="text-info text-center">
                                                     <div class="proposal-comment">
-                                                        <div ng-bind-html="V.comment">@{{ V.comment }} </div>
+                                                       {{--   <div ng-bind-html="V.comment">@{{ V.comment }} </div>--}}
                                                     </div>
                                                 </td>
 
