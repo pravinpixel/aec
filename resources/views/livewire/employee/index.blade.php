@@ -21,16 +21,25 @@
             </div>    
             
             <section>
-                {{-- MAIN CREATE BODY --}}
-                <div class="mb-3 text-end">
-                    <a href="{{ route('create.employee') }}" class="btn btn-primary">
-                        <i class="mdi mdi-briefcase-plus me-1"></i> 
-                        Register New Employee​
-                    </a>
-                </div>
-                <div class="card">  
-                    <div class="card-body"> 
-                        @livewire('employee.datatable') 
+                <div class="card border shadow-sm">  
+                    <div class="card-body p-3"> 
+                        <table class="table table-centered table-bordered table-hover" id="setup-table">
+                            <thead class="bg-primary text-white">
+                                <tr>
+                                    <th class="text-center">S.No</th>
+                                    <th class="text-center">Employee ID</th>
+                                    <th class="text-left">Name</th>
+                                    <th class="text-left">Email</th>
+                                    <th class="text-left">Mobile Phone​</th>
+                                    <th class="text-left">Role​</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Share Point</th>
+                                    <th class="text-center">BIM</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody> </tbody>
+                        </table>
                     </div> 
                 </div> 
                 {{-- MAIN CREATE BODY --}}
@@ -43,8 +52,7 @@
 
 @push('custom-scripts') 
 <script>
-    function UpdateUserStatus(event,userId, status)
-    {
+    UpdateUserStatus = (event,userId, status) => {
         let url = $("#baseurl").val()+`admin/employee/${userId}/status`;
         let text = status == 1 ? `Are you sure to in-active the user ?` : `Are you sure to active the user ?`;
         event.preventDefault();
@@ -79,4 +87,35 @@
         });
     }
 </script>
+@endpush
+@push('custom-scripts')
+    <script type="text/javascript">
+        const APP_URL = "{{ url('/') }}";
+        const TOKEN   = "{{ csrf_token() }}";
+        const table   = $('#setup-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('employee.index') }}",
+            columns: [
+                {data: 'DT_RowIndex', name: 'id'},
+                {data: 'reference_number', name: 'reference_number'},
+                {data: 'first_name', name: 'first_name'},
+                {data: 'email', name: 'email'},
+                {data: 'mobile_number', name: 'mobile_number'},
+                {data: 'role', name: 'role'},
+                {data: 'status', name: 'status'},
+                {data: 'share_point_status', name: 'share_point_status'},
+                {data: 'bim_id', name: 'bim_id'},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ],
+        });
+        reload = () => table.ajax.reload();
+
+        $('.dataTables_filter').append(`
+            <a href="{{ route('create.employee') }}" class="btn btn-success btn-sm ms-2">
+                <i class="mdi mdi-briefcase-plus me-1"></i> 
+                Register New Employee​
+            </a>
+        `) 
+    </script>
 @endpush

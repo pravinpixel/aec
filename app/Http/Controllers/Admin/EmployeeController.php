@@ -25,9 +25,62 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Illuminate\Support\Facades\Session;
 use Laracasts\Flash\Flash;
 use Spatie\Permission\Models\Role;
+use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
 {
+    public function index(Request $request)
+    {
+        if ($request->ajax() == true) {
+            $data   = Employees::select('*');
+            return DataTables::eloquent($data)
+                ->addIndexColumn() 
+                ->addColumn('reference_number', function($data){ 
+                    return '<span class="badge badge-primary-lighten">'. $data->reference_number.'</span>' ;
+                })
+                ->addColumn('role', function($data){ 
+                    return $data->role->name ;
+                })
+                ->addColumn('status', function($data){ 
+                    $status =  $data->status == 1 ? 'text-success' : 'text-danger';
+                    $status_icon =  $data->status == 1 ? 'check' : 'times';
+                    return '<span class="'.$status.' mx-auto"><i class="fa font-22 fa-'.$status_icon.'-circle"></i></span>';
+                })
+                ->addColumn('share_point_status', function($data){ 
+                    $status =  $data->share_point_status == 1 ? 'text-success' : 'text-danger';
+                    $status_icon =  $data->share_point_status == 1 ? 'check' : 'times';
+                    return '<span class="'.$status.' mx-auto"><i class="fa font-22 fa-'.$status_icon.'-circle"></i></span>';
+                })
+                ->addColumn('bim_id', function($data){ 
+                    $status =  $data->bim_id == 1 ? 'text-success' : 'text-danger';
+                    $status_icon =  $data->bim_id == 1 ? 'check' : 'times';
+                    return '<span class="'.$status.' mx-auto"><i class="fa font-22 fa-'.$status_icon.'-circle"></i></span>';
+                })
+                ->addColumn('action', function($data){ 
+                    if(userRole()->slug == 'admin') {
+                        if($data->status) {
+                            $action = '<a class="dropdown-item" onclick="UpdateUserStatus(event,'.$data->id.', '.$data->status.')"><i class="fas fa-user-alt-slash"></i> Inactive </a>';
+                        } else {
+                            $action = '<a class="dropdown-item" onclick="UpdateUserStatus(event,'.$data->id.','.$data->status.')"><i class="fas fa-user-alt"></i> Active </a>';
+                        }
+                    } else {
+                        $action = '<a class="dropdown-item" href="'.route('employee.change-password', $data->id).'"><i class="fa fa-edit me-1"></i>Change Password </a>';
+                    }
+                    return ' 
+                       <div class="dropdown text-center"> 
+                            <i class="dripicons-dots-3 border btn py-0 px-1 btn-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="'.route('edit.employee', $data->id).'"><i class="fa fa-edit me-1"></i> View / Edit</a>
+                                '.$action.'
+                            </div>
+                        </div>
+                    ';
+                }) 
+                ->rawColumns(['action','status','role','share_point_status','bim_id','reference_number'])
+            ->make(true);
+        }
+        return view('livewire.employee.index');
+    }
     public function employee_control_view()
     {
         if(!userHasAccess('employee_edit')) {

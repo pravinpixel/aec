@@ -4,9 +4,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware('common')->group(function () {
-    Route::get('/employees',  function() {
-        return view('livewire.employee.index');
-    })->name('employee.index');
+    Route::get('/employees',  [EmployeeController::class , 'index'])->name('employee.index');
 
     Route::get('/employee/create',  function() {
         return view('livewire.employee.create.index');
