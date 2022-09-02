@@ -36,7 +36,7 @@
                             <td class="text-left">{{ $row->folder_name }}</td>
                             <td class="text-center">
                                 <div>
-                                    <input type="checkbox" value="{{ $row->id }}" id="switch__{{$file_index}}" wire:model="file_name.{{ $file_index }}" {{ $share_point_status === 0 ? 'disabled' : '' }} data-switch="primary"/>
+                                    <input type="checkbox" value="{{ $row->id }}" id="switch__{{$file_index}}" wire:model.lazy="share_folder_name.{{ $row->id }}" {{ $share_point_status === 0 ? 'disabled' : '' }} data-switch="success"/>
                                     <label for="switch__{{$file_index}}" data-on-label="On"  data-off-label="Off"></label>
                                 </div>      
                             </td>

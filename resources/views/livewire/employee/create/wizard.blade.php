@@ -34,9 +34,9 @@
 					</div>
 				</a>
 			</li>   
-		</ul> 
+		</ul>
 	</div>
-	<div class="card-body"> 
+	<div class="card-body">
 		@switch($currentStep)
 			@case(1)
 				@include('livewire.employee.create.form.profile-information')
