@@ -153,7 +153,9 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $ProjectTicket['variationorder'] = $result;
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $ProjectTicketCollection = $this->Projectticketcase->with('assigndetails')
-                                                                ->with('assigncustomerdetails');
+                                                                ->with('assigncustomerdetails')
+                                                                ->orderBy('project_status','desc')
+                                                                ;
                                                                 if(!empty(Customer()->id)){
                                                                     $ProjectTicketCollection->where('cus_tag',Customer()->id)
                                                                         ->where('type','internal')
@@ -179,7 +181,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
                                             'close' =>$this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','closed')->count(),
                                             'pending' =>$this->Projectticketcase->where('project_id',$id)->Where('type','customer')->where('project_status','pending')->count());
                                     
-        $showing = isset($ProjectTicket['ticketcase']['0'])? $ProjectTicket['ticketcase']['0']->showing : '';
+        $showing = isset($ProjectTicket['ticketcase']['0']) ? $ProjectTicket['ticketcase']['0']->showing : '';
        $showingarr = isset($showing) ? explode(',',$showing) :array();
         //$showingarr =explode(',',$showing) ;
         $header = ['Id','Requester','Type','Title','Description','Assignee','Status','Due Date','Priority','Modified at'];

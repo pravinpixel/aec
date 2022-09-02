@@ -316,12 +316,9 @@
                                         </div>
 
                                         
-                                    </div> 
-                                    <div class="row">
-                                        <span class="pip" ng-repeat="response in responses.showimag">
-                                            <img class="imageThumb"  ng-src="@{{response.showimage}}" >
-                                            
-                                    </div>
+                                    </div>  
+                                 
+                                    <img  ng-repeat="response in responses.showimag" ng-src="@{{response.showimage}}" class="imageThumb">
                                  
                                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
                                         <ol class="carousel-indicators">
@@ -980,10 +977,14 @@
 }
 
 .imageThumb {
-  max-height: 75px;
-  border: 2px solid;
-  padding: 1px;
-  cursor: pointer;
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 0 5px gray;
+    border: 1px lightgray
 }
 .pip {
   display: inline-block;

@@ -1134,6 +1134,7 @@ formatData = (project) => {
         $scope.modelptickets = res.data.ticket == null ? [] : res.data.ticket
         $scope.modelcustomer = res.data.project == null ? false : res.data.project
         $scope.viewtype   = type;
+        console.log( $scope.viewtype);
         
 
   

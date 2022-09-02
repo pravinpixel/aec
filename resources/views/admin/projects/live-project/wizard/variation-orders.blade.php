@@ -111,7 +111,7 @@
                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
                                             
                                             <a  class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
-                                            <a  class="btn dropdown-item" ng-click="variationticketshow(P.id)">View / Edit</a>
+                                            <a  class="btn dropdown-item" ng-click="variationticketshow(P.id,true)">View / Edit</a>
                                             {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a> --}}
                                             <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
                                         
@@ -191,7 +191,7 @@
 
 
 
-    <table class="table custom custom table-bordered table-hover m-0">
+    {{--  <table class="table custom custom table-bordered table-hover m-0">
         <thead>
             <tr>
                 <th>S.No</th>
@@ -238,96 +238,86 @@
 
 
         </tbody>
-    </table>
+    </table>--}}
 </div>
  
 <div id="Variation_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-right h-100" style="width:100% !important">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-right h-100" style="width:100% !important">
         <div class="modal-content h-100">
             <div class="modal-header border-0">
                 <h4 class="modal-title" id="myLargeModalLabel"></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body  "  style="overflow: auto">
-                {{-- <div class="card pt-3">
-                    <div id="mail_content_first_text_editor">
-                        <div text-angular="text-angular" name="mail_content_first" ng-model="mail_content_first" ta-disabled='disabled'></div>      
-                    </div>
-                </div> --}}
-                <table class="table custom table-bordered">
-                    <thead>
-                        <tr>
-                            <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="text-center"><b class="h4">Architectural Support for Hytte Norefiell</b></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td width="200px"><b>Project Name</b></td>
-                            <td>Hytte Norefiell</td>
-                        </tr>
-                        <tr>
-                            <td><b>Client Name</b></td>
-                            <td>Modul Pluss</td>
-                        </tr>
-                        <tr>
-                            <td><b>Project Incharge</b></td>
-                            <td>Mariusz Pierzgalski</td>
-                        </tr>
-                        <tr>
-                            <td><b>Date of Change Request</b></td>
-                            <td>22/05/2021</td>
-                        </tr> 
-                    </tbody>
-                </table>
-                <table class="table custom table-bordered">
-                    <tbody>
-                        <tr><td colspan="2" class="text-center" style="background: #F4F4F4"><b>Change Request Overview</b></td></tr>
-                        <tr>
-                            <td width="250px"><b>Description of Variation / Change</b></td>
-                            <td>Architectural support for over all building design & detailing</td>
-                        </tr> 
-                        <tr>
-                            <td><b>Reason for Variation / Change</b></td>
-                            <td>There was no Architectural design for the building</td>
-                        </tr>  
-                    </tbody>
-                </table>
-                <table class="table custom table-bordered">
-                    <tbody>
-                        <tr><td colspan="4"class="text-center" style="background: #F4F4F4"><b>Change in Contract Price</b></td></tr>
-                        <tr>
-                            <td><b>Estimated Hours</b></td>
-                            <td><b>Price/Hr</b></td>
-                            <td rowspan="2"></td> 
-                            <td rowspan="2" class="text-center">kr 30, 000</td> 
-                        </tr> 
-                        <tr>
-                            <td>60</td>
-                            <td>kr 500</td> 
-                        </tr> 
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                           <td colspan="2"></td>
-                            <td rowspan="2" class="text-end"><b>Total Price</b></td> 
-                            <td rowspan="2" class="text-center"><b>kr 30, 000</b></td> 
-                        </tr> 
-                    </tfoot>
-                </table>
-                <a ng-click= "submitgeneralinfo()"  class="btn btn-primary" >Update</a>
-
-
-
-            </div>
-            {{-- <div class="modal-footer"> 
-                <button class="btn btn-primary"  ><i class="fa fa-save me-2"></i>Update</button>
-            </div> --}}
+                <form id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationForm()">
+                    <table class="table custom table-bordered">
+                        <thead>
+                            <tr>
+                                <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="200px"><b>Project Name</b></td>
+                                <td>@{{ modelcustomer.project_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Client Name</b></td>
+                                <td>@{{ modelcustomer.company_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Project Incharge</b></td>
+                                <td>Mariusz Pierzgalski</td>
+                            </tr>
+                            <tr>
+                                <td><b>Date of Change Request</b></td>
+                                    <td><input type="date" get-to-do-lists ng-value="modelptickets.change_date" ng-model="ticket.change_date" id="" class=" border-0 form-control form-control-sm"></td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                    <table class="table custom table-bordered">
+                        <tbody>
+                            <tr><td colspan="2" class="text-center" style="background: #F4F4F4"><b>Change Request Overview</b></td></tr>
+                            <tr>
+                                <td width="250px"><b>Description of Variation / Change</b></td>
+                                <td ng-bind-html="modelptickets.description">@{{modelptickets.description}}</td>
+                            </tr> 
+                            <tr>
+                                <td><b>Reason for Variation / Change</b></td>
+                                <td ng-bind-html="modelptickets.response">@{{modelptickets.response}}</td>
+                            </tr>  
+                        </tbody>
+                    </table>
+                    <table class="table custom table-bordered">
+                        <tbody>
+                            <tr><td colspan="4"class="text-center" style="background: #F4F4F4"><b>Change in Contract Price</b></td></tr>
+                            <tr>
+                                <td><b>Estimated Hours</b></td>
+                                <td><b>Price/Hr</b></td>
+                                <td rowspan="2"></td> 
+                                <td rowspan="2" class="text-center">kr @{{modelptickets.total_price}}</td> 
+                            </tr> 
+                            <tr>
+                                <td>@{{modelptickets.project_hrs}}</td>
+                                <td>@{{modelptickets.project_price}}</td> 
+                            </tr> 
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                            <td colspan="2"></td>
+                                <td rowspan="2" class="text-end"><b>Total Price</b></td> 
+                                <td rowspan="2" class="text-center"><b>kr@{{modelptickets.total_price}}</b></td> 
+                            </tr> 
+                        </tfoot>
+                    </table> 
+                    
+                    <a ng-click= "" ng-show="viewtype == true" class="btn btn-primary" >Update</a>
+                </form>
+            </div>  
         </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div><!-- /.modal-dialog modal-dialog-centered -->
+</div> <!-- /.modal -->
 <div class="card-footer text-end">
     <a href="#!@{{ PrevRoute }}" ng-show="indexRoute" class="btn btn-light float-start">Prev</a>
     <a href="#!@{{ NextRoute }}" ng-show="HideNextRoute" class="btn btn-primary">Next</a>
