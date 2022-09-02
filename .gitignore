@@ -17,3 +17,4 @@ yarn-error.log
 /database/database.sqbpro
 composer.lock
 composer.lock
+config/livewire.php
