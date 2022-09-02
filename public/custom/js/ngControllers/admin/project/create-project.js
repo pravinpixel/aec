@@ -1310,7 +1310,8 @@ formatData = (project) => {
       let project_id = $('#project_id').val();
       $http.put(`${API_URL}admin/api/v2/DuplicateVariation/${id}/duplicate/`).then(function (response) {
         Message('success',response.data.msg);
-        location.href = `${API_URL}admin/live-projects/${project_id}#!/variation-orders`;
+        window.location.reload();
+        //location.href = `${API_URL}admin/live-projects/${project_id}#!/variation-orders`;
         //$scope.getProposesalData();
     });
 
