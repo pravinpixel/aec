@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'asset_url' => env('LIVEWIREASSETURL',NULL),
+    'asset_url' => env('LIVEWIREASSETURL',null),
 
     /*
     |--------------------------------------------------------------------------

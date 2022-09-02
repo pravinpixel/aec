@@ -72,6 +72,7 @@ class EmployeeController extends Controller
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="'.route('edit.employee', $data->id).'"><i class="fa fa-edit me-1"></i> View / Edit</a>
                                 '.$action.'
+                                <button class="dropdown-item" onclick="destroy('.$data->id.')"><i class="fa fa-trash me-1"></i> Delete</button>
                             </div>
                         </div>
                     ';
@@ -698,5 +699,13 @@ class EmployeeController extends Controller
         }
         return response(['status'=> false, 'msg'=>__('global.something')]);
     }
-
+    public function destroy($id)
+    {
+        try {
+            Employees::findOrFail($id)->delete();
+            return response()->json(['status'=> true, 'msg'=>__('global.deleted')]);
+        } catch (\Throwable $th) {
+            return response()->json(['status'=> false, 'msg'=>__('global.something')]);
+        } 
+    }
 }

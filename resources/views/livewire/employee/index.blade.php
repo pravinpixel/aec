@@ -23,15 +23,15 @@
             <section>
                 <div class="card border shadow-sm">  
                     <div class="card-body p-3"> 
-                        <table class="table table-centered table-bordered table-hover" id="setup-table">
+                        <table class="table table-centered table-bordered table-hover" id="custom-data-table">
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th class="text-center">S.No</th>
                                     <th class="text-center">Employee ID</th>
                                     <th class="text-left">Name</th>
                                     <th class="text-left">Email</th>
-                                    <th class="text-left">Mobile Phone​</th>
-                                    <th class="text-left">Role​</th>
+                                    <th class="text-left">Mobile Phone</th>
+                                    <th class="text-left">Role</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Share Point</th>
                                     <th class="text-center">BIM</th>
@@ -89,10 +89,11 @@
 </script>
 @endpush
 @push('custom-scripts')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
         const APP_URL = "{{ url('/') }}";
         const TOKEN   = "{{ csrf_token() }}";
-        const table   = $('#setup-table').DataTable({
+        const table   = $('#custom-data-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ route('employee.index') }}",
@@ -113,9 +114,33 @@
 
         $('.dataTables_filter').append(`
             <a href="{{ route('create.employee') }}" class="btn btn-success btn-sm ms-2">
-                <i class="mdi mdi-briefcase-plus me-1"></i> 
-                Register New Employee​
+                <i class="mdi mdi-briefcase-plus me-1"></i> Register New Employee 
             </a>
-        `) 
+        `)
+        
+        destroy = (id) => {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this Data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    fetch(`{{ route('delete.employee') }}/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': TOKEN
+                        }                       
+                    }).then(response => response.json()).then(data => {
+                        Message('success', data.msg);
+                        reload()
+                    });
+                } else {
+                    Message('info', 'Your Data is safe');
+                }
+            }); 
+        }
     </script>
 @endpush

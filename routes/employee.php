@@ -14,6 +14,8 @@ Route::prefix('admin')->middleware('common')->group(function () {
         return view('livewire.employee.edit.index');
     })->name('edit.employee');
 
+    Route::post('/employee/delete/{id?}',  [EmployeeController::class , 'destroy'])->name('delete.employee');
+
     Route::get('/employee/change-password/{id}',  function($id) {
         return view('livewire.employee.change-password-index');
     })->name('employee.change-password');

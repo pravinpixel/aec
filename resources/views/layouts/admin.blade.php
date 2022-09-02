@@ -163,5 +163,6 @@
             }
         </script>
         @livewireScripts
+        @include('vendor.flash.message')
     </body>
 </html>
