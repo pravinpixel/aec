@@ -1138,12 +1138,14 @@ class ProjectController extends Controller
     }
     
     public function ticketcreate(Request $request){
-       //dd($request->input());
+     
         DB::beginTransaction();
+        $commentid = $request->ticket_comment_id;
         try{
             $maildata = "<html> <body><table class='table custom table-bordered'> <thead> <tr> <td colspan='2' class='text-center' style='background: #F4F4F4'><b class='h4'>Variation Request - 01</b></td> </tr> <tr> <td colspan='2' class='text-center'><b class='h4'>Architectural Support for Hytte Norefiell</b></td> </tr> </thead> <tbody> <tr> <td width='200px'><b>Project Name</b></td> <td>Hytte Norefiell</td> </tr> <tr> <td><b>Client Name</b></td> <td>Modul Pluss</td> </tr> <tr> <td><b>Project Incharge</b></td> <td>Mariusz Pierzgalski</td> </tr> <tr> <td><b>Date of Change Request</b></td> <td>22/05/2021</td> </tr> </tbody> </table> <table class='table custom table-bordered'> <tbody> <tr><td colspan='2' class='text-center' style='background: #F4F4F4'><b>Change Request Overview</b></td></tr> <tr> <td width='250px'><b>Description of Variation / Change</b></td> <td>Architectural support for over all building design & detailing</td> </tr> <tr> <td><b>Reason for Variation / Change</b></td> <td>There was no Architectural design for the building</td> </tr> </tbody> </table> <table class='table custom table-bordered'> <tbody> <tr><td colspan='4'class='text-center' style='background: #F4F4F4'><b>Change in Contract Price</b></td></tr> <tr> <td><b>Estimated Hours</b></td> <td><b>Price/Hr</b></td> <td rowspan='2'></td> <td rowspan='2' class='text-center'>kr 30, 000</td> </tr> <tr> <td>60</td> <td>kr 500</td> </tr> </tbody> <tfoot> <tr> <td colspan='2'></td> <td rowspan='2' class='text-end'><b>Total Price</b></td> <td rowspan='2' class='text-center'><b>kr 30, 000</b></td> </tr> </tfoot> </table></body></html>";
              $data = [
                 'project_id'     => $request->data['projectid'],
+                'ticket_comment_id'=> $commentid, 
                 'title'          => $request->data['title'],
                 'description'    => $request->description,
                 'response'       => $request->variationchange,
@@ -1152,11 +1154,9 @@ class ProjectController extends Controller
                 'project_price'  => $request->data['price'],
                 'total_price'    =>$request->data['hours'] * $request->data['price'] ,
                 'status'         =>  1,
-                'is_mail_sent'   => $maildata,
-                'ticket_comment_id'=> $request->ticket_comment
-                
-            ];
+                'is_mail_sent'   => $maildata,];
           
+            //dd($data);
             $this->ProjectTicket->create($data);
            
             DB::commit();

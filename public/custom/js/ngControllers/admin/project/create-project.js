@@ -1241,6 +1241,33 @@ formatData = (project) => {
   
       //console.log( $scope.case);
     }
+
+    $scope.submitcreatevariationNewForm = () =>
+    {
+      var id = $scope.ticket.projectid;
+      var description = $scope.ticket.description;
+      var variationchanges = $scope.ticket.Variationchanges;
+      var ticket_comment_id = $('#ticket_comment_id').val();
+      $http.post(`${API_URL}admin/api/v2/live-project-ticket`,
+        {
+          data: $scope.ticket,
+          type: 'create_project_ticket',
+          description: description,
+          variationchange: variationchanges,
+          ticket_comment_id : ticket_comment_id
+        })
+        .then((res) =>
+        {
+          Message('success', 'Ticket Created Successfully');
+          if (res.data.status == true)
+          {
+            //$location.path('ticket');
+            location.href = `${API_URL}admin/live-projects/${id}#!/tickets`;
+          }
+          console.log(res.data.status);
+          //$location.path('platform');
+        })
+    }
   
     $scope.submitcreatevariationForm = () => {
      

@@ -22,19 +22,22 @@
                     <div class="card shadow-lg mb-0">
                         @php
                         $urlsplit = explode('-',$id);
+                        $datacount = \App\Models\ProjectTicket::where(['ticket_comment_id' => $urlsplit[1]])->count();
+                      
+
                         //dd($urlsplit);
 
                             
                         @endphp
                         <div class="card-body p-4"> 
-                            <form class="needs-validations"  id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationForm()" novalidate>
+                            <form class="needs-validations"  id="createvariationForm" name="createvariationForm" ng-submit="submitcreatevariationNewForm()" novalidate>
                                 <input type = "hidden" name = "project_id" id = "project_id" ng-model = "ticket.project_id" value = "{{$urlsplit[0]}}">
                                 <input type = "hidden" name = "tickrt_comment_id" id = "ticket_comment_id"  value = "{{$urlsplit[1]}}">
 
                                 <table class="table custom table-bordered">
                                     <thead>
                                         <tr>
-                                            <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request</b></td>
+                                            <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">{{ $datacount+1 }}-Variation Request</b></td>
                                         </tr>
                                         
                                     </thead>
