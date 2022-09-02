@@ -166,15 +166,32 @@ class TicketCommentsController extends Controller
         {
            foreach($request->file('files') as $file)
            {
-               $name = time().rand(1,100).'.'.$file->extension();
-               $file->move(public_path('files'), $name);  
-               $files[] =  asset('public/files/').'/'.$name;  
+            $name = time().rand(1,100).'.'.$file->extension();
+            //dd($name);
+
+           
+            if($file->extension() == 'jpg' || $file->extension() == 'JPG' ||$file->extension() == 'png'|| $file->extension() == 'PNG'){
+                $showimage = $name;
+            }else if($file->extension() == 'pdf' || $file->extension() == 'PDF')
+            {
+                $showimage='pdf.png' ;
+            }else {
+                $showimage='doc.png';
+            }
+          
+            $file->move(public_path('files'), $name); 
+            $files[] =  asset('public/files/').'/'.$name;
+            
+               $showimagedata[] =  array('img'=>asset('public/files/').'/'.$name,
+                                  'type'=>'img',
+                                'showimage'=> asset('public/files/').'/'.$showimage);  
            }
         }
 
         //dd($files);
 
-        $arr = array('name' => $files);
+        $arr = array('name' => $files,
+                     'showimag'=> $showimagedata);
         echo json_encode($arr);
     }
 

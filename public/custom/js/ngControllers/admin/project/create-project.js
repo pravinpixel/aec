@@ -970,7 +970,8 @@ formatData = (project) => {
         },
       }).then(function successCallback(response) {
         // Store response data
-        $scope.responses = response.data.name;
+        console.log(response);
+        $scope.responses = response.data;
       });
   
     };
@@ -1119,7 +1120,33 @@ formatData = (project) => {
         $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
         $scope.overview = res.data.overview == null ? false : res.data.overview
         $scope.cols = res.data.showhide == null ? false : res.data.showhide
+        $scope.proposal = res.data.variationorder == null ?false : res.data.variationorder 
+        console.log( $scope.proposal);
       });
+  
+  
+    }
+    
+    $scope.variationticketshow = (id,type) => {
+  
+      $http.get(`${API_URL}admin/api/v2/variationticketfind/${id}`).then((res) => {
+  
+        $scope.modelptickets = res.data.ticket == null ? [] : res.data.ticket
+        $scope.modelcustomer = res.data.project == null ? false : res.data.project
+        $scope.viewtype   = type;
+        
+
+  
+        if (res.data.ticket != '') {
+          $('#Variation_mdal-box').modal('show');
+  
+        }
+  
+  
+  
+  
+      });
+  
   
   
     }

@@ -1208,6 +1208,11 @@ class ProjectController extends Controller
         return $this->ProjectTicket->findprojectticket($id);
 
     }
+    public function variationticketfind($id){
+       
+        return $this->ProjectTicket->findvariationticket($id);
+
+    }
 
     public function sendcustomerMail($projectid,$cid){
         $project_ticket = $this->ProjectTicket->findprojectticket($projectid);

@@ -123,14 +123,14 @@
                     </div>
                     <div class="card-body p-0 py-2">
                         <div class="row m-0">
-                            <div class="col">
+                           {{-- <div class="col">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-center">
                                         <strong class="lead fw-bold ms-2">@{{overview.new}}</strong>
                                     </div>
                                     <div class="fw-bold text-danger">New</div>
                                 </div>
-                            </div> 
+                            </div> --}}
                             <div class="col">
                                 <div class="card shadow-sm border m-0 p-2 text-center">
                                     <div class="x-y-center">
@@ -162,100 +162,96 @@
                                     </div>
                                     <div class="fw-bold text-success">Low</div>
                                 </div>
-                            </div> 
+                            </div>  --}}
                         </div>
                     </div>
                 </div>
-                <h3 class="h4 mb-0 mt-3">Ticket Summary</h3>
-                <div class="d-flex justify-content-between border-bottom align-items-end">
-                    <div>
-                        <button class="fw-bold border-primary border-start-0 border-end-0 border-top-0 rounded-0 border-bottom btn btn-sm">All</button>
-                        <button class="rounded-0 border-0 btn btn-sm ms-1">Assign to me</button>
-                        <button class="rounded-0 border-0 btn btn-sm ms-1">Created by me</button>
-                    </div>
-                    <div class="pb-2">
-                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Case</button>
-                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-chart-bar"></i> Report</button>
-                        <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-dots-horizontal"></i></button>
-                    </div>
-                </div>
-                <div class="mb-2 pt-2 row mx-0 align-items-center">
-                    <div class="d-flex align-items-center col-4 p-0">
-                        <label class="m-0 me-1">Quick filters</label>
-                        <select class="form-select form-select-sm" style="width: 150px">
-                            <option value="">All</option>
-                        </select>
-                    </div>
-                    <div class="col-8 p-0">
-                        <div class="input-group justify-content-end">
-                            <div class="border rounded input-group flex-nowrap" style="width: 200px">
-                                <span class="input-group-text btn-sm border-0 bg-none" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-                                <input type="text" class="form-control border-0 form-control-sm ps-0" placeholder="Search" aria-describedby="basic-addon1">
+                <h3 class="h4 mb-0 mt-3">Issues Summary</h3>
+                <ul class="nav nav-tabs nav-bordered mb-3">
+                    <li class="nav-item">
+                        <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active" ng-click="tablesearch('all')">
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">All</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile-b1" data-bs-toggle="tab" aria-expanded="true" class="nav-link " ng-click="tablesearch('internal')">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Internal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link"  ng-click="tablesearch('customer')">
+                            <i class="mdi mdi-settings-outline d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Customer</span>
+                        </a>
+                    </li>
+                </ul> 
+                 
+                <div class="hide-page-size position-relative">
+                    <div class="d-flex justify-content-end mt-2 mb-1">
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm dropdown-toggle border" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <label for="test@{{$index}}" class="dropdown-item" ng-repeat="col in cols" >
+                                    <input type="checkbox"  ng-model="col.show" name="" id="test@{{$index}}" class="form-check-input me-1">
+                                    @{{col.title}}
+                                </label>
                             </div>
-                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi mdi-arrow-up-down me-1"></i> Sort</button>
-                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
-                            <button class="ms-1 border rounded btn btn-sm"><i class="mdi me-1 mdi-eye-outline"></i> Show / hide fields</button>
-                            <button class="ms-1 border rounded btn btn-sm"><i class="fa fa-expand"></i></button>
                         </div>
-                    </div>
-                </div>
-                <table class="table custom custom table-hover m-0 table-responsive">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>ID</th>
-                            <th>Requester</th>
-                            <th>Title</th>
-                            <th>Assignee</th>
-                            <th>Status</th>
-                            <th>Due by</th>
-                            <th>Priority</th>
-                            <th>Created by</th>
-                            <th>Modifed at</th>
-                            <th><i class="dripicons-menu"></i></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for ($i=0;$i<6;$i++)
+                        <button class="ms-1 border rounded btn btn-sm btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#right-modal" title="Click to Filter"><i class="mdi me-1 mdi-filter-variant"></i> Filter</button>
+                        <button class="ms-1 border rounded btn btn-sm btn-primary" data-bs-toggle="modal" ng-click="autotrigger('internal')" data-bs-target="#rasieTicketDetails"><i class="mdi mdi-plus me-1"></i> New Issue</button>
+                        </div>
+                    <table class="table custom table-striped table-bordered" datatable="ng"  dt-options="vm.dtOptions">
+                        <thead>
                             <tr>
-                                <td>{{ $i+1 }}</td>
-                                <td style="padding: 0 !important" class="text-center"><button class="btn btn-sm btn-outline-primary p-0 px-1"><small>PRXX / TIKXX-0{{ $i+1 }}</small></button></td>
-                                <td>
+                                <th>#</th>
+                                <th ng-repeat="locale in cols" ng-show="locale.show" class="text-center">@{{locale.title}}</th>
+                                <th><i class="dripicons-menu"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(ptcindex,pticketscomment) in pticketcomment">
+                                <td >@{{ ptcindex+1 }}</td>
+                                <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center">
+                                    <button  class="btn btn-sm btn-outline-primary p-0 px-1" ng-click="showTicketComments(pticketscomment.id,'show')">
+                                        <small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.ticket_num }}</small>
+                                    </button>
+                                </td>
+                                <td ng-show="cols[1].show">@{{pticketscomment.requester}}</td>
+                                <td ng-show="cols[2].show">
                                     <div class="d-flex align-items-center">
-                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                        
                                         <div>
-                                            <h5 class="m-0 font-14">
-                                                Arya Stark
+                                            <h5 class="m-0 font-14 capitalize">
+                                                @{{pticketscomment.type}}
                                             </h5>
                                         </div>
                                     </div>
                                 </td>
-                                <td>Mail Issue</td>
-                                <td>
+                                <td ng-show="cols[3].show">@{{pticketscomment.summary}}</td>
+                                <td ng-show="cols[4].show">@{{pticketscomment.description | limitTo:20}}@{{pticketscomment.description.length > 20 ? '...' : ''}}</td>
+                                <td ng-show="cols[5].show">
                                     <div class="d-flex align-items-center">
-                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+2 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
+                                      
+                                       
                                         <div>
                                             <h5 class="m-0 font-14">
-                                                Gary Somya
+                                               <span ng-show ="pticketscomment.type != 'customer'">  @{{pticketscomment.assigndetails.first_name}}</span> 
+                                               <span ng-show ="pticketscomment.type == 'customer'">  @{{pticketscomment.assigncustomerdetails.first_name}}</span> 
                                             </h5>
                                         </div>
                                     </div>
                                 </td>
-                                <td><span class="badge bg-success">New</span></td>
-                                <td> <small>13/01/2021, 12:30 <br> <small class="text-secondary">(Due in 1d)</small></small></td>
-                                <td style="padding: 0 !important" class="text-center">critical <i class="fa fa-arrow-up text-danger ms-1"></i></td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://coderthemes.com/hyper/saas/assets/images/users/avatar-{{ $i+1 }}.jpg" alt="Arya S" class="rounded-circle me-2" height="24">
-                                        <div>
-                                            <h5 class="m-0 font-14">
-                                                Arya Stark
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><small>12/01/2021, 12:30</small> </td>
-                                <td style="padding: 0 !important" class="text-center">
+                                
+                                <td ng-show="cols[6].show"><span ng-class="{'badge bg-danger': pticketscomment.project_status == 'New', 'badge bg-warning': pticketscomment.project_status == 'pending', 'badge bg-secondary': pticketscomment.project_status == 'closed', 'badge bg-info': pticketscomment.project_status == 'open'}" >@{{pticketscomment.project_status}}</span></td>
+                                <td ng-show="cols[7].show"> <small>@{{ pticketscomment.ticket_date | date: 'dd-MM-yyyy h:mm a'}}<br> <!--<small class="text-secondary">(Due in 1d)</small>--></small></td>
+                                <td ng-show="cols[8].show" style="padding: 0 !important" class="text-center capitalize">@{{pticketscomment.priority}} </td>
+                                
+                                <td ng-show="cols[9].show"><small>@{{ pticketscomment.updated_at | date:"dd-MM-yyyy h:mm a" }}</small> </td>
+                                <td style="padding: 0 !important" class="text-center" >
                                     <div class="dropdown">
                                         <i class="dripicons-dots-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                                         <div class="dropdown-menu dropdown-menu-end">
@@ -313,36 +309,38 @@
                                         <label for="Attachments" class="form-label text-secondary" >Attachments</label>
                                         <div class="field" align="left">
                                             <input type="file" class="form-control" onchange="angular.element(this).scope().SelectFile(event)" id="files" multiple/>
-                                            <p id = "case_image"ng-model = "case.file_id" ng-show="!responses" style="display: none;">@{{ responses }}</p>
+                                            <p id = "case_image"ng-model = "case.file_id" ng-show="!responses.name" style="display: none;">@{{ responses.name }}</p>
                                             <div class="error-msg">
                                                 <small class="error-text" ng-if="frm.file.$touched && frm.file.$error.required">This field is required!</small>
                                             </div>
                                         </div>
+
+                                        
                                     </div> 
-                                    
-                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.length">
+                                    <div class="row">
+                                        <span class="pip" ng-repeat="response in responses.showimag">
+                                            <img class="imageThumb"  ng-src="@{{response.showimage}}" >
+                                            
+                                    </div>
+                                 
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" ng-show="responses.name.length">
                                         <ol class="carousel-indicators">
-                                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="$index" class="active"  ng-repeat="curesponse in responses"></li>
+                                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="$index" class="active"  ng-repeat="curesponse in responses.name"></li>
                                         </ol>
                                         <div class="carousel-inner" role="listbox">
-                                            <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat=" response in responses">
-                                                <img class="w-100" style="max-height: 180px;object-fit:cover" ng-src="@{{response}}"  alt="@{{suIndex}}">
+                                            <div class="carousel-item" ng-class="{active: $index == 0}" ng-repeat="response in responses.name">
+                                                
+                                                <img class="w-100" style="max-height: 180px;object-fit:cover" ng-src="@{{response.showimage}}"  alt="@{{response.type}}">
                                             </div>
                                         </div>
-                                        <div  ng-repeat="(suIndex, response) in responses">
-                                            <a class="carousel-control-prev"  href="#carouselExampleIndicators" role="button" data-bs-slide="prev" >
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </a>
-                                            
-                                            <a class="carousel-control-next"  href="#carouselExampleIndicators" role="button" myvalue=@{{suIndex}} ng-class="{ 'removeNext': (responses.length - 1) == suIndex }"  data-bs-slide="next">
-    
-                                                <span class="carousel-control-next-icon" aria-hidden="true">@{{$suIndex }}</span>
-                                                <span class="visually-hidden">Next</span>
-                                            </a>
-                                
-                                        </div>
-                                     
+                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" ng-show="responses.name.length != $index "  aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </a>
                                     </div>
                                 </div> 
                             </div> 
@@ -395,7 +393,8 @@
                                 </div> 
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Due Date<sup class="text-danger">*</sup></label>
-                                    <input type="datetime-local"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" name = "due_date" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
+                                    
+                                    <input type="date"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" name = "due_date" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
                                     <small class="text-danger" ng-show="newissuesForm.due_date.$invalid && formSave">This field is required</small>
                                 </div> 
                                 <div class="mb-3">
@@ -979,5 +978,17 @@
     .capitalize {
    text-transform: capitalize;
 }
+
+.imageThumb {
+  max-height: 75px;
+  border: 2px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+.pip {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+
 </style>
     

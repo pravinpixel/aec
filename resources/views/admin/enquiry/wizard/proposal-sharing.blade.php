@@ -75,7 +75,7 @@
                 </select>
                 <button ng-click="documentaryOneData()" class="btn btn-success float-right btn-sm" ><small> Create</small></button>
             </div> 
-        </div> 
+        </div>  
         <proposal-comment data="
             {'modalState':'proposalViewConversations',
             'type': 'proposal_sharing', 

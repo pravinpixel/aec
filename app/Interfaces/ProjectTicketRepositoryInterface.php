@@ -17,6 +17,7 @@ interface ProjectTicketRepositoryInterface
     public function find($id);
     public function getprojectticket($id);
     public function findprojectticket($id);
+    public function findvariationticket($id);
     public function findprojectteam($project);
     public function getprojectticketsearch($id ,$type);
     public function getprojectticketfiltersearch(array $data);

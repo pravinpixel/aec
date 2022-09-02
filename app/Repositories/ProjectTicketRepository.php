@@ -85,6 +85,72 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         if (null == $ProjectTicket['ticket'] = $this->model->where('project_id',$id)->get()) {
             throw new ModelNotFoundException("Issues not found");
         }
+        $groupvariationorderticket = $this->model->where('project_id',$id)
+                                     ->groupBy('ticket_comment_id')
+                                         ->orderBy('id','desc')->get();
+        foreach($groupvariationorderticket as $groupvariationticket){
+            $key = 1;
+            $variationorderticket = $this->model->where('ticket_comment_id',$groupvariationticket->ticket_comment_id)->orderBy('id','desc')->get();
+
+        //$variationorderticket = $this->model->where('project_id',$id)->orderBy('id','desc')->get();
+        
+        $get_versions= array();
+       
+        foreach($variationorderticket as $variationticket){
+            $rootin = $key++;
+            if(count($variationorderticket) == 1){
+               
+
+                $variation[] = array('id' => $variationticket->id,
+                'type'=>'root',
+                'version'=>'V'.$rootin,
+                'template_name'=> $variationticket->title,
+                'comment'=> $variationticket->description,
+                'status'=>'awaiting',
+                'proposal_status'=>'not_send',
+                'created_at'=>$variationticket->created_at,
+                'updated_at'=>$variationticket->updated_at,
+                'mail_send_date'=>'',
+                'get_versions'=>$get_versions,);
+
+            }
+            else if( count($variationorderticket) > $rootin){
+                $get_versions[] = array('id' => $variationticket->id,
+                'type'=>'root',
+                'version'=>'V'.$rootin,
+                'template_name'=> $variationticket->title,
+                'comment'=> $variationticket->description,
+                'status'=>'awaiting',
+                'proposal_status'=>'not_send',
+                'created_at'=>$variationticket->created_at,
+                'updated_at'=>$variationticket->updated_at,
+                'mail_send_date'=>'',
+            );
+
+            }else{
+               
+               
+                $variation[] = array('id' => $variationticket->id,
+                'type'=>'root',
+                'version'=>'V'.$rootin,
+                'template_name'=> $variationticket->title,
+                'comment'=> $variationticket->description,
+                'status'=>'awaiting',
+                'proposal_status'=>'not_send',
+                'created_at'=>$variationticket->created_at,
+                'updated_at'=>$variationticket->updated_at,
+                'mail_send_date'=>'',
+                'get_versions'=>$get_versions,);
+
+            }
+
+          
+        }
+           
+        }
+        $result =$variation;
+
+        $ProjectTicket['variationorder'] = $result;
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $ProjectTicketCollection = $this->Projectticketcase->with('assigndetails')
                                                                 ->with('assigncustomerdetails');
@@ -155,6 +221,17 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $ticket =  $this->model->where('ticket_comment_id',$id)->first();
         //dd($ticket);
         if (null == $ProjectTicket['ticket'] = $this->model->where('ticket_comment_id',$id)->first()) {
+            throw new ModelNotFoundException("Issue not found");
+        }
+        $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($ticket->project_id);
+        return $ProjectTicket;
+    }
+
+    public function findvariationticket($id)
+    {
+        $ticket =  $this->model->where('id',$id)->first();
+        //dd($ticket);
+        if (null == $ProjectTicket['ticket'] = $this->model->where('id',$id)->first()) {
             throw new ModelNotFoundException("Issue not found");
         }
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($ticket->project_id);
