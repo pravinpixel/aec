@@ -431,15 +431,17 @@ class ProjectController extends Controller
 
     public function liveProjectList(Request $request)
     {
+       
         if ($request->ajax() == true) {
             $dataDb = Project::with(['comments'=> function($q){
                 $q->where(['status' => 0, 'created_by' => 'Customer']);
             }]);
+           
             return DataTables::eloquent($dataDb)
                 ->editColumn('reference_number', function ($dataDb) {
                     $commentCount = $dataDb->comments->count();
                     $projectComments = $commentCount == 0 ? '' : $commentCount;
-                    return '
+                     return '
                     <button type="button" ng-click=getQuickProject("create_project",' . $dataDb->id . ') class="btn-quick-view" ng-click=toggle("edit",' . $dataDb->id . ')>
                         <b>' . $dataDb->reference_number . '</b>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$projectComments.'</span>
@@ -455,7 +457,62 @@ class ProjectController extends Controller
                     return Carbon::parse($dataDb->delivery_date)->format($format);
                 })
                 ->addColumn('pipeline', function ($dataDb) {
-                    return '<div class="btn-group">
+                    $totaloverall = array();
+                    $result = array();
+                    $projechtchart =  isset($dataDb->gantt_chart_data) ? json_decode($dataDb->gantt_chart_data) :array();
+                    foreach($projechtchart as $projectdata){
+                        foreach($projectdata->data as $key=>$prodata){
+                            $finalstatuspercentage = array();
+                            $overall = count($prodata->data);
+                            $totaloverall[] = $overall;
+                            foreach($prodata->data as $finaldata){
+                                $delivery_date = isset($finaldata->delivery_date) ? Carbon::parse($finaldata->delivery_date)->format('Y-m-d') : '';
+
+              
+                                if(isset($finaldata->status) &&  $finaldata->status !=  ''){
+                                 $finalstatuspercentage[] =   $finaldata->status;
+                                } 
+                                $gnttname[] = $finaldata->task_list;
+                              
+                                $date_now = date("Y-m-d"); // this format is string comparable
+                                
+                                if (isset($delivery_date) && $date_now > $delivery_date) {
+                                 $datetime1 = new DateTime($date_now);
+                                 $datetime2 = new DateTime($delivery_date);
+                                 $intervalday[] = $datetime1->diff($datetime2)->days * 24;
+                                }else{
+                                 $intervalday[] = 0;
+                                }
+                                 
+                              
+             
+                                $days = (strtotime($finaldata->start_date) - strtotime($finaldata->end_date)) / (60 * 60 * 24);
+                                $start  = date_create($finaldata->start_date);
+                                $end    = date_create($finaldata->end_date); // Current time and date
+                                $diff   = date_diff( $start, $end );
+                                $seriesdata[] = array('y'=>$diff->days * 24,
+                                                     'color'=>'#008ffb' );
+
+                            }
+                            $completecount = count($finalstatuspercentage);
+                            $totalcompletecount[] = $completecount;
+                            $rearr[] = array('name' =>$finaldata->get_task_list->task_list_name,
+                                             'completed'=> round(($completecount /$overall )*100),2);
+
+                        }
+
+                    }
+                    if(count($projechtchart) > 0){
+         
+                        $result = array('overall'=> round(((array_sum($totalcompletecount) / array_sum($totaloverall))*100),2),
+                        'completed' => $rearr);
+                        //dd($result);
+                    }else{
+                        $result = array('overall'=> 0,
+                        'completed' => 0);
+                    }
+                    $OverAllData =  $result['overall'];
+                 /* $old = ' <div class="btn-group">
                     <button ng-click=getQuickProject("project_infomation",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_create_project == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
                     <button ng-click=getQuickProject("connection_plateforms",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_teamsetup == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Milestone"></button> 
                     <button ng-click=getQuickProject("Team_setup",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_teamsetup == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tasklist"></button> 
@@ -464,7 +521,9 @@ class ProjectController extends Controller
                     <button ng-click=getQuickProject("Invoice_maileStone",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_todo_list == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Invoice Plan"></button> 
                     <button ng-click=getQuickProject("Gendral_notes",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_todo_list == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Document"></button> 
                     <button ng-click=getQuickProject("Gendral_notes",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_todo_list == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Closer"></button> 
-                </div>';
+                </div>';*/
+                    return ' <div class="progress-bar" role="progressbar" style="width: '.$result['overall'].'%;" aria-valuenow="'. $result['overall'].'" aria-valuemin="0" aria-valuemax="100">'. $result['overall'].'%</div>
+                ';
                 })
                 ->addColumn('action', function ($dataDb) {
                     return '<div class="dropdown">

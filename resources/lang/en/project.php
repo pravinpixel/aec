@@ -17,6 +17,7 @@ return [
     'pipeline'              =>      "Pipeline",
     'action'                =>      "Actions",
     "select"                =>      "Select",
+    "completed"             =>      "Completed",
 
 
     //live ticket
