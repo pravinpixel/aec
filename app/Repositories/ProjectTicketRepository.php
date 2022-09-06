@@ -9,6 +9,9 @@ use App\Models\TicketComments;
 use App\Models\TicketcommentsReplay;
 use App\Models\Project;
 use App\Models\ProjectTeamSetup;
+use App\Models\ProjectChats;
+use Illuminate\Http\Request;
+
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
@@ -18,6 +21,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
     protected $projectteamsetup;
     protected $employee;
     protected $ticketcommentsReplay;
+    protected $ProjectChats;
 
     public function __construct(
         ProjectTicket $ProjectTicket,
@@ -25,7 +29,8 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         TicketComments $projectTicketCase,
         ProjectTeamSetup $projectteamsetup,
         Employees $employee,
-        TicketcommentsReplay $ticketcommentsReplay
+        TicketcommentsReplay $ticketcommentsReplay,
+        ProjectChats $projectchats
        
         ){
         $this->model                            = $ProjectTicket;
@@ -34,6 +39,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $this->projectteamsetup                 = $projectteamsetup;
         $this->employee                         = $employee;
         $this->TicketcommentsReplay   = $ticketcommentsReplay;
+        $this->ProjectChats = $projectchats;
     }
 
     public function all()
@@ -87,11 +93,14 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         }
         $groupvariationorderticket = $this->model->where('project_id',$id)
                                      ->groupBy('ticket_comment_id')
-                                         ->orderBy('id','desc')->get();
+                                         ->orderBy('id','desc')
+                                         ->get();
                                          $variation = array();
         foreach($groupvariationorderticket as $groupvariationticket){
             $key = 1;
-            $variationorderticket = $this->model->where('ticket_comment_id',$groupvariationticket->ticket_comment_id)->orderBy('id','desc')->get();
+            $variationorderticket = $this->model->where('ticket_comment_id',$groupvariationticket->ticket_comment_id)
+                                                //->orderBy('id','desc')
+                                                ->get();
 
         //$variationorderticket = $this->model->where('project_id',$id)->orderBy('id','desc')->get();
         
@@ -100,49 +109,34 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
        
         foreach($variationorderticket as $variationticket){
             $rootin = $key++;
-            if(count($variationorderticket) == 1){
-               
-
-                $variation[] = array('id' => $variationticket->id,
-                'type'=>'root',
-                'version'=>'V'.$rootin,
-                'template_name'=> $variationticket->title,
-                'comment'=> $variationticket->description,
-                'status'=>'awaiting',
-                'proposal_status'=>'not_send',
-                'created_at'=>$variationticket->created_at,
-                'updated_at'=>$variationticket->updated_at,
-                'mail_send_date'=>'',
-                'get_versions'=>$get_versions,);
-
-            }
-            else if( count($variationorderticket) > $rootin){
+          if( count($variationorderticket) > $rootin){
                 $get_versions[] = array('id' => $variationticket->id,
-                'type'=>'root',
+                'type'=>'child',
                 'version'=>'V'.$rootin,
                 'template_name'=> $variationticket->title,
-                'comment'=> $variationticket->description,
-                'status'=>'awaiting',
+                'comment'=> $variationticket->action_comment,
+                'status'=>isset($variationticket->variation_status) ? $variationticket->variation_status : 'awaiting',
                 'proposal_status'=>'not_send',
                 'created_at'=>$variationticket->created_at,
                 'updated_at'=>$variationticket->updated_at,
-                'mail_send_date'=>'',
+                'mail_send_date'=>$variationticket->updated_at,
+                'mail_status'   => $variationticket->variation_email_status,
             );
 
             }else{
-               
-               
                 $variation[] = array('id' => $variationticket->id,
                 'type'=>'root',
                 'version'=>'V'.$rootin,
                 'template_name'=> $variationticket->title,
-                'comment'=> $variationticket->description,
-                'status'=>'awaiting',
+                'comment'=> $variationticket->action_comment,
+                'status'=>isset($variationticket->variation_status) ? $variationticket->variation_status : 'awaiting',
                 'proposal_status'=>'not_send',
                 'created_at'=>$variationticket->created_at,
                 'updated_at'=>$variationticket->updated_at,
-                'mail_send_date'=>'',
-                'get_versions'=>$get_versions,);
+                'mail_send_date'=>$variationticket->updated_at,
+                'mail_status'   => $variationticket->variation_email_status,
+                'get_versions'=>$get_versions,
+            );
 
             }
 
@@ -151,6 +145,8 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
            
         }
         $result =$variation;
+
+        //dd($result);
 
         $ProjectTicket['variationorder'] = $result;
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
@@ -232,6 +228,37 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($ticket->project_id);
         return $ProjectTicket;
     }
+
+    public function showVeriationComment($request,  $id, $version, $proposal_id)
+    {
+        $type = 'Veriation_order';
+        $result["chatHistory"] = $this->ProjectChats->where(["project_id"=> $id, "version"=> $version, "reference_id"=>  $proposal_id])->oldest()->get();
+        //dd($result);
+        $ids = $result["chatHistory"]->pluck('id');
+        //$this->updateStatus($ids, $type);
+        $result["chatType"] =   $type;
+        return $result;
+    }
+    public function veriationcomments(Request $request, $created_by, $role_by,$seen_by){
+        //dd($request->input());
+        $comments = $this->ProjectChats->create([
+            "comments"      => $request->comments,
+            "project_id"    => $request->project_id,
+            "file_id"       => $request->file_id ?? Null,
+            "reference_id"  => $request->reference_id ?? Null,
+            "version"       => $request->version ?? Null,
+            "type"          => $request->type,
+            "created_by"    => $created_by,
+            "role_by"       => $role_by,
+            "seen_by"       => $seen_by,
+            "send_by"       => $request->send_by,
+            "status"        => 0,
+        ]);
+
+        return $comments; 
+        
+    }
+    
 
     public function findvariationticket($id)
     {
@@ -328,6 +355,14 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
       
         return $ProjectTicket;
      
+
+    }
+    public function getprojectticketvariation($id){
+       $ProjectTicket['ticketcase'] = $this->Projectticketcase->where('project_id',$id)
+                                                             ->Where('variation_order',1)
+                                                              ->get();
+       return $ProjectTicket;                                                      
+
 
     }
     public function getprojectticketfiltersearch(array $data){

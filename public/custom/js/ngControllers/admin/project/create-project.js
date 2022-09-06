@@ -929,7 +929,6 @@ formatData = (project) => {
   app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout) { 
     $scope.autotrigger = function() {
       $('#flexRadioDefault1').click();
-     
     }
   
     $scope.options = {
@@ -939,13 +938,6 @@ formatData = (project) => {
       showDropdowns: true,
       // singleDatePicker:true
     };
-  
-    // $scope.startDate = moment();
-    // $scope.endDate = moment();
-  
-    
-  
-  
     let project_id = $('#project_id').val();
     $("#rasieTicketDetails").modal('hide');
   
@@ -1143,7 +1135,7 @@ formatData = (project) => {
 
         $scope.multilineToolbar = true;
         $scope.description = res.data.ticket.description;
-        console.log(res.data.ticket);
+        //console.log(res.data.ticket);
 
   
     $scope.htmlEditorOptions = {
@@ -1316,6 +1308,50 @@ formatData = (project) => {
     });
 
     }
+
+
+
+    $scope.showVariationCommentsToggle = (reference_id, version) => {
+      $scope.reference_id = reference_id;
+      $scope.version = version;
+      let project_id = $('#project_id').val();
+      var type = 'variation_order';
+      $http.get(API_URL + 'admin/show-comments/'+project_id+'/'+$scope.version +'/'+$scope.reference_id).then(function (response) {
+          $scope.commentsData = response.data.chatHistory; 
+          $scope.chatType     = response.data.chatType;  
+          $('#proposalViewConversations-modal').modal('show');
+      });
+  };
+
+  $scope.sendInboxComments  = (type) => {
+    let project_id = $('#project_id').val();
+      if($scope.inlineComments == '') {
+          Message('danger','Comment field required');
+          return false;
+      }
+      $scope.sendCommentsDataNew = {
+          "comments"        :   $scope.inlineComments,
+          "project_id"      :   project_id,
+          "reference_id"    :   $scope.reference_id,
+          "type"            :   $scope.chatType,
+          "version"         :   $scope.version,
+          "created_by"      :   type,
+      }
+      $http({
+          method: "POST",  
+          url:  API_URL + 'admin/add-comments-veriation',
+          data: $.param($scope.sendCommentsDataNew),
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded' 
+          }
+      }).then(function successCallback(response) {
+          $scope.inlineComments = '';
+          $scope.showVariationCommentsToggle($scope.reference_id, $scope.version);
+          Message('success',response.data.msg);
+      }, function errorCallback(response) {
+          Message('danger',response.data.errors);
+      });
+  }
 
     $scope.projectticketshow = (id) => {
 

@@ -16,11 +16,14 @@ interface ProjectTicketRepositoryInterface
     public function ticketdelete($id);
     public function find($id);
     public function getprojectticket($id);
+    public function getprojectticketvariation($id);
     public function findprojectticket($id);
     public function findvariationticket($id);
     public function findprojectteam($project);
     public function getprojectticketsearch($id ,$type);
     public function getprojectticketfiltersearch(array $data);
+    public function showVeriationComment(Request $request, $id, $version, $proposal_id);
+    public function veriationcomments(Request $request, $created_by, $role_by,$seen_by);
     
     
 }

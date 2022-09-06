@@ -51,153 +51,14 @@
     <div class="my-2">
         <h3 class="h4">Variation Order Summary</h3>
     </div>
-  
-
-
-    <table class="table custom table-bordered">
-        <tbody class="panel"> 
-            <tr>
-                <td style="padding: 0 !important">
-                    <table  class="table custom table-bordereds m-0">
-                        <tr>
-                            <th class="text-center" colspan="2" style="width: 6% !important">No</th>
-                            <th class="text-center" style="width: 10% !important">File Name</th>
-                            <th class="text-center" style="width: 10% !important">Version</th>
-                            <th class="text-center" style="width: 10% !important">Status</th>
-                            <th class="text-center" style="width: 28% !important">Comments</th>
-                            <th class="text-center" style="width: 16% !important">Date & Time</th>
-                            <th class="text-center" style="width: 6% !important">Action</th>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr ng-repeat="(key,P) in proposal">
-                <td style="padding: 0 !important">
-                    <table class="table custom table-bordered m-0">
-                        <tbody class="panel"> 
-                            <tr>
-                                <td colspan="2" style="width: 6% !important" class="text-center">
-                                    <div class="d-flex text-center" >
-                                       
-                                        <div class="me-2" ng-show="P.get_versions.length">
-                                            <i data-bs-toggle="collapse" href="#togggleTable@{{ key+1 }}" aria-expanded="true" aria-controls="togggleTable@{{ key+1 }}" class="accordion-button custom-accordion-button collapsed bg-primary text-white toggle-btn m-0"></i>
-                                        </div>
-                                        <div class="me-2" ng-show="!P.get_versions.length" style="visibility: hidden">
-                                            <i class="accordion-button custom-accordion-button collapsed bg-white text-white toggle-btn m-0"></i>
-                                        </div>
-                                        <div class="text-center">@{{ key+1 }}</div>
-                                    </div>
-                                </td>
-                                <td style="width: 10% !important" class="text-center">@{{ P.template_name }}</td>
-                                <td style="width: 10% !important" class="text-primary text-center">@{{ P.version }}</td>
-                                <td style="width: 10% !important" class="text-info text-center"> 
-                                    <proposal-status data="P.status" />
-                                </td>
-                                <td style="width: 28% !important" class="text-info text-center">
-                                    <div class="proposal-comment">
-                                        <div>
-                                            @{{ P.comment }}
-                                        </div> 
-                                    </div>
-                                </td>
-                                <td style="width: 16% !important"class="text-center">
-                                    <small>@{{P.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}} </small>
-                                </td>
-                                <td style="width: 6% !important" class="text-center"> 
-                                    <div class="dropdown">
-                                        <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="dripicons-dots-3 "></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
-                                            
-                                            <a  class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
-                                            <a  class="btn dropdown-item" ng-click="variationticketshow(P.id,true)">View / Edit</a>
-                                            {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a> --}}
-                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
-                                        
-                                        </div>
-                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
-                                           
-                                            <a  ng-show="proposal_email_status == 0 || (customer_response == 2 ||  customer_response == 3)" class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
-                                            <a class="dropdown-item" ng-click="variationticketshow(P.id,true)">View / Edit</a>
-                                            {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(P.proposal_id , P.id)">Send Proposal</a> --}}
-                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.id, P.type)" > Chat</u></a>
-                                            <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr> 
-                            <tr  id="togggleTable@{{ key+1 }}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <td colspan="8" class="hiddenRow" style="padding: 0 !important">
-                                    <table class="table custom table-bordered m-0">
-                                        <tbody> 
-                                            <tr ng-repeat="(key2,V) in P.get_versions">
-                                                <td  class="text-end" style="width: 6% !important">
-                                                    <div class="text-end">@{{ key+1 }}.@{{ key2+1 }}</div>                                                    
-                                                </td>
-                                                <td style="width: 10% !important" class="text-center">@{{ V.template_name }}</td>
-                                                <td style="width: 10% !important" class="text-info text-center"><b><small>@{{ V.version }}</small></b></td>
-                                                {{-- <td style="width: 10% !important" class="text-info text-center"> 
-                                                    <span ng-show="V.status == 'awaiting'" class="badge badge-outline-warning rounded-pill">Awaiting</span>
-                                                    <span ng-show="V.status == 'sent'" class="badge badge-outline-success rounded-pill">sent</span>
-                                                    <span> @{{ V.status  }} </span>
-                                                </td> --}}
-                                                <td style="width: 10% !important" class="text-info text-center"> 
-                                                    <proposal-status data="V.status" />
-                                                </td>
-                                            
-                                                <td style="width: 28% !important" class="text-info text-center">
-                                                    <div class="proposal-comment">
-                                                        <div>@{{ V.comment }} </div>
-                                                    </div>
-                                                </td>
-
-                                                <td style="width: 16% !important" class="text-center">
-                                                    <small>@{{V.mail_send_date | date:"MM/dd/yyyy 'at' h:mma"}}</small>
-                                                </td>
-                                                
-                                                <td style="width: 6% !important" class="text-center"> 
-                                                    <div class="dropdown">
-                                                        <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="dripicons-dots-3 "></i>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'root'">
-                                                            <a  class="btn dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
-                                                            <a  class="btn dropdown-item" ng-click="variationticketshow(P.id,false)">View</a>
-                                                            {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(V.proposal_id)">Send Proposal</a> --}}
-                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
-                                                        </div>
-                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
-                                                            <a ng-show="proposal_email_status == 0 || (customer_response == 2 ||  customer_response == 3)" class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
-                                                            <a class="dropdown-item" ng-click="variationticketshow(P.id,false)">View </a>
-                                                            {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a> --}}
-                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.id, V.type)" > Chat</u></a>
-                                                            <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr> 
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr> 
-                        </tbody>
-                    </table>
-                </td>
-            </tr>  
-        </tbody>
-    </table>
-
-
-
-
-    {{--  <table class="table custom custom table-bordered table-hover m-0">
+   
+     <table class="table custom custom table-bordered table-hover m-0">
         <thead>
             <tr>
                 <th>S.No</th>
                 <th>Ticket #</th>
-                <th>Customer Name</th>
-                <th>Subject</th>
+                <th>Summary</th>
+                <th>Description</th>
                 <th>Details</th>
                 <th>Last Reply</th>
                 <th>Status</th>
@@ -206,16 +67,16 @@
         </thead>
         <tbody>
             <tr ng-repeat="(index,pticketsdata) in ptickets">
-                <td>@{{ index+1 }}</td>
+                <td>@{{ index+1}}</td>
                 <td>
                     <button type="button" ng-click="projectticketshow(pticketsdata.id)" class="btn btn-sm py-0 btn-outline-primary" data-bs-toggle="modal" data-bs-target="#Variation_mdal-box">
-                        TIC-00@{{ index+1 }} 
+                        TIC-00@{{ pticketsdata.ticket_num }} 
                     </button>
                 </td>
-                <td> @{{customer.customerdatails.first_name}} @{{customer.customerdatails.first_name}}</td>
-                <td ng-bind-html="pticketsdata.title">@{{ pticketsdata.title }}</td>
+                <td ng-bind-html="pticketsdata.summary">@{{ pticketsdata.summary }}</td>
+                <td ng-bind-html="pticketsdata.description">@{{ pticketsdata.description }}</td>
                 <td>-</td>
-                <td>@{{ pticketsdata.change_date }}</td>
+                <td>@{{ pticketsdata.ticket_date | date: 'dd-MM-yyyy' }}</td>
                 <td><span class="badge bg-success">open</span></td>
                 <td>
                     <div class="dropdown">
@@ -224,21 +85,14 @@
                         </button>
                         
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" ng-click="projectticketshow(pticketsdata.id)" >View</a>
-                            <a class="btn dropdown-item" ng-click="sendMailToCustomerticket(pticketsdata.id,customer.customerdatails.id)">Send Mail</a>
-                            <a class="dropdown-item" ng-click="showCommentsToggle('viewConversations', 'project_ticket_comment', 'Ticket Comment',pticketsdata.id)">Reply comment</a>
-                            <a class="dropdown-item" href="#">Delete</a>
+                            <a class="dropdown-item" target="_blank" href="  {{ URL('customers/live-project/variation-orders') }}/@{{ pticketsdata.id}}  ">View</a>
+                          
                         </div>
                     </div>
                 </td>
             </tr>
-
-
-
-
-
         </tbody>
-    </table>--}}
+    </table>
 </div>
  
 <div id="Variation_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

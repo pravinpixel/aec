@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\ProjectTicket;
 
 class CustomerProjectController extends Controller
 {
@@ -130,6 +131,15 @@ class CustomerProjectController extends Controller
        
         return view('customer.projects.live-project.index', compact('id')); 
     }
+    public function approveOrDeny(Request $request){
+        $ticket_id = $request->ticket_id;
+        $ticket_comment_id =$request->ticket_comment_id;
+        $type               = $request->type;
+        $comment            = isset($request->comment) ? $request->comment :'';
+        ProjectTicket ::Where(['id'=>$ticket_id])
+                     ->update(['variation_status' => $request->type,'action_comment' =>$comment,'variation_status' => '2']); 
+         return response(['status' => true, 'msg' => 'Variation Updated']);
+        }
 
     
 }

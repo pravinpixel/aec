@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     Route::get('project/team/{id}/team_setup',[ProjectController::class, 'tagteamsetup'])->name('tagteamsetup');
     Route::get('get-employee-by-slug/{name}/{type}/{projectid}', [ProjectController::class,'getRoleByProjectSlug'])->name('get-employee-by-slug-ticket');
     Route::get('get-project-count',[ProjectController::class,'getProjectCount']);
+    Route::get('ViewVariation/{id}',[ProjectController::class, 'VariationView'])->name('ViewVariation.Variation-Index');
     /*Route::get('/live-projects', function () {
         return view('admin.projects.live-project.index');
     })->name('live-projects');*/
@@ -55,6 +56,9 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
         
         Route::get('project-unestablished-list', [ProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');
         Route::get('project-live-list', [ProjectController::class, 'liveProjectList'])->name('project-live-list');
+
+        Route::get('show-comments/{id}/{version}/{proposal_id}', [ProjectController::class,'ShowVeriationComment'])->name("live-project.show-proposal-comments");
+        Route::post('add-comments-veriation', [ProjectController::class,'veriationcomments'])->name("veriation.comments");
     //========= END :  Wizard Flow Views =========
 
     //========Chart Search==========//

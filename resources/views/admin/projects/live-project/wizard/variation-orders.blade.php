@@ -52,6 +52,8 @@
         <h3 class="h4">Variation Order Summary</h3>
     </div>
   
+@include('admin.enquiry.models.proposal-comment-box')
+  
 
 
     <table class="table custom table-bordered">
@@ -91,14 +93,16 @@
                                 <td style="width: 10% !important" class="text-center">@{{ P.template_name }}</td>
                                 <td style="width: 10% !important" class="text-primary text-center">@{{ P.version }}</td>
                                 <td style="width: 10% !important" class="text-info text-center"> 
-                                    <proposal-status data="P.status" />
+                                    <span ng-show="P.status == 'awaiting'" class="badge badge-outline-info  rounded-pill">Awaiting</span>
+                                    <span ng-show="P.status != 'awaiting'" class="badge badge-outline-warning rounded-pill">@{{ P.status }}</span>
+                                   {{--  <proposal-status data="P.status" /> --}}
                                 </td>
                                 <td style="width: 28% !important" class="text-info text-center">
                                     <div class="proposal-comment">
-                                        {{--  <div ng-bind-html="P.comment ">
+                                         <div ng-bind-html="P.comment ">
                                             
                                             @{{ P.comment }}
-                                        </div> --}}
+                                        </div> 
                                     </div>
                                 </td>
                                 <td style="width: 16% !important"class="text-center">
@@ -111,18 +115,20 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
                                             
-                                            <a  class="btn dropdown-item" ng-click="DuplicateVariation(P.id)">Duplicate</a>
-                                            <a  class="btn dropdown-item" ng-click="variationticketshow(P.id,true)">View / Edit</a>
+                                            <a  class="btn dropdown-item"  ng-click="DuplicateVariation(P.id)">Duplicate</a>
+                                            <a  class="btn dropdown-item"  ng-show="P.mail_status == '0'" ng-click="variationticketshow(P.id,true)">View / Edit</a>
+                                            <a  class="btn dropdown-item"  ng-show="P.mail_status != 0" ng-click="variationticketshow(P.id,false)">View </a>
                                             {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a> --}}
-                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
+                                            <a class="btn dropdown-item"  ng-click="showVariationCommentsToggle(P.id, P.type)" > Chat</u></a>
                                         
                                         </div>
                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
                                            
-                                            <a  ng-show="proposal_email_status == 0 || (customer_response == 2 ||  customer_response == 3)" class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
-                                            <a class="dropdown-item" ng-click="variationticketshow(P.id,true)">View / Edit</a>
+                                            <a  ng-show="P.variation_email_status == 0 " class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
+                                            <a  class="btn dropdown-item"  ng-show="P.mail_status == 0" ng-click="variationticketshow(P.id,true)">View / Edit</a>
+                                            <a  class="btn dropdown-item"  ng-show="P.mail_status != 0" ng-click="variationticketshow(P.id,false)">View </a>
                                             {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(P.proposal_id , P.id)">Send Proposal</a> --}}
-                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.id, P.type)" > Chat</u></a>
+                                            <a class="btn dropdown-item"  ng-click="showVariationCommentsToggle(P.id, P.type)" > Chat</u></a>
                                             <a ng-show="P.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(P.proposal_id , P.id)">Delete</a>
                                         </div>
                                     </div>
@@ -163,16 +169,16 @@
                                                             <i class="dripicons-dots-3 "></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'root'">
-                                                            <a  class="btn dropdown-item" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
+                                                            <a  class="btn dropdown-item"  ng-show= "V.mail_status == 0" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
                                                             <a  class="btn dropdown-item" ng-click="variationticketshow(P.id,false)">View</a>
-                                                          <a class="btn dropdown-item" ng-click="sendMailToCustomerticket(V.id,V.id)">Send Mail</a> 
-                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
+                                                          <a class="btn dropdown-item" ng-show= "V.mail_status == 0" ng-click="sendMailToCustomerticket(V.id,V.id)">Send Mail</a> 
+                                                            <a class="btn dropdown-item"  ng-click="showVariationCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
                                                         </div>
-                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
-                                                            <a ng-show="proposal_email_status == 0 || (customer_response == 2 ||  customer_response == 3)" class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
+                                                        <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'child'">
+                                                            <a ng-show="mail_status == 0 || (customer_response == 2 ||  customer_response == 3)" class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
                                                             <a class="dropdown-item" ng-click="variationticketshow(P.id,false)">View </a>
                                                             {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a> --}}
-                                                            <a class="btn dropdown-item"  ng-click="showCommentsToggle(V.id, V.type)" > Chat</u></a>
+                                                            <a class="btn dropdown-item"  ng-click="showVariationCommentsToggle(V.id, V.type)" > Chat</u></a>
                                                             <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Delete</a>
                                                         </div>
                                                     </div>

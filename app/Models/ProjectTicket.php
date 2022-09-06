@@ -19,6 +19,9 @@ class ProjectTicket extends Model
         'project_price',
         'total_price',
         'status',
+        'variation_status',
+        'action_comment',
+        'variation_email_status',
         'is_mail_sent',
         'is_active',
     ];

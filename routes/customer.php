@@ -8,6 +8,7 @@ use App\Http\Controllers\Customer\ProposalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\Customer\CustomerProjectController;
+use App\Http\Controllers\Admin\Project\ProjectController;
 
 Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
 
@@ -121,6 +122,8 @@ Route::group(['prefix' => 'customers', 'middleware'=> 'customer'], function(){
     Route::get('project-unestablished-list', [CustomerProjectController::class, 'unestablishedProjectList'])->name('project-unestablished-list');
     Route::get('project-live-list', [CustomerProjectController::class, 'liveProjectList'])->name('project-live-list');
     Route::get('live-projects/{id}',[CustomerProjectController::class, 'live'])->name('customer-live-projects-data');
+    Route::POST('veriation/approve-or-deny',[CustomerProjectController::class, 'approveOrDeny'])->name('variation-approve');
+    Route::get('live-project/variation-orders/{id}', [ProjectController::class, 'VariationView'])->name('ViewVariation.Variation-Index');
 
     
 });

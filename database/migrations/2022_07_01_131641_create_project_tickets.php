@@ -25,6 +25,9 @@ class CreateProjectTickets extends Migration
             $table->string('project_price')->nullable();
             $table->string('total_price')->nullable();
             $table->boolean('status')->default(0);
+            $table->string('variation_status')->nullable();
+            $table->string('action_comment')->nullable();
+            $table->integer('variation_email_status')->default(0);;
             $table->longText('is_mail_sent')->nullable();
             $table->boolean('is_active')->default(1);
             $table->foreign('project_id')->references('id')->on('projects');

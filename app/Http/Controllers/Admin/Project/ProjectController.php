@@ -33,6 +33,8 @@ use App\Repositories\DocumentTypeEnquiryRepository;
 use App\Repositories\ProjectRepository;
 use App\Repositories\RoleRepository;
 use App\Services\GlobalService;
+use App\Models\Admin\PropoalVersions as ProposalVersions;
+use App\Models\Admin\MailTemplate;
 
 use Carbon\Carbon;
 use DateTime;
@@ -1275,6 +1277,8 @@ class ProjectController extends Controller
 
     public function sendcustomerMail($projectid,$cid){
        $data =  ProjectTicket::find($projectid);
+       $data-> variation_email_status = 1;
+       $data->update();
        //dd($data['ticket_comment_id']);
 
        
@@ -1367,6 +1371,17 @@ class ProjectController extends Controller
             $created_by = 'Customer';
         }
         return [$seenBy, $role_id,$created_by];
+    }
+    
+    public function ShowVeriationComment(Request $request, $version, $id, $proposal_id)
+    {
+        return $this->ProjectTicket->showVeriationComment($request, $version, $id, $proposal_id);
+    }
+    public function veriationcomments(Request $request){
+        $role_by        =   1;
+        $seen_by        =   1; 
+        $result         =   $this->ProjectTicket->veriationcomments($request, $request->created_by, $role_by,$seen_by);
+        return  response(['status' => true, 'data' => 'Success', 'msg' => 'Comment Updated'], Response::HTTP_OK);
     }
 
 
@@ -1466,5 +1481,60 @@ class ProjectController extends Controller
         $duplicate->is_active       = $result->is_active;
         $duplicate  ->  save();  
         return response(['status' => true, 'msg' => 'Variation Order Duplication Created'], Response::HTTP_CREATED);
+    }
+    public function TicketVariationList($id){
+        return $this->ProjectTicket->getprojectticketvariation($id);
+        //dd($id);
+    }
+    public function VariationView($id){
+        $project_ticket_show= ProjectTicket :: Where('ticket_comment_id', $id)
+                                           ->latest()->first();
+        $data['project'] = $this->projectRepo->liveprojectdata($project_ticket_show->project_id);
+        $getveriationorder  = ProjectTicket :: Where('ticket_comment_id', $id)
+                                            ->orderBy('id','desc')
+                                                ->get();
+                                               
+        $data['getveriationorder']  = $getveriationorder;
+       
+        $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
+        if(empty($project_ticket_show)) {
+            Flash::error('Not found');
+            return redirect(route('customers-enquiry-dashboard'));
+        }
+        $data['proposals'] = array();
+        $data['countvariation']  = ProjectTicket :: Where('ticket_comment_id', $id)
+                                                    ->count();
+        $data['ticket_comment_id']      = $id;
+        $data['ticket_id']              = $project_ticket_show->id;
+        $data['version_id']              =  ProjectTicket :: Where('ticket_comment_id', $id)
+                                                             ->count();                                            
+
+
+        $id = 3;
+        $latestVersion = $this->getLatestProposal($id);
+        if(empty($project_ticket_show )) {
+            Flash::error('No proposal found.');
+            return redirect(route('customers-enquiry-dashboard'));
+        }
+      
+       
+        $data['latest_proposal'] = $latestVersion;
+        return view('customer.projects.live-project.view-variation-orders', with($data),compact('project_ticket_show','id'));
+    }
+    public function getLatestProposal($enquiry_id)
+    {
+        $proposal  = ProposalVersions::where(['enquiry_id'=> $enquiry_id, 'status' => 'sent'])->latest()->first();
+        if(empty($proposal)) {
+            $proposal  = MailTemplate::where(['enquiry_id'=> $enquiry_id, 'status' => 'sent'])->latest()->first();
+            if(empty($proposal)) {
+                $proposal = ProposalVersions::where('enquiry_id', $enquiry_id)
+                                            ->where('status','!=','awaiting')
+                                            ->orderBy('id','desc')->first() 
+                            ?? MailTemplate::where('enquiry_id', $enquiry_id)
+                                            ->where('status','!=','awaiting')
+                                            ->orderBy('proposal_id','desc')->first();
+            }
+        }
+        return $proposal;
     }
 }

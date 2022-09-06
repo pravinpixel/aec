@@ -11,6 +11,7 @@ use App\Services\GlobalService;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 
+
 class ProposalController extends Controller
 {
     protected $customerEnquiryRepo;

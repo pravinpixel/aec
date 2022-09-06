@@ -33,6 +33,8 @@
         Route::post('live-project-ticket', [ProjectController::class,'ticketcreate'])->name('live-project-ticket');
         Route::post('VariationUpdate', [ProjectController::class,'VariationUpdate'])->name('Variation-Update');
         Route::get('projectticket/{id}', [ProjectController::class,'ticketlist'])->name('live-project-ticket-list');
+        Route::get('project-ticket-variation/{id}', [ProjectController::class,'TicketVariationList'])->name('live-project-ticket-variation-list');
+        
         Route::get('projectticketdelete/{id}', [ProjectController::class,'ticketlistdelete'])->name('live-project-ticket-listdelete');
         Route::get('projectticketsearch/{id}/{type}', [ProjectController::class,'ticketsearchlist'])->name('live-project-ticket-search-list');
         Route::Post('projectticketfiltersearch', [ProjectController::class,'ticketfiltersearch'])->name('live-project-ticket-filter-list');
