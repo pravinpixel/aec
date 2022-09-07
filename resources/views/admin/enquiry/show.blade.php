@@ -904,10 +904,8 @@
                     $scope.costEstimatePrecastTemplates = res.data.data;
                 }, function error(response) {
             });
-        });
-    
-      
-            $scope.printCostEstimate = (type) => {
+        }); 
+            $scope.printCostEstimate = (type) => { 
                 $http.get(`${API_URL}cost-estimate/get-history/${$scope.enquiry_id}/${type}`)
                 .then((res) => {
                     var currentTabelHistory   =   ''
@@ -941,7 +939,7 @@
                         <link rel="stylesheet" href="{{ asset('public/custom/css/variable.css') }}"> 
                         <link rel="stylesheet" href="{{ asset('public/custom/css/app.css') }}"> 
                         <link rel="stylesheet" href="{{ asset('public/custom/css/table.css') }}">
-                        <style> .remove_print_history{display:none} input,select{pointer-events:none; border:none},.card {border:0 !important; box-shadow: none !important} .card-header , button, .btn-group , .fa {display:none !important} .card-body { padding : 0 !important}  .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
+                        <style> .mdi , .remove_print_history{display:none} input,select{pointer-events:none; border:none},.card {border:0 !important; box-shadow: none !important} .card-header , button, .btn-group , .fa {display:none !important} .card-body { padding : 0 !important}  .custom-border-left{border-left:1px solid #000!important}.custom-border-bottom{border-bottom:1px solid #000!important}.custom-td{border-right:1px solid #000!important;border-top:1px solid #000!important;border-left:none!important;border-bottom:none!important;width:100px!important;min-width:100px!important;max-width:100px!important;display:flex;justify-content:center;align-items:center;flex-direction:column}.custom-td *{font-size:12px!important}.custom-row{display:inline-flex!important}.custom-td input{padding:0!important;height:100%;width:100%}.custom-td input,.custom-td select{color:#000!important}</style>
                     `);
                     let enquiryData = `
                         <div class="card-body pt-0 p-0">
@@ -952,13 +950,12 @@
                                         <th>Project Name</th>
                                         <th>Type of Building</th>
                                         <th>Person Contact</th>
-                                        <th>Project Cost</th>
-                                        
+                                        <th>Project Cost</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>${$scope.enquiry.enquiry.enquiry_date }</td>
+                                        <td>${ moment($scope.enquiry.enquiry.enquiry_date).format('DD-MM-YYYY') }</td>
                                         <td>${$scope.enquiry.enquiry.project_name }</td>
                                         <td>${$scope.enquiry.building_type.building_type_name  }</td>
                                         <td>${$scope.enquiry.enquiry.contact_person }</td>
