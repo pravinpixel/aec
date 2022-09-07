@@ -22,7 +22,7 @@
 
                 <li class="nav-item">
                     <a href="#proposal" data-bs-toggle="tab" aria-expanded="true" class="non-printable nav-link rounded-0 active">
-                        <span >Veriation</span>
+                        <span >Variation</span>
                     </a>
                 </li>
 
