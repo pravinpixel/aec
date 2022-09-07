@@ -645,12 +645,13 @@
                 });
             },
         };
-    }])
+    }]) 
     .directive('getPrecastDetailsTotal',   ['$http' ,function ($http, $scope, $apply) {  
         return {
             restrict: 'A',
             link : function (scope, element, attrs) {
                 let eventHandle = () => {
+                    scope.PrecastEstimate.Components[scope.index].hourly_rate = 550
                     // complexity validation
                     const precast_component = scope.precastEstimateTypes.find(precastEstimateType => scope.PrecastEstimate.Components[scope.index].precast_component == precastEstimateType.id);
                     if(scope.PrecastEstimate.Components[scope.index].complexity > 2) {

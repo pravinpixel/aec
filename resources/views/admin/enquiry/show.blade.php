@@ -1722,6 +1722,7 @@
             link : function (scope, element, attrs) {
                 let eventHandle = () => {
                     // complexity validation
+                    scope.PrecastEstimate.Components[scope.index].hourly_rate = 550 
                     const precast_component = scope.precastEstimateTypes.find(precastEstimateType => scope.PrecastEstimate.Components[scope.index].precast_component == precastEstimateType.id);
                     if(scope.PrecastEstimate.Components[scope.index].complexity > 2) {
                         scope.PrecastEstimate.Components[scope.index].complexity= 2;
