@@ -118,6 +118,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         $rearr = array();
         $gnttname = array();
         $intervalday = array();
+        $seriesdata =array();
 
         foreach($projechtchart as $projectdata){
             foreach($projectdata->data as $key=>$prodata){
