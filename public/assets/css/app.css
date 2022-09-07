@@ -16562,6 +16562,8 @@ input[type=date]::-webkit-calendar-picker-indicator{
 .unattended-table-row  i {
   font-weight:  bold !important;
 }
+
+
 #unestablished-table tr ,
 .active-table-row {
   background: #d3f7e3 !important;
@@ -16581,4 +16583,8 @@ input[type=date]::-webkit-calendar-picker-indicator{
 #unestablished-table tr  a,
 #unestablished-table tr  i {
   font-weight:  bold !important;
+}
+.dataTables_empty {
+  background: white !important;
+  font-weight: normal !important;
 }
