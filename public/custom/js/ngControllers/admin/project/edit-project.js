@@ -414,10 +414,10 @@ app.controller('InvoicePlanController', function ($scope, $http, API_URL, $locat
             totalInvoice = $scope.project.no_of_invoice;
             invoiceStatus = !invoiceStatus;
             for(var i = 1; i <= $scope.project.no_of_invoice;  i++){
-                let invoice_date = (i == 1) ? $scope.project.start_date : '';
+                // let invoice_date = (i == 1) ? $scope.project.start_date : '';
                 $scope.invoicePlans.invoices.push({
                     'index': i,
-                    'invoice_date': invoice_date,
+                    'invoice_date': $scope.project.start_date,
                     'amount' : 0,
                     'percentage': 0
                 });
@@ -711,11 +711,13 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
         restrict: 'A',
         link: function (scope, element, attrs) {
             element.on('change', function () {
+                scope.invoice_date = scope.project.start_date
                 scope.invoicePlans.totalPercentage = 100;
                 scope.invoicePlans.totalAmount = 0;
                 let result = {};
                 let projectCost = scope.project.project_cost;
                 let invoices =   scope.invoicePlans.invoices.map((invoicePlan, index) => {
+                    invoicePlan.invoice_date = scope.project.start_date
                     if(scope.project.no_of_invoice == index + 1) {
                         projectCost -= scope.invoicePlans.totalAmount;
                         return {
@@ -753,6 +755,9 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
             scope.$watchGroup(['project.no_of_invoice','project.project_cost'], function() {
                 let totalPercentage = 100;
                 scope.invoicePlans.invoices = scope.invoicePlans.invoices.map((invoicePlan, index) => {
+
+                    invoicePlan.invoice_date = scope.project.start_date
+
                     if(scope.project.no_of_invoice == 1) {
                         totalPercentage = 100;
                         invoice_date = scope.project.start_date;

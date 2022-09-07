@@ -429,7 +429,7 @@ formatData = (project) => {
           let invoice_date = (i == 1) ? $scope.project.start_date : '';
           $scope.invoicePlans.invoices.push({
             'index': i,
-            'invoice_date': invoice_date,
+            'invoice_date': $scope.project.start_date ,
             'amount': 0,
             'percentage': 0
           });
