@@ -26,7 +26,7 @@
                     <div class="d-flex align-items-center p-1 justify-content-between bg-primary2">
                         <div class="btn-group">
                             <select title="Set as Template" class="form-select border-0"  ng-model="woodTemplate" ng-change="getWoodTemplate(woodTemplate, firstIndex)" name="woodTemplate" id="woodTemplate">
-                                <option value="">Set template</option>
+                                <option value="">Select  template</option>
                                 <option ng-value="costEstimateWoodTemplate.id"  ng-selected="CostEstimate.woodTemplate == costEstimateWoodTemplate.id" ng-repeat="costEstimateWoodTemplate in costEstimateWoodTemplates">@{{ costEstimateWoodTemplate.name }}</option>
                             </select>
                             <button ng-click="callWoodTemplate(firstIndex)" title="Create / Save Template" class="btn btn-success btn-sm border-0"><i class="mdi mdi-plus-box-multiple"></i></button>
