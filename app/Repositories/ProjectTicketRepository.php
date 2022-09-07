@@ -151,11 +151,13 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $ProjectTicket['variationorder'] = $result;
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);
         $ProjectTicketCollection = $this->Projectticketcase->with('assigndetails')
+                                                            ->with('TicketcommentsReplay')
                                                                 ->with('assigncustomerdetails')
 
                                                                 ->orderBy('project_status','desc')
                                                                 
                                                                 ;
+                                                              
                                                                 if(!empty(Customer()->id)){
                                                                     $ProjectTicketCollection ->where('project_id',$id)->where('cus_tag',Customer()->id)
                                                                         ->orWhere('created_by',Customer()->id)

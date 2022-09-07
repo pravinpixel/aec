@@ -25,6 +25,18 @@ class TicketComments extends Model
     {
         return $this->belongsTo(Employees::class, 'send_by', 'id');
     }
+    public function TicketcommentsReplay()
+    {
+        if(!empty(Customer()->id)){
+            $seen_user = 'Customer';
+        }else{
+            $seen_user = 'Admin';
+        }
+        return $this->hasMany(TicketcommentsReplay::class, 'project_ticket_id', 'id')
+                    ->where('status',0)
+                    ->Where('seen_user',$seen_user)
+                    ;
+    }
 
     
 }

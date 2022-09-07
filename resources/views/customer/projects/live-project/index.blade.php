@@ -57,6 +57,7 @@
                                 <a href="#!/tickets" style="min-height: 40px;" id="issues" class="timeline-step wizard_active" data-is-active>
                                     <div class="timeline-content">
                                         <div class="inner-circle bg-secondary " >
+                                            <span class="position-absolute  translate-middle badge rounded-pill bg-danger" >{{ ($data['issues'] ) }}</span>
                                             <img src="{{ asset("public/assets/icons/tikets.png") }}" class="w-50 invert">
                                         </div>
                                     </div>

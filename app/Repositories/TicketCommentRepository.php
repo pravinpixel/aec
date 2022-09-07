@@ -113,10 +113,16 @@ class TicketCommentRepository implements TicketCommentRepositoryInterface
 
     public function updateStatus($ids, $type, $status = 1)
     {
-        list($seenBy, $created_by) = $this->getUser();
-        return $this->model->whereIn('id', $ids)
-            ->where('created_by', $created_by)
-            ->update(['status' => $status,  'seen_by' => $seenBy]);
+        //dd($type);
+        if (!empty(Customer()->id)) {
+            $created_by = 'Customer';
+        } else {
+            $created_by = 'Admin';
+        }
+        //dd($created_by);
+        return $this->TicketcommentsReplay->whereIn('id', $ids)
+            ->where('seen_user', $created_by)
+            ->update(['status' => $status]);
     }
 
 

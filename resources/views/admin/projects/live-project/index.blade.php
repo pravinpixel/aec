@@ -59,8 +59,11 @@
                             <li class="nav-item">
                                 <a href="#!/tickets" style="min-height: 40px;" class="timeline-step" data-is-active>
                                     <div class="timeline-content">
+                                       
                                         <div class="inner-circle bg-secondary " >
+                                            <span class="position-absolute  translate-middle badge rounded-pill bg-danger" >{{ ($data['issues'] ) }}</span>
                                             <img src="{{ asset("public/assets/icons/tikets.png") }}" class="w-50 invert">
+                                           
                                         </div>
                                     </div>
                                     <p class="h5 mt-2">Issues</p>

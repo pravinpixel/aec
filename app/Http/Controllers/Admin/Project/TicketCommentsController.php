@@ -199,15 +199,17 @@ class TicketCommentsController extends Controller
         
         try {
           
-        list($seenBy, $role_by,$created_by)  =  $this->getUser();
-      
+        list($seenBy, $role_by,$created_by,$created_by_user)  =  $this->getUser();
+      //dd($created_by_user);
         $data = array('comments' =>$request->comments,
                       'project_ticket_id' => $request->project_ticket_id,
                       'project_id'      => isset($request->project_id) ? $request->project_id :'',
                       'created_by'      => $created_by,
-                      'send_by'         => $created_by,
+                      'seen_user'       => $created_by_user,
+                      'send_by'         => $seenBy,
                       'role_id'         => $role_by,
-                      'status'          => 1);
+                      'status'          => 0);
+                      //dd($data);
 
         $res = $this->ticketcommentsreplay->create($data); 
         return response(['status' => true, 'data' => $res ,'msg' => 'Replied Successfully'], Response::HTTP_CREATED); 
@@ -243,12 +245,15 @@ class TicketCommentsController extends Controller
             $seenBy = Customer()->id ;
             $role_by = '0';
             $created_by = Customer()->id;
+            $created_by_user = 'Admin';
         } else {
             $seenBy =  Admin()->id;
             $role_by = userRole()->id;
             $created_by = Admin()->id;
+            $created_by_user = 'Customer';
         }
-        return [$seenBy,$role_by,$created_by];
+        
+        return [$seenBy,$role_by,$created_by,$created_by_user];
     }
 
    

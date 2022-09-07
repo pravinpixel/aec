@@ -218,7 +218,7 @@
                                 <td ng-show="cols[0].show" style="padding: 0 !important" class="text-center">
                                     <button  class="btn btn-sm btn-outline-primary p-0 px-1" ng-click="showTicketComments(pticketscomment.id,'show')">
                                         <small>@{{customer.reference_number}} / TIKXX-0@{{ pticketscomment.ticket_num }}</small>
-                                    </button>
+                                    </button><span class="position-absolute  translate-middle badge rounded-pill bg-danger" ng-show="pticketscomment.ticketcomments_replay.length != 0" >@{{ pticketscomment.ticketcomments_replay.length }}</span>
                                 </td>
                                 <td ng-show="cols[1].show">@{{pticketscomment.requester}}</td>
                                 <td ng-show="cols[2].show">

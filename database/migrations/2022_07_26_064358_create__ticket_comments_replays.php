@@ -20,6 +20,7 @@ class CreateTicketCommentsReplays extends Migration
             $table->longText('comments')->nullable();
             $table->integer('created_by');
             $table->integer('send_by');
+            $table->string('seen_user')->nullable();
             $table->integer('role_id');
             $table->boolean('status')->default(0);
             $table->timestamps();

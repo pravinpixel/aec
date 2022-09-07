@@ -35,6 +35,7 @@ use App\Repositories\RoleRepository;
 use App\Services\GlobalService;
 use App\Models\Admin\PropoalVersions as ProposalVersions;
 use App\Models\Admin\MailTemplate;
+use App\Models\TicketcommentsReplay;
 
 use Carbon\Carbon;
 use DateTime;
@@ -352,8 +353,18 @@ class ProjectController extends Controller
     }
 
     public function live($id){
+        if(!empty(Customer()->id)){
+            $seen_user = 'Customer';
+        }else{
+            $seen_user = 'Admin';
+        }
+       $issuescount =  TicketcommentsReplay :: Where('project_id',$id)
+                                ->Where('seen_user',$seen_user)
+                                ->where('status',0)
+                                ->count();
+        $data =array('issues' => ($issuescount != '0') ? $issuescount : '');
        
-        return view('admin.projects.live-project.index', compact('id')); 
+        return view('admin.projects.live-project.index', compact('id','data')); 
     }
 
     public function createWizard()
@@ -524,7 +535,7 @@ class ProjectController extends Controller
                     <button ng-click=getQuickProject("Gendral_notes",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_todo_list == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Document"></button> 
                     <button ng-click=getQuickProject("Gendral_notes",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_todo_list == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Closer"></button> 
                 </div>';*/
-                    return ' <div class="progress-bar" role="progressbar" style="width: '.$result['overall'].'%;" aria-valuenow="'. $result['overall'].'" aria-valuemin="0" aria-valuemax="100">'. $result['overall'].'%</div>
+                    return '<div class="progress"> <div class="progress-bar" role="progressbar" style="width: '.$result['overall'].'%;" aria-valuenow="'. $result['overall'].'" aria-valuemin="0" aria-valuemax="100">'. $result['overall'].'%</div></div>
                 ';
                 })
                 ->addColumn('action', function ($dataDb) {

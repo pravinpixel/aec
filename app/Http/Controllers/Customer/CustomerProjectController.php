@@ -9,6 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\ProjectTicket;
+use App\Models\TicketcommentsReplay;
 
 class CustomerProjectController extends Controller
 {
@@ -128,8 +129,18 @@ class CustomerProjectController extends Controller
     }
 
     public function live($id){
+        if(!empty(Customer()->id)){
+            $seen_user = 'Customer';
+        }else{
+            $seen_user = 'Admin';
+        }
+       $issuescount =  TicketcommentsReplay :: Where('project_id',$id)
+                                ->Where('seen_user',$seen_user)
+                                ->where('status',0)
+                                ->count();
+        $data =array('issues' => ($issuescount != '0') ? $issuescount : '');
        
-        return view('customer.projects.live-project.index', compact('id')); 
+        return view('customer.projects.live-project.index', compact('id','data')); 
     }
     public function approveOrDeny(Request $request){
         $ticket_id = $request->ticket_id;
