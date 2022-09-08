@@ -392,7 +392,7 @@
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label text-secondary">Due Date<sup class="text-danger">*</sup></label>
                                     
-                                    <input type="date"  min="2001-01-01T00:00:00" max="2035-12-31T00:00:00" name = "due_date" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
+                                    <input type="date"  min="@{{ projectissues.start_date | date: 'yyyy-MM-dd' }}" max="2035-12-31T00:00:00" name = "due_date" class="form-control form-control-sm" ng-model = "case.ticket_date"  ng-required="true">
                                     <small class="text-danger" ng-show="newissuesForm.due_date.$invalid && formSave">This field is required</small>
                                 </div> 
                                 <div class="mb-3">
@@ -846,7 +846,6 @@
                                 end-date="endDate2"
                                 placeholder="select"
                                 data-ng-required="true"
-                              
                                 clear-on-cancel="true"
                                 date-range-picker-options="options"
                                 class="form-control">
@@ -861,6 +860,7 @@
                             <div class="mb-3 ">
                                 <label class="form-label">Project Priority</label>
                                 <select class="form-select" ng-model="priority">
+                                    <option value ='' selected>-- select --</option>
                                     <option value = "critical">Critical</option>
                                     <option value = "high">High</option>
                                     <option value = "medium">Medium</option>
@@ -872,7 +872,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Status</label>
                                 <select class="form-select" ng-model="status">
-                                    <option selected>-- select --</option>
+                                    <option  value ='' selected>-- select --</option>
                                     <option value="new">New </option>
                                     <option value="open">Open</option>
                                     <option value="close">Close</option>
@@ -887,6 +887,7 @@
                             <div class="mb-3 ">
                                 <label class="form-label">Issue Type</label>
                                 <select class="form-select" ng-model="tickettype">
+                                    <option  value ='' selected>-- select --</option>
                                     <option value = "internal">Internal</option>
                                     <option value = "customer">Customer</option>
                                     
@@ -905,6 +906,9 @@
                     
                     
                     <div class="text-center">
+                        <button type="button" class="btn btn-primary" ng-click="tablefilterreset('filtersearch')">
+                            Reset
+                   </button>
                         <button type="button" class="btn btn-primary" ng-click="tablesearch('filtersearch')">
                                  Submit
                         </button>

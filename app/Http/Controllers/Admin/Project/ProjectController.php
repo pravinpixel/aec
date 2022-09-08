@@ -1483,7 +1483,8 @@ class ProjectController extends Controller
     }
     public function VariationUpdate(Request $request){
         $id = $request->ticket_comment;
-       $data =  ProjectTicket :: find($id);
+        //dd($request->data['id']);
+       $data =  ProjectTicket :: find($request->data['id']);
        $data->description = $request->description;
        $data->response    = $request->variationchange;
        $data->project_hrs = $request->project_hrs;

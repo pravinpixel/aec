@@ -29,6 +29,8 @@ class CreateProjectTickets extends Migration
             $table->string('action_comment')->nullable();
             $table->integer('variation_email_status')->default(0);;
             $table->longText('is_mail_sent')->nullable();
+            $table->integer('is_sent')->default(0);
+            $table->integer('customer_response')->default(0);
             $table->boolean('is_active')->default(1);
             $table->foreign('project_id')->references('id')->on('projects');
             $table->foreign('ticket_comment_id')->references('id')->on('ticket_comments');

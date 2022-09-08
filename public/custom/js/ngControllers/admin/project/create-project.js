@@ -997,9 +997,7 @@ formatData = (project) => {
   ///ticket wizard
   
   app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout) { 
-    $scope.autotrigger = function() {
-      $('#flexRadioDefault1').click();
-    }
+   
   
     $scope.options = {
       locale: {
@@ -1193,6 +1191,12 @@ formatData = (project) => {
       });
   
   
+    }
+
+    $scope.autotrigger = function() {
+      $('#flexRadioDefault1').click();
+      $scope.projectissues = $scope.customer;
+      
     }
     
     $scope.variationticketshow = (id,type) => {
@@ -1596,7 +1600,7 @@ formatData = (project) => {
     $scope.tablesearch = function(type) {
       // $scope.CallToDB = false;
       if ($scope.todate != 'Invalid Date' && $scope.fromdate === 'Invalid Date') {
-        alert('hello');
+        //alert('hello');
         Message('danger', 'Please Select End Date');
         //$scope.CallToDB = false;
         return false
@@ -1638,6 +1642,16 @@ formatData = (project) => {
           $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
         });
       }
+    }
+
+    $scope.tablefilterreset= function(){
+      $('#due_date').val('');
+      $('#requester_date').val('');
+      $scope.priority ='';
+      $scope.status ='';
+      $scope.refno ='';
+      $scope.tickettype ='';
+      //$scope.filterData = '';
     }
   
   

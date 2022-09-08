@@ -136,7 +136,7 @@
                                 @if($project_ticket_show->variation_status == '')
                                     <div class="row col-md-8 mx-auto">
                                         <div class="col-md-3 text-end pt-3 pe-5">
-                                            <h4>Veriation Action</h4>
+                                            <h4>Variation Action</h4>
                                         </div>
                                         <div class="col-md-9">
                                             <select ng-model="proposal_status" name="proposal_status" id="proposal_status" class="fw-bold form-select my-3">
@@ -201,7 +201,7 @@
                                     @endphp
                                     <input type = "hidden" class = "project_id" value = "{{$variation->project_id  }}">
                                     
-                                        @if($variation->status == '1')
+                                        @if($variation->is_sent == '1')
                                             <tr>
                                                 <td style="text-align: left !important;">{{ $variation->id }} </td>
                                                 <td style="text-align: left !important;">{!! $variation->title !!}</td>

@@ -23,6 +23,8 @@ class ProjectTicket extends Model
         'action_comment',
         'variation_email_status',
         'is_mail_sent',
+        'is_sent',
+        'customer_response',
         'is_active',
     ];
 }

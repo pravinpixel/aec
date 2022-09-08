@@ -170,13 +170,13 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'root'">
                                                             <a  class="btn dropdown-item"  ng-show= "V.mail_status == 0" ng-click="DuplicatePropose(V.proposal_id)">Duplicate</a>
-                                                            <a  class="btn dropdown-item" ng-click="variationticketshow(P.id,false)">View</a>
+                                                            <a  class="btn dropdown-item" ng-click="variationticketshow(V.id,false)">View</a>
                                                           <a class="btn dropdown-item" ng-show= "V.mail_status == 0" ng-click="sendMailToCustomerticket(V.id,V.id)">Send Mail</a> 
                                                             <a class="btn dropdown-item"  ng-click="showVariationCommentsToggle(V.proposal_id, V.type)" > Chat</u></a>
                                                         </div>
                                                         <div class="dropdown-menu dropdown-menu-end" ng-if="V.type == 'child'">
                                                             <a ng-show="mail_status == 0 || (customer_response == 2 ||  customer_response == 3)" class="btn dropdown-item" ng-click="DuplicateProposalVersion(V.proposal_id)">Duplicate</a>
-                                                            <a class="dropdown-item" ng-click="variationticketshow(P.id,false)">View </a>
+                                                            <a class="dropdown-item" ng-click="variationticketshow(V.id,false)">View </a>
                                                             {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(V.proposal_id , V.id)">Send Proposal</a> --}}
                                                             <a class="btn dropdown-item"  ng-click="showVariationCommentsToggle(V.id, V.type)" > Chat</u></a>
                                                             <a ng-show="V.status == 'awaiting'" class="btn dropdown-item" ng-click="DeleteProposeVersion(V.proposal_id ,V.id)">Delete</a>
@@ -194,6 +194,8 @@
             </tr>  
         </tbody>
     </table>
+
+
 
 
 
@@ -246,6 +248,14 @@
 
         </tbody>
     </table>--}}
+</div>
+
+<div class="card-footer">
+   
+          
+            <a ng-click="sendProposal()"  class="btn btn-primary float-left">Send Variation</a>
+        </div>
+    </div>
 </div>
  
 <div id="Variation_mdal-box" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

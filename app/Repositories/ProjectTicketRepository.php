@@ -93,7 +93,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         }
         $groupvariationorderticket = $this->model->where('project_id',$id)
                                      ->groupBy('ticket_comment_id')
-                                         ->orderBy('id','desc')
+                                         //->orderBy('id','desc')
                                          ->get();
                                          $variation = array();
         foreach($groupvariationorderticket as $groupvariationticket){
@@ -119,7 +119,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
                 'proposal_status'=>'not_send',
                 'created_at'=>$variationticket->created_at,
                 'updated_at'=>$variationticket->updated_at,
-                'mail_send_date'=>$variationticket->updated_at,
+               'mail_send_date'=>$variationticket->updated_at,
                 'mail_status'   => $variationticket->variation_email_status,
             );
 
@@ -146,7 +146,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         }
         $result =$variation;
 
-        //dd($result);
+       
 
         $ProjectTicket['variationorder'] = $result;
         $ProjectTicket['project'] = $this->Project ::with('customerdatails') ->find($id);

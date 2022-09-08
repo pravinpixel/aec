@@ -114,7 +114,7 @@
 <script src="{{ asset('public/assets/js/pages/demo.jstree.js') }}"></script>
 <script src="{{ asset("public/custom/js/ngControllers/customer/project/customer-project.js") }}"></script> 
 {{--<script data-require="jquery@*" data-semver="2.0.3" src="https://code.jquery.com/jquery-2.0.3.min.js"></script>--}}
-<script src="{{ asset("public/custom/js/ngControllers/admin/project/tag.js") }}"></script> 
+{{--  <script src="{{ asset("public/custom/js/ngControllers/admin/project/tag.js") }}"></script> --}}
        
     <script>
             app.controller("CustomerProjectController", function($rootScope, $scope, $location){
