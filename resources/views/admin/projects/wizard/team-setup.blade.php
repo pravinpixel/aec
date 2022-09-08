@@ -1,7 +1,7 @@
 <form name="teamSetupForm" id="createTeamSetupForm" ng-submit="teamSetupFormSubmit()">
     <div class="col-md-11 mx-auto p-4">
-        <h3 class="h3 text-center mb-4">Create Team</h3>
-        <div class="card">
+        <div class="card border shadow-sm m-0">
+            <p class="lead text-center m-0 border-bottom bg-secondary text-white"><b>Create Team</b></p>
             <div class="card-header bg-light border shadow-sm">
                 <div class="row m-0">
                     <div class="col-4 p-0">
@@ -21,13 +21,13 @@
                                 <option value="">@lang('project.select')</option>
                                 <option value="@{{ role }}" ng-repeat="role in roles"> @{{ role.name }}</option>
                             </select> 
-                            <button class="btn btn-warning" ng-click="addResource(teamRole.role)"> + Add Resource </button>
+                            <button  type="button" class="btn btn-warning" ng-click="addResource(teamRole.role)"> + Add Resource </button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <table class="table m-0 table-borderless">
+                <table class="table m-0 table-borderless table-centered">
                     <tbody>
                         <tr ng-repeat="($key, teamSetup) in teamSetups">
                             <td>
@@ -42,8 +42,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
-                                <a class="btn btn-danger btn-sm" ng-click="removeResource($key)"><i class="fa fa-trash"></i></a>
+                            <td class="p-0" style="vertical-align: middle">
+                                <i ng-click="removeResource($key)" class="text-danger fa fa-times-circle fa-2x"></i>
                             </td>
                         </tr>
                     </tbody>
