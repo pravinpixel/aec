@@ -17,6 +17,7 @@ class CreateProjectTickets extends Migration
             $table->id();
             $table->unsignedBigInteger('ticket_comment_id')->nullable();
             $table->unsignedBigInteger('project_id')->nullable();
+            $table->integer('variation_version')->default(1);
             $table->string('title')->nullable(); 
             $table->longText('description')->nullable();
             $table->longText('response')->nullable();

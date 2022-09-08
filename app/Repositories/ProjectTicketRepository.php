@@ -121,6 +121,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
                 'updated_at'=>$variationticket->updated_at,
                'mail_send_date'=>$variationticket->updated_at,
                 'mail_status'   => $variationticket->variation_email_status,
+                'customer_response' => $variationticket->customer_response ,
             );
 
             }else{
@@ -135,6 +136,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
                 'updated_at'=>$variationticket->updated_at,
                 'mail_send_date'=>$variationticket->updated_at,
                 'mail_status'   => $variationticket->variation_email_status,
+                'customer_response' => $variationticket->customer_response ,
                 'get_versions'=>$get_versions,
             );
 

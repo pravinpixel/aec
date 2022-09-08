@@ -207,7 +207,7 @@ class CustomerProjectController extends Controller
         $type               = $request->type;
         $comment            = isset($request->comment) ? $request->comment :'';
         ProjectTicket ::Where(['id'=>$ticket_id])
-                     ->update(['variation_status' => $request->type,'action_comment' =>$comment,'variation_status' => '2']); 
+                     ->update(['variation_status' => $request->type,'action_comment' =>$comment,'customer_response' =>2]); 
          return response(['status' => true, 'msg' => 'Variation Updated']);
         }
 

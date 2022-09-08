@@ -115,7 +115,7 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
                                             
-                                            <a  class="btn dropdown-item"  ng-click="DuplicateVariation(P.id)">Duplicate</a>
+                                            <a  class="btn dropdown-item" ng-show="P.customer_response == '2'"  ng-click="DuplicateVariation(P.id)">Duplicate</a>
                                             <a  class="btn dropdown-item"  ng-show="P.mail_status == '0'" ng-click="variationticketshow(P.id,true)">View / Edit</a>
                                             <a  class="btn dropdown-item"  ng-show="P.mail_status != 0" ng-click="variationticketshow(P.id,false)">View </a>
                                             {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a> --}}
@@ -124,7 +124,7 @@
                                         </div>
                                         <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
                                            
-                                            <a  ng-show="P.variation_email_status == 0 " class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
+                                            <a  ng-show="P.customer_response == 2 " class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
                                             <a  class="btn dropdown-item"  ng-show="P.mail_status == 0" ng-click="variationticketshow(P.id,true)">View / Edit</a>
                                             <a  class="btn dropdown-item"  ng-show="P.mail_status != 0" ng-click="variationticketshow(P.id,false)">View </a>
                                             {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(P.proposal_id , P.id)">Send Proposal</a> --}}
@@ -150,12 +150,13 @@
                                                     <span> @{{ V.status  }} </span>
                                                 </td> --}}
                                                 <td style="width: 10% !important" class="text-info text-center"> 
-                                                    <proposal-status data="V.status" />
+                                                    <span ng-show="V.status == 'awaiting'" class="badge badge-outline-info  rounded-pill">Awaiting</span>
+                                    <span ng-show="V.status != 'awaiting'" class="badge badge-outline-warning rounded-pill">@{{ V.status }}</span>
                                                 </td>
                                             
                                                 <td style="width: 28% !important" class="text-info text-center">
                                                     <div class="proposal-comment">
-                                                       {{--   <div ng-bind-html="V.comment">@{{ V.comment }} </div>--}}
+                                                        <div ng-bind-html="V.comment">@{{ V.comment }} </div>
                                                     </div>
                                                 </td>
 
@@ -252,8 +253,7 @@
 
 <div class="card-footer">
    
-          
-            <a ng-click="sendProposal()"  class="btn btn-primary float-left">Send Variation</a>
+            <a ng-click="sendVariation()" ng-show ="proposal['0']['customer_response'] == 0"  class="btn btn-primary float-left">Send Variation</a>
         </div>
     </div>
 </div>
@@ -271,7 +271,7 @@
                     <table class="table custom table-bordered">
                         <thead>
                             <tr>
-                                <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - 01</b></td>
+                                <td colspan="2" class="text-center" style="background: #F4F4F4"><b class="h4">Variation Request - @{{ modelptickets.variation_version }}</b></td>
                             </tr>
                             
                         </thead>
@@ -290,7 +290,8 @@
                             </tr>
                             <tr>
                                 <td><b>Date of Change Request</b></td>
-                                    <td><input type="date" get-to-do-lists value="@{{ modelptickets.change_date }}" ng-model="modelptickets.change_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                    <td>
+                                        <input type="date"  value="@{{modelptickets.change_date}}" ng-model="modelptickets.change_date" id="change" class=" border-0 form-control form-control-sm"></td>
                             </tr> 
                         </tbody>
                     </table>

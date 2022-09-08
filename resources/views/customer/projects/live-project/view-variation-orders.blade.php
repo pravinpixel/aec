@@ -133,7 +133,7 @@
                         </div> 
                         <div class="card-footer bg-light">
                             <div class="non-printable">
-                                @if($project_ticket_show->variation_status == '')
+                                @if($project_ticket_show->customer_response == '1')
                                     <div class="row col-md-8 mx-auto">
                                         <div class="col-md-3 text-end pt-3 pe-5">
                                             <h4>Variation Action</h4>
@@ -162,7 +162,8 @@
                                     </div> 
                                 @else
                                     <div style="font-size: 200%;" class="text-center">
-                                        {!!  proposalStatusBadge($latest_proposal->proposal_status) !!}
+
+                                        {!!  proposalStatusBadge($latest_proposal->variation_status) !!}
                                     </div>
                                 @endif
                             </div>
@@ -206,7 +207,7 @@
                                                 <td style="text-align: left !important;">{{ $variation->id }} </td>
                                                 <td style="text-align: left !important;">{!! $variation->title !!}</td>
                                                 <td style="text-align: left !important;">{!! $variation->variation_status !!} </td>
-                                                <td style="text-align: left !important;">--</td>
+                                                <td style="text-align: left !important;">{!! $variation->action_comment !!}</td>
                                                 <td style="text-align: left !important;" width="100px">
                                                     <div class="btn-group">
                                                        
@@ -375,7 +376,7 @@
     
     app.controller('ProposalController', function($scope,  $http, API_URL, $compile,  $timeout) {
         
-            let redirectPath = `${API_URL}customers/my-enquiries`;
+            let redirectPath = `${API_URL}customers/list-projects`;
             $scope.enquiry_id  = {{ $ticket_comment_id }};
             $scope.proposal_id ='';
             $scope.ticket_comment_id  = {{ $ticket_comment_id }};

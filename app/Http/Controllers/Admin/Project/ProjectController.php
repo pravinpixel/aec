@@ -1256,7 +1256,11 @@ class ProjectController extends Controller
                 'project_price'  => $request->data['price'],
                 'total_price'    =>$request->data['hours'] * $request->data['price'] ,
                 'status'         =>  1,
-                'is_mail_sent'   => $maildata,];
+                'is_mail_sent'   => $maildata,
+                'is_sent'        => 1,
+                'customer_response' => 1,
+                'variation_status' => 'Void',
+                'variation_email_status' =>1];
           
             //dd($data);
             $this->ProjectTicket->create($data);
@@ -1510,6 +1514,7 @@ class ProjectController extends Controller
         $totalvariationVersion  =    ProjectTicket::where(["ticket_comment_id" => $result->ticket_comment_id ])->get()->count();
         $duplicate              =    new ProjectTicket;
         $duplicate->ticket_comment_id =  $result->ticket_comment_id;
+        $duplicate->variation_version = $result->variation_version +1;
         $duplicate->project_id        = $result->project_id ;
         $duplicate->title             = $result->title;
         $duplicate->description       = $result->description;
@@ -1519,6 +1524,7 @@ class ProjectController extends Controller
         $duplicate->project_price   =  $result->project_price;
         $duplicate->total_price     = $result->total_price;
         $duplicate->status          = $result->status;
+        $duplicate->variation_status = 'Waiting for send!';
         $duplicate->is_mail_sent    = $result->is_mail_sent;
         $duplicate->is_active       = $result->is_active;
         $duplicate  ->  save();  
@@ -1552,8 +1558,8 @@ class ProjectController extends Controller
                                                              ->count();                                            
 
 
-        $id = 3;
-        $latestVersion = $this->getLatestProposal($id);
+        //$id = 3;
+        $latestVersion = $this->getLatestVariation($project_ticket_show->id);
         if(empty($project_ticket_show )) {
             Flash::error('No proposal found.');
             return redirect(route('customers-enquiry-dashboard'));
@@ -1562,6 +1568,13 @@ class ProjectController extends Controller
        
         $data['latest_proposal'] = $latestVersion;
         return view('customer.projects.live-project.view-variation-orders', with($data),compact('project_ticket_show','id'));
+    }
+    public function getLatestVariation($id){
+
+        $veriation = ProjectTicket :: find($id);
+
+        return $veriation;
+       // dd($id);
     }
     public function getLatestProposal($enquiry_id)
     {
@@ -1578,5 +1591,43 @@ class ProjectController extends Controller
             }
         }
         return $proposal;
+    }
+    public function SendVariation($id){
+       
+        $data =  ProjectTicket::find($id);
+        $data-> variation_email_status = 1;
+        $data-> customer_response = 1;
+        $data-> is_sent = 1;
+        $data->variation_status = 'Void';
+        $data->update();
+        //dd($data['ticket_comment_id']);
+ 
+        
+         $project_ticket = $this->ProjectTicket->findprojectticket($data['ticket_comment_id']);
+        
+         $project        = $this->projectRepo->liveprojectdata($project_ticket['ticket']['project_id']);
+        
+         $details = [
+             'ticket_id'         =>'TIC-00'.$id,
+             'user_name'         => $project->customerdatails->full_name,
+             'email'              =>$project->customerdatails->email,
+             'project_name'      => $project->project_name,
+             'company_name'      => $project->company_name,
+             'incharge'          => 'test',
+             'title'             => $project_ticket['ticket']['title'],
+             'changedate'        => date("Y-m-d", strtotime($project_ticket['ticket']['change_date'])),
+             'description'       => $project_ticket['ticket']['description'],
+             'respone'            =>$project_ticket['ticket']['response'],
+             'project_hrs'        => $project_ticket['ticket']['project_hrs'] ,
+             'project_price'     => $project_ticket['ticket']['project_price'],
+             'total_price'       => $project_ticket['ticket']['total_price']  
+ 
+             ]; 
+            $res = Mail::to('rajkumarm.pixel@gmail.com')->send(new \App\Mail\projectticketmail($details));
+            
+            return response(['status' => true, 'msg' => trans('Variation sent successfuly !')],  Response::HTTP_OK);
+         
+ 
+     
     }
 }

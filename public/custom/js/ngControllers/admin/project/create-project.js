@@ -1203,7 +1203,8 @@ formatData = (project) => {
   
       $http.get(`${API_URL}admin/api/v2/variationticketfind/${id}`).then((res) => {
   
-        $scope.modelptickets = res.data.ticket == null ? [] : res.data.ticket
+        $scope.modelptickets = res.data.ticket == null ? [] : res.data.ticket;
+        console.log($scope.modelptickets);
         $scope.modelcustomer = res.data.project == null ? false : res.data.project
         $scope.viewtype   = type;
 
@@ -1339,7 +1340,9 @@ formatData = (project) => {
      
       var id = $scope.ticket.projectid;
       var ticket_comment_id = $('#ticket_comment_id').val();
-      //console.log(ticket_comment_id);
+      //console.log($scope.modelptickets);
+      //console.log(moment($scope.modelptickets.change_date).format('YYYY-MM-DD'));
+      //return false;
   
       var description       =  $scope.modelptickets.description;
       var variationchanges  =  $scope.modelptickets.response;
@@ -1381,6 +1384,19 @@ formatData = (project) => {
         //$scope.getProposesalData();
     });
 
+    }
+
+    $scope.sendVariation = ()=>{
+      let ticket_id = $scope.proposal['0']['id'];
+      $http.put(`${API_URL}admin/api/v2/SendVariation/${ticket_id}`).then(function (response) {
+        Message('success',response.data.msg);
+        window.location.reload();
+        //location.href = `${API_URL}admin/live-projects/${project_id}#!/variation-orders`;
+        //$scope.getProposesalData();
+    });
+
+      console.log('hello');
+      console.log( );
     }
 
 

@@ -44,6 +44,7 @@
         Route::get('liveprojectnote/{id}',[ProjectController::class,'liveprojectnote']);
         Route::get('projectdocument/{id}', [SharepointController::class,'listAllFolder'])->name('list-All-Folder');
         Route::put('/DuplicateVariation/{id}/duplicate',[ProjectController::class,'Duplicatevariation'])->name('duplicate.variation');
+        Route::put('/SendVariation/{id}',[ProjectController::class,'SendVariation'])->name('send.variation');
 
         
         
