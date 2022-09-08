@@ -161,4 +161,6 @@
         }; 
     </script>
 @endpush
- 
+@push('custom-scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@endpush

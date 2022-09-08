@@ -29,5 +29,6 @@
     </div>
 @endsection
 @push('custom-scripts')
-    <script src="{{ asset('public/custom/js/ngControllers/admin/project/list.js') }}"></script>
+    <script src="{{ asset('public/custom/js/ngControllers/admin/project/list.js') }}"></script> 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @endpush
