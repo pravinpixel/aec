@@ -348,7 +348,7 @@ small {
 }
   
 .alert-info {
-    background-color: var(--info-color);
+    background-color: #4199FC !important;
     color: #d7eff6;
     border-color: #c4e7f1; 
 }
