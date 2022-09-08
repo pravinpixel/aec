@@ -2,49 +2,52 @@
     <div class="col-md-11 mx-auto p-4">
         <h3 class="h3 text-center mb-4">Create Team</h3>
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-light border shadow-sm">
                 <div class="row m-0">
-                    <div class="col-4">
-                        <div class="d-flex">
-                            <select name="role" id="role"ng-model="selectedTemplate" class="form-select" ng-change="getTemplateChange(selectedTemplate)">
+                    <div class="col-4 p-0">
+                        <div class="btn-group border w-100">
+                            <select title="Set as Template" class="form-select border-0" ng-change="getTemplateChange(selectedTemplate)" ng-model="selectedTemplate">
                                 <option value="">@lang('global.select_template')</option>
                                 <option value="@{{ template.id }}" ng-repeat="template in templateList"> @{{ template.template_name }}</option>
-                            </select> 
-                            <a href="#" title="Add template" data-bs-toggle="modal"data-bs-target="#add-template-modal" class="link btn btn-primary"> <span class="fa fa-plus"></span></a>
+                            </select>
+                            <a href="#" title="Add template" data-bs-toggle="modal" data-bs-target="#add-template-modal" class="link btn btn-success"> <i class="mdi mdi-plus-box-multiple"></i></a>
+                            <button type="button" ng-click="editTemplate(selectedTemplate)" title="Overwrite Template" class="btn btn-primary btn-sm border-0"><i class="mdi mdi-pencil"></i></button>
+                            <button type="button" ng-click="deleteTemplate(selectedTemplate)" title="Delete Template" class="btn btn-danger btn-sm border-0"><i class="mdi mdi-trash-can"></i></button>
                         </div>
                     </div>
-                    <div class="col ms-auto d-flex">
-                        <select name="role" id="role" ng-model="teamRole.role"  class="form-select">
-                            <option value="">@lang('project.select')</option>
-                            <option value="@{{ role }}" ng-repeat="role in roles"> @{{ role.name }}</option>
-                        </select> 
-                        <div class="col-3">
-                            <a href="" class="link btn btn-secondary w-100" ng-click="addResource(teamRole.role)"> + Add Resource </a>
+                    <div class="col">
+                        <div class="input-group">
+                            <select name="role" id="role" ng-model="teamRole.role"  class="form-select border-0">
+                                <option value="">@lang('project.select')</option>
+                                <option value="@{{ role }}" ng-repeat="role in roles"> @{{ role.name }}</option>
+                            </select> 
+                            <button class="btn btn-warning" ng-click="addResource(teamRole.role)"> + Add Resource </button>
                         </div>
                     </div>
                 </div>
             </div>
-         
             <div class="card-body">
-                <div ng-repeat="($key, teamSetup) in teamSetups">
-                    <div class="row m-0 mb-2">
-                        <div class="col-md-4">
-                            <input type="text"  get-role-user  data-value="@{{ $key }}" class="form-control" readonly ng-model="teamSetup.role.name">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="btn-group w-100 border rounded"> 
+                <table class="table m-0 table-borderless">
+                    <tbody>
+                        <tr ng-repeat="($key, teamSetup) in teamSetups">
+                            <td>
+                                <input type="text"  get-role-user  data-value="@{{ $key }}" class="form-control form-control" readonly ng-model="teamSetup.role.name">
+                            </td>
+                            <td>
                                 <div dx-tag-box="tagBox.customTemplate" dx-item-alias="product" select-user>
                                     <div data-options="dxTemplate: { name: 'customItem' }">
-                                    <div class="custom-item" dx-click="getItem($key)">
-                                        <div class="product-name"> @{{product.first_name}}</div>
+                                        <div class="custom-item" dx-click="getItem($key)">
+                                            <div class="product-name"> @{{product.first_name}}</div>
+                                        </div>
                                     </div>
                                 </div>
-                                    </div>
-                                <a class="btn btn-light" ng-click="removeResource($key)"><i class="text-danger fa fa-trash"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger btn-sm" ng-click="removeResource($key)"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> 
             </div>
         </div> 
     </div>

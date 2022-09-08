@@ -84,6 +84,9 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::get('edit/{id}/{type}',[ProjectController::class, 'getEditProject'])->name('get-edit-project');
     Route::get('overview/{id}',[ProjectController::class, 'overViewProject'])->name('get-overview-project');
     Route::post('store-template',[ProjectController::class, 'storeTeamsetupTemplate'])->name('store-template');
+    Route::post('update-template/{id}',[ProjectController::class, 'updateTeamSetupTemplate'])->name('update-template');
+    Route::post('delete-template/{id}',[ProjectController::class, 'deleteTeamSetupTemplate'])->name('delete-template');
+    Route::post('edit-template/{id}',[ProjectController::class, 'editTeamSetupTemplate'])->name('edit-template');
     Route::post('sharepoint-folder',[ProjectController::class, 'storeFolder'])->name('sharepoint-folder');
     Route::put('sharepoint-folder/{id}',[ProjectController::class, 'updateFolder'])->name('sharepoint-folder');
     Route::post('sharepoint-folder-delete',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete');

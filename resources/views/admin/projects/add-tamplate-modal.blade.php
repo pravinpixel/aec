@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Template</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add / Edit Template</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -15,7 +15,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 {{-- <input type="submit"  ng-click="submitTemplate()" value="save" class="btn btn-primary"/> --}}
-                <input type="submit" ng-disabled="addTemplateForm.$invalid"  ng-click="submitTemplate()"  class="btn btn-primary" value="Save"/>
+                <input type="submit" ng-disabled="addTemplateForm.$invalid"  ng-click="submitTemplate(selectedTemplate)"  class="btn btn-primary" value="Save"/>
             </div>
             </div>
         </div>

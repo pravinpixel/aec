@@ -51,6 +51,7 @@ use Yajra\DataTables\Facades\DataTables;
 use RicorocksDigitalAgency\Soap\Facades\Soap;
 use Illuminate\Support\Facades\Mail;
 use App\Interfaces\ProjectChatRepositoryInterface;
+use App\Models\TeamSetupTemplate;
 
 class ProjectController extends Controller
 {
@@ -983,6 +984,35 @@ class ProjectController extends Controller
             return response(['status' => true, 'msg' => __('global.template_added')]);
         }
         return response(['status' => false, 'msg' => __('global.something')]);
+    }
+
+    public function updateTeamSetupTemplate(Request $request , $id)
+    {
+        $result = TeamSetupTemplate::findOrFail($id)->update([
+            'template_name' => $request->template_name,
+            'template_data' => json_encode($request['data'])
+        ]);
+        if ($result) {
+            return response(['status' => true, 'msg' => "Template updated successfully"]);
+        }
+        return response(['status' => false, 'msg' => __('global.something')]);
+    }
+
+    public function deleteTeamSetupTemplate($id)
+    {
+        try {
+            $response = $this->projectRepo->deleteTeamSetupTemplate($id);
+            if ($response) {
+                return response(['status' => true, 'msg' => "Template deleted successfully"]);
+            }
+        } catch (\Throwable $th) {
+            return response(['status' => false, 'msg' => __('global.something')]);
+        } 
+    }
+
+    public function editTeamSetupTemplate($id)
+    {
+        return TeamSetupTemplate::findOrFail($id);
     }
 
     public function getFolderById($id)

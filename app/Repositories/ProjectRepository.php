@@ -297,6 +297,11 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
         return $this->teamSetupTemplate->updateOrcreate(['template_name' => $data['tempalte']],$insert);
     }
 
+    public function deleteTeamSetupTemplate($id)
+    { 
+        return $this->teamSetupTemplate->findOrFail($id)->delete();
+    }
+
     public function getToDoList()
     {
         

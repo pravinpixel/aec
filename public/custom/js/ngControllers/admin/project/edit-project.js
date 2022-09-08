@@ -259,14 +259,17 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
         projectActiveTabs(res.data.wizard_status);
     });
     
-    $http.get(`${API_URL}project/get-templates`)
-    .then( (res) => {
-        console.log('template', res.data);
-        $scope.templateList = res.data;
-    });
+    $scope.getTemplates = () => {
+        $http.get(`${API_URL}project/get-templates`).then( (res) => {
+            $scope.templateList = res.data;
+        });
+    }
+    $scope.getTemplates()
 
     $scope.getTemplateChange = (template_id) => {
-        console.log(template_id);
+        if(template_id === undefined || template_id === null || template_id === '') {
+            return false
+        }
         $http.get(`${API_URL}project/get-template-by-id/${template_id}`)
         .then( (res) => {
             $scope.teamSetups = res.data;
@@ -303,17 +306,89 @@ app.controller('TeamSetupController', function ($scope, $http, API_URL, $locatio
         $scope.teamSetups.splice(index, 1);
     }
 
-    $scope.submitTemplate = () => {
+    $scope.submitTemplate = (id = null) => {
         if($scope.teamSetups.length == 0){
             Message('danger', `Please add template`); return false;
-        }
-        $http.post(`${API_URL}project/store-template`, {data: $scope.teamSetups, tempalte:$scope.Template})
-        .then((res) => {
+        } 
+        $http.post(`${API_URL}project/store-template`, {data: $scope.teamSetups, tempalte:$scope.Template}).then((res) => {
             Message('success', `${res.data.msg}`);
             $("#add-template-modal").modal('hide');
+            $scope.getTemplates()
             return false;
         })
     }
+
+    $scope.deleteTemplate = (id) => {
+        if(id === undefined || id === null || id === '') {
+            Message('danger', `Please select template`) 
+            return false
+        }
+        if($scope.teamSetups.length == 0){
+            Message('danger', `Please add template`); return false;
+        }
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this Data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $http.post(`${API_URL}project/delete-template/${id}`).then((res) => {
+                    Message('info', `${res.data.msg}`);
+                    $scope.getTemplates()
+                    return false;
+                })
+            } else {
+                Message('info', 'Your Data is safe');
+            }
+        }); 
+    }
+
+    $scope.editTemplate = (id) => {
+        if(id === undefined || id === null || id === '') {
+            Message('danger', `Please select template`) 
+            return false
+        }
+        $http.post(`${API_URL}project/edit-template/${id}`).then((res) => { 
+            Swal.fire({
+                confirmButtonText: 'Change',
+                buttonsStyling: false,
+                focusConfirm: false,
+                customClass: {
+                    confirmButton: 'btn btn-primary me-auto rounded-pill',
+                },
+                html: `
+                    <div>
+                        <h3 class="text-primary">Edit Template</h3>
+                        <hr/>
+                        <div class="text-start">
+                            <div class="row mb-3 mx-0 align-items-center">
+                                <span class="col-3 fw-bold font-14">Template Name</span>
+                                <div class="col-9">
+                                    <input type="name" id="template_name" class="form-control" placeholder="Enter here.." value="${res.data.template_name}"  required>
+                                </div>
+                            </div> 
+                        </div>
+                        <hr/> 
+                    </div>
+                `,
+                preConfirm: () => {
+                    const template_name   = Swal.getPopup().querySelector('#template_name').value
+                    if (!template_name) {
+                        Swal.showValidationMessage(`Please enter Template Name`)
+                    }
+                    return { template_name: template_name }
+                }
+            }).then((result) => {
+                $http.post(`${API_URL}project/update-template/${id}`,{data: $scope.teamSetups, template_name : result.value.template_name}).then((res) => {  
+                    Message('info', res.data.msg) 
+                    $scope.getTemplates()
+                }) 
+            })
+        })
+    }
+    
     
     $scope.teamSetupFormSubmit = () => {
         let status = false;
