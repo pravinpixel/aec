@@ -122,11 +122,8 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
                     'contact_person'
                 )->first()->toArray();
             $enquiryCost = EnquiryCostEstimate::where('enquiry_id',$request->enquireId)->first();
-            // print_r($enquiryCost['total_cost']);die();
-           
             $loginUserData = Admin();
             $role = Role::where('id',$loginUserData['job_role'])->select('name')->first()->toArray();
-            // print_r($role['name']);die();
 
             $countRow =  MailTemplate::where('enquiry_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
 
@@ -141,7 +138,7 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
             $datas['admin_user'] =  $loginUserData['user_name'];
             $datas['project_cost'] = $enquiryCost['total_cost'];
             $datas['revision_no'] = "R0";
-            $lo ='<img width="150px" src="'.asset($logo).'" alt="">';
+            $lo ='<img width="150px" src="'.asset($logo).'" alt="TESTING">';
             $logo_url = ['Logo'=>$lo];
             $datas = array_merge($datas,$logo_url);   
             $documentData =[];

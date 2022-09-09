@@ -661,3 +661,7 @@ sup {
 .custom-accordion-button.accordion-button:after {
     background: white !important;
 }
+
+.bg-purple {
+    background:  purple !important;
+}

@@ -15,6 +15,7 @@ use App\Models\Documentary\Documentary;
 use App\Models\Admin\MailTemplate;
 use App\Http\Requests\MailTemplateCreateRequest;
 use App\Http\Requests\MailTemplateUpdateRequest;
+use Dompdf\Dompdf;
 
 class MailTemplateController extends Controller
 {
@@ -143,7 +144,7 @@ class MailTemplateController extends Controller
         return response()->json($this->mailTemplateRepository->getDocumentaryData($request));
     }
     public function getDocumentaryOneData(Request $request)
-    {
+    { 
         $data       =   $this->mailTemplateRepository->getDocumentaryOneData($request);
         $exists     =   $this->mailTemplateRepository->isProposalExists($request->enquireId, $request->documentId);
 
@@ -154,37 +155,58 @@ class MailTemplateController extends Controller
         $content    =   $data['document']['documentary_content'];
         $title      =   $data['document']['documentary_title'];   
        
-        $pdf        =   PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','title'));
+        // $pdf        =   PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','title'));
 
-        $filePath   =   'uploads/enquiryPDF/'.$data['enquiry']['id'].'/';
-        $path       =   public_path($filePath); 
+        // $filePath   =   'uploads/enquiryPDF/'.$data['enquiry']['id'].'/';
+        // $path       =   public_path($filePath); 
 
-        if(!file_exists($path)) {
-            mkdir($path, 0777, true);
-        }
-        $name_replace   =   str_replace(' ', '_', $data['fileName']);
-        $fileName       =   $name_replace.'.'. 'pdf' ;
-        $pdf_path       =   $filePath.$fileName;
-        $pdf->save($path . '/' . $fileName);
-        $pdf            =   public_path($pdf_path);
-
-        $pdf_store_name     =   'public/'.$filePath.$fileName;
-        $mailData           =   new MailTemplate();
-        $mailData   ->  enquiry_id           =   $data['enquiry']['id'];
-        $mailData   ->  documentary_id       =   $data['document']['id'];
-        $mailData   ->  documentary_content  =   $data['document']['documentary_content'];
-        $mailData   ->  documentary_date     =   date('Y-m-d');
-        $mailData   ->  template_name        =   $title;
-        $mailData   ->  pdf_file_name        =   $pdf_store_name;
+        // if(!file_exists($path)) {
+        //     mkdir($path, 0777, true);
+        // }
+        // $name_replace   =   str_replace(' ', '_', $data['fileName']);
+        // $fileName       =   $name_replace.'.'. 'pdf' ;
+        // $pdf_path       =   $filePath.$fileName;
+        // $pdf->save($path . '/' . $fileName);
+        // $pdf            =   public_path($pdf_path); 
+        // $pdf_store_name     =   'public/'.$filePath.$fileName;
+        
+        $enquiry_proposal = MailTemplate::create([
+            "enquiry_id"          => $data['enquiry']['id'],
+            "documentary_id"      => $data['document']['id'],
+            "documentary_content" => $data['document']['documentary_content'],
+            "documentary_date"    => date('Y-m-d'),
+            "template_name"       => $title
+        ]);
       
-        $res =  $mailData->save();
-        if($res)
-        {
+        if($enquiry_proposal)   {
             $enquiry = Enquiry::find($data['enquiry']['id']);
-            return response()->json(['status' => true, 'msg' => trans('module.inserted'),'data'=>$fileName], Response::HTTP_OK);
+            return response()->json(['status' => true, 'msg' => trans('module.inserted')], Response::HTTP_OK);
         }
-        return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$res], Response::HTTP_OK);
-       
+        return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$enquiry_proposal], Response::HTTP_OK);
+    }
+    public function download_proposal(Request $request)
+    {
+        switch ($request->documentary_status) {
+            case 'approve': 
+                $text_status = 'APPROVED'; 
+                break;
+            case 'deny': 
+                $text_status = 'DENIED'; 
+                break;
+            case 'change_request': 
+                $text_status = 'OBSOLETE'; 
+                break;
+            default:
+                $text_status = 'WAITING FOR RESPONSE';
+                break;
+        }
+        $content          = $request->documentary_content;
+        $status           = $text_status;
+        $binned_html      = view('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','status'));
+        $enquiry_proposal = new Dompdf();
+        $enquiry_proposal->loadHtml($binned_html);
+        $enquiry_proposal->render();
+        $enquiry_proposal->stream();
     }
     public function pdfGenrate(Request $request)
     {
