@@ -665,3 +665,15 @@ sup {
 .bg-purple {
     background:  purple !important;
 }
+.country-code::before {
+    content: '+ 47';
+    font-weight: 800;
+    position: absolute;
+    top: 47%;
+    left: 16px; 
+    font-size: 0.875rem;
+}
+.country-code input {
+    padding-left: 48px !important;
+    padding-bottom : 0 !important
+}
