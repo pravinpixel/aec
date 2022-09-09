@@ -43,5 +43,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CheckListSeeder::class);
         $this->call(WoodMasterSeeder::class);
         $this->call(PrecastSeeder::class);
+        $this->call(ActivityListSeeder::class);
+        $this->call(CheckSheetSeeder::class);
     }
 }
