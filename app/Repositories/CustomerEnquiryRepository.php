@@ -587,7 +587,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                         }
                         $toArrayDetails = $enquiryBuildingComponentDetail->toArray();
                         
-                        $detail[] = array_merge( $toArrayDetails, $layer , ['LastAction' => $enquiryBuildingComponentDetail->updated_at->format('Y-m-d h:m:s')]);
+                        $detail[] = array_merge( $toArrayDetails, $layer , ['LastAction' => $enquiryBuildingComponentDetail->updated_at->format('d-m-Y / h:m A')]);
                     }
                     $buildingComponent['detail']= $detail;
                 }
