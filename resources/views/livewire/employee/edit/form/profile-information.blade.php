@@ -41,12 +41,12 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
         <div class="mb-3">                              
             <label class="form-label">Job title</label>
             <input type="text" wire:model="job_title" class="form-control form-control-sm">
         </div>
-    </div>
+    </div> --}}
 
     <div class="col-md-6">
         <div class="mb-3">

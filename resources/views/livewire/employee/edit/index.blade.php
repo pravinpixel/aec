@@ -11,11 +11,11 @@
                             <div class="page-title-right mt-0">
                                 <ol class="breadcrumb align-items-center m-0">
                                     <li class="breadcrumb-item"><a href="{{ route("admin-dashboard") }}"><i class="fa fa-home"></i></a></li>
-                                    <li class="breadcrumb-item active">Register New Employee​</li>
+                                    <li class="breadcrumb-item active">Edit Employee​</li>
                                     <li class="breadcrumb- ms-2"> <i type="button" onclick="goBack()" class="mdi mdi-backspace text-danger fa-2x"></i></li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Register New Employee​</h4>
+                            <h4 class="page-title">Edit Employee​</h4>
                         </div>
                     </div>
                 </div>
