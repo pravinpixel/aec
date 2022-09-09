@@ -643,3 +643,21 @@ sup {
     background: #EEF2F7;
     color: black;
 }
+.custom-accordion-button.accordion-button:after {
+    height: 2px  !important;
+    transform: rotate(90deg) !important;
+    width: 10px !important;
+    margin: 0 auto !important;
+}
+.custom-accordion-button.accordion-button {
+    background: #4199FC !important;
+    padding: 0 !important;
+    border-radius: 50px !important;
+    height: 20px;
+    width: 20px;
+    position: relative;
+}
+.custom-accordion-button.accordion-button:before, 
+.custom-accordion-button.accordion-button:after {
+    background: white !important;
+}
