@@ -51,7 +51,6 @@
 	</div>
 	<div class="card-footer text-end"> 
 		@switch($currentStep)
-		
 				@case(1)
 					<div wire:loading.remove>
 						<button wire:click="updatePersonalInformation" class="btn btn-primary font-weight-bold px-3">

@@ -50,18 +50,41 @@
 			@default @include('livewire.employee.create.form.profile-information')
 		@endswitch
 	</div>
-	<div class="card-footer">
+	<div class="card-footer text-end">
 		@switch($currentStep)
 				@case(1)
-					<button wire:click="storePersonalInformation" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-chevron-right mdi"></i> Next </button>
+					<div wire:loading.remove>
+						<button wire:click="storePersonalInformation" class="btn btn-primary font-weight-bold px-3">
+							<i class="mdi-chevron-right mdi"></i> Next 
+						</button> 
+					</div>
+					<div wire:loading>
+						<button class="btn btn-primary font-weight-bold px-3" disabled>
+							<span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Next
+						</button>
+					</div>
 				@break
 				@case(2)
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
-					<button wire:click="storeSharePointAccess" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-chevron-right mdi"></i> Next </button>
+					<div wire:loading.remove>
+						<button wire:click="storeSharePointAccess" class="btn btn-primary font-weight-bold px-3"><i class="mdi-chevron-right mdi"></i> Next </button>
+					</div>
+					<div wire:loading>
+						<button class="btn btn-primary font-weight-bold px-3" disabled>
+							<span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Next
+						</button>
+					</div>
+					<button wire:click="back()"class="btn  float-start btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
 				@break
 				@case(3)
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
-					<button wire:click="submitForm" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-check mdi"></i>  Save & Submit </button>
+					<button wire:click="back()"class="btn  float-start btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
+					<div wire:loading.remove>
+						<button wire:click="submitForm" class="btn btn-primary font-weight-bold px-3"><i class="mdi-check mdi"></i> Save & Save </button>
+					</div>
+					<div wire:loading>
+						<button class="btn btn-primary font-weight-bold px-3" disabled>
+							<span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Save & Save
+						</button>
+					</div>
 				@break  
 			@default
 					

@@ -67,9 +67,9 @@ class Wizard extends Component
                 'regex' => 'Mobile no between 8 to 12 digits',
             ];
         } elseif($this->country_code == '91') {
-            $pattern = "regex:/^\d{10}$/";
+            $pattern = "regex:/^[0-9]{10}+$/";
             $customMessages = [
-                'regex' => 'Mobile no must have a 10 digits',
+                'regex' => 'Invalid Phone Number',
             ];
         }
 
@@ -97,7 +97,7 @@ class Wizard extends Component
                 'last_name'     => ['required'],
                 'display_name'  => ['required', Rule::unique('employees')],
                 'password'      => ['required','min:8'],
-                'mobile_number' => ['required','regex:/^\d{8}$|^\d{12}$/']
+                'mobile_number' => ['required', $pattern]
             ], $customMessages); 
             $employee = new Employees();
             $employee->reference_number = $this->getEnquiryNumber();
