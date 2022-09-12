@@ -27,6 +27,7 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('job_role')->nullable();
             $table->string('department')->nullable();
             $table->string('mobile_number')->nullable();
+            $table->string('country_code')->nullable();
             $table->string('image')->nullable();
             $table->string('status')->nullable();
             $table->string('password')->nullable();

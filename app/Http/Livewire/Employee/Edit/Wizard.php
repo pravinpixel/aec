@@ -27,38 +27,32 @@ class Wizard extends Component
 {
     use WithFileUploads;
 
-    public $employee_id, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
-    public $currentStep        = 1;
-    public $share_point_status = 0;
-    public $successMessage     = '';
-    public $sharePointAccess   = [];
-    public $employees;
-    public $roles = [];
-    public  $id;
-    public $is_uploaded;
-    public $uploaded_image;
-    public $completed_wizard = 0;
+    public $employee_id,$country_code, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
+    public $currentStep = 1, $share_point_status = 0, $successMessage = '', $sharePointAccess = [];
+    public $employees, $roles = [],  $id, $is_uploaded, $uploaded_image, $completed_wizard = 0;
+
     public function __construct()
     {
         $this->id = Route::current()->parameter('id');
     }
 
     public function mount() {
-        $employee          = Employees::findOrFail($this->id);
-        $this->reference_number = $employee->reference_number;
-        $this->display_name     = $employee->display_name;
-        $this->first_name       = $employee->first_name;
-        $this->last_name        = $employee->last_name;
-        $this->job_title        = $employee->job_title;
-        $this->job_role         = $employee->job_role;
-        $this->email            = $employee->email;
-        $this->image            = $employee->image;
-        $this->uploaded_image   = $employee->image;
-        $this->mobile_number    = $employee->mobile_number;
+        $employee                 = Employees::findOrFail($this->id);
+        $this->reference_number   = $employee->reference_number;
+        $this->display_name       = $employee->display_name;
+        $this->first_name         = $employee->first_name;
+        $this->last_name          = $employee->last_name;
+        $this->job_title          = $employee->job_title;
+        $this->job_role           = $employee->job_role;
+        $this->email              = $employee->email;
+        $this->image              = $employee->image;
+        $this->uploaded_image     = $employee->image;
+        $this->mobile_number      = $employee->mobile_number;
+        $this->country_code       = $employee->country_code;
         $this->share_point_status = $employee->share_point_status;
         $this->is_uploaded        = true;
-        $this->roles = Role::all();
-        $this->sharePointAccess = SharePointAccess::all();
+        $this->roles              = Role::all();
+        $this->sharePointAccess   = SharePointAccess::all();
     }
     
     public function updatedImage($newValue)
@@ -88,6 +82,7 @@ class Wizard extends Component
         $customMessages = [
             'regex' => 'Mobile no between 8 to 12 digits'
         ];
+
         $this->validate([
             'email'         => ['required','email', Rule::unique('employees')->ignore($employee->id)],
             'job_role'      => ['required'],
@@ -96,6 +91,7 @@ class Wizard extends Component
             'display_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
             'mobile_number' => ['required','regex:/^\d{8}$|^\d{12}$/',Rule::unique('employees')->ignore($employee->id)],
         ], $customMessages); 
+
         $employee->first_name              = $this->first_name;
         $employee->last_name               = $this->last_name;
         $employee->display_name            = $this->display_name;
@@ -103,6 +99,7 @@ class Wizard extends Component
         $employee->job_title               = $this->job_title;
         $employee->job_role                = $this->job_role;
         $employee->mobile_number           = $this->mobile_number;
+        
         if($employee->completed_wizard >= 1) {
             $employee->completed_wizard        = $this->completed_wizard;
         }
