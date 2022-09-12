@@ -177,8 +177,10 @@
                                     </div>
                                     <div>
                                         <div class="d-flex flex-column">
-                                            @{{ doc.document_type.document_type_name }} <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
-                                    </div>
+                                            <span class="fw-bold">@{{ doc.client_file_name.substring(0,20) }} </span> 
+                                            @{{  doc.document_type.document_type_name }}
+                                            <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
+                                        </div>
                                     </div>
                                 </div>
                                 <a ng-show="!autoDeskFileType.includes(doc.file_type) && doc.file_type != 'link'" ng-click="getDocumentView(doc)"  class="badge bg-success rounded-pill"><i class="text-white fa fa-eye"></i></a>
