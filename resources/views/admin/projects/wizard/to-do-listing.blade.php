@@ -67,8 +67,8 @@
                                             </option>
                                         </select>
                                     </td>
-                                    <td><input type="date" get-to-do-lists  ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
-                                    <td><input type="date" get-to-do-lists  ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" class=" border-0 form-control form-control-sm"></td>
+                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" class=" border-0 form-control form-control-sm"></td>
                                 </tr> 
                             </tbody>
                         </table>
@@ -121,8 +121,8 @@
                                                 </option>
                                             </select>
                                         </td>
-                                        <td><input type="date" get-to-do-lists  ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm"></td>
-                                        <td><input type="date" get-to-do-lists  ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm"></td>
+                                        <td><input type="date" get-to-do-lists  ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" class=" border-0 form-control form-control-sm"></td>
+                                        <td><input type="date" get-to-do-lists  ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" class=" border-0 form-control form-control-sm"></td>
                                     </tr> 
                                 </tbody>
                             </table>
@@ -184,30 +184,30 @@
                     <tr>
                         <td>1</td>
                         <td>Facade wall Layout</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>2D connecting Detail Drawings</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td colspan="5" class="bg-light">
@@ -219,16 +219,16 @@
                     <tr>
                         <td>3</td>
                         <td>Global Structural Reports</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     
                     <tr>
@@ -241,30 +241,30 @@
                     <tr>
                         <td>4</td>
                         <td>Facade wall Framing</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td>5</td>
                         <td>Total Building Material List</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td colspan="5" class="bg-light">
@@ -276,58 +276,58 @@
                     <tr>
                         <td>6</td>
                         <td>Facade wall Installation drawing</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td>7</td>
                         <td>Transport Packaging drawing</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td>8</td>
                         <td>CNC DATA</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td>9</td>
                         <td>Facade wall fabrication drawing</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input"></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input"></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td colspan="5" class="bg-light">
@@ -339,30 +339,30 @@
                     <tr>
                         <td>10</td>
                         <td>Final set of drawing uploaded in BIM 360</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                     <tr>
                         <td>11</td>
                         <td>Maintaining BIM dat for every Update</td>
-                        <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
+                        <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
                         <td>
-                            <select name="" id="" class="form-select border-0  form-select-sm">
+                            <select name="" class="form-select border-0  form-select-sm">
                                 <option value="">-- Project Manager --</option>
                                 <option value="">User A</option>
                                 <option value="">User B</option>
                                 <option value="">User C</option>
                             </select>
                         </td>
-                        <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                        <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                     </tr>
                 </tbody>
             </table>
@@ -421,16 +421,16 @@
                                 {{$i == 15 ? 'Design of pullout strength of screw for Glulam' : ''}}
                                 {{$i == 16 ? 'Design of column Base Connection' : ''}}
                             </td>
-                            <td class="text-center"><input type="checkbox" name="" id="" class="form-check-input" checked></td>
+                            <td class="text-center"><input type="checkbox" name="" class="form-check-input" checked></td>
                             <td>
-                                <select name="" id="" class="form-select border-0  form-select-sm">
+                                <select name="" class="form-select border-0  form-select-sm">
                                     <option value="">-- Project Manager --</option>
                                     <option value="">User A</option>
                                     <option value="">User B</option>
                                     <option value="">User C</option>
                                 </select>
                             </td>
-                            <td><input type="date" name="" id="" class=" border-0 form-control form-control-sm"></td>
+                            <td><input type="date" name="" class=" border-0 form-control form-control-sm"></td>
                         </tr> 
                     @endfor
                 </tbody>
