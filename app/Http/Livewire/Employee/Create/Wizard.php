@@ -44,6 +44,7 @@ class Wizard extends Component
     public $completed_wizard = 0;
     public $roles = [];
     public $projects = [];
+    public $country_code = '47'; 
 
     public function getEnquiryNumber() 
     {
@@ -59,10 +60,19 @@ class Wizard extends Component
     }
 
     public function storePersonalInformation()
-    {
-        $customMessages = [
-            'regex' => 'Mobile no between 8 to 12 digits'
-        ];
+    { 
+        if ($this->country_code == '47') {
+            $pattern = "regex:/^\d{8}$|^\d{12}$/" ;
+            $customMessages = [
+                'regex' => 'Mobile no between 8 to 12 digits',
+            ];
+        } elseif($this->country_code == '91') {
+            $pattern = "regex:/^\d{10}$/";
+            $customMessages = [
+                'regex' => 'Mobile no must have a 10 digits',
+            ];
+        }
+
         if(Session::has('employee')) {
             $session_employee = Session::get('employee');
             $employee = Employees::find($session_employee->id);
@@ -72,7 +82,7 @@ class Wizard extends Component
                 'first_name'    => ['required'],
                 'last_name'     => ['required'],
                 'display_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
-                'mobile_number' => ['required','regex:/^\d{8}$|^\d{12}$/',Rule::unique('employees')->ignore($employee->id)],
+                'mobile_number' => ['required',$pattern,Rule::unique('employees')->ignore($employee->id)],
             ], $customMessages); 
             if ($this->password) {
                 $this->validate([
@@ -101,6 +111,7 @@ class Wizard extends Component
         $employee->job_role                = $this->job_role;
         $employee->department              = $this->department;
         $employee->mobile_number            = $this->mobile_number;
+        $employee->country_code            = $this->country_code;
         $employee->image                   = 'no_image.jpg';
         $employee->password                = Hash::make($this->password);
         $employee->sign_in_password_change = $this->sign_in_password_change ?? 0;

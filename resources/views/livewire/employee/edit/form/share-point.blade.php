@@ -10,7 +10,7 @@
     </div>
     <div class="col-lg-8 mx-auto">
         @if (!is_null($sharePointAccess))
-            <table  dt-options="vm.dtOptions" class="custom table table-striped table-bordered">
+            <table  class="custom table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th class="text-center">S.No</th>
@@ -25,7 +25,7 @@
                             <td class="text-left">{{ $row->folder_name }}</td>
                             <td class="text-center">
                                 <div>
-                                    <input type="checkbox" value="{{ $row->id }}" id="switch__{{$file_index}}" wire:model="file_name.{{ $file_index }}" {{ $share_point_status === 0 ? 'disabled' : '' }} data-switch="success"/>
+                                    <input type="checkbox" value="{{ $row->id }}" id="switch__{{$file_index}}" wire:model="share_folder_name.{{ $file_index }}" {{ $share_point_status === 0 ? 'disabled' : '' }} data-switch="success"/>
                                     <label for="switch__{{$file_index}}" data-on-label="On"  data-off-label="Off"></label>
                                 </div> 
                                 <span ng-if="employee.is_active == 1" class="d-none">1</span>

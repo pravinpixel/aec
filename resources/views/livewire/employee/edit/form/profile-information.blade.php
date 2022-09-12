@@ -64,8 +64,8 @@
                     <option value="47">NOR (+47)</option>
                     <option value="91">IND (+91)</option> 
                 </select>
-            </div>
-            <input type="text" required pattern="{{ config('global.mobile_no_pattern') }}" onkeypress="return isNumber(event)" maxlength="{{ config('global.mobile_no_length') }}" wire:model="mobile_number" class="form-control"> 
+            </div> 
+            <input type="text" required   onkeypress="return isNumber(event)" maxlength="{{ config('global.mobile_no_length') }}" wire:model="mobile_number" class="form-control"> 
         </div>
         @error('mobile_number') <span class="error">{{ $message }}</span> @enderror
     </div>

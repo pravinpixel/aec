@@ -1,5 +1,5 @@
 <div class="card border shadow-sm">
-	
+	 
 	<div class="card-header p-0">
 		<ul class="nav nav-pills nav-justified form-wizard-header bg-light m-0" >
 			<li class="nav-item projectInfoForm">
@@ -49,24 +49,46 @@
 			@default @include('livewire.employee.edit.form.bim')
 		@endswitch
 	</div>
-	<div class="card-footer">
+	<div class="card-footer text-end"> 
 		@switch($currentStep)
 		
 				@case(1)
-					<button wire:click="updatePersonalInformation" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-chevron-right mdi"></i> Next </button>
-					
+					<div wire:loading.remove>
+						<button wire:click="updatePersonalInformation" class="btn btn-primary font-weight-bold px-3">
+							<i class="mdi-chevron-right mdi"></i> Next 
+						</button> 
+					</div>
+					<div wire:loading>
+						<button class="btn btn-primary font-weight-bold px-3" disabled>
+							<span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Next
+						</button>
+					</div>
 				@break
 				@case(2)
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
-					<button wire:click="updateSharePointAccess" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-chevron-right mdi"></i> Next </button>
+					<div wire:loading.remove>
+						<button wire:click="updateSharePointAccess" class="btn btn-primary font-weight-bold px-3"><i class="mdi-chevron-right mdi"></i> Next </button>
+					</div>
+					<div wire:loading>
+						<button class="btn btn-primary font-weight-bold px-3" disabled>
+							<span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Next
+						</button>
+					</div>
+					<button wire:click="back()"class="btn  float-start btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
 				@break  
 				@case(3)
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
-					<button wire:click="updateBim" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-check mdi"></i> Submit & Save </button>
+					<button wire:click="back()"class="btn  float-start btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
+					<div wire:loading.remove>
+						<button wire:click="updateBim" class="btn btn-primary font-weight-bold px-3"><i class="mdi-check mdi"></i> Submit & Save </button>
+					</div>
+					<div wire:loading>
+						<button class="btn btn-primary font-weight-bold px-3" disabled>
+							<span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Submit & Save
+						</button>
+					</div>
 				@break  
 			@default
-					<button wire:click="back()"class="btn btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
-					<button wire:click="updateBim" class="btn btn-primary font-weight-bold px-3 float-end"><i class="mdi-check mdi"></i> Submit & Save </button>
+				<button wire:click="back()"class="btn  float-start btn-light font-weight-bold px-3" ><i class="mdi-chevron-left mdi"></i> Prev</button>
+				<button wire:click="updateBim" class="btn btn-primary font-weight-bold px-3"><i class="mdi-check mdi"></i> Submit & Save </button>
 		@endswitch 
 	</div>
 </div>

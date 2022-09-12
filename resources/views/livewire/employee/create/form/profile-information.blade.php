@@ -15,10 +15,18 @@
             <label class="form-label">Department</label>
             <input type="text" wire:model="department" class="form-control form-control-sm">
         </div> 
-        <div class="my-2 col-md-12 px-2">                                             
-            <label class="form-label">Mobile Number <sup class="text-danger">*</sup></label>
-            <input type="text"  pattern="{{ config('global.mobile_no_pattern') }}" maxlength="{{ config('global.mobile_no_length') }}" onkeypress="return isNumber(event)" onkeyup="validate(this ,'mobile')" wire:model.lazy="mobile_number" class="form-control form-control-sm">
-            @error('mobile_number') <span class="error">{{ $message }}</span> @enderror
+        <div class="my-2 col-md-12 px-2">    
+            <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
+            <div class="input-group">
+                <div style="width: 130px" class="border border-end-0 rounded-start">
+                    <select name="country_code" wire:model="country_code" class="form-select border-0 bg-light" >
+                        <option value="47">NOR (+47)</option>
+                        <option value="91">IND (+91)</option> 
+                    </select>
+                </div>
+                <input type="text" required pattern="{{ config('global.mobile_no_pattern') }}" onkeypress="return isNumber(event)" maxlength="{{ config('global.mobile_no_length') }}" wire:model="mobile_number" class="form-control"> 
+            </div>
+            @error('mobile_number') <span class="error">{{ $message }}</span> @enderror 
         </div>
     </div>
     <div class="col-md-6">

@@ -27,10 +27,10 @@ class Wizard extends Component
 {
     use WithFileUploads;
 
-    public $employee_id,$country_code, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
+    public $employee_id,$country_code = 47, $display_name, $first_name, $last_name, $job_title, $email, $image, $number;
     public $currentStep = 1, $share_point_status = 0, $successMessage = '', $sharePointAccess = [];
-    public $employees, $roles = [],  $id, $is_uploaded, $uploaded_image, $completed_wizard = 0;
-
+    public $employees, $roles = [],  $id, $is_uploaded, $uploaded_image, $completed_wizard = 0; 
+    public $share_folder_name  = null;
     public function __construct()
     {
         $this->id = Route::current()->parameter('id');
@@ -79,26 +79,36 @@ class Wizard extends Component
         $employee = Employees::findOrFail($this->id);
         // $uploadPath         =   GlobalService::getEmployeePath();
         // $path               =   $this->image->storePublicly($uploadPath, 'enquiry_uploads');
-        $customMessages = [
-            'regex' => 'Mobile no between 8 to 12 digits'
-        ];
 
+        if ($this->country_code == '47') {
+            $pattern = "regex:/^\d{8}$|^\d{12}$/" ;
+            $customMessages = [
+                'regex' => 'Mobile no between 8 to 12 digits',
+            ];
+        } elseif($this->country_code == '91') {
+            $pattern = "regex:/^\d{10}$/";
+            $customMessages = [
+                'regex' => 'Mobile no must have a 10 digits',
+            ];
+        }
+                
         $this->validate([
             'email'         => ['required','email', Rule::unique('employees')->ignore($employee->id)],
             'job_role'      => ['required'],
             'first_name'    => ['required'],
             'last_name'     => ['required'],
             'display_name'  => ['required', Rule::unique('employees')->ignore($employee->id)],
-            'mobile_number' => ['required','regex:/^\d{8}$|^\d{12}$/',Rule::unique('employees')->ignore($employee->id)],
+            'mobile_number' => ['required',$pattern,Rule::unique('employees')->ignore($employee->id)],
         ], $customMessages); 
 
-        $employee->first_name              = $this->first_name;
-        $employee->last_name               = $this->last_name;
-        $employee->display_name            = $this->display_name;
-        $employee->email                   = $this->email; 
-        $employee->job_title               = $this->job_title;
-        $employee->job_role                = $this->job_role;
-        $employee->mobile_number           = $this->mobile_number;
+        $employee->first_name    = $this->first_name;
+        $employee->last_name     = $this->last_name;
+        $employee->display_name  = $this->display_name;
+        $employee->email         = $this->email;
+        $employee->job_title     = $this->job_title;
+        $employee->job_role      = $this->job_role;
+        $employee->mobile_number = $this->mobile_number;
+        $employee->country_code  = $this->country_code;
         
         if($employee->completed_wizard >= 1) {
             $employee->completed_wizard        = $this->completed_wizard;
@@ -313,9 +323,9 @@ class Wizard extends Component
         }
        
     }
-    
+     
     public function render()
-    { 
+    {
         return view('livewire.employee.edit.wizard');
     }
 }
