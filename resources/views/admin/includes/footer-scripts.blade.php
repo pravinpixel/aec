@@ -75,5 +75,41 @@
     }); 
 </script>
 
-<!-- ========= Text Editor ========== -->
-
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script>
+    (function($) {
+        $(function() {
+            var isoCountries = [
+                { value: 'NO', id : '47', text: 'NOR (+47)'},
+                { value: 'IN', id : '91', text: 'IND (+91)'}, 
+                { value: 'US', id : '1', text:  'USA (+1 )'},
+                { value: 'SG', id : '65', text: 'SGP (+65)'},
+            ];
+            
+            function formatCountry (country) {
+                if (!country.value) { return country.text; }
+                var $country = $(`
+                    <span class="flag-icon flag-icon-${country.value.toLowerCase()} flag-icon-squared"></span>
+                    <span class="flag-text ps-1"><small>${country.text}</small></span>"
+                `);
+                return $country;
+            };
+            $("#country_code").select2({
+                placeholder   : "Select a country",
+                templateResult: formatCountry,
+                data          : isoCountries
+            });
+        
+            $('#country_code').on('change', function(e) { 
+                Livewire.emit('listenerReferenceHere', 
+                $("#country_code").select2({
+                    placeholder   : "Select a country",
+                    templateResult: formatCountry,
+                    data          : isoCountries
+                }));
+            });
+        });
+    })(jQuery);     
+</script> --}}

@@ -4,7 +4,8 @@
     
     <head>
         @include('admin.includes.head')
-        @stack('custom-styles')       
+        @livewireStyles
+        @stack('custom-styles')
     </head> 
     <body>
 
@@ -128,6 +129,7 @@
         @include('modal.delete');
         <!--  Footer Scripts  -->
         @include('admin.includes.footer-scripts')
+        @livewireScripts
 
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -162,7 +164,7 @@
                 }
             }
         </script>
-        @livewireScripts
+       
         @include('vendor.flash.message')
     </body>
 </html>

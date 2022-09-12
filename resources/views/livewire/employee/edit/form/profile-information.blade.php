@@ -57,12 +57,18 @@
     </div>  
 
     <div class="col-md-6">
-        <div class="mb-3">
-            <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
+        <label class="form-label" >Mobile Number<sup class="text-danger">*</sup></label>
+        <div class="input-group">
+            <div style="width: 130px" class="border border-end-0 rounded-start">
+                <select name="country_code" wire:model="country_code" class="form-select border-0 bg-light" >
+                    <option value="47">NOR (+47)</option>
+                    <option value="91">IND (+91)</option> 
+                </select>
+            </div>
             <input type="text" required pattern="{{ config('global.mobile_no_pattern') }}" onkeypress="return isNumber(event)" maxlength="{{ config('global.mobile_no_length') }}" wire:model="mobile_number" class="form-control"> 
-            @error('mobile_number') <span class="error">{{ $message }}</span> @enderror
         </div>
-    </div> 
+        @error('mobile_number') <span class="error">{{ $message }}</span> @enderror
+    </div>
 
     <div class="col-md-6">
         <div class="cardx row m-0">
@@ -82,4 +88,4 @@
             </div> 
         </div>
     </div>
-</div> 
+</div>  

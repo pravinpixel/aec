@@ -677,3 +677,17 @@ sup {
     padding-left: 48px !important;
     padding-bottom : 0 !important
 }
+.select2-container .select2-selection--single {
+    height: auto !important;
+    padding: 4px 0.9rem !important;
+    line-height:1.5 !important;
+    border-radius: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+.select2-selection__rendered {
+    padding: 0 !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b{
+    top: 70% !important;
+}
