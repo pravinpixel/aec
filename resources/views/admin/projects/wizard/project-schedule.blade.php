@@ -12,7 +12,6 @@
                 <li class="gantt-menu-item gantt-menu-item-right"><a data-action="zoomIn"><img src="https://dhtmlx.com/docs/products/dhtmlxGantt/demo/imgs/ic_zoom_in.png">Zoom In</a></li>
             </ul>
         </div>
-         
         <div class="demo-main-content">
             <div id="gantt_here"></div>
         </div> 
@@ -37,7 +36,7 @@
     <script src="http://export.dhtmlx.com/gantt/api.js"></script> 
     <script>
     var button = document.getElementById("fullscreen_button");
-        button.addEventListener("click", function(){
+        button.addEventListener("click", function(){ 
             if (!gantt.getState().fullscreen) {
                 // expanding the gantt to full screen
                 gantt.expand();
@@ -141,23 +140,29 @@
                         name: "text",
                         tree: true,
                         width: 180,
-                        resize: true,
-                        editor: textEditor
+                        resize: true, 
                     },
                     {
                         name: "start_date",
-                        label: "Start",
+                        label: "Start Date",
                         align: "center",
                         resize: true,
+                        width: 120,
+                        template: function(task) {
+                            return `<small>${moment(task.start_date).format("DD-MM-YYYY")}</small>`
+                        }
                         // editor: dateEditor
                     },
-                    // {
-                    //     name: "end_date",
-                    //     label: "End",
-                    //     align: "center",
-                    //     resize: true,
-                    //     // editor: dateEditor
-                    // },
+                    {
+                        name: "end_date",
+                        label: "End Date",
+                        align: "center",
+                        resize: true,
+                        width: 120,
+                        template: function(task) {
+                            return `<small>${moment(task.end_date).format("DD-MM-YYYY")}</small>`
+                        }
+                    },
 
                     {
                         name: "duration",
