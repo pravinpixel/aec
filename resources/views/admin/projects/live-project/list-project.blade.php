@@ -13,7 +13,7 @@
                         <x-accordion title="Live Projects" path="admin.projects.table.live" open="true"></x-accordion>
                     </section>
                 </div>
-        </div> 
+        </div>
     </div> 
 @endsection 
 @push('custom-scripts')

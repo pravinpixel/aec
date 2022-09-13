@@ -155,20 +155,15 @@ class CustomerProjectController extends Controller
                         $result = array('overall'=> 0,
                         'completed' => 0);
                     }
-                    $OverAllData =  $result['overall'];
-
-                    /*return '<div class="btn-group">
-                    <button ng-click=getQuickProject("project_infomation",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_create_project == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Information"></button> 
-                    <button ng-click=getQuickProject("connection_plateforms",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_teamsetup == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Milestone"></button> 
-                    
-                    <button ng-click=getQuickProject("bim360",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_invoice_plan == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bim360"></button> 
-                    <button ng-click=getQuickProject("TO_DO",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_todo_list == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Issues"></button> 
-                    
-                    <button ng-click=getQuickProject("Gendral_notes",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_todo_list == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Document"></button> 
-                    <button ng-click=getQuickProject("Gendral_notes",' . $dataDb->id . ') class="btn progress-btn ' . ($dataDb->wizard_todo_list == 1 ? "active" : "") . '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Project Closer"></button> 
-                </div>';*/
-                return '<div class="progress"> <div class="progress-bar" role="progressbar" style="width: '.$result['overall'].'%;" aria-valuenow="'. $result['overall'].'" aria-valuemin="0" aria-valuemax="100">'. $result['overall'].'%</div></div>
-                ';
+                    $width = $result['overall'] == 0 ? '25%' : $result['overall'].'%';
+                    $color = $result['overall'] == 0 ? 'bg-danger' : 'bg-success';
+                    return '
+                        <div class="progress bg-light border"> 
+                            <div class="progress-bar '.$color.' progress-bar-striped progress-bar-animated" role="progressbar" style="width: '.$width.';" aria-valuenow="'. $result['overall'].'" aria-valuemin="0" aria-valuemax="100">
+                                <small>'. $result['overall'].'%</small>
+                            </div>
+                        </div>
+                    ';
                 })
                 ->addColumn('action', function ($dataDb) {
                     return '<div class="dropdown">
