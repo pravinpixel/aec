@@ -30,6 +30,7 @@ return [
     'view_edit'                   => 'View / Edit',
     'popup_move_to_cancel'        => 'Are you sure to cancel this enquiry \':enquiry_no\'?',
     'inactive_customer'           => 'Are you sure to in-active this customer \':customer\'?',
+    'delete_customer'           => 'Are you sure to delete this customer \':customer\'?',
     'active_customer'             => 'Are you sure to activate this customer \':customer\'?',
     'cancel_customer'             => 'Are you sure to cancel this customer \':customer\'?',
     'popup_delete_enquiry'        => 'Are you sure to delete this enquiry \':enquiry_no\'?',

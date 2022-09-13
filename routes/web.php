@@ -132,6 +132,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('customer/cancel-datatable', [CustomerController::class, 'cancelDatatable'])->name('customer.cancel-datatable');
     Route::put('customer/{id}/status', [CustomerController::class, 'status'])->name('customer.status');
     Route::put('customer/{id}/activate', [CustomerController::class, 'activate'])->name('customer.activate');
+    Route::put('customer/{id}/delete', [CustomerController::class, 'delete'])->name('customer.delete');
     Route::resource('customer', CustomerController::class);
 });
 

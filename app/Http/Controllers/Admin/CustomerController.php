@@ -189,7 +189,7 @@ class CustomerController extends Controller
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.cancel_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.cancel_customer', ['customer' => $dataDb->full_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel</a>
                                     </div>
                                     
                                 </div>
@@ -220,7 +220,7 @@ class CustomerController extends Controller
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a type="button" class="dropdown-item" href="'.route('admin.customer.edit', $dataDb->id).'"> Edit </a>
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.cancel_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.cancel_customer', ['customer' => $dataDb->full_name]).'"data-action="'.route('admin.customer.destroy',[$dataDb->id]).'" data-method="DELETE" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Cancel</a>
                                     </div>
                                 </div>
                             ';
@@ -239,14 +239,15 @@ class CustomerController extends Controller
                         $status = '<small class="px-1 bg-danger text-white rounded-pill text-center">Cancel</small>';
                         return $status;
                     })
-                    ->addColumn('action', function($dataDb){
+                    ->addColumn('action', function($dataDb){ 
                         return '
                                 <div class="dropdown">
                                     <button class="btn btn-light btn-sm border shadow-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Customer" data-title="'.trans('enquiry.active_customer', ['customer' => $dataDb->first_name]).'"data-action="'.route('admin.customer.activate',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Activate</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Activate Customer" data-title="'.trans('enquiry.active_customer', ['customer' => $dataDb->full_name]).'"data-action="'.route('admin.customer.activate',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Activate</a>
+                                        <a type="button" class="dropdown-item delete-modal" data-header-title="Delete Customer" data-title="'.trans('enquiry.delete_customer', ['customer' => $dataDb->full_name]).'"data-action="'.route('admin.customer.delete',[$dataDb->id]).'" data-method="PUT" data-bs-toggle="modal" data-bs-target="#primary-header-modal">Delete</a>
                                     </div>
                                 </div>
                             ';
@@ -276,6 +277,16 @@ class CustomerController extends Controller
         if($customer->save()) {
             Flash::success(__('global.updated'));
             return redirect(route('admin.customer.index'));
+        }
+        Flash::error(__('global.something'));
+        return redirect(route('admin.customer.index'));
+    }
+    public function delete($id)
+    {
+        $customer = Customer::onlyTrashed($id)->find($id);
+        if($customer->delete()) {
+            Flash::success(__('global.deleted'));
+            return redirect(route('admin.customer.index'));    
         }
         Flash::error(__('global.something'));
         return redirect(route('admin.customer.index'));
