@@ -1,6 +1,4 @@
- 
-    
-    <style>
+
       
     @media (min-width: 1200px) {
         .modal-xxl {
@@ -74,8 +72,7 @@
    .gantt_container {
         min-height: 300px !important;
     }
-</style>
- <style>
+ 
      .form-floating > .form-control {
          padding-bottom: 0px !important
      }
@@ -172,5 +169,4 @@
         background: #ebecfd !important;
         color: #8a90ff !important;
         font-weight: bold
-    }
-</style>    
+    } 
