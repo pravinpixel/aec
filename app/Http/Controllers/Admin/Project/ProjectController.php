@@ -346,6 +346,8 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
+        Session::put('current_project', Project::find($id));
+
         if ($this->projectRepo->getProjectById($id)->is_submitted == 1) {
             Flash::info(__('global.can_not_edit_project_move_to_live'));
             return redirect()->route('list-projects');
@@ -354,6 +356,7 @@ class ProjectController extends Controller
     }
 
     public function live($id){
+        Session::put('current_project', Project::find($id));
         if(!empty(Customer()->id)){
             $seen_user = 'Customer';
         }else{

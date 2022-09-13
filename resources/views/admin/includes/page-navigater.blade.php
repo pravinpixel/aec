@@ -30,7 +30,13 @@
                         @if (Route::is('enquiry.calculate-cost-estimation')) Price Calculation @endif         
                         @if (Route::is('admin.customer.index')) List of Customers @endif         
                         @if (Route::is('admin.customer.edit')) Edit Customer @endif  
-                           
+                        @if (Route::is('live-projects')) Live Projects @endif     
+                        @if (Route::is(['edit-projects','live-projects-data']))
+                           <span>
+                                {{ session()->get('current_project')->reference_number }}
+                                {{ session()->get('current_project')->project_name }}
+                            </span>
+                        @endif
                     </li>
                     @if (Route::is('view-enquiry')) 
                         <li class="breadcrumb-item">
@@ -64,7 +70,16 @@
                 @if (Route::is('create-projects')) Create Projects @endif               
                 @if (Route::is('cost-estimate.show') || Route::is('cost-estimate.dashboard')) Cost Estimate @endif         
                 @if (Route::is('admin.customer.index')) Customers @endif           
-                @if (Route::is('admin.customer.edit')) Edit Customer @endif           
+                @if (Route::is('admin.customer.edit')) Edit Customer @endif     
+                @if (Route::is('live-projects')) Live Projects @endif     
+
+                @if (Route::is(['edit-projects','live-projects-data']))
+                    <span>
+                        {{ session()->get('current_project')->reference_number }}
+                        {{ session()->get('current_project')->project_name }}
+                    </span>
+                @endif
+                
             </h4>
         </div>
     </div>
