@@ -795,7 +795,7 @@ app.directive('calculateAmount',   ['$http' ,function ($http, $scope , $apply) {
                 let result = {};
                 let projectCost = scope.project.project_cost;
                 let invoices =   scope.invoicePlans.invoices.map((invoicePlan, index) => {
-                    invoicePlan.invoice_date = scope.project.start_date
+                    // invoicePlan.invoice_date = scope.project.start_date
                     if(scope.project.no_of_invoice == index + 1) {
                         projectCost -= scope.invoicePlans.totalAmount;
                         return {
