@@ -130,9 +130,9 @@
             <select name="assign_user" ng-model="customer_response_obj.assign_user" id="" class="form-select shadow mt-2" style="padding: 10px 20px  !important; border: 1px solid lightgray !important" >
                 <option value="">@lang('global.select')</option>
                 <option ng-repeat="(index,user) in userList" value="@{{ user.id }}" ng-selected="user.id == response_data.progress.project_assign_to">
-                    @{{ user.user_name }}
+                    @{{ user.display_name }}
                 </option>
-            </select>
+            </select> 
         </div>
         <div class="d-flex justify-content-center">
             <button class="btn btn-light me-2 p-3 py-2">Cancel</button>

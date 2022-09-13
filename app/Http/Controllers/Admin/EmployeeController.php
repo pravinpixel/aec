@@ -649,16 +649,11 @@ class EmployeeController extends Controller
     }
 
     public function getDeliveryManager(Request $request)
-    {
-        return Employees::with('role')->where('status', 1)->get()
-                        ->map(function ($employee){
-                            return [
-                                'user_name' => "{$employee->user_name} - ({$employee->role->name})", 
-                                'id' => $employee->id
-                            ];
-                        });
+    { 
+        return Employees::with(['role'])->WhereHas('role', function ($query) {
+            $query->where('slug', 'admin')->OrWhere('slug', 'project_manager');
+        })->get(); 
     }
-    
 
     public function createBimUser($employee)
     {
