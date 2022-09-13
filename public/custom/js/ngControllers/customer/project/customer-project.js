@@ -778,7 +778,7 @@ app.controller('TasklistController', function($scope, $http, API_URL, $location)
         $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
         $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
         $scope.countper = res.data.completed == null ? [] : res.data.completed;
-        $scope.overall = res.data.overall;
+        $scope.overall = res.data.overall ?? 0;
         $scope.lead = res.data.lead;
         //console.log(res.data.check_list_items );
       });
@@ -910,7 +910,7 @@ app.controller('TasklistController', function($scope, $http, API_URL, $location)
                 $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
                 $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
                 $scope.countper = res.data.completed == null ? [] : res.data.completed;
-                $scope.overall = res.data.overall;
+                $scope.overall = res.data.overall ?? 0;
                 $scope.lead = res.data.lead;
                 //console.log(res.data.check_list_items );
               });
@@ -2098,7 +2098,7 @@ app.controller('OverviewController', function($scope, $http, API_URL, $location,
     
    
     $scope.countper = res.data.completed == null ? [] : res.data.completed;
-    $scope.overall = res.data.overall;
+    $scope.overall = res.data.overall ?? 0;
     $scope.lead = res.data.lead;
     var pname = [];
     var pnamevalue = [];
@@ -2213,7 +2213,7 @@ app.controller('OverviewController', function($scope, $http, API_URL, $location,
         
        
         $scope.countper = res.data.completed == null ? [] : res.data.completed;
-        $scope.overall = res.data.overall;
+        $scope.overall = res.data.overall ?? 0;
         $scope.lead = res.data.lead;
         var pname = [];
         var pnamevalue = [];

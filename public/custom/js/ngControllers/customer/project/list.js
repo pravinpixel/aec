@@ -127,9 +127,9 @@ app.controller('CustomerprojectController', function ($scope, $http, API_URL, $c
             $scope.project = formatData(res.data.project);
             
             $scope.countper =res.data.completed == null ? [] : res.data.completed;
-            $scope.overall = res.data.overall;
+            $scope.overall = res.data.overall ?? 0;
             $scope.lead = res.data.lead;
-            //console.log(res.data.overall );
+            //console.log(res.data.overall ?? 0 );
            
             
         });

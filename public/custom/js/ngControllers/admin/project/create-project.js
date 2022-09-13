@@ -717,7 +717,7 @@ formatData = (project) => {
           $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
           $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
           $scope.countper = res.data.completed == null ? [] : res.data.completed;
-          $scope.overall = res.data.overall;
+          $scope.overall = res.data.overall ?? 0;
           $scope.lead = res.data.lead;
           //console.log(res.data.check_list_items );
   
@@ -840,7 +840,7 @@ formatData = (project) => {
                   $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
                   $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
                   $scope.countper = res.data.completed == null ? [] : res.data.completed;
-                  $scope.overall = res.data.overall;
+                  $scope.overall = res.data.overall ?? 0;
                   $scope.lead = res.data.lead;
                 });
               }
@@ -897,7 +897,7 @@ formatData = (project) => {
                   $scope.check_list_items = JSON.parse(res.data.project.gantt_chart_data) == null ? [] : JSON.parse(res.data.project.gantt_chart_data)
                   $scope.check_list_items_status = JSON.parse(res.data.project.gantt_chart_data) == null ? false : true
                   $scope.countper = res.data.completed == null ? [] : res.data.completed;
-                  $scope.overall = res.data.overall;
+                  $scope.overall = res.data.overall ?? 0;
                   $scope.lead = res.data.lead;
                 });
               }
@@ -996,6 +996,9 @@ formatData = (project) => {
   
       });
   
+    }
+    $scope.deleteTaskList = (index,index_2,index_3) => {
+      $scope.check_list_items[index].data[index_2].data.splice(index_3,1)
     }
   });
   
@@ -2313,7 +2316,7 @@ formatData = (project) => {
       
      
       $scope.countper = res.data.completed == null ? [] : res.data.completed;
-      $scope.overall = res.data.overall;
+      $scope.overall = res.data.overall ?? 0;
       $scope.lead = res.data.lead;
       $scope.intervelday = res.data.intervelday;
       //console.log($scope.intervelday);
@@ -2496,7 +2499,7 @@ formatData = (project) => {
         
        
         $scope.countper = res.data.completed == null ? [] : res.data.completed;
-        $scope.overall = res.data.overall;
+        $scope.overall = res.data.overall ?? 0;
         $scope.lead = res.data.lead;
         var pname = [];
         var pnamevalue = [];

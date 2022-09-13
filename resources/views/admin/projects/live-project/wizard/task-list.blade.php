@@ -15,13 +15,14 @@
                 <td>@{{lead}}</td>
                 <td><b>Over All Status</b></td>
                 <td>:</td>
-                <td><div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: @{{overall}}%;" aria-valuenow="@{{overall}}" aria-valuemin="0" aria-valuemax="100">@{{overall}}%</div>
-                </div></td>
+                <td>
+                    <div class="progress bg-light border rounded-3 progress-xl">
+                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: @{{overall == 0 ? 10 : overall }}%;" aria-valuenow="@{{overall}}" aria-valuemin="0" aria-valuemax="100"><small>@{{overall}}%</small></div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
-
     <table class="m-0 table table-hover table-bordered custom" ng-repeat="(index,check_list) in check_list_items">
         <thead>
             <tr>
@@ -32,26 +33,22 @@
                 <th class="text-center">end date</th>
                 <th class="text-center">Status</th>
                 <th class="text-center">Date of Delivery</th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody class="border"  ng-repeat="(index_2 , checkListData) in check_list.data" >
+        <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data" >
              <tr>
-                <td colspan="5" class="bg-light">
+                <td colspan="6" class="bg-light">
                     <div class="text-center">
                         <strong>@{{ checkListData.name }}</strong>
-                        
                     </div>
                 </td>
                 <td  colspan="5" class="bg-light">
-                    
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: @{{countper[$index].completed}}%;" aria-valuenow="@{{countper[$index].completed}}" aria-valuemin="0" aria-valuemax="100">@{{countper[$index].completed}}%</div>
+                    <div class="progress bg-light border rounded-3">
+                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: @{{countper[$index].completed == 0 ? 10 : countper[$index].completed }}%;" aria-valuenow="@{{countper[$index].completed}}" aria-valuemin="0" aria-valuemax="100"><small>@{{countper[$index].completed}}%</small></div>
                     </div>
-                   
                 </td>
-                
             </tr>
-   
             <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
                 <td>@{{ index_3 +1 }}</td>
                 <td>@{{ taskListData.task_list }}</td>
@@ -60,21 +57,17 @@
                     <label ng-repeat="projectManager in projectManagers" value="@{{ taskListData.assign_to }}" >
                         @{{ projectManager.first_name }}
                     </label>
-
-                   
                 </td>
-               
                 <td> 
                     <input type="hidden" get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" ng-model="taskListData.start_date" id="" class=" border-0 form-control form-control-sm">
-                   
                     <label get-to-do-lists ng-value="taskListData.start_date | date: 'dd-MM-yyyy'" id="" class=" border-0 form-control form-control-sm" ng-readonly="">@{{taskListData.start_date | date: 'dd-MM-yyyy'}}</label></td>
-
                 <td> 
                     <input type="hidden" get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" ng-model="taskListData.end_date" id="" class=" border-0 form-control form-control-sm">
-                    <label get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" id="" class=" border-0 form-control form-control-sm" ng-readonly="">@{{taskListData.end_date | date: 'dd-MM-yyyy'}}</label></td>
+                    <label get-to-do-lists ng-value="taskListData.end_date | date: 'dd-MM-yyyy'" id="" class=" border-0 form-control form-control-sm" ng-readonly="">@{{taskListData.end_date | date: 'dd-MM-yyyy'}}</label>
+                </td>
                 <td class="text-center"><input type="checkbox" name="" ng-model="taskListData.status" id="" class="form-check-input" ng-value = "taskListData.status" ng-change=storeTaskListsStatus(taskListData.status)></td>
-                
                 <td><input type="date" min="@{{taskListData.start_date | date: 'yyyy-MM-dd' }}" get-to-do-lists ng-value="taskListData.delivery_date | date: 'yyyy-MM-dd'" ng-model="taskListData.delivery_date" id="" class=" border-0 form-control form-control-sm" ng-change=storeTaskListsDeliverydate(taskListData.status)></td>
+                <td class="text-center"><a ng-click="deleteTaskList(index,index_2,index_3)" href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-delete text-danger"></i></a></td>
             </tr>  
             
             {{-- <tr>
