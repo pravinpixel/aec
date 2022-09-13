@@ -624,6 +624,9 @@ app.controller('ToDoListController', function($scope, $http, API_URL, $location)
     })
   };
   $scope.delete_this_check_list_item = (index) => $scope.check_list_items.splice(index, 1);
+  $scope.delete_this_taskListData    = (index,secIndex,thirdIndex) => {
+    $scope.check_list_items[index].data[secIndex].data.splice(thirdIndex,1)
+}
   $scope.storeToDoLists = () =>
   {
     $scope.check_list_items.map((CheckLists) =>
@@ -943,6 +946,9 @@ app.controller('TasklistController', function($scope, $http, API_URL, $location)
     })
   };
   $scope.delete_this_check_list_item = (index) => $scope.check_list_items.splice(index, 1);
+  $scope.delete_this_taskListData    = (index,secIndex,thirdIndex) => {
+    $scope.check_list_items[index].data[secIndex].data.splice(thirdIndex,1)
+}
   $scope.storeToDoLists = () =>
   {
     $scope.check_list_items.map((CheckLists) =>
