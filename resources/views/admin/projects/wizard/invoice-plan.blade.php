@@ -44,7 +44,7 @@
                         <td class="text-center">@{{  invoicePlan.index }}</td>
                         <td class="text-center">
                             <div class="position-relative">
-                                <input required type="date" name="invoice_date"  ng-model="invoicePlan.invoice_date" class="form-control">
+                                <input required min="@{{ project.start_date | date : 'yyyy-MM-dd'  }}" type="date" name="invoice_date"  ng-model="invoicePlan.invoice_date" class="form-control">
                                 <i class="fa fa-calendar custom__date__icon" style="top: 10px;"></i>
                             </div>
                         </td>
