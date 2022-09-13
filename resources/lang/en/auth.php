@@ -246,7 +246,7 @@
 
         'register_successfully'                                 => 'Register successfully',
         
-        'email_send_for_verification'                          => 'Email send for verification'
+        'email_send_for_verification'                          => 'Email sent for verification'
     ];
     
 

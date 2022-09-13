@@ -47,7 +47,7 @@
                 <div class="mb-3">
                     <div class="input-group flex-nowrap border rounded">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-key"></i></span>
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control border-0 ps-0" placeholder="Conform Password"  required>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control border-0 ps-0" placeholder="Confirm Password"  required>
                         <div class="input-group-text border-0" data-password="false">
                             <span class="password-eye"></span>
                         </div>
