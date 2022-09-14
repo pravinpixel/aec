@@ -18,9 +18,35 @@
             opacity: .1;
             text-align: center
         }
+        .status {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 35px;
+            padding: 10px;
+            border-radius: 5px; 
+        }
+        .WAITING_FOR_RESPONSE , .CHANGE_REQUESTED { 
+            color: #ffb700;
+            border: 2px solid #ffb700;
+        }
+        .DENIED { 
+            color: #ff2200;
+            border: 2px solid #ff2200;
+        }
+        .APPROVED {
+            color: #3ea727;
+            border: 2px solid #3ea727;
+        }
     </style>
 </head>
 <body>
+    <div>
+        <div>
+           <b>Response Date :</b> {{ date('d-m-Y') }}
+        </div>
+        <span class="status {{ str_replace(' ',"_" , $status) }}">{{ $status }}</span>
+    </div>
     <h1 id="watermark">{{ $status }}</h1> 
     <div>
         {!! $content !!}

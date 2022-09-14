@@ -187,14 +187,14 @@ class MailTemplateController extends Controller
     public function download_proposal(Request $request)
     {
         switch ($request->documentary_status) {
-            case 'approve': 
+            case 'approved': 
                 $text_status = 'APPROVED'; 
                 break;
-            case 'deny': 
+            case 'denied': 
                 $text_status = 'DENIED'; 
                 break;
             case 'change_request': 
-                $text_status = 'OBSOLETE'; 
+                $text_status = 'CHANGE_REQUESTED';
                 break;
             default:
                 $text_status = 'WAITING FOR RESPONSE';

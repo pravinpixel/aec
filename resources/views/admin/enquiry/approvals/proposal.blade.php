@@ -66,7 +66,6 @@
                                         </div>
                                     @break
                                     @case('denied')
-                                        @lang('proposal.proposal_denied')
                                         <div class="shadow-sm border-white border alert alert-warning bg-danger text-white fw-bold lead" role="alert">
                                             <i class="fa fa-times-circle"></i> @lang('proposal.proposal_denied')
                                         </div>
