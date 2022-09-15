@@ -10,7 +10,7 @@
     <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-send"></i></button>
 </form>  
 <div class="text-end pt-3">
-    <a class="text-primary p-0 btn"  ng-show="enquiry_comments.service" ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
+    <a class="text-primary p-0 btn" ng-show="enquiry_comments.service" ng-click="showCommentsToggle('viewConversations', 'service', 'Selected Services')">
         <i class="fa fa-eye"></i>  Previous chat history
     </a>
 </div>

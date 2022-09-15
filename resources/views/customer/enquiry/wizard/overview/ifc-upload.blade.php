@@ -4,7 +4,7 @@
             <th><b>S.No</b></th>
             <th><b>Date</b></th>
             <th><b>File Type</b></th>
-            <th><b>View Type</b></th>
+            <th><b>File Name</b></th>
             <th class="text-center" width="150px"><b>Action</b></th>
         </tr>
         <tbody>
@@ -13,7 +13,7 @@
                 <td> @{{ $index + 1}} </td>
                 <td> @{{ ifc_model_upload.created_at | date:'dd-MM-yyyy' }}</td>
                 <td> @{{ ifc_model_upload.file_type }}</td>
-                <td> @{{ ifc_model_upload.document_type.document_type_name }}</td>
+                <td> @{{ ifc_model_upload.client_file_name }}</td>
                 <td class="text-center" ng-show="ifc_model_upload.file_type != 'link'">
                     <a download="@{{ ifc_model_upload.client_file_name }}" href="{{ asset("public/uploads/") }}/@{{ ifc_model_upload.file_name }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
                     <a ng-show="!autoDeskFileType.includes(ifc_model_upload.file_type)" ng-click="getDocumentView(ifc_model_upload) "><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
