@@ -8,7 +8,7 @@
             <th class="text-center" width="150px"><b>Action</b></th>
         </tr>
         <tbody>
-            <tr  ng-repeat="(key, ifc_model) in enquiry.ifc_model_uploads">
+            <tr ng-repeat="(key, ifc_model) in enquiry.ifc_model_uploads">
                 <td> @{{ $index + 1}} </td>
                 <td> @{{ ifc_model.created_at }}</td>
                 <td> @{{ ifc_model.file_type }}</td>
@@ -22,7 +22,7 @@
                     <a target="_blank" href="@{{ ifc_model.file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                 </td>
             </tr>
-            <tr  ng-show="!enquiry.ifc_model_uploads.length">
+            <tr ng-show="!enquiry.ifc_model_uploads.length">
                 <td colspan="5"> No data found </td>
             </tr>
         </tbody>

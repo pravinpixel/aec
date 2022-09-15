@@ -75,11 +75,16 @@
             <td>:</td>
             <td>@{{ project_info.delivery_type.delivery_type_name }}</td>
         </tr> 
+        <tr ng-if="project_info.project_date != null">
+            <td><b>Start Date</b></td>
+            <td>:</td>
+            <td>@{{ project_info.project_date | date: 'dd-MM-yyyy' }}</td>
+        </tr> 
         <tr ng-if="project_info.project_delivery_date != null">
             <td><b>Delivery Date</b></td>
             <td>:</td>
             <td>@{{ project_info.project_delivery_date | date: 'dd-MM-yyyy' }}</td>
-        </tr> 
+        </tr>   
         <tr ng-if="project_info.customerremarks != null">
             <td><b>Remarks</b></td>
             <td>:</td>
