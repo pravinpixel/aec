@@ -4,10 +4,8 @@
 
     <div class="content-page"  >
         <div class="content" ng-controller="CustomerprojectController" >
-           {{-- @include('admin.projects.filter-modal')--}}
             @include('customer.includes.top-bar')
             <div class="container-fluid">
-                
                 <!-- start page title -->
                 @include('customer.includes.page-navigater')
                 <!-- end page title -->
@@ -18,8 +16,6 @@
                    
                 </div>
                     <x-accordion title="Live Projects" path="customer.projects.table.live" open="true"></x-accordion>
-                    
-                
                    {{-- <div class="accordion-item mb-2 border rounded shadow-sm">
                         <h2 class="accordion-header m-0 position-relative" id="panelsStayOpen-headingTwo">
                             <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
@@ -58,28 +54,12 @@
                     </div> --}}
                 </div>
                 @include('customer.projects.quick-view')
-                @include('customer.projects.live-project.models.chat-box')
-               
+                {{-- @include('customer.projects.live-project.models.chat-box') --}}
             </div>
-          
-        </div>
-      
-    </div> 
-    
-@endsection 
-@push('custom-styles')
-<style>
-    primary.rounded-pill {
-    display: none;
-}
-    </style>
-@endpush
-
+        </div> 
+    </div>  
+@endsection  
 @push('custom-scripts')
    <script src="{{ asset("public/custom/js/ngControllers/customer/project/list.js") }}"></script> 
-  <script>
-  $("#customer_chat").hide();
-   
-  </script>
-   @endpush
+@endpush
 
