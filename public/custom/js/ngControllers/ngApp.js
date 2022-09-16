@@ -208,7 +208,7 @@ app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) 
                     }
                     return previousValue + currentValue
                 }, 0);
-                scope.building_building[index].total_component_area = result; 
+                scope.building_building[index].total_component_area = result.toFixed(2) ; 
                 scope.$apply();
             });
         },
