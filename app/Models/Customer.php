@@ -50,7 +50,8 @@ class Customer extends Authenticatable
         'device_token',
         'notification',
         'bim_id',
-        'bim_account_id'
+        'bim_account_id',
+        'image'
     ];
     public function assigncustomerdetails()
     {
