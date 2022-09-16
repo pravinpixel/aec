@@ -30,6 +30,7 @@ class CustomerSeeder extends Seeder
             'is_active'             => 1,
             'created_by'            => 1,
             'updated_by'            => 1,
+            'image'                 => "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
         ]);
         $latest_enquiry_number = GlobalService::customerEnquiryNumber();
         $enquiry_number = GlobalService::enquiryNumber();
