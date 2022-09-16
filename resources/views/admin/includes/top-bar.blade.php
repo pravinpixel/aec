@@ -82,13 +82,13 @@
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0 d-flex align-items-center justify-content-between" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                 aria-expanded="false">
                 <span class="account-user-avatar"> 
-                    <img src="{{ asset('public/assets/images/users/avatar-1.jpg') }}" alt="user-image" class="rounded-circle">
+                    <img src="{{ Admin()->image }}" alt="user-image" style="object-fit: cover" class="rounded-circle">
                 </span>
                 <span class="account-user-name text-capitalize">{{ Admin()->full_name ?? 'Avatar' }}</span>
                 <i class="bi bi-chevron-down ms-2"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{ route('admin.my-account') }}" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-circle me-1"></i>
                     <span>My Account</span>
                 </a>
