@@ -2143,6 +2143,7 @@
                             showCancelButton: false,
                             cancelButtonText: 'No',
                             confirmButtonText: 'Ok',
+                            allowOutsideClick: false,
                             }).then((result) => {
                             if (result.isConfirmed) {
                                 location.href = '{{ route('list-projects') }}'
@@ -2165,6 +2166,7 @@
                         Swal.fire({
                             icon: 'success',
                             html: `<h3>Move to project successfully..!!</h3>`,
+                            allowOutsideClick: false,
                             showConfirmButton: false,
                             timer: 3000
                         });
