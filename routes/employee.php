@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware('common')->group(function () {
     Route::get('/employees',  [EmployeeController::class , 'index'])->name('employee.index');
+    Route::get('/deleted-employees',  [EmployeeController::class , 'deleted_employees_index'])->name('deleted-employee.index');
 
     Route::get('/employee/create',  function() {
         return view('livewire.employee.create.index');
@@ -15,6 +16,10 @@ Route::prefix('admin')->middleware('common')->group(function () {
     })->name('edit.employee');
 
     Route::post('/employee/delete/{id?}',  [EmployeeController::class , 'destroy'])->name('delete.employee');
+    Route::post('/employee/hard-delete/{id?}',  [EmployeeController::class , 'hard_destroy'])->name('hard-delete.employee');
+    Route::post('/employee/restore/{id?}',  [EmployeeController::class , 'restore'])->name('restore.employee');
+
+
 
     Route::get('/employee/change-password/{id}',  function($id) {
         return view('livewire.employee.change-password-index');

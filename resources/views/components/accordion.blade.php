@@ -51,7 +51,11 @@
     </div>
     <div class="card-body collapse {{ $open }} {{ $open == 'true' ? "show" : '' }}" id="custom-accordion-collapse-{{ slug($title) }}">
         <div class="card-content">
-            @include($path)
+            @if ($path != 'false')
+                @include($path)
+                @else
+                {{ $slot }}
+            @endif
         </div>
     </div>
 </div>
