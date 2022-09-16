@@ -9,7 +9,7 @@
                         <img src="{{ asset("public/assets/icons/information.png") }}" class="w-50 invert">
                     </div>
                 </div>
-                <p class="h5 mt-2">Project summary</p>
+                <p class="h5 mt-2">Project summary </p>
             </a>
         </li>
         @endif
@@ -178,7 +178,7 @@
                                     <div>
                                         <div class="d-flex flex-column">
                                             <span class="fw-bold">@{{ doc.client_file_name.substring(0,20) }} </span> 
-                                            @{{  doc.document_type.document_type_name }}
+                                            @{{  doc.file_type }}
                                             <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
                                         </div>
                                     </div>
