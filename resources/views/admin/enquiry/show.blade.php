@@ -1898,6 +1898,14 @@
                 });
                 $('#bs-PreviewVersions-modal-lg').modal('show');
             }
+            $scope.ViewProposeVersions = function (proposal_id , Vid, update_status = true) {
+                $http.get(API_URL + 'admin/proposal/enquiry/'+{{ $data->id }}+'/edit/'+proposal_id).then(function (response) {
+                    $scope.edit_proposal      = response.data;
+                    $scope.mail_content_first = $scope.edit_proposal[0].documentary_content;
+                    $scope.proposalId         = $scope.edit_proposal[0].proposal_id;
+                });
+                $('#ViewProposalModal').modal('show');
+            }
 
             // ViewPropsalVersions
             $scope.ViewPropsalVersions = function (proposal_id) {

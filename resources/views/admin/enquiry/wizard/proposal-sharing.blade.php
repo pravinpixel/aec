@@ -121,7 +121,14 @@
                                                     <div class="text-center">@{{ key+1 }}</div>
                                                 </div>
                                             </td>
-                                            <td style="width: 10% !important" class="text-center">@{{ P.template_name }}</td>
+                                            <td style="width: 10% !important" class="text-center">
+                                                <button type="button" class="btn-quick-view"
+                                                    ng-click="ViewProposeVersions(P.proposal_id , P.id)"
+                                                >
+                                                    <b>@{{ P.template_name }}</b>
+                                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+                                                </button> 
+                                            </td>
                                             <td style="width: 10% !important" class="text-primary text-center">@{{ P.version }}</td>
                                             <td style="width: 10% !important" class="text-info text-center"> 
                                                 <proposal-status data="P.status" />
@@ -151,7 +158,7 @@
                                                     </div>
                                                     <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'child'">
                                                        
-                                                        <a  ng-show="proposal_email_status == 0 || (customer_response == 2 ||  customer_response == 3)" class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
+                                                        <a ng-show="proposal_email_status == 0 || (customer_response == 2 ||  customer_response == 3)" class="btn dropdown-item" ng-click="DuplicateProposalVersion(P.proposal_id)">Duplicate</a>
                                                         <a class="dropdown-item" ng-click="ViewEditProposeVersions(P.proposal_id , P.id)">View / Edit</a>
                                                         {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomerVersion(P.proposal_id , P.id)">Send Proposal</a> --}}
                                                         <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.id, P.type)" > Chat</u></a>
@@ -275,6 +282,22 @@
                 <div class="modal-footer">
                     <button ng-show="proposalModal" class="btn btn-primary" ng-click="updateProposalVersionMail('bs-PreviewVersions-modal-lg')"><i class="fa fa-save me-2"></i>Update</button>
                     <button ng-show="!proposalModal" class="btn btn-primary" data-bs-dismiss="modal"><i class="fa fa-close me-2"></i>Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal fade" id="ViewProposalModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-right h-100" style="width:100% !important">
+            <div class="modal-content  h-100">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Sales Offer Letter Preview</h4>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body pt-0"  style="overflow: auto">
+                    <div c>
+                        <div ng-bind-html="mail_content_first"></div>
+                    </div>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
