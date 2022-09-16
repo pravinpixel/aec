@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\Master\LayerTypeController;
 use App\Http\Controllers\Admin\Master\ServiceController;
 use App\Http\Controllers\Admin\Documentary\DocumentaryController;
 use App\Http\Controllers\Admin\Master\RoleController;
+use App\Http\Controllers\AdminAccountController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\AuthCustomerController;
 use App\Http\Controllers\WebNotificationController;
@@ -292,3 +293,14 @@ Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPassw
 Route::post('forgot-password', [ForgotPasswordController::class, 'submitForgotPasswordForm'])->name('forgot.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+
+
+//Admin  Account Profile
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () { 
+    Route::get('/my-account', [AdminAccountController::class,'index'])->name('my-account');
+    Route::put('/my-account', [AdminAccountController::class,'update'])->name('update.my-account');
+    Route::post('/my-account', [AdminAccountController::class,'update_profile'])->name('update.my-account-profile');
+    Route::post('/change-account-password', [AdminAccountController::class,'change_password'])->name('change-account-password');
+});

@@ -12,7 +12,7 @@
     @endif
 @endforeach
 @if($errors->all()) 
-    <div id="alert-log" class="alert alert-custom  alert-dangerfade show text-center" role="alert" data-bs-dismiss="alert" aria-label="Close" style="z-index: 11111111111 !important;opacity:1 !important">
+    <div id="alert-log" class="alert alert-custom  alert-danger fade show text-center" role="alert" data-bs-dismiss="alert" aria-label="Close" style="z-index: 11111111111 !important;opacity:1 !important">
         <strong>{{ collect($errors->all(':message'))->first() }}</strong>
     </div>
 @endif  
