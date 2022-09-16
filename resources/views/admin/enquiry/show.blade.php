@@ -2138,7 +2138,7 @@
                     });
                     if(res.data.status == true){
                         Swal.fire({
-                            title: `Move to project successfully`,
+                            title: `Moved to project successfully`,
                             showDenyButton: false,
                             showCancelButton: false,
                             cancelButtonText: 'No',
