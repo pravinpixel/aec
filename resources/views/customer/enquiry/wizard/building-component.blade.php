@@ -341,9 +341,9 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="layer in detail.Layers">
-                                            <td>@{{ layer.LayerName }}</td>
-                                            <td>@{{ layer.Thickness }}</td>
-                                            <td>@{{ layer.Breadth }} </td>
+                                            <td width="20%">@{{ layer.LayerName }}</td>
+                                            <td width="40%">@{{ layer.Thickness }}</td>
+                                            <td width="40%">@{{ layer.Breadth }} </td>
                                         </tr>
                                     </tbody>
                                 </table>
