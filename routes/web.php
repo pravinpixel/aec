@@ -105,7 +105,9 @@ Route::prefix('admin')->middleware('common')->group(function () {
     Route::get('/admin-cost-estimation-single-view', [CostEstimationController::class, 'cost_estimation_single_view'])->name('cost-estimation-single-view');
     Route::get('/admin-gantt-chart-single-view', [GanttChartController::class, 'gantt_chart_single_view'])->name('admin-gantt-chart-single-view');
     Route::get('/admin-employee-control-view', [EmployeeController::class, 'employee_control_view'])->name('admin-employee-control-view');
-    Route::get('/admin-documentary-view', [DocumentaryController::class, 'ContractView'])->name('admin-documentary-view');
+   
+   
+    Route::get('/contract', [DocumentaryController::class, 'ContractView'])->name('admin-documentary-view');
 
 
     Route::get('/proposal-conversation', function () {
@@ -119,10 +121,11 @@ Route::prefix('admin')->middleware('common')->group(function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('add-documentary', [DocumentaryController::class, 'create'])->name('add-documentary');
+    Route::post('store-documentary', [DocumentaryController::class, 'store'])->name('store-documentary');
     Route::get('documentary/enquirie', [DocumentaryController::class, 'getEnquirie'])->name('documentary.enquirie');
     Route::get('documentary/customer', [DocumentaryController::class, 'getCustomer'])->name('documentary.customer');
     Route::get('documentary/userData', [DocumentaryController::class, 'getUserData'])->name('documentary.userData');
-    Route::put('documentary/status/{id}', [DocumentaryController::class, 'status'])->name('documentary.status');
+    Route::put('documentary/status/{id?}', [DocumentaryController::class, 'status'])->name('documentary.status');
     Route::get('documentaryEdit/{id}', [DocumentaryController::class, 'documentaryEdit'])->name('documentaryEdit');
     Route::resource('documentary', DocumentaryController::class);
 });
