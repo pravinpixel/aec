@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin\Documentary;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\DocumentaryRepository;
-use Illuminate\Http\JsonResponse;
-use Auth;
+use App\Repositories\DocumentaryRepository; 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use App\Http\Requests\DocumentaryCreateRequest;
 use App\Http\Requests\DocumentaryUpdateRequest;
+use App\Models\Documentary\Documentary;
 use Laracasts\Flash\Flash;
+use Yajra\DataTables\Facades\DataTables;
 
 class DocumentaryController extends Controller
 {
@@ -26,9 +26,30 @@ class DocumentaryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function ContractView()
+    public function ContractView(Request $request)
     {
-        
+        if($request->ajax()) {
+            $data   = Documentary::all();
+            return DataTables::of($data)
+                ->addIndexColumn()  
+                ->addColumn('status', function($data){  
+                    $isChecked = $data->is_active == 1 ? 'checked' : '';
+                    return ' 
+                        <input type="checkbox" id="statusCheckBox'.$data->id.'Input" value="'.$data->is_active.'" '.$isChecked.' data-switch="info" onchange="changeStatus(this,'.$data->id.')"/>
+                        <label for="statusCheckBox'.$data->id.'Input" data-on-label="On" data-off-label="Off"></label>
+                    ';
+                }) 
+                ->addColumn('action', function($data){ 
+                    return ' 
+                        <a href="" class="btn btn-sm btn-warning rounded-pill"><i class="mdi mdi-download"></i></a>
+                        <a href="" class="btn btn-sm btn-success rounded-pill"><i class="mdi mdi-eye"></i></a>
+                        <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-primary rounded-pill"><i class="mdi mdi-pencil"></i></a>
+                        <button onclick="destroy('.$data->id.')" class="btn btn-sm btn-danger rounded-pill"><i class="mdi mdi-trash-can"></i></button>
+                    ';
+                })
+                ->rawColumns(['action','status'])
+            ->make(true);
+        }
         return view('admin.pages.documentary.index');
     }
     public function index()
@@ -40,12 +61,14 @@ class DocumentaryController extends Controller
 
     public function create()
     {
-        // print_r(Auth::user());die();
-        // if(Auth::user()->id) {
-        //     print_r(Auth::user()->id);die();
-        // }
-      
-        return view('admin.pages.documentary.create');
+        $enquiries = Config::get('documentary.enquiries');
+        $customers = Config::get('documentary.customers');
+        $user_data = Config::get('documentary.userData');
+        return view('admin.pages.documentary.create',compact([
+            'enquiries',
+            'customers',
+            'user_data',
+        ]));
     }
     /**
      * Store a newly created resource in storage.
@@ -53,7 +76,7 @@ class DocumentaryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DocumentaryCreateRequest $request)
+    public function store(Request $request)
     {
         if(!userHasAccess('contract_add')) {
             Flash::error(__('global.access_denied'));
@@ -62,14 +85,9 @@ class DocumentaryController extends Controller
         $outputType = $request->only([
            "documentary_title","documentary_content","is_active"
         ]);
-
-        return response()->json(
-            [
-                'data' => $this->documentaryRepository->create($outputType),
-                'status' => true, 'msg' => trans('module.inserted')
-            ],
-            Response::HTTP_CREATED
-        );
+        $this->documentaryRepository->create($outputType);
+        Flash::success(trans('module.inserted'));
+        return redirect(route('admin-documentary-view')); 
     }
 
     /**
@@ -95,7 +113,6 @@ class DocumentaryController extends Controller
 
     public function show($id)
     {
-        
         return response()->json([
             'data' => $this->documentaryRepository->find($id)
         ]);
@@ -108,17 +125,14 @@ class DocumentaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DocumentaryUpdateRequest $request,$id)
+    public function update(Request $request,$id)
     {
-        $layer = $request->only([
+        $data = $request->only([
             "documentary_title","documentary_content","is_active"
         ]);
-
-        return response()->json([
-            'data' => $this->documentaryRepository->update($layer, $id),
-            'status' => true, 'msg' => trans('module.updated'),
-             
-        ]);
+        $this->documentaryRepository->update($data, $id);
+        Flash::success(trans('module.updated'));
+        return redirect(route('admin-documentary-view'));
     }
     /**
      * Remove the specified resource from storage.
@@ -135,7 +149,7 @@ class DocumentaryController extends Controller
     }
     
     public function destroy($id) 
-    {
+    { 
         if(!userHasAccess('contract_delete')) {
             Flash::error(__('global.access_denied'));
             return redirect(route('admin-dashboard'));
@@ -147,7 +161,17 @@ class DocumentaryController extends Controller
 
     public function documentaryEdit($id)
     {
-        return view('admin.pages.documentary.edit',compact('id'));
+        $contract  = Documentary::findOrFail($id);
+        $enquiries = Config::get('documentary.enquiries');
+        $customers = Config::get('documentary.customers');
+        $user_data = Config::get('documentary.userData');
+
+        return view('admin.pages.documentary.edit',compact([
+            'contract',
+            'enquiries',
+            'customers',
+            'user_data',
+        ]));
     }
 
     public function get(Request $request)
