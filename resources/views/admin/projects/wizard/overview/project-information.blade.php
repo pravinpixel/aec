@@ -91,17 +91,7 @@
             </div> 
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="row m-0 align-items-center">
-            <div class="col-3  p-0">
-                <label class="col-form-label">Start  Date</label>
-            </div>
-            <div class="col pe-0">  
-                <div class="form-control form-control-sm  border-0 ">@{{ review['start_date'] }}</div>
-            </div> 
-        </div>
-    </div>
-  
+     
     <div class="col-md-6">
         <div class="row m-0 align-items-center">
             <div class="col-3  p-0">
@@ -149,6 +139,16 @@
             </div>
             <div class="col pe-0"> 
                 <div class="form-control form-control-sm  border-0 ">@{{ review['delivery_date'] }}</div>  
+            </div> 
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row m-0 align-items-center">
+            <div class="col-3  p-0">
+                <label class="col-form-label">Start  Date</label>
+            </div>
+            <div class="col pe-0">  
+                <div class="form-control form-control-sm  border-0 ">@{{ review['start_date'] }}</div>
             </div> 
         </div>
     </div>
