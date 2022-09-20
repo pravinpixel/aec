@@ -128,6 +128,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::put('documentary/status/{id?}', [DocumentaryController::class, 'status'])->name('documentary.status');
     Route::get('documentaryEdit/{id}', [DocumentaryController::class, 'documentaryEdit'])->name('documentaryEdit');
     Route::resource('documentary', DocumentaryController::class);
+
+    Route::get('contract/view/{id}', [DocumentaryController::class, 'view'])->name('contract.view');
+    Route::get('contract/download/{id}', [DocumentaryController::class, 'download'])->name('contract.download');
+
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

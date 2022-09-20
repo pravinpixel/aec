@@ -7,9 +7,9 @@ use App\Repositories\DocumentaryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
-use App\Http\Requests\DocumentaryCreateRequest;
-use App\Http\Requests\DocumentaryUpdateRequest;
 use App\Models\Documentary\Documentary;
+use Barryvdh\DomPDF\Facade as PDF;
+use Dompdf\Dompdf;
 use Laracasts\Flash\Flash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -29,7 +29,7 @@ class DocumentaryController extends Controller
     public function ContractView(Request $request)
     {
         if($request->ajax()) {
-            $data   = Documentary::all();
+            $data   = Documentary::latest();
             return DataTables::of($data)
                 ->addIndexColumn()  
                 ->addColumn('status', function($data){  
@@ -41,8 +41,8 @@ class DocumentaryController extends Controller
                 }) 
                 ->addColumn('action', function($data){ 
                     return ' 
-                        <a href="" class="btn btn-sm btn-warning rounded-pill"><i class="mdi mdi-download"></i></a>
-                        <a href="" class="btn btn-sm btn-success rounded-pill"><i class="mdi mdi-eye"></i></a>
+                        <a href="'.route('admin.contract.download',$data->id).'" class="btn btn-sm btn-warning rounded-pill"><i class="mdi mdi-download"></i></a>
+                        <a href="'.route('admin.contract.view',$data->id).'" class="btn btn-sm btn-success rounded-pill"><i class="mdi mdi-eye"></i></a>
                         <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-primary rounded-pill"><i class="mdi mdi-pencil"></i></a>
                         <button onclick="destroy('.$data->id.')" class="btn btn-sm btn-danger rounded-pill"><i class="mdi mdi-trash-can"></i></button>
                     ';
@@ -194,5 +194,19 @@ class DocumentaryController extends Controller
     {
         $data = Config::get('documentary.userData');
         return response()->json(['data'=>$data]);
+    }
+    public function view($id)
+    {
+        $contract  = Documentary::findOrFail($id);
+        return view('admin.pages.documentary.view',compact('contract'));
+    }
+    public function download($id)
+    {
+        $contract = Documentary::findOrFail($id);
+        $dompdf   = new Dompdf();
+        $dompdf->loadHtml($contract->documentary_content);
+        $dompdf->setPaper('A4'); 
+        $dompdf->render(); 
+        $dompdf->stream();
     }
 }

@@ -19,7 +19,7 @@
                     <div class="card-body p-3">
                         <table id="contract-table" class="table table-bordered table-lg">
                             <thead class="bg-primary text-white">
-                                <tr>
+                                <tr class="text-center">
                                     <th>S.No</th>
                                     <th>Documentary Title</th>
                                     <th>Status</th>
@@ -43,6 +43,11 @@
         const table   = $('#contract-table').DataTable({
             processing: true,
             serverSide: true,
+            columnDefs: [
+                { "width": "7%", "targets": 0,"class" :"text-center"  },
+                { "width": "15%", "targets": 2,"class" :"text-center" },
+                { "width": "22%", "targets": 3 }
+            ],
             ajax: "{{ route('admin-documentary-view') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
@@ -66,7 +71,7 @@
             }).then((willDelete) => {
                 if (willDelete) {
                     fetch(`{{ url('') }}/admin/documentary/${id}`, {
-                        method: 'POST',
+                        method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': TOKEN
