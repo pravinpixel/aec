@@ -691,3 +691,11 @@ sup {
 .select2-container--default .select2-selection--single .select2-selection__arrow b{
     top: 70% !important;
 }
+.merge-view {
+    display: flex !important;
+    overflow-x: auto;
+}
+.merge-view-content {
+    width: 300px !important;
+    margin-right: 20px;
+}
