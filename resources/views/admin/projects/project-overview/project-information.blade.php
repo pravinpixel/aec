@@ -44,12 +44,7 @@
             <td><b>Zipcode</b></td>
             <td>:</td>
             <td>@{{ review['zipcode'] }}</td>
-        </tr> 
-        <tr>
-            <td><b>Start  Date</b></td>
-            <td>:</td>
-            <td>@{{ review['start_date'] }}</td>
-        </tr> 
+        </tr>  
         <tr>
             <td><b>State</b></td>
             <td>:</td>
@@ -75,5 +70,10 @@
             <td>:</td>
             <td>@{{ review['delivery_date'] }}</td>
         </tr> 
+        <tr>
+            <td><b>Start  Date</b></td>
+            <td>:</td>
+            <td>@{{ review['start_date'] }}</td>
+        </tr> 
     </tbody>
-</table> 
+</table>
