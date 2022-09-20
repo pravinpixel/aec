@@ -16,7 +16,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
                                 <label class="form-label m-0 px-3" >Title<sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control col-6"  name="documentary_title" value="{{ old('documentary_title') }}" placeholder="Type Here..." ng-required="true">
+                                <input type="text" class="form-control col-6" id="documentary_title"  name="documentary_title" value="{{ old('documentary_title') }}" placeholder="Type Here..." ng-required="true">
                             </div>
                             <div>
                                 <a class="btn btn-light btn-sm border shadow-sm"
@@ -157,12 +157,25 @@
                     </div>
                     <div class="card-footer text-end">
                         <a href="{{ route('admin-documentary-view') }}" class="btn btn-light border me-2">Cancle & Back</a>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#PreviewModal" onclick="preview()" class="btn btn-primary border me-2">Preview</button>
                         <button type="submit" class="btn btn-success">Save & Submit</button>
                     </div>
                 </div>
             </form>
         </div> <!-- content -->
-    </div> 
+    </div>  
+    <div id="PreviewModal" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
+            <div class="p-3 shadow-sm">
+                <h3 id="card-title"></h3>
+                <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
+            </div>
+            <div class="modal-content h-100 p-4" style="overflow: auto">
+                <div class="card-body" id="preview">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 @endsection
            
 @push('custom-scripts')
@@ -171,5 +184,11 @@
         CKEDITOR.replace( 'textEditor',{
             height : 500
         });
+        preview = () => {
+            $("#card-title").html($("#documentary_title").val())
+            $("#preview").html(`
+                <div>${$("#textEditor").val()}</div>
+            `)
+        }
     </script>
 @endpush

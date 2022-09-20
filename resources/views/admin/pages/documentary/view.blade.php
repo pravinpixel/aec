@@ -16,7 +16,7 @@
                     {!! $contract->documentary_content !!}
                 </div>
                 <div class="card-footer text-end">
-                    <a href="{{ route('admin-documentary-view') }}" class="btn btn-light border">Go to Back</a>
+                    <a href="{{  url()->previous()  }}" class="btn btn-light border">Go to Back</a>
                 </div>
             </div>
         </div>
