@@ -90,15 +90,12 @@
                                     </tr>
                                     <tr>
                                         <td>Offer: {offer_no}  Revision: {revision_no},<br>
-                                        <strong> To</strong><br>
-                                        <strong>{full_name}</strong><br>
-                                        <strong>{organization_number}</strong><br>
-                                    
-                                        <strong>{customer_address}</strong><br>
-
+                                            <strong> To : </strong>
+                                            <strong>{full_name}</strong><br>
+                                            <strong>{organization_number}</strong><br>
+                                            <strong>{customer_address}</strong><br>
                                         </td>
                                         <td width="20%">Date: {today_date}</td>
-                                        
                                     </tr>
                                     <tr>
                                         <td>Our ref: {admin_user}</td>
