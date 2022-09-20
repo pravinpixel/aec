@@ -54,21 +54,12 @@ class DocumentaryController extends Controller
     }
     public function index()
     {
-        
         return response()->json($this->documentaryRepository->all());
-    
     }
 
     public function create()
     {
-        $enquiries = Config::get('documentary.enquiries');
-        $customers = Config::get('documentary.customers');
-        $user_data = Config::get('documentary.userData');
-        return view('admin.pages.documentary.create',compact([
-            'enquiries',
-            'customers',
-            'user_data',
-        ]));
+        return view('admin.pages.documentary.create');
     }
     /**
      * Store a newly created resource in storage.
