@@ -26,7 +26,7 @@ class CustomerProfileRequest extends FormRequest
         return [
             'first_name'   => 'required',
             'last_name'    => 'required',
-            'full_name'    => 'required',
+            // 'full_name'    => 'required',
             'mobile_no'    => 'required',
             'postal_code'  => 'required',
             'company_name' => 'required',
