@@ -35,7 +35,7 @@
                 <div class="mb-3">
                     <div class="input-group flex-nowrap border rounded">
                         <span class="input-group-text border-0 bg-none"><i class="fa fa-key"></i></span>
-                        <input type="password" minlength="8" name="password" id="password" class="form-control border-0 ps-0" placeholder="Password"  required>
+                        <input type="password" minlength="8" maxlength="12" name="password" id="password" class="form-control border-0 ps-0" placeholder="Password"  required>
                         <div class="input-group-text border-0" data-password="false">
                             <span class="password-eye"></span>
                         </div>
