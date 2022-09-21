@@ -663,10 +663,10 @@ class ProjectController extends Controller
             return $this->projectRepo->getInvoicePlan($id);
         } else if ($type == 'to-do-list') {
             return true;
-        } else if ($type == 'connection_platform') {
-            $projectSharepoint = $this->projectRepo->getSharePointFolder($id);
-            $response['folders'] =  isset($projectSharepoint->sharepointFolder->folder) ? json_decode($projectSharepoint->sharepointFolder->folder) : [];
-            $response['platform_access'] =  $this->projectRepo->getConnectionPlatform($id)  ?? json_encode(['sharepoint_status', 'bim_status', 'tf_office_status']);
+        } else if ($type == 'connection_platform') { 
+                      $projectSharepoint = $this->projectRepo->getSharePointFolder($id);
+            $response['folders']         = isset($projectSharepoint->sharepointFolder->folder) ? json_decode($projectSharepoint->sharepointFolder->folder) : [];
+            $response['platform_access'] = $this->projectRepo->getConnectionPlatform($id)  ?? json_encode(['sharepoint_status', 'bim_status', 'tf_office_status']);
             return $response;
         }
     }

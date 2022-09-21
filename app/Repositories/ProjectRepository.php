@@ -106,7 +106,7 @@ class ProjectRepository implements ProjectRepositoryInterface, ConnectionPlatfor
 
     public function getProjectById($id)
     { 
-        return $this->model->find($id);
+        return $this->model->with('Customer')->find($id);
     }
     public  function getliveProjectById($id){
         $project = $this->model->find($id);

@@ -125,9 +125,9 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
+                        <div class="mb-3 mt-3"> 
                             <input ng-checked="project.linked_to_customer== 1" type="checkbox" ng-model="project.linked_to_customer" class="form-check-input me-2 mb-2" id=""><small>Should the project be linked to a customer ?</small>
-                            <input ng-show="project.linked_to_customer" readonly type="text" name="customer" ng-model="enquiry.customer.first_name" class="form-control form-control-sm">
+                            <input ng-show="project.linked_to_customer" readonly type="text" name="customer" ng-model="project.customer.email" class="form-control form-control-sm">
                         </div>
                     </div>
                 </div>

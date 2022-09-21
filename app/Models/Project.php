@@ -87,7 +87,10 @@ class Project extends Model
     {
         return $this->hasOne(InvoicePlan::class,'project_id','id');
     }
- 
+    public function Customer()
+    {
+        return $this->hasOne(Customer::class,'id','customer_id');
+    }
 
     public function setStartDateAttribute($value)
     {
