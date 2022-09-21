@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="card-body"> 
-                        <div>
+                        <div class="textEditorWrapper">
                             <textarea name="documentary_content" id="textEditor">{{ $contract->documentary_content }}</textarea>
                         </div>
                     </div>
@@ -85,9 +85,12 @@
         });
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
-            $("#preview").html(`
-                <div>${$("#textEditor").val()}</div>
-            `)
+            var editor = document.getElementsByClassName('textEditorWrapper');
+            Object.entries(editor).map((el) => {
+                var table = el[1].childNodes[2].childNodes[1].childNodes[1].childNodes[1].contentDocument.body.childNodes[0].innerHTML
+                $("#preview").html(table) 
+                console.log(table)
+            })
         }
     </script>
 @endpush

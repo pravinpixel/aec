@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="card-body"> 
-                        <div>
+                        <div class="textEditorWrapper">
                             <textarea name="documentary_content" id="textEditor">
                                 <table class="table custom table-borderless">
                                     <tr>
@@ -176,19 +176,25 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+  
 @endsection
            
 @push('custom-scripts')
     <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script> 
+    <script src="https://raw.githubusercontent.com/ckeditor/ckeditor4/445cf24ebde11fac27c9d726a4117b8328e56061/plugins/preview/plugin.js"></script>
     <script>
-        CKEDITOR.replace( 'textEditor',{
-            height : 500
+        var editor  = CKEDITOR.replace( 'textEditor',{
+            height : 500,
         });
+ 
         preview = () => {
             $("#card-title").html($("#documentary_title").val())
-            $("#preview").html(`
-                <div>${$("#textEditor").val()}</div>
-            `)
+            var editor = document.getElementsByClassName('textEditorWrapper');
+            Object.entries(editor).map((el) => {
+                var table = el[1].childNodes[2].childNodes[1].childNodes[1].childNodes[1].contentDocument.body.childNodes[0].innerHTML
+                $("#preview").html(table) 
+                console.log(table)
+            })
         }
     </script>
 @endpush
