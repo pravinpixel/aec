@@ -156,7 +156,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{{ route('admin-documentary-view') }}" class="btn btn-light border me-2">Cancle & Back</a>
+                        <a href="{{ route('admin-documentary-view') }}" class="btn btn-light border me-2">Cancel & Back</a>
                         <button type="button" data-bs-toggle="modal" data-bs-target="#PreviewModal" onclick="preview()" class="btn btn-primary border me-2">Preview</button>
                         <button type="submit" class="btn btn-success">Save & Submit</button>
                     </div>
