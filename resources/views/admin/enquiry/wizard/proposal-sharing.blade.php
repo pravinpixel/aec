@@ -148,10 +148,9 @@
                                                     <button type="button" class="toggle-btn btn-light btn-sm p-1 py-0 btn-light btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="dripicons-dots-3 "></i>
                                                     </button>
-                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'">
-                                                        
-                                                        <a  class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a>
-                                                        <a  class="btn dropdown-item" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
+                                                    <div class="dropdown-menu dropdown-menu-end" ng-if="P.type == 'root'"> 
+                                                        <a  class="btn dropdown-item" ng-click="DuplicatePropose(P.proposal_id)">Duplicate</a> 
+                                                        <a  class="btn dropdown-item" ng-if="P.status != 'approved'" ng-click="ViewEditPropose(P.proposal_id)">View / Edit</a>
                                                         {{-- <a class="btn dropdown-item" ng-click="sendMailToCustomer(P.proposal_id)">Send Proposal</a> --}}
                                                         <a class="btn dropdown-item"  ng-click="showCommentsToggle(P.proposal_id, P.type)" > Chat</u></a>
                                                     

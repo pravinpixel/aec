@@ -41,10 +41,10 @@ class DocumentaryController extends Controller
                 }) 
                 ->addColumn('action', function($data){ 
                     return ' 
-                        <a href="'.route('admin.contract.download',$data->id).'" class="btn btn-sm btn-warning rounded-pill"><i class="mdi mdi-download"></i></a>
-                        <a href="'.route('admin.contract.view',$data->id).'" class="btn btn-sm btn-success rounded-pill"><i class="mdi mdi-eye"></i></a>
-                        <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-primary rounded-pill"><i class="mdi mdi-pencil"></i></a>
-                        <button onclick="destroy('.$data->id.')" class="btn btn-sm btn-danger rounded-pill"><i class="mdi mdi-trash-can"></i></button>
+                        <a href="'.route('admin.contract.download',$data->id).'" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download"></i></a>
+                        <a href="'.route('admin.contract.view',$data->id).'" class="btn btn-sm btn-outline-success rounded-pill"><i class="mdi mdi-eye"></i></a>
+                        <a href="'.route('admin.documentaryEdit',$data->id).'" class="btn btn-sm btn-outline-primary rounded-pill"><i class="mdi mdi-pencil"></i></a>
+                        <button onclick="destroy('.$data->id.')" class="btn btn-sm btn-outline-danger rounded-pill"><i class="mdi mdi-trash-can"></i></button>
                     ';
                 })
                 ->rawColumns(['action','status'])
