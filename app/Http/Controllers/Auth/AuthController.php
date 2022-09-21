@@ -20,6 +20,7 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
+        session()->put('remember',$request->remember); 
         try {
             $requestInput = array_merge($request->only(['email','password']),['is_active'=> true]);
             $employeeInput = array_merge($request->only(['email','password']),['status'=> true]);
@@ -66,7 +67,9 @@ class AuthController extends Controller
     public function Logout() {
         Auth::guard('customers')->logout();
         Auth::logout();
+        $remember = session()->get('remember'); 
         Session::flush();
+        session()->put('remember',$remember);
         Flash::success(__('auth.logout_successful'));
         return redirect(route('login'));
     }
