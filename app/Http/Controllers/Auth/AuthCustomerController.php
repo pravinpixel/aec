@@ -27,6 +27,8 @@ class AuthCustomerController extends Controller
             'last_name'  => 'required',
             'email'      => ['required','email','regex:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/','unique:customers'],
             'password'   => ['required','confirmed','min:8']
+        ],[
+            "email.unique" => "Verification mail already sent, check your inbox"
         ]);
         try {
             $customerData = array_merge(request(['first_name', 'last_name', 'email', 'password']),['is_active'=> false]);
