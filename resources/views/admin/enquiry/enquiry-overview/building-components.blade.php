@@ -24,11 +24,11 @@
                     </table>
                     <table class="shadow-sm border table-bordered border-dark table m-0 bg-white">
                         <thead>
-                            <tr> 
-                                <td><b>Name</b></td>
-                                <td><b>Thickness (mm)</b></td>
-                                <td><b>Breadth (mm)</b></td>
-                            </tr> 
+                           <tr> 
+    <td width="33%"><b>Name</b></td>
+    <td width="33%"><b>Thickness (mm)</b></td>
+    <td width="33%"><b>Breadth (mm)</b></td>
+</tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="layer in detail.layer">
