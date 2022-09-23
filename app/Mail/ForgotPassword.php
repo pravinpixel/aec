@@ -31,7 +31,7 @@ class ForgotPassword extends Mailable
     public function build()
     {
         return $this->from(config('global.mail_from_address'))
-        ->subject(env('APP_NAME')." - Reset Password")
+        ->subject(env('MAIL_FROM_NAME')." - Reset Password")
         ->markdown('emails.customer.forgot-password-mail')
         ->with('data',['token'=>$this->token, 'code'=> $this->code]);
     }
