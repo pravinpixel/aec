@@ -14,7 +14,7 @@
                     <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}"> @{{progress_value}} </div>
                 </div> --}}
                 <br>    
-                <div class="progress bg-white border border-success">
+                <div class="progress bg-white border border-success rounded-pill">
                     <div ng-show="@{{documentType.slug+'showProgress'}}" class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="@{{progress_value }}" aria-valuemin="0" aria-valuemax="100" style="width:@{{progress_value}}" ng-bind="progress_value"></div>
                 </div>
             </div>
