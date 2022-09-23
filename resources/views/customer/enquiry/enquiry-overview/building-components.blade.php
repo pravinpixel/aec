@@ -9,9 +9,9 @@
                     <table class="shadow-sm custom border border-dark mb-0 table table-bordred bg-white">
                         <thead class="table-secondary text-dark">
                             <tr>
-                                <th>Floor</th>
-                                <th>Type of Delivery</th>
-                                <th>Total Area </th>
+                                <th width="33%">Floor</th>
+                                <th width="33%">Type of Delivery</th>
+                                <th width="33%">Total Area </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,11 +24,11 @@
                     </table>
                     <table class="shadow-sm border table-bordered border-dark table m-0 bg-white">
                         <thead>
-                           <tr> 
-    <td width="33%"><b>Name</b></td>
-    <td width="33%"><b>Thickness (mm)</b></td>
-    <td width="33%"><b>Breadth (mm)</b></td>
-</tr>
+                            <tr> 
+                                <td width="33%"><b>Name</b></td>
+                                <td width="33%"><b>Thickness (mm)</b></td>
+                                <td width="33%"><b>Breadth (mm)</b></td>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="layer in detail.layer">
