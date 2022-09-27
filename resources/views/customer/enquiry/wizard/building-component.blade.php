@@ -76,9 +76,10 @@
                             <div class="accordion mb-3 " id="accordionTable_@{{ Secindex }}_@{{ fIndex  }}" >
                                 <div class="d-flex ">
                                     <div class="btn border d-flex justify-content-center align-items-center" style="background:#EBEFF4;border-radius: 10px 10px 0 0; transform:translateY(2px)">
-                                        <div class="lead fw-bold  me-2 pe-2 border-end" style="font-size: 15px !important;color: #4a99f9;">@{{ w.WallName }} - @{{$index + 1}}</div>
-                                        <div class="btn-group border shadow-sm">
-                                            <select title="Set as Template" class="form-select  border-0" name="template" ng-change="getTemplate(fIndex, w.WallId, Secindex,template)" ng-model="template">
+                                        <div class="lead fw-bold  me-2 pe-2 borer-end" style="font-size: 15px !important;color: #4a99f9;">@{{ w.WallName }} - @{{$index + 1}}</div>
+                                        <component-template></component-template>
+                                        {{-- <div class="btn-group border shadow-sm">
+                                            <select title="Set as Template" class="form-select border-0" name="template" ng-change="getTemplate(fIndex, w.WallId, Secindex,template)" ng-model="template">
                                                 <option value="">@lang('customer-enquiry.select_template')</option>
                                                 <option ng-repeat="Template in Templates" value="@{{ Template.id }}">
                                                     @{{ Template.template_name }}
@@ -99,7 +100,7 @@
                                                 detail_position:  Secindex,
                                                 template: template
                                             }" class="btn btn-danger btn-sm  border-0" ng-show="d"><i class="mdi mdi-trash-can"></i></button>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="accordion-item shadow-sm  ">
@@ -172,7 +173,13 @@
                                                         <div class="col-md p-0">
                                                             <div class="w-100 text-end">
                                                                 <div class="d-flex justify-content-end">
-                                                                    <button class="btn-sm float-end btn btn-outline-primary me-2" ng-click="AddLayers(fIndex , Secindex)" title="Add New Layer" ><i class="fa fa-plus" ></i> Add Layer</button>
+                                                                    <button class="btn-sm float-end btn btn-outline-primary me-2" 
+                                                                        title="Add New Layer" 
+                                                                        create-template="{
+                                                                            index_position: fIndex,
+                                                                            detail_position: Secindex,
+                                                                        }"
+                                                                    ><i class="fa fa-plus" ></i> Add Layer</button>
                                                                     {{-- <button ng-click="RemoveDetails(fIndex , Secindex)" class=" btn-danger btn shadow-lg  RemoveDetails" type="button"><i class="fa fa-trash"></i></button> --}}
                                                                     <div id="ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
                                                                         <div class="modal-dialog">

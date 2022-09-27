@@ -21,8 +21,8 @@ class EnquiryTemplateController extends Controller
             return response(['status' => false, 'msg'=> __('enquiry.template_exists')]);
         }
         $template = $request->only(['template_name','building_component_id','data']);
-        $this->templateRepo->store( $template);
-        return response(['status' => true, 'msg'=> __('enquiry.template_added')]);
+        $data = $this->templateRepo->store( $template);
+        return response(['status' => true, 'msg'=> __('enquiry.template_added'),"data" => $data]);
     }
 
     public function getTemplateByBuildingComponentId(Request $request)

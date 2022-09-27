@@ -930,12 +930,14 @@
             }
             // console.log($scope.wallGroup);
             $scope.AddLayers  =   function(fIndex, index) {
+                console.log($scope.wallGroup[fIndex].Details[index].Layers)
                 $scope.wallGroup[fIndex].Details[index].Layers.push({
                     "LayerName": '',
                     "LayerType": '',
                     "Thickness ": '',
                     "Breadth": '',
                 });
+                console.log($scope.wallGroup[fIndex].Details[index].Layers)
             }
             $scope.delWall = function(index){
                 $scope.wallGroup.splice(index,1);

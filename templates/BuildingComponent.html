@@ -1,0 +1,26 @@
+<div class="btn-group border shadow-sm">
+    <select title="Set as Template" class="form-select border-0" name="template" ng-change="changeTemplate()" ng-model="template_id">
+        <option ng-repeat="Template in Templates" ng-value="Template.id" ng-bind="Template.template_name"></option>
+    </select>
+    <button title="Create / Save Template" ng-click="createTemplate()" class="btn btn-success btn-sm border-0">
+        <i class="mdi mdi-plus-box-multiple"></i>
+    </button>
+    <!-- <button title="Overwrite Template" class="btn btn-primary btn-sm border-0">
+        <i class="mdi mdi-pencil"></i>
+    </button>
+    <button title="Delete Template" ng-click="deleteBuildingComponentTemplate()" class="btn btn-danger btn-sm border-0">
+        <i class="mdi mdi-trash-can"></i>
+    </button> -->
+    <button title="Overwrite Template" overwrite-template="{
+        building_component_id: w.WallId,
+        index_position: fIndex,
+        detail_position: Secindex,
+        template: template_id
+    }" class="btn btn-primary  btn-sm  border-0" ng-show="d"><i class="mdi mdi-pencil"></i></button>
+    <button title="Delete Template" delete-template="{
+        building_component_id: w.WallId,
+        index_position: fIndex,
+        detail_position:  Secindex,
+        template: template_id
+    }" class="btn btn-danger btn-sm  border-0" ng-show="d"><i class="mdi mdi-trash-can"></i></button>
+</div>

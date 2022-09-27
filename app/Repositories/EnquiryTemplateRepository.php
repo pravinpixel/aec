@@ -17,12 +17,12 @@ class EnquiryTemplateRepository implements EnquiryTemplateRepositoryInterface {
 
     public function store($data)
     {
-        $template = new $this->model();
-        $template->template_name = $data['template_name'];
-        $template->building_component_id = $data['building_component_id'];
-        $template->template = json_encode($data['data']);
-        $template->customer_id = Customer()->id;
-        $template->save();
+        return $this->model::create([
+            "template_name"         => $data['template_name'],
+            "building_component_id" => $data['building_component_id'],
+            "template"              => json_encode($data['data']),
+            "customer_id"           => Customer()->id,
+        ]);
     }
     
     public function show($id)
