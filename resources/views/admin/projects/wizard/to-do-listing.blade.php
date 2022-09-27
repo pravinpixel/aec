@@ -48,6 +48,12 @@
                                     <th class="text-center">End Date</th>
                                     <th class="text-center">Action</th>
                                 </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td class="text-center"><span class="bg-warning fw-bold rounded px-1" ng-bind="check_list.project_start_date | date: 'yyyy-MM-dd'"></span></td>
+                                    <td class="text-center"><span class="bg-warning fw-bold rounded px-1" ng-bind="check_list.project_end_date | date: 'yyyy-MM-dd'"></span></td>
+                                    <td></td>
+                                </tr>
                             </thead>
                             <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
                                 <tr ng-show="checkListData.text != 'others'" class="bg-light">
@@ -71,8 +77,8 @@
                                             </option>
                                         </select>
                                     </td>
-                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" class="form-control form-control-sm"></td>
-                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" class="form-control form-control-sm"></td>
+                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" class="form-control form-control-sm text-center"></td>
+                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" class="form-control form-control-sm text-center"></td>
                                     <td>
                                         <i class="text-danger fa fa-trash btn-sm btn" ng-click="delete_this_taskListData(index,index_2,index_3)"></i>
                                     </td>

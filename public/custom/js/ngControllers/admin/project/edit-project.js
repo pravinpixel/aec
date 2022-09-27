@@ -551,7 +551,6 @@ app.controller('ToDoListController', function ($scope, $http, API_URL, $location
         $scope.check_list_items         =   JSON.parse(res.data.gantt_chart_data)  == null ? [] :  JSON.parse(res.data.gantt_chart_data)
         $scope.check_list_items_status  =   JSON.parse(res.data.gantt_chart_data)  == null ? false :  true
         projectActiveTabs($scope.project.wizard_status);
-       
     });
  
     // ======= $scope of Flow ==============

@@ -310,28 +310,29 @@ class ProjectController extends Controller
 
     public function checkListMasterGroupList(Request $request)
     {
-       
-        $project = Project::findOrFail($request->project_id);
-        $project_manager_id = Role::where('slug', config('global.project_manager'))->first();
-        $project_manager    = Employees::where('job_role', $project_manager_id->id)->where('status',1)->first();
+        $project              =     Project::findOrFail($request->project_id);
+        $project_manager_id   =     Role::where('slug', config('global.project_manager'))->first();
+        $project_manager      =     Employees::where('job_role', $project_manager_id->id)->where('status',1)->first();
 
-        $start_date         = $project->start_date;
-        $end_date           = $project->delivery_date;
+        $start_date     =   $project->start_date;
+        $end_date       =   $project->delivery_date;
         $list           =   CheckList::where("name",  '=', $request->data)->with('getTaskList')->latest()->get();
 
-        $grouped        =   $list->groupBy('task_list_category')->map(function ($item) use($start_date, $end_date, $project_manager) {
-            $tasks =  $item->map( function($task) use($start_date, $end_date, $project_manager) {
-                $task->{"start_date"} = $start_date;
-                $task->{"end_date"} = $end_date;
-                $task->assign_to    = (string)$project_manager->id ?? "";
+        $grouped    =   $list->groupBy('task_list_category')->map(function ($item) use($start_date, $end_date, $project_manager) {
+            $tasks  =   $item->map( function($task) use($start_date, $end_date, $project_manager) {
+                $task->{"start_date"}    = $start_date;
+                $task->{"end_date"}      = $end_date;
+                        $task->assign_to = (string)$project_manager->id ?? "";
                 return $task;
             });
             return ['name' => $item[0]->getTaskList->task_list_name, 'data' => $tasks];
         });
 
         $result = [
-            "name" => $request->data,
-            "data" => $grouped
+            "name"               => $request->data,
+            "project_start_date" => $project->start_date,
+            "project_end_date"   => $project->delivery_date,
+            "data"               => $grouped
         ];
 
         return response()->json(['status' => true, 'data' => $result], 201);
