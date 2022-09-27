@@ -76,8 +76,8 @@
                     <a href="{{ route('admin.contract.download',$contract->id) }}" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download"></i> Download</a>
                 </div>
             </div> 
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+    </div>
 @endsection
            
 @push('custom-scripts')
