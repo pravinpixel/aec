@@ -456,8 +456,14 @@
             $http.get(API_URL + 'admin/api/v2/customers-technical-estimate/' + {{ $data->id ?? " " }} ).then(function (response) {
                 $scope.enquiry              =   response.data; 
                 $scope.enquiry_id           =   response.data.enquiry_id; 
-                $scope.building_building    =   response.data.building_component; 
                 $scope.assign_to            =   response.data.others.assign_to ?? '';
+                $scope.buildingJson         =   response.data.building_component;
+                $scope.buildingJson.map((building) => {
+                    building.building_component_number.map((item) => {
+                       item.sqfeet = Number(item.sqfeet).toFixed(2)
+                    })
+                })
+                $scope.building_building = $scope.buildingJson
             });
              
             $scope.getWizradStatus = function() {

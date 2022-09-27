@@ -135,8 +135,8 @@
                                         <td class="col" style="padding:0 !important">
                                             <input type="text" placeholder="Type here.." ng-value="est.name" ng-model="est.name" class="form-control bg-none form-control-sm rounded-0 border-0">
                                         </td>
-                                        <td class="col"  style="padding:0 !important" > 
-                                            <input type="number" onkeypress="return isNumber(event)" min="0" get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-value="est.sqfeet"ng-model="est.sqfeet">
+                                        <td class="col"  style="padding:0 !important" >  
+                                            <input type="text" onkeypress="return isNumber(event)" get-total-components="[index , secindex]" class="form-control form-control-sm rounded-0 border-0" ng-model="est.sqfeet">
                                         </td>
                                         <td class="col" class="text-center"  style="padding:0 !important">
                                             <a  class="btn btn-sm text-danger w-100 btn-outline-light" get-total-components-delete="[index , secindex]"><i class="mdi mdi-delete"></i></a>

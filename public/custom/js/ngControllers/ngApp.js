@@ -188,27 +188,34 @@ app.directive('getTotalComponentsDelete',   ['$http' ,function ($http, $scope,$a
 app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) {  
     return {
         restrict: 'A',
-        link : function (scope, element, attrs) {
+        link : function (scope, element, attrs) { 
             element.on('keyup', function () {
                 if($("#_technical_").val() == 1) {
                     $(this).addClass('technical_estimate_click');
                 } else {
                     $(this).addClass('admin_estimate_click');
                 }
+                var finalResult  =  Number(scope.est.sqfeet).toFixed(2)
+                scope.est.sqfeet = finalResult
                 var index   = scope.index;
                 let bcd = scope.building_building[index].building_component_number.map((item,i) => {
                     return item.sqfeet;
                 }); 
-                let result =  bcd.reduce(function(previousValue, currentValue){
-                    if(typeof(previousValue) == 'undefined') {
-                        previousValue = 0;
-                    }
-                    if(typeof(currentValue) == 'undefined') {
-                        currentValue = 0;
-                    }
-                    return previousValue + currentValue
-                }, 0);
-                scope.building_building[index].total_component_area = result.toFixed(2) ; 
+                var totalArea = 0.00
+                bcd.map((item) => {
+                    totalArea += Number(item)
+                }) 
+                // let result =  bcd.reduce(function(previousValue, currentValue){
+                //     if(typeof(previousValue) == 'undefined') {
+                //         previousValue = 0;
+                //     }
+                //     if(typeof(currentValue) == 'undefined') {
+                //         currentValue = 0;
+                //     }
+                //     return previousValue + currentValue
+                // }, 0);
+               
+                scope.building_building[index].total_component_area = totalArea; 
                 scope.$apply();
             });
         },
