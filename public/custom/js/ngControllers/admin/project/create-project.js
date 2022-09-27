@@ -618,6 +618,15 @@ formatData = (project) => {
         $scope.check_list_items[index].data[secIndex].data.splice(thirdIndex,1)
     }
     }
+    $scope.createTaskListData = (index,index_2) => {
+      $scope.check_list_items[index].data[index_2].data.push({
+        start_date : "",
+        name       : "",
+        end_date   : "",
+        assign_to  : "",
+      })
+      Message('success',"New Task List Added !")
+    }
   
     $scope.storeToDoLists = () => {
   

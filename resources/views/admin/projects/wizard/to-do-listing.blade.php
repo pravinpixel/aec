@@ -36,7 +36,7 @@
                     </div> 
                     <i class="accordion-icon"></i> 
                 </div>
-                <div class="card-body collapse " id="custom-accordion-collapse-@{{ index }}">
+                <div class="card-body collapse" id="custom-accordion-collapse-@{{ index }}">
                     <div class="card-content">
                         <table class="m-0 table custom">
                             <thead>
@@ -50,26 +50,29 @@
                                 </tr>
                             </thead>
                             <tbody class="border" ng-repeat="(index_2 , checkListData) in check_list.data">
-                                <tr ng-show="checkListData.text != 'others'">
-                                    <td colspan="6" class="bg-light">
+                                <tr ng-show="checkListData.text != 'others'" class="bg-light">
+                                    <td colspan="5">
                                         <div class="text-start">
                                             <strong>@{{ checkListData.name }}</strong>
                                         </div>
                                     </td> 
+                                    <td>
+                                        <i class="fa fa-plus btn-sm btn btn-success" ng-click="createTaskListData(index,index_2)"></i>
+                                    </td>
                                 </tr>
                                 <tr ng-repeat="(index_3 , taskListData) in checkListData.data">
-                                    <td>@{{ index_3 +1 }}</td>
-                                    <td>@{{ taskListData.task_list }}</td>
+                                    <td class="text-center">@{{ index_3 +1 }}</td>
+                                    <td><input type="text" class="form-control-sm form-control" ng-model="taskListData.task_list"></td>
                                     <td>
-                                        <select get-to-do-lists ng-model="taskListData.assign_to" class="form-select border-0  form-select-sm">
+                                        <select get-to-do-lists ng-model="taskListData.assign_to" class="form-select form-select-sm">
                                             <option value="">-- Project Manager --</option>
                                             <option ng-repeat="projectManager in projectManagers" value="@{{ projectManager.id }}" ng-selected="projectManager.id == taskListData.assign_to">
                                                 @{{ projectManager.first_name }}
                                             </option>
                                         </select>
                                     </td>
-                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" class=" border-0 form-control form-control-sm"></td>
-                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" class=" border-0 form-control form-control-sm"></td>
+                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.start_date | date: 'yyyy-MM-dd'" ng-model="taskListData.start_date" class="form-control form-control-sm"></td>
+                                    <td><input type="date" get-to-do-lists min="@{{ taskListData.start_date | date: 'yyyy-MM-dd' }}" ng-value="taskListData.end_date | date: 'yyyy-MM-dd'" ng-model="taskListData.end_date" class="form-control form-control-sm"></td>
                                     <td>
                                         <i class="text-danger fa fa-trash btn-sm btn" ng-click="delete_this_taskListData(index,index_2,index_3)"></i>
                                     </td>
