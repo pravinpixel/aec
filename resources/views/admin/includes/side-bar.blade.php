@@ -1,7 +1,7 @@
 <div class="leftside-menu menuitem-active">
     
     <!-- LOGO -->
-    <a href="#" class="logo text-center logo-light shadow-lg"  style="background:white !important">
+    <a href="{{ route('admin-dashboard') }}" class="logo text-center logo-light shadow-lg"  style="background:white !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
@@ -15,7 +15,7 @@
     </a>
 
     <!-- LOGO -->
-    <a href="#" class="logo text-center logo-dark"  style="background:gray !important">
+    <a href="{{ route('admin-dashboard') }}" class="logo text-center logo-dark"  style="background:gray !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 {{-- <b>AEC</b> <span class="text-white">Prefab</span> --}}
