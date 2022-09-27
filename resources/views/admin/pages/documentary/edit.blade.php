@@ -64,15 +64,18 @@
         </div> <!-- content -->
     </div>
     <div id="PreviewModal" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-right" style="width:100% !important">
-            <div class="p-3 shadow-sm">
-                <h3 id="card-title"></h3>
-                <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
-            </div>
-            <div class="modal-content h-100 p-4" style="overflow: auto">
-                <div class="card-body" id="preview">
+        <div class="modal-dialog modal-xl modal-right" style="width:100% !important"> 
+            <div class="modal-content h-100 p-0" >
+                <div class="modal-header">
+                    <h3 id="card-title"></h3>
+                    <button type="button" class="btn-close me-3" data-bs-dismiss="modal" style="top: 33px" aria-hidden="true"></button>
                 </div>
-            </div><!-- /.modal-content -->
+                <div class="modal-body" id="preview" style="overflow: auto">
+                </div>
+                <div class="modal-footer text-end">
+                    <a href="{{ route('admin.contract.download',$contract->id) }}" class="btn btn-sm btn-outline-warning rounded-pill"><i class="mdi mdi-download"></i> Download</a>
+                </div>
+            </div> 
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 @endsection
