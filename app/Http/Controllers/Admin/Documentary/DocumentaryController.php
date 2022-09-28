@@ -153,16 +153,7 @@ class DocumentaryController extends Controller
     public function documentaryEdit($id)
     {
         $contract  = Documentary::findOrFail($id);
-        $enquiries = Config::get('documentary.enquiries');
-        $customers = Config::get('documentary.customers');
-        $user_data = Config::get('documentary.userData');
-
-        return view('admin.pages.documentary.edit',compact([
-            'contract',
-            'enquiries',
-            'customers',
-            'user_data',
-        ]));
+        return view('admin.pages.documentary.edit',compact('contract'));
     }
 
     public function get(Request $request)

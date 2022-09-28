@@ -93,20 +93,24 @@ class IfcFileIconController extends Controller
     {
         $file   =   IfcFilesIcons::findOrFail($request->id);
 
-        $compressedFile = Image::make($request->file('icon'))->resize(20, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->encode();
-        
-        $fileName = $request->type.".png";
-        Storage::put("ifc-icons/".$fileName, $compressedFile);
+        if($request->icon) {
+            if(Storage::exists('ifc-icons/'.$file->icon)) {
+                Storage::delete('ifc-icons/'.$file->icon);
+            }
 
-        if(Storage::exists('ifc-icons/'.$file->icon)) {
-            Storage::delete('ifc-icons/'.$file->icon);
+            $compressedFile = Image::make($request->file('icon'))->resize(20, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            
+            $fileName = $request->type ?? $file->type.".png";
+            Storage::put("ifc-icons/".$fileName, $compressedFile);
+            
+            $file->icon  = $fileName;
         }
-        $file->update([
-            'type' => $request->type ?? $file->type,
-            'icon' => $fileName ?? $file->icon
-        ]);
+
+        $file->type  = $request->type;
+        $file->save();
+      
         Flash::success('File Icon Updated!');
         return redirect()->route('setup.ifc-file-icon');
     }
