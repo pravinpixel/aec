@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IfcFileIconController;
 use App\Http\Controllers\SetupController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,10 @@ Route::prefix('admin/setup')->middleware('common')->group(function () {
     Route::get('/precast-estimation-cost-preset',[SetupController::class, 'precast_estimation_cost_preset'])->name('setup.precast-estimation-cost-preset');
     Route::get('/check-list',[SetupController::class, 'check_list'])->name('setup.check-list');
     Route::get('/check-sheet',[SetupController::class, 'check_sheet'])->name('setup.check-sheet');
+
+    Route::get('/ifc-file-icon',[SetupController::class, 'ifc_file_icon'])->name('setup.ifc-file-icon');
+    Route::get('/ifc-file-icon/create',[IfcFileIconController::class, 'create'])->name('setup.ifc-file-icon.create');
+    Route::post('/ifc-file-icon/create',[IfcFileIconController::class, 'store'])->name('setup.ifc-file-icon.store');
 
     // Customer
     Route::get('/project-type',[SetupController::class, 'project_type'])->name('setup.project-type'); 
