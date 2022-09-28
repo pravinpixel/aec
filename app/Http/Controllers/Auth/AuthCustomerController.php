@@ -61,7 +61,7 @@ class AuthCustomerController extends Controller
             'route'     => route('company-info', encrypt($customer->id)),
             'email'     => $customer->email
         ]);
-        Flash::success( __('auth.email_send_for_verification'));
+        Flash::success( __('auth.resend_email_success'));
         return redirect()->route('login');
     }
 
