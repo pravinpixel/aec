@@ -26,8 +26,8 @@
                 </div>
             </div> 
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <label for="keep_me" class="text-secondary"> 
-                   <input type="checkbox" name="remember" {{ session()->get('remember') == 'on' ? 'checked' : '' }} class="me-1 form-check-input" id="keep_me"> Keep me signed in
+                <label for="keep_me" class="text-secondary form-check  form-checkbox-success"> 
+                   <input type="checkbox" name="remember" {{ session()->get('remember') == 'on' ? 'checked' : '' }} class="me-1 border border-dark form-check-input" id="keep_me"> Keep me signed in
                 </label>  
                 <a href="{{route('forgot.password.get')}}" class="text-danger"> Forgot password ? </a>  
             </div>
