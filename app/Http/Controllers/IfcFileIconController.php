@@ -98,8 +98,14 @@ class IfcFileIconController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $file   =   IfcFilesIcons::findOrFail($request->id);
+        if(Storage::exists('ifc-icons/'.$file->icon)) {
+            Storage::delete('ifc-icons/'.$file->icon);
+        }
+        $file->delete();
+        Flash::success('File Icon Deleted!');
+        return redirect()->route('setup.ifc-file-icon');
     }
 }

@@ -27,7 +27,7 @@
                                 <td>
                                     <div class="btn-group">
                                         <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-edit"></i></button>
-                                        <button class="shadow btn btn-sm btn-outline-danger rounded-pill"><i class="fa fa-trash"></i></button>
+                                        <button onclick="deleteData({{ $file->id }})" class="shadow btn btn-sm btn-outline-danger rounded-pill"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -40,7 +40,30 @@
             </div>
         </div>
     </div>
+    <form id="delete_form" action="{{ route('setup.ifc-file-icon.destroy') }}" method="post">
+        <input type="hidden" name="id" id="delete_id"> 
+        @method('delete')
+        @csrf
+    </form>
 @endsection
 @push('custom-scripts') 
-
+    <script>
+        deleteData = function (id) {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this Data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    var  input = document.getElementById('delete_id')
+                    input.setAttribute("value", id)
+                    $("#delete_form").submit()
+                } else {
+                    swal("Your Data is safe!");
+                }
+            });
+        }
+    </script>
 @endpush
