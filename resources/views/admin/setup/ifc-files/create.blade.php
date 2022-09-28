@@ -15,7 +15,7 @@
                 <div class="row mb-1">
                     <div class="col-md-6 mb-2">
                         <label class="small mb-1" for="inputUsername">File Type </label>
-                        <input class="form-control form-control-sm" id="inputFileType" type="text" placeholder="Example : png / jpg / svg" name="type" required>
+                        <input class="form-control form-control-sm" id="inputFileType" maxlength="5" type="text" placeholder="Example : png / jpg / svg" name="type" required>
                     </div>
                     <div class="col-md-6 mb-2">
                         <label class="small mb-1" for="inputFirstName">File Icon</label>

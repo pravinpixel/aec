@@ -9,7 +9,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm table-hover table-borderless align-middle m-0">
+                <table class="table table-sm table-hover table-borderless align-middle">
                     <thead class="table-light">
                         <tr>
                             <th>S.No</th>
@@ -23,7 +23,7 @@
                             <tr>
                                 <td>{{ $i + 1 }}</td>
                                 <td>{{ $file->type }}</td>
-                                <td>{{ $file->icon }}</td>
+                                <td><img src="{{ url("storage/app/ifc-icons")."/".$file->icon }}" width="20px" alt=""></td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-edit"></i></button>
@@ -34,8 +34,10 @@
                         @endforeach
                     </tbody> 
                 </table>
+                <div class="d-flex justify-content-center">
+                    {{ $files->links() }}
+                </div>
             </div>
-            
         </div>
     </div>
 @endsection

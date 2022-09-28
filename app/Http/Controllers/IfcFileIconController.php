@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\IfcFilesIcons;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Laracasts\Flash\Flash;
-
+use Image;
 class IfcFileIconController extends Controller
 {
     /**
@@ -26,7 +27,7 @@ class IfcFileIconController extends Controller
      */
     public function create()
     {
-        return  view('admin.setup.ifc-files.create');
+        return view('admin.setup.ifc-files.create');
     }
 
     /**
@@ -36,11 +37,23 @@ class IfcFileIconController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
+        $request->validate([
+            'type' => "required|unique:ifc_files_icons,type"
+        ]);
+        $compressedFile = Image::make($request->file('icon'))->resize(20, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode();
+
+        $fileName = Str::random(10).".".$request->icon->getClientOriginalExtension();
+
+        Storage::put("ifc-icons/".$fileName, $compressedFile);
+
         IfcFilesIcons::create([
             'type' => $request->type,
-            'icon' => Storage::put('ifc-file-icons', $request->icon)
+            'icon' => $fileName
         ]);
+
         Flash::success('New File Icon Created!');
         return redirect()->route('setup.ifc-file-icon');
     }

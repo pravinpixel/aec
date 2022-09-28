@@ -186,6 +186,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
 
     ],
 
@@ -250,8 +251,8 @@ return [
         //custome service provider
         'GlobalService'   => App\Services\GlobalService::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-   
-       
+        'Image' => Intervention\Image\Facades\Image::class
+
     ],
 
 ];
