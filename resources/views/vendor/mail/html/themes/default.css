@@ -235,11 +235,17 @@ img {
 
 .button-blue,
 .button-primary {
-    background-color: #2d3748;
-    border-bottom: 8px solid #2d3748;
-    border-left: 18px solid #2d3748;
-    border-right: 18px solid #2d3748;
-    border-top: 8px solid #2d3748;
+  color: black !important;
+  font-weight: bold !important;
+  background-color: #ffa91f;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom : 1px solid black;
+  border-left : 1px solid black;
+  border-right : 1px solid black;
+  border-top : 1px solid black;
 }
 
 .button-green,
