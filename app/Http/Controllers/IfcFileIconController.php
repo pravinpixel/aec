@@ -101,8 +101,7 @@ class IfcFileIconController extends Controller
             $compressedFile = Image::make($request->file('icon'))->resize(20, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->encode();
-            
-            $fileName = $request->type ?? $file->type.".png";
+            $fileName = $request->type.".png";
             Storage::put("ifc-icons/".$fileName, $compressedFile);
             
             $file->icon  = $fileName;
