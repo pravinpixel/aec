@@ -23,6 +23,9 @@ Route::prefix('admin/setup')->middleware('common')->group(function () {
     Route::get('/ifc-file-icon/create',[IfcFileIconController::class, 'create'])->name('setup.ifc-file-icon.create');
     Route::post('/ifc-file-icon/create',[IfcFileIconController::class, 'store'])->name('setup.ifc-file-icon.store');
     Route::delete('/ifc-file-icon/destroy',[IfcFileIconController::class, 'destroy'])->name('setup.ifc-file-icon.destroy');
+    Route::get('/ifc-file-icon/edit/{id}',[IfcFileIconController::class, 'edit'])->name('setup.ifc-file-icon.edit');
+    Route::post('/ifc-file-icon/update/{id}',[IfcFileIconController::class, 'update'])->name('setup.ifc-file-icon.update');
+
     
 
     // Customer

@@ -41,6 +41,7 @@ class IfcFileIconController extends Controller
         $request->validate([
             'type' => "required|unique:ifc_files_icons,type"
         ]);
+
         $compressedFile = Image::make($request->file('icon'))->resize(20, null, function ($constraint) {
             $constraint->aspectRatio();
         })->encode();
@@ -77,7 +78,8 @@ class IfcFileIconController extends Controller
      */
     public function edit($id)
     {
-        //
+        $file   =   IfcFilesIcons::findOrFail($id);
+        return view('admin.setup.ifc-files.edit',compact('file'));
     }
 
     /**
@@ -89,7 +91,23 @@ class IfcFileIconController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $file   =   IfcFilesIcons::findOrFail($request->id);
+
+        $compressedFile = Image::make($request->file('icon'))->resize(20, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode();
+        $fileName = Str::random(10).".".$request->icon->getClientOriginalExtension();
+        Storage::put("ifc-icons/".$fileName, $compressedFile);
+
+        if(Storage::exists('ifc-icons/'.$file->icon)) {
+            Storage::delete('ifc-icons/'.$file->icon);
+        }
+        $file->update([
+            'type' => $request->type ?? $file->type,
+            'icon' => $fileName ?? $file->icon
+        ]);
+        Flash::success('File Icon Updated!');
+        return redirect()->route('setup.ifc-file-icon');
     }
 
     /**

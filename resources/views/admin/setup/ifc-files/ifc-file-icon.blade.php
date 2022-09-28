@@ -26,7 +26,7 @@
                                 <td><img src="{{ url("storage/app/ifc-icons")."/".$file->icon }}" width="20px" alt=""></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-edit"></i></button>
+                                        <a href="{{ route('setup.ifc-file-icon.edit', $file->id) }}" class="shadow btn btn-sm me-2 btn-outline-primary l rounded-pill"><i class="fa fa-edit"></i></a>
                                         <button onclick="deleteData({{ $file->id }})" class="shadow btn btn-sm btn-outline-danger rounded-pill"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
