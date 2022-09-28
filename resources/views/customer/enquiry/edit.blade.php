@@ -2,8 +2,6 @@
 @extends('layouts.customer')
 
 @section('customer-content')
-
-
     <div class="content-page" ng-app="App">
         <div class="content">
 
@@ -13,7 +11,6 @@
             <div class="container-fluid">
 
                 <!-- start page title -->
-
                 @include('customer.includes.page-navigater')
             </div>
 

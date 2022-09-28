@@ -171,9 +171,10 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action ps-2">
                                 <div class="d-flex align-items-center">
                                     <div class="h-100 p-0 ">
-                                        <a class="btn btn-sm btn-light border rounded-pill me-1"  ng-click="showTechCommentsToggle('viewTechicalDocsConversations', 'techical_estimation', doc.id)">
+                                        {{-- <a class="btn btn-sm btn-light border rounded-pill me-1"  ng-click="showTechCommentsToggle('viewTechicalDocsConversations', 'techical_estimation', doc.id)">
                                             <i class="uil-comment-alt-lines"></i>
-                                        </a>
+                                        </a> --}} 
+                                        <img src="{{ url("storage/app/ifc-icons")."/" }}@{{ doc.file_type }}.png" width="20px" class="me-2">
                                     </div>
                                     <div>
                                         <div class="d-flex flex-column">
@@ -308,7 +309,7 @@
             </div>
         </div>
     </div>
-    @include("admin.enquiry.models.technical-estimation-chat-box") 
+    {{-- @include("admin.enquiry.models.technical-estimation-chat-box")  --}}
     @include("admin.enquiry.models.assign-technical-estimation-chat-box") 
     @include('customer.enquiry.models.document-modal')
 </div>

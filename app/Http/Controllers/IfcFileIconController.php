@@ -46,7 +46,7 @@ class IfcFileIconController extends Controller
             $constraint->aspectRatio();
         })->encode();
 
-        $fileName = Str::random(10).".".$request->icon->getClientOriginalExtension();
+        $fileName = $request->type.".png";
 
         Storage::put("ifc-icons/".$fileName, $compressedFile);
 
@@ -96,7 +96,8 @@ class IfcFileIconController extends Controller
         $compressedFile = Image::make($request->file('icon'))->resize(20, null, function ($constraint) {
             $constraint->aspectRatio();
         })->encode();
-        $fileName = Str::random(10).".".$request->icon->getClientOriginalExtension();
+        
+        $fileName = $request->type.".png";
         Storage::put("ifc-icons/".$fileName, $compressedFile);
 
         if(Storage::exists('ifc-icons/'.$file->icon)) {
