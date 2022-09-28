@@ -291,6 +291,7 @@ Route::post('login', [AuthController::class, 'postLogin'])->name('login');
 Route::post('logout', [AuthController::class, 'Logout'])->name('logout');
 Route::get('signup', [AuthCustomerController::class, 'getSignUp'])->name('signup');
 Route::post('signup', [AuthCustomerController::class, 'postSignUp'])->name('signup');
+Route::get('signup-resend/{email}', [AuthCustomerController::class, 'signup_resend'])->name('signup_resend');
 Route::get('company-info/{id}', [AuthCustomerController::class, 'companyInfo'])->name('company-info');
 Route::post('company-info/{id}', [AuthCustomerController::class, 'StoreCompanyInfo'])->name('company-info');
 

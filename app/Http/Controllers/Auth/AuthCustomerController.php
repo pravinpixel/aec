@@ -35,11 +35,11 @@ class AuthCustomerController extends Controller
             $insert = Customer::create($customerData);
             if($insert) {
                 $customer = Customer::find($insert->id);
-                $details = [
+                $this->sendMail([
                     'full_name' => $customer->full_name,
-                    'route'     => route('company-info', encrypt($customer->id))
-                ];
-                Mail::to($customer->email)->send(new \App\Mail\RegisterCustomerMail($details));
+                    'route'     => route('company-info', encrypt($customer->id)),
+                    'email'     => $customer->email
+                ]);
                 Flash::success( __('auth.email_send_for_verification'));
                 return redirect()->route('login');
             }
@@ -51,6 +51,23 @@ class AuthCustomerController extends Controller
             Log::info($e->getMessage());
             return redirect()->route('login');
         }
+    }
+
+    public function signup_resend($email)
+    { 
+        $customer = Customer::where('email' , $email)->first();
+        $this->sendMail([
+            'full_name' => $customer->full_name,
+            'route'     => route('company-info', encrypt($customer->id)),
+            'email'     => $customer->email
+        ]);
+        Flash::success( __('auth.email_send_for_verification'));
+        return redirect()->route('login');
+    }
+
+    public function sendMail($details)
+    {
+       return Mail::to($details['email'])->send(new \App\Mail\RegisterCustomerMail($details));
     }
 
     public function CompanyInfo($id)

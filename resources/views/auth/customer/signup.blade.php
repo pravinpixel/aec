@@ -29,7 +29,10 @@
                         <input type="text" name="email" class="form-control border-0 ps-0" placeholder="Email" pattern="{{ config('global.email') }}" required value="{{ old('email') }}">
                     </div>
                     @if($errors->has('email'))
-                        <span class="text-danger"> {{ $errors->first('email') }}</span>
+                        <div class="border border-danger rounded text-danger mt-3 shadow-sm small d-flex align-items-center justify-content-around">
+                            <span class="p-1 ps-2">{{ $errors->first('email') }}</span>
+                            <a href="{{ route('signup_resend', old('email')) }}" class="pe-2"><b>Resend</b></a>
+                        </div>
                     @endif
                 </div>
                 <div class="mb-3">
