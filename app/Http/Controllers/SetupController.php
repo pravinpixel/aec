@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\RoleRepositoryInterface;
+use App\Models\IfcFilesIcons;
 use App\Models\Role;
 use Exception;
 use Illuminate\Http\Request;
@@ -82,6 +83,11 @@ class SetupController extends Controller
     public function check_sheet()
     {
         return  view('admin.setup.check-sheets.check-sheet');
+    }
+    public function ifc_file_icon()
+    {
+        $files = IfcFilesIcons::latest()->paginate(10);
+        return  view('admin.setup.ifc-files.ifc-file-icon', compact('files'));
     }
     public function project_type()
     {
