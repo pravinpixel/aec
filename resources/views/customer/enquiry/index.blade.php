@@ -251,6 +251,13 @@
                 pageLength: 50,
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 serverSide: true,
+                columnDefs: [
+                    { width: "5%", targets: [1,3,7] },
+                    { width: "25%", targets: 2 },
+                    { width: "15%", targets: 4 },
+                    { width: "10%", targets: [5,6] },
+                    { class: "text-center", targets: [1,3,4,6] },
+                ],
                 ajax          : {
                     url     : '{!! route("get-customer-new-enquiries") !!}',
                     dataType: 'json',
@@ -275,7 +282,7 @@
                             $("a", nTd).tooltip({container: 'body'});
                         }
                     }
-                ],
+                ], 
                 createdRow: function ( row, data, index ) {
                     $compile(row)($scope);  //add this to compile the DOM
                 }
@@ -299,6 +306,13 @@
                       d.project_type   = $scope.project_type
                     }
                 },
+                columnDefs: [
+                    { width: "5%", targets: [1,3,7] },
+                    { width: "25%", targets: 2 },
+                    { width: "15%", targets: 4 },
+                    { width: "10%", targets: [5,6] },
+                    { class: "text-center", targets: [1,3,4,6] },
+                ],
                 columns       : [
                     {data: 'id', name: 'id', visible: false},
                     {data: 'enquiry_number', name: 'enquiry_number'},
@@ -342,6 +356,13 @@
                         d.project_type   = $scope.project_type
                     }
                 },
+                columnDefs: [
+                    { width: "5%", targets: [1,3,7] },
+                    { width: "25%", targets: 2 },
+                    { width: "15%", targets: 4 },
+                    { width: "10%", targets: [5,6] },
+                    { class: "text-center", targets: [1,3,4,6] },
+                ],
                 columns       : [
                     {data: 'id', name: 'id', visible: false},
                     {data: 'enquiry_number', name: 'enquiry_number'},

@@ -65,9 +65,9 @@ class EnquiryController extends Controller
 
     public function myEnquiries()
     {
-        $data['new_enquiries']   =   Enquiry::where(["customer_id" => Customer()->id, 'status' => 'In-Complete'])->get();
-        $data['active_enquiries']   =   Enquiry::where(["customer_id" => Customer()->id, 'status' => 'Submitted'])->get();
-        $data['complete_enquiries']   =   Enquiry::where(["customer_id" => Customer()->id, 'status' => 'Completed'])->get();
+        $data['new_enquiries']      = Enquiry::where(["customer_id" => Customer()->id, 'status' => 'In-Complete'])->get();
+        $data['active_enquiries']   = Enquiry::where(["customer_id" => Customer()->id, 'status' => 'Submitted'])->get();
+        $data['complete_enquiries'] = Enquiry::where(["customer_id" => Customer()->id, 'status' => 'Completed'])->get();
         return view('customer.enquiry.index', compact('data',  $data));
     }
 
