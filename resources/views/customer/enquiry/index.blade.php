@@ -252,11 +252,7 @@
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 serverSide: true,
                 columnDefs: [
-                    { width: "5%", targets: [1,3,7] },
-                    { width: "25%", targets: 2 },
-                    { width: "15%", targets: 4 },
-                    { width: "10%", targets: [5,6] },
-                    { class: "text-center", targets: [1,3,4,6] },
+                    { class: "text-center", targets: [0,2,3,5,6] },
                 ],
                 ajax          : {
                     url     : '{!! route("get-customer-new-enquiries") !!}',
@@ -269,7 +265,6 @@
                     }
                 },
                 columns       : [
-                    {data: 'id', name: 'id', visible: false},
                     {data: 'enquiry_number', name: 'enquiry_number'},
                     {data: 'project_name', name: 'project_name'},
                     {data: 'no_of_building', name: 'no_of_building'},
@@ -307,14 +302,9 @@
                     }
                 },
                 columnDefs: [
-                    { width: "5%", targets: [1,3,7] },
-                    { width: "25%", targets: 2 },
-                    { width: "15%", targets: 4 },
-                    { width: "10%", targets: [5,6] },
-                    { class: "text-center", targets: [1,3,4,6] },
+                    { class: "text-center", targets: [0,2,3,5,6] },
                 ],
                 columns       : [
-                    {data: 'id', name: 'id', visible: false},
                     {data: 'enquiry_number', name: 'enquiry_number'},
                     {data: 'project_name', name: 'project_name'},
                     {data: 'no_of_building', name: 'no_of_building'},
@@ -357,14 +347,9 @@
                     }
                 },
                 columnDefs: [
-                    { width: "5%", targets: [1,3,7] },
-                    { width: "25%", targets: 2 },
-                    { width: "15%", targets: 4 },
-                    { width: "10%", targets: [5,6] },
-                    { class: "text-center", targets: [1,3,4,6] },
+                    { class: "text-center", targets: [0,2,3,5,6] },
                 ],
                 columns       : [
-                    {data: 'id', name: 'id', visible: false},
                     {data: 'enquiry_number', name: 'enquiry_number'},
                     {data: 'project_name', name: 'project_name'},
                     {data: 'no_of_building', name: 'no_of_building'},

@@ -1,14 +1,13 @@
 <table id="completed-enquiries" class="table custom custom dt-responsive nowrap w-100">
     <thead>
         <tr>
-            <th> @lang('enquiry.s_no')</th>
-            <th>@lang('enquiry.enquiry_no')</th>
-            <th>@lang('enquiry.project_name')</th>
-            <th>@lang('enquiry.no_of_building')</th>
-            <th>@lang('enquiry.enquiry_date')</th>
-            <th>@lang('enquiry.pipeline')</th>
-            <th>@lang('enquiry.status')</th>
-            <th>@lang('enquiry.actions')</th>
+            <th width="100px">@lang('enquiry.enquiry_no')</th>
+            <th width="300px">@lang('enquiry.project_name')</th>
+            <th width="100px">@lang('enquiry.no_of_building')</th>
+            <th width="100px">@lang('enquiry.enquiry_date')</th>
+            <th width="150px">@lang('enquiry.pipeline')</th>
+            <th width="100px">@lang('enquiry.status')</th>
+            <th width="100px">@lang('enquiry.actions')</th>
         </tr>
     </thead>
     <tbody>
