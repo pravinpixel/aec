@@ -39,7 +39,7 @@
                                                     <tr>
                                                         <th>{{ $colKey }}</th>
                                                         <td>-</td>
-                                                        <td style="color: #9500ff">{ {{ $var }} }</td>
+                                                        <td style="color: #9500ff">${{ $var }}</td>
                                                     </tr>
                                                 @endforeach
                                             </table> 

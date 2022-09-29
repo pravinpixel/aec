@@ -95,71 +95,69 @@ class MailTemplateRepository implements MailTemplateRepositoryInterface{
     }
     public function getDocumentaryOneData($request)
     {
-        //  if(Auth::user()->id) {
-        //     print_r(Auth::user()->id);die();
-        // }
-            $enquiry  =  Enquiry::where('id',$request->enquireId)->select('id','enquiry_date','enquiry_number',
-            'contact_person','customer_id','service_id as serviceId','organization_number','building_type_id','delivery_type_id',
-            'project_name', 'project_date', 'place', 'site_address as customer_address','country','zipcode','state','no_of_building','project_delivery_date','project_info','service',
-            'ifc_model_upload','building_component','additional_info')->first()->toArray();
-            $enquiry['offer_no'] = $enquiry['enquiry_number'];
-            $enquiry['revision_no'] = "R1";
-            
-            $document =  Documentary::where('id',$request->documentId)->first();
+        $enquiry  =  Enquiry::where('id',$request->enquireId)->select('id','enquiry_date','enquiry_number',
+        'contact_person','customer_id','service_id as serviceId','organization_number','building_type_id','delivery_type_id',
+        'project_name', 'project_date', 'place', 'site_address as customer_address','country','zipcode','state','no_of_building','project_delivery_date','project_info','service',
+        'ifc_model_upload','building_component','additional_info')->first()->toArray();
+        $enquiry['offer_no'] = $enquiry['enquiry_number'];
+        $enquiry['revision_no'] = "R1";
+        
+        $document =  Documentary::where('id',$request->documentId)->first();
 
-            $customer =  Customer::where('id',$enquiry['customer_id'])
-                    ->select('id','customer_enquiry_date as  customer_enquiry_date',
-                    'first_name as customer_first_name',
-                    'last_name as customer_last_name',
-                    'full_name as customer_full_name',
-                    'organization_no as customer_organization_no',
-                    'city as customer_city',
-                    'state as customer_state',
-                    'country as customer_country',
-                    'email',
-                    'mobile_no',
-                    'company_name',
-                    'contact_person'
-                )->first()->toArray();
-            $enquiryCost = EnquiryCostEstimate::where('enquiry_id',$request->enquireId)->first();
-            $loginUserData = Admin();
-            $role = Role::where('id',$loginUserData['job_role'])->select('name')->first()->toArray();
+        $customer =  Customer::where('id',$enquiry['customer_id'])
+                ->select('id','customer_enquiry_date as  customer_enquiry_date',
+                'first_name as customer_first_name',
+                'last_name as customer_last_name',
+                'full_name as customer_full_name',
+                'organization_no as customer_organization_no',
+                'city as customer_city',
+                'state as customer_state',
+                'country as customer_country',
+                'email',
+                'mobile_no',
+                'company_name',
+                'contact_person'
+            )->first()->toArray();
+        $enquiryCost = EnquiryCostEstimate::where('enquiry_id',$request->enquireId)->first();
+        $loginUserData = Admin();
+        $role = Role::where('id',$loginUserData['job_role'])->select('name')->first()->toArray();
 
-            $countRow =  MailTemplate::where('enquiry_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
+        $countRow =  MailTemplate::where('enquiry_id',$request->enquireId)->where('documentary_id',$request->documentId)->count();
 
-            $logo = Config::get('documentary.logo.key');
-           
-            $enquiryNum =  str_replace('/','_',$enquiry['enquiry_number']);
-            $fileName   =  $enquiryNum.'_'.$document['documentary_title'].'_'.'R'.$countRow;
-            
-            $datas = array_merge($enquiry,$customer);  
-            $datas['document_title']=$document['documentary_title'];
-            $datas['role'] = $role['name'];
-            $datas['admin_user'] =  $loginUserData['user_name'];
-            $datas['project_cost'] = $enquiryCost['total_cost'];
-            $datas['revision_no'] = "R0";
-            $lo ='<img width="150px" src="'.asset($logo).'" alt="TESTING">';
-            $logo_url = ['Logo'=>$lo];
-            $datas = array_merge($datas,$logo_url);   
-            $documentData =[];
-            $changeData =[];
-            $changeData = $datas;
-            $documentData = $document['documentary_content'];
-            $keyData       = array_map(function($item){
-                return '{'.$item.'}';
-            },array_keys($changeData));
-            $valueData    = array_values($changeData);
-            $new_string = str_replace($keyData, $valueData,strval($documentData));
-            $today_date = date("d-m-Y");
-            $new_string=  str_replace('today_date',$today_date,strval($new_string));
-            $search = array('{','}');
-            $newDocumentData = str_replace($search,"",$new_string);
-            $document['documentary_content'] = $newDocumentData;
-            $data = array(
-                'enquiry'=>$enquiry,'document'=>$document,'customer'=>$customer,'fileName'=>$fileName
-            );
-
-        return ($data);
+        $logo = Config::get('documentary.logo.key');
+        
+        $enquiryNum =  str_replace('/','_',$enquiry['enquiry_number']);
+        $fileName   =  $enquiryNum.'_'.$document['documentary_title'].'_'.'R'.$countRow;
+        
+        $datas = array_merge($enquiry,$customer);  
+        $datas['document_title']=$document['documentary_title'];
+        $datas['role'] = $role['name'];
+        $datas['admin_user'] =  $loginUserData['user_name'];
+        $datas['project_cost'] = $enquiryCost['total_cost'];
+        $datas['revision_no'] = "R0";
+        $lo ='<img width="150px" src="'.asset($logo).'" alt="TESTING">';
+        $logo_url = ['Logo'=>$lo];
+        $datas = array_merge($datas,$logo_url);   
+        $documentData =[];
+        $changeData =[];
+        $changeData = $datas;
+        $documentData = $document['documentary_content'];
+        $keyData       = array_map(function($item){
+            return '{'.$item.'}';
+        },array_keys($changeData));
+        $valueData  = array_values($changeData);
+        $new_string = str_replace($keyData, $valueData,strval($documentData));
+        $today_date = date("d-m-Y");
+        $new_string = str_replace('today_date',$today_date,strval($new_string));
+        $search     = array('{','}');
+        $newDocumentData = str_replace($search,"",$new_string);
+        $document['documentary_content'] = $newDocumentData;
+        return [
+            'enquiry'  => $enquiry,
+            'document' => $document,
+            'customer' => $customer,
+            'fileName' => $fileName
+        ];
     }
     
 

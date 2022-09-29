@@ -15,7 +15,10 @@ use App\Models\Documentary\Documentary;
 use App\Models\Admin\MailTemplate;
 use App\Http\Requests\MailTemplateCreateRequest;
 use App\Http\Requests\MailTemplateUpdateRequest;
+use App\Models\Customer;
+use App\Models\EnquiryCostEstimate;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Log;
 
 class MailTemplateController extends Controller
 {
@@ -145,41 +148,63 @@ class MailTemplateController extends Controller
     }
     public function getDocumentaryOneData(Request $request)
     { 
-        $data       =   $this->mailTemplateRepository->getDocumentaryOneData($request);
-        $exists     =   $this->mailTemplateRepository->isProposalExists($request->enquireId, $request->documentId);
-
-        if( $exists ){
-            return response()->json(['status' => false, 'msg' => trans('proposal.proposal_already_generated')]);
-        }
-
-        $content    =   $data['document']['documentary_content'];
-        $title      =   $data['document']['documentary_title'];   
-       
-        // $pdf        =   PDF::loadView('admin.enquiry.enquiryPDF.enquiryPdf',compact('content','title'));
-
-        // $filePath   =   'uploads/enquiryPDF/'.$data['enquiry']['id'].'/';
-        // $path       =   public_path($filePath); 
-
-        // if(!file_exists($path)) {
-        //     mkdir($path, 0777, true);
+        // if($this->mailTemplateRepository->isProposalExists($request->enquireId, $request->documentId)){
+        //     return response()->json(['status' => false, 'msg' => trans('proposal.proposal_already_generated')]);
         // }
-        // $name_replace   =   str_replace(' ', '_', $data['fileName']);
-        // $fileName       =   $name_replace.'.'. 'pdf' ;
-        // $pdf_path       =   $filePath.$fileName;
-        // $pdf->save($path . '/' . $fileName);
-        // $pdf            =   public_path($pdf_path); 
-        // $pdf_store_name     =   'public/'.$filePath.$fileName;
-        
+
+        $enquiry     = Enquiry::with(['costEstimate','customer','project'])->find($request->enquireId);
+        $documentary = Documentary::find($request->documentId);
+ 
+       
+        // ============== VARIABLES =========
+            $enquiry_date           = $enquiry->enquiry_date;
+            $project_name           = isset($enquiry->project->project_name) == false ? "" : $enquiry->project->project_name;
+            $project_street_name    = isset($enquiry->project->site_address) == false ? "" : $enquiry->project->site_address;
+            $project_city           = isset($enquiry->project->city) == false ? "" : $enquiry->project->city;
+            $project_state          = isset($enquiry->project->state) == false ? "" : $enquiry->project->state;
+            $project_country        = isset($enquiry->project->country) == false ? "" : $enquiry->project->country;
+            $project_zipcode        = isset($enquiry->project->zipcode) == false ? "" : $enquiry->project->zipcode;
+            $no_of_building         = isset($enquiry->project->no_of_building) == false ? "" : $enquiry->project->no_of_building;
+            $project_date           = $enquiry->project_date;
+            $project_delivery_date  = isset($enquiry->project->delivery_date) == false ? "" : $enquiry->project->delivery_date;
+            $project_in_charge_name = isset($enquiry->project->contact_person) == false ? "" : $enquiry->project->contact_person;
+            $project_mobile_no      = isset($enquiry->project->project_mobile_no) == false ? "" : $enquiry->project->project_mobile_no;
+
+            $company_name             = $enquiry->company_name;
+            $customer_organization_no = $enquiry->customer->organization_no;
+            $customer_street_name     = $enquiry->site_address;
+            $customer_city            = $enquiry->city ;
+            $customer_state           = $enquiry->state ;
+            $customer_country         = $enquiry->country ;
+            $customer_zipcode         = $enquiry->zipcode ;
+            $contact_person           = $enquiry->customer->contact_person ;
+            $customer_email           = $enquiry->customer->email ;
+            $customer_mobile_no       = $enquiry->customer->mobile_no ;
+
+            $admin_name          = "";
+            $admin_role          = "";
+            $admin_email         = "";
+            $admin_mobile_no     = "";
+            $logo_image_with_url = "";
+            $signature           = "";
+            $company_website     = "";
+            $today_date          = "";
+
+        // ============== VARIABLES =========
+        $email_contents = $documentary->documentary_content;
+        eval("\$email_contents = \"$email_contents\";");
+  
+        // $data    = $this->mailTemplateRepository->getDocumentaryOneData($request);
         $enquiry_proposal = MailTemplate::create([
-            "enquiry_id"          => $data['enquiry']['id'],
-            "documentary_id"      => $data['document']['id'],
-            "documentary_content" => $data['document']['documentary_content'],
+            "enquiry_id"          => $request->enquireId,
+            "documentary_id"      => $request->documentId,
+            "documentary_content" => $email_contents,
             "documentary_date"    => date('Y-m-d'),
-            "template_name"       => $title
+            "template_name"       => $documentary->documentary_title
         ]);
       
         if($enquiry_proposal)   {
-            $enquiry = Enquiry::find($data['enquiry']['id']);
+            $enquiry = Enquiry::find($request->enquireId);
             return response()->json(['status' => true, 'msg' => trans('module.inserted')], Response::HTTP_OK);
         }
         return response()->json(['status' => true, 'msg' => trans('module.somting'),'data'=>$enquiry_proposal], Response::HTTP_OK);
