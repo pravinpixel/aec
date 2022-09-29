@@ -29,7 +29,7 @@ class AssignTechnicalEstimation extends Mailable
      */
     public function build()
     {
-        return $this->subject("Assigned for Estimation")
+        return $this->from(config('global.mail_from_address'),env('MAIL_FROM_NAME'))->subject("Assigned for Estimation")
                     ->markdown('emails.admin.technical-estimation.assign')
                     ->with('details', $this->details);
     }

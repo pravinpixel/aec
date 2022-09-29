@@ -28,6 +28,6 @@ class ApproveTechnicalEstimation extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.admin.technical-estimation.approve');
+        return $this->from(config('global.mail_from_address'),env('MAIL_FROM_NAME'))->markdown('emails.admin.technical-estimation.approve');
     }
 }

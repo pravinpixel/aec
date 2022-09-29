@@ -28,7 +28,7 @@ class UpdateCustomerMail extends Mailable
      */
     public function build()
     {
-        return $this->from(config('global.mail_from_address'))
+        return $this->from(config('global.mail_from_address'),env('MAIL_FROM_NAME'))
                     ->subject(env('MAIL_FROM_NAME')."- Reset Password")        
                     ->markdown('emails.customer.update-customer-detail')
                     ->with('details', $this->details);

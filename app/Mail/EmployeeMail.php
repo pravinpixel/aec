@@ -28,6 +28,6 @@ class EmployeeMail extends Mailable
      * @return $this
      */
     public function build()    { 
-        return $this->from(config('global.mail_from_address'))->markdown('emails.admin.employee-mail');
+        return $this->from(config('global.mail_from_address'),env('MAIL_FROM_NAME'))->markdown('emails.admin.employee-mail');
     }
 }

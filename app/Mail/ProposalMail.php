@@ -30,7 +30,7 @@ class ProposalMail extends Mailable
      */
     
     public function build()    { 
-        return $this->from(config('global.mail_from_address'))
+        return $this->from(config('global.mail_from_address'),env('MAIL_FROM_NAME'))
         ->subject("{$this->details['projectName']}|{$this->details['enquiryNo']}|{$this->details['version']}")
         ->markdown('emails.admin.proposal');
     }

@@ -31,7 +31,7 @@ class projectticketmail extends Mailable
     
 
     public function build()    { 
-        return $this->from(config('global.mail_from_address'))
+        return $this->from(config('global.mail_from_address'),env('MAIL_FROM_NAME'))
         ->subject("{$this->details['project_name']}|{$this->details['ticket_id']}")
         ->markdown('emails.ProjectTicketMail')
         ->with('details',$this->details);

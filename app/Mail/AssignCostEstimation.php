@@ -28,7 +28,8 @@ class AssignCostEstimation extends Mailable
      */
     public function build()
     {
-        return $this->subject("Assigned for Verification")
+        return $this->from(config('global.mail_from_address'),env('MAIL_FROM_NAME'))
+                    ->subject("Assigned for Verification")
                     ->markdown('emails.admin.cost-estimation.assign')
                     ->with('details', $this->details);
     }
