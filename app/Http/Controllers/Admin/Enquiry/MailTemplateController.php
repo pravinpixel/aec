@@ -17,6 +17,7 @@ use App\Http\Requests\MailTemplateCreateRequest;
 use App\Http\Requests\MailTemplateUpdateRequest;
 use App\Models\Customer;
 use App\Models\EnquiryCostEstimate;
+use App\Models\Role;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Log;
 
@@ -181,14 +182,27 @@ class MailTemplateController extends Controller
             $customer_email           = $enquiry->customer->email ;
             $customer_mobile_no       = $enquiry->customer->mobile_no ;
 
-            $admin_name          = "";
-            $admin_role          = "";
-            $admin_email         = "";
-            $admin_mobile_no     = "";
-            $logo_image_with_url = "";
-            $signature           = "";
-            $company_website     = "";
-            $today_date          = "";
+            $admin_name               = Admin()->user_name;
+            $admin_role               = Role::find(Admin()->job_role)->name;
+            $admin_email              = Admin()->email;
+            $admin_mobile_no          = Admin()->mobile_number;
+            $logo_image_with_url      = '<img width="150px" src="'.config('global.logo').'" alt="AEC PREFAB LOGO" />';
+            $signature                = '<img width="150px" src="'.config('global.signature').'" alt="signature" />';
+            $company_website          = url('');
+            $today_date               = date("d-m-Y");
+
+            $calculated_total_price = $enquiry->costEstimate->total_cost;
+            $building_comp_1_name   = "";
+            $building_comp_2_name   = "";
+            $building_comp_3_name   = "";
+            $building_comp_4_name   = "";
+            $building_comp_1_area   = "";
+            $building_comp_2_area   = "";
+            $building_comp_3_area   = "";
+            $building_comp_4_area   = "";
+
+            $offer_number = "";
+            $rev_number   = "";
 
         // ============== VARIABLES =========
         $email_contents = $documentary->documentary_content;
