@@ -189,7 +189,11 @@ app.directive('getTotalComponents',   ['$http' ,function ($http, $scope,$apply) 
     return {
         restrict: 'A',
         link : function (scope, element, attrs) { 
-            element.on('change', function () {
+            // element.on('click', function () {
+            //     element.focus();
+            //     element.select();
+            // })
+            element.on('blur', function () {
                 var finalResult  =  Number(scope.est.sqfeet).toFixed(2)
                 scope.est.sqfeet = finalResult
                 console.log("Called ... ")
