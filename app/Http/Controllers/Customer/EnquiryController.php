@@ -78,7 +78,8 @@ class EnquiryController extends Controller
     }
 
     public function myEnquiriesEdit($id, $type = null)
-    {
+    { 
+        session()->put('enquiry_id', $id);
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         if ($type == 'new') {
             $activeTab   = $this->getIncompletePanel($enquiry)[0] ?? '';
@@ -89,6 +90,7 @@ class EnquiryController extends Controller
         }
         $enquiry = $this->customerEnquiryRepo->getEnquiry($id);
         $customer['document_types']     =   $this->documentTypeRepo->all();
+        
         if (empty($enquiry)) {
             abort(403, 'Unauthorized action.');
         } else {
