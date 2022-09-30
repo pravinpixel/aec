@@ -138,9 +138,9 @@
         <table class="table custom custom table-hover">
             <thead>
                 <tr>
-                    <th><b>S.No</b></th>
-                    <th><b>Date</b></th>
-                    <th><b>File Type</b></th>
+                    <th class="text-center"><b>S.No</b></th>
+                    <th class="text-center" width="100px"><b>Date</b></th>
+                    <th class="text-center" width="150px"><b>File Type</b></th>
                     <th><b>File Name</b></th>
                     <th class="text-center" width="150px"><b>Action</b></th>
                 </tr>
@@ -148,18 +148,27 @@
                     @if (isset($enquiry['ifc_model_uploads'] ))
                         @foreach ($enquiry['ifc_model_uploads']  as $i =>  $doc)
                             <tr>
-                                <td>{{ $i+1 }}</td>
-                                <td>{{ $doc->created_at }}</td>
-                                <td>{{ $doc->file_type }}</td>
+                                <td  class="text-center">{{ $i+1 }}</td>
+                                <td  class="text-center">{{ $doc->created_at }}</td>
+                                <td  class="text-center">
+                                    <img src="{{ url("storage/app/ifc-icons")."/".$doc->file_type }}.png" width="20px" class="me-1">
+                                    {{ $doc->file_type }}
+                                </td>
                                 <td>{{ $doc->client_file_name }}</td>
                                 <td class="text-center">
-                                    @if ($doc->file_type != 'link')
-                                        <a download="{{ $doc->file_name }}" href="{{ asset("public/uploads/".$doc->file_name) }}">
-                                            <i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i>
-                                        </a>
-                                        <a href="{{ asset("public/uploads/".$doc->file_name) }}" target="_child"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                    @if ($doc->file_type != 'link') 
+                                        <div class="btn-group border border-white shadow-sm ">
+                                            @if ($doc->file_type == 'pdf' || $doc->file_type == 'jpg' || $doc->file_type == 'png' || $doc->file_type == 'jpeg' || $doc->file_type == 'svg')
+                                                <button src="{{ asset("public/uploads/".$doc->file_name) }}" class="file-viewer btn-sm btn btn-success text-black">
+                                                    <i class="feather-eye feather" style="pointer-events: none"></i>
+                                                </button>
+                                            @endif
+                                            <a download="{{ $doc->file_name }}" class="btn-sm btn btn-warning" href="{{ asset("public/uploads/".$doc->file_name) }}">
+                                                <i class="feather-arrow-down feather"></i>
+                                            </a>
+                                        </div>
                                         @else
-                                            <a class="" target="_blank" href="{{ $doc->file_name }}"><i class="fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                            <a class=" border-white shadow-sm btn-sm btn btn-success text-black border" target="_blank" href="{{ $doc->file_name }}"><i class="feather-eye feather"></i></a>
                                     @endif
                                 </td>
                             </tr>
@@ -278,3 +287,4 @@
         </div>
     </x-accordion>
 </div>
+<script src="{{ asset('public/assets/js/file-viewer.js') }}"></script> 
