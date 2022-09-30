@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CostGanttLinkController;
 use App\Http\Controllers\Admin\Project\ProjectController;
 use App\Http\Controllers\Admin\Project\ProjectGranttChartLinkController;
 use App\Http\Controllers\Admin\Project\ProjectGranttChartTaskController;
+use App\Http\Controllers\HelperController;
 
 /*
 |--------------------------------------------------------------------------

@@ -2,7 +2,7 @@
     <div class="card-header {{ $open  == 'false' ? 'collapsed' : ''}}" id="custom-accordion-head-{{ slug($title) }}" data-bs-toggle="collapse" data-bs-target="#custom-accordion-collapse-{{ slug($title) }}">
         <div class="card-title">{{ $title }}</div> 
         <i class="accordion-icon"></i> 
-        @switch(slug($title))
+        {{-- @switch(slug($title))
             @case('new-enquiries')
                 <small class="comments-count">1</small>
             @break
@@ -47,7 +47,7 @@
             <span class="comments-count" id="project-unestablished-count"> </span>
             @break
             @default
-        @endswitch
+        @endswitch --}}
     </div>
     <div class="card-body collapse {{ $open }} {{ $open == 'true' ? "show" : '' }}" id="custom-accordion-collapse-{{ slug($title) }}">
         <div class="card-content">

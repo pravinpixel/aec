@@ -1,13 +1,7 @@
 <div class="p-3" id="reviewSubmit">
     <section>
-        <x-enquiry-quick-view id="{{ session()->get('enquiry_id') }}"/> 
-        {{-- 
-        <x-accordion title="Selected Services" path="customer.enquiry.wizard.overview.selected-service" open="false"></x-accordion>
-        <x-accordion title="IFC Models and Uploaded Documents" path="customer.enquiry.wizard.overview.ifc-upload" open="false"></x-accordion>
-        <x-accordion title="Building Components" path="customer.enquiry.wizard.overview.building-components" open="false"></x-accordion>
-        <x-accordion title="Additional Information" path="customer.enquiry.wizard.overview.additional-information" open="false"></x-accordion> --}}
+        <x-enquiry-quick-view id="{{ session()->get('enquiry_id') }}"/>
     </section>
-    
     <div class="card-footer border-0 p-0 ">
         <ul class="list-inline wizard mb-0 pt-3">
             <li class="previous list-inline-item disabled"></li> 

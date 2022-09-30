@@ -37,7 +37,7 @@ use App\Http\Controllers\Auth\AuthCustomerController;
 use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-
+use App\Http\Controllers\HelperController;
 
 /*
 |--------------------------------------------------------------------------
@@ -312,3 +312,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('/my-account', [AdminAccountController::class,'update_profile'])->name('update.my-account-profile');
     Route::post('/change-account-password', [AdminAccountController::class,'change_password'])->name('change-account-password');
 });
+
+Route::get('enquiry-quick-view/{id}', [HelperController::class , 'enquiry_quick_view']);

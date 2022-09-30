@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use App\Http\Controllers\Customer\EnquiryController;
-use App\Interfaces\CustomerEnquiryRepositoryInterface;
+use Illuminate\Support\Facades\App;
 use Illuminate\View\Component;
 
 class enquiryQuickView extends Component
@@ -14,9 +14,8 @@ class enquiryQuickView extends Component
      *
      * @return void
      */
-    public function __construct(EnquiryController $enquiry, $id) {
-        $this->enquiry = $enquiry;
-        $this->id      = $id;
+    public function __construct($id) {
+        $this->id = $id;
     }
     /**
      * Get the view / contents that represent the component.
@@ -24,8 +23,8 @@ class enquiryQuickView extends Component
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
     public function render()
-    { 
-        $enquiry = $this->enquiry->getEditEnquiryReview($this->id); 
+    {
+        $enquiry =  App::make("App\Http\Controllers\Customer\EnquiryController")->getEditEnquiryReview($this->id);
         return view('components.enquiry-quick-view', compact('enquiry'));
     }
 }

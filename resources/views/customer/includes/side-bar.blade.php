@@ -1,7 +1,7 @@
 <div class="leftside-menu">
     
     <!-- LOGO -->
-    <a href="#" class="logo text-center logo-light shadow-lg"  style="background:white !important">
+    <a href="{{ route('customers-dashboard') }}" class="logo text-center logo-light shadow-lg"  style="background:white !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 <img src="{{ asset('public/assets/images/customer/logo.png') }}" alt="AEC Prefab" width="150px">
@@ -13,7 +13,7 @@
     </a>
 
     <!-- LOGO -->
-    <a href="#" class="logo text-center logo-dark" style="background:gray !important">
+    <a href="{{ route('customers-dashboard') }}" class="logo text-center logo-dark" style="background:gray !important">
         <span class="logo-lg font-weight-bold">
             <span class="page-title text-danger">
                 <img src="{{ asset('public/assets/images/logo_customer.png') }}" alt="AEC Prefab" width="100px" style="filter: drop-shadow(2px 4px 6px #555555);">

@@ -58,6 +58,7 @@
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('public/assets/js/custom.js') }}"></script>
 <!-- ========= For Vendors Js ===========-->
 <!-- ========= For Validation Js ===========-->

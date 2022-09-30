@@ -98,7 +98,7 @@ $.fn.EZView = function(){
             isPdf = src.match('.pdf');
 
         // Content to show
-        var content = '<img index-render="'+index+'" src="'+src+'" class="content" />';
+        var content = '<img index-render="'+index+'" src="'+src+'" class="content border" />';
 
         // To show pdf files
         if (isPdf) {

@@ -39,15 +39,26 @@
         <!-- END wrapper --> 
         @include('modal.delete');
         @include('customer.includes.footer-scripts')
-           <script src="https://code.highcharts.com/highcharts.js"></script>
-            <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <div class="modal fade" id="EnquiryQuickViewPopUp" tabindex="-1" aria-labelledby="EnquiryQuickViewPopUpLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-right w-100">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EnquiryQuickViewPopUpLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-content h-100 p-4" style="overflow: auto"> 
+                    <div id="EnquiryQuickViewPopUpContent"></div> 
+                </div>
+            </div>
+        </div>
+        <script src="{{ asset('public/assets/js/file-viewer.js') }}"></script> 
         @stack('custom-scripts')
        
         <script>
             function goBack() {
                 window.history.back();
             } 
-            
             getTimeStamp = (event) => {
                 for (const iterator of event.parentNode.childNodes) {
                     if(iterator.nodeName == 'SMALL') {
@@ -55,6 +66,6 @@
                     }
                 }
             }
-        </script>  
+        </script>
     </body>
 </html>
