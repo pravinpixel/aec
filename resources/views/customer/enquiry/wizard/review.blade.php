@@ -1,5 +1,4 @@
 <div id="reviewSubmit">
-    {{-- <h1>{{ session()->get('enquiry_id') }}</h1> --}}
     <section id="enquiryOverView"> </section>
     <div class="card-footer p-3">
         <div class="row m-0">

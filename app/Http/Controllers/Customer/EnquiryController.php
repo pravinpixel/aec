@@ -705,14 +705,15 @@ class EnquiryController extends Controller
                 ->where(['status' => 'Submitted', 'customer_id' => Customer()->id]);
 
             return DataTables::eloquent($dataDb)
+                // <button type="button" class="btn-quick-view ' . $proposal_active_bg . ' ' . $proposal_active_border . '"  ng-click=getEnquiry("project_info",' . $dataDb->id . ')> 
                 ->editColumn('enquiry_number', function ($dataDb) {
                     $commentCount = $dataDb->comments->count();
                     $proposal_active_border = $dataDb->proposal_email_status == 1 ? 'border-success' : 'border-primary';
                     $proposal_active_bg = $dataDb->proposal_email_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten';
                     $data = '
-                    <button type="button" class="btn-quick-view ' . $proposal_active_bg . ' ' . $proposal_active_border . '"  ng-click=getEnquiry("project_info",' . $dataDb->id . ')> 
-                    ' . $dataDb->enquiry_number . '
-                ';
+                         <button type="button" class="btn-quick-view" onclick=EnquiryQuickView('. $dataDb->id .')>
+                            ' . $dataDb->enquiry_number . '
+                        ';
                     if ($commentCount != 0) {
                         $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
                     }
@@ -787,7 +788,8 @@ class EnquiryController extends Controller
             return DataTables::eloquent($dataDb)
                 ->editColumn('enquiry_number', function ($dataDb) {
                     $commentCount = $dataDb->comments->count();
-                    $data = '<button type="button" class="btn-quick-view"  ng-click=getEnquiry("project_info",' . $dataDb->id . ')> 
+                    // <button type="button" class="btn-quick-view"  ng-click=getEnquiry("project_info",' . $dataDb->id . ')> 
+                    $data = '<button type="button" class="btn-quick-view" onclick=EnquiryQuickView('. $dataDb->id .')>
                     <b>' . $dataDb->enquiry_number . '</b>';
                     if ($commentCount != 0) {
                         $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
