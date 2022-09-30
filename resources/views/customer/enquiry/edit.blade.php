@@ -14,12 +14,10 @@
                 @include('customer.includes.page-navigater')
             </div>
 
-
-            <div class="card border">
-                <div class="card-body pt-0 pb-0">
-
+            <div class="card border shadow-sm">
+                <div class="card-body p-0">
                     <div id="rootwizard" ng-controller="wizard" style="display: none">
-                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light ">
+                        <ul class="nav nav-pills nav-justified form-wizard-header bg-light m-0">
                             <li class="nav-item projectInfoForm"  data-target-form="#projectInfoForm">
                                 <a href="#!/" style="min-height: 40px;" class="timeline-step  {{$enquiry->project_info == '1' ? "active" : ""}} " id="project-info">
                                     <div class="timeline-content">
@@ -111,7 +109,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content my-3" >
+                        <div class="tab-content" >
                            <ng-view></ng-view>
                         </div> <!-- tab-content -->
                     </div> <!-- end #rootwizard-->
@@ -1129,7 +1127,10 @@
         });
 
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location){
-
+            setTimeout(() => {
+                console.log("refreshed")
+                refreshFsLightbox();
+            }, 2000);
             var enquiry_id = {{$id}};
             $http({
                 method: 'GET',

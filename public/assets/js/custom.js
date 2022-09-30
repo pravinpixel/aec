@@ -199,7 +199,9 @@ EnquiryQuickView = (id) => {
         if(response.status === 200) {
             $("#EnquiryQuickViewPopUp").modal('show')
             document.getElementById("EnquiryQuickViewPopUpContent").innerHTML = response.data
-            $('.file-viewer').EZView();
+            setTimeout(() => {
+                refreshFsLightbox();
+            }, 2000);
         }
     });
 }
