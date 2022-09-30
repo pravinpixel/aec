@@ -109,7 +109,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content" >
+                        <div class="tab-content">
                            <ng-view></ng-view>
                         </div> <!-- tab-content -->
                     </div> <!-- end #rootwizard-->
@@ -1137,7 +1137,8 @@
                     refreshFsLightbox();
                 }, 2000);
             });
-
+            
+             
             $scope.saveOrSubmit = (value) => {
                 $http({
                     method: 'POST',
@@ -1175,6 +1176,22 @@
                         Message('danger', 'Something went wrong');
                     });
             }
+            getLastEnquiry = (enquiry_id)  => {
+                console.log(enquiry_id);
+                if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
+                    return false;
+                }
+                $http({
+                    method: 'GET',
+                    url: `${API_URL}customers/edit-enquiry-review/${enquiry_id}`,
+                }).then(function (res) {
+                    enableActiveTabs(res.data.active_tabs);
+                    $scope.project_info = res.data.project_infos;
+                }, function (error) {
+                    console.log('This is embarassing. An error has occurred. Please check the log for details');
+                });
+            }
+            getLastEnquiry({{ $id }})
 
             $scope.glued = true;
 

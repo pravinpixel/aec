@@ -18,6 +18,7 @@
     </div>
     @include('customer.enquiry.models.document-modal')
 </div>
+
 <style> 
     .reviewSubmit .timeline-step .inner-circle{
         background: var(--secondary-bg) !important;
