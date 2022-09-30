@@ -1,4 +1,4 @@
-<form class="row m-0" ng-submit="submitAdditionalinfoForm()" name="additionalinfoForm" novalidate id="additionalInformation">
+<form class="row m-0 pt-3" ng-submit="submitAdditionalinfoForm()" name="additionalinfoForm" novalidate id="additionalInformation">
     <div class="col-sm-8 mx-auto">
         <div>
             <h3 class="text-center">Specify additional details</h3>
@@ -13,7 +13,7 @@
     </div>
     <hr ng-show="commentShow">  
     <div class="col-md-4 ms-auto"  ng-show="commentShow">
-        <div class="card border shadow-sm mb-0">
+        <div class="card border shadow-sm">
             <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -41,13 +41,13 @@
             </div>
         </div>  
     </div>  
-    <div class="card-footer border-0 p-0">
-        <ul class="list-inline wizard mb-0 pt-3">
+    <div class="card-footer p-3">
+        <ul class="list-inline wizard m-0">
             <li class="previous list-inline-item disabled"><a href="#!/building-component" class="btn btn-light border shadow-sm">Prev</a></li>
             <li class="next list-inline-item float-end"><input  class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
             <li class="next list-inline-item float-end mx-2"><input class="btn btn-light border shadow-sm"  ng-click="saveAndSubmitAdditionalinfoForm()" type="button" name="submit"  value="Save & Submit Later"/></li>
         </ul>
-    </div> 
+    </div>
 </form> 
 <style> 
     .additionalInformation .timeline-step .inner-circle{

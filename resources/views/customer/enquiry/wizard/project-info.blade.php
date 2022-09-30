@@ -1,5 +1,5 @@
 <form id="projectInfoForm" ng-submit="submitProjectInfoForm(projectInfoForm.$invalid)" name="projectInfoForm" method="post" class="form-horizontal" novalidate>
-    <div class="row m-0">
+    <div class="row m-0 p-3 px-2">
         <div class="col-md-4">
             <div class="form-floating  mb-2">
                 <input disabled value="" ng-model="enquiry_date" type="date" class="form-control form-control-sm" id="floating"  required/>
@@ -146,9 +146,8 @@
             </div>
         </div>
     </div>
-    
-    <div class="card-footer border-0 p-0">
-        <ul class="list-inline wizard mb-0 pt-3">
+    <div class="card-footer">
+        <ul class="list-inline wizard">
             <li class="previous list-inline-item disabled"><a href="#" class="btn btn-light border shadow-sm">Prev</a></li>
             <li class="next list-inline-item float-end"><input  class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
             <li class="next list-inline-item float-end mx-2"><input  class="btn btn-light border shadow-sm" ng-click="ProjectInfoSaveAndSubmit(projectInfoForm.$invalid)" type="submit" name="submit"  value="Save & Submit Later"/></li>

@@ -1,4 +1,4 @@
-<form class="row" id="buildingComponent" name="buildingComponentForm" novalidate>
+<form class="row p-3 m-0" id="buildingComponent" name="buildingComponentForm" novalidate>
 
     {{-- <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert">
         <div class="row m-0">
@@ -409,8 +409,8 @@
     @include('customer.enquiry.models.add-layer-modal')
     @include('customer.enquiry.models.add-template-modal')
     @include('customer.enquiry.modal')
-    <div class="card-footer border-0 p-0 " >
-        <ul class="list-inline wizard mb-0 pt-3">
+    <div class="card-footer p-3">
+        <ul class="list-inline wizard m-0">
             <li class="previous list-inline-item disabled"><a href="#!/ifc-model-upload" class="btn btn-light border shadow-sm">Prev</a></li> 
             <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent(buildingComponentForm.$invalid)"  ng-show="showHideBuildingComponent == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li> 
             <li class="next list-inline-item float-end"><input ng-click="submitBuildingComponent(buildingComponentForm.$invalid)"  ng-show="showHideBuildingComponent == 1" ng-disabled="buildingComponentUploads.length == 0" class="btn btn-primary" type="submit" name="submit" value="Next"/></li>
