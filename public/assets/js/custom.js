@@ -205,3 +205,16 @@ EnquiryQuickView = (id) => {
         }
     });
 }
+
+viewCustomerEnquiryProposal = (id) => {
+    $("#CustomerViewProposalModal").modal('show')
+    axios.get(`${APP_URL}/proposal-quick-view/${id}`).then((response) => {
+        if(response.status === 200) {
+            $("#CustomerViewProposalModal").modal('show')
+            document.getElementById("CustomerViewProposalModalContent").innerHTML = response.data
+            setTimeout(() => {
+                refreshFsLightbox();
+            }, 2000);
+        }
+    }); 
+}

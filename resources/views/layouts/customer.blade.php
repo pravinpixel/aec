@@ -39,6 +39,7 @@
         </div>
         <!-- END wrapper --> 
         @include('modal.delete');
+        @include('customer.enquiry.models.view-proposal-modal')
         @include('customer.includes.footer-scripts')
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/highcharts-more.js"></script>

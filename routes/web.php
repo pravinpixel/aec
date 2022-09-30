@@ -314,3 +314,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 });
 
 Route::get('enquiry-quick-view/{id}/{type}', [HelperController::class , 'enquiry_quick_view']);
+Route::get('proposal-quick-view/{id}', [HelperController::class , 'proposal_quick_view']);
