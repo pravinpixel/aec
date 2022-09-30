@@ -1191,21 +1191,37 @@
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $location,  $timeout){
             var enquiry_id;
             $("#review").addClass('active');
+
+
             $http({
                 method: 'GET',
                 url: '{{ route('get-customer-enquiry') }}'
             }).then( function(res) {
+                    var enquiry_ID 
                     if(res.data.status == "false") {
                         $scope.enquiry_number = res.data.enquiry_number;
                         enquiry_id = res.data.enquiry_id;
-                        
+                        enquiry_ID = res.data.enquiry_id;
                         getLastEnquiry(enquiry_id);
                     } else {
                         $scope.enquiry_no = res.data.enquiry.enquiry_number;
+                        enquiry_ID = res.data.enquiry.enquiry_number;
                     }
+
+                    $http({
+                        method: 'GET',
+                        url: `${APP_URL}/enquiry-quick-view/${enquiry_ID}/view`
+                    }).then( function(response) {
+                        document.getElementById("enquiryOverView").innerHTML = response.data
+                        setTimeout(() => {
+                            refreshFsLightbox();
+                        }, 2000);
+                    });
                 }, function (err) {
                     console.log('get enquiry error');
             });
+
+            
 
             getEnquiryCommentsCountById = (id) => {
                 $http({

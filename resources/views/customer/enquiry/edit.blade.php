@@ -1127,84 +1127,16 @@
         });
 
         app.controller('Review', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location){
-            setTimeout(() => {
-                console.log("refreshed")
-                refreshFsLightbox();
-            }, 2000);
-            var enquiry_id = {{$id}};
+             
             $http({
                 method: 'GET',
-                url: '{{ route('get-customer-enquiry') }}'
-            }).then( function(res) {
-                    getLastEnquiry(enquiry_id);
-                    if(res.data.status == "false") {
-                        $scope.enquiry_number = res.data.enquiry_number;
-
-                    } else {
-                        $scope.enquiry_no = res.data.enquiry.enquiry_number;
-                    }
-                }, function (err) {
-                    console.log('get enquiry error');
+                url: `${APP_URL}/enquiry-quick-view/{{$id}}/view`
+            }).then( function(response) {
+                document.getElementById("enquiryOverView").innerHTML = response.data
+                setTimeout(() => {
+                    refreshFsLightbox();
+                }, 2000);
             });
-            getEnquiryCommentsCountById = (id) => {
-                $http({
-                    method: "get",
-                    url:  API_URL + 'admin/comments-count/'+id ,
-                }).then(function successCallback(response) {
-                    $scope.enquiry_comments     = response.data;
-                }, function errorCallback(response) {
-                    Message('danger',response.data.errors);
-                });
-            }
-
-            getEnquiryActiveCommentsCountById = (id) => {
-                $http({
-                    method: "get",
-                    url:  API_URL + 'admin/active-comments-count/'+id ,
-                }).then(function successCallback(response) {
-                    $scope.enquiry_active_comments     = response.data;
-                }, function errorCallback(response) {
-                    Message('danger',response.data.errors);
-                });
-            }
-
-            getAutoDeskFileTypes = () => {
-                $http({
-                    method: 'GET',
-                    url: '{{ route("get-autodesk-file-type") }}'
-                }).then(function (res) {
-                    $scope.autoDeskFileType = res.data;
-                });
-            }
-            getAutoDeskFileTypes();
-
-            getLastEnquiry = (enquiry_id)  => {
-                console.log(enquiry_id);
-                if(typeof(enquiry_id) == 'undefined' || enquiry_id == ''){
-                    return false;
-                }
-                $http({
-                    method: 'GET',
-                    url: `${API_URL}customers/edit-enquiry-review/${enquiry_id}`,
-                }).then(function (res) {
-                    enableActiveTabs(res.data.active_tabs);
-                    $scope.project_info = res.data.project_infos;
-                    $scope.outputTypes = res.data.services;
-                    $scope.ifc_model_uploads = res.data.ifc_model_uploads;
-                    $scope.building_components = res.data.building_components;
-                    $scope.enquiry_comments = res.data.enquiry_comments;
-                    $scope.htmlEditorOptions = {
-                        height: 300,
-                        value:  (res.data.additional_infos == null) ? '' : res.data.additional_infos.comments,
-                        mediaResizing: {
-                        enabled: false,
-
-                        },
-                    };
-                }, function (error) {
-                    console.log('This is embarassing. An error has occurred. Please check the log for details');
-                });
-            }
 
             $scope.saveOrSubmit = (value) => {
                 $http({
@@ -1350,6 +1282,9 @@
         });
 
         app.controller('IFCModelUpload', function ($scope, $http, $rootScope, Notification, API_URL, $timeout, $location,  $timeout, fileUpload){
+            setTimeout(() => {
+                refreshFsLightbox();
+            }, 2000);
             $scope.commentShow = true;
             $("#ifc-model-upload").addClass('active');
             $scope.documentLists = [];

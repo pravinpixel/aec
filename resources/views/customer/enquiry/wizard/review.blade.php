@@ -1,8 +1,6 @@
 <div id="reviewSubmit">
-    {{-- <h1>{{ session()->get('enquiry_id') }}</h1>     --}}
-    <section>
-        <x-enquiry-quick-view id="{{ session()->get('enquiry_id') }}" table="0" chat="0" />
-    </section>
+    {{-- <h1>{{ session()->get('enquiry_id') }}</h1> --}}
+    <section id="enquiryOverView"> </section>
     <div class="card-footer p-3">
         <div class="row m-0">
             <div class="col-6 p-0"><a href="#!/additional-info" class="btn btn-light border shadow-sm">Prev</a></div>

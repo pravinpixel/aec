@@ -330,7 +330,7 @@
                                     <td>{{ $build->file_type }}</td>
                                     <td class="text-center">
                                         <a download="{{ asset("public/uploads/".$build->file_path) }}" href="{{ asset("public/uploads/".$build->file_path) }}"><i class="fa fa-download btn-sm rounded-pill btn btn-outline-primary"></i></a>
-                                        <a target="_child" href="{{ asset("public/uploads/".$build->file_path) }}" ><i class="document-modal fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
+                                        <a data-fslightbox="lightbox"  href="{{ asset("public/uploads/".$build->file_path) }}" ><i class="document-modal fa fa-eye btn-sm rounded-pill btn btn-outline-info"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
