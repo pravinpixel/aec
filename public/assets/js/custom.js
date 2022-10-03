@@ -216,5 +216,32 @@ viewCustomerEnquiryProposal = (id) => {
                 refreshFsLightbox();
             }, 2000);
         }
+    });
+}
+
+sendMessage = (e) => {
+    e.preventDefault()
+    var config = [] 
+    Object.entries(e.target.children).map((Element) => {
+        if(Element[1].localName == 'input') {
+            config[Element[1].name] =  Element[1].value
+        }
+    })
+    axios.post(`${APP_URL}/send-message`, {
+        menu_name   : config.menu_name,
+        message     : config.message,
+        module_id   : config.module_id,
+        module_name : config.module_name
+    }).then(function (response) {
+        var li = ''
+        response.data.conversations.map((item) => {
+            li += `
+                <li class="${item.sender_role}-message" >
+                    <div>${item.message}</div>
+                    <small>${item.sender_role} | ${item.send_date}</small>
+                </li>
+            `
+        })
+        $("#inbox-conversation-list").html(li)
     }); 
 }

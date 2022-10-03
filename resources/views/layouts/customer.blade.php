@@ -44,7 +44,7 @@
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/highcharts-more.js"></script>
 
-        <div class="modal fade" id="EnquiryQuickViewPopUp" tabindex="-1" aria-labelledby="EnquiryQuickViewPopUpLabel" aria-hidden="true" >
+        <div class="modal fade" id="EnquiryQuickViewPopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
             <div class="modal-dialog modal-xl modal-right w-100">
                 <div class="modal-content h-100 p-0" style="overflow: auto"> 
                     <div id="EnquiryQuickViewPopUpContent"></div> 
