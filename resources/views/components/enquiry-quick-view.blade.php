@@ -144,7 +144,13 @@
                         </tr>
                     @endif 
                 </tbody>
-            </table>
+            </table> 
+            <x-chat-box 
+                :status="$chat_status" 
+                :moduleId="$enquiry['project_infos']['enquiry_id']" 
+                moduleName="enquiry" 
+                menuName="{{ __('app.Project Information') }}" 
+            />
         </x-accordion>
         <x-accordion title="Selected Services" path="false" open="false"> 
             <ul>
@@ -162,6 +168,12 @@
                     </li>
                 @endforeach
             </ul>
+            <x-chat-box 
+                :status="$chat_status" 
+                :moduleId="$enquiry['project_infos']['enquiry_id']" 
+                moduleName="enquiry" 
+                menuName="{{ __('app.Selected Services') }}" 
+            />
         </x-accordion>
         <x-accordion title="IFC Models and Uploaded Documents" path="false" open="false">  
             <table class="table custom custom table-hover">
@@ -247,6 +259,12 @@
                     </tbody>
                 </thead>
             </table>
+            <x-chat-box 
+                :status="$chat_status"
+                :moduleId="$enquiry['project_infos']['enquiry_id']" 
+                moduleName="enquiry" 
+                menuName="{{ __('app.IFC Models and Uploaded Documents') }}" 
+            />
         </x-accordion> 
         <x-accordion title="Building Components" path="false" open="false">
             @if ($enquiry['project_infos']['building_component_process_type'] == 0)

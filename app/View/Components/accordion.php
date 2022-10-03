@@ -8,7 +8,7 @@ class accordion extends Component
 {
     public $title;
     public $path;
-    public $open;
+    public $open; 
     /**
      * Create a new component instance.
      *
