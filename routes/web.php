@@ -319,4 +319,5 @@ Route::get('proposal-quick-view/{id}', [HelperController::class , 'proposal_quic
 
  
 Route::get('/inbox', [InboxController::class , 'inbox']);
+Route::get('/get-token', [InboxController::class , 'get_token']);
 Route::post('/inbox', [InboxController::class , 'store'])->name('save-token');

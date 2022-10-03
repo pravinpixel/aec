@@ -9,7 +9,11 @@ use Kutia\Larafirebase\Facades\Larafirebase;
 
 class InboxController extends Controller
 {
-    public function inbox()
+    public function index()
+    {
+        return view('inbox');
+    }
+    public function get_token()
     {
         
         $title     = "test";
