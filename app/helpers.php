@@ -74,3 +74,13 @@ if(!function_exists('slug')) {
     }
 }
  
+if(!function_exists('AuthUser')) {
+    function AuthUser(){ 
+        if(!is_null(Admin()))   {
+            return "Admin";
+        }
+        if(!is_null(Customer()))   {
+            return "Customer";
+        }
+    }
+}
