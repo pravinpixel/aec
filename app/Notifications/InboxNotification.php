@@ -45,8 +45,8 @@ class InboxNotification extends Notification
     public function toFirebase($notifiable)
     {
         return (new FirebaseMessage)
-                    ->withTitle($this->title)
-                    ->withBody($this->message)
+                    ->withTitle("This TITLE TESTING")
+                    ->withBody("TEST BODY")
                     ->withPriority('high')->asMessage($this->fcmTokens);
     }
 
