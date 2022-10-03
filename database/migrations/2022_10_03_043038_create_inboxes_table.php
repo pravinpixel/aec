@@ -15,6 +15,16 @@ class CreateInboxesTable extends Migration
     {
         Schema::create('inboxes', function (Blueprint $table) {
             $table->id();
+            $table->string('sender_role');
+            $table->integer('sender_id');
+            $table->string('receiver_role');
+            $table->integer('receiver_id');
+            $table->string('module_name');
+            $table->integer('module_id');
+            $table->string('menu_name');
+            $table->text('message');
+            $table->boolean('read_status')->default(false); 
+            $table->string('send_date'); 
             $table->timestamps();
         });
     }
