@@ -38,6 +38,7 @@ use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\HelperController;
+use App\Http\Controllers\InboxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -315,3 +316,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
 Route::get('enquiry-quick-view/{id}/{type}', [HelperController::class , 'enquiry_quick_view']);
 Route::get('proposal-quick-view/{id}', [HelperController::class , 'proposal_quick_view']);
+
+ 
+Route::get('/inbox', [InboxController::class , 'inbox']);
+Route::post('/inbox', [InboxController::class , 'store'])->name('save-token');
