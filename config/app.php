@@ -251,8 +251,8 @@ return [
         //custome service provider
         'GlobalService'   => App\Services\GlobalService::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Image' => Intervention\Image\Facades\Image::class
-
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Helper' => App\Helper\Notify::class, 
     ],
 
 ];
