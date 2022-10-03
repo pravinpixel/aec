@@ -22,10 +22,10 @@ class InboxController extends Controller
         
         // Larafirebase::withTitle($title)
         //     ->withBody('Test body')
-        //     ->withImage('https://firebase.google.com/images/social.png')
-        //     ->withIcon('https://seeklogo.com/images/F/firebase-logo-402F407EE0-seeklogo.com.png')
-        //     ->withSound('default')
-        //     ->withClickAction('https://www.google.com')
+            // ->withImage('https://firebase.google.com/images/social.png')
+            // ->withIcon('https://seeklogo.com/images/F/firebase-logo-402F407EE0-seeklogo.com.png')
+            // ->withSound('default')
+            // ->withClickAction('https://www.google.com')
         //     ->withPriority('high')
         //     ->withAdditionalData([
         //         'color' => '#252525',

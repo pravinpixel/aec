@@ -45,9 +45,14 @@ class InboxNotification extends Notification
     public function toFirebase($notifiable)
     {
         return (new FirebaseMessage)
-                    ->withTitle($this->title)
-                    ->withBody($this->message)
-                    ->withPriority('high')->asMessage($this->fcmTokens);
+        ->withTitle($this->title)
+        ->withBody($this->message)
+        ->withPriority('high')
+        ->withImage('https://firebase.google.com/images/social.png')
+        ->withIcon('https://seeklogo.com/images/F/firebase-logo-402F407EE0-seeklogo.com.png')
+        ->withSound('default')
+        ->withClickAction('https://www.google.com')
+        ->asMessage($this->fcmTokens);
     }
 
     /**
