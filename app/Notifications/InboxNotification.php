@@ -12,16 +12,18 @@ class InboxNotification extends Notification
 
     protected $title;
     protected $message;
+    protected $link;
     protected $fcmTokens;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($title,$message,$fcmTokens)
+    public function __construct($title,$message,$link,$fcmTokens)
     {
         $this->title     = $title;
         $this->message   = $message;
+        $this->link      = $link;
         $this->fcmTokens = $fcmTokens;
     }
 
@@ -45,13 +47,12 @@ class InboxNotification extends Notification
     public function toFirebase($notifiable)
     {
         return (new FirebaseMessage)
-        ->withTitle($this->title)
-        ->withBody($this->message)
-        ->withPriority('high')
         ->withImage('https://firebase.google.com/images/social.png')
         ->withIcon('https://seeklogo.com/images/F/firebase-logo-402F407EE0-seeklogo.com.png')
-        ->withSound('default')
-        ->withClickAction('https://www.google.com')
+        ->withTitle($this->title)
+        ->withBody($this->message)
+        ->withPriority('high') 
+        ->withClickAction($this->link)
         ->asMessage($this->fcmTokens);
     }
 
