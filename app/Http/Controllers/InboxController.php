@@ -9,7 +9,7 @@ use Kutia\Larafirebase\Facades\Larafirebase;
 
 class InboxController extends Controller
 {
-    public function index()
+    public function inbox()
     {
         return view('inbox');
     }
