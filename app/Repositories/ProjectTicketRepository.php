@@ -155,17 +155,12 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
         $ProjectTicketCollection = $this->Projectticketcase->with('assigndetails')
                                                             ->with('TicketcommentsReplay')
                                                                 ->with('assigncustomerdetails')
-
-                                                                ->orderBy('project_status','desc')
-                                                                
-                                                                ;
+                                                                ->orderBy('project_status','desc');
                                                               
                                                                 if(!empty(Customer()->id)){
                                                                     $ProjectTicketCollection ->where('project_id',$id)->where('cus_tag',Customer()->id)
-                                                                        ->orWhere('created_by',Customer()->id)
-                                                                       ;
-
-                                                                }
+                                                                        ->orWhere('created_by',Customer()->id);
+                                                                    }
 
                                                  $ProjectTicket['ticketcase'] =  $ProjectTicketCollection->where('project_id',$id)->orderBy('updated_at','desc')->get();
                                                 //dd( $ProjectTicket['ticketcase']);
@@ -299,7 +294,7 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
 
 
     public function getprojectticketsearch($id,$type){
-        //dd($type);
+     
         
         if($type == 'show'){
            
@@ -362,9 +357,73 @@ class ProjectTicketRepository implements ProjectTicketRepositoryInterface {
 
     }
     public function getprojectticketvariation($id){
+
+        
        $ProjectTicket['ticketcase'] = $this->Projectticketcase->where('project_id',$id)
                                                              ->Where('variation_order',1)
                                                               ->get();
+                                                              $groupvariationorderticket = $this->model->where('project_id',$id)
+                                                              
+                                                              ->groupBy('ticket_comment_id')
+                                                                  //->orderBy('id','desc')
+                                                                  ->get();
+                                                                  $variation = array();
+                                 foreach($groupvariationorderticket as $groupvariationticket){
+                                     $key = 1;
+                                     $variationorderticket = $this->model->where('ticket_comment_id',$groupvariationticket->ticket_comment_id)
+                                                                         //->orderBy('id','desc')
+                                                                         ->get();
+                         
+                                 //$variationorderticket = $this->model->where('project_id',$id)->orderBy('id','desc')->get();
+                                 
+                                 $get_versions= array();
+                                 
+                                
+                                 foreach($variationorderticket as $variationticket){
+                                     $rootin = $key++;
+                                   if( count($variationorderticket) > $rootin){
+                                         $get_versions[] = array('id' => $variationticket->id,
+                                         'type'=>'child',
+                                         'version'=>'V'.$rootin,
+                                         'template_name'=> $variationticket->title,
+                                         'comment'=> $variationticket->action_comment,
+                                         'status'=>isset($variationticket->variation_status) ? $variationticket->variation_status : 'awaiting',
+                                         'proposal_status'=>'not_send',
+                                         'created_at'=>$variationticket->created_at,
+                                         'updated_at'=>$variationticket->updated_at,
+                                        'mail_send_date'=>$variationticket->updated_at,
+                                         'mail_status'   => $variationticket->variation_email_status,
+                                         'customer_response' => $variationticket->customer_response ,
+                                     );
+                         
+                                     }else{
+                                         $variation[] = array('id' => $variationticket->id,
+                                         'type'=>'root',
+                                         'version'=>'V'.$rootin,
+                                         'template_name'=> $variationticket->title,
+                                         'comment'=> $variationticket->action_comment,
+                                         'status'=>isset($variationticket->variation_status) ? $variationticket->variation_status : 'awaiting',
+                                         'proposal_status'=>'not_send',
+                                         'created_at'=>$variationticket->created_at,
+                                         'updated_at'=>$variationticket->updated_at,
+                                         'mail_send_date'=>$variationticket->updated_at,
+                                         'mail_status'   => $variationticket->variation_email_status,
+                                         'customer_response' => $variationticket->customer_response ,
+                                         'get_versions'=>$get_versions,
+                                     );
+                         
+                                     }
+                         
+                                   
+                                 }
+                                    
+                                 }
+                                 $result =$variation;
+                                 //dd($result);
+                         
+                                
+                         
+                                 $ProjectTicket['variationorder'] = $result;
        return $ProjectTicket;                                                      
 
 

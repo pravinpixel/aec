@@ -1013,7 +1013,8 @@ app.controller('VariationController', function($scope, $http, API_URL, $rootScop
     $scope.ptickets = res.data.ticketcase == null ? false : res.data.ticketcase
     //$scope.overview = res.data.overview == null ? false : res.data.overview
     //$scope.cols = res.data.showhide == null ? false : res.data.showhide
-    //$scope.proposal = res.data.variationorder == null ?false : res.data.variationorder 
+    $scope.proposal = res.data.variationorder == null ?false : res.data.variationorder 
+    console.log($scope.proposal);
    
   });
 
@@ -1021,7 +1022,10 @@ app.controller('VariationController', function($scope, $http, API_URL, $rootScop
 ///ticket wizard
 app.controller('TicketController', function($scope, $http, API_URL, $rootScope, $location, $timeout)
 {
-  
+  $scope.autotrigger = function() {
+    $('#flexRadioDefault1').click();
+   
+  }
   wizardactiveTabs('issues');
   
   $scope.options = {
@@ -1087,13 +1091,13 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
         name: quotations[i]
       });
       console.log(jsonData);
-      /*var ms1 = $('#ms1').tagSuggest(
+      var ms1 = $('#ms1').tagSuggest(
       {
         data: jsonData,
         sortOrder: 'name',
         maxDropHeight: 200,
         name: 'ms1'
-      });*/
+      });
     });
   // alert('ttt');
   $scope.ticket = {};
@@ -1163,12 +1167,6 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
       $scope.overview = res.data.overview == null ? false : res.data.overview
       $scope.cols = res.data.showhide == null ? false : res.data.showhide
     });
-  }
-  $scope.autotrigger = function() {
-    $('#flexRadioDefault1').click();
-    $scope.projectissues = $scope.customer;
-    //console.log($scope.projectissues);
-   
   }
   $scope.ticket = {
     projectid: project_id,
@@ -1449,15 +1447,6 @@ app.controller('TicketController', function($scope, $http, API_URL, $rootScope, 
         $scope.pticketcomment = res.data.ticketcase == null ? false : res.data.ticketcase
       });
     }
-  }
-  $scope.tablefilterreset= function(){
-    $('#due_date').val('');
-    $('#requester_date').val('');
-    $scope.priority ='';
-    $scope.status ='';
-    $scope.refno ='';
-    $scope.tickettype ='';
-    //$scope.filterData = '';
   }
   $scope.issuesreplaycomment = function(type, ticketid, project_id)
   {
