@@ -54,7 +54,7 @@
 <script src="{{ asset('public/assets/js/vendor/buttons.print.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/dataTables.keyTable.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/vendor/dataTables.select.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script>
+{{-- <script src="{{ asset('public/assets/js/pages/demo.datatable-init.js') }}"></script> --}}
 <script src="{{ asset('public/assets/js/vendor/apexcharts.min.js') }}"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>

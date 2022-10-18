@@ -925,15 +925,31 @@
             }
             // console.log($scope.wallGroup);
             $scope.AddLayers  =   function(fIndex, index) {
-                console.log($scope.wallGroup[fIndex].Details[index].Layers)
                 $scope.wallGroup[fIndex].Details[index].Layers.push({
                     "LayerName": '',
                     "LayerType": '',
                     "Thickness ": '',
                     "Breadth": '',
                 });
-                console.log($scope.wallGroup[fIndex].Details[index].Layers)
             }
+            $scope.AddTemplateLayers  =   function(fIndex, index , data) {
+                $scope.wallGroup[fIndex].Details[index].Layers.push(data);
+            }
+            $scope.getCurrentTemplateLayers = function(fIndex, index , data) {
+               return $scope.wallGroup[fIndex].Details[index];
+            }
+            $scope.setTemplate = (fIndex, index, TemplateId) => {
+                $http({
+                    method: 'get',
+                    url: `${API_URL}customers/enquiry-template/${TemplateId}`,
+                }).then(function successCallback(response) {
+                    $scope.wallGroup[fIndex].Details[index] = response.data
+                    Message('success', 'Template Changed');
+                }, function errorCallback(response) {
+                    Message('danger', 'Something went wrong');
+                });
+            }
+             
             $scope.delWall = function(index){
                 $scope.wallGroup.splice(index,1);
             }

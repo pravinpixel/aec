@@ -28,7 +28,7 @@ class EnquiryTemplateController extends Controller
     public function getTemplateByBuildingComponentId(Request $request)
     {
         $id = $request->input('building_component_id');
-        return $this->templateRepo->getTemplateByBuildingComponentId($id);
+        return  $this->templateRepo->getTemplateByBuildingComponentId($id);
     }
 
     public function show($id)

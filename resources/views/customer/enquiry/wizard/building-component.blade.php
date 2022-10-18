@@ -1,5 +1,5 @@
 <form class="row p-3 m-0" id="buildingComponent" name="buildingComponentForm" novalidate>
-
+    helo
     {{-- <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert">
         <div class="row m-0">
             <div class="col-6 d-flex align-items-center"><i class="dripicons-information me-2"></i> <strong>Do you want to Enter Manually ?</strong></div>
@@ -139,7 +139,6 @@
                                                             <i class="fa fa-chevron-down"></i>
                                                         </button>
                                                         <button  type="button" class="ms-2 btn btn-danger rounded shadow-sm btn-sm" title="Delete Wall" data-bs-toggle="modal" data-bs-target="#ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}"><div class="fa fa-trash " ></div></button>
-  
                                                     </div>
                                                 </th>
                                             </tr>
@@ -173,14 +172,7 @@
                                                         <div class="col-md p-0">
                                                             <div class="w-100 text-end">
                                                                 <div class="d-flex justify-content-end">
-                                                                    <button class="btn-sm float-end btn btn-outline-primary me-2" 
-                                                                        title="Add New Layer" 
-                                                                        create-template="{
-                                                                            index_position: fIndex,
-                                                                            detail_position: Secindex,
-                                                                        }"
-                                                                    ><i class="fa fa-plus" ></i> Add Layer</button>
-                                                                    {{-- <button ng-click="RemoveDetails(fIndex , Secindex)" class=" btn-danger btn shadow-lg  RemoveDetails" type="button"><i class="fa fa-trash"></i></button> --}}
+                                                                    <button class="btn-sm float-end btn btn-outline-primary me-2" ng-click="AddLayers(fIndex , Secindex)" title="Add New Layer" ><i class="fa fa-plus" ></i> Add Layer</button>
                                                                     <div id="ConfirmDeleteWall_@{{ fIndex }}_@{{ Secindex }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteLabel" aria-hidden="true">
                                                                         <div class="modal-dialog">
                                                                             <div class="modal-content text-center">

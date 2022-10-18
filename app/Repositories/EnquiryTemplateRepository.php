@@ -59,7 +59,7 @@ class EnquiryTemplateRepository implements EnquiryTemplateRepositoryInterface {
     {
         return $this->model->where([
             'building_component_id' => $id,
-            'customer_id' => Customer()->id
+            'customer_id'           => Customer()->id
         ])->get();
     }
 

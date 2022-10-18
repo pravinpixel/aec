@@ -592,13 +592,14 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
                     $buildingComponent['detail']= $detail;
                 }
                 $componentAdditionalData = [
-                    'wall' => $buildingComponentMaster->building_component_name,
-                    'top_position' => $buildingComponentMaster->top_position,
+                    'wall'            => $buildingComponentMaster->building_component_name,
+                    'top_position'    => $buildingComponentMaster->top_position,
                     'bottom_position' => $buildingComponentMaster->bottom_position,
-                    'label' =>  $buildingComponentMaster->label,
-                    'icon' => $buildingComponentMaster->building_component_icon,
-                    'wallId' => $buildingComponentMaster->id,
-                    'totalWallArea' => $enquiryBuildingComponent->total_wall_area, 
+                    'label'           => $buildingComponentMaster->label,
+                    'icon'            => $buildingComponentMaster->building_component_icon,
+                    'wallId'          => $buildingComponentMaster->id,
+                    'totalWallArea'   => $enquiryBuildingComponent->total_wall_area,
+                    'templateId'      => 0
                 ];
                 $buildingComponentData[] = (object)array_merge($buildingComponent, $componentAdditionalData);
         }

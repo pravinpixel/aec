@@ -3,67 +3,25 @@ app.directive('componentTemplate', function(API_URL,$http) {
         restrict: 'E',
         templateUrl: `${API_URL}/templates/BuildingComponent.html`,
         link : function(scope, element) {
-            scope.changeTemplate = ()  => {
-                $http({
-                    method: 'get',
-                    url: `${API_URL}customers/enquiry-template/${scope.template_id}`,
-                }).then(function successCallback(response) {
-                    scope.d     =   response.data  
-                    Message('success', 'Template Added');
-                }, function errorCallback(response) {
-                    Message('danger', 'Something went wrong');
-                });
-            }
-            scope.createTemplate = () => {
-                Swal.fire({
-                    showConfirmButton: false,
-                    html: `
-                        <div>
-                            <h3 class="text-primary">Create Template</h3>
-                            <hr/>
-                            <div class="text-start row m-0">
-                                <span class="col-4 fw-bold font-14">Template Name</span>
-                                <div class="col-8">
-                                    <input type="name" id="Template_name" ng-model="scope.Template_name" class="form-control" placeholder="Enter here.."  required>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div class="text-end">
-                                <button onclick="storeTemplate()" class="btn btn-primary me-auto rounded-pill">Submit</button>    
-                            </div>
-                        </div>
-                    `,
-                });
-            }
-            storeTemplate = () => { 
-                scope.Template_name = $("#Template_name").val()
-                var payload = {
-                    template_name        : scope.Template_name,
-                    building_component_id: scope.$parent.w.WallId,
-                    data                 : scope.d
-                }
-                $http.post(`${API_URL}customers/enquiry-template`, payload).then(function successCallback(res){
-                    if(res.data.status) {
-                        Message('success', res.data.msg);
-                        scope.$parent.Templates.push(res.data.data)
-                        scope.template_id = res.data.data.id
-                        Swal.close()
-                        return false;
-                    }
-                    Message('danger', res.data.msg);
-                    return false;
-                });
-            }
-            scope.updateTemplate = () => {
-                if(scope.$parent.d  != 'undefined') {
-                    if(scope.data.template == '' || scope.data.template == null || scope.data.template == 'undefined') {
-                        Message('danger', 'Template field is required'); return false;
-                    }
-                }
-            } 
+            console.log("...")
         }
     };
 });
+ 
+app.directive('setTemplate', function(API_URL ,$http){
+    return {
+        restrict: 'A',
+        scope: {
+            data: '=setTemplate',
+        },
+        link: function(scope, element, attrs) {
+            element.on('change', function(){ 
+                scope.$parent.$parent.$parent.setTemplate(scope.$parent.fIndex,scope.$parent.Secindex, scope.data)
+            });
+        }
+    };
+});
+
 app.directive('createTemplate', function(API_URL ,$http){
     return {
         restrict: 'A',
@@ -72,12 +30,27 @@ app.directive('createTemplate', function(API_URL ,$http){
         },
         link: function(scope, element, attrs) {
             element.on('click', function(){
-                scope.$parent.d.Layers.push({
-                    Breadth  : 0,
-                    LayerName: 0,
-                    Thickness: 0
-                })
-                scope.$apply();
+                var template_name = prompt('Enter You Template Name')
+                $http.post(`${API_URL}customers/enquiry-template`, {
+                    template_name        : template_name,
+                    building_component_id: scope.$parent.w.WallId,
+                    data                 : scope.$parent.$parent.$parent.getCurrentTemplateLayers(scope.$parent.fIndex,scope.$parent.Secindex)
+                }).then(function successCallback(res){
+                    var TemplateID =  res.data.data.id
+                    $http({
+                        method: 'GET',
+                        url: `${API_URL}customers/get-template-by-building-component-id`,
+                        params : {building_component_id: scope.$parent.w.WallId,}
+                    }).then(function success(response) {
+                        scope.$parent.$parent.Templates = response.data;
+                        scope.$parent.templateId        = TemplateID
+                        console.log(scope)
+                    }, function error(response) {
+                        console.log(response)
+                    });
+                    Message('success', res.data.msg);
+                });
+                scope.$apply()
             });
         }
     };
@@ -90,14 +63,6 @@ app.directive('deleteTemplate', function(API_URL ,$http){
         },
         link: function(scope, element, attrs) {
             element.on('click', function(){
-                console.log(scope.$parent.$parent.Templates)
-                scope.$parent.$parent.Templates = scope.$parent.$parent.Templates.filter(object => {
-                    return object.id != scope.data.template;
-                });
-                console.log(scope.$parent.$parent.Templates)
-                console.log(scope.data.template)
-                scope.$apply();
-                return false
                 if(scope.data.template == '' || scope.data.template == null || scope.data.template == 'undefined') {
                     Message('danger', 'Template field is required'); return false;
                 }
