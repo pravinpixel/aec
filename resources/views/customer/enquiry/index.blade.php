@@ -56,10 +56,10 @@
 @endpush
 
 @push('custom-scripts') 
-    
     <script>
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL, $compile ) {
-            $("#customer_chat").hide();
+            console.log("RED")
+            $("#customer_chat").hide(); 
             $scope.commentsCount = 0;
             $scope.getEnquiry = (type,id) =>  {
                 $(".custom-accordion-collapse").addClass('collapsed');
@@ -425,8 +425,6 @@
             }, function (error) {
                 console.log('This is embarassing. An error has occurred. Please check the log for details');
             })
-    });
-
-  
+        });
     </script>
 @endpush

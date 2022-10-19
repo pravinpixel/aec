@@ -1,19 +1,4 @@
 <form class="row p-3 m-0" id="buildingComponent" name="buildingComponentForm" novalidate>
-    helo
-    {{-- <div class="alert alert-secondary col-md-6 mx-auto shadow" role="alert">
-        <div class="row m-0">
-            <div class="col-6 d-flex align-items-center"><i class="dripicons-information me-2"></i> <strong>Do you want to Enter Manually ?</strong></div>
-            <div class="col d-flex align-items-center">
-                <input class="form-check-input" type="radio" id="flexRadioDefault1" name="buildingComponent_" ng-checked="showHideBuildingComponent == 0" ng-model="showHideBuildingComponent" ng-value="false">
-                <label class="form-check-label" for="flexRadioDefault1">  Enter Manually </label>
-            </div>
-            <div class="col d-flex align-items-center">
-                <input class="form-check-input" type="radio" id="flexRadioDefault" ng-checked="showHideBuildingComponent == 1" name="buildingComponent_" ng-model="showHideBuildingComponent" ng-value="true">
-                <label class="form-check-label" for="flexRadioDefault"> Upload </label>
-            </div>
-        </div> 
-    </div> --}}
-
     <div class="rounded-pill d-flex justify-content-between alert bg-light align-items-center shadow-sm border  col-5 mx-auto" role="alert">
         <div>
             <strong>Do you want to Enter Manually ?</strong>
@@ -29,7 +14,6 @@
             </label>
         </div>
     </div>
-
     <div class="collapse multi-collapse show" id="buildingComponentTab">
         <div ng-show="showHideBuildingComponent == 1">
             <div  class="card p-3 mt-3 shadow-sm file-upload-card col-md-5 mx-auto" style="overflow: hidden">

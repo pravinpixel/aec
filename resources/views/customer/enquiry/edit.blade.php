@@ -126,7 +126,6 @@
 
 
 @push('custom-scripts')
-    
     <script>
         $(function(){
             let wallString = localStorage.getItem("wallGroup"); 
@@ -1684,7 +1683,5 @@
             e.returnValue = dialogText;
             return dialogText;
         };
-</script>
-
-
+    </script>
 @endpush

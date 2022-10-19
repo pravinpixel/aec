@@ -977,6 +977,23 @@
                     "Breadth": '',
                 });
             }
+            $scope.AddTemplateLayers  =   function(fIndex, index , data) {
+                $scope.wallGroup[fIndex].Details[index].Layers.push(data);
+            }
+            $scope.getCurrentTemplateLayers = function(fIndex, index , data) {
+               return $scope.wallGroup[fIndex].Details[index];
+            }
+            $scope.setTemplate = (fIndex, index, TemplateId) => {
+                $http({
+                    method: 'get',
+                    url: `${API_URL}customers/enquiry-template/${TemplateId}`,
+                }).then(function successCallback(response) {
+                    $scope.wallGroup[fIndex].Details[index] = response.data
+                    Message('success', 'Template Changed');
+                }, function errorCallback(response) {
+                    Message('danger', 'Something went wrong');
+                });
+            }
             $scope.delWall = function(index){
                 $scope.wallGroup.splice(index,1);
             } 
@@ -1860,7 +1877,5 @@
             e.returnValue = dialogText;
             return dialogText;
         };
-</script>
-
-  
+</script> 
 @endpush
