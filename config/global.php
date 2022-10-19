@@ -1,10 +1,14 @@
 <?php
 
 return [
-    'mail_from_address'        => env('MAIL_FROM_ADDRESS'),
-    'footer_email'              => env('FOOTER_EMAIL'),
-    'footer_support_email'      => env('FOOTER_SUPPORT_EMAIL'),
-    'footer_company_name'       => env('FOOTER_COMPANY_NAME'),
+    'admin_name'           => 'Arun Kalyan',
+    'admin_email'          => 'arunkalyan@aecprefab.net',
+    'admin_mobile_no'      => '9874563121',
+    'admin_role'           => 'ADMIN',
+    'mail_from_address'    => env('MAIL_FROM_ADDRESS'),
+    'footer_email'         => env('FOOTER_EMAIL'),
+    'footer_support_email' => env('FOOTER_SUPPORT_EMAIL'),
+    'footer_company_name'  => env('FOOTER_COMPANY_NAME'),
     'footer_company_contact_no' => env('FOOTER_COMPANY_CONTACT'),
     'model_date_format'         => 'd-m-Y',
     'db_date_format'            => 'Y-m-d',

@@ -84,3 +84,13 @@ if(!function_exists('AuthUser')) {
         }
     }
 }
+
+if(!function_exists('str_replace_once')) {
+    function str_replace_once($key, $value, $subject) {
+        $subject = str_replace($key, $value, $subject);
+        // $pos = strpos($subject, $needle);
+        //     if ($pos !== false)
+        //         $subject = substr_replace($subject, $replace, $pos, strlen($needle));
+            return $subject;
+    }
+}
