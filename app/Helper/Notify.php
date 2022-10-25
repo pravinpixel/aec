@@ -27,10 +27,12 @@ class Notify {
             if($sender_role == 'Customer') {
                 $receiver_role = "Admin" ;
                 $receiver_id   = 1;
+                $token         = $Enquiry->customer->token;
             }
             if($sender_role == 'Admin') {
                 $receiver_role = "CUSTOMER" ;
                 $receiver_id   = $Enquiry->customer->id;
+                $token         = $Enquiry->customer->token;
             }
         }
 
@@ -45,11 +47,11 @@ class Notify {
             'menu_name'     =>  $data['menu_name'],
             'send_date'     =>  now()->format('d-m-Y H:m')
         ]);
-
+        
         Notification::send(null,new InboxNotification(
             $data['message'],
             ucfirst($sender_name)." - ".strtolower($sender_role),
-            $data['token']
+            $token
         ));
 
         return static::getMessages($data); 

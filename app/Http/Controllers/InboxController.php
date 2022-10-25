@@ -42,11 +42,10 @@ class InboxController extends Controller
     public function send_message(Request $request)
     {
         $conversations = Notify::send([
-            "message"         => $request->message,
+            "message"       => $request->message,
             'module_name'   => $request->module_name,
             'module_id'     => $request->module_id,
             'menu_name'     => $request->menu_name,
-            "token"         => "dAODiLYXR2b7hZDzv9Bnzf:APA91bEFWhW12pw0ydKPx_sIdknJWbfnromYiGpJuB_penztRpGv9k674-k28-NfZKMBWw9a046cwO4Fg5QcsqAWWwpjtDLx1sa70tlp5eS9we2D-X2wXHBzuGXe43vyKnvUsese2ELp",
         ]);
 
         return response()->json([
