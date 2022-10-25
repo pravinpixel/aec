@@ -62,11 +62,18 @@ Route::group(['prefix' => 'admin', 'middleware'=>'common'], function () {
     //========= END :  Wizard Flow Views =========
 
     //========Chart Search==========//
+
+
+
+
+    // share point folder 
+
+    Route::post('store-share-point-folder',[ProjectController::class,'sharePoint']);
    
 });
 
 Route::get('/get-project-session-id',[ProjectController::class, 'getProjectId']);
-
+    
 Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.'], function () {
     Route::get('test-demo',[ProjectController::class, 'testDemo'])->name('sharepoint-test-demo'); 
     Route::get('get-templates',[ProjectController::class, 'getTeamsetupTemplate'])->name('get-templates');

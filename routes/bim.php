@@ -3,6 +3,8 @@
 use App\Http\Controllers\Bim360\BIM360CompanyController;
 use App\Http\Controllers\Bim360\Bim360ProjectController;
 use App\Http\Controllers\Bim360\Bim360UserController;
+use App\Http\Controllers\sharePointFolderMasterController;
+use App\Models\SharepointFolder;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/bim360/projects/live', [Bim360ProjectController::class, 'liveProjects'])->name('/bim360/projects/live');
@@ -56,4 +58,16 @@ Route::post('/bim360/Users/getuserlist', [Bim360UserController::class, 'getUserL
 
 Route::get('bim360/projects-type', function(){
     return config('project.project_types');
+    // return 'hello';
+    // $arr=[];
+    // $folders=SharepointFolder::all();
+    // foreach($folders as $f){
+        // $arr[]=$f->name;
+        // array_push($arr,$f->name);
+        // $f->name;
+    // }
+    // return response()->json([
+    //     'folder'=>$arr
+    // ]);
+    // return $f;
 })->name('bim360/projects-type');

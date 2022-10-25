@@ -163,7 +163,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
               },
               showParentFolder: false,
             },
-            toolbar: {
+             toolbar: {
               items: [
                 {
                   name: 'showNavPane',

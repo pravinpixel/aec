@@ -63,7 +63,7 @@
                 <div class="dx-viewport">
                     <div class="demo-container">
                       <div id="file-manager"></div>
-                    </div>
+                    </div>  
                 </div>
             </div>
             <div class="tab-pane p-3" id="BIM-360">

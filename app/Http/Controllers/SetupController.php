@@ -117,4 +117,7 @@ class SetupController extends Controller
     {
         return  view('admin.setup.document-type.index');
     }
+    public function files(){
+        return view('admin.setup.files.files');
+    }
 }

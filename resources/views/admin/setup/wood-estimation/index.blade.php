@@ -73,7 +73,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="storeModalWoodForm(modalstate, id)" ng-disabled="LayerModule.$invalid">Submit</button>
+                                <button type="button" class="btn btn-@{{form_color}}" id="btn-save" ng-click="storeModalWoodForm(   , id)" ng-disabled="LayerModule.$invalid">Submit</button>
                             </div>
                         </form>
                     </div>

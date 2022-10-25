@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IfcFileIconController;
 use App\Http\Controllers\SetupController;
+use App\Http\Controllers\sharePointFolderMasterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/setup', function () {
@@ -36,4 +37,16 @@ Route::prefix('admin/setup')->middleware('common')->group(function () {
     Route::get('/construction-type',[SetupController::class, 'construction_type'])->name('setup.construction-type');
     Route::get('/delivery-type',[SetupController::class, 'delivery_type'])->name('setup.delivery-type');
     Route::get('/document-type',[SetupController::class, 'document_type'])->name('setup.document-type');
+
+
+
+    // SharePoint Folder Master
+    // index get all folders
+    Route::get('/all-files',[sharePointFolderMasterController::class,'all']);
+    // update status 
+    Route::resource('/files',sharePointFolderMasterController::class);
+    Route::post('/state-change',[sharePointFolderMasterController::class,'stateChange']);
+    Route::post('get-edit-folder',[sharePointFolderMasterController::class,'getFolder']);
+    Route::post('get-update-folder',[sharePointFolderMasterController::class,'folderUpdate']);
+    Route::post('delete-folder',[sharePointFolderMasterController::class,'deleteFolder']);
 });
