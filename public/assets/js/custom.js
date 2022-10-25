@@ -219,12 +219,11 @@ viewCustomerEnquiryProposal = (id) => {
     });
 }
 
-sendMessage = (e) => {
-    e.preventDefault()
+sendMessage = (element) => { 
     var config = [] 
-    Object.entries(e.target.children).map((Element) => {
-        if(Element[1].localName == 'input') {
-            config[Element[1].name] =  Element[1].value
+    Object.entries(element.parentNode.childNodes).map((item) => {
+        if(item[1].localName == 'input') { 
+            config[item[1].name] =  item[1].value
         }
     })
     axios.post(`${APP_URL}/send-message`, {
@@ -250,9 +249,9 @@ sendMessage = (e) => {
             scrollTop: $(`.inbox_conversation_list_${config.menu_name}`)[0].scrollHeight
         }, 1000);
 
-        Object.entries(e.target.children).map((Element) => {
-            if(Element[1].name == 'message') {
-                Element[1].value = ''
+        Object.entries(element.parentNode.childNodes).map((item) => {
+            if(item[1].name == 'message') {
+                item[1].value = ''
             }
         })
     }); 

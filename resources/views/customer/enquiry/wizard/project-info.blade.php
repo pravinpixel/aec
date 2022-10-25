@@ -120,28 +120,12 @@
             <div class="card border shadow-sm m-0">
                 <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
                 <div class="card-body">
-                    <div class="d-flex align-items-center" >
-                        <div>
-                            <open-comment data="{
-                                'modalState': 'viewConversations',
-                                'type'      : 'project_information',
-                                'header'    : 'Project Information',
-                                'enquiry_id': enquiry_id,
-                                'send_by'   : {{ Customer()->id }},
-                                'from'      : 'Customer'
-                            }"/>
-                        </div>
-                        <div class="ms-2">
-                            <comment data="{
-                                'modalState': 'viewConversations',
-                                'type'      : 'project_information',
-                                'header'    : 'Project Information',
-                                'enquiry_id': enquiry_id,
-                                'send_by'   : {{ Customer()->id }},
-                                'from'      : 'Customer'
-                            }"/>
-                        </div>
-                    </div>
+                    <x-chat-box 
+                        :status="1" 
+                        moduleId="{{ session('enquiry_id') }}" 
+                        moduleName="enquiry"
+                        menuName="{{ __('app.Project_Information') }}"
+                    />
                 </div>
             </div>
         </div>

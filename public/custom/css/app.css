@@ -715,7 +715,7 @@ sup {
     }
 }
 #inbox-conversation-list {
-    height: 80vh;
+    height: 78vh;
     overflow: auto;
     list-style-type: none;
     list-style: none;
@@ -734,10 +734,8 @@ sup {
     border: 1px solid #dee2e6 !important;
     box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
     min-height: 41px;
-    padding-top: 9px;
-    padding-right: 20px;
     font-weight: bold;
-    padding-left: 10px;
+    padding: 10px;
 }
 .Customer-chat-box .Admin-message .message-container{
     text-align: left;

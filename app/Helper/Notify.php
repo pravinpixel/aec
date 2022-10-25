@@ -52,13 +52,16 @@ class Notify {
             $data['token']
         ));
 
-        return Inbox::where([
+        
+        $messages = Inbox::where([
             'sender_role'   => $sender_role,
             'sender_id'     => $sender_id,
             'module_name'   => $data['module_name'],
             'module_id'     => $data['module_id'],
             'menu_name'     => $data['menu_name'],
-        ])->get();
+        ])->latest()->take(5)->get();
+
+        return array_reverse($messages->toArray()) ;
     }
 
     public static function getMessages($data)
@@ -73,10 +76,14 @@ class Notify {
             $sender_id   = Customer()->id;
         }
 
-        return Inbox::where([
+        $messages = Inbox::where([
+            'sender_role'   => $sender_role,
+            'sender_id'     => $sender_id,
             'module_name'   => $data['module_name'],
             'module_id'     => $data['module_id'],
             'menu_name'     => $data['menu_name'],
-        ])->get();
+        ])->latest()->take(5)->get();
+       
+        return array_reverse($messages->toArray()) ;
     }
 }
