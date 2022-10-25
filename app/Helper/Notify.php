@@ -53,8 +53,7 @@ class Notify {
             ucfirst($sender_name)." - ".strtolower($sender_role),
             $token
         ));
-        dd($token);
-
+     
         return static::getMessages($data); 
     }
 
