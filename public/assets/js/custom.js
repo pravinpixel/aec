@@ -226,6 +226,10 @@ sendMessage = (element) => {
             config[item[1].name] =  item[1].value
         }
     })
+    if(config.message == '') {
+        Message('danger','Can"t send Empty Message !')
+        return
+    }
     axios.post(`${APP_URL}/send-message`, {
         menu_name   : config.menu_name,
         message     : config.message,

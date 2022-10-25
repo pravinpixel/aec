@@ -51,39 +51,55 @@ class Notify {
             ucfirst($sender_name)." - ".strtolower($sender_role),
             $data['token']
         ));
-
         
-        $messages = Inbox::where([
-            'sender_role'   => $sender_role,
-            'sender_id'     => $sender_id,
-            'module_name'   => $data['module_name'],
-            'module_id'     => $data['module_id'],
-            'menu_name'     => $data['menu_name'],
-        ])->latest()->take(5)->get();
+        // $messages = Inbox::where([
+        //     'sender_role'   => $sender_role,
+        //     'sender_id'     => $sender_id,
+        //     'module_name'   => $data['module_name'],
+        //     'module_id'     => $data['module_id'],
+        //     'menu_name'     => $data['menu_name'],
+        // ])->latest()->take(5)->get();
+
+        if(!is_null(Customer())) {
+            $messages = Inbox::whereRaw('(
+                module_name   = "'.$data['module_name'].'" and
+                module_id     = "'.$data['module_id'].'" and
+                menu_name     = "'.$data['menu_name'].'" and
+                sender_role   = "Customer" and
+                sender_id     = 1 and
+                receiver_role = "Admin"
+            )or( 
+                module_name   = "'.$data['module_name'].'" and
+                module_id     = "'.$data['module_id'].'" and
+                menu_name     = "'.$data['menu_name'].'" and
+                sender_role   = "Admin" and
+                receiver_role = "Customer" and
+                receiver_id   = 1
+            )')->latest()->take(25)->get(); 
+        }
 
         return array_reverse($messages->toArray()) ;
     }
 
     public static function getMessages($data)
     {
-        if(!is_null(Admin())) {
-            $sender_role = userRole()->name;
-            $sender_id   = Admin()->id;
-        }
-
         if(!is_null(Customer())) {
-            $sender_role = "Customer";
-            $sender_id   = Customer()->id;
-        }
-
-        $messages = Inbox::where([
-            'sender_role'   => $sender_role,
-            'sender_id'     => $sender_id,
-            'module_name'   => $data['module_name'],
-            'module_id'     => $data['module_id'],
-            'menu_name'     => $data['menu_name'],
-        ])->latest()->take(5)->get();
-       
-        return array_reverse($messages->toArray()) ;
+            $messages = Inbox::whereRaw('(
+                    module_name   = "'.$data['module_name'].'" and
+                    module_id     = "'.$data['module_id'].'" and
+                    menu_name     = "'.$data['menu_name'].'" and
+                    sender_role   = "Customer" and
+                    sender_id     = 1 and
+                    receiver_role = "Admin"
+                )or( 
+                    module_name   = "'.$data['module_name'].'" and
+                    module_id     = "'.$data['module_id'].'" and
+                    menu_name     = "'.$data['menu_name'].'" and
+                    sender_role   = "Admin" and
+                    receiver_role = "Customer" and
+                    receiver_id   = 1
+            )')->latest()->take(25)->get();
+            return array_reverse($messages->toArray()) ;
+        } 
     }
 }
