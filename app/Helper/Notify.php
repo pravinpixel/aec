@@ -51,34 +51,8 @@ class Notify {
             ucfirst($sender_name)." - ".strtolower($sender_role),
             $data['token']
         ));
-        
-        // $messages = Inbox::where([
-        //     'sender_role'   => $sender_role,
-        //     'sender_id'     => $sender_id,
-        //     'module_name'   => $data['module_name'],
-        //     'module_id'     => $data['module_id'],
-        //     'menu_name'     => $data['menu_name'],
-        // ])->latest()->take(5)->get();
 
-        if(!is_null(Customer())) {
-            $messages = Inbox::whereRaw('(
-                module_name   = "'.$data['module_name'].'" and
-                module_id     = "'.$data['module_id'].'" and
-                menu_name     = "'.$data['menu_name'].'" and
-                sender_role   = "Customer" and
-                sender_id     = 1 and
-                receiver_role = "Admin"
-            )or( 
-                module_name   = "'.$data['module_name'].'" and
-                module_id     = "'.$data['module_id'].'" and
-                menu_name     = "'.$data['menu_name'].'" and
-                sender_role   = "Admin" and
-                receiver_role = "Customer" and
-                receiver_id   = 1
-            )')->latest()->take(25)->get(); 
-        }
-
-        return array_reverse($messages->toArray()) ;
+        return static::getMessages($data); 
     }
 
     public static function getMessages($data)
@@ -98,8 +72,45 @@ class Notify {
                     sender_role   = "Admin" and
                     receiver_role = "Customer" and
                     receiver_id   = 1
-            )')->latest()->take(25)->get();
-            return array_reverse($messages->toArray()) ;
+            )')->latest()->take(10)->get();
         } 
+        if(!is_null(Admin())) {
+            $messages = Inbox::where([
+                "module_name" => $data["module_name"],
+                "module_id"   => $data["module_id"],
+                "menu_name"   => $data["menu_name"],
+            ])->latest()->take(10)->get(); 
+        }
+ 
+        $conversation = '';     
+
+        foreach(array_reverse($messages->toArray()) as $msg ) {
+
+            if(!is_null(Admin())) {
+                if($msg['sender_role'] == 'Customer') {
+                    $messageClass = "message_left";
+                } else {
+                    $messageClass = "message_right";
+                }
+            }
+
+            if(!is_null(Customer())) {
+                if($msg['sender_role'] == 'Admin') {
+                    $messageClass = "message_left";
+                } else {
+                    $messageClass = "message_right";
+                }
+            }
+             
+            $conversation .= '
+                <li class="'.$messageClass.'" >
+                    <div class="message-container">
+                        <div class="text-message">'.$msg['message'].'</div>
+                        <small class="text-secondary">'.$msg['send_date'].'</small>
+                    </div>
+                </li>
+            ';
+        }
+        return $conversation;
     }
 }

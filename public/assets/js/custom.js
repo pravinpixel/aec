@@ -236,19 +236,7 @@ sendMessage = (element) => {
         module_id   : config.module_id,
         module_name : config.module_name
     }).then(function (response) {
-        var li = ''
-        response.data.conversations.map((item) => {
-            li += `
-                <li class="${item.sender_role}-message" >
-                    <div  class="message-container">
-                        <div class="text-message">${item.message}</div>
-                        <small class="text-secondary">${item.send_date}</small>
-                    </div>
-                </li>
-            `
-        })
-        
-        $(`.inbox_conversation_list_${config.menu_name}`).html(li)
+        $(`.inbox_conversation_list_${config.menu_name}`).html(response.data.conversations)
         $(`.inbox_conversation_list_${config.menu_name}`).stop().animate({ 
             scrollTop: $(`.inbox_conversation_list_${config.menu_name}`)[0].scrollHeight
         }, 1000);

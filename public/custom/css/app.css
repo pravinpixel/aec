@@ -737,15 +737,15 @@ sup {
     font-weight: bold;
     padding: 10px;
 }
-.Customer-chat-box .Admin-message .message-container{
+.message_left .message-container{
     text-align: left;
     float: left;
     background : white;
 }   
-.Customer-chat-box .Customer-message {
+.message_right {
     justify-content: right;
 }
-.Customer-chat-box .Customer-message .message-container{
+.message_right .message-container{
     text-align: right;
     float: right;
     background : #E1FFC9;

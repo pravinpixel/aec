@@ -43,14 +43,7 @@
             <div class="modal-body p-0" style="background:#EEE7DE"> 
                 <ul id="inbox-conversation-list" class="{{ AuthUser() }}-chat-box m-0 inbox_conversation_list_{{ $menuName }}">
                     @isset($conversations)
-                        @foreach ($conversations as $message) 
-                            <li class="{{ $message['sender_role'] }}-message" >
-                                <div class="message-container">
-                                    <div class="text-message">{{ $message['message'] }}</div>
-                                    <small class="text-secondary">{{ $message['send_date']  }}</small>
-                                </div>
-                            </li>
-                        @endforeach
+                        {!! $conversations !!}
                     @endisset
                 </ul>
                 {!! $form !!}
