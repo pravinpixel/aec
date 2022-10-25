@@ -51,9 +51,9 @@ class Notify {
         Notification::send(null,new InboxNotification(
             $data['message'],
             ucfirst($sender_name)." - ".strtolower($sender_role),
-            // $token
-            'dpbmdIPmRrzn1Osz59sg_S:APA91bGq_1GYdyFtuzRNXeoJON6v1i5VYqUp1_pDQeSXQmPJUqHfaHovVRLmiL3eSz9FrL1JKy5hvks5VmnPzKkH6d7ptlKtIp06cQoD0FpA7oBn3SHeZZ4FfkGLUywVKWsXXEiWzFq1'
+            $token
         ));
+        dd($token);
 
         return static::getMessages($data); 
     }
