@@ -30,7 +30,7 @@ class InboxController extends Controller
         if(!is_null(Admin())) {
           $storeToken =  Employees::find(Admin()->id)->update(["token" => $request->token ]);
         } elseif(!is_null(Customer())) {
-          $storeToken =  Customer::find(Admin()->id)->update(["token" => $request->token ]);
+          $storeToken =  Customer::find(Customer()->id)->update(["token" => $request->token ]);
         }
         if($storeToken) {
             return response()->json([

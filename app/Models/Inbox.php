@@ -18,6 +18,7 @@ class Inbox extends Model
         'module_id',
         'menu_name',
         'message',
-        'read_status'
+        'read_status',
+        'send_date'
     ];
 }

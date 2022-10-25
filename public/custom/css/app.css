@@ -722,8 +722,13 @@ sup {
     padding: 10px !important;
 }
 #inbox-conversation-list li {
+    display: flex;
+}
+#inbox-conversation-list li .text-message {
+    font-size: 14px !important;
+}
+#inbox-conversation-list li .message-container{
     margin: 10px;
-    width: 80%;
     list-style-type: none;
     border-radius: 5px !important;
     border: 1px solid #dee2e6 !important;
@@ -734,15 +739,16 @@ sup {
     font-weight: bold;
     padding-left: 10px;
 }
-.Customer-chat-box .Admin-message {
+.Customer-chat-box .Admin-message .message-container{
     text-align: left;
     float: left;
     background : white;
-    clip-path:polygon(4% 11%, 0 0, 100% 0, 100% 25%, 100% 100%, 16% 100%, 4% 100%)
 }   
 .Customer-chat-box .Customer-message {
+    justify-content: right;
+}
+.Customer-chat-box .Customer-message .message-container{
     text-align: right;
     float: right;
     background : #E1FFC9;
-    clip-path: polygon(0% 0%, 51% 0, 100% 0, 96% 22%, 96% 100%, 0 100%, 0% 75%)
 }

@@ -237,11 +237,31 @@ sendMessage = (e) => {
         response.data.conversations.map((item) => {
             li += `
                 <li class="${item.sender_role}-message" >
-                    <div>${item.message}</div>
-                    <small>${item.sender_role} | ${item.send_date}</small>
+                    <div  class="message-container">
+                        <div class="text-message">${item.message}</div>
+                        <small class="text-secondary">${item.send_date}</small>
+                    </div>
                 </li>
             `
         })
-        $("#inbox-conversation-list").html(li)
+        
+        $(`.inbox_conversation_list_${config.menu_name}`).html(li)
+        $(`.inbox_conversation_list_${config.menu_name}`).stop().animate({ 
+            scrollTop: $(`.inbox_conversation_list_${config.menu_name}`)[0].scrollHeight
+        }, 1000);
+
+        Object.entries(e.target.children).map((Element) => {
+            if(Element[1].name == 'message') {
+                Element[1].value = ''
+            }
+        })
     }); 
 }
+
+scrollMessage = (menuName) => {
+    setTimeout(() => {
+        $(`.inbox_conversation_list_${menuName}`).stop().animate({ 
+            scrollTop: $(`.inbox_conversation_list_${menuName}`)[0].scrollHeight
+        }, 1000);
+    }, 500);
+} 
