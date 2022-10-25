@@ -45,6 +45,7 @@ class CreateCustomersTable extends Migration
             $table->integer('notification')->default(0);
             $table->softDeletes('deleted_at');
             $table->rememberToken();
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }

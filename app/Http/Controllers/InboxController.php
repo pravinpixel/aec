@@ -1,14 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Helper\Notify;
-use App\Models\Enquiry;
-use App\Models\Role;
-use App\Notifications\InboxNotification;
+use App\Models\Admin\Employees;
+use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
-use Kutia\Larafirebase\Facades\Larafirebase;
 
 class InboxController extends Controller
 {
@@ -31,10 +27,16 @@ class InboxController extends Controller
 
     public function store(Request $request)
     {
-        session()->put('device_token', $request->token);
-        return response()->json([
-            "message" => "Success"
-        ]);
+        if(!is_null(Admin())) {
+          $storeToken =  Employees::find(Admin()->id)->update(["token" => $request->token ]);
+        } elseif(!is_null(Customer())) {
+          $storeToken =  Customer::find(Admin()->id)->update(["token" => $request->token ]);
+        }
+        if($storeToken) {
+            return response()->json([
+                "message" => "Success"
+            ]);
+        }
     }
 
     public function send_message(Request $request)

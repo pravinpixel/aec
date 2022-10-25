@@ -43,6 +43,7 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->integer('completed_wizard')->default(0);
             $table->softDeletes('deleted_at');
+            $table->string('token')->nullable(); 
             $table->timestamps();
         });
     }
