@@ -51,7 +51,8 @@ class Customer extends Authenticatable
         'notification',
         'bim_id',
         'bim_account_id',
-        'image'
+        'image',
+        'token'
     ];
     public function assigncustomerdetails()
     {

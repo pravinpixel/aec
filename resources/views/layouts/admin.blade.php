@@ -166,5 +166,6 @@
         </script>
        
         @include('vendor.flash.message')
+        @include('common.firbase-setup')
     </body>
 </html>

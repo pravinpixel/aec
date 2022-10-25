@@ -42,7 +42,8 @@ class Employees extends Authenticatable
         'bim_uid',
         'completed_wizard',
         'created_by',
-        'country_code'
+        'country_code',
+        'token'
     ];
 
      /**

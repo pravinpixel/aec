@@ -68,6 +68,6 @@
         </script>
         <script src="{{ asset('public/assets/js/file-viewer.js') }}"></script> 
         <script src="{{ asset('public/assets/js/light-box.js') }}"></script> 
-
+        @include('common.firbase-setup')
     </body>
 </html>
