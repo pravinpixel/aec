@@ -31,7 +31,7 @@ class AdminSeeder extends Seeder
             'image' => '',
             'job_role' => 1,
             'reference_number' => 'EMP-1',
-            'image'                 => "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            'image'                 => "https://picsum.photos/seed/picsum/200/300"
         ]);
         $admin = Employees::create([
             'first_name' => 'Super',
@@ -48,7 +48,7 @@ class AdminSeeder extends Seeder
             'image' => '',
             'job_role' => 1,
             'reference_number' => 'EMP-2',
-            'image'                 => "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            'image'                 => "https://picsum.photos/seed/picsum/200/300"
         ]);
         $admin = Employees::create([
             'first_name' => 'aecadmnusr',
@@ -65,7 +65,7 @@ class AdminSeeder extends Seeder
             'image' => '',
             'job_role' => 1,
             'reference_number' => 'EMP-3',
-            'image'                 => "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            'image'                 => "https://picsum.photos/seed/picsum/200/300"
         ]);
 
         $admin = Employees::create([
@@ -83,7 +83,7 @@ class AdminSeeder extends Seeder
             'image' => '',
             'job_role' => 5,
             'reference_number' => 'EMP-4',
-            'image'                 => "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            'image'                 => "https://picsum.photos/seed/picsum/200/300"
         ]);
     }
 }

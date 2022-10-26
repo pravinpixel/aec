@@ -24,8 +24,13 @@
     <div class="modal-dialog shadow-sm border-start modal-md-2 modal-right w-100">
         <div class="modal-content h-100">
             <div class="border-bottom shadow-sm text-white bg-primary2 modal-header ">
-                <div class="d-flex justify-content-center align-items-center">
-                    <i class="mdi mdi-account-circle" style="font-size: 30px"></i>
+                <div class="d-flex justify-content-center align-items-center"> 
+                    @if (!is_null(Customer()))
+                        <i class="mdi mdi-account-circle" style="font-size: 30px"></i>
+                        @else 
+                        <img src="{{ Admin()->image }}" width="30px" height="30px" class="rounded-circle" style="object-fit: cover">
+                    @endif
+                  
                     <div class="ms-2">
                         <small>
                             @if (!is_null(Customer()))
