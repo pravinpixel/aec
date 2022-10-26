@@ -25,11 +25,10 @@ class Notify {
         if($data['module_name'] == 'enquiry') {
             $Enquiry = Enquiry::with('customer')->find($data['module_id']); 
             if($sender_role == 'Customer') {
-                // $adminTokens   = Employees::whereNotNull('token')->pluck('token')->toArray();
-               
+                $adminTokens   = Employees::whereNotNull('token')->pluck('token')->toArray(); 
                 $receiver_role = "Admin" ;
                 $receiver_id   = 1;
-                $token         = 'fRNkNk-cSGGs9dr81r51nx:APA91bEjlR5HLpR4WbiodBGlGm2l5CnZ4RJNONpu5OJjEJbJPWCZ8PjLZoWuHQdIqEI3M_d7nmHsG1zh_6zW56pLzl4-3hzy0oB5YZUkuEfx2kPvP9kN-bkW0Z-RAarTUgITkLaBrJxW';
+                $token         = $adminTokens;
             }
             if($sender_role == 'Admin') {
                 $receiver_role = "CUSTOMER" ;

@@ -14,7 +14,12 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
+startLoader = (e) => {
+    e.classList.add('btn-loader')
+}
+stopLoader = (e) => {
+    e.classList.remove('btn-loader')
+}
 function minmax(value, min, max) 
 {
     if(parseInt(value) < min || isNaN(parseInt(value))) 
@@ -207,13 +212,7 @@ EnquiryQuickView = (id, element) => {
         }
     });
 }
-startLoader = (e) => {
-    e.classList.add('btn-loader')
-}
 
-stopLoader = (e) => {
-    e.classList.remove('btn-loader')
-}
 
 viewCustomerEnquiryProposal = (id) => {
     $("#CustomerViewProposalModal").modal('show')
@@ -239,6 +238,7 @@ sendMessage = (element) => {
         Message('danger','Can"t send Empty Message !')
         return
     }
+    startLoader(element)
     axios.post(`${APP_URL}/send-message`, {
         menu_name   : config.menu_name,
         message     : config.message,
@@ -249,7 +249,7 @@ sendMessage = (element) => {
         $(`.inbox_conversation_list_${config.menu_name}`).stop().animate({ 
             scrollTop: $(`.inbox_conversation_list_${config.menu_name}`)[0].scrollHeight
         }, 1000);
-
+        stopLoader(element)
         Object.entries(element.parentNode.childNodes).map((item) => {
             if(item[1].name == 'message') {
                 item[1].value = ''
