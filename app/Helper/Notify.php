@@ -65,7 +65,7 @@ class Notify {
                     module_id     = "'.$data['module_id'].'" and
                     menu_name     = "'.$data['menu_name'].'" and
                     sender_role   = "Customer" and
-                    sender_id     = 1 and
+                    sender_id     = '.Customer()->id.' and
                     receiver_role = "Admin"
                 )or( 
                     module_name   = "'.$data['module_name'].'" and
@@ -73,7 +73,7 @@ class Notify {
                     menu_name     = "'.$data['menu_name'].'" and
                     sender_role   = "Admin" and
                     receiver_role = "Customer" and
-                    receiver_id   = 1
+                    receiver_id   = '.Customer()->id.'
             )')->latest()->take(10)->get();
         } 
         if(!is_null(Admin())) {
