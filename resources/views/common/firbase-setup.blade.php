@@ -23,7 +23,6 @@
             axios.post("{{ route('save-token') }}",{
                 token : token
             }).then(({data})=>{
-                console.log(data)
             }).catch(({response:{data}})=>{
                 console.error(data)
             })

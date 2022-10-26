@@ -58,7 +58,6 @@
 @push('custom-scripts') 
     <script>
         app.controller('enquiryModalCtrl', function($scope,  $http, API_URL, $compile ) {
-            console.log("RED")
             $("#customer_chat").hide(); 
             $scope.commentsCount = 0;
             $scope.getEnquiry = (type,id) =>  {
