@@ -28,7 +28,7 @@
                     @if (!is_null(Customer()))
                         <i class="mdi mdi-account-circle" style="font-size: 30px"></i>
                         @else 
-                        <img src="{{ Admin()->image }}" width="30px" height="30px" class="rounded-circle" style="object-fit: cover">
+                        <img src="{{ Admin()->image }}" width="35px" height="35px" class="rounded-circle" style="object-fit: cover; border: 2px solid;">
                     @endif
                   
                     <div class="ms-2">
