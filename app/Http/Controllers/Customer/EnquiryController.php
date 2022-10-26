@@ -588,14 +588,15 @@ class EnquiryController extends Controller
         $enquiry = $this->customerEnquiryRepo->getEnquiryById($id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry,'is_customer_active_enquiry',false);
         $services = $enquiry->services()->get();
-        $result['project_infos'] = $this->formatProjectInfo($enquiry);
-        $result['services'] =  $this->formatServices($outputTypes, $services);
-        $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
-        $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
-        $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
-        $result["enquiry_comments"] = $this->enquiryCommentsRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
+        $result['project_infos']           = $this->formatProjectInfo($enquiry);
+        $result['customer']                = getCustomerByEnquiryId($enquiry->id);
+        $result['services']                = $this->formatServices($outputTypes, $services);
+        $result['building_components']     = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
+        $result['ifc_model_uploads']       = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
+        $result['additional_infos']        = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+        $result["enquiry_comments"]        = $this->enquiryCommentsRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
         $result["enquiry_active_comments"] = $this->enquiryCommentsRepo->getActiveCommentsCountByType($id)->pluck('comments_count', 'type');
-        $result['active_tabs'] = $this->getActiveTabs($enquiry);
+        $result['active_tabs']             = $this->getActiveTabs($enquiry);
         return  $result;
     }
 

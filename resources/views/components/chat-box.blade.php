@@ -26,7 +26,7 @@
             <div class="border-bottom shadow-sm text-white bg-primary2 modal-header ">
                 <div class="d-flex justify-content-center align-items-center"> 
                     @if (!is_null(Customer()))
-                        <i class="mdi mdi-account-circle" style="font-size: 30px"></i>
+                        <i class="fa fa-users text-success" style="font-size: 30px;border: 2px solid;height: 35px;border-radius: 50%;width: 35px;"></i>
                         @else 
                         <img src="{{ Admin()->image }}" width="35px" height="35px" class="rounded-circle" style="object-fit: cover; border: 2px solid;">
                     @endif
@@ -34,10 +34,10 @@
                     <div class="ms-2">
                         <small>
                             @if (!is_null(Customer()))
-                                {{ ucfirst(Customer()->full_name) }} / <small class="text-success fw-bold">{{ AuthUser() }}</small>
+                                AecPrefab / <small class="text-success fw-bold">support team</small>
                             @endif
                             @if (!is_null(Admin()))
-                                {{ ucfirst(Admin()->display_name) }} / <small class="text-success fw-bold">{{ AuthUser() }}</small>
+                                {{ ucfirst($customer->full_name) }} / <small class="text-success fw-bold">Customer</small>
                             @endif
                         </small>
                         <h5 class="m-0 mt-1">{{ str_replace('_',' ',$menuName) }}</h5>

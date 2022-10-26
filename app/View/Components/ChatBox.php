@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Helper\Notify;
+use App\Models\Enquiry;
 use Illuminate\View\Component;
 
 class ChatBox extends Component
@@ -45,12 +46,15 @@ class ChatBox extends Component
             'menu_name'     => $menuName,
         ]);
 
+        $customer = getCustomerByEnquiryId($moduleId); 
+
         return view('components.chat-box', compact(
             'status',
             'moduleName',
             'moduleId',
             'menuName',
-            'conversations'
+            'conversations',
+            'customer'
         ));
     }
 }

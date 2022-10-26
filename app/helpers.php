@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Enquiry;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
@@ -92,5 +93,12 @@ if(!function_exists('str_replace_once')) {
         //     if ($pos !== false)
         //         $subject = substr_replace($subject, $replace, $pos, strlen($needle));
             return $subject;
+    }
+}
+ 
+if(!function_exists('getCustomerByEnquiryId')) {
+    function getCustomerByEnquiryId($id)
+    {
+        return Enquiry::with('customer')->findOrFail($id)->customer;
     }
 }
