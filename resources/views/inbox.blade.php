@@ -44,6 +44,7 @@
     initFirebaseMessagingRegistration();
   
     messaging.onMessage(function({data:{body,title}}){
+        console.log(body)
         new Notification(title, {body});
     });
 </script>

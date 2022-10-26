@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 use App\Helper\Notify;
 use App\Models\Admin\Employees;
 use App\Models\Customer;
+use App\Notifications\InboxNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class InboxController extends Controller
 {
     public function inbox()
     {
+        Notification::send(null,new InboxNotification(
+           "Testing Title",
+            "Testing Name",
+           "dIGxz3nGEzN12yu8qyRAa2:APA91bFIGlD6s_N3fQ340yHt3IPC_KzKC8mSHH41-eDVm-A3D4XNJ90_qXeRzQVmmQ2TwmGQsSk_qxaTreGfEQelrWtZ_mKDTFqOlHGnSqntcTc9DqPOoFSn3yaDaOd0H8DmZs9lJ4jJ"
+        ));
         return view('inbox');
     }
     public function get_token()
