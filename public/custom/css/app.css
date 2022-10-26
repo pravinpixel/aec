@@ -750,3 +750,7 @@ sup {
     float: right;
     background : #E1FFC9;
 }
+.btn-loader {
+    pointer-events: none !important; 
+    user-select: none !important;
+}

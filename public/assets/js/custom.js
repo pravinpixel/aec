@@ -194,7 +194,8 @@ function getYesterdayDate() {
 
 const APP_URL = $('meta[name="app-url"]').attr('content');
 
-EnquiryQuickView = (id) => {
+EnquiryQuickView = (id, element) => {
+    startLoader(element)
     axios.get(`${APP_URL}/enquiry-quick-view/${id}/modal`).then((response) => {
         if(response.status === 200) {
             $("#EnquiryQuickViewPopUp").modal('show')
@@ -202,8 +203,16 @@ EnquiryQuickView = (id) => {
             setTimeout(() => {
                 refreshFsLightbox();
             }, 2000);
+            stopLoader(element)
         }
     });
+}
+startLoader = (e) => {
+    e.classList.add('btn-loader')
+}
+
+stopLoader = (e) => {
+    e.classList.remove('btn-loader')
 }
 
 viewCustomerEnquiryProposal = (id) => {
@@ -256,3 +265,4 @@ scrollMessage = (menuName) => {
         }, 1000);
     }, 500);
 } 
+ 
