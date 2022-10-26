@@ -28,7 +28,7 @@ class Notify {
                 $adminTokens   = Employees::whereNotNull('token')->pluck('token')->toArray();
                 $receiver_role = "Admin" ;
                 $receiver_id   = 1;
-                $token         = $adminTokens;
+                $token         = $adminTokens[0];
             }
             if($sender_role == 'Admin') {
                 $receiver_role = "CUSTOMER" ;
