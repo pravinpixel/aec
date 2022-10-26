@@ -1,6 +1,7 @@
 <?php
 namespace App\Helper;
 
+use App\Models\Admin\Employees;
 use App\Models\Enquiry;
 use App\Models\Inbox;
 use App\Notifications\InboxNotification;
@@ -23,11 +24,11 @@ class Notify {
 
         if($data['module_name'] == 'enquiry') {
             $Enquiry = Enquiry::with('customer')->find($data['module_id']); 
-            
             if($sender_role == 'Customer') {
+                $adminTokens   = Employees::whereNotNull('token')->pluck('token')->toArray();
                 $receiver_role = "Admin" ;
                 $receiver_id   = 1;
-                $token         = $Enquiry->customer->token;
+                $token         = $adminTokens;
             }
             if($sender_role == 'Admin') {
                 $receiver_role = "CUSTOMER" ;
