@@ -33,7 +33,7 @@
 
     initFirebaseMessagingRegistration();
   
-    messaging.onMessage(function({data:{body,title}}){
-        new Notification(title, {body});
+    messaging.onMessage(function({data:{body,title,action_link}}){
+        new Notification(title, {body,action_link});
     });
 </script>

@@ -43,9 +43,8 @@
 
     initFirebaseMessagingRegistration();
   
-    messaging.onMessage(function({data:{body,title}}){
-        console.log(body)
-        new Notification(title, {body});
+    messaging.onMessage(function({data:{body,title,action_link}}){
+        new Notification(title, {body,action_link});
     });
 </script>
 </body>
