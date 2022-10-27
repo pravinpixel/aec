@@ -355,7 +355,7 @@
                             @foreach ($enquiry['building_components'] as $i => $build)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
-                                    <td>{{ $build->created_at }}</td>
+                                    <td>{{  SetDateFormat($build->created_at)  }}</td>
                                     <td>{{ $build->file_name }}</td>
                                     <td>{{ $build->file_type }}</td>
                                     <td class="text-center">
