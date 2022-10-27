@@ -418,7 +418,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>${moment( $scope.enquiry.enquiry.enquiry_date ).format('DD-MM-YYYY') }</td>
+                                        <td>${$scope.enquiry.enquiry.enquiry_date }</td>
                                         <td>${$scope.enquiry.enquiry.project_name }</td>
                                         <td>${$scope.enquiry.enquiry.contact_person }</td>
                                     </tr>
@@ -961,7 +961,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>${ moment($scope.enquiry.enquiry.enquiry_date).format('DD-MM-YYYY') }</td>
+                                        <td>${ $scope.enquiry.enquiry.enquiry_date }</td>
                                         <td>${$scope.enquiry.enquiry.project_name }</td>
                                         <td>${$scope.enquiry.building_type.building_type_name  }</td>
                                         <td>${$scope.enquiry.enquiry.contact_person }</td>

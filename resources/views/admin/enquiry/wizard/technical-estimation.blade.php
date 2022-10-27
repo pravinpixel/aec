@@ -83,7 +83,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>@{{ enquiry.enquiry.enquiry_date | date:'dd-MM-yyyy' }}</td>
+                                    <td>@{{ enquiry.enquiry.enquiry_date }}</td>
                                     <td>@{{ enquiry.enquiry.contact_person }}</td>
                                     <td>@{{ enquiry.enquiry.project_type.project_type_name  }}</td>
                                     <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>

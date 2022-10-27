@@ -14,8 +14,12 @@ class Enquiry extends Model
     use HasFactory, SoftDeletes;
 
     protected $casts = [
-        'created_at' => "datetime:d/m/Y - h:i:s A",
-        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+        'created_at'            => "datetime:d/m/Y - h:i:s A",
+        'updated_at'            => "datetime:d/m/Y - h:i:s A",
+        'enquiry_date'          => "datetime:d/m/Y - h:i:s A",
+        'project_date'          => "datetime:d/m/Y - h:i:s A",
+        'project_delivery_date' => "datetime:d/m/Y - h:i:s A",
+        'follow_up_date'        => "datetime:d/m/Y - h:i:s A",
     ];
 
     
