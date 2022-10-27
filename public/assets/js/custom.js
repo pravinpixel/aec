@@ -264,5 +264,4 @@ scrollMessage = (menuName) => {
             scrollTop: $(`.inbox_conversation_list_${menuName}`)[0].scrollHeight
         }, 1000);
     }, 500);
-} 
- 
+}

@@ -83,7 +83,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>@{{ enquiry.enquiry.enquiry_date }}</td>
+                                    <td>@{{ enquiry.enquiry.enquiry_date | date: 'd/M/yyyy' }}</td>
                                     <td>@{{ enquiry.enquiry.contact_person }}</td>
                                     <td>@{{ enquiry.enquiry.project_type.project_type_name  }}</td>
                                     <td><span class="px-2 rounded-pill bg-success"><small class="text-white">In Estimation</small></span></td>
@@ -156,7 +156,7 @@
                         </div> 
                     </div>
                     <div class="text-end p-2 border-top bg-light">
-                        <button class="btn btn-sm btn-primary " ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button> 
+                        <button class="btn btn-sm btn-primary" ng-click="Add_building()"><i class="fa fa-plus"></i> Add Building</button> 
                         <a class="btn btn-success btn-sm" ng-click="updateTechnicalEstimate()"><i class="uil-sync"></i> Update</a>
                     </div>
                 </div>  
@@ -180,7 +180,9 @@
                                         <div class="d-flex flex-column">
                                             <span class="fw-bold">@{{ doc.client_file_name.substring(0,20) }} </span> 
                                             @{{  doc.file_type }}
-                                            <small class="text-secondary">@{{ doc.document_type.created_at }}</small>
+                                            <small class="text-secondary"> 
+                                                <date-format ng-bind="doc.document_type.created_at"></date-format>
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +202,7 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <div class="d-flex flex-column over" >
-                                        <small class="text-secondary">@{{  building_comp.created_at }}</small>
+                                        <small class="text-secondary">@{{  building_comp.created_at  | date: 'd/M/yyyy'  }}</small>
                                     </div>
                                 </div>
                             </div>

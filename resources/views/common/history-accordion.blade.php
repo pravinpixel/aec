@@ -9,7 +9,7 @@
                     <span> - </span>
                     <span>
                         <span class="fa fa-calendar"></span>
-                        <small>{{ $data->created_at }}</small>
+                        <small>{{ SetDateTimeFormat($data->created_at) }}</small>
                     </span>
                 </div>
                 <div class="d-flex align-items-center pe-5">

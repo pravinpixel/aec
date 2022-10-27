@@ -6338,7 +6338,7 @@ $countries = array(
 		document.getElementById("language").value = '{{ $data->language }}';
 		document.getElementById("construction_type").value = '{{ $data->construction_type }}';
 		document.getElementById("contract_type").value = '{{ $data->contract_type }}';
-		document.getElementById("created_at").value = '{{ $data->created_at }}';
+		document.getElementById("created_at").value = '{{ SetDateFormat($data->created_at) }}';
 		document.getElementById("updated_at").value = '{{ $data->updated_at }}';
 		document.getElementById("service_types").value = '{{ $data->service_types }}';
 
