@@ -155,7 +155,7 @@ class MailTemplateController extends Controller
         $variables = [
             '$document_title'           => $documentary->documentary_title,
             '$enquiry_date'             => $enquiry->enquiry_date,
-            '$project_name'             => isset($enquiry->project->project_name) == false ? "" : $enquiry->project->project_name,
+            '$project_name'             => $enquiry->project_name,
             '$project_street_name'      => isset($enquiry->project->site_address) == false ? "" : $enquiry->project->site_address,
             '$project_city'             => isset($enquiry->project->city) == false ? "" : $enquiry->project->city,
             '$project_state'            => isset($enquiry->project->state) == false ? "" : $enquiry->project->state,
@@ -198,7 +198,7 @@ class MailTemplateController extends Controller
         ]; 
 
         foreach ($variables as $key => $value) {
-            $documentary_content = str_replace_once($key, $value, $documentary_content);
+            $documentary_content = str_replace_all($key, $value, $documentary_content);
         } 
         // DD($documentary_content);
         $enquiry_proposal = MailTemplate::create([

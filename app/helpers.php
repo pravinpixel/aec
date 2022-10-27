@@ -86,8 +86,8 @@ if(!function_exists('AuthUser')) {
     }
 }
 
-if(!function_exists('str_replace_once')) {
-    function str_replace_once($key, $value, $subject) {
+if(!function_exists('str_replace_all')) {
+    function str_replace_all($key, $value, $subject) {
         $subject = str_replace($key, $value, $subject);
         // $pos = strpos($subject, $needle);
         //     if ($pos !== false)
