@@ -32,28 +32,12 @@
         <div class="card border shadow-sm mb-0 col-md-4 ms-auto"  ng-show="commentShow">
             <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
             <div class="card-body">
-                <div class="d-flex align-items-center" ng-show="commentShow">
-                    <div>
-                        <open-comment  data="
-                        {'modalState':'viewConversations',
-                        'type': 'ifc_model', 
-                        'header':'IFC Models & Uploaded Documents',
-                        'enquiry_id':enquiry_id,
-                        send_by: {{ Customer()->id }},
-                        'from':'Customer'
-                        }"/> 
-                    </div>
-                    <div class="ms-2">
-                        <comment  ng-show="commentShow" data="
-                            {'modalState':'viewConversations',
-                            'type': 'ifc_model', 
-                            'header':'IFC Models & Uploaded Documents',
-                            'enquiry_id':enquiry_id,
-                            send_by: {{ Customer()->id }},
-                            'from':'Customer'
-                        }"/>
-                    </div>
-                </div>
+                <x-chat-box 
+                    :status="1" 
+                    moduleId="{{ session('enquiry_id') }}" 
+                    moduleName="enquiry"
+                    menuName="{{ __('app.IFC_Models_and_Uploaded_Documents') }}"
+                />
             </div>
         </div>
     </div>

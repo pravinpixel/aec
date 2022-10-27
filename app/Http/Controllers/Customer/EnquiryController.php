@@ -588,14 +588,15 @@ class EnquiryController extends Controller
         $enquiry = $this->customerEnquiryRepo->getEnquiryById($id);
         $this->customerEnquiryRepo->updateAdminWizardStatus($enquiry,'is_customer_active_enquiry',false);
         $services = $enquiry->services()->get();
-        $result['project_infos'] = $this->formatProjectInfo($enquiry);
-        $result['services'] =  $this->formatServices($outputTypes, $services);
-        $result['building_components'] = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
-        $result['ifc_model_uploads'] = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
-        $result['additional_infos'] = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
-        $result["enquiry_comments"] = $this->enquiryCommentsRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
+        $result['project_infos']           = $this->formatProjectInfo($enquiry);
+        $result['customer']                = getCustomerByEnquiryId($enquiry->id);
+        $result['services']                = $this->formatServices($outputTypes, $services);
+        $result['building_components']     = $this->customerEnquiryRepo->getBuildingComponent($enquiry);
+        $result['ifc_model_uploads']       = $this->documentTypeEnquiryRepo->getDocumentByEnquiryId($enquiry->id);
+        $result['additional_infos']        = $this->commentRepo->getCommentByEnquiryId($enquiry->id);
+        $result["enquiry_comments"]        = $this->enquiryCommentsRepo->getCommentsCountByType($id)->pluck('comments_count', 'type');
         $result["enquiry_active_comments"] = $this->enquiryCommentsRepo->getActiveCommentsCountByType($id)->pluck('comments_count', 'type');
-        $result['active_tabs'] = $this->getActiveTabs($enquiry);
+        $result['active_tabs']             = $this->getActiveTabs($enquiry);
         return  $result;
     }
 
@@ -638,7 +639,7 @@ class EnquiryController extends Controller
                 ->editColumn('enquiry_number', function ($dataDb) {
                     $commentCount = $dataDb->comments->count();
                     // ng-click=getEnquiry("project_info",' . $dataDb->id . ')
-                    $data = '<button type="button" class="btn-quick-view" onclick=EnquiryQuickView('. $dataDb->id .')>
+                    $data = '<button type="button" class="btn-quick-view"  onclick="EnquiryQuickView('. $dataDb->id .' ,this)">
                     <b>' . $dataDb->enquiry_number . '</b>';
                     if ($commentCount != 0) {
                         $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';
@@ -711,7 +712,7 @@ class EnquiryController extends Controller
                     $proposal_active_border = $dataDb->proposal_email_status == 1 ? 'border-success' : 'border-primary';
                     $proposal_active_bg = $dataDb->proposal_email_status == 1 ? 'badge-primary-lighten text-success' : 'badge-primary-lighten';
                     $data = '
-                         <button type="button" class="btn-quick-view" onclick=EnquiryQuickView('. $dataDb->id .')>
+                         <button type="button" class="btn-quick-view"  onclick="EnquiryQuickView('. $dataDb->id .' ,this)">
                             ' . $dataDb->enquiry_number . '
                         ';
                     if ($commentCount != 0) {
@@ -789,7 +790,7 @@ class EnquiryController extends Controller
                 ->editColumn('enquiry_number', function ($dataDb) {
                     $commentCount = $dataDb->comments->count();
                     // <button type="button" class="btn-quick-view"  ng-click=getEnquiry("project_info",' . $dataDb->id . ')> 
-                    $data = '<button type="button" class="btn-quick-view" onclick=EnquiryQuickView('. $dataDb->id .')>
+                    $data = '<button type="button" class="btn-quick-view" onclick=EnquiryQuickView('. $dataDb->id .' , this)>
                     <b>' . $dataDb->enquiry_number . '</b>';
                     if ($commentCount != 0) {
                         $data .= '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >' . $commentCount . ' </span>';

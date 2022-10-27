@@ -52,20 +52,22 @@
                             <td>{{ $enquiry['project_infos']['contact_person'] }}</td>
                         </tr>
                     @endif
-                    @if ($enquiry['additional_infos']->customer['email'])
-                        <tr>
-                            <td><b>Email</b></td>
-                            <td>:</td>
-                            <td>{{ $enquiry['additional_infos']->customer['email'] }}</td>
-                        </tr>
-                    @endif
-                    @if ($enquiry['additional_infos']->customer['mobile_no'])
-                        <tr>
-                            <td><b>Contact Number</b></td>
-                            <td>:</td>
-                            <td>{{ $enquiry['additional_infos']->customer['mobile_no'] }}</td>
-                        </tr>
-                    @endif
+                    @if (!is_null($enquiry['additional_infos']))
+                        @if ($enquiry['additional_infos']->customer['email'])
+                            <tr>
+                                <td><b>Email</b></td>
+                                <td>:</td>
+                                <td>{{ $enquiry['additional_infos']->customer['email'] }}</td>
+                            </tr>
+                        @endif
+                        @if ($enquiry['additional_infos']->customer['mobile_no'])
+                            <tr>
+                                <td><b>Contact Number</b></td>
+                                <td>:</td>
+                                <td>{{ $enquiry['additional_infos']->customer['mobile_no'] }}</td>
+                            </tr>
+                        @endif
+                    @endif 
                     @if ($enquiry['project_infos']['secondary_mobile_no'])
                         <tr>
                             <td><b>Secondary Contact Number</b></td>
@@ -101,20 +103,24 @@
                             <td>{{ $enquiry['project_infos']['country'] }}</td>
                         </tr>
                     @endif
-                    @if ($enquiry['project_infos']['project_type']['project_type_name'])
-                        <tr>
-                            <td><b>Type of Project</b></td>
-                            <td>:</td>
-                            <td>{{ $enquiry['project_infos']['project_type']['project_type_name'] }}</td>
-                        </tr>
-                    @endif
-                    @if ($enquiry['project_infos']['building_type']['building_type_name'])
-                        <tr>
-                            <td><b>Type of Building</b></td>
-                            <td>:</td>
-                            <td>{{ $enquiry['project_infos']['building_type']['building_type_name'] }}</td>
-                        </tr>
-                    @endif
+                    @if (!is_null($enquiry['project_infos']['project_type']))
+                        @if ($enquiry['project_infos']['project_type']['project_type_name'])
+                            <tr>
+                                <td><b>Type of Project</b></td>
+                                <td>:</td>
+                                <td>{{ $enquiry['project_infos']['project_type']['project_type_name'] }}</td>
+                            </tr>
+                        @endif
+                    @endif 
+                    @if (!is_null($enquiry['project_infos']['building_type']))
+                        @if ($enquiry['project_infos']['building_type']['building_type_name'])
+                            <tr>
+                                <td><b>Type of Building</b></td>
+                                <td>:</td>
+                                <td>{{ $enquiry['project_infos']['building_type']['building_type_name'] }}</td>
+                            </tr>
+                        @endif
+                    @endif  
                     @if ($enquiry['project_infos']['no_of_building'])
                         <tr>
                             <td><b>No. of Buildings</b></td>
@@ -122,13 +128,15 @@
                             <td>{{ $enquiry['project_infos']['no_of_building'] }}</td>
                         </tr>
                     @endif
-                    @if ($enquiry['project_infos']['delivery_type']['delivery_type_name'])
-                        <tr>
-                            <td><b>Type of Delivery</b></td>
-                            <td>:</td>
-                            <td>{{ $enquiry['project_infos']['delivery_type']['delivery_type_name'] }}</td>
-                        </tr>
-                    @endif
+                    @if (!is_null($enquiry['project_infos']['delivery_type']))
+                        @if ($enquiry['project_infos']['delivery_type']['delivery_type_name'])
+                            <tr>
+                                <td><b>Type of Delivery</b></td>
+                                <td>:</td>
+                                <td>{{ $enquiry['project_infos']['delivery_type']['delivery_type_name'] }}</td>
+                            </tr>
+                        @endif
+                    @endif 
                     @if ($enquiry['project_infos']['project_delivery_date'])
                         <tr>
                             <td><b>Delivery Date</b></td>
@@ -136,12 +144,14 @@
                             <td>{{ $enquiry['project_infos']['project_delivery_date'] }}</td>
                         </tr>
                     @endif
-                    @if ($enquiry['additional_infos']['customer']['remarks'])
-                        <tr>
-                            <td><b>Remarks</b></td>
-                            <td>:</td>
-                            <td>{{ $enquiry['additional_infos']['customer']['remarks'] }}</td>
-                        </tr>
+                    @if (!is_null($enquiry['additional_infos']))
+                        @if ($enquiry['additional_infos']['customer']['remarks'])
+                            <tr>
+                                <td><b>Remarks</b></td>
+                                <td>:</td>
+                                <td>{{ $enquiry['additional_infos']['customer']['remarks'] }}</td>
+                            </tr>
+                        @endif 
                     @endif 
                 </tbody>
             </table> 
@@ -149,7 +159,7 @@
                 :status="$chat_status" 
                 :moduleId="$enquiry['project_infos']['enquiry_id']" 
                 moduleName="enquiry" 
-                menuName="{{ __('app.Project Information') }}" 
+                menuName="{{ __('app.Project_Information') }}" 
             />
         </x-accordion>
         <x-accordion title="Selected Services" path="false" open="false"> 
@@ -172,7 +182,7 @@
                 :status="$chat_status" 
                 :moduleId="$enquiry['project_infos']['enquiry_id']" 
                 moduleName="enquiry" 
-                menuName="{{ __('app.Selected Services') }}" 
+                menuName="{{ __('app.Selected_Services') }}" 
             />
         </x-accordion>
         <x-accordion title="IFC Models and Uploaded Documents" path="false" open="false">  
@@ -263,7 +273,7 @@
                 :status="$chat_status"
                 :moduleId="$enquiry['project_infos']['enquiry_id']" 
                 moduleName="enquiry" 
-                menuName="{{ __('app.IFC Models and Uploaded Documents') }}" 
+                menuName="{{ __('app.IFC_Models_and_Uploaded_Documents') }}" 
             />
         </x-accordion> 
         <x-accordion title="Building Components" path="false" open="false">
@@ -355,12 +365,25 @@
                         </tbody>
                     </thead>
                 </table> 
-            @endif  
+            @endif
+            <x-chat-box 
+                :status="$chat_status"
+                :moduleId="$enquiry['project_infos']['enquiry_id']" 
+                moduleName="enquiry" 
+                menuName="{{ __('app.Building_Components') }}" 
+            />
         </x-accordion>
+
         <x-accordion title="Additional Information" path="false" open="false">
-            <div>
-                {!! $enquiry['additional_infos']->comments !!}
-            </div>
+            @if (!is_null($enquiry['additional_infos']))
+                <div>{!! $enquiry['additional_infos']->comments !!}</div>
+            @endif
+            <x-chat-box 
+                :status="$chat_status"
+                :moduleId="$enquiry['project_infos']['enquiry_id']" 
+                moduleName="enquiry" 
+                menuName="{{ __('app.Additional_Information') }}" 
+            />
         </x-accordion>
     </div>
 </div> 

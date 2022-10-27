@@ -33,7 +33,6 @@
             axios.post("{{ route('save-token') }}",{
                 token : token
             }).then(({data})=>{
-                console.log(data)
             }).catch(({response:{data}})=>{
                 console.error(data)
             })
@@ -44,8 +43,8 @@
 
     initFirebaseMessagingRegistration();
   
-    messaging.onMessage(function({data:{body,title}}){
-        new Notification(title, {body});
+    messaging.onMessage(function({data:{body,title,action_link}}){
+        new Notification(title, {body,action_link});
     });
 </script>
 </body>

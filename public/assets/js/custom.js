@@ -14,7 +14,12 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
+startLoader = (e) => {
+    e.classList.add('btn-loader')
+}
+stopLoader = (e) => {
+    e.classList.remove('btn-loader')
+}
 function minmax(value, min, max) 
 {
     if(parseInt(value) < min || isNaN(parseInt(value))) 
@@ -194,7 +199,8 @@ function getYesterdayDate() {
 
 const APP_URL = $('meta[name="app-url"]').attr('content');
 
-EnquiryQuickView = (id) => {
+EnquiryQuickView = (id, element) => {
+    startLoader(element)
     axios.get(`${APP_URL}/enquiry-quick-view/${id}/modal`).then((response) => {
         if(response.status === 200) {
             $("#EnquiryQuickViewPopUp").modal('show')
@@ -202,9 +208,11 @@ EnquiryQuickView = (id) => {
             setTimeout(() => {
                 refreshFsLightbox();
             }, 2000);
+            stopLoader(element)
         }
     });
 }
+
 
 viewCustomerEnquiryProposal = (id) => {
     $("#CustomerViewProposalModal").modal('show')
@@ -219,29 +227,42 @@ viewCustomerEnquiryProposal = (id) => {
     });
 }
 
-sendMessage = (e) => {
-    e.preventDefault()
+sendMessage = (element) => { 
     var config = [] 
-    Object.entries(e.target.children).map((Element) => {
-        if(Element[1].localName == 'input') {
-            config[Element[1].name] =  Element[1].value
+    Object.entries(element.parentNode.childNodes).map((item) => {
+        if(item[1].localName == 'input') { 
+            config[item[1].name] =  item[1].value
         }
     })
+    if(config.message == '') {
+        Message('danger','Can"t send Empty Message !')
+        return
+    }
+    startLoader(element)
     axios.post(`${APP_URL}/send-message`, {
         menu_name   : config.menu_name,
         message     : config.message,
         module_id   : config.module_id,
         module_name : config.module_name
     }).then(function (response) {
-        var li = ''
-        response.data.conversations.map((item) => {
-            li += `
-                <li class="${item.sender_role}-message" >
-                    <div>${item.message}</div>
-                    <small>${item.sender_role} | ${item.send_date}</small>
-                </li>
-            `
+        $(`.inbox_conversation_list_${config.menu_name}`).html(response.data.conversations)
+        $(`.inbox_conversation_list_${config.menu_name}`).stop().animate({ 
+            scrollTop: $(`.inbox_conversation_list_${config.menu_name}`)[0].scrollHeight
+        }, 1000);
+        stopLoader(element)
+        Object.entries(element.parentNode.childNodes).map((item) => {
+            if(item[1].name == 'message') {
+                item[1].value = ''
+            }
         })
-        $("#inbox-conversation-list").html(li)
     }); 
 }
+
+scrollMessage = (menuName) => {
+    setTimeout(() => {
+        $(`.inbox_conversation_list_${menuName}`).stop().animate({ 
+            scrollTop: $(`.inbox_conversation_list_${menuName}`)[0].scrollHeight
+        }, 1000);
+    }, 500);
+} 
+ 

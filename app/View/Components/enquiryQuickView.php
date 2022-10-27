@@ -32,11 +32,11 @@ class enquiryQuickView extends Component
 
         $detail_table['project_name']     = $enquiry['project_infos']['project_name'];
         $detail_table['enquiry_number']   = $enquiry['project_infos']['enquiry_no'];
-        $detail_table['name']             = $enquiry['project_infos']['contact_person'];
-        $detail_table['company_name']     = $enquiry['project_infos']['company_name'];
-        $detail_table['mobile']           = $enquiry['project_infos']['mobile_no'];
-        $detail_table['email']            = $enquiry['additional_infos']->customer['email'];
-        $detail_table['type_of_delivery'] = $enquiry['project_infos']['delivery_type']['delivery_type_name'];
+        $detail_table['name']             = $enquiry['customer']['full_name'];
+        $detail_table['company_name']     = $enquiry['customer']['company_name'];
+        $detail_table['mobile']           = $enquiry['customer']['mobile_no'];
+        $detail_table['email']            = $enquiry['customer']['email'];
+        $detail_table['type_of_delivery'] = $enquiry['project_infos']['delivery_type']['delivery_type_name'] ?? "";
         
         $table_status = $this->table;
         $chat_status  = $this->chat;
