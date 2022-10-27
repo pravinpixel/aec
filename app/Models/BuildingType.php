@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BuildingType extends Model
 {
     use HasFactory, SoftDeletes;
+    
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+    ];
 
     public $fillable = [
         'building_type_name',

@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Log;
 class DocumentType extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+    ];
     public $fillable = [
         'document_type_name',
         'is_mandatory',

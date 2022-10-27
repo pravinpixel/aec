@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class EnquiryBuildingComponentDetail extends Model
 {
     public $table = 'enquiry_bcds';
+    
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    ];
+
+    
     protected $fillable = [
         'enquiry_building_component_id',
         'building_component_delivery_type_id',

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerEnquiryTemplate extends Model
 {
     use HasFactory;
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+    ];
     protected $guarded = ['*'];
     protected $fillable = [
         "template_name",

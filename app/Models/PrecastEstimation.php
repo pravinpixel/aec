@@ -15,4 +15,11 @@ class PrecastEstimation extends Model
         'hours',
         'is_active'
     ];
+    
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    ];
+
+    
 }

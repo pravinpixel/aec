@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class EnquiryBuildingComponent extends Model
 {
     use HasFactory;
+    
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    ];
+
+    
     protected $fillable = [
         'enquiry_id',
         'building_component_id'

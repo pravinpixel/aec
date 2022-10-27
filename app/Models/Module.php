@@ -10,6 +10,12 @@ class Module extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    ];
+
+    
     public $fillable = [
         'module_name',
         'parent_name',

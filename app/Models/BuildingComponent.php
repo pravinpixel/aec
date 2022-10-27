@@ -10,6 +10,11 @@ class BuildingComponent extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+    ];
+    
     public $fillable = [
         'label',
         'building_component_name',

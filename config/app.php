@@ -15,6 +15,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'date_format_model' => "datetime:d/m/Y - h:i:s A",
 
     /*
     |--------------------------------------------------------------------------

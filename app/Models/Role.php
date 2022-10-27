@@ -19,6 +19,10 @@ class Role extends Model implements RoleContract
     use RefreshesPermissionCache;
 
     protected $guarded = [];
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",   
+    ];
 
     public function __construct(array $attributes = [])
     {

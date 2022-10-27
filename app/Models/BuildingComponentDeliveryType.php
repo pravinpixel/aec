@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BuildingComponentDeliveryType extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+    ];
     public $fillable = [
         'delivery_type_name',
         'is_active'

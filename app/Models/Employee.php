@@ -14,9 +14,10 @@ use Spatie\Permission\Traits\HasRoles;
 class Employee extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use HasRoles;
+    use HasRoles; 
     protected $table = 'employee';
     protected $primaryKey = 'id';
+    
     protected $fillable = [
         'employee_id',
         'first_name',
@@ -53,8 +54,11 @@ class Employee extends Authenticatable
      *
      * @var array
      */
+
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+        'email_verified_at' => "datetime:d/m/Y - h:i:s A",
     ];
 
     public function setFullNameAttribute()

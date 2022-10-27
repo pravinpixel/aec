@@ -27,4 +27,9 @@ class ProjectTicket extends Model
         'customer_response',
         'is_active',
     ];
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",  
+        'change_date' => "datetime:d/m/Y - h:i:s A",  
+    ];
 }

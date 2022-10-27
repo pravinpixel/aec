@@ -9,6 +9,14 @@ class EmployeeBimAccessProject extends Model
 {
     use HasFactory;
 
+
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    ];
+
+    
+
     protected $fillable = [
         'project_id',
         'employee_id',

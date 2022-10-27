@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Hash;
 class Customer extends Authenticatable
 {
     use HasFactory, SoftDeletes;
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+    ];
     protected $dates  = [
             'created_at', 
             'updated_at', 

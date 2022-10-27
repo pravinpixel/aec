@@ -17,4 +17,9 @@ class ProjectTodo extends Model
         'date_of_delivery',
         'status',
     ];
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",  
+        'date_of_delivery' => "datetime:d/m/Y - h:i:s A",  
+    ];
 }

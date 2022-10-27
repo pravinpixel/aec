@@ -14,4 +14,8 @@ class Type extends Model
         'building_type_name',
         'is_active'
     ];
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",    
+    ];
 }

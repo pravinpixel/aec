@@ -14,4 +14,8 @@ class TeamSetupTemplate extends Model
         'template_name',
         'template_data'
     ];
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",  
+    ];
 }

@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CostEstimationDetail extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+    ];
     protected $table = 'cost_estimation_detail';
     protected $primaryKey = 'id';
     protected $fillable = [

@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Documentary extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",
+    ];
     protected $table = 'documentary';
     protected $primaryKey = 'id';
     public $fillable = [

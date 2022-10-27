@@ -15,4 +15,8 @@ class SharepointFolder extends Model
         'created_by',
         'modified_by'
     ];
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",  
+    ];
 }

@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class OutputType extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    ];
+
+    
     public $fillable = [
         'output_type_name',
         'order_id',

@@ -10,6 +10,12 @@ class Layer extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    ];
+
+    
     protected $table = 'layers';
     protected $primaryKey = 'id';
     public $fillable = [

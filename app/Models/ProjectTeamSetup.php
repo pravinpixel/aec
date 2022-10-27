@@ -13,7 +13,10 @@ class ProjectTeamSetup extends Model
         'role_id',
         'team'
     ];
-
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A",  
+    ];
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');

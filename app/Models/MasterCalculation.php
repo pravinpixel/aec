@@ -10,6 +10,10 @@ class MasterCalculation extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'master_calculation';
+    protected $casts = [
+        'created_at' => "datetime:d/m/Y - h:i:s A",
+        'updated_at' => "datetime:d/m/Y - h:i:s A", 
+    ]; 
     protected $primaryKey = 'id';
     public $fillable = [
         'id',
