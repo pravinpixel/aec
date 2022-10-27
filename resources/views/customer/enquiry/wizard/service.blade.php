@@ -29,17 +29,19 @@
             </div>
         </div>
         <br>
-        <div class="card border shadow-sm mb-0 col-md-4 ms-auto"  ng-show="commentShow">
-            <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
-            <div class="card-body">
-                <x-chat-box 
-                    :status="1" 
-                    moduleId="{{ session('enquiry_id') }}" 
-                    moduleName="enquiry"
-                    menuName="{{ __('app.Selected_Services') }}"
-                />
-            </div>
-        </div>  
+        @if (session('enquiry_id'))
+            <div class="card border shadow-sm mb-0 col-md-4 ms-auto"  ng-show="commentShow">
+                <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
+                <div class="card-body">
+                    <x-chat-box 
+                        :status="1" 
+                        moduleId="{{ session('enquiry_id') }}" 
+                        moduleName="enquiry"
+                        menuName="{{ __('app.Selected_Services') }}"
+                    />
+                </div>
+            </div>  
+        @endif
     </div>
     <div class="card-footer">
         <ul class="list-inline wizard">

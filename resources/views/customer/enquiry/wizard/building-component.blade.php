@@ -351,19 +351,21 @@
                 </div>
             </div>  
         </div> 
-        <div class="col-md-4"  ng-show="commentShow">
-            <div class="card border shadow-sm mb-0">
-                <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
-                <div class="card-body">
-                    <x-chat-box 
-                        :status="1" 
-                        moduleId="{{ session('enquiry_id') }}" 
-                        moduleName="enquiry"
-                        menuName="{{ __('app.Building_Components') }}"
-                    />
-                </div>
-            </div>  
-        </div> 
+        @if (session('enquiry_id'))
+            <div class="col-md-4"  ng-show="commentShow">
+                <div class="card border shadow-sm mb-0">
+                    <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
+                    <div class="card-body">
+                        <x-chat-box 
+                            :status="1" 
+                            moduleId="{{ session('enquiry_id') }}" 
+                            moduleName="enquiry"
+                            menuName="{{ __('app.Building_Components') }}"
+                        />
+                    </div>
+                </div>  
+            </div> 
+        @endif 
     </div>
 
     @include('customer.enquiry.models.add-layer-modal')

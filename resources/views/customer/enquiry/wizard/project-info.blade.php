@@ -116,19 +116,21 @@
                 <small class="text-danger" ng-show="projectInfoForm.project_delivery_date.$error.min && formSubmit">Delivery date should not be less than that of the project's start date</small>
             </div>
         </div>
-        <div class="col-md-4 ms-auto pt-2" ng-show="commentShow">
-            <div class="card border shadow-sm m-0">
-                <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
-                <div class="card-body">
-                    <x-chat-box 
-                        :status="1" 
-                        moduleId="{{ session('enquiry_id') }}" 
-                        moduleName="enquiry"
-                        menuName="{{ __('app.Project_Information') }}"
-                    />
+        @if (session('enquiry_id'))
+            <div class="col-md-4 ms-auto pt-2" ng-show="commentShow"> 
+                <div class="card border shadow-sm m-0">
+                    <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
+                    <div class="card-body">
+                        <x-chat-box 
+                            :status="1" 
+                            moduleId="{{ session('enquiry_id') }}" 
+                            moduleName="enquiry"
+                            menuName="{{ __('app.Project_Information') }}"
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
     <div class="card-footer">
         <ul class="list-inline wizard">

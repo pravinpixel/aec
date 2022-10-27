@@ -12,19 +12,22 @@
         </div>
     </div>
     <hr ng-show="commentShow">  
-    <div class="col-md-4 ms-auto"  ng-show="commentShow">
-        <div class="card border shadow-sm">
-            <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
-            <div class="card-body">
-                <x-chat-box 
-                    :status="1" 
-                    moduleId="{{ session('enquiry_id') }}" 
-                    moduleName="enquiry"
-                    menuName="{{ __('app.Additional_Information') }}"
-                />
-            </div>
+    @if (session('enquiry_id'))
+        <div class="col-md-4 ms-auto"  ng-show="commentShow">
+            <div class="card border shadow-sm">
+                <div class="card-header bg-light"><strong>CHAT BOX</strong></div>
+                <div class="card-body">
+                    <x-chat-box 
+                        :status="1" 
+                        moduleId="{{ session('enquiry_id') }}" 
+                        moduleName="enquiry"
+                        menuName="{{ __('app.Additional_Information') }}"
+                    />
+                </div>
+            </div>  
         </div>  
-    </div>  
+    @endif
+    
     <div class="card-footer p-3">
         <ul class="list-inline wizard m-0">
             <li class="previous list-inline-item disabled"><a href="#!/building-component" class="btn btn-light border shadow-sm">Prev</a></li>
