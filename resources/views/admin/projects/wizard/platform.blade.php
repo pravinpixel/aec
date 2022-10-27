@@ -40,6 +40,8 @@
             </div>
         </div> 
     </div>
+        <input id="folder" type="checkbox" class="m-3 mx-2"  ng-checked="project.folderCheck" ng-click="checkfun()" ng-model="project.folderCheck">
+        <label for="#folder">Copy Enquiry Project Files To Customer Input Folder</label>
     <div class="card-body">
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -160,7 +162,7 @@
 </div>
 <div class="card-footer text-end">
     <a href="#!/" class="btn btn-light float-start">Prev</a>
-    <input type="submit" class="btn btn-primary" value="Next" ng-disabled="connectPlatformForm.$invalid">
+    <input type="submit" class="btn btn-primary" value="Next" ng-disabled="connectPlatformForm.$invalid" ng-click="checkDependsSubmit()">
 </div>
 </form>
 <style> 

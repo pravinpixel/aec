@@ -115,5 +115,8 @@ class Project extends Model
     {
         return $this->hasMany(ProjectChats::class);
     }
+    public function folders(){
+        return $this->belongsToMany(sharePointMasterFolder::class,'projects_folders','pid','fid');
+    }
 
 }

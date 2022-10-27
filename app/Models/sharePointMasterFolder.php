@@ -11,4 +11,7 @@ class sharePointMasterFolder extends Model
     protected $fillable=[
         'name','status'
     ];
+    public function projects(){
+        return $this->belongsToMany(projects::class,'projects_folders','fid','pid');
+    }
 }

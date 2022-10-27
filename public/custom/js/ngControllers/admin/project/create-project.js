@@ -108,6 +108,20 @@ formatData = (project) => {
   });
   
   app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location) {
+    $scope.checkfun=()=>{
+      $scope.project.folderCheck=!$scope.project.folderCheck;
+      console.log($scope.project);
+    }
+    $scope.checkDependsSubmit=()=>{
+      if($scope.project.folderCheck==false){
+        $http.post(`${API_URL}project/share-point-create-delete`)
+        .then((res) => {
+          console.log(res);
+        }, (er) => {
+          console.log(er);
+        })
+      }
+    }
     $scope.project = {};
     let fileSystem = [];
     $http.get(`${API_URL}bim360/projects-type`)
@@ -131,6 +145,7 @@ formatData = (project) => {
       } else {
         return false;
       }
+      // suspect of auto send while create-pproject opens
       $http.post(`${API_URL}project/connection-platform/${$type}`)
         .then((res) => {
           Message('success', res.data.msg);
@@ -151,12 +166,14 @@ formatData = (project) => {
         if (res.data.platform_access.tf_office_status == 1) {
           $("#switch2").prop('checked', true);
         }
+        console.log('fileSystem is:');
+        console.log(fileSystem);
         const fileManager = $('#file-manager').dxFileManager({
           name: 'fileManager',
           fileSystemProvider: fileSystem,
           height: 450,
           permissions: {
-            create: true,
+            create: false,
             delete: true,
             rename: false,
             download: false,
@@ -208,9 +225,8 @@ formatData = (project) => {
           },
           onItemDeleting: function(e) {
             let path = e.item.relativeName;
-            $http.post(`${API_URL}project/sharepoint-folder-delete`, {
-                data: fileSystem,
-                path: path
+            $http.post(`${API_URL}project/sharepoint-folder-delete-without-id`, {
+                path:path
               })
               .then((res) => {
                 if (res.data.status == false) {

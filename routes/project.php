@@ -97,9 +97,12 @@ Route::group(['prefix' => 'project', 'middleware'=>'common', 'as' => 'project.']
     Route::post('sharepoint-folder',[ProjectController::class, 'storeFolder'])->name('sharepoint-folder');
     Route::put('sharepoint-folder/{id}',[ProjectController::class, 'updateFolder'])->name('sharepoint-folder');
     Route::post('sharepoint-folder-delete',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete');
+    Route::post('sharepoint-folder-delete-without-id',[ProjectController::class, 'deleteFolderWithoutId'])->name('sharepoint-folder-delete-without-id');
     Route::post('sharepoint-folder-delete/{id}',[ProjectController::class, 'deleteFolder'])->name('sharepoint-folder-delete'); 
     Route::post('connection-platform/{id}/{type}',[ProjectController::class, 'updateConnectionPlatform'])->name('update-connection-platform'); 
     Route::post('connection-platform/{type}',[ProjectController::class, 'insertConnectionPlatform'])->name('insert-connection-platform'); 
+    // after clicking the next btn onf create project->sharepoint folder delete
+    Route::post('share-point-create-delete',[ProjectController::class,'sharePointCreateDelete'])->name('share-point-create-delete');
 });
 
 

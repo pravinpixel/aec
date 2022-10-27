@@ -51,7 +51,11 @@ use Yajra\DataTables\Facades\DataTables;
 use RicorocksDigitalAgency\Soap\Facades\Soap;
 use Illuminate\Support\Facades\Mail;
 use App\Interfaces\ProjectChatRepositoryInterface;
+use App\Models\projectsFolders;
 use App\Models\TeamSetupTemplate;
+use App\Models\sharePointMasterFolder;
+use Autodesk\Forge\Client\Model\Projects;
+use CreateSharePointMasterFoldersTable;
 
 class ProjectController extends Controller
 {
@@ -566,6 +570,7 @@ class ProjectController extends Controller
         $project = $this->projectRepo->getProjectById($id);
         $project->is_new_project = false;
         $project->save();
+        $project->folderCheck=true;
         return $project;
     }
 
@@ -595,6 +600,8 @@ class ProjectController extends Controller
         $project_id = $this->getProjectId();
         if (empty($project_id)) return false;
         if ($type == 'create_project') {
+            // $this->projectRepo->project['folderCheck']=true;
+            
             return $this->projectRepo->getProjectById($project_id);
         } else if ($type == 'team_setup') {
             return $this->projectRepo->getProjectTeamSetup($project_id);
@@ -604,7 +611,22 @@ class ProjectController extends Controller
             return $this->projectRepo->getInvoicePlan($project_id);
         } else if ($type ==  'connection_platform') {
             $projectSharepoint = $this->projectRepo->getSharePointFolder($project_id);
-            $response['folders'] =  isset($projectSharepoint->sharepointFolder->folder) ? json_decode($projectSharepoint->sharepointFolder->folder) : [];
+            $arr         = SharePointMasterFolder::get();
+            $narr=[];
+            $pro=Project::find( $project_id);
+            foreach($arr as $a){
+                if(projectsFolders::where('pid',$project_id)->where('fid',$a->id)->exists()){
+                    $a->setAttribute('isDirectory',true);
+                    array_push($narr,$a);
+                }
+                else{
+                    $folder=sharePointMasterFolder::find($a->id);
+                    $pro->folders()->attach($folder);
+                    $a->setAttribute('isDirectory',true);
+                    array_push($narr,$a);
+                }
+            }
+            $response['folders']=$narr;
             $response['platform_access'] =  $this->projectRepo->getConnectionPlatform($project_id)  ?? json_encode(['sharepoint_status', 'bim_status', 'tf_office_status']);
             return $response;
         } else if ($type ==  'to_do_listing') {
@@ -655,6 +677,7 @@ class ProjectController extends Controller
     public function getEditProject($id, $type)
     {
         if ($type == 'create_project') {
+
             return $this->projectRepo->getProjectById($id);
         } else if ($type == 'team_setup') {
             return $this->projectRepo->getProjectTeamSetup($id);
@@ -666,9 +689,30 @@ class ProjectController extends Controller
             return true;
         } else if ($type == 'connection_platform') { 
                       $projectSharepoint = $this->projectRepo->getSharePointFolder($id);
-            $response['folders']         = isset($projectSharepoint->sharepointFolder->folder) ? json_decode($projectSharepoint->sharepointFolder->folder) : [];
+                    //   oldest edit
+
+            // $response['folders']         = isset($projectSharepoint->sharepointFolder->folder) ? json_decode($projectSharepoint->sharepointFolder->folder) : [];
+
+            // surendhar edit
+            // $arr         = SharePointMasterFolder::get();
+            // $narr=[];
+            // foreach($arr as $a){
+            //     $a->setAttribute('isDirectory',true);
+            //     array_push($narr,$a);
+            // }
+            $project_id = $this->getProjectId();
+            $arr         = Project::whereId($project_id)->with('folders')->get();
+            $narr=[];
+            foreach($arr[0]['folders'] as $a){
+                $a->setAttribute('isDirectory',true);
+                array_push($narr,$a);
+            }
+            $response['folders']=$narr;
+          
             $response['platform_access'] = $this->projectRepo->getConnectionPlatform($id)  ?? json_encode(['sharepoint_status', 'bim_status', 'tf_office_status']);
             return $response;
+            // dd($arr[0]['folders'][0]);
+          
         }
     }
 
@@ -758,6 +802,7 @@ class ProjectController extends Controller
         $type = $request->input('type');
         $data = $request->input('data');
         $project = $this->projectRepo->getProjectById($id);
+        $folders=sharePointMasterFolder::get();
         if ($type == 'create_project') {
             $project = $this->projectRepo->storeProjectCreation($id, $data);
             if (!$project->sharepointFolder()->exists()) {
@@ -776,6 +821,16 @@ class ProjectController extends Controller
         } else if ($type == 'connect_platform') {
             $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'connect_platform');
             $this->projectRepo->updateWizardStatus($project, 'wizard_status', $wizardStatus);
+            // project is already assaigned abouve so i reused to pro
+            if($request->input('data.folderCheck')==true){
+                $pro=Project::find($project->id);
+                $deleteSharePointMasterFolder=projectsFolders::where('pid',$pro->id)->delete();
+                foreach($folders as $folder){
+                  $folder=sharePointMasterFolder::find($folder->id);
+                    $pro->folders()->attach($folder);
+                }
+            }
+            // dd($request->input('data.folderCheck'));
             return $this->projectRepo->storeConnectPlatform($id, $data);
         } else if ($type == 'team_setup') {
             $wizardStatus = $this->FormatWizardValue((array)$project->wizard_status, 'team_setup');
@@ -1081,7 +1136,7 @@ class ProjectController extends Controller
 
     public function deleteFolder($project_id = null, Request $request)
     {
-        $sharePoint = new SharepointController();
+        // $sharePoint = new SharepointController();
         if (is_null($project_id)) {
             $project_id = $this->getProjectId();
         }
@@ -1107,6 +1162,21 @@ class ProjectController extends Controller
             return response(['status' => true, 'msg' => __('global.deleted')]);
         }
         return response(['status' => false, 'msg' => __('global.something')]);
+
+    }
+    public function deleteFolderWithoutId(Request $req){
+        $project_id = $this->getProjectId();
+        $folder=$req->path;
+        // deletion row from a table 
+        $folder_detail=sharePointMasterFolder::where('name',$folder)->first();
+        $folder_id=$folder_detail['id'];
+        $deleted=ProjectsFolders::where('pid',$project_id)->where('fid',$folder_id)->delete();
+        if($deleted){
+            return response(['status' => true, 'msg' => __('global.deleted')]);
+        }
+        else{
+            return response(['status' => false, 'msg' => __('global.something')]);
+        }
     }
 
     public function createSharepointFolder($project_id)
@@ -1631,5 +1701,11 @@ class ProjectController extends Controller
  
      
     }
-  
+  public function sharePointCreateDelete(){
+    $project_id = $this->getProjectId();
+    if(projectsFolders::where('pid',$project_id)->exists()){
+        projectsFolders::where('pid',$project_id)->delete();
+        return 'ok';
+    }
+  }
 }

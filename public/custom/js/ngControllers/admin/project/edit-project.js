@@ -90,6 +90,10 @@ app.controller('CreateProjectController', function ($scope, $http, API_URL, $loc
 });
 
 app.controller('ConnectPlatformController', function($scope, $http, API_URL, $location){
+    $scope.checkfun=()=>{
+        $scope.project.folderCheck=!$scope.project.folderCheck;
+        console.log($scope.project);
+    }
     $("#connect-platform").addClass('active');
     let project_id =  $("#project_id").val();
     let fileSystem = [];
@@ -97,6 +101,7 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
     .then((res)=> {
         $scope.projectTypes = res.data;
     });
+    // suspect
     $http.get(`${API_URL}project/${project_id}`)
     .then((res)=> {
         $scope.project = formatData(res.data);
@@ -149,8 +154,8 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
             fileSystemProvider: fileSystem,
             height: 450,
             permissions: {
-              create: true,
-              delete: true,
+              create: false,
+              delete: false,
               rename: false,
               download: false,
             },
@@ -229,8 +234,12 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
             updated = updateCategory(args.itemData.category, args.fileSystemItem, args.viewArea);
         }
         if (updated) {
-            fileManager.refresh();
+            // fileManager.refresh();
+            console.log('refresh check');
         }
+        }
+        function refreshClick(){
+            console.log('checking');
         }
          
     });
@@ -242,6 +251,8 @@ app.controller('ConnectPlatformController', function($scope, $http, API_URL, $lo
             Message('success', 'Connect Platform updated successfully');
             $location.path('team-setup');
         })
+        console.log('first');
+        console.log($scope.project);
     }
 
 });
@@ -714,11 +725,17 @@ app.controller('ReviewAndSubmit', function ($scope, $http, API_URL, $timeout) {
                 {
                   name: 'separator',
                   location: 'after',
+                  options: {
+                    refreshClick,
+                  },
                 },
                 'switchView',
               ]
             }
         }).dxFileManager('instance');
+        function refreshClick(){
+            console.log('checking')
+        }
     }); 
     
     $scope.submitProject = (e) => {
