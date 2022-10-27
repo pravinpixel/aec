@@ -159,7 +159,7 @@
             }).then( function(res) {
                 $scope.projectInfo = {
                     ...$scope.projectInfo, 
-                    'contact_person': res.data.customer.contact_person,
+                    'contact_person': `${res.data.customer.first_name} ${res.data.customer.last_name}` ,
                     'mobile_no': res.data.customer.mobile_no
                 }
                 $scope.customer = res.data.customer;
@@ -335,7 +335,7 @@
                     url: `${API_URL}customers/get-customer-enquiry/${enquiry_id}/project_info`,
                 }).then(function (res) {
                     enableActiveTabs(res.data.active_tabs);
-                    $scope.projectInfo = getProjectInfoInptuDataFormat(res.data.project_info);
+                    $scope.projectInfo = getProjectInfoInptuDataFormat(res.data.project_info); 
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });

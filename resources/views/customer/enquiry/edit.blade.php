@@ -258,7 +258,10 @@
                     $scope.customer_enquiry_number = res.data.project_info.customer_enquiry_number ?? res.data.project_info.enquiry_no;
                     $scope.enquiry_date = new Date(res.data.project_info.enquiry_date);
                     $scope.enquiry_number = res.data.project_info.enquiry_no;
-                    $scope.projectInfo = getProjectInfoInptuData(res.data.project_info);
+                    $scope.projectInfo = getProjectInfoInptuData(res.data.project_info); 
+                    
+                    console.log($scope.projectInfo)
+
                 }, function (error) {
                     console.log('This is embarassing. An error has occurred. Please check the log for details');
                 });
