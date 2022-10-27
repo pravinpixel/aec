@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Enquiry;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
@@ -89,10 +90,7 @@ if(!function_exists('AuthUser')) {
 if(!function_exists('str_replace_all')) {
     function str_replace_all($key, $value, $subject) {
         $subject = str_replace($key, $value, $subject);
-        // $pos = strpos($subject, $needle);
-        //     if ($pos !== false)
-        //         $subject = substr_replace($subject, $replace, $pos, strlen($needle));
-            return $subject;
+        return $subject;
     }
 }
  
@@ -100,5 +98,15 @@ if(!function_exists('getCustomerByEnquiryId')) {
     function getCustomerByEnquiryId($id)
     {
         return Enquiry::with('customer')->findOrFail($id)->customer;
+    }
+}
+if(! function_exists('SetDateFormat')) {
+    function SetDateFormat($date) {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+}
+if(! function_exists('SetDateTimeFormat')) {
+    function SetDateTimeFormat($date) {
+        return Carbon::parse($date)->format('d/m/Y H:m:s');
     }
 }

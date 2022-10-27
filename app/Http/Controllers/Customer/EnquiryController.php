@@ -654,8 +654,7 @@ class EnquiryController extends Controller
                     return '<small class="px-1 bg-warning text-white rounded-pill text-center">' . $dataDb->status . '</small>';
                 })
                 ->editColumn('enquiry_date', function ($dataDb) {
-                    // $format = FacadesConfig::get('global.model_date_format');
-                    return $dataDb->enquiry_date;
+                    return Carbon::parse($dataDb->enquiry_date)->format('d/m/Y');
                 })
                 ->addColumn('pipeline', function ($dataDb) {
                     return '<div class="btn-group">
@@ -738,8 +737,8 @@ class EnquiryController extends Controller
                 })
 
                 ->editColumn('enquiry_date', function ($dataDb) {
-                    // $format = FacadesConfig::get('global.model_date_format');
-                    return $dataDb->enquiry_date;
+                    $format = FacadesConfig::get('global.model_date_format');
+                    return Carbon::parse($dataDb->enquiry_date)->format($format);
                 })
                 ->addColumn('pipeline', function ($dataDb) {
                     return '<div class="btn-group">
@@ -806,8 +805,8 @@ class EnquiryController extends Controller
                 })
 
                 ->editColumn('enquiry_date', function ($dataDb) {
-                    // $format = FacadesConfig::get('global.model_date_format');
-                    return $dataDb->enquiry_date;
+                    $format = FacadesConfig::get('global.model_date_format');
+                    return Carbon::parse($dataDb->enquiry_date)->format($format);
                 })
                 ->addColumn('pipeline', function ($dataDb) {
                     return '<div class="btn-group">

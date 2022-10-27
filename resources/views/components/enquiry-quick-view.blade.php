@@ -141,7 +141,9 @@
                         <tr>
                             <td><b>Delivery Date</b></td>
                             <td>:</td>
-                            <td>{{ $enquiry['project_infos']['project_delivery_date'] }}</td>
+                            <td>
+                                {{ SetDateFormat($enquiry['project_infos']['project_delivery_date']) }}
+                            </td>
                         </tr>
                     @endif
                     @if (!is_null($enquiry['additional_infos']))

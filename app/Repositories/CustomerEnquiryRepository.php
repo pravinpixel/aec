@@ -64,7 +64,7 @@ class CustomerEnquiryRepository implements CustomerEnquiryRepositoryInterface{
     }
 
     public function createCustomerEnquiryProjectInfo($customer_enquiry_number, Customer $customer, array $data)
-    {
+    { 
         return $customer->enquiry()->updateOrCreate(['customer_enquiry_number' => $customer_enquiry_number], $data);
     }
 

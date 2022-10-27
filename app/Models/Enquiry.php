@@ -13,14 +13,6 @@ class Enquiry extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $casts = [
-        'enquiry_date'          => "datetime:d/m/Y - h:i:s A",
-        'project_date'          => "datetime:d/m/Y - h:i:s A",
-        'project_delivery_date' => "datetime:d/m/Y - h:i:s A",
-        'follow_up_date'        => "datetime:d/m/Y - h:i:s A",
-    ];
-
-    
     protected $fillable = [
         'project_id',
         'enquiry_date',

@@ -109,7 +109,7 @@ class Notify {
                 <li class="'.$messageClass.'" >
                     <div class="message-container">
                         <div class="text-message">'.$msg['message'].'</div>
-                        <small class="text-secondary">'.$msg['send_date'].'</small>
+                        <small class="text-secondary">'.SetDateTimeFormat($msg['send_date']).'</small>
                     </div>
                 </li>
             ';

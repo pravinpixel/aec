@@ -16,7 +16,7 @@ class CreateEnquiriesTable extends Migration
         Schema::create('enquiries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id')->nullable();
-            $table->datetime('enquiry_date')->nullable();
+            $table->string('enquiry_date')->nullable();
             $table->string('enquiry_number')->nullable();
             $table->string('customer_enquiry_number')->nullable();
             $table->string('company_name')->nullable();
