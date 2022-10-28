@@ -154,15 +154,6 @@
                                 {{ SetDateFormat($enquiry['project_infos']['project_delivery_date']) }}
                             </td>
                         </tr>
-                    @endif
-                    @if (!is_null($enquiry['additional_infos']))
-                        @if ($enquiry['additional_infos']['customer']['remarks'])
-                            <tr>
-                                <td><b>Remarks</b></td>
-                                <td>:</td>
-                                <td>{{ $enquiry['additional_infos']['customer']['remarks'] }}</td>
-                            </tr>
-                        @endif 
                     @endif 
                 </tbody>
             </table> 

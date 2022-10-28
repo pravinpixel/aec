@@ -1,5 +1,6 @@
 <?php
 
+use App\Helper\Notify;
 use App\Models\Enquiry;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -108,5 +109,16 @@ if(! function_exists('SetDateFormat')) {
 if(! function_exists('SetDateTimeFormat')) {
     function SetDateTimeFormat($date) {
         return Carbon::parse($date)->format('d/m/Y H:m:s');
+    }
+}
+
+if(!function_exists('getEnquiryChatCount')) {
+    function getEnquiryChatCount($user_type, $module_name, $module_id){  
+        $count = Notify::getModuleMessages([
+            'user_type'   => $user_type,
+            'module_name' => $module_name,
+            'module_id'   => $module_id,
+        ]);
+        return $count;
     }
 }

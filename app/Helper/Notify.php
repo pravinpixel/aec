@@ -116,4 +116,26 @@ class Notify {
         }
         return $conversation;
     }
+
+    public static function getModuleMessages($data)
+    {
+        if($data['user_type'] == 'ADMIN') {
+            if($data['module_name'] == 'Enquiry') {
+                $messages_count = Inbox::where([
+                    "module_name" => $data["module_name"],
+                    "module_id"   => $data["module_id"],
+                    "sender_role" => 'Customer',
+                    "sender_id"   =>  getCustomerByEnquiryId($data["module_id"])->id,
+                    "read_status" => 0
+                ])->latest()->take(10)->count();
+            }
+        }
+        if($messages_count) {
+            return '
+                <small class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    '.$messages_count.'
+                </small>
+            ';
+        }
+    }
 }
